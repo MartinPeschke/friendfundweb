@@ -1,0 +1,117 @@
+<%!
+	import md5
+%>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+
+
+%if c.method == 'facebook':
+	${networkinviter("facebook", c.friends, True)}
+%elif c.method == 'twitter':
+	${networkinviter("twitter", c.friends, False)}
+%elif c.method == 'email':
+	${mailinviter()}
+%endif
+
+<%def name="networkinviter(network_name, friends, mutuals)">
+	<div id="inviteheader" class="inviteelist ${network_name}">
+		%if mutuals:
+			<div class="mutual_toggle_container">
+				<input type="checkbox" id="toggle_mutuals" checked="checked"/>
+				<label for="toggle_mutuals">${_("INVITE_PAGE_Only Mutual Friends")}</label>
+			</div>
+		%endif
+		<div style="float: left;">
+		${forms.black_input_text("fb_filter", "fb_filter", label="", default="Name", width=175)}
+		</div>
+		<a class="submitSmall" id="inviteall"><span>${_("INVITE_PAGE_LABEL_Invite All")}</span></a>
+	</div>
+
+	<div id="friend_list" class="inviteelist ${network_name}">
+		${render_network_friends(friends, mutuals = mutuals)|n}
+		${render_network_friends(c.already_invited, active=False, mutuals = mutuals)|n}
+	</div>
+</%def>
+
+<%def name="render_network_friends(friends, active = True, mutuals = False)">
+%for i,(id, user_data) in enumerate(sorted(friends.items())):
+	<%
+		if "mutual_with" in user_data:
+			mutual_class = "mutual"
+		elif mutuals:
+			mutual_class = "nonmutual hidden"
+		else:
+			mutual_class = "nonmutual"
+	%>
+	<div class="invitee_row facebook ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}" ${' '.join(['%s="%s"' % (k, user_data[k]) for k in user_data])|n}
+			%if active:
+				networkid="${id}" pos="${i}" _keys="networkid,${','.join(k for k in user_data)}"
+			%endif
+		>
+		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['networkname']}"/>
+		<span class="label">${user_data['networkname']}</span>
+		%if active:
+			<a class="selector" title="${user_data['networkname']}">&nbsp;</a>
+		%endif
+	</div>
+%endfor
+</%def>
+
+
+
+
+
+<%def name="mailinviter()">
+	<div id="inviteheader">
+		${html.clearline()}
+		<div class="headline">
+			Select Friend from:
+			<img src="/static/imgs/button_mail_gmail.png" class="networkicon" alt="GMail" />
+			<img src="/static/imgs/button_mail_yahoo.png" class="networkicon" alt="Yahho Mail" />
+		</div>
+		${html.clearline()}
+		<form action="" method="POST" id="emailinviter">
+			<div id="inviter_name" class="input_field">
+			<div class="label">
+				<label for "email_networkname">${_("INVITE_PAGE_LABEL_Name of your friend:")}</label>
+			</div>
+			<input type="text" id="email_networkname" name="invitee.networkname" value=""/>
+			</div>
+			
+			<div id="inviter_email" class="input_field">
+			<div class="label">
+			<label for "email_email">${_("INVITE_PAGE_LABEL_Email address of your friend:")}</label>
+			</div>
+			<input type="text" id="email_email" name="invitee.networkid" value=""/>
+				<span id="email_inviter_error"></span>
+			</div>
+			<br/>
+			<input type="hidden" name="invitee.network" value="email"/>
+			<input type="hidden" name="invitee.notification_method" value="email"/>
+			
+			<div style="float: right; margin:0 50px;position: relative;">
+			${forms.black_submitlink(_("INVITE_PAGE_LABEL_Submit"), [("_imgurl", "/static/imgs/default_m.png"), ("id", "emailsubmitter")], classes="selector")|n}
+			</div>
+		</form>
+	${html.clearline(20)}
+	</div>
+	<div id="friend_list" class="emailpopup">
+		
+	</div>
+</%def>
+
+<%def name="render_email_friends(friends, active = True, class_='selectable')">
+	%for i,(id, user_data) in enumerate(sorted(friends.items())):
+	<div class="invitee_row ${class_}" id="email_${ md5.new(id).hexdigest() }"
+			%if active:
+				networkid="${id}" pos="i" networkname="${user_data['networkname']}" network="email" notification_method="email"
+			%endif
+		>
+		%if active:
+			<a class="selector" title="${user_data['networkname']}">&nbsp;</a>
+		%endif
+		<img src="/static/imgs/default_m.png" class="fbprofilepic">
+		<span class="label">${user_data['networkname']}<br/>${id}</span>
+	</div>
+	%endfor
+</%def>

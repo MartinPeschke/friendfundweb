@@ -1,0 +1,126 @@
+<%inherit file="../master.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+
+<%def name="title()">${_("CONTRIBPAGE_TITLE_Payment Settings")}</%def>
+<%def name="page_slogan()">
+<div id="page_slogan">${_("CONTRIBPAGE_SLOGAN_Payment Settings")}</div>
+</%def>
+
+<%def name="headscripts()">
+	var thous_sep="${h.get_thous_sep()}";
+	var dec_sep="${h.get_dec_sep()}"
+	calcTotals = function(elem, evt){
+		var contrib=document.getElementById("chipin_amount");
+		var costs = document.getElementById("chipin_amount_costs");
+		var total = document.getElementById("chipin_total");
+		var total_show = document.getElementById("chipin_total_show");
+		if(contrib.value){
+			var contrib_amount = Math.round(parseFloat(contrib.value.replace(thous_sep,"").replace(dec_sep, "."))*100);
+			var costs_amount = (contrib_amount * 0.02) + 10;
+			costs.value=(costs_amount/100).toFixed(2).replace(".", dec_sep);
+			total.value=((contrib_amount + costs_amount)/100).toFixed(2).replace(".", dec_sep);
+			total_show.value=total.value;
+		} else{costs.value="";total.value="";total_show.value="";}
+	};
+	calcTotals();
+	page_reloader = submitter("contribution_form");
+</%def>
+
+<div id="contributioncontainer" class="innerbody">
+  <div class="panel_content">
+    <form method="POST" action="/pool/${c.pool.p_url}/${c.action}" id="contribution_form">
+      <div class="message floaterLeft">
+      
+        <div class="whiteBoxSmall floaterLeft">
+			<div class="floaterLeft marginRight45">
+			<h2>${_("CONTRIBPAGE_LABEL_Your message to the receiver")}</h2>
+			${forms.input_textarea("chipin","message", "")}
+			</div>
+			<div class="floaterLeft"> 
+			<h2>${_("CONTRIBPAGE_LABEL_How should displayed your amount")}</h2>
+			<div class="forminputline keepsecret"> ${forms.input_checkbox("chipin", "anonymous", _("CONTRIBPAGE_LABEL_Profil anonym"), "yes")} <span class="grey floaterLeft" style="padding:0 0 0 5px ">${_("CONTRIBPAGE_LABEL_your name will not be displayed")}</span></div>
+				<div class="floaterLeft radioContainer">
+					<input type="radio" name="chipin.is_secret" id="show-amount" ${forms.input_checked("chipin", "is_secret", False, default=True)|n} value="no"/>
+					<label for="show-amount">${_("CONTRIBPAGE_LABEL_show amount")}</label>
+				</div>
+				<div class="floaterLeft radioContainer2">
+					<div><input type="radio" id="pot-gold" name="chipin.is_secret" value="yes" ${forms.input_checked("chipin", "is_secret", True)|n}/>
+					<label for="pot-gold">${_("CONTRIBPAGE_LABEL_A pot of gold")}</label></div>
+				</div>
+			</div>
+      	<div class="clear"></div>
+      	</div>
+      </div>
+     
+	<div class="amount floaterLeft">   
+		<div class="whiteBoxSmall floaterLeft">
+		<div class="floaterLeft marginRight45">
+		 <h2>${_("CONTRIBPAGE_TITLE_LABEL_Amount")}</h2>
+		  <div class="contributionAmount"> 
+
+			<div class="forminputline">
+				<label for="chipin_amount">${_("CONTRIBPAGE_LABEL_Chip in")}(*)</label>
+				<input type="text" class="contrib_amount" id="chipin_amount" name="chipin.amount" value="${c.chipin_values.get('amount', 0)}" onKeyUp="calcTotals(this)" />
+				<span class="currencyDisplay">${h.display_currency(c.pool.currency)|n}</span>
+				<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("amount", "")}</div>
+			</div>
+			<div class="forminputline">
+				<span class="label"></span><span class="grey">${_("CONTRIBPAGE_LABEL_+ Transaction cost of 10 cents and 2%")}</span>
+			</div>
+			<div class="forminputline">
+				<span class="label">${_("CONTRIBPAGE_LABEL_Our cost")}</span> 
+				<input type="text" class="contrib_amount" id="chipin_amount_costs" disabled="disabled"/><a class="label" style="text-align:left" href="#">${_("CONTRIBPAGE_LABEL_(why)")}</a>
+			</div>
+			
+			<div class="forminputline">
+				<span class="label">${_("CONTRIBPAGE_LABEL_Total")}</span>
+				<input type="text" class="contrib_amount" id="chipin_total_show" disabled="disabled" />
+				<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("total", "")}</div>
+			</div>
+			<input type="hidden" class="contrib_amount" id="chipin_total" name="chipin.total" /> 
+			</div>
+			
+		</div>
+		<div class="floaterLeft ">
+			<h2 style="clear:both">${_("CONTRIBPAGE_LABEL_Choose payment method")}</h2>
+			<div>
+				<input type="radio" id="chipin_payment_method_cc" name="chipin.payment_method" value="credit_card" ${forms.input_checked("chipin", "payment_method", "credit_card", default=True)|n} />
+				<label class="paymenticon" for="chipin_payment_method_cc"><img src="/static/imgs/icon-visa-mastercard.png" alt="${_("CONTRIBUTION_PAGE_Creditcard")}" /></label>
+			</div>
+			<div>
+				<input type="radio" id="chipin_payment_method_pp" name="chipin.payment_method" value="paypal" ${forms.input_checked("chipin", "payment_method", "paypal")|n} />
+				<label class="paymenticon" for="chipin_payment_method_pp"><img src="/static/imgs/icon-paypal.png" alt="${_("CONTRIBUTION_PAGE_Paypal")}" /></label>
+			</div>
+			<div>
+				<input type="radio" id="chipin_payment_method_su" name="chipin.payment_method" value="directEbanking" ${forms.input_checked("chipin", "payment_method", "directEbanking")|n} />
+				<label class="paymenticon" for="chipin_payment_method_su"><img src="/static/imgs/icon_directebanking.png" alt="${_("CONTRIBUTION_PAGE_Direct eBanking")}"/></label>
+			</div>
+		</div>
+        </div>
+      </div>
+      <div class="payement_method">
+      
+      </div>
+      <div class="terms">
+      
+        <div class="payement-container">
+				${_("STATIC_TERMS_OF_SERVICE_CONTENT")|n}
+      <div class="floaterRight agree">
+			<input type="checkbox" id="chipin_agreedToS" name="chipin.agreedToS" value="yes" ${forms.input_checked("chipin", "agreedToS", True)|n}/>
+			<label for="chipin_agreedToS">${_("CONTRIBPAGE_LABEL_Accept terms of services")}</label>
+			<div class="error_message error_input">${getattr(c, "chipin_errors", dict()).get("agreedToS", "")}</div>
+      </div>
+      </div>
+      </div>
+    </form>
+	<div style="padding-top:20px;float:left;width:880px;">
+		%if c.amount_fixed:
+			<a class="submitSmallLeft settings_submitter" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}/settings"><span>${_("CONTRIBPAGE_LABEL_Back To Pool Settings")}</span></a>
+		%else:
+			<a class="submitSmallLeft settings_submitter" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool")}</span></a>
+		%endif
+		<a class="submitSmall" onclick="dojo.byId('contribution_form').submit();" id="submitter"><span>${_("CONTRIBPAGE_LABEL_Submit")}</span></a>
+	</div>
+    ${html.clearline()|n} </div>
+  ${html.clearline()|n} </div>

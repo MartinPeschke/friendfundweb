@@ -1,0 +1,17 @@
+${render_popup(c.pool, c.user)}
+
+<%def name="render_popup(pool, user)">
+%if pool.am_i_member(user) and user.network == 'facebook':
+	%if pool.am_i_admin(user):
+		%if not user.has_email:
+			<a href="#" onclick="getfbEmail('${app_globals.FbApiKey}')">Give us your FB Email</a><br/>
+		%elif not user.has_perm('facebook', 'stream_publish'):
+			We would like to keep you informed about the progress of your pool, please give us your
+			<a href="#" onclick="getfbStreamPublish('${app_globals.FbApiKey}')">Stream Publish Permission</a><br/>
+		%elif not user.has_perm('facebook', 'permanent'):
+			Let us help you fund raise by keeping  members your pool informed. You can do this by  Granting us 
+			<a href="#" onclick="getfbPermanent('${app_globals.FbApiKey}')">Facebook Offline Access</a>
+		%endif
+	%endif
+%endif
+</%def>

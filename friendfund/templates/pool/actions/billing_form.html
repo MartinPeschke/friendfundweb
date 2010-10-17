@@ -1,0 +1,28 @@
+<%namespace name="forms" file="/widgets/forms.html"/>
+<div class="addressHeader"><h2>${_("POOLSETTINGS_LABEL_Billing Address for the Gift:")}</h2></div>
+<div class="addressContainer" id="billingAddressContainer">
+	<a class="panelclosing_x_black" onclick="loadElement('/pool/${c.pool_url}/unedit_address', 'billingAddressContainerBox',{type:'billing'});")">x</a>
+	<form action="/pool/${c.pool_url}/set_address" method="POST" enctype="multipart/form-data" id="billing_form_container">
+		<div>
+			${forms.input_text("billing", "line1", _("POOLSETTINGS_LABEL_First Name"), required = True, _classes=['required'])|n}
+		</div>
+		<div>
+			${forms.input_text("billing", "line2", _("POOLSETTINGS_LABEL_Last Name"), required = True, _classes=['required'])|n}
+		</div>
+		<div>
+			${forms.input_text("billing", "line3", _("POOLSETTINGS_LABEL_Street"), required = True, _classes=['required'])|n}
+		</div>
+		<div>
+			${forms.input_text("billing", "zipcode", _("POOLSETTINGS_LABEL_Zip Code"), required = True, _classes=['required'])|n} 
+		</div>
+		<div>
+			${forms.input_select("billing", "country", "Country", sorted(c.countries), choicegetter=(lambda x: (x, x.replace("COUNTRY_", "").title())), required = True)|n}
+		</div>
+		<div style="position:absolute; right:30px;bottom:15px;">
+			${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('/pool/%s/set_address', 'billing_form_container', place_element('billingAddressContainerBox'));"%c.pool_url)], "settings_submitter")|n}
+		</div>
+		${forms.input_text("billing", "phone", _("POOLSETTINGS_LABEL_Phone"))|n}
+	</form>
+</div>
+
+

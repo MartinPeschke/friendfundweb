@@ -1,0 +1,26 @@
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="blockrenderer" file="../invite/inviter.html"/>
+
+
+%if c.method == 'facebook':
+	${networkinviter("Facebook", c.friends, False)}
+%elif c.method == 'twitter':
+	${networkinviter("Twitter", c.friends, False)}
+%elif c.method == 'email':
+	${blockrenderer.mailinviter()}
+%endif
+
+<%def name="networkinviter(network_name, friends, mutuals)">
+	<div id="inviteheader">
+		${html.clearline()}
+		<div style="margin: 20px;">
+		${forms.black_input_text("fb_filter", "fb_filter", label=_("RECEIVER_PANEL_Search your %s friends:") % network_name, default="Name", width=200)}
+		${html.clearline()}
+		</div>
+	</div>
+	<div id="friend_list" class="fb">
+		${blockrenderer.render_network_friends(friends, mutuals = mutuals)|n}
+	</div>
+	${html.clearline()}
+</%def>

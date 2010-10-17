@@ -1,0 +1,43 @@
+<%! 
+from datetime import date, timedelta
+%>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+
+
+<div id="button_panel" class="occasion">
+	<div class="panel_title">
+		${_("EVENT_PANEL_Select an Event")}
+	</div>
+	<a class="button_panel_closer">&nbsp;</a>
+	${html.clearline()|n}
+		<div id="occasion_button_bar">
+%for occ in c.olist:
+	<a href="#" class="occasion_panel_button">
+		<div class="selector ${c.key != occ.key and ' ' or 'selected'}" imgurl="/static/imgs/${occ.picture_url}" custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}">
+			<img src="/static/imgs/${occ.picture_url}"/>
+			<div class="label">
+			%if occ.custom:
+				${forms.black_input_text(occ.key, "name", value=c.name, default=_("EVENT_PANEL_Just because..."), width=106)}
+			%else:
+				${occ.get_display_name()}
+			%endif
+			</div>
+		</div>
+	</a>
+%endfor
+	</div>
+	${html.clearline()|n}
+	<div id="occasion_date_input_bar">
+	<div style="right: 170px; top: 5px; position: absolute;">
+		${forms.black_input_datepicker("datestamp", "datestamp", c.date, label=_("EVENT_PANEL_And Pick a Date"), width=100, args=[("constraints", "{min:'%s'}"%c.lower_limit_date)])|n}
+	</div>
+	
+	<div style="right: 50px; top: 4px; position: absolute;"> 
+		${forms.black_submitlink(_("EVENT_PANEL_Submit"), [], "occasion_submitter", href=None)|n}
+	</div>
+	
+	${html.clearline(33)}
+	</div>
+	${html.clearline()}
+</div>

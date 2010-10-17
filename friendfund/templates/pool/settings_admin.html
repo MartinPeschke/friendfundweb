@@ -1,0 +1,154 @@
+<%inherit file="../master.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+<%namespace name="actions" file="actions/settings_action.html"/>
+<%namespace name="actions_content" file="actions/settings_action_content.html"/>
+
+<%def name="headscripts()">
+		dojo.require("dojo.NodeList-manipulate");
+		dojo.require("friendfund.ProductSearch");
+		dojo.require("dojo.date.locale");
+		dojo.require("dijit.form.DateTextBox");
+		
+		order_gift = function(){
+			var shipexists = dojo.every(dojo.query("span.requiredvalue", "shippingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
+			var billexists = dojo.every(dojo.query("span.requiredvalue", "billingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
+			if(!shipexists){
+				dojo.animateProperty(
+					{node: dojo.byId("shippingAddressContainer"),duration: 1000,
+						properties: {
+							backgroundColor: {start: "red", end: "#fff"}
+						}}).play();
+			} else if (!billexists) {
+				dojo.animateProperty(
+					{node: dojo.byId("billingAddressContainer"),duration: 1000,
+						properties: {
+							backgroundColor: {start: "red", end: "#fff"}
+						}}).play();
+			} else {
+				console.log("saving");
+				window.location.href = "/pool/${c.psettings.p_url}/close";
+				return;
+			}
+		}
+		
+		closeElement = function(elem){
+			dojo.removeClass(elem, "opened");
+			dojo.addClass(elem, "hidden");
+			dojo.query(".opened", "poolactions").addClass("hidden").removeClass("opened");
+			dojo.byId("poolactioncontent").className ="hidden";
+		}
+		
+		closeAll = function(data){
+			dojo.query(".opened", "poolactions").forEach(closeElement);
+		}
+		
+		var open_actionpanel = function(evt){
+			var action = dojo.attr(this, "_action");
+			var datestamp = "datestamp_"+action;
+			var extender = dojo.byId("actionextender_"+action);
+			if(dojo.hasClass(extender, "hidden")){ 
+				/* show */
+				dojo.byId("poolactioncontent").className = action;
+				dojo.query(".opened", "poolactions").forEach(
+					function(elem){
+						dojo.removeClass(elem, "opened");
+						dojo.addClass(elem, "hidden");
+					});
+				dojo.removeClass(extender, "hidden");
+				dojo.query(".extender", this.parentNode).removeClass("hidden").addClass("opened");
+				dojo.addClass(extender, "opened");
+				dojo.parser.parse(dojo.byId("poolactions"));
+			
+				if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
+					productsearch.draw(productsearch);
+				}
+			} else {  /* hide */
+				closeElement(this);
+			}
+		evt.stopPropagation();
+		evt.preventDefault();
+		return false;
+		}
+</%def>
+<%def name="onloadscripts()">
+	dojo.query("a.poolaction", "poolactions").onclick(open_actionpanel);
+	productsearch = new friendfund.ProductSearch({
+		ref_node : "product_search_container",
+		canSelectRegion:false,
+		searchMixin : 
+			function(){
+				var params = {"price":"${c.pool.get_total_contribution()}","currency":"${c.pool.currency}", "region":"${c.psettings.region}"};
+				return params
+			},
+		onLoaded: function(_t){
+				parseDefaultsInputs(_t.ref_node);
+			},
+		onSelected : function(selection_args){
+				var params = {};
+				params["product.guid"] = selection_args.guid;
+				params["product.aff_net"] = selection_args.net;
+				params["product.aff_program_id"] =  selection_args.progid;
+				loadElement("/pool/${c.pool_url}/setaltproduct", "product_search_container", params);
+			}
+		});
+	
+</%def>
+
+
+
+<%def name="title()">${_("POOLSETTINGS_TITLE_Pool Admin")}</%def>
+<%def name="page_slogan()">
+	<div id="page_slogan">${_("POOLSETTINGS_LABEL_Pool Admin")}</div>
+</%def>
+
+<div id="poolsettings" class="innerbody">
+	<div  class="panel_title" >
+		${_("POOLSETTINGS_LABEL_Change Your Message:")}
+	</div>
+	<div class="messageContainer messageContainerlong">
+		<form id="description_form" method="POST">
+			<img src="${c.pool.admin.get_profile_pic()}"/>
+			<textarea cols="60" rows="5" name="description">${c.psettings.description}</textarea>
+			<div style="position:absolute; right:30px;bottom:15px;">
+				${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('/pool/%s/set_description', 'description_form');" % c.pool_url)], "description_submitter")|n}
+			</div>
+		</form>
+	</div>
+	
+	
+	%if c.psettings.is_funded() or c.psettings.actions:
+	<div  class="panel_title clear">
+		${_("POOLSETTINGS_LABEL_Actions:")}
+	</div>
+	<div id="poolactions">
+		%if c.psettings.is_funded():
+		<div class="centered"><a onclick="order_gift()" class="poolaction buttonRed buttonChipIn"><span>${_("POOL_BUTTON_ACTION_Order Gift")}</span></a></div>
+		%endif
+		%for action in c.psettings.actions:
+			${actions.render(action, c.psettings)}
+		%endfor
+		${html.clearline(10)}
+		<div id="poolactioncontent" class="hidden">
+			%for action in c.psettings.actions:
+				${actions_content.render(action, c.psettings)}
+			%endfor
+		</div>
+		
+		
+		${html.clearline()|n}
+	</div>
+	%endif
+	
+	<div class="addressContainerLeft" id="shippingAddressContainerBox">
+		<%include file="actions/shipping_display.html"/>
+	</div>
+	<div class="addressContainerRight" id="billingAddressContainerBox">
+		<%include file="actions/billing_display.html"/>
+	</div>
+	${html.clearline()|n}
+	<div style="padding:20px 30px;float:left;width:880px;">
+		<a class="submitSmallLeft" href="/pool/${c.pool_url}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
+	</div>
+	${html.clearline()|n}
+</div>

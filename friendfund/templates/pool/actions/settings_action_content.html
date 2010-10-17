@@ -1,0 +1,68 @@
+
+<%! 
+from datetime import date, timedelta
+%>
+<%namespace name="forms" file="/widgets/forms.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+
+
+<%def name="render(action, psettings)">
+	<div id="actionextender_${action.name}" class="settings_action hidden">
+		<div  class="panel_title">
+			${action.get_display_title()}
+		</div>
+		<div  class="pool_action_subtitle">
+			${action.get_display_subtitle()}
+		</div>
+		
+	%if action.has_product_search():
+		${render_product_search(action, psettings)}
+	%elif action.has_payment():
+		${render_payment_form(action, psettings)}
+	%elif action.is_gift_vouchers():
+		${render_gift_vouchers(action, psettings)}
+	%else:
+		<div class="panel_content">
+			<form method="POST" action="/pool/${c.pool_url}/action" id="form_${action.name}">
+			%if psettings.is_expired() and action.is_extending:
+					${forms.black_input_datepicker("datestamp_%s" % action.name, "expiry_date", psettings.get_internal_expiry_date(5), label=_("POOLSETTINGS_ACTION_LABEL_Pick an Extension Date"), width=150, args=[("constraints", "{min:'%s'}"%psettings.get_internal_expiry_date(5))])|n}
+			%endif
+			<input type="hidden" name="action" value="${action.name}"/>
+			
+			%if action.contains_message():
+				${html.clearline(15)}
+				<textarea cols="60" rows="5" name="message" id="message_${action.name}">${psettings.description}</textarea>
+			%endif
+
+			<div style="margin:30px;float:right;position:relative;">
+				${forms.black_submitlink(_("ADMIN_ACTION_BUTTON_Submit"), [("onclick", "dojo.byId('form_%s').submit()" % action.name)], "action_submitter")|n}
+			</div>
+			</form>
+		</div>
+	%endif
+		${html.clearline()}
+	</div>
+</%def>
+
+
+<%def name="render_product_search(action, psettings)">
+	<div id="product_search_container"></div>
+</%def>
+
+<%def name="render_payment_form(action, psettings)">
+		<div id="contributioncontainer" class="forminputline">
+			<label style="width: 200px;">${_("ADMIN_ACTION_BUTTON_Go On and Contribute the missing:")} </label><span class="fixedvalue">${h.format_currency(c.pool.get_amount_left(),c.pool.currency)|n}</span>
+			<a class="submitSmall" href="${app_globals.SECURE_SITE_ROOT_URL}/pool/${psettings.p_url}/chipin_fixed" id="submitter"><span>${_("CONTRIBPAGE_BUTTON_Chip in Remainder")}</span></a>
+		</div>
+</%def>
+
+<%def name="render_gift_vouchers(action, psettings)">
+	<div class="panel_content">
+		<div id="contributioncontainer" class="forminputline">
+			<label style="width: 200px;">_("ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:)}</label><span class="fixedvalue">${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)|n}</span>
+			<div style="margin:30px;float:right;position:relative;">
+				${forms.black_submitlink(_("ADMIN_ACTION_BUTTON_Submit"), [], "submitter", href="/pool/%s/issue_gift_vouchers" % psettings.p_url)|n}
+			</div>
+		</div>
+	</div>
+</%def>

@@ -1,0 +1,10 @@
+
+<div class="friendsBadgesContainer">
+	%for friendbadge in c.friend_badges.badges[:3]:
+	<div class="badge_user_pic">
+		<img src="${friendbadge.get_profile_pic()}"/>
+		<img class="miniBadge" src="${friendbadge.get_badge_picture('small')}" />
+		<div class="label">${friendbadge.get_display_name()}</div>
+	</div>
+	%endfor
+</div>

@@ -1,0 +1,23 @@
+<%namespace name="forms" file="/widgets/forms.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+
+<form method="POST" id="payment_details_form" action="/contribution/${c.pool.p_url}/creditcard">
+	<div class="panel_title">
+		Credit Card:
+	</div>
+	<div class="panel_content white">
+		<div class="forminputline">${forms.input_select("creditcard", "ccType", "Type", app_globals.creditcard_types, required = True)}</div>
+		<div class="forminputline floaterLeft">${forms.input_text("creditcard", "ccHolder", "Card Holder", required = True)}</div>
+		<div class="forminputline floaterLeft">${forms.input_text("creditcard", "ccNumber", "Card Number", required = True)}</div>
+		<div class="forminputline floaterLeft">${forms.input_text("creditcard", "ccCode", "Card Validation Code", required = True, _inputclasses=['small'])} (i.e. the last three numbers on the back of Your card)</div>
+		<div class="forminputline validUntil clearer">
+			${forms.input_select("creditcard", "ccExpiresMonth", "Valid Until", app_globals.cc_validity_months, with_errors = False, required = True)}
+			${forms.input_select("creditcard", "ccExpiresYear", "", app_globals.cc_validity_years)}(i.e. 12/2012)
+		</div>
+		<div style="margin:0px 30px 30px;float:right;position:relative;">
+					${forms.black_submitlink("Submit", [("id", "payment_details_submitter")], "submitter")|n}
+		</div>
+
+		<input type="hidden" name="formtoken" value="${c.form_secret}"/>
+	</div>
+</form>

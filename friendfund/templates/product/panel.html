@@ -1,0 +1,145 @@
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+
+<div id="button_panel" class="product">
+	<h2>${_("PRODUCT_SEARCH_PANEL_Find the pefect gift")}</h2>
+	<a class="button_panel_closer">&nbsp;</a>
+    <div class="whiteContainer">
+		<form id="product_search_form" onsubmit="return false;" >
+			<a name="product_search" id="product_search"></a> 
+			<div class="inputcontainer"><div id="pq_container" style="" class="black_labeled_container_big">
+				<div class="right_bracket">&nbsp;</div>
+				<div class="left_button_search">&nbsp;</div>
+				<input type="text" value="${c.q or _("Search for almost anything ... or paste a link from Amazon")}"
+					name="q" id="pq" style="" _default_text="Search for almost anything ... or paste a link from Amazon" class="black_labeled_input ${ (not c.q) and 'default' or ' '}">
+			</div>
+			<div style="margin:28px 15px 30px;">
+				<a class="submitSmall searcher" sort = "${c.sort}"><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
+			</div>
+			</div>
+			<input type="hidden" name = "back_q" id="back_q" value="${c.back_q}"/>
+			
+			
+			<span class="showme"><a href="#" _href="/content/amazonhowto" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}</a><img src="/static/imgs/icon_amazon.png"/></span>
+		
+			<div class="region_picker">
+			<span>${_("PRODUCT_SEARCH_PANEL_Select friend shipping adress region")} &nbsp;&nbsp;</span>
+			<select name="region" id="region_picker">
+				%for k in sorted(app_globals.locale_lookup.values()):
+					<option value="${k}" ${forms.expression_quote(k==c.region, "selected")|n}>${_(k)}</option>
+				%endfor
+			</select>
+			</div>
+		</form>
+		
+		<div class="clear"></div>
+		
+		<div class="panel_title" style=" padding-bottom:10px">
+			${_("PRODUCT_SEARCH_PANEL_Recommended Gift Searches")}
+		</div>
+		${html.clearline()|n}
+		<div id="product_suggestions">
+		%for i, ps in enumerate(c.psuggestions):
+			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
+				<a class="productsuggestion" searchterm="${ps.search}" sort="${c.sort}" aff_net="${ps.aff_net}" aff_net_ref="${ps.aff_net_ref or ''}">
+					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/><br/>
+					${ps.name}
+				</a>
+			</div>
+		%endfor
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	%if hasattr(c, "searchresult"):
+	<%
+		pages = c.searchresult.pages
+		page_no = c.searchresult.page_no
+		page_length = len(c.searchresult.products)
+	%>
+	<div id="product_browser_container">
+		<div id="product_browser">
+			%if c.searchresult.items > 0:
+				<div class="product_sorter" >
+					<select name="sort" id="psort" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">
+						%for ac in c.sortees:
+							<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
+						%endfor
+					</select>
+				</div>
+			
+
+				%for i, elem in enumerate(c.searchresult.products):
+					${display_product(i, elem, page_length)}
+				%endfor
+				${html.clearline()}
+				
+				%if pages > 1:
+				<div id="product_paginator">
+				<div class="product_paginator">
+				<%
+					page_field = c.searchresult.page_field()
+				%>
+					%if page_no > 1:
+						<span class="veryfirst">
+						<a href="#" class="paginator" page="${page_no-1}" sort="${c.sort}" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+						</span>
+					%endif
+					%for i in page_field:
+						<span class="${(i==1 and 'first' or i==pages and 'last' or 'middle')}">
+						%if i == page_no:
+							<span class="selected">${i}</span>
+						%else:
+							<span>
+								<a href="#" class="paginator" page="${i}" sort="${c.sort}" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${i}</a>
+							</span>
+						%endif
+						</span>
+					%endfor
+					%if page_no < pages:
+						<span class="verylast">
+						<a href="#" class="paginator" page="${page_no+1}" sort="${c.sort}" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
+						</span>
+					%endif
+				</div>
+				</div>
+				%endif
+			%else:
+				<div class="panel_content_no_margin">
+				%if getattr(c ,"product_message", False):
+					${c.product_message}
+				%else:
+					%if c.max_price is not None and c.currency:
+						${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}
+					%else:
+						${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
+					%endif
+				%endif
+				</div>
+			%endif
+		</div>
+	</div>
+	%endif
+</div>
+
+
+<%def name="display_product(counter, product, page_length)">
+	<div class="product_display${page_length  == (counter+1) and ' last' or ' middle'}">
+		<div class="pimage pcol">
+			<div class="imageborder"><img class="productimage widthfirst" src="${product.picture_large}"/></div>
+		</div>
+		<div class="ptitle_price pcol">
+			<div class="product_title">${product.name}</div>
+			<div class="product_price">${product.display_price|n}</div>
+			<div class="product_shipping">${product.display_shipping|n}</div>
+		</div>
+		<div class="pdescription pcol">${h.word_truncate(product.description_long, 35)|n}<a class="more_link" href="${product.tracking_link}" target="_blank">${_("PRODUCT_SEARCH_PANEL_Read More")}</a></div>
+		<div class="programimage pcol">
+			<img class="programimage" src="${product.aff_program_logo_url}"/>
+		</div>
+		<div class="pselector">
+			${forms.black_submitlink(_("PRODUCT_SEARCH_PANEL_Select"), [("_guid", product.guid), ("_net", product.aff_net), ("_progid",product.aff_program_id), ("_imgurl", product.picture_large), 
+								("_label", product.display_label)], "selector", href=None)|n}
+		</div>
+	</div>
+</%def>

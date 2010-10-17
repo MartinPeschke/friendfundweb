@@ -1,0 +1,952 @@
+#messaging_container {
+	float:right;
+	position:relative;
+	right:0;
+	top:0;
+	width:350px;
+	z-index:3;
+}
+
+#message_container {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #B70158;
+	color: #333;
+	margin: 0px 30px 10px 0px;
+	padding: 1px 0px;
+
+}
+#message_container div.message {
+	background-color: white;
+	position: relative;
+	height: 100%;
+	margin: 5px 19px 5px 5px;
+}
+#message_container ul{
+	list-style-type: None;
+	margin: 0px;
+	padding: 5px;
+}
+
+#message_container ul li{
+	margin: 5px 0px;
+	line-height: 110%;
+	padding: 0px;
+}
+
+#page_slogan{
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-size: 28px;
+	color: #5a4129;
+	position: relative;
+	padding: 20px 30px 20px 30px;
+	z-index:1
+}
+#page_slogan .emphasis{
+	color: #B70158;
+}
+
+
+#page_slogan .subtext{
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	color: #403834;
+	position: relative;
+	display: block;
+	width: 550px;
+}
+
+
+a.panel_closer {
+	position: absolute;
+	top: 0px;
+	right: -14px;
+	width: 14px;
+	height: 22px;
+	background-image: url(/static/imgs/button_close_info.png);
+}
+
+#pool_admin_pic{
+	position: relative;
+	width: 75px;
+	height: 75px;
+	background-color: #bbe3f7;
+	margin-left: 30px
+}
+
+#pool_admin_pic img{
+	width: 75px;
+	height: 75px;
+}
+
+#pool_admin_slogan{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	position: relative;
+	margin-right: 30px;
+	min-height:75px;
+	height:auto !important;  /* für moderne Browser */
+	height:75px;  /*für den IE */
+	
+	width: 830px;
+	float: right;
+	background-color: #BBE3F7;
+	line-height: 140%;
+}
+#pool_admin_slogan div.slogan {
+	margin: 10px;
+}
+#pool_admin_slogan div.admin {
+	display: inline;
+	font-weight: bold;
+}
+
+/*=========================================== POOL HEADER ==========================================*/
+
+#pool_pool_panel{
+	position: relative;
+	background-color: #BBE3F7;
+	color: #333;
+	margin: 15px 0px;
+	width: 920px;
+	margin-left: 30px
+}
+#pool_pool_panel a{ color: #C11164}
+
+#pool_pool_panel div.receiver_picture{
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute;
+	width: 170px;
+	min-width: 100px;
+	min-height: 200px;
+	padding: 18px 0 0 18px;
+	left: 0; top: 0;
+}
+#pool_pool_panel div.receiver_picture img{
+	position: relative;
+	width: 170px;
+	min-height: 200px;
+}
+#pool_pool_panel div.receiver_picture div.receiver_name{
+	font-size: 11px;
+	width: 120px;
+}
+
+#pool_pool_panel div.heading{
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 36px;
+	width: 470px;
+	padding-top: 18px;
+	min-height: 255px;
+	margin: 0 auto
+}
+#pool_pool_panel div.heading div.heading_text{
+ 	max-height:220px;
+	overflow:hidden;
+	position:relative;
+	text-align:center;
+}
+
+
+
+#pool_pool_panel div.product{
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute;
+/* 	right: 18px; */
+	width: 170px;
+	padding: 18px 18px 0 0;
+	min-height: 200px;
+	right: 0;
+	top:0
+}
+#pool_pool_panel div.product img{
+	position: relative;
+	width: 170px;
+	height: 200px;
+}
+#pool_pool_panel div.product div.product_name{
+	font-size: 11px;
+	position: relative;
+	width: 170px;
+}
+#pool_pool_panel div.product a.product_more{
+	font-size: 11px;
+	position: relative;
+	width: 170px;
+}
+
+
+#pool_pool_panel div.lower_forward_page{
+	bottom:-25px;
+	height:25px;
+	position:absolute;
+	right:24px;
+	width:120px;
+	background-color: #BBE3F7;
+}
+#pool_pool_panel div.gotopage_text_left_bracket  {
+	background: url(/static/imgs/gotopage_lower_bg.png) 0 0 no-repeat;
+	position: absolute;
+	left: -25px;
+	height: 25px;
+	width: 25px;
+	top: 0px;
+}
+#pool_pool_panel div.gotopage_text_right_bracket  {
+	background: url("/static/imgs/gotopage_lower_bg.png") no-repeat scroll -20px 0 transparent;
+	height:25px;
+	position:absolute;
+	right:-25px;
+	top:0;
+	width:25px;
+}
+
+#pool_pool_panel a.submitSmall {
+	position: absolute;
+	bottom:-48px;
+	right: 0px;
+}
+
+
+/*=========================================== COUNTER ===========================================*/
+
+#countdown{
+	width: 200px;
+	margin:0 auto;
+}
+#countdown div.countdown_days, #countdown div.countdown_hours{
+	position: relative;
+	float: left;
+	margin: 25px 10px 0px 10px;
+}
+div.counter_container{
+	text-align: center;
+	margin: 0px;
+}
+
+div.counter_container div.subscript{
+	font-size: 16px;
+	margin: 0px;
+}
+div.counter{
+/* 	padding: 0px 3px; */
+	color: white;
+	display: inline;
+	position: relative;
+	height: 40px;
+	font-size: 32px;
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-style: normal;
+}
+.counter_number{	background:url(/static/imgs/countdown_middle.png) 0 0 repeat-x;
+}
+div.counter div.counter_left {
+	background:url(/static/imgs/countdown_left.png) no-repeat top left;
+	width: 4px;height:39px;position:absolute;top:0px;left:-4px;
+}
+div.counter div.counter_right{
+	background:url(/static/imgs/countdown_right.png) no-repeat top right;
+	width: 4px;height:39px;position:absolute;top:0px;right:-4px;
+}
+
+div.counter hr{
+	position: absolute;
+	left: 2px;					/* for left position in WebKit only */
+	top: 0px;
+	margin: 20px 0px 0px 0px;			/* for left position in IE and WebKit */
+	display: inline;			/* for left position in FF only */
+	line-height: 1px; height: 1px;
+	border: 0px solid transparent;
+	background-color: black; 	/* for FF/WebKit */
+	color: black; 				/* for IE */
+	width:100%;		/* necessary for FF/WebKit so line width does not collapse */
+}
+
+/*=========================================== COUNTER ===========================================*/
+#timeline_bar {
+	float:left;
+font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+font-size:20px;
+font-style:italic;
+font-weight:bold;
+padding-bottom:20px;
+padding-left:200px;
+padding-top:35px;
+position:relative;
+text-align:center;
+
+}
+#timeline_bar div.timeline_heading{
+/* 	margin:30px 0 -20px; */
+}
+#timeline_bar div.timeline {
+	position: relative;
+	margin: 0px 20px;
+	text-align: left;
+	font-size: 15px;
+	width:450px;
+}
+#timeline_bar div.timeline_progressbar_bg {
+	position: relative;
+	height: 35px;
+	text-align: left;
+	background: url(/static/imgs/progressbar_bg.png) no-repeat left;
+}
+#timeline_bar div.timeline_progressbar {
+	position: relative;
+	height: 35px;
+	margin: 4px 5px 4px 5px;
+	background: url(/static/imgs/progressbar_progress.png) no-repeat left;
+}
+#timeline_bar div.lower_limit {
+	margin-left:-55px;
+	position:absolute;
+	text-align:right;
+	top:18px;
+	width:50px;
+}
+#timeline_bar div.upper_limit {
+	margin-left:455px;
+	position:absolute;
+	text-align:left;
+	top:18px;
+	width:100px;
+}
+#timeline_bar div.legende {
+	text-align: right;
+	font-size: 11px;
+	font-weight: normal;
+	font-style: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 10px
+}
+#timeline_bar div.legende a{
+	text-decoration: underline;
+}
+
+/*=========================================== Contributors ===========================================*/
+#pool_contributors{
+	position: relative;
+	width: 920px;
+	margin-left: 30px
+}
+#pool_contributors div.heading{
+	margin: 30px 0px 10px 0px;
+	color: #333;
+	font-size: 20px;
+	font-weight: bold;
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+}
+
+#pool_contributors div.pcont_body div.contributor_leftcol{
+	position: relative;
+	width: 330px;
+	float: left;
+}
+#pool_contributors div.pcont_body div.contributor_rightcol{
+	position: relative;
+	width: 330px;
+	float: right;
+}
+#pool_contributors div.pcont_body div.contributor{
+	position: relative;
+	height: 85px;
+	width: 330px;
+	margin: 0px 0px 15px 0px;
+	background-color: #bbe3f7;
+}
+
+#pool_contributors div.pcont_body div.contributor img.contributor{
+	position: relative;
+	width: 75px;
+	height: 75px;
+	float: left;
+	margin: 5px;
+}
+#pool_contributors div.pcont_body div.contributor div.contributor_name{
+	position: relative;
+	padding: 5px;
+}
+
+#pool_contributors div.pcont_body div.contributor div.contributor_amount {
+	float: right;
+	margin-top: 10px;
+	padding-right: 10px;
+	font-weight: bold;
+	font-size: 18px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/*============================ CONTRIBUTOR ==========================*/
+
+#contribute {
+	position:relative;
+	width:260px;
+	float: left;
+	padding-bottom:30px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#contribute div.contribute_body {
+	position:relative;
+	width: 200px;
+	margin: 0px auto;
+}
+
+#contribute div.contribute_body img.contributor_picture{
+	position: relative;
+	margin: 0 auto 15px auto;
+	width: 75px;
+	height: 75px;
+	display: block;
+}
+#contribute a div.poolaction {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	border: solid 1px black;
+	overflow: hidden;
+}
+
+#pool_close_button {
+	padding: 0 15px
+}
+
+/*=========================================== BUTTON ===========================================*/
+a.button_container{
+	position: relative;
+	float: right;
+	margin: 0px 10px;
+	height: 32px;
+	background-image:url(/static/imgs/button_big_middle.png);
+	color: white;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-style: normal;
+}
+
+a.button_container.red.red_small{
+	background-image:url(/static/imgs/button_chipin_middle.png);
+	height: 56px;
+	float: None;
+	width: 110px;
+	display: block;
+	font-size:22px;
+	line-height:36px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	left: 34px;
+}
+
+a.button_container.large{
+	font-size: 22px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+a.button_container:hover{
+	cursor:pointer;
+}
+a.button_container div.button_left {
+	background:url(/static/imgs/button_big_left.png) no-repeat top left;
+	width: 11px;height:32px;position:absolute;top:0px;left:-11px;
+}
+a.button_container div.button_right{
+	background:url(/static/imgs/button_big_right.png) no-repeat top right;
+	width: 11px;height:32px;position:absolute;top:0px;right:-11px;
+}
+a.buttonRed{ display: block;
+	margin: 0 auto;
+	background: url(../imgs/inputfield.png) 100% -901px no-repeat;
+	height: 56px;
+	line-height: 53px;
+	font-size: 28px;
+	padding-right: 20px;
+	cursor:pointer;
+}
+a.buttonRed span{ display: block;
+	color:white;
+	padding-left: 20px;
+	background: url(../imgs/inputfield.png) 0 -845px no-repeat;
+	height: 56px;
+	line-height: 53px;
+}
+a.buttonRed_right{
+	float:right;margin:30px 30px 0px;width:auto;
+}
+a.buttonRed_left{
+	float:left;margin:30px;width:auto;
+}
+a.buttonChipIn{
+	text-align:center;
+	width:140px;
+	float: none;
+	margin: 30px auto 15px auto
+}
+a.buttonChipIn.de_de{width:190px;}
+a.buttonChipIn.poolaction{width:190px;}
+
+
+a.button_container.red{
+	background-image:url(/static/imgs/button_chipin_middle.png);
+	height: 56px;
+	float: None;
+	width: 110px;
+	display: block;
+	font-size: 28px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	left: 34px;
+}
+a.button_container.red div.button_left {
+	background:url(/static/imgs/button_chipin_left.png) no-repeat top left;
+	width: 20px;height:56px;position:absolute;top:0px;left:-20px;
+}
+a.button_container.red div.button_right{
+	background:url(/static/imgs/button_chipin_right.png) no-repeat top right;
+	width: 20px;height:56px;position:absolute;top:0px;right:-20px;
+}
+a.button_container span.button_label{
+	position: relative;
+	top: 4px;
+	line-height: 25px;
+}
+
+a.button_container.large span.button_label{
+	top: 3px;
+}
+a.button_container.red span.button_label{
+	top: 8px;
+}
+
+
+a.button_container span.button_label img{
+	position: relative;
+	top: 2px;
+	margin: 0px 0px 0px 5px;
+}
+
+a.button_container.orange{
+	background:url(/static/imgs/inputfield.png) -20px -220px no-repeat;
+	height: 51px;
+	font-size: 28px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	height:51px;
+	display: block;
+	float: left;
+	text-shadow:0 -1px 0 #B55A00;
+}
+a.button_container.orange div.button_left {
+	background:url(/static/imgs/inputfield.png) 0px -220px no-repeat;
+	width: 20px;height:51px;position:absolute;top:0px;left:-20px;
+}
+a.button_container.orange div.button_right{
+	background:url(/static/imgs/inputfield.png) -480px -220px no-repeat;
+	width: 20px;height:51px;position:absolute;top:0px;right:-20px;
+}
+a.button_container.orange span.button_label{
+	line-height: 42px;
+}
+/*=========================================== LOWER BODY ==========================================*/
+div#lowerbody_container {
+	position: relative;
+	margin: 30px 0px 0px;
+	width: 980px;
+	margin-top: 20px;
+	float: left;
+	background: white ;
+	padding-bottom: 30px
+}
+
+
+div#lowerbody_container.fullbackground{
+	background-color: #BBE3F7;
+}
+div#lowerbody_container.fullbackgroundwhite{
+	background-color: #fff;
+	padding-top: 1px;
+}
+
+div#lowerbody {
+	margin: 0px 30px 0px 30px;
+}
+
+div#fundstream_ra{
+	background:none repeat scroll 0 0 #B9E2F6;
+height:855px;
+margin-left:30px;
+overflow:hidden;
+position:relative;
+width:615px;
+}
+div#fundstream.recentactivity {overflow: hidden;
+			position:relative;width: 670px;height: 970px;float: left;
+			}
+div#fundstream.recentactivity div.raheader{
+			margin: 0 30px;height: 45px;
+			 background: #403835; width: 615px; margin-bottom: 15px; position: relative}
+div#fundstream.recentactivity div.raheader img{ position: absolute; left: 65px; bottom: 3px}
+div#fundstream.recentactivity div.raheadercol{
+			position:relative;float: left;text-align: center;
+			font-size: 20px;font-weight: bold;color: white;font-style: italic;font-family: "Trebuchet MS",Helvetica,Jamrul,Arial,sans-serif;}
+div#fundstream.recentactivity div.col1{width: 180px;}
+div#fundstream.recentactivity div.col2{width: 180px;}
+div#fundstream.recentactivity div.col3{width: 120px;}
+
+div#fundstream.recentactivity div.raheadercol img{margin:0 10px -5px;}
+div#fundstream.recentactivity div.rabody{clear:both;height: 140px;cursor:pointer; padding: 15px}
+
+div#fundstream.recentactivity div.rabodycol{position:relative;float: left;text-align: center;height: 120px;
+	font-size: 20px;font-weight: bold;color: #403834;font-style: italic;font-family: "Trebuchet MS",Helvetica,Jamrul,Arial,sans-serif; background: url(../imgs/backgroundScrollerShadow.png) 0 0 no-repeat}
+div#fundstream.recentactivity div.col1{width: 185px; height: 130px; padding-top: 10px; margin-right: 15px}
+div#fundstream.recentactivity div.col3{width: 185px; height: 130px; padding-top: 10px}
+
+div#fundstream.recentactivity div.col2{width: 185px; height: 130px; padding-top: 10px; margin-right: 15px}
+
+
+
+div#fundstream.recentactivity div.rabodysep_col1{position:relative;width: 42px;float: left;height: 20px;margin: 0px 10px;}
+div#fundstream.recentactivity div.rabodysep_col2{position:relative;width: 42px;float: left;height: 20px;margin: 0px 20px;}
+
+div#fundstream.recentactivity div.rabodysep_bg{background: url(/static/imgs/header/arrow_white.png) no-repeat 0px 0px;margin-top:45px;}
+div#fundstream.recentactivity div.rabodycol img.product,
+div#fundstream.recentactivity div.rabodycol img.pool {position: relative;width: 161px;height: 120px;}
+div#fundstream.recentactivity div.rabodycol img.profile {position: relative;width: 120px;height: 120px;}
+
+
+div#mypools.recentactivity {position:relative;float: left; padding-top:41px 0px 30px;}
+
+div#mypools.recentactivity div.raheader{background-color:#BBE3F7;padding-bottom:55px;padding-top:30px;}
+div#mypools.recentactivity div.raheadercol{border-bottom: dotted 3px white;margin: 0px 20px 0px 0px; 
+			position:relative;float: left;text-align: center;
+			font-size: 20px;font-weight: bold;color: white;font-style: italic;font-family: "Trebuchet MS",Helvetica,Jamrul,Arial,sans-serif;}
+div#mypools.recentactivity div.raheadercol_profile { width: 120px; margin-left: 10px;}
+div#mypools.recentactivity div.raheadercol_product { width: 310px;}
+div#mypools.recentactivity div.raheadercol_pool { width: 165px; }
+div#mypools.recentactivity div.raheadercol_details { width: 220px; margin-right:0;}
+
+div#mypools.recentactivity div.raheadercol img{margin:0 10px -5px;}
+
+div#mypools.recentactivity div.rabody{
+	background-color:#BBE3F7;
+	clear:both;
+	float:left;
+	margin:15px 0 0;
+	width:890px;
+	position: relative;
+}
+
+div#mypools.recentactivity div.rabody_contributor div.rabodycol.details {}
+div#mypools.recentactivity div.rabody_open { padding: 15px}
+div#mypools.recentactivity div.rabody_funded { padding: 15px}
+div#mypools.recentactivity div.rabody_closed { padding: 15px}
+div#mypools.recentactivity div.rabody_complete { padding: 15px}
+
+
+div#mypools.recentactivity div.rabodycol{
+	position:relative;
+	float: left;
+	text-align: left;
+	font-size: 12px;
+	color: #333;
+	font-style: normal;
+	font-family: Arial,Helvetica,Jamrul,sans-serif;
+	width: 160px;
+	margin-right: 30px;
+	font-weight: bold;
+	height: 155px;
+	line-height: 15px;
+	}
+div#mypools.recentactivity div.rabodycol div.imgContainer{ position: absolute; left: 0; bottom:0}
+div#mypools.recentactivity div.rabodycol div.desc { overflow:hidden; height: 30px}
+/* div#mypools.recentactivity div.rabodycol.pool 		div {margin:5px 0px;}*/
+div#mypools.recentactivity div.rabodycol.details 	{ position:relative;
+	float: left;
+	text-align: left;
+	font-size: 12px;
+	color: #333;
+	font-style: normal;
+	font-family: Arial,Helvetica,Jamrul,sans-serif;
+	width: 160px;
+	margin-right: 30px;
+	font-weight: bold;
+	height: auto;
+	line-height: 15px;}
+div#mypools.recentactivity div.details div.imgContainer{ padding: 10px; height:auto;width:140px; position: relative; margin-top: 34px; float: left}
+div#mypools.recentactivity div.rabody_contributor  div.contributor{
+	background:url("/static/imgs/badges/chippedin.png") no-repeat scroll center 0 transparent;
+	color:white;
+left:190px;
+position:absolute;
+top:0;
+width: 130px;
+padding-top: 65px
+}
+div#mypools.recentactivity div.rabody_contributor  div.contributor div.content{
+	font-size:12px;
+	font-weight:bold;
+	text-align:center;
+	font-family: Arial;
+	color:#333333;
+	
+}
+.panel_content_no_padding{ float: left; margin: 15px; background: white; height: 375px}
+
+
+div#mypools.recentactivity div.rabodycol img.profile  	{position: relative;display: block; margin: 0 auto;width:120px;height:120px;}
+div#mypools.recentactivity div.rabodycol img.product	 {position: relative; width: 158px;height: 119px;display: block; margin: 0 auto}
+div#mypools.recentactivity div.rabodycol img.pool 		 {position: relative; display: block; margin: 20px auto}
+
+div#mypools.recentactivity div.rabodycol.details div.row { font-size: 12px; position: relative;  text-align: right; padding-bottom:7px; float: left; width: 100%}
+div#mypools.recentactivity div.rabodycol.details div.row.days { padding-bottom: 0px; background-color: white; height: 30px}
+div#mypools.recentactivity div.rabodycol.details span.money,
+div#mypools.recentactivity div.rabodycol.details span.currency{position: relative;color: #333;font-size: 20px; font-weight: bold; line-height: 20px}
+.lastPad{ padding-bottom: 0 !important}
+
+div#mypools.recentactivity div.rabodycol.details span.money.red {color: #b20155;}
+div#mypools.recentactivity div.rabodycol.details span.money.green {color: #009900;}
+div#mypools.recentactivity div.rabodycol.details span.currency.red {color: #b20155;}
+div#mypools.recentactivity div.rabodycol.details span.currency.green {color: #009900;}
+
+div#productstream {
+	background:none repeat scroll 0 0 #B9E2F6;
+	float:right;
+	margin:30px 30px 0 0;
+	position:relative;
+	width:275px;}
+
+div#badgestream {
+	position: relative;width: 275px;float: right;
+	 margin: 56px 30px 0 0; background: #b9e2f6}
+div#badgestream .panel_title,
+div#productstream  .panel_title{
+	background:none repeat scroll 0 0 #403835;
+	height:45px; padding: 0; color: white; padding: 0 15px; line-height: 45px; border-bottom: 15px solid white
+}
+
+div#badgestream div.panel_content_no_padding {
+	clear:both;
+	position: relative;
+	float: left; width: 245px; margin: 15px; background: white; height: 330px
+}
+
+div#badgestream div.badge_user_pic{float:right;width: 90px; padding-right: 15px; height: 90px; padding-top: 15px}
+div#badgestream div.badge_user_pic img{width: 90px;height:90px;}
+
+div#badgestream div.badge_pic{float:left;width: 115px; padding-left: 15px; height: 90px; padding-top: 15px}
+div#badgestream div.badge_pic img{ display: block; margin: 0 auto}
+div#badgestream div.badge_pic div{text-align:center; position: relative;top:-2px;}
+
+
+div#productstream div.prod_pic{float:left;width: 90px;height:90px; padding-left: 15px }
+div#productstream div.prod_pic img{float:left;width: 90px;height:90px; }
+div#productstream div.prod_desc{float:right; width:110px; padding-right: 15px}
+div#productstream  a.product_top_seller {cursor:pointer}
+
+div#lowerbody div.heading {
+	position: relative;margin: 7px 0px 5px 0px;line-height: 28px;
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; font-size: 28px;}
+
+div#lowerbody div.comment {
+	position: relative;
+	height: 50px;
+	margin: 15px 0px 0px;
+	color: #333;
+	background-color: #BBE3F7;
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 5px;
+}
+div#lowerbody div.comment img.comment_author{
+	position: relative;
+	float: left;
+	width: 50px;
+	height: 50px;
+}
+div#lowerbody div.comment div.comment_text {
+	position: relative;
+	left: 10px;
+	margin: 0px 10px;
+}
+div#lowerbody div.comment div.comment_author{
+	display: block;
+	line-height: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+div#lowerbody div.comment_input_panel{
+	line-height: 20px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+div#lowerbody textarea.comment_text_input {
+	border: 15px solid #BBE3F7;
+	height:50px;
+	margin-bottom:15px;
+	width:890px;
+}
+
+
+
+
+
+/* ========================POOL SETTINGS ====================== */
+
+.addressContainer select,.addressContainer input{position: relative;width: 250px;}
+.addressContainer  label{width: 100px;}
+.addressContainer select {width: 253px;}
+.addressContainer div.error_message{color: red;}
+.addressContainer label{ display: block; padding-bottom: 3px; padding-top: 8px }
+
+#poolsettings div.poolaction{
+float:left;
+margin:0 14px 0 0;
+position:relative;
+width:95px;
+}
+
+#poolsettings div.poolaction a.poolaction{
+	color:#403834;
+display:block;
+height:145px;
+position:relative;
+
+
+}
+#poolsettings div.poolaction  div.extender {
+	background-color: white;
+	bottom: -22px;
+	height: 22px;
+	left: 0px;
+	position: absolute;
+	width: 95px;
+	z-index: 5;
+}
+#poolsettings div.poolaction div.hidden{background: url(../imgs/down_arrow.png) 0 0 no-repeat !important; display: block !important}
+#poolactioncontent{
+	clear:both;
+	background-color: white;
+	position: relative;
+	min-height:150px;
+	margin:10px 30px 0 0;}
+#poolactions a div.title_container{ background: #BBE3F7; height: 45px;position:relative;}
+#poolactions a div.title{ font-size: 12px; font-family: "Trebuchet MS"; position:absolute;bottom:5px;}
+#actionlink_ADMIN_ACTION_ISSUE_GIFT_VOUCHERS{ background:white url(../imgs/icon-gift-voucher.png) center 60px no-repeat; }
+#actionbutton_ADMIN_ACTION_ASK_CONTRIBUTORS_TO_INVITE{ background:white url(../imgs/icon-invite.png) center 60px no-repeat; }
+#actionbutton_ADMIN_ACTION_REMIND_INVITEES{ background:white url(../imgs/icon-remind.png) center 60px no-repeat; }
+#actionbutton_ADMIN_ACTION_ASK_CONTRIBUTORS{ background:white url(../imgs/icon-ask-contibutors.png) center 60px no-repeat;  }
+#actionbutton_ADMIN_ACTION_ASK_RECEIVER{ background:white url(../imgs/icon-ask-receiver.png) center 60px no-repeat; }
+#actionlink_ADMIN_ACTION_CHEAPER_PRODUCT{background:white url(../imgs/icon-cheaper-products.png) center 60px no-repeat;}
+#actionbutton_ADMIN_ACTION_INVITE{background:white url(../imgs/icon-invite2.png) center 60px no-repeat;}
+#actionbutton_ADMIN_ACTION_CHIP_IN_REMAINDER{background:white url(../imgs/icon-cheap-in.png) center 60px no-repeat;}
+#poolactioncontent div .panel_title{ padding-bottom: 0 !important}
+#poolactioncontent div.pool_action_subtitle {padding: 30px;}
+#poolactioncontent div .panel_content{ margin: 0 !important}
+#poolactioncontent div .panel_content label.black_labeled_container.right{ float: left}
+#poolactioncontent div .panel_content div.black_labeled_container{ margin-right: 352px}
+#poolactioncontent  #button_panel{ margin-top: -20px}
+#poolactioncontent  #button_panel .whiteContainer{ margin-top: 0}
+#poolactioncontent  #button_panel h2{ padding-left: 15px}
+#poolactioncontent  #button_panel.product div.productsuggestion{ margin-right: 20px; padding-top: 15px }
+
+#poolactioncontent.ADMIN_ACTION_CHEAPER_PRODUCT {margin:10px 15px 0 -15px;}
+
+
+.remaining_counter{bottom:67px;
+color:#BBE3F7;
+font-family:"Trebuchet MS";
+font-size:28px;
+left:10px;
+position:absolute;
+text-align:center;text-shadow: 1px 1px 0px #333}
+
+#button_panel.receiver .panel_title, #lowerbody_container.networkinviter .panel_title{padding: 15px 0px 0 0px;}
+.prod_title{ color:#333333;
+float:left;
+font-weight:bold;
+padding:5px 15px;
+width:215px; height: 20px; line-height: 20px; }
+.whiteContainer{ background: white; margin-top: 10px;position: relative;}
+span.showme{position:absolute;right:151px;top:80px; z-index: 999}
+span.showme img{margin-left:10px;position:relative;top:10px;}
+span.showme a.showme{color: #c11164; text-decoration: underline !important}
+.region_picker {position:absolute;top:10px;right:15px;}
+
+.list{ margin:0 20px 0 30px; padding-bottom: 10px; float: left; }
+.list a{ display: block; float: left; width: 158px; padding-right: 10px; font-size: 14px; color: #403834; font-family: Arial}
+.listContainer{ float: left; padding-bottom: 15px}
+.amount{width: 417px; margin-right: 45px;}
+
+#contributioncontainer input#chipin_amount{ border:2px solid #131313;}
+.contributionAmount{ position: relative}
+.contributionAmount label{ width: 100px;position: relative}
+.contributionAmount .contrib_error_message{ color:#FF0000;float:left;margin:14px 0 0 10px;position:relative;width:155px;}
+.contributionAmount .currencyDisplay{ font-size:18px;font-weight:bold;position:relative;top:12px;float:left;}
+.contributionAmount input{ width: 147px;  width: 100px;float:left}
+.contributionAmount { font-family: Arial}
+.contributionAmount div.forminputline{ height:auto;clear:both;}
+.contributionAmount label, .contributionAmount .label{ display:block;width:120px;float:left;font-size:12px;
+				margin-top:14px;padding-right:5px;text-align:right;}
+
+
+.inputInfo a{color:#B20155;}
+.confidential{padding-bottom: 20px }
+#contributioncontainer .panel_content{ padding: 0px; margin: 10px 20px 20px 20px}
+#contributioncontainer h2{ font-family: "Trebuchet MS"; font-size: 20px; font-weight: bold; color: #5a4129; margin: 0; padding: 0; line-height: 20px; font-style: italic; padding:0 0 10px;}
+.whiteBoxSmall{ background: white; width: 850px; margin-top: 10px;  padding: 15px}
+#contributioncontainer input{ border: 1px solid #666; height: 24px; margin: 10px 5px 0 0;}
+#contributioncontainer input.contrib_amount{ text-align:right;width:100px }
+span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; padding-top: 10px}
+#chipin_anonymous{ margin: 0 !important}
+#contributioncontainer .keepsecret input{ position: absolute; left:0; top:0; height: 13px; width: 13px; border: none}
+#contributioncontainer .keepsecret label{ padding-left: 18px; display: block; float: left}
+#contributioncontainer span.fixedvalue {margin:0px 0 0 20px;position:relative;top:3px;font-size:24px;font-weight: bold;}
+#contributioncontainer label {font-family: Arial;font-size: 12px;color:#333;}
+#contributioncontainer label.paymenticon img {position:relative;top:-3px;}
+#contributioncontainer div.error_message {left:192px;top:16px; color: #ff0000}
+.radioContainer{ width: 150px}
+.radioContainer2{ width: 200px}
+#contributioncontainer .radioContainer input, #contributioncontainer .radioContainer2 input, #contributioncontainer .payement_method input{ margin: 0; height: 13px}
+#contributioncontainer .radioContainer label, #contributioncontainer .radioContainer2 label,  #contributioncontainer .payement_method label{ display: inline}
+.radioContainer2 div{ padding-bottom: 3px} 
+#chipin_message{ width: 383px; margin-bottom: 20px }
+.heightAuto{ height: auto !important}
+.terms{ float: left; width:850px; padding-top: 0px}
+.payement_method{ float: left;}
+.payement_method div{ padding-bottom: 10px}
+.payement_method div.payement-container, .terms div.payement-container{ float: left; background: white; margin-top: 10px; padding: 15px 15px 5px 15px; width: 850px}
+.payement_method div.payement-container div input{ float: left; margin-right: 5px !important; display: block}
+.payement_method div.payement-container div{ padding-bottom: 15px; clear: both; float: left; height: 20px}
+.payement_method div.payement-container div img{display: block; float: left}
+.payement-container textarea{ width: 100%; height: 70px}
+.agree{ position: relative;  margin-top: 10px; padding-bottom: 10px}
+.agree label{display:block;
+float:left;
+padding-left:18px;}
+.agree input{border:medium none;
+height:13px !important;
+left:0;
+position:absolute;
+top:0;
+width:13px; margin: 0 !important; }
+.message{ margin-right:20px}
+.spacerInput{ padding-bottom: 12px}
+#poolactions{ margin: 0 0 0 30px }
+
+div.black_labeled_container .black_labeled_input div.dijitInputField {
+color:#FFFFFF;
+margin:2px 5px 0 !important;
+}
+.marginRight45{ margin-right: 45px; width:410px;}

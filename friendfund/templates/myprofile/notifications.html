@@ -1,0 +1,66 @@
+<%inherit file="../master.html"/>
+<%namespace name="links" file="../links.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+<%def name="title()">${_("MYPROFILE_PAGE_TITLE_My Profile")}</%def>
+
+<div class="tabContainer">
+		<a href="/myprofile/index"><span>Account</span></a>
+		<a href="/myprofile/notifications"  class="selected" ><span>Notifications</span></a>
+		<a href="/myprofile/network"><span>Networks</span></a>
+		</div>
+<div id="login_signup_container">
+		
+		
+		<div class="subCategories">You are connected to the following networks: </div>
+
+		<div class="profile-picture">
+		<div class="inside_row">
+			<div class="subHeader">Pools I have created</div>
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>A friends chip in</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>My pool is about to expire</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>My gift has been paid for</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>Someone leaves a comment</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="subHeader">Pools I am invited to</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>A friend creates a pool</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>A pool is about to expire</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>My gift has been paid for</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>Someone leaves a comment</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>A pool is about to expire</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+			<div class="borderRow floaterLeft">
+				<div class="floaterLeft"><span>My gift has been paid for</span></div>
+				<div class="floaterRight"><input type="checkbox" /></div>
+			</div>	
+		</div>	
+		</div>
+		<a href="#" class="Save"><span>Save</span></a>
+		
+${html.clearline()}
+</div>

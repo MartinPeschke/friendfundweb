@@ -1,0 +1,52 @@
+## -*- coding: utf-8 -*-
+<%def name="render(region = 'de')">
+	%if region == 'de':
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Maurice Lacroix', sort:'PRICE_DOWN', region:'de'})">
+		<div class="prod_title">Maurice Lacroix</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/prod_watch_90.jpg"/></div>
+		<div class="prod_desc">Maurice Lacroix Uhren-Serie LC6068-YS101-13E Les Classiques, Phase de Lune Automatik...</div>
+		</a>
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Porsche 356 Speedster fahren Jochen Schweizer', region:'de'})">
+		<div class="prod_title">Porsche Fahren</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/prod_porsche_90.jpg"/></div>
+		<div class="prod_desc">Mit seiner zeitlos eleganten Linie und der vollendet runden Form ist der Porsche 356 Speedster...</div>
+		</a>
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'APPLE IPAD 64GB WIFI 3G integrierten Querformat', region:'de' })">
+		<div class="prod_title">Apple iPad</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/ipad_de.png"/></div>
+		<div class="prod_desc">Alle im iPad integrierten Apps wurden von Grund auf für das große Multi-Touch-Display und die...</div>
+		</a>
+	%elif region == 'gb':
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Bertinet', region:'gb'})">
+		<div class="prod_title">Bertinet Kitchen Pastry Class</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/pastry_gb.png"/></div>
+		<div class="prod_desc">Even if your children have never cooked at home before, they will enjoy the messiness...</div>
+		</a>
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Polaroid', region:'gb'})">
+		<div class="prod_title">Polaroid 300 Instant Analogue Camera</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/polaroid_gb.png"/></div>
+		<div class="prod_desc">This being the 21st century, the good people at Polaroid have squeezed in several handy features...</div>
+		</a>
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Top Gun', aff_net_ref:'1109', region:'gb', sort:'PRICE_DOWN' })">
+		<div class="prod_title">Ultimate Top Gun</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/ultimate_topgun_gb.png"/></div>
+		<div class="prod_desc">The “Ultimate Top Gun Experience” is unique in the UK, and is the closest you can get to being a fighter pilot... </div>
+		</a>
+	%elif region == 'us':
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Well Traveled Living 60531 HotSpot Space 800 Charcoal', region:'us'})">
+		<div class="prod_title">HotSpot Space 800 Charcoal Grill</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/grill_us.png"/></div>
+		<div class="prod_desc">Well Traveled Living is pleased to offer the finest in British design and quality in the HotSpot...</div>
+		</a>
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Miami Heat vs. Orlando Magic Tickets', region:'us'})">
+		<div class="prod_title">Miami Heat vs. Orlando Magic Tickets</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/miamiheat_us.png"/></div>
+		<div class="prod_desc">Buy Miami Heat vs. New Jersey Nets, tickets. Tickets for 11/06/2010 at American Airlines Arena in Miami, FL...</div>
+		</a>
+		<a class="product_top_seller" onclick="panels.preload(panels, 'product', true, null, {q:'Authentic Models AP413T Transparent Spad Model', region:'us' })">
+		<div class="prod_title">Authentic Models AP413T</div>
+		<div class="prod_pic"><img src="/static/imgs/top_sellers/model_plane_us.png"/></div>
+		<div class="prod_desc">My guess is that this plane will not fly in any plane collector's home. Both you and I know...</div>
+		</a>
+	%endif
+</%def>

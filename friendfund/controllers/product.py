@@ -1,0 +1,170 @@
+import logging, simplejson, formencode
+from datetime import date, timedelta, datetime
+
+from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
+from pylons.decorators import jsonify
+from pylons.controllers.util import abort, redirect
+
+from friendfund.lib.tools import dict_contains, remove_chars
+from friendfund.model.affiliateconfig import AffiliateConfig
+from friendfund.model.db_access import SProcException, SProcWarningMessage
+from friendfund.model.pool import Product, Pool
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductDisplay, ProductSearch
+from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException
+log = logging.getLogger(__name__)
+
+_ = lambda x:x
+SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
+			("PRICE_UP",_("PRODUCT_SORT_ORDER_Price up")),
+			("PRICE_DOWN",_("PRODUCT_SORT_ORDER_Price down")),
+			("MERCHANT",_("PRODUCT_SORT_ORDER_Merchant"))]
+PAGESIZE = 5
+
+from friendfund.lib.base import BaseController, render, _
+
+class ProductController(BaseController):
+	navposition=g.globalnav[1][2]
+	@jsonify
+	def panel(self):
+		c.region = request.params.get('region', websession['region'])
+		c.psuggestions = g.dbsearch.get(ProductSuggestionSearch\
+									, country = c.region\
+									, occasion = request.params.get('occasion_key', None)\
+									, receiver_sex = request.params.get('sex', None)).suggestions
+		c.ac = g.dbsearch.get(AffiliateConfig, country = c.region)
+		c.cat = c.back_q = c.q = ''
+		c.page = 0
+		c.sortees = SORTEES
+		c.sort = SORTEES[0][0]
+		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
+	
+	@jsonify
+	def unset(self):
+		c.pool = websession.get('pool') or Pool()
+		del pool.product
+		websession['pool'] = c.pool
+		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
+	
+	@jsonify
+	def set(self):
+		params = formencode.variabledecode.variable_decode(request.params)
+		product = params.get('product', None)
+		if not product or not dict_contains(product, ['aff_net', 'guid']):
+			return self.ajax_messages(_("INDEX_PAGE_No Product"))
+		
+		c.region = request.params.get('region', websession['region'])
+		if product['aff_net'] == 'AMAZON':
+			product = g.amazon_service[c.region].get_product_from_guid(product['guid'])
+		else:
+			productresult = g.dbsearch.get(ProductRetrieval, guid=product['guid'], region=c.region)
+			if not productresult.product:
+				return self.ajax_messages(_("POOL_CREATE_Product not Found"))
+			product = productresult.product
+		c.pool = websession.get('pool') or Pool()
+		c.pool.product = product
+		c.pool.region = c.region
+		websession['pool'] = c.pool
+		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
+	
+	def set_region(self):
+		region = request.params.get('region')
+		if region not in g.locale_lookup.values():
+			abort(404)
+		websession['region'] = region
+		return self.panel()
+	
+	@jsonify
+	def search(self):
+		c.region = request.params.get('region', websession['region'])
+		c.psuggestions = g.dbsearch.get(ProductSuggestionSearch\
+									, country = c.region\
+									, occasion = request.params.get('occasion_key', None)\
+									, receiver_sex = request.params.get('sex', None)).suggestions
+		c.ac = g.dbsearch.get(AffiliateConfig, country = c.region)
+		c.q = request.params.get('q', '')
+		c.back_q = request.params.get('back_q', '')
+		search_term = c.back_q or c.q
+		c.page = request.params.get('page', 1)
+		c.cat = request.params.get('cat', None)
+		c.sort = request.params.get('sort', SORTEES[0][0])
+		c.aff_net = request.params.get('aff_net', None)
+		c.aff_net_ref = request.params.get('aff_net_ref', None)
+		c.sortees = SORTEES
+		c.max_price = request.params.get('price', None)
+		if c.max_price:
+			c.max_price = int(c.max_price)
+		c.currency = request.params.get('currency', None)
+		if search_term:
+			if search_term.startswith("http://"):
+				return self.amazon_fallback(c.region, search_term)
+			else:
+				try:
+					c.searchresult = g.dbsearch.call(ProductSearch( 
+											sort = c.sort, 
+											category = c.cat, 
+											page_size=PAGESIZE, 
+											program_id = c.aff_net_ref, 
+											search=search_term, 
+											page_no=c.page, 
+											region=c.region,
+											max_price = c.max_price), ProductSearch)
+				except SProcWarningMessage, e:
+					log.warning("Product Search Warning: %s" % e)
+					return self.ajax_messages(_(u"PRODUCT_SEARCH_An Error Occured during search, please try again later."))
+		else:
+			c.searchresult = ProductSearch()
+		for cat in c.searchresult.categories:
+			if cat.id in c.ac.categories:
+				cat.name = c.ac.categories[cat.id].name
+			else:
+				cat.name = str(cat.id)
+		if c.cat: c.cat = int(c.cat)
+		elif len(c.searchresult.categories) == 1: c.cat = c.searchresult.categories[0].id
+		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
+	
+	@jsonify
+	def verify_dates(self):
+		c.region = request.params.get('region', websession['region'])
+		try:
+			c.date = datetime.strptime(request.params.get('occasion_date', None), '%Y-%m-%d').date()
+			c.aff_net = request.params.get('net', None)
+			c.aff_prog_id = request.params.get('progid', None)
+		except:
+			log.info('parse error for date and aff_net and aff_prog_id in verify_dates: %s' % request.params)
+			return {'clearmessage':'true'}
+
+		c.ac = g.dbsearch.get(AffiliateConfig, country = c.region)
+		props = c.ac._affprogdict.get(str(c.aff_net), {}).get(str(c.aff_prog_id), {})
+		try:
+			c.deliverydays = timedelta(int(props.get('shippingdays', 0)))
+			c.deliverydays_warnlimit = timedelta(int(props.get('shippingdays_warn', 0)))
+		except:
+			log.info('parse error for deliveryDates in verify_dates: %s' % c.ac._affprogdict)
+			return {'clearmessage':'true'}
+
+		if date.today() + c.deliverydays + c.deliverydays_warnlimit > c.date and date.today() + c.deliverydays <= c.date:
+			c.success = True
+			return self.ajax_messages(_(u"PRODUCT_DELIVERY_WARNING_Your event date doesn\'t give your funders or shipping much time!"))
+		elif date.today() + c.deliverydays > c.date:
+			c.success = True
+			return self.ajax_messages(_(u"PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"))
+		else:
+			return  {'clearmessage':'true'}
+	
+	def amazon_fallback(self, region, url):
+		item_id = request.params.get("item_id")
+		try:
+			c.searchresult = g.amazon_service[region].get_product_from_url(url)
+		except URLUnacceptableError, e:
+			c.searchresult = ProductSearch()
+			c.product_message = _("AMAZON_PRODUCT_SEARCH_URL not recognized")
+		except AttributeMissingInProductException, e:
+			c.searchresult = ProductSearch()
+			c.product_message = _("AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article and is not sold by Amazon itself. Currently we do not support Amazon Marketplace articles.")
+		result  = {'clearmessage':True}
+		result['html'] = remove_chars(render('/product/panel.html').strip(), '\n\r\t')
+		return result
+	
+	def amazon_lookup(self):
+		item_id = request.params.get("item_id")
+		return g.amazon_service[websession['region']].fetch_product(item_id).read()

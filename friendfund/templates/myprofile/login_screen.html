@@ -1,0 +1,101 @@
+<%inherit file="../master.html"/>
+<%namespace name="links" file="../links.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+<%def name="title()">${_("LOGIN_PAGE_TITLE_Login")}</%def>
+<%def name="page_slogan()">&nbsp;</%def>
+
+<div id="login_signup_container" class="innerbody">
+
+	<div id="login_form_container" class="left">
+		<div  class="panel_title">
+			${_("LOGIN_PAGE_TITLE_TEXT_Login")}
+		</div>
+		<div class="panel_content white">
+			<div class="panel_content_inner">
+			<div class="forminputline">
+				<label>${_("LOGIN_PAGE_LABEL_Login with")}</label>
+			</div>
+				<div class="forminputline" style="margin: 15px 90px;float:left;clear:both;">
+					<a onclick="fbLogin()" class="facebookBtn" title="${_("Connect with Facebook")}">
+						<span>${_("Connect with Facebook")}</span>
+					</a>
+				</div>
+				<br/>
+				<div class="forminputline" style="margin:15px 90px;float:left;clear:both;">
+					<a href="/twitter/login?furl=/" class="twitterBtn" title="${_("Connect with Twitter")}">
+						<span>${_("Connect with Twitter")}</span>
+					</a>
+				</div>
+			</div>
+			<div style="float:left;clear:both;margin: 0px 20px">
+			<form action="/login" method="POST" id="login_form">
+				<div class="forminputline">
+					<label>${_("LOGIN_PAGE_LABEL_or by")}</label><br>
+				</div>
+
+				<div class="forminputline signup_login">
+					${forms.input_text("login", "email", _("LOGIN_PAGE_LABEL_Email"))|n}
+				</div>
+				<div class="forminputline signup_login">
+					${forms.input_text("login", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False)|n}
+					<div><a class="lostpass" href="/myprofile/password">${_("LOGIN_PAGE_LABEL_Forgot Password?")}</a></div>
+				</div>
+				<div style="bottom: 20px;right: 30px;position:absolute;">
+					${forms.black_submitlink(_("LOGIN_PAGE_BUTTON_Login"), [("onclick", "dojo.byId('login_form').submit();")], "submitter")|n}
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="signup_form_container" class="right">
+		<div  class="panel_title">
+			${_("LOGIN_PAGE_LABEL_Signup")}
+		</div>
+		<div class="panel_content white">
+			<div class="panel_content_inner">
+			<form id="signup_form" action="/signup" method="POST" enctype="multipart/form-data">
+				<div class="forminputline">
+					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Name"))|n}
+				</div>
+				<div class="forminputline">
+					${forms.input_text("signup", "email", _("LOGIN_PAGE_LABEL_Email"), required = True)|n}
+				</div>
+				<div class="forminputline">
+					${forms.input_text("signup", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False, required = True)|n}
+				</div class="forminputline">
+				<div class="forminputline">
+					${forms.input_text("signup", "pwd_confirm", _("LOGIN_PAGE_LABEL_Password Confirm"), "password", False, required = True)|n}
+				</div>
+				
+				<div class="forminputline maleFemaleContainer">
+				<div  class="maleFemale">
+					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
+					<input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
+
+					<span >Female</span>
+					<input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
+				</div>
+					${forms.error_msg("signup", "gender", type="error_checkbox")}
+				</div>
+				<div class="forminputline">
+					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
+					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
+				</div>
+				<div style="bottom: 20px;right: 30px;position:absolute;">
+					${forms.black_submitlink(_("LOGIN_PAGE_BUTTON_Join"), [("onclick", "dojo.byId('signup_form').submit();")], "submitter")|n}
+				</div>
+				
+				<div class="forminputline mandatoryPad">
+					${_("LOGIN_PAGE_LABEL_* Mandatory")}
+				</div>
+				<div class="forminputline" style="width: 75%">
+					${_("LOGIN_PAGE_LABEL_By clicking on 'Join' on the right, you confirm that you accept the Terms of Service.")}
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+	${html.clearline()}
+</div>

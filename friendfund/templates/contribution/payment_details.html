@@ -1,0 +1,42 @@
+<%inherit file="../master.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+
+<%def name="onloadscripts()">
+	var submitForm = function(evt){
+		dojo.byId("payment_details_submitter").disabled = true;
+		evt.stopPropagation();
+		evt.preventDefault();
+		dojo.place(loading_animation, dojo.byId("payment_details_status"), "first");
+		xhrFormPost("/contribution/${c.pool.p_url}/creditcard", "payment_details_form", function(data){
+			dojo.place(data.html, dojo.byId("payment_details_status"), "only");
+			dojo.connect(dojo.byId("payment_details_submitter"), "onclick", submitForm);
+		});
+	};
+	dojo.connect(dojo.byId("payment_details_submitter"), "onclick", submitForm);
+</%def>
+<%def name="title()">${_("PAYMENT_DETAILS_Chip In Details")}</%def>
+<%def name="page_slogan()"><div id="page_slogan">${_("PAYMENT_DETAILS_Payment Details")}</div></%def>
+
+
+<div id="paymentdetailscontainer" class="innerbody">
+	<div class="panel_title">
+		${_("PAYMENT_DETAILS_Total Amount:")}
+	</div>
+	<div class="panel_content white">
+		<div id="payment_details_amount">
+			${_("PAYMENT_DETAILS_You are chipping in:")}
+			<div class="floaterRight amount clearer">${h.format_currency(c.contrib.get_amount(), c.contrib.currency)}</div>
+			<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)}</div>
+			<div class="floaterRight amount clearer totalsum"><span>Total:</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)}</div>
+		</div>
+	</div>
+	
+	<div id="payment_details_status">
+	%if getattr(c, 'success', None) is None:
+		<%include file="payment_details_form.html"/>
+	%else:
+		<%include file="payment_success.html"/>
+	%endif
+	</div>
+	${html.clearline(20)|n}
+</div>

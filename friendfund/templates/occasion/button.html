@@ -1,0 +1,20 @@
+<%
+	occasion = getattr(getattr(c, 'pool', None), 'occasion', None)
+%>
+<div id="button_occasion" class="hpbutton occasion">
+	<a class="button">
+		<img src="/static/imgs/header/panel_header_event.png"/>
+	</a>
+	<div class="button_content">
+		<a class="content"><img class="button_content" src="${getattr(occasion, 'picture_url', '/static/imgs/header/panel_content_event.png')}"/></a>
+		<div class="label">${getattr(occasion, 'display_label', _('PAGE_INDEX_BUTTON_Select an Event'))}
+		%if not occasion:
+			<div class="sub_label ">${_("PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created.")}</div>
+		%endif
+		</div>
+	</div>
+	<input type="hidden" name="occasion.key" id="occasion_key" value="${getattr(occasion, 'key', '')}"/>
+	<input type="hidden" name="occasion.name" id="occasion_name" value="${getattr(occasion, 'name', '')}"/>
+	<input type="hidden" name="occasion.date" id="occasion_date" value="${getattr(occasion, 'internal_date_format', '')}"/>
+</div>
+<div class="extender hidden">&nbsp;</div>
