@@ -6,7 +6,6 @@ from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 
 from friendfund.lib.tools import dict_contains, remove_chars
-from friendfund.model.affiliateconfig import AffiliateConfig
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Product, Pool
 from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductDisplay, ProductSearch
@@ -31,11 +30,11 @@ class ProductController(BaseController):
 									, country = c.region\
 									, occasion = request.params.get('occasion_key', None)\
 									, receiver_sex = request.params.get('sex', None)).suggestions
-		c.ac = g.dbsearch.get(AffiliateConfig, country = c.region)
-		c.cat = c.back_q = c.q = ''
 		c.page = 0
 		c.sortees = SORTEES
 		c.sort = SORTEES[0][0]
+		c.q = None
+		c.back_q = None
 		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
 	
 	@jsonify
@@ -68,7 +67,7 @@ class ProductController(BaseController):
 	
 	def set_region(self):
 		region = request.params.get('region')
-		if region not in g.locale_lookup.values():
+		if region not in g.country_choices.map:
 			abort(404)
 		websession['region'] = region
 		return self.panel()
@@ -80,12 +79,10 @@ class ProductController(BaseController):
 									, country = c.region\
 									, occasion = request.params.get('occasion_key', None)\
 									, receiver_sex = request.params.get('sex', None)).suggestions
-		c.ac = g.dbsearch.get(AffiliateConfig, country = c.region)
 		c.q = request.params.get('q', '')
 		c.back_q = request.params.get('back_q', '')
 		search_term = c.back_q or c.q
 		c.page = request.params.get('page', 1)
-		c.cat = request.params.get('cat', None)
 		c.sort = request.params.get('sort', SORTEES[0][0])
 		c.aff_net = request.params.get('aff_net', None)
 		c.aff_net_ref = request.params.get('aff_net_ref', None)
@@ -100,8 +97,7 @@ class ProductController(BaseController):
 			else:
 				try:
 					c.searchresult = g.dbsearch.call(ProductSearch( 
-											sort = c.sort, 
-											category = c.cat, 
+											sort = c.sort,
 											page_size=PAGESIZE, 
 											program_id = c.aff_net_ref, 
 											search=search_term, 
@@ -113,13 +109,6 @@ class ProductController(BaseController):
 					return self.ajax_messages(_(u"PRODUCT_SEARCH_An Error Occured during search, please try again later."))
 		else:
 			c.searchresult = ProductSearch()
-		for cat in c.searchresult.categories:
-			if cat.id in c.ac.categories:
-				cat.name = c.ac.categories[cat.id].name
-			else:
-				cat.name = str(cat.id)
-		if c.cat: c.cat = int(c.cat)
-		elif len(c.searchresult.categories) == 1: c.cat = c.searchresult.categories[0].id
 		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
 	
 	@jsonify
@@ -133,13 +122,15 @@ class ProductController(BaseController):
 			log.info('parse error for date and aff_net and aff_prog_id in verify_dates: %s' % request.params)
 			return {'clearmessage':'true'}
 
-		c.ac = g.dbsearch.get(AffiliateConfig, country = c.region)
-		props = c.ac._affprogdict.get(str(c.aff_net), {}).get(str(c.aff_prog_id), {})
+		programs = g.get_aff_programs(c.region)
+		props = programs.map[str(c.aff_net)][str(c.aff_prog_id)]
+		if not props:
+			return {'clearmessage':'true'}
 		try:
 			c.deliverydays = timedelta(int(props.get('shippingdays', 0)))
 			c.deliverydays_warnlimit = timedelta(int(props.get('shippingdays_warn', 0)))
 		except:
-			log.info('parse error for deliveryDates in verify_dates: %s' % c.ac._affprogdict)
+			log.info('parse error for deliveryDates in verify_dates: %s' % programs.map)
 			return {'clearmessage':'true'}
 
 		if date.today() + c.deliverydays + c.deliverydays_warnlimit > c.date and date.today() + c.deliverydays <= c.date:

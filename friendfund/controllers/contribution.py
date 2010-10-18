@@ -40,6 +40,7 @@ class ContributionController(BaseController):
 							}
 		c.success = request.params.get('authResult') == 'AUTHORISED'
 		c.pool_fulfilled = False
+		c.show_delay = c.contrib.paymentmethod in ['paypal','directEbanking']
 		return self.render('/contribution/payment_details.html')
 	
 	@logged_in(ajax=False)

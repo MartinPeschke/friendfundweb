@@ -32,7 +32,6 @@ class MyprofileController(BaseController):
 	
 	@logged_in(ajax=False)
 	def save(self):
-		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
 		c.myprofile_values = {}
 		c.myprofile_errors = {}
 		if request.method != 'POST':
@@ -43,6 +42,7 @@ class MyprofileController(BaseController):
 		if 'is_default' in myprofile:
 			g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=myprofile['is_default']))
 		
+		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
 		try:
 			myprofile['email'] = getattr(c.myprofiles.profiles.get('email'), 'email', '')
 			form_result = schema.to_python(myprofile, state = FriendFundFormEncodeState)

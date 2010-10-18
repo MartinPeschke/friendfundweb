@@ -43,14 +43,11 @@ class BaseController(WSGIController):
 		"""Invoke the Controller"""
 		if 'lang' not in websession:
 			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
-		if 'region' not in websession:
-			region = request.headers.get("X-COUNTRY", g.locale).lower()
-			if region not in g.locale_codes:
-				region = g.locale
-			websession['region'] = region
-			
 		set_lang(websession['lang'])
-		
+		if 'region' not in websession:
+			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
+			region = g.country_choices.map.get(region, g.country_choices.fallback).code
+			websession['region'] = region
 		return WSGIController.__call__(self, environ, start_response)
 	
 	def __before__(self, action, environ):

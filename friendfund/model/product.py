@@ -1,7 +1,6 @@
 from babel.numbers import format_currency
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, GenericElement, DBMapping
-from friendfund.model.affiliateconfig import AffCategory
 
 from pylons import session as websession
 
@@ -91,7 +90,6 @@ class ProductSearch(DBMappedObject):
 				,GenericAttrib(int,'page_size' ,'page_size')
 				,GenericAttrib(int,'items' ,'items')
 				,GenericAttrib(str,'sort' ,'sort')
-				,DBMapper(AffCategory,'categories','CATEGORY', is_list = True)
 				,DBMapper(Product, 'products', 'PRODUCT', is_list = True)
 			]
 	

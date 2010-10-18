@@ -34,7 +34,7 @@
       
         <div class="whiteBoxSmall floaterLeft">
 			<div class="floaterLeft marginRight45">
-			<h2>${_("CONTRIBPAGE_LABEL_Your message to the receiver")}</h2>
+			<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
 			${forms.input_textarea("chipin","message", "")}
 			</div>
 			<div class="floaterLeft"> 

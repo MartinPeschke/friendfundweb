@@ -6,6 +6,7 @@ from DBUtils.PooledDB import PooledDB
 from datetime import datetime
 from friendfund.lib import minifb
 from friendfund.model import common
+from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc
 from friendfund.services.user_service import UserService
 from friendfund.services.payment_service import PaymentService
 from friendfund.services.amazon_service import AmazonService
@@ -38,14 +39,11 @@ class Globals(object):
 		self.TwitterApiKey = config['app_conf']['twitterapikey']
 		self.TwitterApiSecret = config['app_conf']['twitterapisecret']
 		
-		
-		self.locale = config['app_conf']['locale']
 		self.locale_codes = config['app_conf']['available_locale_codes'].split(',')
 		self.locales = config['app_conf']['available_locales'].split(',')
 		self.locale_lookup = dict(zip(self.locales, self.locale_codes))
 		
 		self.debug = config['debug']
-		
 		if self.debug:
 			self.revision_identifier = random()
 		else:
@@ -62,9 +60,7 @@ class Globals(object):
 		self.cc_validity_years = zip(range(datetime.today().year, datetime.today().year + 100), range(datetime.today().year, datetime.today().year + 100))
 		self.cc_validity_months = zip(range(1,13), range(1,13))
 		
-		dbpool = PooledDB(
-			pyodbc
-			,10
+		dbpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
 			,server=app_conf['pool.connectstring.server']
 			,instance=app_conf['pool.connectstring.instance']
@@ -73,13 +69,10 @@ class Globals(object):
 			,tds_version=app_conf['pool.connectstring.tds_version']
 			,uid=app_conf['pool.connectstring.uid']
 			,pwd=app_conf['pool.connectstring.pwd']
-			,client_charset=app_conf['pool.connectstring.client_charset']
-			,autocommit=True)
+			,client_charset=app_conf['pool.connectstring.client_charset'])
 		self.dbm = common.DBManager(dbpool, self.cache_pool, logging.getLogger('DBM'))
 		
-		searchpool = PooledDB(
-			pyodbc
-			,10
+		searchpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['fundbsearch.connectstring.driver']
 			,server=app_conf['fundbsearch.connectstring.server']
 			,instance=app_conf['fundbsearch.connectstring.instance']
@@ -88,14 +81,11 @@ class Globals(object):
 			,tds_version=app_conf['fundbsearch.connectstring.tds_version']
 			,uid=app_conf['fundbsearch.connectstring.uid']
 			,pwd=app_conf['fundbsearch.connectstring.pwd']
-			,client_charset=app_conf['fundbsearch.connectstring.client_charset']
-			,autocommit=True)
+			,client_charset=app_conf['fundbsearch.connectstring.client_charset'])
 		self.dbsearch = common.DBManager(searchpool, self.cache_pool, logging.getLogger('DBSearch'))
 		
 		if app_conf['serve_admin'] == 'true':
-			adminpool = PooledDB(
-				pyodbc
-				,2
+			adminpool = PooledDB(pyodbc,2,autocommit=True
 				,driver=app_conf['admin.connectstring.driver']
 				,server=app_conf['admin.connectstring.server']
 				,instance=app_conf['admin.connectstring.instance']
@@ -104,9 +94,14 @@ class Globals(object):
 				,tds_version=app_conf['admin.connectstring.tds_version']
 				,uid=app_conf['admin.connectstring.uid']
 				,pwd=app_conf['admin.connectstring.pwd']
-				,client_charset=app_conf['admin.connectstring.client_charset']
-				,autocommit=True)
+				,client_charset=app_conf['admin.connectstring.client_charset'])
 			self.dbadmin = common.DBManager(adminpool, self.cache_pool, logging.getLogger('DBAdmin'))
+		
+		self._db_globals={}
+		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
+		self.get_aff_programs = lambda region: self._db_globals.setdefault('affiliate_programs_%s' % region, self.dbsearch.get(GetAffiliateProgramsProc, country = region))
+		
+		
 		
 		self.user_service = UserService(config)
 		self.payment_service = PaymentService(app_conf['adyen.hostedlocation']

@@ -58,7 +58,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 
 		/*check if panel is of this/action or another kind, close it anyways */
 		var thisisopen = panel && dojo.hasClass(panel, action);
-		console.log(open_at_all_costs, thisisopen)
 		if (panel && ((thisisopen && !open_at_all_costs) || (!thisisopen)))_t.unload(_t, thisisopen);
 		
 		/*if closed panel was of another kind, we now wanna open this */
@@ -157,7 +156,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			params['occasion.date'] = formatDate(datepicker.value);
 			params['occasion.picture_url'] = dojo.attr(selected, "imgurl");
 			loadElement("/occasion/set", "occasion_panel", params, dojo.hitch(null, _t.set_complete, _t, 'occasion'));
-			_t.verify_dates(_t);
+			_t.verify_dates(_t, {occasion_date:params['occasion.date']});
 			_t.unload(_t, true);
 		} else {
 			var id = (!selected)?"occasion_button_bar":"occasion_date_input_bar";
@@ -172,10 +171,11 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		}
 	},
 	
-	verify_dates : function(_t){
-		var params = {net: dojo.byId("product_net").value,
-						occasion_date : dojo.byId("occasion_date").value,
-						progid: dojo.byId("product_progid").value
+	verify_dates : function(_t, args){
+		args = args || {};
+		var params = {net: args.net || dojo.byId("product_net").value,
+						occasion_date : args.occasion_date || dojo.byId("occasion_date").value,
+						progid: args.progid || dojo.byId("product_progid").value
 					}
 		if(params.net && params.occasion_date && params.progid){
 			xhrPost("/product/verify_dates", params);

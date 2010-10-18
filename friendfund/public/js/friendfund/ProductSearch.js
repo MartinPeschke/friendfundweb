@@ -89,7 +89,6 @@ dojo.declare("friendfund.ProductSearch", null, {
 		var params = _t.getSearchParams(_t);
 		dojo.mixin(params, {aff_net: dojo.attr(this, "aff_net")||null
 							, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
-							, cat : dojo.attr(this, "cat")||null
 							, sort : this.value||null
 							});
 		_t.search(_t, evt, params);
@@ -109,7 +108,6 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.mixin(params, {page:dojo.attr(this, "page")||null
 					, aff_net: dojo.attr(this, "aff_net")||null
 					, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
-					, cat : dojo.attr(this, "cat")||null
 					, sort : dojo.attr(this, "sort")||null});
 		_t.search(_t, evt, params);
 		evt.stopPropagation();

@@ -4,6 +4,14 @@
 <div id="button_panel" class="product">
 	<h2>${_("PRODUCT_SEARCH_PANEL_Find the pefect gift")}</h2>
 	<a class="button_panel_closer">&nbsp;</a>
+	<div class="region_picker">
+	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
+	<select name="region" id="region_picker" style="padding: 3px;" >
+		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
+			<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
+		%endfor
+	</select>
+	</div>
     <div class="whiteContainer">
 		<form id="product_search_form" onsubmit="return false;" >
 			<a name="product_search" id="product_search"></a> 
@@ -21,15 +29,6 @@
 			
 			
 			<span class="showme"><a href="#" _href="/content/amazonhowto" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}</a><img src="/static/imgs/icon_amazon.png"/></span>
-		
-			<div class="region_picker">
-			<span>${_("PRODUCT_SEARCH_PANEL_Select friend shipping adress region")} &nbsp;&nbsp;</span>
-			<select name="region" id="region_picker">
-				%for k in sorted(app_globals.locale_lookup.values()):
-					<option value="${k}" ${forms.expression_quote(k==c.region, "selected")|n}>${_(k)}</option>
-				%endfor
-			</select>
-			</div>
 		</form>
 		
 		<div class="clear"></div>
@@ -61,7 +60,7 @@
 		<div id="product_browser">
 			%if c.searchresult.items > 0:
 				<div class="product_sorter" >
-					<select name="sort" id="psort" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">
+					<select name="sort" id="psort" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">
 						%for ac in c.sortees:
 							<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
 						%endfor
@@ -82,7 +81,7 @@
 				%>
 					%if page_no > 1:
 						<span class="veryfirst">
-						<a href="#" class="paginator" page="${page_no-1}" sort="${c.sort}" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+						<a href="#" class="paginator" page="${page_no-1}" sort="${c.sort}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
 						</span>
 					%endif
 					%for i in page_field:
@@ -91,14 +90,14 @@
 							<span class="selected">${i}</span>
 						%else:
 							<span>
-								<a href="#" class="paginator" page="${i}" sort="${c.sort}" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${i}</a>
+								<a href="#" class="paginator" page="${i}" sort="${c.sort}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${i}</a>
 							</span>
 						%endif
 						</span>
 					%endfor
 					%if page_no < pages:
 						<span class="verylast">
-						<a href="#" class="paginator" page="${page_no+1}" sort="${c.sort}" cat="${c.cat}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
+						<a href="#" class="paginator" page="${page_no+1}" sort="${c.sort}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
 						</span>
 					%endif
 				</div>
