@@ -30,8 +30,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false));
 	},
 	submit:function(_t, evt){
-		var is_inactive = dojo.query('.inactive', this).length;
-		if (is_inactive === 0){
+		if (!dojo.hasClass(this, 'inactive')){
 			dojo.forEach(_t._listener_globals, dojo.disconnect);
 			_t._listener_globals = [];
 			dojo.byId("pool_configurator_form").submit();
@@ -45,7 +44,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		for (var elem in _t.selected_elems){
 			complete = _t.selected_elems[elem] && complete;
 		}
-		if(complete==true){dojo.query('.inactive', "funders_button").removeClass("inactive");}
+		if(complete==true){dojo.removeClass("funders_button", "inactive");}
 		return complete;
 	},
 	set_complete : function(_t, action){

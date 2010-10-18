@@ -5,29 +5,14 @@
 <%namespace name="html" file="widgets/html_elems.html"/>
 <%namespace name="forms" file="widgets/forms.html"/>
 ${self.master_head()}
-
-<!--  Content -->
-
 ${self.body()}
-
-<!--  Master Foot -->
 ${self.master_foot()}
 
 <%def name="master_head()">
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
 	<head>
-		<script type="text/javascript">
-		  var _kmq = _kmq || [];
-		  function _kms(u){
-			setTimeout(function(){
-			  var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
-			  s.src = u; f.parentNode.insertBefore(s, f);
-			}, 1);
-		  }
-		  _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/50cb8d4c3b868770ea42ee449bb2f5217a5b786c.1.js');
-		</script>
-		<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+		<script type="text/javascript">var _kmq = _kmq || [];function _kms(u){setTimeout(function(){var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;s.src = u; f.parentNode.insertBefore(s, f);}, 1);}_kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/50cb8d4c3b868770ea42ee449bb2f5217a5b786c.1.js');</script>
 		<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<title>Friendfund.com | ${self.title()}</title>
@@ -72,16 +57,11 @@ ${self.master_foot()}
 	<div id="siteinfo">
 		<div class="siteinfo1">
 			<div class="siteinfo2">
-				<div id="verisignseal">
-				<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-					<tr>
-					<td width="135" align="center" valign="top">
-						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=L&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-					</td>
-					</tr>
-				</table>
-				</div>
+				<div id="verisignseal"><table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications."><tr><td width="135" align="center" valign="top">
+					<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+					<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a></td>
+				</tr></table></div>
+				
 				<div class="siteinfo_copyright"><p>${_(u"SITEINFO_2010(c) friendfund")|n}</p><p>${_(u"SITEINFO_Handmade in Berlin")|n}</p></div>
 				<a href="http://blog.friendfund.com" class="siteinfo_content">${_(u"SITEINFO_Blog")|n}</a>
 				<a href="http://blog.friendfund.com/?page_id=108" class="siteinfo_content">${_(u"SITEINFO_Jobs")|n}</a>
@@ -129,40 +109,9 @@ ${self.master_foot()}
 			${self.onloadscripts()}
 		});
 	</script>
-	
-	
-	<script type="text/javascript" charset="utf-8">
-	  var is_ssl = ("https:" == document.location.protocol);
-	  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-	  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript" charset="utf-8">
-	  var feedback_widget_options = {};
-	  feedback_widget_options.display = "overlay";  
-	  feedback_widget_options.company = "friendfund";
-	  feedback_widget_options.placement = "right";
-	  feedback_widget_options.color = "#222";
-	  feedback_widget_options.style = "idea";
-	  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-	</script>
-	<script type="text/javascript">
-	var _sf_async_config={uid:13561,domain:"friendfund.com"};
-	(function(){
-	  function loadChartbeat() {
-		window._sf_endpt=(new Date()).getTime();
-		var e = document.createElement('script');
-		e.setAttribute('language', 'javascript');
-		e.setAttribute('type', 'text/javascript');
-		e.setAttribute('src',
-		   (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://") +
-		   "static.chartbeat.com/js/chartbeat.js");
-		document.body.appendChild(e);
-	  }
-	  var oldonload = window.onload;
-	  window.onload = (typeof window.onload != 'function') ?
-		 loadChartbeat : function() { oldonload(); loadChartbeat(); };
-	})();
-	</script>
+	<script type="text/javascript" charset="utf-8">var is_ssl = ("https:" == document.location.protocol);var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));</script>
+	<script type="text/javascript" charset="utf-8">var feedback_widget_options = {};feedback_widget_options.display = "overlay";feedback_widget_options.company = "friendfund";feedback_widget_options.placement = "right";feedback_widget_options.color = "#222";feedback_widget_options.style = "idea";var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);</script>
+	<script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-17547754-2']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
 	</body>
 	</html>
 </%def>

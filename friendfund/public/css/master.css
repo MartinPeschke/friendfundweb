@@ -72,6 +72,7 @@ h3 {
 .vlast {
 	margin-bottom: 0px !important;
 }
+.hover {cursor:pointer}
 /*-------------------------------- black_labeled_input ------------------------------------*/
 
 input.small{
@@ -168,7 +169,7 @@ div.black_labeled_container a.left_button_search {
 }
 a.black_labeled_container {
 	position: relative;
-	padding: 5px 7px 6px 5px;
+	padding: 5px 5px 6px 2px;
 	line-height:25px;
 	border: 0px solid transparent;
 	color: #ffffff;
@@ -228,6 +229,7 @@ a.red_labeled_container {
 	color:#FFFFFF;
 	position:relative;
 	cursor:pointer;
+	text-shadow: #770B3E 0px -1px 0px;
 }
 a.red_labeled_container div.right_bracket {
 	background:url("/static/imgs/inputfield.png") no-repeat scroll -473px -5px transparent;
@@ -484,7 +486,6 @@ div.frontpagebutton {
 	width:228px;
 	height:300px;
 	margin: 1px;
-	cursor: pointer
 }
 div.frontpagebutton.first {
 	margin: 1px 1px 1px 0px;
@@ -505,10 +506,8 @@ div.frontpagebutton.funders {
 	margin-right: 22px;
 	margin-top: 40px;
 }
-#funders_button {
-	position: relative;
-	width: 164px;
-	height: 78px;
+#funders_panel .hpbutton  .button_content {
+	width: 202px !important
 }
 #funders_panel_tooltip {
 	color:#B70158;
@@ -1462,7 +1461,7 @@ font-size: 14px
 			font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
 			font-size:28px;font-weight:normal; color: #fff;
 		}
-#badge_popup_content .badge_text {float:right;font-size:20px;margin:90px 80px 0 0px;position:relative;width:300px;}
+#badge_popup_content .badge_text {float:right;font-size:20px;margin:90px 80px 0 0px;position:relative;width:300px;text-align: left;}
 #badge_popup_content .badge_icon {width: 350px;height: 300px;position: relative; float: left;margin:0px 0px 0px 30px;}
 .panelclosing_x {position: absolute;top: 3px; right: 10px;text-decoration: none;color:white;font-weight:bold;font-size:16px}
 .panelclosing_x_black {position: absolute;top: 3px; right: 10px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;}
@@ -1546,11 +1545,6 @@ div.window_container  div.window div.popupContent ol li{
 /* *************************************** POPUPS ***************************************** */
 /* *************************************** ****** ***************************************** */
 
-
-
-#funders_button .button_content {
-	width: 202px !important
-}
 #mypools {
 	padding: 30px;
 }
