@@ -182,7 +182,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,'phase', 'phase'			)
 			, GenericAttrib(datetime,'expiry_date', 'expiry_date')
 			, GenericAttrib(bool, 'is_secret', 'is_secret'  )
-			, GenericAttrib(bool, 'is_virtual', 'is_virtual'  )
+			, GenericAttrib(bool, 'is_virtual', 'is_virtual')
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
 			, DBMapper(PoolUser, 'suspect', None, persistable = False)

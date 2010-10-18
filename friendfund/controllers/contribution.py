@@ -28,16 +28,7 @@ class ContributionController(BaseController):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
 		if not g.payment_service.verify_result(request.params):
 			abort(404)
-		
 		c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
-		c.contrib = websession.get('contribution')
-		if c.contrib:
-			c.chipin_values = {"amount": h.format_number(c.contrib.get_amount())
-								, 'payment_method':c.contrib.paymentmethod
-								, 'is_secret':c.contrib.is_secret
-								, 'anonymous':c.contrib.anonymous and 'yes' or 'no'
-								, 'message':c.contrib.message
-							}
 		c.success = request.params.get('authResult') == 'AUTHORISED'
 		c.pool_fulfilled = False
 		return self.render('/contribution/payment_details.html')
