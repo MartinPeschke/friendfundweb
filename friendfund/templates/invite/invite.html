@@ -17,7 +17,7 @@
 			invited_node :"invited",
 			method : "${c.method}",
 			fb_api_key : "",
-			base_url : "${url(controller='invite', pool_url=c.pool.p_url)}"
+			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"
 		});
 	page.selector.${c.method}.draw();
 	

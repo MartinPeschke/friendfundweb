@@ -9,14 +9,14 @@
 		${(_("POOL_BUTTON_Hi %(user_name)s<br/>Please help us to share the costs for %(receiver_name)s's gift.")%locals)|n}
 		
 		
-		<div class="centered"><a href="${app_globals.SECURE_SITE_ROOT_URL}/pool/${pool_url}/chipin" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
-		<a href="${app_globals.SECURE_SITE_ROOT_URL}/pool/${pool_url}/chipin"><img src="/static/imgs/icons_paymethod.png"/></a>
+		<div class="centered"><a href="${url(controller='pool', pool_url=pool_url, action='chipin')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
+		<a href="${url(controller='pool', pool_url=pool_url, action='chipin')}"><img src="/static/imgs/icons_paymethod.png"/></a>
 	</div>
 	
 	
 	
 	<div style="width:220px;margin:30px auto 0 auto;">
-	<%html:button href="/invite/${pool_url}">${_("POOL_BUTTON_Invite more Friends")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>
+	<%html:button href="${url('invite_index', controller='invite', pool_url=pool_url)}">${_("POOL_BUTTON_Invite more Friends")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>
 	
 	</div>
 	</div>

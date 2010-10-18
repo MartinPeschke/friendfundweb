@@ -25,13 +25,13 @@ def make_map(config):
 	map.connect('get_pool', '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
 	map.connect('/pool/{pool_url}/chipin', controller='contribution', action="chipin", requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
 	map.connect('/pool/{pool_url}/chipin_fixed', controller='contribution', action="chipin_fixed", requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
-	map.connect('/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
+	map.connect('pool_action', '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
 	
 	map.connect('/invite/friends', controller='invite', action='friends')
 	
-	map.connect('/invite/{pool_url}/{method}', controller='invite', action='method', requirements={'pool_url': '[0-9a-zA-Z.~_-]+', 'method':CONNECT_METHODS})
-	map.connect('/invite/{pool_url}', controller='invite', action='display', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
-	map.connect('/invite/{pool_url}/{action}', controller='invite', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
+	map.connect('invite', '/invite/{pool_url}/{method}', controller='invite', action='method', requirements={'pool_url': '[0-9a-zA-Z.~_-]+', 'method':CONNECT_METHODS})
+	map.connect('invite_index', '/invite/{pool_url}', controller='invite', action='display', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
+	map.connect('invite_action', '/invite/{pool_url}/{action}', controller='invite', requirements={'pool_url': '[0-9a-zA-Z.~_-]+'})
 	map.connect('/receiver/{method}', controller='receiver', action='method', requirements={'method':CONNECT_METHODS})
 	map.connect('/mybadges/panel/{badge_name}', controller="mybadges", action="panel")
 	map.connect('/myprofile/{action}/{token}', controller="myprofile")

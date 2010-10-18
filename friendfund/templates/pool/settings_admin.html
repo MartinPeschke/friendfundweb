@@ -27,7 +27,7 @@
 						}}).play();
 			} else {
 				console.log("saving");
-				window.location.href = "/pool/${c.psettings.p_url}/close";
+				window.location.href = "${url('pool_action', controller='pool', pool_url=c.psettings.p_url, action='close')}";
 				return;
 			}
 		}
