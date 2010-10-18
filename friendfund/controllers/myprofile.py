@@ -24,13 +24,6 @@ class MyprofileController(BaseController):
 		return self.render('/myprofile/index.html')
 	
 	@logged_in(ajax=False)
-	def notifications(self):
-		return self.render('/myprofile/notifications.html')
-	@logged_in(ajax=False)
-	def network(self):
-		return self.render('/myprofile/network.html')
-	
-	@logged_in(ajax=False)
 	def save(self):
 		c.myprofile_values = {}
 		c.myprofile_errors = {}

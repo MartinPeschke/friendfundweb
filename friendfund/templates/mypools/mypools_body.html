@@ -2,8 +2,8 @@
 
 <%def name="render_tabs(selected)">
 	<div class="tabContainer">
-		<a href="/mypools" ${(selected=="mypools" and 'class="selected"' or '')|n}><span>${_("MYPOOLS_TAB_My Pools")}</span></a>
-		<a href="/mypools/friends" ${(selected=="friends" and 'class="selected"' or '')|n}><span>${_("MYPOOLS_TAB_Friends' Pools")}</span></a>
+		<a href="${url('controller', controller='mypools')}" ${(selected=="mypools" and 'class="selected"' or '')|n}><span>${_("MYPOOLS_TAB_My Pools")}</span></a>
+		<a href="${url(controller='mypools', action='friends')}" ${(selected=="friends" and 'class="selected"' or '')|n}><span>${_("MYPOOLS_TAB_Friends' Pools")}</span></a>
 	</div>
 </%def>
 
@@ -67,6 +67,6 @@
 			%endif
 			</div>
 		
-		<div style="position: absolute;right:20px;bottom:18px;"><a class="submitSmall bottom"  href="/pool/${pool.p_url}"><span>${_("MYPOOLS_CONTENT_View")}</span></a></div></div>
+		<div style="position: absolute;right:20px;bottom:18px;"><a class="submitSmall bottom"  href="${url('get_pool', pool_url=pool.p_url)}"><span>${_("MYPOOLS_CONTENT_View")}</span></a></div></div>
 	
 </%def>

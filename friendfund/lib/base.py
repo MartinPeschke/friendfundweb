@@ -3,7 +3,7 @@
 Provides the BaseController class for subclassing.
 """
 import logging
-from pylons import request, session as websession, tmpl_context as c, config, app_globals as g
+from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
 from pylons.controllers import WSGIController
 from pylons.i18n.translation import get_lang, set_lang, _
 from pylons.templating import render_mako as render
@@ -56,7 +56,7 @@ class BaseController(WSGIController):
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
 		c.furl = request.path_info
-		log.info('[%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], request.path_info)
+		log.info('[%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], url.current())
 	
 	def __after__(self, action, environ):
 		"""When everything is said and done, Save Session State"""

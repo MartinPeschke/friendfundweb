@@ -41,7 +41,7 @@
 	</div>
 	<div class="friendsBadge" id="friendsBadgesContainer">
 		<h2 class="small">${_("MYBADGES_LABEL_Friends' Latest Badges")}</h2>
-		<div id="friendsBadges" class="pagelet" pagelet_href="/mybadges/friends">
+		<div id="friendsBadges" class="pagelet" pagelet_href="${url(controller='mybadges', action='friends')}">
 			${html.loading_animation()|n}
 		</div>
 	</div>

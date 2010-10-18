@@ -17,7 +17,7 @@
 			invited_node :"invited",
 			method : "${c.method}",
 			fb_api_key : "",
-			base_url : "/invite/${c.pool.p_url}"
+			base_url : "${url(controller='invite', pool_url=c.pool.p_url)}"
 		});
 	page.selector.${c.method}.draw();
 	
@@ -61,7 +61,7 @@
 		</div>
 		${html.clearline()}
 		<div id="invitescontainer" class="innerbody">
-			<form action="/invite/${c.pool_url}/friends" onsubmit="return prepareSubmit()" method="POST" id="invitees">
+			<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<div id="invites">
 				<div id="inviter">
 					Loading...

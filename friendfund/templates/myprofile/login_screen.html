@@ -23,13 +23,13 @@
 				</div>
 				<br/>
 				<div class="forminputline" style="margin:15px 90px;float:left;clear:both;">
-					<a href="/twitter/login?furl=/" class="twitterBtn" title="${_("Connect with Twitter")}">
+					<a href="${url(controller='twitter', action='login')}?furl=/" class="twitterBtn" title="${_("Connect with Twitter")}">
 						<span>${_("Connect with Twitter")}</span>
 					</a>
 				</div>
 			</div>
 			<div style="float:left;clear:both;margin: 0px 20px">
-			<form action="/login" method="POST" id="login_form">
+			<form action="${url('index', action='login')}" method="POST" id="login_form">
 				<div class="forminputline">
 					<label>${_("LOGIN_PAGE_LABEL_or by")}</label><br>
 				</div>
@@ -39,7 +39,7 @@
 				</div>
 				<div class="forminputline signup_login">
 					${forms.input_text("login", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False)|n}
-					<div><a class="lostpass" href="/myprofile/password">${_("LOGIN_PAGE_LABEL_Forgot Password?")}</a></div>
+					<div><a class="lostpass" href="${url(controller='myprofile', action='password')}">${_("LOGIN_PAGE_LABEL_Forgot Password?")}</a></div>
 				</div>
 				<div style="bottom: 20px;right: 30px;position:absolute;">
 					${forms.black_submitlink(_("LOGIN_PAGE_BUTTON_Login"), [("onclick", "dojo.byId('login_form').submit();")], "submitter")|n}
@@ -55,7 +55,7 @@
 		</div>
 		<div class="panel_content white">
 			<div class="panel_content_inner">
-			<form id="signup_form" action="/signup" method="POST" enctype="multipart/form-data">
+			<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
 				<div class="forminputline">
 					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Name"))|n}
 				</div>

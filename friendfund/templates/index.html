@@ -60,7 +60,7 @@
 </%def>
 
 
-<form action="/pool/create" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
+<form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
 	<div id="pool_configurator">
 		<div id="verisignsealindex">
 		<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">

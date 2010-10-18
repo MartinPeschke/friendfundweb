@@ -10,7 +10,7 @@
 
 
 <div id="login_signup_container">
-	<form id="myprofile_form" action="/myprofile/save" method="POST" enctype="multipart/form-data">
+	<form id="myprofile_form" action="${url(controller='myprofile', action='save')}" method="POST" enctype="multipart/form-data">
 	<div class="subCategories">Manage your User Accounts</div>
 	<div class="profilePictureContainer" style="margin-right:30px">
 	<p class="facebookTxt"><img src="/static/imgs/icon_fb_connect.png"/>Facebook</p>
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 	%else:
-		<div class="profilebuttonBtn"><a href="/twitter/login?furl=/myprofile" class="twitterBtn"><span>Connect with Twitter</span></a></div>
+		<div class="profilebuttonBtn"><a href="${url(controller='twitter', action='login')}?furl=/myprofile" class="twitterBtn"><span>Connect with Twitter</span></a></div>
 	%endif
 	</div>
 	</div>

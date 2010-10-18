@@ -1,7 +1,7 @@
 import logging, formencode, uuid, md5, os
 from cgi import FieldStorage
 
-from pylons import request, response, session as websession, tmpl_context as c, config, app_globals as g
+from pylons import request, response, session as websession, tmpl_context as c, config, app_globals as g, url
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
@@ -50,14 +50,14 @@ class IndexController(BaseController):
 			del websession['invitees']
 		if 'pool' in websession:
 			del websession['pool']
-		result = {'redirect':'/'}
+		result = {'redirect':url('home')}
 		clear_blocks()
 		return result
 	
 	def login(self):
 		if not c.user.is_anon:
 			c.messages.append(_(u"USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"))
-			return redirect('/')
+			return redirect(url('home'))
 		c.furl = request.params.get('furl', '')
 		c.login_values = {}
 		c.login_errors = {}
@@ -77,7 +77,7 @@ class IndexController(BaseController):
 						)
 			c.user.network = 'email'
 			c.user.email = c.login_values['email']
-			return redirect('/')
+			return redirect(url('home'))
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
@@ -109,7 +109,7 @@ class IndexController(BaseController):
 						)
 			c.user.network = 'email'
 			c.user.email = c.signup_values['email']
-			return redirect('/')
+			return redirect(url('home'))
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
 			c.signup_errors = error.error_dict or {}

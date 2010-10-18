@@ -6,9 +6,9 @@
 		<b>${_(u"PANEL_LOGIN_Connect")}</b>
 		<a onclick="fbLogin(forward('${getattr(c, 'furl', '/')}'))" class="login_loginlink"><img src="/static/imgs/icon_fb_connect.png"/></a>
 		<a onclick="twInit('${getattr(c, 'furl', '/')}')" class="login_loginlink"><img src="/static/imgs/icon_tw_connect.png"/></a>
-		<a href="/login?furl=${getattr(c, 'furl', '/')}" class="login_loginlink"><img src="/static/imgs/icon_mail.png"/></a>
+		<a href="${url('index', action='login')}?furl=${getattr(c, 'furl', '/')}" class="login_loginlink"><img src="/static/imgs/icon_mail.png"/></a>
 	%else:
-		<a href="/mypools">
+		<a href="${url('controller', controller='mypools')}">
 			${_("PANEL_LOGIN_Welcome")}
 			<img id="login_panel_profile_pic" src="${c.user.get_profile_pic()}"/>
 			<span class="name">${c.user.name or c.user.email}</span></a> |
