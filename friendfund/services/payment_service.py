@@ -23,6 +23,7 @@ class PaymentService(object):
 		sign_base["shipBeforeDate"] = (datetime.datetime.now() + datetime.timedelta(1)).strftime("%Y-%m-%d")
 		sign_base["sessionValidity"] = (datetime.datetime.now() + datetime.timedelta(0, 1800)).strftime("%Y-%m-%dT%H:%M:%SZ")
 		sign_base["allowedMethods"] = payment_method
+		sign_base["brandCode"] = payment_method
 		sign_base.update(params)
 		return sign_base
 	

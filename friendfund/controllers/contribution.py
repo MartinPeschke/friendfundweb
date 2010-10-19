@@ -27,7 +27,9 @@ class ContributionController(BaseController):
 	def chipin_current(self):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
 		if not g.payment_service.verify_result(request.params):
-			abort(404)
+			return abort(404)
+		elif not c.user.current_pool:
+			return abort(404)
 		
 		c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
 		c.contrib = websession.get('contribution')
