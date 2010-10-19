@@ -1,3 +1,4 @@
+from __future__ import with_statement
 import logging, urllib, urllib2, simplejson, os, celery
 from friendfund.lib import oauth
 
@@ -24,3 +25,10 @@ def remote_persist_user(user_data):
 	remote_profile_picture_render.delay([(user_data['network'], user_data['network_id'], user_data['profile_picture_url'])])
 	tw_helper.get_friends_from_cache(log, get_cm(CONNECTION_NAME), user_data['access_token'], user_data['access_token_secret'], config)
 	return 'ack'
+
+@task
+def get_friends(key, consumer, access_token, access_token_secret, expiretime=3600):
+	cache_pool = get_cm(CONNECTION_NAME)
+	with cache_pool.reserve() as mc:
+		obj = tw_helper.get_friends(log, access_token, access_token_secret, consumer)
+		mc.set(key, obj, expiretime)

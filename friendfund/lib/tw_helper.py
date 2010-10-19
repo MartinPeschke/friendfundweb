@@ -1,6 +1,8 @@
 from __future__ import with_statement
 import re, time, urllib2, simplejson, time
 from friendfund.lib import oauth
+from friendfund.lib.tools import robust_cacher
+
 
 request_token_url = 'http://api.twitter.com/oauth/request_token'
 access_token_url = 'http://api.twitter.com/oauth/access_token'
@@ -79,22 +81,7 @@ def get_friends(logger, access_token, access_token_secret, consumer):
 	data_dict.update(get_friend_list("https://api.twitter.com/1/statuses/followers.json", "TWEET", access_token, access_token_secret, consumer))
 	return data_dict
 
-def get_friends_from_cache(logger, cache_pool, access_token, access_token_secret, config, expiretime=1800):
+def get_friends_from_cache(logger, cache_pool, access_token, access_token_secret, config, expiretime=3600):
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	key = '<%s>%s' % ('friends_facebook', str(access_token))
-	with cache_pool.reserve() as mc:
-		obj = mc.get(key)
-		if obj is None:
-			mc.set(key, INPROCESS_TOKEN, 30)
-			try:
-				obj = get_friends(logger, access_token, access_token_secret, consumer)
-				mc.set(key, obj, expiretime)
-			except:
-				mc.delete(key)
-				raise
-		elif obj == INPROCESS_TOKEN:
-			while obj == INPROCESS_TOKEN:
-				time.sleep(1)
-				obj = mc.get(key)
-	logger.info('Retrieved %s TWFriends' % len(obj))
-	return obj
+	return robust_cacher(logger, cache_pool, key, expiretime, 30, 'friendfund.tasks.twitter.get_friends', key, consumer, access_token, access_token_secret, expiretime)
