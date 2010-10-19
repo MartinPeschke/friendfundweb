@@ -13,7 +13,7 @@ def update_keys(conn):
 	res = cur.execute('exec app.get_keys;')
 	r = res.fetchone()[0]
 	result = etree.fromstring(r)
-	outf = open('friendfund/resources/db_keys.py', 'w')
+	outf = open('%s/friendfund/resources/db_keys.py' % os.getcwd(), 'w')
 	outf.write("from pylons.i18n import ugettext as _\n\n")
 	outf.write("KEYS=[\n\t")
 	out = outf.write('\n\t,'.join('_("%s")' % (k.replace('"', '\"')) for k in result.xpath('KEYS/@NAME')))

@@ -9,6 +9,7 @@ class AttributeMissingInProductException(Exception): pass
 class URLUnacceptableError(Exception): pass
 class TooManyOffersError(Exception): pass
 class MoreThanOneProductFoundError(Exception): pass
+class WrongRegionAmazonError(Exception): pass
 
 class AmazonService(object):
 	def __init__(self, base_url, affiliateid, key, secret):

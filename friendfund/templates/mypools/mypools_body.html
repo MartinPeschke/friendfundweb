@@ -2,8 +2,13 @@
 
 <%def name="render_tabs(selected)">
 	<div class="tabContainer">
-		<a href="${url('controller', controller='mypools')}" ${(selected=="mypools" and 'class="selected"' or '')|n}><span>${_("MYPOOLS_TAB_My Pools")}</span></a>
-		<a href="${url(controller='mypools', action='friends')}" ${(selected=="friends" and 'class="selected"' or '')|n}><span>${_("MYPOOLS_TAB_Friends' Pools")}</span></a>
+		%if selected=="mypools":
+			<a class="selected"><span>${_("MYPOOLS_TAB_My Pools")}</span></a>
+			<a class="unselected" href="${url(controller='mypools', action='friends')}"><span>${_("MYPOOLS_TAB_Friends' Pools")}</span></a>
+		%else:
+			<a class="unselected" href="${url('controller', controller='mypools')}"><span>${_("MYPOOLS_TAB_My Pools")}</span></a>
+			<a class="selected"><span>${_("MYPOOLS_TAB_Friends' Pools")}</span></a>
+		%endif
 	</div>
 </%def>
 
