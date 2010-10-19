@@ -18,6 +18,6 @@
 		<label>${_("POOLSETTINGS_LABEL_Country")}(*)</label><span class="requiredvalue">${c.shipping_values.get('country') and _(c.shipping_values.get('country')) or ''}</span>
 	</div>
 	<div style="position:absolute; right:30px;bottom:15px;">
-		${forms.black_submitlink(_("POOLSETTINGS_Edit"), [("onclick", "loadElement('/pool/%s/edit_address', 'shippingAddressContainerBox',{type:'shipping'});"%c.pool_url)], "settings_submitter")|n}
+		${forms.black_submitlink(_("POOLSETTINGS_Edit"), [("onclick", "loadElement('%s', 'shippingAddressContainerBox',{type:'shipping'});"%url(controller='pool', pool_url=c.pool_url, action='edit_address'))], "settings_submitter")|n}
 	</div>
 </div>

@@ -64,7 +64,7 @@ class ContributionController(BaseController):
 		c.action = 'chipin'
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
-			return redirect("/pool/%s" % pool_url)
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.chipin_values = getattr(c, 'chipin_values', {})
 		c.chipin_errors = getattr(c, 'chipin_errors', {})
 		c.amount_fixed = False
@@ -76,7 +76,7 @@ class ContributionController(BaseController):
 		chipin = formencode.variabledecode.variable_decode(request.params).get('chipin', None)
 		if chipin.get('payment_method') not in ['credit_card', 'paypal','directEbanking']:
 			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect('/pool/%s/chipin' % pool_url)
+			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
 		schema = PaymentConfForm()
 		try:
 			schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
@@ -112,12 +112,12 @@ class ContributionController(BaseController):
 				g.payment_service.get_request(c.user, contrib, pool_url, chipin.get('payment_method'))
 			except SProcException, e:
 				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-				return redirect('/pool/%s/chipin' % pool_url) 
+				return redirect(url('chipin', pool_url=pool_url, protocol='https'))
 		elif chipin.get('payment_method') == 'credit_card':
-			return redirect('/contribution/%s/details?token=%s' % (pool_url, c.form_secret))
+			return redirect(url(controller='contribution', pool_url=pool_url, action='details', token=c.form_secret, protocol='https'))
 		else:
 			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect('/pool/%s/chipin' % pool_url)
+			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
 	
 	@logged_in(ajax=False)
 	@no_blocks(ajax=False)
@@ -132,7 +132,7 @@ class ContributionController(BaseController):
 			c.creditcard_values = {}
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
-			return redirect('/pool/%s/chipin' % pool_url)
+			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
 		c.contrib = websession['contribution']
 		return self.render('/contribution/payment_details.html')
 	
@@ -147,7 +147,7 @@ class ContributionController(BaseController):
 		c.creditcard_errors = {}
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
-			return {'redirect' :'/pool/%s/chipin' % pool_url}
+			return {'redirect':url('chipin', pool_url=pool_url, protocol='https')}
 		if request.method != 'POST':
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
 		c.form_secret = request.POST.get('formtoken')
@@ -171,7 +171,7 @@ class ContributionController(BaseController):
 				websession['contribution'].methoddetails = CreditCard(**form_result)
 			except AttributeError, e:
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
-				return {'redirect':('/pool/%s/chipin' % pool_url)}
+				return {'redirect':url('chipin', pool_url=pool_url, protocol='https')}
 		try:
 			action = rem_token(c.form_secret)
 			c.pool_fulfilled = action == 'chipin_fixed'

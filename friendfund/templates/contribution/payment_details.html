@@ -7,7 +7,7 @@
 		evt.stopPropagation();
 		evt.preventDefault();
 		dojo.place(loading_animation, dojo.byId("payment_details_status"), "first");
-		xhrFormPost("/contribution/${c.pool.p_url}/creditcard", "payment_details_form", function(data){
+		xhrFormPost("${url(controller='contribution', pool_url=c.pool.p_url, action='creditcard')}", "payment_details_form", function(data){
 			dojo.place(data.html, dojo.byId("payment_details_status"), "only");
 			dojo.connect(dojo.byId("payment_details_submitter"), "onclick", submitForm);
 		});

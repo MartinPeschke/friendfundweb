@@ -29,7 +29,7 @@
 
 <div id="contributioncontainer" class="innerbody">
   <div class="panel_content">
-    <form method="POST" action="/pool/${c.pool.p_url}/${c.action}" id="contribution_form">
+    <form method="POST" action="${url(controller='pool', pool_url=c.pool.p_url, action=c.action, protocol='https')}" id="contribution_form">
       <div class="message floaterLeft">
       
         <div class="whiteBoxSmall floaterLeft">
@@ -116,9 +116,9 @@
     </form>
 	<div style="padding-top:20px;float:left;width:880px;">
 		%if c.amount_fixed:
-			<a class="submitSmallLeft settings_submitter" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}/settings"><span>${_("CONTRIBPAGE_LABEL_Back To Pool Settings")}</span></a>
+			<a class="submitSmallLeft settings_submitter" href="${url(controller='pool', pool_url=c.pool.p_url, action='settings', protocol='http')}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool Settings")}</span></a>
 		%else:
-			<a class="submitSmallLeft settings_submitter" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool")}</span></a>
+			<a class="submitSmallLeft settings_submitter" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool")}</span></a>
 		%endif
 		<a class="submitSmall" onclick="dojo.byId('contribution_form').submit();" id="submitter"><span>${_("CONTRIBPAGE_LABEL_Submit")}</span></a>
 	</div>

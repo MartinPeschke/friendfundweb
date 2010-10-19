@@ -23,7 +23,7 @@ from datetime import date, timedelta
 		${render_gift_vouchers(action, psettings)}
 	%else:
 		<div class="panel_content">
-			<form method="POST" action="/pool/${c.pool_url}/action" id="form_${action.name}">
+			<form method="POST" action="${url(controller='pool', pool_url=c.pool_url, action='action')}" id="form_${action.name}">
 			%if psettings.is_expired() and action.is_extending:
 					${forms.black_input_datepicker("datestamp_%s" % action.name, "expiry_date", psettings.get_internal_expiry_date(5), label=_("POOLSETTINGS_ACTION_LABEL_Pick an Extension Date"), width=150, args=[("constraints", "{min:'%s'}"%psettings.get_internal_expiry_date(5))])|n}
 			%endif
@@ -52,7 +52,7 @@ from datetime import date, timedelta
 <%def name="render_payment_form(action, psettings)">
 		<div id="contributioncontainer" class="forminputline">
 			<label style="width: 200px;">${_("ADMIN_ACTION_BUTTON_Go On and Contribute the missing:")} </label><span class="fixedvalue">${h.format_currency(c.pool.get_amount_left(),c.pool.currency)|n}</span>
-			<a class="submitSmall" href="${app_globals.SECURE_SITE_ROOT_URL}/pool/${psettings.p_url}/chipin_fixed" id="submitter"><span>${_("CONTRIBPAGE_BUTTON_Chip in Remainder")}</span></a>
+			<a class="submitSmall" href="${url('chipin_fixed', pool_url=psettings.p_url, protocol='https')}" id="submitter"><span>${_("CONTRIBPAGE_BUTTON_Chip in Remainder")}</span></a>
 		</div>
 </%def>
 
@@ -61,7 +61,7 @@ from datetime import date, timedelta
 		<div id="contributioncontainer" class="forminputline">
 			<label style="width: 200px;">_("ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:)}</label><span class="fixedvalue">${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)|n}</span>
 			<div style="margin:30px;float:right;position:relative;">
-				${forms.black_submitlink(_("ADMIN_ACTION_BUTTON_Submit"), [], "submitter", href="/pool/%s/issue_gift_vouchers" % psettings.p_url)|n}
+				${forms.black_submitlink(_("ADMIN_ACTION_BUTTON_Submit"), [], "submitter", href=url(controller="pool", pool_url=psettings.p_url, action="issue_gift_vouchers"))|n}
 			</div>
 		</div>
 	</div>

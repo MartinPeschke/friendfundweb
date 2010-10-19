@@ -25,11 +25,11 @@
 	
 	<div style="position:relative;padding:0px 0px 20px 20px;width:880px;float:left;">
 		%if c.pool_fulfilled:
-			<a class="submitSmallLeft" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}/settings"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool Admin")}</span></a>
+			<a class="submitSmallLeft" href="${url(controller='pool', pool_url=c.pool.p_url, action='settings', protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool Admin")}</span></a>
 		%else: 
-			<a class="submitSmallLeft" href="${app_globals.SITE_ROOT_URL}/mypools"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Visit My Pools")}</span></a>
+			<a class="submitSmallLeft" href="${url('controller', controller='mypools', protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Visit My Pools")}</span></a>
 		%endif
-		<a class="submitSmall" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
+		<a class="submitSmall" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
 %else:
 	<div class="panel_title">
@@ -39,8 +39,8 @@
 		<h1>${_("CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?")}</h1>
 	</div>
 	<div style="position:relative;margin:0px 20px;width:880px;float:left;">
-		<a class="submitSmallLeft" href="/pool/${c.pool.p_url}/chipin"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
-		<a class="submitSmall" href="${app_globals.SITE_ROOT_URL}/pool/${c.pool.p_url}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
+		<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol='https')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
+		<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
 %endif
 	<div class="clear"></div>

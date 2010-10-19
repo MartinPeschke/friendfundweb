@@ -51,7 +51,6 @@ class Globals(object):
 		app_conf = config['app_conf']
 
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
-		self.SECURE_SITE_ROOT_URL = app_conf['SECURE_SITE_ROOT_URL']
 		
 		self.currencies = [("EUR", "Euro"),("USD", "USD"),("GBP", "GBP")]
 		

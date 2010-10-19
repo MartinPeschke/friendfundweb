@@ -89,7 +89,7 @@
 				params["product.guid"] = selection_args.guid;
 				params["product.aff_net"] = selection_args.net;
 				params["product.aff_program_id"] =  selection_args.progid;
-				loadElement("/pool/${c.pool_url}/setaltproduct", "product_search_container", params);
+				loadElement("${url(controller='pool', pool_url=c.pool_url, action='setaltproduct')}", "product_search_container", params);
 			}
 		});
 	
@@ -111,7 +111,7 @@
 			<img src="${c.pool.admin.get_profile_pic()}"/>
 			<textarea cols="60" rows="5" name="description">${c.psettings.description}</textarea>
 			<div style="position:absolute; right:30px;bottom:15px;">
-				${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('/pool/%s/set_description', 'description_form');" % c.pool_url)], "description_submitter")|n}
+				${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('%s', 'description_form');" % url(controller='pool', pool_url=c.pool_url, action='set_description'))], "description_submitter")|n}
 			</div>
 		</form>
 	</div>
@@ -148,7 +148,7 @@
 	</div>
 	${html.clearline()|n}
 	<div style="padding:20px 30px;float:left;width:880px;">
-		<a class="submitSmallLeft" href="/pool/${c.pool_url}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
+		<a class="submitSmallLeft" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool_url)}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
 	</div>
 	${html.clearline()|n}
 </div>

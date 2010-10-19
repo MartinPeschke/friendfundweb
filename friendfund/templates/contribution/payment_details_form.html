@@ -1,7 +1,7 @@
 <%namespace name="forms" file="/widgets/forms.html"/>
 <%namespace name="html" file="/widgets/html_elems.html"/>
 
-<form method="POST" id="payment_details_form" action="/contribution/${c.pool.p_url}/creditcard">
+<form method="POST" id="payment_details_form" action="${url(controller='contribution', pool_url=c.pool.p_url, action='creditcard')}">
 	<div class="panel_title">
 		Credit Card:
 	</div>

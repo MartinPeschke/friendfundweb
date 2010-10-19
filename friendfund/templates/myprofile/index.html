@@ -76,7 +76,7 @@
 					<div class="subInfo">
 						<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
 						<input  name="myprofile.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
-						<span class="small">${_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate<br> the <a href="#">Terms and Conditions</a>')|n}
+						<span class="small">${_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate<br> the <a href="%s">Terms and Conditions</a>' % url(controller='content', action='tos'))|n}
 					
 					</div>
 				

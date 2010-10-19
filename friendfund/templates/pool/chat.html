@@ -7,7 +7,7 @@
 		<%include file="chat_content.html"/>
 	</div>
 	%if c.offset:
-		<a href="#commentsend" id="chat_get_more_link" _href="/pool/${c.pool_url}/chatmore" _offset="${c.offset}" onclick="loadnext_fundchat_batch(this)">${_("POOL_CHAT_Display More")}</a>
+		<a href="#commentsend" id="chat_get_more_link" _href="${url(controller='pool', pool_url=c.pool_url, action='chatmore')}" _offset="${c.offset}" onclick="loadnext_fundchat_batch(this)">${_("POOL_CHAT_Display More")}</a>
 	%endif
 %else:
 	<div class="placeholder">${_("POOL_CHAT_No Comments!")}</div>
