@@ -1,4 +1,22 @@
-export PYTHONPATH="/opt/www/ff_test:/home/www-data/ff_test";
-cd /opt/www/ff_test
-nohup /server/pylons1.0/bin/paster serve --reload test_env.ini &
+#!/bin/bash
 
+runpath=/opt/www/ff_test
+binpath=/home/www-data/ff_test
+config=./test_env.ini
+
+export PYTHONPATH="$runpath:$binpath";
+cd $runpath;
+case "$1" in
+  start)
+    /server/pylons1.0/bin/paster serve --reload --daemon --pid-file=run/friendfund.pid --log-file=./logs/webserver.log $config start
+    ;;
+  stop)
+    /server/pylons1.0/bin/paster serve --reload --daemon --pid-file=run/friendfund.pid --log-file=./logs/webserver.log  $config stop
+    ;;
+  restart)
+    /server/pylons1.0/bin/paster serve --reload --daemon --pid-file=run/friendfund.pid --log-file=./logs/webserver.log $config restart
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|restart}"
+    exit 1
+esac
