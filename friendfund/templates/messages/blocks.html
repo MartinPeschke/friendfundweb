@@ -53,7 +53,7 @@
 					<a class="facebookBtn floaterRight" onclick="getfbEmail('${app_globals.FbApiKey}')"><span>${EMAIL_FB}</span></a>
 					<label for="email">${EMAIL_LABEL|n}</label>
 					<input type="text" value="${getattr(c, 'email', '')}" name="email" id="email"/>
-					<input type="button" value="submit" onclick="loadFormElement('/set_email', 'blocking_email_error', 'blockingemailform', page_reloader);"/>
+					<input type="button" value="submit" onclick="loadFormElement('${url('index', action='set_email')}', 'blocking_email_error', 'blockingemailform', page_reloader);"/>
 					<div id="blocking_email_error"></div>
 				</form>
 				<div class="clear"></div>

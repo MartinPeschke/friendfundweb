@@ -11,10 +11,10 @@
 		<a href="${url('controller', controller='mypools')}">
 			${_("PANEL_LOGIN_Welcome")}
 			<img id="login_panel_profile_pic" src="${c.user.get_profile_pic()}"/>
-			<span class="name">${c.user.name or c.user.email}</span></a> |
+			<span class="name">${c.user.name or c.user.email}</span></a>
 		%if 'facebook' not in c.user.networks:
-			<a href="#" onclick="fbLogin()" class="login_loginlink"><img src="/static/imgs/icon_fb_connect.png"/></a> |
+			<a href="#" onclick="fbLogin()" class="login_loginlink"><img src="/static/imgs/icon_fb_connect.png"/></a>
 		%endif
-		<a href="#" onclick="fbLogout();">${_("PANEL_LOGIN_logout")}</a>
+		<a href="#" style="margin-left:10px;" onclick="fbLogout();">${_("PANEL_LOGIN_logout")}</a>
 	%endif
 </div>
