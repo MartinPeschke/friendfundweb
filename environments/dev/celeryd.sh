@@ -76,7 +76,7 @@
 ### END INIT INFO
 
 set -e
-export PYTHONPATH=/opt/www/friendfund
+export PYTHONPATH="/opt/www/friendfund:/home/www-data/ff_dev"
 DEFAULT_CELERYD="/server/pylons1.0/bin/celeryd"
 CELERYD="/server/pylons1.0/bin/celeryd"
 CELERYD_LOG_FILE="/opt/www/friendfund/logs/celeryd_dev.log"
