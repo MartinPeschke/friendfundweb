@@ -1,0 +1,24 @@
+[2010-10-19 14:28:28,176: WARNING/MainProcess] celery@whitefall v2.0.0 is starting.
+[2010-10-19 14:28:28,226: WARNING/MainProcess] Configuration ->
+    . broker -> amqp://fftestenvuser@127.0.0.1:5672/fftestenv
+    . queues ->
+        . default_queue -> exchange:celeryevent_test (direct) binding:celery
+    . concurrency -> 4
+    . loader -> celery.loaders.default.Loader
+    . logfile -> /opt/www/ff_test/logs/celeryd_test.log@INFO
+    . events -> OFF
+    . beat -> OFF
+    . tasks ->
+	. friendfund.tasks.ecard_renderer.remote_ecard_render
+	. friendfund.tasks.fb.remote_fb_perm
+	. friendfund.tasks.fb.remote_persist_user
+	. friendfund.tasks.photo_renderer.remote_pool_picture_render
+	. friendfund.tasks.photo_renderer.remote_product_picture_render
+	. friendfund.tasks.photo_renderer.remote_profile_picture_render
+	. friendfund.tasks.photo_renderer.remote_save_image
+	. friendfund.tasks.twitter.remote_persist_user
+[2010-10-19 14:28:28,242: INFO/PoolWorker-1] child process calling self.run()
+[2010-10-19 14:28:28,242: INFO/PoolWorker-2] child process calling self.run()
+[2010-10-19 14:28:28,243: INFO/PoolWorker-3] child process calling self.run()
+[2010-10-19 14:28:28,244: INFO/PoolWorker-4] child process calling self.run()
+[2010-10-19 14:28:28,269: WARNING/MainProcess] celery@whitefall has started.
