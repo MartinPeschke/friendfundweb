@@ -116,6 +116,7 @@ xhrHandler = function(callback){
 				if ('data' in data && callback != null)callback(data.data);
 				if ('redirect' in data) window.location.href = data.redirect;
 				if ('popup' in data) displayPopup(data.popup);
+				if ('reload' in data)page_reloader();
 	}
 }
 

@@ -234,13 +234,13 @@ class Pool(DBMappedObject):
 		for pu in self.participants:
 			if not (pu.is_admin or pu.is_receiver):
 				self.invitees.append(pu)
-				if pu.is_suspected:
-					self.suspect = pu
 			else:
 				if pu.is_admin == True:
 					self.admin = pu
 				if pu.is_receiver == True:
 					self.receiver = pu
+			if pu.is_suspected:
+				self.suspect = pu
 		if not self.admin:
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:

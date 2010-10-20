@@ -1,3 +1,5 @@
+<%namespace name="html" file="/widgets/html_elems.html"/>
+
 <%namespace name="contribute_button" file="button_contribute.html"/>
 <%namespace name="close_button" file="button_close.html"/>
 <%namespace name="prompt_for_action_button" file="button_prompt_for_action.html"/>
@@ -35,6 +37,15 @@
 			</div>
 		%elif is_anon and pool.suspect is not None:
 			${user_suspected_button.render(pool)}
+		%elif is_anon:
+			<div id="contribute">
+				<a class="close_body">
+					${_("POOL_BUTTON_Please log in.")}<br/><br/>
+					<div style="float:left;margin-left:60px;">
+						<%html:button href="/login?furl=${getattr(c, 'furl',url('controller', controller='pool', pool_url=pool.p_url))}">${_("POOL_BUTTON_Login")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>
+					</div>
+				</a>
+			</div>
 		%else:
 			<div id="contribute">
 				<a class="close_body">
