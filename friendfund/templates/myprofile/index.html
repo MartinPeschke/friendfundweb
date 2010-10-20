@@ -27,7 +27,7 @@
 			</div>
 			<div class="borderBottomSecond">
 				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}<a href="#">${_("MYPROFILE_PAGE_LABEL_what's this?")}</a></div>
-				<div class="floaterRight"><input type="checkbox" name="myprofile.is_default" value="facebook" ${forms.expression_quote(profiles["facebook"].is_default==True, "checked")|n} /></div>
+				<div class="floaterRight"><input type="radio" name="myprofile.is_default" value="facebook" ${forms.expression_quote(profiles["facebook"].is_default==True, "checked")|n} /></div>
 			</div>
 		</div>
 	%else:
@@ -74,7 +74,7 @@
 						<div class="subInfo">
 							<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
 							<input  name="myprofile.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
-							<span class="small">${_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate<br> the <a href="%s">Terms and Conditions</a>' % url(controller='content', action='tos'))|n}
+							<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller='content', action='tos'))|n}</span>
 						
 						</div>
 					
@@ -91,10 +91,6 @@
 					<div class="smallInside">
 						<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Change Your Password")}</div>
 						<div class="floaterLeft passwordFields ">
-						
-						<div class="spacerInput">
-							${forms.input_text("myprofile", "current_pwd", _("MYPROFILE_PAGE_LABEL_Current Password"))|n}
-						</div>
 						<div class="spacerInput">
 							${forms.input_text("myprofile", "pwd", _("MYPROFILE_PAGE_LABEL_New Password"), "password")|n}
 						</div>
@@ -127,7 +123,7 @@
 				<div class="subInfo">
 					<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
 					<input  name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
-					<span class="small">${_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate<br> the <a href="#">Terms and Conditions</a>')|n}
+					<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller="content", action="tos"))|n}</span>
 				
 				</div>
 			
@@ -165,5 +161,3 @@
 </div>
 	<a onclick="dojo.byId('myprofile_form').submit();" class="Save marginSpecialSave"><span>${_("MYPROFILE_PAGE_LABEL_Save")}</span></a>
 ${html.clearline()}
-
-	</div>
