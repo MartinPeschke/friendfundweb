@@ -326,7 +326,7 @@ ul.navigation {
 	position: relative;
 	width: 100%;
 	border-top:2px solid white;
-	background:  url(../imgs/bg-ul.gif) 0 0 repeat-x;
+	background:  url("../imgs/menu_tab_bg.png")  0 0 repeat-x;
 }
 ul.navigation li {
 	float:left;
@@ -355,7 +355,8 @@ div#headercontainer a.button_container {
 	right:30px;
 	z-index:999;
 }
-#home_create_pool_button a span {
+#home_create_pool_button a span,
+.BtnRed span{
 background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -778px transparent;
 color:white;
 cursor:pointer;
@@ -366,7 +367,7 @@ line-height:33px;
 padding-left:15px;
 text-shadow:0 -1px 0 #770B3E;
 }
-#home_create_pool_button a  {
+#home_create_pool_button a ,  .BtnRed {
 background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1078px transparent;
 bottom:0;
 display:block;
@@ -379,6 +380,7 @@ padding-right:15px;
 text-align:center;
 z-index:2;
 }
+.BtnRed{ float:right}
 /*-------------------------------------Main Structure Outline -------------------------------------*/
 div#container {
 	text-align: left;
@@ -567,7 +569,7 @@ div.frontpagebutton.funders {
 	text-align: left;
 	margin-top: 10px;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
-	font-size: 20px;
+	font-size: 14px;
 	font-weight: bold;
 	color:#403834;
 	overflow: hidden;
@@ -964,9 +966,9 @@ p.termsOf a{ color:#B70158;}
 }
 #invite_panel_header .invite_pool_panel div.label {
 	text-align: left;
-	margin: 10px 0px;
+	margin: 5px 0px;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
-	font-size: 20px;
+	font-size: 14px;
 	font-weight: bold;
 	color:#403834;
 	overflow: hidden;
@@ -990,14 +992,14 @@ width:174px;
 }
 #inviteheader {
 	position:relative;
-	text-align: center;
+	text-align: left;
 	padding-top: 1px;
 }
 #inviteheader.fb {
 	height: 80px;
 }
 #inviteheader.inviteelist {
-	height:50px;
+	height:55px;
 
 }
 #inviteall {
@@ -1005,10 +1007,11 @@ width:174px;
 }
 #inviteheader .mutual_toggle_container {
 	position: absolute;
-	top: 36px;
+	top: 37px;
 	left: 0px;
 }
 #inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
+#inviteheader input{ margin-right:10px}
 
 div.panel_title a.methodselector {
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
@@ -1100,22 +1103,26 @@ div.panel_title a.methodselector.ajaxlink span {
 	margin:20px;
 }
 #inviter #inviteheader div.headline {
-	margin:24px 60px;
 }
 #inviteheader div.headline {
 	float: left;
-	font-size: 20px;
+	font-size: 14px;
 	font-weight: bold;
 	color: #403834;
+	line-height:28px;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	margin-top:-10px
 }
 #inviteheader div.headline img.networkicon {
 	position:relative;
 	top:10px;
+	margin-left:7px
 }
 #inviteheader div.perm_dialog {
 	position: relative;
 	margin: 60px 0px;
+	text-align:center;
+	font-size:12px
 }
 #inviteheader a.perm_dialog {
 	text-align: center;
@@ -1207,8 +1214,9 @@ div.panel_title a.methodselector.ajaxlink span {
 	margin-right:10px;
 	position:relative;
 	text-align:right;
-	width:150px;
+	width:128px;
 }
+#inviter_name{ margin-top:23px !important}
 #invitescontainer img.fbprofilepic {
 	position: relative;
 	height: 50px;
@@ -1221,12 +1229,12 @@ div.panel_title a.methodselector.ajaxlink span {
 }
 #inviter {
 	float:left;
-	margin:30px 30px 30px;
+	margin:15px 30px 30px;
 	position:relative;
 	width:395px;
 }
 #invited {
-	margin: 84px 30px 30px 30px;
+	margin: 71px 30px 30px 30px;
 	position: relative;
 	width:395px;
 	height:550px;
@@ -1235,6 +1243,7 @@ div.panel_title a.methodselector.ajaxlink span {
 	border: 1px solid #aaa;
 	background-color:  #ffffff;
 }
+#invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {
 	border-bottom: 3px solid #bbe3f7;
 	padding: 15px 15px 0px 15px;
@@ -1629,7 +1638,7 @@ font-family: Trebuchet MS
 .tooltipBoxMyPools{ height: 45px; background:none repeat scroll 0 0 #403835; position: relative}
 .tooltipBoxMyPools img{ position: absolute; display: block; left: 80px; bottom: 2px}
 .imgContainer{ background: url(../imgs/bg-rabody.png) left bottom no-repeat; width: 158px; height: 119px; padding: 0 1px 2px 1px}
-#invite_panel_header {margin: 0 30px 30px}
+#invite_panel_header {margin: 0 30px 30px; padding-bottom:20px}
 span.label{ float: left; display: block; padding-top: 2px}
 span.money{ float: left; line-height: 24px}
 span.currency{ float: left; line-height: 24px}
