@@ -8,11 +8,17 @@ from friendfund.model.product import ProductSearch, Product
 class AttributeMissingInProductException(Exception): pass
 class URLUnacceptableError(Exception): pass
 class TooManyOffersError(Exception): pass
+class NoOffersError(Exception): pass
 class MoreThanOneProductFoundError(Exception): pass
 class WrongRegionAmazonError(Exception): pass
+class AmazonErrorsOccured(Exception): pass
 
 class AmazonService(object):
-	def __init__(self, base_url, affiliateid, key, secret):
+	"""
+		This is shared between all threads, do not stick state in here!
+	"""
+	
+	def __init__(self, base_url, affiliateid, key, secret, domain):
 		self.affiliateid = affiliateid
 		self.key = key
 		self.hmac_256 = hmac.new(secret, digestmod=sha256)
@@ -24,6 +30,8 @@ class AmazonService(object):
 		self.api_version = "2010-09-01"
 		self.result_namespace = "http://webservices.amazon.com/AWSECommerceService/%s" % self.api_version
 		
+		
+		self.domain = domain
 		self.url_product_identifer_prefixes = {
 				"/dp/"			: re.compile("/dp/([0-9A-Z]{10})")
 				,"/gp/product/"	: re.compile("/gp/product/([0-9A-Z]{10})")
@@ -99,10 +107,14 @@ class AmazonService(object):
 		for i, (action, elem) in enumerate(context):
 			product = Product()
 			
+			errors = elem.xpath("t:Errors/t:Error/t:Code/text()", **self.query_nss)
+			if len(errors) > 1:
+				raise AmazonErrorsOccured("XML Contained Errors %s" % errors)
 			offers = elem.xpath("t:Offers/t:Offer", **self.query_nss)
 			if len(offers) > 1:
 				raise TooManyOffersError("Too Many Offers Found")
-			
+			elif len(offers) == 0:
+				raise NoOffersError("No Offers Found")
 			for key,(required, normalizer, xmlqueries) in self.product_mapper.iteritems():
 				value = None
 				for query in xmlqueries:
@@ -156,11 +168,8 @@ class AmazonService(object):
 		p.guid = str(uuid.uuid4())
 		return p
 	
-	
 	def get_product_from_url(self, url):
 		scheme, netloc, path, query, fragment = urlparse.urlsplit(url)
-		if not 'amazon' in netloc:
-			raise URLUnacceptableError("Host is not Amazon")
 		upip = self.url_product_identifer_prefixes
 		matcher = filter(bool, map(lambda x: x in path and upip[x] or False, upip))
 		if not matcher:

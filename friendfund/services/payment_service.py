@@ -14,6 +14,9 @@ request_order = ["paymentAmount","currencyCode","shipBeforeDate","merchantRefere
 result_order = ["authResult", "pspReference", "merchantReference", "skinCode", "merchantReturnData"]
 
 class PaymentService(object):
+	"""
+		This is shared between all threads, do not stick state in here!
+	"""
 	def __init__(self, base_url, skincode, merchantaccount, secret):
 		self.base_url = base_url
 		self.secret = secret

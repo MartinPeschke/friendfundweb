@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-10-19 19:34+0100\n"
+"PO-Revision-Date: 2010-10-20 12:57+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -210,7 +210,7 @@ msgstr "Relevanz"
 
 #: friendfund/controllers/product.py:17
 msgid "PRODUCT_SORT_ORDER_Price up"
-msgstr "Praus auf"
+msgstr "Preis auf"
 
 #: friendfund/controllers/product.py:18
 msgid "PRODUCT_SORT_ORDER_Price down"
@@ -240,13 +240,26 @@ msgstr "Dein Geschenk und Datum lassen uns nicht genug Zeit für eine fristgerec
 msgid "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"
 msgstr "Es ist doch sehr unwahrscheinlich, dass das Geschenk noch rechtzeitig ankommt."
 
-#: friendfund/controllers/product.py:151
+#: friendfund/controllers/product.py:152
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "URL konnte nicht erkannt werden"
 
 #: friendfund/controllers/product.py:154
+#, python-format
+msgid "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links from %(amazondomain)s or switch your shipping region."
+msgstr "Dieses Produkt ist nicht von %(amazondomain)s, bitte verwende Links von %(amazondomain)s oder wähle ein anderes Versandland."
+
+#: friendfund/controllers/product.py:162
+msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
+msgstr "Dieses Produkt ist gerade nicht von Amazon verfügbar, bitte versuch es später noch einmal."
+
+#: friendfund/controllers/product.py:166
 msgid "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article and is not sold by Amazon itself. Currently we do not support Amazon Marketplace articles."
 msgstr "Bei diesem Artikel scheint es sich um einen Amazon Marketplace Artikel zu handeln, der nicht von Amazon direkt vertrieben wird. Zur Zeit können wir keine Amazon Marketplace Artikel anbieten."
+
+#: friendfund/controllers/product.py:169
+msgid "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."
+msgstr "Amazon hat nur unzureichende Informationen bereitgestellt, somit können wir dieses Produkt leider nicht anbieten."
 
 #: friendfund/controllers/receiver.py:44
 msgid "POOL_CREATE_No Known ReceiverFound"
@@ -264,19 +277,19 @@ msgstr "Zwischen Twitter und Friendfund hats mit der Kommunikation nicht geklapp
 msgid "TWITTER_Invalid response from Twitter."
 msgstr "Zwischen Twitter und Friendfund hat's mit der Kommunikation nicht geklappt, versuch's doch bitte noch einmal."
 
-#: friendfund/lib/app_globals.py:122
+#: friendfund/lib/app_globals.py:127
 msgid "GLOBAL_MENU_Home"
 msgstr "Home"
 
-#: friendfund/lib/app_globals.py:123
+#: friendfund/lib/app_globals.py:128
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Pools"
 
-#: friendfund/lib/app_globals.py:124
+#: friendfund/lib/app_globals.py:129
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Orden"
 
-#: friendfund/lib/app_globals.py:125
+#: friendfund/lib/app_globals.py:130
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Mein Profil"
 
@@ -575,7 +588,7 @@ msgstr "England"
 msgid "COUNTRY_UNITED STATES"
 msgstr "USA"
 
-#: friendfund/services/user_service.py:35
+#: friendfund/services/user_service.py:38
 msgid "LOGIN_ACCOUNTS_CANNOT_BE_CONSOLIDATED_WARNING"
 msgstr "Diese Konten können nicht zusammengefügt werden. Bitte logge dich erst aus Friendfund aus."
 
@@ -627,47 +640,47 @@ msgstr "Aktuelle Orden"
 msgid "PAGE_INDEX_HEADER_Top Sellers"
 msgstr "Top Seller"
 
-#: friendfund/templates/master.html:65
+#: friendfund/templates/master.html:70
 msgid "SITEINFO_2010(c) friendfund"
 msgstr "2010(&copy;) friendfund"
 
-#: friendfund/templates/master.html:65
+#: friendfund/templates/master.html:70
 msgid "SITEINFO_Handmade in Berlin"
 msgstr "Handgefertigt in Berlin"
 
-#: friendfund/templates/master.html:66
+#: friendfund/templates/master.html:71
 msgid "SITEINFO_Blog"
 msgstr "Blog"
 
-#: friendfund/templates/master.html:67
+#: friendfund/templates/master.html:72
 msgid "SITEINFO_Jobs"
 msgstr "Jobs"
 
-#: friendfund/templates/master.html:68
+#: friendfund/templates/master.html:73
 msgid "SITEINFO_Terms"
 msgstr "AGBs"
 
-#: friendfund/templates/master.html:69
+#: friendfund/templates/master.html:74
 msgid "SITEINFO_Privacy"
 msgstr "Datenschutz"
 
-#: friendfund/templates/master.html:70
+#: friendfund/templates/master.html:75
 msgid "SITEINFO_Impressum"
 msgstr "Impressum"
 
-#: friendfund/templates/master.html:71
+#: friendfund/templates/master.html:76
 msgid "SITEINFO_FAQ"
 msgstr "FAQ"
 
-#: friendfund/templates/master.html:148
+#: friendfund/templates/master.html:153
 msgid "ALLPAGE_BUTTON_Create a Pool"
 msgstr "Pool gründen"
 
-#: friendfund/templates/master.html:166
+#: friendfund/templates/master.html:171
 msgid "FB_METATAG_TITLE_friendfund.com"
 msgstr "friendfund.com"
 
-#: friendfund/templates/master.html:167
+#: friendfund/templates/master.html:172
 msgid "FB_METATAG_DESCRIPTION_friendfund.com - helping you!"
 msgstr "friendfund.com - legt zusammen!"
 
@@ -1221,8 +1234,6 @@ msgstr "Wähle eine Bilddatei aus einer Datei"
 
 #: friendfund/templates/myprofile/index.html:79
 #, python-format
-#| msgid "" "MYPROFILE_PAGE_LABEL_By uploading this image you agree not to
-#| violate<br>" " the <a href=\"#\">Terms and Conditions</a>"
 msgid "MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate<br> the <a href=\"%s\">Terms and Conditions</a>"
 msgstr "Durch das Hochladen des Bildes erklärst du dich bereit <br> die <a href=\"%s\">Nutzungsbedingungen</a> nicht zu verletzen"
 
@@ -1752,20 +1763,20 @@ msgstr "Zurück"
 msgid "PRODUCT_SEARCH_PANEL_Next"
 msgstr "Nächstes"
 
-#: friendfund/templates/product/panel.html:112
+#: friendfund/templates/product/panel.html:114
 #, python-format
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?"
 msgstr "Wir konnten nichts finden mit einem Preis von %s oder weniger. Möchtest du nach etwas anderem suchen?"
 
-#: friendfund/templates/product/panel.html:114
+#: friendfund/templates/product/panel.html:116
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
 msgstr "Leider nichts gefunden. Vielleicht möchtest du nach etwas anderem suchen?"
 
-#: friendfund/templates/product/panel.html:135
+#: friendfund/templates/product/panel.html:137
 msgid "PRODUCT_SEARCH_PANEL_Read More"
 msgstr "Mehr"
 
-#: friendfund/templates/product/panel.html:140
+#: friendfund/templates/product/panel.html:142
 msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr "Auswählen"
 
@@ -1806,5 +1817,5 @@ msgstr "dich selbst"
 msgid "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect with Twitter!"
 msgstr "Um Twitter Freunde einzuladen, musst dich erst mit Twitter anmelden."
 
-#~ msgid "MYPOOLS_CONTENT_Create new Pool"
-#~ msgstr "Gründe einen neuen Pool"
+#~ msgid "AMAZON_PRODUCT_SEARCH_This article is not sold by Amazon."
+#~ msgstr ""

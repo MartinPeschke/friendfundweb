@@ -1,4 +1,4 @@
-import logging, simplejson, formencode
+import logging, simplejson, formencode, urlparse
 from datetime import date, timedelta, datetime
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
@@ -9,7 +9,7 @@ from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Product, Pool
 from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductDisplay, ProductSearch
-from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException
+from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 log = logging.getLogger(__name__)
 
 _ = lambda x:x
@@ -93,7 +93,7 @@ class ProductController(BaseController):
 		c.currency = request.params.get('currency', None)
 		if search_term:
 			if search_term.startswith("http://"):
-				return self.amazon_fallback(c.region, search_term)
+				return self._amazon_fallback(c.region, search_term)
 			else:
 				try:
 					c.searchresult = g.dbsearch.call(ProductSearch( 
@@ -142,16 +142,32 @@ class ProductController(BaseController):
 		else:
 			return  {'clearmessage':'true'}
 	
-	def amazon_fallback(self, region, url):
+	def _amazon_fallback(self, region, url):
 		item_id = request.params.get("item_id")
-		try:
-			c.searchresult = g.amazon_service[region].get_product_from_url(url)
-		except URLUnacceptableError, e:
+		scheme, domain, path, query, fragment = urlparse.urlsplit(url)
+		region = g.country_choices.map.get(region, g.country_choices.fallback).region
+		c.product_messages = []
+		if domain not in g.amazon_service:
 			c.searchresult = ProductSearch()
-			c.product_message = _("AMAZON_PRODUCT_SEARCH_URL not recognized")
-		except AttributeMissingInProductException, e:
+			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_URL not recognized"))
+		elif g.amazon_service[domain] != g.amazon_service[region]:
+			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links from %(amazondomain)s or switch your shipping region.") % {"amazondomain":g.amazon_service[region].domain})
 			c.searchresult = ProductSearch()
-			c.product_message = _("AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article and is not sold by Amazon itself. Currently we do not support Amazon Marketplace articles.")
+		else:
+			try:
+				c.searchresult = g.amazon_service[domain].get_product_from_url(url)
+			except AmazonErrorsOccured, e:
+				log.warning(e)
+				c.searchresult = ProductSearch()
+				c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."))
+			except (NoOffersError, TooManyOffersError), e:
+				log.warning(e)
+				c.searchresult = ProductSearch()
+				c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article and is not sold by Amazon itself. Currently we do not support Amazon Marketplace articles."))
+			except AttributeMissingInProductException, e:
+				c.searchresult = ProductSearch()
+				c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
+
 		result  = {'clearmessage':True}
 		result['html'] = remove_chars(render('/product/panel.html').strip(), '\n\r\t')
 		return result

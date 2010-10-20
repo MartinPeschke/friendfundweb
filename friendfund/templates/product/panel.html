@@ -105,8 +105,10 @@
 				%endif
 			%else:
 				<div class="panel_content_no_margin">
-				%if getattr(c ,"product_message", False):
-					${c.product_message}
+				%if len(getattr(c ,"product_messages", [])) > 0:
+					%for m in c.product_messages:
+						<p>${m}</p>
+					%endfor
 				%else:
 					%if c.max_price is not None and c.currency:
 						${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}

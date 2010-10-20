@@ -42,16 +42,17 @@ class CountryRegion(DBMappedObject):
 		<COUNTRY c_name="ALBANIA" c_two_letter_name="AL" />
 		<COUNTRY c_name="ALGERIA" c_two_letter_name="DZ" />
 	""" 
-	_cachable = True
-	_expiretime = 86400
+	_cachable = False
 	_get_root = 'COUNTRY'
 	_unique_keys = ['code', 'name']
 	_keys = [	 GenericAttrib(str ,'code'   ,'code')
 				,GenericAttrib(str ,'name','name')
+				,GenericAttrib(str ,'region','region')
 				,GenericAttrib(bool ,'is_fall_back','is_fall_back')
 			]
 	def fromDB(self, xml):
 		self.code = self.code.lower()
+		self.region = self.region.lower()
 class GetCountryRegionProc(DBMappedObject):
 	_cachable = False
 	_no_params = True

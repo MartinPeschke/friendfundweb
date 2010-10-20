@@ -110,12 +110,17 @@ class Globals(object):
 		log.info("UserService set up")
 		self.amazon_service = {}
 		for k in self.locale_codes:
-			self.amazon_service[k] = AmazonService(
+			self.amazon_service[app_conf['amazon.%s.domain' % k]] = \
+						self.amazon_service[k] = \
+							AmazonService(
 											app_conf['amazon.%s.apiurl' % k], 
 											app_conf['amazon.%s.associateid' % k], 
 											app_conf['amazon.%s.apikey' % k], 
-											app_conf['amazon.%s.apisecret' % k])
-			log.info("AmazonService set up for %s", k)
+											app_conf['amazon.%s.apisecret' % k],
+											app_conf['amazon.%s.domain' % k],
+											)
+			
+			log.info("AmazonService set up for %s:%s", k, app_conf['amazon.%s.domain' % k])
 		
 		
 		
