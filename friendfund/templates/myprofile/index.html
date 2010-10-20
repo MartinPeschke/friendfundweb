@@ -92,10 +92,10 @@
 						<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Change Your Password")}</div>
 						<div class="floaterLeft passwordFields ">
 						<div class="spacerInput">
-							${forms.input_text("myprofile", "pwd", _("MYPROFILE_PAGE_LABEL_New Password"), "password")|n}
+							${forms.input_text("myprofile", "pwd", _("MYPROFILE_PAGE_LABEL_New Password"), "password", attribs=[('autocomplete', 'off')])|n}
 						</div>
 						<div>
-							${forms.input_text("myprofile", "pwd_confirm", _("MYPROFILE_PAGE_LABEL_Confirm New Password"), "password", False)|n}
+							${forms.input_text("myprofile", "pwd_confirm", _("MYPROFILE_PAGE_LABEL_Confirm New Password"), "password", False, attribs=[('autocomplete', 'off')])|n}
 						</div>
 						</div>
 					
@@ -139,10 +139,10 @@
 				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Signup by email")}</div>
 				<div class="floaterLeft passwordFields ">
 				<div class="spacerInput">
-					${forms.input_text("signup", "pwd", _("MYPROFILE_PAGE_LABEL_Password"), "password", False, required = True)|n}
+					${forms.input_text("signup", "pwd", _("MYPROFILE_PAGE_LABEL_Password"), "password", False, required = True, attribs=[('autocomplete', 'off')])|n}
 				</div>
 				<div class="spacerInput">
-					${forms.input_text("signup", "pwd_confirm", _("MYPROFILE_PAGE_LABEL_Password Confirm"), "password", False, required = True)|n}
+					${forms.input_text("signup", "pwd_confirm", _("MYPROFILE_PAGE_LABEL_Password Confirm"), "password", False, required = True, attribs=[('autocomplete', 'off')])|n}
 				</div>
 				<div  class="maleFemale">
 					<input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
