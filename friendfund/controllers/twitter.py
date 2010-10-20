@@ -15,8 +15,6 @@ from friendfund.model.common import SProcWarningMessage
 log = logging.getLogger(__name__)
 
 consumer = oauth.Consumer(g.TwitterApiKey, g.TwitterApiSecret)
-client = oauth.Client(consumer)
-
 
 class TwitterController(BaseController):
 	UNKNOWN_TWITTER_ERROR = _("TWITTER_An Error occured during Twitter authentication, please try again later.")
@@ -25,15 +23,10 @@ class TwitterController(BaseController):
 		return self.render('/index.html')
 	
 	def login(self):
-		websession['twitter_redirect_url'] = request.params.get('furl', request.referer)
-		
+		furl = request.params.get('furl', request.referer)
 		# Step 1. Get a request token from Twitter.
-		resp, content = client.request(tw_helper.request_token_url, "GET")
-		if resp['status'] != '200':
-			log.warning("Twitter replied with Status != 200: %s", content)
-			raise Exception(_("TWITTER_Invalid response from Twitter."))
-		
-		# Step 2. Store the request token in a session for later use.
+		content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
+				params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (g.SITE_ROOT_URL,  furl)})
 		websession['request_token'] = dict(cgi.parse_qsl(content))
 		
 		# Step 3. Redirect the user to the authentication URL.
@@ -41,31 +34,23 @@ class TwitterController(BaseController):
 		if not oauth_token:
 			log.warning("Twitter Oauth_Token not returned by Twitter for Get_Access_token: %s", tw_helper.request_token_url)
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
-			return redirect(websession.pop('twitter_redirect_url', '/'))
+			return redirect(furl)
 		url = "%s?oauth_token=%s" % (tw_helper.authenticate_url,websession['request_token']['oauth_token'])
 		return redirect(url)
 	
 	def authorize(self):
-		furl = websession.pop('twitter_redirect_url', '/')
-		
-		# Step 1. Use the request token in the session to build a new client.
 		oauth_token = websession.get('request_token', {}).get('oauth_token', None)
 		oauth_token_secret = websession.get('request_token', {}).get('oauth_token_secret', None)
+		oauth_verifier = request.params.get('oauth_verifier', None)
+		furl = request.params.get('furl', url("home"))
+		
 		if not oauth_token:
 			log.warning("No Oauth_Token found in session, why?")
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
 			return redirect(furl)
-		token = oauth.Token(oauth_token, oauth_token_secret)
-		client = oauth.Client(consumer, token)
-
-		# Step 2. Request the authorized access token from Twitter.
-		resp, content = client.request(tw_helper.access_token_url, "GET")
-		if resp['status'] != '200':
-			log.warning("Twitter replied with Status != 200: %s at %s", content, tw_helper.access_token_url)
-			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
-			return redirect(furl)
+		content = tw_helper.fetch_url(tw_helper.access_token_url,"GET", oauth_token, oauth_token_secret, consumer, 
+				params = {'oauth_verifier':oauth_verifier})
 		token_data = dict(cgi.parse_qsl(content))
-		
 		# Step 3. User Details
 		user_data = simplejson.loads(
 						tw_helper.fetch_url("https://api.twitter.com/1/" + "users/show" + "/%s.json" % token_data['user_id'], 

@@ -79,7 +79,7 @@ ${self.master_foot()}
 	</div>
 	${self.footer_end()}
 	${app_globals.ga_include|n}
-	<input type="hidden" id="furl" value="${hasattr(c, 'furl') and c.furl or ''}"/>
+	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
 	
 	
 	<!-- scripts -->

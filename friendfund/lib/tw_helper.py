@@ -30,7 +30,8 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 			,'oauth_nonce': oauth.generate_nonce()
 			,'oauth_timestamp': int(time.time())
 		}
-		token = oauth.Token(token, token_secret)
+		if token is not None:
+			token = oauth.Token(token, token_secret)
 		if params:
 			params.update(oauth_base_params)
 		else:
