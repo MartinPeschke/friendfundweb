@@ -27,7 +27,7 @@
 			</div>
 			<div class="borderBottomSecond">
 				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}<a href="#">${_("MYPROFILE_PAGE_LABEL_what's this?")}</a></div>
-				<div class="floaterRight"><input type="radio" name="myprofile.is_default" value="facebook" ${forms.expression_quote(profiles["facebook"].is_default==True, 'checked')|n} /></div>
+				<div class="floaterRight"><input type="checkbox" name="myprofile.is_default" value="facebook" ${forms.expression_quote(profiles["facebook"].is_default==True, 'checked')|n} /></div>
 			</div>
 		</div>
 	%else:
@@ -61,12 +61,12 @@
 	</div>
 	</div>
 	</div>
-	
-	<div class="profilePictureContainer big" style="margin-top:20px; clear:both">
+    
+		<div style="margin-top: 20px; clear: both;" class="profilePictureContainer big">
+        
 		<p class="facebookTxt"><img src="/static/imgs/icon_mail.png"/>Email</p>
-		<div class="profile-picture">
-			
-		%if 'email' in profiles:
+        %if 'email' in profiles:
+        <div class="profile-picture">
 			<div class="inside-profile-picture">
 				<div class="smallInside" style="margin-right:30px">
 					<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Change Your Profile Picture")}</div>
@@ -93,10 +93,10 @@
 				<div class="smallInside">
 					<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Change Your Password")}</div>
 					<div class="floaterLeft passwordFields ">
-					<!--
+					
 					<div class="spacerInput">
 						${forms.input_text("myprofile", "current_pwd", _("MYPROFILE_PAGE_LABEL_Current Password"))|n}
-					</div>--!>
+					</div>
 					<div class="spacerInput">
 						${forms.input_text("myprofile", "pwd", _("MYPROFILE_PAGE_LABEL_New Password"), "password")|n}
 					</div>
@@ -111,9 +111,13 @@
 					</div>
 				</div>
 			</div>
+            </div>
 			</form>
+            
 		%else:
-			</form>
+        	
+        	</form>
+           <div class="profile-picture">
 			<form id="signup_form" action="/myprofile/add_email" method="POST" enctype="multipart/form-data">
 			<div class="inside-profile-picture">
 				<div class="smallInside" style="margin-right:30px">
@@ -156,10 +160,14 @@
 				</div>
 			</div>
 			</form>
+            </div>
 			%endif
 			
 		</div>
-	</div>
-	<a onclick="dojo.byId('myprofile_form').submit();" class="Save"><span>${_("MYPROFILE_PAGE_LABEL_Save")}</span></a>
+        
+        </div>
+        
+	<a onclick="dojo.byId('myprofile_form').submit();" class="Save marginSpecialSave"><span>${_("MYPROFILE_PAGE_LABEL_Save")}</span></a>
 ${html.clearline()}
-</div>
+
+	</div>
