@@ -290,16 +290,16 @@ div.forminputline label {
 }
 
 input.error, select.error {
-	border: 3px solid #ff0000;
-	margin: -1px 0px -1px 0px;
-	margin: -1px 0px -1px 0px;
+	border: 1px solid #ff0000;
 }
 div.forminputline div.error_message {
-	position:absolute;
-	right:0;
-	top:19px;
-	width:200px;
-	color: #FF0000
+	color:#FF0000;
+margin-left:150px;
+margin-top:3px;
+right:0;
+text-align:left;
+top:19px;
+width:200px;
 }
 /*
 div.forminputline div.error_checkbox {
@@ -888,18 +888,20 @@ div#occasion_button_bar {
 /*------------------------------------- LOGIN/SIGNUP PAGE -------------------------------------*/
 
 #login_form_container {
-	width: 460px;
+	width: 445px;
 }
+#login_form .forminputline{ padding:15px}
 #signup_form_container {
-	width: 460px;
+	width: 445px;
 }
 #login_form_container div.panel_content {
 	height: 360px;
 	padding: 0px;
 	padding: 1px 0px 0px 0px;
 }
+#login_signup_container div.panel_title{ padding:0; line-height:26px;}
 .forminputline.signup_login input {
-	width:174px;
+	width:230px;
 }
 #signup_form_container div.panel_content {
 	height: 360px;
@@ -917,16 +919,28 @@ div#occasion_button_bar {
 	margin-left: 0px;
 	margin-right: 0px;
 }
+#signup_form_container input {
+	width: 230px; display:bloc
+}
+#signup_form_container .forminputline{ padding-bottom:15px}
 
 #login_signup_container div.forminputline, #pwd_form_container div.forminputline {height:auto;position:relative;}
 #login_signup_container div.forminputline .error_message, #pwd_form_container div.forminputline .error_message{left:185px}
 #login_signup_container div.forminputline label, #pwd_form_container div.forminputline label {
-margin:8px 5px 3px 0;
+margin:3px 0 0 0;
 text-align:left;
-width:200px;
+width:150px;
+float:left;
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif
 }
-#login_signup_container  .panel_content_inner{ margin:20px }
-.lostpass{ display: block; margin-top: 10px; color:#B70158;}
+#login_signup_container  .panel_content_inner{ border:15px solid #BAE3F7;
+float:left;
+margin:10px 0 0;
+width:415px;}
+#signup_form_container .panel_content_inner{ width:385px; padding:15px}
+.lostpass{ display: block; margin-top: 10px; color:#B70158;margin-left:150px;
+margin-top:3px;}
 .maleFemale label{ display: inline !important; }
 .maleFemale input{ margin-right: 10px !important}
 .maleFemale { padding-top: 22px}

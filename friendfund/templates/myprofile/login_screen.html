@@ -5,68 +5,74 @@
 <%def name="title()">${_("LOGIN_PAGE_TITLE_Login")}</%def>
 <%def name="page_slogan()">&nbsp;</%def>
 
-<div id="login_signup_container" class="innerbody">
+<div id="login_signup_container" class="">
 
 	<div id="login_form_container" class="left">
 		<div  class="panel_title">
 			${_("LOGIN_PAGE_TITLE_TEXT_Login")}
 		</div>
-		<div class="panel_content white">
 			<div class="panel_content_inner">
-			<div class="forminputline">
-				<label>${_("LOGIN_PAGE_LABEL_Login with")}</label>
-			</div>
-				<div class="forminputline" style="margin: 15px 90px;float:left;clear:both;">
+			<!--<div class="forminputline">
+                    <label>${_("LOGIN_PAGE_LABEL_Login with")}</label>
+			</div>-->
+				<div class="forminputline" style="margin:20px 0 0 0" >
 					<a onclick="fbLogin()" class="facebookBtn" title="${_("Connect with Facebook")}">
 						<span>${_("Connect with Facebook")}</span>
 					</a>
 				</div>
-				<br/>
-				<div class="forminputline" style="margin:15px 90px;float:left;clear:both;">
+				
+				<div class="forminputline" style="margin:15px 0  20px 0">
 					<a href="${url(controller='twitter', action='login')}?furl=/" class="twitterBtn" title="${_("Connect with Twitter")}">
 						<span>${_("Connect with Twitter")}</span>
 					</a>
 				</div>
 			</div>
-			<div style="float:left;clear:both;margin: 0px 20px">
+            <p class="facebookTxt" style="margin-top:15px"><img src="/static/imgs/icon_mail.png" complete="complete"/>Email</p>
+			<div  class="panel_content_inner" style="margin-top:0px">
 			<form action="${url('index', action='login')}" method="POST" id="login_form">
-				<div class="forminputline">
+				<!--<div class="forminputline">
 					<label>${_("LOGIN_PAGE_LABEL_or by")}</label><br>
-				</div>
+				</div>-->
 
 				<div class="forminputline signup_login">
 					${forms.input_text("login", "email", _("LOGIN_PAGE_LABEL_Email"))|n}
 				</div>
-				<div class="forminputline signup_login">
+				<div class="forminputline signup_login" style="padding-top:0; padding-bottom:0px">
 					${forms.input_text("login", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False)|n}
 					<div><a class="lostpass" href="${url(controller='myprofile', action='password')}">${_("LOGIN_PAGE_LABEL_Forgot Password?")}</a></div>
 				</div>
-				<div style="bottom: 20px;right: 30px;position:absolute;">
-					${forms.black_submitlink(_("LOGIN_PAGE_BUTTON_Login"), [("onclick", "dojo.byId('login_form').submit();")], "submitter")|n}
+				<div >
+				
+                    <a onclick="dojo.byId('login_form').submit();" class="Save" style="margin:0 15px 10px 0"><span>Save</span></a>
+
 				</div>
 			</form>
 			</div>
-		</div>
 	</div>
 
 	<div id="signup_form_container" class="right">
 		<div  class="panel_title">
 			${_("LOGIN_PAGE_LABEL_Signup")}
 		</div>
-		<div class="panel_content white">
 			<div class="panel_content_inner">
 			<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
 				<div class="forminputline">
-					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Name"))|n}
+					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_First_Name"))|n}
+				</div>
+                <div class="forminputline">
+					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Last_Name"))|n}
+				</div>
+                <div class="forminputline">
+					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Username"))|n}
 				</div>
 				<div class="forminputline">
 					${forms.input_text("signup", "email", _("LOGIN_PAGE_LABEL_Email"), required = True)|n}
 				</div>
 				<div class="forminputline">
 					${forms.input_text("signup", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False, required = True)|n}
-				</div class="forminputline">
+				</div>
 				<div class="forminputline">
-					${forms.input_text("signup", "pwd_confirm", _("LOGIN_PAGE_LABEL_Password Confirm"), "password", False, required = True)|n}
+					${forms.input_text("signup", "pwd_confirm", _("LOGIN_PAGE_LABEL_Confirm Password"), "password", False, required = True)|n}
 				</div>
 				
 				<div class="forminputline maleFemaleContainer">
@@ -95,7 +101,7 @@
 				</div>
 			</form>
 			</div>
-		</div>
+		
 	</div>
 	${html.clearline()}
 </div>
