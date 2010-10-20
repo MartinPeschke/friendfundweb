@@ -61,7 +61,7 @@
 
 			<div class="forminputline">
 				<label for="chipin_amount">${_("CONTRIBPAGE_LABEL_Chip in")}(*)</label>
-				<input type="text" class="contrib_amount" id="chipin_amount" name="chipin.amount" value="${c.chipin_values.get('amount', 0)}" onKeyUp="calcTotals(this)" />
+				<input type="text" class="contrib_amount" id="chipin_amount" name="chipin.amount" value="${c.chipin_values.get('amount', '')}" onKeyUp="calcTotals(this)" />
 				<span class="currencyDisplay">${h.display_currency(c.pool.currency)|n}</span>
 				<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("amount", "")}</div>
 			</div>
