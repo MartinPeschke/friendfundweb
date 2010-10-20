@@ -15,13 +15,13 @@
 			<!--<div class="forminputline">
                     <label>${_("LOGIN_PAGE_LABEL_Login with")}</label>
 			</div>-->
-				<div class="forminputline" style="margin:20px 0 0 0" >
+				<div class="forminputline" style="margin:26px 0 0 0" >
 					<a onclick="fbLogin()" class="facebookBtn" title="${_("Connect with Facebook")}">
 						<span>${_("Connect with Facebook")}</span>
 					</a>
 				</div>
 				
-				<div class="forminputline" style="margin:15px 0  20px 0">
+				<div class="forminputline" style="margin:15px 0  26px 0">
 					<a href="${url(controller='twitter', action='login')}?furl=/" class="twitterBtn" title="${_("Connect with Twitter")}">
 						<span>${_("Connect with Twitter")}</span>
 					</a>
@@ -43,7 +43,7 @@
 				</div>
 				<div >
 				
-                    <a onclick="dojo.byId('login_form').submit();" class="Save" style="margin:0 15px 10px 0"><span>Save</span></a>
+                    <a onclick="dojo.byId('login_form').submit();" class="Save" style="margin:0 15px 15px 0"><span>Save</span></a>
 
 				</div>
 			</form>
@@ -74,31 +74,31 @@
 				<div class="forminputline">
 					${forms.input_text("signup", "pwd_confirm", _("LOGIN_PAGE_LABEL_Confirm Password"), "password", False, required = True)|n}
 				</div>
-				
-				<div class="forminputline maleFemaleContainer">
-				<div  class="maleFemale">
-					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
-					<input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
-
-					<span >Female</span>
-					<input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
-				</div>
-					${forms.error_msg("signup", "gender", type="error_checkbox")}
-				</div>
 				<div class="forminputline">
 					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
 					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
 				</div>
-				<div style="bottom: 20px;right: 30px;position:absolute;">
-					${forms.black_submitlink(_("LOGIN_PAGE_BUTTON_Join"), [("onclick", "dojo.byId('signup_form').submit();")], "submitter")|n}
+				<div class="forminputline maleFemaleContainer">
+				<div  class="maleFemale">
+                <p style="width:150px; float:left">Gender</p>
+                <input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
+					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
+					
+<input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
+					<label for="signup_gender_m" >Female</label>
+					
+				</div>
+					${forms.error_msg("signup", "gender", type="error_checkbox")}
 				</div>
 				
-				<div class="forminputline mandatoryPad">
-					${_("LOGIN_PAGE_LABEL_* Mandatory")}
-				</div>
-				<div class="forminputline" style="width: 75%">
-					${_("LOGIN_PAGE_LABEL_By clicking on 'Join' on the right, you confirm that you accept the Terms of Service.")}
-				</div>
+				
+				
+					<p class="termsOf">By clicking on 'Sign Up' on the right, you confirm that you accept the <a href="#">Terms and Conditions.</a></p>
+				
+					
+                    
+                    <a onclick="dojo.byId('signup_form').submit();" class="Save" style="margin:0; clear:none"><span>Sign Up</span></a>
+
 			</form>
 			</div>
 		

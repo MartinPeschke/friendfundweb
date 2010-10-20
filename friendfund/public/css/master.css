@@ -306,9 +306,7 @@ div.forminputline div.error_checkbox {
 	margin: 6px 0px;
 }
 */
-div.forminputline input[type=radio], div.forminputline input[type=checkbox] {
-	/* margin-top: 5px; */
-}
+
 /*-------------------------------------Header------------------------------------------------------*/
 
 .logoHeader {
@@ -938,14 +936,15 @@ font-family:Arial, Helvetica, sans-serif
 float:left;
 margin:10px 0 0;
 width:415px;}
-#signup_form_container .panel_content_inner{ width:385px; padding:15px}
+#signup_form_container .panel_content_inner{ width:385px; padding:15px;	min-height:315px;
+}
 .lostpass{ display: block; margin-top: 10px; color:#B70158;margin-left:150px;
 margin-top:3px;}
-.maleFemale label{ display: inline !important; }
-.maleFemale input{ margin-right: 10px !important}
-.maleFemale { padding-top: 22px}
+.maleFemale {}
 .mandatoryPad{ padding-top: 20px}
-.maleFemaleContainer{ margin-top: -5px; padding-bottom: 5px}
+.maleFemaleContainer{ padding-bottom: 5px; float:left}
+p.termsOf{ clear:both; font-size:11px; width:280px; float:left}
+p.termsOf a{ color:#B70158;}
 /*------------------------------------- INVITE PAGE -------------------------------------*/
 
 #receiver_selector_container {
@@ -1721,9 +1720,9 @@ width:385px;
 .facebookTxt{ font-family: Trebuchet MS; font-size: 14px; font-weight: bold; padding-bottom: 10px; padding-top: 10px; float:left}
 .facebookTxt img{ margin-right: 5px;}
 .imageBadgeContainer img.myProfilePicture{ margin-right: 5px;width:90px;height:90px;}
-.maleFemale label{ display:inline;width:50px !important;}
+.maleFemale label{ display:block !important;width:90px !important; float:left !important; margin:0 0 0 5px !important}
+.maleFemale input{ display:block !important;width:15px !important; float:left}
 .passwordFields .maleFemale label{ float: right !important;}
-.maleFemale input{ margin-right:10px;}
 #poolsettings{ margin:0 30px 30px 30px}
 #emailinviter input{ border: 1px solid #999999}
 
