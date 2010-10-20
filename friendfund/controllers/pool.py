@@ -14,7 +14,7 @@ from friendfund.model.forms.common import to_displaymap, DateValidator, Monetary
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.globals import GetCountryProc
 from friendfund.model.pool import Pool, Occasion, PoolUser, PoolChat, PoolComment, PoolDescription
-from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc
+from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
 
@@ -248,15 +248,17 @@ class PoolController(BaseController):
 	
 	@logged_in(ajax=False)
 	def action(self, pool_url):
-		if not c.user.am_i_admin(pool_url):
+		action = str(request.params['action'])
+		if not c.user.am_i_admin(pool_url) or action not in POOLACTIONS:
 			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
 			return redirect('/pool/%s/settings' % pool_url)
-		
 		g.dbm.set(ExtendActionPoolProc(p_url = pool_url
-										, name=request.params['action']
+										, name=action
 										, expiry_date=request.params.get('expiry_date', None)
 										, message=request.params['message']))
 		c.messages.append(_(u"POOL_ACTION_Changes Saved"))
+		if action=="ADMIN_ACTION_INVITE":
+			return redirect('/invite/%s' % pool_url)
 		return redirect('/pool/%s/settings' % pool_url)
 	
 	# @jsonify#double confirm not used currently
