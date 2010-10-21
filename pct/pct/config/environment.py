@@ -1,6 +1,6 @@
 """Pylons environment configuration"""
 import os
-
+from friendfund.lib import helpers
 from mako.lookup import TemplateLookup
 from pylons.configuration import PylonsConfig
 from pylons.error import handle_mako_error
@@ -27,7 +27,7 @@ def load_environment(global_conf, app_conf):
 
     config['routes.map'] = make_map(config)
     config['pylons.app_globals'] = app_globals.Globals(config)
-    config['pylons.h'] = pct.lib.helpers
+    config['pylons.h'] = helpers
     
     # Setup cache object as early as possible
     import pylons

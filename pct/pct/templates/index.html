@@ -1,0 +1,35 @@
+<%inherit file="master.html"/>
+<%namespace name="links" file="links.html"/>
+<%def name="title()">FF PCT</%def>
+<%def name="page_slogan()">
+	<div id="page_slogan"><span class="emphasis">HUHU and welcome to the new and shiny PCT!</span></div>
+</%def>
+
+
+<table border="1" cellspacing="5" cellpadding="5">
+%for cp in c.curation_queue.cp:
+	<tr>
+	<td>${display_product(cp.versions.get('OLD'))}</td>
+	<td>${display_product(cp.versions.get('NEW'))}</td>
+	<td>Do Something Withit:
+		<ul>
+			<li>Cat1</li>
+			<li>Cat2</li>
+			<li>Cat3</li>
+			<li>Cat4</li>
+			<li>Cat5</li>
+		</ul>
+		
+	</td>
+	</tr>
+%endfor
+
+</table>
+
+
+
+<%def name="display_product(cp)">
+%for k in cp.product._keys:
+	${k.pykey} - ${getattr(cp.product, k.pykey)}<br/>
+%endfor
+</%def>
