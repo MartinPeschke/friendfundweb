@@ -55,7 +55,7 @@ class Globals(object):
 		self.currencies = [("EUR", "Euro"),("USD", "USD"),("GBP", "GBP")]
 		
 		
-		self.creditcard_types = [('visa', 'Visa'), ('amex', 'American Express')]
+		self.creditcard_types = [('visa', 'Visa'), ('amex', 'American Express'), ('mastercard', 'MasterCard')]
 		self.cc_validity_years = zip(range(datetime.today().year, datetime.today().year + 100), range(datetime.today().year, datetime.today().year + 100))
 		self.cc_validity_months = zip(range(1,13), range(1,13))
 		
@@ -124,7 +124,7 @@ class Globals(object):
 		
 		
 		
-		self.globalnav = [(_('GLOBAL_MENU_Home'),'/', 'home')
-							,(_('GLOBAL_MENU_My_Pools'), '/mypools', 'mypools')
-							,(_('GLOBAL_MENU_My_Badges'), '/mybadges', 'badges')
-							,(_('GLOBAL_MENU_My_Profile'), '/myprofile', 'myprofile')]
+		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home')
+							,(_('GLOBAL_MENU_My_Pools'), {'args':['controller'], 'kwargs':{'controller':'mypools'}}, 'mypools')
+							,(_('GLOBAL_MENU_My_Badges'), {'args':['controller'], 'kwargs':{'controller':'mybadges'}}, 'badges')
+							,(_('GLOBAL_MENU_My_Profile'), {'args':['controller'], 'kwargs':{'controller':'myprofile'}}, 'myprofile')]
