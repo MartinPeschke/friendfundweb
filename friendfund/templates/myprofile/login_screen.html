@@ -57,13 +57,7 @@
 			<div class="panel_content_inner">
 			<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
 				<div class="forminputline">
-					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_First_Name"))|n}
-				</div>
-                <div class="forminputline">
-					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Last_Name"))|n}
-				</div>
-                <div class="forminputline">
-					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Username"))|n}
+					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Name"))|n}
 				</div>
 				<div class="forminputline">
 					${forms.input_text("signup", "email", _("LOGIN_PAGE_LABEL_Email"), required = True)|n}
@@ -74,11 +68,7 @@
 				<div class="forminputline">
 					${forms.input_text("signup", "pwd_confirm", _("LOGIN_PAGE_LABEL_Confirm Password"), "password", False, required = True)|n}
 				</div>
-				<div class="forminputline">
-					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
-					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
-				</div>
-				<div class="forminputline maleFemaleContainer">
+                <div class="forminputline maleFemaleContainer">
 				<div  class="maleFemale">
                 <p style="width:150px; float:left">Gender</p>
                 <input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
@@ -90,6 +80,11 @@
 				</div>
 					${forms.error_msg("signup", "gender", type="error_checkbox")}
 				</div>
+				<div class="forminputline">
+					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
+					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
+				</div>
+				
 				
 				
 				
