@@ -10,7 +10,7 @@
 		${(_("POOL_BUTTON_Hi %(suspect_name)s<br/>Please login to participate in the funding fun.")%locals)|n}
 		<br/><br/>
 		<div style="float:left;margin-left:35px;">
-			<%html:button href="/login?furl=${getattr(c, 'furl',url('controller', controller='pool', pool_url=pool.p_url))}">${_("POOL_BUTTON_Login")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>
+			<%html:button href="${url('index', action='login')}?furl=${getattr(c, 'furl',url('controller', controller='pool', pool_url=pool.p_url))}">${_("POOL_BUTTON_Login")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>
 		</div>
 		${html.clearline()}
 	</div>

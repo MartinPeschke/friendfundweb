@@ -53,6 +53,6 @@ class MybadgesController(BaseController):
 	def test(self):
 		print c.user.networks.get("twitter").network_id, request.params.get("badge_name")
 		if not ('twitter' in c.user.networks and c.user.networks.get("twitter").network_id == 125415114):
-			return redirect('/')
+			return redirect(url('home'))
 		c.messages.append(Badge(name = request.params.get("badge_name")))
-		return redirect("/")
+		return redirect(url('home'))

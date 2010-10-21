@@ -113,7 +113,7 @@
 		<div style="margin-top: 20px; clear: both;" class="profilePictureContainer big">
 		<p class="facebookTxt"><img src="/static/imgs/icon_mail.png"/>Email</p>
 	   <div class="profile-picture">
-		<form id="signup_form" action="/myprofile/add_email" method="POST" enctype="multipart/form-data">
+		<form id="signup_form" action="${url(controller='myprofile', action='add_email')}" method="POST" enctype="multipart/form-data">
 		<div class="inside-profile-picture">
 			<div class="smallInside" style="margin-right:30px">
 				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Set Your Profile Picture")}</div>

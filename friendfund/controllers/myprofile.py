@@ -28,7 +28,7 @@ class MyprofileController(BaseController):
 		c.myprofile_values = {}
 		c.myprofile_errors = {}
 		if request.method != 'POST':
-			return redirect('/myprofile')
+			return redirect(url('controller', controller='myprofile'))
 		myprofile = formencode.variabledecode.variable_decode(request.params).get('myprofile', None)
 		schema = MyProfileForm()
 		
@@ -60,7 +60,7 @@ class MyprofileController(BaseController):
 						)
 			c.messages.append(_("MYPROFILE_EMAILSEIGNUP_Changes saved!"))
 			
-			return redirect('/myprofile')
+			return redirect(url('controller', controller='myprofile'))
 		except formencode.validators.Invalid, error:
 			c.myprofile_values = error.value
 			c.myprofile_errors = error.error_dict or {}
@@ -77,7 +77,7 @@ class MyprofileController(BaseController):
 		c.signup_values = {}
 		c.signup_errors = {}
 		if request.method != 'POST':
-			return redirect('/myprofile')
+			return redirect(url('controller', controller='myprofile'))
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
 		schema = SignupForm()
 		try:
@@ -99,7 +99,7 @@ class MyprofileController(BaseController):
 			c.user.has_email = True
 			c.user.email = c.signup_values['email']
 			c.messages.append(_("MYPROFILE_EMAILSEIGNUP_Details saved!"))
-			return redirect('/myprofile')
+			return redirect(url('controller', controller='myprofile'))
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
 			c.signup_errors = error.error_dict or {}
@@ -155,7 +155,7 @@ class MyprofileController(BaseController):
 			return self.render('/myprofile/password_reset.html')
 		except SProcWarningMessage, e:
 			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
-			return redirect('/myprofile/password')
+			return redirect(url(controller='myprofile', action='password'))
 	
 	@logged_in(ajax=False)
 	def resetpwd(self):
@@ -166,7 +166,7 @@ class MyprofileController(BaseController):
 			pwd = form_result['pwd']
 			g.dbm.set(SetNewPasswordForUser(u_id = c.user.u_id, pwd=pwd))
 			c.messages.append(_(u"PROFILE_RESETPASSWORD_Your password has been reset!"))
-			return redirect('/')
+			return redirect(url('home'))
 		except formencode.validators.Invalid, error:
 			c.pwdreset_values = error.value
 			c.pwdreset_errors = error.error_dict or {}
@@ -183,7 +183,7 @@ class MyprofileController(BaseController):
 			c.messages.append(_(u"PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"))
 		else:
 			c.messages.append(_(u"PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank You!"))
-		return redirect('/')
+		return redirect(url('home'))
 
 	def set_lang(self):
 		lang = request.params.get('lang')

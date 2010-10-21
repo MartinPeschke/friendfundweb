@@ -28,7 +28,7 @@ ${mypools_body.render_tabs("friends")|n}
 		<div></div>
 	%else:
 		<div style="margin-top: 20px">
-		<%call expr="html.button(href='/')">${_("FRIENDSPOOLS_CONTENT_Create new Pool")}</%call>
+		<%call expr="html.button(href=${url('home')})">${_("FRIENDSPOOLS_CONTENT_Create new Pool")}</%call>
 		</div>
 	%endif
 </div>

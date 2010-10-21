@@ -49,7 +49,7 @@
 				<div class="block_intro">
 					${EMAIL_INTRO|n}
 				</div>
-				<form action="/set_email" method="POST" id="blockingemailform">
+				<form action="${url('index', action='set_email')}" method="POST" id="blockingemailform">
 					<a class="facebookBtn floaterRight" onclick="getfbEmail('${app_globals.FbApiKey}')"><span>${EMAIL_FB}</span></a>
 					<label for="email">${EMAIL_LABEL|n}</label>
 					<input type="text" value="${getattr(c, 'email', '')}" name="email" id="email"/>

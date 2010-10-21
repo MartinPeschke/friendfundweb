@@ -25,9 +25,9 @@ class InviteController(BaseController):
 	@logged_in(ajax=False)
 	def display(self, pool_url):
 		if not pool_url:
-			return redirect('/')
+			return redirect(url('home'))
 		if not c.user.set_pool_url(pool_url):
-			return redirect('/')
+			return redirect(url('home'))
 		pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
 		if pool is None:
 			return abort(404)
@@ -129,7 +129,7 @@ class InviteController(BaseController):
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 			if 'invitees' in websession:
 				del websession['invitees']
-		return redirect('/pool/%s'% pool_url)
+		return redirect(url('ctrlpoolindex', controller='pool', pool_url = pool_url))
 	
 	@jsonify
 	@logged_in(ajax=True)
@@ -194,7 +194,7 @@ class InviteController(BaseController):
 	@logged_in(ajax=False)
 	def rem(self, pool_url):
 		if request.method != 'POST':
-			return redirect('/')
+			return redirect(url('home'))
 		try:
 			network = request.params.get('network', None)
 			network_id = request.params.get('networkid', None)

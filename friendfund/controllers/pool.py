@@ -35,13 +35,13 @@ class PoolController(BaseController):
 			del websession['pool']
 		if 'invitees' in websession:
 			del websession['invitees']
-		return redirect('/')
+		return redirect(url('home'))
 	
 	def index(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-			return redirect("/")
+			return redirect(url('home'))
 		if not c.user.is_anon\
 			and c.pool.am_i_member(c.user):
 				c.user.current_pool = c.pool
@@ -58,16 +58,16 @@ class PoolController(BaseController):
 		c.pool = websession.get('pool')
 		if c.pool is None:
 			c.messages.append(_("POOL_CREATE_Nothing was known about this pool, what can I do?"))
-			return redirect('/')
+			return redirect(url('home'))
 		elif c.pool.product is None:
 			c.messages.append(_("POOL_CREATE_Product was unknown, what can I do?"))
-			return redirect('/')
+			return redirect(url('home'))
 		elif c.pool.occasion is None:
 			c.messages.append(_("POOL_CREATE_Occasion was unknown, what can I do?"))
-			return redirect('/')
+			return redirect(url('home'))
 		elif c.pool.receiver is None:
 			c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
-			return redirect('/')
+			return redirect(url('home'))
 		
 		admin = PoolUser(**c.user.get_map())
 		if h.users_equal(c.pool.receiver, admin):
@@ -89,7 +89,7 @@ class PoolController(BaseController):
 		c.user.current_pool = c.pool
 		if 'pool' in websession:
 			del websession['pool']
-		return redirect('/invite/%s' % c.pool.p_url)
+		return redirect(url('invite_index',  pool_url = c.pool.p_url))
 	
 	@jsonify
 	def chat(self, pool_url):
@@ -135,7 +135,7 @@ class PoolController(BaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.psettings:
 			c.messages.append("POOL_SETTINGS_Pool not found")
-			return redirect('/')
+			return redirect(url('home'))
 		c.user.set_am_i_admin(pool_url, c.psettings.is_admin)
 		c.shipping_values = to_displaymap(c.psettings.addresses.get("shipping"))
 		c.shipping_errors = {}
@@ -231,19 +231,19 @@ class PoolController(BaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not (c.psettings.is_admin and c.psettings.is_funded()):
 			c.messages.append(self.NOT_CORRECT_STATE)
-			return redirect('/pool/%s/settings' % pool_url)
+			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		elif not c.psettings.information_complete():
 			c.messages.append(self.SAVE_ADDRESS_FIRST)
-			return redirect('/pool/%s/settings' % pool_url)
+			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		
 		try:
 			g.dbm.set(ClosePoolProc(p_url = pool_url))
 		except db_access.SProcException,e:
 			c.messages.append(e)
-			return redirect('/pool/%s' % pool_url)
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url))
 		except db_access.SProcWarningMessage,e:
 			c.messages.append(e)
-		return redirect('/pool/%s/settings' % pool_url)
+		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 	
 	
 	@logged_in(ajax=False)
@@ -251,15 +251,15 @@ class PoolController(BaseController):
 		action = str(request.params['action'])
 		if not c.user.am_i_admin(pool_url) or action not in POOLACTIONS:
 			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
-			return redirect('/pool/%s/settings' % pool_url)
+			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		g.dbm.set(ExtendActionPoolProc(p_url = pool_url
 										, name=action
 										, expiry_date=request.params.get('expiry_date', None)
 										, message=request.params['message']))
 		c.messages.append(_(u"POOL_ACTION_Changes Saved"))
 		if action=="ADMIN_ACTION_INVITE":
-			return redirect('/invite/%s' % pool_url)
-		return redirect('/pool/%s/settings' % pool_url)
+			return redirect(url('invite_index',  pool_url = pool_url))
+		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 	
 	# @jsonify#double confirm not used currently
 	# @logged_in(ajax=False)
@@ -308,14 +308,14 @@ class PoolController(BaseController):
 			raise ValueError("POOL_ALTPRODUCT_No Product Selected")
 		g.dbm.set(SetAltProductProc(p_url = pool_url, product = product))
 		c.messages.append(_(u"POOL_ALTPRODUCT_Product Change Saved"))
-		return {"redirect":('/pool/%s/settings' % pool_url)}
+		return {"redirect":(url(controller='pool', action='settings', pool_url=pool_url))}
 	
 	@logged_in(ajax=False)
 	def issue_gift_vouchers(self, pool_url):
 		c.pool_url = pool_url
 		if not c.user.am_i_admin(pool_url):
 			c.messages.append("NOT ALLOWED")
-			return redirect('/pool/%s/settings' % pool_url)
+			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		g.dbm.set(SwitchProductVouchersProc(p_url = pool_url))
 		c.messages.append(_(u"POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"))
-		return redirect('/pool/%s' % pool_url)
+		return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url))

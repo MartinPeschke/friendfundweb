@@ -151,7 +151,7 @@ ${html.clearline()|n}
 			${html.clearline()|n}
 			%if c.pool.am_i_member(c.user):
 				<div class="comment_input_panel">${_("POOL_CHAT_Leave your Comment:")}</div>
-				<textarea id="addcommenttext" _href="/pool/${c.pool.p_url}/chat" name="comment" class="comment_text_input"></textarea>
+				<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea>
 				<%call expr="html.button(href='#comments', onclick='submit_fundchat(\'addcommenttext\')', _class='button_container large')">${_("POOL_PAGE_BUTTON_Post!")}</%call>
 				${html.clearline()|n}
 			%endif

@@ -5,7 +5,7 @@
 %if badge:
 	<div class="badge_background">&nbsp;</div>
 	<div class="window" id="badge_window_container">
-		<div class="badge_window pagelet" id="badge_window" pagelet_href="/mybadges/panel/${c.badge.name}">
+		<div class="badge_window pagelet" id="badge_window" pagelet_href="${url('mybadges', badge_name=c.badge.name)}">
 			${html.loading_animation()|n}
 			<a href="#" class="panel_closer">&nbsp;</a>
 		</div>
