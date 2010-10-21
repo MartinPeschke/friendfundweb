@@ -6,11 +6,11 @@
 </%def>
 
 
-<table border="1" cellspacing="5" cellpadding="5">
+<table class="curation" border="1">
+<tr><th>Product</th><th>Action</th></tr>
 %for cp in c.curation_queue.cp:
 	<tr>
-	<td>${display_product(cp.versions.get('OLD'))}</td>
-	<td>${display_product(cp.versions.get('NEW'))}</td>
+	<td class="curation">${display_product(cp.versions.get('OLD'), cp.versions.get('NEW'))}</td>
 	<td>Do Something Withit:
 		<ul>
 			<li>Cat1</li>
@@ -19,7 +19,6 @@
 			<li>Cat4</li>
 			<li>Cat5</li>
 		</ul>
-		
 	</td>
 	</tr>
 %endfor
@@ -28,8 +27,74 @@
 
 
 
-<%def name="display_product(cp)">
-%for k in cp.product._keys:
-	${k.pykey} - ${getattr(cp.product, k.pykey)}<br/>
-%endfor
+<%def name="display_product(oldcp, newcp)">
+<%
+	oldproduct = oldcp and oldcp.product or oldcp
+	newproduct = newcp and newcp.product or newcp
+%>
+%if product is not None:
+	<table class="curation_product" cellspacing="0" cellpadding="0">
+		<tr  class="curation_product">
+			<td class="curation_product"><div class="label">Name:</div></td>
+			<td  class="curation_product">
+				<div class="property name">${oldproduct.name}</div>
+			</td>
+			<td  class="curation_product">
+				<div class="property name">${newproduct.name}</div>
+			</td>
+		</tr>
+		<tr  class="curation_product"><td  class="curation_product"><div class="label">Manufacturer:</div></td>
+			<td  class="curation_product">
+				<div class="property manufacturer">Manufacturer: ${oldproduct.manufacturer}</div>
+			</td>
+			<td  class="curation_product">
+				<div class="property manufacturer">Manufacturer: ${newproduct.manufacturer}</div>
+			</td>
+		</tr>
+		<tr  class="curation_product"><td  class="curation_product"><div class="label">Description:</div></td>
+			<td  class="curation_product">
+				<div class="property description">${oldproduct.description}</div>
+			</td>
+			<td  class="curation_product">
+				<div class="property description">${newproduct.description}</div>
+			</td>
+		</tr>
+		<tr  class="curation_product"><td  class="curation_product"><div class="label">Description Long:</div></td>
+			<td  class="curation_product">
+				<div class="property description_long">${oldproduct.description_long}</div>
+			</td>
+			<td  class="curation_product">
+				<div class="property description_long">${newproduct.description_long}</div>
+			</td>
+		</tr>
+		<tr  class="curation_product"><td  class="curation_product"><div class="label">Price:</div></td>
+			<td  class="curation_product">
+				<div class="property price">${oldproduct.price}</div>
+			</td>
+			<td  class="curation_product">
+				<div class="property price">${newproduct.price}</div>
+			</td>
+		</tr>
+		<tr  class="curation_product"><td  class="curation_product"><div class="label">Shipping_cost:</div></td>
+			<td  class="curation_product">
+				<div class="property shipping_cost">${oldproduct.shipping_cost}</div>
+			</td>
+			<td  class="curation_product">
+				<div class="property shipping_cost">${newproduct.shipping_cost}</div>
+			</td>
+		</tr>
+		<tr  class="curation_product"><td  class="curation_product"><div class="label">Large Picture:</div></td>
+			<td  class="curation_product">
+				<img src="${oldproduct.picture_small}"/>
+				<img src="${oldproduct.picture_large}"/>
+			</td>
+			<td  class="curation_product">
+				<img src="${newproduct.picture_small}"/>
+				<img src="${newproduct.picture_large}"/>
+			</td>
+		</tr>
+	</table>
+%else:
+	No Product Info
+%endif
 </%def>
