@@ -6,19 +6,15 @@
 </%def>
 
 
-<table class="curation" border="1">
+<table class="curation" border="1" cellspacing="20">
 <tr><th>Product</th><th>Action</th></tr>
 %for cp in c.curation_queue.cp:
 	<tr>
 	<td class="curation">${display_product(cp.versions)}</td>
-	<td>Do Something Withit:
-		<ul>
-			<li>Cat1</li>
-			<li>Cat2</li>
-			<li>Cat3</li>
-			<li>Cat4</li>
-			<li>Cat5</li>
-		</ul>
+	<td class="curation" valign="bottom">
+		<input type="submit" name="Accept" value="Accept"/>
+		<input type="submit" name="Ignore" value="Ignore"/>
+		<input type="submit" name="Reject" value="Reject"/>
 	</td>
 	</tr>
 %endfor
@@ -28,14 +24,17 @@
 
 
 <%def name="display_product(cp)">
+<%
+	versions = sorted(cp, reverse=True)
+%>
 %if product is not None:
 	<table class="curation_product" cellspacing="0" cellpadding="0">
 		%for k in c.curation_queue.key_order:
-			<tr  class="curation_product">
+			<tr class="curation_product">
 				<td  class="curation_product"><div class="label">${k.replace('_', ' ').title()}:</div></td>
-				%for key in sorted(cp, reverse=True):
-				<td  class="curation_product">
-					<div class="property name">${getattr(cp[key].product, k)}</div>
+				%for key in versions:
+				<td  class="curation_product ${len(set(map(lambda x: getattr(cp[x].product, k), cp))) > 1 and 'different' or 'same'}">
+					<div class="property ${k}">${getattr(cp[key].product, k)}</div>
 				</td>
 				%endfor
 			</tr>
@@ -43,13 +42,26 @@
 		%for k in c.curation_queue.image_keys:
 			<tr  class="curation_product">
 				<td  class="curation_product"><div class="label">${k}:</div></td>
-				%for key in sorted(cp):
-				<td  class="curation_product">
-					<div class="property name"><img src="${getattr(cp[key].product, k)}"/></div>
+				%for key in versions:
+				<td  class="curation_product ${len(set(map(lambda x: getattr(cp[x].product, k), cp))) > 1 and 'different' or 'same'}">
+					<div class="property ${k}"><img src="${getattr(cp[key].product, k)}"/></div>
 				</td>
 				%endfor
 			</tr>
 		%endfor
+		<tr  class="curation_product">
+			<td  class="curation_product"><div class="label">Categories:</div></td>
+			%for key in versions:
+			<td  class="curation_product">
+				<ul>
+					%for cat in app_globals.categories.list:
+					<li><input type="checkbox" name="category" value="${cat.id}" checked="${cat.id in cp[key].categories.map and 'checked' or ''}"
+							${key=='OLD' and 'disabled="disabled"' or ''}>${cat.name}</li>
+					%endfor
+				</ul>
+			</td>
+			%endfor
+		</tr>
 	</table>
 %else:
 	No Product Info

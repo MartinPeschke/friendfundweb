@@ -1,10 +1,27 @@
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
 from friendfund.model.product import Product
 
-images = ['aff_program_logo_url', 'picture_small', 'picture_large', 'product_picture_url']
-key_order = filter(lambda x: x not in images, sorted(map(lambda x: x.pykey, Product._keys)))
+images = ['aff_program_logo_url', 'picture_small', 'picture_large']
+key_order = ['aff_id','description', 'description_long', 'manufacturer', 'name', 'price', 'shipping_cost']
 
 
+class CurationCategory(DBMappedObject):
+	_set_root = _get_root = 'CATEGORY'
+	_set_proc = _get_proc = None
+	_unique_keys = ['id','name']
+	_cachable = False
+	_no_params = True
+	_keys = [GenericAttrib(int,'id','id')
+				,GenericAttrib(str,'name','name')]
+
+				
+class CurationCategoryWrapper(DBMappedObject):
+	_set_root = _get_root = 'CATEGORIES'
+	_set_proc = _get_proc = None
+	_unique_keys = ['id','name']
+	_cachable = False
+	_no_params = True
+	_keys = [DBMapper(CurationCategory,'map','CATEGORY', is_dict = True, dict_key = lambda x: x.id)]
 class ProductVersion(DBMappedObject):
 	_set_root = _get_root = 'PRODUCT_VERSION'
 	_set_proc = _get_proc = None
@@ -14,6 +31,7 @@ class ProductVersion(DBMappedObject):
 				GenericAttrib(bool,'is_new','is_new')
 				,GenericAttrib(bool,'pc_id','pc_id')
 				,DBMapper(Product,'product','PRODUCT')
+				,DBMapper(CurationCategoryWrapper,'categories','CATEGORIES')
 			]
 
 class CurationProduct(DBMappedObject):
@@ -41,3 +59,16 @@ class GetCurationQueue(DBMappedObject):
 				,GenericAttrib(str,'type','type')
 				,DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)
 			]
+
+class GetCategoriesQueue(DBMappedObject):
+	"""
+		cur.get_categories
+		<RESULT status="0" proc_name="get_categories"><CATEGORY CATEGORY_ID="1">DUMMY1</CATEGORY><CATEGORY CATEGORY_ID="2">DUMMY2</CATEGORY><CATEGORY CATEGORY_ID="3">DUMMY3</CATEGORY></RESULT>
+	"""
+	_set_root = 'CATEGORY'
+	_get_root = None
+	_set_proc = _get_proc = "cur.get_categories"
+	_unique_keys = []
+	_cachable = False
+	_no_params = True
+	_keys = [DBMapper(CurationCategory,'list','CATEGORY', is_list = True)]

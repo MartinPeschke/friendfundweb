@@ -13,3 +13,9 @@ class IndexController(BaseController):
 	def index(self):
 		c.curation_queue = g.dbm.get( GetCurationQueue, region = 'de', type="UPDATE")
 		return render("/index.html")
+	def update(self):
+		c.curation_queue = g.dbm.get( GetCurationQueue, region = 'de', type="UPDATE")
+		return render("/index.html")
+	def insert(self):
+		c.curation_queue = g.dbm.get( GetCurationQueue, region = 'de', type="INSERT")
+		return render("/index.html")

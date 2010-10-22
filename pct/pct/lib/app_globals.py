@@ -5,6 +5,7 @@ from random import random
 from DBUtils.PooledDB import PooledDB
 
 from friendfund.model import common
+from pct.model.curation import GetCategoriesQueue
 log = logging.getLogger(__name__)
 
 class Globals(object):
@@ -26,7 +27,9 @@ class Globals(object):
 		log.info("memcached set up at %s", config['app_conf']['memcached.cache.url'])
 		
 		self.revision_identifier = 1
-		self.globalnav = [('Home',{'args':['home'], 'kwargs':{}}, 'home')]
+		self.globalnav = [('Home',{'args':['home'], 'kwargs':{}}, 'home'), 
+						('Update',{'args':[], 'kwargs':{'controller':'index','action':'update'}}, 'home'),
+						('Insert',{'args':[], 'kwargs':{'controller':'index','action':'insert'}}, 'home')]
 		dbm = PooledDB(pyodbc,2,autocommit=True
 				,driver=app_conf['pool.connectstring.driver']
 				,server=app_conf['pool.connectstring.server']
@@ -38,3 +41,6 @@ class Globals(object):
 				,pwd=app_conf['pool.connectstring.pwd']
 				,client_charset=app_conf['pool.connectstring.client_charset'])
 		self.dbm = common.DBManager(dbm, self.cache_pool, logging.getLogger('DBM'))
+		
+		self.categories = self.dbm.get(GetCategoriesQueue)
+		print self.categories.list
