@@ -48,6 +48,8 @@ class BaseController(WSGIController):
 			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
 			region = g.country_choices.map.get(region, g.country_choices.fallback).code
 			websession['region'] = region
+		c.siteversion = request.headers.get('X-VERSION', 'site')
+		if c.siteversion not in ['site', 'fbcanvas']: abort(404)
 		return WSGIController.__call__(self, environ, start_response)
 	
 	def __before__(self, action, environ):
