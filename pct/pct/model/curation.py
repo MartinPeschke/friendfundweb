@@ -8,20 +8,19 @@ key_order = ['aff_id','description', 'description_long', 'manufacturer', 'name',
 class CurationCategory(DBMappedObject):
 	_set_root = _get_root = 'CATEGORY'
 	_set_proc = _get_proc = None
-	_unique_keys = ['id','name']
+	_unique_keys = ['name']
 	_cachable = False
 	_no_params = True
-	_keys = [GenericAttrib(int,'id','id')
-				,GenericAttrib(str,'name','name')]
+	_keys = [GenericAttrib(str,'name','name')]
 
 				
 class CurationCategoryWrapper(DBMappedObject):
 	_set_root = _get_root = 'CATEGORIES'
 	_set_proc = _get_proc = None
-	_unique_keys = ['id','name']
+	_unique_keys = []
 	_cachable = False
 	_no_params = True
-	_keys = [DBMapper(CurationCategory,'map','CATEGORY', is_dict = True, dict_key = lambda x: x.id)]
+	_keys = [DBMapper(CurationCategory,'map','CATEGORY', is_dict = True, dict_key = lambda x: x.name)]
 class ProductVersion(DBMappedObject):
 	_set_root = _get_root = 'PRODUCT_VERSION'
 	_set_proc = _get_proc = None

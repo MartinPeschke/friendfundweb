@@ -55,7 +55,7 @@
 			<td  class="curation_product">
 				<ul>
 					%for cat in app_globals.categories.list:
-					<li><input type="checkbox" name="category" value="${cat.id}" checked="${cat.id in cp[key].categories.map and 'checked' or ''}"
+					<li><input type="checkbox" name="category" value="${cat.name}" checked="${cat.name in cp[key].categories.map and 'checked' or ''}"
 							${key=='OLD' and 'disabled="disabled"' or ''}>${cat.name}</li>
 					%endfor
 				</ul>
