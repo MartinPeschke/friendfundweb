@@ -28,7 +28,7 @@
 			<input type="hidden" name = "back_q" id="back_q" value="${c.back_q}"/>
 			
 			
-			<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}</a><img src="/static/imgs/icon_amazon.png"/></span>
+			<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
 		</form>
 		
 		<div class="clear"></div>
@@ -41,8 +41,8 @@
 		%for i, ps in enumerate(c.psuggestions):
 			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
 				<a class="productsuggestion" searchterm="${ps.search}" sort="${c.sort}" aff_net="${ps.aff_net}" aff_net_ref="${ps.aff_net_ref or ''}">
-					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/><br/>
-					${ps.name}
+					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
+					<span>${ps.name}</span>
 				</a>
 			</div>
 		%endfor
