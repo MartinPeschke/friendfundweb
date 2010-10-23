@@ -71,6 +71,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 					, aff_net: dojo.attr(this, "aff_net")||null
 					, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
 					, sort : "RANK"
+					, is_virtual : dojo.attr(this, "is_virtual")||null
 				};
 		_t.search(_t, evt, params);
 		
@@ -90,6 +91,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.mixin(params, {aff_net: dojo.attr(this, "aff_net")||null
 							, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
 							, sort : this.value||null
+							, is_virtual : dojo.attr(this, "is_virtual")||null
 							});
 		_t.search(_t, evt, params);
 	},
@@ -108,7 +110,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.mixin(params, {page:dojo.attr(this, "page")||null
 					, aff_net: dojo.attr(this, "aff_net")||null
 					, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
-					, sort : dojo.attr(this, "sort")||null});
+					, sort : dojo.attr(this, "sort")||null
+					, is_virtual : dojo.attr(this, "is_virtual")||null});
 		_t.search(_t, evt, params);
 		evt.stopPropagation();
 		evt.preventDefault();

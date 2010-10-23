@@ -40,7 +40,7 @@
 		<div id="product_suggestions">
 		%for i, ps in enumerate(c.psuggestions):
 			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
-				<a class="productsuggestion" searchterm="${ps.search}" sort="${c.sort}" aff_net="${ps.aff_net}" aff_net_ref="${ps.aff_net_ref or ''}">
+				<a class="productsuggestion" searchterm="${ps.search}" sort="${c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
 					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
 					<span>${ps.name}</span>
 				</a>
@@ -60,7 +60,7 @@
 		<div id="product_browser">
 			%if c.searchresult.items > 0:
 				<div class="product_sorter" >
-					<select name="sort" id="psort" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">
+					<select name="sort" id="psort" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">
 						%for ac in c.sortees:
 							<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
 						%endfor
@@ -81,7 +81,7 @@
 				%>
 					%if page_no > 1:
 						<span class="veryfirst">
-						<a href="#" class="paginator" page="${page_no-1}" sort="${c.sort}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+						<a href="#" class="paginator" page="${page_no-1}" sort="${c.sort}" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
 						</span>
 					%endif
 					%for i in page_field:
@@ -90,14 +90,14 @@
 							<span class="selected">${i}</span>
 						%else:
 							<span>
-								<a href="#" class="paginator" page="${i}" sort="${c.sort}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${i}</a>
+								<a href="#" class="paginator" page="${i}" sort="${c.sort}" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">${i}</a>
 							</span>
 						%endif
 						</span>
 					%endfor
 					%if page_no < pages:
 						<span class="verylast">
-						<a href="#" class="paginator" page="${page_no+1}" sort="${c.sort}" aff_net="${c.aff_net}" aff_net_ref="${c.aff_net_ref or ''}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
+						<a href="#" class="paginator" page="${page_no+1}" sort="${c.sort}" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
 						</span>
 					%endif
 				</div>

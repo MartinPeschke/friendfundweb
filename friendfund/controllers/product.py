@@ -103,7 +103,8 @@ class ProductController(BaseController):
 											search=search_term, 
 											page_no=c.page, 
 											region=c.region,
-											max_price = c.max_price), ProductSearch)
+											max_price = c.max_price,
+											is_virtual = request.params.get('is_virtual', False)), ProductSearch)
 				except SProcWarningMessage, e:
 					log.warning("Product Search Warning: %s" % e)
 					return self.ajax_messages(_(u"PRODUCT_SEARCH_An Error Occured during search, please try again later."))

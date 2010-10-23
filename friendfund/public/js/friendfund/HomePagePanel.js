@@ -96,7 +96,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
 		}
-		/*action*/
 	},
 	
 	/*                OCCASION PANELS               */
@@ -304,13 +303,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.query("a.ajaxlink", _t.ref_node).onclick(
 			function(evt){
 				dojo.query("a.ajaxlink.selected", _t.ref_node).removeClass("selected");
-				/*dojo.query("a.ajaxlink.selected", _t.ref_node).forEach(
-					function(elem){
-						var selector = _t.receiver_selectors[dojo.attr(elem, "_type")];
-						if(dojo.attr(elem, "_type") in _t.receiver_selectors)selector.unload(selector);
-						dojo.removeClass(elem, "selected");
-					}
-				);*/
 				dojo.addClass(this, "selected");
 				if(dojo.attr(this, "_type") in _t.receiver_selectors)_t.receiver_selectors[dojo.attr(this, "_type")].draw();
 				evt.stopPropagation();

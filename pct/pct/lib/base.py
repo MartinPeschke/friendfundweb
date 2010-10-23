@@ -23,4 +23,4 @@ class BaseController(WSGIController):
 		c.navposition = self.navposition
 		c.furl = request.path_info
 		c.username = base64.urlsafe_b64decode(request.headers.get('Authorization').split()[1]).split(':')[0]
-		log.info('[%s] I ncoming Request at %s', c.username, url.current())
+		log.info('[%s] Incoming Request at %s', c.username, url.current())

@@ -90,6 +90,7 @@ class ProductSearch(DBMappedObject):
 				,GenericAttrib(int,'page_size' ,'page_size')
 				,GenericAttrib(int,'items' ,'items')
 				,GenericAttrib(str,'sort' ,'sort')
+				,GenericAttrib(bool,'is_virtual' ,'is_virtual')
 				,DBMapper(Product, 'products', 'PRODUCT', is_list = True)
 			]
 	
@@ -109,6 +110,7 @@ class ProductSuggestion(DBMappedObject):
 				,GenericAttrib(str,'search'         ,'search')
 				,GenericAttrib(str,'aff_net'        ,'aff_net')
 				,GenericAttrib(str,'aff_net_ref'    ,'aff_net_ref')
+				,GenericAttrib(bool,'is_virtual'    ,'is_virtual')
 				,GenericAttrib(str,'picture_url'    ,'product_picture_url')
 			]
 

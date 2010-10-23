@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2010-10-20 15:15+0200\n"
+"POT-Creation-Date: 2010-10-22 15:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,15 +206,15 @@ msgstr ""
 msgid "POOL_ACTION_Changes Saved"
 msgstr ""
 
-#: friendfund/controllers/pool.py:296 friendfund/controllers/pool.py:302
+#: friendfund/controllers/pool.py:298 friendfund/controllers/pool.py:304
 msgid "POOL_ALTPRODUCT_No Product Selected"
 msgstr ""
 
-#: friendfund/controllers/pool.py:308
+#: friendfund/controllers/pool.py:310
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr ""
 
-#: friendfund/controllers/pool.py:318
+#: friendfund/controllers/pool.py:320
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr ""
 
@@ -242,45 +242,45 @@ msgstr ""
 msgid "POOL_CREATE_Product not Found"
 msgstr ""
 
-#: friendfund/controllers/product.py:109
+#: friendfund/controllers/product.py:110
 msgid "PRODUCT_SEARCH_An Error Occured during search, please try again later."
 msgstr ""
 
-#: friendfund/controllers/product.py:138
+#: friendfund/controllers/product.py:139
 msgid ""
 "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
 "shipping much time!"
 msgstr ""
 
-#: friendfund/controllers/product.py:141
+#: friendfund/controllers/product.py:142
 msgid ""
 "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a "
 "problem please pick a later date!"
 msgstr ""
 
-#: friendfund/controllers/product.py:152
+#: friendfund/controllers/product.py:153
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr ""
 
-#: friendfund/controllers/product.py:154
+#: friendfund/controllers/product.py:155
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links"
 " from %(amazondomain)s or switch your shipping region."
 msgstr ""
 
-#: friendfund/controllers/product.py:162
+#: friendfund/controllers/product.py:163
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr ""
 
-#: friendfund/controllers/product.py:166
+#: friendfund/controllers/product.py:167
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article "
 "and is not sold by Amazon itself. Currently we do not support Amazon "
 "Marketplace articles."
 msgstr ""
 
-#: friendfund/controllers/product.py:169
+#: friendfund/controllers/product.py:170
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
@@ -294,14 +294,10 @@ msgstr ""
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr ""
 
-#: friendfund/controllers/twitter.py:22
+#: friendfund/controllers/twitter.py:20
 msgid ""
 "TWITTER_An Error occured during Twitter authentication, please try again "
 "later."
-msgstr ""
-
-#: friendfund/controllers/twitter.py:34
-msgid "TWITTER_Invalid response from Twitter."
 msgstr ""
 
 #: friendfund/lib/app_globals.py:127
@@ -953,7 +949,7 @@ msgstr ""
 #: friendfund/templates/invite/invite.html:29
 #, python-format
 msgid ""
-"INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <br/><span "
+"INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <span "
 "class=\"emphasis\">%(receiver_name)s's</span> gift."
 msgstr ""
 
@@ -1374,8 +1370,12 @@ msgstr ""
 msgid "MYPROFILE_PAGE_LABEL_Password Confirm"
 msgstr ""
 
+#: friendfund/templates/myprofile/index.html:149
+msgid "LOGIN_PAGE_LABEL_Female"
+msgstr ""
+
 #: friendfund/templates/myprofile/index.html:151
-#: friendfund/templates/myprofile/login_screen.html:74
+#: friendfund/templates/myprofile/login_screen.html:75
 msgid "LOGIN_PAGE_LABEL_Male"
 msgstr ""
 
@@ -1407,19 +1407,19 @@ msgstr ""
 msgid "LOGIN_PAGE_TITLE_TEXT_Login"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:17
+#: friendfund/templates/myprofile/login_screen.html:16
 msgid "LOGIN_PAGE_LABEL_Login with"
 msgstr ""
 
+#: friendfund/templates/myprofile/login_screen.html:19
 #: friendfund/templates/myprofile/login_screen.html:20
-#: friendfund/templates/myprofile/login_screen.html:21
 #: friendfund/templates/receiver/fb_login.html:4
 #: friendfund/templates/receiver/fb_login.html:5
 msgid "Connect with Facebook"
 msgstr ""
 
+#: friendfund/templates/myprofile/login_screen.html:25
 #: friendfund/templates/myprofile/login_screen.html:26
-#: friendfund/templates/myprofile/login_screen.html:27
 #: friendfund/templates/receiver/tw_login.html:4
 #: friendfund/templates/receiver/tw_login.html:5
 msgid "Connect with Twitter"
@@ -1443,11 +1443,7 @@ msgstr ""
 msgid "LOGIN_PAGE_LABEL_Forgot Password?"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:45
-msgid "LOGIN_PAGE_BUTTON_Login"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_screen.html:54
+#: friendfund/templates/myprofile/login_screen.html:55
 msgid "LOGIN_PAGE_LABEL_Signup"
 msgstr ""
 
@@ -1456,25 +1452,11 @@ msgid "LOGIN_PAGE_LABEL_Name"
 msgstr ""
 
 #: friendfund/templates/myprofile/login_screen.html:69
-msgid "LOGIN_PAGE_LABEL_Password Confirm"
+msgid "LOGIN_PAGE_LABEL_Confirm Password"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:83
+#: friendfund/templates/myprofile/login_screen.html:84
 msgid "LOGIN_PAGE_LABEL_Profile Picture"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_screen.html:87
-msgid "LOGIN_PAGE_BUTTON_Join"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_screen.html:91
-msgid "LOGIN_PAGE_LABEL_* Mandatory"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_screen.html:94
-msgid ""
-"LOGIN_PAGE_LABEL_By clicking on 'Join' on the right, you confirm that you "
-"accept the Terms of Service."
 msgstr ""
 
 #: friendfund/templates/myprofile/password_request.html:4
