@@ -1,5 +1,6 @@
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
 from friendfund.model.product import Product
+from lxml import etree
 
 images = ['aff_program_logo_url', 'picture_small', 'picture_large']
 key_order = ['aff_id','description', 'description_long', 'manufacturer', 'name', 'price', 'shipping_cost']
@@ -39,8 +40,17 @@ class CurationProduct(DBMappedObject):
 	_unique_keys = ['region', 'type']
 	_cachable = False
 	_keys = [	GenericAttrib(str,'type','type')
+				, GenericAttrib(str,'outcome','outcome')
+				, GenericAttrib(str,'prog_id','prog_id')
+				, GenericAttrib(str,'aff_id','aff_id')
 				,DBMapper(ProductVersion,'versions','PRODUCT_VERSION', is_dict = True, dict_key = lambda x: (x.is_new and 'NEW' or 'OLD'))
 			]
+	def fromDB(self, xml):
+		setattr(self, 'xml', etree.tostring(xml))
+		
+	@classmethod
+	def from_xml(cls, xml):
+		return DBMapper.fromDB(cls, xml)
 
 class GetCurationQueue(DBMappedObject):
 	"""
@@ -71,3 +81,19 @@ class GetCategoriesQueue(DBMappedObject):
 	_cachable = False
 	_no_params = True
 	_keys = [DBMapper(CurationCategory,'list','CATEGORY', is_list = True)]
+
+class SetCurationResultProc(DBMappedObject):
+	_set_root = _get_root = 'CURATION'
+	_set_proc = _get_proc = "cur.set_curation_products"
+	_unique_keys = ['region', 'type']
+	_cachable = False
+	_keys = [GenericAttrib(str,'region','region'), DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)]
+
+  
+  # <xsd:simpleType name="CURATION_OUTCOME"> 
+    # <xsd:restriction base="xsd:string"> 
+      # <xsd:enumeration value="ACCEPT"/> 
+      # <xsd:enumeration value="REJECT"/> 
+      # <xsd:enumeration value="NONE"/> 
+    # </xsd:restriction> 
+  # </xsd:simpleType>

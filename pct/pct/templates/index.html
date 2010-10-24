@@ -12,9 +12,12 @@
 	<tr>
 	<td class="curation">${display_product(cp.versions)}</td>
 	<td class="curation" valign="bottom">
-		<input type="submit" name="Accept" value="Accept"/>
-		<input type="submit" name="Ignore" value="Ignore"/>
-		<input type="submit" name="Reject" value="Reject"/>
+		<form action="/index/curate" method="post"/>
+			<textarea style="display:none" name="curation_xml">${cp.xml}</textarea>
+			<input type="hidden" name="region" value="${c.curation_queue.region}"/>
+			<input type="submit" name="outcome" value="ACCEPT"/>
+			<input type="submit" name="outcome" value="REJECT"/>
+		</form>
 	</td>
 	</tr>
 %endfor
