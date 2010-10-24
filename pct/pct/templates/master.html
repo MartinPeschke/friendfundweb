@@ -86,13 +86,14 @@ ${self.master_foot()}
 	<div id="headercontainer">
 		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/imgs/header/logo_banner.png"/></a>
 		${self.header_navigation()}
+		<div id="region">${c.region}</div>
 	</div>
 </%def>
 
 <%def name="header_navigation()">
 	<ul class="navigation">
 		%for title, path, token in app_globals.globalnav:
-			<li class="${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+			<li class="${(c.navposition==token) and 'selected' or ''}"><a href="${url.current(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
 		%endfor
 	</ul>
 </%def>

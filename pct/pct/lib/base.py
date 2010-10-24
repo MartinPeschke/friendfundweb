@@ -17,6 +17,7 @@ class BaseController(WSGIController):
 		# WSGIController.__call__ dispatches to the Controller method
 		# the request is routed to. This routing information is
 		# available in environ['pylons.routes_dict']
+		c.region = environ['pylons.routes_dict'].get('region', 'de')
 		return WSGIController.__call__(self, environ, start_response)
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""

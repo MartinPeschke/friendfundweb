@@ -23,14 +23,28 @@ handleResult = function(id, data){
 		pc_id = 'cp_%s' % '_'.join(str(cp.versions[cpv].pc_id) for cpv in cp.versions) 
 	%>
 	<tr class="curation_queue_item" id="${pc_id}">
-	<form action="/index/curate" method="post" id="form_${pc_id}">
+	<form action="${url.current(action='curate')}" method="post" id="form_${pc_id}">
 	<td class="curation">${display_product(cp.versions)}</td>
-	<td class="curation" valign="bottom">
+	<td class="curation curation_action" valign="bottom">
 			<textarea style="display:none" name="curation_xml">${cp.xml}</textarea>
 			<input type="hidden" name="region" value="${c.curation_queue.region}"/>
 			<input type="hidden" id="outcome_${pc_id}" name="outcome" value=""/>
-			<input type="button" value="ACCEPT" onclick="dojo.byId('outcome_${pc_id}').value='ACCEPT';xhrFormPost('/index/curate', 'form_${pc_id}', dojo.hitch(null, handleResult, '${pc_id}'))"/>
-			<input type="button" value="REJECT" onclick="dojo.byId('outcome_${pc_id}').value='REJECT';xhrFormPost('/index/curate', 'form_${pc_id}', dojo.hitch(null, handleResult, '${pc_id}'))"/>
+			
+			<div style="margin-top: 250px;">
+			%for cat in app_globals.categories.list:
+				<span class="label"><input id="new_category_${cat.name}" type="checkbox" name="category" value="${cat.name}" ${cat.name in cp.versions['NEW'].categories.map and 'checked="checked"' or ''}/>
+					<label for="new_category_${cat.name}">${cat.name}</label>
+				</span>
+			%endfor
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<input type="button" value="ACCEPT" onclick="dojo.byId('outcome_${pc_id}').value='ACCEPT';xhrFormPost('${url.current(action='curate')}', 'form_${pc_id}', dojo.hitch(null, handleResult, '${pc_id}'))"/>
+			<input type="button" value="REJECT" onclick="dojo.byId('outcome_${pc_id}').value='REJECT';xhrFormPost('${url.current(action='curate')}', 'form_${pc_id}', dojo.hitch(null, handleResult, '${pc_id}'))"/>
+			</div>
 	</td>
 	</form>
 	</tr>
@@ -70,11 +84,14 @@ handleResult = function(id, data){
 			<td  class="curation_product"><div class="label">Categories:</div></td>
 			%for key in versions:
 			<td  class="curation_product">
+				%if key !='NEW':
 					%for cat in app_globals.categories.list:
-					<input id="category_${cat.name}" type="checkbox" name="category" value="${cat.name}" ${cat.name in cp[key].categories.map and 'checked="checked"' or ''}
-							${key=='OLD' and 'disabled="disabled"' or ''}/>
-						<label for="category_${cat.name}">${cat.name}</label>
+						<span class="label"><input id="category_${cat.name}" type="checkbox" name="category" value="${cat.name}" ${cat.name in cp[key].categories.map and 'checked="checked"' or ''}
+								${key=='OLD' and 'disabled="disabled"' or ''}/>
+							<label for="category_${cat.name}">${cat.name}</label>
+						</span>
 					%endfor
+				%endif
 			</td>
 			%endfor
 		</tr>

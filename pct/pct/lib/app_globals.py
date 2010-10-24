@@ -28,8 +28,11 @@ class Globals(object):
 		
 		self.revision_identifier = 1
 		self.globalnav = [('Home',{'args':['home'], 'kwargs':{}}, 'home'), 
-						('Update',{'args':[], 'kwargs':{'controller':'index','action':'update'}}, 'home'),
-						('Insert',{'args':[], 'kwargs':{'controller':'index','action':'insert'}}, 'home')]
+						('Update',{'args':[], 'kwargs':{'action':'update'}}, 'home'),
+						('Insert',{'args':[], 'kwargs':{'action':'insert'}}, 'home'),
+						('Germany',{'args':[], 'kwargs':{'region':'de'}}, 'home'),
+						('UK',{'args':[], 'kwargs':{'region':'gb'}}, 'home'),
+						('USA',{'args':[], 'kwargs':{'region':'us'}}, 'home')]
 		dbm = PooledDB(pyodbc,2,autocommit=True
 				,driver=app_conf['pool.connectstring.driver']
 				,server=app_conf['pool.connectstring.server']
