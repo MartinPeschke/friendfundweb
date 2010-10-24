@@ -29,7 +29,7 @@ class ProductVersion(DBMappedObject):
 	_cachable = False
 	_keys = [	
 				GenericAttrib(bool,'is_new','is_new')
-				,GenericAttrib(bool,'pc_id','pc_id')
+				,GenericAttrib(int,'pc_id','pc_id')
 				,DBMapper(Product,'product','PRODUCT')
 				,DBMapper(CurationCategoryWrapper,'categories','CATEGORIES')
 			]
