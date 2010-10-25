@@ -166,11 +166,11 @@ class PoolController(BaseController):
 		c.countries = g.dbm.get(GetCountryProc).countries
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.user.am_i_admin(pool_url):
-			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
+			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
+			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
@@ -183,7 +183,7 @@ class PoolController(BaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
+			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
@@ -197,7 +197,7 @@ class PoolController(BaseController):
 		c.pool_url = pool_url
 		c.countries = g.dbm.get(GetCountryProc).countries
 		if not c.user.am_i_admin(pool_url):
-			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
+			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		form = formencode.variabledecode.variable_decode(request.params).get('shipping', None)
 		if not form:
@@ -249,7 +249,7 @@ class PoolController(BaseController):
 	def action(self, pool_url):
 		action = str(request.params['action'])
 		if not c.user.am_i_admin(pool_url) or action not in POOLACTIONS:
-			c.messages.append(self.NOT_AUTHORIZED_MESSAGE)
+			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		g.dbm.set(ExtendActionPoolProc(p_url = pool_url
 										, name=action

@@ -172,13 +172,13 @@ ${html.clearline()|n}
 	<div class="contributor ${((position) % 2) and 'right' or 'left'}">
 		<img src="${invitee.get_profile_pic('PROFILE_M')}" alt"${invitee.name}" class="contributor"/>
 		<div class="contributor_name">${invitee.name}</div>
-		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.currency)|n}</div>
+		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.product.is_virtual, c.pool.currency)|n}</div>
 	</div>
 </%def>
 <%def name="render_contributor_secret(position, invitee)">
 	<div class="contributor ${((position) % 2) and 'right' or 'left'}">
 		<img src="/static/imgs/default_m_PROFILE_M.png" class="contributor"/>
 		<div class="contributor_name">${_("POOL_CHAT_Anonymous")}</div>
-		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.currency)|n}</div>
+		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.product.is_virtual, c.pool.currency)|n}</div>
 	</div>
 </%def>

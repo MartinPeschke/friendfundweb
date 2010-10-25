@@ -51,7 +51,7 @@ class PaymentMethod(object):
 		self.multi_contributions = multi_contributions
 		
 	def can_i_contribute(self, pool, user):
-		return pool.am_i_contributor(user) and self.multi_contributions
+		return self.multi_contributions or (not pool.am_i_contributor(user))
 	def check_totals(self, base, total):
 		return -0.01 < total - (base*(1 + self._fee_relative) + self._fee_absolute) < 0.01
 	def __repr__(self):
