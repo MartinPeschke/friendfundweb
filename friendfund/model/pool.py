@@ -170,19 +170,19 @@ class Pool(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
 	_expiretime = 2
-	_keys = [ GenericAttrib(str,'p_url', 'p_url'			)
-			, GenericAttrib(int,'p_id', 'p_id'				)
+	_keys = [ GenericAttrib(str,'p_url', 'p_url'				)
+			, GenericAttrib(int,'p_id', 'p_id'					)
 			, DBMapper(PoolUser,'participants', 'POOLUSER', is_list = True)
-			, DBMapper(Product,'product', 'PRODUCT'			)
-			, DBMapper(Occasion,'occasion', 'OCCASION'		)
-			, GenericAttrib(unicode,'description','description')
-			, GenericAttrib(str,'currency', 'currency'		)
-			, GenericAttrib(str,'region', 'region'		)
-			, GenericAttrib(str,'status', 'status'			)
-			, GenericAttrib(str,'phase', 'phase'			)
+			, DBMapper(Product,'product', 'PRODUCT'				)
+			, DBMapper(Occasion,'occasion', 'OCCASION'			)
+			, GenericAttrib(unicode,'description','description'	)
+			, GenericAttrib(str,'currency', 'currency'			)
+			, GenericAttrib(str,'region', 'region'				)
+			, GenericAttrib(str,'status', 'status'				)
+			, GenericAttrib(str,'phase', 'phase'				)
 			, GenericAttrib(datetime,'expiry_date', 'expiry_date')
-			, GenericAttrib(bool, 'is_secret', 'is_secret'  )
-			, GenericAttrib(bool, 'is_virtual', 'is_virtual')
+			, GenericAttrib(bool, 'is_secret', 'is_secret'		)
+
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
 			, DBMapper(PoolUser, 'suspect', None, persistable = False)
@@ -212,6 +212,11 @@ class Pool(DBMappedObject):
 		return float(self.get_total_contribution())/100
 	def get_amount_left(self):
 		return self.product.get_price_float() - self.get_total_contrib_float()
+	def get_fixed_chipin_amount(self):
+		if self.product.is_virtual:
+			return 1
+		else:
+			return self.product.get_price_float() - self.get_total_contrib_float()
 	def get_number_of_contributors(self):
 		return len([pu for pu in self.participants if pu.contributed_amount > 0])
 	
@@ -267,6 +272,7 @@ class Pool(DBMappedObject):
 		self.invitees = []
 		self.product.currency = self.currency
 		self.determine_roles()
+		self.region = self.region.lower()
 		return self
 
 class AddInviteesProc(DBMappedObject):

@@ -79,7 +79,6 @@ class PoolController(BaseController):
 		product_picture = c.pool.product.picture_large
 		c.pool.occasion.picture_url = None
 		c.pool.occasion.custom = None
-		c.pool.is_virtual = False
 		g.dbm.set(c.pool, merge = True, cache=False)
 		remote_product_picture_render.delay(c.pool.p_url, product_picture)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])

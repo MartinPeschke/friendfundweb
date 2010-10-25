@@ -84,16 +84,8 @@
 					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
 					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
 				</div>
-				
-				
-				
-				
-					<p class="termsOf">By clicking on 'Sign Up' on the right, you confirm that you accept the <a href="#">Terms and Conditions.</a></p>
-				
-					
-                    
-                    <a onclick="dojo.byId('signup_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Sign Up</span></a>
-
+				<p class="termsOf">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller='content', action='tos'))|n}</p>
+				<a onclick="dojo.byId('signup_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Sign Up</span></a>
 			</form>
 			</div>
 		

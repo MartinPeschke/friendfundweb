@@ -8,30 +8,31 @@ from pylons import session as websession
 class Product(DBMappedObject):
 	_get_root = _set_root = 'PRODUCT'
 	_unique_keys = ['aff_net','name','aff_program_id']
-	_keys = [	 GenericAttrib(str,'guid'                   , 'guid'             )
-				,GenericAttrib(unicode,'merchant'           , 'merchant'         )
-				,GenericAttrib(str,'aff_net'                , 'aff_net'          )
-				,GenericAttrib(str,'aff_id'                 , 'aff_id'           )
-				,GenericAttrib(str,'aff_program_id'         , 'aff_program_id'   )
-				,GenericAttrib(unicode,'aff_program_name'   , 'aff_program_name' )
-				,GenericAttrib(int,'price'                  , 'amount'           )
-				,GenericAttrib(int,'shipping_cost'          , 'shipping_cost'    )
-				,GenericAttrib(str,'currency'               , 'currency'         )
-				,GenericAttrib(int,'category'               , 'category'         )
-				,GenericElement(unicode,'name'              , 'NAME'             )
-				,GenericElement(unicode,'description'       , 'DESCRIPTION'      )
-				,GenericElement(unicode,'description_long'  , 'DESCRIPTION_LONG' )
-				,GenericElement(unicode,'manufacturer'      , 'MANUFACTURER'     )
-				,GenericAttrib(str,'delivery_time'          , 'delivery_time'    )
-				,GenericAttrib(str,'ean'                    , 'ean'              )
-				,GenericAttrib(str,'aff_program_logo_url'   , 'aff_program_logo_url')
-				,GenericAttrib(str,'aff_program_delivery_time'  , 'aff_program_delivery_time')
-				,GenericAttrib(unicode,'picture_small'      , 'picture_small'    )
-				,GenericAttrib(unicode,'picture_large'      , 'picture_large'    )
-				,GenericAttrib(unicode,'product_picture_url', 'product_picture_url'    )
-				,GenericAttrib(unicode,'tracking_link'      , 'tracking_link'    )
-				,GenericAttrib(str,'_deliveryTime'          , None)
-				,GenericAttrib(str,'_deliveryTimeWarnOffset', None)
+	_keys = [	 GenericAttrib(str     ,'guid'                     , 'guid'                     )
+				,GenericAttrib(unicode ,'merchant'                 , 'merchant'                 )
+				,GenericAttrib(str     ,'aff_net'                  , 'aff_net'                  )
+				,GenericAttrib(str     ,'aff_id'                   , 'aff_id'                   )
+				,GenericAttrib(str     ,'aff_program_id'           , 'aff_program_id'           )
+				,GenericAttrib(unicode ,'aff_program_name'         , 'aff_program_name'         )
+				,GenericAttrib(int     ,'price'                    , 'amount'                   )
+				,GenericAttrib(int     ,'shipping_cost'            , 'shipping_cost'            )
+				,GenericAttrib(str     ,'currency'                 , 'currency'                 )
+				,GenericAttrib(int     ,'category'                 , 'category'                 )
+				,GenericElement(unicode,'name'                     , 'NAME'                     )
+				,GenericElement(unicode,'description'              , 'DESCRIPTION'              )
+				,GenericElement(unicode,'description_long'         , 'DESCRIPTION_LONG'         )
+				,GenericElement(unicode,'manufacturer'             , 'MANUFACTURER'             )
+				,GenericAttrib(str     ,'delivery_time'            , 'delivery_time'            )
+				,GenericAttrib(str     ,'ean'                      , 'ean'                      )
+				,GenericAttrib(bool    ,'is_virtual'               , 'is_virtual'               )
+				,GenericAttrib(str     ,'aff_program_logo_url'     , 'aff_program_logo_url'     )
+				,GenericAttrib(str     ,'aff_program_delivery_time', 'aff_program_delivery_time')
+				,GenericAttrib(unicode ,'picture_small'            , 'picture_small'            )
+				,GenericAttrib(unicode ,'picture_large'            , 'picture_large'            )
+				,GenericAttrib(unicode ,'product_picture_url'      , 'product_picture_url'      )
+				,GenericAttrib(unicode ,'tracking_link'            , 'tracking_link'            )
+				,GenericAttrib(str     ,'_deliveryTime'            , None                       )
+				,GenericAttrib(str     ,'_deliveryTimeWarnOffset'  , None                       )
 				]
 	
 	def to_map(self):
@@ -50,7 +51,6 @@ class Product(DBMappedObject):
 		else:
 			return ''
 	display_shipping = property(get_shipping_price)
-
 	
 	def get_product_pic(self, type="POOL"):
 		return h.get_product_picture(self.product_picture_url, type)
@@ -58,6 +58,13 @@ class Product(DBMappedObject):
 	def get_display_label(self):
 		return '%s %s' % (h.word_truncate_plain(self.name, 5), self.display_price)
 	display_label = property(get_display_label)
+	
+	def fromDB(self, xml):
+		#TODO: HACK
+		if self.aff_program_name == u'Friendfund Virtual Gifts':
+			self.is_virtual = self.is_virtual or True
+		else:
+			self.is_virtual = self.is_virtual or False
 	
 class ProductRetrieval(DBMappedObject):
 	"""
@@ -70,6 +77,7 @@ class ProductRetrieval(DBMappedObject):
 	_unique_keys = ['guid']
 	_keys = [	 GenericAttrib(str,'guid'      ,'guid')
 				,GenericAttrib(str,'region'      ,'region')
+				,GenericAttrib(bool,'is_virtual'      ,'is_virtual')
 				,DBMapper(Product, 'product', 'PRODUCT')
 			]
 class ProductSearch(DBMappedObject):

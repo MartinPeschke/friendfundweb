@@ -1,7 +1,7 @@
 <%def name="clearline(height=0)"><div style="clear: both; line-height: ${height}px; height: ${height}px;">&nbsp;</div></%def>
 
 
-<%def name="counter(number, subscript)"><div class="counter_container"><div class="counter"><div class="counter_left">&nbsp;</div><div class="counter_right">&nbsp;</div><span class="counter_number">${number}</span><hr/></div><div class="subscript">${subscript}</div></div>
+<%def name="counter(number, subscript)"><div class="counter_container"><div class="counter"><div class="counter_left">&nbsp;</div><div class="counter_right">&nbsp;</div><span class="counter_number">${unicode(number)|n}</span><hr/></div><div class="subscript">${subscript}</div></div>
 </%def>
 
 

@@ -52,13 +52,6 @@ class Globals(object):
 
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
 		
-		self.currencies = [("EUR", "Euro"),("USD", "USD"),("GBP", "GBP")]
-		
-		
-		self.creditcard_types = [('visa', 'Visa'), ('amex', 'American Express'), ('mastercard', 'MasterCard')]
-		self.cc_validity_years = zip(range(datetime.today().year, datetime.today().year + 100), range(datetime.today().year, datetime.today().year + 100))
-		self.cc_validity_months = zip(range(1,13), range(1,13))
-		
 		dbpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
 			,server=app_conf['pool.connectstring.server']

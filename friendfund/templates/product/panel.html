@@ -139,8 +139,8 @@
 			<img class="programimage" src="${product.aff_program_logo_url}"/>
 		</div>
 		<div class="pselector">
-			${forms.black_submitlink(_("PRODUCT_SEARCH_PANEL_Select"), [("_guid", product.guid), ("_net", product.aff_net), ("_progid",product.aff_program_id), ("_imgurl", product.picture_large), 
-								("_label", product.display_label)], "selector", href=None)|n}
+			${forms.black_submitlink(_("PRODUCT_SEARCH_PANEL_Select"), [("_guid", product.guid), ("_is_virtual", (product.is_virtual and "1" or "")), ("_net", product.aff_net), ("_progid",product.aff_program_id), ("_imgurl", product.picture_large), 
+								("_label", quoteattr(product.display_label))], "selector", href=None)|n}
 		</div>
 	</div>
 </%def>

@@ -55,7 +55,7 @@ class ProductController(BaseController):
 		if product['aff_net'] == 'AMAZON':
 			product = g.amazon_service[c.region].get_product_from_guid(product['guid'])
 		else:
-			productresult = g.dbsearch.get(ProductRetrieval, guid=product['guid'], region=c.region)
+			productresult = g.dbsearch.get(ProductRetrieval, guid=product['guid'], is_virtual=product.get('is_virtual', False), region=c.region)
 			if not productresult.product:
 				return self.ajax_messages(_("POOL_CREATE_Product not Found"))
 			product = productresult.product

@@ -56,7 +56,7 @@
 	%elif pool.is_closed():
 		${is_closed_banner.render()}
 	%elif pool.is_contributable():
-		${contribute_button.render(pool.p_url, c.user.name, pool.receiver.name)}
+		${contribute_button.render(pool, c.user.name, pool.receiver.name)}
 	%elif is_admin:
 		%if pool.is_funded():
 			<div id="contribute">

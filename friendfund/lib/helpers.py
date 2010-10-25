@@ -56,10 +56,17 @@ def get_thous_sep():
 def get_dec_sep():
 	return get_decimal_symbol(locale=websession['lang'])
 def display_currency(currency):
-	return get_currency_symbol(currency, locale=websession['lang'])
+	if currency == 'POG':
+		return '<img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>'
+	else:
+		return get_currency_symbol(currency, locale=websession['lang'])
 def format_currency(number, currency):
 	number = Decimal('%.2f' % number)
-	return fc(number, currency, locale=websession['lang'])
+	if currency == 'POG':
+		pog = '<img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>'
+		return fc(number, currency, u'#,##0 %s' % pog, locale='en_US')
+	else:
+		return fc(number, currency, locale=websession['lang'])
 
 def format_number(number):
 	return fdec(number, locale=websession['lang'])

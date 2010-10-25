@@ -77,7 +77,7 @@
 				<div class="invite_message">${_("INVITE_PAGE_LABEL_Send a personal message to all invitees:")}
 				<% locals = {"admin_name":c.pool.admin.name, "receiver_name" : c.pool.receiver.name, "occasion_name": c.pool.occasion.get_display_name()} %>
 				<textarea name="description" id="default_slogan" cols="60" rows="5">${c.pool.description or (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)|n}</textarea></div>
-				%if i_am_admin:
+				%if i_am_admin and not c.pool.product.is_virtual:
 				<div class="invite_secret">
 					<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
 					${(_("INVITE_PAGE_LABEL_Keep pool a secret from %(receiver_name)s")%locals)|n}:

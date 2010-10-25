@@ -100,6 +100,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 			net : dojo.attr(this, "_net"),
 			progid : dojo.attr(this, "_progid"),
 			imgurl : dojo.attr(this, "_imgurl"),
+			is_virtual : dojo.attr(this, "_is_virtual"),
 			label : dojo.attr(this, "_label"),
 			element : this};
 		_t.onSelected && _t.onSelected(return_args);

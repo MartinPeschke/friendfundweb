@@ -201,6 +201,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	productSelected : function(_t, selection_args){
 		var params = {};
 		params["product.guid"] = selection_args.guid;
+		params["product.is_virtual"] = selection_args.is_virtual;
 		params["product.aff_net"] = selection_args.net;
 		params["product.aff_program_id"] =  selection_args.progid;
 		loadElement("/product/set", "product_panel", params, dojo.hitch(null, _t.set_complete, _t, 'product'));

@@ -1,4 +1,4 @@
-import formencode, md5
+import formencode, md5, logging
 from datetime import datetime
 import dns.resolver, socket, re
 from pylons import app_globals as g
@@ -13,6 +13,7 @@ delocal = re.compile('^(([0-9]{1,3}\.?([0-9]{3}\.?)+)|[0-9]*)(\,[0-9]{2})?$')
 emailmatcher = re.compile('^([0-9a-zA-Z]+([-._][0-9a-zA-Z]+)*@[0-9a-zA-Z]+([-._][0-9a-zA-Z]+)*[.][a-zA-Z]{2,9})$')
 socket.setdefaulttimeout(5)
 
+log = logging.getLogger(__name__)
 
 class PWDValidator(formencode.validators.String):
 	def _to_python(self, value, state):
@@ -32,7 +33,7 @@ class DateValidator(formencode.FancyValidator):
 
 class CurrencyValidator(formencode.FancyValidator):
 	def _to_python(self, value, state):
-		if not value in map(lambda x: x[0], g.currencies):
+		if not value in map(lambda x: x[0], g.payment_service.currencies):
 			raise formencode.Invalid(
 				_('CURRENCYVALIDATOR_Please input a valid Currency'), value, state)
 		return value
@@ -87,8 +88,9 @@ class TotalTransactionCostValidator(formencode.validators.FormValidator):
 		baseAmount = field_dict[self.contrib_baseAmount]
 		totalAmount = field_dict[self.contrib_totalAmount]
 		try:
-			assert -0.01 < totalAmount - (baseAmount*1.02 + 0.1) < 0.01
+			assert state.payment_method.check_totals(baseAmount, totalAmount)
 		except ValueError:
 			return {self.contrib_totalAmount: self.message('notANumber', state)}
 		except AssertionError:
+			log.warning('TotalsDontAddUp:%s,%s,%s', baseAmount, totalAmount, state.payment_method)
 			return {self.contrib_totalAmount: self.message('TotalsDontAddUp', state)}

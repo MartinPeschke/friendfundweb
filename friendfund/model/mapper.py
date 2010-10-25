@@ -166,10 +166,8 @@ class DBMapper(object):
 				elif isinstance(k, GenericElement) or isinstance(k, DBCDATA):
 					children.append(k.toDB(value))
 				elif isinstance(value, list) or isinstance(value, deque):
-					#TODO: objects thats are not persistable should never get this far, i think
 					children.extend(map(lambda x: k.toDB(x), filter(lambda x: isinstance(x,DBMappedObject), value)))
 				elif isinstance(value, dict):
-					#TODO: objects thats are not persistable should never get this far, i think
 					children.extend(map(lambda x: k.toDB(value[x]), filter(lambda x: isinstance(value[x],DBMappedObject), value)))
 				elif isinstance(k, DBMapper):
 					children.append(k.toDB(value))

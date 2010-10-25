@@ -45,15 +45,15 @@
 				</div>
 				<div class="row">
 					<span class="label">${_("MYPOOLS_CONTENT_Price:")}</span>
-					<span class="floaterRight"><span class="money">${h.format_currency(pool.get_amount_float(),pool.currency)}</span></span>
+					<span class="floaterRight"><span class="money">${h.format_currency(pool.get_amount_float(),pool.currency)|n}</span></span>
 				</div>
 				<div class="row">
 					<span class="label">${_("MYPOOLS_CONTENT_Already Funded:")}</span>
-					<span class="floaterRight"><span class="money green">${h.format_currency(pool.get_total_contribution_float(),pool.currency)}</span></span>
+					<span class="floaterRight"><span class="money green">${h.format_currency(pool.get_total_contribution_float(),pool.currency)|n}</span></span>
 				</div>
 				<div class="row lastPad">
 					<span class="label">${_("MYPOOLS_CONTENT_Open:")}</span>
-					<span class="floaterRight"><span class="money red">${h.format_currency(pool.get_amount_left_float(),pool.currency)}</span></span>
+					<span class="floaterRight"><span class="money red">${h.format_currency(pool.get_amount_left_float(),pool.currency)|n}</span></span>
 				</div>
 				
 				
