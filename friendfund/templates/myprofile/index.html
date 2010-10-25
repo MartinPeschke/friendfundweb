@@ -66,7 +66,7 @@
 			<p class="facebookTxt"><img src="/static/imgs/icon_mail.png"/>Email</p>
 			<div class="profile-picture">
 				<div class="inside-profile-picture">
-					<div class="smallInside" style="margin-right:30px">
+					<div class="smallInside" style="margin-right:60px">
 						<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Change Your Profile Picture")}</div>
 						<div class="imageBadgeContainer">
 							<img class="myProfilePicture" src="${profiles["email"].get_profile_pic('MYPROFILE')}">
@@ -115,42 +115,64 @@
 	   <div class="profile-picture">
 		<form id="signup_form" action="${url(controller='myprofile', action='add_email')}" method="POST" enctype="multipart/form-data">
 		<div class="inside-profile-picture">
-			<div class="smallInside" style="margin-right:30px">
-				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Set Your Profile Picture")}</div>
-				<div class="imageBadgeContainer">
+			<div class="smallInside" style="margin-right:60px">
+				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Sign Up With Email")}</div>
+				<!--<div class="imageBadgeContainer">
 					<img src="${h.get_user_picture(getattr(profiles.get('email'), 'profile_picture_url', ''), 'MYPROFILE')}">
-				</div>
-				<div class="subInfo">
+				</div>-->
+				<!--<div class="subInfo">
 					<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
 					<input  name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
 					<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller="content", action="tos"))|n}</span>
 				
-				</div>
+				</div>-->
 			
-				<div class="subTitle" style="padding-top:15px; border-top:1px solid #dadada; margin-top:15px">${_("MYPROFILE_PAGE_LABEL_Set Your Username and Email")}</div>
+				
 				<div class="floaterLeft fixedW">
 					${forms.input_text("signup", "name", _("MYPROFILE_PAGE_LABEL_Name"), _labelclasses=['floaterLeft'], _inputclasses=['floaterRight'])|n}
 				</div>
 				<div class="floaterLeft fixedW">
 					${forms.input_text("signup", "email", _("MYPROFILE_PAGE_LABEL_Email"), required = True, _labelclasses=['floaterLeft'], _inputclasses=['floaterRight'])|n}
 				</div>
+                <div class="floaterLeft fixedW">
+					${forms.input_text("signup", "email", _("MYPROFILE_PAGE_LABEL_Password"), required = True, _labelclasses=['floaterLeft'], _inputclasses=['floaterRight'])|n}
+				</div>
+                <div class="floaterLeft fixedW">
+					${forms.input_text("signup", "email", _("Confirm_Password"), required = True, _labelclasses=['floaterLeft'], _inputclasses=['floaterRight'])|n}
+				</div>
+                <div class="forminputline maleFemaleContainer" style="padding-top:12px">
+				<div class="maleFemale">
+                <p style="width: 150px; float: left;">Gender</p>
+                <input type="radio" value="m" name="signup.gender" id="signup_gender_m">
+					<label for="signup_gender_m">Male</label>
+					
+<input type="radio" value="f" name="signup.gender" id="signup_gender_f">
+					<label for="signup_gender_m">Female</label>
+					
+				</div>
+					
+			<div class="error_message error_checkbox">
+				
+			</div>
+
+				</div>
 			</div>
 			<div class="smallInside">
-				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Signup by email")}</div>
-				<div class="floaterLeft passwordFields ">
-				<div class="spacerInput">
-					${forms.input_text("signup", "pwd", _("MYPROFILE_PAGE_LABEL_Password"), "password", False, required = True, attribs=[('autocomplete', 'off')])|n}
+				<div class="imageBadgeContainer">
+					<img src="${h.get_user_picture(getattr(profiles.get('email'), 'profile_picture_url', ''), 'MYPROFILE')}">
 				</div>
-				<div class="spacerInput">
-					${forms.input_text("signup", "pwd_confirm", _("MYPROFILE_PAGE_LABEL_Password Confirm"), "password", False, required = True, attribs=[('autocomplete', 'off')])|n}
+				<div class="subInfo" style="margin-top:23px">
+					<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
+					<input  name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
+					<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller="content", action="tos"))|n}</span>
+				
 				</div>
-				<div  class="maleFemale">
-					<input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
-					<label for="signup_gender_f">${_("LOGIN_PAGE_LABEL_Female")}</label>
-					<input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
-					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
-				</div>
-				</div>
+                <div class="borderBottomSecond" style="border-top:1px solid #E9E9E9; margin-top:15px; width:400px">
+				<div class="floaterLeft">Set as Default<a href="#">what's this?</a></div>
+				<div class="floaterRight"><input type="radio" checked="checked" value="facebook" name="myprofile.is_default"></div>
+			</div>
+            <div class="subInfo" style="width:400px; margin-top:-10px"><span class="small">* Mandatory Fields<br /> By clicking "Sign Up" you confirm that you accept the <a href="#">Terms and Conditions</a></span></div>
+				
 				<a onclick="dojo.byId('signup_form').submit();" class="Save"><span>${_("MYPROFILE_PAGE_LABEL_Signup")}</span></a>
 			</div>
 		</div>
