@@ -11,6 +11,8 @@ from friendfund.services.user_service import UserService
 from friendfund.services.payment_service import PaymentService
 from friendfund.services.amazon_service import AmazonService
 
+from friendfund.lib.payment.adyen import CreditCardPayment, RedirectPayment, VirtualPayment
+
 log = logging.getLogger(__name__)
 _ = lambda x:x
 
@@ -96,11 +98,35 @@ class Globals(object):
 		
 		
 		self.user_service = UserService(config)
-		self.payment_service = PaymentService(app_conf['adyen.hostedlocation']
-											, app_conf['adyen.skincode']
-											, app_conf['adyen.merchantAccount']
-											, app_conf['adyen.hosted_secret'])
 		log.info("UserService set up")
+		
+		payment_methods = [
+				CreditCardPayment('/static/imgs/icon-visa-mastercard.png', 'credit_card', "CONTRIBUTION_PAGE_Creditcard", ['de','gb','us','ie','ca','ch','at'], False, 10, 2
+					,gtw_location = app_conf['adyen.location']
+					,gtw_username = app_conf['adyen.user']
+					,gtw_password = app_conf['adyen.password']
+					,gtw_account = app_conf['adyen.merchantAccount']
+				),
+				RedirectPayment('/static/imgs/icon-paypal.png', 'paypal', "CONTRIBUTION_PAGE_Paypal", ['de','gb','us','ie','ca','ch','at'], False, 10, 2
+					,base_url = app_conf['adyen.hostedlocation']
+					,skincode = app_conf['adyen.skincode']
+					,merchantaccount = app_conf['adyen.merchantAccount']
+					,secret = app_conf['adyen.hosted_secret']
+				),
+				RedirectPayment('/static/imgs/icon_directebanking.png', 'directEbanking', "CONTRIBUTION_PAGE_Direct eBanking", ['de','at'], False, 10, 2
+					,base_url = app_conf['adyen.hostedlocation']
+					,skincode = app_conf['adyen.skincode']
+					,merchantaccount = app_conf['adyen.merchantAccount']
+					,secret = app_conf['adyen.hosted_secret']
+				),
+				VirtualPayment('/static/imgs/currencies/pog.png', 'virtual', "CONTRIBUTION_PAGE_Virtual Pot of Gold", ['de','gb','us','ie','ca','ch','at'], True, 0, 0)
+			]
+		self.payment_service = PaymentService(payment_methods)
+		log.info("PaymentService set up with: %s", self.payment_service.payment_methods)
+		
+		
+		
+		
 		self.amazon_service = {}
 		for k in self.locale_codes:
 			self.amazon_service[app_conf['amazon.%s.domain' % k]] = \

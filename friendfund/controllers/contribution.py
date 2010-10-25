@@ -1,4 +1,5 @@
-import logging, formencode, uuid, urllib, datetime
+from __future__ import with_statement
+import logging, formencode, urllib, datetime
 from copy import copy
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache, config
 from pylons.controllers.util import abort, redirect
@@ -8,14 +9,13 @@ from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.payment.adyen import PaymentService
-from friendfund.lib.synclock import add_token, rem_token, TokenNotExistsException
+from friendfund.lib.synclock import TokenNotExistsException
 from friendfund.model.pool import Pool
 from friendfund.model.db_access import SProcException
-from friendfund.model.contribution import Contribution, CreditCard, DBContribution, DBPaymentInitialization, DBPaymentNotice
+from friendfund.model.contribution import Contribution, CreditCard, DBPaymentNotice
 from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm, MonetaryValidator
-from friendfund.tasks.photo_renderer import remote_pool_picture_render
 
+from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, UnsupportedOperation, DBErrorAfterPayment, DBErrorDuringSetup
 
 paymentlog = logging.getLogger('payment.service')
 strbool = formencode.validators.StringBoolean()
@@ -30,9 +30,11 @@ class ContributionController(BaseController):
 			return abort(404)
 		elif not c.user.current_pool:
 			return abort(404)
-		
 		c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
+		if c.pool is None:
+			return abort(404)
 		c.contrib = websession.get('contribution')
+		c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual)
 		if c.contrib:
 			c.chipin_values = {"amount": h.format_number(c.contrib.get_amount())
 								, 'payment_method':c.contrib.paymentmethod
@@ -50,6 +52,7 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
+		c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual)
 		c.action = 'chipin_fixed'
 		c.chipin_values = {"amount": h.format_number(c.pool.get_amount_left())}
 		c.chipin_errors = {}
@@ -69,7 +72,7 @@ class ContributionController(BaseController):
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		
-		c.paymentpage = g.payment_service.get_available_payment_methods(c.pool.region, c.pool.product.is_virtual)
+		c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual)
 		c.chipin_values = getattr(c, 'chipin_values', {})
 		c.chipin_errors = getattr(c, 'chipin_errors', {})
 		c.amount_fixed = False
@@ -111,26 +114,15 @@ class ContributionController(BaseController):
 			contrib.set_total(form_result['total'])
 			contrib.paymentmethod = chipin.get('payment_method')
 			websession['contribution'] = contrib
-		
-		
-		
-		if chipin.get('payment_method') in ['paypal','directEbanking']:
-			contrib = websession['contribution']
 			try:
-				g.payment_service.get_request(c.user, contrib, pool_url, chipin.get('payment_method'))
-			except SProcException, e:
-				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+				return g.payment_service.process_payment(c, contrib, pool_url, render, redirect)
+			except UnsupportedPaymentMethod, e:
+				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
 				return redirect(url('chipin', pool_url=pool_url, protocol='https'))
-		elif chipin.get('payment_method') == 'credit_card':
-			c.form_secret = str(uuid.uuid4())
-			add_token(c.form_secret, c.action)
-			return redirect(url(controller='contribution', pool_url=pool_url, action='details', token=c.form_secret, protocol='https'))
-		else:
-			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
-	
-	
-	
+			except DBErrorDuringSetup, e:
+				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+			except DBErrorAfterPayment, e:
+				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
 	
 	@logged_in(ajax=False)
 	@no_blocks(ajax=False)
@@ -154,18 +146,21 @@ class ContributionController(BaseController):
 	@jsonify
 	def creditcard(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
+		if c.pool is None or c.pool.product.is_virtual:
 			return abort(404)
 		c.creditcard_values = {}
 		c.creditcard_errors = {}
+		
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
 			return {'redirect':url('chipin', pool_url=pool_url, protocol='https')}
 		if request.method != 'POST':
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
+		
 		c.form_secret = request.POST.get('formtoken')
 		if not c.form_secret:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+		
 		cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
 		schema = CreditCardForm()
 		try:
@@ -186,46 +181,16 @@ class ContributionController(BaseController):
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
 				return {'redirect':url('chipin', pool_url=pool_url, protocol='https')}
 		try:
-			action = rem_token(c.form_secret)
-			c.pool_fulfilled = action == 'chipin_fixed'
+			return g.payment_service.post_process_payment(c, websession['contribution'], pool_url, render, redirect)
 		except TokenNotExistsException, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"))
-		contrib = websession['contribution']
-		contrib = DBContribution(amount = contrib.amount
-								,total = contrib.total
-								,is_secret = contrib.is_secret
-								,anonymous = contrib.anonymous
-								,message = contrib.message
-								,paymentmethod = contrib.paymentmethod
-								,u_id = c.user.u_id
-								,network = c.user.network
-								,network_id = c.user.network_id
-								,email = c.user.email
-								,p_url = pool_url)
-		try:
-			contrib = g.dbm.set(contrib, merge = True)
-		except SProcException, e:
+		except UnsupportedPaymentMethod, e:
+			tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
+		except DBErrorDuringSetup, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-		
-		websession['contribution'].ref = contrib.ref
-		paymentresult = PaymentService.authorize(websession['contribution'])
-		del websession['contribution']
-		payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
-		notice = DBPaymentInitialization(\
-					ref = contrib.ref\
-					, tx_id=paymentresult['pspReference']\
-					, msg_id=None\
-					, type=payment_transl[paymentresult['resultCode']]\
-					, success = True\
-					, reason=paymentresult['refusalReason']\
-					, fraud_result = paymentresult['fraudResult'])
-		try:
-			g.dbm.set(notice)
-		except SProcException, e:
+		except DBErrorAfterPayment, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
-		c.success = (paymentresult['resultCode'] == 'Authorised')
-		if c.success : remote_pool_picture_render.delay(pool_url)
-		return {'data':{'html':render('/contribution/payment_success.html').strip()}}
 	
 	def service(self):
 		"""basic auth: adyen/4epayeguka7ew43frEst5b4u"""
