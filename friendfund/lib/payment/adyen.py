@@ -36,7 +36,7 @@ class PaymentGateway(object):
 		return result
 
 class PaymentMethod(object):
-	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative):
+	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions):
 		self.logo_url = logo_url
 		self.code = code
 		self.name = name
@@ -48,6 +48,10 @@ class PaymentMethod(object):
 		self._fee_relative = float(fee_relative)/100
 		self.has_fees = bool(fee_absolute or fee_relative)
 		self.default = False
+		self.multi_contributions = multi_contributions
+		
+	def can_i_contribute(self, pool, user):
+		return pool.am_i_contributor(user) and self.multi_contributions
 	def check_totals(self, base, total):
 		return -0.01 < total - (base*(1 + self._fee_relative) + self._fee_absolute) < 0.01
 	def __repr__(self):
@@ -60,8 +64,8 @@ class PaymentMethod(object):
 		raise Exception('NotImplemented')
 	
 class CreditCardPayment(PaymentMethod):
-	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, gtw_location, gtw_username, gtw_password, gtw_account):
-		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative)
+	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
+		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 	
 	def process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
@@ -122,8 +126,8 @@ class RedirectPayment(PaymentMethod):
 						,"shopperStatement","merchantReturnData","billingAddressType","offset"]
 	result_order = ["authResult", "pspReference", "merchantReference", "skinCode", "merchantReturnData"]
 	
-	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, base_url, skincode, merchantaccount, secret):
-		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative)
+	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
+		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.base_url = base_url
 		self.secret = secret
 		self.standard_params = {"merchantAccount":merchantaccount, "skinCode":skincode}

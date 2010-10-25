@@ -8,10 +8,15 @@
 		<% locals = {"user_name":user_name, "receiver_name":receiver_name} %>
 		${(_("POOL_BUTTON_Hi %(user_name)s<br/>Please help us to share the costs for %(receiver_name)s's gift.")%locals)|n}
 		
-		<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
 		%if pool.product.is_virtual:
-			<a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}"><img src="/static/imgs/currencies/pog.png"/></a>
+			%if pool.am_i_contributor(c.user):
+				<div class="contributor_chippid_in"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
+			%else:
+				<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
+				<a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}"><img src="/static/imgs/currencies/pog.png"/></a>
+			%endif
 		%else:
+			<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
 			<a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}"><img src="/static/imgs/icons_paymethod.png"/></a>
 		%endif
 		

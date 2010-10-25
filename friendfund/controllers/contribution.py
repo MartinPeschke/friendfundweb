@@ -9,13 +9,13 @@ from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, UnsupportedOperation, DBErrorAfterPayment, DBErrorDuringSetup
 from friendfund.lib.synclock import TokenNotExistsException
 from friendfund.model.pool import Pool
 from friendfund.model.db_access import SProcException
 from friendfund.model.contribution import Contribution, CreditCard, DBPaymentNotice
 from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm, MonetaryValidator
-
-from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, UnsupportedOperation, DBErrorAfterPayment, DBErrorDuringSetup
+from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.service')
 strbool = formencode.validators.StringBoolean()
@@ -34,7 +34,11 @@ class ContributionController(BaseController):
 		if c.pool is None:
 			return abort(404)
 		c.contrib = websession.get('contribution')
-		c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual)
+		try:
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+		except NotAllowedToPayException, e:
+			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		if c.contrib:
 			c.chipin_values = {"amount": h.format_number(c.contrib.get_amount())
 								, 'payment_method':c.contrib.paymentmethod
@@ -52,7 +56,11 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
-		c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual)
+		try:
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+		except NotAllowedToPayException, e:
+			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		c.action = 'chipin_fixed'
 		c.chipin_values = {"amount": h.format_number(c.pool.get_amount_left())}
 		c.chipin_errors = {}
@@ -71,8 +79,11 @@ class ContributionController(BaseController):
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		
-		c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual)
+		try:
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+		except NotAllowedToPayException, e:
+			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.chipin_values = getattr(c, 'chipin_values', {})
 		c.chipin_errors = getattr(c, 'chipin_errors', {})
 		c.amount_fixed = False

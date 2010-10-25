@@ -187,6 +187,7 @@ class Pool(DBMappedObject):
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
 			, DBMapper(PoolUser, 'suspect', None, persistable = False)
 			, DBMapper(PoolUser, 'invitees', None, persistable = False)
+			, DBMapper(PoolUser, 'participant_map', None, persistable = False)
 			]
 	
 	def get_invitee_json(self):
@@ -231,12 +232,21 @@ class Pool(DBMappedObject):
 	def am_i_receiver(self, user):
 		return self.receiver.u_id == user.u_id
 	def am_i_member(self, user):
-		return bool(filter(lambda x: x.u_id == user.u_id, self.participants))
+		return user.u_id in self.participant_map
+	def am_i_contributor(self, user):
+		pu = self.participant_map.get(user.u_id)
+		if pu:
+			return (pu.contributed_amount or 0) > 0
+		else:
+			return False
+		
 	def can_i_view(self, user):
 		return self.am_i_member(user) or not self.is_secret
 	
 	def determine_roles(self):
+		self.participant_map = {}
 		for pu in self.participants:
+			self.participant_map[pu.u_id] = pu
 			if not (pu.is_admin or pu.is_receiver):
 				self.invitees.append(pu)
 			else:
