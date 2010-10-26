@@ -13,7 +13,8 @@
 				<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
 			%else:
 				<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
-				<a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}"><img src="/static/imgs/currencies/pog.png"/></a>
+				<a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}"><img src="/static/imgs/currencies/pog_large.png"/>
+				<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}</div></a>
 			%endif
 		%else:
 			<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol='https')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>

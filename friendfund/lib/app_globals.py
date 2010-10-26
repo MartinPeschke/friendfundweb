@@ -99,25 +99,25 @@ class Globals(object):
 		log.info("UserService set up")
 		
 		payment_methods = [
-				CreditCardPayment('/static/imgs/icon-visa-mastercard.png', 'credit_card', "CONTRIBUTION_PAGE_Creditcard", ['de','gb','us','ie','ca','ch','at'], False, 10, 2, True
+				CreditCardPayment('/static/imgs/icon-visa-mastercard.png', 'credit_card', _("CONTRIBUTION_PAGE_Creditcard"), ['de','gb','us','ie','ca','ch','at'], False, 10, 2, True
 					,gtw_location = app_conf['adyen.location']
 					,gtw_username = app_conf['adyen.user']
 					,gtw_password = app_conf['adyen.password']
 					,gtw_account = app_conf['adyen.merchantAccount']
 				),
-				RedirectPayment('/static/imgs/icon-paypal.png', 'paypal', "CONTRIBUTION_PAGE_Paypal", ['de','gb','us','ie','ca','ch','at'], False, 10, 2, True
+				RedirectPayment('/static/imgs/icon-paypal.png', 'paypal', _("CONTRIBUTION_PAGE_Paypal"), ['de','gb','us','ie','ca','ch','at'], False, 10, 2, True
 					,base_url = app_conf['adyen.hostedlocation']
 					,skincode = app_conf['adyen.skincode']
 					,merchantaccount = app_conf['adyen.merchantAccount']
 					,secret = app_conf['adyen.hosted_secret']
 				),
-				RedirectPayment('/static/imgs/icon_directebanking.png', 'directEbanking', "CONTRIBUTION_PAGE_Direct eBanking", ['de','at'], False, 10, 2, True
+				RedirectPayment('/static/imgs/icon_directebanking.png', 'directEbanking', _("CONTRIBUTION_PAGE_Direct eBanking"), ['de','at'], False, 10, 2, True
 					,base_url = app_conf['adyen.hostedlocation']
 					,skincode = app_conf['adyen.skincode']
 					,merchantaccount = app_conf['adyen.merchantAccount']
 					,secret = app_conf['adyen.hosted_secret']
 				),
-				VirtualPayment('/static/imgs/currencies/pog.png', 'virtual', "CONTRIBUTION_PAGE_Virtual Pot of Gold", ['de','gb','us','ie','ca','ch','at'], True, 0, 0, False)
+				VirtualPayment('/static/imgs/currencies/pog_large.png', 'virtual', _("CONTRIBUTION_PAGE_Virtual Pot of Gold"), ['de','gb','us','ie','ca','ch','at'], True, 0, 0, False)
 			]
 		self.payment_service = PaymentService(payment_methods)
 		log.info("PaymentService set up with: %s", self.payment_service.payment_methods)

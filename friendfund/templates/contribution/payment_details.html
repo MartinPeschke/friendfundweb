@@ -29,7 +29,7 @@
 			%if c.paymentpage.has_fees:
 				<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)|n}</div>
 			%endif
-			<div class="floaterRight amount clearer totalsum"><span>Total:</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)|n}</div>
+			<div class="floaterRight amount clearer totalsum"><span>${_("CONTRIBPAGE_LABEL_Total")}</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)|n}</div>
 		</div>
 	</div>
 	
