@@ -106,6 +106,14 @@ def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 			and ('%(site_root)s%(static_root)s/%(profile_picture_url)s_%(type)s.%(ext)s'%locals())\
 			or profile_picture_url
 
+def get_raw_product_image(product, site_root):
+	picture_large = product.picture_large
+	if product.is_virtual:
+		return '%(site_root)s%(picture_large)s'%locals()
+	else:
+		return picture_large
+	
+	
 def get_product_picture(product_picture_url, type, ext="jpg"):
 	static_root = PRODUCT_STATIC_ROOT
 	if not isinstance(product_picture_url, basestring): 

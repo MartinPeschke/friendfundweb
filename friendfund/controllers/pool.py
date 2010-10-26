@@ -76,7 +76,7 @@ class PoolController(BaseController):
 		c.pool.participants.append(admin)
 
 		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.profile_picture_url) for pu in c.pool.participants])
-		product_picture = c.pool.product.picture_large
+		product_picture = h.get_raw_product_image(c.pool.product, g.SITE_ROOT_URL)
 		c.pool.occasion.picture_url = None
 		c.pool.occasion.custom = None
 		g.dbm.set(c.pool, merge = True, cache=False)
