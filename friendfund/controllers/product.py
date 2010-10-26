@@ -35,6 +35,7 @@ class ProductController(BaseController):
 		c.sort = SORTEES[0][0]
 		c.q = None
 		c.back_q = None
+		c.amazon_available = bool(g.amazon_service.get(c.region))
 		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
 	
 	@jsonify
@@ -52,6 +53,7 @@ class ProductController(BaseController):
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
 		
 		c.region = request.params.get('region', websession['region'])
+		c.amazon_available = bool(g.amazon_service.get(c.region))
 		if product['aff_net'] == 'AMAZON':
 			product = g.amazon_service[c.region].get_product_from_guid(product['guid'])
 		else:
@@ -75,6 +77,7 @@ class ProductController(BaseController):
 	@jsonify
 	def search(self):
 		c.region = request.params.get('region', websession['region'])
+		c.amazon_available = bool(g.amazon_service.get(c.region))
 		c.psuggestions = g.dbsearch.get(ProductSuggestionSearch\
 									, country = c.region\
 									, occasion = request.params.get('occasion_key', None)\
@@ -92,7 +95,7 @@ class ProductController(BaseController):
 			c.max_price = int(c.max_price)
 		c.currency = request.params.get('currency', None)
 		if search_term:
-			if search_term.startswith("http://"):
+			if search_term.startswith("http://") and c.amazon_available:
 				return self._amazon_fallback(c.region, search_term)
 			else:
 				try:
@@ -146,7 +149,6 @@ class ProductController(BaseController):
 	def _amazon_fallback(self, region, url):
 		item_id = request.params.get("item_id")
 		scheme, domain, path, query, fragment = urlparse.urlsplit(url)
-		region = g.country_choices.map.get(region, g.country_choices.fallback).region
 		c.product_messages = []
 		if domain not in g.amazon_service:
 			c.searchresult = ProductSearch()

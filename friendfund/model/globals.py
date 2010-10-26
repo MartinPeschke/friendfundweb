@@ -64,14 +64,17 @@ class GetCountryRegionProc(DBMappedObject):
 		return _(self.map.get(key, self.fallback).name)
 	
 	def fromDB(self, xml):
-		setattr(self, 'map', dict([(k.code, k) for k in self.countries]))
+		setattr(self, 'map', {})
+		setattr(self, 'r2c_map', {})
+		for country in self.countries:
+			self.r2c_map[country.region] = self.r2c_map.get(country.region, []) + [country.code]
+			self.map[country.code] = country
+			
 		fallbacks = filter(lambda x: x.is_fall_back, self.countries)
 		if len(fallbacks) > 0:
 			setattr(self, 'fallback', fallbacks[0])
 		else:
 			raise Exception("GetCountryRegionProc: No Fallback Country provided")
-			
-			
 			
 
 

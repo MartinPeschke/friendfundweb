@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-10-26 10:16+0200\n"
+"PO-Revision-Date: 2010-10-26 11:09+0200\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -268,21 +268,21 @@ msgstr "??Price down-Precio descendente"
 msgid "PRODUCT_SORT_ORDER_Merchant"
 msgstr "Comerciante"
 
-#: friendfund/controllers/product.py:52
+#: friendfund/controllers/product.py:53
 msgid "INDEX_PAGE_No Product"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/product.py:60
+#: friendfund/controllers/product.py:62
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/product.py:110
+#: friendfund/controllers/product.py:113
 msgid "PRODUCT_SEARCH_An Error Occured during search, please try again later."
 msgstr ""
 "Perdón, se produjo un error durante la búsqueda. Por favor, inténtalo de "
 "nuevo"
 
-#: friendfund/controllers/product.py:139
+#: friendfund/controllers/product.py:142
 msgid ""
 "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
 "shipping much time!"
@@ -290,7 +290,7 @@ msgstr ""
 "¡La fecha de tu evento no le da mucho margen de actuación a los "
 "contribuyentes ni al transporte!"
 
-#: friendfund/controllers/product.py:142
+#: friendfund/controllers/product.py:145
 msgid ""
 "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a"
 " problem please pick a later date!"
@@ -298,11 +298,11 @@ msgstr ""
 "No podemos entregarte esto a tiempo. Si te causa problema, por favor, "
 "elige otra fecha más tarde!"
 
-#: friendfund/controllers/product.py:153
+#: friendfund/controllers/product.py:155
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "URL no reconocida"
 
-#: friendfund/controllers/product.py:155
+#: friendfund/controllers/product.py:157
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only "
@@ -311,11 +311,11 @@ msgstr ""
 "Este producto no pertenece a %(amazondomain)s. Por favor, usa sólo los "
 "links de %(amazondomain)s o cambia el país de envío."
 
-#: friendfund/controllers/product.py:163
+#: friendfund/controllers/product.py:165
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr "Este producto no está disponible. Por favor, inténtalo de nuevo más tarde."
 
-#: friendfund/controllers/product.py:167
+#: friendfund/controllers/product.py:169
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace "
 "article and is not sold by Amazon itself. Currently we do not support "
@@ -326,7 +326,7 @@ msgstr ""
 "products.- Este producto pertenece al mercado de Amazon y no es vendido "
 "directamente desde Amazon. En este momento, no vendemos A"
 
-#: friendfund/controllers/product.py:170
+#: friendfund/controllers/product.py:172
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
@@ -350,19 +350,19 @@ msgstr ""
 "Twitter tiene problemas para acceder a tu cuenta. Por favor, inténtalo de"
 " nuevo."
 
-#: friendfund/lib/app_globals.py:146
+#: friendfund/lib/app_globals.py:147
 msgid "GLOBAL_MENU_Home"
 msgstr "Inicio"
 
-#: friendfund/lib/app_globals.py:147
+#: friendfund/lib/app_globals.py:148
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Botes"
 
-#: friendfund/lib/app_globals.py:148
+#: friendfund/lib/app_globals.py:149
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Títulos"
 
-#: friendfund/lib/app_globals.py:149
+#: friendfund/lib/app_globals.py:150
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Perfil"
 
@@ -714,14 +714,18 @@ msgid "COUNTRY_IRELAND"
 msgstr "Irlanda"
 
 #: friendfund/resources/db_keys.py:38
+msgid "COUNTRY_SPAIN"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:39
 msgid "COUNTRY_SWITZERLAND"
 msgstr "Suiza"
 
-#: friendfund/resources/db_keys.py:39
+#: friendfund/resources/db_keys.py:40
 msgid "COUNTRY_UNITED KINGDOM"
 msgstr "Reino Unido"
 
-#: friendfund/resources/db_keys.py:40
+#: friendfund/resources/db_keys.py:41
 msgid "COUNTRY_UNITED STATES"
 msgstr "Estados Unidos de América"
 
@@ -819,15 +823,15 @@ msgstr "Nosotros"
 msgid "SITEINFO_FAQ"
 msgstr "Preguntas frecuentes"
 
-#: friendfund/templates/master.html:153
+#: friendfund/templates/master.html:154
 msgid "ALLPAGE_BUTTON_Create a Pool"
 msgstr "Crear un Bote"
 
-#: friendfund/templates/master.html:171
+#: friendfund/templates/master.html:172
 msgid "FB_METATAG_TITLE_friendfund.com"
 msgstr "friendfund.com - Regalos en grupo"
 
-#: friendfund/templates/master.html:172
+#: friendfund/templates/master.html:173
 msgid "FB_METATAG_DESCRIPTION_friendfund.com - helping you!"
 msgstr "friendfund.com - Regala en grupo!"
 
@@ -1418,8 +1422,6 @@ msgstr "Invitar"
 
 #: friendfund/templates/invite/invite.html:29
 #, fuzzy, python-format
-#| msgid "" "INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <br/><span
-#| " "class=\"emphasis\">%(receiver_name)s's</span> gift."
 msgid ""
 "INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <span "
 "class=\"emphasis\">%(receiver_name)s's</span> gift."
@@ -2334,42 +2336,48 @@ msgstr "Escoge un Regalo"
 msgid "PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands."
 msgstr "Descubre el regalo perfecto entre una selección de miles."
 
-#: friendfund/templates/product/panel.html:5
+#: friendfund/templates/product/panel.html:6
+msgid "Search for almost anything ... or paste a link from Amazon"
+msgstr "Busca casi cualquier cosa ... o pega un enlace de Amazon"
+
+#: friendfund/templates/product/panel.html:8
+#, fuzzy
+#| msgid "Search for almost anything ... or paste a link from Amazon"
+msgid "Search for almost anything ..."
+msgstr "Busca casi cualquier cosa ... o pega un enlace de Amazon"
+
+#: friendfund/templates/product/panel.html:12
 msgid "PRODUCT_SEARCH_PANEL_Find the pefect gift"
 msgstr "Encuentra el regalo perfecto"
 
-#: friendfund/templates/product/panel.html:8
+#: friendfund/templates/product/panel.html:15
 #, python-format
 msgid ""
 "PRODUCT_SEARCH_PANEL_Your pools shipping address is in "
 "<b>%(countryname)s</b>, change it:"
 msgstr "??Your gift's shipping address country isTu país  dirección de envío es"
 
-#: friendfund/templates/product/panel.html:21
-msgid "Search for almost anything ... or paste a link from Amazon"
-msgstr "Busca casi cualquier cosa ... o pega un enlace de Amazon"
-
-#: friendfund/templates/product/panel.html:25
+#: friendfund/templates/product/panel.html:32
 msgid "PRODUCT_SEARCH_PANEL_Search"
 msgstr "Buscar"
 
-#: friendfund/templates/product/panel.html:31
+#: friendfund/templates/product/panel.html:38
 msgid "PRODUCT_PANEL_LABEL_Show me how"
 msgstr "Mostrar cómo pegar un enlace de "
 
-#: friendfund/templates/product/panel.html:37
+#: friendfund/templates/product/panel.html:47
 msgid "PRODUCT_SEARCH_PANEL_Recommended Gift Searches"
 msgstr "Recomendar búsquedas de regalos"
 
-#: friendfund/templates/product/panel.html:84
+#: friendfund/templates/product/panel.html:94
 msgid "PRODUCT_SEARCH_PANEL_Back"
 msgstr "Atrás"
 
-#: friendfund/templates/product/panel.html:100
+#: friendfund/templates/product/panel.html:110
 msgid "PRODUCT_SEARCH_PANEL_Next"
 msgstr "Siguiente"
 
-#: friendfund/templates/product/panel.html:114
+#: friendfund/templates/product/panel.html:124
 #, python-format
 msgid ""
 "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, "
@@ -2378,15 +2386,15 @@ msgstr ""
 "No se ha encontrado nada con el Precio de %s o menos. Por favor, busca "
 "otra cosa."
 
-#: friendfund/templates/product/panel.html:116
+#: friendfund/templates/product/panel.html:126
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
 msgstr "Perdón, no se ha encontrado nada. Por favor, intenta una nueva búsqueda."
 
-#: friendfund/templates/product/panel.html:137
+#: friendfund/templates/product/panel.html:147
 msgid "PRODUCT_SEARCH_PANEL_Read More"
 msgstr "Leer más"
 
-#: friendfund/templates/product/panel.html:142
+#: friendfund/templates/product/panel.html:152
 msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr "Seleccionar"
 
@@ -2436,55 +2444,4 @@ msgid ""
 "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
 "with Twitter!"
 msgstr "Para invitar a tus Amigos en Twitter, por favor, conéctate con Twitter."
-
-#~ msgid "TWITTER_Invalid response from Twitter."
-#~ msgstr ""
-#~ "Twitter tiene problemas para acceder a"
-#~ " tu cuenta. Por favor, inténtalo de"
-#~ " nuevo."
-
-#~ msgid "CONTRIBPAGE_LABEL_+ Transaction cost of 10 cents and 2%"
-#~ msgstr "??+ Los costos de transacción son 10 cents y 2%"
-
-#~ msgid "CONTRIBUTION_PAGE_Creditcard"
-#~ msgstr "Tarjeta de crédito"
-
-#~ msgid "CONTRIBUTION_PAGE_Paypal"
-#~ msgstr "Paypal"
-
-#~ msgid "CONTRIBUTION_PAGE_Direct eBanking"
-#~ msgstr "Direct eBanking"
-
-#~ msgid "MYPROFILE_PAGE_LABEL_Set Your Profile Picture"
-#~ msgstr "Establece tu foto de perfil"
-
-#~ msgid "MYPROFILE_PAGE_LABEL_Set Your Username and Email"
-#~ msgstr "Establece tu nombre de usuario y correo electrónico"
-
-#~ msgid "MYPROFILE_PAGE_LABEL_Signup by email"
-#~ msgstr "??Signup by email- Inscríbete por correo electrónico"
-
-#~ msgid "MYPROFILE_PAGE_LABEL_Password Confirm"
-#~ msgstr "Contraseña confirmada"
-
-#~ msgid "LOGIN_PAGE_BUTTON_Login"
-#~ msgstr "Inicia Sesión"
-
-#~ msgid "LOGIN_PAGE_LABEL_Password Confirm"
-#~ msgstr "Contraseña confirmada"
-
-#~ msgid "LOGIN_PAGE_BUTTON_Join"
-#~ msgstr "??Join-Sumarse"
-
-#~ msgid "LOGIN_PAGE_LABEL_* Mandatory"
-#~ msgstr "*Obligatorio"
-
-#~ msgid ""
-#~ "LOGIN_PAGE_LABEL_By clicking on 'Join' on "
-#~ "the right, you confirm that you "
-#~ "accept the Terms of Service."
-#~ msgstr ""
-#~ "Al hacer clic en 'Únete'' a la "
-#~ "derecha, confirmas aceptar las Condiciones "
-#~ "de Uso."
 

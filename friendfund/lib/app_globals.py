@@ -95,8 +95,6 @@ class Globals(object):
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
 		self.get_aff_programs = lambda region: self._db_globals.setdefault('affiliate_programs_%s' % region, self.dbsearch.get(GetAffiliateProgramsProc, country = region))
 		
-		
-		
 		self.user_service = UserService(config)
 		log.info("UserService set up")
 		
@@ -125,21 +123,24 @@ class Globals(object):
 		log.info("PaymentService set up with: %s", self.payment_service.payment_methods)
 		
 		
-		
-		
 		self.amazon_service = {}
 		for k in self.locale_codes:
-			self.amazon_service[app_conf['amazon.%s.domain' % k]] = \
-						self.amazon_service[k] = \
-							AmazonService(
-											app_conf['amazon.%s.apiurl' % k], 
-											app_conf['amazon.%s.associateid' % k], 
-											app_conf['amazon.%s.apikey' % k], 
-											app_conf['amazon.%s.apisecret' % k],
-											app_conf['amazon.%s.domain' % k],
-											)
-			
-			log.info("AmazonService set up for %s:%s", k, app_conf['amazon.%s.domain' % k])
+			if app_conf.get('amazon.%s.domain' % k):
+				amazon_service = \
+						AmazonService(
+										app_conf['amazon.%s.apiurl' % k], 
+										app_conf['amazon.%s.associateid' % k], 
+										app_conf['amazon.%s.apikey' % k], 
+										app_conf['amazon.%s.apisecret' % k],
+										app_conf['amazon.%s.domain' % k],
+										)
+				self.amazon_service[app_conf['amazon.%s.domain' % k]] = amazon_service
+				for code in self.country_choices.r2c_map[k]:
+					self.amazon_service[code] = amazon_service
+				log.info("AmazonService set up for %s:%s", self.country_choices.r2c_map[k], app_conf['amazon.%s.domain' % k])
+			else:
+				self.amazon_service[k] = None
+				log.warning("AmazonService NOT AVAILABLE for %s", self.country_choices.r2c_map[k])
 		
 		
 		

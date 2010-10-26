@@ -1,6 +1,13 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 
+<%
+	if c.amazon_available:
+		default_text = _("Search for almost anything ... or paste a link from Amazon")
+	else:
+		default_text = _("Search for almost anything ...")
+%>
+
 <div id="button_panel" class="product">
 	<h2>${_("PRODUCT_SEARCH_PANEL_Find the pefect gift")}</h2>
 	<a class="button_panel_closer">&nbsp;</a>
@@ -18,8 +25,8 @@
 			<div class="inputcontainer"><div id="pq_container" style="" class="black_labeled_container_big">
 				<div class="right_bracket">&nbsp;</div>
 				<div class="left_button_search">&nbsp;</div>
-				<input type="text" value="${c.q or _("Search for almost anything ... or paste a link from Amazon")}"
-					name="q" id="pq" style="" _default_text="Search for almost anything ... or paste a link from Amazon" class="black_labeled_input ${ (not c.q) and 'default' or ' '}">
+				<input type="text" value="${c.q or default_text}"
+					name="q" id="pq" style="" _default_text="${default_text}" class="black_labeled_input ${ (not c.q) and 'default' or ' '}">
 			</div>
 			<div style="margin:28px 15px 30px;">
 				<a class="submitSmall searcher" sort = "${c.sort}"><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
@@ -27,9 +34,12 @@
 			</div>
 			<input type="hidden" name = "back_q" id="back_q" value="${c.back_q}"/>
 			
-			
-			<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
+			%if c.amazon_available:
+				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
+			%endif
 		</form>
+		
+		${c.amazon_available }
 		
 		<div class="clear"></div>
 		
