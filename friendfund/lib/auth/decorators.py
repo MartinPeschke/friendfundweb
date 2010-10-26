@@ -1,11 +1,12 @@
 from decorator import decorator
 
+from pylons import url
 from pylons.i18n import ugettext as _
 
 from pylons.controllers.util import abort, redirect
 from pylons.decorators.util import get_pylons
 
-def logged_in(ajax = False, redirect_to = '/login', furl = None): 
+def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = None): 
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)
 		c = pylons.tmpl_context

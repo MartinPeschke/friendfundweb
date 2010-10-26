@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2010-10-25 16:20+0200\n"
+"POT-Creation-Date: 2010-10-26 10:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,57 +17,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
-#: friendfund/controllers/contribution.py:69
+#: friendfund/controllers/contribution.py:40
+#: friendfund/controllers/contribution.py:62
+#: friendfund/controllers/contribution.py:85
+msgid "CONTRIBUTION_Payment Not Allowed."
+msgstr ""
+
+#: friendfund/controllers/contribution.py:80
 msgid ""
 "CONTRIBUTION_You cannot contribute to this pool at this time, this pool is "
 "closed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:84
-#: friendfund/controllers/contribution.py:129
+#: friendfund/controllers/contribution.py:98
+#: friendfund/controllers/contribution.py:131
+#: friendfund/controllers/contribution.py:199
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:104
+#: friendfund/controllers/contribution.py:118
 msgid "CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:122
-#: friendfund/controllers/contribution.py:208
+#: friendfund/controllers/contribution.py:134
+#: friendfund/controllers/contribution.py:202
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later."
 " Your payment has not been processed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:147
-#: friendfund/controllers/contribution.py:162
+#: friendfund/controllers/contribution.py:136
+#: friendfund/controllers/contribution.py:204
+msgid ""
+"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again "
+"later"
+msgstr ""
+
+#: friendfund/controllers/contribution.py:150
+#: friendfund/controllers/contribution.py:166
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:165
+#: friendfund/controllers/contribution.py:169
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:168
+#: friendfund/controllers/contribution.py:173
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. "
 "Your payment has not been processed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:186
+#: friendfund/controllers/contribution.py:192
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been"
 " processed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:192
+#: friendfund/controllers/contribution.py:197
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
-msgstr ""
-
-#: friendfund/controllers/contribution.py:225
-msgid ""
-"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again "
-"later"
 msgstr ""
 
 #: friendfund/controllers/fb.py:21
@@ -300,23 +308,23 @@ msgid ""
 "later."
 msgstr ""
 
-#: friendfund/lib/app_globals.py:120
+#: friendfund/lib/app_globals.py:146
 msgid "GLOBAL_MENU_Home"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:121
+#: friendfund/lib/app_globals.py:147
 msgid "GLOBAL_MENU_My_Pools"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:122
+#: friendfund/lib/app_globals.py:148
 msgid "GLOBAL_MENU_My_Badges"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:123
+#: friendfund/lib/app_globals.py:149
 msgid "GLOBAL_MENU_My_Profile"
 msgstr ""
 
-#: friendfund/lib/auth/decorators.py:25 friendfund/lib/auth/decorators.py:27
+#: friendfund/lib/auth/decorators.py:26 friendfund/lib/auth/decorators.py:28
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr ""
 
@@ -1243,6 +1251,7 @@ msgid "MYPOOLS_CONTENT_Already chipped in:"
 msgstr ""
 
 #: friendfund/templates/mypools/mypools_body.html:36
+#: friendfund/templates/pool/parts/button_contribute.html:13
 msgid "MYPOOLS_CONTENT_Chipped In"
 msgstr ""
 
@@ -1305,11 +1314,14 @@ msgstr ""
 
 #: friendfund/templates/myprofile/index.html:75
 #: friendfund/templates/myprofile/index.html:124
+#: friendfund/templates/myprofile/index.html:165
 msgid "MYPROFILE_PAGE_LABEL_Select an image file from your computer:"
 msgstr ""
 
 #: friendfund/templates/myprofile/index.html:77
 #: friendfund/templates/myprofile/index.html:126
+#: friendfund/templates/myprofile/index.html:167
+#: friendfund/templates/myprofile/login_screen.html:87
 #, python-format
 msgid ""
 "MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a "
@@ -1343,39 +1355,22 @@ msgid "MYPROFILE_PAGE_LABEL_Confirm New Password"
 msgstr ""
 
 #: friendfund/templates/myprofile/index.html:119
-msgid "MYPROFILE_PAGE_LABEL_Set Your Profile Picture"
+msgid "MYPROFILE_PAGE_LABEL_Sign Up With Email"
 msgstr ""
 
-#: friendfund/templates/myprofile/index.html:130
-msgid "MYPROFILE_PAGE_LABEL_Set Your Username and Email"
-msgstr ""
-
-#: friendfund/templates/myprofile/index.html:139
-msgid "MYPROFILE_PAGE_LABEL_Signup by email"
-msgstr ""
-
-#: friendfund/templates/myprofile/index.html:142
+#: friendfund/templates/myprofile/index.html:138
 msgid "MYPROFILE_PAGE_LABEL_Password"
 msgstr ""
 
-#: friendfund/templates/myprofile/index.html:145
-msgid "MYPROFILE_PAGE_LABEL_Password Confirm"
+#: friendfund/templates/myprofile/index.html:141
+msgid "Confirm_Password"
 msgstr ""
 
-#: friendfund/templates/myprofile/index.html:149
-msgid "LOGIN_PAGE_LABEL_Female"
-msgstr ""
-
-#: friendfund/templates/myprofile/index.html:151
-#: friendfund/templates/myprofile/login_screen.html:75
-msgid "LOGIN_PAGE_LABEL_Male"
-msgstr ""
-
-#: friendfund/templates/myprofile/index.html:154
+#: friendfund/templates/myprofile/index.html:176
 msgid "MYPROFILE_PAGE_LABEL_Signup"
 msgstr ""
 
-#: friendfund/templates/myprofile/index.html:162
+#: friendfund/templates/myprofile/index.html:184
 msgid "MYPROFILE_PAGE_LABEL_Save"
 msgstr ""
 
@@ -1445,6 +1440,10 @@ msgstr ""
 
 #: friendfund/templates/myprofile/login_screen.html:69
 msgid "LOGIN_PAGE_LABEL_Confirm Password"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_screen.html:75
+msgid "LOGIN_PAGE_LABEL_Male"
 msgstr ""
 
 #: friendfund/templates/myprofile/login_screen.html:84
@@ -1606,7 +1605,7 @@ msgstr ""
 
 #: friendfund/templates/pool/settings.html:7
 #: friendfund/templates/pool/settings.html:9
-#: friendfund/templates/pool/settings_admin.html:100
+#: friendfund/templates/pool/settings_admin.html:99
 msgid "POOLSETTINGS_TITLE_Pool Admin"
 msgstr ""
 
@@ -1655,29 +1654,29 @@ msgid "POOLSETTINGS_LABEL_Country"
 msgstr ""
 
 #: friendfund/templates/pool/settings.html:43
-#: friendfund/templates/pool/settings_admin.html:153
+#: friendfund/templates/pool/settings_admin.html:152
 msgid "POOLSETTINGS_LABEL_Back To Pool"
 msgstr ""
 
-#: friendfund/templates/pool/settings_admin.html:102
+#: friendfund/templates/pool/settings_admin.html:101
 msgid "POOLSETTINGS_LABEL_Pool Admin"
 msgstr ""
 
-#: friendfund/templates/pool/settings_admin.html:107
+#: friendfund/templates/pool/settings_admin.html:106
 msgid "POOLSETTINGS_LABEL_Change Your Message:"
 msgstr ""
 
-#: friendfund/templates/pool/settings_admin.html:114
+#: friendfund/templates/pool/settings_admin.html:113
 #: friendfund/templates/pool/actions/billing_form.html:22
 #: friendfund/templates/pool/actions/shipping_form.html:24
 msgid "POOLSETTINGS_Save Changes"
 msgstr ""
 
-#: friendfund/templates/pool/settings_admin.html:122
+#: friendfund/templates/pool/settings_admin.html:121
 msgid "POOLSETTINGS_LABEL_Actions:"
 msgstr ""
 
-#: friendfund/templates/pool/settings_admin.html:126
+#: friendfund/templates/pool/settings_admin.html:125
 #: friendfund/templates/pool/parts/button_close.html:5
 msgid "POOL_BUTTON_ACTION_Order Gift"
 msgstr ""
@@ -1748,11 +1747,12 @@ msgid ""
 "%(receiver_name)s's gift."
 msgstr ""
 
-#: friendfund/templates/pool/parts/button_contribute.html:11
+#: friendfund/templates/pool/parts/button_contribute.html:15
+#: friendfund/templates/pool/parts/button_contribute.html:19
 msgid "POOL_BUTTON_Chip in!"
 msgstr ""
 
-#: friendfund/templates/pool/parts/button_contribute.html:23
+#: friendfund/templates/pool/parts/button_contribute.html:28
 msgid "POOL_BUTTON_Invite more Friends"
 msgstr ""
 

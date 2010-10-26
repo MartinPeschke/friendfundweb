@@ -54,7 +54,7 @@ class BaseController(WSGIController):
 	
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""
-		c.navposition = self.navposition
+		c.navposition = getattr(c, 'navposition', self.navposition)
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
 		c.furl = request.path_info

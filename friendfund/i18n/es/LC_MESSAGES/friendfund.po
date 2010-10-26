@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-10-25 19:02+0100\n"
+"PO-Revision-Date: 2010-10-26 10:16+0200\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -17,57 +17,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
-#: friendfund/controllers/contribution.py:68
-msgid "CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."
-msgstr "No puedes contribuir a este Bote porque está cerrado. "
+#: friendfund/controllers/contribution.py:40
+#: friendfund/controllers/contribution.py:62
+#: friendfund/controllers/contribution.py:85
+msgid "CONTRIBUTION_Payment Not Allowed."
+msgstr ""
 
 #: friendfund/controllers/contribution.py:80
-#: friendfund/controllers/contribution.py:121
+msgid ""
+"CONTRIBUTION_You cannot contribute to this pool at this time, this pool "
+"is closed."
+msgstr "No puedes contribuir a este Bote porque está cerrado. "
+
+#: friendfund/controllers/contribution.py:98
+#: friendfund/controllers/contribution.py:131
+#: friendfund/controllers/contribution.py:199
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr "Forma de pago desconocida"
 
-#: friendfund/controllers/contribution.py:98
-msgid "CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!"
+#: friendfund/controllers/contribution.py:118
+msgid ""
+"CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip"
+" in!"
 msgstr "Por favor, danos tu email para poder enviarte el recibo"
 
-#: friendfund/controllers/contribution.py:116
-#: friendfund/controllers/contribution.py:197
-msgid "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."
+#: friendfund/controllers/contribution.py:134
+#: friendfund/controllers/contribution.py:202
+msgid ""
+"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again "
+"later. Your payment has not been processed."
 msgstr "Perdón, ha ocurrido un error. Tu pago no ha sido procesado."
 
 #: friendfund/controllers/contribution.py:136
-#: friendfund/controllers/contribution.py:151
+#: friendfund/controllers/contribution.py:204
+msgid ""
+"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again"
+" later"
+msgstr "Perdón, ha ocurrido un error. Por favor, inténtalo de nuevo más tarde."
+
+#: friendfund/controllers/contribution.py:150
+#: friendfund/controllers/contribution.py:166
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."
 msgstr "Este formulario ya ha sido enviado"
 
-#: friendfund/controllers/contribution.py:154
+#: friendfund/controllers/contribution.py:169
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"
 msgstr "??Method not allowed-Acción no permitida"
 
-#: friendfund/controllers/contribution.py:157
-msgid "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."
-msgstr "??Incorrect Payment Form Data, Token missing. Your payment has not been processed-Los datos en el formulario de pago son incorrectos. Tu pago no ha sido procesado."
+#: friendfund/controllers/contribution.py:173
+msgid ""
+"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token "
+"missing. Your payment has not been processed."
+msgstr ""
+"??Incorrect Payment Form Data, Token missing. Your payment has not been "
+"processed-Los datos en el formulario de pago son incorrectos. Tu pago no "
+"ha sido procesado."
 
-#: friendfund/controllers/contribution.py:175
-msgid "CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."
+#: friendfund/controllers/contribution.py:192
+msgid ""
+"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not "
+"been processed."
 msgstr "Perdón, ha ocurrido un error. Tu pago no ha sido procesado."
 
-#: friendfund/controllers/contribution.py:181
+#: friendfund/controllers/contribution.py:197
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
 msgstr "Por favor ten paciencia, tus cambios se están guardando."
 
-#: friendfund/controllers/contribution.py:214
-msgid "CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"
-msgstr "Perdón, ha ocurrido un error. Por favor, inténtalo de nuevo más tarde."
-
 #: friendfund/controllers/fb.py:21
 msgid "FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING"
-msgstr "Facebook tiene problemas para acceder a tu cuenta. Por favor, inténtalo de nuevo."
+msgstr ""
+"Facebook tiene problemas para acceder a tu cuenta. Por favor, inténtalo "
+"de nuevo."
 
-#: friendfund/controllers/fb.py:45
-#: friendfund/controllers/fb.py:64
-#: friendfund/controllers/fb.py:81
-#: friendfund/controllers/fb.py:101
+#: friendfund/controllers/fb.py:45 friendfund/controllers/fb.py:64
+#: friendfund/controllers/fb.py:81 friendfund/controllers/fb.py:101
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Este perfil no puede ser añadido a tu cuenta."
 
@@ -79,12 +102,16 @@ msgstr "Ya has iniciado sesión"
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr "??Email o contraseña incorrecta"
 
-#: friendfund/controllers/index.py:119
-#: friendfund/controllers/myprofile.py:71
+#: friendfund/controllers/index.py:119 friendfund/controllers/myprofile.py:71
 #: friendfund/controllers/myprofile.py:110
 #, python-format
-msgid "USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s"
-msgstr "Esta dirección de correo pertenece a otro usuario. Por favor, intenta iniciar sesión con tu dirección de correo electrónico y contraseña o solicita un cambio de contraseña."
+msgid ""
+"USER_SIGNUP_If this is you, please try logging in with your email address"
+" and password or %(link_open)srequest a password change!%(link_close)s"
+msgstr ""
+"Esta dirección de correo pertenece a otro usuario. Por favor, intenta "
+"iniciar sesión con tu dirección de correo electrónico y contraseña o "
+"solicita un cambio de contraseña."
 
 #: friendfund/controllers/index.py:141
 msgid "USER_SETEMAILBLOCK_Email Updated!"
@@ -92,7 +119,9 @@ msgstr "¡Correo electrónico actualizado!"
 
 #: friendfund/controllers/index.py:147
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
-msgstr "??Email address already taken!-Ya has escrito tu dirección de correo electrónico "
+msgstr ""
+"??Email address already taken!-Ya has escrito tu dirección de correo "
+"electrónico "
 
 #: friendfund/controllers/myprofile.py:61
 msgid "MYPROFILE_EMAILSEIGNUP_Changes saved!"
@@ -104,8 +133,12 @@ msgstr "¡Datos guardados!"
 
 #: friendfund/controllers/myprofile.py:130
 #, python-format
-msgid "PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!"
-msgstr "La contraseña de tu correo electrónico ha sido enviada a: %s, Por favor, mira tu bandeja de entrada."
+msgid ""
+"PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your"
+" Mailbox!"
+msgstr ""
+"La contraseña de tu correo electrónico ha sido enviada a: %s, Por favor, "
+"mira tu bandeja de entrada."
 
 #: friendfund/controllers/myprofile.py:139
 msgid "PROFILE_PASSWORD_Unknown Email Address"
@@ -113,7 +146,9 @@ msgstr "Dirección de correo electrónico desconocida"
 
 #: friendfund/controllers/myprofile.py:142
 msgid "PROFILE_PASSWORD_Token Already Sent"
-msgstr "Ya has solicitado un cambio de contraseña en las últimas 24 horas. Por favor, mira tu correo electrónico."
+msgstr ""
+"Ya has solicitado un cambio de contraseña en las últimas 24 horas. Por "
+"favor, mira tu correo electrónico."
 
 #: friendfund/controllers/myprofile.py:145
 msgid "PROFILE_PASSWORD_Unknown Error Occured"
@@ -132,7 +167,9 @@ msgid "PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválida. Por favor solicita una nueva."
 
 #: friendfund/controllers/myprofile.py:185
-msgid "PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank You!"
+msgid ""
+"PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank "
+"You!"
 msgstr "Tu dirección de correo electrónico ha sido confirmada. Gracias!"
 
 #: friendfund/controllers/occasion.py:44
@@ -152,8 +189,14 @@ msgid "POOL_ACTION_Pool is now Closed and the Gift has been ordered!"
 msgstr "Este bote está cerrado y el regalo está en camino!"
 
 #: friendfund/controllers/pool.py:28
-msgid "POOL_ACTION_This pool has not reached it's target. Please vist the pool admin page to continue fund raising!"
-msgstr "????This pool has not raised enough funds. Please vist the pool admin page to step up the campaign!-Este bote no ha recaudado suficientes fondos. Por favor, visita la página de administración del Bote para conocer el siguiente paso."
+msgid ""
+"POOL_ACTION_This pool has not reached it's target. Please vist the pool "
+"admin page to continue fund raising!"
+msgstr ""
+"????This pool has not raised enough funds. Please vist the pool admin "
+"page to step up the campaign!-Este bote no ha recaudado suficientes "
+"fondos. Por favor, visita la página de administración del Bote para "
+"conocer el siguiente paso."
 
 #: friendfund/controllers/pool.py:29
 msgid "POOL_ACTION_Changes saved."
@@ -161,11 +204,17 @@ msgstr "Los cambios han sido guardados"
 
 #: friendfund/controllers/pool.py:30
 msgid "POOL_ACTION_This Action is not allowed as Pool is not in correct state."
-msgstr "Esta acción no está permitida puesto que el bote no está en la fase correcta."
+msgstr ""
+"Esta acción no está permitida puesto que el bote no está en la fase "
+"correcta."
 
 #: friendfund/controllers/pool.py:31
-msgid "POOL_ACTION_In order to Close the pool, you need to fill out and save Shipping and Billing Address first!"
-msgstr "Para cerrar el bote, primero necesitas rellenar y guardar la dirección de envío y de facturación."
+msgid ""
+"POOL_ACTION_In order to Close the pool, you need to fill out and save "
+"Shipping and Billing Address first!"
+msgstr ""
+"Para cerrar el bote, primero necesitas rellenar y guardar la dirección de"
+" envío y de facturación."
 
 #: friendfund/controllers/pool.py:43
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
@@ -187,20 +236,19 @@ msgstr "No has escogido ningún evento. Por favor, inténtalo de nuevo. "
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:259
+#: friendfund/controllers/pool.py:258
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Los cambios han sido guardados"
 
-#: friendfund/controllers/pool.py:296
-#: friendfund/controllers/pool.py:302
+#: friendfund/controllers/pool.py:297 friendfund/controllers/pool.py:303
 msgid "POOL_ALTPRODUCT_No Product Selected"
 msgstr "No has escogido ningún producto"
 
-#: friendfund/controllers/pool.py:308
+#: friendfund/controllers/pool.py:309
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr "Los cambios de producto han sido guardados."
 
-#: friendfund/controllers/pool.py:318
+#: friendfund/controllers/pool.py:319
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "El regalo ha sido cambiado por vales! "
 
@@ -228,38 +276,63 @@ msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/product.py:109
+#: friendfund/controllers/product.py:110
 msgid "PRODUCT_SEARCH_An Error Occured during search, please try again later."
-msgstr "Perdón, se produjo un error durante la búsqueda. Por favor, inténtalo de nuevo"
+msgstr ""
+"Perdón, se produjo un error durante la búsqueda. Por favor, inténtalo de "
+"nuevo"
 
-#: friendfund/controllers/product.py:138
-msgid "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or shipping much time!"
-msgstr "¡La fecha de tu evento no le da mucho margen de actuación a los contribuyentes ni al transporte!"
+#: friendfund/controllers/product.py:139
+msgid ""
+"PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
+"shipping much time!"
+msgstr ""
+"¡La fecha de tu evento no le da mucho margen de actuación a los "
+"contribuyentes ni al transporte!"
 
-#: friendfund/controllers/product.py:141
-msgid "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"
-msgstr "No podemos entregarte esto a tiempo. Si te causa problema, por favor, elige otra fecha más tarde!"
+#: friendfund/controllers/product.py:142
+msgid ""
+"PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a"
+" problem please pick a later date!"
+msgstr ""
+"No podemos entregarte esto a tiempo. Si te causa problema, por favor, "
+"elige otra fecha más tarde!"
 
-#: friendfund/controllers/product.py:152
+#: friendfund/controllers/product.py:153
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "URL no reconocida"
 
-#: friendfund/controllers/product.py:154
+#: friendfund/controllers/product.py:155
 #, python-format
-msgid "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links from %(amazondomain)s or switch your shipping region."
-msgstr "Este producto no pertenece a %(amazondomain)s. Por favor, usa sólo los links de %(amazondomain)s o cambia el país de envío."
+msgid ""
+"AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only "
+"links from %(amazondomain)s or switch your shipping region."
+msgstr ""
+"Este producto no pertenece a %(amazondomain)s. Por favor, usa sólo los "
+"links de %(amazondomain)s o cambia el país de envío."
 
-#: friendfund/controllers/product.py:162
+#: friendfund/controllers/product.py:163
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr "Este producto no está disponible. Por favor, inténtalo de nuevo más tarde."
 
-#: friendfund/controllers/product.py:166
-msgid "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article and is not sold by Amazon itself. Currently we do not support Amazon Marketplace articles."
-msgstr "?????This product is an Amazon Marketplace product and is not sold directly by Amazon. Currently we do not support Amazon Marketplace products.- Este producto pertenece al mercado de Amazon y no es vendido directamente desde Amazon. En este momento, no vendemos A"
+#: friendfund/controllers/product.py:167
+msgid ""
+"AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace "
+"article and is not sold by Amazon itself. Currently we do not support "
+"Amazon Marketplace articles."
+msgstr ""
+"?????This product is an Amazon Marketplace product and is not sold "
+"directly by Amazon. Currently we do not support Amazon Marketplace "
+"products.- Este producto pertenece al mercado de Amazon y no es vendido "
+"directamente desde Amazon. En este momento, no vendemos A"
 
-#: friendfund/controllers/product.py:169
-msgid "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."
-msgstr "Amazon no nos ha proporcionado la información suficiente para ofrecer este producto."
+#: friendfund/controllers/product.py:170
+msgid ""
+"AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
+"purchase this article."
+msgstr ""
+"Amazon no nos ha proporcionado la información suficiente para ofrecer "
+"este producto."
 
 #: friendfund/controllers/receiver.py:44
 msgid "POOL_CREATE_No Known ReceiverFound"
@@ -269,85 +342,134 @@ msgstr "No has escogido a ningún amigo.Por favor, inténtalo de nuevo."
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr "??Unknown Network or Method-Red o acción desconocida."
 
-#: friendfund/controllers/twitter.py:22
-msgid "TWITTER_An Error occured during Twitter authentication, please try again later."
-msgstr "Twitter tiene problemas para acceder a tu cuenta. Por favor, inténtalo de nuevo."
+#: friendfund/controllers/twitter.py:20
+msgid ""
+"TWITTER_An Error occured during Twitter authentication, please try again "
+"later."
+msgstr ""
+"Twitter tiene problemas para acceder a tu cuenta. Por favor, inténtalo de"
+" nuevo."
 
-#: friendfund/controllers/twitter.py:34
-msgid "TWITTER_Invalid response from Twitter."
-msgstr "Twitter tiene problemas para acceder a tu cuenta. Por favor, inténtalo de nuevo."
-
-#: friendfund/lib/app_globals.py:127
+#: friendfund/lib/app_globals.py:146
 msgid "GLOBAL_MENU_Home"
 msgstr "Inicio"
 
-#: friendfund/lib/app_globals.py:128
+#: friendfund/lib/app_globals.py:147
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Botes"
 
-#: friendfund/lib/app_globals.py:129
+#: friendfund/lib/app_globals.py:148
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Títulos"
 
-#: friendfund/lib/app_globals.py:130
+#: friendfund/lib/app_globals.py:149
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Perfil"
 
-#: friendfund/lib/auth/decorators.py:25
-#: friendfund/lib/auth/decorators.py:27
+#: friendfund/lib/auth/decorators.py:26 friendfund/lib/auth/decorators.py:28
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr "Acción no permitida"
 
 #: friendfund/model/badge.py:7
-msgid "BADGE_DESCRIPTION_You've been awarded the Best Friend Badge for creating a pool for your friend. They'll surely love you."
-msgstr "Has sido premiado con el Título de Mejor Amigo por crear un Bote para tu amigo."
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Best Friend Badge for creating "
+"a pool for your friend. They'll surely love you."
+msgstr ""
+"Has sido premiado con el Título de Mejor Amigo por crear un Bote para tu "
+"amigo."
 
 #: friendfund/model/badge.py:9
-msgid "BADGE_DESCRIPTION_You've been awarded the Big Spender Badge for chipping in more than &euro;50.00 to one pool."
-msgstr "???You've been awarded the Big Spender Badge for chipping in more than &euro;50.00 to one pool-  Has sido premiado con la etiqueta de Derrochador por aportar más de &euro;50.00 en el bote."
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Big Spender Badge for chipping "
+"in more than &euro;50.00 to one pool."
+msgstr ""
+"???You've been awarded the Big Spender Badge for chipping in more than "
+"&euro;50.00 to one pool-  Has sido premiado con la etiqueta de "
+"Derrochador por aportar más de &euro;50.00 en el bote."
 
 #: friendfund/model/badge.py:11
-msgid "BADGE_DESCRIPTION_You have a heart of gold. You've been awarded the Philanthropist Badge for chipping in to two or more pools."
-msgstr "???You have a heart of gold. You've been awarded the Philanthropist Badge for chipping in to two or more pools.- Tienes una corazón de oro. Has sido premiado con el Título de Filántropo por contribuir en dos o más Botes."
+msgid ""
+"BADGE_DESCRIPTION_You have a heart of gold. You've been awarded the "
+"Philanthropist Badge for chipping in to two or more pools."
+msgstr ""
+"???You have a heart of gold. You've been awarded the Philanthropist Badge"
+" for chipping in to two or more pools.- Tienes una corazón de oro. Has "
+"sido premiado con el Título de Filántropo por contribuir en dos o más "
+"Botes."
 
 #: friendfund/model/badge.py:13
-msgid "BADGE_DESCRIPTION_Nice one! You've been awarded the Fanatic Badge for chipping in to the same pool two times or more."
-msgstr "??Nice one! You've been awarded the Fanatic Badge for chipping in to the same pool two times or more.- Excelente!Has sido premiado con el Título de Fanático por contribuir dentro del mismo bote dos veces o más."
+msgid ""
+"BADGE_DESCRIPTION_Nice one! You've been awarded the Fanatic Badge for "
+"chipping in to the same pool two times or more."
+msgstr ""
+"??Nice one! You've been awarded the Fanatic Badge for chipping in to the "
+"same pool two times or more.- Excelente!Has sido premiado con el Título "
+"de Fanático por contribuir dentro del mismo bote dos veces o más."
 
 #: friendfund/model/badge.py:15
-msgid "BADGE_DESCRIPTION_You've been awarded the Team Player Badge for sending out two or more invites. There's no \"I\" in \"Team\"!"
-msgstr "??Has sido premiado con el Título de Activador de Equipo/Team Player por haber enviado dos o más invitaciones. No hay \"I\" en \"Team\"!"
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Team Player Badge for sending "
+"out two or more invites. There's no \"I\" in \"Team\"!"
+msgstr ""
+"??Has sido premiado con el Título de Activador de Equipo/Team Player por "
+"haber enviado dos o más invitaciones. No hay \"I\" en \"Team\"!"
 
 #: friendfund/model/badge.py:17
-msgid "BADGE_DESCRIPTION_You've been awarded the Activist Badge for inviting 20 or more people to one pool. Go you."
-msgstr "??You've been awarded the Activist Badge for inviting 20 or more people to one pool. Go you. - Has sido premiado con el Título de Activista por invitar a 20 o más personas al Bote. "
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Activist Badge for inviting 20 "
+"or more people to one pool. Go you."
+msgstr ""
+"??You've been awarded the Activist Badge for inviting 20 or more people "
+"to one pool. Go you. - Has sido premiado con el Título de Activista por "
+"invitar a 20 o más personas al Bote. "
 
 #: friendfund/model/badge.py:19
-msgid "BADGE_DESCRIPTION_High five! You've been awarded the Patron Badge for contributing &euro;100.00 or more to the same pool."
-msgstr "Choca esas cinco! Has sido premiado con la Insignia de Sponsor por contribuir con &euro;100.00 o más dentro del mismo bote. "
+msgid ""
+"BADGE_DESCRIPTION_High five! You've been awarded the Patron Badge for "
+"contributing &euro;100.00 or more to the same pool."
+msgstr ""
+"Choca esas cinco! Has sido premiado con la Insignia de Sponsor por "
+"contribuir con &euro;100.00 o más dentro del mismo bote. "
 
 #: friendfund/model/badge.py:21
-msgid "BADGE_DESCRIPTION_You've been awarded the Soul Mate Badge for creating two pools for the same person. Awww."
-msgstr "Genial! Has sido premiado con la Insignia de Alma Gemela por crear dos botes para la misma persona."
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Soul Mate Badge for creating "
+"two pools for the same person. Awww."
+msgstr ""
+"Genial! Has sido premiado con la Insignia de Alma Gemela por crear dos "
+"botes para la misma persona."
 
 #: friendfund/model/badge.py:23
-msgid "BADGE_DESCRIPTION_You've been awarded the Dreamer Badge for requesting one gift for yourself. Because you're worth it!"
-msgstr "Has sido premiado con el Título de Soñador por solicitar un regalo para tí. Tú te lo mereces!"
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Dreamer Badge for requesting "
+"one gift for yourself. Because you're worth it!"
+msgstr ""
+"Has sido premiado con el Título de Soñador por solicitar un regalo para "
+"tí. Tú te lo mereces!"
 
 #: friendfund/model/badge.py:25
-msgid "BADGE_DESCRIPTION_Hmmm, impressive! You've been awarded the Connoisseur Badge for requesting a gift of &euro;100.00 and over."
-msgstr "??Increíble! Has sido premiado con el Título de Experto por solicitar un regalo de &euro;100.00 o más."
+msgid ""
+"BADGE_DESCRIPTION_Hmmm, impressive! You've been awarded the Connoisseur "
+"Badge for requesting a gift of &euro;100.00 and over."
+msgstr ""
+"??Increíble! Has sido premiado con el Título de Experto por solicitar un "
+"regalo de &euro;100.00 o más."
 
 #: friendfund/model/badge.py:27
-msgid "BADGE_DESCRIPTION_You've been awarded the Diva Badge for requesting 3 or more gifts for yourself. You're fabulous!"
-msgstr "??You've been awarded the Diva Badge for requesting 3 or more gifts for yourself. You're fabulous!- Has sido premiado el Título de Diva por solicitar 3 o más regalos para tí."
+msgid ""
+"BADGE_DESCRIPTION_You've been awarded the Diva Badge for requesting 3 or "
+"more gifts for yourself. You're fabulous!"
+msgstr ""
+"??You've been awarded the Diva Badge for requesting 3 or more gifts for "
+"yourself. You're fabulous!- Has sido premiado el Título de Diva por "
+"solicitar 3 o más regalos para tí."
 
 #: friendfund/model/badge.py:29
 msgid "BADGE_DESCRIPTION_MYSTERY_..."
 msgstr "..."
 
 #: friendfund/model/pool.py:155
-#: friendfund/templates/contribution/contrib_screen.html:49
+#: friendfund/templates/contribution/contrib_screen.html:56
 msgid "CONTRIBPAGE_LABEL_A pot of gold"
 msgstr "Una olla de oro"
 
@@ -356,8 +478,15 @@ msgid "POOLACTIONS_INVITE_TITLE_Invite more friends to help out!"
 msgstr "¡Invita más amigos a contribuir en el bote!"
 
 #: friendfund/model/poolsettings.py:8
-msgid "POOLACTIONS_INVITE_SUBTITLE_Extending the pool's runtime and inviting more friends with a fresh message might help you get this pool completed, try it now!"
-msgstr "??Extending the pool's closing date  and inviting more friends with a fresh message might help get this pool funded.- Ampliando el día de cierre del bote e invitando a más amigos con mensaje que podría ayudar a completar este bote."
+msgid ""
+"POOLACTIONS_INVITE_SUBTITLE_Extending the pool's runtime and inviting "
+"more friends with a fresh message might help you get this pool completed,"
+" try it now!"
+msgstr ""
+"??Extending the pool's closing date  and inviting more friends with a "
+"fresh message might help get this pool funded.- Ampliando el día de "
+"cierre del bote e invitando a más amigos con mensaje que podría ayudar a "
+"completar este bote."
 
 #: friendfund/model/poolsettings.py:10
 msgid "POOLACTIONS_REMIND_INVITEES_TITLE_"
@@ -365,7 +494,9 @@ msgstr "Recuérdale a los invitados que contribuyan al bote."
 
 #: friendfund/model/poolsettings.py:11
 msgid "POOLACTIONS_REMIND_INVITEES_SUBTITLE_"
-msgstr "Mándale un mensaje recordatorio a tus amigos para que contribuyan en el bote."
+msgstr ""
+"Mándale un mensaje recordatorio a tus amigos para que contribuyan en el "
+"bote."
 
 #: friendfund/model/poolsettings.py:12
 msgid "POOLACTIONS_ASK_RECEIVER_TITLE_"
@@ -373,7 +504,9 @@ msgstr "Sugiérele al destinatario del regalo que pague el resto."
 
 #: friendfund/model/poolsettings.py:13
 msgid "POOLACTIONS_ASK_RECEIVER_SUBTITLE_"
-msgstr "Informa a tu amigo de cuánto habeis alcanzado para su regalo y pregúntale si quiere pagar el resto."
+msgstr ""
+"Informa a tu amigo de cuánto habeis alcanzado para su regalo y pregúntale"
+" si quiere pagar el resto."
 
 #: friendfund/model/poolsettings.py:14
 msgid "POOLACTIONS_ASK_CONTRIBUTORS_TITLE_"
@@ -381,11 +514,15 @@ msgstr "Comprueba si tus amigos pondrán algo más en el bote."
 
 #: friendfund/model/poolsettings.py:15
 msgid "POOLACTIONS_ASK_CONTRIBUTORS_SUBTITLE_"
-msgstr "Está algo difícil pero puede que tus amigos aporten un poco más para poder adquirir el regalo."
+msgstr ""
+"Está algo difícil pero puede que tus amigos aporten un poco más para "
+"poder adquirir el regalo."
 
 #: friendfund/model/poolsettings.py:16
 msgid "POOLACTIONS_ASK_CONTRIBUTORS_TO_INVITE_TITLE_"
-msgstr "Sugiérele a los miembros del bote que envíen más invitaciones a sus amigos para poder adquirir el regalo."
+msgstr ""
+"Sugiérele a los miembros del bote que envíen más invitaciones a sus "
+"amigos para poder adquirir el regalo."
 
 #: friendfund/model/poolsettings.py:17
 msgid "POOLACTIONS_ASK_CONTRIBUTORS_TO_INVITE_SUBTITLE_"
@@ -415,28 +552,28 @@ msgstr "Cambiar el producto por Vales Regalo."
 msgid "POOLACTIONS_ISSUE_GIFT_VOUCHERS_SUBTITLE_"
 msgstr "Mándale a tu amigo un Vale Regalo de Amazon con la cantidad alcanzada."
 
-#: friendfund/model/forms/common.py:29
+#: friendfund/model/forms/common.py:30
 msgid "DATEVALIDATOR_Please input Date in Valid Format YYYY-MM-DD"
 msgstr "Por favor, pon la fecha en el formato correcto YYYY-MM-DD"
 
-#: friendfund/model/forms/common.py:37
+#: friendfund/model/forms/common.py:38
 msgid "CURRENCYVALIDATOR_Please input a valid Currency"
 msgstr "Por favor, introduce una moneda válida."
 
-#: friendfund/model/forms/common.py:46
+#: friendfund/model/forms/common.py:47
 msgid "MONETARYVALIDATOR_Please input a valid amount"
 msgstr "Por favor, pon una cantidad válida."
 
-#: friendfund/model/forms/common.py:49
+#: friendfund/model/forms/common.py:50
 #, python-format
 msgid "Please enter a number that is %s or smaller"
 msgstr "Por favor, introduce %s o menos."
 
-#: friendfund/model/forms/common.py:72
+#: friendfund/model/forms/common.py:73
 msgid "Please enter a valid amount"
 msgstr "Por favor, pon una cantidad válida."
 
-#: friendfund/model/forms/common.py:73
+#: friendfund/model/forms/common.py:74
 msgid "Invalid Totals"
 msgstr "Total inválido "
 
@@ -590,7 +727,9 @@ msgstr "Estados Unidos de América"
 
 #: friendfund/services/user_service.py:38
 msgid "LOGIN_ACCOUNTS_CANNOT_BE_CONSOLIDATED_WARNING"
-msgstr "Este perfil no puede ser añadido a tu cuenta de Friendfund. Por favor, primero cierra tu sesión en Friendfund."
+msgstr ""
+"Este perfil no puede ser añadido a tu cuenta de Friendfund. Por favor, "
+"primero cierra tu sesión en Friendfund."
 
 #: friendfund/templates/index.html:7
 msgid "PAGE_INDEX_TITLE_Welcome"
@@ -598,11 +737,15 @@ msgstr "Bienvenido"
 
 #: friendfund/templates/index.html:59
 msgid "PAGE_INDEX_SLOGAN_MOTTO_EMPHASIS"
-msgstr "Conéctate con facebook, twitter o email y pon bote para los regalos de tus amigos.<br/>"
+msgstr ""
+"Conéctate con facebook, twitter o email y pon bote para los regalos de "
+"tus amigos.<br/>"
 
 #: friendfund/templates/index.html:59
 msgid "PAGE_INDEX_SLOGAN"
-msgstr "Gana títulos, mira lo que tus amigos consiguen, o crea un bote para tí mismo."
+msgstr ""
+"Gana títulos, mira lo que tus amigos consiguen, o crea un bote para tí "
+"mismo."
 
 #: friendfund/templates/index.html:59
 msgid "PAGE_INDEX_SLOGAN_CLOSING"
@@ -616,27 +759,31 @@ msgstr "Un paso más... "
 msgid "PAGE_INDEX_MESSAGE_Please select Who, When and What first!"
 msgstr "Por favor, primero selecciona Quién, Cuándo y Qué."
 
-#: friendfund/templates/index.html:97
+#: friendfund/templates/index.html:95
 msgid "PAGE_INDEX_BUTTON_Invite Friends"
 msgstr "Invita a tus amigos"
 
-#: friendfund/templates/index.html:98
-msgid "PAGE_INDEX_FUNDERSTEXT_Once you've selected a receiver, an event and a gift, invite your friends to chip in to your gift pool."
-msgstr "??Una vez hayas escogido el destinatario, el acontecimiento y el regalo, invita a tus amigos para contribuir al bote."
+#: friendfund/templates/index.html:97
+msgid ""
+"PAGE_INDEX_FUNDERSTEXT_Once you've selected a receiver, an event and a "
+"gift, invite your friends to chip in to your gift pool."
+msgstr ""
+"??Una vez hayas escogido el destinatario, el acontecimiento y el regalo, "
+"invita a tus amigos para contribuir al bote."
 
-#: friendfund/templates/index.html:103
+#: friendfund/templates/index.html:104
 msgid "PAGE_INDEX_BUTTON_Get Started"
 msgstr "Empezar"
 
-#: friendfund/templates/index.html:116
+#: friendfund/templates/index.html:119
 msgid "PAGE_INDEX_HEADER_Current Pools"
 msgstr "Los Botes Actuales"
 
-#: friendfund/templates/index.html:130
+#: friendfund/templates/index.html:133
 msgid "PAGE_INDEX_HEADER_Recent Badges"
 msgstr "Títulos actuales"
 
-#: friendfund/templates/index.html:142
+#: friendfund/templates/index.html:145
 msgid "PAGE_INDEX_HEADER_Top Sellers"
 msgstr "Los más vendidos"
 
@@ -706,7 +853,50 @@ msgstr "Preguntas frecuentes"
 
 #: friendfund/templates/content/faq.html:9
 msgid "STATIC_Frequently Asked Questions_CONTENT"
-msgstr "<div id=\"faq\"><ol><li>Will my gift receiver find out about the present?<p> On the invite page there is a box you can tick which will make the pool secret. This means any notifications sent to social network news feeds will not mention the product or your friends name.</p></li><li>What happens if we don’t raise enough money before the pool closes?<p> Don’t worry. The pool admin has the chance to extend the pool and send out more invite reminders. He can even ask the gift recipient if they would like to make up the difference themselves. If all else fails he can select a new product which there is enough funds for or if they prefer they can send the recipient a gift voucher instead.</p></li><li>Why do you have transaction costs?<p> We offer our service completely free. All we ask if that contributors cover the transaction costs we have to pay to our payment provider.</p></li><li>Can I get a refund or return the gift?<p> If for any reason the recipient is unhappy with the product then the pool admin can return the product directly to the merchant and receive refund or an alternative product directly from them subject to the merchants returns and refund policy.</p></li><li>Can I get something for myself?<p> Yes. When selecting receiver in the friend panel just click “yourself”.</p></li><li>What happens if I get an ‘experience’?<p> We also sell tickets for experiences such balloon rides or concerts. Tickets will be posted to your recipient.</p></li><li>How do I change my password.<p> Click on the profile tab at the top. Then in the email section you can enter a new password.</p></li><li>Why have  I received a friendfund pool invite.<p> A friend has created a gift pool and invited you to chip in. Click on the pools tab and you should see your friends pool in the my pools section.</p></li><li>My confirmation email doesn’t arrive.<p> Please check your spam filter or request a new confirmation email.</p></li><li>Why do I have multiple accounts on the profile page.<p> Friendfund has an innovative way to allow you to combine your friend lists from different social networks. You can set which network credentials you would like to use as your default on the profile page. We will then always display this networks profile picture and name.</p></li><li>I am connected with facebook but see my twitter profile picture and name.<p> This is because you have set twitter to be your default network in the profile page. You can change this by clicking on the profile tab and setting facebook to be your default profile.</p></li><li>When connecting with my facebook or twitter account I receive a message saying that the account is already taken. Why is this?<p> This is because the particular network profile is already associated with another user. If you wish to use that account you must log out of friendfund and log in with that networks connect button and account.</p></li></ol></div>"
+msgstr ""
+"<div id=\"faq\"><ol><li>Will my gift receiver find out about the "
+"present?<p> On the invite page there is a box you can tick which will "
+"make the pool secret. This means any notifications sent to social network"
+" news feeds will not mention the product or your friends "
+"name.</p></li><li>What happens if we don’t raise enough money before the "
+"pool closes?<p> Don’t worry. The pool admin has the chance to extend the "
+"pool and send out more invite reminders. He can even ask the gift "
+"recipient if they would like to make up the difference themselves. If all"
+" else fails he can select a new product which there is enough funds for "
+"or if they prefer they can send the recipient a gift voucher "
+"instead.</p></li><li>Why do you have transaction costs?<p> We offer our "
+"service completely free. All we ask if that contributors cover the "
+"transaction costs we have to pay to our payment provider.</p></li><li>Can"
+" I get a refund or return the gift?<p> If for any reason the recipient is"
+" unhappy with the product then the pool admin can return the product "
+"directly to the merchant and receive refund or an alternative product "
+"directly from them subject to the merchants returns and refund "
+"policy.</p></li><li>Can I get something for myself?<p> Yes. When "
+"selecting receiver in the friend panel just click "
+"“yourself”.</p></li><li>What happens if I get an ‘experience’?<p> We also"
+" sell tickets for experiences such balloon rides or concerts. Tickets "
+"will be posted to your recipient.</p></li><li>How do I change my "
+"password.<p> Click on the profile tab at the top. Then in the email "
+"section you can enter a new password.</p></li><li>Why have  I received a "
+"friendfund pool invite.<p> A friend has created a gift pool and invited "
+"you to chip in. Click on the pools tab and you should see your friends "
+"pool in the my pools section.</p></li><li>My confirmation email doesn’t "
+"arrive.<p> Please check your spam filter or request a new confirmation "
+"email.</p></li><li>Why do I have multiple accounts on the profile "
+"page.<p> Friendfund has an innovative way to allow you to combine your "
+"friend lists from different social networks. You can set which network "
+"credentials you would like to use as your default on the profile page. We"
+" will then always display this networks profile picture and "
+"name.</p></li><li>I am connected with facebook but see my twitter profile"
+" picture and name.<p> This is because you have set twitter to be your "
+"default network in the profile page. You can change this by clicking on "
+"the profile tab and setting facebook to be your default "
+"profile.</p></li><li>When connecting with my facebook or twitter account "
+"I receive a message saying that the account is already taken. Why is "
+"this?<p> This is because the particular network profile is already "
+"associated with another user. If you wish to use that account you must "
+"log out of friendfund and log in with that networks connect button and "
+"account.</p></li></ol></div>"
 
 #: friendfund/templates/content/impressum.html:5
 msgid "STATIC_TITLE_Impressum"
@@ -718,7 +908,12 @@ msgstr "Imprimir"
 
 #: friendfund/templates/content/impressum.html:10
 msgid "STATIC_IMPRESSUM_CONTENT"
-msgstr "<p>friendfund Gmbh</p><p>Landsberger Allee 117</p><p>10407 Berlin</p><p>+49 (30) 99272540</p><p>&nbsp;</p><p>E-Mail: info@friendfund.com</p><p>&nbsp;</p><p>Handelsregisternummer: 127841 B,</p><p>Registergericht: Amtsgericht Berlin Charlottenburg,</p><p>Geschäftsführer: Henry George McCarney</p>"
+msgstr ""
+"<p>friendfund Gmbh</p><p>Landsberger Allee 117</p><p>10407 "
+"Berlin</p><p>+49 (30) 99272540</p><p>&nbsp;</p><p>E-Mail: "
+"info@friendfund.com</p><p>&nbsp;</p><p>Handelsregisternummer: 127841 "
+"B,</p><p>Registergericht: Amtsgericht Berlin "
+"Charlottenburg,</p><p>Geschäftsführer: Henry George McCarney</p>"
 
 #: friendfund/templates/content/privacy.html:4
 msgid "STATIC_TITLE_Privacy"
@@ -730,7 +925,44 @@ msgstr "Privacidad"
 
 #: friendfund/templates/content/privacy.html:9
 msgid "STATIC_PRIVACY_STATEMENT_CONTENT"
-msgstr "<div id=\"privacy\" class=\"static\"><p class=\"tosheading  tosheader\">Your Privacy</p><p> friendfund is committed to protecting your privacy. We only use the information we collect about you to provide enhanced user experience of our site. Please read on for more details about our privacy policy.<p><p class=\"tosmainsection\">The following information is gathered by friendfund.com from visitors:</p><p>Your IP address. If you register for an account we will also store your email address, user name and password, if provided. If you use a social network connection such as Facebook connect account we will save only that information which is compatible with the third parties privacy policy. We do not have access to, or save, Facebook, Twitter or other social network login data.</p><p class=\"tosmainsection\">We use the information to:</p><p>Provide you with the best customer experience possible; Communicate with you regarding features, offers, and promotions; Deliver customized content and advertising that may be of interest to you; We do collect data on how the site is being used to enable to improve its quality.</p><p class=\"tosmainsection\">Who has access to the personal information?</p><p>Your account information is accessible by our staff. We do not share email addresses or any other user data with any third party, as long as not stated otherwise in our Terms of Service.</p><p class=\"tosmainsection\">Our security measures</p><p>To safeguard your personal information, we encrypt all passwords. Our data is held in secure locations on machines protected by the latest security technology and firewalls.</p><p class=\"tosmainsection\">Our Online Privacy Policy for Children</p><p>Our Web sites are not designed to attract children under the age of 16. We do not knowingly collect personally identifying information from anyone under the age of 16 unless we first obtain permission from that child's parent or legal guardian.</p><p class=\"tosmainsection\">Use of cookies</p><p>Our website makes use of cookies which are small digital files that are stored in your web browser that enable us to track your return visits to our website. Your browser settings may allow you to block these cookies, but we recommend you have them enabled to help us personalise your experience of our website. Additionally, 3rd party advertisers on our site may use cookies for tracking purposes.</p><p class=\"tosmainsection\">Questions and Feedback</p><p>If you have any questions or feedback related to our Privacy Policy, please email us at privacy@friendfund.com.</p></div>"
+msgstr ""
+"<div id=\"privacy\" class=\"static\"><p class=\"tosheading  "
+"tosheader\">Your Privacy</p><p> friendfund is committed to protecting "
+"your privacy. We only use the information we collect about you to provide"
+" enhanced user experience of our site. Please read on for more details "
+"about our privacy policy.<p><p class=\"tosmainsection\">The following "
+"information is gathered by friendfund.com from visitors:</p><p>Your IP "
+"address. If you register for an account we will also store your email "
+"address, user name and password, if provided. If you use a social network"
+" connection such as Facebook connect account we will save only that "
+"information which is compatible with the third parties privacy policy. We"
+" do not have access to, or save, Facebook, Twitter or other social "
+"network login data.</p><p class=\"tosmainsection\">We use the information"
+" to:</p><p>Provide you with the best customer experience possible; "
+"Communicate with you regarding features, offers, and promotions; Deliver "
+"customized content and advertising that may be of interest to you; We do "
+"collect data on how the site is being used to enable to improve its "
+"quality.</p><p class=\"tosmainsection\">Who has access to the personal "
+"information?</p><p>Your account information is accessible by our staff. "
+"We do not share email addresses or any other user data with any third "
+"party, as long as not stated otherwise in our Terms of Service.</p><p "
+"class=\"tosmainsection\">Our security measures</p><p>To safeguard your "
+"personal information, we encrypt all passwords. Our data is held in "
+"secure locations on machines protected by the latest security technology "
+"and firewalls.</p><p class=\"tosmainsection\">Our Online Privacy Policy "
+"for Children</p><p>Our Web sites are not designed to attract children "
+"under the age of 16. We do not knowingly collect personally identifying "
+"information from anyone under the age of 16 unless we first obtain "
+"permission from that child's parent or legal guardian.</p><p "
+"class=\"tosmainsection\">Use of cookies</p><p>Our website makes use of "
+"cookies which are small digital files that are stored in your web browser"
+" that enable us to track your return visits to our website. Your browser "
+"settings may allow you to block these cookies, but we recommend you have "
+"them enabled to help us personalise your experience of our website. "
+"Additionally, 3rd party advertisers on our site may use cookies for "
+"tracking purposes.</p><p class=\"tosmainsection\">Questions and "
+"Feedback</p><p>If you have any questions or feedback related to our "
+"Privacy Policy, please email us at privacy@friendfund.com.</p></div>"
 
 #: friendfund/templates/content/tos.html:4
 msgid "STATIC_TITLE_Terms of Service"
@@ -741,9 +973,302 @@ msgid "STATIC_HEADER_Terms of Service"
 msgstr "Condiciones de Uso"
 
 #: friendfund/templates/content/tos.html:9
-#: friendfund/templates/contribution/contrib_screen.html:108
+#: friendfund/templates/contribution/contrib_screen.html:121
 msgid "STATIC_TERMS_OF_SERVICE_CONTENT"
-msgstr "No--   <div id=\"termsofservice\"><p class=\"tosheading tosheader\">FRIENDFUND</p><p class=\"tosheading\">Terms of Service</p><p class=\"tosheading\">(\"ToS\")</p><p class=\"tosheading effectivedate\">Effective as of October 1st, 2010</p><p class=\"tospreamble\">friendfund GmbH (hereinafter \"friendfund\") operates a social network on the internet through which friends can send gifts to each other by setting up a Gift Pool, collecting the required money and getting the gift ordered and shipped via friendfund. friendfund cooperates with a broad range of providers of goods and services (\"Merchants\") at whose online shops the gifts can be selected by the initiator of a Gift Pool, the Pool Admin. Any User who is registered with friendfund can contribute to an active Gift Pool (\"Contributor\") by donating an amount of money at his/her discretion. Once the Contributors collected a sufficient amount of money, the gift will be delivered to the Receiver.</p><p class=\"tosmainsection\"><span>1</span>General Provisions</p><p>Registering or connecting, via social network authentication, with friendfund and the utilization of its services are exclusively subject to these Terms of Service (\"ToS\").</p><p class=\"tosmainsection\"><span>2</span>Conclusion of the Agreement</p><p><span>2.1</span>To participate in friendfund the User needs to register or connect via a social network with friendfund at www.friendfund.com.</p><p><span>2.2</span>Only private individuals are entitled to register with friendfund. In order to contribute to a Gift Pool, the User needs to be of legal age because this will require access to means of payment such as PayPal or credit cards. friendfund reserves the right to verify the personal data of a User. An account with friendfund is not transferable.</p><p><span>2.3</span>To register with friendfund, Users need to accept these Terms of Service.</p><p><span>2.4</span>Once friendfund accepts the User’s registration, the user will receive a confirmation email. friendfund reserves the right to refuse a registration without providing any reasons. In this case all data that has been transmitted by the User will be deleted.</p><p><span>2.5</span>Once the registration is complete, the User can benefit from the services of friendfund, such as setting up gift pools, and contributing to existing gift pools.</p><p class=\"tosmainsection\"><span>3</span>Setting up a Gift Pool</p><p><span>3.1</span>In order to set up an Active Gift Pool and to become a Pool Admin, the User can browse the goods and services of the Merchants that are listed at friendfund. Once he selects a certain gift, he can activate a Gift Pool for this very gift. The Pool Admin enters his and the Receiver’s address in order to be provided to the Merchant for the purchase of the gift by friendfund on behalf of the Pool Admin. The Pool Admin will become contractual party of the respective Merchant. In case the sufficient amount of money has been raised in order to buy a specific gift, friendfund will submit both the Pool Admin’s and the Reciever’s address to the Merchant and place the respective order at the Merchant’s online-shop. While the Gift Pool is active, the Pool Admin can invite other Users to donate to the Active Gift Pool and become a Contributor. The Pool Admin is free to contribute to his Gift Pool; his contribution is not mandatory.</p><p><span>3.2</span>The Gift Pool will be active for an initial period after the activation (\"Initial Period\"). In case the Contributors did not collect a sufficient amount of money in order to meet the respective purchase price of the gift, the Pool Admin can extend the duration of the Gift Pool for another period  (\"Extended Period\") by sending reminders to the actual Contributors. He also can solicit new Contributors via the friendfund network. The Pool Admin cannot cancel or shut down an Active Gift pool prematurely.</p><p><span>3.3</span>In case the purchase price of the gift has neither been met in the Initial Period - and the Pool Admin decided not to send reminders to the Contributors - nor in the Extended Period, the Pool Admin needs to close the Gift Pool by choosing to purchase a gift voucher and issue this gift voucher to the Receiver in lieu of the gift. The value of the gift voucher will be the equivalent of the money that has been raised so far by the Contributors.</p><p><span>3.4</span>In case the purchase price has not been met in either Period and the Pool Admin does not close the Pool by requesting a gift voucher, the Gift Pool will become dormant within thirty (30) days after the elapse of either the Initial or Extended Period. The Pool Admin will be issued a reminder via email in order to close the Gift Pool by requesting a gift voucher.</p><p><span>3.5</span>After the elapse 3 years, beginning with the last day of that year in which the Gift Pool has become dormant, the credit will become time-barred and therefore forfeited.</p><p><span>3.6</span>In case the purchase price has been met either in the Initial or Extended Period, the Pool Admin completes the Gift Pool by proceeding to the purchase process. See paragraph 5 – Completing a Gift Pool.</p><p><span>3.7</span>The Pool Admin acknowledges that he will become contractual party of the respective Merchant and that he will need to execute any warranty claims, rights of withdrawal, liability claims, exchange requests, customer service inquiries only towards the respective Merchant. The Pool Admin acknowledges that he is not entitled to execute any of the aforementioned rights towards friendfund. By setting up a Gift Pool the Pool Admin guarantees that he has read, understood and accepts the Terms of Services of the respective Merchant.</p><p class=\"tosmainsection\"><span>4</span>Contributing to a Gift Pool</p><p><span>4.1</span>The User who decides to become a Contributor can contribute to Active Gift Pools by either being invited by the Pool Admin for a specific Gift Pool or browsing in their friends list for Active Gift Pools.</p><p><span>4.2</span>Once the Contributor has selected an Active Gift Pool he can choose the amount of his contribution, select a payment option and finalize his donation. Once the payment process is completed, the donated amount will be credited to the respective Gift Pool.</p><p><span>4.3</span>Contributions are final and cannot be reclaimed and will not be reimbursed for any reason whatsoever.</p><p><span>4.4</span>The Contributor acknowledges that he has no entitlement to the purchase of a specific gift for a specific price. Purchase prices, VAT and shipping costs may vary from time to time and are beyond the responsibility of friendfund.</p><p><span>4.5</span>The Contributor acknowledges that the money that has been donated for a Gift Pool will be transferred to an account of friendfund and will be managed by the Pool Admin in terms of either purchasing the chosen gift in case the price has been met or purchasing gift vouchers when the price has not been met. The Pool Admin will not be at any time the proprietor of the credit, he has the sole function of handling the donations as a trustee (fiduciary) in terms of either purchasing the selected gift or purchase gift vouchers of equal monetary value.</p><p><span>4.6</span>In case the Contributor raises more money than required for a specific gift, the excess will be cashed out in gift vouchers.</p><p><span>4.7</span>The Contributor acknowledges that he will not become contractual party of the Merchant.</p><p class=\"tosmainsection\"><span>5</span>Completing a Gift Pool</p><p><span>5.1</span>Once the Contributors have raised sufficient money for the purchase of the gift that has been picked by the Pool Admin, the Pool Admin completes the Gift Pool by clicking on the complete button in the area for registered members. By completing the Gift Pool, the address of the Pool Admin will be transmitted to the Merchant by friendfund in order to provide the Merchant with contact data and the billing address since the purchase contract will be brokered by friendfund and concluded between the Pool Admin and the respective Merchant. friendfund will as well transmit the address of the Receiver to the Merchant in order to provide him with the required shipping address.</p><p><span>5.2</span>After the completion of the Gift Pool, the raised money will be transferred from friendfund to the Merchant in order to pay for the purchased gift. Once the gift is ordered and the purchase price has been transmitted to the Merchant, the Gift Pool will become completed and inactive. The Pool Admin and the Contributors will be able to review the Completed Gift Pool for the sole purpose of information for a period of thirty (30) days after completion. After this period, the Gift Pool may become inaccessible to the Users.</p><p><span>5.3</span>In case the specified gift becomes unavailable after setting up a Gift Pool, upon completion the Pool Admin can pick another gift or choose a gift voucher that is equivalent in price.</p><p><span>5.4</span>In case the purchase price of a specified gift will decline after the activation of a Gift Pool, the money in excess of the original price will be cashed out to the Receiver in form of a gift voucher of that very Merchant. In case the purchase price of a specified gift will rise after the activation of a Gift Pool, the Gift Pool can either be completed by donating more money by the Contributors or can be closed according to paragraph 3.3.</p><p class=\"tosmainsection\"><span>6</span>friendfund Services</p><p><span>6.1</span>friendfund is responsible for providing and maintaining the friendfund services.</p><p><span>6.2</span>friendfund is not obliged to verify the information, actuality, availability or the applicability for a certain or intended use of the goods and services provided by the Merchants.</p><p><span>6.3</span>Due to necessary maintenance work, it may occur that certain functions are temporarily unavailable. friendfund will undertake to resolve any faults or downtimes as soon as possible or legally or economically possible or appropriate. friendfund will timely announce projected downtimes and will schedule them preferably in the off-peak time.</p><p><span>6.4</span>friendfund is dedicated to further develop and improve its services. Hence, friendfund may enhance, alter or slightly modify certain features or applications. This may include the partial or total discontinuation of individual functions so long as this does not result in any significant change of friendfund’s contractual duties under these Terms of Service.</p><p><span>6.5</span>friendfund reserves the right to delegate a part or all of the rendering of the service to affiliated enterprises, third party service providers or vicarious agents if necessary.</p><p class=\"tosmainsection\"><span>7</span>Obligations of the User</p><p><span>7.1</span>The User guarantees that he is entitled to and has obtained the prior written consent of the Receiver to submit the Receiver’s address to both friendfund and the respective Merchant in order to purchase a gift via the friendfund platform.</p><p><span>7.2</span>In case friendfund will be held liable by a third party because the User is in breach of paragraph 7.1 because he was not sufficiently entitled to submit the Receiver’s personal data to friendfund, the User will hold friendfund harmless and will exempt friendfund from any claims or damages of these third parties. This includes especially the required legal expenses to fend the aforementioned claims.</p><p><span>7.3</span>The Pool Admin authorises friendfund to use his contact data and place orders on his behalf in the Merchant’s respective online-shop in order to purchase the specific gift in the name of the Pool Admin.</p><p class=\"tosmainsection\"><span>8</span>Payment</p><p><span>8.1</span>The registration with friendfund, creating and maintaining User Accounts, setting up Gift Pools, and general services of friendfund is at no charge.</p><p><span>8.2</span>By donating money for an Active Gift Pool the Contributor will specify the respective Active Gift Pool he wants to contribute to and selects the desired payment method (such as PayPal or credit card) and follows the instructions that will guide the User through the payment process. Contributions are final and will not be refunded by friendfund to the contributor.</p><p>For each Gift Pool, friendfund will credit the donations by the Contributors to a deposit that is associated to the respective Gift Pool. friendfund will not pay any interest on this deposit.</p><p class=\"tosmainsection\"><span>9</span>Rights of Use</p><p><span>9.1</span>For the duration of the contract, friendfund will grant the User the revocable, non-exclusive, non-transferable and non-sub licensable right to use the services and applications provided by friendfund. No further rights will be assigned to the User. friendfund is enabled to alter the scope of the granted rights if necessary as long this does not constitute a substantial alteration of the services provided under this contract.</p><p class=\"tosmainsection\"><span>10</span>Data Protection</p><p><span>10.1</span>friendfund is entitled to collect and use personal data of the User as is required for the participation in friendfund.</p><p><span>10.1.1</span>friendfund particularly collects, processes and uses the data that has been submitted by the User at his registration as well as data which is made available by participating in friendfund.</p><p><span>10.1.2</span>friendfund shall also be entitled use the contact data provided by the Users in order to contact them per email in connection with this contract. friendfund may contact Users to inform and remind them of products and services. friendfund will unsubscribe users from specific notifications on request.</p><p><span>10.1.3</span>friendfund is as well entitled to submit the contact information of the Pool Admin to the Merchant in order to process a completed Gift Pool and place the respective order in the name of the Pool Admin.</p><p><span>10.2</span>The processing or use of personal data for purposes other than those expressed in Number 10.2 is only permissible based either on the User's prior consent or friendfund is entitled to use this data because of a statutory regulation.</p><p class=\"tosmainsection\"><span>11</span>Period of Validity and Termination</p><p><span>11.1</span>The contract between the User and friendfund is closed for an indefinite period and can be terminated any time with either a written notice (such as fax or email). This does not apply in case a Pool Admin has set up an Active Pool that has not been either completed or closed. In this case the contract will be terminated once the Active Pool has been completed or closed.</p><p><span>11.2</span>Both contractual parties reserve the right to terminate the contract without notice for cause. Cause is particularly relevant if one of the contractual parties substantially and/or sustainably violates significant contractual obligations.</p><p><span>11.3</span>In case of a termination of the contract, whatever the cause may be, friendfund will shut down the User’s access to the friendfund and delete the User’s data unless statutory provisions do oblige friendfund to file those information such as the regulations for tax audits and/or tax codes.</p><p class=\"tosmainsection\"><span>12</span>Liability of friendfund and Limitation of Liability</p><p><span>12.1</span>friendfund is not responsible for the availability, pricing, condition, usability, serviceability, legality, applicability to a certain or intended purpose of the goods and services that have been purchased via friendfund. friendfund is not the contractor of the Merchants and will therefore not warrant or take over any responsibility or guarantee for the aforesaid goods and services. Any controversy or legal dispute concerning or in relation to the aforementioned goods and services must be settled in the relation of the Pool Admin and the Merchant. friendfund is not responsible for damages which arise because of or in connection with defective or incompatible software or hardware of third parties or for the insufficient availability or flawless operation of the internet.</p><p><span>12.2</span>The execution of some actions at friendfund, such as contributing to an Active Gift Pool can require the utilization of services of Third Parties such as payment services. Those services are not provided by friendfund and are subject to the terms and conditions of the respective Third Party. friendfund is not responsible and will not issue any warranties or is not liable whatsoever for those Third Party services. friendfund is not responsible - particularly but not limited to - for the accuracy, solvency, credibility, lawfulness of those services of Third Parties or for timely, correct, or the conduction of payments at all under any contract of payment services between the User and those third parties.</p><p><span>12.3</span>Otherwise, regardless of the legal grounds, friendfund shall be held liable only under the following circumstances:</p><p><span>12.3.1</span>if one of its legal representatives, executives or other vicarious agents has acted intentionally or grossly negligently;</p><p><span>12.3.2</span>in the event of any culpable breach of an essential contractual duty, delayed performance or the impossibility of performance, in each case based on the respective merits. The expression \"essential contractual duty\" describes a duty in the abstract, the fulfillment of which is an essential pre-requisite for the due implementation of the agreement, and that is a duty on whose fulfillment the respective other party can rely as a general rule.</p><p><span>12.4</span>In the event of liability pursuant to Number 12.3.2, this shall be limited, for financial losses and damages to property, to the amount of the typically foreseeable loss.</p><p><span>12.5</span>The above limitations of liability do not apply to cases of mandatory statutory liability, in particular liability under product liability law, liability for a guarantee that has been assumed, and liability for culpable injury to life, limb or health.</p><p class=\"tosmainsection\"><span>13</span>Confidentiality</p><p><span>13.1</span>The Parties will keep confidential all data or information of the other Party that has been disclosed in connection with this contract and that has been either indicated as confidential or is obviously recognizable as a non-disclosable information. In case of doubt, all information shall be considered confidential. This does not apply to information that has been deliberately disclosed to the public by any Party or has become public without a Party being in breach of this paragraph.</p><p class=\"tosmainsection\"><span>14</span>Final Provisions</p><p><span>14.1</span>The transfer of any right from this contract and the transfer of this contract altogether by the a Party does require prior written consent of friendfund.</p><p><span>14.2</span>These Terms of Service and the contractual relationship between friendfund and the User shall be solely governed by the laws of the Federal Republic of Germany, to the exclusion of the United Nations Convention on Contracts for the International Sale of Goods (CISG).</p><p><span>14.3</span>Should any provision of these Terms of Service be or become invalid, ineffective or denounced inapplicable by a legally binding ruling of a competent court, as a whole or in part, this shall not affect the validity of the remaining provisions and/or these Terms of Service altogether. The invalid provision will be deemed replaced by that provision that is legally effective and comes closest, in the usual understanding, to the economic intent and purpose of the invalid provision. The same shall apply to any omission.</p></div>"
+msgstr ""
+"No--   <div id=\"termsofservice\"><p class=\"tosheading "
+"tosheader\">FRIENDFUND</p><p class=\"tosheading\">Terms of Service</p><p "
+"class=\"tosheading\">(\"ToS\")</p><p class=\"tosheading "
+"effectivedate\">Effective as of October 1st, 2010</p><p "
+"class=\"tospreamble\">friendfund GmbH (hereinafter \"friendfund\") "
+"operates a social network on the internet through which friends can send "
+"gifts to each other by setting up a Gift Pool, collecting the required "
+"money and getting the gift ordered and shipped via friendfund. friendfund"
+" cooperates with a broad range of providers of goods and services "
+"(\"Merchants\") at whose online shops the gifts can be selected by the "
+"initiator of a Gift Pool, the Pool Admin. Any User who is registered with"
+" friendfund can contribute to an active Gift Pool (\"Contributor\") by "
+"donating an amount of money at his/her discretion. Once the Contributors "
+"collected a sufficient amount of money, the gift will be delivered to the"
+" Receiver.</p><p class=\"tosmainsection\"><span>1</span>General "
+"Provisions</p><p>Registering or connecting, via social network "
+"authentication, with friendfund and the utilization of its services are "
+"exclusively subject to these Terms of Service (\"ToS\").</p><p "
+"class=\"tosmainsection\"><span>2</span>Conclusion of the "
+"Agreement</p><p><span>2.1</span>To participate in friendfund the User "
+"needs to register or connect via a social network with friendfund at "
+"www.friendfund.com.</p><p><span>2.2</span>Only private individuals are "
+"entitled to register with friendfund. In order to contribute to a Gift "
+"Pool, the User needs to be of legal age because this will require access "
+"to means of payment such as PayPal or credit cards. friendfund reserves "
+"the right to verify the personal data of a User. An account with "
+"friendfund is not transferable.</p><p><span>2.3</span>To register with "
+"friendfund, Users need to accept these Terms of "
+"Service.</p><p><span>2.4</span>Once friendfund accepts the User’s "
+"registration, the user will receive a confirmation email. friendfund "
+"reserves the right to refuse a registration without providing any "
+"reasons. In this case all data that has been transmitted by the User will"
+" be deleted.</p><p><span>2.5</span>Once the registration is complete, the"
+" User can benefit from the services of friendfund, such as setting up "
+"gift pools, and contributing to existing gift pools.</p><p "
+"class=\"tosmainsection\"><span>3</span>Setting up a Gift "
+"Pool</p><p><span>3.1</span>In order to set up an Active Gift Pool and to "
+"become a Pool Admin, the User can browse the goods and services of the "
+"Merchants that are listed at friendfund. Once he selects a certain gift, "
+"he can activate a Gift Pool for this very gift. The Pool Admin enters his"
+" and the Receiver’s address in order to be provided to the Merchant for "
+"the purchase of the gift by friendfund on behalf of the Pool Admin. The "
+"Pool Admin will become contractual party of the respective Merchant. In "
+"case the sufficient amount of money has been raised in order to buy a "
+"specific gift, friendfund will submit both the Pool Admin’s and the "
+"Reciever’s address to the Merchant and place the respective order at the "
+"Merchant’s online-shop. While the Gift Pool is active, the Pool Admin can"
+" invite other Users to donate to the Active Gift Pool and become a "
+"Contributor. The Pool Admin is free to contribute to his Gift Pool; his "
+"contribution is not mandatory.</p><p><span>3.2</span>The Gift Pool will "
+"be active for an initial period after the activation (\"Initial "
+"Period\"). In case the Contributors did not collect a sufficient amount "
+"of money in order to meet the respective purchase price of the gift, the "
+"Pool Admin can extend the duration of the Gift Pool for another period  "
+"(\"Extended Period\") by sending reminders to the actual Contributors. He"
+" also can solicit new Contributors via the friendfund network. The Pool "
+"Admin cannot cancel or shut down an Active Gift pool "
+"prematurely.</p><p><span>3.3</span>In case the purchase price of the gift"
+" has neither been met in the Initial Period - and the Pool Admin decided "
+"not to send reminders to the Contributors - nor in the Extended Period, "
+"the Pool Admin needs to close the Gift Pool by choosing to purchase a "
+"gift voucher and issue this gift voucher to the Receiver in lieu of the "
+"gift. The value of the gift voucher will be the equivalent of the money "
+"that has been raised so far by the Contributors.</p><p><span>3.4</span>In"
+" case the purchase price has not been met in either Period and the Pool "
+"Admin does not close the Pool by requesting a gift voucher, the Gift Pool"
+" will become dormant within thirty (30) days after the elapse of either "
+"the Initial or Extended Period. The Pool Admin will be issued a reminder "
+"via email in order to close the Gift Pool by requesting a gift "
+"voucher.</p><p><span>3.5</span>After the elapse 3 years, beginning with "
+"the last day of that year in which the Gift Pool has become dormant, the "
+"credit will become time-barred and therefore "
+"forfeited.</p><p><span>3.6</span>In case the purchase price has been met "
+"either in the Initial or Extended Period, the Pool Admin completes the "
+"Gift Pool by proceeding to the purchase process. See paragraph 5 – "
+"Completing a Gift Pool.</p><p><span>3.7</span>The Pool Admin acknowledges"
+" that he will become contractual party of the respective Merchant and "
+"that he will need to execute any warranty claims, rights of withdrawal, "
+"liability claims, exchange requests, customer service inquiries only "
+"towards the respective Merchant. The Pool Admin acknowledges that he is "
+"not entitled to execute any of the aforementioned rights towards "
+"friendfund. By setting up a Gift Pool the Pool Admin guarantees that he "
+"has read, understood and accepts the Terms of Services of the respective "
+"Merchant.</p><p class=\"tosmainsection\"><span>4</span>Contributing to a "
+"Gift Pool</p><p><span>4.1</span>The User who decides to become a "
+"Contributor can contribute to Active Gift Pools by either being invited "
+"by the Pool Admin for a specific Gift Pool or browsing in their friends "
+"list for Active Gift Pools.</p><p><span>4.2</span>Once the Contributor "
+"has selected an Active Gift Pool he can choose the amount of his "
+"contribution, select a payment option and finalize his donation. Once the"
+" payment process is completed, the donated amount will be credited to the"
+" respective Gift Pool.</p><p><span>4.3</span>Contributions are final and "
+"cannot be reclaimed and will not be reimbursed for any reason "
+"whatsoever.</p><p><span>4.4</span>The Contributor acknowledges that he "
+"has no entitlement to the purchase of a specific gift for a specific "
+"price. Purchase prices, VAT and shipping costs may vary from time to time"
+" and are beyond the responsibility of "
+"friendfund.</p><p><span>4.5</span>The Contributor acknowledges that the "
+"money that has been donated for a Gift Pool will be transferred to an "
+"account of friendfund and will be managed by the Pool Admin in terms of "
+"either purchasing the chosen gift in case the price has been met or "
+"purchasing gift vouchers when the price has not been met. The Pool Admin "
+"will not be at any time the proprietor of the credit, he has the sole "
+"function of handling the donations as a trustee (fiduciary) in terms of "
+"either purchasing the selected gift or purchase gift vouchers of equal "
+"monetary value.</p><p><span>4.6</span>In case the Contributor raises more"
+" money than required for a specific gift, the excess will be cashed out "
+"in gift vouchers.</p><p><span>4.7</span>The Contributor acknowledges that"
+" he will not become contractual party of the Merchant.</p><p "
+"class=\"tosmainsection\"><span>5</span>Completing a Gift "
+"Pool</p><p><span>5.1</span>Once the Contributors have raised sufficient "
+"money for the purchase of the gift that has been picked by the Pool "
+"Admin, the Pool Admin completes the Gift Pool by clicking on the complete"
+" button in the area for registered members. By completing the Gift Pool, "
+"the address of the Pool Admin will be transmitted to the Merchant by "
+"friendfund in order to provide the Merchant with contact data and the "
+"billing address since the purchase contract will be brokered by "
+"friendfund and concluded between the Pool Admin and the respective "
+"Merchant. friendfund will as well transmit the address of the Receiver to"
+" the Merchant in order to provide him with the required shipping "
+"address.</p><p><span>5.2</span>After the completion of the Gift Pool, the"
+" raised money will be transferred from friendfund to the Merchant in "
+"order to pay for the purchased gift. Once the gift is ordered and the "
+"purchase price has been transmitted to the Merchant, the Gift Pool will "
+"become completed and inactive. The Pool Admin and the Contributors will "
+"be able to review the Completed Gift Pool for the sole purpose of "
+"information for a period of thirty (30) days after completion. After this"
+" period, the Gift Pool may become inaccessible to the "
+"Users.</p><p><span>5.3</span>In case the specified gift becomes "
+"unavailable after setting up a Gift Pool, upon completion the Pool Admin "
+"can pick another gift or choose a gift voucher that is equivalent in "
+"price.</p><p><span>5.4</span>In case the purchase price of a specified "
+"gift will decline after the activation of a Gift Pool, the money in "
+"excess of the original price will be cashed out to the Receiver in form "
+"of a gift voucher of that very Merchant. In case the purchase price of a "
+"specified gift will rise after the activation of a Gift Pool, the Gift "
+"Pool can either be completed by donating more money by the Contributors "
+"or can be closed according to paragraph 3.3.</p><p "
+"class=\"tosmainsection\"><span>6</span>friendfund "
+"Services</p><p><span>6.1</span>friendfund is responsible for providing "
+"and maintaining the friendfund services.</p><p><span>6.2</span>friendfund"
+" is not obliged to verify the information, actuality, availability or the"
+" applicability for a certain or intended use of the goods and services "
+"provided by the Merchants.</p><p><span>6.3</span>Due to necessary "
+"maintenance work, it may occur that certain functions are temporarily "
+"unavailable. friendfund will undertake to resolve any faults or downtimes"
+" as soon as possible or legally or economically possible or appropriate. "
+"friendfund will timely announce projected downtimes and will schedule "
+"them preferably in the off-peak time.</p><p><span>6.4</span>friendfund is"
+" dedicated to further develop and improve its services. Hence, friendfund"
+" may enhance, alter or slightly modify certain features or applications. "
+"This may include the partial or total discontinuation of individual "
+"functions so long as this does not result in any significant change of "
+"friendfund’s contractual duties under these Terms of "
+"Service.</p><p><span>6.5</span>friendfund reserves the right to delegate "
+"a part or all of the rendering of the service to affiliated enterprises, "
+"third party service providers or vicarious agents if necessary.</p><p "
+"class=\"tosmainsection\"><span>7</span>Obligations of the "
+"User</p><p><span>7.1</span>The User guarantees that he is entitled to and"
+" has obtained the prior written consent of the Receiver to submit the "
+"Receiver’s address to both friendfund and the respective Merchant in "
+"order to purchase a gift via the friendfund "
+"platform.</p><p><span>7.2</span>In case friendfund will be held liable by"
+" a third party because the User is in breach of paragraph 7.1 because he "
+"was not sufficiently entitled to submit the Receiver’s personal data to "
+"friendfund, the User will hold friendfund harmless and will exempt "
+"friendfund from any claims or damages of these third parties. This "
+"includes especially the required legal expenses to fend the "
+"aforementioned claims.</p><p><span>7.3</span>The Pool Admin authorises "
+"friendfund to use his contact data and place orders on his behalf in the "
+"Merchant’s respective online-shop in order to purchase the specific gift "
+"in the name of the Pool Admin.</p><p "
+"class=\"tosmainsection\"><span>8</span>Payment</p><p><span>8.1</span>The "
+"registration with friendfund, creating and maintaining User Accounts, "
+"setting up Gift Pools, and general services of friendfund is at no "
+"charge.</p><p><span>8.2</span>By donating money for an Active Gift Pool "
+"the Contributor will specify the respective Active Gift Pool he wants to "
+"contribute to and selects the desired payment method (such as PayPal or "
+"credit card) and follows the instructions that will guide the User "
+"through the payment process. Contributions are final and will not be "
+"refunded by friendfund to the contributor.</p><p>For each Gift Pool, "
+"friendfund will credit the donations by the Contributors to a deposit "
+"that is associated to the respective Gift Pool. friendfund will not pay "
+"any interest on this deposit.</p><p "
+"class=\"tosmainsection\"><span>9</span>Rights of "
+"Use</p><p><span>9.1</span>For the duration of the contract, friendfund "
+"will grant the User the revocable, non-exclusive, non-transferable and "
+"non-sub licensable right to use the services and applications provided by"
+" friendfund. No further rights will be assigned to the User. friendfund "
+"is enabled to alter the scope of the granted rights if necessary as long "
+"this does not constitute a substantial alteration of the services "
+"provided under this contract.</p><p "
+"class=\"tosmainsection\"><span>10</span>Data "
+"Protection</p><p><span>10.1</span>friendfund is entitled to collect and "
+"use personal data of the User as is required for the participation in "
+"friendfund.</p><p><span>10.1.1</span>friendfund particularly collects, "
+"processes and uses the data that has been submitted by the User at his "
+"registration as well as data which is made available by participating in "
+"friendfund.</p><p><span>10.1.2</span>friendfund shall also be entitled "
+"use the contact data provided by the Users in order to contact them per "
+"email in connection with this contract. friendfund may contact Users to "
+"inform and remind them of products and services. friendfund will "
+"unsubscribe users from specific notifications on "
+"request.</p><p><span>10.1.3</span>friendfund is as well entitled to "
+"submit the contact information of the Pool Admin to the Merchant in order"
+" to process a completed Gift Pool and place the respective order in the "
+"name of the Pool Admin.</p><p><span>10.2</span>The processing or use of "
+"personal data for purposes other than those expressed in Number 10.2 is "
+"only permissible based either on the User's prior consent or friendfund "
+"is entitled to use this data because of a statutory regulation.</p><p "
+"class=\"tosmainsection\"><span>11</span>Period of Validity and "
+"Termination</p><p><span>11.1</span>The contract between the User and "
+"friendfund is closed for an indefinite period and can be terminated any "
+"time with either a written notice (such as fax or email). This does not "
+"apply in case a Pool Admin has set up an Active Pool that has not been "
+"either completed or closed. In this case the contract will be terminated "
+"once the Active Pool has been completed or "
+"closed.</p><p><span>11.2</span>Both contractual parties reserve the right"
+" to terminate the contract without notice for cause. Cause is "
+"particularly relevant if one of the contractual parties substantially "
+"and/or sustainably violates significant contractual "
+"obligations.</p><p><span>11.3</span>In case of a termination of the "
+"contract, whatever the cause may be, friendfund will shut down the User’s"
+" access to the friendfund and delete the User’s data unless statutory "
+"provisions do oblige friendfund to file those information such as the "
+"regulations for tax audits and/or tax codes.</p><p "
+"class=\"tosmainsection\"><span>12</span>Liability of friendfund and "
+"Limitation of Liability</p><p><span>12.1</span>friendfund is not "
+"responsible for the availability, pricing, condition, usability, "
+"serviceability, legality, applicability to a certain or intended purpose "
+"of the goods and services that have been purchased via friendfund. "
+"friendfund is not the contractor of the Merchants and will therefore not "
+"warrant or take over any responsibility or guarantee for the aforesaid "
+"goods and services. Any controversy or legal dispute concerning or in "
+"relation to the aforementioned goods and services must be settled in the "
+"relation of the Pool Admin and the Merchant. friendfund is not "
+"responsible for damages which arise because of or in connection with "
+"defective or incompatible software or hardware of third parties or for "
+"the insufficient availability or flawless operation of the "
+"internet.</p><p><span>12.2</span>The execution of some actions at "
+"friendfund, such as contributing to an Active Gift Pool can require the "
+"utilization of services of Third Parties such as payment services. Those "
+"services are not provided by friendfund and are subject to the terms and "
+"conditions of the respective Third Party. friendfund is not responsible "
+"and will not issue any warranties or is not liable whatsoever for those "
+"Third Party services. friendfund is not responsible - particularly but "
+"not limited to - for the accuracy, solvency, credibility, lawfulness of "
+"those services of Third Parties or for timely, correct, or the conduction"
+" of payments at all under any contract of payment services between the "
+"User and those third parties.</p><p><span>12.3</span>Otherwise, "
+"regardless of the legal grounds, friendfund shall be held liable only "
+"under the following circumstances:</p><p><span>12.3.1</span>if one of its"
+" legal representatives, executives or other vicarious agents has acted "
+"intentionally or grossly negligently;</p><p><span>12.3.2</span>in the "
+"event of any culpable breach of an essential contractual duty, delayed "
+"performance or the impossibility of performance, in each case based on "
+"the respective merits. The expression \"essential contractual duty\" "
+"describes a duty in the abstract, the fulfillment of which is an "
+"essential pre-requisite for the due implementation of the agreement, and "
+"that is a duty on whose fulfillment the respective other party can rely "
+"as a general rule.</p><p><span>12.4</span>In the event of liability "
+"pursuant to Number 12.3.2, this shall be limited, for financial losses "
+"and damages to property, to the amount of the typically foreseeable "
+"loss.</p><p><span>12.5</span>The above limitations of liability do not "
+"apply to cases of mandatory statutory liability, in particular liability "
+"under product liability law, liability for a guarantee that has been "
+"assumed, and liability for culpable injury to life, limb or health.</p><p"
+" "
+"class=\"tosmainsection\"><span>13</span>Confidentiality</p><p><span>13.1</span>The"
+" Parties will keep confidential all data or information of the other "
+"Party that has been disclosed in connection with this contract and that "
+"has been either indicated as confidential or is obviously recognizable as"
+" a non-disclosable information. In case of doubt, all information shall "
+"be considered confidential. This does not apply to information that has "
+"been deliberately disclosed to the public by any Party or has become "
+"public without a Party being in breach of this paragraph.</p><p "
+"class=\"tosmainsection\"><span>14</span>Final "
+"Provisions</p><p><span>14.1</span>The transfer of any right from this "
+"contract and the transfer of this contract altogether by the a Party does"
+" require prior written consent of "
+"friendfund.</p><p><span>14.2</span>These Terms of Service and the "
+"contractual relationship between friendfund and the User shall be solely "
+"governed by the laws of the Federal Republic of Germany, to the exclusion"
+" of the United Nations Convention on Contracts for the International Sale"
+" of Goods (CISG).</p><p><span>14.3</span>Should any provision of these "
+"Terms of Service be or become invalid, ineffective or denounced "
+"inapplicable by a legally binding ruling of a competent court, as a whole"
+" or in part, this shall not affect the validity of the remaining "
+"provisions and/or these Terms of Service altogether. The invalid "
+"provision will be deemed replaced by that provision that is legally "
+"effective and comes closest, in the usual understanding, to the economic "
+"intent and purpose of the invalid provision. The same shall apply to any "
+"omission.</p></div>"
 
 #: friendfund/templates/contribution/contrib_screen.html:5
 msgid "CONTRIBPAGE_TITLE_Payment Settings"
@@ -753,80 +1278,72 @@ msgstr "Condiciones de pago"
 msgid "CONTRIBPAGE_SLOGAN_Payment Settings"
 msgstr "Condiciones de pago"
 
-#: friendfund/templates/contribution/contrib_screen.html:37
+#: friendfund/templates/contribution/contrib_screen.html:44
 #, python-format
 msgid "CONTRIBPAGE_LABEL_Your message to %(receivername)s"
 msgstr "Tu mensaje para %(receivername)s"
 
-#: friendfund/templates/contribution/contrib_screen.html:41
+#: friendfund/templates/contribution/contrib_screen.html:48
 msgid "CONTRIBPAGE_LABEL_How should displayed your amount"
 msgstr "¿Cómo quieres que se muestre tu aportación?"
 
-#: friendfund/templates/contribution/contrib_screen.html:42
+#: friendfund/templates/contribution/contrib_screen.html:49
 msgid "CONTRIBPAGE_LABEL_Profil anonym"
 msgstr "Aportación anónima"
 
-#: friendfund/templates/contribution/contrib_screen.html:42
+#: friendfund/templates/contribution/contrib_screen.html:49
 msgid "CONTRIBPAGE_LABEL_your name will not be displayed"
 msgstr "Tu nombre no aparecerá"
 
-#: friendfund/templates/contribution/contrib_screen.html:45
+#: friendfund/templates/contribution/contrib_screen.html:52
 msgid "CONTRIBPAGE_LABEL_show amount"
 msgstr "Mostrar el importe"
 
-#: friendfund/templates/contribution/contrib_screen.html:59
+#: friendfund/templates/contribution/contrib_screen.html:66
 msgid "CONTRIBPAGE_TITLE_LABEL_Amount"
 msgstr "Cantidad"
 
-#: friendfund/templates/contribution/contrib_screen.html:63
+#: friendfund/templates/contribution/contrib_screen.html:70
 msgid "CONTRIBPAGE_LABEL_Chip in"
 msgstr "Pon Bote"
 
-#: friendfund/templates/contribution/contrib_screen.html:69
-msgid "CONTRIBPAGE_LABEL_+ Transaction cost of 10 cents and 2%"
-msgstr "??+ Los costos de transacción son 10 cents y 2%"
+#: friendfund/templates/contribution/contrib_screen.html:83
+#, python-format
+msgid ""
+"CONTRIBPAGE_LABEL_+ Transaction cost of <span "
+"id=\"label_absolute_fees\">%(absolute)s</span> cents and <span "
+"id=\"label_relative_fees\">%(relative)s</span>%%"
+msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:72
+#: friendfund/templates/contribution/contrib_screen.html:88
 msgid "CONTRIBPAGE_LABEL_Our cost"
 msgstr "Nuestro coste"
 
-#: friendfund/templates/contribution/contrib_screen.html:73
+#: friendfund/templates/contribution/contrib_screen.html:91
 msgid "CONTRIBPAGE_LABEL_(why)"
 msgstr "(porqué)"
 
-#: friendfund/templates/contribution/contrib_screen.html:77
+#: friendfund/templates/contribution/contrib_screen.html:96
 msgid "CONTRIBPAGE_LABEL_Total"
 msgstr "Total"
 
-#: friendfund/templates/contribution/contrib_screen.html:86
+#: friendfund/templates/contribution/contrib_screen.html:105
 msgid "CONTRIBPAGE_LABEL_Choose payment method"
 msgstr "Escoge una forma de pago"
 
-#: friendfund/templates/contribution/contrib_screen.html:89
-msgid "CONTRIBUTION_PAGE_Creditcard"
-msgstr "Tarjeta de crédito"
-
-#: friendfund/templates/contribution/contrib_screen.html:93
-msgid "CONTRIBUTION_PAGE_Paypal"
-msgstr "Paypal"
-
-#: friendfund/templates/contribution/contrib_screen.html:97
-msgid "CONTRIBUTION_PAGE_Direct eBanking"
-msgstr "Direct eBanking"
-
-#: friendfund/templates/contribution/contrib_screen.html:111
+#: friendfund/templates/contribution/contrib_screen.html:124
 msgid "CONTRIBPAGE_LABEL_Accept terms of services"
 msgstr "Acepto los términos de uso"
 
-#: friendfund/templates/contribution/contrib_screen.html:119
+#: friendfund/templates/contribution/contrib_screen.html:132
 msgid "CONTRIBPAGE_LABEL_Back To Pool Settings"
 msgstr "Atrás a la Configuración del Bote"
 
-#: friendfund/templates/contribution/contrib_screen.html:121
+#: friendfund/templates/contribution/contrib_screen.html:134
 msgid "CONTRIBPAGE_LABEL_Back To Pool"
 msgstr "Atrás al Bote"
 
-#: friendfund/templates/contribution/contrib_screen.html:123
+#: friendfund/templates/contribution/contrib_screen.html:136
 msgid "CONTRIBPAGE_LABEL_Submit"
 msgstr "Enviar"
 
@@ -852,7 +1369,9 @@ msgstr "Pago realizado"
 
 #: friendfund/templates/contribution/payment_success.html:10
 #, python-format
-msgid "CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!"
+msgid ""
+"CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your "
+"contribution! Thanks!"
 msgstr "%(receiver)s estará muy agradecido de saber que has puesto bote!Gracias!"
 
 #: friendfund/templates/contribution/payment_success.html:16
@@ -860,7 +1379,10 @@ msgid "CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice"
 msgstr " "
 
 #: friendfund/templates/contribution/payment_success.html:20
-msgid "CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take a couple of minutes to show up on the pool page, you will in any case receive a payment receipt by email."
+msgid ""
+"CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take "
+"a couple of minutes to show up on the pool page, you will in any case "
+"receive a payment receipt by email."
 msgstr "Tu pago tardará un minuto o dos para que aparezca actualizado en el bote."
 
 #: friendfund/templates/contribution/payment_success.html:28
@@ -882,7 +1404,9 @@ msgstr "??Payment Failed-Pago erróneo/fallido"
 
 #: friendfund/templates/contribution/payment_success.html:39
 msgid "CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?"
-msgstr "Tu pago fue denegado, puede que hubiera una errata en algún lugar. ¿Quieres intentarlo de nuevo?"
+msgstr ""
+"Tu pago fue denegado, puede que hubiera una errata en algún lugar. "
+"¿Quieres intentarlo de nuevo?"
 
 #: friendfund/templates/contribution/payment_success.html:42
 msgid "CONTRIBSUCCESSPAGE_LABEL_Try Again"
@@ -893,9 +1417,15 @@ msgid "INVITE_PAGE_FB_LOGIN_Invite"
 msgstr "Invitar"
 
 #: friendfund/templates/invite/invite.html:29
-#, python-format
-msgid "INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <br/><span class=\"emphasis\">%(receiver_name)s's</span> gift."
-msgstr "Invita a tus amigos a poner bote para el <br/><span class=\"emphasis\">%(receiver_name)s's</span> regalo."
+#, fuzzy, python-format
+#| msgid "" "INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <br/><span
+#| " "class=\"emphasis\">%(receiver_name)s's</span> gift."
+msgid ""
+"INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <span "
+"class=\"emphasis\">%(receiver_name)s's</span> gift."
+msgstr ""
+"Invita a tus amigos a poner bote para el <br/><span "
+"class=\"emphasis\">%(receiver_name)s's</span> regalo."
 
 #: friendfund/templates/invite/invite.html:57
 msgid "INVITE_PAGE_LABEL_Select your friends from:"
@@ -907,8 +1437,12 @@ msgstr "Envía un mensaje personal a todos los invitados:"
 
 #: friendfund/templates/invite/invite.html:79
 #, python-format
-msgid "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
-msgstr "%(admin_name)s ha creado un Friend Fund para %(receiver_name)s's %(occasion_name)s. Entra y pon bote! "
+msgid ""
+"INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for "
+"%(receiver_name)s's %(occasion_name)s. Come and chip in!"
+msgstr ""
+"%(admin_name)s ha creado un Friend Fund para %(receiver_name)s's "
+"%(occasion_name)s. Entra y pon bote! "
 
 #: friendfund/templates/invite/invite.html:83
 #, python-format
@@ -961,16 +1495,29 @@ msgid "CONTRIB_CONTRIB_PERMISSIONS_POPUP_We need some additional Permissions!"
 msgstr "¡Necesitamos algunos permisos adicionales!"
 
 #: friendfund/templates/messages/blocks.html:6
-msgid "CONTRIB_PERMISSIONS_POPUP_To keep your friends apprised of your funding efforts, we need some additional permissions as listed below!"
-msgstr "Para mantener a tus amigos al tanto de las novedades en el bote, necesitamos algunos permisos adicionales mostrados a continuación."
+msgid ""
+"CONTRIB_PERMISSIONS_POPUP_To keep your friends apprised of your funding "
+"efforts, we need some additional permissions as listed below!"
+msgstr ""
+"Para mantener a tus amigos al tanto de las novedades en el bote, "
+"necesitamos algunos permisos adicionales mostrados a continuación."
 
 #: friendfund/templates/messages/blocks.html:8
 msgid "CONTRIB_PERMISSIONS_POPUP_TITLE_Your Email"
 msgstr "Tu email"
 
 #: friendfund/templates/messages/blocks.html:9
-msgid "CONTRIB_PERMISSIONS_POPUP_To be able to give you personal notices for pool events, we require email addresses of any person that invites their friends."
-msgstr "???To be able to give you personal notices for pool events, we require email addresses of any person that invites their friends.- Para poder enviarte avisos personales de los eventos en el bote, necesitamos el email de cualquier persona que invita a sus amigos. que requieren de una dirección de correo electrónico de cualquier persona que invita a sus amigos"
+msgid ""
+"CONTRIB_PERMISSIONS_POPUP_To be able to give you personal notices for "
+"pool events, we require email addresses of any person that invites their "
+"friends."
+msgstr ""
+"???To be able to give you personal notices for pool events, we require "
+"email addresses of any person that invites their friends.- Para poder "
+"enviarte avisos personales de los eventos en el bote, necesitamos el "
+"email de cualquier persona que invita a sus amigos. que requieren de una "
+"dirección de correo electrónico de cualquier persona que invita a sus "
+"amigos"
 
 #: friendfund/templates/messages/blocks.html:10
 msgid "CONTRIB_PERMISSIONS_POPUP_Enter  Email:"
@@ -982,11 +1529,18 @@ msgstr "Acceso al correo electrónico de Facebook"
 
 #: friendfund/templates/messages/blocks.html:13
 msgid "CONTRIB_PERMISSIONS_POPUP_TITLE_Your Facebook Stream Publish Permission"
-msgstr "???Your Facebook Stream Publish Permission-Su actual Facebook Permiso de Publicación"
+msgstr ""
+"???Your Facebook Stream Publish Permission-Su actual Facebook Permiso de "
+"Publicación"
 
 #: friendfund/templates/messages/blocks.html:14
-msgid "CONTRIB_PERMISSIONS_POPUP_In you are inviting friends from facebook, we do require Stream Publish to send out your invite messages bearing your personal notice."
-msgstr "??In you are inviting friends from facebook, we do require Stream Publish to send out your invite messages bearing your personal notice.- "
+msgid ""
+"CONTRIB_PERMISSIONS_POPUP_In you are inviting friends from facebook, we "
+"do require Stream Publish to send out your invite messages bearing your "
+"personal notice."
+msgstr ""
+"??In you are inviting friends from facebook, we do require Stream Publish"
+" to send out your invite messages bearing your personal notice.- "
 
 #: friendfund/templates/messages/blocks.html:15
 msgid "CONTRIB_PERMISSIONS_POPUP_Grant Stream Publish"
@@ -1001,24 +1555,36 @@ msgid "CONTRIB_PERMISSIONS_POPUP_Grant Both!"
 msgstr "??Grant Both!-Dos cesiones realizadas!"
 
 #: friendfund/templates/messages/blocks.html:18
-msgid "CONTRIB_PERMISSIONS_POPUP_Of course you can skip granting, by not inviting any one."
-msgstr "??Of course you can skip granting, by not inviting any one. Por supuesto puedes ignorar las cesiones, de forma que no invitas a nadie."
+msgid ""
+"CONTRIB_PERMISSIONS_POPUP_Of course you can skip granting, by not "
+"inviting any one."
+msgstr ""
+"??Of course you can skip granting, by not inviting any one. Por supuesto "
+"puedes ignorar las cesiones, de forma que no invitas a nadie."
 
 #: friendfund/templates/messages/blocks.html:21
 msgid "INVITE_PERMISSIONS_POPUP_Almost there!"
 msgstr "Casi en el final!"
 
 #: friendfund/templates/messages/blocks.html:22
-msgid "INVITE_PERMISSIONS_POPUP_To keep your friends up to date with your gift pool, we'll need:"
-msgstr "Para mantener a tus amigos al tanto de las novedades en el bote, necesitamos: "
+msgid ""
+"INVITE_PERMISSIONS_POPUP_To keep your friends up to date with your gift "
+"pool, we'll need:"
+msgstr ""
+"Para mantener a tus amigos al tanto de las novedades en el bote, "
+"necesitamos: "
 
 #: friendfund/templates/messages/blocks.html:23
 msgid "INVITE_PERMISSIONS_POPUP_TITLE_Your Email"
 msgstr "Tu correo electrónico"
 
 #: friendfund/templates/messages/blocks.html:24
-msgid "INVITE_PERMISSIONS_POPUP_To receive notifications of any updates on your pool, please enter your email address or use your facebook email."
-msgstr "Para recibir avisos de las novedades en tu bote, por favor, introduce tu email o utiliza tu correo electrónico de facebook."
+msgid ""
+"INVITE_PERMISSIONS_POPUP_To receive notifications of any updates on your "
+"pool, please enter your email address or use your facebook email."
+msgstr ""
+"Para recibir avisos de las novedades en tu bote, por favor, introduce tu "
+"email o utiliza tu correo electrónico de facebook."
 
 #: friendfund/templates/messages/blocks.html:25
 msgid "INVITE_PERMISSIONS_POPUP_Email:"
@@ -1033,8 +1599,13 @@ msgid "INVITE_PERMISSIONS_POPUP_TITLE_Your Facebook Stream Publish Permission"
 msgstr "??Your Facebook Stream Publish Permission- Permiso de publicación"
 
 #: friendfund/templates/messages/blocks.html:29
-msgid "INVITE_PERMISSIONS_POPUP_Because you're inviting friends from Facebook, we need Stream Publish permission so they can receive your personal invitation."
-msgstr "??Because you're inviting friends from Facebook, we need Stream Publish permission so they can receive your personal invitation."
+msgid ""
+"INVITE_PERMISSIONS_POPUP_Because you're inviting friends from Facebook, "
+"we need Stream Publish permission so they can receive your personal "
+"invitation."
+msgstr ""
+"??Because you're inviting friends from Facebook, we need Stream Publish "
+"permission so they can receive your personal invitation."
 
 #: friendfund/templates/messages/blocks.html:30
 msgid "INVITE_PERMISSIONS_POPUP_Grant Stream Publish"
@@ -1049,7 +1620,9 @@ msgid "INVITE_PERMISSIONS_POPUP_Grant Both!"
 msgstr "??Grant Both!"
 
 #: friendfund/templates/messages/blocks.html:33
-msgid "INVITE_PERMISSIONS_POPUP_Of course you can skip granting, by not inviting any one."
+msgid ""
+"INVITE_PERMISSIONS_POPUP_Of course you can skip granting, by not inviting"
+" any one."
 msgstr "??Of course you can skip granting, by not inviting any one."
 
 #: friendfund/templates/messages/blocks.html:88
@@ -1065,28 +1638,54 @@ msgid "AMAZON_POPUP_Open Amazon in a new Window and find your perfect gift"
 msgstr "Abre Amazon en una ventana nueva y encuentra el regalo perfecto"
 
 #: friendfund/templates/messages/popups/amazon.html:10
-msgid "AMAZON_POPUP Step_1 Go to an amazon site of your receivers location, i.e. www.amazon.com, www.amazon.co.uk or www.amazon.de, and find your gift."
-msgstr "Entra en la página de Amazon en el lugar de ubicación de tu destinatario, por ejemplo www.amazon.com, www.amazon.co.uk or www.amazon.de, y encuentra tu regalo."
+msgid ""
+"AMAZON_POPUP Step_1 Go to an amazon site of your receivers location, i.e."
+" www.amazon.com, www.amazon.co.uk or www.amazon.de, and find your gift."
+msgstr ""
+"Entra en la página de Amazon en el lugar de ubicación de tu destinatario,"
+" por ejemplo www.amazon.com, www.amazon.co.uk or www.amazon.de, y "
+"encuentra tu regalo."
 
 #: friendfund/templates/messages/popups/amazon.html:14
 msgid "AMAZON_POPUP_Right click with your mouse and click copy"
-msgstr "??Right click with your mouse and click copy- Haz clic en la parte derecha de tu ratón y haz clic en copiar"
+msgstr ""
+"??Right click with your mouse and click copy- Haz clic en la parte "
+"derecha de tu ratón y haz clic en copiar"
 
 #: friendfund/templates/messages/popups/amazon.html:16
-msgid "AMAZON_POPUP Step_2 Copy the amazon url from your browsers address bar when you have found your perfect gift."
-msgstr "??Copy the amazon url from your browsers address bar when you have found your perfect gift.- Copia la URL de Amazon de tu barra de navegación cuando hayas encontrado el regalo perfecto.Copia la URL de nombre de su barra de direcciones del navegador "
+msgid ""
+"AMAZON_POPUP Step_2 Copy the amazon url from your browsers address bar "
+"when you have found your perfect gift."
+msgstr ""
+"??Copy the amazon url from your browsers address bar when you have found "
+"your perfect gift.- Copia la URL de Amazon de tu barra de navegación "
+"cuando hayas encontrado el regalo perfecto.Copia la URL de nombre de su "
+"barra de direcciones del navegador "
 
 #: friendfund/templates/messages/popups/amazon.html:20
 msgid "AMAZON_POPUP_Go back to friendfund and paste the link to your gift"
 msgstr "Vuelve a friendfund y pega el enlace de tu regalo"
 
 #: friendfund/templates/messages/popups/amazon.html:22
-msgid "AMAZON_POPUP Step_3 Paste that url into the friendfund gift search bar and enjoy!"
-msgstr "??Paste that url into the friendfund gift search bar and enjoy!- Pega esta URL en la barra de búsqueda de regalos en friendfund y disfruta!"
+msgid ""
+"AMAZON_POPUP Step_3 Paste that url into the friendfund gift search bar "
+"and enjoy!"
+msgstr ""
+"??Paste that url into the friendfund gift search bar and enjoy!- Pega "
+"esta URL en la barra de búsqueda de regalos en friendfund y disfruta!"
 
 #: friendfund/templates/messages/popups/amazon.html:26
-msgid "AMAZON_POPUP Please observe that we currently only accept Articles that are sold directly by Amazon. Marketplace articles can currently not be purchased via friendfund."
-msgstr "??Please observe that we currently only accept Articles that are sold directly by Amazon. Marketplace articles can currently not be purchased via friendfund.- Por favor, ten en cuenta que actualmente sólo aceptamos artículos que se vendan directamente desde Amazon. Marketplace los El resto de los artículos de mercado no se pueden adquirir a través de friendfund."
+msgid ""
+"AMAZON_POPUP Please observe that we currently only accept Articles that "
+"are sold directly by Amazon. Marketplace articles can currently not be "
+"purchased via friendfund."
+msgstr ""
+"??Please observe that we currently only accept Articles that are sold "
+"directly by Amazon. Marketplace articles can currently not be purchased "
+"via friendfund.- Por favor, ten en cuenta que actualmente sólo aceptamos "
+"artículos que se vendan directamente desde Amazon. Marketplace los El "
+"resto de los artículos de mercado no se pueden adquirir a través de "
+"friendfund."
 
 #: friendfund/templates/messages/popups/pool_too_little_money.html:4
 msgid "POPUP_HEADER_What happens if we raise less money?"
@@ -1167,6 +1766,7 @@ msgid "MYPOOLS_CONTENT_Already chipped in:"
 msgstr "Ya han puesto bote:"
 
 #: friendfund/templates/mypools/mypools_body.html:36
+#: friendfund/templates/pool/parts/button_contribute.html:13
 msgid "MYPOOLS_CONTENT_Chipped In"
 msgstr "Han puesto bote"
 
@@ -1229,14 +1829,21 @@ msgstr "Cambia tu foto de perfil"
 
 #: friendfund/templates/myprofile/index.html:75
 #: friendfund/templates/myprofile/index.html:124
+#: friendfund/templates/myprofile/index.html:165
 msgid "MYPROFILE_PAGE_LABEL_Select an image file from your computer:"
 msgstr "Selecciona un archivo de imagen de tu ordenador:"
 
 #: friendfund/templates/myprofile/index.html:77
 #: friendfund/templates/myprofile/index.html:126
+#: friendfund/templates/myprofile/index.html:167
+#: friendfund/templates/myprofile/login_screen.html:87
 #, python-format
-msgid "MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>"
-msgstr "Al cargar esta imagen, confirmas no infringir los <a href=\"%s\">Términos y Condiciones</a>"
+msgid ""
+"MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the"
+" <a href=\"%s\">Terms and Conditions</a>"
+msgstr ""
+"Al cargar esta imagen, confirmas no infringir los <a href=\"%s\">Términos"
+" y Condiciones</a>"
 
 #: friendfund/templates/myprofile/index.html:81
 msgid "MYPROFILE_PAGE_LABEL_Change Your Username and Email"
@@ -1265,35 +1872,22 @@ msgid "MYPROFILE_PAGE_LABEL_Confirm New Password"
 msgstr "Confirma la Nueva Contraseña"
 
 #: friendfund/templates/myprofile/index.html:119
-msgid "MYPROFILE_PAGE_LABEL_Set Your Profile Picture"
-msgstr "Establece tu foto de perfil"
+msgid "MYPROFILE_PAGE_LABEL_Sign Up With Email"
+msgstr ""
 
-#: friendfund/templates/myprofile/index.html:130
-msgid "MYPROFILE_PAGE_LABEL_Set Your Username and Email"
-msgstr "Establece tu nombre de usuario y correo electrónico"
-
-#: friendfund/templates/myprofile/index.html:139
-msgid "MYPROFILE_PAGE_LABEL_Signup by email"
-msgstr "??Signup by email- Inscríbete por correo electrónico"
-
-#: friendfund/templates/myprofile/index.html:142
+#: friendfund/templates/myprofile/index.html:138
 msgid "MYPROFILE_PAGE_LABEL_Password"
 msgstr "Contraseña"
 
-#: friendfund/templates/myprofile/index.html:145
-msgid "MYPROFILE_PAGE_LABEL_Password Confirm"
-msgstr "Contraseña confirmada"
+#: friendfund/templates/myprofile/index.html:141
+msgid "Confirm_Password"
+msgstr ""
 
-#: friendfund/templates/myprofile/index.html:151
-#: friendfund/templates/myprofile/login_screen.html:74
-msgid "LOGIN_PAGE_LABEL_Male"
-msgstr "Varón"
-
-#: friendfund/templates/myprofile/index.html:154
+#: friendfund/templates/myprofile/index.html:176
 msgid "MYPROFILE_PAGE_LABEL_Signup"
 msgstr "Regístrate"
 
-#: friendfund/templates/myprofile/index.html:162
+#: friendfund/templates/myprofile/index.html:184
 msgid "MYPROFILE_PAGE_LABEL_Save"
 msgstr "Guardar"
 
@@ -1317,19 +1911,19 @@ msgstr "Iniciar sesión"
 msgid "LOGIN_PAGE_TITLE_TEXT_Login"
 msgstr "Iniciar sesión"
 
-#: friendfund/templates/myprofile/login_screen.html:17
+#: friendfund/templates/myprofile/login_screen.html:16
 msgid "LOGIN_PAGE_LABEL_Login with"
 msgstr "??Login with- Inicia sesión con"
 
+#: friendfund/templates/myprofile/login_screen.html:19
 #: friendfund/templates/myprofile/login_screen.html:20
-#: friendfund/templates/myprofile/login_screen.html:21
 #: friendfund/templates/receiver/fb_login.html:4
 #: friendfund/templates/receiver/fb_login.html:5
 msgid "Connect with Facebook"
 msgstr "Conéctate con Facebook"
 
+#: friendfund/templates/myprofile/login_screen.html:25
 #: friendfund/templates/myprofile/login_screen.html:26
-#: friendfund/templates/myprofile/login_screen.html:27
 #: friendfund/templates/receiver/tw_login.html:4
 #: friendfund/templates/receiver/tw_login.html:5
 msgid "Connect with Twitter"
@@ -1353,11 +1947,7 @@ msgstr "Contraseña"
 msgid "LOGIN_PAGE_LABEL_Forgot Password?"
 msgstr "¿Has olvidado tu contraseña?"
 
-#: friendfund/templates/myprofile/login_screen.html:45
-msgid "LOGIN_PAGE_BUTTON_Login"
-msgstr "Inicia Sesión"
-
-#: friendfund/templates/myprofile/login_screen.html:54
+#: friendfund/templates/myprofile/login_screen.html:55
 msgid "LOGIN_PAGE_LABEL_Signup"
 msgstr "Regístrate"
 
@@ -1366,24 +1956,16 @@ msgid "LOGIN_PAGE_LABEL_Name"
 msgstr "Nombre"
 
 #: friendfund/templates/myprofile/login_screen.html:69
-msgid "LOGIN_PAGE_LABEL_Password Confirm"
-msgstr "Contraseña confirmada"
+msgid "LOGIN_PAGE_LABEL_Confirm Password"
+msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:83
+#: friendfund/templates/myprofile/login_screen.html:75
+msgid "LOGIN_PAGE_LABEL_Male"
+msgstr "Varón"
+
+#: friendfund/templates/myprofile/login_screen.html:84
 msgid "LOGIN_PAGE_LABEL_Profile Picture"
 msgstr "Foto de Perfil"
-
-#: friendfund/templates/myprofile/login_screen.html:87
-msgid "LOGIN_PAGE_BUTTON_Join"
-msgstr "??Join-Sumarse"
-
-#: friendfund/templates/myprofile/login_screen.html:91
-msgid "LOGIN_PAGE_LABEL_* Mandatory"
-msgstr "*Obligatorio"
-
-#: friendfund/templates/myprofile/login_screen.html:94
-msgid "LOGIN_PAGE_LABEL_By clicking on 'Join' on the right, you confirm that you accept the Terms of Service."
-msgstr "Al hacer clic en 'Únete'' a la derecha, confirmas aceptar las Condiciones de Uso."
 
 #: friendfund/templates/myprofile/password_request.html:4
 msgid "PASSWORD_REQUEST_TITLE_Request Password"
@@ -1422,7 +2004,9 @@ msgid "PAGE_INDEX_BUTTON_Select an Event"
 msgstr "Escoge un evento"
 
 #: friendfund/templates/occasion/button.html:12
-msgid "PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created."
+msgid ""
+"PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is"
+" being created."
 msgstr "Escoge un acontecimiento especial por el que creas el bote."
 
 #: friendfund/templates/occasion/panel.html:10
@@ -1513,8 +2097,12 @@ msgstr "??Visit Pool Admin"
 
 #: friendfund/templates/pool/pool.html:112
 #, python-format
-msgid "POOL_PAGE_Already chipped in: %(number_contributors)d contributors from %(number_invitees)d invited people"
-msgstr "Ya han puesto Bote:  %(number_contributors)d contribuyentes de %(number_invitees) invitados"
+msgid ""
+"POOL_PAGE_Already chipped in: %(number_contributors)d contributors from "
+"%(number_invitees)d invited people"
+msgstr ""
+"Ya han puesto Bote:  %(number_contributors)d contribuyentes de "
+"%(number_invitees) invitados"
 
 #: friendfund/templates/pool/pool.html:150
 msgid "POOL_CHAT_Fund Chat"
@@ -1538,7 +2126,7 @@ msgstr "Anónimo"
 
 #: friendfund/templates/pool/settings.html:7
 #: friendfund/templates/pool/settings.html:9
-#: friendfund/templates/pool/settings_admin.html:100
+#: friendfund/templates/pool/settings_admin.html:99
 msgid "POOLSETTINGS_TITLE_Pool Admin"
 msgstr "??Pool Admin"
 
@@ -1587,29 +2175,29 @@ msgid "POOLSETTINGS_LABEL_Country"
 msgstr "País"
 
 #: friendfund/templates/pool/settings.html:43
-#: friendfund/templates/pool/settings_admin.html:151
+#: friendfund/templates/pool/settings_admin.html:152
 msgid "POOLSETTINGS_LABEL_Back To Pool"
 msgstr "Atrás al Bote"
 
-#: friendfund/templates/pool/settings_admin.html:102
+#: friendfund/templates/pool/settings_admin.html:101
 msgid "POOLSETTINGS_LABEL_Pool Admin"
 msgstr "??Pool Admin"
 
-#: friendfund/templates/pool/settings_admin.html:107
+#: friendfund/templates/pool/settings_admin.html:106
 msgid "POOLSETTINGS_LABEL_Change Your Message:"
 msgstr "Por favor, añade un mensaje personal."
 
-#: friendfund/templates/pool/settings_admin.html:114
+#: friendfund/templates/pool/settings_admin.html:113
 #: friendfund/templates/pool/actions/billing_form.html:22
 #: friendfund/templates/pool/actions/shipping_form.html:24
 msgid "POOLSETTINGS_Save Changes"
 msgstr "Guardar cambios"
 
-#: friendfund/templates/pool/settings_admin.html:122
+#: friendfund/templates/pool/settings_admin.html:121
 msgid "POOLSETTINGS_LABEL_Actions:"
 msgstr "Acciones:"
 
-#: friendfund/templates/pool/settings_admin.html:126
+#: friendfund/templates/pool/settings_admin.html:125
 #: friendfund/templates/pool/parts/button_close.html:5
 msgid "POOL_BUTTON_ACTION_Order Gift"
 msgstr "Solicitar Regalo"
@@ -1666,8 +2254,12 @@ msgid "POOL_SETTINGS_ACTION_ALTPRODUCT_Confirm"
 msgstr "Confirmar"
 
 #: friendfund/templates/pool/parts/banner_awaiting_action.html:4
-msgid "POOL_BUTTON_This Pool is awaiting some Action from the Admin, please stand by!"
-msgstr "Este Bote está esperando por el administrador para decidir qué pasa a continuación."
+msgid ""
+"POOL_BUTTON_This Pool is awaiting some Action from the Admin, please "
+"stand by!"
+msgstr ""
+"Este Bote está esperando por el administrador para decidir qué pasa a "
+"continuación."
 
 #: friendfund/templates/pool/parts/banner_is_closed.html:6
 msgid "POOL_BUTTON_Pool is now Closed and the Gift has been ordered!"
@@ -1675,25 +2267,39 @@ msgstr "¡El Bote está cerrado y el Regalo está en camino!"
 
 #: friendfund/templates/pool/parts/button_contribute.html:9
 #, python-format
-msgid "POOL_BUTTON_Hi %(user_name)s<br/>Please help us to share the costs for %(receiver_name)s's gift."
-msgstr "Hola %(user_name)s<br/>Por favor, contribuye al bote y ayúdanos a compartir los costes para el regalo de %(receiver_name)s"
+msgid ""
+"POOL_BUTTON_Hi %(user_name)s<br/>Please help us to share the costs for "
+"%(receiver_name)s's gift."
+msgstr ""
+"Hola %(user_name)s<br/>Por favor, contribuye al bote y ayúdanos a "
+"compartir los costes para el regalo de %(receiver_name)s"
 
-#: friendfund/templates/pool/parts/button_contribute.html:12
+#: friendfund/templates/pool/parts/button_contribute.html:15
+#: friendfund/templates/pool/parts/button_contribute.html:19
 msgid "POOL_BUTTON_Chip in!"
 msgstr "Pon Bote!"
 
-#: friendfund/templates/pool/parts/button_contribute.html:19
+#: friendfund/templates/pool/parts/button_contribute.html:28
 msgid "POOL_BUTTON_Invite more Friends"
 msgstr "Invita a más Amigos"
 
 #: friendfund/templates/pool/parts/button_prompt_for_action.html:6
-msgid "POOL_BUTTON_This pool has not reached it's target. Please vist the pool admin page to continue fund raising!"
-msgstr "Este Bote no ha alcanzado su objetivo. ¡Por favor, visita la página de administración del Bote para recaudar más fondos!"
+msgid ""
+"POOL_BUTTON_This pool has not reached it's target. Please vist the pool "
+"admin page to continue fund raising!"
+msgstr ""
+"Este Bote no ha alcanzado su objetivo. ¡Por favor, visita la página de "
+"administración del Bote para recaudar más fondos!"
 
 #: friendfund/templates/pool/parts/button_user_suspected.html:10
 #, python-format
-msgid "POOL_BUTTON_Hi %(suspect_name)s<br/>Please login to participate in the funding fun."
-msgstr "??Hi %(suspect_name)s<br/>Please login to participate in the funding fun.Hola %(suspect_name)s<br/>Por favor, inicia sesión para participar en .........."
+msgid ""
+"POOL_BUTTON_Hi %(suspect_name)s<br/>Please login to participate in the "
+"funding fun."
+msgstr ""
+"??Hi %(suspect_name)s<br/>Please login to participate in the funding "
+"fun.Hola %(suspect_name)s<br/>Por favor, inicia sesión para participar en"
+" .........."
 
 #: friendfund/templates/pool/parts/button_user_suspected.html:13
 #: friendfund/templates/pool/parts/center_button.html:45
@@ -1734,7 +2340,9 @@ msgstr "Encuentra el regalo perfecto"
 
 #: friendfund/templates/product/panel.html:8
 #, python-format
-msgid "PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:"
+msgid ""
+"PRODUCT_SEARCH_PANEL_Your pools shipping address is in "
+"<b>%(countryname)s</b>, change it:"
 msgstr "??Your gift's shipping address country isTu país  dirección de envío es"
 
 #: friendfund/templates/product/panel.html:21
@@ -1763,8 +2371,12 @@ msgstr "Siguiente"
 
 #: friendfund/templates/product/panel.html:114
 #, python-format
-msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?"
-msgstr "No se ha encontrado nada con el Precio de %s o menos. Por favor, busca otra cosa."
+msgid ""
+"PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, "
+"search for something else?"
+msgstr ""
+"No se ha encontrado nada con el Precio de %s o menos. Por favor, busca "
+"otra cosa."
 
 #: friendfund/templates/product/panel.html:116
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
@@ -1783,12 +2395,20 @@ msgid "PAGE_INDEX_BUTTON_Select a Friend"
 msgstr "Escoge a un Amigo"
 
 #: friendfund/templates/receiver/button.html:15
-msgid "PAGE_INDEX_BUTTON_Select your gift receiver from your Facebook, Twitter or email friends."
-msgstr "Selecciona al destinatario de tu regalo desde tu Facebook, Twitter o los emails de tus amigos."
+msgid ""
+"PAGE_INDEX_BUTTON_Select your gift receiver from your Facebook, Twitter "
+"or email friends."
+msgstr ""
+"Selecciona al destinatario de tu regalo desde tu Facebook, Twitter o los "
+"emails de tus amigos."
 
 #: friendfund/templates/receiver/fb_login.html:7
-msgid "RECEIVER_PANEL_FBLOGIN_To invite your Facebook Friends, You should Connect with Facebook!"
-msgstr "Para invitar a los amigos de tu Facebook, por favor, conéctate con Facebook."
+msgid ""
+"RECEIVER_PANEL_FBLOGIN_To invite your Facebook Friends, You should "
+"Connect with Facebook!"
+msgstr ""
+"Para invitar a los amigos de tu Facebook, por favor, conéctate con "
+"Facebook."
 
 #: friendfund/templates/receiver/inviter.html:18
 #, python-format
@@ -1812,6 +2432,59 @@ msgid "RECEIVER_PANEL_HEADER_choose yourself"
 msgstr "escógete a tí mismo"
 
 #: friendfund/templates/receiver/tw_login.html:7
-msgid "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect with Twitter!"
+msgid ""
+"RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
+"with Twitter!"
 msgstr "Para invitar a tus Amigos en Twitter, por favor, conéctate con Twitter."
+
+#~ msgid "TWITTER_Invalid response from Twitter."
+#~ msgstr ""
+#~ "Twitter tiene problemas para acceder a"
+#~ " tu cuenta. Por favor, inténtalo de"
+#~ " nuevo."
+
+#~ msgid "CONTRIBPAGE_LABEL_+ Transaction cost of 10 cents and 2%"
+#~ msgstr "??+ Los costos de transacción son 10 cents y 2%"
+
+#~ msgid "CONTRIBUTION_PAGE_Creditcard"
+#~ msgstr "Tarjeta de crédito"
+
+#~ msgid "CONTRIBUTION_PAGE_Paypal"
+#~ msgstr "Paypal"
+
+#~ msgid "CONTRIBUTION_PAGE_Direct eBanking"
+#~ msgstr "Direct eBanking"
+
+#~ msgid "MYPROFILE_PAGE_LABEL_Set Your Profile Picture"
+#~ msgstr "Establece tu foto de perfil"
+
+#~ msgid "MYPROFILE_PAGE_LABEL_Set Your Username and Email"
+#~ msgstr "Establece tu nombre de usuario y correo electrónico"
+
+#~ msgid "MYPROFILE_PAGE_LABEL_Signup by email"
+#~ msgstr "??Signup by email- Inscríbete por correo electrónico"
+
+#~ msgid "MYPROFILE_PAGE_LABEL_Password Confirm"
+#~ msgstr "Contraseña confirmada"
+
+#~ msgid "LOGIN_PAGE_BUTTON_Login"
+#~ msgstr "Inicia Sesión"
+
+#~ msgid "LOGIN_PAGE_LABEL_Password Confirm"
+#~ msgstr "Contraseña confirmada"
+
+#~ msgid "LOGIN_PAGE_BUTTON_Join"
+#~ msgstr "??Join-Sumarse"
+
+#~ msgid "LOGIN_PAGE_LABEL_* Mandatory"
+#~ msgstr "*Obligatorio"
+
+#~ msgid ""
+#~ "LOGIN_PAGE_LABEL_By clicking on 'Join' on "
+#~ "the right, you confirm that you "
+#~ "accept the Terms of Service."
+#~ msgstr ""
+#~ "Al hacer clic en 'Únete'' a la "
+#~ "derecha, confirmas aceptar las Condiciones "
+#~ "de Uso."
 
