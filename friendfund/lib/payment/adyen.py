@@ -213,3 +213,5 @@ class VirtualPayment(PaymentMethod):
 		tmpl_context.show_delay = False
 		tmpl_context.contrib = contribution
 		return renderer('/contribution/payment_details.html')
+	def check_totals(self, base, total):
+		return True

@@ -26,7 +26,9 @@
 		<div id="payment_details_amount">
 			${_("PAYMENT_DETAILS_You are chipping in:")}
 			<div class="floaterRight amount clearer">${h.format_currency(c.contrib.get_amount(), c.contrib.currency)|n}</div>
-			<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)|n}</div>
+			%if c.paymentpage.has_fees:
+				<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)|n}</div>
+			%endif
 			<div class="floaterRight amount clearer totalsum"><span>Total:</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)|n}</div>
 		</div>
 	</div>
