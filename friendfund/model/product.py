@@ -119,6 +119,7 @@ class ProductSuggestion(DBMappedObject):
 				,GenericAttrib(str,'aff_net'        ,'aff_net')
 				,GenericAttrib(str,'aff_net_ref'    ,'aff_net_ref')
 				,GenericAttrib(bool,'is_virtual'    ,'is_virtual')
+				,GenericAttrib(str,'sort'    ,'sort')
 				,GenericAttrib(str,'picture_url'    ,'product_picture_url')
 			]
 

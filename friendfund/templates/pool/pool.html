@@ -24,7 +24,6 @@
 
 <%def name="onloadscripts()">
 	onLoadPagelets("lowerbody_container");
-	
 	dojo.query(".popuplink", "timeline_bar").onclick(dojo.hitch(null, loadPopup));
 </%def>
 <%def name="page_slogan()">
@@ -66,7 +65,9 @@ ${html.clearline()|n}
 	<div class="product">
 		<img src="${c.pool.product.get_product_pic()}"/>
 		<div class="product_name">${c.pool.product.name}</div>
-		<a class="product_more" href="${c.pool.product.tracking_link}" target="_blank" class="product_more">${_("POOL_PAGE_more...")}</a>
+		%if c.pool.product.tracking_link:
+			<a class="product_more" href="${c.pool.product.tracking_link}" target="_blank" class="product_more">${_("POOL_PAGE_more...")}</a>
+		%endif
 	</div>
 
 	<div class="receiver_picture">

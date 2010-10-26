@@ -61,12 +61,14 @@ def display_currency(currency):
 	else:
 		return get_currency_symbol(currency, locale=websession['lang'])
 def format_currency(number, currency):
-	number = Decimal('%.2f' % number)
+	fnumber = Decimal('%.2f' % number)
 	if currency == 'POG':
-		pog = '<img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>'
-		return fc(number, currency, u'#,##0 %s' % pog, locale='en_US')
-	else:
-		return fc(number, currency, locale=websession['lang'])
+		if number == 0:
+			return fdec(fnumber, locale=websession['lang'])
+		else:
+			pog = '<img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>'
+			return fc(fnumber, currency, u'#,##0 %s' % pog, locale='en_US')
+	return fc(fnumber, currency, locale=websession['lang'])
 
 def format_number(number):
 	return fdec(number, locale=websession['lang'])

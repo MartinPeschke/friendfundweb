@@ -70,7 +70,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 					, q:null
 					, aff_net: dojo.attr(this, "aff_net")||null
 					, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
-					, sort : "RANK"
+					, sort : dojo.attr(this, "sort")||"RANK"
 					, is_virtual : dojo.attr(this, "is_virtual")||null
 				};
 		_t.search(_t, evt, params);

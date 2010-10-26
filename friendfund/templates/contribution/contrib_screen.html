@@ -33,6 +33,7 @@
 	calcTotals();
 	page_reloader = submitter("contribution_form");
 	dojo.query("input[type=radio].paymentselector").onchange(dojo.hitch(null, update_costs_hint));
+	dojo.query(".popuplink", "amount_costs_bar").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
 <div id="contributioncontainer" class="innerbody">
@@ -82,14 +83,11 @@
 				<div class="forminputline">
 					<span class="label"></span><span class="grey">${(_("CONTRIBPAGE_LABEL_+ Transaction cost of <span id=\"label_absolute_fees\">%(absolute)s</span> cents and <span id=\"label_relative_fees\">%(relative)s</span>%%")%dict([('absolute', c.paymentpage.default.fee_absolute), ('relative', c.paymentpage.default.fee_relative)]))|n}</span>
 				</div>
-			%endif
 			
-			<div class="forminputline">
+			<div class="forminputline" id="amount_costs_bar">
 				<span class="label">${_("CONTRIBPAGE_LABEL_Our cost")}</span> 
 				<input type="text" class="contrib_amount" id="chipin_amount_costs" disabled="disabled"/>
-				%if c.paymentpage.has_fees:
-					<a class="label" style="text-align:left" href="#">${_("CONTRIBPAGE_LABEL_(why)")}</a>
-				%endif
+				<a href="#" style="text-align:left" _href="${url(controller='content', action='why_transaction_costs')}" class="popuplink label">${_("CONTRIBPAGE_LABEL_(why)")}</a>
 			</div>
 			
 			<div class="forminputline">
@@ -98,6 +96,7 @@
 				<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("total", "")}</div>
 			</div>
 			<input type="hidden" class="contrib_amount" id="chipin_total" name="chipin.total" /> 
+			%endif
 			</div>
 			
 		</div>

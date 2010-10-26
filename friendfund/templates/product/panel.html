@@ -48,7 +48,7 @@
 		<div id="product_suggestions">
 		%for i, ps in enumerate(c.psuggestions):
 			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
-				<a class="productsuggestion" searchterm="${ps.search}" sort="${c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
+				<a class="productsuggestion" searchterm="${ps.search}" sort="${ps.sort or c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
 					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
 					<span>${ps.name}</span>
 				</a>
@@ -142,7 +142,11 @@
 			<div class="product_price">${product.display_price|n}</div>
 			<div class="product_shipping">${product.display_shipping|n}</div>
 		</div>
-		<div class="pdescription pcol">${h.word_truncate(product.description_long, 35)|n}<a class="more_link" href="${product.tracking_link}" target="_blank">${_("PRODUCT_SEARCH_PANEL_Read More")}</a></div>
+		<div class="pdescription pcol">${h.word_truncate(product.description_long, 60)|n}
+			%if product.tracking_link: 
+				<a class="more_link" href="${product.tracking_link}" target="_blank">${_("PRODUCT_SEARCH_PANEL_Read More")}</a>
+			%endif
+		</div>
 		<div class="programimage pcol">
 			<img class="programimage" src="${product.aff_program_logo_url}"/>
 		</div>

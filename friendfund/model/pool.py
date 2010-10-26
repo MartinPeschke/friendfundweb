@@ -153,8 +153,6 @@ class PoolUser(DBMappedObject):
 				return '%s' % h.format_currency(self._get_contributed_amount_float(), currency)
 			else:
 				return _("CONTRIBPAGE_LABEL_A pot of gold")
-		elif is_virtual: 
-			return "0"
 		else:
 			return h.format_currency(0, currency)
 	
