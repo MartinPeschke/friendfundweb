@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from string import Template
+from string import Template as Template
 import urllib2, os, logging, mako
-from mako.template import Template
 from mako.lookup import TemplateLookup
 from lxml import etree
 from docutils.core import publish_parts

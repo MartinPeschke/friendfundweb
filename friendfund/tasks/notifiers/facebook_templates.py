@@ -11,11 +11,13 @@ TEMPLATES = {"INVITE":{
 						 "message":Template(u"${description}")
 						,"link":   Template(u"${ROOT_URL}/pool/${up_url}")
 						,"name":   Template(u"Friend Fund for ${receiver}")
+						,"picture":Template(u"${image_url}")
 					}
 					,"secret":{
 						"message":Template(u"A Friend Fund for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at www.friendfund.com")
 						,"link"   :Template(u"${ROOT_URL}/pool/${up_url}")
 						,"name"   :Template(u"Friend Fund for a friend of yours")
+						,"picture":Template(u"${image_url}")
 					}
 				},
 			"CONTRIBUTION_FEED":{
@@ -23,11 +25,13 @@ TEMPLATES = {"INVITE":{
 						 "message":Template(u"${name} has chipped in for ${receiver}'s ${product}")
 						,"link":   Template(u"${ROOT_URL}/pool/${p_url}")
 						,"name":   Template(u"Friend Fund for ${receiver}")
+						,"picture":Template(u"${image_url}")
 					}
 					,"secret":{
 						 "message":Template(u"A Friend Fund for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at www.friendfund.com")
 						,"link"   :Template(u"${ROOT_URL}/pool/${p_url}")
 						,"name"   :Template(u"Friend Fund for a friend of yours")
+						,"picture":Template(u"${image_url}")
 					}
 				},
 			"ASK_RECEIVER":{

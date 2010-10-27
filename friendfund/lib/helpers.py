@@ -141,12 +141,12 @@ def get_raw_product_image(product, site_root):
 		return picture_large
 	
 	
-def get_product_picture(product_picture_url, type, ext="jpg"):
+def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 	static_root = PRODUCT_STATIC_ROOT
 	if not isinstance(product_picture_url, basestring): 
-		return '/static/imgs/default_m.png'%locals()
+		return '%(site_root)s/static/imgs/default_m.png'%locals()
 	return (not product_picture_url.startswith('http')) \
-			and ('%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals())\
+			and ('%(site_root)s%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals())\
 			or product_picture_url
 
 def users_equal(user1, user2):

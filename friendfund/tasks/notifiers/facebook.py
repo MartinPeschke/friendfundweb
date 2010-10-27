@@ -1,4 +1,5 @@
 import urllib, urllib2, simplejson, logging
+from friendfund.lib.helpers import get_product_picture
 from friendfund.tasks import data_root
 from friendfund.tasks.notifiers.common import MissingTemplateException, InvalidAccessTokenException
 
@@ -6,8 +7,10 @@ from friendfund.tasks.notifiers.facebook_templates import TEMPLATES, STANDARD_PA
 log = logging.getLogger(__name__)
 
 def stream_publish(template, sndr_data, rcpt_data, template_data):
-	msg = template.copy()
-	msg.update(STANDARD_PARAMS)
+	msg = STANDARD_PARAMS.copy()
+	msg.update(template)
+	if 'image_url' in template_data:
+		template_data['image_url'] = get_product_picture(template_data['image_url'], 'POOL', site_root=template_data['ROOT_URL'])
 	msg = dict((k,v.substitute(**dict(template_data)).encode("utf-8")) for k,v in msg.iteritems())
 	msg['access_token'] = sndr_data['access_token']
 	query = urllib.urlencode(msg)
