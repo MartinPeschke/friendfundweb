@@ -74,7 +74,7 @@
 						<div class="subInfo">
 							<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
 							<input  name="myprofile.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
-							<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller='content', action='tos'))|n}</span>
+							<span class="small">${(_("MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>") % url(controller='content', action='tos'))|n}</span>
 						
 						</div>
 					
@@ -117,16 +117,6 @@
 		<div class="inside-profile-picture">
 			<div class="smallInside" style="margin-right:60px">
 				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Sign Up With Email")}</div>
-				<!--<div class="imageBadgeContainer">
-					<img src="${h.get_user_picture(getattr(profiles.get('email'), 'profile_picture_url', ''), 'MYPROFILE')}">
-				</div>-->
-				<!--<div class="subInfo">
-					<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
-					<input  name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
-					<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller="content", action="tos"))|n}</span>
-				
-				</div>-->
-			
 				
 				<div class="floaterLeft fixedW">
 					${forms.input_text("signup", "name", _("MYPROFILE_PAGE_LABEL_Name"), _labelclasses=['floaterLeft'], _inputclasses=['floaterRight'])|n}
@@ -142,12 +132,12 @@
 				</div>
                 <div class="forminputline maleFemaleContainer" style="padding-top:12px">
 				<div class="maleFemale">
-                <p style="width: 150px; float: left;">Gender</p>
+                <p style="width: 155px; float: left;">${_("LOGIN_PAGE_LABEL_Gender")}</p>
                 <input type="radio" value="m" name="signup.gender" id="signup_gender_m">
-					<label for="signup_gender_m">Male</label>
+					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
 					
 <input type="radio" value="f" name="signup.gender" id="signup_gender_f">
-					<label for="signup_gender_m">Female</label>
+					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Female")}</label>
 					
 				</div>
 					
@@ -164,14 +154,14 @@
 				<div class="subInfo" style="margin-top:23px">
 					<span>${_("MYPROFILE_PAGE_LABEL_Select an image file from your computer:")}</span>
 					<input  name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*" />
-					<span class="small">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller="content", action="tos"))|n}</span>
+					<span class="small">${(_("MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>") % url(controller='content', action='tos'))|n}</span>
 				
 				</div>
                 <div class="borderBottomSecond" style="border-top:1px solid #E9E9E9; margin-top:15px; width:400px">
-				<div class="floaterLeft">Set as Default<a href="#">what's this?</a></div>
+				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}<a href="#">${_("MYPROFILE_PAGE_LABEL_what's this?")}</a></div>
 				<div class="floaterRight"><input type="radio" checked="checked" value="facebook" name="myprofile.is_default"></div>
 			</div>
-            <div class="subInfo" style="width:400px; margin-top:-10px"><span class="small">* Mandatory Fields<br /> By clicking "Sign Up" you confirm that you accept the <a href="#">Terms and Conditions</a></span></div>
+            <div class="subInfo" style="width:400px; margin-top:-10px"><span class="small">${(_("MYPROFILE_PAGE_LABEL_* Mandatory Fields<br /> By clicking \"Sign Up\" you confirm that you accept the <a href=\"%s\">Terms and Conditions</a>") % url(controller="content", action="tos"))|n}</span></div>
 				
 				<a onclick="dojo.byId('signup_form').submit();" class="Save"><span>${_("MYPROFILE_PAGE_LABEL_Signup")}</span></a>
 			</div>

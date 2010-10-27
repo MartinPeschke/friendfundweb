@@ -38,4 +38,6 @@ KEYS=[
 	,_("COUNTRY_SPAIN")
 	,_("COUNTRY_SWITZERLAND")
 	,_("COUNTRY_UNITED KINGDOM")
-	,_("COUNTRY_UNITED STATES")]
+	,_("COUNTRY_UNITED STATES")
+	,_("our_virtual_gifts_help")
+	,_("virtual_gifts_help_link_title")]

@@ -24,5 +24,9 @@ TEMPLATES = {'INVITE':{
 			'ASK_CONTRIBUTORS_TO_INVITE':{
 					 "public":Template(u"@${screen_name}:${admin} asks you to invite more for ${receiver}'s ${product} at ${ROOT_URL}/pool/${p_url}")
 					,"secret":Template(u"@${screen_name}:${admin} asks you to invite more for a friends gift pool at ${ROOT_URL}/pool/${p_url}")
+				},
+			'ASK_CONTRIBUTORS_TO_INVITE':{
+					 "public":Template(u"@${screen_name}:${admin} asks you to invite more for ${receiver}'s ${product} at ${ROOT_URL}/pool/${p_url}")
+					,"secret":Template(u"@${screen_name}:${admin} asks you to invite more for a friends gift pool at ${ROOT_URL}/pool/${p_url}")
 				}
 			}

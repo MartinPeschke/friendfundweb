@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-10-26 18:36+0100\n"
+"PO-Revision-Date: 2010-10-27 16:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -113,7 +113,31 @@ msgstr "When connecting with my facebook or twitter account I receive a message 
 msgid "STATIC_Frequently Asked Questions_Answer12"
 msgstr "This is because the particular network profile is already associated with another user. If you wish to use that account you must log out of friendfund and log in with that networks connect button and account."
 
-#: friendfund/controllers/content.py:31
+#: friendfund/controllers/content.py:20
+msgid "STATIC_Frequently Asked Questions_Question13"
+msgstr "What are these virtual gifts and how do i get one?"
+
+#: friendfund/controllers/content.py:20
+msgid "STATIC_Frequently Asked Questions_Answer13"
+msgstr "Friendfund also offers some great virtual gifts which can be purchased with our currency, pots of gold (POG: <span class=\"pog_currency_symbol\"><img class=\"currency_symbol\" src=\"/static/imgs/currencies/pog.png\"/>&nbsp;G<span class=\"pog_currency_symbol_subtype\">&#x2551;</span></span>).  Everyone you invite for to your pool has one POG they can chip in.  For a cupcake you need only 3 friends to chip in a POG but for the unicorn you need a lot more. Good luck!"
+
+#: friendfund/controllers/content.py:21
+msgid "STATIC_Frequently Asked Questions_Question14"
+msgstr "How much do I have to pay for a pot of gold, a POG, <span class=\"pog_currency_symbol\"><img class=\"currency_symbol\" src=\"/static/imgs/currencies/pog.png\"/>&nbsp;G<span class=\"pog_currency_symbol_subtype\">&#x2551;</span></span>?"
+
+#: friendfund/controllers/content.py:21
+msgid "STATIC_Frequently Asked Questions_Answer14"
+msgstr "POGs (<span class=\"pog_currency_symbol\"><img class=\"currency_symbol\" src=\"/static/imgs/currencies/pog.png\"/>&nbsp;G<span class=\"pog_currency_symbol_subtype\">&#x2551;</span></span>) are a virtual currency, and thus you get them completely free. However you can only contribute 1<span class=\"pog_currency_symbol\">G<span class=\"pog_currency_symbol_subtype\">&#x2551;</span></span> to each pool you are invited to."
+
+#: friendfund/controllers/content.py:22
+msgid "STATIC_Frequently Asked Questions_Question15"
+msgstr "Do I get a real Unicorn?"
+
+#: friendfund/controllers/content.py:22
+msgid "STATIC_Frequently Asked Questions_Answer15"
+msgstr "All friendfund virtual gifts are, as the name says, virtual. You will not receive a physical representation of the virtual gift, however they make for a fun and social experience online and u can send them around and share them much like greeting cards."
+
+#: friendfund/controllers/content.py:34
 #: friendfund/templates/pool/pool.html:100
 msgid "POOL_PAGE_What happens if we raise less money?"
 msgstr "Was passiert wenn wir zu wenig Geld auftreiben?"
@@ -121,6 +145,7 @@ msgstr "Was passiert wenn wir zu wenig Geld auftreiben?"
 #: friendfund/controllers/contribution.py:40
 #: friendfund/controllers/contribution.py:62
 #: friendfund/controllers/contribution.py:85
+#: friendfund/controllers/contribution.py:148
 msgid "CONTRIBUTION_Payment Not Allowed."
 msgstr "Zahlung kann nicht angenommen werden"
 
@@ -130,7 +155,7 @@ msgstr "Dieser Pool ist geschlossen, wir können dafür leider keine weiteren Za
 
 #: friendfund/controllers/contribution.py:98
 #: friendfund/controllers/contribution.py:131
-#: friendfund/controllers/contribution.py:199
+#: friendfund/controllers/contribution.py:205
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr "Unbekannte Zahlart"
 
@@ -139,33 +164,33 @@ msgid "CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip
 msgstr "Wir brauchen deine E-Mail Adresse wenn du mitmachen willst!"
 
 #: friendfund/controllers/contribution.py:134
-#: friendfund/controllers/contribution.py:202
+#: friendfund/controllers/contribution.py:208
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."
 msgstr "Es ist ein Fehler passiert, bitte versuche es zu einem späteren Zeitpunkt noch einmal. Deine Zahlung wurde nicht ausgeführt."
 
 #: friendfund/controllers/contribution.py:136
-#: friendfund/controllers/contribution.py:204
+#: friendfund/controllers/contribution.py:210
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"
 msgstr "Es ist etwas sehr sehr schief gelaufen."
 
-#: friendfund/controllers/contribution.py:150
-#: friendfund/controllers/contribution.py:166
+#: friendfund/controllers/contribution.py:156
+#: friendfund/controllers/contribution.py:172
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."
 msgstr "Formular wurde bereits abgeschickt."
 
-#: friendfund/controllers/contribution.py:169
+#: friendfund/controllers/contribution.py:175
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"
 msgstr "Nicht erlaubt."
 
-#: friendfund/controllers/contribution.py:173
+#: friendfund/controllers/contribution.py:179
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."
 msgstr "Fehlerhafte Zahlungsangaben, es fehlen Zeichen. Deine Zahlung wurde nicht ausgeführt."
 
-#: friendfund/controllers/contribution.py:192
+#: friendfund/controllers/contribution.py:198
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."
 msgstr "Es ist ein Fehler passiert. Deine Zahlung wurde nicht ausgeführt."
 
-#: friendfund/controllers/contribution.py:197
+#: friendfund/controllers/contribution.py:203
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
 msgstr "Formular bereits abgeschickt, bitte habe einen Moment Geduld."
 
@@ -714,6 +739,14 @@ msgstr "Großbritannien"
 msgid "COUNTRY_UNITED STATES"
 msgstr "USA"
 
+#: friendfund/resources/db_keys.py:42
+msgid "our_virtual_gifts_help"
+msgstr "What are virtual gifts and how do I get them?"
+
+#: friendfund/resources/db_keys.py:43
+msgid "virtual_gifts_help_link_title"
+msgstr "Mehr dazu..."
+
 #: friendfund/services/user_service.py:38
 msgid "LOGIN_ACCOUNTS_CANNOT_BE_CONSOLIDATED_WARNING"
 msgstr "Diese Konten können nicht zusammengefügt werden. Bitte logge dich erst aus Friendfund aus."
@@ -918,6 +951,7 @@ msgid "CONTRIBPAGE_LABEL_(why)"
 msgstr "warum?"
 
 #: friendfund/templates/contribution/contrib_screen.html:93
+#: friendfund/templates/contribution/payment_details.html:32
 msgid "CONTRIBPAGE_LABEL_Total"
 msgstr "gesamt"
 
@@ -1322,12 +1356,14 @@ msgstr "Benutzername"
 #: friendfund/templates/myprofile/index.html:29
 #: friendfund/templates/myprofile/index.html:54
 #: friendfund/templates/myprofile/index.html:103
+#: friendfund/templates/myprofile/index.html:161
 msgid "MYPROFILE_PAGE_LABEL_Set it as Default"
 msgstr "Standardeinstellungen"
 
 #: friendfund/templates/myprofile/index.html:29
 #: friendfund/templates/myprofile/index.html:54
 #: friendfund/templates/myprofile/index.html:103
+#: friendfund/templates/myprofile/index.html:161
 msgid "MYPROFILE_PAGE_LABEL_what's this?"
 msgstr "Was ist das?"
 
@@ -1336,15 +1372,12 @@ msgid "MYPROFILE_PAGE_LABEL_Change Your Profile Picture"
 msgstr "Profilfoto ändern"
 
 #: friendfund/templates/myprofile/index.html:75
-#: friendfund/templates/myprofile/index.html:124
-#: friendfund/templates/myprofile/index.html:165
+#: friendfund/templates/myprofile/index.html:155
 msgid "MYPROFILE_PAGE_LABEL_Select an image file from your computer:"
 msgstr "Wähle eine Bilddatei aus einer Datei"
 
 #: friendfund/templates/myprofile/index.html:77
-#: friendfund/templates/myprofile/index.html:126
-#: friendfund/templates/myprofile/index.html:167
-#: friendfund/templates/myprofile/login_screen.html:87
+#: friendfund/templates/myprofile/index.html:157
 #, python-format
 msgid "MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>"
 msgstr "Durch das Hochladen des Bildes erklärst du dich bereit die <a href=\"%s\">Nutzungsbedingungen</a> nicht zu verletzen"
@@ -1354,12 +1387,12 @@ msgid "MYPROFILE_PAGE_LABEL_Change Your Username and Email"
 msgstr "Benutzername und E-Mail ändern"
 
 #: friendfund/templates/myprofile/index.html:83
-#: friendfund/templates/myprofile/index.html:132
+#: friendfund/templates/myprofile/index.html:122
 msgid "MYPROFILE_PAGE_LABEL_Name"
 msgstr "Name"
 
 #: friendfund/templates/myprofile/index.html:86
-#: friendfund/templates/myprofile/index.html:135
+#: friendfund/templates/myprofile/index.html:125
 msgid "MYPROFILE_PAGE_LABEL_Email"
 msgstr "E-Mail"
 
@@ -1379,19 +1412,40 @@ msgstr "Neues Passwort bestätigen"
 msgid "MYPROFILE_PAGE_LABEL_Sign Up With Email"
 msgstr "Mit Email Registrieren"
 
-#: friendfund/templates/myprofile/index.html:138
+#: friendfund/templates/myprofile/index.html:128
 msgid "MYPROFILE_PAGE_LABEL_Password"
 msgstr "Passwort"
 
-#: friendfund/templates/myprofile/index.html:141
+#: friendfund/templates/myprofile/index.html:131
 msgid "Confirm_Password"
 msgstr "Password Bestätigen"
 
-#: friendfund/templates/myprofile/index.html:176
+#: friendfund/templates/myprofile/index.html:135
+#: friendfund/templates/myprofile/login_screen.html:73
+msgid "LOGIN_PAGE_LABEL_Gender"
+msgstr "Ich bin"
+
+#: friendfund/templates/myprofile/index.html:137
+#: friendfund/templates/myprofile/login_screen.html:75
+msgid "LOGIN_PAGE_LABEL_Male"
+msgstr "ein Mann"
+
+#: friendfund/templates/myprofile/index.html:140
+#: friendfund/templates/myprofile/login_screen.html:78
+msgid "LOGIN_PAGE_LABEL_Female"
+msgstr "eine Frau"
+
+#: friendfund/templates/myprofile/index.html:164
+#: friendfund/templates/myprofile/login_screen.html:88
+#, python-format
+msgid "MYPROFILE_PAGE_LABEL_* Mandatory Fields<br /> By clicking \"Sign Up\" you confirm that you accept the <a href=\"%s\">Terms and Conditions</a>"
+msgstr "* Pflichtangaben <br/> Mit Deiner Anmeldung erklärst du dich mit unseren <a href=\"%s\">AGB</a> einverstanden."
+
+#: friendfund/templates/myprofile/index.html:166
 msgid "MYPROFILE_PAGE_LABEL_Signup"
 msgstr "Registrieren"
 
-#: friendfund/templates/myprofile/index.html:184
+#: friendfund/templates/myprofile/index.html:174
 msgid "MYPROFILE_PAGE_LABEL_Save"
 msgstr "Speichern"
 
@@ -1462,10 +1516,6 @@ msgstr "Name"
 #: friendfund/templates/myprofile/login_screen.html:69
 msgid "LOGIN_PAGE_LABEL_Confirm Password"
 msgstr "Passwort bestätigen"
-
-#: friendfund/templates/myprofile/login_screen.html:75
-msgid "LOGIN_PAGE_LABEL_Male"
-msgstr "Mann"
 
 #: friendfund/templates/myprofile/login_screen.html:84
 msgid "LOGIN_PAGE_LABEL_Profile Picture"
@@ -1743,6 +1793,10 @@ msgstr "Leg den Rest dazu:"
 msgid "CONTRIBPAGE_BUTTON_Chip in Remainder"
 msgstr "Lege den Rest dazu"
 
+#: friendfund/templates/pool/actions/settings_action_content.html:62
+msgid "ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:"
+msgstr "Tausche zu Geschenkgutscheinen"
+
 #: friendfund/templates/pool/actions/settings_alt_product_confirm.html:8
 msgid "POOL_SETTINGS_ACTION_ALTPRODUCT_Confirm"
 msgstr "Bestätigen"
@@ -1761,11 +1815,11 @@ msgid "POOL_BUTTON_Hi %(user_name)s<br/>Please help us to share the costs for %(
 msgstr "Hallo %(user_name)s<br/>Hilf uns die Kosten für %(receiver_name)ss Geschenk gemeinsam aufzubringen!"
 
 #: friendfund/templates/pool/parts/button_contribute.html:15
-#: friendfund/templates/pool/parts/button_contribute.html:20
+#: friendfund/templates/pool/parts/button_contribute.html:21
 msgid "POOL_BUTTON_Chip in!"
 msgstr "Schenk mit!"
 
-#: friendfund/templates/pool/parts/button_contribute.html:29
+#: friendfund/templates/pool/parts/button_contribute.html:30
 msgid "POOL_BUTTON_Invite more Friends"
 msgstr "Freunde einladen"
 
@@ -1840,28 +1894,28 @@ msgstr "Wie geht das?"
 msgid "PRODUCT_SEARCH_PANEL_Recommended Gift Searches"
 msgstr "Suchvorschläge"
 
-#: friendfund/templates/product/panel.html:92
+#: friendfund/templates/product/panel.html:95
 msgid "PRODUCT_SEARCH_PANEL_Back"
 msgstr "Zurück"
 
-#: friendfund/templates/product/panel.html:108
+#: friendfund/templates/product/panel.html:111
 msgid "PRODUCT_SEARCH_PANEL_Next"
 msgstr "Nächstes"
 
-#: friendfund/templates/product/panel.html:122
+#: friendfund/templates/product/panel.html:125
 #, python-format
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?"
 msgstr "Wir konnten nichts finden mit einem Preis von %s oder weniger. Möchtest du nach etwas anderem suchen?"
 
-#: friendfund/templates/product/panel.html:124
+#: friendfund/templates/product/panel.html:127
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
 msgstr "Leider nichts gefunden. Vielleicht möchtest du nach etwas anderem suchen?"
 
-#: friendfund/templates/product/panel.html:147
+#: friendfund/templates/product/panel.html:150
 msgid "PRODUCT_SEARCH_PANEL_Read More"
 msgstr "Mehr"
 
-#: friendfund/templates/product/panel.html:154
+#: friendfund/templates/product/panel.html:157
 msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr "Auswählen"
 

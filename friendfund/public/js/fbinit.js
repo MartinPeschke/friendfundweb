@@ -30,7 +30,7 @@ fbLogin = function(callback) {
 		if(facebook_tried_loggin_in_already == false){
 			facebook_tried_loggin_in_already = true;
 			setTimeout("facebook_tried_loggin_in_already=false;",timeoutValue);
-			FB.login(callback, {perms:"user_birthday,friends_birthday"});
+			FB.login(callback, {perms:"user_birthday,friends_birthday,email"});
 		}
 	}else{
 		fbSessionChange()

@@ -79,12 +79,12 @@ class PoolAction(DBMappedObject):
 	
 class ShippingAddress(DBMappedObject):
 	_set_root = _get_root = 'ADDRESS'
-	_keys = [	 GenericAttrib(str,'line1'  ,'line1'  )
-				,GenericAttrib(str,'line2'  ,'line2'  )
-				,GenericAttrib(str,'line3'  ,'line3'  )
-				,GenericAttrib(str,'zipcode','zipcode')
-				,GenericAttrib(str,'country','country')
-				,GenericAttrib(str,'phone'  ,'phone'  )
+	_keys = [	 GenericAttrib(unicode,'line1'  ,'line1'  )
+				,GenericAttrib(unicode,'line2'  ,'line2'  )
+				,GenericAttrib(unicode,'line3'  ,'line3'  )
+				,GenericAttrib(unicode,'zipcode','zipcode')
+				,GenericAttrib(unicode,'country','country')
+				,GenericAttrib(unicode,'phone'  ,'phone'  )
 				,GenericAttrib(str,'type'  ,'type'  )
 			]
 

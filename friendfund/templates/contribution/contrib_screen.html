@@ -106,7 +106,7 @@
 			%for method in c.paymentpage.methods:
 			<div>
 				<input class="paymentselector" onselect="" type="radio" _fee_absolute="${'%.2f' % method.fee_absolute}" _fee_relative="${'%.2f' % method.fee_relative}" id="chipin_payment_method_${method.code}" name="chipin.payment_method" value="${method.code}" ${forms.input_checked("chipin", "payment_method", method.code, default=method.default)|n} />
-				<label class="paymenticon" for="chipin_payment_method_${method.code}"><img src="${method.logo_url}" alt="${_(method.name)}" /><span class="methodname">${_(method.name)}</span></label>
+				<label class="paymenticon" for="chipin_payment_method_${method.code}"><img src="${method.logo_url}" alt="${_(method.name)}" /><span class="methodname">${_(method.name)|n}</span></label>
 			</div>
 			%endfor
 		</div>

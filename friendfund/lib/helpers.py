@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Helper functions
 
 Consists of functions to typically be used within templates, but also
@@ -17,7 +18,21 @@ from decimal import Decimal
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
-CURRENCY_DISPLAY = {"EUR":"&euro;", "GBP":"&#163;", "USD":"&#36;"}
+
+POG = '<span class="pog_currency_symbol">G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
+EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>&nbsp;G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
+CURRENCY_DISPLAY = {"EUR":"&euro;", "GBP":"&#163;", "USD":"&#36;", "POG":POG}
+
+
+
+
+from babel.core import Locale
+def get_format(locale):
+    locale = Locale.parse(locale)
+    format = locale.currency_formats.get(None)
+    return format
+
+
 
 def negotiate_locale_from_header(accept_langs, available_languages):
 	langs = map(lambda x: x.replace('-', '_'), accept_langs)
@@ -55,32 +70,40 @@ def get_thous_sep():
 	return get_group_symbol(locale=websession['lang'])
 def get_dec_sep():
 	return get_decimal_symbol(locale=websession['lang'])
-def display_currency(currency):
+def display_currency(currency, extended = False):
 	if currency == 'POG':
-		return '<img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>'
+		if extended:
+			return EXTENDED_POG
+		else:
+			return POG
 	else:
 		return get_currency_symbol(currency, locale=websession['lang'])
-def format_currency(number, currency):
+def format_currency(number, currency, extended = False):
 	fnumber = Decimal('%.2f' % number)
 	if currency == 'POG':
 		if number == 0:
 			return fdec(fnumber, locale=websession['lang'])
 		else:
-			pog = '<img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>'
-			return fc(fnumber, currency, u'#,##0 %s' % pog, locale='en_US')
+			if extended:
+				pog = EXTENDED_POG
+			else:
+				pog = POG
+			result = fc(fnumber, 'EUR', locale=websession['lang'])
+			format = get_format(websession['lang']).pattern
+			return result.replace(u'€', pog)
 	return fc(fnumber, currency, locale=websession['lang'])
 
 def format_number(number):
 	return fdec(number, locale=websession['lang'])
 
 def format_date(date, with_time = False):
-		if with_time:
-			return fdatetime(date, locale=websession['lang'])
-		else:
-			return fdate(date, locale=websession['lang'])
+	if with_time:
+		return fdatetime(date, locale=websession['lang'])
+	else:
+		return fdate(date, locale=websession['lang'])
 
 def format_date_internal(date):
-		return date.strftime('%Y-%m-%d')
+	return date.strftime('%Y-%m-%d')
 
 def get_pool_picture(pool_pic_url, type, ext="png"):
 	if pool_pic_url:

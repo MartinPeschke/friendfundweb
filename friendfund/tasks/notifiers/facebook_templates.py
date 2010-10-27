@@ -65,5 +65,17 @@ TEMPLATES = {"INVITE":{
 						,"link"   :Template(u"${ROOT_URL}/pool/${p_url}")
 						,"name"   :Template(u"Friend Fund for a friend of yours")
 					}
+				},
+			"POOL_FUNDED_FEED":{
+					 "public":{
+						 "message":Template(u"${receiver}'s gift pool has reached its target and the ${product} is on its ways. Thanks to those who chipped in!")
+						,"link":   Template(u"${ROOT_URL}/pool/${p_url}")
+						,"name":   Template(u"Friend Fund for ${receiver}")
+					}
+					,"secret":{
+						 "message":Template(u"A Friend Fund for a Friend of yours needs help, the admin wants this pool to remain secret, see it at www.friendfund.com")
+						,"link"   :Template(u"${ROOT_URL}/pool/${p_url}")
+						,"name"   :Template(u"Friend Fund for a friend of yours")
+					}
 				}
 			}

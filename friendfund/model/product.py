@@ -41,7 +41,7 @@ class Product(DBMappedObject):
 	def get_price_float(self):
 		return float(self.price)/100
 	def get_display_price(self):
-		return h.format_currency(self.get_price_float(), self.currency)
+		return h.format_currency(self.get_price_float(), self.currency, extended = True)
 	display_price = property(get_display_price)
 	def get_shipping_cost_float(self):
 		return float(self.shipping_cost)/100
@@ -120,6 +120,8 @@ class ProductSuggestion(DBMappedObject):
 				,GenericAttrib(str,'aff_net_ref'    ,'aff_net_ref')
 				,GenericAttrib(bool,'is_virtual'    ,'is_virtual')
 				,GenericAttrib(str,'sort'    ,'sort')
+				,GenericAttrib(str,'help_link_title'    ,'help_link_title')
+				,GenericAttrib(str,'help_link_href'    ,'help_link_href')
 				,GenericAttrib(str,'picture_url'    ,'product_picture_url')
 			]
 

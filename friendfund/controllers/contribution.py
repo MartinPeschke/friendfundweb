@@ -139,8 +139,14 @@ class ContributionController(BaseController):
 	@no_blocks(ajax=False)
 	def details(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		
 		if c.pool is None:
 			return abort(404)
+		try:
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+		except NotAllowedToPayException, e:
+			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.form_secret = request.params.get('token')
 		if g.debug:
 			c.creditcard_values = {"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"}

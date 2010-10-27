@@ -70,12 +70,12 @@
 				</div>
                 <div class="forminputline maleFemaleContainer">
 				<div  class="maleFemale">
-                <p style="width:150px; float:left">Gender</p>
+                <p style="width:150px; float:left">${_("LOGIN_PAGE_LABEL_Gender")}</p>
                 <input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
 					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
 					
 <input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
-					<label for="signup_gender_m" >Female</label>
+					<label for="signup_gender_m" >${_("LOGIN_PAGE_LABEL_Female")}</label>
 					
 				</div>
 					${forms.error_msg("signup", "gender", type="error_checkbox")}
@@ -84,7 +84,8 @@
 					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
 					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
 				</div>
-				<p class="termsOf">${(_('MYPROFILE_PAGE_LABEL_By uploading this image you agree not to violate the <a href=\"%s\">Terms and Conditions</a>') % url(controller='content', action='tos'))|n}</p>
+				
+				<p class="termsOf">${(_("MYPROFILE_PAGE_LABEL_* Mandatory Fields<br /> By clicking \"Sign Up\" you confirm that you accept the <a href=\"%s\">Terms and Conditions</a>") % url(controller="content", action="tos"))|n}</p>
 				<a onclick="dojo.byId('signup_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Sign Up</span></a>
 			</form>
 			</div>

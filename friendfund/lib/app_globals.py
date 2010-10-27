@@ -4,7 +4,7 @@ import logging, pyodbc, md5, pylibmc
 from random import random
 from DBUtils.PooledDB import PooledDB
 from datetime import datetime
-from friendfund.lib import minifb
+from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
 from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc
 from friendfund.services.user_service import UserService
@@ -99,7 +99,7 @@ class Globals(object):
 		log.info("UserService set up")
 		
 		payment_methods = [
-				CreditCardPayment('/static/imgs/icon-visa-mastercard.png', 'credit_card', _("CONTRIBUTION_PAGE_Creditcard"), ['de','gb','us','ie','ca','ch','at'], False, 10, 2, True
+				CreditCardPayment('/static/imgs/icon-visa-mastercard-amex.png', 'credit_card', _("CONTRIBUTION_PAGE_Creditcard"), ['de','gb','us','ie','ca','ch','at'], False, 10, 2, True
 					,gtw_location = app_conf['adyen.location']
 					,gtw_username = app_conf['adyen.user']
 					,gtw_password = app_conf['adyen.password']

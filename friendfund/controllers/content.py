@@ -16,7 +16,10 @@ FAQ_KEYS = [(_("STATIC_Frequently Asked Questions_Question1" ), _("STATIC_Freque
 			(_("STATIC_Frequently Asked Questions_Question9" ), _("STATIC_Frequently Asked Questions_Answer9" )),
 			(_("STATIC_Frequently Asked Questions_Question10"), _("STATIC_Frequently Asked Questions_Answer10")),
 			(_("STATIC_Frequently Asked Questions_Question11"), _("STATIC_Frequently Asked Questions_Answer11")),
-			(_("STATIC_Frequently Asked Questions_Question12"), _("STATIC_Frequently Asked Questions_Answer12"))
+			(_("STATIC_Frequently Asked Questions_Question12"), _("STATIC_Frequently Asked Questions_Answer12")),
+			(_("STATIC_Frequently Asked Questions_Question13"), _("STATIC_Frequently Asked Questions_Answer13")),
+			(_("STATIC_Frequently Asked Questions_Question14"), _("STATIC_Frequently Asked Questions_Answer14")),
+			(_("STATIC_Frequently Asked Questions_Question15"), _("STATIC_Frequently Asked Questions_Answer15"))
 		]
 
 from friendfund.lib.base import BaseController, render, _
@@ -33,6 +36,12 @@ class ContentController(BaseController):
 	@jsonify
 	def why_transaction_costs(self):
 		c.faq_items = FAQ_KEYS[2:3]
+		c.faq_item_header = c.faq_items[0][0]
+		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}
+	
+	@jsonify
+	def our_virtual_gifts_help(self):
+		c.faq_items = FAQ_KEYS[12:15]
 		c.faq_item_header = c.faq_items[0][0]
 		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}
 	

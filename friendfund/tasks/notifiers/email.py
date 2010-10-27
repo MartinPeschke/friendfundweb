@@ -1,10 +1,5 @@
-"""
-<RESULT status="0" proc_name="get_unsent_messages">
-	<MESSAGE message_ref="F8511FB6-DB53-43FD-864F-805EF0A47134" template="PASSWORD_RESET" notification_method="EMAIL" email="martin@per-4.com" network="EMAIL">
-		<PARAMETER key="activation_token" value="b25df4ff-d447-4c61-a77a-75a141289538"/><PARAMETER key="name" value="martin@per-4.com"/>
-	</MESSAGE>
-</RESULT>
-"""
+# -*- coding: utf-8 -*-
+from string import Template
 import urllib2, os, logging, mako
 from mako.template import Template
 from mako.lookup import TemplateLookup
@@ -32,21 +27,22 @@ log = logging.getLogger(__name__)
 
 
 email = {
-		'INVITE': {'subject':"Invitation"},
-		'INVITE_WITH_ACCOUNT_ACTIVATION' : {'subject':"Invitation"},
-		'PASSWORD_RESET': {'subject':"Reset Password"},
-		'ADMIN_EMAIL_ACCOUNT_VALIDATION': {'subject':"Account Validation"},
-		'ADMIN_FUNDING_REMINDER': {'subject':"Funding Reminder"},
-		'CONTRIBUTION_RECEIPT': {'subject':"Contribution Received"},
+		'INVITE': {'subject':Template("Invitation")},
+		'INVITE_WITH_ACCOUNT_ACTIVATION' : {'subject':Template("Invitation")},
+		'PASSWORD_RESET': {'subject':Template("Reset Password")},
+		'ADMIN_EMAIL_ACCOUNT_VALIDATION': {'subject':Template("Account Validation")},
+		'ADMIN_FUNDING_REMINDER': {'subject':Template("Funding Reminder")},
+		'CONTRIBUTION_RECEIPT': {'subject':Template("Contribution Received")},
 		
-		'REMIND_INVITEES': {'subject':"Please help out"},
-		'ASK_RECEIVER': {'subject':"Please help out for the awesome gift we are getting you"},
-		'ASK_CONTRIBUTORS': {'subject':"Please help out just the little bit more"},
-		'ASK_CONTRIBUTORS_TO_INVITE': {'subject':"Please help out and invite more friends"},
+		'REMIND_INVITEES': {'subject':Template("Please help out")},
+		'ASK_RECEIVER': {'subject':Template("Please help out for the awesome gift we are getting you")},
+		'ASK_CONTRIBUTORS': {'subject':Template("Please help out just the little bit more")},
+		'ASK_CONTRIBUTORS_TO_INVITE': {'subject':Template("Please help out and invite more friends")},
 		
-		'ECARD_PROMPT': {'subject':"Send an eCard"},
-		'EMAIL_ECARD_RECEIVER': {'subject':"Happy %(occasion)s"},
-		'PHOTO_UPLOAD_ECARD_RECEIVER': {'subject':"Say Thank You"}
+		'ECARD_PROMPT': {'subject':Template("Send an eCard")},
+		'EMAIL_ECARD_RECEIVER': {'subject':Template("Happy %(occasion)s")},
+		'PHOTO_UPLOAD_ECARD_RECEIVER': {'subject':Template("Say Thank You")},
+		'POOL_FUNDED_ADMIN': {'subject':Template("${receiver}'s Gift Pool is Funded")}
 	}
 
 class UMSEmailUploadException(Exception):pass
@@ -54,7 +50,7 @@ class UMSEmailUploadException(Exception):pass
 def send_email(subject, template, sndr_data, rcpt_data, template_data):
 	message_params = ums_standard_params.copy()
 	message_params['email'] = rcpt_data['email']
-	message_params['subject'] = subject % template_data
+	message_params['subject'] = subject.substitute(**dict(template_data)).encode("utf-8")
 	message_params['text'] = template.render_unicode(**{'h':h, 'data': template_data}) #'h':h, when locale is available
 	message_params['html'] = publish_parts(message_params['text'], writer_name="html")["html_body"]
 	print message_params

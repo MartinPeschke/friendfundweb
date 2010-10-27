@@ -51,6 +51,9 @@
 				<a class="productsuggestion" searchterm="${ps.search}" sort="${ps.sort or c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
 					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
 					<span>${ps.name}</span>
+					%if ps.help_link_href:
+						<span class="showme"><a href="#" _href="${url(controller='content', action=ps.help_link_href)}" class="showme popuplink">${_(ps.help_link_title)}</a></span>
+					%endif
 				</a>
 			</div>
 		%endfor
@@ -139,7 +142,7 @@
 		</div>
 		<div class="ptitle_price pcol">
 			<div class="product_title">${product.name}</div>
-			<div class="product_price">${product.display_price|n}</div>
+			<div class="product_price">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</div>
 			<div class="product_shipping">${product.display_shipping|n}</div>
 		</div>
 		<div class="pdescription pcol">${h.word_truncate(product.description_long, 60)|n}

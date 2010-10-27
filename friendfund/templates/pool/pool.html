@@ -98,7 +98,7 @@ ${html.clearline()|n}
 			<div class="lower_limit">${h.format_currency(0, c.pool.currency)|n}</div>
 			<div class="timeline_progressbar_bg"><div style="width: ${(450 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;" class="timeline_progressbar"></div></div>
 			<div class="legende"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
-			<div class="upper_limit">${c.pool.product.get_display_price()|n}</div>
+			<div class="upper_limit">${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}</div>
 		</div>
 	</div>
 	%if i_am_member:
