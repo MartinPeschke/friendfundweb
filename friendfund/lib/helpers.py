@@ -20,7 +20,7 @@ PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
 
 POG = '<span class="pog_currency_symbol">G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
-EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/>&nbsp;G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
+EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/></span>'
 CURRENCY_DISPLAY = {"EUR":"&euro;", "GBP":"&#163;", "USD":"&#36;", "POG":POG}
 
 
@@ -85,12 +85,13 @@ def format_currency(number, currency, extended = False):
 			return fdec(fnumber, locale=websession['lang'])
 		else:
 			if extended:
-				pog = EXTENDED_POG
+				return '%d %s' % (number, EXTENDED_POG)
 			else:
-				pog = POG
-			result = fc(fnumber, 'EUR', locale=websession['lang'])
-			format = get_format(websession['lang']).pattern
-			return result.replace(u'€', pog)
+				if websession['lang'] == 'de_DE':
+					return '%d %s' % (number, POG)
+				else:
+					return '%s %d' % (POG, number)
+	
 	fnumber = Decimal('%.2f' % number)
 	return fc(fnumber, currency, locale=websession['lang'])
 

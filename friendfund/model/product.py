@@ -40,8 +40,8 @@ class Product(DBMappedObject):
 	
 	def get_price_float(self):
 		return float(self.price)/100
-	def get_display_price(self):
-		return h.format_currency(self.get_price_float(), self.currency, extended = True)
+	def get_display_price(self, extended = True):
+		return h.format_currency(self.get_price_float(), self.currency, extended)
 	display_price = property(get_display_price)
 	def get_shipping_cost_float(self):
 		return float(self.shipping_cost)/100
@@ -55,8 +55,8 @@ class Product(DBMappedObject):
 	def get_product_pic(self, type="POOL"):
 		return h.get_product_picture(self.product_picture_url, type)
 	
-	def get_display_label(self):
-		return '%s %s' % (h.word_truncate_plain(self.name, 5), self.display_price)
+	def get_display_label(self, extended = True):
+		return '%s %s' % (h.word_truncate_plain(self.name, 5), self.get_display_price(extended))
 	display_label = property(get_display_label)
 	
 	def fromDB(self, xml):

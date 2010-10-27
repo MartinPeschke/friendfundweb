@@ -73,7 +73,7 @@ TEMPLATES = {"INVITE":{
 						,"name":   Template(u"Friend Fund for ${receiver}")
 					}
 					,"secret":{
-						 "message":Template(u"A Friend Fund for a Friend of yours needs help, the admin wants this pool to remain secret, see it at www.friendfund.com")
+						 "message":Template(u"A secret gift pool has reached it target come and see who has chipped in. Check it at www.friendfund.com")
 						,"link"   :Template(u"${ROOT_URL}/pool/${p_url}")
 						,"name"   :Template(u"Friend Fund for a friend of yours")
 					}

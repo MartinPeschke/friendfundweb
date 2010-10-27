@@ -5,7 +5,7 @@ from random import random
 from DBUtils.PooledDB import PooledDB
 
 from friendfund.model import common
-from pct.model.curation import GetCategoriesQueue
+from pct.model.curation import GetCategoriesQueue, GetProgramsProc
 log = logging.getLogger(__name__)
 
 class Globals(object):
@@ -46,4 +46,4 @@ class Globals(object):
 		self.dbm = common.DBManager(dbm, self.cache_pool, logging.getLogger('DBM'))
 		
 		self.categories = self.dbm.get(GetCategoriesQueue)
-		print self.categories.list
+		self.programs = self.dbm.get(GetProgramsProc)

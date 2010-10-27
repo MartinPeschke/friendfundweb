@@ -82,18 +82,35 @@ class GetCategoriesQueue(DBMappedObject):
 	_no_params = True
 	_keys = [DBMapper(CurationCategory,'list','CATEGORY', is_list = True)]
 
+class CurationProgram(DBMappedObject):
+	_set_root = _get_root = 'PROGRAM'
+	_set_proc = _get_proc = None
+	_unique_keys = ['name', 'region']
+	_cachable = False
+	_no_params = True
+	_keys = [GenericAttrib(unicode,'name','name'), GenericAttrib(str,'region','region')]
+class GetProgramsProc(DBMappedObject):
+	"""
+		cur.get_programs  '<PROGRAMS region="DE" />' 
+		<RESULT status="0" proc_name="get_programs"><PROGRAM name="Jochen Schweizer Erlebnisgeschenke" region="DE" /> 
+	"""
+	_set_root = 'PROGRAMS'
+	_get_root = None
+	_set_proc = _get_proc = "cur.get_programs"
+	_unique_keys = []
+	_cachable = False
+	_keys = [DBMapper(CurationProgram,'list','PROGRAM', is_list = True)]
+	def fromDB(self, xml):
+		setattr(self, 'map', {})
+		for prog in self.list:
+			self.map[prog.region] = self.map.get(prog.region, []) + [prog]
+	
+
+
 class SetCurationResultProc(DBMappedObject):
 	_set_root = _get_root = 'CURATION'
 	_set_proc = _get_proc = "cur.set_curation_products"
-	_unique_keys = ['region', 'type']
+	_unique_keys = ['region']
 	_cachable = False
-	_keys = [GenericAttrib(str,'region','region'), DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)]
+	_keys = [DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)]
 
-  
-  # <xsd:simpleType name="CURATION_OUTCOME"> 
-    # <xsd:restriction base="xsd:string"> 
-      # <xsd:enumeration value="ACCEPT"/> 
-      # <xsd:enumeration value="REJECT"/> 
-      # <xsd:enumeration value="NONE"/> 
-    # </xsd:restriction> 
-  # </xsd:simpleType>
