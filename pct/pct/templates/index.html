@@ -31,11 +31,13 @@ handleResult = function(id, data){
 			<input type="hidden" id="outcome_${pc_id}" name="outcome" value=""/>
 			
 			<div style="margin-top: 250px;">
+			<div style="float:left">
 			%for cat in app_globals.categories.list:
-				<span class="label"><input id="new_category_${cat.name}" type="checkbox" name="category" value="${cat.name}" ${cat.name in cp.versions['NEW'].categories.map and 'checked="checked"' or ''}/>
-					<label for="new_category_${cat.name}">${cat.name}</label>
-				</span>
+				<div class="label"><input id="new_category_${cat.name}" type="checkbox" name="category" value="${cat.name}" ${cat.name in cp.versions['NEW'].categories.map and 'checked="checked"' or ''}/>
+					<label for="new_category_${cat.name}">${cat.name.replace('_',' ').title()}</label>
+				</div>
 			%endfor
+			</div>
 			<br/>
 			<br/>
 			<br/>
