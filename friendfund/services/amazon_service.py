@@ -146,6 +146,7 @@ class AmazonService(object):
 			product.aff_net = 'AMAZON'
 			product.aff_program_id = '1'
 			product.aff_program_name = 'AMAZON'
+			product.is_virtual = False
 			product.category = -1
 			product.delivery_time = 5
 			product.aff_program_logo_url = '/static/imgs/merch/amazon.png'
