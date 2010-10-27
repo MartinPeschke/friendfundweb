@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from friendfund.lib.payment.adyen import VirtualPayment
 log = logging.getLogger(__name__)
 
 class NotAllowedToPayException(Exception):pass
@@ -10,6 +11,7 @@ class PaymentPageSettings(object):
 		self.amount = is_virtual and 1 or None
 		self.methods = filter(lambda x: x.can_i_contribute(pool, user) and region in x.regions and is_virtual == x.virtual , PaymentService.payment_methods)
 		self.has_fees = len(filter(lambda x: x.has_fees, self.methods)) > 0
+		self.is_virtual = len(filter(lambda x: isinstance(x, VirtualPayment), self.methods)) == len(self.methods)
 		if self.methods:
 			self.methods[0].default = True
 			self.default = self.methods[0]

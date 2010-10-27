@@ -74,13 +74,13 @@ class PoolController(BaseController):
 			admin.profile_picture_url = c.pool.receiver.profile_picture_url
 		admin.is_admin = True
 		c.pool.participants.append(admin)
-
+		
 		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.profile_picture_url) for pu in c.pool.participants])
-		product_picture = h.get_raw_product_image(c.pool.product, g.SITE_ROOT_URL)
+		c.pool.product.picture_large = h.get_raw_product_image(c.pool.product, g.SITE_ROOT_URL)
 		c.pool.occasion.picture_url = None
 		c.pool.occasion.custom = None
 		g.dbm.set(c.pool, merge = True, cache=False)
-		remote_product_picture_render.delay(c.pool.p_url, product_picture)
+		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture_large)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		
 		if not c.pool:

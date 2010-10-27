@@ -45,6 +45,7 @@
 			<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
 			${forms.input_textarea("chipin","message", "")}
 			</div>
+			%if not c.paymentpage.is_virtual:
 			<div class="floaterLeft"> 
 			<h2>${_("CONTRIBPAGE_LABEL_How should displayed your amount")}</h2>
 			<div class="forminputline keepsecret"> ${forms.input_checkbox("chipin", "anonymous", _("CONTRIBPAGE_LABEL_Profil anonym"), "yes")} <span class="grey floaterLeft" style="padding:0 0 0 5px ">${_("CONTRIBPAGE_LABEL_your name will not be displayed")}</span></div>
@@ -57,6 +58,7 @@
 					<label for="pot-gold">${_("CONTRIBPAGE_LABEL_A pot of gold")}</label></div>
 				</div>
 			</div>
+			%endif
 		<div class="clear"></div>
 		</div>
 	  </div>
