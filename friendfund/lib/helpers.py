@@ -79,8 +79,8 @@ def display_currency(currency, extended = False):
 	else:
 		return get_currency_symbol(currency, locale=websession['lang'])
 def format_currency(number, currency, extended = False):
-	fnumber = Decimal('%.2f' % number)
 	if currency == 'POG':
+		fnumber = Decimal('%d' % number)
 		if number == 0:
 			return fdec(fnumber, locale=websession['lang'])
 		else:
@@ -91,6 +91,7 @@ def format_currency(number, currency, extended = False):
 			result = fc(fnumber, 'EUR', locale=websession['lang'])
 			format = get_format(websession['lang']).pattern
 			return result.replace(u'€', pog)
+	fnumber = Decimal('%.2f' % number)
 	return fc(fnumber, currency, locale=websession['lang'])
 
 def format_number(number):

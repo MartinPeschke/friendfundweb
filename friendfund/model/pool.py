@@ -235,7 +235,6 @@ class Pool(DBMappedObject):
 		return user.u_id in self.participant_map
 	def am_i_contributor(self, user):
 		pu = self.participant_map.get(user.u_id)
-		print (pu.contributed_amount or 0)
 		if pu:
 			return (pu.contributed_amount or 0) > 0
 		else:
