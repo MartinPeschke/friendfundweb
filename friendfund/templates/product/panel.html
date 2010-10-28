@@ -1,15 +1,12 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="common" file="common.html"/>
 
-<%
-	if c.amazon_available:
-		default_text = _("Search for almost anything ... or paste a link from Amazon")
-	else:
-		default_text = _("Search for almost anything ...")
-%>
 
 <div id="button_panel" class="product">
-	<h2>${_("PRODUCT_SEARCH_PANEL_Find the pefect gift")}</h2>
+	%for panel in c.gift_panel_tabs:
+		<a class="methodselector ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _type="${panel[0]}"><span>${_(panel[1])}</span></a>
+	%endfor
 	<a class="button_panel_closer">&nbsp;</a>
 	<div class="region_picker">
 	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
@@ -19,47 +16,10 @@
 		%endfor
 	</select>
 	</div>
-    <div class="whiteContainer">
-		<form id="product_search_form" onsubmit="return false;" >
-			<a name="product_search" id="product_search"></a> 
-			<div class="inputcontainer"><div id="pq_container" style="" class="black_labeled_container_big">
-				<div class="right_bracket">&nbsp;</div>
-				<div class="left_button_search">&nbsp;</div>
-				<input type="text" value="${c.q or default_text}"
-					name="q" id="pq" style="" _default_text="${default_text}" class="black_labeled_input ${ (not c.q) and 'default' or ' '}">
-			</div>
-			<div style="margin:28px 15px 30px;">
-				<a class="submitSmall searcher" sort = "${c.sort}"><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
-			</div>
-			</div>
-			<input type="hidden" name = "back_q" id="back_q" value="${c.back_q}"/>
-			
-			%if c.amazon_available:
-				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
-			%endif
-		</form>
-		
-		<div class="clear"></div>
-		
-		<div class="panel_title" style=" padding-bottom:10px">
-			${_("PRODUCT_SEARCH_PANEL_Recommended Gift Searches")}
-		</div>
-		${html.clearline()|n}
-		<div id="product_suggestions">
-		%for i, ps in enumerate(c.psuggestions):
-			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
-				<a class="productsuggestion" searchterm="${ps.search}" sort="${ps.sort or c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
-					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
-					<span>${ps.name}</span>
-					%if ps.help_link_href:
-						<span class="showme"><a href="#" _href="${url(controller='content', action=ps.help_link_href)}" class="showme popuplink">${_(ps.help_link_title)}</a></span>
-					%endif
-				</a>
-			</div>
-		%endfor
-		</div>
-		<div class="clear"></div>
-	</div>
+	
+	
+	${self.body()}
+	
 	
 	%if hasattr(c, "searchresult"):
 	<%
@@ -80,7 +40,7 @@
 			
 
 				%for i, elem in enumerate(c.searchresult.products):
-					${display_product(i, elem, page_length)}
+					${common.display_product(i, elem, page_length)}
 				%endfor
 				${html.clearline()}
 				
@@ -133,29 +93,3 @@
 	</div>
 	%endif
 </div>
-
-
-<%def name="display_product(counter, product, page_length)">
-	<div class="product_display${page_length  == (counter+1) and ' last' or ' middle'}">
-		<div class="pimage pcol">
-			<div class="imageborder"><img class="productimage widthfirst" src="${product.picture_large}"/></div>
-		</div>
-		<div class="ptitle_price pcol">
-			<div class="product_title">${product.name}</div>
-			<div class="product_price">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</div>
-			<div class="product_shipping">${product.display_shipping|n}</div>
-		</div>
-		<div class="pdescription pcol">${h.word_truncate(product.description_long, 60)|n}
-			%if product.tracking_link: 
-				<a class="more_link" href="${product.tracking_link}" target="_blank">${_("PRODUCT_SEARCH_PANEL_Read More")}</a>
-			%endif
-		</div>
-		<div class="programimage pcol">
-			<img class="programimage" src="${product.aff_program_logo_url}"/>
-		</div>
-		<div class="pselector">
-			${forms.black_submitlink(_("PRODUCT_SEARCH_PANEL_Select"), [("_guid", product.guid), ("_is_virtual", (product.is_virtual and "1" or "")), ("_net", product.aff_net), ("_progid",product.aff_program_id), ("_imgurl", product.picture_large), 
-								("_label", quoteattr(product.display_label))], "selector", href=None)|n}
-		</div>
-	</div>
-</%def>

@@ -17,12 +17,15 @@ dojo.declare("friendfund.ProductSearch", null, {
 	draw : function(_t, evt, extra_params){
 		var params = _t.searchMixin && _t.searchMixin() || {};
 		if(extra_params==null || extra_params == {}){
-			loadElement("/product/panel", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
+			loadElement("/product/recommended_tab", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		} else {
 			dojo.mixin(params, extra_params);
 			loadElement("/product/search", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		}
 		return false;
+	},
+	load_panel : function(_t, evt){
+		loadElement("/product/"+dojo.attr(this, '_type'), _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 	},
 	getSearchString : function(){
 		return (dojo.hasClass("pq", "default")?"":dojo.byId("pq").value);
@@ -46,6 +49,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.query("a.paginator", _t.ref_node).onclick(dojo.hitch(null, _t.gotoPage, _t));
 		dojo.query("#pq", _t.ref_node).onkeyup(dojo.hitch(null, _t.accessability, _t, _t.performSearch));
 		dojo.query("#region_picker", _t.ref_node).onchange(dojo.hitch(null, _t.region_picker, _t));
+		
+		dojo.query(".methodselector.ajaxlink", _t.ref_node).onclick(dojo.hitch(null, _t.load_panel, _t));
 		
 		dojo.query(".popuplink", _t.ref_node).onclick(dojo.hitch(null, loadPopup));
 		

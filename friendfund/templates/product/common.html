@@ -1,0 +1,27 @@
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+
+<%def name="display_product(counter, product, page_length)">
+	<div class="product_display${page_length  == (counter+1) and ' last' or ' middle'}">
+		<div class="pimage pcol">
+			<div class="imageborder"><img class="productimage widthfirst" src="${product.picture_large}"/></div>
+		</div>
+		<div class="ptitle_price pcol">
+			<div class="product_title">${product.name}</div>
+			<div class="product_price">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</div>
+			<div class="product_shipping">${product.display_shipping|n}</div>
+		</div>
+		<div class="pdescription pcol">${h.word_truncate(product.description_long, 60)|n}
+			%if product.tracking_link: 
+				<a class="more_link" href="${product.tracking_link}" target="_blank">${_("PRODUCT_SEARCH_PANEL_Read More")}</a>
+			%endif
+		</div>
+		<div class="programimage pcol">
+			<img class="programimage" src="${product.aff_program_logo_url}"/>
+		</div>
+		<div class="pselector">
+			${forms.black_submitlink(_("PRODUCT_SEARCH_PANEL_Select"), [("_guid", product.guid), ("_is_virtual", (product.is_virtual and "1" or "")), ("_net", product.aff_net), ("_progid",product.aff_program_id), ("_imgurl", product.picture_large), 
+								("_label", quoteattr(product.display_label))], "selector", href=None)|n}
+		</div>
+	</div>
+</%def>

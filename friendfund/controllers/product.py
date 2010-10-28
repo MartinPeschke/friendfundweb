@@ -19,24 +19,63 @@ SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
 			("MERCHANT",_("PRODUCT_SORT_ORDER_Merchant"))]
 PAGESIZE = 5
 
+GIFT_PANEL_TABS = [("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts")),
+					("virtual_tab", _("PRODUCT_SEARCH_PANEL_Virtual Gifts")),
+					("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search"))
+				]
+
+
 from friendfund.lib.base import BaseController, render, _
 
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
+	gift_panel_tabs = GIFT_PANEL_TABS
+	
 	@jsonify
 	def panel(self):
 		c.region = request.params.get('region', websession['region'])
+		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
+	
+	@jsonify
+	def recommended_tab(self):
+		c.region = request.params.get('region', websession['region'])
+		c.panel = 'recommended_tab'
+		c.gift_panel_tabs = self.gift_panel_tabs
+		c.sortees = SORTEES
+		c.sort = SORTEES[0][0]
+		return {'clearmessage':True, 'html':remove_chars(render('/product/recommended_tab.html').strip(), '\n\r\t')}
+	
+	@jsonify
+	def virtual_tab(self):
+		c.region = request.params.get('region', websession['region'])
+		c.panel = 'virtual_tab'
+		c.gift_panel_tabs = self.gift_panel_tabs
+		c.sortees = SORTEES
+		c.sort = SORTEES[0][0]
+		return {'clearmessage':True, 'html':remove_chars(render('/product/virtual_tab.html').strip(), '\n\r\t')}
+	
+	@jsonify
+	def search_tab(self):
+		c.region = request.params.get('region', websession['region'])
+		c.panel = 'search_tab'
+		c.gift_panel_tabs = self.gift_panel_tabs
+		c.sortees = SORTEES
+		c.sort = SORTEES[0][0]
+		c.q = None
+		c.back_q = None		
+		c.amazon_available = bool(g.amazon_service.get(c.region))
 		c.psuggestions = g.dbsearch.get(ProductSuggestionSearch\
 									, country = c.region\
 									, occasion = request.params.get('occasion_key', None)\
 									, receiver_sex = request.params.get('sex', None)).suggestions
-		c.page = 0
-		c.sortees = SORTEES
-		c.sort = SORTEES[0][0]
-		c.q = None
-		c.back_q = None
-		c.amazon_available = bool(g.amazon_service.get(c.region))
-		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
+		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
+	
+	
+	
+	
+	
+	
+	
 	
 	@jsonify
 	def unset(self):
@@ -85,7 +124,7 @@ class ProductController(BaseController):
 		c.q = request.params.get('q', '')
 		c.back_q = request.params.get('back_q', '')
 		search_term = c.back_q or c.q
-		c.page = request.params.get('page', 1)
+		page = request.params.get('page', 1)
 		c.sort = request.params.get('sort', SORTEES[0][0])
 		c.aff_net = request.params.get('aff_net', None)
 		c.aff_net_ref = request.params.get('aff_net_ref', None)
@@ -104,7 +143,7 @@ class ProductController(BaseController):
 											page_size=PAGESIZE, 
 											program_id = c.aff_net_ref, 
 											search=search_term, 
-											page_no=c.page, 
+											page_no=page, 
 											region=c.region,
 											max_price = c.max_price,
 											is_virtual = request.params.get('is_virtual', False)), ProductSearch)

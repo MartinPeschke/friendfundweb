@@ -1,0 +1,54 @@
+<%inherit file="panel.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%
+	if c.amazon_available:
+		default_text = _("Search for almost anything ... or paste a link from Amazon")
+	else:
+		default_text = _("Search for almost anything ...")
+%>
+
+
+
+
+<div class="whiteContainer">
+		<form id="product_search_form" onsubmit="return false;" >
+			<a name="product_search" id="product_search"></a> 
+			<div class="inputcontainer"><div id="pq_container" style="" class="black_labeled_container_big">
+				<div class="right_bracket">&nbsp;</div>
+				<div class="left_button_search">&nbsp;</div>
+				<input type="text" value="${c.q or default_text}"
+					name="q" id="pq" style="" _default_text="${default_text}" class="black_labeled_input ${ (not c.q) and 'default' or ' '}">
+			</div>
+			<div style="margin:28px 15px 30px;">
+				<a class="submitSmall searcher" sort = "${c.sort}"><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
+			</div>
+			</div>
+			<input type="hidden" name = "back_q" id="back_q" value="${c.back_q}"/>
+			
+			%if c.amazon_available:
+				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
+			%endif
+		</form>
+		
+		<div class="clear"></div>
+		
+		<div class="panel_title" style=" padding-bottom:10px">
+			${_("PRODUCT_SEARCH_PANEL_Recommended Gift Searches")}
+		</div>
+		${html.clearline()|n}
+		<div id="product_suggestions">
+		%for i, ps in enumerate(c.psuggestions):
+			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
+				<a class="productsuggestion" searchterm="${ps.search}" sort="${ps.sort or c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
+					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
+					<span>${ps.name}</span>
+					%if ps.help_link_href:
+						<span class="showme"><a href="#" _href="${url(controller='content', action=ps.help_link_href)}" class="showme popuplink">${_(ps.help_link_title)}</a></span>
+					%endif
+				</a>
+			</div>
+		%endfor
+		</div>
+		<div class="clear"></div>
+	</div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2010-10-28 12:18+0200\n"
+"POT-Creation-Date: 2010-10-28 13:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -367,53 +367,65 @@ msgstr ""
 msgid "PRODUCT_SORT_ORDER_Merchant"
 msgstr ""
 
-#: friendfund/controllers/product.py:53
+#: friendfund/controllers/product.py:22
+msgid "PRODUCT_SEARCH_PANEL_Recommended Gifts"
+msgstr ""
+
+#: friendfund/controllers/product.py:23
+msgid "PRODUCT_SEARCH_PANEL_Virtual Gifts"
+msgstr ""
+
+#: friendfund/controllers/product.py:24
+msgid "PRODUCT_SEARCH_PANEL_Gift Search"
+msgstr ""
+
+#: friendfund/controllers/product.py:92
 msgid "INDEX_PAGE_No Product"
 msgstr ""
 
-#: friendfund/controllers/product.py:62
+#: friendfund/controllers/product.py:101
 msgid "POOL_CREATE_Product not Found"
 msgstr ""
 
-#: friendfund/controllers/product.py:113
+#: friendfund/controllers/product.py:152
 msgid "PRODUCT_SEARCH_An Error Occured during search, please try again later."
 msgstr ""
 
-#: friendfund/controllers/product.py:142
+#: friendfund/controllers/product.py:181
 msgid ""
 "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
 "shipping much time!"
 msgstr ""
 
-#: friendfund/controllers/product.py:145
+#: friendfund/controllers/product.py:184
 msgid ""
 "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a "
 "problem please pick a later date!"
 msgstr ""
 
-#: friendfund/controllers/product.py:155
+#: friendfund/controllers/product.py:194
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr ""
 
-#: friendfund/controllers/product.py:157
+#: friendfund/controllers/product.py:196
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links"
 " from %(amazondomain)s or switch your shipping region."
 msgstr ""
 
-#: friendfund/controllers/product.py:165
+#: friendfund/controllers/product.py:204
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr ""
 
-#: friendfund/controllers/product.py:169
+#: friendfund/controllers/product.py:208
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article "
 "and is not sold by Amazon itself. Currently we do not support Amazon "
 "Marketplace articles."
 msgstr ""
 
-#: friendfund/controllers/product.py:172
+#: friendfund/controllers/product.py:211
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
@@ -1971,62 +1983,58 @@ msgstr ""
 msgid "PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands."
 msgstr ""
 
-#: friendfund/templates/product/panel.html:6
-msgid "Search for almost anything ... or paste a link from Amazon"
+#: friendfund/templates/product/common.html:16
+msgid "PRODUCT_SEARCH_PANEL_Read More"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:8
-msgid "Search for almost anything ..."
+#: friendfund/templates/product/common.html:23
+msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr ""
 
 #: friendfund/templates/product/panel.html:12
-msgid "PRODUCT_SEARCH_PANEL_Find the pefect gift"
-msgstr ""
-
-#: friendfund/templates/product/panel.html:15
 #, python-format
 msgid ""
 "PRODUCT_SEARCH_PANEL_Your pools shipping address is in "
 "<b>%(countryname)s</b>, change it:"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:32
-msgid "PRODUCT_SEARCH_PANEL_Search"
-msgstr ""
-
-#: friendfund/templates/product/panel.html:38
-msgid "PRODUCT_PANEL_LABEL_Show me how"
-msgstr ""
-
-#: friendfund/templates/product/panel.html:45
-msgid "PRODUCT_SEARCH_PANEL_Recommended Gift Searches"
-msgstr ""
-
-#: friendfund/templates/product/panel.html:95
+#: friendfund/templates/product/panel.html:55
 msgid "PRODUCT_SEARCH_PANEL_Back"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:111
+#: friendfund/templates/product/panel.html:71
 msgid "PRODUCT_SEARCH_PANEL_Next"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:125
+#: friendfund/templates/product/panel.html:85
 #, python-format
 msgid ""
 "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search "
 "for something else?"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:127
+#: friendfund/templates/product/panel.html:87
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:150
-msgid "PRODUCT_SEARCH_PANEL_Read More"
+#: friendfund/templates/product/search_tab.html:6
+msgid "Search for almost anything ... or paste a link from Amazon"
 msgstr ""
 
-#: friendfund/templates/product/panel.html:157
-msgid "PRODUCT_SEARCH_PANEL_Select"
+#: friendfund/templates/product/search_tab.html:8
+msgid "Search for almost anything ..."
+msgstr ""
+
+#: friendfund/templates/product/search_tab.html:24
+msgid "PRODUCT_SEARCH_PANEL_Search"
+msgstr ""
+
+#: friendfund/templates/product/search_tab.html:30
+msgid "PRODUCT_PANEL_LABEL_Show me how"
+msgstr ""
+
+#: friendfund/templates/product/search_tab.html:37
+msgid "PRODUCT_SEARCH_PANEL_Recommended Gift Searches"
 msgstr ""
 
 #: friendfund/templates/receiver/button.html:13
