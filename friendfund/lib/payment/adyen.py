@@ -72,7 +72,7 @@ class CreditCardPayment(PaymentMethod):
 		tmpl_context.form_secret = str(uuid.uuid4())
 		with g.cache_pool.reserve() as mc:
 			add_token(mc, tmpl_context.form_secret, tmpl_context.action)
-		return redirecter(url(controller='contribution', pool_url=pool_url, action='details', token=tmpl_context.form_secret, protocol='https'))
+		return redirecter(url(controller='contribution', pool_url=pool_url, action='details', token=tmpl_context.form_secret, protocol=g.SSL_PROTOCOL))
 	
 	def post_process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
 		with g.cache_pool.reserve() as client:

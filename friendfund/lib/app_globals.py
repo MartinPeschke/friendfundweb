@@ -18,6 +18,7 @@ _ = lambda x:x
 
 pyodbc.pooling = False
 SVNREVISION = "$Rev$"
+REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 
 class Globals(object):
@@ -46,10 +47,11 @@ class Globals(object):
 		self.locale_lookup = dict(zip(self.locales, self.locale_codes))
 		
 		self.debug = config['debug']
+		self.test = config['test'] == 'true'
 		if self.debug:
-			self.revision_identifier = random()
+			self.revision_identifier = lambda: random()
 		else:
-			self.revision_identifier = md5.md5(SVNREVISION).hexdigest()
+			self.revision_identifier = lambda: REVISION_ENDING
 		app_conf = config['app_conf']
 
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']

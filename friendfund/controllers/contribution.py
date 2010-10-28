@@ -96,7 +96,7 @@ class ContributionController(BaseController):
 		chipin = formencode.variabledecode.variable_decode(request.params).get('chipin', None)
 		if not g.payment_service.check_payment_method(chipin.get('payment_method'), c.pool.region, c.pool.product.is_virtual):
 			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
+			return redirect(url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL))
 		schema = PaymentConfForm()
 		try:
 			schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
@@ -129,7 +129,7 @@ class ContributionController(BaseController):
 				return g.payment_service.process_payment(c, contrib, pool_url, render, redirect)
 			except UnsupportedPaymentMethod, e:
 				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-				return redirect(url('chipin', pool_url=pool_url, protocol='https'))
+				return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
 			except DBErrorDuringSetup, e:
 				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
 			except DBErrorAfterPayment, e:
@@ -148,13 +148,13 @@ class ContributionController(BaseController):
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.form_secret = request.params.get('token')
-		if g.debug:
+		if g.test:
 			c.creditcard_values = {"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"}
 		else:
 			c.creditcard_values = {}
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
-			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
+			return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
 		c.contrib = websession['contribution']
 		return self.render('/contribution/payment_details.html')
 	
@@ -170,7 +170,7 @@ class ContributionController(BaseController):
 		
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
-			return {'redirect':url('chipin', pool_url=pool_url, protocol='https')}
+			return {'redirect':url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL')}
 		if request.method != 'POST':
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
 		
@@ -196,14 +196,14 @@ class ContributionController(BaseController):
 				websession['contribution'].methoddetails = CreditCard(**form_result)
 			except AttributeError, e:
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
-				return {'redirect':url('chipin', pool_url=pool_url, protocol='https')}
+				return {'redirect':url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL')}
 		try:
 			return g.payment_service.post_process_payment(c, websession['contribution'], pool_url, render, redirect)
 		except TokenNotExistsException, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"))
 		except UnsupportedPaymentMethod, e:
 			tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url('chipin', pool_url=pool_url, protocol='https'))
+			return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
 		except DBErrorDuringSetup, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
 		except DBErrorAfterPayment, e:
