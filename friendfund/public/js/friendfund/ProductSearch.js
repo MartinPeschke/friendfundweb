@@ -53,6 +53,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.query(".methodselector.ajaxlink", _t.ref_node).onclick(dojo.hitch(null, _t.load_panel, _t));
 		
 		dojo.query(".popuplink", _t.ref_node).onclick(dojo.hitch(null, loadPopup));
+		jQuery(".scrollable").scrollable();
+
 		
 	},
 	region_picker:function(_t, evt){

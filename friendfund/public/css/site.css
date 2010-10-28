@@ -354,7 +354,7 @@ div.frontpagebutton.funders {
 	margin-right: 30px
 }
 #button_panel.product {
-	padding:30px 15px 15px 15px;
+	padding:15px 15px 15px 15px;
 	position: relative;
 }
 #button_panel.receiver {
@@ -398,7 +398,6 @@ div.panel_title, div.panel_title_no_margin, div.panel_title_black, div.panel_tit
 	font-weight: bold;
 	color: #403834;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
-	height: 26px;
 	line-height: 30px
 }
 div.panel_title {
@@ -445,7 +444,6 @@ div.panel_content_inner {
 div#occasion_button_bar {
 	width: 920px;
 	float: left;
-	padding-top: 30px
 }
 #button_panel.occasion a.occasion_panel_button {
 	position: relative;
@@ -508,13 +506,13 @@ div#occasion_button_bar {
 	cursor:pointer;
 float:left;
 font-size:13px;
-margin-right:45px;
+margin-right:30px;
 position:relative;
-width:130px;
+width:140px;
 }
 a.productsuggestion{ display:block; background:url("../imgs/backgroundSearchProducts.png") no-repeat scroll 0 0 transparent;padding:3px 0 0;
 }
-a.productsuggestion span{ display:block; margin-top:10px}
+a.productsuggestion span{ display:block; margin-top:10px; font-family:Trebuchet MS; font-size:14px; font-weight:bold; text-align:center}
 a.productsuggestion img{ display:block; margin:0 auto}
 #button_panel.product div.productsuggestion img.productsuggestion {
 	width: 122px;
@@ -781,7 +779,7 @@ width:174px;
 #inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
 #inviteheader input{ margin-right:10px}
 
-div.panel_title a.methodselector {
+div.panel_title a.methodselector,  {
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
 	font-style: normal;
 	padding-right:15px;
@@ -795,8 +793,8 @@ div.panel_title a.methodselector span {
 	padding-top: 2px;
 	font-family: Trebuchet MS;
 	font-weight: normal !important;
-	height: 41px;
-	line-height: 45px;
+	height: 30px;
+	line-height: 30px;
 }
 div.panel_title a.methodselector.ajaxlink span {
 	cursor: pointer;
@@ -810,17 +808,17 @@ div.panel_title a.methodselector.ajaxlink span {
 }
 .selectFriend {
 	padding-right: 15px;
-	padding:3px 10px 2px 0;
+	padding:0px 10px 0px 0;
 	float: left;
 	display: block;
-	height: 41px;
-	line-height: 39px;
+	height: 30px;
+	line-height: 30px;
+	font-size:18px
 }
 .panel_title a.methodselector, .panel_title a.methodselector img {
 	position:relative;
-	top:2px;
 }
-#button_panel.receiver a.methodselector.selected {
+#button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected {
 	/*front page only*/
 	background:url("../imgs/inputfield.png") no-repeat scroll 100% -435px transparent;
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
@@ -829,19 +827,34 @@ div.panel_title a.methodselector.ajaxlink span {
 	position:relative;
 	text-align:center;
 	z-index:2;
+	margin-left:0px;	
+	line-height:30px;
+	height:30px;
+	display:block;
+	float:left;
 }
-#button_panel.receiver a.selected span {
+#button_panel.receiver a.selected span, #button_panel.product a.selected span {
 	/*front page only*/
 	background:url("../imgs/inputfield.png") no-repeat scroll 0 -379px transparent;
 	cursor:pointer;
-	padding-bottom:4px;
+	padding-bottom:0px;
 	padding-left:15px;
-	padding-top:2px;
+	padding-top:0px;
+	line-height:30px;
+	height:30px;
+	display:block;
+	float:left;
+	
 }
 #button_panel a.methodselector span {
-	padding-bottom:2px;
+	padding-bottom:0;
 	padding-left:15px;
-	padding-top:2px;
+	padding-top:0;
+	font-size:18px;
+	color:#403834;
+	float:left;
+	margin-right:10px;
+	line-height:30px; height:30px
 }
 #button_panel a.methodselector.ajaxlink span {
 	cursor:pointer;
@@ -1042,7 +1055,9 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	margin: 0px;
 	padding: 5px;
 	cursor:normal;
+
 }
+.whiteContainer{ background: white; position: relative; clear:both; padding:15px}
 
 
 #invites .invitee_row.fixed {
@@ -1639,3 +1654,83 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 	position:absolute;
 }
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
+.region_picker {background-color:#BBE3F7; padding:10px; width:390px }
+/** 
+ * Slideshow style rules.
+ */
+#slideshow {
+	margin:0 auto;
+	width:640px;
+	height:263px;
+	background:transparent url(img/bg_slideshow.jpg) no-repeat 0 0;
+	position:relative;
+}
+#slideshow #slidesContainer {
+  margin:0 auto;
+  width:560px;
+  height:263px;
+  overflow:auto; /* allow scrollbar */
+  position:relative;
+}
+#slideshow #slidesContainer .slide {
+  margin:0 auto;
+  width:540px; /* reduce by 20 pixels of #slidesContainer to avoid horizontal scroll */
+  height:263px;
+}
+
+/** 
+ * Slideshow controls style rules.
+ */
+.control {
+  display:block;
+  width:39px;
+  height:263px;
+  text-indent:-10000px;
+  position:absolute;
+  cursor: pointer;
+}
+#leftControl {
+  top:0;
+  left:0;
+  background:transparent url(img/control_left.jpg) no-repeat 0 0;
+}
+#rightControl {
+  top:0;
+  right:0;
+  background:transparent url(img/control_right.jpg) no-repeat 0 0;
+}
+
+/*
+	root element for the scrollable.
+	when scrolling occurs this element stays still.
+*/
+.scrollable {
+
+	/* required settings */
+	position:relative;
+	overflow:hidden;
+	width: 660px;
+	height:90px;
+}
+
+/*
+	root element for scrollable items. Must be absolutely positioned
+	and it should have a extremely large width to accommodate scrollable items.
+	it's enough that you set width and height for the root element and
+	not for this element.
+*/
+.scrollable .items {
+	/* this cannot be too large */
+	width:20000em;
+	position:absolute;
+}
+
+/*
+	a single item. must be floated in horizontal scrolling.
+	typically, this element is the one that *you* will style
+	the most.
+*/
+.items div {
+	float:left;
+}
+

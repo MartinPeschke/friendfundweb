@@ -8,14 +8,7 @@
 		<a class="methodselector ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _type="${panel[0]}"><span>${_(panel[1])}</span></a>
 	%endfor
 	<a class="button_panel_closer">&nbsp;</a>
-	<div class="region_picker">
-	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
-	<select name="region" id="region_picker" style="padding: 3px;" >
-		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
-			<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
-		%endfor
-	</select>
-	</div>
+	
 	
 	
 	${self.body()}
