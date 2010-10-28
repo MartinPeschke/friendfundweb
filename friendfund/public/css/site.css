@@ -1655,82 +1655,164 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 }
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
 .region_picker {background-color:#BBE3F7; padding:10px; width:390px }
-/** 
- * Slideshow style rules.
- */
-#slideshow {
-	margin:0 auto;
-	width:640px;
-	height:263px;
-	background:transparent url(img/bg_slideshow.jpg) no-repeat 0 0;
-	position:relative;
-}
-#slideshow #slidesContainer {
-  margin:0 auto;
-  width:560px;
-  height:263px;
-  overflow:auto; /* allow scrollbar */
-  position:relative;
-}
-#slideshow #slidesContainer .slide {
-  margin:0 auto;
-  width:540px; /* reduce by 20 pixels of #slidesContainer to avoid horizontal scroll */
-  height:263px;
-}
-
-/** 
- * Slideshow controls style rules.
- */
-.control {
-  display:block;
-  width:39px;
-  height:263px;
-  text-indent:-10000px;
-  position:absolute;
-  cursor: pointer;
-}
-#leftControl {
-  top:0;
-  left:0;
-  background:transparent url(img/control_left.jpg) no-repeat 0 0;
-}
-#rightControl {
-  top:0;
-  right:0;
-  background:transparent url(img/control_right.jpg) no-repeat 0 0;
-}
-
 /*
-	root element for the scrollable.
-	when scrolling occurs this element stays still.
-*/
-.scrollable {
+    AnythingSlider v1.4.1+ Default (base) theme
 
-	/* required settings */
-	position:relative;
-	overflow:hidden;
-	width: 660px;
-	height:90px;
+    By Chris Coyier: http://css-tricks.com
+    with major improvements by Doug Neiner: http://pixelgraphics.us/
+    based on work by Remy Sharp: http://jqueryfordesigners.com/
+*/
+
+/******* SET DEFAULT DIMENSIONS HERE ********/
+div.anythingSlider {
+	width: 700px;
+	height: 390px;
+	margin: 0 auto;
 }
 
-/*
-	root element for scrollable items. Must be absolutely positioned
-	and it should have a extremely large width to accommodate scrollable items.
-	it's enough that you set width and height for the root element and
-	not for this element.
-*/
-.scrollable .items {
-	/* this cannot be too large */
-	width:20000em;
-	position:absolute;
+/****** SET COLORS HERE *******/
+/* Default State */
+div.anythingSlider .thumbNav a.cur, div.anythingSlider .thumbNav a {
+	background: #777;
+	color: #000;
+}
+div.anythingSlider .anythingWindow {
+	border-top: 3px solid #777;
+	border-bottom: 3px solid #777;
+}
+div.anythingSlider .start-stop {
+	background-color: #040;
+	color: #fff;
+}
+div.anythingSlider .start-stop.playing {
+	background-color: #800;
+}
+div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover {
+	color: #ddd;
 }
 
-/*
-	a single item. must be floated in horizontal scrolling.
-	typically, this element is the one that *you* will style
-	the most.
-*/
-.items div {
-	float:left;
+/* Active State */
+div.anythingSlider.activeSlider .anythingWindow {
+	border-color: #7C9127;
+}
+div.anythingSlider.activeSlider .thumbNav a.cur, div.anythingSlider.activeSlider .thumbNav a {
+	background-color: #7C9127;
+}
+div.anythingSlider .start-stop {
+	background-color: #080;
+	color: #fff;
+}
+div.anythingSlider .start-stop.playing {
+	background-color: #d00;
+}
+div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover {
+	color: #fff;
 }
 
+/**** DO NOT CHANGE BELOW THIS LINE ****/
+/* anythingSlider viewport window */
+div.anythingSlider .anythingWindow {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+/* wrapper: 45px right & left padding for the arrows, 28px @ bottom for navigation */
+div.anythingSlider {
+	position: relative;
+	padding: 0 45px 28px 45px;
+}
+/* anythingSlider base UL */
+ul.anythingBase {
+	background: transparent;
+	list-style: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+}
+ul.anythingBase li.panel {
+	background: transparent;
+	display: block;
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+/* Navigation Arrows */
+div.anythingSlider .arrow {
+	top: 50%;
+	position: absolute;
+	display: block;
+}
+div.anythingSlider .arrow a {
+	display: block;
+	height: 120px;
+	margin: -60px 0 0 0;
+	width: 45px;
+	text-align: center;
+	outline: 0;
+	background: url(../images/arrows-default.png) no-repeat;
+	text-indent: -9999px;
+}
+div.anythingSlider .forward { right: 0; }
+div.anythingSlider .back { left: 0; }
+div.anythingSlider .forward a { background-position: 0 -40px; }
+div.anythingSlider .back a { background-position: -88px -40px; }
+div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: 0 -240px; }
+div.anythingSlider .back a:hover, div.anythingSlider .back a.hover { background-position: -88px -240px; }
+
+/* Navigation Links */
+div.anythingSlider .anythingControls { outline: 0; }
+div.anythingSlider .thumbNav { margin: 0; }
+div.anythingSlider .thumbNav li { display: inline; }
+div.anythingSlider .thumbNav a {
+	font: 11px/18px Georgia, Serif;
+	display: inline-block;
+	text-decoration: none;
+	padding: 2px 8px;
+	height: 18px;
+	margin: 0 5px 0 0;
+	background-image: url(../images/cellshade.png);
+	background-repeat: repeat-x;
+	text-align: center;
+	outline: 0;
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+}
+div.anythingSlider .thumbNav a:hover {
+	background-image: none;
+}
+
+/* slider autoplay right-to-left, reverse order of nav links to look better */
+div.anythingSlider.rtl .thumbNav a { float: right; } /* reverse order of nav links */
+div.anythingSlider.rtl .thumbNav { float: left; }    /* move nav link group to left */
+/* div.anythingSlider.rtl .start-stop { float: right; } */ /* move start/stop button - in case you want to switch sides */
+
+/* Autoplay Start/Stop button */
+div.anythingSlider .start-stop {
+	background-image: url(../images/cellshade.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+	padding: 2px 5px;
+	width: 40px;
+	text-align: center;
+	text-decoration: none;
+	float: right;
+	z-index: 100;
+	outline: 0;
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+}
+div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover { background-image: none; }
+
+div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thumbNav a, div.anythingSlider .arrow a, div.anythingSlider .start-stop {
+	transition-duration: 0;
+	-o-transition-duration: 0;
+	-moz-transition-duration: 0;
+	-webkit-transition-duration: 0;
+}
+.inside{ font-size:18px; font-weight:bold}

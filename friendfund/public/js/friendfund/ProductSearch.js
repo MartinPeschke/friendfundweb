@@ -53,7 +53,24 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.query(".methodselector.ajaxlink", _t.ref_node).onclick(dojo.hitch(null, _t.load_panel, _t));
 		
 		dojo.query(".popuplink", _t.ref_node).onclick(dojo.hitch(null, loadPopup));
-		jQuery(".scrollable").scrollable();
+		var slider2 = ['Recipe', 'Quote', 'Image', 'Quote #2', 'Image #2'];
+		function formatText(index, panel){
+			return slider2[index - 1];
+		}
+
+		jQuery(function () {
+			jQuery('#slider1').anythingSlider({
+				startStopped    : false, // If autoPlay is on, this can force it to start stopped
+				width           : 700,  // Override the default CSS width
+//				toggleControls  : true, // if true, then slide in controls on hover and slider change, hide @ other times
+				autoPlay            : true,      // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
+
+				onSlideComplete : function(slider){
+					// alert('Welcome to Slide #' + slider.currentPage);
+					pauseOnHover        : true, 
+				}
+			});
+		});
 
 		
 	},
