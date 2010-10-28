@@ -53,6 +53,7 @@ class Globals(object):
 		app_conf = config['app_conf']
 
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
+		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		
 		dbpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']

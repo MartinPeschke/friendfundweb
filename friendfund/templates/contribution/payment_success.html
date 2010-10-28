@@ -39,7 +39,7 @@
 		<h1>${_("CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?")}</h1>
 	</div>
 	<div style="position:relative;margin:0px 20px;width:880px;float:left;">
-		<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol='https')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
+		<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL)}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
 		<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
 %endif

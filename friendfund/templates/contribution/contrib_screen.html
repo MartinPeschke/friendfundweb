@@ -38,7 +38,7 @@
 
 <div id="contributioncontainer" class="innerbody">
   <div class="panel_content">
-	<form method="POST" action="${url(controller='pool', pool_url=c.pool.p_url, action=c.action, protocol='https')}" id="contribution_form">
+	<form method="POST" action="${url(controller='pool', pool_url=c.pool.p_url, action=c.action, protocol=g.SSL_PROTOCOL)}" id="contribution_form">
 		<div class="message floaterLeft">
 		<div class="whiteBoxSmall floaterLeft">
 			<div class="floaterLeft marginRight45">
@@ -103,12 +103,12 @@
 			</div>
 			
 		</div>
-		<div class="floaterLeft ">
+		<div class="floaterLeft">
 			<h2 style="clear:both">${_("CONTRIBPAGE_LABEL_Choose payment method")}</h2>
 			%for method in c.paymentpage.methods:
 			<div>
 				<input class="paymentselector" onselect="" type="radio" _fee_absolute="${'%.2f' % method.fee_absolute}" _fee_relative="${'%.2f' % method.fee_relative}" id="chipin_payment_method_${method.code}" name="chipin.payment_method" value="${method.code}" ${forms.input_checked("chipin", "payment_method", method.code, default=method.default)|n} />
-				<label class="paymenticon" for="chipin_payment_method_${method.code}"><img src="${method.logo_url}" alt="${_(method.name)}" /><span class="methodname">${_(method.name)|n}</span></label>
+				<label class="paymenticon" for="chipin_payment_method_${method.code}"><img src="${method.logo_url}" alt="${_(method.name)}" /></label>
 			</div>
 			%endfor
 		</div>

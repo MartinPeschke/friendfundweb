@@ -52,7 +52,7 @@ from datetime import date, timedelta
 <%def name="render_payment_form(action, psettings)">
 		<div id="contributioncontainer" class="forminputline">
 			<label style="width: 200px;">${_("ADMIN_ACTION_BUTTON_Go On and Contribute the missing:")} </label><span class="fixedvalue">${h.format_currency(c.pool.get_amount_left(),c.pool.currency)|n}</span>
-			<a class="submitSmall" href="${url('chipin_fixed', pool_url=psettings.p_url, protocol='https')}" id="submitter"><span>${_("CONTRIBPAGE_BUTTON_Chip in Remainder")}</span></a>
+			<a class="submitSmall" href="${url('chipin_fixed', pool_url=psettings.p_url, protocol=g.SSL_PROTOCOL)}" id="submitter"><span>${_("CONTRIBPAGE_BUTTON_Chip in Remainder")}</span></a>
 		</div>
 </%def>
 
