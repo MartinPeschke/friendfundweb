@@ -95,6 +95,14 @@ ${self.master_foot()}
 		%for title, path, token in app_globals.globalnav:
 			<li class="${(c.navposition==token) and 'selected' or ''}"><a href="${url.current(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
 		%endfor
+		<li style="float:right">
+			<select name="program" onchange="window.location.href = '${url.current(program = None)}/'+this.value;">
+				<option value="">All</option>
+				%for prog in sorted(app_globals.programs.map[c.region]):
+					<option ${c.program == prog.name and 'selected="selected"' or ''} value="${quote(prog.name)}">${prog.name.title()}</option>
+				%endfor
+			</select>
+		</li>
 	</ul>
 </%def>
 

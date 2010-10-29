@@ -27,12 +27,12 @@ class Globals(object):
 		log.info("memcached set up at %s", config['app_conf']['memcached.cache.url'])
 		
 		self.revision_identifier = 1
-		self.globalnav = [('Home',{'args':['home'], 'kwargs':{}}, 'home'), 
+		self.globalnav = [('Home',{'args':['home'], 'kwargs':{'program' : None}}, 'home'), 
 						('Update',{'args':[], 'kwargs':{'action':'update'}}, 'home'),
 						('Insert',{'args':[], 'kwargs':{'action':'insert'}}, 'home'),
-						('Germany',{'args':[], 'kwargs':{'region':'de'}}, 'home'),
-						('UK',{'args':[], 'kwargs':{'region':'gb'}}, 'home'),
-						('USA',{'args':[], 'kwargs':{'region':'us'}}, 'home')]
+						('Germany',{'args':[], 'kwargs':{'region':'de','program' : None}}, 'home'),
+						('UK',{'args':[], 'kwargs':{'region':'gb','program' : None}}, 'home'),
+						('USA',{'args':[], 'kwargs':{'region':'us','program' : None}}, 'home')]
 		dbm = PooledDB(pyodbc,2,autocommit=True
 				,driver=app_conf['pool.connectstring.driver']
 				,server=app_conf['pool.connectstring.server']

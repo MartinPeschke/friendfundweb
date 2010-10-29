@@ -16,6 +16,7 @@ handleResult = function(id, data){
 }
 </%def>
 
+
 <table class="curation" border="1" cellspacing="20">
 <tr><th>Product</th><th>Action</th></tr>
 %for cp in c.curation_queue.cp:
@@ -77,7 +78,7 @@ handleResult = function(id, data){
 				<td  class="curation_product"><div class="label">${k}:</div></td>
 				%for key in versions:
 				<td  class="curation_product ${len(set(map(lambda x: getattr(cp[x].product, k), cp))) > 1 and 'different' or 'same'}">
-					<div class="property ${k}"><img src="${getattr(cp[key].product, k)}"/></div>
+					<div class="property ${k}"><img src="${getattr(cp[key].product, k)|n}"/></div>
 				</td>
 				%endfor
 			</tr>

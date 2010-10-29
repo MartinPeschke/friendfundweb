@@ -20,6 +20,8 @@ def make_map(config):
 
     # CUSTOM ROUTES HERE
 
+    map.connect('controller','/{controller}/{action}/{region}/{program}', requirements = {'region':'de|gb|us'})
+    map.connect('controller','/{controller}/{action}/{region}/', requirements = {'region':'de|gb|us'})
     map.connect('controller','/{controller}/{action}/{region}', requirements = {'region':'de|gb|us'})
     map.connect('home', '/', controller="index", action="index", region='de')
 

@@ -66,6 +66,7 @@ class GetCurationQueue(DBMappedObject):
 	_keys = [	
 				GenericAttrib(str,'region','region')
 				,GenericAttrib(str,'type','type')
+				,GenericAttrib(unicode,'program','program')
 				,DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)
 			]
 
@@ -103,7 +104,7 @@ class GetProgramsProc(DBMappedObject):
 	def fromDB(self, xml):
 		setattr(self, 'map', {})
 		for prog in self.list:
-			self.map[prog.region] = self.map.get(prog.region, []) + [prog]
+			self.map[prog.region.lower()] = self.map.get(prog.region.lower(), []) + [prog]
 	
 
 
@@ -112,5 +113,5 @@ class SetCurationResultProc(DBMappedObject):
 	_set_proc = _get_proc = "cur.set_curation_products"
 	_unique_keys = ['region']
 	_cachable = False
-	_keys = [DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)]
+	_keys = [DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True), GenericAttrib(str,'region','region')]
 
