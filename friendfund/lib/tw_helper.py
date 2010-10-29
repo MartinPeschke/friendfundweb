@@ -59,13 +59,12 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 
 def get_friend_list(url, method, access_token, access_token_secret, consumer):
 	next_cursor_str = -1
-	data = []
 	while next_cursor_str != '0':
+		data = []
 		json_data = fetch_url("%s?cursor=%s" % (url, next_cursor_str), "GET", access_token, access_token_secret, consumer)
 		friend_data = simplejson.loads(json_data)
 		data.extend(friend_data['users'])
 		next_cursor_str = friend_data['next_cursor_str']
-		print next_cursor_str
 		yield 	[
 					(str(elem['id']), 
 						{'networkname':elem.get('name', None),
@@ -93,53 +92,47 @@ def get_friends_async(logger,
 			access_token, 
 			access_token_secret, 
 			config, 
-			expiretime=30,
-			offset = 0):
+			expiretime=3600):
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	proto_key = '<%s>%s' % ('friends_twitter', str(access_token))
 	with cache_pool.reserve() as mc:
+		enum = 0
+		is_final = False
 		try:
-			is_final = False
-			enum = 0
 			datasets_iter = get_friends(logger, access_token, access_token_secret, consumer)
 			try:
 				while not is_final:
 					mc.set('%s<%s>'%(proto_key, enum), INPROCESS_TOKEN, 30)
-					print 'FOUND NOTHING, FETCHING', enum, is_final
 					dataset, is_final = datasets_iter.next()
 					obj = { 'payload':dataset, 'is_final' : is_final }
 					mc.set('%s<%s>'%(proto_key, enum), obj, expiretime)
 					enum += 1 
-					logger.info('MEMCACHED: just set key: %s', '%s, %s: %s<%s>' % (is_final, enum, proto_key, enum))
+					logger.info('TWMEMCACHED: just set key: %s', '%s, %s: %s<%s>' % (is_final, enum, proto_key, enum))
 					if is_final: break
 			except StopIteration:
-				logger.info('DONE FETCHING, NOTHING LEFT')
+				pass
 		except:
-			keys = ['<%s>'%i for i in range(offset, offset + 100)]
-			mc.delete_multi(keys, key_prefix=proto_key)
-			raise
-
+			if enum:
+				keys = ['<%s>'%i for i in range(0, enum)]
+				mc.delete_multi(keys, key_prefix=proto_key)
+				raise
 
 def get_friends_from_cache(
 			logger, 
 			cache_pool, 
 			access_token, 
 			access_token_secret, 
-			config, 
-			expiretime=15,
+			config,
 			offset = None, 
-			timeout = 15):
+			timeout = 30):
 	sleeper = 0
 	offset = offset or 0
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	proto_key = '<%s>%s' % ('friends_twitter', str(access_token))
-	keys = ['<%s>' %i for i in range(offset, offset + 100)]
-	
+	keys = ['<%s>' %i for i in range(offset, offset + 1)]
 	with cache_pool.reserve() as mc:
 		values = mc.get_multi(keys, key_prefix=proto_key)
 		first_val = values.get(keys[0])
-		print len(values), offset
-		
 		if offset>0 and first_val is None:
 			logger.error('GET_FRIENDS_FROM_CACHE, tried getting followups, None Found', proto_key)
 			return None, None, None
@@ -154,21 +147,18 @@ def get_friends_from_cache(
 				values = mc.get_multi(keys, key_prefix=proto_key)
 				first_val = values.get(keys[0])
 				sleeper += 1
-				logger.info('trying fetching friends, sofar got something for: %s', keys[0])
-			if first_val == INPROCESS_TOKEN: 
+			if first_val == INPROCESS_TOKEN or first_val is None: 
 				logger.error('GET_FRIENDS_FROM_CACHE, TIMEOUT for %s with INPROCESS_TOKEN', proto_key)
 				return None, None, None
 		
 		result = OrderedDict()
 		for i, key in enumerate(keys):
 			val = values.get(key)
-			print '---------got', key, isinstance(val, dict) and val['is_final'] or False
 			if val == INPROCESS_TOKEN or val is None:
 				return result, False, offset+i
 			elif val['is_final']:
 				result.update(val['payload'])
-				return result, True, offset+i
+				return result, True, offset+i+1
 			else:
 				result.update(val['payload'])
-			logger.info('Retrieved %s TWFriends' % len(val['payload']))
-		return result, False, offset+i
+		return result, False, offset+i+1

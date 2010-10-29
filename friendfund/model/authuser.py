@@ -140,6 +140,8 @@ class User(DBMappedObject):
 		if not self.is_logged_in_with(network):
 			raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 		elif network == 'facebook':
+			is_complete = True
+			offset = 0
 			try:
 				fb_data = fb_helper.get_user_from_cookie(
 							request.cookies, 
@@ -158,8 +160,6 @@ class User(DBMappedObject):
 								self.networks['facebook'].access_token, 
 								friend_id=friend_id
 							)
-				is_complete = True
-				offset = 0
 		elif network == 'twitter':
 			friends, is_complete, offset = tw_helper.get_friends_from_cache(
 								log, 
@@ -169,7 +169,6 @@ class User(DBMappedObject):
 								config,
 								offset = offset
 							)
-			log.info('TWITTER FRIENDS loaded: %s, %s', is_complete, offset)
 			if friends is None:
 				raise Exception('NoFriendsFoundSomeErrorOccured')
 		else:
