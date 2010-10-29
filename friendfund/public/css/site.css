@@ -440,11 +440,16 @@ div.panel_content_inner {
 	margin: 40px 20px 20px;
 }
 /* -------------------------- OCCASION Panel ------------------------- */
-#button_panel.occasion {
+#button_panel.occasion { padding-top: 15px
 }
 div#occasion_button_bar {
-	width: 920px;
-	float: left;
+	float:left;
+width:920px;background:none repeat scroll 0 0 #BBE3F7;
+border-top:1px solid #81CBEF;
+float:left;
+margin-top:-1px;
+padding-top: 15px
+
 }
 #button_panel.occasion a.occasion_panel_button {
 	position: relative;
@@ -463,10 +468,12 @@ div#occasion_button_bar {
 }
 #button_panel.occasion div#occasion_date_input_bar {
 	clear:both;
-	margin:10px 30px 30px 0px;
+	margin:0px;
 	position:relative;
+	padding-bottom: 10px;
 	text-align:center;
 	width:920px;
+	background:none repeat scroll 0 0 #BBE3F7;
 }
 #button_panel.occasion div#occasion_date_input_bar input[type=button] {
 	float: right;
@@ -481,8 +488,11 @@ div#occasion_button_bar {
 	margin-bottom: 5px;
 }
 #button_panel.occasion a.occasion_panel_button div.label {
-	text-align:center;
 	color:#403834;
+font-family:Trebuchet MS;
+font-size:13px;
+font-weight:bold;
+text-align:center;
 }
 .dijitTextBoxFocused .dijitInputContainer, .dijitTextBox {
 	background-color: transparent !important;
@@ -821,7 +831,7 @@ div.panel_title a.methodselector.ajaxlink span {
 	position:relative;
 }
 #button_panel a.methodselector{ display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;}
-#button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected {
+#button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected, #button_panel.occasion a.methodselector.selected {
 	/*front page only*/
 	background:url("../imgs/inputfield.png") no-repeat scroll 100% -322px transparent;
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
@@ -837,7 +847,7 @@ div.panel_title a.methodselector.ajaxlink span {
 	float:left;
 	margin-left: 5px
 }
-#button_panel.receiver a.selected span, #button_panel.product a.selected span {
+#button_panel.receiver a.selected span, #button_panel.product a.selected span,  #button_panel.occasion a.selected span {
 	/*front page only*/
 	background:url("../imgs/inputfield.png") no-repeat scroll 0 -272px transparent;
 	cursor:pointer;
