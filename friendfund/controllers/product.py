@@ -115,6 +115,8 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def search(self):
+		c.gift_panel_tabs = self.gift_panel_tabs
+		c.panel = 'search_tab'
 		c.region = request.params.get('region', websession['region'])
 		c.amazon_available = bool(g.amazon_service.get(c.region))
 		c.psuggestions = g.dbsearch.get(ProductSuggestionSearch\
