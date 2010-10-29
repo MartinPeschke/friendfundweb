@@ -64,6 +64,7 @@ def get_friend_list(url, method, access_token, access_token_secret, consumer):
 	return 	(
 				(str(elem['id']), 
 					{'networkname':elem.get('name', None),
+					 'network_id':str(elem['id']),
 					 'screenname':elem.get('screen_name', ''), 
 					 'large_profile_picture_url':get_profile_picture_url(elem['profile_image_url']),
 					 'profile_picture_url':elem['profile_image_url'],
@@ -80,22 +81,36 @@ def get_friends(logger, access_token, access_token_secret, consumer):
 	data_dict.update(get_friend_list("https://api.twitter.com/1/statuses/followers.json", "TWEET", access_token, access_token_secret, consumer))
 	return data_dict
 
-def get_friends_from_cache(logger, cache_pool, access_token, access_token_secret, config, expiretime=1800):
+def get_friends_from_cache(
+			logger, 
+			cache_pool, 
+			access_token, 
+			access_token_secret, 
+			config, 
+			expiretime=1800,
+			html_renderer = None
+		):
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	key = '<%s>%s' % ('friends_facebook', str(access_token))
+	key_html = '%s_html' % key
 	with cache_pool.reserve() as mc:
-		obj = mc.get(key)
+		objs = mc.get_multi([key, key_html])
+		obj = objs.get(key)
+		html = objs.get(key_html)
 		if obj is None:
 			mc.set(key, INPROCESS_TOKEN, 30)
 			try:
 				obj = get_friends(logger, access_token, access_token_secret, consumer)
-				mc.set(key, obj, expiretime)
+				html = html_renderer(obj)
+				mc.set_multi({key:obj, key_html:html}, expiretime)
 			except:
 				mc.delete(key)
 				raise
 		elif obj == INPROCESS_TOKEN:
 			while obj == INPROCESS_TOKEN:
 				time.sleep(1)
-				obj = mc.get(key)
+				objs = mc.get_multi([key, key_html])
+				obj = objs.get(key)
+				html = objs.get(key_html)
 	logger.info('Retrieved %s TWFriends' % len(obj))
-	return obj
+	return obj, html

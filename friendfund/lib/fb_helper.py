@@ -1,12 +1,23 @@
 from __future__ import with_statement
 import cgi, hashlib, time, urllib2, re, simplejson, time, logging, hmac, urllib, base64
 from hashlib import sha256
+from datetime import datetime
+from ordereddict import OrderedDict
 
 log = logging.getLogger(__name__)
 
 picture_url_matcher = re.compile("https://graph.facebook.com/([0-9]+)/picture(\?type=large)?")
 INPROCESS_TOKEN = 1
-
+FRIENDS_QUERY = '?'.join([
+			'https://graph.facebook.com/%s/friends',
+			'fields=id,name,birthday,gender,email&access_token=%s'
+		])
+MUTUAL_FRIENDS_QUERY = '?'.join([
+			'https://api.facebook.com/method/friends.getMutualFriends',
+			'target_uid=%s&format=json&access_token=%s'
+		])
+				
+				
 class FBNotLoggedInException(Exception):
 	pass
 class FBIncorrectlySignedRequest(Exception):
@@ -69,8 +80,7 @@ def guess_large_pic_url(picture_url):
 
 def get_mutual_friends(logger, target_id, access_token):
 	if target_id is None: return []
-	query = 'https://api.facebook.com/method/friends.getMutualFriends?target_uid=%s&format=json&access_token=%s' %\
-			(target_id, access_token)
+	query = MUTUAL_FRIENDS_QUERY % (target_id, access_token)
 	try:
 		data = simplejson.loads(urllib2.urlopen(query).read())
 	except urllib2.HTTPError, e:
@@ -80,8 +90,23 @@ def get_mutual_friends(logger, target_id, access_token):
 		return data
 
 
+def translate_friend_entry(u_id, friend_data):
+	result = {
+			'networkname':friend_data['name'], 
+			'network_id':u_id,
+			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
+			'profile_picture_url':get_pic_url(friend_data['id']),
+			'notification_method':'STREAM_PUBLISH',
+			'network':'facebook',
+			'email':friend_data.get('email')
+		}
+	if 'dob' in friend_data: 
+		result['dob'] = datetime.strptime(friend_data['birthday'], "%m/%d/%Y")
+	return (u_id, result)
+
+
 def get_friends(logger, id, access_token):
-	query = 'https://graph.facebook.com/%s/friends?access_token=%s' %\
+	query = FRIENDS_QUERY %\
 			(id, access_token)
 	try:
 		data = simplejson.loads(urllib2.urlopen(query).read())['data']
@@ -89,26 +114,34 @@ def get_friends(logger, id, access_token):
 		logger.error("Error opening URL %s (%s):" % (query, e.fp.read()))
 		user_data = None
 	else:
-		user_data = dict([(str(elem['id']), 
-					{'networkname':elem['name'], 
-					'large_profile_picture_url':get_large_pic_url(elem['id']),
-					'profile_picture_url':get_pic_url(elem['id']),
-					'notification_method':'STREAM_PUBLISH',
-					'network':'facebook'})
+		user_data = OrderedDict([translate_friend_entry(str(elem['id']), elem)
 					for elem in data if 'name' in elem
 				])
 	logger.info('CACHE MISS %s, %s', query, len(user_data))
 	return user_data
 
-def get_friends_from_cache(logger, cache_pool, id, access_token, expiretime=1800, friend_id = None):
+def get_friends_from_cache(
+				logger, 
+				cache_pool, 
+				id, 
+				access_token, 
+				expiretime=1, 
+				friend_id = None, 
+				html_renderer = None
+			):
 	key = '<%s>%s' % ('friends_facebook', str(id))
+	key_html = '%s_html' % key
 	with cache_pool.reserve() as mc:
-		obj = mc.get(key)
+		objs = mc.get_multi([key, key_html])
+		obj = objs.get(key)
+		html = objs.get(key_html)
+		
 		if obj is None:
 			mc.set(key, INPROCESS_TOKEN, 30)
 			try:
 				obj = get_friends(logger, id, access_token)
-				mc.set(key, obj, expiretime)
+				html = html_renderer(obj)
+				mc.set_multi({key:obj, key_html:html}, expiretime)
 			except:
 				mc.delete(key)
 				raise
@@ -122,4 +155,4 @@ def get_friends_from_cache(logger, cache_pool, id, access_token, expiretime=1800
 			if str(id) in obj:
 				obj[str(id)]['mutual_with'] = str(friend_id)
 	logger.info('Retrieved %s FBFriends' % len(obj))
-	return obj
+	return obj, html
