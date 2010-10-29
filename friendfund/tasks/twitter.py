@@ -25,6 +25,8 @@ def remote_persist_user(user_data):
 	tw_helper.get_friends_async(log, get_cm(CONNECTION_NAME), user_data['access_token'], user_data['access_token_secret'], config)
 	return 'ack'
 
+
+@task
 def get_friends_async(access_token, access_token_secret):
 	log.info('-==- GOT REQUEST TO FIND FRIENDS ASYNC')
-	tw_helper.get_friends_from_cache(log, get_cm(CONNECTION_NAME), user_data['access_token'], user_data['access_token_secret'], config)
+	tw_helper.get_friends_async(log, get_cm(CONNECTION_NAME), access_token, access_token_secret, config)

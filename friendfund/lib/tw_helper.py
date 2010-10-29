@@ -100,15 +100,19 @@ def get_friends_async(logger,
 		try:
 			is_final = False
 			enum = 0
-			while not is_final:
-				mc.set('%s<%s>'%(proto_key, enum), INPROCESS_TOKEN, 30)
-				print 'FOUND NOTHING, FETCHING', enum, is_final, type(dataset)
-				dataset,is_final  = get_friends(logger, access_token, access_token_secret, consumer)
-				obj = { 'payload':dataset, 'is_final' : is_final }
-				mc.set('%s<%s>'%(proto_key, enum), obj, expiretime)
-				enum += 1 
-				logger.info('MEMCACHED: just set key: %s', '%s<%s>' % (proto_key, enum))
-				if is_final: break
+			datasets_iter = get_friends(logger, access_token, access_token_secret, consumer)
+			try:
+				while not is_final:
+					mc.set('%s<%s>'%(proto_key, enum), INPROCESS_TOKEN, 30)
+					print 'FOUND NOTHING, FETCHING', enum, is_final
+					dataset, is_final = datasets_iter.next()
+					obj = { 'payload':dataset, 'is_final' : is_final }
+					mc.set('%s<%s>'%(proto_key, enum), obj, expiretime)
+					enum += 1 
+					logger.info('MEMCACHED: just set key: %s', '%s<%s>' % (proto_key, enum))
+					if is_final: break
+			except StopIteration:
+				logger.info('DONE FETCHING, NOTHING LEFT')
 		except:
 			keys = ['<%s>'%i for i in range(offset, offset + 100)]
 			mc.delete_multi(keys, key_prefix=proto_key)
@@ -121,9 +125,9 @@ def get_friends_from_cache(
 			access_token, 
 			access_token_secret, 
 			config, 
-			expiretime=30,
+			expiretime=15,
 			offset = 0, 
-			timeout = 30):
+			timeout = 15):
 	sleeper = 0
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	proto_key = '<%s>%s' % ('friends_twitter', str(access_token))
@@ -132,21 +136,23 @@ def get_friends_from_cache(
 	with cache_pool.reserve() as mc:
 		values = mc.get_multi(keys, key_prefix=proto_key)
 		first_val = values.get(keys[0])
-		print values, offset, first_val
+		print len(values), offset
 		
 		if offset>0 and first_val is None:
 			logger.error('GET_FRIENDS_FROM_CACHE, tried getting followups, None Found', proto_key)
 			return None, None, None
 		else:
 			if first_val is None:
-				mc.set(keys[0], INPROCESS_TOKEN, 30, key_prefix=proto_key)
+				mc.set('%s%s'%(proto_key, keys[0]), INPROCESS_TOKEN, 30)
 				first_val = INPROCESS_TOKEN
 				send_task('friendfund.tasks.twitter.get_friends_async', args = [access_token, access_token_secret])
 			
 			while first_val == INPROCESS_TOKEN and sleeper < timeout:
 				time.sleep(1)
 				values = mc.get_multi(keys, key_prefix=proto_key)
+				first_val = values.get(keys[0])
 				sleeper += 1
+				logger.info('trying fetching friends, sofar got something for: %s', keys[0])
 			if first_val == INPROCESS_TOKEN: 
 				logger.error('GET_FRIENDS_FROM_CACHE, TIMEOUT for %s with INPROCESS_TOKEN', proto_key)
 				return None, None, None

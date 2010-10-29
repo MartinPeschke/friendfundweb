@@ -60,13 +60,22 @@ class ReceiverController(BaseController):
 		c.method = str(method)
 		if method in ['facebook', 'twitter']:
 			try:
-				c.friends = c.user.get_friends(c.method)
+				c.friends, is_complete, offset = c.user.get_friends(c.method)
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
 					return {'html':render('/receiver/fb_login.html').strip()}
 				else: 
 					return {'html':render('/receiver/tw_login.html').strip()}
-		return {'html':render('/receiver/inviter.html').strip()}
+		return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
+
+	@jsonify
+	def get_extension(self, method):
+		if method in ['twitter']:
+			c.method = method
+			offset = request.params['offset']
+			c.friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/networkfriends.html').strip()}}
+		return {'success':False}
 
 	@jsonify
 	@post_only(ajax=True)
