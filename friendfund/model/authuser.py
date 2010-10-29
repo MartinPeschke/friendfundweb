@@ -136,7 +136,7 @@ class User(DBMappedObject):
 	def has_tried_logging_in_with(self, network):
 		return network in self.networks
 	
-	def get_friends(self, network, friend_id = None, html_renderer = None):
+	def get_friends(self, network, friend_id = None):
 		if not self.is_logged_in_with(network):
 			raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 		elif network == 'facebook':
@@ -156,8 +156,7 @@ class User(DBMappedObject):
 								g.cache_pool, 
 								self.networks['facebook'].network_id, 
 								self.networks['facebook'].access_token, 
-								friend_id=friend_id,
-								html_renderer = html_renderer
+								friend_id=friend_id
 							)
 		elif network == 'twitter':
 			friends = tw_helper.get_friends_from_cache(
@@ -165,8 +164,7 @@ class User(DBMappedObject):
 								g.cache_pool, 
 								self.networks['twitter'].access_token, 
 								self.networks['twitter'].access_token_secret, 
-								config,
-								html_renderer = html_renderer
+								config
 							)
 		else:
 			raise GetFriendsNotSupported(
