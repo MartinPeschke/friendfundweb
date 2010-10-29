@@ -126,29 +126,52 @@ class User(DBMappedObject):
 			self.__dict__['current_network'] = network
 		else:
 			self.networks[str(network)]=None
+	
 	def get_current_network(self):
 		return getattr(self, 'current_network', self.network)
 	
 	def is_logged_in_with(self, network):
 		return isinstance(self.networks.get(network, None), SocialNetworkInformation)
+	
 	def has_tried_logging_in_with(self, network):
 		return network in self.networks
-	def get_friends(self, network, friend_id = None):
+	
+	def get_friends(self, network, friend_id = None, html_renderer = None):
 		if not self.is_logged_in_with(network):
 			raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 		elif network == 'facebook':
 			try:
-				fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__())
+				fb_data = fb_helper.get_user_from_cookie(
+							request.cookies, 
+							g.FbApiKey, 
+							g.FbApiSecret.__call__()
+						)
 			except fb_helper.FBNotLoggedInException, e:
 				raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 			else:
 				self.networks['facebook'].access_token = fb_data['access_token']
 				self.networks['facebook'].access_token_secret = fb_data['session_key']
-				friends = fb_helper.get_friends_from_cache(log, g.cache_pool, self.networks['facebook'].network_id, self.networks['facebook'].access_token, friend_id=friend_id)
+				friends = fb_helper.get_friends_from_cache(
+								log, 
+								g.cache_pool, 
+								self.networks['facebook'].network_id, 
+								self.networks['facebook'].access_token, 
+								friend_id=friend_id,
+								html_renderer = html_renderer
+							)
 		elif network == 'twitter':
-			friends = tw_helper.get_friends_from_cache(log, g.cache_pool, self.networks['twitter'].access_token, self.networks['twitter'].access_token_secret, config)
+			friends = tw_helper.get_friends_from_cache(
+								log, 
+								g.cache_pool, 
+								self.networks['twitter'].access_token, 
+								self.networks['twitter'].access_token_secret, 
+								config,
+								html_renderer = html_renderer
+							)
 		else:
-			raise GetFriendsNotSupported("Get Friends Method not supported for %s" % network)
+			raise GetFriendsNotSupported(
+					"Get Friends Method not supported for %s" % network
+				)
 		return friends
 	
 	
