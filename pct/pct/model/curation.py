@@ -2,8 +2,18 @@ from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMa
 from friendfund.model.product import Product
 from lxml import etree
 
+from babel import numbers
+
 images = ['aff_program_logo_url', 'picture_small', 'picture_large']
-key_order = ['aff_id','description', 'description_long', 'manufacturer', 'name', 'price', 'shipping_cost']
+key_order = [
+			('aff_id',             lambda x:getattr(x, 'aff_id')    )
+			,('description',       lambda x:getattr(x, 'description')    )
+			,('description_long',  lambda x:getattr(x, 'description_long')    )
+			,('manufacturer',      lambda x:getattr(x, 'manufacturer')    )
+			,('name',              lambda x:getattr(x, 'name')    )
+			,('price',             lambda x: numbers.format_currency( float(getattr(x, 'price') or 0.0)/100, getattr(x, 'currency'), locale = 'en_GB'))
+			,('shipping_cost',     lambda x:getattr(x, 'shipping_cost')    )
+			]
 
 
 class CurationCategory(DBMappedObject):

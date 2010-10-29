@@ -49,7 +49,13 @@
 			%endif
 		>
 		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['networkname']}"/>
-		<span class="label">${user_data['networkname']}</span>
+		<span class="label">${user_data['networkname']}
+		
+		%if 'dob' in user_data:
+			<div>${h.format_date(user_data["dob"])}</div>
+			<div>${user_data.get("dob_difference")} Tage</div>
+		%endif
+		</span>
 		%if active:
 			<a class="selector" title="${user_data['networkname']}">&nbsp;</a>
 		%endif

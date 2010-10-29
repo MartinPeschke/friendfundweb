@@ -63,12 +63,12 @@ handleResult = function(id, data){
 %>
 %if product is not None:
 	<table class="curation_product" cellspacing="0" cellpadding="0">
-		%for k in c.curation_queue.key_order:
+		%for k, extract in c.curation_queue.key_order:
 			<tr class="curation_product">
 				<td  class="curation_product"><div class="label">${k.replace('_', ' ').title()}:</div></td>
 				%for key in versions:
 				<td  class="curation_product ${len(set(map(lambda x: getattr(cp[x].product, k), cp))) > 1 and 'different' or 'same'}">
-					<div class="property ${k}">${getattr(cp[key].product, k)}</div>
+					<div class="property ${k}">${extract(cp[key].product)}</div>
 				</td>
 				%endfor
 			</tr>

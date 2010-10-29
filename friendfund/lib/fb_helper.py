@@ -100,8 +100,22 @@ def translate_friend_entry(u_id, friend_data):
 			'network':'facebook',
 			'email':friend_data.get('email')
 		}
-	if 'dob' in friend_data: 
-		result['dob'] = datetime.strptime(friend_data['birthday'], "%m/%d/%Y")
+	
+	dob = friend_data.get('birthday')
+	if dob:
+		try:
+			dob = datetime.strptime(dob, "%m/%d/%Y")
+		except ValueError, e:
+			try:
+				dob = datetime.strptime(dob, "%m/%d")
+			except ValueError, e:
+				log.error( 'Facebook User Birthday: %s, %s', e , dob)
+				dob = None
+		if dob:
+			result['dob'] = dob.replace(year = datetime.today().year)
+			result['dob_difference'] = (result['dob'] - datetime.today()).days
+			if result['dob_difference'] < 0:
+				result['dob_difference'] = (result['dob'].replace(year = (datetime.today().year + 1)) - datetime.today()).days
 	return (u_id, result)
 
 
@@ -125,7 +139,7 @@ def get_friends_from_cache(
 				cache_pool, 
 				id, 
 				access_token, 
-				expiretime=1, 
+				expiretime=30, 
 				friend_id = None
 			):
 	key = '<%s>%s' % ('friends_facebook', str(id))

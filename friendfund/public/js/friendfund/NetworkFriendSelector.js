@@ -10,9 +10,9 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 		if(_t.invited_node){
 			_t.invited_node = dojo.isString(_t.invited_node) && dojo.byId(_t.invited_node) || _t.invited_node;
+			_t._listener_locals.push(dojo.connect(dojo.byId(_t.invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
 		} else {_t.invited_node=null;}
 		
-		_t._listener_locals.push(dojo.connect(dojo.byId(_t.invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
 		
 		/* since selector is outside of refnode, and does not get rerendered, this can get out of sync */
 		_t._is_selected_decider = "a.methodselector.ajaxlink.selected[_type="+_t.network+"]";
@@ -43,12 +43,13 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 	}
+	
 	/* ================= BEGIN selectors ========================= */
 	,select : function(_t, evt){
 		if(dojo.hasClass(evt.target, "invitee_row") && dojo.hasClass(evt.target, "selectable")){
 			var elem = evt.target;
 		} else {
-			var elem = dojo.query(evt.target).parent(".invitee_row.selectable")[0];
+			var elem = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
 			if(elem==null)return;
 		}
 		return _t.onSelect(dojo.attr(elem, 'networkid'), dojo.attr(elem, 'networkname'), dojo.attr(elem, 'pos'), elem, evt);
@@ -56,7 +57,7 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		if(dojo.hasClass(evt.target, "invitee_row") && dojo.hasClass(evt.target, "selectable")){
 			var elem = evt.target;
 		} else {
-			var elem = dojo.query(evt.target).parent(".invitee_row.selectable")[0];
+			var elem = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
 		}
 		dojo.query('#'+elem.id, _t.invited_node).orphan().forEach(function(elem){
 				if(dojo.hasClass(_t.inviter_node, _t.network)){
@@ -69,7 +70,6 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 	}
 	,onSelect : function(networkid, name, pos, elem, evt){
 		var _t = this;
-
 		dojo.query('#'+elem.id, _t.inviter_node).orphan().forEach(function(elem){
 			dojo.place(elem, _t.invited_node, "last");
 			var keys = dojo.attr(elem, '_keys').split(",");
