@@ -8,25 +8,14 @@ from friendfund.lib import fb_helper
 from friendfund.model import db_access
 from friendfund.model.async.user_data import UserData, UserBirthday, UserBirthdayList
 from friendfund.model.async.fb_user_permissions import FBUserPermissions
-from friendfund.tasks import get_dbm, get_cm, tmpl_lookup
+from friendfund.tasks import get_dbm, get_cm
 from friendfund.tasks.photo_renderer import remote_profile_picture_render
 
 log = setup_logger(loglevel=0)
 CONNECTION_NAME = 'jobs'
 
-class Context(object):
-	def __init__(self, **kwargs):
-		for k,v in kwargs.iteritems():
-			setattr(self, k, v)
-
-def html_friend_renderer(friendlist):
-	template = tmpl_lookup.get_template('receiver/inviter.html')
-	tmpl_context = Context(method = 'facebook', friends = friendlist)
-	return template.render_unicode(**{'c': tmpl_context})
-
 @task
 def remote_persist_user(user_data):
-
 	dbm = get_dbm(CONNECTION_NAME)
 	user = UserData(**user_data)
 	try:
@@ -41,8 +30,7 @@ def remote_persist_user(user_data):
 	friends = fb_helper.get_friends_from_cache(log, 
 				get_cm(CONNECTION_NAME), 
 				user_data['network_id'], 
-				user_data['access_token'],
-				html_renderer = html_friend_renderer
+				user_data['access_token']
 				)
 	
 	user_list = (UserBirthday(**data) for uid,data in friends.iteritems())

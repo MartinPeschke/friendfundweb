@@ -25,7 +25,7 @@ class ReceiverController(BaseController):
 	@jsonify
 	def panel(self):
 		c.method = c.user.get_current_network() or 'facebook'
-		c.furl = '/' # TODO: this might break shit, fix
+		c.furl = url('home') # TODO: this might break shit, fix
 		return {'data':{'html':render('/receiver/panel.html').strip(), 'method':c.method}}
 	
 	@jsonify
@@ -34,14 +34,17 @@ class ReceiverController(BaseController):
 		del pool.receiver
 		websession['pool'] = c.pool
 		return {'clearmessage':True, 'html':render('/receiver/button.html').strip()}
+	
 	@jsonify
 	def set(self):
 		params = formencode.variabledecode.variable_decode(request.params)
 		receiver = params.get('receiver', None)
+		
 		if not (tools.dict_contains(receiver, ['name', 'network', 'network_id'])
 				or receiver.get('network', '').lower() == 'email'
 				and tools.dict_contains(receiver, ['name', 'network', 'email'])):
 			return self.ajax_messages(_("POOL_CREATE_No Known ReceiverFound"))
+		
 		receiver = dict([(k, receiver[k]) for k in receiver if receiver[k]])
 		receiver = PoolUser(**receiver)
 		receiver.is_receiver = True
@@ -53,7 +56,7 @@ class ReceiverController(BaseController):
 	
 	@jsonify
 	def method(self, method):
-		c.furl = '/' # TODO: this might break shit, fix
+		c.furl = url('home') # TODO: this might break shit, fix
 		c.method = str(method)
 		if method in ['facebook', 'twitter']:
 			try:
@@ -79,7 +82,14 @@ class ReceiverController(BaseController):
 			else:
 				network_id = invitee.get('networkid')
 			imgurl = "/static/imgs/default_m.png"
-			return {'clearmessage':True, 'data':{'success':True, 'email':network_id, 'network':network, 'name':invitee.get('networkname'), 'imgurl' : imgurl}}
+			return {'clearmessage':True, 
+					'data':{'success':True, 
+							'email':network_id, 
+							'network':network, 
+							'name':invitee.get('networkname'), 
+							'imgurl' : imgurl
+						}
+					}
 		elif network == 'yourself' and not c.user.is_anon:
 			network = c.user.network.lower()
 			if network == 'email':
@@ -90,14 +100,26 @@ class ReceiverController(BaseController):
 				network_id = c.user.network_id
 			network_name = c.user.name
 			imgurl = c.user.get_profile_pic('RA')
+			
 			if imgurl == c.user.profile_picture_url:
 				if network == 'twitter':
 					imgurl = tw_helper.get_profile_picture_url(c.user.profile_picture_url)
 				elif network == 'facebook':
 					imgurl = fb_helper.get_large_pic_url(c.user.network_id)
-			return {'clearmessage':True, 'data':{'success':True, network_id_name:network_id, 'network':network, 'name':network_name, 'imgurl' : imgurl}}
+			return {'clearmessage':True, 
+					'data':{'success':True, 
+							network_id_name:network_id, 
+							'network':network, 
+							'name':network_name, 
+							'imgurl' : imgurl
+						}
+					}
 		elif(c.user.is_anon):
-			return {'data':{'success':False, 'html':self.render('/receiver/login_required.html').strip()}}
+			return {'data':
+					{'success':False, 
+					 'html':self.render('/receiver/login_required.html').strip()
+					}
+				}
 		else:
 			return self.ajax_messages(_(u"RECEIVER_ADD_Unknown Network or Method"))
 
