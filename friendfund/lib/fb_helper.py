@@ -126,22 +126,16 @@ def get_friends_from_cache(
 				id, 
 				access_token, 
 				expiretime=1, 
-				friend_id = None, 
-				html_renderer = None
+				friend_id = None
 			):
 	key = '<%s>%s' % ('friends_facebook', str(id))
-	key_html = '%s_html' % key
 	with cache_pool.reserve() as mc:
-		objs = mc.get_multi([key, key_html])
-		obj = objs.get(key)
-		html = objs.get(key_html)
-		
+		obj = mc.get(key)
 		if obj is None:
 			mc.set(key, INPROCESS_TOKEN, 30)
 			try:
 				obj = get_friends(logger, id, access_token)
-				html = html_renderer(obj)
-				mc.set_multi({key:obj, key_html:html}, expiretime)
+				mc.set(key, obj, expiretime)
 			except:
 				mc.delete(key)
 				raise
@@ -155,4 +149,4 @@ def get_friends_from_cache(
 			if str(id) in obj:
 				obj[str(id)]['mutual_with'] = str(friend_id)
 	logger.info('Retrieved %s FBFriends' % len(obj))
-	return obj, html
+	return obj

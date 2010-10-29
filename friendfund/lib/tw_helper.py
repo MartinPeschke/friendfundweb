@@ -87,30 +87,22 @@ def get_friends_from_cache(
 			access_token, 
 			access_token_secret, 
 			config, 
-			expiretime=1800,
-			html_renderer = None
-		):
+			expiretime=1800):
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	key = '<%s>%s' % ('friends_facebook', str(access_token))
-	key_html = '%s_html' % key
 	with cache_pool.reserve() as mc:
-		objs = mc.get_multi([key, key_html])
-		obj = objs.get(key)
-		html = objs.get(key_html)
+		obj = mc.get(key)
 		if obj is None:
 			mc.set(key, INPROCESS_TOKEN, 30)
 			try:
 				obj = get_friends(logger, access_token, access_token_secret, consumer)
-				html = html_renderer(obj)
-				mc.set_multi({key:obj, key_html:html}, expiretime)
+				mc.set(key, obj, expiretime)
 			except:
 				mc.delete(key)
 				raise
 		elif obj == INPROCESS_TOKEN:
 			while obj == INPROCESS_TOKEN:
 				time.sleep(1)
-				objs = mc.get_multi([key, key_html])
-				obj = objs.get(key)
-				html = objs.get(key_html)
+				obj = mc.get(key)
 	logger.info('Retrieved %s TWFriends' % len(obj))
-	return obj, html
+	return obj
