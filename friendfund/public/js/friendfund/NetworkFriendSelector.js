@@ -26,7 +26,6 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		}
 	},onLoad : function(_t, data){
 		_t.is_loading = false;
-		
 		if (_t.is_selected(_t)){
 			dojo.place(data.html, _t.ref_node, "only");
 			dojo.style(_t.ref_node, 'display', 'Block');
@@ -39,8 +38,15 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 			parseDefaultsInputs(_t.ref_node);
 			var toggler = dojo.byId("toggle_mutuals");
 			if(toggler)_t._listener_locals.push(dojo.connect(toggler, "onchange", dojo.hitch(null, _t.toggle_mutuals, _t)));
-			if(data.is_complete){
-				xhrPost(_t.base_url+'_ext/' + _t.network, {offset:data.offset}, console.log);
+			if(!data.is_complete){
+				xhrPost(_t.base_url+'_ext/' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t));
+			}
+		}
+	}, addLoad : function(_t, data){
+		if (_t.is_selected(_t)){
+			dojo.place(data.html, dojo.byId("friend_list"), "last");
+			if(!data.is_complete){
+				xhrPost(_t.base_url+'_ext/' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t));
 			}
 		}
 	},unload : function(_t){

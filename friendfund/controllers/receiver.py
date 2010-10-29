@@ -72,7 +72,8 @@ class ReceiverController(BaseController):
 	def get_extension(self, method):
 		if method in ['twitter']:
 			c.method = method
-			offset = request.params['offset']
+			offset = int(request.params['offset'])
+			print 'get_extension', method, offset
 			c.friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/networkfriends.html').strip()}}
 		return {'success':False}
