@@ -1,10 +1,14 @@
 import pyodbc, os, ConfigParser, celery, pylibmc
-from DBUtils.PersistentDB import PersistentDB
 
-from friendfund.model import common
+from DBUtils.PersistentDB import PersistentDB
 from celeryconfig import CELERY_ADDITIONAL_CONFIG
 from celery.log import setup_logger
+from mako.lookup import TemplateLookup
+
+from friendfund.model import common
+
 IMAGEMAGICKROOT ='/usr/local/bin'
+root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_root = os.path.join(os.getcwd(), 'data')
 log = setup_logger(loglevel=0)
 
@@ -72,8 +76,17 @@ def get_dbm(connection_name):
 		_dbmanagers[connection_name] = _create_dbm(connection_name)
 	return _dbmanagers[connection_name]
 
+log.info( '-------- %s', os.path.join(root, 'templates') )
+print  '-------- %s', os.path.join(root, 'templates')
+tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates')]
+		, module_directory=os.path.join(data_root, 'templates')
+		, output_encoding='utf-8'
+		, imports=[ 'from webhelpers.html import escape',
+					'from xml.sax.saxutils import quoteattr', 
+					'from friendfund.lib import helpers as h'
+				]
+		)
 
-root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 upload_tmp = os.path.join(data_root, 'tmp')
 upload_uimg_folder = os.path.join(data_root, 's', 'user')
 upload_pimg_folder = os.path.join(data_root, 's', 'pool')
