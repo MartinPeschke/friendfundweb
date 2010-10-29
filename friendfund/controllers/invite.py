@@ -61,6 +61,8 @@ class InviteController(BaseController):
 		
 		il = c.pool.get_invitees(c.method)
 		if method in ['facebook', 'twitter']:
+			is_complete = True
+			offset = 0
 			try:
 				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', None))
 			except UserNotLoggedInWithMethod, e:
@@ -71,7 +73,7 @@ class InviteController(BaseController):
 			else:
 				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
 				c.friends = dict([(id, friends[id]) for id in friends if str(id) not in c.already_invited])
-				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
+				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = c.invitees.get(method, {})
 		return {'html':render('/invite/inviter.html').strip()}
@@ -80,25 +82,18 @@ class InviteController(BaseController):
 	@jsonify
 	def get_extension(self, method):
 		if method in ['twitter']:
+			offset = int(request.params['offset'])
 			c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
 			if c.pool is None:
 				return abort(404)
 			c.method = str(method)
-			c.furl = '/invite/%s' % (pool_url)
-			c.invitees = websession.get('invitees', {})
-			
 			il = c.pool.get_invitees(c.method)
-			
 			c.method = method
-			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-			pre_invited = [str(k) for k in c.invitees.get(method, {})]
-			c.friends = dict([(id, friends[id]) for id in friends if not (str(id) in pre_invited or str(id) in c.already_invited)])
-			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
+			c.friends = dict([(id, friends[id]) for id in friends if not str(id) in c.already_invited])
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
-	
-	
 	
 	
 	@logged_in(ajax=False)
