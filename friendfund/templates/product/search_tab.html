@@ -11,7 +11,7 @@
 
 
 
-<div class="whiteContainer" style=" padding:0"><div class="region_picker" style="margin:10px; ">
+<div class="whiteContainer" ><div class="region_picker">
 	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
 	<select name="region" id="region_picker" style="padding: 3px;" >
 		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
@@ -37,25 +37,65 @@
 				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
 			%endif
 		</form>
-		
-		<div class="clear"></div>
-		
-		<div class="panel_title" style=" padding-bottom:10px">
-			${_("PRODUCT_SEARCH_PANEL_Recommended Gift Searches")}
+		<h4 class="inside">Gift for Adventurers <span>Sort by:&nbsp;&nbsp; <select><option>Relevancy</option></select></span></h4>
+	<div class="productSorterContainer">
+	<div class="productSorter">
+		<div class="colSx">
+			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
+			<p class="productMerchant">Product Merchant</p>
+			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
 		</div>
-		${html.clearline()|n}
-		<div id="product_suggestions">
-		%for i, ps in enumerate(c.psuggestions):
-			<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''}">
-				<a class="productsuggestion" searchterm="${ps.search}" sort="${ps.sort or c.sort}" aff_net="${ps.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${ps.aff_net_ref or ''}">
-					<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
-					<span>${ps.name}</span>
-					%if ps.help_link_href:
-						<span class="showme"><a href="#" _href="${url(controller='content', action=ps.help_link_href)}" class="showme popuplink">${_(ps.help_link_title)}</a></span>
-					%endif
-				</a>
-			</div>
-		%endfor
+		<div class="colDx">
+			<p class="product">Ipad <span>$ 10.000</span></p>
+			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt.  </p>
+			<a href="#" class="productMore">More at Debenhams</a>
+			<a href="#" class="submitSmall"><span>Submit</span></a>
 		</div>
-		<div class="clear"></div>
+	
+	</div>
+	<div class="productSorter marginRightClean">
+		<div class="colSx">
+			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
+			<p class="productMerchant">Product Merchant</p>
+			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
+		</div>
+		<div class="colDx">
+			<p class="product">Ipad <span>$ 10.000</span></p>
+			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt.  </p>
+			<a href="#" class="productMore">More at Debenhams</a>
+			<a href="#" class="submitSmall"><span>Submit</span></a>
+		</div>
+	
+	</div>
+	<div class="productSorter">
+		<div class="colSx">
+			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
+			<p class="productMerchant">Product Merchant</p>
+			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
+		</div>
+		<div class="colDx">
+			<p class="product">Ipad <span>$ 10.000</span></p>
+			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt. </p>
+			<a href="#" class="productMore">More at Debenhams</a>
+			<a href="#" class="submitSmall"><span>Submit</span></a>
+		</div>
+	
+	</div>
+	<div class="productSorter marginRightClean">
+		<div class="colSx">
+			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
+			<p class="productMerchant">Product Merchant</p>
+			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
+		</div>
+		<div class="colDx">
+			<p class="product">Ipad <span>$ 10.000</span></p>
+			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt. </p>
+			<a href="#" class="productMore">More at Debenhams</a>
+			<a href="#" class="submitSmall"><span>Submit</span></a>
+		</div>
+	
+	</div>
+	</div>
+
+		
 	</div>

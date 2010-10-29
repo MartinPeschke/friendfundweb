@@ -355,7 +355,7 @@ div.frontpagebutton.funders {
 	margin-right: 30px
 }
 #button_panel.product {
-	padding:15px 0 15px 0;
+	padding:15px 0 0 0;
 	position: relative;
 }
 #button_panel.receiver {
@@ -1510,7 +1510,7 @@ height: 23px; padding-top: 12px}
 h2.small{ font-size: 20px !important}
 .friendsBadgesContainer .badge_user_pic img.miniBadge{ position: absolute; right: -15px; bottom:-15px; width: 65px; height: 50px}
 .friendsBadgesContainer div.label{ position:relative;text-align:right;top:12px;}
-.inside{ padding: 30px 0 30px 30px ; background: white }
+.inside{ padding: 30px 0 30px 30px ;  }
 .badgeBox{ float: left; background: white; margin-top: 10px}
 .badgeBoxBorder{ float: left; background-color: #bae3f7; padding: 15px}
 #login_signup_container, #pwd_form_container{ margin:0 30px 30px 30px; float: left; width: 920px}
@@ -1659,7 +1659,11 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 	position:absolute;
 }
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
-.region_picker {background-color:#BBE3F7; padding:10px; width:390px }
+.region_picker {float:right;
+font-weight:bold;
+width:400px;
+padding-bottom: 15px
+}
 
 
 
@@ -1672,9 +1676,11 @@ div.anythingSlider .anythingWindow {
 	height: 100%;
 }
 div.anythingSlider {
-	position: relative;
-	padding:0;
-	margin:15px 0 0 28px
+	background:none repeat scroll 0 0 white;
+clear:both;
+margin:0 0 0 43px;
+padding:30px 0 10px;
+position:relative;
 }
 ul.anythingBase {
 	background: transparent;
@@ -1701,13 +1707,13 @@ position:absolute;
 top:0;
 width:40px;
 z-index:2000;
-height: 180px
+height: 220px
 }
 div.anythingSlider .arrow a {
 	color:white;
 display:block;
-height:50px;
-margin:35px 0 0 0;
+height:70px;
+margin:60px 0 0 0;
 outline:0 none;
 text-align:center;
 width:40px;
@@ -1770,21 +1776,42 @@ div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thum
 	-moz-transition-duration: 0;
 	-webkit-transition-duration: 0;
 }
-.inside{ font-size:18px; font-weight:bold; padding:0; margin-top:15px}
-.personalityBox{ float: left;margin:15px 0 0 28px;}
+.inside{ font-size:18px; font-weight:bold; padding:0; margin-top:15px;padding:0 4px 0 4px;}
+.personalityBox{ background:none repeat scroll 0 0 white;
+float:left;
+margin:10px 0 0 2px;
+padding:30px 0 10px 40px;
+width:844px;}
 .personalityBox span{ padding-bottom: 10px}
 h4.inside span{ float: right; font-size: 12px; font-weight: normal;}
-.productSorterContainer{ float: left; width: 100%}
-.productSorter{ background-color:#BBE3F7;
+.productSorterContainer{ float: left; width: 882px; padding: 0 4px; margin-top: -5px}
+.productSorter{ background-color:white;
 float:left;
-margin-right:15px;
-width:422px;
-margin-top: 15px}
+margin-right:16px;
+margin-top:15px;
+width:433px;}
 .marginRightClean{ margin-right:0 !important}
-.productSorter .colSx{ float: left; width: 155px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
-.productSorter .colDx{ float: left; width: 265px}
-.productImage{ display: block;   width: 120px; height: 120px; margin: 16px auto 0 auto}
-.productMerchant{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; display: block; line-height: 14px; margin: 15px auto 0 auto ; padding: 0 0 10px 0; text-align: center}
+.productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
+.productSorter .colDx{ float:left;
+width:238px; padding: 15px 15px 15px 0}
+.productImage{ display: block;   width: 146px; height: 146px; margin: 16px auto 0 auto}
+.productMerchant{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; display: block; line-height: 14px; margin: 15px auto 0 auto ; padding: 0 0 5px 0; text-align: center}
 .productMerchantImage{ display: block; margin: 0 auto; height: 55px;}
 #emailinviter{ margin-left: 20px}
 .TabsContainer{ float: left; padding-left: 10px}
+p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS}
+p.product span{ display: block; padding-top: 5px}
+p.productText{ font-family: Arial; font-size: 12px; padding: 10px 0}
+a.productMore{color: #B70158; display: block}
+.productSorter .submitSmall{ clear:both; margin-top: 10px; float: left}
+.productSorter .submitSmall{ float: left}
+.pager{bottom:-25px;
+left:50%;
+margin-left:-94px;
+position:absolute;
+width:205px;}
+.pager a, .pager span{ float: left; line-height: 20px}
+.pager a{ width: 20px; height: 20px; line-height:  20px; text-align: center;color:#131313; text-decoration: none}
+.pager span{ margin: 0 5px;color:#131313;}
+.pager a.nextPrev{ width: 60px}
+.pager a.active{ border: 1px solid #999999}
