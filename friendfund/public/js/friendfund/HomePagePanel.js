@@ -73,7 +73,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.query("#"+elem+"_panel.frontpagebutton div.extender").removeClass("hidden");
 		dojo.query("#button_"+elem+".hpbutton a.panel_opener").addClass("opened");
 		dojo.query("a.button_panel_closer", "button_panel").onclick(dojo.hitch(null, _t.unload, _t, true));
-		
+		dojo.query("#"+elem+"_panel").addClass('front_panel_active');
 		parseDefaultsInputs(_t.ref_node);
 	},verify: function() {
 		return false;
@@ -90,6 +90,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.query("*", _t.ref_node).orphan();
 		dojo.query(_t.ref_node).style("display", "None");
 		dojo.query("div.extender", _t.config_node).addClass("hidden");
+		dojo.query(".front_panel_active", _t.config_node).removeClass("front_panel_active");
 		dojo.query("a.opened", _t.config_node).removeClass("opened");
 		if(success == true){
 			var node = dojo.byId("top");

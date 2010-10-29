@@ -4,9 +4,11 @@
 
 
 <div id="button_panel" class="product">
+<div class="TabsContainer">
 	%for panel in c.gift_panel_tabs:
 		<a class="methodselector ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _type="${panel[0]}"><span>${_(panel[1])}</span></a>
 	%endfor
+</div>
 	<a class="button_panel_closer">&nbsp;</a>
 	
 	
@@ -85,4 +87,5 @@
 		</div>
 	</div>
 	%endif
+	<div style="clear:both"></div>
 </div>

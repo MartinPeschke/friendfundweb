@@ -257,7 +257,7 @@ div.frontpagebutton.first {
 	height: 25px;
 	left: 0px;
 	bottom: -25px;
-	background-color:#bbe3f7;
+	background-color:#ECF8Fd;
 }
 
 div.frontpagebutton.funders {
@@ -282,6 +282,7 @@ div.frontpagebutton.funders {
 	height: 100%;
 	padding-top: 1px;
 }
+#pool_configurator div.front_panel_active{ background-color: #ECF8Fd}
 #pool_configurator div.hpbutton a.button {
 	position: relative;
 	margin: 15px;
@@ -348,17 +349,17 @@ div.frontpagebutton.funders {
 #button_panel_container {
 	display: None;
 	margin-top: 20px;
-	background-color:#bbe3f7;
+	background-color:#ECF8Fd;
 	clear: both;
 	position: relative;
 	margin-right: 30px
 }
 #button_panel.product {
-	padding:15px 15px 15px 15px;
+	padding:15px 0 15px 0;
 	position: relative;
 }
 #button_panel.receiver {
-	padding:0px 30px 30px;
+	padding:0px;
 	position: relative;
 }
 #button_panel.occasion {
@@ -376,8 +377,8 @@ div.frontpagebutton.funders {
 	background:url("/static/imgs/inputfield.png") no-repeat scroll -271px -30px transparent;	
 	height:19px;
 	position:absolute;
-	right:10px;
-	top:10px;
+	right:5px;
+	top:5px;
 	width:17px;
 	cursor:pointer;
 }
@@ -447,7 +448,7 @@ div#occasion_button_bar {
 }
 #button_panel.occasion a.occasion_panel_button {
 	position: relative;
-	margin: 0px 10px 20px 35px;
+	margin: 0px 15px 20px 30px;
 	float: left;
 }
 #button_panel.occasion div.selector {
@@ -717,8 +718,7 @@ p.termsOf a{ color:#B70158;}
 
 #receiver_selector_container {
 	position:relative;
-	background: white;
-	position: relative
+	background-color:#BBE3F7;
 }
 #invite_panel_header .invite_pool_panel.first {
 	margin: 30px 0px 0px 120px;
@@ -760,6 +760,8 @@ width:174px;
 	position:relative;
 	text-align: left;
 	padding-top: 1px;
+	border-top:1px solid #81cbef;
+	margin-top: -1px
 }
 #inviteheader.fb {
 	height: 80px;
@@ -818,9 +820,10 @@ div.panel_title a.methodselector.ajaxlink span {
 .panel_title a.methodselector, .panel_title a.methodselector img {
 	position:relative;
 }
+#button_panel a.methodselector{ display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;}
 #button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected {
 	/*front page only*/
-	background:url("../imgs/inputfield.png") no-repeat scroll 100% -435px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -322px transparent;
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
 	font-style:normal;
 	padding-right:15px;
@@ -832,10 +835,11 @@ div.panel_title a.methodselector.ajaxlink span {
 	height:30px;
 	display:block;
 	float:left;
+	margin-left: 5px
 }
 #button_panel.receiver a.selected span, #button_panel.product a.selected span {
 	/*front page only*/
-	background:url("../imgs/inputfield.png") no-repeat scroll 0 -379px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -272px transparent;
 	cursor:pointer;
 	padding-bottom:0px;
 	padding-left:15px;
@@ -854,7 +858,6 @@ div.panel_title a.methodselector.ajaxlink span {
 	font-size:18px;
 	color:#403834;
 	float:left;
-	margin-right:10px;
 	line-height:30px; height:30px
 }
 #button_panel a.methodselector.ajaxlink span {
@@ -1039,6 +1042,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	border: 1px solid #aaa;
 	background-color:  #ffffff;
 }
+#button_panel #network_methodselector{ padding-left: 10px}
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {
 	border-bottom: 3px solid #bbe3f7;
@@ -1058,7 +1062,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	cursor:normal;
 
 }
-.whiteContainer{ background: white; position: relative; clear:both; padding:15px}
+.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 
 #invites .invitee_row.fixed {
@@ -1782,3 +1786,5 @@ margin-top: 15px}
 .productImage{ display: block;   width: 120px; height: 120px; margin: 16px auto 0 auto}
 .productMerchant{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; display: block; line-height: 14px; margin: 15px auto 0 auto ; padding: 0 0 10px 0; text-align: center}
 .productMerchantImage{ display: block; margin: 0 auto; height: 55px;}
+#emailinviter{ margin-left: 20px}
+.TabsContainer{ float: left; padding-left: 10px}
