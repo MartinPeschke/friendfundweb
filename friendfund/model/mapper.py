@@ -1,5 +1,5 @@
+import ordereddict, types, collections
 from xml.sax.saxutils import quoteattr, escape
-from collections import deque
 from datetime import datetime, date
 
 #############################################################################################
@@ -154,8 +154,8 @@ class DBMapper(object):
 			raise TypeError("DBMapper missing dict_key-extractor function parameter")
 	@classmethod
 	def toDB(cls, obj):
-		attribs = []
-		children = []
+		attribs = collections.deque()
+		children = collections.deque()
 		if not hasattr(obj, "_keys"):
 			return None
 		for k in obj._keys:
@@ -165,9 +165,9 @@ class DBMapper(object):
 					attribs.append(k.toDB(value))
 				elif isinstance(k, GenericElement) or isinstance(k, DBCDATA):
 					children.append(k.toDB(value))
-				elif isinstance(value, list) or isinstance(value, deque):
+				elif isinstance(value, (types.ListType, collections.deque, types.GeneratorType)):
 					children.extend(map(lambda x: k.toDB(x), filter(lambda x: isinstance(x,DBMappedObject), value)))
-				elif isinstance(value, dict):
+				elif isinstance(value, (types.DictType, ordereddict.OrderedDict)):
 					children.extend(map(lambda x: k.toDB(value[x]), filter(lambda x: isinstance(value[x],DBMappedObject), value)))
 				elif isinstance(k, DBMapper):
 					children.append(k.toDB(value))
