@@ -61,8 +61,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 		jQuery(function () {
 			jQuery('#slider1').anythingSlider({
 				startStopped    : false, // If autoPlay is on, this can force it to start stopped
-				width           : 810,  // Override the default CSS width
-				height          : 200,      // Override the default CSS height
+				width           : 830,  // Override the default CSS width
+				height          : 180,      // Override the default CSS height
 //				toggleControls  : true, // if true, then slide in controls on hover and slider change, hide @ other times
 				autoPlay            : true,      // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
 				delay               : 5000,      // How long between slideshow transitions in AutoPlay mode (in milliseconds)

@@ -508,15 +508,15 @@ float:left;
 font-size:13px;
 margin-right:30px;
 position:relative;
-width:140px;
+width:136px;
 }
 a.productsuggestion{ display:block; background:url("../imgs/backgroundSearchProducts.png") no-repeat scroll 0 0 transparent;padding:3px 0 0;
 }
 a.productsuggestion span{ display:block; margin-top:10px; font-family:Trebuchet MS; font-size:14px; font-weight:bold; text-align:center}
 a.productsuggestion img{ display:block; margin:0 auto}
 #button_panel.product div.productsuggestion img.productsuggestion {
-	width: 122px;
-	height:122px;
+	width: 129px;
+	height:129px;
 }
 #product_search_form {
 	padding-top:10px;
@@ -1655,75 +1655,22 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 }
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
 .region_picker {background-color:#BBE3F7; padding:10px; width:390px }
-/*
-    AnythingSlider v1.4.1+ Default (base) theme
 
-    By Chris Coyier: http://css-tricks.com
-    with major improvements by Doug Neiner: http://pixelgraphics.us/
-    based on work by Remy Sharp: http://jqueryfordesigners.com/
-*/
 
-/******* SET DEFAULT DIMENSIONS HERE ********/
-div.anythingSlider {
-	width: 700px;
-	height: 390px;
-	margin: 0 auto;
-}
 
-/****** SET COLORS HERE *******/
-/* Default State */
-div.anythingSlider .thumbNav a.cur, div.anythingSlider .thumbNav a {
-	background: #777;
-	color: #000;
-}
-div.anythingSlider .anythingWindow {
-	border-top: 3px solid #777;
-	border-bottom: 3px solid #777;
-}
-div.anythingSlider .start-stop {
-	background-color: #040;
-	color: #fff;
-}
-div.anythingSlider .start-stop.playing {
-	background-color: #800;
-}
-div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover {
-	color: #ddd;
-}
 
-/* Active State */
-div.anythingSlider.activeSlider .anythingWindow {
-	border-color: #7C9127;
-}
-div.anythingSlider.activeSlider .thumbNav a.cur, div.anythingSlider.activeSlider .thumbNav a {
-	background-color: #7C9127;
-}
-div.anythingSlider .start-stop {
-	background-color: #080;
-	color: #fff;
-}
-div.anythingSlider .start-stop.playing {
-	background-color: #d00;
-}
-div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover {
-	color: #fff;
-}
 
-/**** DO NOT CHANGE BELOW THIS LINE ****/
-/* anythingSlider viewport window */
 div.anythingSlider .anythingWindow {
 	overflow: hidden;
 	position: relative;
 	width: 100%;
 	height: 100%;
 }
-/* wrapper: 45px right & left padding for the arrows, 28px @ bottom for navigation */
 div.anythingSlider {
 	position: relative;
 	padding:0;
-	margin:10px auto
+	margin:15px 0 0 28px
 }
-/* anythingSlider base UL */
 ul.anythingBase {
 	background: transparent;
 	list-style: none;
@@ -1741,28 +1688,31 @@ ul.anythingBase li.panel {
 	margin: 0;
 }
 
-/* Navigation Arrows */
 div.anythingSlider .arrow {
-	top: 50%;
-	position: absolute;
-	display: block;
+	background-color:white;
+color:white;
+display:block;
+position:absolute;
+top:0;
+width:40px;
+z-index:2000;
+height: 180px
 }
 div.anythingSlider .arrow a {
-	display: block;
-	height: 120px;
-	margin: -60px 0 0 0;
-	width: 45px;
-	text-align: center;
-	outline: 0;
-	background: url(../images/arrows-default.png) no-repeat;
-	text-indent: -9999px;
+	color:white;
+display:block;
+height:50px;
+margin:35px 0 0 0;
+outline:0 none;
+text-align:center;
+width:40px;
+ 
 }
-div.anythingSlider .forward { right: 0; }
-div.anythingSlider .back { left: 0; }
-div.anythingSlider .forward a { background-position: 0 -40px; }
-div.anythingSlider .back a { background-position: -88px -40px; }
-div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: 0 -240px; }
-div.anythingSlider .back a:hover, div.anythingSlider .back a.hover { background-position: -88px -240px; }
+div.anythingSlider .forward { right: -13px; background: white }
+div.anythingSlider .back { left: -40px;  }
+div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
+div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
+
 
 /* Navigation Links */
 div.anythingSlider .anythingControls { outline: 0; display:none }
@@ -1787,12 +1737,11 @@ div.anythingSlider .thumbNav a:hover {
 	background-image: none;
 }
 
-/* slider autoplay right-to-left, reverse order of nav links to look better */
 div.anythingSlider.rtl .thumbNav a { float: right; } /* reverse order of nav links */
 div.anythingSlider.rtl .thumbNav { float: left; }    /* move nav link group to left */
-/* div.anythingSlider.rtl .start-stop { float: right; } */ /* move start/stop button - in case you want to switch sides */
 
-/* Autoplay Start/Stop button */
+
+
 div.anythingSlider .start-stop {
 	background-image: url(../images/cellshade.png);
 	background-repeat: repeat-x;
