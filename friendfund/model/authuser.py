@@ -159,13 +159,14 @@ class User(DBMappedObject):
 								friend_id=friend_id
 							)
 		elif network == 'twitter':
-			friends = tw_helper.get_friends_from_cache(
+			friends, is_complete, offset = tw_helper.get_friends_from_cache(
 								log, 
 								g.cache_pool, 
 								self.networks['twitter'].access_token, 
 								self.networks['twitter'].access_token_secret, 
 								config
 							)
+			log.info('TWITTER FRIENDS loaded: %s, %s', is_complete, offset)
 		else:
 			raise GetFriendsNotSupported(
 					"Get Friends Method not supported for %s" % network
