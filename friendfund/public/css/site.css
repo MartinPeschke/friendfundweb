@@ -257,7 +257,7 @@ div.frontpagebutton.first {
 	height: 25px;
 	left: 0px;
 	bottom: -25px;
-	background-color:#bbe3f7;
+	background-color:#ECF8Fd;
 }
 
 div.frontpagebutton.funders {
@@ -282,6 +282,7 @@ div.frontpagebutton.funders {
 	height: 100%;
 	padding-top: 1px;
 }
+#pool_configurator div.front_panel_active{ background-color: #ECF8Fd}
 #pool_configurator div.hpbutton a.button {
 	position: relative;
 	margin: 15px;
@@ -348,17 +349,17 @@ div.frontpagebutton.funders {
 #button_panel_container {
 	display: None;
 	margin-top: 20px;
-	background-color:#bbe3f7;
+	background-color:#ECF8Fd;
 	clear: both;
 	position: relative;
 	margin-right: 30px
 }
 #button_panel.product {
-	padding:15px 15px 15px 15px;
+	padding:15px 0 0 0;
 	position: relative;
 }
 #button_panel.receiver {
-	padding:0px 30px 30px;
+	padding:0px;
 	position: relative;
 }
 #button_panel.occasion {
@@ -376,8 +377,8 @@ div.frontpagebutton.funders {
 	background:url("/static/imgs/inputfield.png") no-repeat scroll -271px -30px transparent;	
 	height:19px;
 	position:absolute;
-	right:10px;
-	top:10px;
+	right:5px;
+	top:5px;
 	width:17px;
 	cursor:pointer;
 }
@@ -401,7 +402,7 @@ div.panel_title, div.panel_title_no_margin, div.panel_title_black, div.panel_tit
 	line-height: 30px
 }
 div.panel_title {
-	padding: 15px 30px
+	padding: 13px 30px
 }
 div.panel_title_no_margin {
 	margin: 15px 0px;
@@ -439,15 +440,20 @@ div.panel_content_inner {
 	margin: 40px 20px 20px;
 }
 /* -------------------------- OCCASION Panel ------------------------- */
-#button_panel.occasion {
+#button_panel.occasion { padding-top: 15px
 }
 div#occasion_button_bar {
-	width: 920px;
-	float: left;
+	float:left;
+width:920px;background:none repeat scroll 0 0 #BBE3F7;
+border-top:1px solid #81CBEF;
+float:left;
+margin-top:-1px;
+padding-top: 15px
+
 }
 #button_panel.occasion a.occasion_panel_button {
 	position: relative;
-	margin: 0px 10px 20px 35px;
+	margin: 0px 15px 20px 30px;
 	float: left;
 }
 #button_panel.occasion div.selector {
@@ -462,10 +468,12 @@ div#occasion_button_bar {
 }
 #button_panel.occasion div#occasion_date_input_bar {
 	clear:both;
-	margin:10px 30px 30px 0px;
+	margin:0px;
 	position:relative;
+	padding-bottom: 10px;
 	text-align:center;
 	width:920px;
+	background:none repeat scroll 0 0 #BBE3F7;
 }
 #button_panel.occasion div#occasion_date_input_bar input[type=button] {
 	float: right;
@@ -480,8 +488,11 @@ div#occasion_button_bar {
 	margin-bottom: 5px;
 }
 #button_panel.occasion a.occasion_panel_button div.label {
-	text-align:center;
 	color:#403834;
+font-family:Trebuchet MS;
+font-size:13px;
+font-weight:bold;
+text-align:center;
 }
 .dijitTextBoxFocused .dijitInputContainer, .dijitTextBox {
 	background-color: transparent !important;
@@ -717,8 +728,7 @@ p.termsOf a{ color:#B70158;}
 
 #receiver_selector_container {
 	position:relative;
-	background: white;
-	position: relative
+	background-color:#BBE3F7;
 }
 #invite_panel_header .invite_pool_panel.first {
 	margin: 30px 0px 0px 120px;
@@ -760,6 +770,8 @@ width:174px;
 	position:relative;
 	text-align: left;
 	padding-top: 1px;
+	border-top:1px solid #81cbef;
+	margin-top: -1px
 }
 #inviteheader.fb {
 	height: 80px;
@@ -818,9 +830,10 @@ div.panel_title a.methodselector.ajaxlink span {
 .panel_title a.methodselector, .panel_title a.methodselector img {
 	position:relative;
 }
-#button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected {
+#button_panel a.methodselector{ display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;}
+#button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected, #button_panel.occasion a.methodselector.selected {
 	/*front page only*/
-	background:url("../imgs/inputfield.png") no-repeat scroll 100% -435px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -322px transparent;
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
 	font-style:normal;
 	padding-right:15px;
@@ -832,10 +845,11 @@ div.panel_title a.methodselector.ajaxlink span {
 	height:30px;
 	display:block;
 	float:left;
+	margin-left: 5px
 }
-#button_panel.receiver a.selected span, #button_panel.product a.selected span {
+#button_panel.receiver a.selected span, #button_panel.product a.selected span,  #button_panel.occasion a.selected span {
 	/*front page only*/
-	background:url("../imgs/inputfield.png") no-repeat scroll 0 -379px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -272px transparent;
 	cursor:pointer;
 	padding-bottom:0px;
 	padding-left:15px;
@@ -854,7 +868,6 @@ div.panel_title a.methodselector.ajaxlink span {
 	font-size:18px;
 	color:#403834;
 	float:left;
-	margin-right:10px;
 	line-height:30px; height:30px
 }
 #button_panel a.methodselector.ajaxlink span {
@@ -923,8 +936,10 @@ div.panel_title a.methodselector.ajaxlink span {
 	clear:both;
 }
 #friend_list.fb {
-	overflow: auto;
-	height: 445px;
+	background:none repeat scroll 0 0 white;
+height:445px;
+margin:0 15px 15px;
+overflow:auto;
 }
 #friend_list.inviteelist {
 	background-color:#FFFFFF;
@@ -1039,6 +1054,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	border: 1px solid #aaa;
 	background-color:  #ffffff;
 }
+#button_panel #network_methodselector{ padding-left: 10px}
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {
 	border-bottom: 3px solid #bbe3f7;
@@ -1058,7 +1074,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	cursor:normal;
 
 }
-.whiteContainer{ background: white; position: relative; clear:both; padding:15px}
+.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 
 #invites .invitee_row.fixed {
@@ -1506,7 +1522,7 @@ height: 23px; padding-top: 12px}
 h2.small{ font-size: 20px !important}
 .friendsBadgesContainer .badge_user_pic img.miniBadge{ position: absolute; right: -15px; bottom:-15px; width: 65px; height: 50px}
 .friendsBadgesContainer div.label{ position:relative;text-align:right;top:12px;}
-.inside{ padding: 30px 0 30px 30px ; background: white }
+.inside{ padding: 30px 0 30px 30px ;  }
 .badgeBox{ float: left; background: white; margin-top: 10px}
 .badgeBoxBorder{ float: left; background-color: #bae3f7; padding: 15px}
 #login_signup_container, #pwd_form_container{ margin:0 30px 30px 30px; float: left; width: 920px}
@@ -1655,7 +1671,12 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 	position:absolute;
 }
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
-.region_picker {background-color:#BBE3F7; padding:10px; width:390px }
+.region_picker {float:right;
+font-weight:bold;
+width:700px;
+padding-bottom: 15px;
+text-align: right
+}
 
 
 
@@ -1668,9 +1689,11 @@ div.anythingSlider .anythingWindow {
 	height: 100%;
 }
 div.anythingSlider {
-	position: relative;
-	padding:0;
-	margin:15px 0 0 28px
+	background:none repeat scroll 0 0 white;
+clear:both;
+margin:0 0 0 43px;
+padding:30px 0 10px;
+position:relative;
 }
 ul.anythingBase {
 	background: transparent;
@@ -1697,13 +1720,13 @@ position:absolute;
 top:0;
 width:40px;
 z-index:2000;
-height: 180px
+height: 220px
 }
 div.anythingSlider .arrow a {
 	color:white;
 display:block;
-height:50px;
-margin:35px 0 0 0;
+height:70px;
+margin:60px 0 0 0;
 outline:0 none;
 text-align:center;
 width:40px;
@@ -1766,19 +1789,44 @@ div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thum
 	-moz-transition-duration: 0;
 	-webkit-transition-duration: 0;
 }
-.inside{ font-size:18px; font-weight:bold; padding:0; margin-top:15px}
-.personalityBox{ float: left;margin:15px 0 0 28px;}
+.inside{ font-size:18px; font-weight:bold; padding:0; margin-top:15px;padding:0 4px 0 4px;}
+.personalityBox{ background:none repeat scroll 0 0 white;
+float:left;
+margin:10px 0 0 2px;
+padding:30px 0 10px 40px;
+width:844px;}
 .personalityBox span{ padding-bottom: 10px}
 h4.inside span{ float: right; font-size: 12px; font-weight: normal;}
-.productSorterContainer{ float: left; width: 100%}
-.productSorter{ background-color:#BBE3F7;
+.productSorterContainer{ float: left; width: 882px; padding: 0 4px; margin-top: -5px}
+.productSorter{ background-color:white;
 float:left;
-margin-right:15px;
-width:422px;
-margin-top: 15px}
+margin-right:16px;
+margin-top:15px;
+width:433px;}
 .marginRightClean{ margin-right:0 !important}
-.productSorter .colSx{ float: left; width: 155px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
-.productSorter .colDx{ float: left; width: 265px}
-.productImage{ display: block;   width: 120px; height: 120px; margin: 16px auto 0 auto}
-.productMerchant{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; display: block; line-height: 14px; margin: 15px auto 0 auto ; padding: 0 0 10px 0; text-align: center}
+.productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
+.productSorter .colDx{ float:left;
+width:238px; padding: 15px 15px 15px 0}
+.productImage{ display: block;   width: 146px; height: 146px; margin: 16px auto 0 auto}
+.productMerchant{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; display: block; line-height: 14px; margin: 15px auto 0 auto ; padding: 0 0 5px 0; text-align: center}
 .productMerchantImage{ display: block; margin: 0 auto; height: 55px;}
+#emailinviter{ margin-left: 20px}
+.TabsContainer{ float: left; padding-left: 10px}
+p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS}
+p.product span{ display: block; padding-top: 5px}
+p.productText{ font-family: Arial; font-size: 12px; padding: 10px 0}
+a.productMore{color: #B70158; display: block; float: left}
+.productSorter .submitSmall{ clear:both; margin-top: 10px; float: left}
+.productSorter .submitSmall{ float: left}
+.productSorter .submitSmall:hover { float: left; clear: both; margin-top: 10px}
+.productSorter .submitSmall:hover span{ float: left}
+.pager{bottom:-25px;
+left:50%;
+margin-left:-94px;
+position:absolute;
+width:205px;}
+.pager a, .pager span{ float: left; line-height: 20px}
+.pager a{ width: 20px; height: 20px; line-height:  20px; text-align: center;color:#131313; text-decoration: none}
+.pager span{ margin: 0 5px;color:#131313;}
+.pager a.nextPrev{ width: 60px}
+.pager a.active{ border: 1px solid #999999}
