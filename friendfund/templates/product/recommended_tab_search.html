@@ -1,0 +1,4 @@
+<%namespace name="common" file="common.html"/>
+%if hasattr(c, "searchresult") and hasattr(c, "category"):
+	${(common.display_product_browser(c.searchresult, "Gift for %s" % c.category.name))|n}
+%endif

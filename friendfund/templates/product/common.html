@@ -1,27 +1,83 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 
-<%def name="display_product(counter, product, page_length)">
-	<div class="product_display${page_length  == (counter+1) and ' last' or ' middle'}">
-		<div class="pimage pcol">
-			<div class="imageborder"><img class="productimage widthfirst" src="${product.picture_large}"/></div>
-		</div>
-		<div class="ptitle_price pcol">
-			<div class="product_title">${product.name}</div>
-			<div class="product_price">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</div>
-			<div class="product_shipping">${product.display_shipping|n}</div>
-		</div>
-		<div class="pdescription pcol">${h.word_truncate(product.description_long, 60)|n}
-			%if product.tracking_link: 
-				<a class="more_link" href="${product.tracking_link}" target="_blank">${_("PRODUCT_SEARCH_PANEL_Read More")}</a>
+<%def name="get_search_keys(keys)">_search_keys="${','.join('_%s'%k for k,v in keys)}" ${' '.join(('_%s=%s' % (k,quoteattr(v))) for k,v in keys)|n}</%def>
+
+<%def name="display_product_browser(searchresult, panel_title)">
+%if searchresult and searchresult.items > 0:
+	<%
+		pages = searchresult.pages
+		page_no = searchresult.page_no
+		page_length = len(searchresult.products)
+		page_field = searchresult.page_field()
+	%>
+	<h4 class="inside">${panel_title} <span>Sort by:&nbsp;&nbsp; 
+		<select class="anchorelem" name="sort" id="psort" _base_url="${c.search_base_url}" ${get_search_keys(c.search_keys)|n}>
+			%for ac in c.sortees:
+				<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
+			%endfor
+		</select>
+		</span>
+	</h4>
+	
+	<div class="productSorterContainer">
+		%for i, elem in enumerate(searchresult.products):
+			${display_product(i, elem, page_length)}
+		%endfor
+	</div>
+	<div style="clear:both"></div>
+	
+	%if pages > 1:
+		<div id="product_paginator">
+			%if page_no > 1:
+				<span class="veryfirst">
+				<a class="paginator anchorelem" page="${page_no-1}" sort="${c.sort}" _base_url="${c.search_base_url}" "${get_search_keys(c.search_keys)|n} >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+				</span>
 			%endif
+			%for i in page_field:
+				<span class="${(i==1 and 'first' or i==pages and 'last' or 'middle')}">
+				%if i == page_no:
+					<span class="selected">${i}</span>
+				%else:
+					<span>
+						<a class="paginator anchorelem" page="${i}" sort="${c.sort}" _base_url="${c.search_base_url}" ${get_search_keys(c.search_keys)|n} >${i}</a>
+					</span>
+				%endif
+				</span>
+			%endfor
+			%if page_no < pages:
+				<span class="verylast">
+				<a class="paginator anchorelem" page="${page_no+1}" sort="${c.sort}" _base_url="${c.search_base_url}" ${get_search_keys(c.search_keys)|n}>${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
+				</span>
+			%endif
+		<div style="clear:both"></div>
 		</div>
-		<div class="programimage pcol">
-			<img class="programimage" src="${product.aff_program_logo_url}"/>
+		<div style="clear:both"></div>
+	%endif
+%endif
+</%def>
+
+
+
+<%def name="display_product(counter, product, page_length)">
+	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
+		<div class="colSx">
+			<img class="productImage" src="${product.picture_large}">
+			<p class="productMerchant"></p>
+			<img src="${product.aff_program_logo_url}" class="productMerchantImage" />
 		</div>
-		<div class="pselector">
-			${forms.black_submitlink(_("PRODUCT_SEARCH_PANEL_Select"), [("_guid", product.guid), ("_is_virtual", (product.is_virtual and "1" or "")), ("_net", product.aff_net), ("_progid",product.aff_program_id), ("_imgurl", product.picture_large), 
-								("_label", quoteattr(product.display_label))], "selector", href=None)|n}
+		<div class="colDx">
+			<p class="product">${product.name} <span>${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</span></p>
+			<p class="productText">${h.word_truncate(product.description_long, 60)|n}</p>
+			<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} at Product Merchant</a>
+			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _is_virtual="${product.is_virtual and "1" or ""}" _net = "${product.aff_net}" _progid = "${product.aff_program_id}"
+				_imgurl="${product.picture_large}" _label="${quoteattr(product.display_label)}">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
 		</div>
 	</div>
 </%def>
+
+
+
+
+
+

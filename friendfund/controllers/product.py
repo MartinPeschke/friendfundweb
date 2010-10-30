@@ -5,31 +5,18 @@ from pylons import request, response, session as websession, tmpl_context as c, 
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 
+from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Product, Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductDisplay, ProductSearch
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 log = logging.getLogger(__name__)
 
-_ = lambda x:x
-SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
-			("PRICE_UP",_("PRODUCT_SORT_ORDER_Price up")),
-			("PRICE_DOWN",_("PRODUCT_SORT_ORDER_Price down")),
-			("MERCHANT",_("PRODUCT_SORT_ORDER_Merchant"))]
-PAGESIZE = 5
 
-GIFT_PANEL_TABS = [("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts")),
-					("virtual_tab", _("PRODUCT_SEARCH_PANEL_Virtual Gifts")),
-					("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search"))
-				]
-
-
-from friendfund.lib.base import BaseController, render, _
 
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
-	gift_panel_tabs = GIFT_PANEL_TABS
 	
 	@jsonify
 	def panel(self):
@@ -38,43 +25,29 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def recommended_tab(self):
-		c.region = request.params.get('region', websession['region'])
-		c.panel = 'recommended_tab'
-		c.gift_panel_tabs = self.gift_panel_tabs
-		c.sortees = SORTEES
-		c.sort = SORTEES[0][0]
-		return {'clearmessage':True, 'html':remove_chars(render('/product/recommended_tab.html').strip(), '\n\r\t')}
+		c = g.product_service.recommended_tab(request)
+		return {'clearmessage':True, 'html':remove_chars(render('/product/recommended_tab.html').strip(), '\n\r\t')}	
+	@jsonify
+	def recommended_tab_search(self):
+		c = g.product_service.recommended_tab_search(request)
+		return {'clearmessage':True, 'html':remove_chars(render('/product/recommended_tab_search.html').strip(), '\n\r\t')}
 	
 	@jsonify
 	def virtual_tab(self):
-		c.region = request.params.get('region', websession['region'])
-		c.panel = 'virtual_tab'
-		c.gift_panel_tabs = self.gift_panel_tabs
-		c.sortees = SORTEES
-		c.sort = SORTEES[0][0]
+		c = g.product_service.virtual_tab(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/virtual_tab.html').strip(), '\n\r\t')}
 	
 	@jsonify
 	def search_tab(self):
-		c.region = request.params.get('region', websession['region'])
-		c.panel = 'search_tab'
-		c.gift_panel_tabs = self.gift_panel_tabs
-		c.sortees = SORTEES
-		c.sort = SORTEES[0][0]
-		c.q = None
-		c.back_q = None		
-		c.amazon_available = bool(g.amazon_service.get(c.region))
-		c.psuggestions = g.dbsearch.get(ProductSuggestionSearch\
-									, country = c.region\
-									, occasion = request.params.get('occasion_key', None)\
-									, receiver_sex = request.params.get('sex', None)).suggestions
+		c = g.product_service.search_tab(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
-	
-	
-	
-	
-	
+	def set_region(self):
+		region = request.params.get('region')
+		if region not in g.country_choices.map:
+			abort(404)
+		websession['region'] = region
+		return getattr(self, request.params.get('action'), self.recommended_tab)()
 	
 	
 	@jsonify
@@ -105,13 +78,7 @@ class ProductController(BaseController):
 		c.pool.region = c.region
 		websession['pool'] = c.pool
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
-	
-	def set_region(self):
-		region = request.params.get('region')
-		if region not in g.country_choices.map:
-			abort(404)
-		websession['region'] = region
-		return self.panel()
+
 	
 	@jsonify
 	def search(self):

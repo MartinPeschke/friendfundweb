@@ -1,10 +1,10 @@
 import hmac, binascii, urllib, urllib2, urlparse, re, uuid, logging
 from datetime import datetime
 from hashlib import sha256
-
 from lxml import etree, html
-log = logging.getLogger(__name__)
+
 from friendfund.model.product import ProductSearch, Product
+
 class AttributeMissingInProductException(Exception): pass
 class URLUnacceptableError(Exception): pass
 class TooManyOffersError(Exception): pass
@@ -12,6 +12,8 @@ class NoOffersError(Exception): pass
 class MoreThanOneProductFoundError(Exception): pass
 class WrongRegionAmazonError(Exception): pass
 class AmazonErrorsOccured(Exception): pass
+
+log = logging.getLogger(__name__)
 
 class AmazonService(object):
 	"""

@@ -4,47 +4,27 @@ from friendfund.lib.tools import AutoVivification
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
 
 class DBCountry(DBMappedObject):
-	"""
-	<RESULT status="0" proc_name="get_country">
-		<COUNTRY c_name="AFGHANISTAN" c_two_letter_name="AF" />
-		<COUNTRY c_name="ALBANIA" c_two_letter_name="AL" />
-		<COUNTRY c_name="ALGERIA" c_two_letter_name="DZ" />
-	""" 
-	_cachable = True
-	_expiretime = 86400
+	_cachable = False
 	_get_root = 'COUNTRY'
 	_unique_keys = ['iso2', 'name']
 	_keys = [	 GenericAttrib(str ,'iso2'   ,'c_two_letter_name')
 				,GenericAttrib(str ,'name','c_name')
 			]
 class GetCountryProc(DBMappedObject):
-	"""
-	<RESULT status="0" proc_name="get_country">
-		<COUNTRY c_name="AFGHANISTAN" c_two_letter_name="AF" />
-		<COUNTRY c_name="ALBANIA" c_two_letter_name="AL" />
-		<COUNTRY c_name="ALGERIA" c_two_letter_name="DZ" />
-	"""
-	_cachable = True
-	_expiretime = 86400
+	_cachable = False
 	_no_params = True
 	_get_root = None
 	_get_proc = _set_proc = 'app.get_country'
-	_keys = [	 DBMapper(DBCountry ,'countries', 'COUNTRY', is_list = True)
+	_keys = [	 DBMapper(DBCountry ,'list', 'COUNTRY', is_list = True)
 			]
 	def fromDB(self, xml):
-		self.countries = [c.name for c in self.countries]
+		self.list = [c.name for c in self.list]
 
 		
 class CountryRegion(DBMappedObject):
-	"""
-	<RESULT status="0" proc_name="get_country">
-		<COUNTRY c_name="AFGHANISTAN" c_two_letter_name="AF" />
-		<COUNTRY c_name="ALBANIA" c_two_letter_name="AL" />
-		<COUNTRY c_name="ALGERIA" c_two_letter_name="DZ" />
-	""" 
 	_cachable = False
 	_get_root = 'COUNTRY'
-	_unique_keys = ['code', 'name']
+	_unique_keys = ['code', 'name', 'region']
 	_keys = [	 GenericAttrib(str ,'code'   ,'code')
 				,GenericAttrib(str ,'name','name')
 				,GenericAttrib(str ,'region','region')
@@ -106,3 +86,18 @@ class GetAffiliateProgramsProc(DBMappedObject):
 	def fromDB(self, xml):
 		for p in self.programs:
 			self.map[p.aff_net][p.id] ={ 'shippingdays':p.default_shippingdays, 'shippingdays_warn':p.default_shippingdays_warnlimit }
+
+
+class PersonalityCategory(DBMappedObject):
+	_get_root = _set_root = 'CATEGORY'
+	_cachable = False
+	_unique_keys = ['name']
+	_keys = [GenericAttrib(unicode,'name','name')]
+class GetPersonalityCategoryProc(DBMappedObject):
+	_cachable = False
+	_no_params = True
+	_set_root = _get_root = None
+	_unique_keys = []
+	_get_proc = 'imp.get_categories'
+	_keys = [DBMapper(PersonalityCategory,'list','CATEGORY', is_list = True)]
+

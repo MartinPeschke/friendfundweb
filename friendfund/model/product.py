@@ -141,33 +141,6 @@ class ProductSuggestionSearch(DBMappedObject):
 				,DBMapper(ProductSuggestion, 'suggestions','PRODUCT_SUGGESTION', is_list = True)
 			]
 
-import math 
-class ProductDisplay(object):
-	def __init__(self, **kwargs):
-		self.productlist = kwargs.get('productlist', [])
-		self.items_current = int(kwargs.get('items_current', 0))
-		self.items_total = int(kwargs.get('items_total', 0))
-		self.page_current = int(kwargs.get('page_current', 0))
-		self.page_total = int(kwargs.get('page_total', 0))
-		self.page_size = int(kwargs.get('page_size', 20))
-		self.query = kwargs.get('query', None)
-		self._total_pages = None
-
-	def get_total_pages(self):
-		if not self._total_pages:
-			self._total_pages = int(math.ceil(float(self.items_total) / self.page_size))
-		return self._total_pages
-	def max_page(self):
-		return self.get_total_pages() - 1
-	
-	def page_field(self):
-		def lower(x):
-			return x>3 and x-3 or 0
-		def upper(x):
-			return x+3<self.max_page() and x+3 or self.max_page()
-		result = sorted(list(set([0] + range(lower(self.page_current), upper(self.page_current)) + [self.max_page()] )))
-		return result
-
 class SetAltProductProc(DBMappedObject):
 	""" 
 		[app].[add_alternative_product]
@@ -187,3 +160,9 @@ class SwitchProductVouchersProc(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_get_proc = _set_proc = 'app.switch_product_vouchers'
 	_keys = [GenericAttrib(str,'p_url'         ,'p_url')]
+
+
+
+
+
+

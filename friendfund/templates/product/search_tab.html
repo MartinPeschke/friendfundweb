@@ -11,7 +11,7 @@
 
 
 
-<div class="whiteContainer" ><div class="region_picker">
+<div class="region_picker">
 	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
 	<select name="region" id="region_picker" style="padding: 3px;" >
 		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
@@ -95,7 +95,4 @@
 		</div>
 	
 	</div>
-	</div>
-
-		
 	</div>

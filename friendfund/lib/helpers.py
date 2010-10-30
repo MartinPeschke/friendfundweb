@@ -18,6 +18,7 @@ from decimal import Decimal
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
+CATEGORY_PIC_STATIC_ROOT = '/static/imgs/categories'
 
 POG = '<span class="pog_currency_symbol">G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
 EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/></span>'
@@ -106,6 +107,14 @@ def format_date(date, with_time = False):
 
 def format_date_internal(date):
 	return date.strftime('%Y-%m-%d')
+
+
+
+################## Picture Helpers #################
+
+def get_category_picture(name):
+	static_root = CATEGORY_PIC_STATIC_ROOT
+	return '%(static_root)s/%(name)s.jpg' % locals()
 
 def get_pool_picture(pool_pic_url, type, ext="png"):
 	if pool_pic_url:

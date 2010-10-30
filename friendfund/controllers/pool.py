@@ -12,7 +12,6 @@ from friendfund.lib.tools import dict_contains
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DateValidator, MonetaryValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
-from friendfund.model.globals import GetCountryProc
 from friendfund.model.pool import Pool, Occasion, PoolUser, PoolChat, PoolComment, PoolDescription
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
@@ -163,7 +162,7 @@ class PoolController(BaseController):
 	@post_only(ajax=True)
 	def edit_address(self, pool_url):
 		c.pool_url = pool_url
-		c.countries = g.dbm.get(GetCountryProc).countries
+		c.countries = g.countries.list
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.user.am_i_admin(pool_url):
 			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
@@ -195,7 +194,7 @@ class PoolController(BaseController):
 	@post_only()
 	def set_address(self, pool_url):
 		c.pool_url = pool_url
-		c.countries = g.dbm.get(GetCountryProc).countries
+		c.countries = g.countries.list
 		if not c.user.am_i_admin(pool_url):
 			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
