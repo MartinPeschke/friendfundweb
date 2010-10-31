@@ -1,6 +1,6 @@
 from pylons.i18n import _
 
-from friendfund.lib.tools import AutoVivification	
+from friendfund.lib.tools import AutoVivification
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
 
 class DBCountry(DBMappedObject):
@@ -100,4 +100,3 @@ class GetPersonalityCategoryProc(DBMappedObject):
 	_unique_keys = []
 	_get_proc = 'imp.get_categories'
 	_keys = [DBMapper(PersonalityCategory,'list','CATEGORY', is_list = True)]
-

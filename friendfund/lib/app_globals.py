@@ -7,6 +7,7 @@ from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
 from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc, GetPersonalityCategoryProc, GetCountryProc
+from friendfund.model.virtual_product import GetVirtualGiftsProc
 
 from friendfund.services.amazon_service import AmazonService
 from friendfund.services.payment_service import PaymentService
@@ -102,6 +103,7 @@ class Globals(object):
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
 		self.get_aff_programs = lambda region: self._db_globals.setdefault('affiliate_programs_%s' % region, self.dbsearch.get(GetAffiliateProgramsProc, country = region))
 		product_categories = self.dbsearch.get(GetPersonalityCategoryProc)
+		self.virtual_gifts = self.dbsearch.get(GetVirtualGiftsProc)
 		
 		
 		##################################### SERVICES SETUP #####################################

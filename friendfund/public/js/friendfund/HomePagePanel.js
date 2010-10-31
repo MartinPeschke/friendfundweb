@@ -67,11 +67,13 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
 		}
-	},load: function(_t, elem){
+	}
+	,load: function(_t, elem){
 		_t.onLoad && this.onLoad(_t);
 		dojo.query("#get_started").orphan();
 		dojo.query("#"+elem+"_panel.frontpagebutton div.extender").removeClass("hidden");
 		dojo.query("#button_"+elem+".hpbutton a.panel_opener").addClass("opened");
+		/* TODO: this gets disconnected on Product Panel Changing */
 		dojo.query("a.button_panel_closer", "button_panel").onclick(dojo.hitch(null, _t.unload, _t, true));
 		dojo.query("#"+elem+"_panel").addClass('front_panel_active');
 		parseDefaultsInputs(_t.ref_node);
@@ -81,10 +83,11 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.onDestroy && _t.onDestroy();
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
-		dojo.forEach(_t._widget_list, function(item){item.destroy();});
+		
+		dojo.forEach(_t._widget_list, function(item){item.destroy(item);});
 		_t._widget_list = [];
-		for (var item in _t.receiver_selectors){item = _t.receiver_selectors[item]; item.unload(item);};
 		_t.receiver_selectors = {};
+		
 		var picker = dijit.byId("datestamp");
 		picker && picker.destroy();
 		dojo.query("*", _t.ref_node).orphan();
@@ -197,6 +200,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 						return args;
 					}
 			});
+		_t._widget_list.push(_t.productsearch);
 		_t.productsearch.draw(_t.productsearch, null, params);
 	},
 	productSelected : function(_t, selection_args){
@@ -301,6 +305,10 @@ dojo.declare("friendfund.HomePagePanel", null, {
 									}
 							}
 						});
+		_t._widget_list.push(_t.receiver_selectors.facebook);
+		_t._widget_list.push(_t.receiver_selectors.twitter);
+		_t._widget_list.push(_t.receiver_selectors.email);
+		_t._widget_list.push(_t.receiver_selectors.yourself);
 		_t.receiver_selectors[data.method].draw();
 		dojo.query("a.ajaxlink", _t.ref_node).onclick(
 			function(evt){

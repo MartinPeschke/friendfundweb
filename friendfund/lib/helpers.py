@@ -14,6 +14,7 @@ from babel.numbers import format_currency as fc, format_decimal as fdec, get_cur
 from babel.dates import format_date as fdate, format_datetime as fdatetime
 from pylons import session as websession
 from decimal import Decimal
+from xml.sax.saxutils import quoteattr
 
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
@@ -109,6 +110,17 @@ def format_date_internal(date):
 	return date.strftime('%Y-%m-%d')
 
 
+################## For Product Search Templates #################
+def attrib_keys(keys, updates = {}):
+	if updates:
+		okeys = keys.copy()
+		okeys.update(updates)
+	else:
+		okeys = keys
+	return '_search_keys="%s" %s' % (
+				','.join('_%s'%k for k in okeys.keys() if okeys[k]),
+				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k])
+			)
 
 ################## Picture Helpers #################
 

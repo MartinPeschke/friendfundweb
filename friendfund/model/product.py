@@ -160,9 +160,3 @@ class SwitchProductVouchersProc(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_get_proc = _set_proc = 'app.switch_product_vouchers'
 	_keys = [GenericAttrib(str,'p_url'         ,'p_url')]
-
-
-
-
-
-

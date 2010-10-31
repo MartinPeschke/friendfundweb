@@ -5,8 +5,7 @@ dojo.require("dojox.fx.scroll");
 dojo.require("dojo.fx.easing");
 
 dojo.declare("friendfund.ProductSearch", null, {
-	_widget_list : [],
-	_listener_list : [],
+	_listener_locals : [],
 	onLoaded : null,
 	onSelected : null,
 	searchMixin : null,
@@ -27,9 +26,9 @@ dojo.declare("friendfund.ProductSearch", null, {
 		return false;
 	},
 	loadProductBrowser : function(_t, target, extra_params){
-		var base_url = dojo.attr(target, '_base_url');
-		var params = {sort:dojo.attr(target, 'sort')||"RANK",page:dojo.attr(target, 'page')||1}
-		dojo.forEach(dojo.attr(target, "_search_keys").split(','), 
+		var base_url = dojo.attr(target, "_base_url");
+		var params = {sort:dojo.attr(target, "sort")||"RANK",page:dojo.attr(target, "page")||1}
+		dojo.forEach(dojo.attr(target, "_search_keys").split(","), 
 					function(key){params[key.substring(1)]=dojo.attr(target, key)}
 				);
 		dojo.mixin(params, extra_params);
@@ -39,39 +38,39 @@ dojo.declare("friendfund.ProductSearch", null, {
 		var target=null;
 		if(dojo.hasClass(evt.target, "anchorelem"))target=evt.target;
 		else target = dojo.query(evt.target).parents(".anchorelem")[0];
-		if(!target || target.id == 'psort')return;
+		if(!target || target.id == "psort" || target.id == "region_picker")return;
 		
 		if(dojo.hasClass(target, "productselector")){
 			return dojo.hitch(target, _t.productSelected, _t)();
 		} else if(dojo.hasClass(target, "methodselector")){
-			loadElement("/product/"+dojo.attr(target, '_base_url'), _t.ref_node);
+			loadElement("/product/"+dojo.attr(target, "_base_url"), _t.ref_node, {}, dojo.hitch(null, _t.init_slider, _t));
+		} else if(dojo.hasClass(target, "popuplink")){
+			dojo.hitch(target, loadPopup)(evt);
+		} else if(dojo.hasClass(target, "searcher")){
+			if (!dojo.hasClass(dojo.byId("pq"), "default"))
+				_t.loadProductBrowser(_t, target, {searchterm:dojo.byId("pq").value});
 		} else {
 			_t.loadProductBrowser(_t, target);
 		}
+	},
+	monitorChange : function(_t, evt){
+		if (evt.target.id == "psort")_t.switchSort(_t, evt);
+		else if (evt.target.id == "region_picker")_t.region_picker(_t, evt);
 	},
 	switchSort : function(_t, evt){
 		if(dojo.hasClass(evt.target, "anchorelem"))_t.loadProductBrowser(_t, evt.target, {sort:evt.target.value});
 	},
 	region_picker:function(_t, evt){
 		var params = _t.searchMixin && _t.searchMixin() || {};
-		params[this.name] = this.value;
-		params["action"] = dojo.attr(this, '_base_url');
-		loadElement("/product/set_region", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
+		params[evt.target.name] = evt.target.value;
+		params["action"] = dojo.attr(evt.target, "_base_url");
+		loadElement("/product/set_region", _t.ref_node, params, dojo.hitch(null, _t.init_slider, _t));
 	},
-	productLoaded: function(_t){
-		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled")}
-		_t.onLoaded && _t.onLoaded(_t);
-		
-		dojo.connect(dojo.byId(_t.ref_node), "onclick", dojo.hitch(null, _t.loadResults, _t));
-		dojo.connect(dojo.byId(_t.ref_node), "onchange", dojo.hitch(null, _t.switchSort, _t));
-		
-		dojo.query(".popuplink", _t.ref_node).onclick(dojo.hitch(null, loadPopup));
-		var slider2 = ['Recipe', 'Quote', 'Image', 'Quote #2', 'Image #2'];
-		function formatText(index, panel){
-			return slider2[index - 1];
-		}
+	
+	init_slider : function(_t){
+		parseDefaultsInputs(_t.ref_node);
 		jQuery(function () {
-			jQuery('#slider1').anythingSlider({
+			jQuery("#slider1").anythingSlider({
 				startStopped    : false,  // If autoPlay is on, this can force it to start stopped
 				width           : 830,    // Override the default CSS width
 				height          : 180,    // Override the default CSS height
@@ -79,53 +78,30 @@ dojo.declare("friendfund.ProductSearch", null, {
 				delay           : 5000,   // How long between slideshow transitions in AutoPlay mode (in milliseconds)
 			});
 		});
+	},productLoaded: function(_t){
+		_t.onLoaded && _t.onLoaded(_t);
+		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled")}
+		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onclick", dojo.hitch(null, _t.loadResults, _t)));
+		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
+		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onkeyup", dojo.hitch(null, _t.accessability, _t)));
+		_t.init_slider(_t);
+	},destroy : function(_t){
+		dojo.forEach(_t._listener_locals, dojo.disconnect);
+		_t._listener_locals = [];
 	},
 	
-	
-	
-	
-	
-	
-	accessability : function(_t, callback, evt){
-		switch (evt.keyCode){
-			case (dojo.keys.ENTER):
-				callback(_t, evt);
-				break;
-			case (dojo.keys.ESCAPE):
-				dojo.byId('pq').value = '';
-				break;
+	accessability : function(_t, evt){
+		if(evt.target.id == 'pq'){
+			switch (evt.keyCode){
+				case (dojo.keys.ENTER):
+					if (!dojo.hasClass(dojo.byId("pq"), "default"))
+						_t.loadProductBrowser(_t, dojo.byId("searchsubmitter"), {searchterm:dojo.byId("pq").value});
+					break;
+				case (dojo.keys.ESCAPE):
+					dojo.byId("pq").value = "";
+					break;
+			}
 		}
-	},
-	
-	suggestionSelected : function(_t, evt){
-		var params = {back_q: dojo.attr(this, "searchterm")||null
-					, q:null
-					, aff_net: dojo.attr(this, "aff_net")||null
-					, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
-					, sort : dojo.attr(this, "sort")||"RANK"
-					, is_virtual : dojo.attr(this, "is_virtual")||null
-				};
-		_t.search(_t, evt, params);
-		
-		var node = dojo.byId("product_search");
-		var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:300, easing:dojo.fx.easing.expoOut});
-		anim0.play();
-		evt.stopPropagation();
-		evt.preventDefault();
-		return false;
-	},performSearch : function(_t, evt){
-		_t.search(_t, evt, {q:_t.getSearchString(), sort : dojo.attr(this, "sort")||null});
-		var node = dojo.byId("product_search");
-		var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:300, easing:dojo.fx.easing.expoOut});
-		anim0.play();
-	},resort: function(_t, evt){
-		var params = _t.getSearchParams(_t);
-		dojo.mixin(params, {aff_net: dojo.attr(this, "aff_net")||null
-							, aff_net_ref: dojo.attr(this, "aff_net_ref")||null
-							, sort : this.value||null
-							, is_virtual : dojo.attr(this, "is_virtual")||null
-							});
-		_t.search(_t, evt, params);
 	},
 	productSelected : function(_t, evt){
 		var return_args = {guid : dojo.attr(this, "_guid"),
@@ -136,9 +112,5 @@ dojo.declare("friendfund.ProductSearch", null, {
 			label : dojo.attr(this, "_label"),
 			element : this};
 		_t.onSelected && _t.onSelected(return_args);
-		_t.destroy(_t);
-	}, 
-	destroy : function(_t){
-		dojo.query("*", _t.ref_node).orphan();
 	}
 });

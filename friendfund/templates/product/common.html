@@ -1,8 +1,6 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 
-<%def name="get_search_keys(keys)">_search_keys="${','.join('_%s'%k for k,v in keys)}" ${' '.join(('_%s=%s' % (k,quoteattr(v))) for k,v in keys)|n}</%def>
-
 <%def name="display_product_browser(searchresult, panel_title)">
 %if searchresult and searchresult.items > 0:
 	<%
@@ -11,8 +9,8 @@
 		page_length = len(searchresult.products)
 		page_field = searchresult.page_field()
 	%>
-	<h4 class="inside">${panel_title} <span>Sort by:&nbsp;&nbsp; 
-		<select class="anchorelem" name="sort" id="psort" _base_url="${c.search_base_url}" ${get_search_keys(c.search_keys)|n}>
+	<h4 class="inside">${panel_title} <span>Sort by:&nbsp;&nbsp;
+		<select class="anchorelem" name="sort" id="psort" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1), ("sort",None)])|n}>
 			%for ac in c.sortees:
 				<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
 			%endfor
@@ -31,7 +29,7 @@
 		<div id="product_paginator">
 			%if page_no > 1:
 				<span class="veryfirst">
-				<a class="paginator anchorelem" page="${page_no-1}" sort="${c.sort}" _base_url="${c.search_base_url}" "${get_search_keys(c.search_keys)|n} >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+				<a class="paginator anchorelem" _base_url="${c.search_base_url}" "${h.attrib_keys(c.search_keys, [('page', page_no-1)])|n} >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
 				</span>
 			%endif
 			%for i in page_field:
@@ -40,20 +38,34 @@
 					<span class="selected">${i}</span>
 				%else:
 					<span>
-						<a class="paginator anchorelem" page="${i}" sort="${c.sort}" _base_url="${c.search_base_url}" ${get_search_keys(c.search_keys)|n} >${i}</a>
+						<a class="paginator anchorelem" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [('page', i)])|n} >${i}</a>
 					</span>
 				%endif
 				</span>
 			%endfor
 			%if page_no < pages:
 				<span class="verylast">
-				<a class="paginator anchorelem" page="${page_no+1}" sort="${c.sort}" _base_url="${c.search_base_url}" ${get_search_keys(c.search_keys)|n}>${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
+				<a class="paginator anchorelem" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [('page', page_no+1)])|n}>${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
 				</span>
 			%endif
 		<div style="clear:both"></div>
 		</div>
 		<div style="clear:both"></div>
 	%endif
+%else:
+	<div class="panel_content_no_margin">
+	%if len(getattr(c ,"product_messages", [])) > 0:
+		%for m in c.product_messages:
+			<p>${m}</p>
+		%endfor
+	%else:
+		%if getattr(c ,"max_price", None) is not None and  getattr(c ,"currency", None):
+			${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}
+		%else:
+			${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
+		%endif
+	%endif
+	</div>
 %endif
 </%def>
 
@@ -69,7 +81,11 @@
 		<div class="colDx">
 			<p class="product">${product.name} <span>${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</span></p>
 			<p class="productText">${h.word_truncate(product.description_long, 60)|n}</p>
-			<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} at Product Merchant</a>
+			
+			%if product.tracking_link:
+				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} at ${product.manufacturer}</a>
+			%endif
+			
 			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _is_virtual="${product.is_virtual and "1" or ""}" _net = "${product.aff_net}" _progid = "${product.aff_program_id}"
 				_imgurl="${product.picture_large}" _label="${quoteattr(product.display_label)}">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
 		</div>

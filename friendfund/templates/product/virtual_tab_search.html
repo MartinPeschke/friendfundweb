@@ -1,10 +1,5 @@
-<%inherit file="panel.html"/>
 <%namespace name="common" file="common.html"/>
 
-<div style="clear:both"></div>
-<div id="product_browser_container">
 %if hasattr(c, "searchresult"):
 	${common.display_product_browser(c.searchresult, "Our Virtual Gifts")|n}
 %endif
-</div>
-<div style="clear:both"></div>

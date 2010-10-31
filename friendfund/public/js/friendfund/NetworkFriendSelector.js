@@ -51,7 +51,7 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 			}
 			if(!dojo.hasClass("fb_filter", 'default'))_t.filter(_t, _t.inviter_node, null);
 		}
-	},unload : function(_t){
+	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 	}
