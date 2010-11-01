@@ -77,8 +77,20 @@ class GetCurationQueue(DBMappedObject):
 				GenericAttrib(str,'region','region')
 				,GenericAttrib(str,'type','type')
 				,GenericAttrib(unicode,'program','program')
+				,GenericAttrib(int,'page_no'     ,'page_no')
+				,GenericAttrib(int,'pages'     ,'pages')
+				,GenericAttrib(int,'items'     ,'items')
+				,GenericAttrib(int,'page_size' ,'page_size')
 				,DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)
 			]
+	
+	def page_field(self):
+		def lower(x):
+			return x>2 and x-2 or 1
+		def upper(x):
+			return x+2<self.pages and x+2 or self.pages
+		result = sorted(list(set([1] + range(lower(self.page_no), upper(self.page_no + 1)) + [self.pages] )))
+		return result
 
 class GetCategoriesQueue(DBMappedObject):
 	"""

@@ -19,9 +19,10 @@ def make_map(config):
     map.connect('/error/{action}/{id}', controller='error')
 
     # CUSTOM ROUTES HERE
-
-    map.connect('controller','/{controller}/{action}/{region}/{program}', requirements = {'region':'de|gb|us'})
-    map.connect('controller','/{controller}/{action}/{region}/', requirements = {'region':'de|gb|us'})
+    map.redirect('/', '/index/index/de/all/1')
+    map.connect('controller_paged','/{controller}/{action}/{region}/{program}/{page}', requirements = {'region':'de|gb|us', 'page':'[0-9]+'})
+    map.connect('controller_program','/{controller}/{action}/{region}/{program}', requirements = {'region':'de|gb|us'})
+    map.connect('controller_region','/{controller}/{action}/{region}/', requirements = {'region':'de|gb|us'})
     map.connect('controller','/{controller}/{action}/{region}', requirements = {'region':'de|gb|us'})
     map.connect('home', '/', controller="index", action="index", region='de')
 
