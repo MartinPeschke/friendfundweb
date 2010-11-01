@@ -511,7 +511,10 @@ text-align:center;
 	padding-bottom:20px;
 	margin-left: 30px;
 	float:left;
-	width: 100%;
+	width: 880px;
+	height:170px;
+	overflow:hidden;
+	margin-top: 15px
 }
 #button_panel.product div.productsuggestion {
 	cursor:pointer;
@@ -523,8 +526,6 @@ text-align:center;
 #button_panel.product div.productsuggestion.psmiddle{
 	margin-right:30px;
 }
-
-
 a.productsuggestion{ display:block; background:url("../imgs/backgroundSearchProducts.png") no-repeat scroll 0 0 transparent;padding:3px 0 0;
 }
 a.productsuggestion span{ display:block; margin-top:10px; font-family:Trebuchet MS; font-size:14px; font-weight:bold; text-align:center}
@@ -534,12 +535,10 @@ a.productsuggestion img{ display:block; margin:0 auto}
 	height:129px;
 }
 #product_search_form {
-	padding-top:10px;
 }
 #product_browser_container {
 	position: relative;
 	background-color: white;
-	padding-top: 1px;
 }
 #product_browser {
 	position: relative;
@@ -1078,7 +1077,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	cursor:normal;
 
 }
-.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:15px; margin-top: -1px; z-index: 1; float: left; width:890px}
+.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 
 #invites .invitee_row.fixed {
@@ -1679,7 +1678,7 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 font-weight:bold;
 width:700px;
 padding-bottom: 15px;
-text-align: right
+text-align: right; padding-top: 15px
 }
 
 div#scrollingproductsuggestions{width:810px;overflow:hidden;height:190px;position:relative;}
@@ -1708,7 +1707,7 @@ div.anythingSlider .arrow {
 	top:0;
 	width:40px;
 	z-index:5;
-	height: 230px
+	height: 220px
 }
 div.anythingSlider .arrow a {
 	color:white;
@@ -1719,7 +1718,7 @@ div.anythingSlider .arrow a {
 	text-align:center;
 	width:40px;
 }
-div.anythingSlider .forward { right: 0px; background: white }
+div.anythingSlider .forward { right: 0px;  }
 div.anythingSlider .back { left: 0px;  }
 div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
 div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
@@ -1727,7 +1726,7 @@ div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center cente
 
 
 
-.inside{ font-size:18px; font-weight:bold; padding:0; margin-top:0;padding:15px 4px 0 4px;}
+.inside{ font-size:18px; font-weight:bold; padding:0; margin-top:15px;padding:0 4px 0 4px;}
 .personalityBox{ background:none repeat scroll 0 0 white;
 float:left;
 margin:10px 0 0 2px;
@@ -1735,16 +1734,18 @@ padding:30px 0 10px 40px;
 width:844px;}
 .personalityBox span{ padding-bottom: 10px}
 h4.inside span{ float: right; font-size: 12px; font-weight: normal;}
-.productSorterContainer{ float: left; width: 884px; padding:0 0  0 2px ; margin-top: -5px}
-.productSorterContainer .productSorter {float:left;}
-.productSorter{ background-color:white; height: 267px;text-align:left;
-margin-right:18px;
+.productSorterContainer{ float: left; width: 890px; padding:0 ; margin-top: -5px}
+.productSorter{background: url(/static/imgs/rounded-corner-small.png) 0 0 no-repeat white;
+float:left;
+margin-right:15px;
 margin-top:15px;
-width:433px;}
+width:437px; position: relative}
+.footer-small{ width: 437px; height: 6px; line-height: 0; font-size: 0; background: url(/static/imgs/rounded-corner-small-down.png) 0 0 no-repeat white; float: left}
 .marginRightClean{ margin-right:0 !important}
-.productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
+.productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 9px}
 .productSorter .colDx{ float:left;
-width:238px; padding: 15px 15px 15px 0}
+padding:15px 15px 15px 0;
+width:242px; position: relative}
 .productImage{ display: block;   width: 146px; height: 146px; margin: 16px auto 0 auto}
 .productMerchant{ display:block;
 font-family:Trebuchet MS;
@@ -1756,15 +1757,20 @@ margin:15px auto 5px;
 overflow:hidden;
 padding:0;
 text-align:center;}
-.productMerchantImage{ display: block; margin: 0 auto; height: 55px;}
+.productMerchantImage{ display: block; margin: 0 auto; height: 55px; margin-top: 15px}
 #emailinviter{ margin-left: 20px}
 .TabsContainer{ float: left; padding-left: 10px}
-p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS}
+p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; margin-top: -3px}
 p.product div.currency { display: block; padding-top: 5px}
-p.productText{ font-family: Arial; font-size: 12px; padding: 10px 0 0 0 ; margin-bottom: 10px; overflow: hidden; height: 90px}
-a.productMore{color: #B70158; display: block; float: left}
-.productSorter .submitSmall{ clear:both; margin-top: 10px; float: left}
-.productSorter .submitSmall{ float: left}
+height:20px;
+overflow:hidden;}
+p.productText{ font-family:Arial;
+font-size:12px;
+height:96px;
+overflow:hidden;
+padding:10px 0 0;}
+a.productMore{color: #B70158; display: block; float: left; margin-top: 10px}
+.productSorter .submitSmall{ position: absolute; right:15px; bottom: 15px}
 .productSorter .submitSmall:hover { float: left; clear: both; margin-top: 10px}
 .productSorter .submitSmall:hover span{ float: left}
 
@@ -1776,7 +1782,20 @@ text-align:center;
 width:100%;
 }
 #product_browser_container #product_paginator span.selected{ border: 1px solid #999 ;
-padding:2px 5px; margin-right: 3px}
+padding:2px 5px;}
 #product_browser_container #product_paginator a{border: 1px solid white ;
 padding:2px 5px; cursor: pointer}
 .product  .whiteContainer{ border-bottom:10px solid white}
+div#scrollingproductsuggestions {
+height:180px;
+overflow:hidden;
+position:relative;
+width:810px;
+background:url("/static/imgs/rounded-corner-big.png") no-repeat scroll 0 0 white;clear:both;
+padding:30px 40px 10px;
+}
+.pane{ width:840px}
+#productslider{height:180px;
+margin-left:5px;
+overflow:hidden;
+width:804px;}
