@@ -3,9 +3,13 @@ dojo.require("dojo.NodeList-manipulate");
 dojo.require("dojo.NodeList-traverse");
 dojo.require("dojox.fx.scroll");
 dojo.require("dojo.fx.easing");
+dojo.require("dojox.widget.AutoRotator");
+dojo.require("dojox.widget.rotator.Pan");
+
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
+	_widget_list : [],
 	onLoaded : null,
 	onSelected : null,
 	searchMixin : null,
@@ -69,15 +73,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 	
 	init_slider : function(_t){
 		parseDefaultsInputs(_t.ref_node);
-		jQuery(function () {
-			jQuery("#slider1").anythingSlider({
-				startStopped    : false,  // If autoPlay is on, this can force it to start stopped
-				width           : 830,    // Override the default CSS width
-				height          : 180,    // Override the default CSS height
-				autoPlay        : true,   // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
-				delay           : 5000,   // How long between slideshow transitions in AutoPlay mode (in milliseconds)
-			});
-		});
+		dojo.parser.parse(dojo.byId(_t.ref_node));
+		dijit.byId("slider1") && _t._widget_list.push(dijit.byId("slider1"));
 	},productLoaded: function(_t){
 		_t.onLoaded && _t.onLoaded(_t);
 		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled")}
@@ -88,6 +85,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
+		dojo.forEach(_t._widget_list, function(item){item.destroy(item);});
+		_t._widget_list = [];
 	},
 	
 	accessability : function(_t, evt){

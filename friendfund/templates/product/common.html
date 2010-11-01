@@ -29,7 +29,7 @@
 		<div id="product_paginator">
 			%if page_no > 1:
 				<span class="veryfirst">
-				<a class="paginator anchorelem" _base_url="${c.search_base_url}" "${h.attrib_keys(c.search_keys, [('page', page_no-1)])|n} >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+				<a class="paginator anchorelem" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [('page', page_no-1)])|n} >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
 				</span>
 			%endif
 			%for i in page_field:
