@@ -1693,7 +1693,6 @@ div.anythingSlider .anythingWindow {
 div.anythingSlider {
 	background:none repeat scroll 0 0 white;
 clear:both;
-margin:0 0 0 43px;
 padding:30px 0 10px;
 position:relative;
 }
@@ -1732,10 +1731,11 @@ margin:60px 0 0 0;
 outline:0 none;
 text-align:center;
 width:40px;
+cursor: pointer
  
 }
-div.anythingSlider .forward { right: -13px; background: white }
-div.anythingSlider .back { left: -40px;  }
+div.anythingSlider .forward { right: 0px; background: white }
+div.anythingSlider .back { left: 0px;  }
 div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
 div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
 
@@ -1794,17 +1794,18 @@ div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thum
 .inside{ font-size:18px; font-weight:bold; padding:0; margin-top:0;padding:15px 4px 0 4px;}
 .personalityBox{ background:none repeat scroll 0 0 white;
 float:left;
-margin:10px 0 0 2px;
-padding:30px 0 10px 40px;
-width:844px;}
+margin:10px 0 0 0;
+padding:30px 0 10px 45px;
+width:845px;}
 .personalityBox span{ padding-bottom: 10px}
 h4.inside span{ float: right; font-size: 12px; font-weight: normal;}
-.productSorterContainer{ float: left; width: 884px; padding:0 0  0 2px ; margin-top: -5px}
-.productSorter{ background-color:white; height: 267px;
+.productSorterContainer{ float: left; width: 890px; padding:0 ; margin-top: -5px}
+.productSorter{background-color:white;
 float:left;
-margin-right:18px;
+height:267px;
+margin-right:15px;
 margin-top:15px;
-width:433px;}
+width:437px;}
 .marginRightClean{ margin-right:0 !important}
 .productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
 .productSorter .colDx{ float:left;
@@ -1844,3 +1845,14 @@ padding:2px 5px; margin-right: 3px}
 #product_browser_container #product_paginator a{border: 1px solid white ;
 padding:2px 5px; cursor: pointer}
 .product  .whiteContainer{ border-bottom:10px solid white}
+div#scrollingproductsuggestions {
+height:180px;
+overflow:hidden;
+position:relative;
+width:810px;
+background:none repeat scroll 0 0 white;
+clear:both;
+padding:30px 40px 10px;
+}
+.pane{ width:840px}
+#productslider{ margin-left: 5px}
