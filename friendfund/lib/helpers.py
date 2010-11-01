@@ -109,7 +109,6 @@ def format_date(date, with_time = False):
 def format_date_internal(date):
 	return date.strftime('%Y-%m-%d')
 
-
 ################## For Product Search Templates #################
 def attrib_keys(keys, updates = {}):
 	if updates:
@@ -119,7 +118,7 @@ def attrib_keys(keys, updates = {}):
 		okeys = keys
 	return '_search_keys="%s" %s' % (
 				','.join('_%s'%k for k in okeys.keys() if okeys[k]),
-				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k])
+				' '.join(('_%s="%s"' % (k,okeys[k])) for k in okeys if okeys[k])
 			)
 
 ################## Picture Helpers #################

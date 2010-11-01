@@ -60,6 +60,9 @@ class ProductService(object):
 		tmpl_context.search_base_url='recommended_tab_search'
 		tmpl_context.categories = self.product_categories.list
 		tmpl_context.category = request.params.get('category')
+		
+		tmpl_context.top_sellers = app_globals.top_sellers[tmpl_context.region]
+		
 		if tmpl_context.category and tmpl_context.category not in self.category_map:
 			abort(404)
 		tmpl_context.category = self.category_map.get(tmpl_context.category)
@@ -88,8 +91,7 @@ class ProductService(object):
 				,page_no = tmpl_context.page
 				,page_size = tmpl_context.page_size
 				,sort = tmpl_context.sort
-				,products = app_globals.virtual_gifts.map[tmpl_context.region.upper()]
-				, 
+				,products = app_globals.virtual_gifts[tmpl_context.region]
 			)
 		return tmpl_context
 	

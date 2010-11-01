@@ -28,8 +28,12 @@
 		var final_top = init_top+170;
 		dojo.attr(elem, "_top", final_top);
 		var appear = dojo.animateProperty({node:elem.id, duration: 2000, 
-			properties:{marginTop:{start:init_top, end:init_top+170}}}).play();
-		appear.onEnd = dojo.hitch(null , function() {if(html!=null){dojo.place(html, dojo.byId("fundstream_ra"), "first");html = null;}});
+			properties:{marginTop:{start:init_top, end:init_top+170}}});
+		h = dojo.connect(appear, "onEnd", function(){
+				if(html!=null){dojo.place(html, dojo.byId("fundstream_ra"), "first");html = null;}
+				dojo.disconnect(h);
+		});
+		appear.play();
 		
 		if(final_top < 0) setTimeout("show_delay()", Math.round(3000 + (Math.random() * 12000)));
 		else {

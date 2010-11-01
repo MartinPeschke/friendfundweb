@@ -6,7 +6,6 @@
 	<%
 		pages = searchresult.pages
 		page_no = searchresult.page_no
-		page_length = len(searchresult.products)
 		page_field = searchresult.page_field()
 	%>
 	<h4 class="inside">${panel_title} <span>Sort by:&nbsp;&nbsp;
@@ -20,7 +19,7 @@
 	
 	<div class="productSorterContainer">
 		%for i, elem in enumerate(searchresult.products):
-			${display_product(i, elem, page_length)}
+			${display_product(i, elem)}
 		%endfor
 	</div>
 	<div style="clear:both"></div>
@@ -71,7 +70,7 @@
 
 
 
-<%def name="display_product(counter, product, page_length)">
+<%def name="display_product(counter, product)">
 	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
 		<div class="colSx">
 			<img class="productImage" src="${product.picture_large}">
@@ -79,14 +78,15 @@
 			<img src="${product.aff_program_logo_url}" class="productMerchantImage" />
 		</div>
 		<div class="colDx">
-			<p class="product">${product.name} <span>${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</span></p>
+			<p class="product">${product.name} <div class="currency">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</div></p>
 			<p class="productText">${h.word_truncate(product.description_long, 60)|n}</p>
 			
 			%if product.tracking_link:
 				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} at ${product.manufacturer}</a>
 			%endif
 			
-			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _is_virtual="${product.is_virtual and "1" or ""}" _net = "${product.aff_net}" _progid = "${product.aff_program_id}"
+			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _is_virtual="${product.is_virtual and "1" or ""}" 
+				_net = "${product.aff_net}" _progid="${product.aff_program_id}"
 				_imgurl="${product.picture_large}" _label="${quoteattr(product.display_label)}">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
 		</div>
 	</div>

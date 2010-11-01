@@ -7,7 +7,7 @@ from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
 from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc, GetPersonalityCategoryProc, GetCountryProc
-from friendfund.model.virtual_product import GetVirtualGiftsProc
+from friendfund.model.virtual_product import GetVirtualGiftsProc, GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
 from friendfund.services.payment_service import PaymentService
@@ -103,8 +103,14 @@ class Globals(object):
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
 		self.get_aff_programs = lambda region: self._db_globals.setdefault('affiliate_programs_%s' % region, self.dbsearch.get(GetAffiliateProgramsProc, country = region))
 		product_categories = self.dbsearch.get(GetPersonalityCategoryProc)
-		self.virtual_gifts = self.dbsearch.get(GetVirtualGiftsProc)
-		
+		virtual_gifts = self.dbsearch.get(GetVirtualGiftsProc)
+		top_sellers = self.dbsearch.get(GetTopSellersProc)
+		self.virtual_gifts = {}
+		self.top_sellers = {}
+		for region , countries  in self.country_choices.r2c_map.iteritems():
+			for country in countries:
+				self.top_sellers[country] = top_sellers.map[region.upper()]
+				self.virtual_gifts[country] = virtual_gifts.map[region.upper()]
 		
 		##################################### SERVICES SETUP #####################################
 		self.user_service = UserService(config)
@@ -136,7 +142,7 @@ class Globals(object):
 		
 		
 		amazon_services = {}
-		for k in self.locale_codes:
+		for k in self.country_choices.r2c_map.keys():
 			if app_conf.get('amazon.%s.domain' % k):
 				amazon_service = \
 						AmazonService(

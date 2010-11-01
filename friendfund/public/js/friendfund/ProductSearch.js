@@ -7,11 +7,12 @@ dojo.require("dojox.widget.AutoRotator");
 
 
 dojo.require("dojox.widget.rotator.Pan");
-dojo.require("dojox.widget.rotator.Fade");
+dojo.require("friendfund.Tooltip");
 
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
+	_widget_locals : [],
 	onLoaded : null,
 	onSelected : null,
 	searchMixin : null,
@@ -38,7 +39,14 @@ dojo.declare("friendfund.ProductSearch", null, {
 					function(key){params[key.substring(1)]=dojo.attr(target, key)}
 				);
 		dojo.mixin(params, extra_params);
-		loadElement("/product/"+base_url, _t.productBrowser, params);
+		loadElement("/product/"+base_url, _t.productBrowser, params, function(){
+			var node = dojo.byId(_t.productBrowser);
+			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
+			anim0.play();
+		});
+		var node = dojo.byId(_t.productBrowser);
+		var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
+		anim0.play();
 	},
 	loadResults : function(_t, evt){
 		var target=null;
@@ -49,7 +57,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 		if(dojo.hasClass(target, "productselector")){
 			return dojo.hitch(target, _t.productSelected, _t)();
 		} else if(dojo.hasClass(target, "methodselector")){
-			loadElement("/product/"+dojo.attr(target, "_base_url"), _t.ref_node, {}, dojo.hitch(null, _t.init_slider, _t));
+			loadElement("/product/"+dojo.attr(target, "_base_url"), _t.ref_node, {}, dojo.hitch(null, _t.reinit, _t));
 		} else if(dojo.hasClass(target, "popuplink")){
 			dojo.hitch(target, loadPopup)(evt);
 		} else if(dojo.hasClass(target, "searcher")){
@@ -76,14 +84,28 @@ dojo.declare("friendfund.ProductSearch", null, {
 		var params = _t.searchMixin && _t.searchMixin() || {};
 		params[evt.target.name] = evt.target.value;
 		params["action"] = dojo.attr(evt.target, "_base_url");
-		loadElement("/product/set_region", _t.ref_node, params, dojo.hitch(null, _t.init_slider, _t));
+		loadElement("/product/set_region", _t.ref_node, params, dojo.hitch(null, _t.reinit, _t));
 	},
 	
 	init_slider : function(_t){
 		parseDefaultsInputs(_t.ref_node);
-		dojo.parser.parse(dojo.byId("scrollingproductsuggestions"));
-		dijit.byId("productslider") && _t._widget_list.push(dijit.byId("productslider"));
-		
+		if(dojo.query("div.productsuggestion", "scrollingproductsuggestions").length > 0)
+		{
+			dojo.parser.parse(dojo.byId("scrollingproductsuggestions"));
+			dijit.byId("productslider") && _t._widget_list.push(dijit.byId("productslider"));
+			dojo.query("div.productsuggestion", "scrollingproductsuggestions").forEach(function(elem){
+					_t._widget_locals.push(
+						new friendfund.Tooltip({
+							connectId: [dojo.attr(elem, '_target_id')],
+							label: dojo.query("textarea", elem)[0].value,
+							position: ["below"]
+						})
+					);
+			});
+			dojo.query(".dijitTooltipContainer").forEach(function(elem){
+				_t._listener_locals.push(dojo.connect(elem, "onclick", dojo.hitch(null, _t.loadResults, _t)));
+			});
+		}
 	},productLoaded: function(_t){
 		_t.onLoaded && _t.onLoaded(_t);
 		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled")}
@@ -94,9 +116,14 @@ dojo.declare("friendfund.ProductSearch", null, {
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
+		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
+		_t._widget_locals = [];
 	},
-	
-	accessability : function(_t, evt){
+	reinit : function(_t, evt){
+		_t.destroy(_t);
+		_t.productLoaded(_t);
+		
+	},accessability : function(_t, evt){
 		if(evt.target.id == 'pq'){
 			switch (evt.keyCode){
 				case (dojo.keys.ENTER):

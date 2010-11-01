@@ -126,7 +126,7 @@ def get_friends(logger, id, access_token):
 		data = simplejson.loads(urllib2.urlopen(query).read())['data']
 	except urllib2.HTTPError, e:
 		logger.error("Error opening URL %s (%s):" % (query, e.fp.read()))
-		user_data = None
+		user_data = {}
 	else:
 		user_data = OrderedDict([translate_friend_entry(str(elem['id']), elem)
 					for elem in data if 'name' in elem

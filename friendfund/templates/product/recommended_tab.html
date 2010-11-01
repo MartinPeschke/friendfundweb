@@ -1,7 +1,10 @@
 <%inherit file="panel.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
-
+<%namespace name="common" file="common.html"/>
+<%!
+	from operator import mod
+%>
 
 
 	<div class="region_picker">
@@ -17,21 +20,23 @@
 	<div id="scrollingproductsuggestions" class="anythingSlider">
 	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
 	<span class="arrow forward arrowforward anchorelem"><a>&gt;&gt;</a></span>
-	<div dojoType="dojox.widget.AutoRotator" class="rotator" id="productslider" jsId="productsuggestionscroller1" transition="dojox.widget.rotator.panLeft" autoStart="true" duration="5000">
-		
-		<div class="pane pane0" transition="dojox.widget.rotator.panRight">
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts BLA BLA BLA</span><span class="showme"></span></a></div>
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-		</div>
-		<div class="pane pane1">
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion psmiddle"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-			<div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
+	<div dojoType="dojox.widget.AutoRotator" class="rotator" suspendOnHover="true" id="productslider" jsId="productsuggestionscroller1" transition="dojox.widget.rotator.panLeft" autoStart="true" duration="5000">
+			%for i, prod in enumerate(c.top_sellers):
+				%if mod(i,5) == 0:
+					<div class="pane pane${i%5}" transition="dojox.widget.rotator.panLeft">
+				%endif
+				<div _target_id="slider${i}_elem"  class="productsuggestion ${mod(i,5)<4 and 'psmiddle' or ''}">
+					<a class="productsuggestion">
+						<img id="slider${i}_elem" src="${prod.picture_large}" class="productsuggestion"><span>${prod.name}</span>
+					</a>
+					<textarea style="display:none">
+						${common.display_product(0, prod)|n}
+					</textarea>
+				</div>
+				%if mod(i,5) == 4:
+					</div>
+				%endif
+			%endfor
 		</div>
 	</div>
 	</div>
@@ -40,7 +45,7 @@
 	<div class="personalityBox">
 		%for cat in c.categories:
 		<div class="productsuggestion">
-			<a class="productsuggestion categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
+			<a class="productsuggestion psmiddle categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
 				<img class="productsuggestion" src="${h.get_category_picture(cat.name)|n}">
 				<span>${_(cat.name)}</span>
 				<span class="showme"></span>
