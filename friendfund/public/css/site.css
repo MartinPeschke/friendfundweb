@@ -514,6 +514,7 @@ text-align:center;
 	width: 880px;
 	height:170px;
 	overflow:hidden;
+	margin-top: 15px
 }
 #button_panel.product div.productsuggestion {
 	cursor:pointer;
@@ -533,7 +534,6 @@ a.productsuggestion img{ display:block; margin:0 auto}
 	height:129px;
 }
 #product_search_form {
-	padding-top:10px;
 }
 #product_browser_container {
 	position: relative;
@@ -1714,7 +1714,6 @@ ul.anythingBase li.panel {
 }
 
 div.anythingSlider .arrow {
-	background-color:white;
 color:white;
 display:block;
 position:absolute;
@@ -1734,7 +1733,7 @@ width:40px;
 cursor: pointer
  
 }
-div.anythingSlider .forward { right: 0px; background: white }
+div.anythingSlider .forward { right: 0px;  }
 div.anythingSlider .back { left: 0px;  }
 div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
 div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
@@ -1792,21 +1791,23 @@ div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thum
 	-webkit-transition-duration: 0;
 }
 .inside{ font-size:18px; font-weight:bold; padding:0; margin-top:0;padding:15px 4px 0 4px;}
-.personalityBox{ background:none repeat scroll 0 0 white;
+.personalityBox{ background: url(/static/imgs/rounded-corner-big.png) no-repeat scroll 0 0 white;
 float:left;
 margin:10px 0 0 0;
 padding:30px 0 10px 45px;
 width:845px;}
+.footer-big{ width: 890px;background: url(/static/imgs/footer-big-down.png) no-repeat scroll left bottom white; float: left; height: 10px; line-height: 0; font-size: 0 }
 .personalityBox span{ padding-bottom: 10px}
 h4.inside span{ float: right; font-size: 12px; font-weight: normal;}
 .productSorterContainer{ float: left; width: 890px; padding:0 ; margin-top: -5px}
-.productSorter{background-color:white;
+.productSorter{background: url(/static/imgs/rounded-corner-small.png) 0 0 no-repeat white;
 float:left;
 margin-right:15px;
 margin-top:15px;
 width:437px; position: relative}
+.footer-small{ width: 437px; height: 6px; line-height: 0; font-size: 0; background: url(/static/imgs/rounded-corner-small-down.png) 0 0 no-repeat white; float: left}
 .marginRightClean{ margin-right:0 !important}
-.productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 15px}
+.productSorter .colSx{ float: left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 9px}
 .productSorter .colDx{ float:left;
 padding:15px 15px 15px 0;
 width:242px; position: relative}
@@ -1855,9 +1856,11 @@ height:180px;
 overflow:hidden;
 position:relative;
 width:810px;
-background:none repeat scroll 0 0 white;
-clear:both;
+background:url("/static/imgs/rounded-corner-big.png") no-repeat scroll 0 0 white;clear:both;
 padding:30px 40px 10px;
 }
 .pane{ width:840px}
-#productslider{ margin-left: 5px}
+#productslider{height:180px;
+margin-left:5px;
+overflow:hidden;
+width:804px;}
