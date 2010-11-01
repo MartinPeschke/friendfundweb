@@ -17,6 +17,43 @@ handleResult = function(id, data){
 </%def>
 
 
+<%
+	pages = c.curation_queue.pages
+	page_no = c.curation_queue.page_no
+	page_length = len(c.curation_queue.cp)
+	page_field = c.curation_queue.page_field()
+%>
+	%if pages > 1:
+		<div id="product_paginator">
+			%if page_no > 1:
+				<span class="veryfirst">
+				<a class="paginator anchorelem" href="${url.current(page=page_no-1)}" >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
+				</span>
+			%endif
+			%for i in page_field:
+				<span class="${(i==1 and 'first' or i==pages and 'last' or 'middle')}">
+				%if i == page_no:
+					<span class="selected">${i}</span>
+				%else:
+					<span>
+						<a class="paginator anchorelem"href="${url.current(page=i)}">${i}</a>
+					</span>
+				%endif
+				</span>
+			%endfor
+			%if page_no < pages:
+				<span class="verylast">
+				<a class="paginator anchorelem" href="${url.current(page=page_no+1)}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
+				</span>
+			%endif
+		<div style="clear:both"></div>
+		</div>
+		<div style="clear:both"></div>
+	%endif
+
+
+
+
 <table class="curation" border="1" cellspacing="20">
 <tr><th>Product</th><th>Action</th></tr>
 %for cp in c.curation_queue.cp:

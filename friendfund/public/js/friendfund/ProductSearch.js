@@ -4,12 +4,13 @@ dojo.require("dojo.NodeList-traverse");
 dojo.require("dojox.fx.scroll");
 dojo.require("dojo.fx.easing");
 dojo.require("dojox.widget.AutoRotator");
+
+
 dojo.require("dojox.widget.rotator.Pan");
 
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
-	_widget_list : [],
 	onLoaded : null,
 	onSelected : null,
 	searchMixin : null,
@@ -73,8 +74,9 @@ dojo.declare("friendfund.ProductSearch", null, {
 	
 	init_slider : function(_t){
 		parseDefaultsInputs(_t.ref_node);
-		dojo.parser.parse(dojo.byId(_t.ref_node));
-		dijit.byId("slider1") && _t._widget_list.push(dijit.byId("slider1"));
+		dojo.parser.parse(dojo.byId("product_suggestions"));
+		dijit.byId("productslider") && _t._widget_list.push(dijit.byId("productslider"));
+		
 	},productLoaded: function(_t){
 		_t.onLoaded && _t.onLoaded(_t);
 		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled")}
@@ -85,8 +87,6 @@ dojo.declare("friendfund.ProductSearch", null, {
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
-		dojo.forEach(_t._widget_list, function(item){item.destroy(item);});
-		_t._widget_list = [];
 	},
 	
 	accessability : function(_t, evt){
