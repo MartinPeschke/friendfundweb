@@ -1736,7 +1736,7 @@ width:844px;}
 .personalityBox span{ padding-bottom: 10px}
 h4.inside span{ float: right; font-size: 12px; font-weight: normal;}
 .productSorterContainer{ float: left; width: 882px; padding: 0 4px; margin-top: -5px}
-.productSorter{ background-color:white;
+.productSorter{ background-color:white; height: 267px;
 float:left;
 margin-right:16px;
 margin-top:15px;
@@ -1746,25 +1746,37 @@ width:433px;}
 .productSorter .colDx{ float:left;
 width:238px; padding: 15px 15px 15px 0}
 .productImage{ display: block;   width: 146px; height: 146px; margin: 16px auto 0 auto}
-.productMerchant{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; display: block; line-height: 14px; margin: 15px auto 0 auto ; padding: 0 0 5px 0; text-align: center}
+.productMerchant{ display:block;
+font-family:Trebuchet MS;
+font-size:14px;
+font-weight:bold;
+height:15px;
+line-height:14px;
+margin:15px auto 5px;
+overflow:hidden;
+padding:0;
+text-align:center;}
 .productMerchantImage{ display: block; margin: 0 auto; height: 55px;}
 #emailinviter{ margin-left: 20px}
 .TabsContainer{ float: left; padding-left: 10px}
 p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS}
 p.product span{ display: block; padding-top: 5px}
-p.productText{ font-family: Arial; font-size: 12px; padding: 10px 0}
+p.productText{ font-family: Arial; font-size: 12px; padding: 10px 0 0 0 ; margin-bottom: 10px; overflow: hidden; height: 90px}
 a.productMore{color: #B70158; display: block; float: left}
 .productSorter .submitSmall{ clear:both; margin-top: 10px; float: left}
 .productSorter .submitSmall{ float: left}
 .productSorter .submitSmall:hover { float: left; clear: both; margin-top: 10px}
 .productSorter .submitSmall:hover span{ float: left}
-.pager{bottom:-25px;
-left:50%;
-margin-left:-94px;
+
+.whiteContainer #product_browser_container{ background: none}
+#product_browser_container #product_paginator{bottom:-40px;
+padding:0;
 position:absolute;
-width:205px;}
-.pager a, .pager span{ float: left; line-height: 20px}
-.pager a{ width: 20px; height: 20px; line-height:  20px; text-align: center;color:#131313; text-decoration: none}
-.pager span{ margin: 0 5px;color:#131313;}
-.pager a.nextPrev{ width: 60px}
-.pager a.active{ border: 1px solid #999999}
+text-align:center;
+width:100%;
+}
+#product_browser_container #product_paginator span.selected{ border: 1px solid #999 ;
+padding:2px 5px;}
+#product_browser_container #product_paginator a{border: 1px solid white ;
+padding:2px 5px; cursor: pointer}
+.product  .whiteContainer{ border-bottom:10px solid white}
