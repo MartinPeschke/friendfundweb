@@ -7,6 +7,7 @@ dojo.require("dojox.widget.AutoRotator");
 
 
 dojo.require("dojox.widget.rotator.Pan");
+dojo.require("dojox.widget.rotator.Fade");
 
 
 dojo.declare("friendfund.ProductSearch", null, {
@@ -54,6 +55,12 @@ dojo.declare("friendfund.ProductSearch", null, {
 		} else if(dojo.hasClass(target, "searcher")){
 			if (!dojo.hasClass(dojo.byId("pq"), "default"))
 				_t.loadProductBrowser(_t, target, {searchterm:dojo.byId("pq").value});
+		} else if(dojo.hasClass(target, "arrow")){
+			if(dojo.hasClass(target, "arrowforward")){
+				dojo.publish('productslider/rotator/control', ['next']);
+			} else if(dojo.hasClass(target, "arrowback")){
+				dojo.publish('productslider/rotator/control', ['prev']);
+			}
 		} else {
 			_t.loadProductBrowser(_t, target);
 		}
@@ -74,7 +81,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 	
 	init_slider : function(_t){
 		parseDefaultsInputs(_t.ref_node);
-		dojo.parser.parse(dojo.byId("product_suggestions"));
+		dojo.parser.parse(dojo.byId("scrollingproductsuggestions"));
 		dijit.byId("productslider") && _t._widget_list.push(dijit.byId("productslider"));
 		
 	},productLoaded: function(_t){
