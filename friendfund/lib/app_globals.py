@@ -98,19 +98,15 @@ class Globals(object):
 			self.dbadmin = common.DBManager(adminpool, self.cache_pool, logging.getLogger('DBAdmin'))
 		
 		##################################### DB GLOBALS SETUP #####################################
+		
 		self._db_globals={}
 		self.countries = self._db_globals.setdefault('countries', self.dbm.get(GetCountryProc))
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
 		self.get_aff_programs = lambda region: self._db_globals.setdefault('affiliate_programs_%s' % region, self.dbsearch.get(GetAffiliateProgramsProc, country = region))
+		### Product Setup requirements ###
 		product_categories = self.dbsearch.get(GetPersonalityCategoryProc)
 		virtual_gifts = self.dbsearch.get(GetVirtualGiftsProc)
 		top_sellers = self.dbsearch.get(GetTopSellersProc)
-		self.virtual_gifts = {}
-		self.top_sellers = {}
-		for region , countries  in self.country_choices.r2c_map.iteritems():
-			for country in countries:
-				self.top_sellers[country] = top_sellers.map[region.upper()]
-				self.virtual_gifts[country] = virtual_gifts.map[region.upper()]
 		
 		##################################### SERVICES SETUP #####################################
 		self.user_service = UserService(config)
@@ -160,7 +156,7 @@ class Globals(object):
 				amazon_services[k] = None
 				log.warning("AmazonService NOT AVAILABLE for %s", self.country_choices.r2c_map[k])
 		
-		self.product_service = ProductService(amazon_services, product_categories)
+		self.product_service = ProductService(amazon_services, product_categories, virtual_gifts, top_sellers, self.country_choices)
 		log.info("ProductService set up")
 		
 		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home')

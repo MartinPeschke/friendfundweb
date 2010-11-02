@@ -8,7 +8,7 @@ from pylons.controllers.util import abort, redirect
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
-from friendfund.model.pool import Product, Pool
+from friendfund.model.pool import Pool
 from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException
@@ -90,24 +90,21 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def set(self):
+		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = formencode.variabledecode.variable_decode(request.params)
 		product = params.get('product', None)
-		if not product or not dict_contains(product, ['aff_net', 'guid']):
+		if not product or not dict_contains(product, ['is_amazon', 'is_virtual', 'is_curated', 'guid']):
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
 		
-		c.region = request.params.get('region', websession['region'])
-		c.amazon_available = bool(g.product_service.amazon_services.get(c.region))
-		if product['aff_net'] == 'AMAZON':
-			product = g.product_service.amazon_services[c.region].get_product_from_guid(product['guid'])
-		else:
-			productresult = g.dbsearch.get(ProductRetrieval, guid=product['guid'], is_virtual=product.get('is_virtual', False), region=c.region)
-			if not productresult.product:
-				return self.ajax_messages(_("POOL_CREATE_Product not Found"))
-			product = productresult.product
-		c.pool = websession.get('pool') or Pool()
-		c.pool.product = product
-		c.pool.region = c.region
-		websession['pool'] = c.pool
+		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
+		product['is_virtual'] = strbool.to_python(product['is_virtual'])
+		product['is_curated'] = strbool.to_python(product['is_curated'])
+
+		g.product_service.set_product(product, request)
+		
+		
+		
+
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
 
 	
@@ -140,8 +137,4 @@ class ProductController(BaseController):
 			c.success = True
 			return self.ajax_messages(_(u"PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"))
 		else:
-			return  {'clearmessage':'true'}
-	
-	def amazon_lookup(self):
-		item_id = request.params.get("item_id")
-		return g.amazon_service[websession['region']].fetch_product(item_id).read()
+			return {'clearmessage':'true'}

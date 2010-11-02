@@ -148,6 +148,7 @@ class AmazonService(object):
 			product.aff_net = 'AMAZON'
 			product.aff_program_id = '1'
 			product.aff_program_name = 'AMAZON'
+			product.is_amazon = True
 			product.is_virtual = False
 			product.category = -1
 			product.delivery_time = 5

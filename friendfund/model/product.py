@@ -25,6 +25,8 @@ class Product(DBMappedObject):
 				,GenericAttrib(str     ,'delivery_time'            , 'delivery_time'            )
 				,GenericAttrib(str     ,'ean'                      , 'ean'                      )
 				,GenericAttrib(bool    ,'is_virtual'               , 'is_virtual'               )
+				,GenericAttrib(bool    ,'is_curated'               , 'is_curated'               )
+				,GenericAttrib(bool    ,'is_amazon'                , None                       )
 				,GenericAttrib(str     ,'aff_program_logo_url'     , 'aff_program_logo_url'     )
 				,GenericAttrib(str     ,'aff_program_delivery_time', 'aff_program_delivery_time')
 				,GenericAttrib(unicode ,'picture_small'            , 'picture_small'            )
@@ -77,7 +79,7 @@ class ProductRetrieval(DBMappedObject):
 	_unique_keys = ['guid']
 	_keys = [	 GenericAttrib(str,'guid'      ,'guid')
 				,GenericAttrib(str,'region'      ,'region')
-				,GenericAttrib(bool,'is_virtual'      ,'is_virtual')
+				,GenericAttrib(bool,'is_curated'      ,'is_curated')
 				,DBMapper(Product, 'product', 'PRODUCT')
 			]
 class ProductSearch(DBMappedObject):
@@ -88,18 +90,17 @@ class ProductSearch(DBMappedObject):
 	_get_proc = _set_proc = 'imp.search_product'
 	_unique_keys = ['region', 'program_id', 'search', 'category', 'page_no']
 	_cacheable = False
-	_keys = [	 GenericAttrib(str,'region'      ,'region')
-				,GenericAttrib(str,'search'      ,'search')
-				,GenericAttrib(int,'max_price'      ,'max_price')
-				,GenericAttrib(str,'program_id'  ,'program_id')
-				,GenericAttrib(int,'category'    ,'category')
-				,GenericAttrib(int,'page_no'     ,'page_no')
-				,GenericAttrib(int,'pages'     ,'pages')
-				,GenericAttrib(int,'page_size' ,'page_size')
-				,GenericAttrib(int,'items' ,'items')
-				,GenericAttrib(str,'sort' ,'sort')
-				,GenericAttrib(bool,'is_virtual' ,'is_virtual')
-				,DBMapper(Product, 'products', 'PRODUCT', is_list = True)
+	_keys = [	 GenericAttrib(str ,'region'     ,'region')
+				,GenericAttrib(str ,'search'     ,'search')
+				,GenericAttrib(int ,'max_price'  ,'max_price')
+				,GenericAttrib(str ,'program_id' ,'program_id')
+				,GenericAttrib(int ,'category'   ,'category')
+				,GenericAttrib(int ,'page_no'    ,'page_no')
+				,GenericAttrib(int ,'pages'      ,'pages')
+				,GenericAttrib(int ,'page_size'  ,'page_size')
+				,GenericAttrib(int ,'items'      ,'items')
+				,GenericAttrib(str ,'sort'       ,'sort')
+				,DBMapper(Product  ,'products'   ,'PRODUCT', is_list = True)
 			]
 	
 	def page_field(self):

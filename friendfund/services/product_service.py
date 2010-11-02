@@ -6,6 +6,7 @@ from pylons import app_globals, tmpl_context, session as websession
 from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch
 from friendfund.model.product_search import ProductSearchByCategory
 from friendfund.model.virtual_product import ProductPager
+from friendfund.model.pool import Pool
 
 log = logging.getLogger(__name__)
 
@@ -32,15 +33,30 @@ class ProductService(object):
 		This is shared between all threads, do not stick state in here!
 	"""
 	
-	def __init__(self, amazon_services, product_categories):
+	def __init__(self, amazon_services, product_categories, virtual_gifts, top_sellers, country_choices):
 		if not isinstance(amazon_services, dict) or len(amazon_services) < 3:
 			raise Exception("Insufficient Amazon Services")
 		self.amazon_services = amazon_services
 		self.product_categories = product_categories
 		self.category_map = dict([(cat.name,cat) for cat in self.product_categories.list])
+		
+		
+		self.top_sellers = {}
+		self.virtual_gifts = {}
+		for region, countries  in country_choices.r2c_map.iteritems():
+			for country in countries:
+				self.top_sellers[country] = top_sellers.map[region.upper()]
+				self.virtual_gifts[country] = virtual_gifts.map[region.upper()]
+		self.virtual_gift_map = dict([(gift.guid, gift) for region, gifts in self.virtual_gifts.iteritems() for gift in gifts])
+
+		
 	
-	def request_setup(self, request):
+	def setup_region(self, request):
 		tmpl_context.region = request.params.get('region', websession['region'])
+		return tmpl_context
+		
+	def request_setup(self, request):
+		tmpl_context = self.setup_region(request)
 		tmpl_context.gift_panel_tabs = GIFT_PANEL_TABS
 		tmpl_context.sortees = SORTEES
 		tmpl_context.sort = SORTEES[0][0]
@@ -61,7 +77,7 @@ class ProductService(object):
 		tmpl_context.categories = self.product_categories.list
 		tmpl_context.category = request.params.get('category')
 		
-		tmpl_context.top_sellers = app_globals.top_sellers[tmpl_context.region]
+		tmpl_context.top_sellers = self.top_sellers[tmpl_context.region]
 		
 		if tmpl_context.category and tmpl_context.category not in self.category_map:
 			abort(404)
@@ -86,12 +102,13 @@ class ProductService(object):
 		tmpl_context = self.request_search_setup(request)
 		tmpl_context.panel = 'virtual_tab'
 		tmpl_context.search_base_url='virtual_tab_search'
+		tmpl_context.sort = request.params.get('sort', "PRICE_UP")
 		tmpl_context.searchresult = ProductPager(
 				region = tmpl_context.region
 				,page_no = tmpl_context.page
 				,page_size = tmpl_context.page_size
 				,sort = tmpl_context.sort
-				,products = app_globals.virtual_gifts[tmpl_context.region]
+				,products = self.virtual_gifts[tmpl_context.region]
 			)
 		return tmpl_context
 	
@@ -105,7 +122,6 @@ class ProductService(object):
 		tmpl_context.searchterm = request.params.get('searchterm', '')
 		tmpl_context.max_price = request.params.get('price', None)
 		tmpl_context.currency = request.params.get('currency', None)
-		tmpl_context.is_virtual = request.params.get('is_virtual', False)
 		tmpl_context.amazon_available = bool(self.amazon_services.get(tmpl_context.region))
 		return tmpl_context
 	
@@ -133,8 +149,7 @@ class ProductService(object):
 										search=tmpl_context.searchterm, 
 										page_no=tmpl_context.page,
 										region=tmpl_context.region,
-										max_price = tmpl_context.max_price,
-										is_virtual = tmpl_context.is_virtual), ProductSearch)
+										max_price = tmpl_context.max_price), ProductSearch)
 		return tmpl_context
 	
 	def _amazon_fallback(self, request, url):
@@ -147,3 +162,29 @@ class ProductService(object):
 			tmpl_context.searchresult = self.amazon_services[domain].get_product_from_url(url)
 			tmpl_context.searchterm = "Amazon Link"
 		return tmpl_context
+	
+	
+	
+	def set_product(self, product, request):
+		tmpl_context = self.setup_region(request)
+		
+		if product['is_amazon']:
+			product = self.amazon_services[tmpl_context.region].get_product_from_guid(product['guid'])
+		elif product['is_virtual']:
+			product = self.virtual_gift_map[product['guid']]
+		else:
+			productresult = app_globals.dbsearch.get(ProductRetrieval
+											, guid = product['guid']
+											, region = tmpl_context.region
+											, is_curated = product['is_curated']
+										)
+			if not productresult.product:
+				return self.ajax_messages(_("POOL_CREATE_Product not Found"))
+			product = productresult.product
+		
+		tmpl_context.pool = websession.get('pool') or Pool()
+		tmpl_context.pool.product = product
+		tmpl_context.pool.region = tmpl_context.region
+		websession['pool'] = tmpl_context.pool
+		return tmpl_context
+	

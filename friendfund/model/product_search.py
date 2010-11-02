@@ -20,6 +20,10 @@ class ProductSearchByCategory(DBMappedObject):
 				,GenericAttrib(str,'sort' ,'sort')
 				,DBMapper(Product, 'products', 'PRODUCT', is_list = True)
 			]
+	def fromDB(self, xml):
+		for product in self.products:
+			product.is_curated = True
+	
 	def page_field(self):
 		def lower(x):
 			return x>2 and x-2 or 1

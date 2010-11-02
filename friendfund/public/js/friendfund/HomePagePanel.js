@@ -27,7 +27,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.check_complete(_t);
 	},
 	connect:function(_t, action){
-		dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false));
+		_t._listener_globals.push(dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false)));
 	},
 	submit:function(_t, evt){
 		if (!dojo.hasClass(this, 'inactive')){
@@ -207,8 +207,8 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		var params = {};
 		params["product.guid"] = selection_args.guid;
 		params["product.is_virtual"] = selection_args.is_virtual;
-		params["product.aff_net"] = selection_args.net;
-		params["product.aff_program_id"] =  selection_args.progid;
+		params["product.is_curated"] = selection_args.is_curated;
+		params["product.is_amazon"] = selection_args.is_amazon;
 		loadElement("/product/set", "product_panel", params, dojo.hitch(null, _t.set_complete, _t, 'product'));
 		_t.verify_dates();
 		_t.unload(_t, true);

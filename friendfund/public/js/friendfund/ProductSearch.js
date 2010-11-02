@@ -138,10 +138,10 @@ dojo.declare("friendfund.ProductSearch", null, {
 	},
 	productSelected : function(_t, evt){
 		var return_args = {guid : dojo.attr(this, "_guid"),
-			net : dojo.attr(this, "_net"),
-			progid : dojo.attr(this, "_progid"),
 			imgurl : dojo.attr(this, "_imgurl"),
 			is_virtual : dojo.attr(this, "_is_virtual"),
+			is_curated : dojo.attr(this, "_is_curated"),
+			is_amazon : dojo.attr(this, "_is_amazon"),
 			label : dojo.attr(this, "_label"),
 			element : this};
 		_t.onSelected && _t.onSelected(return_args);
