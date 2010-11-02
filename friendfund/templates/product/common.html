@@ -1,15 +1,21 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 
+<%def name="display_region_picker(title)">
+<div class="region_picker">
+			<span>${title|n} &nbsp;&nbsp;</span>
+			<select name="region" id="region_picker" style="padding: 3px;" _base_url="${c.panel}">
+				%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
+					<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
+				%endfor
+			</select>
+		</div>
+</%def>
+
 <%def name="display_product_browser(searchresult, panel_title)">
 %if searchresult and searchresult.items > 0:
-	<%
-		pages = searchresult.pages
-		page_no = searchresult.page_no
-		page_field = searchresult.page_field()
-	%>
-	<h4 class="inside">${panel_title} <span>Sort by:&nbsp;&nbsp;
-		<select class="anchorelem" name="sort" id="psort" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1), ("sort",None)])|n}>
+	<h4 class="inside">${panel_title} <span>${_("PRODUCT_BROWSER_TITLE_Sort by:")}&nbsp;&nbsp;
+		<select class="anchorelem" name="sort" id="psort" style="padding: 3px;" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1), ("sort",None)])|n}>
 			%for ac in c.sortees:
 				<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
 			%endfor
@@ -23,7 +29,31 @@
 		%endfor
 	</div>
 	<div style="clear:both"></div>
-	
+%else:
+	<div class="panel_content_no_margin">
+	%if len(getattr(c ,"product_messages", [])) > 0:
+		%for m in c.product_messages:
+			<p>${m}</p>
+		%endfor
+	%else:
+		%if getattr(c ,"max_price", None) is not None and  getattr(c ,"currency", None):
+			${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}
+		%else:
+			${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
+		%endif
+	%endif
+	</div>
+%endif
+</%def>
+
+
+
+<%def name="display_paginator(searchresult)">
+	<%
+		pages = searchresult.pages
+		page_no = searchresult.page_no
+		page_field = searchresult.page_field()
+	%>
 	%if pages > 1:
 		<div id="product_paginator">
 			%if page_no > 1:
@@ -51,21 +81,6 @@
 		</div>
 		<div style="clear:both"></div>
 	%endif
-%else:
-	<div class="panel_content_no_margin">
-	%if len(getattr(c ,"product_messages", [])) > 0:
-		%for m in c.product_messages:
-			<p>${m}</p>
-		%endfor
-	%else:
-		%if getattr(c ,"max_price", None) is not None and  getattr(c ,"currency", None):
-			${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}
-		%else:
-			${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
-		%endif
-	%endif
-	</div>
-%endif
 </%def>
 
 
@@ -81,7 +96,7 @@
 			<p class="productText">${h.word_truncate(product.description_long, 30)|n}</p>
 			
 			%if product.tracking_link:
-				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} at ${product.manufacturer}</a>
+				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} ${product.manufacturer}</a>
 			%endif
 			
 			

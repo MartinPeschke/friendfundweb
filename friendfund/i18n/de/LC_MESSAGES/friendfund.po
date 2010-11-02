@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-02 11:30+0100\n"
+"PO-Revision-Date: 2010-11-02 14:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -363,19 +363,15 @@ msgstr "Bei diesem Artikel scheint es sich um einen Amazon Marketplace Artikel z
 msgid "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."
 msgstr "Amazon hat nur unzureichende Informationen bereitgestellt, somit können wir dieses Produkt leider nicht anbieten."
 
-#: friendfund/controllers/product.py:96
+#: friendfund/controllers/product.py:97
 msgid "INDEX_PAGE_No Product"
 msgstr "Produkt fehlt"
 
-#: friendfund/controllers/product.py:105
-msgid "POOL_CREATE_Product not Found"
-msgstr "Kein Produkt gefunden."
-
-#: friendfund/controllers/product.py:138
+#: friendfund/controllers/product.py:135
 msgid "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or shipping much time!"
 msgstr "Dein Geschenk und Datum lassen uns nicht genug Zeit für eine fristgerechte Versendung. Bitte wähle ein späteres Datum!"
 
-#: friendfund/controllers/product.py:141
+#: friendfund/controllers/product.py:138
 msgid "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"
 msgstr "Es ist doch sehr unwahrscheinlich, dass das Geschenk noch rechtzeitig ankommt."
 
@@ -391,36 +387,36 @@ msgstr "Unbekanntes Netzwerk oder Methode."
 msgid "TWITTER_An Error occured during Twitter authentication, please try again later."
 msgstr "Zwischen Twitter und Friendfund hats mit der Kommunikation nicht geklappt, versuchs doch bitte nochmal."
 
-#: friendfund/lib/app_globals.py:120
+#: friendfund/lib/app_globals.py:117
 msgid "CONTRIBUTION_PAGE_Creditcard"
 msgstr "Kreditkarte"
 
-#: friendfund/lib/app_globals.py:126
+#: friendfund/lib/app_globals.py:123
 msgid "CONTRIBUTION_PAGE_Paypal"
 msgstr "Paypal"
 
-#: friendfund/lib/app_globals.py:132
+#: friendfund/lib/app_globals.py:129
 msgid "CONTRIBUTION_PAGE_Direct eBanking"
 msgstr "Sofortüberweisung"
 
-#: friendfund/lib/app_globals.py:138
+#: friendfund/lib/app_globals.py:135
 #: friendfund/templates/pool/parts/button_contribute.html:17
 msgid "CONTRIBUTION_PAGE_Virtual Pot of Gold"
 msgstr "Zahl mit Topf voll Gold"
 
-#: friendfund/lib/app_globals.py:166
+#: friendfund/lib/app_globals.py:163
 msgid "GLOBAL_MENU_Home"
 msgstr "Home"
 
-#: friendfund/lib/app_globals.py:167
+#: friendfund/lib/app_globals.py:164
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Pools"
 
-#: friendfund/lib/app_globals.py:168
+#: friendfund/lib/app_globals.py:165
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Orden"
 
-#: friendfund/lib/app_globals.py:169
+#: friendfund/lib/app_globals.py:166
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Mein Profil"
 
@@ -731,33 +727,97 @@ msgstr "What are virtual gifts and how do I get them?"
 msgid "virtual_gifts_help_link_title"
 msgstr "Mehr dazu..."
 
-#: friendfund/services/product_service.py:17
+#: friendfund/resources/db_keys.py:44
+msgid "CATEGORY_ACCESSORIES"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:45
+msgid "CATEGORY_ADRENALINE_JUNKIE"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:46
+msgid "CATEGORY_ADVENTURER"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:47
+msgid "CATEGORY_BOHEMIAN"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:48
+msgid "CATEGORY_ECO_WARRIOR"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:49
+msgid "CATEGORY_FAMILY"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:50
+msgid "CATEGORY_FASHIONISTA"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:51
+msgid "CATEGORY_FOODIE"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:52
+msgid "CATEGORY_GADGET_FREAK"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:53
+msgid "CATEGORY_GEEK"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:54
+msgid "CATEGORY_HOME_LOVER"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:55
+msgid "CATEGORY_INTELLECTUAL"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:56
+msgid "CATEGORY_SPORTY"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:57
+msgid "CATEGORY_STRESS_HEAD"
+msgstr ""
+
+#: friendfund/resources/db_keys.py:58
+msgid "CATEGORY_TOP_SELLER"
+msgstr ""
+
+#: friendfund/services/product_service.py:18
 msgid "PRODUCT_SORT_ORDER_Relevancy"
 msgstr "Relevanz"
 
-#: friendfund/services/product_service.py:18
+#: friendfund/services/product_service.py:19
 msgid "PRODUCT_SORT_ORDER_Price up"
 msgstr "Preis auf"
 
-#: friendfund/services/product_service.py:19
+#: friendfund/services/product_service.py:20
 msgid "PRODUCT_SORT_ORDER_Price down"
 msgstr "Preis ab"
 
-#: friendfund/services/product_service.py:20
+#: friendfund/services/product_service.py:21
 msgid "PRODUCT_SORT_ORDER_Merchant"
 msgstr "Händler"
 
-#: friendfund/services/product_service.py:23
+#: friendfund/services/product_service.py:24
 msgid "PRODUCT_SEARCH_PANEL_Recommended Gifts"
 msgstr "Geschenkvorschläge"
 
-#: friendfund/services/product_service.py:24
+#: friendfund/services/product_service.py:25
 msgid "PRODUCT_SEARCH_PANEL_Virtual Gifts"
 msgstr "Virtuelle Geschenke"
 
-#: friendfund/services/product_service.py:25
+#: friendfund/services/product_service.py:26
 msgid "PRODUCT_SEARCH_PANEL_Gift Search"
 msgstr "Suche"
+
+#: friendfund/services/product_service.py:182
+msgid "POOL_CREATE_Product not Found"
+msgstr "Kein Produkt gefunden."
 
 #: friendfund/services/user_service.py:38
 msgid "LOGIN_ACCOUNTS_CANNOT_BE_CONSOLIDATED_WARNING"
@@ -1092,25 +1152,25 @@ msgstr "Nur gemeinsame Freunde"
 msgid "INVITE_PAGE_LABEL_Invite All"
 msgstr "Alle einladen"
 
-#: friendfund/templates/invite/inviter.html:56
+#: friendfund/templates/invite/inviter.html:55
 #, python-format
 msgid "RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s"
 msgstr "Geburtstag: %(dob_fmt)s"
 
-#: friendfund/templates/invite/inviter.html:57
+#: friendfund/templates/invite/inviter.html:56
 #, python-format
 msgid "RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go"
 msgstr "Nur Noch <b>%(dob_difference)s Tage</b>"
 
-#: friendfund/templates/invite/inviter.html:83
+#: friendfund/templates/invite/inviter.html:82
 msgid "INVITE_PAGE_LABEL_Name of your friend:"
 msgstr "Name deines Freundes:"
 
-#: friendfund/templates/invite/inviter.html:90
+#: friendfund/templates/invite/inviter.html:89
 msgid "INVITE_PAGE_LABEL_Email address of your friend:"
 msgstr "E-Mail Adresse deines Freundes"
 
-#: friendfund/templates/invite/inviter.html:100
+#: friendfund/templates/invite/inviter.html:99
 msgid "INVITE_PAGE_LABEL_Submit"
 msgstr "Abschicken"
 
@@ -1891,35 +1951,49 @@ msgstr "Geschenk wählen"
 msgid "PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands."
 msgstr "Finde das perfekte Geschenk unter tausenden Möglichkeiten."
 
-#: friendfund/templates/product/common.html:31
+#: friendfund/templates/product/common.html:22
+msgid "PRODUCT_BROWSER_TITLE_Sort by:"
+msgstr "Sortieren nach:"
+
+#: friendfund/templates/product/common.html:42
 msgid "PRODUCT_SEARCH_PANEL_Back"
 msgstr "Zurück"
 
-#: friendfund/templates/product/common.html:47
+#: friendfund/templates/product/common.html:58
 msgid "PRODUCT_SEARCH_PANEL_Next"
 msgstr "Nächstes"
 
-#: friendfund/templates/product/common.html:62
+#: friendfund/templates/product/common.html:73
 #, python-format
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?"
 msgstr "Wir konnten nichts finden mit einem Preis von %s oder weniger. Möchtest du nach etwas anderem suchen?"
 
-#: friendfund/templates/product/common.html:64
+#: friendfund/templates/product/common.html:75
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
 msgstr "Leider nichts gefunden. Vielleicht möchtest du nach etwas anderem suchen?"
 
-#: friendfund/templates/product/common.html:84
+#: friendfund/templates/product/common.html:95
 msgid "PRODUCT_SEARCH_PANEL_Read More"
-msgstr "Mehr"
+msgstr "Mehr bei"
 
-#: friendfund/templates/product/common.html:90
+#: friendfund/templates/product/common.html:102
 msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr "Auswählen"
 
-#: friendfund/templates/product/panel.html:15
+#: friendfund/templates/product/recommended_tab.html:9
+#: friendfund/templates/product/search_tab.html:10
 #, python-format
 msgid "PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:"
 msgstr "Dein Geschenk wird in <b>%(countryname)s</b> verschickt, ändere es hier:"
+
+#: friendfund/templates/product/recommended_tab.html:35
+msgid "PRODUCT_BROWSER_TITLE_Find a Gift by Personality"
+msgstr "Finde Dein Geschenk über Charakteristika"
+
+#: friendfund/templates/product/recommended_tab_search.html:4
+#, python-format
+msgid "PRODUCT_BROWSER_PERSONALITY_TITLE_Gifts for %s"
+msgstr "Geschenke für %s"
 
 #: friendfund/templates/product/search_tab.html:6
 msgid "Search for almost anything ... or paste a link from Amazon"
@@ -1929,13 +2003,29 @@ msgstr "Suche nach irgendwas... oder füge einen Amazon Link ein"
 msgid "Search for almost anything ..."
 msgstr "Suche nach irgendwas..."
 
-#: friendfund/templates/product/search_tab.html:19
+#: friendfund/templates/product/search_tab.html:21
 msgid "PRODUCT_SEARCH_PANEL_Search"
 msgstr "Suche"
 
-#: friendfund/templates/product/search_tab.html:23
+#: friendfund/templates/product/search_tab.html:25
 msgid "PRODUCT_PANEL_LABEL_Show me how"
 msgstr "Wie geht das?"
+
+#: friendfund/templates/product/search_tab_search.html:3
+#, python-format
+msgid "PRODUCT_BROWSER_SEARCH_TITLE_Gifts for %s"
+msgstr "Geschenke für %s"
+
+#: friendfund/templates/product/virtual_tab.html:5
+#, python-format
+#| msgid "" "PRODUCT_SEARCH_PANEL_Your pools shipping address is in "
+#| "<b>%(countryname)s</b>, change it:"
+msgid "PRODUCT_SEARCH_PANEL_Your virtual gifts recipient lives in <b>%(countryname)s</b>, change it:"
+msgstr "Der Empfänger deines virtuellen Geschenkes lebt in <b>%(countryname)s</b>, ändere das Land hier:"
+
+#: friendfund/templates/product/virtual_tab_search.html:4
+msgid "PRODUCT_BROWSER_TITLE_Our Virtual Gifts"
+msgstr "Unsere kostenlosen, virtuellen Geschenke"
 
 #: friendfund/templates/receiver/button.html:13
 msgid "PAGE_INDEX_BUTTON_Select a Friend"
@@ -1974,5 +2064,3 @@ msgstr "dich selbst"
 msgid "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect with Twitter!"
 msgstr "Um Twitter Freunde einzuladen, musst dich erst mit Twitter anmelden."
 
-#~ msgid "PRODUCT_SEARCH_PANEL_Recommended Gift Searches"
-#~ msgstr "Suchvorschläge"

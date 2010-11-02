@@ -47,23 +47,3 @@ class GetVirtualGiftsProc(DBMappedObject):
 		setattr(self, 'map', {})
 		for region in self.list:
 			self.map[region.name] = region.list
-			
-			
-
-class TopSellersRegion(DBMappedObject):
-	_cachable = False
-	_set_root = _get_root = None
-	_unique_keys = ['name']
-	_keys = [GenericAttrib(unicode,'name','name'),DBMapper(Product,'list','PRODUCT', is_list = True)]
-
-class GetTopSellersProc(DBMappedObject):
-	_cachable = False
-	_no_params = True
-	_set_root = _get_root = None
-	_unique_keys = []
-	_get_proc = 'imp.get_top_seller'
-	_keys = [DBMapper(TopSellersRegion,'list','REGION', is_list = True)]
-	def fromDB(self, xml):
-		setattr(self, 'map', {})
-		for region in self.list:
-			self.map[region.name] = region.list

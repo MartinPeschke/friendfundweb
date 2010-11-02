@@ -5,6 +5,9 @@
 <%!
 	from operator import mod
 %>
+
+<div class="whiteContainer">
+	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
    
 	<div id="scrollingproductsuggestions" class="anythingSlider">
 	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
@@ -30,14 +33,13 @@
 		</div>
 	</div>
 
-	<h4 class="inside">Find a Gift by Personality</h4>
+	<h4 class="inside">${_("PRODUCT_BROWSER_TITLE_Find a Gift by Personality")}</h4>
 	<div class="personalityBox">
 		%for cat in c.categories:
 		<div class="productsuggestion psmiddle">
 			<a class="productsuggestion categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
 				<img class="productsuggestion" src="${h.get_category_picture(cat.name)|n}">
 				<span>${_(cat.name)}</span>
-				<span class="showme"></span>
 			</a>
 		</div>
 		%endfor
@@ -48,3 +50,8 @@
 	<div id="product_browser_container">
 		<%include file="recommended_tab_search.html"/>
 	</div>
+</div>
+
+%if hasattr(c, "searchresult"):
+	${common.display_paginator(c.searchresult)}
+%endif

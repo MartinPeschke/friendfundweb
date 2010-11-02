@@ -31,3 +31,24 @@ class ProductSearchByCategory(DBMappedObject):
 			return x+2<self.pages and x+2 or self.pages
 		result = sorted(list(set([1] + range(lower(self.page_no), upper(self.page_no + 1)) + [self.pages] )))
 		return result
+
+class TopSellersRegion(DBMappedObject):
+	_cachable = False
+	_set_root = _get_root = None
+	_unique_keys = ['name']
+	_keys = [GenericAttrib(unicode,'name','name'),DBMapper(Product,'list','PRODUCT', is_list = True)]
+	def fromDB(self, xml):
+		for product in self.list:
+			product.is_curated = True
+
+class GetTopSellersProc(DBMappedObject):
+	_cachable = False
+	_no_params = True
+	_set_root = _get_root = None
+	_unique_keys = []
+	_get_proc = 'imp.get_top_seller'
+	_keys = [DBMapper(TopSellersRegion,'list','REGION', is_list = True)]
+	def fromDB(self, xml):
+		setattr(self, 'map', {})
+		for region in self.list:
+			self.map[region.name] = region.list

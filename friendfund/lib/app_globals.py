@@ -7,7 +7,8 @@ from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
 from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc, GetPersonalityCategoryProc, GetCountryProc
-from friendfund.model.virtual_product import GetVirtualGiftsProc, GetTopSellersProc
+from friendfund.model.virtual_product import GetVirtualGiftsProc
+from friendfund.model.product_search import GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
 from friendfund.services.payment_service import PaymentService

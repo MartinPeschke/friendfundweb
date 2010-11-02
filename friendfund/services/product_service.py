@@ -2,7 +2,7 @@ import logging, urlparse
 from datetime import datetime
 
 from pylons import app_globals, tmpl_context, session as websession
-
+from pylons.controllers.util import abort
 from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch
 from friendfund.model.product_search import ProductSearchByCategory
 from friendfund.model.virtual_product import ProductPager
