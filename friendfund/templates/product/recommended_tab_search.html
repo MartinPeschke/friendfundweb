@@ -1,7 +1,7 @@
 <%namespace name="common" file="common.html"/>
 
 %if hasattr(c, "searchresult") and hasattr(c, "category"):
-	<h4 class="inside">${_("PRODUCT_BROWSER_PERSONALITY_TITLE_Gifts for %s") % c.category.name} <span>${_("PRODUCT_BROWSER_TITLE_Sort by:")}&nbsp;&nbsp;
+	<h4 class="inside">${_("PRODUCT_BROWSER_PERSONALITY_TITLE_Gifts for %s") % _(c.category.name)} <span>${_("PRODUCT_BROWSER_TITLE_Sort by:")}&nbsp;&nbsp;
 		<select class="anchorelem" name="sort" id="psort" style="padding: 3px;" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1), ("sort",None)])|n}>
 			%for ac in c.sortees:
 				<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>

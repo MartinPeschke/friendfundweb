@@ -32,6 +32,7 @@ class ProductService(object):
 	"""
 		This is shared between all threads, do not stick state in here!
 	"""
+	SCROLLER_PAGE_SIZE = 5
 	
 	def __init__(self, amazon_services, product_categories, virtual_gifts, top_sellers, country_choices):
 		if not isinstance(amazon_services, dict) or len(amazon_services) < 3:
@@ -43,10 +44,15 @@ class ProductService(object):
 		
 		self.top_sellers = {}
 		self.virtual_gifts = {}
+		for k,v in top_sellers.map.items():
+			if len(v)%self.SCROLLER_PAGE_SIZE != 0:
+				top_sellers.map[k] = v + v[:self.SCROLLER_PAGE_SIZE-len(v)%self.SCROLLER_PAGE_SIZE]
+		
 		for region, countries  in country_choices.r2c_map.iteritems():
 			for country in countries:
 				self.top_sellers[country] = top_sellers.map[region.upper()]
 				self.virtual_gifts[country] = virtual_gifts.map[region.upper()]
+
 		self.virtual_gift_map = dict([(gift.guid, gift) for region, gifts in self.virtual_gifts.iteritems() for gift in gifts])
 
 		
@@ -75,7 +81,7 @@ class ProductService(object):
 		tmpl_context.panel = 'recommended_tab'
 		tmpl_context.search_base_url='recommended_tab_search'
 		tmpl_context.categories = self.product_categories.list
-		print  self.product_categories.list
+		tmpl_context.SCROLLER_PAGE_SIZE = self.SCROLLER_PAGE_SIZE
 		tmpl_context.category = request.params.get('category')
 		
 		tmpl_context.top_sellers = self.top_sellers[tmpl_context.region]
@@ -155,13 +161,13 @@ class ProductService(object):
 	
 	def _amazon_fallback(self, request, url):
 		scheme, domain, path, query, fragment = urlparse.urlsplit(url)
+		tmpl_context.searchterm = "Amazon Link"
 		if domain not in self.amazon_services:
 			raise AmazonUnsupportedRegionException()
 		elif self.amazon_services[domain] != self.amazon_services[tmpl_context.region]:
 			raise AmazonWrongRegionException()
 		else:
 			tmpl_context.searchresult = self.amazon_services[domain].get_product_from_url(url)
-			tmpl_context.searchterm = "Amazon Link"
 		return tmpl_context
 	
 	
