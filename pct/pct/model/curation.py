@@ -83,6 +83,12 @@ class GetCurationQueue(DBMappedObject):
 				,GenericAttrib(int,'page_size' ,'page_size')
 				,DBMapper(CurationProduct,'cp','CURATION_PRODUCT', is_list = True)
 			]
+	def fromDB(self, xml):
+		self.page_no = self.page_no or 0
+		self.pages = self.pages or 0
+		self.items = self.items or 0
+		self.page_size = self.page_size or 0
+	
 	
 	def page_field(self):
 		def lower(x):

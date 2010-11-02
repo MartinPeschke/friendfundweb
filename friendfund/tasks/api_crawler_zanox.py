@@ -23,7 +23,7 @@ logging.basicConfig(filename=os.path.join(os.getcwd(), 'logs', 'product_import_%
 
 CONNECTION_NAME = 'crawler'
 log = logging.getLogger('api_crawler')
-DBPAGESIZE = 200000
+DBPAGESIZE = 500000
 
 
 
@@ -219,7 +219,9 @@ def convert_to_product_xml(product, aff_net, region, args):
 def download_file(aff_net, aff_program_id, url, force_download, args):
 	fname = '%s_%s_%s.xml.gz' % (datetime.today().strftime('%Y%m%d'), aff_net, aff_program_id)
 	fname = os.path.join(root_path, fname)
+	print fname, os.path.exists(fname), force_download
 	if os.path.exists(fname) and not force_download:
+		log.info( "FILE PREEXISTED, skipping Download: %s from %s", fname, url)
 		return (fname, aff_net, args)
 	elif os.path.exists(fname):
 		os.remove(fname)
@@ -287,12 +289,12 @@ def parse_n_persist(sources, region, dbpool, pagesize = DBPAGESIZE):
 			except FilterRejectedPropertyException, e:
 				logfout.write(logentry(e, elem, aff_net))
 				fail_count[str(e)] = fail_count.get(str(e), 0) + 1
-			if (product_total > 0 and not product_total%pagesize):
+			if (product_total > 0 and product_total%pagesize == 0):
 				persist(dbpool, region, product_list, fail_count)
 				product_list.clear()
 				fail_count = {}
 			if tfname != fname: 
-				log.info( "Program Product Imported for %s: %s (total fails sofar: %s)", tfname, prod_count, fail_count )
+				log.info( "Program Product Imported for %s: %s (total fails sofar: %s)", fname, prod_count, fail_count )
 				prod_count = 0
 			tfname = fname
 			prod_count += 1
@@ -300,6 +302,7 @@ def parse_n_persist(sources, region, dbpool, pagesize = DBPAGESIZE):
 			while elem.getprevious() is not None:
 				del elem.getparent()[0]
 		if product_list:
+			log.info( "Program Product Imported for %s: %s (total fails sofar: %s)", fname, prod_count, fail_count )
 			persist( dbpool, region, product_list, fail_count)
 	return product_total
 
@@ -327,7 +330,7 @@ def main(argv=None):
 	
 	if not os.path.exists(root_path):
 		os.makedirs(root_path)
-	dls = get_download_files(dbpool, region, ('-d' in opts or '--forcedownload' in opts))
+	dls = get_download_files(dbpool, region, ('--forcedownload' in opts))
 	result, cur = db_access.execute_query(dbpool, log, 'exec imp.truncat ?', '<TRUNCAT region=%s />' % quoteattr(region))
 	
 	accepted_products = parse_n_persist(dls, region, dbpool)

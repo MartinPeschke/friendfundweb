@@ -30,9 +30,9 @@ class Globals(object):
 		self.globalnav = [('Home',{'args':['home'], 'kwargs':{'program' : None}}, 'home'), 
 						('Update',{'args':[], 'kwargs':{'action':'update'}}, 'home'),
 						('Insert',{'args':[], 'kwargs':{'action':'insert'}}, 'home'),
-						('Germany',{'args':[], 'kwargs':{'region':'de','program' : 'all', 'page':1}}, 'home'),
-						('UK',{'args':[], 'kwargs':{'region':'gb','program' : 'all', 'page':1}}, 'home'),
-						('USA',{'args':[], 'kwargs':{'region':'us','program' : 'all', 'page':1}}, 'home')]
+						('Germany',{'args':[], 'kwargs':{'region':'de','program' : 'first', 'page':1}}, 'home'),
+						('UK',{'args':[], 'kwargs':{'region':'gb','program' : 'first', 'page':1}}, 'home'),
+						('USA',{'args':[], 'kwargs':{'region':'us','program' : 'first', 'page':1}}, 'home')]
 		dbm = PooledDB(pyodbc,2,autocommit=True
 				,driver=app_conf['pool.connectstring.driver']
 				,server=app_conf['pool.connectstring.server']
