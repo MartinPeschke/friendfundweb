@@ -35,7 +35,7 @@ class MybadgesController(BaseController):
 		for network in c.user.networks:
 			friends = []
 			try:
-				friends = c.user.get_friends(network)
+				friends, is_complete, offset = c.user.get_friends(network)
 			except UserNotLoggedInWithMethod, e:
 				pass
 			except GetFriendsNotSupported, e:

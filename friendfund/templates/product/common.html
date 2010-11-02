@@ -12,23 +12,15 @@
 		</div>
 </%def>
 
-<%def name="display_product_browser(searchresult, panel_title)">
+<%def name="display_product_browser(searchresult)">
 %if searchresult and searchresult.items > 0:
-	<h4 class="inside">${panel_title} <span>${_("PRODUCT_BROWSER_TITLE_Sort by:")}&nbsp;&nbsp;
-		<select class="anchorelem" name="sort" id="psort" style="padding: 3px;" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1), ("sort",None)])|n}>
-			%for ac in c.sortees:
-				<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
-			%endfor
-		</select>
-		</span>
-	</h4>
-	
 	<div class="productSorterContainer">
 		%for i, elem in enumerate(searchresult.products):
 			${display_product(i, elem)}
 		%endfor
 	</div>
 	<div style="clear:both"></div>
+	${display_paginator(c.searchresult)}
 %else:
 	<div class="panel_content_no_margin">
 	%if len(getattr(c ,"product_messages", [])) > 0:
@@ -96,7 +88,7 @@
 			<p class="productText">${h.word_truncate(product.description_long, 30)|n}</p>
 			
 			%if product.tracking_link:
-				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} ${product.manufacturer}</a>
+				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} ${product.aff_program_name}</a>
 			%endif
 			
 			

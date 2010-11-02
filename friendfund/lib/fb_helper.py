@@ -114,7 +114,7 @@ def translate_friend_entry(u_id, friend_data):
 		if dob:
 			result['dob'] = dob.replace(year = datetime.today().year)
 			result['dob_difference'] = (result['dob'] - datetime.today()).days
-			if result['dob_difference'] < 0:
+			if result['dob_difference'] < 7:
 				result['dob_difference'] = (result['dob'].replace(year = (datetime.today().year + 1)) - datetime.today()).days
 	return (u_id, result)
 
@@ -143,7 +143,7 @@ def get_friends_from_cache(
 				cache_pool, 
 				id, 
 				access_token, 
-				expiretime=2, 
+				expiretime=4200,
 				friend_id = None
 			):
 	key = '<%s>%s' % ('friends_facebook', str(id))

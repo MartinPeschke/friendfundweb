@@ -1,5 +1,16 @@
 <%namespace name="common" file="common.html"/>
 
 %if hasattr(c, "searchresult"):
-	${common.display_product_browser(c.searchresult, _("PRODUCT_BROWSER_TITLE_Our Virtual Gifts"))|n}
+	<h4 class="inside">
+	${_("PRODUCT_BROWSER_TITLE_Our Virtual Gifts")} 
+	<a href="#" style="text-align:left;font-size:12px;display:inline;font-weight:normal;" _href="${url(controller="content", action="our_virtual_gifts_help")}" class="showme anchorelem popuplink">${_("virtual_gifts_help_link_title")}</a>
+	<span>${_("PRODUCT_BROWSER_TITLE_Sort by:")}&nbsp;&nbsp;
+		<select class="anchorelem" name="sort" id="psort" style="padding: 3px;" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1), ("sort",None)])|n}>
+			%for ac in c.sortees:
+				<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
+			%endfor
+		</select>
+		</span>
+	</h4>
+	${common.display_product_browser(c.searchresult)|n}
 %endif

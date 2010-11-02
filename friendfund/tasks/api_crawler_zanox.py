@@ -76,7 +76,7 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'currency' :( True, ['t:currencyCode/text()'], standard_attr, accept)
 								,'picture_small' :( True, ['t:smallImage/text()', 't:mediumImage/text()', 't:largeImage/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['t:largeImage/text()', 't:mediumImage/text()', 't:smallImage/text()'], standard_attr, accept)
-								,'category' :( True, ['t:zanoxCategoryIds/t:id/text()'], cat_normalizer, accept)
+								,'category' :( False, ['t:zanoxCategoryIds/t:id/text()'], cat_normalizer, accept)
 								# <zanoxCategoryIds><id>110103</id></zanoxCategoryIds>
 								, 'amount' : (True, ['t:price/text()'], price_normalizer_en, price_limit_dynamic_number)
 								, 'shipping_cost' : (False, ['t:shippingHandlingCost/text()'], price_normalizer_en, accept)
@@ -101,7 +101,7 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'currency' :( True, ['price/@curr'], standard_attr, accept)
 								,'picture_small' :( True, ['uri/awThumb/text()', 'uri/awImage/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['uri/awImage/text()', 'uri/awThumb/text()'], standard_attr, accept)
-								,'category' :( True, ['cat/awCatId/text()'], lambda x: quoteattr("170000"), accept)
+								,'category' :( False, ['cat/awCatId/text()'], lambda x: quoteattr("170000"), accept)
 								,'amount' : (True, ['price/buynow/text()', 'price/store/text()', 'price/rrp/text()'], price_normalizer_en, price_limit_dynamic_number)
 								,'shipping_cost' : (False, ['price/delivery/text()'], price_normalizer_en, accept)
 							},
@@ -125,7 +125,7 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'currency' :( True, ['currency/text()'], standard_attr, accept)
 								,'picture_small' :( True, ['imageurl/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['imageurl/text()'], standard_attr, accept)
-								,'category' :( True, ['advertisercategory/text()'], lambda x: quoteattr("170000"), accept)
+								,'category' :( False, ['advertisercategory/text()'], lambda x: quoteattr("170000"), accept)
 								,'amount' : (True, ['price/text()', 'retailprice/text()', 'saleprice/text()'], price_normalizer_en, price_limit_dynamic_number)
 								,'shipping_cost' : (False, ['standardshippingcost/text()'], price_normalizer_en, accept)
 							},
@@ -210,7 +210,9 @@ def convert_to_product_xml(product, aff_net, region, args):
 			attribs[k] = quoteattr(args[k])
 		else:
 			raise MissingAffNetConfigParamException(k)
-	
+	#TODO Evil Hack
+	if 'category' not in attribs:
+		attribs['category'] = quoteattr("170000")
 	attribs = ' '.join(['%s=%s' % (k, attribs[k]) for k in attribs])
 	elems = ''.join(['<%s>%s</%s>' % (k, elems[k], k) for k in sorted(elems)])
 	root = '<PRODUCT xml:lang=%s %s>%s</PRODUCT>' % (quoteattr(region), attribs, elems)

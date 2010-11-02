@@ -33,7 +33,7 @@
 	</div>
 </%def>
 
-<%def name="render_network_friends(friends, active = True, mutuals = False)">
+<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False)">
 %for i,(id, user_data) in enumerate(friends.items()):
 	<%
 		if "mutual_with" in user_data:
@@ -50,10 +50,10 @@
 		>
 		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['networkname']}"/>
 		<span class="label"><b>${user_data['networkname']}</b>
-		%if 'dob' in user_data:
+		%if show_birthdays and 'dob' in user_data:
 			<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
 			<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
-			%if user_data['dob_difference'] < 60:
+			%if 7 < user_data['dob_difference'] < 60:
 				<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div>
 			%endif
 			</div>

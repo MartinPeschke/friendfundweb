@@ -38,7 +38,7 @@
 		%for cat in c.categories:
 		<div class="productsuggestion psmiddle">
 			<a class="productsuggestion categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
-				<img class="productsuggestion" src="${h.get_category_picture(cat.name)|n}">
+				<img class="productsuggestion" src="${h.get_category_picture(cat.picture_url)|n}">
 				<span>${_(cat.name)}</span>
 			</a>
 		</div>
@@ -51,7 +51,3 @@
 		<%include file="recommended_tab_search.html"/>
 	</div>
 </div>
-
-%if hasattr(c, "searchresult"):
-	${common.display_paginator(c.searchresult)}
-%endif

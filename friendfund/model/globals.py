@@ -55,8 +55,6 @@ class GetCountryRegionProc(DBMappedObject):
 			setattr(self, 'fallback', fallbacks[0])
 		else:
 			raise Exception("GetCountryRegionProc: No Fallback Country provided")
-			
-
 
 class AffProgram(DBMappedObject):
 	"""
@@ -92,7 +90,7 @@ class PersonalityCategory(DBMappedObject):
 	_get_root = _set_root = 'CATEGORY'
 	_cachable = False
 	_unique_keys = ['name']
-	_keys = [GenericAttrib(unicode,'name','name')]
+	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'picture_url','picture_url')]
 class GetPersonalityCategoryProc(DBMappedObject):
 	_cachable = False
 	_no_params = True

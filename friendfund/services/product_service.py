@@ -75,6 +75,7 @@ class ProductService(object):
 		tmpl_context.panel = 'recommended_tab'
 		tmpl_context.search_base_url='recommended_tab_search'
 		tmpl_context.categories = self.product_categories.list
+		print  self.product_categories.list
 		tmpl_context.category = request.params.get('category')
 		
 		tmpl_context.top_sellers = self.top_sellers[tmpl_context.region]
