@@ -70,16 +70,15 @@
 
 
 
-<%def name="display_product(counter, product, page_length)">
+<%def name="display_product(counter, product)">
 	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
 		<div class="colSx">
-			<img class="productImage" src="${product.picture_large}">
-			
+			<img class="productImage" src="${product.picture_large}"/>
 			<img src="${product.aff_program_logo_url}" class="productMerchantImage" />
 		</div>
 		<div class="colDx">
-			<p class="product"><span>${product.name}</span> <span>${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</span></p>
-			<p class="productText">${h.word_truncate(product.description_long, 40)|n}</p>
+			<p class="product"><span>${product.name}</span> <span class="currency">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</span></p>
+			<p class="productText">${h.word_truncate(product.description_long, 30)|n}</p>
 			
 			%if product.tracking_link:
 				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} at ${product.manufacturer}</a>
@@ -88,8 +87,9 @@
 			
 		</div>
 			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _is_virtual="${product.is_virtual and "1" or ""}" 
-				_imgurl="${product.picture_large}" _label="${quoteattr(product.display_label)}">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
+				_imgurl="${product.picture_large}" _label=${quoteattr(product.display_label)}>${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
 				<div class="footer-small"></div>
+				<div style="clear:both"></div>
 	</div>
 </%def>
 

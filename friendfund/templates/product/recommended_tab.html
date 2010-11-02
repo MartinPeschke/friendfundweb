@@ -5,17 +5,6 @@
 <%!
 	from operator import mod
 %>
-
-
-	<div class="region_picker">
-	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
-
-	<select name="region" id="region_picker" style="padding: 3px;" _base_url="${c.panel}">
-		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
-			<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
-		%endfor
-	</select>
-	</div>
    
 	<div id="scrollingproductsuggestions" class="anythingSlider">
 	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
@@ -31,6 +20,7 @@
 					</a>
 					<textarea style="display:none">
 						${common.display_product(0, prod)|n}
+						<div style="clear:both"></div>
 					</textarea>
 				</div>
 				%if mod(i,5) == 4:
@@ -39,13 +29,12 @@
 			%endfor
 		</div>
 	</div>
-	</div>
 
 	<h4 class="inside">Find a Gift by Personality</h4>
 	<div class="personalityBox">
 		%for cat in c.categories:
-		<div class="productsuggestion">
-			<a class="productsuggestion psmiddle categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
+		<div class="productsuggestion psmiddle">
+			<a class="productsuggestion categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
 				<img class="productsuggestion" src="${h.get_category_picture(cat.name)|n}">
 				<span>${_(cat.name)}</span>
 				<span class="showme"></span>

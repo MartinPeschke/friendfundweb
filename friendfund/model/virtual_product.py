@@ -66,5 +66,4 @@ class GetTopSellersProc(DBMappedObject):
 	def fromDB(self, xml):
 		setattr(self, 'map', {})
 		for region in self.list:
-			print region, region.list
 			self.map[region.name] = region.list

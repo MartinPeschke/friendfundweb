@@ -44,12 +44,18 @@ root_path =  os.path.join( data_root, 'product_streams')
 standard_attr = lambda x: quoteattr(x)
 standard_elem = lambda x: escape(x)
 cat_normalizer = lambda x: quoteattr(str((int(x)/10000)*10000))
-accept = lambda x: True
+accept = lambda conf, x: True
 reject = lambda x: True
 lower_limit = lambda typ, limit: (lambda x: typ(x)>limit)
 
 price_normalizer_en  = lambda x: quoteattr(str(int(float(x.replace(',',''))*100)))
 price_limit_en = lower_limit(lambda x: float(x.replace(',','')), 10)
+
+integerizer = lambda x: int(float(x.replace(',','')))*100
+price_limit_dynamic = lambda conf, key, keytyp, typ, x: typ(x)>=keytyp(conf[key])
+
+price_limit_dynamic_number = lambda conf, x: price_limit_dynamic(conf, 'price_limit', int, integerizer, x)
+
 
 AFF_NET_TRANSLATOR = {'ZANOX':{
 							'NAMESPACE' : 'http://zanox.com/productdata/exportservice/v1',
@@ -72,7 +78,7 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'picture_large' :( True, ['t:largeImage/text()', 't:mediumImage/text()', 't:smallImage/text()'], standard_attr, accept)
 								,'category' :( True, ['t:zanoxCategoryIds/t:id/text()'], cat_normalizer, accept)
 								# <zanoxCategoryIds><id>110103</id></zanoxCategoryIds>
-								, 'amount' : (True, ['t:price/text()'], price_normalizer_en, price_limit_en)
+								, 'amount' : (True, ['t:price/text()'], price_normalizer_en, price_limit_dynamic_number)
 								, 'shipping_cost' : (False, ['t:shippingHandlingCost/text()'], price_normalizer_en, accept)
 							}
 							,'wanted_names' : [('t:program/text()', 'program'), ('t:number/text()', 'number'), ('t:name/text()', 'name')]
@@ -96,7 +102,7 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'picture_small' :( True, ['uri/awThumb/text()', 'uri/awImage/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['uri/awImage/text()', 'uri/awThumb/text()'], standard_attr, accept)
 								,'category' :( True, ['cat/awCatId/text()'], lambda x: quoteattr("170000"), accept)
-								,'amount' : (True, ['price/buynow/text()', 'price/store/text()', 'price/rrp/text()'], price_normalizer_en, price_limit_en)
+								,'amount' : (True, ['price/buynow/text()', 'price/store/text()', 'price/rrp/text()'], price_normalizer_en, price_limit_dynamic_number)
 								,'shipping_cost' : (False, ['price/delivery/text()'], price_normalizer_en, accept)
 							},
 							'wanted_names' : [('@id', 'affid'), ('pId/text()', 'number'), ('name/text()', 'name')]
@@ -120,7 +126,7 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'picture_small' :( True, ['imageurl/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['imageurl/text()'], standard_attr, accept)
 								,'category' :( True, ['advertisercategory/text()'], lambda x: quoteattr("170000"), accept)
-								,'amount' : (True, ['price/text()', 'retailprice/text()', 'saleprice/text()'], price_normalizer_en, price_limit_en)
+								,'amount' : (True, ['price/text()', 'retailprice/text()', 'saleprice/text()'], price_normalizer_en, price_limit_dynamic_number)
 								,'shipping_cost' : (False, ['standardshippingcost/text()'], price_normalizer_en, accept)
 							},
 							'wanted_names' : [('programname/text()', 'program'), ('sku/text()', 'number'), ('name/text()', 'name')]
@@ -173,7 +179,7 @@ def convert_to_product_xml(product, aff_net, region, args):
 				hits = product.xpath(xp)
 			
 			if len(hits) > 0:
-				if acceptor(hits[0]):
+				if acceptor(args, hits[0]):
 					attribs[key] = normalizer(hits[0])
 				else:
 					raise FilterRejectedPropertyException("%s Filter not met" % key)
@@ -188,7 +194,7 @@ def convert_to_product_xml(product, aff_net, region, args):
 			else:
 				hits = product.xpath(xp)
 			if len(hits) > 0:
-				if acceptor(hits[0]):
+				if acceptor(args, hits[0]):
 					elems[key] = normalizer(hits[0])
 				else:
 					raise FilterRejectedPropertyException("%s Filter not met" % key)

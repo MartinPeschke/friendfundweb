@@ -49,11 +49,11 @@
 			%endif
 		>
 		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['networkname']}"/>
-		<span class="label">${user_data['networkname']}
-		
+		<span class="label"><b>${user_data['networkname']}</b>
 		%if 'dob' in user_data:
-			<div>${h.format_date(user_data["dob"])}</div>
-			<div>${user_data.get("dob_difference")} Tage</div>
+			<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
+			<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
+			<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div></div>
 		%endif
 		</span>
 		%if active:
