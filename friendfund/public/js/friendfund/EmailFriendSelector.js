@@ -14,7 +14,7 @@ dojo.declare("friendfund.EmailFriendSelector", null, {
 		loadElement(_t.base_url+'/email', _t.ref_node, {}, dojo.hitch(null, _t.onLoad, _t));
 	},
 	onLoad : function(_t){
-		_listener_locals.push(dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t)));
+		_t._listener_locals.push(dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t)));
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];

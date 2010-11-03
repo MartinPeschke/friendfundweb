@@ -48,15 +48,21 @@ def get_upload_pic_name_ext(name, ext="jpg"):
 	return os.extsep.join([os.path.join(name[0:2], name[2:4],name), ext])
 
 
-def word_truncate_plain(s, length, q = '', hilights = None, debug = False):
+def word_truncate_plain(s, length):
 	s = s and s.split() or ['']
 	out = ' '.join((len(s) <= length) and s or s[:length])
 	return out
 
-def word_truncate(s, length, q = '', hilights = None, debug = False):
+def word_truncate(s, length):
 	s = s and s.split() or ['']
 	out = ' '.join(((len(s) <= length) and s or (s[:length] + [' ... '])))
 	return out
+
+def word_truncate_by_letters(s, length):
+	if len(s) > length:
+		s = s[:length].rsplit(None,1)[0] + '...'
+		print s
+	return s
 
 def has_ne_prop(c, key):
 	return bool(hasattr(c, key) and getattr(c, key))

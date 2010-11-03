@@ -12,6 +12,7 @@ dojo.require("friendfund.Tooltip");
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
+	_browser_locals : [],
 	_widget_locals : [],
 	onLoaded : null,
 	onSelected : null,
@@ -28,11 +29,12 @@ dojo.declare("friendfund.ProductSearch", null, {
 			loadElement("/product/recommended_tab", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		} else {
 			dojo.mixin(params, extra_params);
-			loadElement("/product/search", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
+			loadElement("/product/remote_search", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		}
 		return false;
 	},
 	loadProductBrowser : function(_t, target, extra_params){
+		_t.destroyBrowserLocals(_t);
 		var base_url = dojo.attr(target, "_base_url");
 		var params = {sort:dojo.attr(target, "sort")||"RANK",page:dojo.attr(target, "page")||1}
 		dojo.forEach(dojo.attr(target, "_search_keys").split(","), 
@@ -40,6 +42,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 				);
 		dojo.mixin(params, extra_params);
 		loadElement("/product/"+base_url, _t.productBrowser, params, function(){
+			_t._browser_locals.push(dojo.connect(dojo.byId("psort"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
 			var node = dojo.byId(_t.productBrowser);
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
@@ -98,7 +101,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 						new friendfund.Tooltip({
 							connectId: [dojo.attr(elem, '_target_id')],
 							label: dojo.query("textarea", elem)[0].value,
-							position: ["below"]
+							position: ["below"],
+							showDelay:700
 						})
 					);
 			});
@@ -110,10 +114,15 @@ dojo.declare("friendfund.ProductSearch", null, {
 		_t.onLoaded && _t.onLoaded(_t);
 		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled")}
 		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onclick", dojo.hitch(null, _t.loadResults, _t)));
-		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
 		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onkeyup", dojo.hitch(null, _t.accessability, _t)));
+		_t._listener_locals.push(dojo.connect(dojo.byId("region_picker"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
+		if(dojo.byId("psort"))_t._browser_locals.push(dojo.connect(dojo.byId("psort"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
 		_t.init_slider(_t);
+	}, destroyBrowserLocals : function(_t){
+		dojo.forEach(_t._browser_locals, dojo.disconnect);
+		_t._browser_locals = [];
 	},destroy : function(_t){
+		_t.destroyBrowserLocals(_t);
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});

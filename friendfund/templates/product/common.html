@@ -12,7 +12,7 @@
 		</div>
 </%def>
 
-<%def name="display_product_browser(searchresult, word_truncate = 30)">
+<%def name="display_product_browser(searchresult, word_truncate = 200)">
 %if searchresult and searchresult.items > 0:
 	<div class="productSorterContainer">
 		%for i, elem in enumerate(searchresult.products):
@@ -77,7 +77,7 @@
 
 
 
-<%def name="display_product(counter, product, word_truncate = 30)">
+<%def name="display_product(counter, product, word_truncate = 200)">
 	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
 		<div class="colSx">
 			<img class="productImage" src="${product.picture_large}"/>
@@ -86,7 +86,7 @@
 		<div class="colDx">
 			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(include_shipping = False), product.currency, extended = True)|n} ${product.display_shipping|n}</span></p>
 			
-			<p class="productText">${h.word_truncate(product.description_long, word_truncate)|n}</p>
+			<p class="productText">${h.word_truncate_by_letters(product.description_long, word_truncate)|n}</p>
 			
 			%if product.tracking_link:
 				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} ${product.aff_program_name}</a>
