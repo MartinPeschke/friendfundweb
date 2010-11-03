@@ -44,7 +44,7 @@ class ProductController(BaseController):
 	@jsonify
 	def search_tab(self):
 		c = g.product_service.search_tab(request)
-		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}	
+		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	@jsonify
 	def search_tab_search(self):
 		c.product_messages = []
@@ -72,6 +72,16 @@ class ProductController(BaseController):
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}	
+	
+	def remote_search(self):
+		c = g.product_service.search_tab_search(request)
+		result = self.search_tab()
+		print result
+		return result
+	
+	
+	
+	
 	
 	def set_region(self):
 		region = request.params.get('region')

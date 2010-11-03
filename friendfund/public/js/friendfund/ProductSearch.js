@@ -28,7 +28,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 			loadElement("/product/recommended_tab", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		} else {
 			dojo.mixin(params, extra_params);
-			loadElement("/product/search", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
+			loadElement("/product/remote_search", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		}
 		return false;
 	},
