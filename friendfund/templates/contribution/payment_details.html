@@ -2,17 +2,20 @@
 <%namespace name="html" file="/widgets/html_elems.html"/>
 
 <%def name="onloadscripts()">
-	var submitForm = function(evt){
-		dojo.byId("payment_details_submitter").disabled = true;
-		evt.stopPropagation();
-		evt.preventDefault();
-		dojo.place(loading_animation, dojo.byId("payment_details_status"), "first");
-		xhrFormPost("${url(controller='contribution', pool_url=c.pool.p_url, action='creditcard')}", "payment_details_form", function(data){
-			dojo.place(data.html, dojo.byId("payment_details_status"), "only");
-			dojo.connect(dojo.byId("payment_details_submitter"), "onclick", submitForm);
-		});
-	};
-	dojo.connect(dojo.byId("payment_details_submitter"), "onclick", submitForm);
+		var submitForm = function(evt){
+			dojo.disconnect(h);
+			evt.stopPropagation();
+			evt.preventDefault();
+			dojo.place("<div style=\"margin: 0px auto;text-align:center;\">" +  loading_animation + "</div>", dojo.byId("payment_details_submitter"), "replace");
+			xhrFormPost("${url(controller='contribution', pool_url=c.pool.p_url, action='creditcard')}", "payment_details_form", function(data){
+					dojo.place(data.html, dojo.byId("payment_details_status"), "only");
+					if(dojo.byId("payment_details_submitter")){
+						var h = dojo.connect(dojo.byId("payment_details_submitter"), "onclick", function(evt){dojo.disconnect(h);submitForm(evt);});
+					}
+				});
+		};
+	var h = dojo.connect(dojo.byId("payment_details_submitter"), "onclick", function(evt){dojo.disconnect(h);submitForm(evt);});
+
 </%def>
 <%def name="title()">${_("PAYMENT_DETAILS_Chip In Details")}</%def>
 <%def name="page_slogan()"><div id="page_slogan">${_("PAYMENT_DETAILS_Payment Details")}</div></%def>

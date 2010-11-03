@@ -29,7 +29,7 @@
 		%else: 
 			<a class="submitSmallLeft" href="${url('controller', controller='mypools', protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Visit My Pools")}</span></a>
 		%endif
-		<a class="submitSmall" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
+		<a class="submitSmall" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
 %else:
 	<div class="panel_title">
@@ -40,7 +40,7 @@
 	</div>
 	<div style="position:relative;margin:0px 20px;width:880px;float:left;">
 		<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
-		<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}" id="submitter"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
+		<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
 %endif
 	<div class="clear"></div>
