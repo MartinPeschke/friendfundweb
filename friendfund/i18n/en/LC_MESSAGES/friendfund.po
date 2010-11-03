@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-02 14:35+0100\n"
+"PO-Revision-Date: 2010-11-03 18:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -213,6 +213,10 @@ msgstr "You are already logged in."
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr "Email or password incorrect"
 
+#: friendfund/controllers/index.py:118
+msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
+msgstr "Email already exists."
+
 #: friendfund/controllers/index.py:119
 #: friendfund/controllers/myprofile.py:71
 #: friendfund/controllers/myprofile.py:110
@@ -363,15 +367,15 @@ msgstr "This product is an Amazon Marketplace product and is not sold directly b
 msgid "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."
 msgstr "Amazon has not provided enough information for us to offer this product."
 
-#: friendfund/controllers/product.py:97
+#: friendfund/controllers/product.py:107
 msgid "INDEX_PAGE_No Product"
 msgstr "Product not selected. Please try again."
 
-#: friendfund/controllers/product.py:135
+#: friendfund/controllers/product.py:145
 msgid "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or shipping much time!"
 msgstr "Your event date doesn't give your funders or shipping much time!"
 
-#: friendfund/controllers/product.py:138
+#: friendfund/controllers/product.py:148
 msgid "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"
 msgstr "We cannot ship this to you in time. If this is a problem please pick a later date!"
 
@@ -724,16 +728,17 @@ msgid "our_virtual_gifts_help"
 msgstr "What are virtual gifts and how do I get them?"
 
 #: friendfund/resources/db_keys.py:43
+#: friendfund/templates/product/virtual_tab_search.html:6
 msgid "virtual_gifts_help_link_title"
 msgstr "Tell Me More"
 
 #: friendfund/resources/db_keys.py:44
 msgid "CATEGORY_ACCESSORIES"
-msgstr "Accessories"
+msgstr "Accessorizer"
 
 #: friendfund/resources/db_keys.py:45
 msgid "CATEGORY_ADRENALINE_JUNKIE"
-msgstr "Adrenaline Junie"
+msgstr "Adrenaline Junkie"
 
 #: friendfund/resources/db_keys.py:46
 msgid "CATEGORY_ADVENTURER"
@@ -749,7 +754,7 @@ msgstr "Eco Warrior"
 
 #: friendfund/resources/db_keys.py:49
 msgid "CATEGORY_FAMILY"
-msgstr "Family"
+msgstr "Troublemaker"
 
 #: friendfund/resources/db_keys.py:50
 msgid "CATEGORY_FASHIONISTA"
@@ -815,7 +820,7 @@ msgstr "Virtual Gifts"
 msgid "PRODUCT_SEARCH_PANEL_Gift Search"
 msgstr "Gift Search"
 
-#: friendfund/services/product_service.py:182
+#: friendfund/services/product_service.py:189
 msgid "POOL_CREATE_Product not Found"
 msgstr "Product not Found. PLease try again."
 
@@ -1023,7 +1028,7 @@ msgid "CONTRIBPAGE_LABEL_(why)"
 msgstr "(why)"
 
 #: friendfund/templates/contribution/contrib_screen.html:95
-#: friendfund/templates/contribution/payment_details.html:32
+#: friendfund/templates/contribution/payment_details.html:35
 msgid "CONTRIBPAGE_LABEL_Total"
 msgstr "Total"
 
@@ -1047,19 +1052,19 @@ msgstr "Back To Pool"
 msgid "CONTRIBPAGE_LABEL_Submit"
 msgstr "Submit"
 
-#: friendfund/templates/contribution/payment_details.html:17
+#: friendfund/templates/contribution/payment_details.html:20
 msgid "PAYMENT_DETAILS_Chip In Details"
 msgstr "Chip In Details"
 
-#: friendfund/templates/contribution/payment_details.html:18
+#: friendfund/templates/contribution/payment_details.html:21
 msgid "PAYMENT_DETAILS_Payment Details"
 msgstr "Payment Details"
 
-#: friendfund/templates/contribution/payment_details.html:23
+#: friendfund/templates/contribution/payment_details.html:26
 msgid "PAYMENT_DETAILS_Total Amount:"
 msgstr "Total Amount:"
 
-#: friendfund/templates/contribution/payment_details.html:27
+#: friendfund/templates/contribution/payment_details.html:30
 msgid "PAYMENT_DETAILS_You are chipping in:"
 msgstr "You are chipping in:"
 
@@ -1157,20 +1162,20 @@ msgstr "Invite All"
 msgid "RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s"
 msgstr "Birthday: %(dob_fmt)s"
 
-#: friendfund/templates/invite/inviter.html:56
+#: friendfund/templates/invite/inviter.html:57
 #, python-format
 msgid "RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go"
 msgstr "<b>%(dob_difference)s days</b> to go"
 
-#: friendfund/templates/invite/inviter.html:82
+#: friendfund/templates/invite/inviter.html:85
 msgid "INVITE_PAGE_LABEL_Name of your friend:"
 msgstr "Your friend's name"
 
-#: friendfund/templates/invite/inviter.html:89
+#: friendfund/templates/invite/inviter.html:92
 msgid "INVITE_PAGE_LABEL_Email address of your friend:"
 msgstr "Email address"
 
-#: friendfund/templates/invite/inviter.html:99
+#: friendfund/templates/invite/inviter.html:102
 msgid "INVITE_PAGE_LABEL_Submit"
 msgstr "Submit"
 
@@ -1671,6 +1676,26 @@ msgstr "Display More"
 msgid "POOL_CHAT_No Comments!"
 msgstr "No Comments!"
 
+#: friendfund/templates/pool/fb_perms.html:7
+msgid "FBPERMS_Give us your FB Email"
+msgstr "Give us your FB Email"
+
+#: friendfund/templates/pool/fb_perms.html:9
+msgid "FBPERMS_We would like to keep you informed about the progress of your pool, please give us your"
+msgstr "We would like to keep you informed about the progress of your pool, please give us your"
+
+#: friendfund/templates/pool/fb_perms.html:10
+msgid "FBPERMS_Stream Publish Permission"
+msgstr "Stream Publish Permission"
+
+#: friendfund/templates/pool/fb_perms.html:12
+msgid "FBPERMS_Let us help you fund raise by keeping  members your pool informed. You can do this by  Granting us "
+msgstr "Let us help you fund raise by keeping  members your pool informed. You can do this by  Granting us "
+
+#: friendfund/templates/pool/fb_perms.html:13
+msgid "FBPERMS_Facebook Offline Access"
+msgstr "Offline Access"
+
 #: friendfund/templates/pool/pool.html:5
 msgid "POOL_PAGE__TITLE_Pool"
 msgstr "Pool"
@@ -1951,42 +1976,38 @@ msgstr "Select a Gift"
 msgid "PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands."
 msgstr "Discover the perfect gift from a selection of thousands."
 
-#: friendfund/templates/product/common.html:22
-msgid "PRODUCT_BROWSER_TITLE_Sort by:"
-msgstr "Sort by:"
-
-#: friendfund/templates/product/common.html:42
-msgid "PRODUCT_SEARCH_PANEL_Back"
-msgstr "Back"
-
-#: friendfund/templates/product/common.html:58
-msgid "PRODUCT_SEARCH_PANEL_Next"
-msgstr "Next"
-
-#: friendfund/templates/product/common.html:73
+#: friendfund/templates/product/common.html:32
 #, python-format
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?"
 msgstr "Nothing found with a Price of %s or less. Please search for something else."
 
-#: friendfund/templates/product/common.html:75
+#: friendfund/templates/product/common.html:34
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
 msgstr "Sorry nothing found, Please try a new search."
 
-#: friendfund/templates/product/common.html:95
+#: friendfund/templates/product/common.html:53
+msgid "PRODUCT_SEARCH_PANEL_Back"
+msgstr "Back"
+
+#: friendfund/templates/product/common.html:69
+msgid "PRODUCT_SEARCH_PANEL_Next"
+msgstr "Next"
+
+#: friendfund/templates/product/common.html:92
 msgid "PRODUCT_SEARCH_PANEL_Read More"
 msgstr "Read More at"
 
-#: friendfund/templates/product/common.html:102
+#: friendfund/templates/product/common.html:99
 msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr "Select"
 
-#: friendfund/templates/product/recommended_tab.html:9
-#: friendfund/templates/product/search_tab.html:10
+#: friendfund/templates/product/recommended_tab.html:10
+#: friendfund/templates/product/search_tab.html:12
 #, python-format
 msgid "PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:"
 msgstr "Your gift's shipping address country is"
 
-#: friendfund/templates/product/recommended_tab.html:35
+#: friendfund/templates/product/recommended_tab.html:37
 msgid "PRODUCT_BROWSER_TITLE_Find a Gift by Personality"
 msgstr "Find a Gift by Personality"
 
@@ -1995,19 +2016,25 @@ msgstr "Find a Gift by Personality"
 msgid "PRODUCT_BROWSER_PERSONALITY_TITLE_Gifts for %s"
 msgstr "Gifts for %s"
 
-#: friendfund/templates/product/search_tab.html:6
+#: friendfund/templates/product/recommended_tab_search.html:4
+#: friendfund/templates/product/search_tab_search.html:3
+#: friendfund/templates/product/virtual_tab_search.html:7
+msgid "PRODUCT_BROWSER_TITLE_Sort by:"
+msgstr "Sort by:"
+
+#: friendfund/templates/product/search_tab.html:7
 msgid "Search for almost anything ... or paste a link from Amazon"
 msgstr "Search for almost anything ... or paste a link from Amazon"
 
-#: friendfund/templates/product/search_tab.html:8
+#: friendfund/templates/product/search_tab.html:9
 msgid "Search for almost anything ..."
 msgstr "Search for almost anything ..."
 
-#: friendfund/templates/product/search_tab.html:21
+#: friendfund/templates/product/search_tab.html:23
 msgid "PRODUCT_SEARCH_PANEL_Search"
 msgstr "Search"
 
-#: friendfund/templates/product/search_tab.html:25
+#: friendfund/templates/product/search_tab.html:27
 msgid "PRODUCT_PANEL_LABEL_Show me how"
 msgstr "Show me how to paste a link from"
 
@@ -2016,14 +2043,12 @@ msgstr "Show me how to paste a link from"
 msgid "PRODUCT_BROWSER_SEARCH_TITLE_Gifts for %s"
 msgstr "Gifts for %s"
 
-#: friendfund/templates/product/virtual_tab.html:5
+#: friendfund/templates/product/virtual_tab.html:6
 #, python-format
-#| msgid "" "PRODUCT_SEARCH_PANEL_Your pools shipping address is in "
-#| "<b>%(countryname)s</b>, change it:"
 msgid "PRODUCT_SEARCH_PANEL_Your virtual gifts recipient lives in <b>%(countryname)s</b>, change it:"
 msgstr "Your virtual gift's recpient lives in "
 
-#: friendfund/templates/product/virtual_tab_search.html:4
+#: friendfund/templates/product/virtual_tab_search.html:5
 msgid "PRODUCT_BROWSER_TITLE_Our Virtual Gifts"
 msgstr "Our Free Virtual Gifts"
 
