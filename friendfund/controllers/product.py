@@ -73,9 +73,11 @@ class ProductController(BaseController):
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}	
 	
+	@jsonify
 	def remote_search(self):
-		c = g.product_service.search_tab_search(request)
-		return self.search_tab()
+		g.product_service.search_tab(request)
+		g.product_service.search_tab_search(request)
+		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
 	
 	
