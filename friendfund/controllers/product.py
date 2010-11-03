@@ -75,9 +75,7 @@ class ProductController(BaseController):
 	
 	def remote_search(self):
 		c = g.product_service.search_tab_search(request)
-		result = self.search_tab()
-		print result
-		return result
+		return self.search_tab()
 	
 	
 	
