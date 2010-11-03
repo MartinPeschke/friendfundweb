@@ -1,7 +1,7 @@
 from __future__ import with_statement
 import cgi, hashlib, time, urllib2, re, simplejson, time, logging, hmac, urllib, base64
 from hashlib import sha256
-from datetime import datetime
+from datetime import datetime, timedelta
 from ordereddict import OrderedDict
 
 log = logging.getLogger(__name__)
@@ -112,7 +112,7 @@ def translate_friend_entry(u_id, friend_data):
 				log.error( 'Facebook User Birthday: %s, %s', e , dob)
 				dob = None
 		if dob:
-			result['dob'] = dob.replace(year = datetime.today().year)
+			result['dob'] = dob + timedelta(356)
 			result['dob_difference'] = (result['dob'] - datetime.today()).days
 			if result['dob_difference'] < 7:
 				result['dob_difference'] = (result['dob'].replace(year = (datetime.today().year + 1)) - datetime.today()).days
