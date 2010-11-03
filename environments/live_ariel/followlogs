@@ -1,0 +1,1 @@
+tail -f logs/ariel_paste_*.log | egrep --line-buffered "(Incoming Request at)|(web_login)|(get_my_profile)" | grep --line-buffered -v "/index/index"
