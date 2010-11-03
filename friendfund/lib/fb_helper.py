@@ -114,7 +114,7 @@ def translate_friend_entry(u_id, friend_data):
 		if dob:
 			result['dob'] = dob.replace(year = datetime.today().year)
 			result['dob_difference'] = (result['dob'] - datetime.today()).days
-			if result['dob_difference'] < 0:
+			if result['dob_difference'] < 7:
 				result['dob_difference'] = (result['dob'].replace(year = (datetime.today().year + 1)) - datetime.today()).days
 	return (u_id, result)
 
@@ -126,20 +126,24 @@ def get_friends(logger, id, access_token):
 		data = simplejson.loads(urllib2.urlopen(query).read())['data']
 	except urllib2.HTTPError, e:
 		logger.error("Error opening URL %s (%s):" % (query, e.fp.read()))
-		user_data = None
+		user_data = {}
 	else:
-		user_data = OrderedDict([translate_friend_entry(str(elem['id']), elem)
+		user_data = [
+					translate_friend_entry(str(elem['id']), elem)
 					for elem in data if 'name' in elem
-				])
+				]
+		ud = OrderedDict()
+		for k,user in sorted(user_data, key=lambda x: x[1].get("dob_difference", 999)):
+			ud[k] = user
 	logger.info('CACHE MISS %s, %s', query, len(user_data))
-	return user_data
+	return ud
 
 def get_friends_from_cache(
 				logger, 
 				cache_pool, 
 				id, 
 				access_token, 
-				expiretime=30, 
+				expiretime=4200,
 				friend_id = None
 			):
 	key = '<%s>%s' % ('friends_facebook', str(id))

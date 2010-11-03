@@ -14,10 +14,12 @@ from babel.numbers import format_currency as fc, format_decimal as fdec, get_cur
 from babel.dates import format_date as fdate, format_datetime as fdatetime
 from pylons import session as websession
 from decimal import Decimal
+from xml.sax.saxutils import quoteattr
 
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
+CATEGORY_PIC_STATIC_ROOT = '/static/imgs/categories'
 
 POG = '<span class="pog_currency_symbol">G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
 EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/></span>'
@@ -106,6 +108,30 @@ def format_date(date, with_time = False):
 
 def format_date_internal(date):
 	return date.strftime('%Y-%m-%d')
+
+def format_short_date(date, with_time = False):
+	return fdate(date, "d. MMM", locale=websession['lang'])
+
+
+
+################## For Product Search Templates #################
+def attrib_keys(keys, updates = {}):
+	if updates:
+		okeys = keys.copy()
+		okeys.update(updates)
+	else:
+		okeys = keys
+	return '_search_keys="%s" %s' % (
+				','.join('_%s'%k for k in okeys.keys() if okeys[k]),
+				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k])
+			)
+
+
+################## Picture Helpers #################
+
+def get_category_picture(name, ext='png'):
+	static_root = CATEGORY_PIC_STATIC_ROOT
+	return '%(static_root)s/%(name)s.%(ext)s' % locals()
 
 def get_pool_picture(pool_pic_url, type, ext="png"):
 	if pool_pic_url:

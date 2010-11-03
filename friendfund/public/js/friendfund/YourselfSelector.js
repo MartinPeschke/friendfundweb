@@ -10,5 +10,5 @@ dojo.declare("friendfund.YourselfSelector", null, {
 		var _t = this;
 		xhrPost(_t.base_url+"/add", {"invitee.network":"yourself"}, dojo.hitch(null, _t.onSelect, _t));
 	}, 
-	unload:function(){}
+	destroy:function(){}
 });

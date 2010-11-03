@@ -24,13 +24,13 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 			_t.is_loading = true;
 			xhrPost(_t.base_url+'/' + _t.network, {}, dojo.hitch(null, _t.onLoad, _t));
 		}
-	},onLoad : function(_t, html){
+	},onLoad : function(_t, data){
 		_t.is_loading = false;
 		if (_t.is_selected(_t)){
-			dojo.place(html, _t.ref_node, "only");
+			dojo.place(data.html, _t.ref_node, "only");
 			dojo.style(_t.ref_node, 'display', 'Block');
 			var filter_box = dojo.byId("fb_filter");
-			_t._listener_locals.push(dojo.connect(filter_box, "onkeyup", dojo.hitch(null, _t.filter, _t)));
+			_t._listener_locals.push(dojo.connect(filter_box, "onkeyup", dojo.hitch(null, _t.filter, _t, _t.inviter_node)));
 			var addall = dojo.byId("inviteall");
 			if(addall){_t._listener_locals.push(dojo.connect(addall, "onclick", dojo.hitch(null, _t.addall, _t)));}
 			_t._listener_locals.push(dojo.connect(dojo.byId("friend_list"), "onclick", dojo.hitch(null, _t.select, _t)));
@@ -38,8 +38,20 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 			parseDefaultsInputs(_t.ref_node);
 			var toggler = dojo.byId("toggle_mutuals");
 			if(toggler)_t._listener_locals.push(dojo.connect(toggler, "onchange", dojo.hitch(null, _t.toggle_mutuals, _t)));
+			
+			if(!data.is_complete){
+				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
+			}
 		}
-	},unload : function(_t){
+	}, addLoad : function(_t, data){
+		if (_t.is_selected(_t)){
+			dojo.place(data.html, dojo.byId("friend_list"), "last");
+			if(!data.is_complete){
+				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
+			}
+			if(!dojo.hasClass("fb_filter", 'default'))_t.filter(_t, _t.inviter_node, null);
+		}
+	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 	}
@@ -64,37 +76,21 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 					if(_t.mutuals == true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden")}
 					dojo.place(elem, _t.inviter_node, "last");
 				}
-				xhrPost(_t.base_url+'/rem', 
-						{network:dojo.attr(elem, 'network'), networkid:dojo.attr(elem, 'networkid')});
 			});
 	}
 	,onSelect : function(networkid, name, pos, elem, evt){
 		var _t = this;
 		dojo.query('#'+elem.id, _t.inviter_node).orphan().forEach(function(elem){
 			dojo.place(elem, _t.invited_node, "last");
-			var keys = dojo.attr(elem, '_keys').split(",");
-			var params = {};
-			dojo.forEach(keys, function(key){params["invitee."+key] = dojo.attr(elem, key);});
-			xhrPost(_t.base_url+'/add', params);
 		});
 	/* ================= END selectors ========================= */
 	},addall : function(_t, evt){
 		dojo.hitch(_t, _t.onSelect, dojo.attr(this, 'networkid'), dojo.attr(this, 'networkname'), dojo.attr(this, 'pos'), this, evt);
-		var userlist={};
-		var i = 0;
 		var selector = "div.selectable.invitee_row";
 		if(_t.mutuals == true)selector = "div.selectable.mutual.invitee_row";
 		dojo.query(selector, _t.inviter_node).orphan().forEach(function(elem){
 			dojo.place(elem, _t.invited_node, "last");
-			var keys = dojo.attr(elem, '_keys').split(",");
-			dojo.forEach(keys, function(key){userlist["userlist-"+i+"."+key] = dojo.attr(elem, key);});
-			i++;
 		});
-		console.log(userlist, userlist.length);
-		if(userlist!={}){
-			userlist["network"] = _t.network;
-			xhrPost(_t.base_url+'/addall',userlist);
-		}
 	},toggle_mutuals: function(_t) {
 		if(_t.mutuals == true){
 			_t.mutuals=false;
@@ -103,12 +99,11 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 			_t.mutuals=true;
 			dojo.query("div.nonmutual.invitee_row[networkname]", _t.inviter_node).addClass("hidden");
 		}
-	},filter : function(_t, evt){
-		var st = this.value.toLowerCase();
-		
+	},filter : function(_t, refnode, evt){
+		var st = dojo.byId("fb_filter").value.toLowerCase();
 		var selector = "div.invitee_row[networkname]";
 		if(_t.mutuals == true){selector = "div.mutual.invitee_row[networkname]";}
-		dojo.query(selector, _t.inviter_node).forEach(
+		dojo.query(selector, refnode).forEach(
 			function(elem){
 				var tokens = dojo.attr(elem, "networkname").split(" ");
 				if(dojo.some(tokens, function(token){return token.substring(0, st.length).toLowerCase() == st;})){

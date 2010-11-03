@@ -4,88 +4,15 @@
 
 
 <div id="button_panel" class="product">
-<div class="TabsContainer">
-	%for panel in c.gift_panel_tabs:
-		<a class="methodselector ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _type="${panel[0]}"><span>${_(panel[1])}</span></a>
-	%endfor
-</div>
+	<div class="TabsContainer">
+		%for panel in c.gift_panel_tabs:
+			<a class="methodselector anchorelem ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _base_url="${panel[0]}"><span>${_(panel[1])}</span></a>
+		%endfor
+	</div>
 	<a class="button_panel_closer">&nbsp;</a>
-	
 	
 	
 	${self.body()}
 	
-	
-	%if hasattr(c, "searchresult"):
-	<%
-		pages = c.searchresult.pages
-		page_no = c.searchresult.page_no
-		page_length = len(c.searchresult.products)
-	%>
-	<div id="product_browser_container">
-		<div id="product_browser">
-			%if c.searchresult.items > 0:
-				<div class="product_sorter" >
-					<select name="sort" id="psort" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">
-						%for ac in c.sortees:
-							<option ${c.sort == ac[0] and 'selected="selected"' or ''} value="${ac[0]}">${_(ac[1])}</option>
-						%endfor
-					</select>
-				</div>
-			
-
-				%for i, elem in enumerate(c.searchresult.products):
-					${common.display_product(i, elem, page_length)}
-				%endfor
-				${html.clearline()}
-				
-				%if pages > 1:
-				<div id="product_paginator">
-				<div class="product_paginator">
-				<%
-					page_field = c.searchresult.page_field()
-				%>
-					%if page_no > 1:
-						<span class="veryfirst">
-						<a href="#" class="paginator" page="${page_no-1}" sort="${c.sort}" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
-						</span>
-					%endif
-					%for i in page_field:
-						<span class="${(i==1 and 'first' or i==pages and 'last' or 'middle')}">
-						%if i == page_no:
-							<span class="selected">${i}</span>
-						%else:
-							<span>
-								<a href="#" class="paginator" page="${i}" sort="${c.sort}" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">${i}</a>
-							</span>
-						%endif
-						</span>
-					%endfor
-					%if page_no < pages:
-						<span class="verylast">
-						<a href="#" class="paginator" page="${page_no+1}" sort="${c.sort}" aff_net="${c.aff_net}" is_virtual="${ps.is_virtual and 'true' or ''}" aff_net_ref="${c.aff_net_ref or ''}">${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
-						</span>
-					%endif
-				</div>
-				</div>
-				%endif
-			%else:
-				<div class="panel_content_no_margin">
-				%if len(getattr(c ,"product_messages", [])) > 0:
-					%for m in c.product_messages:
-						<p>${m}</p>
-					%endfor
-				%else:
-					%if c.max_price is not None and c.currency:
-						${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}
-					%else:
-						${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
-					%endif
-				%endif
-				</div>
-			%endif
-		</div>
-	</div>
-	%endif
 	<div style="clear:both"></div>
 </div>

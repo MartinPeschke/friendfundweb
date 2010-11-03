@@ -1,122 +1,54 @@
 <%inherit file="panel.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
-
+<%namespace name="common" file="common.html"/>
+<%!
+	from operator import mod
+%>
 
 <div class="whiteContainer">
-<div class="region_picker">
-	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
-	<select name="region" id="region_picker" style="padding: 3px;" >
-		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
-			<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
-		%endfor
-	</select>
-	</div>
+	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
    
-<ul id="slider1">
+	<div id="scrollingproductsuggestions" class="anythingSlider">
+	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
+	<span class="arrow forward arrowforward anchorelem"><a>&gt;&gt;</a></span>
+	<div dojoType="dojox.widget.AutoRotator" class="rotator" suspendOnHover="true" id="productslider" jsId="productsuggestionscroller1" transition="dojox.widget.rotator.panLeft" autoStart="true" duration="4000">
+			<% last_prod = len(c.top_sellers)-1 %>
+			%for i, prod in enumerate(c.top_sellers):
+				%if mod(i,c.SCROLLER_PAGE_SIZE) == 0:
+					<div class="pane pane${i%c.SCROLLER_PAGE_SIZE}" transition="dojox.widget.rotator.panLeft">
+				%endif
+				<div _target_id="slider${i}_elem"  class="productsuggestion ${mod(i,c.SCROLLER_PAGE_SIZE)<(c.SCROLLER_PAGE_SIZE-1) and 'psmiddle' or ''}">
+					<a class="productsuggestion">
+						<img id="slider${i}_elem" src="${prod.picture_large}" class="productsuggestion"><span>${prod.name}</span>
+					</a>
+					<textarea style="display:none">
+						${common.display_product(0, prod)|n}
+						<div style="clear:both"></div>
+					</textarea>
+				</div>
+				%if mod(i,c.SCROLLER_PAGE_SIZE) == (c.SCROLLER_PAGE_SIZE-1) or i==last_prod:
+					</div>
+				%endif
+			%endfor
+		</div>
+	</div>
 
-				<li>
-                	<div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts BLA BLA BLA</span><span class="showme"></span></a></div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                
-                </li>
-
-				<li>
-                	<div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                    <div class="productsuggestion"><a aff_net_ref="2196" is_virtual="true" aff_net="AFFILIATE_WINDOW" sort="PRICE_DOWN" searchterm="appliances" class="productsuggestion"><img src="/static/imgs/suggestion/unicorn.jpg" class="productsuggestion"><span>Virtual Gifts</span><span class="showme"></span></a> </div>
-                
-                </li>
-
-			
-
-			</ul>
- <h4 class="inside">Find a Gift by Personality</h4>
- <div class="personalityBox">
-	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Eco Warrior</span><span class="showme"></span></a> </div>                    	
-	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Home Lover</span><span class="showme"></span></a> </div> 
-		<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Player</span><span class="showme"></span></a> </div>                    	
-	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Adrenaline Junkie</span><span class="showme"></span></a> </div> 	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Geek</span><span class="showme"></span></a> </div>                    	
-	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Adventurer</span><span class="showme"></span></a> </div> 	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Home Lover</span><span class="showme"></span></a> </div>                    	
-	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Player</span><span class="showme"></span></a> </div> 
-		<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Adventure Junkie</span><span class="showme"></span></a> </div>                    	
-	<div class="productsuggestion"><a class="productsuggestion"><img class="productsuggestion" src="/static/imgs/suggestion/unicorn.jpg"><span>Stress Head</span><span class="showme"></span></a> </div>                   
-	                    
-                                                   
-</div>
+	<h4 class="inside">${_("PRODUCT_BROWSER_TITLE_Find a Gift by Personality")}</h4>
+	<div class="personalityBox">
+		%for cat in c.categories:
+		<div class="productsuggestion psmiddle">
+			<a class="productsuggestion categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
+				<img class="productsuggestion" src="${h.get_category_picture(cat.picture_url)|n}">
+				<span>${_(cat.name)}</span>
+			</a>
+		</div>
+		%endfor
+	</div>
+	<div class="footer-big"></div>
 	<div style="clear:both"></div> 
 	
-	<h4 class="inside">Gift for Adventurers <span>Sort by:&nbsp;&nbsp; <select><option>Relevancy</option></select></span></h4>
-	<div class="productSorterContainer">
-	<div class="productSorter">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt.  </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	<div class="productSorter marginRightClean">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt.  </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	<div class="productSorter">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt. </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	<div class="productSorter marginRightClean">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt. </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	</div>
-	<div style="clear:both"></div>
-	<div class="pager">
-		<a href="#" class="active">1</a><span>|</span>
-		<a href="#">2</a><span>|</span>
-		<a href="#">3</a><span>|</span>
-		<a href="#">...</a>
-		<a href="#">5</a>
-		<a href="#" class="nextPrev">Next >> </a>
+	<div id="product_browser_container">
+		<%include file="recommended_tab_search.html"/>
 	</div>
 </div>

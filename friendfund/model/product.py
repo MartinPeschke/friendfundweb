@@ -14,7 +14,7 @@ class Product(DBMappedObject):
 				,GenericAttrib(str     ,'aff_id'                   , 'aff_id'                   )
 				,GenericAttrib(str     ,'aff_program_id'           , 'aff_program_id'           )
 				,GenericAttrib(unicode ,'aff_program_name'         , 'aff_program_name'         )
-				,GenericAttrib(int     ,'price'                    , 'amount'                   )
+				,GenericAttrib(int     ,'amount'                    , 'amount'                   )
 				,GenericAttrib(int     ,'shipping_cost'            , 'shipping_cost'            )
 				,GenericAttrib(str     ,'currency'                 , 'currency'                 )
 				,GenericAttrib(int     ,'category'                 , 'category'                 )
@@ -25,6 +25,8 @@ class Product(DBMappedObject):
 				,GenericAttrib(str     ,'delivery_time'            , 'delivery_time'            )
 				,GenericAttrib(str     ,'ean'                      , 'ean'                      )
 				,GenericAttrib(bool    ,'is_virtual'               , 'is_virtual'               )
+				,GenericAttrib(bool    ,'is_curated'               , 'is_curated'               )
+				,GenericAttrib(bool    ,'is_amazon'                , None                       )
 				,GenericAttrib(str     ,'aff_program_logo_url'     , 'aff_program_logo_url'     )
 				,GenericAttrib(str     ,'aff_program_delivery_time', 'aff_program_delivery_time')
 				,GenericAttrib(unicode ,'picture_small'            , 'picture_small'            )
@@ -38,10 +40,11 @@ class Product(DBMappedObject):
 	def to_map(self):
 		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
 	
-	def get_price_float(self):
-		return float(self.price)/100
-	def get_display_price(self, extended = True):
-		return h.format_currency(self.get_price_float(), self.currency, extended)
+	def get_price_float(self, include_shipping = True):
+		return float(self.amount + (include_shipping and self.shipping_cost or 0))/100
+	def get_display_price(self, extended = True, include_shipping = True):
+		return h.format_currency(self.get_price_float(include_shipping), self.currency, extended)
+	
 	display_price = property(get_display_price)
 	def get_shipping_cost_float(self):
 		return float(self.shipping_cost)/100
@@ -77,7 +80,7 @@ class ProductRetrieval(DBMappedObject):
 	_unique_keys = ['guid']
 	_keys = [	 GenericAttrib(str,'guid'      ,'guid')
 				,GenericAttrib(str,'region'      ,'region')
-				,GenericAttrib(bool,'is_virtual'      ,'is_virtual')
+				,GenericAttrib(bool,'is_curated'      ,'is_curated')
 				,DBMapper(Product, 'product', 'PRODUCT')
 			]
 class ProductSearch(DBMappedObject):
@@ -88,18 +91,17 @@ class ProductSearch(DBMappedObject):
 	_get_proc = _set_proc = 'imp.search_product'
 	_unique_keys = ['region', 'program_id', 'search', 'category', 'page_no']
 	_cacheable = False
-	_keys = [	 GenericAttrib(str,'region'      ,'region')
-				,GenericAttrib(str,'search'      ,'search')
-				,GenericAttrib(int,'max_price'      ,'max_price')
-				,GenericAttrib(str,'program_id'  ,'program_id')
-				,GenericAttrib(int,'category'    ,'category')
-				,GenericAttrib(int,'page_no'     ,'page_no')
-				,GenericAttrib(int,'pages'     ,'pages')
-				,GenericAttrib(int,'page_size' ,'page_size')
-				,GenericAttrib(int,'items' ,'items')
-				,GenericAttrib(str,'sort' ,'sort')
-				,GenericAttrib(bool,'is_virtual' ,'is_virtual')
-				,DBMapper(Product, 'products', 'PRODUCT', is_list = True)
+	_keys = [	 GenericAttrib(str ,'region'     ,'region')
+				,GenericAttrib(str ,'search'     ,'search')
+				,GenericAttrib(int ,'max_price'  ,'max_price')
+				,GenericAttrib(str ,'program_id' ,'program_id')
+				,GenericAttrib(int ,'category'   ,'category')
+				,GenericAttrib(int ,'page_no'    ,'page_no')
+				,GenericAttrib(int ,'pages'      ,'pages')
+				,GenericAttrib(int ,'page_size'  ,'page_size')
+				,GenericAttrib(int ,'items'      ,'items')
+				,GenericAttrib(str ,'sort'       ,'sort')
+				,DBMapper(Product  ,'products'   ,'PRODUCT', is_list = True)
 			]
 	
 	def page_field(self):
@@ -140,33 +142,6 @@ class ProductSuggestionSearch(DBMappedObject):
 				,GenericAttrib(str,'receiver_sex'    ,'receiver_sex')
 				,DBMapper(ProductSuggestion, 'suggestions','PRODUCT_SUGGESTION', is_list = True)
 			]
-
-import math 
-class ProductDisplay(object):
-	def __init__(self, **kwargs):
-		self.productlist = kwargs.get('productlist', [])
-		self.items_current = int(kwargs.get('items_current', 0))
-		self.items_total = int(kwargs.get('items_total', 0))
-		self.page_current = int(kwargs.get('page_current', 0))
-		self.page_total = int(kwargs.get('page_total', 0))
-		self.page_size = int(kwargs.get('page_size', 20))
-		self.query = kwargs.get('query', None)
-		self._total_pages = None
-
-	def get_total_pages(self):
-		if not self._total_pages:
-			self._total_pages = int(math.ceil(float(self.items_total) / self.page_size))
-		return self._total_pages
-	def max_page(self):
-		return self.get_total_pages() - 1
-	
-	def page_field(self):
-		def lower(x):
-			return x>3 and x-3 or 0
-		def upper(x):
-			return x+3<self.max_page() and x+3 or self.max_page()
-		result = sorted(list(set([0] + range(lower(self.page_current), upper(self.page_current)) + [self.max_page()] )))
-		return result
 
 class SetAltProductProc(DBMappedObject):
 	""" 

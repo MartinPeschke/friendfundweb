@@ -25,6 +25,7 @@ class RecentActivityEntry(DBMappedObject):
 			, GenericAttrib(int,'no_contributors','no_contributors')
 			, GenericAttrib(datetime,'expiry_date','expiry_date')
 			, GenericAttrib(int,'amount','amount')
+			, GenericAttrib(int,'shipping_cost','shipping_cost')
 			, GenericAttrib(str,'currency','currency')
 			, GenericAttrib(bool,'is_contributor','is_contributor')
 			, GenericAttrib(bool,'is_admin','is_admin')
@@ -40,7 +41,7 @@ class RecentActivityEntry(DBMappedObject):
 		return h.get_pool_picture(self.pool_picture_url, type)
 	
 	def get_profile_pic(self, type="RA"):
-		return h.get_user_picture(self.profile_picture_url, type)	
+		return h.get_user_picture(self.profile_picture_url, type)
 	def get_friend_profile_pic(self, type="RA"):
 		return h.get_user_picture(self.friend_profile_picture, type)
 	
@@ -48,7 +49,7 @@ class RecentActivityEntry(DBMappedObject):
 		return h.get_product_picture(self.product_picture_url, type)
 	
 	def get_amount_float(self):
-		return float(self.amount)/100
+		return float(self.amount + (self.shipping_cost or 0))/100
 	def get_total_contribution_float(self):
 		return float(self.total_contribution)/100
 	def get_amount_left_float(self):

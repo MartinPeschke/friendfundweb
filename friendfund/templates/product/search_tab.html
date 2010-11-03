@@ -1,101 +1,52 @@
 <%inherit file="panel.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="common" file="common.html"/>
 <%
 	if c.amazon_available:
 		default_text = _("Search for almost anything ... or paste a link from Amazon")
 	else:
 		default_text = _("Search for almost anything ...")
 %>
-
-
-
-
-<div class="whiteContainer" ><div class="region_picker">
-	<span>${(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n} &nbsp;&nbsp;</span>
-	<select name="region" id="region_picker" style="padding: 3px;" >
-		%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
-			<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
-		%endfor
-	</select>
-	</div>
-		<form id="product_search_form" onsubmit="return false;" >
-			<a name="product_search" id="product_search"></a> 
-			<div class="inputcontainer"><div id="pq_container" style="" class="black_labeled_container_big">
-				<div class="right_bracket">&nbsp;</div>
-				<div class="left_button_search">&nbsp;</div>
-				<input type="text" value="${c.q or default_text}"
-					name="q" id="pq" style="" _default_text="${default_text}" class="black_labeled_input ${ (not c.q) and 'default' or ' '}">
-			</div>
-			<div style="margin:28px 15px 30px;">
-				<a class="submitSmall searcher" sort = "${c.sort}"><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
-			</div>
-			</div>
-			<input type="hidden" name = "back_q" id="back_q" value="${c.back_q}"/>
-			
-			%if c.amazon_available:
-				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
-			%endif
-		</form>
-		<h4 class="inside">Gift for Adventurers <span>Sort by:&nbsp;&nbsp; <select><option>Relevancy</option></select></span></h4>
-	<div class="productSorterContainer">
-	<div class="productSorter">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt.  </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	<div class="productSorter marginRightClean">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt.  </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	<div class="productSorter">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt. </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	<div class="productSorter marginRightClean">
-		<div class="colSx">
-			<img class="productImage" src="/static/imgs/suggestion/unicorn.jpg">
-			<p class="productMerchant">Product Merchant</p>
-			<img src="/static/imgs/virgin-dummy.png" class="productMerchantImage" />
-		</div>
-		<div class="colDx">
-			<p class="product">Ipad <span>$ 10.000</span></p>
-			<p class="productText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum, neque vitae feugiat porta, diam magna dignissim justo, at sodales nunc massa ac sem. Duis at massa sed eros cursus sagittis. Proin et risus vitae nunc adipiscing tincidunt. </p>
-			<a href="#" class="productMore">More at Debenhams</a>
-			<a href="#" class="submitSmall"><span>Submit</span></a>
-		</div>
-	
-	</div>
-	</div>
-
+<div class="whiteContainer">
+	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
+	<form id="product_search_form" onsubmit="return false;" >
+		<a name="product_search" id="product_search"></a> 
+		<div style="padding-bottom:15px;float:left;width:880px;">
 		
+		<div id="pq_container" style="" class="black_labeled_container_big">
+			<div class="right_bracket">&nbsp;</div>
+			<div class="left_button_search">&nbsp;</div>
+			<input type="text" value="${default_text}" name="q" id="pq" _default_text="${default_text}" class="black_labeled_input default">
+		</div>
+		<div style="margin:28px 15px 30px;">
+			<a class="submitSmall anchorelem searcher" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
+		</div>
+		</div>
+		%if c.amazon_available:
+			<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme anchorelem popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
+		%endif
+	</form>
+	
+	
+	
+	<div class="clear"><br/><br/><br/></div>
+	<div id="product_suggestions" class="personalityBox">
+	%for i, ps in enumerate(c.psuggestions):
+		<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''} psmiddle">
+			<a class="productsuggestion anchorelem" _search_keys="_searchterm,_sort,_aff_net,_aff_net_ref" _base_url="${c.search_base_url}"
+			_searchterm="${ps.search}" _sort="${ps.sort or c.sort}" _aff_net="${ps.aff_net}" _aff_net_ref="${ps.aff_net_ref or ''}">
+				<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
+				<span>${ps.name}</span>
+				%if ps.help_link_href:
+					<span class="showme"><a href="#" _href="${url(controller='content', action=ps.help_link_href)}" class="showme anchorelem popuplink">${_(ps.help_link_title)}</a></span>
+				%endif
+			</a>
+		</div>
+	%endfor
 	</div>
+	<div class="clear"></div>
+	<div id="product_browser_container">
+		<%include file="search_tab_search.html"/>
+	</div>
+</div>

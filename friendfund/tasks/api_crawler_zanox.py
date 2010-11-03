@@ -23,7 +23,7 @@ logging.basicConfig(filename=os.path.join(os.getcwd(), 'logs', 'product_import_%
 
 CONNECTION_NAME = 'crawler'
 log = logging.getLogger('api_crawler')
-DBPAGESIZE = 200000
+DBPAGESIZE = 500000
 
 
 
@@ -44,12 +44,18 @@ root_path =  os.path.join( data_root, 'product_streams')
 standard_attr = lambda x: quoteattr(x)
 standard_elem = lambda x: escape(x)
 cat_normalizer = lambda x: quoteattr(str((int(x)/10000)*10000))
-accept = lambda x: True
+accept = lambda conf, x: True
 reject = lambda x: True
 lower_limit = lambda typ, limit: (lambda x: typ(x)>limit)
 
 price_normalizer_en  = lambda x: quoteattr(str(int(float(x.replace(',',''))*100)))
 price_limit_en = lower_limit(lambda x: float(x.replace(',','')), 10)
+
+integerizer = lambda x: int(float(x.replace(',','')))*100
+price_limit_dynamic = lambda conf, key, keytyp, typ, x: typ(x)>=keytyp(conf[key])
+
+price_limit_dynamic_number = lambda conf, x: price_limit_dynamic(conf, 'price_limit', int, integerizer, x)
+
 
 AFF_NET_TRANSLATOR = {'ZANOX':{
 							'NAMESPACE' : 'http://zanox.com/productdata/exportservice/v1',
@@ -70,9 +76,9 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'currency' :( True, ['t:currencyCode/text()'], standard_attr, accept)
 								,'picture_small' :( True, ['t:smallImage/text()', 't:mediumImage/text()', 't:largeImage/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['t:largeImage/text()', 't:mediumImage/text()', 't:smallImage/text()'], standard_attr, accept)
-								,'category' :( True, ['t:zanoxCategoryIds/t:id/text()'], cat_normalizer, accept)
+								,'category' :( False, ['t:zanoxCategoryIds/t:id/text()'], cat_normalizer, accept)
 								# <zanoxCategoryIds><id>110103</id></zanoxCategoryIds>
-								, 'amount' : (True, ['t:price/text()'], price_normalizer_en, price_limit_en)
+								, 'amount' : (True, ['t:price/text()'], price_normalizer_en, price_limit_dynamic_number)
 								, 'shipping_cost' : (False, ['t:shippingHandlingCost/text()'], price_normalizer_en, accept)
 							}
 							,'wanted_names' : [('t:program/text()', 'program'), ('t:number/text()', 'number'), ('t:name/text()', 'name')]
@@ -95,8 +101,8 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'currency' :( True, ['price/@curr'], standard_attr, accept)
 								,'picture_small' :( True, ['uri/awThumb/text()', 'uri/awImage/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['uri/awImage/text()', 'uri/awThumb/text()'], standard_attr, accept)
-								,'category' :( True, ['cat/awCatId/text()'], lambda x: quoteattr("170000"), accept)
-								,'amount' : (True, ['price/buynow/text()', 'price/store/text()', 'price/rrp/text()'], price_normalizer_en, price_limit_en)
+								,'category' :( False, ['cat/awCatId/text()'], lambda x: quoteattr("170000"), accept)
+								,'amount' : (True, ['price/buynow/text()', 'price/store/text()', 'price/rrp/text()'], price_normalizer_en, price_limit_dynamic_number)
 								,'shipping_cost' : (False, ['price/delivery/text()'], price_normalizer_en, accept)
 							},
 							'wanted_names' : [('@id', 'affid'), ('pId/text()', 'number'), ('name/text()', 'name')]
@@ -119,8 +125,8 @@ AFF_NET_TRANSLATOR = {'ZANOX':{
 								,'currency' :( True, ['currency/text()'], standard_attr, accept)
 								,'picture_small' :( True, ['imageurl/text()'], standard_attr, accept)
 								,'picture_large' :( True, ['imageurl/text()'], standard_attr, accept)
-								,'category' :( True, ['advertisercategory/text()'], lambda x: quoteattr("170000"), accept)
-								,'amount' : (True, ['price/text()', 'retailprice/text()', 'saleprice/text()'], price_normalizer_en, price_limit_en)
+								,'category' :( False, ['advertisercategory/text()'], lambda x: quoteattr("170000"), accept)
+								,'amount' : (True, ['price/text()', 'retailprice/text()', 'saleprice/text()'], price_normalizer_en, price_limit_dynamic_number)
 								,'shipping_cost' : (False, ['standardshippingcost/text()'], price_normalizer_en, accept)
 							},
 							'wanted_names' : [('programname/text()', 'program'), ('sku/text()', 'number'), ('name/text()', 'name')]
@@ -173,7 +179,7 @@ def convert_to_product_xml(product, aff_net, region, args):
 				hits = product.xpath(xp)
 			
 			if len(hits) > 0:
-				if acceptor(hits[0]):
+				if acceptor(args, hits[0]):
 					attribs[key] = normalizer(hits[0])
 				else:
 					raise FilterRejectedPropertyException("%s Filter not met" % key)
@@ -188,7 +194,7 @@ def convert_to_product_xml(product, aff_net, region, args):
 			else:
 				hits = product.xpath(xp)
 			if len(hits) > 0:
-				if acceptor(hits[0]):
+				if acceptor(args, hits[0]):
 					elems[key] = normalizer(hits[0])
 				else:
 					raise FilterRejectedPropertyException("%s Filter not met" % key)
@@ -204,7 +210,9 @@ def convert_to_product_xml(product, aff_net, region, args):
 			attribs[k] = quoteattr(args[k])
 		else:
 			raise MissingAffNetConfigParamException(k)
-	
+	#TODO Evil Hack
+	if 'category' not in attribs:
+		attribs['category'] = quoteattr("170000")
 	attribs = ' '.join(['%s=%s' % (k, attribs[k]) for k in attribs])
 	elems = ''.join(['<%s>%s</%s>' % (k, elems[k], k) for k in sorted(elems)])
 	root = '<PRODUCT xml:lang=%s %s>%s</PRODUCT>' % (quoteattr(region), attribs, elems)
@@ -213,7 +221,9 @@ def convert_to_product_xml(product, aff_net, region, args):
 def download_file(aff_net, aff_program_id, url, force_download, args):
 	fname = '%s_%s_%s.xml.gz' % (datetime.today().strftime('%Y%m%d'), aff_net, aff_program_id)
 	fname = os.path.join(root_path, fname)
+	print fname, os.path.exists(fname), force_download
 	if os.path.exists(fname) and not force_download:
+		log.info( "FILE PREEXISTED, skipping Download: %s from %s", fname, url)
 		return (fname, aff_net, args)
 	elif os.path.exists(fname):
 		os.remove(fname)
@@ -281,12 +291,12 @@ def parse_n_persist(sources, region, dbpool, pagesize = DBPAGESIZE):
 			except FilterRejectedPropertyException, e:
 				logfout.write(logentry(e, elem, aff_net))
 				fail_count[str(e)] = fail_count.get(str(e), 0) + 1
-			if (product_total > 0 and not product_total%pagesize):
+			if (product_total > 0 and product_total%pagesize == 0):
 				persist(dbpool, region, product_list, fail_count)
 				product_list.clear()
 				fail_count = {}
 			if tfname != fname: 
-				log.info( "Program Product Imported for %s: %s (total fails sofar: %s)", tfname, prod_count, fail_count )
+				log.info( "Program Product Imported for %s: %s (total fails sofar: %s)", fname, prod_count, fail_count )
 				prod_count = 0
 			tfname = fname
 			prod_count += 1
@@ -294,6 +304,7 @@ def parse_n_persist(sources, region, dbpool, pagesize = DBPAGESIZE):
 			while elem.getprevious() is not None:
 				del elem.getparent()[0]
 		if product_list:
+			log.info( "Program Product Imported for %s: %s (total fails sofar: %s)", fname, prod_count, fail_count )
 			persist( dbpool, region, product_list, fail_count)
 	return product_total
 
@@ -321,7 +332,7 @@ def main(argv=None):
 	
 	if not os.path.exists(root_path):
 		os.makedirs(root_path)
-	dls = get_download_files(dbpool, region, ('-d' in opts or '--forcedownload' in opts))
+	dls = get_download_files(dbpool, region, ('--forcedownload' in opts))
 	result, cur = db_access.execute_query(dbpool, log, 'exec imp.truncat ?', '<TRUNCAT region=%s />' % quoteattr(region))
 	
 	accepted_products = parse_n_persist(dls, region, dbpool)

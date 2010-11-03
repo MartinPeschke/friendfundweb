@@ -33,8 +33,8 @@
 	</div>
 </%def>
 
-<%def name="render_network_friends(friends, active = True, mutuals = False)">
-%for i,(id, user_data) in enumerate(sorted(friends.items())):
+<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False)">
+%for i,(id, user_data) in enumerate(friends.items()):
 	<%
 		if "mutual_with" in user_data:
 			mutual_class = "mutual"
@@ -49,11 +49,14 @@
 			%endif
 		>
 		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['networkname']}"/>
-		<span class="label">${user_data['networkname']}
-		
-		%if 'dob' in user_data:
-			<div>${h.format_date(user_data["dob"])}</div>
-			<div>${user_data.get("dob_difference")} Tage</div>
+		<span class="label"><b>${user_data['networkname']}</b>
+		%if show_birthdays and 'dob' in user_data:
+			<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
+			<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
+			%if 7 < user_data['dob_difference'] < 60:
+				<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div>
+			%endif
+			</div>
 		%endif
 		</span>
 		%if active:
@@ -107,7 +110,7 @@
 </%def>
 
 <%def name="render_email_friends(friends, active = True, class_='selectable')">
-	%for i,(id, user_data) in enumerate(sorted(friends.items())):
+	%for i,(id, user_data) in enumerate(friends.items()):
 	<div class="invitee_row ${class_}" id="email_${ md5.new(id).hexdigest() }"
 			%if active:
 				networkid="${id}" pos="i" networkname="${user_data['networkname']}" network="email" notification_method="email"

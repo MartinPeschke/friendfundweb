@@ -1,5 +1,6 @@
 import logging, urllib, urllib2, simplejson, formencode
 from collections import deque
+from ordereddict import OrderedDict
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
@@ -58,25 +59,43 @@ class InviteController(BaseController):
 			return abort(404)
 		c.method = str(method)
 		c.furl = '/invite/%s' % (pool_url)
-		c.invitees = websession.get('invitees', {})
 		
 		il = c.pool.get_invitees(c.method)
 		if method in ['facebook', 'twitter']:
+			is_complete = True
+			offset = 0
 			try:
-				friends = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', None))
+				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', None))
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					return {'html':render('/receiver/fb_login.html').strip()}
+					return {'data':{'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}}
 				else: 
-					return {'html':render('/receiver/tw_login.html').strip()}
+					return {'data':{'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
 				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-				pre_invited = [str(k) for k in c.invitees.get(method, {})]
-				c.friends = dict([(id, friends[id]) for id in friends if not (str(id) in pre_invited or str(id) in c.already_invited)])
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if str(id) not in c.already_invited])
+				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = c.invitees.get(method, {})
-			# print method, c.friends
 		return {'html':render('/invite/inviter.html').strip()}
+	
+	
+	@jsonify
+	def get_extension(self, method):
+		if method in ['twitter']:
+			offset = int(request.params['offset'])
+			c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
+			if c.pool is None:
+				return abort(404)
+			c.method = str(method)
+			il = c.pool.get_invitees(c.method)
+			c.method = method
+			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
+			c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if not str(id) in c.already_invited])
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
+		return {'success':False}
+	
 	
 	@logged_in(ajax=False)
 	def friends(self, pool_url):

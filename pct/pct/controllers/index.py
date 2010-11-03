@@ -11,14 +11,22 @@ log = logging.getLogger(__name__)
 
 class IndexController(BaseController):
 	navposition=g.globalnav[0][2]
-	def index(self, region, program = None):
-		c.curation_queue = g.dbm.get( GetCurationQueue, region = region, type="UPDATE", program = program)
+	def index(self, region, program = 'first', page = 1):
+		if program == 'first': c.program = g.programs.map[region][0].name
+		print program, c.program
+		c.curation_queue = g.dbm.get( GetCurationQueue, region = region, type="INSERT", program = c.program, page_no = page, page_size=25)
 		return render("/index.html")
-	def update(self, region, program = None):
-		c.curation_queue = g.dbm.get( GetCurationQueue, region = region, type="UPDATE", program = program)
+	
+	def update(self, region, program = 'first', page = 1):
+		if program == 'first': c.program = g.programs.map[region][0].name
+		print program, c.program
+		c.curation_queue = g.dbm.get( GetCurationQueue, region = region, type="UPDATE", program = c.program, page_no = page, page_size=25)
 		return render("/index.html")
-	def insert(self, region, program = None):
-		c.curation_queue = g.dbm.get( GetCurationQueue, region = region, type="INSERT", program = program)
+	
+	def insert(self, region, program = 'first', page = 1):
+		if program == 'first': c.program = g.programs.map[region][0].name
+		print program, c.program
+		c.curation_queue = g.dbm.get( GetCurationQueue, region = region, type="INSERT", program = c.program, page_no = page, page_size=25)
 		return render("/index.html")
 	
 	@jsonify

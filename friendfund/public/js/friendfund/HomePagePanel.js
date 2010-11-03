@@ -27,7 +27,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.check_complete(_t);
 	},
 	connect:function(_t, action){
-		dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false));
+		_t._listener_globals.push(dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false)));
 	},
 	submit:function(_t, evt){
 		if (!dojo.hasClass(this, 'inactive')){
@@ -67,11 +67,12 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
 		}
-	},load: function(_t, elem){
+	}
+	,load: function(_t, elem){
 		_t.onLoad && this.onLoad(_t);
 		dojo.query("#get_started").orphan();
-		dojo.query("#"+elem+"_panel.frontpagebutton div.extender").removeClass("hidden");
 		dojo.query("#button_"+elem+".hpbutton a.panel_opener").addClass("opened");
+		/* TODO: this gets disconnected on Product Panel Changing */
 		dojo.query("a.button_panel_closer", "button_panel").onclick(dojo.hitch(null, _t.unload, _t, true));
 		dojo.query("#"+elem+"_panel").addClass('front_panel_active');
 		parseDefaultsInputs(_t.ref_node);
@@ -81,15 +82,15 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.onDestroy && _t.onDestroy();
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
-		dojo.forEach(_t._widget_list, function(item){item.destroy();});
+		
+		dojo.forEach(_t._widget_list, function(item){item.destroy(item);});
 		_t._widget_list = [];
-		for (var item in _t.receiver_selectors){item = _t.receiver_selectors[item]; item.unload(item);};
 		_t.receiver_selectors = {};
+		
 		var picker = dijit.byId("datestamp");
 		picker && picker.destroy();
 		dojo.query("*", _t.ref_node).orphan();
 		dojo.query(_t.ref_node).style("display", "None");
-		dojo.query("div.extender", _t.config_node).addClass("hidden");
 		dojo.query(".front_panel_active", _t.config_node).removeClass("front_panel_active");
 		dojo.query("a.opened", _t.config_node).removeClass("opened");
 		if(success == true){
@@ -197,14 +198,15 @@ dojo.declare("friendfund.HomePagePanel", null, {
 						return args;
 					}
 			});
+		_t._widget_list.push(_t.productsearch);
 		_t.productsearch.draw(_t.productsearch, null, params);
 	},
 	productSelected : function(_t, selection_args){
 		var params = {};
 		params["product.guid"] = selection_args.guid;
 		params["product.is_virtual"] = selection_args.is_virtual;
-		params["product.aff_net"] = selection_args.net;
-		params["product.aff_program_id"] =  selection_args.progid;
+		params["product.is_curated"] = selection_args.is_curated;
+		params["product.is_amazon"] = selection_args.is_amazon;
 		loadElement("/product/set", "product_panel", params, dojo.hitch(null, _t.set_complete, _t, 'product'));
 		_t.verify_dates();
 		_t.unload(_t, true);
@@ -301,6 +303,10 @@ dojo.declare("friendfund.HomePagePanel", null, {
 									}
 							}
 						});
+		_t._widget_list.push(_t.receiver_selectors.facebook);
+		_t._widget_list.push(_t.receiver_selectors.twitter);
+		_t._widget_list.push(_t.receiver_selectors.email);
+		_t._widget_list.push(_t.receiver_selectors.yourself);
 		_t.receiver_selectors[data.method].draw();
 		dojo.query("a.ajaxlink", _t.ref_node).onclick(
 			function(evt){

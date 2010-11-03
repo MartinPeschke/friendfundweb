@@ -1,7 +1,8 @@
 dojo.provide("friendfund.EmailFriendSelector");
 
 dojo.declare("friendfund.EmailFriendSelector", null, {
-	constructor: function(args){
+	_listener_locals : []
+	,constructor: function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
@@ -13,8 +14,11 @@ dojo.declare("friendfund.EmailFriendSelector", null, {
 		loadElement(_t.base_url+'/email', _t.ref_node, {}, dojo.hitch(null, _t.onLoad, _t));
 	},
 	onLoad : function(_t){
-		dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t));
-	}, unload:function(){},
+		_listener_locals.push(dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t)));
+	},destroy : function(_t){
+		dojo.forEach(_t._listener_locals, dojo.disconnect);
+		_t._listener_locals = [];
+	},
 	select : function(_t, evt){
 		if(dojo.query('#'+this.id, _t.invited_node).length > 0){
 			dojo.query('#'+this.id, _t.invited_node).orphan();
