@@ -76,7 +76,7 @@ class InviteController(BaseController):
 				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if str(id) not in c.already_invited])
 				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
-			c.friends = c.invitees.get(method, {})
+			c.friends = {}
 		return {'html':render('/invite/inviter.html').strip()}
 	
 	
