@@ -61,7 +61,6 @@ def word_truncate(s, length):
 def word_truncate_by_letters(s, length):
 	if len(s) > length:
 		s = s[:length].rsplit(None,1)[0] + '...'
-		print s
 	return s
 
 def has_ne_prop(c, key):
