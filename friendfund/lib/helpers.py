@@ -129,9 +129,9 @@ def attrib_keys(keys, updates = {}):
 
 ################## Picture Helpers #################
 
-def get_category_picture(name):
+def get_category_picture(name, ext='png'):
 	static_root = CATEGORY_PIC_STATIC_ROOT
-	return '%(static_root)s/%(name)s.jpg' % locals()
+	return '%(static_root)s/%(name)s.%(ext)s' % locals()
 
 def get_pool_picture(pool_pic_url, type, ext="png"):
 	if pool_pic_url:

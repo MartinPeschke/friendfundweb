@@ -1,14 +1,11 @@
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, GenericElement, DBMapping
 from friendfund.model.product import Product
 
-
-
-
 class ProductPager(object):
 	SORTERS = {
 			'RANK': lambda x:x,
-			'PRICE_UP':lambda x: sorted(x, key = (lambda y:y.price) ),
-			'PRICE_DOWN':lambda x: sorted(x, key = (lambda y:y.price), reverse = True),
+			'PRICE_UP':lambda x: sorted(x, key = (lambda y:y.amount) ),
+			'PRICE_DOWN':lambda x: sorted(x, key = (lambda y:y.amount), reverse = True),
 			'MERCHANT':lambda x:x
 		}
 	

@@ -84,7 +84,7 @@
 			<img src="${product.aff_program_logo_url}" class="productMerchantImage" />
 		</div>
 		<div class="colDx">
-			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(), product.currency, extended = True)|n}</span></p>
+			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(include_shipping = False), product.currency, extended = True)|n} ${product.display_shipping|n}</span></p>
 			
 			<p class="productText">${h.word_truncate(product.description_long, word_truncate)|n}</p>
 			

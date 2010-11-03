@@ -71,7 +71,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	,load: function(_t, elem){
 		_t.onLoad && this.onLoad(_t);
 		dojo.query("#get_started").orphan();
-		dojo.query("#"+elem+"_panel.frontpagebutton div.extender").removeClass("hidden");
 		dojo.query("#button_"+elem+".hpbutton a.panel_opener").addClass("opened");
 		/* TODO: this gets disconnected on Product Panel Changing */
 		dojo.query("a.button_panel_closer", "button_panel").onclick(dojo.hitch(null, _t.unload, _t, true));
@@ -92,7 +91,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		picker && picker.destroy();
 		dojo.query("*", _t.ref_node).orphan();
 		dojo.query(_t.ref_node).style("display", "None");
-		dojo.query("div.extender", _t.config_node).addClass("hidden");
 		dojo.query(".front_panel_active", _t.config_node).removeClass("front_panel_active");
 		dojo.query("a.opened", _t.config_node).removeClass("opened");
 		if(success == true){

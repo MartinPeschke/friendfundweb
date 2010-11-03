@@ -14,7 +14,7 @@ class Product(DBMappedObject):
 				,GenericAttrib(str     ,'aff_id'                   , 'aff_id'                   )
 				,GenericAttrib(str     ,'aff_program_id'           , 'aff_program_id'           )
 				,GenericAttrib(unicode ,'aff_program_name'         , 'aff_program_name'         )
-				,GenericAttrib(int     ,'price'                    , 'amount'                   )
+				,GenericAttrib(int     ,'amount'                    , 'amount'                   )
 				,GenericAttrib(int     ,'shipping_cost'            , 'shipping_cost'            )
 				,GenericAttrib(str     ,'currency'                 , 'currency'                 )
 				,GenericAttrib(int     ,'category'                 , 'category'                 )
@@ -40,10 +40,11 @@ class Product(DBMappedObject):
 	def to_map(self):
 		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
 	
-	def get_price_float(self):
-		return float(self.price)/100
-	def get_display_price(self, extended = True):
-		return h.format_currency(self.get_price_float(), self.currency, extended)
+	def get_price_float(self, include_shipping = True):
+		return float(self.amount + (include_shipping and self.shipping_cost or 0))/100
+	def get_display_price(self, extended = True, include_shipping = True):
+		return h.format_currency(self.get_price_float(include_shipping), self.currency, extended)
+	
 	display_price = property(get_display_price)
 	def get_shipping_cost_float(self):
 		return float(self.shipping_cost)/100

@@ -15,7 +15,7 @@ div#outercontainer {
 
 * { margin: 0; padding: 0; outline: none}
 
-a.gotopage {
+a.gotopage {3
 	background:url("/static/imgs/button_gotopage.png") no-repeat scroll 0 0 transparent;
 	height:18px;
 	position:absolute;
@@ -244,21 +244,31 @@ div.frontpagebutton {
 	position: relative;
 	float: left;
 	background-color:#bbe3f7;
-	width:228px;
+	width:229px;
 	height:300px;
 	margin: 1px;
 }
 div.frontpagebutton.first {
+	width:230px;
 	margin: 1px 1px 1px 0px;
+}
+div.frontpagebutton.last {
+	width:226px;
+	margin: 1px 0px 1px 1px;
 }
 #pool_configurator div.frontpagebutton div.extender {
 	position: absolute;
-	width: 228px;
-	height: 25px;
+	width: 100%;
+	height: 5px;
 	left: 0px;
-	bottom: -25px;
+	bottom: -5px;
 	background-color:#ECF8Fd;
+	display:None;
 }
+#pool_configurator div.frontpagebutton.front_panel_active div.extender {
+	display:Block;
+}
+
 
 div.frontpagebutton.funders {
 	position: relative;
@@ -348,7 +358,7 @@ div.frontpagebutton.funders {
 }
 #button_panel_container {
 	display: None;
-	margin-top: 20px;
+	margin-top: 2px;
 	background-color:#ECF8Fd;
 	clear: both;
 	position: relative;

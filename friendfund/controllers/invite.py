@@ -1,5 +1,6 @@
 import logging, urllib, urllib2, simplejson, formencode
 from collections import deque
+from ordereddict import OrderedDict
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
@@ -72,7 +73,7 @@ class InviteController(BaseController):
 					return {'data':{'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
 				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-				c.friends = dict([(id, friends[id]) for id in friends if str(id) not in c.already_invited])
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if str(id) not in c.already_invited])
 				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = c.invitees.get(method, {})
@@ -91,7 +92,7 @@ class InviteController(BaseController):
 			c.method = method
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-			c.friends = dict([(id, friends[id]) for id in friends if not str(id) in c.already_invited])
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if not str(id) in c.already_invited])
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
 	
