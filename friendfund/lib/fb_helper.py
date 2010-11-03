@@ -112,10 +112,12 @@ def translate_friend_entry(u_id, friend_data):
 				log.error( 'Facebook User Birthday: %s, %s', e , dob)
 				dob = None
 		if dob:
-			result['dob'] = dob + timedelta(356)
+			year = datetime.today().year
+			doy = dob-datetime(dob.year,1,1)
+			result['dob'] = datetime(year, 1,1) + doy
 			result['dob_difference'] = (result['dob'] - datetime.today()).days
 			if result['dob_difference'] < 7:
-				result['dob_difference'] = (result['dob'].replace(year = (datetime.today().year + 1)) - datetime.today()).days
+				result['dob_difference'] = (datetime(year + 1, 1,1) + doy - datetime.today()).days
 	return (u_id, result)
 
 
@@ -143,7 +145,7 @@ def get_friends_from_cache(
 				cache_pool, 
 				id, 
 				access_token, 
-				expiretime=4200,
+				expiretime=2,
 				friend_id = None
 			):
 	key = '<%s>%s' % ('friends_facebook', str(id))
