@@ -42,7 +42,7 @@ class AmazonService(object):
 		self.query_nss = {"namespaces":{'t':self.result_namespace}}
 		self.product_mapper = {}
 		self.product_mapper['aff_id'] = 			(True,  str, ["t:ASIN/text()"])
-		self.product_mapper['price'] = 				(True,  int, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:Amount/text()"])
+		self.product_mapper['amount'] = 				(True,  int, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:Amount/text()"])
 		self.product_mapper['currency'] = 			(True,  str, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:CurrencyCode/text()"])
 		self.product_mapper['delivery_time'] = 		(False, unicode, ["t:Offers/t:Offer/t:OfferListing/t:Availability/text()"])
 		self.product_mapper['name'] = 				(True,  unicode, ["t:ItemAttributes/t:Title/text()"])
