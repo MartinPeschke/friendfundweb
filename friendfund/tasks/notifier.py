@@ -105,7 +105,7 @@ def main(argv=None):
 					log.warning( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
 				except:
-					log.error( 'ERROR while SENDING: %s', meta_data )
+					log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
 					if debug: raise
 				else:
