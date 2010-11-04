@@ -2,7 +2,7 @@
 FriendFund Notification Service, the only commandline argument should be the paster config file.
 i.e. invoke as: python friendfund/services/notifier.py -f development.ini
 """
-import logging, time, sys, getopt
+import logging, time, sys, getopt, os
 from lxml import etree
 from xml.sax.saxutils import quoteattr
 from friendfund.tasks import get_db_pool, get_config
@@ -11,7 +11,18 @@ from friendfund.tasks.notifiers.common import InvalidAccessTokenException
 
 import logging.config
 logging.config.fileConfig("notifier_logging.conf")
+logging.basicConfig()
+
+import logging
+
+
 log = logging.getLogger(__name__)
+
+import gettext
+transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en'])
+_ = transl.ugettext
+L10N_KEYS = ['occasion']
+
 
 CONNECTION_NAME = 'messaging'
 turbomail_config = None
@@ -21,6 +32,7 @@ class Usage(Exception):
 		self.msg = msg
 
 def main(argv=None):
+	
 	if argv is None:
 		argv = sys.argv
 	try:
@@ -38,10 +50,10 @@ def main(argv=None):
 	configname = opts['-f']
 	config = get_config(configname)
 	dbpool = get_db_pool(config, CONNECTION_NAME)
-	ROOT_URL = config['site_root_url']
+	ROOT_URL = config['short_site_root_url']
 	
 	debug = config['debug'].lower() == 'true'
-	print debug
+	log.info( 'DEBUG: %s for %s', debug, CONNECTION_NAME )
 	
 	while 1:
 		conn = dbpool.connection()
@@ -52,7 +64,7 @@ def main(argv=None):
 		conn.commit()
 		conn.close()
 		messaging_results = {}
-		log.info( res )
+		log.info ( res )
 		messages = etree.fromstring(res)
 		msg_set = messages.findall('MESSAGE')
 		if msg_set:
@@ -63,10 +75,13 @@ def main(argv=None):
 				rcpt_data = msg_data.find("RECIPIENT").attrib
 				template_data = msg_data.find("TEMPLATE").attrib
 				template_data['ROOT_URL'] = ROOT_URL
+				for k in L10N_KEYS:
+					if k in template_data:
+						template_data[k] = _(template_data[k])
 				
-				log.info( 'SENDER, %s', sndr_data)
-				log.info( 'RECEIPIENT, %s', rcpt_data)
-				log.info( 'TEMPLATE, %s', template_data)
+				log.info ( 'SENDER, %s', sndr_data)
+				log.info ( 'RECEIPIENT, %s', rcpt_data)
+				log.info ( 'TEMPLATE, %s', template_data)
 				
 				try:
 					notification_method = meta_data.get('notification_method').lower()
@@ -76,6 +91,9 @@ def main(argv=None):
 						msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
 					elif notification_method in ['tweet', 'tweet_dm']:
 						sndr_data['twitterapikey'] = config['twitterapikey']
+						sndr_data['twitterapisecret'] = config['twitterapisecret']
+						sndr_data['bitlylogin'] = config['bitly.login']
+						sndr_data['bitlyapikey'] = config['bitly.apikey']
 						sndr_data['twitterapisecret'] = config['twitterapisecret']
 						if notification_method == 'tweet':
 							msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
@@ -108,7 +126,7 @@ def main(argv=None):
 			cur.close()
 			conn.commit()
 			conn.close()
-		time.sleep(10)
+		time.sleep(2)
 
 if __name__ == "__main__":
     sys.exit(main())
