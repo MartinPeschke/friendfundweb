@@ -1,4 +1,4 @@
-import urllib, urllib2, simplejson, logging
+import urllib, urllib2, simplejson, logging, StringIO
 from friendfund.lib.helpers import get_product_picture
 from friendfund.tasks import data_root
 from friendfund.tasks.notifiers.common import MissingTemplateException, InvalidAccessTokenException
@@ -15,7 +15,6 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	msg['access_token'] = sndr_data['access_token']
 	query = urllib.urlencode(msg)
 	try:
-		print 'https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query
 		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query)
 	except urllib2.HTTPError, e:
 		resp = e.fp
