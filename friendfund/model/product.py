@@ -26,15 +26,15 @@ class Product(DBMappedObject):
 				,GenericAttrib(str     ,'ean'                      , 'ean'                      )
 				,GenericAttrib(bool    ,'is_virtual'               , 'is_virtual'               )
 				,GenericAttrib(bool    ,'is_curated'               , 'is_curated'               )
-				,GenericAttrib(bool    ,'is_amazon'                , None                       )
+				,GenericAttrib(bool    ,'is_amazon'                , None                       , persistable = False)
 				,GenericAttrib(str     ,'aff_program_logo_url'     , 'aff_program_logo_url'     )
 				,GenericAttrib(str     ,'aff_program_delivery_time', 'aff_program_delivery_time')
 				,GenericAttrib(unicode ,'picture_small'            , 'picture_small'            )
 				,GenericAttrib(unicode ,'picture_large'            , 'picture_large'            )
 				,GenericAttrib(unicode ,'product_picture_url'      , 'product_picture_url'      )
 				,GenericAttrib(unicode ,'tracking_link'            , 'tracking_link'            )
-				,GenericAttrib(str     ,'_deliveryTime'            , None                       )
-				,GenericAttrib(str     ,'_deliveryTimeWarnOffset'  , None                       )
+				,GenericAttrib(str     ,'_deliveryTime'            , None                       , persistable = False)
+				,GenericAttrib(str     ,'_deliveryTimeWarnOffset'  , None                       , persistable = False)
 				]
 	
 	def to_map(self):
