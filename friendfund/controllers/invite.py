@@ -34,13 +34,13 @@ class InviteController(BaseController):
 			return abort(404)
 		return self._display_invites(pool)
 	
-	def _display_invites(self, pool):
+	def _display_invites(self, pool, invitees = {}):
 		c.pool = pool
 		c.method = c.user.get_current_network() or 'facebook'
 		c.furl = '/invite/%s' % pool.p_url
 		c.pool_url = pool.p_url
 		#Find all people that have been selected as to-be-invited but not added to pool yet
-		c.invitees = websession.get('invitees', {})
+		c.invitees = invitees
 		for network, invitees in c.invitees.items():
 			if network and invitees:
 				il = c.pool.get_invitees(network)
@@ -106,7 +106,6 @@ class InviteController(BaseController):
 		pool.is_secret = params.get("is_secret", False)
 		
 		invitees = params.get('invitees')
-		
 		#determine state of permissions and require missing ones
 		perms_required = False
 		if checkadd_block('email'):
@@ -126,7 +125,20 @@ class InviteController(BaseController):
 				remove_block('fb_streampub')
 		if perms_required:
 			c.enforce_blocks = True
-			return self._display_invites(pool)
+			c.invitees = {}
+			for inv in invitees:
+				netw = inv['network'].lower()
+				if netw == 'email':
+					network_id_name = 'email'
+				else:
+					network_id_name = 'network_id'
+				inv['networkname'] = inv.pop('name')
+				if 'screen_name' in inv:
+					inv['screenname'] = inv.pop('screen_name')
+				invs = c.invitees.get(netw,{})
+				invs[str(inv[network_id_name])] = inv
+				c.invitees[netw] = invs
+			return self._display_invites(pool, c.invitees)
 		
 		
 		if invitees is not None:
