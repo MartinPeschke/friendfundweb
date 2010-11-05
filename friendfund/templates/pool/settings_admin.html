@@ -87,8 +87,9 @@
 		onSelected : function(selection_args){
 				var params = {};
 				params["product.guid"] = selection_args.guid;
-				params["product.aff_net"] = selection_args.net;
-				params["product.aff_program_id"] =  selection_args.progid;
+				params["product.is_virtual"] = selection_args.is_virtual;
+				params["product.is_curated"] = selection_args.is_curated;
+				params["product.is_amazon"] = selection_args.is_amazon;
 				loadElement("${url(controller='pool', pool_url=c.pool_url, action='setaltproduct')}", "product_search_container", params);
 			}
 		});

@@ -171,6 +171,21 @@ class ProductService(object):
 		return tmpl_context
 	
 	
+	def getaltproduct(self, product, region):
+		if product['is_amazon']:
+			product = self.amazon_services[region].get_product_from_guid(product['guid'])
+		elif product['is_virtual']:
+			product = self.virtual_gift_map[product['guid']]
+		else:
+			productresult = app_globals.dbsearch.get(ProductRetrieval
+											, guid = product['guid']
+											, region = region
+											, is_curated = product['is_curated']
+										)
+			if not productresult.product:
+				return self.ajax_messages(_("POOL_CREATE_Product not Found"))
+			product = productresult.product
+		return product
 	
 	def set_product(self, product, request):
 		tmpl_context = self.setup_region(request)

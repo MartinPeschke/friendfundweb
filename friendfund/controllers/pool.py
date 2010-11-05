@@ -36,6 +36,8 @@ class PoolController(BaseController):
 			del websession['invitees']
 		return redirect(url('home'))
 	
+	
+	
 	def index(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
@@ -50,13 +52,16 @@ class PoolController(BaseController):
 			msg = render('/pool/fb_perms.html').strip()
 			if msg: c.messages.append(msg)
 		return self.render('/pool/pool.html')
+		
+		
+		
 	
 	@logged_in()
 	def create(self):
 		params = formencode.variabledecode.variable_decode(request.params)
 		c.pool = websession.get('pool')
 		if c.pool is None:
-			c.messages.append(_("POOL_CREATE_Nothing was known about this pool, what can I do?"))
+			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
 		elif c.pool.product is None:
 			c.messages.append(_("POOL_CREATE_Product was unknown, what can I do?"))
@@ -289,19 +294,20 @@ class PoolController(BaseController):
 		if not c.user.am_i_admin(pool_url):
 			return self.ajax_messages(self.NOT_AUTHORIZED_MESSAGE)
 		
-		product = request.params
+		strbool = formencode.validators.StringBoolean(if_missing=False)
+		params = formencode.variabledecode.variable_decode(request.params)
+		product = params.get('product', None)
+		if not product or not dict_contains(product, ['is_amazon', 'is_virtual', 'is_curated', 'guid']):
+			return self.ajax_messages(_("INDEX_PAGE_No Product"))
+		
+		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
+		product['is_virtual'] = strbool.to_python(product['is_virtual'])
+		product['is_curated'] = strbool.to_python(product['is_curated'])
+		
+		print product
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		region=c.psettings.region
-		if not 'guid' in product or not 'aff_net' in product:
-			return self.ajax_messages(_(u"POOL_ALTPRODUCT_No Product Selected"))
-		if product['aff_net'] == 'AMAZON':
-			product = g.amazon_service[region].get_product_from_guid(product['guid'])
-		else:
-			productresult = g.dbsearch.get(ProductRetrieval, guid=product['guid'], region=region)
-			if not productresult.product:
-				return self.ajax_messages(_("POOL_ALTPRODUCT_No Product Selected"))
-			product = productresult.product
-		
+		product = g.product_service.getaltproduct(product, region)
 		if not product:
 			raise ValueError("POOL_ALTPRODUCT_No Product Selected")
 		g.dbm.set(SetAltProductProc(p_url = pool_url, product = product))

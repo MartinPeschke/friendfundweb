@@ -1,4 +1,4 @@
-import logging, simplejson, time, cgi, urllib2
+import logging, simplejson, cgi, urllib2
 from friendfund.lib import oauth
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
@@ -18,6 +18,8 @@ consumer = oauth.Consumer(g.TwitterApiKey, g.TwitterApiSecret)
 
 class TwitterController(BaseController):
 	UNKNOWN_TWITTER_ERROR = _("TWITTER_An Error occured during Twitter authentication, please try again later.")
+	TWITTER_TIMEOUT_ERROR = _("TWITTER_Twitter seems to be overloaded again, please try again at a later time.")
+	
 	def index(self):
 		c.ra = RecentActivityStream(entries = [])
 		return self.render('/index.html')
@@ -25,8 +27,12 @@ class TwitterController(BaseController):
 	def login(self):
 		furl = request.params.get('furl', request.referer)
 		# Step 1. Get a request token from Twitter.
-		content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
-				params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (g.SITE_ROOT_URL,  furl)})
+		try:
+			content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
+					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (g.SITE_ROOT_URL,  furl)})
+		except urllib2.HTTPError:
+			c.messages.append(self.TWITTER_TIMEOUT_ERROR)
+			return redirect(furl)
 		websession['request_token'] = dict(cgi.parse_qsl(content))
 		
 		# Step 3. Redirect the user to the authentication URL.
