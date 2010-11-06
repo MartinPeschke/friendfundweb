@@ -76,4 +76,5 @@ class TwitterController(BaseController):
 		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
 		if not success:
 			c.messages.append(msg)
-		return redirect(furl)
+		c.reload = True
+		return render('/closepopup.html')
