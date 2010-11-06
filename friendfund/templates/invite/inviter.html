@@ -14,6 +14,7 @@
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals)">
+	<div id="networkinviter_${network_name}">
 	<div id="inviteheader" class="inviteelist ${network_name}">
 		%if mutuals:
 			<div class="mutual_toggle_container">
@@ -30,6 +31,7 @@
 	<div id="friend_list" class="inviteelist ${network_name}">
 		${render_network_friends(friends, mutuals = mutuals)|n}
 		${render_network_friends(c.already_invited, active=False, mutuals = mutuals)|n}
+	</div>
 	</div>
 </%def>
 

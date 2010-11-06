@@ -47,7 +47,7 @@ dojo.declare("friendfund.InvitePage", null, {
 					dojo.removeClass(deselect, "selected");
 					if(dojo.attr(deselect, "_type") in _t.selector){
 						var selector = _t.selector[dojo.attr(deselect, "_type")];
-						selector.destroy(selector)
+						selector.undraw(selector);
 					}
 				}
 				dojo.addClass(this, "selected");
