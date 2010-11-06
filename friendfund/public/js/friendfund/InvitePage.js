@@ -2,6 +2,7 @@ dojo.provide("friendfund.InvitePage");
 
 dojo.declare("friendfund.InvitePage", null, {
 	selector : null,
+	_widget_list: [],
 	submitting : false,
 	constructor: function(args){
 		var _t = this;
@@ -19,6 +20,7 @@ dojo.declare("friendfund.InvitePage", null, {
 								, network : "facebook"
 								, mutuals : true
 							});
+		_t._widget_list.push(_t.selector.facebook);
 		_t.selector.twitter = new friendfund.NetworkFriendSelector(
 							{
 								ref_node: "inviter"
@@ -28,6 +30,7 @@ dojo.declare("friendfund.InvitePage", null, {
 								, base_url :  _t.base_url 
 								, network : "twitter"
 							});
+		_t._widget_list.push(_t.selector.twitter);
 		_t.selector.email = new friendfund.EmailFriendSelector(
 						{
 							ref_node: "inviter"
@@ -36,6 +39,7 @@ dojo.declare("friendfund.InvitePage", null, {
 							, inviter_node : "friend_list"
 							, base_url :  _t.base_url 
 						});
+		_t._widget_list.push(_t.selector.email);
 	}, 
 	parse_links : function(_t) {
 		dojo.query("a.ajaxlink",  _t.container).onclick(
@@ -59,6 +63,9 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t.submitting = true;
 		var results = dojo.query("div.invitee_row", _t.invited_node);
 		if(results.length){
+			dojo.forEach(_t._widget_list, function(item){item.destroy(item);});
+			_t._widget_list = [];
+			_t.receiver_selectors = {};
 			var invitees = [];
 			dojo.query("div.invitee_row.selectable", _t.invited_node).forEach(
 				function(elem, i){
