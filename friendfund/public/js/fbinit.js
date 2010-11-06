@@ -70,17 +70,22 @@ fbSessionChange = function() {
 
 getfbEmail = function(api_key){
 	var localhost = window.location.protocol + '//' + window.location.host;
+	console.log('https://graph.facebook.com/oauth/authorize?client_id='+api_key
+		+'&redirect_uri='+localhost+'/fb/get_email&display=popup'
+		+'&scope=email');
 	window.open('https://graph.facebook.com/oauth/authorize?client_id='+api_key
 		+'&redirect_uri='+localhost+'/fb/get_email&display=popup'
 		+'&scope=email', '_blank', 'left=100,top=100,height=300,width=500,location=no,resizable=no,scrollbars=no');
 }
 getfbStreamPublish = function(api_key){
 	var localhost = window.location.protocol + '//' + window.location.host;
+	console.log('https://graph.facebook.com/oauth/authorize?client_id='+api_key
+		+'&redirect_uri='+localhost+'/fb/get_streampublish&display=popup'
+		+'&scope=publish_stream');
 	window.open('https://graph.facebook.com/oauth/authorize?client_id='+api_key
 		+'&redirect_uri='+localhost+'/fb/get_streampublish&display=popup'
 		+'&scope=publish_stream', '_blank', 'left=100,top=100,height=300,width=500,location=no,resizable=no,scrollbars=no');
 }
-
 
 getfbStreamPublishnEmail = function(api_key){
 	if (facebook_tried_getting_permissions==false){
