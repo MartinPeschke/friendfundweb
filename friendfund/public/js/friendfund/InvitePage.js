@@ -40,7 +40,16 @@ dojo.declare("friendfund.InvitePage", null, {
 	parse_links : function(_t) {
 		dojo.query("a.ajaxlink",  _t.container).onclick(
 			function(evt){
-				dojo.query("a.ajaxlink.selected", _t.container).removeClass("selected");
+				console.log(evt.target);
+				var deselect = dojo.query("a.ajaxlink.selected", _t.container);
+				if(deselect.length > 0){
+					deselect = deselect[0];
+					dojo.removeClass(deselect, "selected");
+					if(dojo.attr(deselect, "_type") in _t.selector){
+						var selector = _t.selector[dojo.attr(deselect, "_type")];
+						selector.destroy(selector)
+					}
+				}
 				dojo.addClass(this, "selected");
 				_t.selector[dojo.attr(this, "_type")].draw();
 			});
@@ -50,22 +59,17 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t.submitting = true;
 		var results = dojo.query("div.invitee_row", _t.invited_node);
 		if(results.length){
+			var invitees = [];
 			dojo.query("div.invitee_row.selectable", _t.invited_node).forEach(
 				function(elem, i){
-					var network = dojo.attr(elem, "network");
-					var fieldname = (network == "email"?".email":".network_id");
-					
-					dojo.place(dojo.create("input", {name:"invitees-"+i+fieldname, type:"hidden",value:dojo.attr(elem, "networkid")}), elem, "last");
-					dojo.place(dojo.create("input", {name:"invitees-"+i+".network", type:"hidden",value:network}), elem, "last");
-					dojo.place(dojo.create("input", {name:"invitees-"+i+".notification_method", type:"hidden",value:dojo.attr(elem, "notification_method")}), elem, "last");
-					dojo.place(dojo.create("input", {name:"invitees-"+i+".name", type:"hidden",value:dojo.attr(elem, "networkname")}), elem, "last");
-					if(dojo.attr(elem, "profile_picture_url") != null)
-						dojo.place(dojo.create("input", {name:"invitees-"+i+".profile_picture_url", type:"hidden",value:dojo.attr(elem, "profile_picture_url")}), elem, "last");
-					if(dojo.attr(elem, "large_profile_picture_url") != null)
-						dojo.place(dojo.create("input", {name:"invitees-"+i+".large_profile_picture_url", type:"hidden",value:dojo.attr(elem, "large_profile_picture_url")}), elem, "last");
-					if(dojo.attr(elem, "screenname") != null)
-						dojo.place(dojo.create("input", {name:"invitees-"+i+".screen_name", type:"hidden",value:dojo.attr(elem, "screenname")}), elem, "last");
+					var params = {}
+					dojo.forEach(dojo.attr(elem, "_search_keys").split(","), 
+								function(key){params[key.substring(1)]=dojo.attr(elem, key)}
+							);
+					invitees.push(params);
 				});
+			invitees = {"invitees":invitees}
+			dojo.place(dojo.create("textarea", {name:"invitees", type:"hidden",value:dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
 			dojo.byId('invitees').submit();
 		} else {
 			_t.submitting = false;

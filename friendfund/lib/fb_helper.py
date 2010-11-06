@@ -92,7 +92,7 @@ def get_mutual_friends(logger, target_id, access_token):
 
 def translate_friend_entry(u_id, friend_data):
 	result = {
-			'networkname':friend_data['name'], 
+			'name':friend_data['name'], 
 			'network_id':u_id,
 			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
 			'profile_picture_url':get_pic_url(friend_data['id']),

@@ -67,7 +67,7 @@ def get_friend_list(url, method, access_token, access_token_secret, consumer):
 		next_cursor_str = friend_data['next_cursor_str']
 		yield 	[
 					(str(elem['id']), 
-						{'networkname':elem.get('name', None),
+						{'name':elem.get('name', None),
 						 'network_id':str(elem['id']),
 						 'screenname':elem.get('screen_name', ''), 
 						 'large_profile_picture_url':get_profile_picture_url(elem['profile_image_url']),

@@ -228,13 +228,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 								, inviter_node : "friend_list"
 								, base_url : "/receiver"
 								, network : "facebook"
-								, onSelect : function(networkid, name, pos, elem, evt){
-									var params = {};
-									params["receiver.network"] = "facebook";
-									params["receiver.network_id"] = networkid;
-									params["receiver.name"] = name;
-									params["receiver.profile_picture_url"] = dojo.attr(elem, "large_profile_picture_url");
-									
+								, onSelect : function(params, elem, evt){
 									loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));
 									_t.unload(_t, true);
 									FB.api("/"+networkid, function(response){
@@ -251,13 +245,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 								, inviter_node : "friend_list"
 								, base_url : "/receiver"
 								, network : "twitter"
-								, onSelect : function(networkid, name, pos, elem, evt){
-									var params = {};
-									params["receiver.network"] = "twitter";
-									params["receiver.network_id"] = networkid;
-									params["receiver.name"] = name;
-									params["receiver.profile_picture_url"] = dojo.attr(elem, "large_profile_picture_url");
-									
+								, onSelect : function(params, elem, evt){
 									loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));
 									_t.unload(_t, true);
 									return true;
@@ -270,12 +258,13 @@ dojo.declare("friendfund.HomePagePanel", null, {
 							, onSelect : function(ctx, data){
 									if(data.success===true){
 										var params = {};
-										params["receiver.network"] = data.network || "";
-										params["receiver.network_id"] = data.network_id || "";
-										params["receiver.name"] =  data.name || "";
-										params["receiver.email"] =  data.email || "";
-										params["receiver.sex"] =  data.gender || "";
-										params["receiver.profile_picture_url"] = data.imgurl;
+										params["network"] = data.network || "";
+										params["network_id"] = data.network_id || "";
+										params["name"] =  data.name || "";
+										params["email"] =  data.email || "";
+										params["sex"] =  data.gender || "";
+										params["profile_picture_url"] = data.imgurl;
+										params["large_profile_picture_url"] = data.imgurl;
 										loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));
 										_t.unload(_t, true);
 									} else {
@@ -290,12 +279,13 @@ dojo.declare("friendfund.HomePagePanel", null, {
 							,onSelect : function(ctx, data){
 									if(data.success===true){
 										var params = {};
-										params["receiver.network"] = data.network || "";
-										params["receiver.network_id"] = data.network_id || "";
-										params["receiver.name"] =  data.name || "";
-										params["receiver.email"] =  data.email || "";
-										params["receiver.sex"] =  data.gender || "";
-										params["receiver.profile_picture_url"] = data.imgurl;
+										params["network"] = data.network || "";
+										params["network_id"] = data.network_id || "";
+										params["name"] =  data.name || "";
+										params["email"] =  data.email || "";
+										params["sex"] =  data.gender || "";
+										params["profile_picture_url"] = data.imgurl;
+										params["large_profile_picture_url"] = data.imgurl;
 										loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));
 										_t.unload(_t, true);
 									} else {
@@ -310,7 +300,15 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.receiver_selectors[data.method].draw();
 		dojo.query("a.ajaxlink", _t.ref_node).onclick(
 			function(evt){
-				dojo.query("a.ajaxlink.selected", _t.ref_node).removeClass("selected");
+				var deselect = dojo.query("a.ajaxlink.selected", _t.ref_node);
+				if(deselect.length > 0){
+					deselect = deselect[0];
+					dojo.removeClass(deselect, "selected");
+					if(dojo.attr(deselect, "_type") in _t.receiver_selectors){
+						var selector = _t.receiver_selectors[dojo.attr(deselect, "_type")];
+						selector.destroy(selector)
+					}
+				}
 				dojo.addClass(this, "selected");
 				if(dojo.attr(this, "_type") in _t.receiver_selectors)_t.receiver_selectors[dojo.attr(this, "_type")].draw();
 				evt.stopPropagation();
