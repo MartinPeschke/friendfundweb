@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-06 14:53+0100\n"
+"PO-Revision-Date: 2010-11-06 14:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -300,7 +300,8 @@ msgstr "E-Mail oder Passwort unbekannt!"
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr "Email bereits vergeben"
 
-#: friendfund/controllers/index.py:119 friendfund/controllers/myprofile.py:71
+#: friendfund/controllers/index.py:119
+#: friendfund/controllers/myprofile.py:71
 #: friendfund/controllers/myprofile.py:110
 #, python-format
 msgid ""
@@ -484,21 +485,17 @@ msgstr ""
 "Amazon hat nur unzureichende Informationen bereitgestellt, somit können "
 "wir dieses Produkt leider nicht anbieten."
 
+#: friendfund/controllers/product.py:107
+msgid "INDEX_PAGE_No Product"
+msgstr "Produkt fehlt"
+
 #: friendfund/controllers/product.py:145
-msgid ""
-"PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
-"shipping much time!"
-msgstr ""
-"Dein Geschenk und Datum lassen uns nicht genug Zeit für eine "
-"fristgerechte Versendung. Bitte wähle ein späteres Datum!"
+msgid "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or shipping much time!"
+msgstr "Dein Geschenk und Datum lassen uns nicht genug Zeit für eine fristgerechte Versendung. Bitte wähle ein späteres Datum!"
 
 #: friendfund/controllers/product.py:148
-msgid ""
-"PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a"
-" problem please pick a later date!"
-msgstr ""
-"Es ist doch sehr unwahrscheinlich, dass das Geschenk noch rechtzeitig "
-"ankommt."
+msgid "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"
+msgstr "Es ist doch sehr unwahrscheinlich, dass das Geschenk noch rechtzeitig ankommt."
 
 #: friendfund/controllers/receiver.py:46
 msgid "POOL_CREATE_No Known ReceiverFound"
@@ -1013,8 +1010,7 @@ msgstr "Virtuelle Geschenke"
 msgid "PRODUCT_SEARCH_PANEL_Gift Search"
 msgstr "Suche"
 
-#: friendfund/services/product_service.py:186
-#: friendfund/services/product_service.py:204
+#: friendfund/services/product_service.py:189
 msgid "POOL_CREATE_Product not Found"
 msgstr "Kein Produkt gefunden."
 
@@ -1696,13 +1692,8 @@ msgid "CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice"
 msgstr " "
 
 #: friendfund/templates/contribution/payment_success.html:20
-msgid ""
-"CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take "
-"a couple of minutes to show up on the pool page, you will in any case "
-"receive a payment receipt by email."
-msgstr ""
-"Es kann ein bis zwei Minuten dauern, bis deine Zahlung auf der Pool Seite"
-" angezeigt wird."
+msgid "CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take a couple of minutes to show up on the pool page, you will in any case receive a payment receipt by email."
+msgstr "Es kann ein bis zwei Minuten dauern, bis deine Zahlung auf der Pool Seite angezeigt wird."
 
 #: friendfund/templates/contribution/payment_success.html:28
 msgid "CONTRIBSUCCESSPAGE_LABEL_Back To Pool Admin"
@@ -2376,21 +2367,15 @@ msgid "FBPERMS_Give us your FB Email"
 msgstr "Give us your FB Email"
 
 #: friendfund/templates/pool/fb_perms.html:9
-msgid ""
-"FBPERMS_We would like to keep you informed about the progress of your "
-"pool, please give us your"
-msgstr ""
-"Wir möchten dich gern über den Poolfortschritt auf dem Laufenden halten, "
-"am besten können wir dass, wenn du uns erlaubst"
+msgid "FBPERMS_We would like to keep you informed about the progress of your pool, please give us your"
+msgstr "Wir möchten dich gern über den Poolfortschritt auf dem Laufenden halten, am besten können wir dass, wenn du uns erlaubst"
 
 #: friendfund/templates/pool/fb_perms.html:10
 msgid "FBPERMS_Stream Publish Permission"
 msgstr "An deine Pinnwand zu schreiben"
 
 #: friendfund/templates/pool/fb_perms.html:12
-msgid ""
-"FBPERMS_Let us help you fund raise by keeping  members your pool "
-"informed. You can do this by  Granting us "
+msgid "FBPERMS_Let us help you fund raise by keeping  members your pool informed. You can do this by  Granting us "
 msgstr "Lass uns dir beim Fundraising helfen, indem to uns erlaubst "
 
 #: friendfund/templates/pool/fb_perms.html:13
@@ -2699,12 +2684,8 @@ msgstr "Finde das perfekte Geschenk unter tausenden Möglichkeiten."
 
 #: friendfund/templates/product/common.html:32
 #, python-format
-msgid ""
-"PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, "
-"search for something else?"
-msgstr ""
-"Wir konnten nichts finden mit einem Preis von %s oder weniger. Möchtest "
-"du nach etwas anderem suchen?"
+msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?"
+msgstr "Wir konnten nichts finden mit einem Preis von %s oder weniger. Möchtest du nach etwas anderem suchen?"
 
 #: friendfund/templates/product/common.html:34
 msgid "PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?"
@@ -2772,12 +2753,8 @@ msgstr "Geschenke für %s"
 
 #: friendfund/templates/product/virtual_tab.html:6
 #, python-format
-msgid ""
-"PRODUCT_SEARCH_PANEL_Your virtual gifts recipient lives in "
-"<b>%(countryname)s</b>, change it:"
-msgstr ""
-"Der Empfänger deines virtuellen Geschenkes lebt in "
-"<b>%(countryname)s</b>, ändere das Land hier:"
+msgid "PRODUCT_SEARCH_PANEL_Your virtual gifts recipient lives in <b>%(countryname)s</b>, change it:"
+msgstr "Der Empfänger deines virtuellen Geschenkes lebt in <b>%(countryname)s</b>, ändere das Land hier:"
 
 #: friendfund/templates/product/virtual_tab_search.html:5
 msgid "PRODUCT_BROWSER_TITLE_Our Virtual Gifts"
