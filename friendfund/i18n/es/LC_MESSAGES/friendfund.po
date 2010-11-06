@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-05 17:59+0100\n"
+"PO-Revision-Date: 2010-11-06 14:53+0100\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -409,39 +409,35 @@ msgstr ""
 "Para cerrar el bote, primero necesitas rellenar y guardar la dirección de"
 " envío y de facturación."
 
-#: friendfund/controllers/pool.py:42
+#: friendfund/controllers/pool.py:44 friendfund/controllers/pool.py:64
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "Perdón, este bote no existe."
 
-#: friendfund/controllers/pool.py:59
-msgid "POOL_CREATE_Nothing was known about this pool, what can I do?"
-msgstr "Perdón, ha ocurrido un error. Por favor, inténtalo de nuevo."
-
-#: friendfund/controllers/pool.py:62
+#: friendfund/controllers/pool.py:67
 msgid "POOL_CREATE_Product was unknown, what can I do?"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:65
+#: friendfund/controllers/pool.py:70
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr "No has escogido ningún evento. Por favor, inténtalo de nuevo. "
 
-#: friendfund/controllers/pool.py:68
+#: friendfund/controllers/pool.py:73
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:257
+#: friendfund/controllers/pool.py:262
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Los cambios han sido guardados"
 
-#: friendfund/controllers/pool.py:296 friendfund/controllers/pool.py:302
-msgid "POOL_ALTPRODUCT_No Product Selected"
-msgstr "No has escogido ningún producto"
+#: friendfund/controllers/pool.py:301 friendfund/controllers/product.py:107
+msgid "INDEX_PAGE_No Product"
+msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:308
+#: friendfund/controllers/pool.py:314
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr "Los cambios de producto han sido guardados."
 
-#: friendfund/controllers/pool.py:318
+#: friendfund/controllers/pool.py:324
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "El regalo ha sido cambiado por vales! "
 
@@ -485,10 +481,6 @@ msgid ""
 msgstr ""
 "Amazon no nos ha proporcionado la información suficiente para ofrecer "
 "este producto."
-
-#: friendfund/controllers/product.py:107
-msgid "INDEX_PAGE_No Product"
-msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
 #: friendfund/controllers/product.py:145
 msgid ""
@@ -1007,7 +999,8 @@ msgstr ""
 msgid "PRODUCT_SEARCH_PANEL_Gift Search"
 msgstr ""
 
-#: friendfund/services/product_service.py:189
+#: friendfund/services/product_service.py:186
+#: friendfund/services/product_service.py:204
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
@@ -2405,7 +2398,7 @@ msgstr "Anónimo"
 
 #: friendfund/templates/pool/settings.html:7
 #: friendfund/templates/pool/settings.html:9
-#: friendfund/templates/pool/settings_admin.html:99
+#: friendfund/templates/pool/settings_admin.html:100
 msgid "POOLSETTINGS_TITLE_Pool Admin"
 msgstr "Gestión del Bote"
 
@@ -2454,29 +2447,29 @@ msgid "POOLSETTINGS_LABEL_Country"
 msgstr "País"
 
 #: friendfund/templates/pool/settings.html:43
-#: friendfund/templates/pool/settings_admin.html:152
+#: friendfund/templates/pool/settings_admin.html:153
 msgid "POOLSETTINGS_LABEL_Back To Pool"
 msgstr "Atrás al Bote"
 
-#: friendfund/templates/pool/settings_admin.html:101
+#: friendfund/templates/pool/settings_admin.html:102
 msgid "POOLSETTINGS_LABEL_Pool Admin"
 msgstr "Gestión del Bote"
 
-#: friendfund/templates/pool/settings_admin.html:106
+#: friendfund/templates/pool/settings_admin.html:107
 msgid "POOLSETTINGS_LABEL_Change Your Message:"
 msgstr "Por favor, añade un mensaje personal."
 
-#: friendfund/templates/pool/settings_admin.html:113
+#: friendfund/templates/pool/settings_admin.html:114
 #: friendfund/templates/pool/actions/billing_form.html:22
 #: friendfund/templates/pool/actions/shipping_form.html:24
 msgid "POOLSETTINGS_Save Changes"
 msgstr "Guardar cambios"
 
-#: friendfund/templates/pool/settings_admin.html:121
+#: friendfund/templates/pool/settings_admin.html:122
 msgid "POOLSETTINGS_LABEL_Actions:"
 msgstr "Acciones:"
 
-#: friendfund/templates/pool/settings_admin.html:125
+#: friendfund/templates/pool/settings_admin.html:126
 #: friendfund/templates/pool/parts/button_close.html:5
 msgid "POOL_BUTTON_ACTION_Order Gift"
 msgstr "Solicitar Regalo"
@@ -2744,4 +2737,10 @@ msgid ""
 "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
 "with Twitter!"
 msgstr "Para invitar a tus Amigos de Twitter, por favor, conéctate con Twitter."
+
+#~ msgid "POOL_CREATE_Nothing was known about this pool, what can I do?"
+#~ msgstr "Perdón, ha ocurrido un error. Por favor, inténtalo de nuevo."
+
+#~ msgid "POOL_ALTPRODUCT_No Product Selected"
+#~ msgstr "No has escogido ningún producto"
 
