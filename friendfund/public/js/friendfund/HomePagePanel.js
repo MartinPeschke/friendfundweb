@@ -231,7 +231,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 								, onSelect : function(params, elem, evt){
 									loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));
 									_t.unload(_t, true);
-									FB.api("/"+networkid, function(response){
+									FB.api("/"+params.network_id, function(response){
 										dojo.byId("receiver_email").value = response.email || "";
 										dojo.byId("receiver_sex").value = response.gender || "";
 									});
@@ -303,6 +303,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 				var deselect = dojo.query("a.ajaxlink.selected", _t.ref_node);
 				if(deselect.length > 0){
 					deselect = deselect[0];
+					if(deselect == this)return;
 					dojo.removeClass(deselect, "selected");
 					if(dojo.attr(deselect, "_type") in _t.receiver_selectors){
 						var selector = _t.receiver_selectors[dojo.attr(deselect, "_type")];

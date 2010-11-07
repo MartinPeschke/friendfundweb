@@ -5,6 +5,7 @@ dojo.require("dojo.NodeList-traverse");
 dojo.declare("friendfund.NetworkFriendSelector", null, {
 	_listener_locals : []
 	,_backup_node : null
+	,_to_append_nodes : []
 	,_backup_reloader : null
 	,constructor: function(args){
 		var _t = this;
@@ -12,7 +13,6 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 		if(_t.invited_node){
 			_t.invited_node = dojo.isString(_t.invited_node) && dojo.byId(_t.invited_node) || _t.invited_node;
-			_t._listener_locals.push(dojo.connect(dojo.byId(_t.invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
 		} else {_t.invited_node=null;}
 		
 		/* since selector is outside of refnode, and does not get rerendered, this can get out of sync */
@@ -24,6 +24,12 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		page_reloader = dojo.hitch(_t, _t.draw);
 		if(_t._backup_node !=  null){
 			_t.onLoad(_t, {html:_t._backup_node, is_complete:true});
+			_t._to_append_nodes.forEach(function(elem){
+				if(_t.mutuals == true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden")}
+				dojo.place(elem, ref, "last");
+			});
+			_t._to_append_nodes = [];
+			_t._backup_node = null;
 		} else if (!_t.is_selected(_t) || _t.is_loading != true){
 			_t.is_loading = true;
 			xhrPost(_t.base_url+'/' + _t.network, {}, dojo.hitch(null, _t.onLoad, _t));
@@ -32,7 +38,9 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 	},undraw : function(){
 		var _t = this;
 		dojo.query("#networkinviter_"+this.network).orphan().forEach(function(item){_t._backup_node = item});
-		_t.destroy(_t);
+		dojo.forEach(_t._listener_locals, dojo.disconnect);
+		_t._listener_locals = [];
+		page_reloader = _t.backup_reloader;
 	},onLoad : function(_t, data){
 		_t.is_loading = false;
 		if (_t.is_selected(_t)){
@@ -64,6 +72,7 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 		page_reloader = _t.backup_reloader;
+		_t._backup_node = null;
 	}
 	
 	/* ================= BEGIN selectors ========================= */
@@ -79,26 +88,23 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 					function(key){params[key.substring(1)]=dojo.attr(target, key)}
 				);
 		return _t.onSelect(params, target, evt);
-		
-	},unselect : function(_t, evt){
-		if(dojo.hasClass(evt.target, "invitee_row") && dojo.hasClass(evt.target, "selectable")){
-			var target = evt.target;
-		} else {
-			var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
-			if(target==null)return;
-		}
-		dojo.query('#'+target.id, _t.invited_node).orphan().forEach(function(elem){
-				if(dojo.hasClass(_t.inviter_node, _t.network)){
-					if(_t.mutuals == true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden")}
-					dojo.place(elem, _t.inviter_node, "last");
-				}
-			});
 	}
 	,onSelect : function(params, elem, evt){
 		var _t = this;
 		dojo.query('#'+elem.id, _t.inviter_node).orphan().forEach(function(elem){
 			dojo.place(elem, _t.invited_node, "last");
 		});
+	},
+	unSelect : function(_t, target){
+		dojo.query('#'+target.id, _t.invited_node).orphan().forEach(function(elem){
+			if(_t._backup_node){
+				_t._to_append_nodes.push(target);
+			} else {
+				if(_t.mutuals == true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden")}
+				dojo.place(elem, _t.inviter_node, "last");
+			}
+		});
+
 	/* ================= END selectors ========================= */
 	},addall : function(_t, evt){
 		var selector = "div.selectable.invitee_row";

@@ -38,7 +38,6 @@ class ReceiverController(BaseController):
 	@jsonify
 	def set(self):
 		receiver = formencode.variabledecode.variable_decode(request.params)
-		print receiver
 		try:
 			receiver = PoolUser.fromMap(receiver)
 		except InsufficientParamsException, e:
@@ -46,6 +45,7 @@ class ReceiverController(BaseController):
 			return self.ajax_messages(_("POOL_CREATE_No Known ReceiverFound"))
 		receiver.is_receiver = True
 		c.pool = websession.get('pool') or Pool()
+		receiver.profile_picture_url = receiver.large_profile_picture_url
 		c.pool.participants = [receiver]
 		c.pool.receiver = receiver
 		websession['pool'] = c.pool
@@ -62,9 +62,13 @@ class ReceiverController(BaseController):
 				c.friends, is_complete, offset = c.user.get_friends(c.method)
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					return {'data':{'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}}
+					result = self.ajax_messages()
+					result['data'] = {'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}
+					return result
 				else: 
-					return {'data':{'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}}
+					result = self.ajax_messages()
+					result['data'] = {'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}
+					return result
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
 		else:
 			return {'html':render('/receiver/inviter.html').strip()}
