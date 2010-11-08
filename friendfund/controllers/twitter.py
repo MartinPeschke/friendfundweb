@@ -19,7 +19,9 @@ consumer = oauth.Consumer(g.TwitterApiKey, g.TwitterApiSecret)
 class TwitterController(BaseController):
 	UNKNOWN_TWITTER_ERROR = _("TWITTER_An Error occured during Twitter authentication, please try again later.")
 	TWITTER_TIMEOUT_ERROR = _("TWITTER_Twitter seems to be overloaded again, please try again at a later time.")
-	
+	ERROR = """<html><head><title>Twitter Connect Error</title></head><body style="margin:0px">
+				<div style="position:absolute;top:50px;left:200px;font-size:20px;font-family:Arial,MS Trebuchet,sans-serif;">%s</div>
+				<img style="margin:0px" src="/static/imgs/error_page_twitter.png"/></body></html>""" % _("Twitter may be over capacity.<br/>Please try again later.")
 	def index(self):
 		c.ra = RecentActivityStream(entries = [])
 		return self.render('/index.html')
@@ -30,9 +32,8 @@ class TwitterController(BaseController):
 		try:
 			content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
 					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (g.SITE_ROOT_URL,  furl)})
-		except urllib2.HTTPError:
-			c.messages.append(self.TWITTER_TIMEOUT_ERROR)
-			return redirect(furl)
+		except (urllib2.HTTPError, urllib2.URLError):
+			return self.ERROR
 		websession['request_token'] = dict(cgi.parse_qsl(content))
 		
 		# Step 3. Redirect the user to the authentication URL.
@@ -58,13 +59,16 @@ class TwitterController(BaseController):
 				params = {'oauth_verifier':oauth_verifier})
 		token_data = dict(cgi.parse_qsl(content))
 		# Step 3. User Details
-		user_data = simplejson.loads(
-						tw_helper.fetch_url("https://api.twitter.com/1/" + "users/show" + "/%s.json" % token_data['user_id'], 
-										"GET", 
-										token_data['oauth_token'],  
-										token_data['oauth_token_secret'],
-										consumer
-									))
+		try:
+			user_data = simplejson.loads(
+							tw_helper.fetch_url("https://api.twitter.com/1/" + "users/show" + "/%s.json" % token_data['user_id'], 
+											"GET", 
+											token_data['oauth_token'],  
+											token_data['oauth_token_secret'],
+											consumer
+										))
+		except (urllib2.HTTPError, urllib2.URLError):
+			return self.ERROR
 		user_data['network'] = 'twitter'
 		user_data['network_id'] = user_data.pop('id')
 		user_data['access_token'] = token_data['oauth_token']

@@ -9,7 +9,7 @@ twInit = function(furl) {
 		var localhost = window.location.protocol + '//' + window.location.host;
 		window.open(localhost+"/twitter/login?furl="+furl, '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
 	}
-};
+}
 
 
 fbInit = function(app_id, has_prev_tried_logging_in) {
@@ -24,7 +24,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 	e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
 	e.async = true;
 	document.getElementById('fb-root').appendChild(e);
-};
+}
 
 fbLogin = function(callback) {
 	if(FB.getSession() == null){
