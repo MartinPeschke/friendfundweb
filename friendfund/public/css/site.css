@@ -269,7 +269,6 @@ div.frontpagebutton.last {
 	display:Block;
 }
 
-
 div.frontpagebutton.funders {
 	position: relative;
 	height: 120px;
@@ -295,7 +294,7 @@ div.frontpagebutton.funders {
 #pool_configurator div.front_panel_active{ background-color: #ECF8Fd}
 #pool_configurator div.hpbutton a.button {
 	position: relative;
-	margin: 15px;
+	margin: 15px 0px 10px;
 	display:block;
 	text-align: center;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
@@ -313,24 +312,29 @@ div.frontpagebutton.funders {
 }
 #pool_configurator div.hpbutton div.button_content img.loaders_animation {
 	position: absolute;
-	top: 55px;
+	top: 60px;
 	left: 80px;
 }
 #pool_configurator div.hpbutton a.content {
 	display:block;
 	position: relative;
 	text-align: left;
-	height:123px;
-	width:174px;
-	padding: 0 2px 2px 2px;
-	background: url(../imgs/header/backgroundHomeShadow.png) 0 0 no-repeat;
 }
+.hpbutton a.content.withbg {background: url(../imgs/header/backgroundHomeShadow.png) 0 0 no-repeat;height:131px;width:174px;padding: 0 2px 2px 2px;}
+.hpbutton a.content.nobg {height:133px;width:178px;background:url("../imgs/infographic_icons.png") 0px 0px transparent;}
+.hpbutton.receiver 	a.content.nobg {}
+.hpbutton.occasion 	a.content.nobg {background-position:-179px 0px;}
+.hpbutton.gift 		a.content.nobg {background-position:-358px 0px;}
+
+
+
+
 #pool_configurator div.hpbutton a.content.funders {
 	margin:60px 0 50px;
 	height:52px;
 }
 #pool_configurator div.hpbutton img.button_content {
-	height:123px;
+	height:131px;
 	width:auto;
 	max-width:174px;
 	text-align: left;

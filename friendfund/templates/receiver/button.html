@@ -1,13 +1,17 @@
 <%
 	receiver = getattr(getattr(c, 'pool', None), 'receiver', None)
+	content_pic = getattr(receiver, 'profile_picture_url', None);
 %>
 <div id="button_receiver" class="hpbutton receiver hover">
 	<a class="button">
 		<img src="/static/imgs/header/panel_header_receiver.png"/>
 	</a>
 	<div class="button_content">
-		<a class="content"><img class="loaders_animation" src="/static/imgs/ajax-loader.gif"/>
-			<img class="button_content" src="${getattr(receiver, 'profile_picture_url', '/static/imgs/header/panel_content_receiver.png')}"/></a>
+		<a class="content ${(not content_pic and 'nobg') or 'withbg'}">
+			%if content_pic:
+				<img class="loaders_animation" src="/static/imgs/ajax-loader.gif"/>
+				<img class="button_content" src="${content_pic}"/></a>
+			%endif
 		<a name="button_panel_container_anchor" id="button_panel_container_anchor" style="position: absolute;top: 130px;"></a>
 		
 		<div class="label">${getattr(receiver, 'receiver_label', _('PAGE_INDEX_BUTTON_Select a Friend'))}
