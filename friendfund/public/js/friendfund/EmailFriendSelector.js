@@ -14,6 +14,7 @@ dojo.declare("friendfund.EmailFriendSelector", null, {
 	onLoad : function(_t){
 		_t._listener_locals.push(dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t)));
 	},
+	undraw : function(_t){_t.destroy(_t)},
 	destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
@@ -22,8 +23,6 @@ dojo.declare("friendfund.EmailFriendSelector", null, {
 		var tab = dojo.byId("email_email");
 		if(tab != null && tab.value.length > 0)
 			xhrFormPost(_t.base_url+"/add", "emailinviter", dojo.hitch(null, _t.onSelect, _t));
-	},
-	undraw : function(){
 	},
 	onSelect : function(_t, data){
 		if(data.success===true){

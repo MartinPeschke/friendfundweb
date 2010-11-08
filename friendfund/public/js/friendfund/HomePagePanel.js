@@ -307,7 +307,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 					dojo.removeClass(deselect, "selected");
 					if(dojo.attr(deselect, "_type") in _t.receiver_selectors){
 						var selector = _t.receiver_selectors[dojo.attr(deselect, "_type")];
-						selector.destroy(selector)
+						selector.undraw(selector);
 					}
 				}
 				dojo.addClass(this, "selected");

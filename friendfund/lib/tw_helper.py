@@ -92,7 +92,7 @@ def get_friends_async(logger,
 			access_token, 
 			access_token_secret, 
 			config, 
-			expiretime=3600):
+			expiretime=36):
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	proto_key = '<%s>%s' % ('friends_twitter', str(access_token))
 	with cache_pool.reserve() as mc:

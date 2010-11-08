@@ -60,12 +60,16 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
 			}
 		}
-	}, addLoad : function(_t, data){
-		if (_t.is_selected(_t)){
+	},addLoad : function(_t, data){
+		if(_t._backup_node !=  null){
+			_t._to_append_nodes.push(data.html);
+		} else {
 			dojo.place(data.html, dojo.byId("friend_list"), "last");
-			if(!data.is_complete){
-				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
-			}
+		}
+		if(!data.is_complete){
+			xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
+		}
+		if (_t.is_selected(_t)){
 			if(!dojo.hasClass("fb_filter", 'default'))_t.filter(_t, _t.inviter_node, null);
 		}
 	},destroy : function(_t){
