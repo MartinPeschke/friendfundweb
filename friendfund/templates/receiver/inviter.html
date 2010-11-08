@@ -4,18 +4,19 @@
 
 
 %if c.method == 'facebook':
-	${networkinviter("Facebook", c.friends, False)}
+	${networkinviter("facebook", c.friends, False)}
 %elif c.method == 'twitter':
-	${networkinviter("Twitter", c.friends, False)}
+	${networkinviter("twitter", c.friends, False)}
 %elif c.method == 'email':
 	${blockrenderer.mailinviter()}
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals)">
+	<div id="networkinviter_${network_name}">
 	<div id="inviteheader" class="receiverselector">
 		${html.clearline()}
 		<div style="margin: 15px 15px 0 15px; padding: 15px; background: white;">
-		${forms.black_input_text("fb_filter", "fb_filter", label=_("RECEIVER_PANEL_Search your %s friends:") % network_name, default="Name", width=200)}
+		${forms.black_input_text("fb_filter", "fb_filter", label=_("RECEIVER_PANEL_Search your %s friends:") % network_name.title(), default="Name", width=200)}
 		${html.clearline()}
 		</div>
 	</div>
@@ -23,4 +24,5 @@
 		${blockrenderer.render_network_friends(friends, mutuals = mutuals, show_birthdays = True)|n}
 	</div>
 	${html.clearline()}
+	</div>
 </%def>

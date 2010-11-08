@@ -9,7 +9,7 @@ dojo.declare("friendfund.YourselfSelector", null, {
 	draw : function(){
 		var _t = this;
 		xhrPost(_t.base_url+"/add", {"invitee.network":"yourself"}, dojo.hitch(null, _t.onSelect, _t));
-	},undraw : function(){
 	},
+	undraw :function(){},
 	destroy:function(){}
 });
