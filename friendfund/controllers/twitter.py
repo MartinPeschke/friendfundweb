@@ -32,7 +32,8 @@ class TwitterController(BaseController):
 		try:
 			content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
 					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (g.SITE_ROOT_URL,  furl)})
-		except (urllib2.HTTPError, urllib2.URLError):
+		except (urllib2.HTTPError, urllib2.URLError), e:
+			log.error(e)
 			return self.ERROR
 		websession['request_token'] = dict(cgi.parse_qsl(content))
 		
@@ -67,7 +68,8 @@ class TwitterController(BaseController):
 											token_data['oauth_token_secret'],
 											consumer
 										))
-		except (urllib2.HTTPError, urllib2.URLError):
+		except (urllib2.HTTPError, urllib2.URLError), e:
+			log.error(e)
 			return self.ERROR
 		user_data['network'] = 'twitter'
 		user_data['network_id'] = user_data.pop('id')
@@ -81,4 +83,5 @@ class TwitterController(BaseController):
 		if not success:
 			c.messages.append(msg)
 		c.reload = True
+		c.refresh_login = True
 		return render('/closepopup.html')

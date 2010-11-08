@@ -22,6 +22,7 @@ ${self.master_foot()}
 		<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css"/>
 		<script type="text/javascript"> 
 			page_reloader = function(){window.location.reload();};
+			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
 			locale_picked=function(elem){document.getElementById("set_lang").submit()}
 		</script>
 		${self.fb_meta_tags()}
