@@ -1,25 +1,28 @@
 <%
 	product = getattr(getattr(c, 'pool', None), 'product', None)
-	content_pic = getattr(product, 'picture_large', None);
 %>
 <div id="button_product" class="hpbutton gift hover">
 	<a class="button">
 		<img src="/static/imgs/header/panel_header_gift.png"/>
 	</a>
-	<div class="button_content">
-		<a class="content ${(not content_pic and 'nobg') or 'withbg'}">
-		%if content_pic:
-			<img class="button_content" src="${content_pic}"/>
-		%endif
-		</a>
-		<div class="label">${getattr(product, 'display_label', _('PAGE_INDEX_BUTTON_Select a Gift'))|n}
-		%if not product:
-			<div class="sub_label ">${_("PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands.")}</div>
-		%endif
+	%if product:
+		<div class="button_content">
+			<a class="content withbg">
+				<img class="loaders_animation" src="/static/imgs/ajax-loader.gif"/>
+				<img class="button_content" src="${getattr(product, 'picture_large')}"/>
+			</a>
+			<div class="label">${getattr(product, 'display_label')|n}</div>
 		</div>
-	</div>
-	<input type="hidden" id="product_guid" name="product.guid" value="${getattr(product, 'guid', '')}"/>
-	<input type="hidden" id="product_net"  name="product.aff_net" value="${getattr(product, 'aff_net', '')}"/>
-	<input type="hidden" id="product_progid" value="${getattr(product, 'aff_program_id', '')}"/>
+	%else:
+		<div class="button_content">
+			<a class="content nobg"></a>
+			<div class="label">${_('PAGE_INDEX_BUTTON_Select a Gift')}
+				<div class="sub_label ">${_("PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands.")}</div>
+			</div>
+		</div>
+	%endif
+		<input type="hidden" id="product_guid" name="product.guid" value="${getattr(product, 'guid', '')}"/>
+		<input type="hidden" id="product_net"  name="product.aff_net" value="${getattr(product, 'aff_net', '')}"/>
+		<input type="hidden" id="product_progid" value="${getattr(product, 'aff_program_id', '')}"/>
 </div>
 <div class="extender">&nbsp;</div>
