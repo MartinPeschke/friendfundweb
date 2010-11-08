@@ -71,10 +71,8 @@ dojo.declare("friendfund.InvitePage", null, {
 			var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
 			if(target==null)return;
 		}
-		console.log(target);
 		var sel = _t.selector[dojo.attr(target, "_network")];
 		sel.unSelect(sel, target);
-		
 	},
 	prepareSubmit : function(_t, evt){
 		if(_t.submitting){return false};

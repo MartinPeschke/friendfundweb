@@ -26,7 +26,7 @@ dojo.declare("friendfund.NetworkFriendSelector", null, {
 			_t.onLoad(_t, {html:_t._backup_node, is_complete:true});
 			_t._to_append_nodes.forEach(function(elem){
 				if(_t.mutuals == true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden")}
-				dojo.place(elem, ref, "last");
+				dojo.place(elem, _t.inviter_node, "last");
 			});
 			_t._to_append_nodes = [];
 			_t._backup_node = null;
