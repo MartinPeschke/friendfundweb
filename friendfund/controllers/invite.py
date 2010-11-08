@@ -8,10 +8,12 @@ from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper
 from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block
 from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.authuser import UserNotLoggedInWithMethod
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc
 from friendfund.tasks import fb as fbservice, twitter as twservice
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
+
 
 from formencode.variabledecode import variable_decode
 
@@ -100,7 +102,6 @@ class InviteController(BaseController):
 	@logged_in(ajax=False)
 	def friends(self, pool_url):
 		invitees = simplejson.loads(request.params.get('invitees'))
-		print invitees
 		invitees = invitees.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
@@ -136,7 +137,6 @@ class InviteController(BaseController):
 			return self._display_invites(pool, c.invitees)
 		
 		if invitees is not None:
-			print invitees
 			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
 							, p_url = pool.p_url
 							, inviter_user_id = c.user.u_id
@@ -162,17 +162,15 @@ class InviteController(BaseController):
 	def add(self, pool_url):
 		params = variable_decode(request.params)
 		invitee = params.get("invitee")
-		print invitee
 		network = invitee['network']
 		if request.method != 'POST' or network!= 'email':
 			return self.ajax_messages("Not Allowed")
 		valid = formencode.validators.Email(min=5, max = 255, not_empty = True, resolve_domain=True)
 		try:
-			network_id = valid.to_python(invitee.get('network_id'))
+			network_id = valid.to_python(invitee.get('network_id'), state=FriendFundFormEncodeState)
 		except formencode.validators.Invalid, error:
 			return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
 		else:
 			c.method = 'email'
 			c.invitees = {network_id:invitee}
-			print invitee
 			return {'clearmessage':True, 'data':{'success':True, 'html':self.render('/invite/email_invitee.html').strip()}}

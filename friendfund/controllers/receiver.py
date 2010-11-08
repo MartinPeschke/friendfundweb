@@ -86,7 +86,6 @@ class ReceiverController(BaseController):
 	@post_only(ajax=True)
 	def add(self):
 		invitee = variable_decode(request.params).get('invitee', {})
-		print invitee
 		network = invitee.get('network')
 		if network == 'email':
 			valid = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
