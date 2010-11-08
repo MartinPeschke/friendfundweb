@@ -7,7 +7,6 @@
 
 <%def name="scripts()">
 	${links.js('friendfund/NetworkFriendSelector.js')}
-	${links.js('friendfund/EmailFriendSelector.js')}
 	${links.js('friendfund/InvitePage.js')}
 </%def>
 
@@ -63,8 +62,7 @@
 		<div id="invitescontainer" class="innerbody">
 			<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<div id="invites">
-				<div id="inviter">
-				</div>
+				<div id="inviter"></div>
 				<div id="invited">
 					${invited.mailinvitees()}
 					${invited.twitterinvitees()}
