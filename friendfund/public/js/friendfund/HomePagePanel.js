@@ -1,4 +1,7 @@
 dojo.provide("friendfund.HomePagePanel");
+
+dojo.require("friendfund.NetworkFriendSelector");
+dojo.require("friendfund.EmailFriendSelector");
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dojo.date.locale");
 dojo.require("dojo.NodeList-manipulate");
