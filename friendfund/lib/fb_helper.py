@@ -116,7 +116,7 @@ def translate_friend_entry(u_id, friend_data):
 			doy = dob-datetime(dob.year,1,1)
 			result['dob'] = datetime(year, 1,1) + doy
 			result['dob_difference'] = (result['dob'] - datetime.today()).days
-			if result['dob_difference'] < 7:
+			if result['dob_difference'] < 2:
 				result['dob'] = datetime(year + 1, 1,1) + doy
 				result['dob_difference'] = (result['dob'] - datetime.today()).days
 	return (u_id, result)

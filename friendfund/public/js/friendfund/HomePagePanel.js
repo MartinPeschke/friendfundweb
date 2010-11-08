@@ -174,7 +174,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	
 	verify_dates : function(_t, args){
 		args = args || {};
-		var params = {net: args.net || dojo.byId("product_net").value,
+		var params = {net: args.affnet || dojo.byId("product_net").value,
 						occasion_date : args.occasion_date || dojo.byId("occasion_date").value,
 						progid: args.progid || dojo.byId("product_progid").value
 					}
@@ -208,7 +208,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		params["product.is_curated"] = selection_args.is_curated;
 		params["product.is_amazon"] = selection_args.is_amazon;
 		loadElement("/product/set", "product_panel", params, dojo.hitch(null, _t.set_complete, _t, 'product'));
-		_t.verify_dates();
+		_t.verify_dates(_t, selection_args);
 		_t.unload(_t, true);
 	},
 	/*--------------- RECEIVER PANELS --------------*/
