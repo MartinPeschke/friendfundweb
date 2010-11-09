@@ -8,6 +8,7 @@ twInit = function(furl) {
 		setTimeout("twitter_tried_loggin_in_already=false;",timeoutValue);
 		var localhost = window.location.protocol + '//' + window.location.host;
 		if(furl){
+			page_reloader=function(){window.location.href=furl;}
 			window.open(localhost+"/twitter/login?furl="+furl, '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
 		} else {
 			window.open(localhost+"/twitter/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
@@ -29,12 +30,12 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 	document.getElementById('fb-root').appendChild(e);
 }
 
-fbLogin = function(callback) {
+fbLogin = function() {
 	if(FB.getSession() == null){
 		if(facebook_tried_loggin_in_already == false){
 			facebook_tried_loggin_in_already = true;
 			setTimeout("facebook_tried_loggin_in_already=false;",timeoutValue);
-			FB.login(callback, {perms:"user_birthday,friends_birthday,email"});
+			FB.login(function(){}, {perms:"user_birthday,friends_birthday,email"});
 		}
 	}else{
 		fbSessionChange()
