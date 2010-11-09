@@ -162,7 +162,7 @@ ${self.master_foot()}
 <%def name="header_navigation()">
 	<ul class="navigation">
 		%for title, path, token in app_globals.globalnav:
-			<li class="${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+			<li class="floaterLeft ${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
 		%endfor
 	</ul>
 </%def>
