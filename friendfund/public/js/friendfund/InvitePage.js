@@ -92,7 +92,7 @@ dojo.declare("friendfund.InvitePage", null, {
 					invitees.push(params);
 				});
 			invitees = {"invitees":invitees}
-			dojo.place(dojo.create("textarea", {name:"invitees", type:"hidden",value:dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
+			dojo.place(dojo.create("textarea", {name:"invitees", style:"display:none",value:dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
 			dojo.byId('invitees').submit();
 		} else {
 			_t.submitting = false;
