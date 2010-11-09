@@ -52,8 +52,6 @@ def try_locate_sub_image_url(url):
 	else:
 		return None
 
-
-
 def retrieve_tmp_image(source_url, try_locate_sub_url = False):
 	alt_url = try_locate_sub_image_url(source_url)
 	source = try_locate_sub_url and alt_url or source_url

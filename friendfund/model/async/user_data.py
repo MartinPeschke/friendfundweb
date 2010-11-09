@@ -50,6 +50,7 @@ class UserBirthday(DBMappedObject):
 	_cachable = False
 	_keys = [	 GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
+				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'email','email')
 				,GenericAttrib(unicode,'networkname','name')
 				,GenericAttrib(datetime,'dob','dob')
