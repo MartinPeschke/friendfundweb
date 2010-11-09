@@ -88,17 +88,21 @@ def main(argv=None):
 					if notification_method == 'email':
 						msg_id = email.send(sndr_data, rcpt_data, template_data)
 					elif notification_method == 'stream_publish':
-						msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
+						messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
+						# msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
 					elif notification_method in ['tweet', 'tweet_dm']:
 						sndr_data['twitterapikey'] = config['twitterapikey']
 						sndr_data['twitterapisecret'] = config['twitterapisecret']
 						sndr_data['bitlylogin'] = config['bitly.login']
 						sndr_data['bitlyapikey'] = config['bitly.apikey']
 						sndr_data['twitterapisecret'] = config['twitterapisecret']
+						messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
 						if notification_method == 'tweet':
-							msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
+							pass
+							# msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
 						elif notification_method == 'tweet_dm':
-							msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data)
+							pass
+							# msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data) @ disabled
 					else:
 						raise Exception("Unknown Notification Method")
 				except InvalidAccessTokenException, e:

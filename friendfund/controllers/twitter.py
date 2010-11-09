@@ -27,7 +27,7 @@ class TwitterController(BaseController):
 		return self.render('/index.html')
 	
 	def login(self):
-		furl = request.params.get('furl', request.referer)
+		furl = request.params.get('furl')
 		# Step 1. Get a request token from Twitter.
 		try:
 			content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
@@ -42,7 +42,9 @@ class TwitterController(BaseController):
 		if not oauth_token:
 			log.warning("Twitter Oauth_Token not returned by Twitter for Get_Access_token: %s", tw_helper.request_token_url)
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
-			return redirect(furl)
+			c.reload = False
+			c.refresh_login = True
+			return render('/closepopup.html')
 		url = "%s?oauth_token=%s" % (tw_helper.authenticate_url,websession['request_token']['oauth_token'])
 		return redirect(url)
 	
@@ -50,12 +52,14 @@ class TwitterController(BaseController):
 		oauth_token = websession.get('request_token', {}).get('oauth_token', None)
 		oauth_token_secret = websession.get('request_token', {}).get('oauth_token_secret', None)
 		oauth_verifier = request.params.get('oauth_verifier', None)
-		furl = request.params.get('furl', url("home"))
+		furl = request.params.get('furl')
 		
 		if not oauth_token:
 			log.warning("No Oauth_Token found in session, why?")
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
-			return redirect(furl)
+			c.reload = True
+			c.refresh_login = False
+			return render('/closepopup.html')
 		content = tw_helper.fetch_url(tw_helper.access_token_url,"GET", oauth_token, oauth_token_secret, consumer, 
 				params = {'oauth_verifier':oauth_verifier})
 		token_data = dict(cgi.parse_qsl(content))
@@ -82,6 +86,10 @@ class TwitterController(BaseController):
 		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
 		if not success:
 			c.messages.append(msg)
-		c.reload = True
+		print furl
+		if furl:
+			c.furl = furl
+		else:
+			c.reload = True
 		c.refresh_login = True
 		return render('/closepopup.html')

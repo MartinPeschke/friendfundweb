@@ -144,7 +144,26 @@ class MyprofileController(BaseController):
 				c.pwd_values = form_result
 				c.pwd_errors = {'email':_(u"PROFILE_PASSWORD_Unknown Error Occured")}
 			return self.render('/myprofile/password_request.html')
-
+	
+	def tlogin(self, token):
+		try:
+			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
+		except SProcWarningMessage, e:
+			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
+		return redirect(request.params.get('furl', url('home')))
+	
+	def setpassword(self, token):
+		"""
+			/myprofile/setpassword/TOKENSTRING
+			app.[web_login_token] '<LOGIN token = "sfgsdfvdfgwefgere"/>' 
+		"""
+		try:
+			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
+			return self.render('/myprofile/password_reset.html')
+		except SProcWarningMessage, e:
+			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
+			return redirect(url(controller='myprofile', action='password'))
+	
 	def setpassword(self, token):
 		"""
 			/myprofile/setpassword/TOKENSTRING

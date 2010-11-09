@@ -34,8 +34,8 @@
 	<div id="product_suggestions" class="personalityBox">
 	%for i, ps in enumerate(c.psuggestions):
 		<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''} psmiddle">
-			<a class="productsuggestion anchorelem" _search_keys="_searchterm,_sort,_aff_net,_aff_net_ref" _base_url="${c.search_base_url}"
-			_searchterm="${ps.search}" _sort="${ps.sort or c.sort}" _aff_net="${ps.aff_net}" _aff_net_ref="${ps.aff_net_ref or ''}">
+			<a class="productsuggestion anchorelem" _search_keys="_searchterm,_sort,_aff_net,_aff_net_ref,_catname" _base_url="${c.search_base_url}"
+			_searchterm="${ps.search}" _sort="${ps.sort or c.sort}" _aff_net="${ps.aff_net}" _aff_net_ref="${ps.aff_net_ref or ''}" _catname="${ps.name}">
 				<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
 				<span>${ps.name}</span>
 				%if ps.help_link_href:

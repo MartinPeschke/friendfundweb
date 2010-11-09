@@ -7,10 +7,13 @@ twInit = function(furl) {
 		twitter_tried_loggin_in_already = true;
 		setTimeout("twitter_tried_loggin_in_already=false;",timeoutValue);
 		var localhost = window.location.protocol + '//' + window.location.host;
-		window.open(localhost+"/twitter/login?furl="+furl, '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
+		if(furl){
+			window.open(localhost+"/twitter/login?furl="+furl, '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
+		} else {
+			window.open(localhost+"/twitter/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
+		}
 	}
 }
-
 
 fbInit = function(app_id, has_prev_tried_logging_in) {
 	window.fbAsyncInit = function() {
@@ -56,7 +59,7 @@ checkForward = function(){
 
 doFBFFLogin = function(callback){
 	FB.api('/me', function(response) {
-				loadElement('/fb/login', "accountcontainer", response, callback);
+		loadElement('/fb/login', "accountcontainer", response, callback);
 	});
 }
 

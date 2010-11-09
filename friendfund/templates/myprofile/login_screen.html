@@ -22,7 +22,7 @@
 				</div>
 				
 				<div class="forminputline" style="margin:15px 0  26px 0">
-					<a href="${url(controller='twitter', action='login')}?furl=${getattr(c, 'furl', url('home'))}" class="twitterBtn" title="${_("Connect with Twitter")}">
+					<a onclick="twInit('${getattr(c, 'furl', url('home'))}')" class="twitterBtn" title="${_("Connect with Twitter")}">
 						<span>${_("Connect with Twitter")}</span>
 					</a>
 				</div>

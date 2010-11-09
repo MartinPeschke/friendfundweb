@@ -17,9 +17,9 @@ ${self.master_foot()}
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<title>Friendfund.com | ${self.title()}</title>
 		
-		${links.css('%s.css' %c.siteversion)}
-		${links.css('message_block.css')}
 		<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css"/>
+		${links.css('%s.css'%c.siteversion)}
+		${links.css('message_block.css')}
 		<script type="text/javascript"> 
 			page_reloader = function(){window.location.reload();};
 			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
@@ -151,7 +151,7 @@ ${self.master_foot()}
 	</div>
 		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/imgs/header/logo_banner.png"/></a>
 		${self.header_navigation()}
-		<div id="home_create_pool_button"><a href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
+		<div id="home_create_pool_button"><a class="BtnRed" href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
 	</div>
 	${self.show_infographic()}
 </%def>

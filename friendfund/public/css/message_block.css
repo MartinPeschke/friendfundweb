@@ -3,8 +3,101 @@ a, a:visited, a:link, a:hover {
 	outline: none;
 	-moz-outline-style: none;
 }
-
 a.somelink {	color: #333;}
+
+/*-------------------------------- BUTTONS ------------------------------------*/
+.BtnRed {background:url("../imgs/inputfield.png") no-repeat scroll 100% -1145px transparent;
+	bottom:0;
+	display:block;
+	float:left;
+	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
+	font-size:18px;
+	font-style:normal;
+	left:0;
+	min-width: 50px;
+	padding-right:15px;
+	text-align:center;
+	z-index:2;
+}
+.BtnRed:hover {background-position:100% -1078px}
+.BtnRed span{background:url("../imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:33px;
+	line-height:33px;
+	padding-left:15px;
+	text-shadow:0 -1px 0 #770B3E;
+}
+.BtnRed:hover span{background-position:0 -778px;}
+.BtnGold{
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -1281px transparent;
+	bottom:0;
+	display:block;
+	float:left;
+	min-width: 50px;
+	padding-right:19px;
+}
+.BtnGold span{
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -1226px transparent;
+	display:block;
+	float:left;
+	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
+	font-size:28px;
+	font-style:normal;
+	color:white;
+	padding-left:19px;
+	height:53px;
+	line-height:53px;
+	text-align:center;
+	z-index:2;
+	text-shadow:0  1px 0 #D58000;
+}
+.BtnGold:hover{background-position:100% -1388px;}
+.BtnGold:hover span{background-position:0 -1333px;}
+
+.submitSmall {
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -213px transparent;
+	display:block;
+	padding-right:20px;
+	float:right;
+	z-index:2;}
+.submitSmall span{background:url("../imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	min-width: 50px;
+	height:33px;
+	line-height:33px;
+	padding-left:15px;
+	padding-right:5px;
+	text-shadow:0 -1px 0 #770B3E;}
+.submitSmall:hover {background-position:100% -812px;}
+.submitSmall:hover span{background-position:0 -778px;}
+
+.submitSmallLeft span {
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -1443px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:33px;
+	line-height:33px;
+	padding-left:24px;
+	padding-right:5px;
+	text-shadow:0 -1px 0 #770B3E;
+}
+.submitSmallLeft {
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -1477px transparent;
+	display:block;
+	float:left;
+	padding-right:8px;
+}
+.submitSmallLeft:hover span {background-position:0 -1012px;}
+.submitSmallLeft:hover {background-position:100% -1045px;}
+
 
 /*-------------------------------- black_labeled_input ------------------------------------*/
 
@@ -56,7 +149,7 @@ div.black_labeled_container div.right_bracket {
 	height:25px;
 	width:12px;
 	right: -12px;
-	background: url(/static/imgs/inputfield.png) -80px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -80px -27px no-repeat;
 }
 div.black_labeled_container div.left_bracket {
 	position: absolute;
@@ -64,7 +157,7 @@ div.black_labeled_container div.left_bracket {
 	height:25px;
 	width:10px;
 	left: -10px;
-	background: url(/static/imgs/inputfield.png) -95px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -95px -27px no-repeat;
 }
 div.black_labeled_container .black_labeled_input {
 	position: absolute;
@@ -74,7 +167,7 @@ div.black_labeled_container .black_labeled_input {
 	color: #ffffff;
 	font-size: 13px;
 	border: 0px solid transparent;
-	background: url(/static/imgs/inputfield.png) 0px 0px no-repeat;
+	background: url(../imgs/inputfield.png) 0px 0px no-repeat;
 }
 
 input.default {
@@ -92,7 +185,7 @@ div.black_labeled_container a.button_open_down {
 	width: 25px;
 	height: 25px;
 	cursor:pointer;
-	background: url(/static/imgs/inputfield.png) -24px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -24px -27px no-repeat;
 }
 div.black_labeled_container .black_labeled_input * {
 	color: #ffffff;
@@ -111,7 +204,7 @@ div.black_labeled_container a.left_button_search {
 	left: -20px;
 	width: 25px;
 	height: 25px;
-	background: url(/static/imgs/inputfield.png) 0px -27px no-repeat;
+	background: url(../imgs/inputfield.png) 0px -27px no-repeat;
 }
 a.black_labeled_container {
 	position: relative;
@@ -121,7 +214,7 @@ a.black_labeled_container {
 	color: #ffffff;
 	font-size: 13px;
 	font-weight:bold;
-	background: url(/static/imgs/inputfield.png) 0px -56px no-repeat;
+	background: url(../imgs/inputfield.png) 0px -56px no-repeat;
 	cursor:pointer;
 }
 a.black_labeled_container div.right_bracket {
@@ -130,7 +223,7 @@ a.black_labeled_container div.right_bracket {
 	right:-14px;
 	top:0;
 	width:14px;
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -142px -27px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll -142px -27px transparent;
 }
 a.black_labeled_container:hover div.right_bracket {
 	background-position:-159px -27px
@@ -141,7 +234,7 @@ a.black_labeled_container div.left_bracket {
 	height:27px;
 	width:12px;
 	left: -12px;
-	background: url(/static/imgs/inputfield.png) -110px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -110px -27px no-repeat;
 }
 a.black_labeled_container div.right_bracket_back {
 	height:27px;
@@ -149,7 +242,7 @@ a.black_labeled_container div.right_bracket_back {
 	right:-11px;
 	top:0;
 	width:11px;
-	background: url(/static/imgs/inputfield.png) -127px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -127px -27px no-repeat;
 }
 a.black_labeled_container div.left_bracket_back {
 	position: absolute;
@@ -157,7 +250,7 @@ a.black_labeled_container div.left_bracket_back {
 	height:27px;
 	width:14px;
 	left: -14px;
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -192px -27px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll -192px -27px transparent;
 }
 a.black_labeled_container:hover div.left_bracket_back {
 	background-position:-176px -27px
@@ -168,7 +261,7 @@ a.black_labeled_container:hover div.left_bracket_back {
 
 div.black_labeled_container_big div.right_bracket {
 /*
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -434px -46px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll -434px -46px transparent;
 	height:36px;
 	position:absolute;
 	right:-13px;
@@ -735,7 +828,7 @@ a.button_container span.button_label img{
 }
 
 a.button_container.orange{
-	background:url(/static/imgs/inputfield.png) -20px -220px no-repeat;
+	background:url(../imgs/inputfield.png) -20px -220px no-repeat;
 	height: 51px;
 	font-size: 28px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -746,11 +839,11 @@ a.button_container.orange{
 	text-shadow:0 -1px 0 #B55A00;
 }
 a.button_container.orange div.button_left {
-	background:url(/static/imgs/inputfield.png) 0px -220px no-repeat;
+	background:url(../imgs/inputfield.png) 0px -220px no-repeat;
 	width: 20px;height:51px;position:absolute;top:0px;left:-20px;
 }
 a.button_container.orange div.button_right{
-	background:url(/static/imgs/inputfield.png) -480px -220px no-repeat;
+	background:url(../imgs/inputfield.png) -480px -220px no-repeat;
 	width: 20px;height:51px;position:absolute;top:0px;right:-20px;
 }
 a.button_container.orange span.button_label{
@@ -1142,218 +1235,34 @@ color:#FFFFFF;
 margin:2px 5px 0 !important;
 }
 .marginRight45{ margin-right: 45px; width:410px;}
-#home_create_pool_button a:hover span,
-.BtnRed:hover span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -778px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:15px;
-text-shadow:0 -1px 0 #770B3E;
-}
-#home_create_pool_button a:hover ,  .BtnRed:hover {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1078px transparent;
-bottom:0;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:18px;
-font-style:normal;
-left:0;
-padding-right:15px;
-text-align:center;
-z-index:2;
-}
-#home_create_pool_button a span,
-.BtnRed span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:15px;
-text-shadow:0 -1px 0 #770B3E;
-}
-#home_create_pool_button a ,  .BtnRed {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1145px transparent;
-bottom:0;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:18px;
-font-style:normal;
-left:0;
-padding-right:15px;
-text-align:center;
-z-index:2;
-}
 /* ================== RED Submit ================== */
 
 a.red_labeled_container {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% 1px transparent;
-color:#FFFFFF;
-cursor:pointer;
-display:block;
-font-size:20px;
-height:44px;
-line-height:45px;
-margin:63px auto 20px;
-padding-right:25px;
-position:relative;
-text-align:center;
-text-shadow:0 -1px 0 #770B3E;
-width:150px;
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% 1px transparent;
+	color:#FFFFFF;
+	cursor:pointer;
+	display:block;
+	font-size:20px;
+	height:44px;
+	line-height:45px;
+	margin:63px auto 20px;
+	padding-right:25px;
+	position:relative;
+	text-align:center;
+	text-shadow:0 -1px 0 #770B3E;
+	width:160px;
 }
 a.red_labeled_container span {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -166px transparent;
-display:block;
-padding-left:18px;
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -166px transparent;
+	display:block;padding-left:18px;
 }
-a.red_labeled_container:hover {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -43px transparent;
-color:#FFFFFF;
-cursor:pointer;
-display:block;
-font-size:20px;
-height:44px;
-line-height:45px;
-margin:63px auto 20px;
-padding-right:25px;
-position:relative;
-text-align:center;
-text-shadow:0 -1px 0 #770B3E;
-width:150px;
-}
-a.red_labeled_container:hover span {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1178px transparent;
-display:block;
-padding-left:18px;
-}
+a.red_labeled_container:hover {background-position:100% -43px;}
+a.red_labeled_container:hover span {background:url("../imgs/inputfield.png") no-repeat scroll 0 -1178px transparent;}
 .inactive {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -545px transparent !important;
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -545px transparent !important;
 }
 .inactive span {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -490px transparent !important;
-}
-#get_started div.content a{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1281px transparent;
-bottom:0;
-display:block;
-float:left;
-padding-right:19px;
-	
-}
-#get_started div.content a span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1226px transparent;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:28px;
-font-style:normal;
-color:white;
-padding-left:19px;
-height:53px;
-line-height:53px;
-text-align:center;
-z-index:2;
-text-shadow:0  1px 0 #D58000;
-	
-}
-#get_started div.content a:hover{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1389px transparent;
-bottom:0;
-display:block;
-float:left;
-padding-right:19px;
-}
-#get_started div.content a:hover span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1334px transparent;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:28px;
-font-style:normal;
-color:white;
-padding-left:19px;
-height:53px;
-line-height:53px;
-text-align:center;
-z-index:2;
-text-shadow:0  1px 0 #D58000;
-	
-}
-.submitSmall:hover {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -812px transparent;
-	display:block;
-	padding-right:20px;
-	float:right;
-	z-index:2;}
-.submitSmall:hover span{background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -778px transparent;
-	color:white;
-	cursor:pointer;
-	display:block;
-	font-size:18px;
-	height:33px;
-	line-height:33px;
-	padding-left:15px;
-	padding-right:5px;
-	text-shadow:0 -1px 0 #770B3E;}
-.submitSmall {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -213px transparent;
-	display:block;
-	padding-right:20px;
-	float:right;
-	z-index:2;}
-.submitSmall span{background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
-	color:white;
-	cursor:pointer;
-	display:block;
-	font-size:18px;
-	height:33px;
-	line-height:33px;
-	padding-left:15px;
-	padding-right:5px;
-	text-shadow:0 -1px 0 #770B3E;}
-.submitSmallLeft:hover span {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1012px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:24px;
-padding-right:5px;
-text-shadow:0 -1px 0 #770B3E;
-}
-.submitSmallLeft:hover {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1045px transparent;
-display:block;
-float:left;
-padding-right:8px;
-}
-.submitSmallLeft span {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1443px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:24px;
-padding-right:5px;
-text-shadow:0 -1px 0 #770B3E;
-}
-.submitSmallLeft {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1477px transparent;
-display:block;
-float:left;
-padding-right:8px;
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -490px transparent !important;
 }
 
 .flagContainer{ position: absolute; right: 30px; bottom: 60px}

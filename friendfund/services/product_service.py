@@ -157,6 +157,7 @@ class ProductService(object):
 										page_no=tmpl_context.page,
 										region=tmpl_context.region,
 										max_price = tmpl_context.max_price), ProductSearch)
+			tmpl_context.searchterm = request.params.get("catname", tmpl_context.searchterm)
 		return tmpl_context
 	
 	def _amazon_fallback(self, request, url):
