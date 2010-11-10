@@ -95,13 +95,14 @@ class ReceiverController(BaseController):
 				return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
 			else:
 				network_id = invitee.get('network_id')
-			imgurl = "/static/imgs/default_m.png"
+			profile_picture_url = "/static/imgs/default_m.png"
 			return {'clearmessage':True, 
 					'data':{'success':True, 
 							'network_id':network_id, 
 							'network':network, 
 							'name':invitee.get('name'), 
-							'imgurl' : imgurl
+							'profile_picture_url' : profile_picture_url,
+							'large_profile_picture_url' : profile_picture_url
 						}
 					}
 		elif network == 'yourself' and not c.user.is_anon:
@@ -111,19 +112,20 @@ class ReceiverController(BaseController):
 			else:
 				network_id = c.user.network_id
 			network_name = c.user.name
-			imgurl = c.user.get_profile_pic('RA')
+			profile_picture_url = c.user.get_profile_pic('RA')
 			
-			if imgurl == c.user.profile_picture_url:
+			if profile_picture_url == c.user.profile_picture_url:
 				if network == 'twitter':
-					imgurl = tw_helper.get_profile_picture_url(c.user.profile_picture_url)
+					profile_picture_url = tw_helper.get_profile_picture_url(c.user.profile_picture_url)
 				elif network == 'facebook':
-					imgurl = fb_helper.get_large_pic_url(c.user.network_id)
+					profile_picture_url = fb_helper.get_large_pic_url(c.user.network_id)
 			return {'clearmessage':True, 
 					'data':{'success':True, 
 							'network_id':network_id, 
 							'network':network, 
 							'name':network_name, 
-							'imgurl' : imgurl
+							'profile_picture_url' : profile_picture_url,
+							'large_profile_picture_url' : profile_picture_url
 						}
 					}
 		elif(c.user.is_anon):

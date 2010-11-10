@@ -10,9 +10,9 @@ from friendfund.lib.base import BaseController, render
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains
 from friendfund.model import db_access
-from friendfund.model.forms.common import to_displaymap, DateValidator, MonetaryValidator
+from friendfund.model.forms.common import to_displaymap
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
-from friendfund.model.pool import Pool, Occasion, PoolUser, PoolChat, PoolComment, PoolDescription
+from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
@@ -60,6 +60,7 @@ class PoolController(BaseController):
 	def create(self):
 		params = formencode.variabledecode.variable_decode(request.params)
 		c.pool = websession.get('pool')
+		print params, c.pool.product
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
