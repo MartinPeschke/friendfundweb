@@ -6,7 +6,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only
-from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.base import BaseController, render
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains
 from friendfund.model import db_access
@@ -17,17 +17,21 @@ from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePo
 from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
 
+_ = lambda x:x
+NOT_AUTHORIZED_MESSAGE = _("POOL_Your not authorized for this operation.")
+CLOSING_MESSAGE = _("POOL_ACTION_Pool is now Closed and the Gift has been ordered!")
+EXPIRED_MESSAGE = _("POOL_ACTION_This pool has not reached it's target. Please vist the pool admin page to continue fund raising!")
+UPDATED_MESSAGE = _("POOL_ACTION_Changes saved.")
+NOT_CORRECT_STATE = _("POOL_ACTION_This Action is not allowed as Pool is not in correct state.")
+SAVE_ADDRESS_FIRST = _("POOL_ACTION_In order to Close the pool, you need to fill out and save Shipping and Billing Address first!")
+
+from friendfund.lib.base import _
+
 log = logging.getLogger(__name__)
 
 class PoolController(BaseController):
 	navposition=g.globalnav[1][2]
 	chat_page_size = 10
-	NOT_AUTHORIZED_MESSAGE = _("POOL_Your not authorized for this operation.")
-	CLOSING_MESSAGE = _("POOL_ACTION_Pool is now Closed and the Gift has been ordered!")
-	EXPIRED_MESSAGE = _("POOL_ACTION_This pool has not reached it's target. Please vist the pool admin page to continue fund raising!")
-	UPDATED_MESSAGE = _("POOL_ACTION_Changes saved.")
-	NOT_CORRECT_STATE = _("POOL_ACTION_This Action is not allowed as Pool is not in correct state.")
-	SAVE_ADDRESS_FIRST = _("POOL_ACTION_In order to Close the pool, you need to fill out and save Shipping and Billing Address first!")
 	
 	def reset(self):
 		if 'pool' in websession:
@@ -35,8 +39,6 @@ class PoolController(BaseController):
 		if 'invitees' in websession:
 			del websession['invitees']
 		return redirect(url('home'))
-	
-	
 	
 	def index(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
@@ -47,13 +49,11 @@ class PoolController(BaseController):
 			and c.pool.am_i_member(c.user):
 				c.user.current_pool = c.pool
 		if c.pool.am_i_admin(c.user) and (c.pool.is_expired() and not c.pool.is_funded()):
-			c.messages.append(self.EXPIRED_MESSAGE)
+			c.messages.append(_(EXPIRED_MESSAGE))
 		elif not c.user.is_anon:
 			msg = render('/pool/fb_perms.html').strip()
 			if msg: c.messages.append(msg)
 		return self.render('/pool/pool.html')
-		
-		
 		
 	
 	@logged_in()
@@ -150,7 +150,7 @@ class PoolController(BaseController):
 			return self.render('/pool/settings_admin.html')
 		else:
 			if c.psettings.is_closed():
-				c.messages.append(self.CLOSING_MESSAGE)
+				c.messages.append(_(CLOSING_MESSAGE))
 			return self.render('/pool/settings.html')
 	
 	@jsonify
@@ -160,7 +160,7 @@ class PoolController(BaseController):
 		descr = request.params.get('description', None)
 		if descr is not None:
 			g.dbm.set(PoolDescription(p_url = pool_url, description = descr))
-		return self.ajax_messages(self.UPDATED_MESSAGE)
+		return self.ajax_messages(_(UPDATED_MESSAGE))
 	
 	@jsonify
 	@logged_in(ajax=True)
@@ -170,11 +170,11 @@ class PoolController(BaseController):
 		c.countries = g.countries.list
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.user.am_i_admin(pool_url):
-			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
+			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
+			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
@@ -187,7 +187,7 @@ class PoolController(BaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
+			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
@@ -201,7 +201,7 @@ class PoolController(BaseController):
 		c.pool_url = pool_url
 		c.countries = g.countries.list
 		if not c.user.am_i_admin(pool_url):
-			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
+			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
 			return redirect(request.referer)
 		form = formencode.variabledecode.variable_decode(request.params).get('shipping', None)
 		if not form:
@@ -233,10 +233,10 @@ class PoolController(BaseController):
 		c.pool_url = pool_url
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not (c.psettings.is_admin and c.psettings.is_funded()):
-			c.messages.append(self.NOT_CORRECT_STATE)
+			c.messages.append(_(NOT_CORRECT_STATE))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		elif not c.psettings.information_complete():
-			c.messages.append(self.SAVE_ADDRESS_FIRST)
+			c.messages.append(_(SAVE_ADDRESS_FIRST))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		
 		try:
@@ -253,7 +253,7 @@ class PoolController(BaseController):
 	def action(self, pool_url):
 		action = str(request.params['action'])
 		if not c.user.am_i_admin(pool_url) or action not in POOLACTIONS:
-			c.messages.append(_(self.NOT_AUTHORIZED_MESSAGE))
+			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		g.dbm.set(ExtendActionPoolProc(p_url = pool_url
 										, name=action
@@ -269,7 +269,7 @@ class PoolController(BaseController):
 	# def confirmaltproduct(self, pool_url):
 		# c.pool_url = pool_url
 		# if not c.user.am_i_admin(pool_url):
-			# return self.ajax_messages(self.NOT_AUTHORIZED_MESSAGE)
+			# return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		
 		# params = formencode.variabledecode.variable_decode(request.params)
 		# product = params.get('product', None)
@@ -292,7 +292,7 @@ class PoolController(BaseController):
 	def setaltproduct(self, pool_url):
 		c.pool_url = pool_url
 		if not c.user.am_i_admin(pool_url):
-			return self.ajax_messages(self.NOT_AUTHORIZED_MESSAGE)
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		
 		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = formencode.variabledecode.variable_decode(request.params)
