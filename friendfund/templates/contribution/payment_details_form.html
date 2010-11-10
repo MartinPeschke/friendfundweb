@@ -15,7 +15,7 @@
 			${forms.input_select("creditcard", "ccExpiresYear", "", app_globals.payment_service.cc_validity_years)}(i.e. 12/2012)
 		</div>
 		<div style="margin:0px 30px 30px;float:right;position:relative;">
-					${forms.black_submitlink("Submit", [("id", "payment_details_submitter")], "submitter")|n}
+			<a class="submitSmall submitter" id="payment_details_submitter"><span>${_("EVENT_PANEL_Submit")}</span></a>
 		</div>
 
 		<input type="hidden" name="formtoken" value="${c.form_secret}"/>

@@ -111,7 +111,8 @@
 			<img src="${c.pool.admin.get_profile_pic()}"/>
 			<textarea cols="60" rows="5" name="description">${c.psettings.description}</textarea>
 			<div style="position:absolute; right:30px;bottom:15px;">
-				${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('%s', 'description_form');" % url(controller='pool', pool_url=c.pool_url, action='set_description'))], "description_submitter")|n}
+				<a class="Save" onclick="xhrFormPost('${url(controller='pool', pool_url=c.pool_url, action='set_description')}', 'description_form');">
+					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
 			</div>
 		</form>
 	</div>

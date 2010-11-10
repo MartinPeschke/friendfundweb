@@ -21,7 +21,8 @@
 			<input type="text" disabled="disabled" value="${_(c.psettings.shipping_address.country)}"/>
 		</div>
 		<div style="position:absolute; right:30px;bottom:15px;">
-			${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('%s', 'shipping_form_container', place_element('shippingAddressContainerBox'));"%url(controller='pool', pool_url=c.pool_url, action='set_address'))], "settings_submitter")|n}
+			<a class="Save settings_submitter" onclick="xhrFormPost('${url(controller="pool", pool_url=c.pool_url, action="set_address")}', 'shipping_form_container', place_element('shippingAddressContainerBox'));">
+					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
 		</div>
 			${forms.input_text("shipping", "phone", _("POOLSETTINGS_LABEL_Phone"))|n}
 	</form>
