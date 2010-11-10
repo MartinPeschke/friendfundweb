@@ -8,6 +8,7 @@ dojo.require("dojox.widget.AutoRotator");
 
 dojo.require("dojox.widget.rotator.Pan");
 dojo.require("friendfund.Tooltip");
+dojo.require("friendfund.NetworkFriendSelector");
 
 
 dojo.declare("friendfund.ProductSearch", null, {
@@ -43,11 +44,11 @@ dojo.declare("friendfund.ProductSearch", null, {
 		dojo.mixin(params, extra_params);
 		loadElement("/product/"+base_url, _t.productBrowser, params, function(){
 			_t._browser_locals.push(dojo.connect(dojo.byId("psort"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
-			var node = dojo.byId(_t.productBrowser);
+			var node = dojo.byId("scroller_anchor");
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
 		});
-		var node = dojo.byId(_t.productBrowser);
+		var node = dojo.byId("scroller_anchor");
 		var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 		anim0.play();
 	},
@@ -118,7 +119,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 		_t._listener_locals.push(dojo.connect(dojo.byId("region_picker"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
 		if(dojo.byId("psort"))_t._browser_locals.push(dojo.connect(dojo.byId("psort"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));
 		_t.init_slider(_t);
-	}, destroyBrowserLocals : function(_t){
+	},destroyBrowserLocals : function(_t){
 		dojo.forEach(_t._browser_locals, dojo.disconnect);
 		_t._browser_locals = [];
 	},destroy : function(_t){
@@ -127,8 +128,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 		_t._listener_locals = [];
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 		_t._widget_locals = [];
-	},
-	reinit : function(_t, evt){
+	},reinit : function(_t, evt){
 		_t.destroy(_t);
 		_t.productLoaded(_t);
 		
@@ -144,8 +144,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 					break;
 			}
 		}
-	},
-	productSelected : function(_t, evt){
+	},productSelected : function(_t, evt){
 		var target = this;
 		var return_args = {element : this};
 		dojo.forEach(dojo.attr(target, "_search_keys").split(","), 

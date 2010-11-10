@@ -105,16 +105,11 @@ class ProductController(BaseController):
 		product = params.get('product', None)
 		if not product or not dict_contains(product, ['is_amazon', 'is_virtual', 'is_curated', 'guid']):
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		
 		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
 		product['is_virtual'] = strbool.to_python(product['is_virtual'])
 		product['is_curated'] = strbool.to_python(product['is_curated'])
-
 		g.product_service.set_product(product, request)
-		
-		
-		
-
+		print websession.get('pool').product
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
 
 	

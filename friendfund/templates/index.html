@@ -6,40 +6,21 @@
 <%namespace name="ra_stream" file="widgets/ra_stream.html"/>
 <%def name="title()">${_("PAGE_INDEX_TITLE_Welcome")}</%def>
 
-
-
 <%def name="scripts()">
 	${links.js('friendfund/HomePagePanel.js')}
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/ProductSearch.js')}
 </%def>
+
 <%def name="bodyclass()">index</%def>
 <%def name="headscripts()">
 	page_reloader = function(){};
-	dojo.require("dojo.io.iframe");
 	html = null;
 	function show_delay(){
-		var elementstream = dojo.query(".ra_scroller", "fundstream_ra");
-		var elem = elementstream[0];
-		if(elementstream.length > 2)
-			dojo.query("#"+elementstream[2].id, "fundstream_ra").orphan();
-		var init_top = parseInt(dojo.attr(elem, "_top"));
-		var final_top = init_top+170;
-		dojo.attr(elem, "_top", final_top);
-		var appear = dojo.animateProperty({node:elem.id, duration: 2000, 
-			properties:{marginTop:{start:init_top, end:init_top+170}}});
-		h = dojo.connect(appear, "onEnd", function(){
-				if(html!=null){dojo.place(html, dojo.byId("fundstream_ra"), "first");html = null;}
-				dojo.disconnect(h);
-		});
-		appear.play();
-		
-		if(final_top < 0) setTimeout("show_delay()", Math.round(3000 + (Math.random() * 12000)));
-		else {
-			xhrPost("/stream", {}, function(data){
-				html = data.html;setTimeout("show_delay()", Math.round(2000 + (Math.random() * 8000)));
-			});
-		}
+		var es=dojo.query(".ra_scroller","fundstream_ra");var e=es[0];if(es.length>2)dojo.query("#"+es[2].id,"fundstream_ra").orphan();
+		var it=parseInt(dojo.attr(e,"_top"));var ft=it+170;dojo.attr(e,"_top",ft);var appear=dojo.animateProperty({node:e.id,duration:2000,properties:{marginTop:{start:it,end:it+170}}});
+		h = dojo.connect(appear,"onEnd",function(){if(html!=null){dojo.place(html, dojo.byId("fundstream_ra"),"first");html=null;}dojo.disconnect(h);});appear.play();
+		if(ft<0)setTimeout("show_delay()",Math.round(3000+(Math.random()*12000)));else xhrPost("/stream",{},function(data){html=data.html;setTimeout("show_delay()",Math.round(2000+(Math.random()*8000)));});
 	};
 </%def>
 <%def name="onloadscripts()">
@@ -54,7 +35,7 @@
 						, config_node: "pool_configurator"
 						, fb_api_key : "${app_globals.FbApiKey}"
 						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
-		interval = setTimeout("show_delay()", Math.round(Math.random() * 2000));
+		setTimeout("show_delay()",Math.round(Math.random()*2000));
 </%def>
 
 
