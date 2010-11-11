@@ -98,7 +98,8 @@ def translate_friend_entry(u_id, friend_data):
 			'profile_picture_url':get_pic_url(friend_data['id']),
 			'notification_method':'STREAM_PUBLISH',
 			'network':'facebook',
-			'email':friend_data.get('email')
+			'email':friend_data.get('email'),
+			'is_selector':False
 		}
 	
 	dob = friend_data.get('birthday')

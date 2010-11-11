@@ -69,11 +69,12 @@ def get_friend_list(url, method, access_token, access_token_secret, consumer):
 					(str(elem['id']), 
 						{'name':elem.get('name', None),
 						 'network_id':str(elem['id']),
-						 'screenname':elem.get('screen_name', ''), 
+						 'screen_name':elem.get('screen_name', ''), 
 						 'large_profile_picture_url':get_profile_picture_url(elem['profile_image_url']),
 						 'profile_picture_url':elem['profile_image_url'],
 						 'notification_method':method,
-						 'network':'twitter'}
+						 'network':'twitter',
+						 'is_selector':False}
 					)
 					for elem in data if 'screen_name' in elem
 				], next_cursor_str == '0'

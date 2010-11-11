@@ -12,16 +12,20 @@ dojo.declare("friendfund._Selector", null, {
 });
 
 
-
 dojo.declare("friendfund.YourselfSelector", friendfund._Selector, {
 	constructor: function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 	}
-	,draw : function(){
-		var _t = this;
-		xhrPost(_t.base_url+"/add", {"invitee.network":"yourself"}, dojo.hitch(null, _t.onSelect, _t));
+	,draw : function(_t){
+		xhrPost(_t.base_url+"/add", {"invitee.network":"yourself"}, dojo.hitch(null, _t._onSelect, _t));
+	},_onSelect : function(_t, data){
+		if(data.success===true){
+			_t.onSelect(_t, data, data.html, null);
+		} else {
+			dojo.place(data.html, _t.ref_node, "only");
+		}
 	}
 	,onSelect : function(_t, params, elem, evt){}
 	,undraw :function(){}
@@ -36,8 +40,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		dojo.mixin(_t, args);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 	},
-	draw : function(){
-		var _t = this;
+	draw : function(_t){
 		dojo.place(_t._loader, _t.ref_node, "only");
 		loadElement(_t.base_url+'/email', _t.ref_node, {}, dojo.hitch(null, _t.onLoad, _t));
 	},
@@ -83,8 +86,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund._Selector, {
 		_t._is_selected_decider = "a.methodselector.ajaxlink.selected[_type="+_t.network+"]";
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
-	},draw : function(){
-		var _t = this;
+	},draw : function(_t){
 		page_reloader = dojo.hitch(_t, _t.draw);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 		dojo.place(_t._loader, _t.ref_node, "only");
@@ -210,9 +212,6 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund._Selector, {
 });
 
 
-
-
-
 dojo.declare("friendfund.CompoundFriendSelector", null, {
 	_widget_locals : [],
 	_listener_locals : [],
@@ -220,39 +219,58 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 	constructor: function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
-		if(args.avail_selectors['facebook'] == true)
+		if(args.avail_selectors['facebook'] == true){
 			_t.selectors.facebook = new friendfund.NetworkFriendSelector(
 						{	container : _t.container
 							, ref_node: _t.ref_node
 							, inviter_node : _t.inviter_node
+							, invited_node : "facebook"+_t.invited_node_suffix
 							, base_url : _t.base_url
 							, network : "facebook"
-							, onSelect : _t.onSelect
+							, mutuals : args['mutuals']
 						});
-		if(args.avail_selectors['twitter']==true)
+			if(_t.onSelect)_t.selectors.facebook.onSelect = _t.onSelect;
+		}
+		if(args.avail_selectors['twitter']==true){
 			_t.selectors.twitter = new friendfund.NetworkFriendSelector(
 						{	container : _t.container
 							, ref_node: _t.ref_node
 							, inviter_node : _t.inviter_node
+							, invited_node : "twitter"+_t.invited_node_suffix
 							, base_url : _t.base_url
 							, network : "twitter"
-							, onSelect : _t.onSelect
 						});
-		if(args.avail_selectors['email'] == true)
+			if(_t.onSelect)_t.selectors.twitter.onSelect = _t.onSelect;
+		}
+		if(args.avail_selectors['email'] == true){
 			_t.selectors.email = new friendfund.EmailFriendSelector(
 						{	ref_node: _t.ref_node
+							, invited_node : "email"+_t.invited_node_suffix
 							, base_url : _t.base_url
-							, onSelect : _t.onSelect
 						});
-		if(args.avail_selectors['yourself']==true)
+			if(_t.onSelect)_t.selectors.email.onSelect = _t.onSelect;
+		}
+		if(args.avail_selectors['yourself']==true){
 			_t.selectors.yourself = new friendfund.YourselfSelector(
 						{	base_url : _t.base_url
 							,ref_node: "receiver_selector_container"
-							,onSelect : _t.onSelect
 						});
+			if(_t.onSelect)_t.selectors.yourself.onSelect = _t.onSelect;
+		}
 		for(var sel in _t.selectors){
 			_t._widget_locals.push(_t.selectors[sel]);
 		}
+		if(_t.invited_node_suffix)
+			_t._listener_locals.push(dojo.connect(dojo.byId(_t.global_invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
+	},unselect : function(_t, evt){
+		if(dojo.hasClass(evt.target, "invitee_row") && dojo.hasClass(evt.target, "selectable")){
+			var target = evt.target;
+		} else {
+			var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
+			if(target==null)return;
+		}
+		var sel = _t.selectors[dojo.attr(target, "_network")];
+		sel.unSelect(sel, target);
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
@@ -271,11 +289,11 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 			}
 		}
 		dojo.addClass(this, "selected");
-		if(dojo.attr(this, "_type") in _t.selectors)_t.selectors[dojo.attr(this, "_type")].draw();
+		if(dojo.attr(this, "_type") in _t.selectors)_t.selectors[dojo.attr(this, "_type")].draw(_t.selectors[dojo.attr(this, "_type")]);
 	},
 	draw : function(selector){
 		var _t = this;
-		_t.selectors[selector].draw();
+		_t.selectors[selector].draw(_t.selectors[selector]);
 		dojo.query("a.ajaxlink", _t.container).forEach(
 			function(elem){_t._listener_locals.push(dojo.connect(elem, "onclick", dojo.hitch(null, _t.switchMethod, _t)))}
 		);

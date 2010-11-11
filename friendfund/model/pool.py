@@ -115,6 +115,7 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(bool,'is_admin'          , 'is_admin'           )
 			, GenericAttrib(bool,'is_receiver'       , 'is_receiver'        )
 			, GenericAttrib(bool,'is_suspected'       , 'is_suspected'      )
+			, GenericAttrib(bool,'is_selector'       , 'is_selector'      )
 			, GenericAttrib(bool,'has_email'         , 'has_email'          )
 			, GenericAttrib(str,'network'            , 'network'            )
 			, GenericAttrib(str,'network_id'         , 'id'                 )
@@ -168,6 +169,8 @@ class PoolUser(DBMappedObject):
 		else:
 			if params['network'] == 'email':
 				params['email'] = params.pop('network_id')
+			params['is_selector'] = False
+			print params
 			return PoolUser(**dict((str(k),v) for k,v in params.iteritems()))
 
 class PoolInvitee(PoolUser):
