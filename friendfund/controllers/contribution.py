@@ -36,6 +36,7 @@ class ContributionController(BaseController):
 		c.contrib = websession.get('contribution')
 		try:
 			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+			c.has_fees = c.paymentpage.has_fees
 		except NotAllowedToPayException, e:
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
@@ -46,7 +47,6 @@ class ContributionController(BaseController):
 								, 'anonymous':c.contrib.anonymous and 'yes' or 'no'
 								, 'message':c.contrib.message
 							}
-		c.pool_fulfilled = False
 		c.show_delay = c.contrib.paymentmethod in ['paypal','directEbanking']
 		if request.params.get('authResult') == 'AUTHORISED':
 			return self.render('/contribution/contribution_result_success.html')
@@ -184,6 +184,7 @@ class ContributionController(BaseController):
 	
 	@logged_in(ajax=True)
 	@no_blocks(ajax=True)
+	@jsonify
 	def creditcard(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None or c.pool.product.is_virtual:
@@ -232,15 +233,21 @@ class ContributionController(BaseController):
 		except DBErrorAfterPayment, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
 	
-	def success(self):
-		c.contrib = websession.pop('contribution')
+	def success(self, pool_url):
+		c.contrib = websession.pop('contribution', None)
 		if not c.contrib:
+			return abort(404)
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None or c.pool.product.is_virtual:
 			return abort(404)
 		c.has_fees = c.contrib.amount < c.contrib.total
 		return render('/contribution/contribution_result_success.html')	
-	def fail(self):
+	def fail(self, pool_url):
 		c.contrib = websession.pop('contribution')
 		if not c.contrib:
+			return abort(404)
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None or c.pool.product.is_virtual:
 			return abort(404)
 		c.has_fees = c.contrib.amount < c.contrib.total
 		return render('/contribution/contribution_result_fail.html')

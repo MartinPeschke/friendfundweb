@@ -1,6 +1,26 @@
-<%namespace name="forms" file="/widgets/forms.html"/>
+<%inherit file="../master.html"/>
 <%namespace name="html" file="/widgets/html_elems.html"/>
-%if c.success:
+
+<%def name="title()">${_("PAYMENT_SUCCESS_TITLE")}</%def>
+<%def name="page_slogan()"><div id="page_slogan">${_("PAYMENT_SUCCESS_HEADING")}</div></%def>
+
+
+<div id="paymentdetailscontainer" class="innerbody">
+	<div class="panel_title">
+		${_("PAYMENT_DETAILS_Total Amount:")}
+	</div>
+	<div class="panel_content white">
+		<div id="payment_details_amount">
+			${_("PAYMENT_DETAILS_You are chipping in:")}
+			<div class="floaterRight amount clearer">${h.format_currency(c.contrib.get_amount(), c.contrib.currency)|n}</div>
+			%if c.has_fees:
+				<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)|n}</div>
+			%endif
+			<div class="floaterRight amount clearer totalsum"><span class="total_label">${_("CONTRIBPAGE_LABEL_Total")}</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)|n}</div>
+		</div>
+	</div>
+	
+	<div id="payment_details_status">
 	<div class="panel_title">
 		${_("CONTRIBSUCCESSPAGE_LABEL_Payment accepted")}
 	</div>
@@ -10,7 +30,7 @@
 			${(_("CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!")%dict([("receiver",c.pool.receiver.get_receiver_label())]))|n}
 		</h1></div>
 	</div>
-
+	
 	%if getattr(c, 'show_delay', False):
 		<div class="panel_title floaterLeft">
 			${_("CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice")}
@@ -27,16 +47,6 @@
 		<a class="submitSmallLeft" href="${url('controller', controller='mypools', protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Visit My Pools")}</span></a>
 		<a class="submitSmall" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
-%else:
-	<div class="panel_title">
-		${_("CONTRIBSUCCESSPAGE_LABEL_Payment Failed")}
 	</div>
-	<div class="panel_content white">
-		<h1>${_("CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?")}</h1>
-	</div>
-	<div style="position:relative;margin:0px 20px;width:880px;float:left;">
-		<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
-		<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
-	</div>
-%endif
-	<div class="clear"></div>
+	${html.clearline(20)|n}
+</div>
