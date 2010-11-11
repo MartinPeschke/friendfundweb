@@ -7,6 +7,13 @@
 <%def name="title()">${_("PAGE_INDEX_TITLE_Welcome")}</%def>
 
 <%def name="scripts()">
+	<script type="text/javascript">
+		dojo.query(".frontpagebutton.enabled", "pool_configurator").forEach(
+			function(elem, pos, array){
+				dojo.connect(elem, "onmouseenter", function(evt){dojo.addClass(this, "frontpagebuttonhover")});
+				dojo.connect(elem, "onmouseleave", function(evt){dojo.removeClass(this, "frontpagebuttonhover")});
+		});
+	</script>
 	${links.js('friendfund/HomePagePanel.js')}
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/ProductSearch.js')}
@@ -56,15 +63,15 @@
 			</tr>
 		</table>
 		</div>
-		<div id="receiver_panel" class="frontpagebutton first">
+		<div id="receiver_panel" class="frontpagebutton enabled first">
 			<%include file="receiver/button.html"/>
 		</div>
 
-		<div id="occasion_panel" class="frontpagebutton">
+		<div id="occasion_panel" class="frontpagebutton enabled">
 			<%include file="occasion/button.html"/>
 		</div>
 
-		<div id="product_panel" class="frontpagebutton">
+		<div id="product_panel" class="frontpagebutton enabled">
 			<%include file="product/button.html"/>
 		</div>
 
