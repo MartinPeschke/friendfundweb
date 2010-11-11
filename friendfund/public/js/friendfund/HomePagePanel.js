@@ -45,7 +45,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		for (var elem in _t.selected_elems){
 			complete = _t.selected_elems[elem] && complete;
 		}
-		if(complete==true){dojo.removeClass("funders_button", "inactive");}
+		if(complete===true){dojo.removeClass("funders_button", "inactive");}
 		return complete;
 	},
 	set_complete : function(_t, action){
@@ -59,7 +59,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 
 		/*check if panel is of this/action or another kind, close it anyways */
 		var thisisopen = panel && dojo.hasClass(panel, action);
-		if (panel && ((thisisopen && !open_at_all_costs) || (!thisisopen)))_t.unload(_t, thisisopen);
+		if (panel && ((thisisopen && !open_at_all_costs) || (!thisisopen))){_t.unload(_t, thisisopen);}
 		
 		/*if closed panel was of another kind, we now wanna open this */
 		if (!thisisopen || open_at_all_costs){
@@ -70,7 +70,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		}
 	}
 	,load: function(_t, elem){
-		_t.onLoad && this.onLoad(_t);
+		if(_t.onLoad){this.onLoad(_t);}
 		dojo.query("#get_started").orphan();
 		dojo.query("#button_"+elem+".hpbutton a.panel_opener").addClass("opened");
 		/* TODO: this gets disconnected on Product Panel Changing */
@@ -80,7 +80,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	},verify: function() {
 		return false;
 	},unload: function(_t, success){
-		_t.onDestroy && _t.onDestroy();
+		if(_t.onDestroy){_t.onDestroy();}
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 		
@@ -89,12 +89,12 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.receiver_selectors = {};
 		
 		var picker = dijit.byId("datestamp");
-		picker && picker.destroy();
+		if(picker){picker.destroy();}
 		dojo.query("*", _t.ref_node).orphan();
 		dojo.query(_t.ref_node).style("display", "None");
 		dojo.query(".front_panel_active", _t.config_node).removeClass("front_panel_active");
 		dojo.query("a.opened", _t.config_node).removeClass("opened");
-		if(success == true){
+		if(success === true){
 			var node = dojo.byId("top");
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
@@ -102,7 +102,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	},
 	
 	/*                OCCASION PANELS               */
-	load_occasion: function(_t, evt, params){
+	load_occasion: function(_t, evt, args){
 		var params = {};
 		params.date = dojo.byId("occasion_date").value;
 		params.key = dojo.byId("occasion_key").value;
@@ -118,7 +118,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.query(".occasion_panel_button div.selector[custom=1] input", _t.ref_node).connect("onfocus", dojo.hitch(null, _t.occasion_focused, _t));
 		
 		dojo.parser.parse(dojo.byId(_t.ref_node));
-		dijit.byId("datestamp") && _t._widget_locals.push(dijit.byId("datestamp"));
+		if(dijit.byId("datestamp")){_t._widget_locals.push(dijit.byId("datestamp"));}
 		dojo.query("div.black_labeled_container a.button_open_down", _t.ref_node).connect("onclick", dojo.hitch(null, _t.openDatePicker, _t));
 	}, openDatePicker:function(_t, evt){
 		dijit.byId("datestamp").focus();
@@ -134,10 +134,10 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		var datewijit =dijit.byId("datestamp");
 		var newdate = dojo.attr(this, "date").split("-");
 		newdate = (newdate.length>=3)?(new Date(newdate[0], newdate[1]-1, newdate[2])) : null;
-		if(datewijit.value===null) {
-			if(newdate!=null){
+		if(!datewijit.value) {
+			if(newdate){
 				datewijit.set("value", newdate);
-			} else if (parseInt(dojo.attr(this, "custom")) == 0){
+			} else if (parseInt(dojo.attr(this, "custom"),10) === 0){
 				datewijit.focus();
 			}
 		}
@@ -146,13 +146,13 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		return false;
 	},
 	occasion_selected : function(_t, evt){
-		var selected = dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node).length == 1;
+		var selected = dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node);
 		var datepicker = dijit.byId("datestamp");
-		if(datepicker.value && selected && datepicker.value >= datepicker.constraints.min){
-			var selected = dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node)[0];
+		if(datepicker.value && selected.length === 1 && datepicker.value >= datepicker.constraints.min){
+			selected = dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node)[0];
 			
 			var params = {};
-			params['occasion.custom'] = dojo.attr(selected, "custom") == "1";
+			params['occasion.custom'] = dojo.attr(selected, "custom") === "1";
 			params['occasion.key'] = dojo.attr(selected, "key");
 			params['occasion.name'] = params['occasion.custom']?dojo.query("input", selected)[0].value:"";
 			params['occasion.date'] = formatDate(datepicker.value);
@@ -178,7 +178,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		var params = {net: args.affnet || dojo.byId("product_net").value,
 						occasion_date : args.occasion_date || dojo.byId("occasion_date").value,
 						progid: args.progid || dojo.byId("product_progid").value
-					}
+					};
 		if(params.net && params.occasion_date && params.progid){
 			xhrPost("/product/verify_dates", params);
 		}
@@ -215,7 +215,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	/*--------------- RECEIVER PANELS --------------*/
 	
 	load_receiver : function(_t, evt, params){
-		var params = {};
 		xhrPost("/receiver/panel", params, dojo.hitch(null, _t.receiverLoaded, _t));
 		return false;
 	},
@@ -224,12 +223,12 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.load(_t, "receiver");
 		_t.receiver_selectors = new friendfund.CompoundFriendSelector(
 							{
-								container : "button_panel"
-								, ref_node: "receiver_selector_container"
-								, inviter_node : "friend_list"
-								, base_url : "/receiver"
-								, avail_selectors : {'facebook':true, 'twitter':true, 'email':true, 'yourself':true}
-								, onSelect : function(ctx, params, elem, evt){
+								container : "button_panel",
+								ref_node: "receiver_selector_container",
+								inviter_node : "friend_list",
+								base_url : "/receiver",
+								avail_selectors : {'facebook':true, 'twitter':true, 'email':true, 'yourself':true},
+								onSelect : function(ctx, params, elem, evt){
 									loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));
 									_t.unload(_t, true);
 									return true;
@@ -248,3 +247,15 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.receiver_selectors.draw(data.method);
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
