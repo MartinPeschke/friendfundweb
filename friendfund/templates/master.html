@@ -76,7 +76,13 @@ ${self.master_foot()}
 				<a href="${url(controller='content', action='privacy')}" class="siteinfo_content">${_(u"SITEINFO_Privacy")|n}</a>
 				<a href="${url(controller='content', action='impressum')}" class="siteinfo_content">${_(u"SITEINFO_Impressum")|n}</a>
 				<a href="${url(controller='content', action='faq')}" class="siteinfo_content">${_(u"SITEINFO_FAQ")|n}</a>
+				<div class="flagContainer">
+					<a href="${url(controller='myprofile', action='set_lang')}?lang=de_DE" class="flag_de_DE">&nbsp;</a>
+					<a href="${url(controller='myprofile', action='set_lang')}?lang=en_GB" class="flag_en_GB">&nbsp;</a>
+					<a href="${url(controller='myprofile', action='set_lang')}?lang=en_US" class="flag_en_US">&nbsp;</a>
+				</div>
 			</div>
+			
 		</div>
 	</div>
 	${self.footer_end()}
@@ -144,11 +150,6 @@ ${self.master_foot()}
 
 <%def name="header()">
 	<div id="headercontainer">
-	<div class="flagContainer">
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=de_DE" class="flag_de_DE">&nbsp;</a>
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_GB" class="flag_en_GB">&nbsp;</a>
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_US" class="flag_en_US">&nbsp;</a>
-	</div>
 		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/imgs/header/logo_banner.png"/></a>
 		${self.header_navigation()}
 		<div id="home_create_pool_button"><a class="BtnRed" href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
@@ -161,8 +162,10 @@ ${self.master_foot()}
 
 <%def name="header_navigation()">
 	<ul class="navigation">
-		%for title, path, token in app_globals.globalnav:
-			<li class="floaterLeft ${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+		%for title, path, token, enabled in app_globals.globalnav:
+			%if enabled:
+				<li class="floaterLeft ${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+			%endif
 		%endfor
 	</ul>
 </%def>
