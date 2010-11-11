@@ -234,20 +234,20 @@ class ContributionController(BaseController):
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
 	
 	def success(self, pool_url):
-		c.contrib = websession.pop('contribution', None)
+		c.contrib = websession.get('contribution', None)
 		if not c.contrib:
-			return abort(404)
+			return redirect(url("get_pool", pool_url=pool_url))
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None or c.pool.product.is_virtual:
+		if c.pool is None:
 			return abort(404)
 		c.has_fees = c.contrib.amount < c.contrib.total
 		return render('/contribution/contribution_result_success.html')	
 	def fail(self, pool_url):
-		c.contrib = websession.pop('contribution')
+		c.contrib = websession.get('contribution')
 		if not c.contrib:
-			return abort(404)
+			return redirect(url("get_pool", pool_url=pool_url))
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None or c.pool.product.is_virtual:
+		if c.pool is None:
 			return abort(404)
 		c.has_fees = c.contrib.amount < c.contrib.total
 		return render('/contribution/contribution_result_fail.html')

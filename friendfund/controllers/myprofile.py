@@ -24,6 +24,28 @@ class MyprofileController(BaseController):
 		return self.render('/myprofile/index.html')
 	
 	@logged_in(ajax=False)
+	@jsonify
+	def getfriends(self, pmethod):
+		c.method = str(pmethod)
+		if c.method in ['facebook', 'twitter']:
+			is_complete = True
+			offset = 0
+			try:
+				c.friends, is_complete, offset = c.user.get_friends(c.method)
+			except UserNotLoggedInWithMethod, e:
+				if c.method == 'facebook':
+					result = self.ajax_messages()
+					result['data'] = {'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}
+					return result
+				else: 
+					result = self.ajax_messages()
+					result['data'] = {'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}
+					return result
+			return {'html':render('/receiver/networkfriends.html').strip()}
+		else:
+			return {'html':render('/receiver/inviter.html').strip()}
+	
+	@logged_in(ajax=False)
 	def save(self):
 		c.myprofile_values = {}
 		c.myprofile_errors = {}

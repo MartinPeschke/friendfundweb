@@ -1,8 +1,8 @@
 <%inherit file="../master.html"/>
 <%namespace name="html" file="/widgets/html_elems.html"/>
 
-<%def name="title()">${_("PAYMENT_SUCCESS_TITLE")}</%def>
-<%def name="page_slogan()"><div id="page_slogan">${_("PAYMENT_SUCCESS_HEADING")}</div></%def>
+<%def name="title()">${_("CONTRIBSUCCESSPAGE_FAIL_TITLE")}</%def>
+<%def name="page_slogan()"><div id="page_slogan">${_("CONTRIBSUCCESSPAGE_FAIL_HEADING")}</div></%def>
 
 
 <div id="paymentdetailscontainer" class="innerbody">
@@ -27,10 +27,9 @@
 		<div class="panel_content white">
 			<h1>${_("CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?")}</h1>
 		</div>
-		<div style="position:relative;margin:0px 20px;width:880px;float:left;">
+		<div style="position:relative;margin:0px;width:920px;float:left;">
 			<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
 			<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 		</div>
 	</div>
-	${html.clearline(20)|n}
 </div>

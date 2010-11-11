@@ -1,36 +1,22 @@
 <%inherit file="../master.html"/>
 <%namespace name="html" file="/widgets/html_elems.html"/>
 
-<%def name="title()">${_("PAYMENT_SUCCESS_TITLE")}</%def>
-<%def name="page_slogan()"><div id="page_slogan">${_("PAYMENT_SUCCESS_HEADING")}</div></%def>
+<%def name="title()">${_("CONTRIBSUCCESSPAGE_SUCCESS_TITLE")}</%def>
+<%def name="page_slogan()"><div id="page_slogan">${_("CONTRIBSUCCESSPAGE_SUCCESS_HEADING")}</div></%def>
+
+<%def name="onloadscripts()">
+	onLoadPagelets("birthdayselector");
+</%def>
 
 
-<div id="paymentdetailscontainer" class="innerbody">
-	<div class="panel_title">
-		${_("PAYMENT_DETAILS_Total Amount:")}
-	</div>
-	<div class="panel_content white">
-		<div id="payment_details_amount">
-			${_("PAYMENT_DETAILS_You are chipping in:")}
-			<div class="floaterRight amount clearer">${h.format_currency(c.contrib.get_amount(), c.contrib.currency)|n}</div>
-			%if c.has_fees:
-				<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)|n}</div>
-			%endif
-			<div class="floaterRight amount clearer totalsum"><span class="total_label">${_("CONTRIBPAGE_LABEL_Total")}</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)|n}</div>
+<div id="paymentdetailscontainer">
+	<div class="white floaterLeft" style="padding-bottom: 15px;">
+		<img src="${c.pool.receiver.get_profile_pic()}"  style="padding: 5px 15px 0px 0px;" class="floaterLeft"/>
+		<div class="floaterLeft" style="width:700px">
+			<h1>${(_("CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!")%dict([("receiver",c.pool.receiver.get_receiver_label())]))|n}</h1>
 		</div>
 	</div>
-	
-	<div id="payment_details_status">
-	<div class="panel_title">
-		${_("CONTRIBSUCCESSPAGE_LABEL_Payment accepted")}
-	</div>
-	<div class="panel_content white floaterLeft" style="padding-bottom: 15px;">
-		<img src="${c.pool.receiver.get_profile_pic()}"  style="padding: 5px 15px 0px 0px;" class="floaterLeft"/>
-		<div class="floaterLeft" style="width:700px"><h1>
-			${(_("CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!")%dict([("receiver",c.pool.receiver.get_receiver_label())]))|n}
-		</h1></div>
-	</div>
-	
+
 	%if getattr(c, 'show_delay', False):
 		<div class="panel_title floaterLeft">
 			${_("CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice")}
@@ -43,10 +29,18 @@
 		</div>
 	%endif
 	
-	<div style="position:relative;padding:0px 0px 20px 20px;width:880px;float:left;">
+	<div class="innerbody floaterLeft" id="birthdayselector" style="width:920px;">
+		<div class="panel_title">
+			${_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?")}
+		</div>
+		
+		<div id="friend_list" class="pagelet" pagelet_href="${url('getfriends', pmethod='facebook')}">
+			${html.loading_animation()|n}
+		</div>
+	</div>
+	
+	<div style="position:relative;margin:0px;width:920px;float:left;">
 		<a class="submitSmallLeft" href="${url('controller', controller='mypools', protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Visit My Pools")}</span></a>
 		<a class="submitSmall" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>
-	</div>
-	${html.clearline(20)|n}
 </div>

@@ -147,7 +147,6 @@ div.frontpagebutton {
 	background-color:#bbe3f7;
 	width:229px;
 	height:297px;
-	padding:0px 3px 3px 0px;
 	margin: 1px;
 }
 div.frontpagebutton.first {width:230px;margin: 1px 1px 1px 0px;}
@@ -679,20 +678,22 @@ div.panel_title a.methodselector.ajaxlink span {
 	overflow:auto;
 }
 
-#friend_list .invitee_row, #invited .invitee_row {
+.invitee_row {
 	position: relative;
 	padding-bottom: 5px;
 	border-bottom: 1px solid #ccc;
 	height: 50px;
 }
 
-#receiver_selector_container .invitee_row{
-	/*front page only*/
-	margin:5px 10px 0px 18px;
-	float: left;
-	width: 250px;
-}
-#receiver_selector_container .invitee_row span.label{ width:170px; }
+#receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 250px;}
+#receiver_selector_container .invitee_row span.label{ width:170px;}
+/*invite page only*/
+#lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
+#lowerbody_container .invitee_row span.label{ width:250px;}
+
+#birthdayselector .invitee_row { width: 250px; margin:0px;float:None;margin:5px 10px 0px 18px;float: left;}
+#birthdayselector .invitee_row span.label{ width:170px;}
+
 
 
 div#lowerbody_container {
@@ -707,11 +708,6 @@ div#lowerbody_container {
 div#lowerbody_container.fullbackground{background-color: #BBE3F7;}
 div#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
 div#lowerbody {margin: 0px 30px 0px 30px;}
-#lowerbody_container .invitee_row {
-	/*invite page only*/
-	margin: 5px 5px 0px 5px;
-}
-#lowerbody_container .invitee_row span.label{ width:250px;}
 
 #invited .invitee_row img, #friend_list .invitee_row img {
 	width: 50px;
