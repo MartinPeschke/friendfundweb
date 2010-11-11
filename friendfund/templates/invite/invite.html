@@ -18,7 +18,6 @@
 			fb_api_key : "",
 			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"
 		});
-	page.selector.${c.method}.draw();
 	
 	page_reloader = dojo.hitch(null, page.prepareSubmit, page);
 </%def>
