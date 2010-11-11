@@ -45,7 +45,10 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		for (var elem in _t.selected_elems){
 			complete = _t.selected_elems[elem] && complete;
 		}
-		if(complete===true){dojo.removeClass("funders_button", "inactive");}
+		if(complete===true){
+			dojo.removeClass("funders_button", "inactive");
+			dojo.addClass("funders_panel", "front_panel_active");
+		}
 		return complete;
 	},
 	set_complete : function(_t, action){
@@ -92,7 +95,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		if(picker){picker.destroy();}
 		dojo.query("*", _t.ref_node).orphan();
 		dojo.query(_t.ref_node).style("display", "None");
-		dojo.query(".front_panel_active", _t.config_node).removeClass("front_panel_active");
+		dojo.query(".enabled.front_panel_active", _t.config_node).removeClass("front_panel_active");
 		dojo.query("a.opened", _t.config_node).removeClass("opened");
 		if(success === true){
 			var node = dojo.byId("top");
