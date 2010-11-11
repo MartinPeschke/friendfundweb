@@ -1,6 +1,9 @@
 import ordereddict, types, collections
 from xml.sax.saxutils import quoteattr, escape
 from datetime import datetime, date
+import logging
+
+log = logging.getLogger(__name__)
 
 #############################################################################################
 ##################### Database Types and Objects ############################################

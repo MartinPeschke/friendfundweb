@@ -108,11 +108,11 @@ class ProductController(BaseController):
 		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
 		product['is_virtual'] = strbool.to_python(product['is_virtual'])
 		product['is_curated'] = strbool.to_python(product['is_curated'])
-		g.product_service.set_product(product, request)
-		print websession.get('pool').product
+		
+		websession['pool'] = g.product_service.set_product(websession.pop('pool') or Pool(), product, request)
+		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
 
-	
 	@jsonify
 	def verify_dates(self):
 		c.region = request.params.get('region', websession['region'])

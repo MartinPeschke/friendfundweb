@@ -177,3 +177,15 @@ dojo.require("dojox.widget.rotator.Pan");
 	});
 
 })(dojo);
+
+
+
+
+
+
+
+
+
+
+
+

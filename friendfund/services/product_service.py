@@ -188,9 +188,8 @@ class ProductService(object):
 			product = productresult.product
 		return product
 	
-	def set_product(self, product, request):
+	def set_product(self, pool, product, request):
 		tmpl_context = self.setup_region(request)
-		
 		if product['is_amazon']:
 			product = self.amazon_services[tmpl_context.region].get_product_from_guid(product['guid'])
 		elif product['is_virtual']:
@@ -205,9 +204,7 @@ class ProductService(object):
 				return self.ajax_messages(_("POOL_CREATE_Product not Found"))
 			product = productresult.product
 		
-		tmpl_context.pool = websession.get('pool') or Pool()
-		tmpl_context.pool.product = product
-		tmpl_context.pool.region = tmpl_context.region
-		websession['pool'] = tmpl_context.pool
-		return tmpl_context
+		pool.product = product
+		pool.region = tmpl_context.region
+		return pool
 	
