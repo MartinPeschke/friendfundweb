@@ -100,7 +100,6 @@ class CreditCardPayment(PaymentMethod):
 		
 		contribution.ref = contrib.ref
 		paymentresult = self.paymentGateway.authorize(contribution)
-		del websession['contribution']
 		payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
 		notice = DBPaymentInitialization(\
 					ref = contrib.ref\
@@ -117,8 +116,11 @@ class CreditCardPayment(PaymentMethod):
 			raise DBErrorAfterPayment(e)
 		g.dbm.expire(Pool(p_url = pool_url))
 		tmpl_context.success = (paymentresult['resultCode'] == 'Authorised')
-		if tmpl_context.success : remote_pool_picture_render.delay(pool_url)
-		return {'data':{'html':renderer('/contribution/payment_success.html').strip()}}
+		if tmpl_context.success : 
+			remote_pool_picture_render.delay(pool_url)
+			return {'redirect':url('contribution', pool_url=pool_url, action='success', token=tmpl_context.form_secret)}
+		else:
+			return {'redirect':url('contribution', pool_url=pool_url, action='fail', token=tmpl_context.form_secret)}
 
 
 class RedirectPayment(PaymentMethod):
@@ -214,6 +216,6 @@ class VirtualPayment(PaymentMethod):
 		tmpl_context.pool_fulfilled = False
 		tmpl_context.show_delay = False
 		tmpl_context.contrib = contribution
-		return renderer('/contribution/payment_details.html')
+		return renderer('/contribution/contribution_result_success.html')
 	def check_totals(self, base, total):
 		return True

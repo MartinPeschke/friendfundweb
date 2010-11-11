@@ -46,10 +46,12 @@ class ContributionController(BaseController):
 								, 'anonymous':c.contrib.anonymous and 'yes' or 'no'
 								, 'message':c.contrib.message
 							}
-		c.success = request.params.get('authResult') == 'AUTHORISED'
 		c.pool_fulfilled = False
 		c.show_delay = c.contrib.paymentmethod in ['paypal','directEbanking']
-		return self.render('/contribution/payment_details.html')
+		if request.params.get('authResult') == 'AUTHORISED':
+			return self.render('/contribution/contribution_result_success.html')
+		else:
+			return self.render('/contribution/contribution_result_fail.html')
 	
 	@logged_in(ajax=False)
 	def chipin_fixed(self, pool_url):
@@ -182,7 +184,6 @@ class ContributionController(BaseController):
 	
 	@logged_in(ajax=True)
 	@no_blocks(ajax=True)
-	@jsonify
 	def creditcard(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None or c.pool.product.is_virtual:
@@ -230,6 +231,29 @@ class ContributionController(BaseController):
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
 		except DBErrorAfterPayment, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
+	
+	def success(self):
+		c.contrib = websession.pop('contribution')
+		if not c.contrib:
+			return abort(404)
+		c.has_fees = c.contrib.amount < c.contrib.total
+		return render('/contribution/contribution_result_success.html')	
+	def fail(self):
+		c.contrib = websession.pop('contribution')
+		if not c.contrib:
+			return abort(404)
+		c.has_fees = c.contrib.amount < c.contrib.total
+		return render('/contribution/contribution_result_fail.html')
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	def service(self):
 		"""basic auth: adyen/4epayeguka7ew43frEst5b4u"""
