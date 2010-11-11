@@ -60,7 +60,6 @@ class PoolController(BaseController):
 	def create(self):
 		params = formencode.variabledecode.variable_decode(request.params)
 		c.pool = websession.get('pool')
-		print params, c.pool.product
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
@@ -305,7 +304,6 @@ class PoolController(BaseController):
 		product['is_virtual'] = strbool.to_python(product['is_virtual'])
 		product['is_curated'] = strbool.to_python(product['is_curated'])
 		
-		print product
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		region=c.psettings.region
 		product = g.product_service.getaltproduct(product, region)

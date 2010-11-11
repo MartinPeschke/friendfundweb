@@ -170,7 +170,6 @@ class PoolUser(DBMappedObject):
 			if params['network'] == 'email':
 				params['email'] = params.pop('network_id')
 			params['is_selector'] = False
-			print params
 			return PoolUser(**dict((str(k),v) for k,v in params.iteritems()))
 
 class PoolInvitee(PoolUser):

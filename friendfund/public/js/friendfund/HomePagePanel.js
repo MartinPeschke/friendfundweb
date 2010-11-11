@@ -208,9 +208,12 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		params["product.is_virtual"] = selection_args.is_virtual;
 		params["product.is_curated"] = selection_args.is_curated;
 		params["product.is_amazon"] = selection_args.is_amazon;
-		loadElement("/product/set", "product_panel", params, dojo.hitch(null, _t.set_complete, _t, 'product'));
-		_t.verify_dates(_t, selection_args);
-		_t.unload(_t, true);
+		loadElement("/product/set", "product_panel", params, 
+			function(){
+				_t.set_complete(_t, 'product');
+				_t.verify_dates(_t, selection_args);
+				_t.unload(_t, true);
+		});
 	},
 	/*--------------- RECEIVER PANELS --------------*/
 	

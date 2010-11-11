@@ -87,16 +87,16 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund._Selector, {
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
 	},draw : function(_t){
-		page_reloader = dojo.hitch(_t, _t.draw);
+		page_reloader = dojo.hitch(_t, _t.draw, _t);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 		dojo.place(_t._loader, _t.ref_node, "only");
 		if(_t._backup_node){
 			_t.onLoad(_t, {html:_t._backup_node, is_complete:true});
-			_t._to_append_nodes.forEach(function(elem){
-				if(_t.mutuals === true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden");}
-				dojo.place(elem, _t.inviter_node, "last");
-			});
-			_t._to_append_nodes = [];
+			while(_t._to_append_nodes.length){
+				var e=_t._to_append_nodes.pop();
+				if(_t.mutuals === true && dojo.hasClass(e, 'nonmutual')){dojo.addClass(e, "hidden");}
+				dojo.place(e, _t.inviter_node, "last");
+			}
 			_t._backup_node = null;
 		} else if (!_t.is_selected(_t) || _t.is_loading !== true){
 			_t.is_loading = true;
