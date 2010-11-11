@@ -69,7 +69,29 @@ class ContributionController(BaseController):
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')
 		return self._check_chip_in_details(pool_url)
+	
+	@logged_in(ajax=False)
+	def virtual(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			return abort(404)
+		c.action = 'chipin'
+		if not c.pool.is_contributable():
+			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
+		try:
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+		except NotAllowedToPayException, e:
+			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
+			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		
+		contrib = Contribution(agreedToS=True, is_secret=False,anonymous=False, message="")
+		contrib.currency = c.pool.currency
+		contrib.set_amount(1)
+		contrib.set_total(1)
+		contrib.paymentmethod = c.paymentpage.methods[0].code
+		return g.payment_service.process_payment(c, contrib, pool_url, render, redirect)
+	
 	@logged_in(ajax=False)
 	def chipin(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)

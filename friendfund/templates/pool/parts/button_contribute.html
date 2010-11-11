@@ -12,19 +12,21 @@
 			%if pool.am_i_contributor(c.user):
 				<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
 			%else:
-				<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
-				<a class="somelink" href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol=app_globals.SSL_PROTOCOL)}"><img src="/static/imgs/currencies/pog_large.png"/> 
+				<div class="centered">
+					<a href="${url('contribution', pool_url=pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
+				</div>
+				<a class="somelink" href="${url('contribution', pool_url=pool.p_url, action='virtual')}"><img src="/static/imgs/currencies/pog_large.png"/> 
 					<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
 				</a>
 			%endif
 		%else:
-			<div class="centered"><a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a></div>
-			<a href="${url(controller='pool', pool_url=pool.p_url, action='chipin', protocol=app_globals.SSL_PROTOCOL)}"><img src="/static/imgs/icons_paymethod.png"/></a>
+			<div class="centered">
+				<a href="${url('chipin', pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
+			</div>
+			<a href="${url('chipin', pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL)}"><img src="/static/imgs/icons_paymethod.png"/></a>
 		%endif
 		
 	</div>
-	
-	
 	
 	<div style="width:220px;margin:30px auto 0 auto;">
 	<%html:button href="${url('invite_index', controller='invite', pool_url=pool.p_url)}">${_("POOL_BUTTON_Invite more Friends")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>

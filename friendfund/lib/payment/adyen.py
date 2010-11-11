@@ -62,6 +62,8 @@ class PaymentMethod(object):
 		raise UnsupportedPaymentMethod('process')
 	def verify_signature(self, params):
 		raise Exception('NotImplemented')
+	def setup(self):
+		return None
 	
 class CreditCardPayment(PaymentMethod):
 	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
