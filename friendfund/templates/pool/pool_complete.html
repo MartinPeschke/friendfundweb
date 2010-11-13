@@ -1,6 +1,7 @@
 <%inherit file="../master.html"/>
 <%namespace name="links" file="../links.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="thankyou" file="parts/receiver_thank_you.html"/>
 <%def name="title()">${_("POOL_PAGE_TITLE_Pool Completed!")}</%def>
 
 <% 
@@ -27,7 +28,7 @@
 		<div class="rcptThankYouNotice">
 			<span class="triangle"></span>
 			<div class="heading margin">Jenifer Says:</div>
-			<div class="rcptThankYou">Hoiy Guys! thanks so much for the present awrfglkhbrg werg wfrg qwrgw egrrg qerg rgw ergweg wegwetwet gwretggherth </div>
+			<div class="rcptThankYou">${thankyou.view(c.pool)|n}</div>
 		</div>
 		
 		<div class="rcptProductPicture">
