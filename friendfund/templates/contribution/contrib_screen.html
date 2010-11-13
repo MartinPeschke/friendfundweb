@@ -8,8 +8,8 @@
 </%def>
 
 <%def name="headscripts()">
-	var thous_sep="${h.get_thous_sep()}";
-	var dec_sep="${h.get_dec_sep()}"
+	var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+	var thous_sep="${h.get_thous_sep()}";var dec_sep="${h.get_dec_sep()}"
 	var update_costs_hint = function(evt){
 		dojo.byId("label_absolute_fees").innerHTML=parseInt(dojo.attr(this, "_fee_absolute"));
 		dojo.byId("label_relative_fees").innerHTML=parseInt(dojo.attr(this, "_fee_relative"));
@@ -40,9 +40,13 @@
 	<form method="POST" action="${url(c.action, pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contribution_form">
 		<div class="message floaterLeft">
 		<div class="whiteBoxSmall floaterLeft">
-			<div class="floaterLeft marginRight45">
+			<div class="floaterLeft marginRight30">
 			<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
-			${forms.input_textarea("chipin","message", "")}
+			<textarea wrap=physical cols="30" rows="3" 
+							onKeyDown="textCounter(this,this.form.remLen,140);" 
+							onKeyUp="textCounter(this,this.form.remLen,140);" 
+							name="chipin.message" id="chipin_message">${c.chipin_values.get("message", c.pool.get_my_message(c.user))}</textarea>
+			<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user) or ''))}"> 
 			</div>
 			%if not c.paymentpage.is_virtual:
 			<div class="floaterLeft"> 

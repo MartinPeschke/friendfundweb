@@ -124,7 +124,7 @@ xhrErrorHandler = function(data,xhrobj,evt){
 loadFormElement = function(url, node, form, callback){
 	place = function(node, data){
 		if(data.success===true){
-			callback();
+			callback(data.html);
 		} else {
 			dojo.place(data.message, dojo.byId(node), "only");
 		}

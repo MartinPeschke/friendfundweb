@@ -4,7 +4,7 @@
 <%namespace name="html" file="/widgets/html_elems.html"/>
 <%namespace name="actions" file="actions/settings_action.html"/>
 <%namespace name="actions_content" file="actions/settings_action_content.html"/>
-
+<%namespace name="description" file="parts/description.html"/>
 
 <%def name="scripts()">
 
@@ -103,22 +103,11 @@
 	<div id="page_slogan">${_("POOLSETTINGS_LABEL_Pool Admin")}</div>
 </%def>
 
+	
+	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
+	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
+	${html.clearline(15)|n}
 <div id="poolsettings" class="innerbody">
-	<div  class="panel_title" >
-		${_("POOLSETTINGS_LABEL_Change Your Message:")}
-	</div>
-	<div class="messageContainer messageContainerlong">
-		<form id="description_form" method="POST">
-			<img src="${c.pool.admin.get_profile_pic()}"/>
-			<textarea cols="60" rows="5" name="description">${c.psettings.description}</textarea>
-			<div style="position:absolute; right:30px;bottom:15px;">
-				<a class="Save" onclick="xhrFormPost('${url(controller='pool', pool_url=c.pool_url, action='set_description')}', 'description_form');">
-					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
-			</div>
-		</form>
-	</div>
-	
-	
 	%if c.psettings.is_funded() or c.psettings.actions:
 	<div  class="panel_title" style="clear:both">
 		${_("POOLSETTINGS_LABEL_Actions:")}

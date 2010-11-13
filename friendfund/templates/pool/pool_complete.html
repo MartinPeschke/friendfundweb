@@ -10,6 +10,7 @@
 	i_can_view = c.pool.can_i_view(c.user)
 	locals = {"number_contributors": c.pool.get_number_of_contributors(),
 			  "number_invitees":len(c.pool.invitees)+1}
+	word_truncate = 200
 %>
 
 <div style="clear:both;padding-top:1px;"></div>
@@ -34,8 +35,8 @@
 			<div class="rcptGiftIcon"></div>
 		</div>
 		<div class="rcptProductText">
-			<div class="heading">Rodney the Bodyguard</div>
-			<div class="rcptProductTextBody">Hoiy Guys! thanks so much for the present awrfglkhbrg werg wfrg qwrgw egrrg qerg rgw ergweg wegwetwet gwretggherth </div>
+			<div class="heading">${c.pool.product.name}</div>
+			<div class="rcptProductTextBody">${h.word_truncate_by_letters(c.pool.product.description_long, word_truncate)|n}</div>
 		</div>
 	</div>
 	<div class="pcontBodyComplete">
@@ -57,7 +58,7 @@
 		<div class="ctrbrText">
 			<span class="triangle"></span>
 			<div class="heading margin">${invitee.name}</div>
-			<div class="rcptContribMsg">contruibuted message vdasiouhsrg .frgiufrg awfrghfr ,wrglkjfrlijbqwfg wrgb9udapsgwr</div>
+			<div class="rcptContribMsg">${invitee.message}</div>
 		</div>
 	</div>
 </%def>

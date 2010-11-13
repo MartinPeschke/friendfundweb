@@ -438,7 +438,6 @@ a.panel_closer {
 	min-height:75px;
 	height:auto !important;  /* für moderne Browser */
 	height:75px;  /*für den IE */
-	
 	width: 830px;
 	float: right;
 	background-color: #BBE3F7;
@@ -1194,7 +1193,7 @@ span.showme a.showme:hover{color: #c11164; text-decoration: underline !important
 #contributioncontainer h2{ font-family: "Trebuchet MS"; font-size: 20px; font-weight: bold; color: #5a4129; margin: 0; padding: 0; line-height: 20px; font-style: italic; padding:0 0 10px;}
 .whiteBoxSmall{ background: white; width: 850px; margin-top: 10px;  padding: 15px}
 #contributioncontainer input{ height: 24px; margin: 10px 5px 0 0;}
-#contributioncontainer input[type=text]{ border: 1px solid #666;}
+#contributioncontainer input[type=text]{ border: 1px solid #666;padding:4px 4px 0px 2px;}
 #contributioncontainer input[type=text].contrib_amount{ text-align:right;width:100px }
 span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; padding-top: 10px}
 #chipin_anonymous{ margin: 0 !important}
@@ -1211,7 +1210,9 @@ span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; pad
 #contributioncontainer .radioContainer input, #contributioncontainer .radioContainer2 input, #contributioncontainer .payement_method input{ margin: 0; height: 13px}
 #contributioncontainer .radioContainer label, #contributioncontainer .radioContainer2 label,  #contributioncontainer .payement_method label{ display: inline}
 .radioContainer2 div{ padding-bottom: 3px} 
-#chipin_message{ width: 383px; margin-bottom: 20px }
+#chipin_message{ width: 380px; margin-bottom: 20px;float:left}
+#chipin_message_remLen{float:left;text-align:right;width:25px;margin:0 0px 0px 10px !important;}
+
 .heightAuto{ height: auto !important}
 .terms{ float: left; width:850px; padding-top: 0px}
 .payement_method{ float: left;}
@@ -1239,6 +1240,7 @@ div.black_labeled_container .black_labeled_input div.dijitInputField {
 	color:#FFFFFF;
 	margin:2px 5px 0 !important;
 }
+.marginRight30{ margin-right: 30px; width:425px;}
 .marginRight45{ margin-right: 45px; width:410px;}
 
 
@@ -1280,7 +1282,7 @@ div.black_labeled_container .black_labeled_input div.dijitInputField {
 #poolresult .title {color:#B70158;padding: 30px 30px 15px 30px;font-family:"Trebuchet MS", Arial, sans-serif; font-size:28px;text-shadow:0 1px 0 #777;font-weight:bold}
 #poolresult .margin {margin: 5px 10px 5px 10px;}
 #poolresult .heading {font-family:"Trebuchet MS", Arial, sans-serif; font-weight:bold;font-size:14px;text-shadow:0 1px 0 #ccc;}
-#poolresult .inside {margin: 0px 0px 0px 30px;clear:both}
+#poolresult .inside {margin:0px;padding: 0px 0px 15px 30px;clear:both;float:left;width:700px;}
 
 .rcptPicture {background:white;width:310px;height:225px;float:left;margin: 0px 30px 15px 30px;border:#ccc solid 2px;position:relative;}
 .rcptPicture img {width:205px;height:205px;margin:10px 48px;}
@@ -1299,6 +1301,9 @@ div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc
 
 .rcptRibbon {background:url("../imgs/pool_result_ribbon.png") no-repeat scroll 0 0 transparent;height:185px;position:absolute;right:-7px;top:-25px;width:319px;z-index:2;}
 
-.pcontBodyComplete {margin: 0px 0px 30px 0px;clear:both;float:left;}
+.pcontBodyComplete {margin: 15px 0px 30px 0px;clear:both;float:left;}
 .pcontBodyComplete img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 0px 0px 15px 30px;}
 .ctrbrText{position: relative;height: 75px;width: 230px;margin: 0px 0px 15px 10px;background-color:#bbe3f7; float:right}
+
+
+.editIcon {position:absolute;display:block;width:30px;height:41px;top:10px;right:-10px;background:url("../imgs/edit-icon.png") no-repeat scroll 0px 0px transparent;cursor:pointer}

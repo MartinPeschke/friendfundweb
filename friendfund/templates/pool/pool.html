@@ -2,6 +2,7 @@
 <%namespace name="links" file="../links.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="center_button" file="parts/center_button.html"/>
+<%namespace name="description" file="parts/description.html"/>
 <%def name="title()">${_("POOL_PAGE__TITLE_Pool")}</%def>
 
 <% 
@@ -38,8 +39,7 @@
 <div id="pool_admin_slogan">
 	<div class="slogan">
 		%if i_can_view:
-			<div class="admin">${c.pool.admin.name}:</div> 
-			${c.pool.description}
+			${description.view(c.pool)|n}
 		%else:
 			%if i_am_anon:
 				<div class="admin">${_("POOL_PAGE_This is a secret pool.")}</div> ${_("POOL_PAGE_If u have been invited, please login.")}
@@ -50,12 +50,11 @@
 	</div>
 </div>
 <div id="pool_admin_pic">
-%if i_can_view:
-	<img src="${c.pool.admin.get_profile_pic()}"/>
-%else:
-	<img src="/static/imgs/default_m_PROFILE_M.png"/>
-%endif
-
+	%if i_can_view:
+		<img src="${c.pool.admin.get_profile_pic()}"/>
+	%else:
+		<img src="/static/imgs/default_m_PROFILE_M.png"/>
+	%endif
 </div>
 
 ${html.clearline()|n}
