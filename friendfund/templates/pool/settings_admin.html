@@ -1,32 +1,34 @@
 <%inherit file="../master.html"/>
+<%namespace name="links" file="/links.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
 <%namespace name="html" file="/widgets/html_elems.html"/>
 <%namespace name="actions" file="actions/settings_action.html"/>
 <%namespace name="actions_content" file="actions/settings_action_content.html"/>
 
+
+<%def name="scripts()">
+
+	${links.js('friendfund/ProductSearch.js')}
+</%def>
+
 <%def name="headscripts()">
-		dojo.require("dojo.NodeList-manipulate");
-		dojo.require("friendfund.ProductSearch");
-		dojo.require("dojo.date.locale");
-		dojo.require("dijit.form.DateTextBox");
 		
 		order_gift = function(){
 			var shipexists = dojo.every(dojo.query("span.requiredvalue", "shippingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
 			var billexists = dojo.every(dojo.query("span.requiredvalue", "billingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
 			if(!shipexists){
 				dojo.animateProperty(
-					{node: dojo.byId("shippingAddressContainer"),duration: 1000,
+					{node: "shippingAddressContainer",duration: 1000,
 						properties: {
 							backgroundColor: {start: "red", end: "#fff"}
 						}}).play();
 			} else if (!billexists) {
 				dojo.animateProperty(
-					{node: dojo.byId("billingAddressContainer"),duration: 1000,
+					{node: "billingAddressContainer",duration: 1000,
 						properties: {
 							backgroundColor: {start: "red", end: "#fff"}
 						}}).play();
 			} else {
-				console.log("saving");
 				window.location.href = "${url('pool_action', controller='pool', pool_url=c.psettings.p_url, action='close')}";
 				return;
 			}
@@ -45,30 +47,29 @@
 		
 		var open_actionpanel = function(evt){
 			var action = dojo.attr(this, "_action");
-			var datestamp = "datestamp_"+action;
-			var extender = dojo.byId("actionextender_"+action);
-			if(dojo.hasClass(extender, "hidden")){ 
-				/* show */
-				dojo.byId("poolactioncontent").className = action;
-				dojo.query(".opened", "poolactions").forEach(
-					function(elem){
-						dojo.removeClass(elem, "opened");
-						dojo.addClass(elem, "hidden");
-					});
-				dojo.removeClass(extender, "hidden");
-				dojo.query(".extender", this.parentNode).removeClass("hidden").addClass("opened");
-				dojo.addClass(extender, "opened");
-				dojo.parser.parse(dojo.byId("poolactions"));
-			
-				if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
-					productsearch.draw(productsearch);
+			if(action){
+				var datestamp = "datestamp_"+action;
+				var extender = dojo.byId("actionextender_"+action);
+				if(dojo.hasClass(extender, "hidden")){ 
+					/* show */
+					dojo.byId("poolactioncontent").className = action;
+					dojo.query(".opened", "poolactions").forEach(
+						function(elem){
+							dojo.removeClass(elem, "opened");
+							dojo.addClass(elem, "hidden");
+						});
+					dojo.removeClass(extender, "hidden");
+					dojo.query(".extender", this.parentNode).removeClass("hidden").addClass("opened");
+					dojo.addClass(extender, "opened");
+					dojo.parser.parse(dojo.byId("poolactions"));
+				
+					if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
+						productsearch.draw(productsearch);
+					}
+				} else {  /* hide */
+					closeElement(this);
 				}
-			} else {  /* hide */
-				closeElement(this);
 			}
-		evt.stopPropagation();
-		evt.preventDefault();
-		return false;
 		}
 </%def>
 <%def name="onloadscripts()">

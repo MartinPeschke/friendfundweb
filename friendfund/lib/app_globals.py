@@ -53,7 +53,8 @@ class Globals(object):
 		self.debug = config['debug']
 		self.test = config['test'] == 'true'
 		if self.debug:
-			self.revision_identifier = lambda: random()
+			self.rv = random()
+			self.revision_identifier = lambda: self.rv
 		else:
 			self.revision_identifier = lambda: REVISION_ENDING
 		app_conf = config['app_conf']

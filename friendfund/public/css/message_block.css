@@ -675,57 +675,19 @@ text-align:center;
 }
 
 /*=========================================== Contributors ===========================================*/
-#pool_contributors{
-	position: relative;
-	width: 920px;
-	margin-left: 30px
-}
-#pool_contributors div.heading{
-	margin: 30px 0px 10px 0px;
-	color: #333;
-	font-size: 20px;
-	font-weight: bold;
-	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
-}
+#pool_contributors{position: relative;width: 920px;margin-left: 30px}
+#pool_contributors div.heading{margin: 30px 0px 10px 0px;color: #333;font-size: 20px;font-weight: bold;font-family:Trebuchet MS, Arial, Helvetica, sans-serif;}
+.pcont_body .contributor_leftcol{position: relative;	width: 330px;float: left;}
+.pcont_body .contributor_rightcol{position: relative;width: 330px;float: right;}
+.pcont_body .contributor{position: relative;height: 85px;width: 330px;margin: 0px 0px 15px 0px;background-color: #bbe3f7;}
+.pcont_body img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 5px;}
+.pcont_body .contributor_name{position: relative;padding: 5px;}
+.pcont_body .contributor_amount {float: right;margin-top: 10px;padding-right: 10px;font-weight: bold;font-size: 18px;font-family: Arial, Helvetica, sans-serif;}
 
-#pool_contributors div.pcont_body div.contributor_leftcol{
-	position: relative;
-	width: 330px;
-	float: left;
-}
-#pool_contributors div.pcont_body div.contributor_rightcol{
-	position: relative;
-	width: 330px;
-	float: right;
-}
-#pool_contributors div.pcont_body div.contributor{
-	position: relative;
-	height: 85px;
-	width: 330px;
-	margin: 0px 0px 15px 0px;
-	background-color: #bbe3f7;
-}
+.pcontBodyComplete {margin: 0px 0px 30px 0px;clear:both;float:left;}
+.pcontBodyComplete img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 5px 0px 5px 30px;}
+.ctrbrText{position: relative;height: 75px;width: 225px;margin: 5px 0px 0px 15px;background-color:#bbe3f7; float:right}
 
-#pool_contributors div.pcont_body div.contributor img.contributor{
-	position: relative;
-	width: 75px;
-	height: 75px;
-	float: left;
-	margin: 5px;
-}
-#pool_contributors div.pcont_body div.contributor div.contributor_name{
-	position: relative;
-	padding: 5px;
-}
-
-#pool_contributors div.pcont_body div.contributor div.contributor_amount {
-	float: right;
-	margin-top: 10px;
-	padding-right: 10px;
-	font-weight: bold;
-	font-size: 18px;
-	font-family: Arial, Helvetica, sans-serif;
-}
 
 /*============================ CONTRIBUTOR ==========================*/
 
@@ -1294,3 +1256,44 @@ div.black_labeled_container .black_labeled_input div.dijitInputField {
 .pog_currency_symbol img.currency_symbol {position: relative;margin-top:-3px;top:3px;white-space:pre;}
 .pog_currency_symbol {font-family:Arial;font-weight:normal;position:relative;white-space:pre;}
 .pog_currency_symbol_subtype {height:1em;overflow:hidden;position:absolute;right:0;top:0;white-space:pre;}
+
+
+
+
+#poolresult{margin:90px auto;min-height:100px;width:720px;
+	border: 1px solid #E8E8E8;
+	border-bottom-left-radius: 10px 10px;
+	border-bottom-right-radius: 10px 10px;
+	border-top-left-radius: 10px 10px;
+	border-top-right-radius: 10px 10px;
+	-moz-border-radius:10px 10px 10px 10px;
+	-webkit-box-shadow: #777 0px 0px 10px;
+	-moz-box-shadow:0 0 10px #777;
+	box-shadow: 0 0 10px #777; /*CSS3 Standard*/
+	background: #F5FBFE; /* muss definiert werden, da sonst der IE jedem Kind-Element einen Schatten verpasst */
+	zoom: 1;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=0, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=45, Strength=4)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=90, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=135, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=180, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=225, Strength=4)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=260, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=305, Strength=4);
+}
+#poolresult .completeRcpt{float:left}
+#poolresult .title {color:#B70158;padding:30px;font-family:"Trebuchet MS", Arial, sans-serif; font-size:28px;text-shadow:0 1px 0 #777;font-weight:bold}
+#poolresult .margin {margin: 5px 10px 5px 10px;}
+#poolresult .heading {font-family:"Trebuchet MS", Arial, sans-serif; font-weight:bold;font-size:14px;text-shadow:0 1px 0 #ccc;}
+#poolresult .inside {margin: 0px 0px 0px 30px;clear:both}
+
+.rcptPicture {background:white;width:300px;height:225px;float:left;margin: 0px 15px 15px 30px;border:#ccc solid 2px;}
+.rcptPicture img {width:205px;height:205px;margin:10px 48px;}
+.rcptThankYouNotice {background: #ffe67d;width:345px;height:98px;float:left;position:relative;}
+.rcptThankYou {margin:0px 10px;}
+.rcptProductPicture {margin:15px 0px; background: #fff;width:150px;height:112px;float:left; border:#ccc solid 2px;}
+.rcptProductText {margin:15px 15px; width:180px;height:110px;float:left;}
+.rcptProductText .rcptProductTextBody {margin:10px 0 0 0 ;}
+
+.triangle {position:absolute;display:block;width:10px;height:30px;top:10px;left:-10px;background:url("../imgs/inputfield.png") no-repeat scroll -320px 0px transparent;}
+.ctrbrText .triangle{background-position:-344px 0px;}

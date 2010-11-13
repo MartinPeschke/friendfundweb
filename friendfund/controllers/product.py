@@ -109,7 +109,7 @@ class ProductController(BaseController):
 		product['is_virtual'] = strbool.to_python(product['is_virtual'])
 		product['is_curated'] = strbool.to_python(product['is_curated'])
 		
-		websession['pool'] = g.product_service.set_product(websession.pop('pool') or Pool(), product, request)
+		websession['pool'] = g.product_service.set_product(websession.get('pool') or Pool(), product, request)
 		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
 

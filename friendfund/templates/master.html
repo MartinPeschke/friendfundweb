@@ -91,16 +91,7 @@ ${self.master_foot()}
 	
 	
 	<!-- scripts -->
-	<script type="text/javascript"> 
-		djConfig = {
-			baseUrl: "./",
-			modulePaths: {
-				"friendfund": "/static/js/friendfund"
-			},
-			dojoBlankHtmlUrl : '/static/blank.html',
-			xdWaitSeconds: 10
-		};
-	</script> 
+	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/js/friendfund"},dojoBlankHtmlUrl : "/static/blank.html",xdWaitSeconds: 5};</script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" type="text/javascript"></script>
 	${links.js('fbinit.js')}
 	${links.js('loader.js')}
@@ -108,7 +99,8 @@ ${self.master_foot()}
 	<div id="badge_popup"><%include file="/messages/badge_popup.html"/></div>
 	<div id="generic_popup"></div>
 	<div id="blocking_msgs" class="${(not (getattr(c, 'blocks', False) and getattr(c, 'enforce_blocks', False))) and 'hidden' or ''}">
-			<%include file="/messages/blocks.html"/></div>
+		<%include file="/messages/blocks.html"/>
+	</div>
 	
 	<div id="fb-root"></div>
 	
@@ -134,19 +126,13 @@ ${self.master_foot()}
 
 <%def name="title()"></%def>
 <%def name="bodyclass()"></%def>
-
-<%def name="footer_end()">
-</%def>
-<%def name="scripts_styles()">
-</%def>
-
+<%def name="footer_end()"></%def>
+<%def name="scripts_styles()"></%def>
 <%def name="scripts()"></%def>
 <%def name="headscripts()"></%def>
-
-<%def name="onloadscripts()">
-</%def>
-
+<%def name="onloadscripts()"></%def>
 <%def name="headerclass()">normal</%def>
+<%def name="show_infographic()"></%def>
 
 <%def name="header()">
 	<div id="headercontainer">
@@ -157,8 +143,6 @@ ${self.master_foot()}
 	${self.show_infographic()}
 </%def>
 
-<%def name="show_infographic()">
-</%def>
 
 <%def name="header_navigation()">
 	<ul class="navigation">

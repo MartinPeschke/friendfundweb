@@ -22,12 +22,9 @@
 <%def name="bodyclass()">index</%def>
 <%def name="headscripts()">
 	page_reloader = function(){};
-	html = null;
-	function show_delay(){
-		var es=dojo.query(".ra_scroller","fundstream_ra");var e=es[0];if(es.length>2)dojo.query("#"+es[2].id,"fundstream_ra").orphan();
-		var it=parseInt(dojo.attr(e,"_top"));var ft=it+170;dojo.attr(e,"_top",ft);var appear=dojo.animateProperty({node:e.id,duration:2000,properties:{marginTop:{start:it,end:it+170}}});
-		h = dojo.connect(appear,"onEnd",function(){if(html!=null){dojo.place(html, dojo.byId("fundstream_ra"),"first");html=null;}dojo.disconnect(h);});appear.play();
-		if(ft<0)setTimeout("show_delay()",Math.round(3000+(Math.random()*12000)));else xhrPost("/stream",{},function(data){html=data.html;setTimeout("show_delay()",Math.round(2000+(Math.random()*8000)));});
+	var html;
+	var show_delay = function (i){
+		var es=dojo.query(".ra_scroller","fundstream_ra");var e=es[0];if(es.length>2){dojo.query("#"+es[2].id,"fundstream_ra").orphan();}var it=parseInt(dojo.attr(e,"_top"));var ft=it+170;dojo.attr(e,"_top",ft);var appear=dojo.animateProperty({node:e.id,duration:2000,properties:{marginTop:{start:it,end:ft}}});var h=dojo.connect(appear,"onEnd",function(evt){if(html){dojo.place(html, dojo.byId("fundstream_ra"),"first");html=null;}dojo.disconnect(h);});appear.play();if(ft<0){setTimeout(dojo.hitch(null, "show_delay",i+1),Math.round(3000+(Math.random()*12000)));}else{xhrPost("/stream",{},function(data){html=data.html;setTimeout(dojo.hitch(null, "show_delay",i+1),Math.round(2000+(Math.random()*8000)));});}
 	};
 </%def>
 <%def name="onloadscripts()">
@@ -42,7 +39,7 @@
 						, config_node: "pool_configurator"
 						, fb_api_key : "${app_globals.FbApiKey}"
 						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
-		setTimeout("show_delay()",Math.round(Math.random()*2000));
+		setTimeout(dojo.hitch(null, "show_delay",1),Math.round(Math.random()*2000));
 </%def>
 
 

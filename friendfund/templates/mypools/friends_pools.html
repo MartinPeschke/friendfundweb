@@ -1,9 +1,20 @@
 <%inherit file="../master.html"/>
-<%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="mypools_body" file="mypools_body.html"/>
+<%namespace name="bdayfriends" file="/myfriends/birthday_friends_scripts.html"/>
+
 <%def name="title()">${_("FRIENDSPOOLS_TITLE_Friends' Pools")}</%def>
 
 ${mypools_body.render_tabs("friends")|n}
+
+<%def name="scripts()">
+	${bdayfriends.includes()|n}
+</%def>
+<%def name="onloadscripts()">
+	%if not len(c.my_pools.pools):
+		${bdayfriends.scripts(c.user)|n}
+	%endif
+</%def>
+
 
 <div id="mypools" class="recentactivity">
 	%if c.my_pools.open_pools:
@@ -24,11 +35,8 @@ ${mypools_body.render_tabs("friends")|n}
 			${mypools_body.render(pool)}
 		%endfor
 	%endif
-	%if not c.my_pools.closed_pools and not c.my_pools.closed_pools:
-		<div></div>
-	%else:
-		<div style="margin-top: 20px">
-		<%call expr="html.button(href=url('home'))">${_("FRIENDSPOOLS_CONTENT_Create new Pool")}</%call>
-		</div>
+	%if not c.my_pools.pools:
+		<div style="margin:30px; clear:both;">Sorry, None of your friends have created any pools!</div><div style="clear:both"></div>
+		${bdayfriends.body(_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"))|n}
 	%endif
 </div>

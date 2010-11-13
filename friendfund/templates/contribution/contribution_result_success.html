@@ -1,11 +1,15 @@
 <%inherit file="../master.html"/>
-<%namespace name="html" file="/widgets/html_elems.html"/>
+<%namespace name="links" file="../links.html"/>
+<%namespace name="bdayfriends" file="/myfriends/birthday_friends_scripts.html"/>
 
 <%def name="title()">${_("CONTRIBSUCCESSPAGE_SUCCESS_TITLE")}</%def>
 <%def name="page_slogan()"><div id="page_slogan">${_("CONTRIBSUCCESSPAGE_SUCCESS_HEADING")}</div></%def>
 
+<%def name="scripts()">
+	${bdayfriends.includes()|n}
+</%def>
 <%def name="onloadscripts()">
-	onLoadPagelets("birthdayselector");
+	${bdayfriends.scripts(c.user)|n}
 </%def>
 
 
@@ -29,17 +33,9 @@
 		</div>
 	%endif
 	
-	<div class="innerbody floaterLeft" id="birthdayselector" style="width:920px;">
-		<div class="panel_title">
-			${_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?")}
-		</div>
-		
-		<div id="friend_list" class="pagelet" pagelet_href="${url('getfriends', pmethod='facebook')}">
-			${html.loading_animation()|n}
-		</div>
-	</div>
+	${bdayfriends.body(_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"))|n}
 	
-	<div style="position:relative;margin:0px;width:920px;float:left;">
+	<div style="position:relative;margin:0;width:920px;float:left;">
 		<a class="submitSmallLeft" href="${url('controller', controller='mypools', protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Visit My Pools")}</span></a>
 		<a class="submitSmall" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
 	</div>

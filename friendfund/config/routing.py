@@ -36,7 +36,7 @@ def make_map(config):
 	map.connect('invite', '/invite/{pool_url}/ext_{method}', controller='invite', action='get_extension', requirements={'pool_url': '[0-9a-zA-Z~_-]+', 'method':CONNECT_METHODS})
 	map.connect('invite_index', '/invite/{pool_url}', controller='invite', action='display', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
 	map.connect('invite_action', '/invite/{pool_url}/{action}', controller='invite', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
-	map.connect('getfriends', '/myprofile/getfriends/{pmethod}', controller='myprofile', action='getfriends', requirements={'method':CONNECT_METHODS})
+	map.connect('getfriends', '/myfriends/get/{pmethod}', controller='myfriends', action='get', requirements={'method':CONNECT_METHODS})
 	map.connect('/receiver/{method}', controller='receiver', action='method', requirements={'method':CONNECT_METHODS})
 	map.connect('/receiver/ext_{method}', controller='receiver', action='get_extension', requirements={'method':CONNECT_METHODS})
 	map.connect('mybadges', '/mybadges/panel/{badge_name}', controller="mybadges", action="panel")

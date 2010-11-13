@@ -1,38 +1,57 @@
 <%inherit file="../master.html"/>
-<%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="mypools_body" file="mypools_body.html"/>
+<%namespace name="bdayfriends" file="/myfriends/birthday_friends_scripts.html"/>
+
 <%def name="title()">${_("MYPOOLS_TITLE_My Pools")}</%def>
 
 ${mypools_body.render_tabs("mypools")|n}
 
+<%def name="scripts()">
+	${bdayfriends.includes()|n}
+</%def>
+<%def name="onloadscripts()">
+	%if not len(c.my_pools.pools):
+		${bdayfriends.scripts(c.user)|n}
+	%endif
+</%def>
+
+
+
 <div id="mypools" class="recentactivity">
-	%if c.my_pools.admin_pools:
-		<div class="subCategories">${_("MYPOOLS_CONTENT_Pools I created")}</div>
-		<div class="tooltipBoxMyPools">
-			<img src="/static/imgs/mypools_header.png" />
-		</div>
-		%for pool in c.my_pools.admin_pools:
-			${mypools_body.render(pool)}
-		%endfor
-	%endif
-	
-	%if c.my_pools.nonadmin_pools:
-		<div class="subCategories">${_("MYPOOLS_CONTENT_Pools I've been invited to")}</div>
-		<div class="tooltipBoxMyPools">
-			<img src="/static/imgs/mypools_header.png" />
-		</div>
-		%for pool in c.my_pools.nonadmin_pools:
-			${mypools_body.render(pool)}
-		%endfor
-	%endif
-	
-	%if c.my_pools.closed_pools:
-		<div class="subCategories">${_("MYPOOLS_CONTENT_Closed Pools")}</div>
-		<div class="tooltipBoxMyPools">
-			<img src="/static/imgs/mypools_header.png" />
-		</div>
-		%for pool in c.my_pools.closed_pools:
-			${mypools_body.render(pool)}
-		%endfor
+	%if len(c.my_pools.pools):
+		%if c.my_pools.admin_pools:
+			<div class="subCategories">${_("MYPOOLS_CONTENT_Pools I created")}</div>
+			<div class="tooltipBoxMyPools">
+				<img src="/static/imgs/mypools_header.png" />
+			</div>
+			%for pool in c.my_pools.admin_pools:
+				${mypools_body.render(pool)}
+			%endfor
+		%endif
+		
+		%if c.my_pools.nonadmin_pools:
+			<div class="subCategories">${_("MYPOOLS_CONTENT_Pools I've been invited to")}</div>
+			<div class="tooltipBoxMyPools">
+				<img src="/static/imgs/mypools_header.png" />
+			</div>
+			%for pool in c.my_pools.nonadmin_pools:
+				${mypools_body.render(pool)}
+			%endfor
+		%endif
+		
+		%if c.my_pools.closed_pools:
+			<div class="subCategories">${_("MYPOOLS_CONTENT_Closed Pools")}</div>
+			<div class="tooltipBoxMyPools">
+				<img src="/static/imgs/mypools_header.png" />
+			</div>
+			%for pool in c.my_pools.closed_pools:
+				${mypools_body.render(pool)}
+			%endfor
+		%endif
+	%else:
+		<div style="margin:30px; clear:both;">Sorry, you have not created any pools!</div><div style="clear:both"></div>
+		
+		${bdayfriends.body(_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"))|n}
+		
 	%endif
 </div>

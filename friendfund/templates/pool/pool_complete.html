@@ -1,0 +1,54 @@
+<%inherit file="../master.html"/>
+<%namespace name="links" file="../links.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%def name="title()">${_("POOL_PAGE_TITLE_Pool Completed!")}</%def>
+
+<% 
+	i_am_member = c.pool.am_i_member(c.user)
+	i_am_admin = c.pool.am_i_admin(c.user)
+	i_am_anon = c.user.is_anon
+	i_can_view = c.pool.can_i_view(c.user)
+	locals = {"number_contributors": c.pool.get_number_of_contributors(),
+			  "number_invitees":len(c.pool.invitees)+1}
+%>
+
+<div style="clear:both;padding-top:1px;"></div>
+<div id="poolresult">
+	
+	<div class="completeRcpt">
+		<div class="title">Thank You!</div>
+		<div class="rcptPicture"><img src="${c.pool.receiver.get_profile_pic('RESULT')}"/></div>
+		<div class="rcptThankYouNotice">
+			<span class="triangle"></span>
+			<div class="heading margin">Jenifer Says:</div>
+			<div class="rcptThankYou">Hoiy Guys! thanks so much for the present awrfglkhbrg werg wfrg qwrgw egrrg qerg rgw ergweg wegwetwet gwretggherth </div>
+		</div>
+		<img class="rcptProductPicture" src="${c.pool.product.get_product_pic("RA")}"/>
+		<div class="rcptProductText">
+			<div class="heading">Rodney the Bodyguard</div>
+			<div class="rcptProductTextBody">Hoiy Guys! thanks so much for the present awrfglkhbrg werg wfrg qwrgw egrrg qerg rgw ergweg wegwetwet gwretggherth </div>
+		</div>
+	</div>
+	<div class="pcontBodyComplete">
+		<h4 class="inside">Birthday Messages</h4>
+		
+		%for i, invitee in enumerate(c.pool.get_contributors()):
+			${self.render_contributor(i, invitee)}
+		%endfor
+
+	</div>
+	<div style="clear:both"></div>
+</div>
+
+
+
+<%def name="render_contributor(position, invitee)">
+	<div class="contributor floaterLeft">
+		<img src="${invitee.get_profile_pic('PROFILE_M')}" alt"${invitee.name}" class="contributor"/>
+		<div class="ctrbrText">
+			<span class="triangle"></span>
+			<div class="heading margin">${invitee.name}</div>
+			<div class="rcptThankYou">contruibuted message vdasiouhsrg .frgiufrg awfrghfr ,wrglkjfrlijbqwfg wrgb9udapsgwr</div>
+		</div>
+	</div>
+</%def>

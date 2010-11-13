@@ -1,5 +1,6 @@
 import logging, formencode, uuid, os, md5
 from cgi import FieldStorage
+
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, config
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
@@ -8,7 +9,7 @@ from pylons.i18n.translation import set_lang
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData
+from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import PasswordRequestForm, PasswordResetForm, SignupForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
@@ -22,28 +23,6 @@ class MyprofileController(BaseController):
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
 		c.myprofile_values = {'name' :getattr(c.myprofiles.profiles.get('email'), 'name', ''), 'email':getattr(c.myprofiles.profiles.get('email'), 'email', '')}
 		return self.render('/myprofile/index.html')
-	
-	@logged_in(ajax=False)
-	@jsonify
-	def getfriends(self, pmethod):
-		c.method = str(pmethod)
-		if c.method in ['facebook', 'twitter']:
-			is_complete = True
-			offset = 0
-			try:
-				c.friends, is_complete, offset = c.user.get_friends(c.method)
-			except UserNotLoggedInWithMethod, e:
-				if c.method == 'facebook':
-					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}
-					return result
-				else: 
-					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}
-					return result
-			return {'html':render('/receiver/networkfriends.html').strip()}
-		else:
-			return {'html':render('/receiver/inviter.html').strip()}
 	
 	@logged_in(ajax=False)
 	def save(self):

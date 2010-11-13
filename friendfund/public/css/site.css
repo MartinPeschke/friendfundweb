@@ -616,6 +616,19 @@ div.panel_title a.methodselector.ajaxlink span {
 	left: 0;
 	top: -5px
 }
+
+div#lowerbody_container.fullbackground{background-color: #BBE3F7;}
+div#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
+div#lowerbody {margin: 0px 30px 0px 30px;}
+#lowerbody_container {
+	position: relative;
+	margin: 30px 0px 0px;
+	width: 980px;
+	margin-top: 20px;
+	float: left;
+	background: white ;
+	padding-bottom: 30px
+}
 #lowerbody_container a.methodselector{ margin-right: 5px; padding-right: 15px}
 #lowerbody_container a.methodselector.selected {
 	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
@@ -658,18 +671,10 @@ div.panel_title a.methodselector.ajaxlink span {
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 	cursor:pointer;
 }
-#friend_list {
-	position:relative;
-}
-#friend_list.emailpopup {
-	clear:both;
-}
-#friend_list.fb {
-	background:none repeat scroll 0 0 white;
-	height:445px;
-	margin:0 15px 15px;
-	overflow:auto;
-}
+#friend_list {position:relative;}
+#friend_list.emailpopup {clear:both;}
+#friend_list.fb {background:none repeat scroll 0 0 white;height:445px;margin:0 15px 15px;overflow:auto;}
+
 #friend_list.inviteelist {
 	background-color:#FFFFFF;
 	border:1px solid #AAAAAA;
@@ -685,61 +690,47 @@ div.panel_title a.methodselector.ajaxlink span {
 	height: 50px;
 }
 
+.invitee_row span.label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
+.invitee_row img.fbprofilepic {width: 50px;height: 50px;z-index:1;position: relative;display: block; float: left}
+.invitee_row a.selector {
+	background:url("/static/imgs/inputfield.png") no-repeat scroll -266px -25px transparent;
+	bottom:15px;height:30px;position:absolute;width:30px;}
+
+#friend_list .invitee_row span.label div.birthdaylabel{font-size:90%;color: #555;}
+#friend_list .invitee_row a.selector {background-position:-206px -25px;}
+
+.invitee_row.selectable {cursor:pointer;}
+.invitee_row.nonselectable {	display:none;}
+#invites .invitee_row.selected {background-color: #aaa;margin: 0px;padding: 5px;cursor:normal;}
+
+#invited .invitee_row a.selector, #friend_list.fb .invitee_row a.selector {right:0px;}
+
 #receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 250px;}
 #receiver_selector_container .invitee_row span.label{ width:170px;}
 /*invite page only*/
 #lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
 #lowerbody_container .invitee_row span.label{ width:250px;}
 
-#birthdayselector .invitee_row { width: 250px; margin:0px;float:None;margin:5px 10px 0px 18px;float: left;}
-#birthdayselector .invitee_row span.label{ width:170px;}
+#birthdayselector {width:890px;padding:0px 15px 15px;background-color:#BBE3F7;float:left;margin:15px 0px}
+#birthdayselector #friend_list_container {background-color:white;float:left;padding:15px;width:860px;}
+#birthdayselector #friend_list {}
+#birthdayselector .invitee_row { width: 263px; margin:0px;float:None;margin:15px 0px 0px 30px;float: left;padding-bottom:35px;}
+#birthdayselector .invitee_row.first { margin:15px 0px 0px 0px;}
+#birthdayselector .invitee_row span.label{ display:block;width:190px;float:left;}
+#birthdayselector .invitee_row img.fbprofilepic {margin-top:2px}
+#birthdayselector .invitee_row a.selector{ padding-top:15px;display:block;width:auto;height:auto;bottom:0px;color:#B70158;background:transparent;bottom:10px;}
 
 
 
-div#lowerbody_container {
-	position: relative;
-	margin: 30px 0px 0px;
-	width: 980px;
-	margin-top: 20px;
-	float: left;
-	background: white ;
-	padding-bottom: 30px
-}
-div#lowerbody_container.fullbackground{background-color: #BBE3F7;}
-div#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
-div#lowerbody {margin: 0px 30px 0px 30px;}
-
-#invited .invitee_row img, #friend_list .invitee_row img {
-	width: 50px;
-	height: 50px;
-	z-index:1;
-	display: block; float: left
-}
-#invited .invitee_row span.label, #friend_list .invitee_row span.label {
-	position: relative;
-	overflow:hidden;
-	float:left;
-	padding: 0px 0px 0px 10px;
-}
-#friend_list .invitee_row span.label div.birthdaylabel{font-size:90%;color: #555;}
 
 
-#invited .invitee_row a.selector {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -266px -25px transparent;
-	bottom:15px;
-	height:30px;
-	position:absolute;
-	width:30px;
-}
-#friend_list .invitee_row a.selector {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -206px -25px transparent;
-	bottom:15px;
-	height:30px;
-	position:absolute;
-	width:30px;
-}
-#invited .invitee_row a.selector, #friend_list.fb .invitee_row a.selector {right:0px;}
-#invited .invitee_row a.selector, #friend_list.inviteelist .invitee_row a.selector {right:0px;}
+
+
+
+
+
+
+
 #emailinviter div.input_field {
 	margin: 10px 0px;
 	float:left;
@@ -753,11 +744,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	width:128px;
 }
 #inviter_name{ margin-top:23px !important}
-#invitescontainer img.fbprofilepic {
-	position: relative;
-	height: 50px;
-	width: 50px;
-}
+
 #invites {
 	border-top: 1px solid #81CBEF;
 	background-color:  #BBE3F7;
@@ -787,19 +774,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	padding: 15px 15px 0px 15px;
 	clear:both;
 }
-.invitee_row.selectable {
-	cursor:pointer;
-}
-.invitee_row.nonselectable {
-	display:none;
-}
-#invites .invitee_row.selected {
-	background-color: #aaa;
-	margin: 0px;
-	padding: 5px;
-	cursor:normal;
 
-}
 .whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 #invite_message {
