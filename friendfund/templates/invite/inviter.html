@@ -121,7 +121,7 @@
 		%if active:
 			<a class="selector" title="${user_data['name']}">&nbsp;</a>
 		%endif
-		<img src="/static/imgs/default_m.png" class="fbprofilepic">
+		<img src="${user_data['profile_picture_url']}" class="fbprofilepic">
 		<span class="label">${user_data['name']}<br/>${id}</span>
 	</div>
 	%endfor

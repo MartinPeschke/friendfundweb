@@ -1,4 +1,5 @@
-import simplejson, logging
+import simplejson, logging, itertools
+
 from datetime import datetime, timedelta, date
 
 from friendfund.lib import helpers as h, tools
@@ -142,6 +143,9 @@ class PoolUser(DBMappedObject):
 		return self.name
 	receiver_label = property(get_receiver_label)
 	
+	def is_contributor(self):
+		return bool(self.contributed_amount)
+	
 	def _get_contributed_amount_float(self):
 		return float(self.contributed_amount)/100
 	contributed_amount_float = property(_get_contributed_amount_float)
@@ -214,6 +218,9 @@ class Pool(DBMappedObject):
 			return [pu.networks[network].email for pu in self.participants if network in pu.networks]
 		else:
 			return [pu.networks[network].network_id for pu in self.participants if network in pu.networks]
+	
+	def get_contributors(self):
+		return itertools.ifilter(lambda x:x.is_contributor(), itertools.chain(self.participants, self.participants))
 	
 	def get_total_contribution(self):
 		total = 0

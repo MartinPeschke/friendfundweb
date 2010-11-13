@@ -1,4 +1,4 @@
-import logging, formencode, uuid, md5, os, simplejson
+import logging, formencode
 
 from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals as g, cache
 from pylons.decorators import jsonify
@@ -12,7 +12,7 @@ from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.helpers import get_upload_pic_name
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.forms import user, common
-from friendfund.model.pool import PoolUser, Pool
+from friendfund.model.pool import PoolUser, Pool, InsufficientParamsException
 from friendfund.model.authuser import UserNotLoggedInWithMethod
 from friendfund.tasks import photo_renderer, fb as fbservice, twitter as twservice
 
@@ -72,67 +72,3 @@ class ReceiverController(BaseController):
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
 		else:
 			return {'html':render('/receiver/inviter.html').strip()}
-	
-	@jsonify
-	def get_extension(self, method):
-		if method in ['twitter']:
-			c.method = method
-			offset = int(request.params['offset'])
-			c.friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
-			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/networkfriends.html').strip()}}
-		return {'success':False}
-	
-	@jsonify
-	@post_only(ajax=True)
-	def add(self):
-		invitee = variable_decode(request.params).get('invitee', {})
-		network = invitee.get('network')
-		if network == 'email':
-			valid = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
-			try:
-				network_id = valid.to_python(invitee.get('network_id'), state = FriendFundFormEncodeState)
-			except formencode.validators.Invalid, error:
-				return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
-			else:
-				network_id = invitee.get('network_id')
-			profile_picture_url = "/static/imgs/default_m.png"
-			return {'clearmessage':True, 
-					'data':{'success':True, 
-							'network_id':network_id, 
-							'network':network, 
-							'name':invitee.get('name'), 
-							'profile_picture_url' : profile_picture_url,
-							'large_profile_picture_url' : profile_picture_url
-						}
-					}
-		elif network == 'yourself' and not c.user.is_anon:
-			network = c.user.network.lower()
-			if network == 'email':
-				network_id = c.user.email
-			else:
-				network_id = c.user.network_id
-			network_name = c.user.name
-			profile_picture_url = c.user.get_profile_pic('RA')
-			
-			if profile_picture_url == c.user.profile_picture_url:
-				if network == 'twitter':
-					profile_picture_url = tw_helper.get_profile_picture_url(c.user.profile_picture_url)
-				elif network == 'facebook':
-					profile_picture_url = fb_helper.get_large_pic_url(c.user.network_id)
-			return {'clearmessage':True, 
-					'data':{'success':True, 
-							'network_id':network_id, 
-							'network':network, 
-							'name':network_name, 
-							'profile_picture_url' : profile_picture_url,
-							'large_profile_picture_url' : profile_picture_url
-						}
-					}
-		elif(c.user.is_anon):
-			return {'data':
-					{'success':False, 
-					 'html':self.render('/receiver/login_required.html').strip()
-					}
-				}
-		else:
-			return self.ajax_messages(_(u"RECEIVER_ADD_Unknown Network or Method"))

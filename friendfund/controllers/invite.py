@@ -16,10 +16,7 @@ from friendfund.tasks.photo_renderer import remote_profile_picture_render, remot
 
 
 from formencode.variabledecode import variable_decode
-
 from celery.task.sets import TaskSet
-
-
 log = logging.getLogger(__name__)
 
 class InviteController(BaseController):

@@ -45,6 +45,8 @@ class PoolController(BaseController):
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
+		if c.pool.is_closed():
+			return self.render('/pool/pool_complete.html')
 		if not c.user.is_anon\
 			and c.pool.am_i_member(c.user):
 				c.user.current_pool = c.pool
