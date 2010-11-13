@@ -158,11 +158,42 @@ class PoolController(BaseController):
 	@jsonify
 	@logged_in(ajax=True)
 	@post_only(ajax=True)
+	def edit_thankyou(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+		if not c.pool.am_i_receiver(c.user):
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+		c.pool_url = pool_url
+		c.edit = True
+		return {'html':render('/pool/parts/receiver_thank_you.html').strip()}
+	
+	@jsonify
+	@logged_in(ajax=True)
+	@post_only(ajax=True)
+	def set_thankyou(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			return {"redirect" : request.referer}
+		if not c.pool.am_i_receiver(c.user):
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+		c.pool_url = pool_url
+		c.edit = False
+		thankyou = request.params.get('thankyou', None)
+		if thankyou:
+			g.dbm.set(PoolDescription(p_url = pool_url, thankyou = thankyou))
+			c.pool.thankyou = thankyou
+			g.dbm.push_to_cache(c.pool)
+		return {'data':{'success':True, 'html':render('/pool/parts/receiver_thank_you.html').strip()}}
+		
+	@jsonify
+	@logged_in(ajax=True)
+	@post_only(ajax=True)
 	def edit_description(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-		print '------------;', c.pool.am_i_admin(c.user)
 		if not c.pool.am_i_admin(c.user):
 			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		c.pool_url = pool_url
