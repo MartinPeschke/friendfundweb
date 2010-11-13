@@ -113,6 +113,7 @@ class PoolUser(DBMappedObject):
 	_required_attribs = ['name', 'network', 'network_id']
 	_keys = [ GenericAttrib(int,'u_id'               , 'u_id'               )
 			, GenericAttrib(unicode ,'name'          , 'name'               )
+			, GenericAttrib(unicode ,'message'       , 'message'            )
 			, GenericAttrib(bool,'is_admin'          , 'is_admin'           )
 			, GenericAttrib(bool,'is_receiver'       , 'is_receiver'        )
 			, GenericAttrib(bool,'is_suspected'       , 'is_suspected'      )
@@ -220,7 +221,7 @@ class Pool(DBMappedObject):
 			return [pu.networks[network].network_id for pu in self.participants if network in pu.networks]
 	
 	def get_contributors(self):
-		return itertools.ifilter(lambda x:x.is_contributor(), itertools.chain(self.participants, self.participants))
+		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
 	
 	def get_total_contribution(self):
 		total = 0
@@ -244,6 +245,14 @@ class Pool(DBMappedObject):
 		if diff < timedelta(0):
 			diff = timedelta(0)
 		return (diff.days, diff.seconds/3600)
+	
+	
+	def get_my_message(self, user):
+		pu = self.participant_map.get(user.u_id)
+		if pu:
+			return pu.message
+		else:
+			return ""
 	
 	def am_i_admin(self, user):
 		return self.admin.u_id == user.u_id

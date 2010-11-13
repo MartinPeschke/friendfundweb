@@ -158,11 +158,36 @@ class PoolController(BaseController):
 	@jsonify
 	@logged_in(ajax=True)
 	@post_only(ajax=True)
+	def edit_description(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+		print '------------;', c.pool.am_i_admin(c.user)
+		if not c.pool.am_i_admin(c.user):
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+		c.pool_url = pool_url
+		c.edit = True
+		return {'html':render('/pool/parts/description.html').strip()}
+	
+	@jsonify
+	@logged_in(ajax=True)
+	@post_only(ajax=True)
 	def set_description(self, pool_url):
-		descr = request.params.get('description', None)
-		if descr is not None:
-			g.dbm.set(PoolDescription(p_url = pool_url, description = descr))
-		return self.ajax_messages(_(UPDATED_MESSAGE))
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			return {"redirect" : request.referer}
+		if not c.pool.am_i_admin(c.user):
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+		c.pool_url = pool_url
+		c.edit = False
+		
+		description = request.params.get('description', None)
+		if description:
+			g.dbm.set(PoolDescription(p_url = pool_url, description = description))
+			c.pool.description = description
+			g.dbm.push_to_cache(c.pool)
+		return {'data':{'success':True, 'html':render('/pool/parts/description.html').strip()}}
 	
 	@jsonify
 	@logged_in(ajax=True)
@@ -172,12 +197,10 @@ class PoolController(BaseController):
 		c.countries = g.countries.list
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.user.am_i_admin(pool_url):
-			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
-			return redirect(request.referer)
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
-			return redirect(request.referer)
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
 		return {"html":render('/pool/actions/%s_form.html' % type).strip()}
@@ -189,8 +212,7 @@ class PoolController(BaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
-			return redirect(request.referer)
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
 		return {"html":render('/pool/actions/%s_display.html' % type).strip()}
@@ -203,8 +225,7 @@ class PoolController(BaseController):
 		c.pool_url = pool_url
 		c.countries = g.countries.list
 		if not c.user.am_i_admin(pool_url):
-			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
-			return redirect(request.referer)
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		form = formencode.variabledecode.variable_decode(request.params).get('shipping', None)
 		if not form:
 			form = formencode.variabledecode.variable_decode(request.params).get('billing', None)
