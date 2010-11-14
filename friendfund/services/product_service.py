@@ -1,12 +1,14 @@
 import logging, urlparse
+from lxml import etree
 from datetime import datetime
 
 from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch
+from friendfund.model.mapper import DBMapper
+from friendfund.model.pool import Pool
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, Product
 from friendfund.model.product_search import ProductSearchByCategory
 from friendfund.model.virtual_product import ProductPager
-from friendfund.model.pool import Pool
 
 log = logging.getLogger(__name__)
 
@@ -27,6 +29,34 @@ GIFT_PANEL_TABS = [("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts
 					("friend_tab", _("PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"))
 				]
 
+PENDING_PRODUCTS = {
+			"PPRODUCT_NOMINATE":"""
+			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
+					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
+					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
+					 amount="2795" aff_net="PENDING_PRODUCT" guid="1" 
+					 aff_program_name="PENDING_PRODUCT" 
+					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
+			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
+			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
+			  <NAME>PENDING_PRODUCT_ASK_RECEIVER</NAME> 
+			</PRODUCT>
+			""",
+			"PPRODUCT_RECEIVER":"""
+			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
+					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
+					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
+					 amount="2795" aff_net="PENDING_PRODUCT" guid="2" 
+					 aff_program_name="PENDING_PRODUCT" 
+					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
+			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
+			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
+			  <NAME>PENDING_PRODUCT_NOMINATE</NAME> 
+			</PRODUCT>
+			"""
+			}
+				
+				
 from pylons.i18n import ugettext as _
 
 class ProductService(object):
@@ -53,11 +83,16 @@ class ProductService(object):
 			for country in countries:
 				self.top_sellers[country] = top_sellers.map[region.upper()]
 				self.virtual_gifts[country] = virtual_gifts.map[region.upper()]
-
-		self.virtual_gift_map = dict([(gift.guid, gift) for region, gifts in self.virtual_gifts.iteritems() for gift in gifts])
-
 		
-	
+		self.virtual_gift_map = dict([(gift.guid, gift) for region, gifts in self.virtual_gifts.iteritems() for gift in gifts])
+		
+		self.pending_products = {}
+		for k,v in PENDING_PRODUCTS.iteritems():
+			p = DBMapper.fromDB(Product,  etree.fromstring(v))
+			p.guid = k
+			p.is_pending = True
+			self.pending_products[k] = p
+		
 	def setup_region(self, request):
 		tmpl_context.region = request.params.get('region', websession['region'])
 		return tmpl_context
@@ -124,15 +159,8 @@ class ProductService(object):
 		tmpl_context = self.request_setup(request)
 		tmpl_context = self.request_search_setup(request)
 		tmpl_context.panel = 'friend_tab'
-		tmpl_context.search_base_url='friend_tab'
-		tmpl_context.sort = request.params.get('sort', "PRICE_UP")
-		tmpl_context.searchresult = ProductPager(
-				region = tmpl_context.region
-				,page_no = tmpl_context.page
-				,page_size = tmpl_context.page_size
-				,sort = tmpl_context.sort
-				,products = self.virtual_gifts[tmpl_context.region]
-			)
+		tmpl_context.pproduct_receiver = self.pending_products['PPRODUCT_RECEIVER']
+		tmpl_context.pproduct_nominate = self.pending_products['PPRODUCT_NOMINATE']
 		return tmpl_context	
 	
 	def search_tab_setup(self, request):
@@ -203,11 +231,14 @@ class ProductService(object):
 		return product
 	
 	def set_product(self, pool, product, request):
+		print product
 		tmpl_context = self.setup_region(request)
 		if product['is_amazon']:
 			product = self.amazon_services[tmpl_context.region].get_product_from_guid(product['guid'])
 		elif product['is_virtual']:
 			product = self.virtual_gift_map[product['guid']]
+		elif product['is_pending']:
+			product = self.pending_products[product['guid']]
 		else:
 			productresult = app_globals.dbsearch.get(ProductRetrieval
 											, guid = product['guid']

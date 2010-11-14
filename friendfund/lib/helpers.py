@@ -169,7 +169,7 @@ def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 
 def get_raw_product_image(product, site_root):
 	picture_large = product.picture_large
-	if product.is_virtual:
+	if product.is_virtual or product.is_pending:
 		return '%(site_root)s%(picture_large)s'%locals()
 	else:
 		return picture_large

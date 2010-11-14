@@ -107,11 +107,12 @@ class ProductController(BaseController):
 		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = formencode.variabledecode.variable_decode(request.params)
 		product = params.get('product', None)
-		if not product or not dict_contains(product, ['is_amazon', 'is_virtual', 'is_curated', 'guid']):
+		if not product or 'guid' not in product:
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
-		product['is_virtual'] = strbool.to_python(product['is_virtual'])
-		product['is_curated'] = strbool.to_python(product['is_curated'])
+		product['is_amazon']  = strbool.to_python(product.get('is_amazon' ))
+		product['is_virtual'] = strbool.to_python(product.get('is_virtual'))
+		product['is_curated'] = strbool.to_python(product.get('is_curated'))
+		product['is_pending'] = strbool.to_python(product.get('is_pending'))
 		
 		websession['pool'] = g.product_service.set_product(websession.get('pool') or Pool(), product, request)
 		c.pool = websession['pool']
