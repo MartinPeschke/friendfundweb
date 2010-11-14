@@ -527,9 +527,10 @@ p.termsOf a{ color:#B70158;}
 #inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
 #inviteheader input{ margin-right:10px}
 
+.TabsContainer{ float: left; padding-left: 10px;width:880px}
 a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
 a.methodselector img{position:relative;top:3px;}
-a.methodselector.ajaxlink{background:url("../imgs/inputfield.png") no-repeat scroll 100% -1562px transparent;min-width:115px;}
+a.methodselector.ajaxlink{background:url("../imgs/inputfield.png") no-repeat scroll 100% -1562px transparent;min-width:145px;}
 
 a.methodselector span {padding:0 0 0 15px;color:#403834;display:block;line-height:30px; height:30px;}
 a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png") no-repeat scroll 0 -1512px transparent;}
@@ -595,25 +596,20 @@ div#lowerbody {margin: 30px;}
 	overflow:auto;
 }
 
-.invitee_row {
-	position: relative;
-	padding-bottom: 5px;
-	border-bottom: 1px solid #ccc;
-	height: 50px;
-}
-
-.invitee_row span.label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
+.invitee_row {position: relative;padding-bottom: 5px;border-bottom: 1px solid #ccc;height: 50px;}
+.invitee_row .label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
+.invitee_row .label .birthdaylabel{font-size:90%;color: #555;}
 .invitee_row img.fbprofilepic {width: 50px;height: 50px;z-index:1;position: relative;display: block; float: left}
+
 .invitee_row a.selector {
 	background:url("/static/imgs/inputfield.png") no-repeat scroll -270px -25px transparent;
 	bottom:15px;height:30px;position:absolute;width:30px;right:0px;}
 #friend_list .invitee_row a.selector {background-position:-215px -25px;right:0px;}
 
-#friend_list .invitee_row span.label div.birthdaylabel{font-size:90%;color: #555;}
 
 .invitee_row.selectable {cursor:pointer;}
 .invitee_row.nonselectable {	display:none;}
-#invites .invitee_row.selected {background-color: #aaa;margin: 0px;padding: 5px;cursor:normal;}
+.invitee_row.selected {background-color: #aaa;margin: 0px;padding: 5px;cursor:normal;}
 
 #receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 250px;}
 #receiver_selector_container .invitee_row span.label{ width:170px;}
@@ -621,9 +617,10 @@ div#lowerbody {margin: 30px;}
 #lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
 #lowerbody_container .invitee_row span.label{ width:250px;}
 
+
+
 #birthdayselector {width:890px;padding:0px 15px 15px;background-color:#BBE3F7;float:left;margin:15px 0px}
 #birthdayselector #friend_list_container {background-color:white;float:left;padding:15px;width:860px;}
-#birthdayselector #friend_list {}
 #birthdayselector .invitee_row { width: 263px; margin:0px;float:None;margin:15px 0px 0px 30px;float: left;padding-bottom:35px;}
 #birthdayselector .invitee_row.first { margin:15px 0px 0px 0px;}
 #birthdayselector .invitee_row span.label{ display:block;width:190px;float:left;}
@@ -640,19 +637,12 @@ div#lowerbody {margin: 30px;}
 
 
 
+#emailinviter{ margin-left: 20px}
+#emailinviter div.input_field {margin: 10px 0px;float:left;clear:both;}
+#emailinviter div.input_field div.label {float:left;margin-right:10px;position:relative;text-align:right;width:128px;}
+#emailinviter input{ border: 1px solid #999999}
+#email_inviter_error{float:right;width:237px;}
 
-#emailinviter div.input_field {
-	margin: 10px 0px;
-	float:left;
-	clear:both;
-}
-#emailinviter div.input_field div.label {
-	float:left;
-	margin-right:10px;
-	position:relative;
-	text-align:right;
-	width:128px;
-}
 #inviter_name{ margin-top:23px !important}
 
 #invites {
@@ -677,7 +667,7 @@ div#lowerbody {margin: 30px;}
 	border: 1px solid #aaa;
 	background-color:  #ffffff;
 }
-#button_panel #network_methodselector{ padding-left: 10px}
+
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {
 	border-bottom: 3px solid #bbe3f7;
@@ -1157,8 +1147,6 @@ h2.small{ font-size: 20px !important}
 .maleFemale input{ display:block !important;width:15px !important; float:left}
 .passwordFields .maleFemale label{ float: right !important;}
 #poolsettings{ margin:0 30px 30px 30px}
-#emailinviter input{ border: 1px solid #999999}
-#email_inviter_error{float:right;width:237px;}
 
 #contributioncontainer{ margin:0px 30px 30px; padding-top: 5px !important}
 
@@ -1291,11 +1279,11 @@ h4.inside span{ float: right; font-size: 12px; font-weight: normal}
 .productSorter{background: url(/static/imgs/rounded-corner-small.png) 0 0 no-repeat white;margin-right:15px;margin-top:15px;width:437px; position: relative;text-align:left}
 .productSorterContainer .productSorter {float:left}
 
-.footer-small{ width: 437px; height: 6px; line-height: 0; font-size: 0; background: url(/static/imgs/rounded-corner-small-down.png) 0 0 no-repeat white; float: left}
+.productSorter .footer-small{ width: 437px; height: 6px; line-height: 0; font-size: 0; background: url(/static/imgs/rounded-corner-small.png) 0 -6px no-repeat white; float: left}
 .marginRightClean{ margin-right:0 !important}
-.productSorter .colSx{ float:left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat; padding-bottom: 9px}
-.productSorter .colDx{ float:left;padding:15px 15px 15px 0;width:242px; position: relative}
-.productImage{ display: block;   width: 146px; height: 146px; margin: 16px auto 0 auto}
+.productSorter .colSx{ margin-top:5px;float:left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat white; padding-bottom: 9px}
+.productSorter .colDx{ margin-top:5px;float:left;padding:10px 15px 15px 0;width:242px; position: relative;background:white}
+.productImage{ display: block;width: 146px; height: 146px; margin: 11px auto 0 auto}
 .productMerchant{ display:block;
 	font-family:Trebuchet MS;
 	font-size:14px;
@@ -1308,9 +1296,7 @@ h4.inside span{ float: right; font-size: 12px; font-weight: normal}
 	text-align:center;
 }
 .productMerchantImage{ display: block; margin: 0 auto; height: 55px; margin-top: 15px}
-#emailinviter{ margin-left: 20px}
 
-.TabsContainer{ float: left; padding-left: 10px}
 p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; margin-top: -3px}
 p.product span.currency { display: block; padding-top: 5px;width:100%;}
 a.productMore{color: #B70158; display: block; float: left; margin-top: 10px}
@@ -1335,8 +1321,15 @@ div#scrollingproductsuggestions {
 	overflow:hidden;
 	position:relative;
 	width:810px;
-	background:url("/static/imgs/rounded-corner-big.png") no-repeat scroll 0 0 white;clear:both;
+	background:url("../imgs/rounded-corner-big.png") no-repeat scroll 0 0 white;clear:both;
 	padding:30px 40px 10px;
 }
 .pane{ width:840px}
 #productslider{height:180px;margin-left:5px;overflow:hidden;width:804px;}
+
+.productSorterWidth{background: url(../imgs/rounded-corner-small_890.png) 0 0 no-repeat white;margin-top:15px;width:890px; position: relative;text-align:left;float:left}
+.productSorterWidth .footer-small{ height:6px; line-height: 0; font-size: 0; background: url(../imgs/rounded-corner-small_890.png) 0px -6px no-repeat white;float:left}
+
+.productSorterWidth .halfWidth {width:395px;margin:5px 0px;float:left;padding:10px 20px;background:white;}
+.productSorterWidth .label {margin: 15px 0px 15px;}
+.productSorterWidth img {margin: 0px 0px 15px;}

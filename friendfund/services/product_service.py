@@ -23,7 +23,8 @@ PAGESIZE = 5
 
 GIFT_PANEL_TABS = [("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts")),
 					("virtual_tab", _("PRODUCT_SEARCH_PANEL_Virtual Gifts")),
-					("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search"))
+					("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search")),
+					("friend_tab", _("PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"))
 				]
 
 from pylons.i18n import ugettext as _
@@ -119,7 +120,20 @@ class ProductService(object):
 			)
 		return tmpl_context
 	
-	
+	def friend_tab(self, request):
+		tmpl_context = self.request_setup(request)
+		tmpl_context = self.request_search_setup(request)
+		tmpl_context.panel = 'friend_tab'
+		tmpl_context.search_base_url='friend_tab'
+		tmpl_context.sort = request.params.get('sort', "PRICE_UP")
+		tmpl_context.searchresult = ProductPager(
+				region = tmpl_context.region
+				,page_no = tmpl_context.page
+				,page_size = tmpl_context.page_size
+				,sort = tmpl_context.sort
+				,products = self.virtual_gifts[tmpl_context.region]
+			)
+		return tmpl_context	
 	
 	def search_tab_setup(self, request):
 		tmpl_context = self.request_setup(request)

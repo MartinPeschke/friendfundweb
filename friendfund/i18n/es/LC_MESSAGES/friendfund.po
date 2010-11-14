@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-14 16:50+0100\n"
+"PO-Revision-Date: 2010-11-14 21:21+0100\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -439,7 +439,7 @@ msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Los cambios han sido guardados"
 
-#: friendfund/controllers/pool.py:355 friendfund/controllers/product.py:107
+#: friendfund/controllers/pool.py:355 friendfund/controllers/product.py:111
 msgid "INDEX_PAGE_No Product"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
@@ -492,7 +492,7 @@ msgstr ""
 "Amazon no nos ha proporcionado la información suficiente para ofrecer "
 "este producto."
 
-#: friendfund/controllers/product.py:140
+#: friendfund/controllers/product.py:144
 msgid ""
 "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
 "shipping much time!"
@@ -500,7 +500,7 @@ msgstr ""
 "¡La fecha de tu evento no le da mucho margen de actuación a los "
 "contribuyentes ni al transporte!"
 
-#: friendfund/controllers/product.py:143
+#: friendfund/controllers/product.py:147
 msgid ""
 "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a"
 " problem please pick a later date!"
@@ -655,7 +655,7 @@ msgstr "Has sido premiado el Título de Diva por solicitar 3 o más regalos para
 msgid "BADGE_DESCRIPTION_MYSTERY_..."
 msgstr "..."
 
-#: friendfund/model/pool.py:159
+#: friendfund/model/pool.py:171
 #: friendfund/templates/contribution/contrib_screen.html:61
 msgid "CONTRIBPAGE_LABEL_A pot of gold"
 msgstr "Olla de oro"
@@ -1009,8 +1009,12 @@ msgstr ""
 msgid "PRODUCT_SEARCH_PANEL_Gift Search"
 msgstr ""
 
-#: friendfund/services/product_service.py:187
-#: friendfund/services/product_service.py:204
+#: friendfund/services/product_service.py:27
+msgid "PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"
+msgstr ""
+
+#: friendfund/services/product_service.py:201
+#: friendfund/services/product_service.py:218
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
@@ -1615,26 +1619,21 @@ msgid "PAYMENT_DETAILS_You are chipping in:"
 msgstr "Estas haciendo una aportación de:"
 
 #: friendfund/templates/contribution/contribution_result_fail.html:25
-#: friendfund/templates/contribution/payment_success.html:32
 msgid "CONTRIBSUCCESSPAGE_LABEL_Payment Failed"
 msgstr "Pago fallido"
 
 #: friendfund/templates/contribution/contribution_result_fail.html:28
-#: friendfund/templates/contribution/payment_success.html:35
 msgid "CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?"
 msgstr ""
 "Tu pago fue denegado, puede que hubiera alguna errata. ¿Quieres "
 "intentarlo de nuevo?"
 
 #: friendfund/templates/contribution/contribution_result_fail.html:31
-#: friendfund/templates/contribution/payment_success.html:38
 msgid "CONTRIBSUCCESSPAGE_LABEL_Try Again"
 msgstr "Inténtalo de nuevo"
 
 #: friendfund/templates/contribution/contribution_result_fail.html:32
 #: friendfund/templates/contribution/contribution_result_success.html:40
-#: friendfund/templates/contribution/payment_success.html:28
-#: friendfund/templates/contribution/payment_success.html:39
 msgid "CONTRIBSUCCESSPAGE_LABEL_Back To Pool"
 msgstr "Bote"
 
@@ -1647,7 +1646,6 @@ msgid "CONTRIBSUCCESSPAGE_SUCCESS_HEADING"
 msgstr ""
 
 #: friendfund/templates/contribution/contribution_result_success.html:20
-#: friendfund/templates/contribution/payment_success.html:10
 #, python-format
 msgid ""
 "CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your "
@@ -1655,12 +1653,10 @@ msgid ""
 msgstr "%(receiver)s estará muy agradecido de saber que has puesto bote. ¡Gracias!"
 
 #: friendfund/templates/contribution/contribution_result_success.html:26
-#: friendfund/templates/contribution/payment_success.html:16
 msgid "CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice"
 msgstr " "
 
 #: friendfund/templates/contribution/contribution_result_success.html:30
-#: friendfund/templates/contribution/payment_success.html:20
 msgid ""
 "CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take "
 "a couple of minutes to show up on the pool page, you will in any case "
@@ -1669,12 +1665,11 @@ msgstr "Tu pago tardará un minuto o dos en actualizarse"
 
 #: friendfund/templates/contribution/contribution_result_success.html:36
 #: friendfund/templates/mypools/friends_pools.html:40
-#: friendfund/templates/mypools/index.html:54
+#: friendfund/templates/mypools/index.html:53
 msgid "CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"
 msgstr ""
 
 #: friendfund/templates/contribution/contribution_result_success.html:39
-#: friendfund/templates/contribution/payment_success.html:27
 msgid "CONTRIBSUCCESSPAGE_LABEL_Visit My Pools"
 msgstr "Mis Botes"
 
@@ -1690,10 +1685,6 @@ msgstr "Detalles de Pago"
 #: friendfund/templates/occasion/panel.html:36
 msgid "EVENT_PANEL_Submit"
 msgstr "Enviar"
-
-#: friendfund/templates/contribution/payment_success.html:5
-msgid "CONTRIBSUCCESSPAGE_LABEL_Payment accepted"
-msgstr "Pago realizado"
 
 #: friendfund/templates/invite/invite.html:6
 msgid "INVITE_PAGE_FB_LOGIN_Invite"
@@ -2692,6 +2683,39 @@ msgstr "Leer más"
 msgid "PRODUCT_SEARCH_PANEL_Select"
 msgstr "Seleccionar"
 
+#: friendfund/templates/product/friend_tab.html:8
+msgid "PRODUCT_SEARCH_PANEL_Can't decide on the perfect gift?"
+msgstr ""
+
+#: friendfund/templates/product/friend_tab.html:13
+msgid "PRODUCT_SEARCH_PANEL_Ask Your recipient what they want..."
+msgstr ""
+
+#: friendfund/templates/product/friend_tab.html:14
+msgid ""
+"PRODUCT_SEARCH_PANEL_Your recipient should have a pretty good idea of "
+"their dream gift. So, if you're feeling a little stuck, why not ask them "
+"what they want?"
+msgstr ""
+
+#: friendfund/templates/product/friend_tab.html:16
+msgid "PRODUCT_SEARCH_PANEL_BUTTON_Ask Recipient"
+msgstr ""
+
+#: friendfund/templates/product/friend_tab.html:20
+msgid "PRODUCT_SEARCH_PANEL_...Or nominate a friewnd to choose a gift."
+msgstr ""
+
+#: friendfund/templates/product/friend_tab.html:21
+msgid ""
+"PRODUCT_SEARCH_PANEL_In the next step, you'll be able to nominate one of "
+"your friends to find the perfect gift by clicking the gift icon."
+msgstr ""
+
+#: friendfund/templates/product/friend_tab.html:23
+msgid "PRODUCT_SEARCH_PANEL_BUTTON_Nominate a Friend"
+msgstr ""
+
 #: friendfund/templates/product/recommended_tab.html:10
 #: friendfund/templates/product/search_tab.html:12
 #, python-format
@@ -2774,10 +2798,6 @@ msgstr "Busca tus amigos de %s: "
 msgid "RECEIVER_PANEL_HEADER_You need to login in order to choose yourself!"
 msgstr "¡Necesitas iniciar sesión para poder elegirte a tí mismo!"
 
-#: friendfund/templates/receiver/panel.html:5
-msgid "RECEIVER_PANEL_HEADER_Select a friend from:"
-msgstr "Escoge a un amigo de: "
-
 #: friendfund/templates/receiver/panel.html:9
 msgid "RECEIVER_PANEL_HEADER_or"
 msgstr "o"
@@ -2791,10 +2811,4 @@ msgid ""
 "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
 "with Twitter!"
 msgstr "Para invitar a tus Amigos de Twitter, por favor, conéctate con Twitter."
-
-#~ msgid "POOL_RESULT_PAGE_LABEL_Says:"
-#~ msgstr ""
-
-#~ msgid "POOL_RESULT_PAGE_LABEL_Birthday Messages"
-#~ msgstr ""
 

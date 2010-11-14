@@ -71,7 +71,7 @@ class ProductController(BaseController):
 		except AttributeMissingInProductException, e:
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
-		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}	
+		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}
 	
 	@jsonify
 	def remote_search(self):
@@ -80,6 +80,10 @@ class ProductController(BaseController):
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
 	
+	@jsonify
+	def friend_tab(self):
+		c = g.product_service.friend_tab(request)
+		return {'clearmessage':True, 'html':remove_chars(render('/product/friend_tab.html').strip(), '\n\r\t')}
 	
 	
 	

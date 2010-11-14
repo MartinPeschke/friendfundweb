@@ -7,7 +7,7 @@
 <%def name="edit(pool)">
 	<div id="thankyou_editor">
 		<form id="thankyou_form" method="POST">
-			<textarea cols="28" rows="3" name="thankyou">${pool.receiver.message}</textarea>
+			<textarea cols="28" rows="3" name="thankyou">${pool.thank_you_message}</textarea>
 			<div style="float:right">
 				<a class="Save" onclick="loadFormElement('${url(controller='pool', pool_url=pool.p_url, action='set_thankyou')}', 'thankyou_editor', 'thankyou_form', place_element('thankyou_editor'));">
 					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
