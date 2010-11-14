@@ -35,6 +35,18 @@ class PoolComment(DBMappedObject):
 		return self.get_profile_pic(type="PROFILE_S")
 	profile_s_pic = property(get_profile_s_pic)
 	
+class PoolThankYouMessage(DBMappedObject):
+	"""
+		exec app.add_thank_you_message'<POOL p_url ="UC0xMjUyNA~~" message = "thanks so much"/>'
+	"""
+	_set_root = _get_root = 'POOL'
+	_set_proc = _get_proc = "app.add_thank_you_message"
+	_unique_keys = ['p_url']
+	_keys = [	GenericAttrib(str,'p_url','p_url')
+				,GenericAttrib(unicode,'message','message')
+			]
+
+
 
 class PoolDescription(DBMappedObject):
 	"""
@@ -192,6 +204,7 @@ class Pool(DBMappedObject):
 			, DBMapper(Product,'product', 'PRODUCT'				)
 			, DBMapper(Occasion,'occasion', 'OCCASION'			)
 			, GenericAttrib(unicode,'description','description'	)
+			, GenericAttrib(unicode,'thank_you_message','thank_you_message')
 			, GenericAttrib(str,'currency', 'currency'			)
 			, GenericAttrib(str,'region', 'region'				)
 			, GenericAttrib(str,'status', 'status'				)

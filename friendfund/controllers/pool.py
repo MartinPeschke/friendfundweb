@@ -12,7 +12,7 @@ from friendfund.lib.tools import dict_contains
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
-from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription
+from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
@@ -182,8 +182,8 @@ class PoolController(BaseController):
 		c.edit = False
 		thankyou = request.params.get('thankyou', None)
 		if thankyou:
-			g.dbm.set(PoolDescription(p_url = pool_url, thankyou = thankyou))
-			c.pool.thankyou = thankyou
+			g.dbm.set(PoolThankYouMessage(p_url = pool_url, message = thankyou))
+			c.pool.thank_you_message = thankyou
 			g.dbm.push_to_cache(c.pool)
 		return {'data':{'success':True, 'html':render('/pool/parts/receiver_thank_you.html').strip()}}
 		
