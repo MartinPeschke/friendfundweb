@@ -128,7 +128,7 @@ class MyprofileController(BaseController):
 			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
 			email = form_result['email']
 			g.dbm.set(DBRequestPWProc(email=email))
-			c.messages.append(_(u"PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!" % email))
+			c.messages.append(_(u"PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!") % email)
 			return self.render('/myprofile/password_request.html')
 		except formencode.validators.Invalid, error:
 			c.pwd_values = error.value

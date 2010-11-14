@@ -20,14 +20,14 @@
 	<div class="completeRcpt">
 		
 		<div class="rcptRibbon"></div>
-		<div class="title">Thank You!</div>
+		<div class="title">${_("POOL_RESULT_PAGE_LABEL_Thank You!")}</div>
 		<div class="rcptPicture">
 			<img src="${c.pool.receiver.get_profile_pic('RESULT')}"/>
 			<div class="rcptRcvrIcon"></div>
 		</div>
 		<div class="rcptThankYouNotice">
 			<span class="triangle"></span>
-			<div class="heading margin">Jenifer Says:</div>
+			<div class="heading margin">${_("POOL_RESULT_PAGE_LABEL_%s Says:") % c.pool.receiver.name}</div>
 			<div class="rcptThankYou">${thankyou.view(c.pool)|n}</div>
 		</div>
 		
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 	<div class="pcontBodyComplete">
-		<h4 class="inside">Birthday Messages</h4>
+		<h4 class="inside">${_("POOL_RESULT_PAGE_LABEL_%s Messages") % c.pool.occasion.get_display_name()}</h4>
 		
 		%for i, invitee in enumerate(c.pool.get_contributors()):
 			${self.render_contributor(i, invitee)}

@@ -1,8 +1,5 @@
 dojo.provide("friendfund.ProductSearch");
-dojo.require("dojo.NodeList-manipulate");
-dojo.require("dojo.NodeList-traverse");
 dojo.require("dojox.fx.scroll");
-dojo.require("dojo.fx.easing");
 dojo.require("dojox.widget.AutoRotator");
 dojo.require("dojox.widget.rotator.Pan");
 dojo.require("friendfund.Tooltip");

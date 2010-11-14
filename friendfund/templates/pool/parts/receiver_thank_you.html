@@ -22,6 +22,6 @@
 		%if pool.am_i_receiver(c.user):
 		<div class="editIcon" onclick="loadElement('${url(controller='pool', pool_url=pool.p_url, action='edit_thankyou')}', 'thankyou_editor', {});"></div>
 		%endif
-		<div class="admin">${pool.admin.name}:</div>${pool.receiver.message}
+		${pool.receiver.message}
 	</div>
 </%def>

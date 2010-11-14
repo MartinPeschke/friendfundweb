@@ -36,7 +36,7 @@ ${mypools_body.render_tabs("friends")|n}
 		%endfor
 	%endif
 	%if not c.my_pools.pools:
-		<div style="margin:30px; clear:both;">Sorry, None of your friends have created any pools!</div><div style="clear:both"></div>
+		<div>${_("MYPOOLS_NOPOOLS_Sorry, None of your friends have created any pools!")}</div><div style="clear:both"></div>
 		${bdayfriends.body(_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"))|n}
 	%endif
 </div>
