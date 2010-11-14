@@ -1,7 +1,6 @@
 dojo.provide("friendfund.HomePagePanel");
 
 dojo.require("dijit.form.DateTextBox");
-dojo.require("dojo.date.locale");
 dojo.require("dojo.NodeList-manipulate");
 dojo.require("dojo.NodeList-traverse");
 dojo.require("dojox.fx.scroll");
