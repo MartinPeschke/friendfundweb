@@ -264,10 +264,7 @@ div.frontpagebutton.funders {
 	margin-right: 30px
 }
 
-#button_panel {min-height:150px;position: relative;}
-
-#button_panel.product {padding:15px 0 0 0;}
-#button_panel.receiver {	padding:0px;}
+#button_panel {min-height:150px;position: relative;padding:15px 0 0 0;}
 
 #button_panel h2{
 	margin:0;
@@ -317,7 +314,6 @@ div.panel_content_no_margin {
 }
 div.panel_content_inner {margin: 40px 20px 20px;}
 /* -------------------------- OCCASION Panel ------------------------- */
-#button_panel.occasion { padding-top: 15px}
 
 div#occasion_button_bar {
 	float:left;
@@ -531,99 +527,20 @@ p.termsOf a{ color:#B70158;}
 #inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
 #inviteheader input{ margin-right:10px}
 
-div.panel_title a.methodselector  {
-	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
-	font-style: normal;
-	padding-right:15px;
-	position:relative;
-	text-align:center;
-	z-index:2;
-}
-div.panel_title a.methodselector span {
-	padding-left: 15px;
-	padding-bottom: 2px;
-	padding-top: 2px;
-	font-family: Trebuchet MS;
-	font-weight: normal !important;
-	height: 30px;
-	line-height: 30px;
-}
-div.panel_title a.methodselector.ajaxlink span {
-	cursor: pointer;
-}
-#lowerbody_container.networkinviter a.selected span {
-	background: url(../imgs/inputfield.png) 0 -272px no-repeat;
-	padding-left: 15px;
-	cursor: pointer;
-	padding-bottom: 2px;
-	padding-top: 2px
-}
-.selectFriend {
-	padding-right: 15px;
-	padding:0px 10px 0px 0;
-	float: left;
-	display: block;
-	height: 30px;
-	line-height: 30px;
-	font-size:18px
-}
-.panel_title a.methodselector, .panel_title a.methodselector img {position:relative;}
-#button_panel a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-family:"Trebuchet MS"}
-#button_panel.receiver a.methodselector.selected, #button_panel.product a.methodselector.selected, #button_panel.occasion a.methodselector.selected {
-	/*front page only*/
-	background:url("../imgs/inputfield.png") no-repeat scroll 100% -322px transparent;
-	font-family:"Trebuchet MS", Arial, Helvetica, Jamrul, sans-serif;
-	font-style:normal;
-	padding-right:15px;
-	position:relative;
-	text-align:center;
-	z-index:2;
-	margin-left:0px;
-	line-height:30px;
-	height:30px;
-	display:block;
-	float:left;
-	margin-left: 5px
-}
-#button_panel.receiver a.selected span, #button_panel.product a.selected span,  #button_panel.occasion a.selected span {
-	/*front page only*/
-	background:url("../imgs/inputfield.png") no-repeat scroll 0 -272px transparent;
-	cursor:pointer;
-	padding-bottom:0px;
-	padding-left:15px;
-	padding-top:0px;
-	line-height:30px;
-	height:30px;
-	display:block;
-	float:left;
-	margin-right: 0px
-}
-#button_panel a.methodselector span {
-	padding-bottom:0;
-	padding-left:15px;
-	padding-top:0;
-	font-size:18px;
-	color:#403834;
-	float:left;
-	line-height:30px; height:30px
-}
-#button_panel a.methodselector.ajaxlink span {
-	cursor:pointer;
-}
-.selectyourself {
-	padding-left: 30px !important;
-	position: relative;
-	cursor: pointer
-}
-.selectyourself img {
-	position: absolute;
-	left: 0;
-	top: -5px
-}
+a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
+a.methodselector img{position:relative;top:3px;}
+a.methodselector.ajaxlink{background:url("../imgs/inputfield.png") no-repeat scroll 100% -1562px transparent;min-width:115px;}
+
+a.methodselector span {padding:0 0 0 15px;color:#403834;display:block;line-height:30px; height:30px;}
+a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png") no-repeat scroll 0 -1512px transparent;}
+
+a.methodselector.selected {background:url("../imgs/inputfield.png") no-repeat scroll 100% -322px transparent;}
+a.methodselector.selected span {background:url("../imgs/inputfield.png") no-repeat scroll 0 -272px transparent;}
+
 
 div#lowerbody_container.fullbackground{background-color: #BBE3F7;}
 div#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
-div#lowerbody {margin: 0px 30px 0px 30px;}
+div#lowerbody {margin: 30px;}
 #lowerbody_container {
 	position: relative;
 	margin: 30px 0px 0px;
@@ -633,16 +550,7 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 	background: white ;
 	padding-bottom: 30px
 }
-#lowerbody_container a.methodselector{ margin-right: 5px; padding-right: 15px}
-#lowerbody_container a.methodselector.selected {
-	font-family:Arial, Helvetica, Jamrul, Arial, sans-serif;
-	font-style: normal;
-	padding-right:15px;
-	position:relative;
-	text-align:center;
-	z-index:2;
-	background: url(../imgs/inputfield.png) 100% -322px no-repeat;
-}
+
 #receiver_selector_container #inviteheader div.headline {margin:20px;}
 #inviter #inviteheader div.headline {}
 #inviteheader div.headline {
@@ -697,17 +605,15 @@ div#lowerbody {margin: 0px 30px 0px 30px;}
 .invitee_row span.label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
 .invitee_row img.fbprofilepic {width: 50px;height: 50px;z-index:1;position: relative;display: block; float: left}
 .invitee_row a.selector {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -266px -25px transparent;
-	bottom:15px;height:30px;position:absolute;width:30px;}
+	background:url("/static/imgs/inputfield.png") no-repeat scroll -270px -25px transparent;
+	bottom:15px;height:30px;position:absolute;width:30px;right:0px;}
+#friend_list .invitee_row a.selector {background-position:-215px -25px;right:0px;}
 
 #friend_list .invitee_row span.label div.birthdaylabel{font-size:90%;color: #555;}
-#friend_list .invitee_row a.selector {background-position:-206px -25px;}
 
 .invitee_row.selectable {cursor:pointer;}
 .invitee_row.nonselectable {	display:none;}
 #invites .invitee_row.selected {background-color: #aaa;margin: 0px;padding: 5px;cursor:normal;}
-
-#invited .invitee_row a.selector, #friend_list.fb .invitee_row a.selector {right:0px;}
 
 #receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 250px;}
 #receiver_selector_container .invitee_row span.label{ width:170px;}
