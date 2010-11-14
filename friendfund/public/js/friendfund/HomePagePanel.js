@@ -210,6 +210,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		params["product.is_virtual"] = selection_args.is_virtual;
 		params["product.is_curated"] = selection_args.is_curated;
 		params["product.is_amazon"] = selection_args.is_amazon;
+		params["product.is_pending"] = selection_args.is_pending;
 		loadElement("/product/set", "product_panel", params, 
 			function(){
 				_t.set_complete(_t, 'product');
