@@ -64,7 +64,7 @@ class Product(DBMappedObject):
 	display_label = property(get_display_label)
 	
 	def fromDB(self, xml):
-		self.is_virtual = False
+		self.is_virtual = self.is_virtual or False
 
 class PendingProduct(Product):
 	def get_price_float(self, include_shipping = True):

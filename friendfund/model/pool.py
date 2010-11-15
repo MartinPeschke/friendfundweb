@@ -19,7 +19,7 @@ class TooManyPoolReceiverException(AttributeError):pass
 class InsufficientParamsException(Exception):pass
 
 class PoolComment(DBMappedObject):
-	_set_root = _get_root = 'COMMENT'
+	_get_root = _set_root = 'COMMENT'
 	_set_proc = _get_proc = "app.add_pool_comment"
 	_unique_keys = ['p_url', 'u_id']
 	_keys = [	GenericAttrib(str,'p_url','p_url')
@@ -39,7 +39,7 @@ class PoolThankYouMessage(DBMappedObject):
 	"""
 		exec app.add_thank_you_message'<POOL p_url ="UC0xMjUyNA~~" message = "thanks so much"/>'
 	"""
-	_set_root = _get_root = 'POOL'
+	_get_root = _set_root = 'POOL'
 	_set_proc = _get_proc = "app.add_thank_you_message"
 	_unique_keys = ['p_url']
 	_keys = [	GenericAttrib(str,'p_url','p_url')
@@ -52,7 +52,7 @@ class PoolDescription(DBMappedObject):
 	"""
 		exec app.add_pool_description '<POOL url ="UC0xMDE4OQ~~" description = "balh de blah"/>'
 	"""
-	_set_root = _get_root = 'POOL'
+	_get_root = _set_root = 'POOL'
 	_set_proc = _get_proc = "app.add_pool_description"
 	_unique_keys = ['p_url']
 	_keys = [	GenericAttrib(str,'p_url','p_url')
@@ -71,7 +71,7 @@ class PoolChat(DBMappedObject):
 
 class PoolStub(DBMappedObject):
 	"""<POOL p_id="10733" p_url="UC0xMDczMw~~"/>"""
-	_set_root = _get_root = 'POOL'
+	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_id', 'p_url']
 	_keys = [	GenericAttrib(int,'p_id','p_id')
 				,GenericAttrib(str,'p_url','p_url')

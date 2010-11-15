@@ -8,6 +8,9 @@
 		<% locals = {"user_name":user_name, "receiver_name":receiver_name} %>
 		${(_("POOL_BUTTON_Hi %(user_name)s<br/>Please help us to share the costs for %(receiver_name)s's gift.")%locals)|n}
 		
+		
+		${pool.product.is_virtual}
+		
 		%if pool.product.is_virtual:
 			%if pool.am_i_contributor(c.user):
 				<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
