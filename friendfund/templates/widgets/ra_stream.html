@@ -6,8 +6,9 @@ ${render_stream_block(c.recent_activity, c.uuid)}
 	<%
 		pools = recent_activity.pools
 		total = len(pools)
+		offset_margin = -170*(total-offset)
 	%>
-	<div id="${uuid}" class="ra_scroller" style="position: relative;height:${170*total}px;margin-top:-${170*(total-offset)}px" _top="-${170*(total-offset)}">
+	<div id="${uuid}" class="ra_scroller" style="position: relative;height:${170*total}px;margin-top:${offset_margin}px" _top="${offset_margin}px">
 	%for i, ra in enumerate(pools):
 		<a href="${url(controller='pool', action='index', pool_url = ra.p_url)}">
 		<div class="rabody" id="${uuid}_${i}">

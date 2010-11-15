@@ -79,6 +79,7 @@ def main(argv=None):
 					if k in template_data:
 						template_data[k] = _(template_data[k])
 				
+				log.info ( 'meta_data, %s', meta_data)
 				log.info ( 'SENDER, %s', sndr_data)
 				log.info ( 'RECEIPIENT, %s', rcpt_data)
 				log.info ( 'TEMPLATE, %s', template_data)
@@ -88,17 +89,23 @@ def main(argv=None):
 					if notification_method == 'email':
 						msg_id = email.send(sndr_data, rcpt_data, template_data)
 					elif notification_method == 'stream_publish':
-						msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
+						msg_id = "1" # facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
 					elif notification_method in ['tweet', 'tweet_dm']:
-						sndr_data['twitterapikey'] = config['twitterapikey']
-						sndr_data['twitterapisecret'] = config['twitterapisecret']
+						if sndr_data['u_id'] in ['25710','25711','25712','25713','25714','25715','25716','25717','25718','25719','25720']:
+							sndr_data['twitterapikey'] = config['testtwitterapikey']
+							sndr_data['twitterapisecret'] = config['testtwitterapisecret']
+							print "USED TEST APP"
+						else:
+							sndr_data['twitterapikey'] = config['twitterapikey']
+							sndr_data['twitterapisecret'] = config['twitterapisecret']
 						sndr_data['bitlylogin'] = config['bitly.login']
 						sndr_data['bitlyapikey'] = config['bitly.apikey']
-						sndr_data['twitterapisecret'] = config['twitterapisecret']
+						
 						if notification_method == 'tweet':
 							msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
 						elif notification_method == 'tweet_dm':
-							msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data)
+							pass
+							# msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data) @ disabled
 					else:
 						raise Exception("Unknown Notification Method")
 				except InvalidAccessTokenException, e:

@@ -53,7 +53,8 @@ class Globals(object):
 		self.debug = config['debug']
 		self.test = config['test'] == 'true'
 		if self.debug:
-			self.revision_identifier = lambda: random()
+			self.rv = random()
+			self.revision_identifier = lambda: self.rv
 		else:
 			self.revision_identifier = lambda: REVISION_ENDING
 		app_conf = config['app_conf']
@@ -160,7 +161,7 @@ class Globals(object):
 		self.product_service = ProductService(amazon_services, product_categories, virtual_gifts, top_sellers, self.country_choices)
 		log.info("ProductService set up")
 		
-		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home')
-							,(_('GLOBAL_MENU_My_Pools'), {'args':['controller'], 'kwargs':{'controller':'mypools'}}, 'mypools')
-							,(_('GLOBAL_MENU_My_Badges'), {'args':['controller'], 'kwargs':{'controller':'mybadges'}}, 'badges')
-							,(_('GLOBAL_MENU_My_Profile'), {'args':['controller'], 'kwargs':{'controller':'myprofile'}}, 'myprofile')]
+		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home', True)
+							,(_('GLOBAL_MENU_My_Pools'), {'args':['controller'], 'kwargs':{'controller':'mypools'}}, 'mypools', True)
+							,(_('GLOBAL_MENU_My_Badges'), {'args':['controller'], 'kwargs':{'controller':'mybadges'}}, 'badges', False)
+							,(_('GLOBAL_MENU_My_Profile'), {'args':['controller'], 'kwargs':{'controller':'myprofile'}}, 'myprofile', True)]

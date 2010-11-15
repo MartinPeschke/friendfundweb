@@ -15,12 +15,14 @@ ${self.master_foot()}
 		<script type="text/javascript">var _kmq = _kmq || [];function _kms(u){setTimeout(function(){var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;s.src = u; f.parentNode.insertBefore(s, f);}, 1);}_kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/50cb8d4c3b868770ea42ee449bb2f5217a5b786c.1.js');</script>
 		<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-		<title>Friendfund.com | ${self.title()}</title>
+		<title>${self.title()}</title>
 		
-		${links.css('%s.css' %c.siteversion)}
+		<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css"/>
+		${links.css('%s.css'%c.siteversion)}
 		${links.css('message_block.css')}
 		<script type="text/javascript"> 
 			page_reloader = function(){window.location.reload();};
+			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
 			locale_picked=function(elem){document.getElementById("set_lang").submit()}
 		</script>
 		${self.fb_meta_tags()}
@@ -74,7 +76,13 @@ ${self.master_foot()}
 				<a href="${url(controller='content', action='privacy')}" class="siteinfo_content">${_(u"SITEINFO_Privacy")|n}</a>
 				<a href="${url(controller='content', action='impressum')}" class="siteinfo_content">${_(u"SITEINFO_Impressum")|n}</a>
 				<a href="${url(controller='content', action='faq')}" class="siteinfo_content">${_(u"SITEINFO_FAQ")|n}</a>
+				<div class="flagContainer">
+					<a href="${url(controller='myprofile', action='set_lang')}?lang=de_DE" class="flag_de_DE">&nbsp;</a>
+					<a href="${url(controller='myprofile', action='set_lang')}?lang=en_GB" class="flag_en_GB">&nbsp;</a>
+					<a href="${url(controller='myprofile', action='set_lang')}?lang=en_US" class="flag_en_US">&nbsp;</a>
+				</div>
 			</div>
+			
 		</div>
 	</div>
 	${self.footer_end()}
@@ -83,17 +91,7 @@ ${self.master_foot()}
 	
 	
 	<!-- scripts -->
-	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css"/>
-	<script type="text/javascript"> 
-		djConfig = {
-			baseUrl: "./",
-			modulePaths: {
-				"friendfund": "/static/js/friendfund"
-			},
-			dojoBlankHtmlUrl : '/static/blank.html',
-			xdWaitSeconds: 10
-		};
-	</script> 
+	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/js/friendfund"},dojoBlankHtmlUrl : "/static/blank.html",xdWaitSeconds: 5};</script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" type="text/javascript"></script>
 	${links.js('fbinit.js')}
 	${links.js('loader.js')}
@@ -101,7 +99,8 @@ ${self.master_foot()}
 	<div id="badge_popup"><%include file="/messages/badge_popup.html"/></div>
 	<div id="generic_popup"></div>
 	<div id="blocking_msgs" class="${(not (getattr(c, 'blocks', False) and getattr(c, 'enforce_blocks', False))) and 'hidden' or ''}">
-			<%include file="/messages/blocks.html"/></div>
+		<%include file="/messages/blocks.html"/>
+	</div>
 	
 	<div id="fb-root"></div>
 	
@@ -127,41 +126,30 @@ ${self.master_foot()}
 
 <%def name="title()"></%def>
 <%def name="bodyclass()"></%def>
-
-<%def name="footer_end()">
-</%def>
-<%def name="scripts_styles()">
-</%def>
-
+<%def name="footer_end()"></%def>
+<%def name="scripts_styles()"></%def>
 <%def name="scripts()"></%def>
 <%def name="headscripts()"></%def>
-
-<%def name="onloadscripts()">
-</%def>
-
+<%def name="onloadscripts()"></%def>
 <%def name="headerclass()">normal</%def>
+<%def name="show_infographic()"></%def>
 
 <%def name="header()">
 	<div id="headercontainer">
-	<div class="flagContainer">
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=de_DE" class="flag_de_DE">&nbsp;</a>
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_GB" class="flag_en_GB">&nbsp;</a>
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_US" class="flag_en_US">&nbsp;</a>
-	</div>
 		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/imgs/header/logo_banner.png"/></a>
 		${self.header_navigation()}
-		<div id="home_create_pool_button"><a href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
+		<div id="home_create_pool_button"><a class="BtnRed" href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
 	</div>
 	${self.show_infographic()}
 </%def>
 
-<%def name="show_infographic()">
-</%def>
 
 <%def name="header_navigation()">
 	<ul class="navigation">
-		%for title, path, token in app_globals.globalnav:
-			<li class="${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+		%for title, path, token, enabled in app_globals.globalnav:
+			%if enabled:
+				<li class="floaterLeft ${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+			%endif
 		%endfor
 	</ul>
 </%def>

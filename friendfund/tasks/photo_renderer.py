@@ -25,7 +25,8 @@ PROFILE_PIC_FORMATS = [('RA', (120,120))
 					,('POOL', (170,200))
 					,('PROFILE_S', (50,50))
 					,('PROFILE_M', (75,75))
-					,('MYPROFILE', (90,90))]
+					,('MYPROFILE', (90,90))
+					,('RESULT', (205,205))]
 
 PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (170,200)), ('MYPOOLS', (153,114))]
 POOL_PIC_FORMATS = [('RA', (161,120), (4, 12)), ('MYPOOLS', (120,79), (3, 6))]
@@ -51,8 +52,6 @@ def try_locate_sub_image_url(url):
 		return potential_subimages[0]
 	else:
 		return None
-
-
 
 def retrieve_tmp_image(source_url, try_locate_sub_url = False):
 	alt_url = try_locate_sub_image_url(source_url)

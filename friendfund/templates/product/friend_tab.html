@@ -1,0 +1,38 @@
+<%inherit file="panel.html"/>
+<%namespace name="common" file="common.html"/>
+
+
+<div class="whiteContainer">
+
+<div style="clear:both" id="scroller_anchor"></div>
+<h4 class="inside">${_("PRODUCT_SEARCH_PANEL_Can't decide on the perfect gift?")}</h4>
+<div id="product_browser_container" class="productSorterContainer">
+	
+	<div class="productSorterWidth">
+		<div class="halfWidth">
+			<h4 class="inside">${_("PRODUCT_SEARCH_PANEL_Ask Your recipient what they want...")}</h4>
+			<div class="label">${_("PRODUCT_SEARCH_PANEL_Your recipient should have a pretty good idea of their dream gift. So, if you're feeling a little stuck, why not ask them what they want?")}</div>
+			<img src="/static/imgs/Nominate_tab_ask_receiver.jpg"/>
+			<a class="submitSmall"><span class="anchorelem productselector" _guid="${c.pproduct_receiver.guid}" 
+				_search_keys="_affnet,_is_pending,_progid,_imgurl,_label,_guid" _is_pending="1"
+				_imgurl="${c.pproduct_receiver.picture_large}" _label=${quoteattr(c.pproduct_receiver.display_label)} _affnet="${c.pproduct_receiver.aff_net}" _progid="${c.pproduct_receiver.aff_program_id}">${_("PRODUCT_SEARCH_PANEL_BUTTON_Ask Recipient")}</span></a>
+		</div>
+		
+		<div class="halfWidth">
+			<h4 class="inside">${_("PRODUCT_SEARCH_PANEL_...Or nominate a friewnd to choose a gift.")}</h4>
+			<div class="label">${_("PRODUCT_SEARCH_PANEL_In the next step, you'll be able to nominate one of your friends to find the perfect gift by clicking the gift icon.")}</div>
+			<img src="/static/imgs/Nominate_tab_nominate.jpg"/>
+			<a class="submitSmall"><span class="anchorelem productselector" _guid="${c.pproduct_nominate.guid}" 
+				_search_keys="_affnet,_is_pending,_progid,_imgurl,_label,_guid" _is_pending="1"
+				_imgurl="${c.pproduct_nominate.picture_large}" _label=${quoteattr(c.pproduct_nominate.display_label)} _affnet="${c.pproduct_nominate.aff_net}" _progid="${c.pproduct_nominate.aff_program_id}">${_("PRODUCT_SEARCH_PANEL_BUTTON_Nominate a Friend")}</span></a>
+		</div>
+		
+		
+		<div class="header-small"></div>
+		<div class="footer-small"></div>
+	</div>
+	
+</div>
+<div style="clear:both"></div>
+</div>
+

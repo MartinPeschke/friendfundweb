@@ -4,7 +4,7 @@
 ${self.mailinvitedinvitees()}
 
 <%def name="mailinvitees()">
-	<div id="mail_invitees" class="invited_list">
+	<div id="email_invitees" class="invited_list">
 		${mailinvitedinvitees()}
 	</div>
 	</%def>
@@ -16,7 +16,7 @@ ${self.mailinvitedinvitees()}
 	</div>
 </%def>
 <%def name="fbinvitees()">
-	<div id="fb_invitees" class="invited_list">
+	<div id="facebook_invitees" class="invited_list">
 		<div class="seperator"><img src="/static/imgs/icon_fb_connect.png"/></div>
 		${inviter.render_network_friends(c.invitees.get("facebook", dict()))|n}
 		${html.clearline()}

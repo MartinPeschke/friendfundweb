@@ -94,9 +94,9 @@
 			
 			
 		</div>
-			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" 
+			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _search_keys="_affnet,_is_curated,_is_virtual,_is_amazon,_progid,_imgurl,_label,_guid"
 				_is_virtual="${product.is_virtual and "1" or "0"}" _is_curated="${product.is_curated and "1" or "0"}" _is_amazon="${product.is_amazon and "1" or "0"}"
-				_imgurl="${product.picture_large}" _label=${quoteattr(product.display_label)}>${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
+				_imgurl="${product.picture_large}" _label=${quoteattr(product.display_label)} _affnet="${product.aff_net}" _progid="${product.aff_program_id}">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
 				<div class="footer-small"></div>
 				<div style="clear:both"></div>
 	</div>

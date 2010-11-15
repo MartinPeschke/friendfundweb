@@ -6,8 +6,7 @@
 <%def name="title()">${_("INVITE_PAGE_FB_LOGIN_Invite")}</%def>
 
 <%def name="scripts()">
-	${links.js('friendfund/NetworkFriendSelector.js')}
-	${links.js('friendfund/EmailFriendSelector.js')}
+	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/InvitePage.js')}
 </%def>
 
@@ -19,7 +18,6 @@
 			fb_api_key : "",
 			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"
 		});
-	page.selector.${c.method}.draw();
 	
 	page_reloader = dojo.hitch(null, page.prepareSubmit, page);
 </%def>
@@ -53,8 +51,8 @@
 %>
 
 <div id="lowerbody_container" class="networkinviter fullbackgroundwhite">
-	<div style="padding:0px 30px 30px;">
-		<div id="network_methodselector" class="panel_title"><span class="selectFriend">${_("INVITE_PAGE_LABEL_Select your friends from:")} </span>
+	<div id="lowerbody">
+		<div id="network_methodselector" class="TabsContainer"><a class="methodselector"><span>${_("INVITE_PAGE_LABEL_Select your friends from:")}</span></a>
 				<a class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _target="inviter" _type="facebook"><span><img src="/static/imgs/icon_fb_connect.png"> Facebook</span></a>
 				<a class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _target="inviter" _type="twitter"><span> <img src="/static/imgs/icon_tw_connect.png"> Twitter</span></a>
 				<a class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _target="inviter" _type="email"><span><img src="/static/imgs/icon_mail.png"> Email</span></a>
@@ -63,9 +61,7 @@
 		<div id="invitescontainer" class="innerbody">
 			<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<div id="invites">
-				<div id="inviter">
-					Loading...
-				</div>
+				<div id="inviter"></div>
 				<div id="invited">
 					${invited.mailinvitees()}
 					${invited.twitterinvitees()}

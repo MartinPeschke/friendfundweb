@@ -1,0 +1,27 @@
+%if c.edit:
+	${edit(c.pool)|n}
+%else:
+	${view(c.pool)|n}
+%endif
+
+<%def name="edit(pool)">
+	<div id="description_editor">
+		<form id="description_form" method="POST">
+			<textarea cols="68" rows="5" name="description">${pool.description}</textarea>
+			<div style="position:absolute; right:30px;bottom:15px;">
+				<a class="Save" onclick="loadFormElement('${url(controller='pool', pool_url=pool.p_url, action='set_description')}', 'description_editor', 'description_form', place_element('description_editor'));">
+					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
+			</div>
+		</form>
+	</div>
+</%def>
+
+
+<%def name="view(pool)">
+	<div id="description_editor">
+		%if pool.am_i_admin(c.user):
+		<div class="editIcon" onclick="loadElement('${url(controller='pool', pool_url=pool.p_url, action='edit_description')}', 'description_editor', {});"></div>
+		%endif
+		<div class="admin">${pool.admin.name}:</div>${pool.description}
+	</div>
+</%def>

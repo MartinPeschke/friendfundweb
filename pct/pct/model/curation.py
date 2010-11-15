@@ -11,7 +11,7 @@ key_order = [
 			,('description_long',  lambda x:getattr(x, 'description_long')    )
 			,('manufacturer',      lambda x:getattr(x, 'manufacturer')    )
 			,('name',              lambda x:getattr(x, 'name')    )
-			,('price',             lambda x: numbers.format_currency( float(getattr(x, 'price') or 0.0)/100, getattr(x, 'currency'), locale = 'en_GB'))
+			,('amount',             lambda x: numbers.format_currency( float(getattr(x, 'amount') or 0.0)/100, getattr(x, 'currency'), locale = 'en_GB'))
 			,('shipping_cost',     lambda x:getattr(x, 'shipping_cost')    )
 			]
 

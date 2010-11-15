@@ -42,13 +42,15 @@ class DBManager(object):
 		result, cur = execute_query(self.dbpool, self.logger, 'exec %s ?;' % obj._set_proc, DBMapper.toDB(obj))
 	
 		if merge: obj.mergewDB(result.find(obj._get_root))
-		if cache and obj._cachable:
-			with self.cache_pool.reserve() as mc:
+		if cache and obj._cachable:self.push_to_cache(obj)
+		return obj
+	
+	def push_to_cache(self, obj):
+		with self.cache_pool.reserve() as mc:
 				key = '_'.join(map(unicode, [getattr(obj, k) for k in obj._unique_keys]))
 				key = '<%s>%s' % (obj.__class__.__name__.lower(), key)
 				key = key.encode("latin-1", "xmlcharrefreplace")
 				mc.set(key, obj, obj._expiretime or self._expiretime)
-		return obj
 	
 	def expire(self, obj):
 		with self.cache_pool.reserve() as mc:

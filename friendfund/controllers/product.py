@@ -71,7 +71,7 @@ class ProductController(BaseController):
 		except AttributeMissingInProductException, e:
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
-		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}	
+		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}
 	
 	@jsonify
 	def remote_search(self):
@@ -80,6 +80,10 @@ class ProductController(BaseController):
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
 	
+	@jsonify
+	def friend_tab(self):
+		c = g.product_service.friend_tab(request)
+		return {'clearmessage':True, 'html':remove_chars(render('/product/friend_tab.html').strip(), '\n\r\t')}
 	
 	
 	
@@ -103,21 +107,17 @@ class ProductController(BaseController):
 		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = formencode.variabledecode.variable_decode(request.params)
 		product = params.get('product', None)
-		if not product or not dict_contains(product, ['is_amazon', 'is_virtual', 'is_curated', 'guid']):
+		if not product or 'guid' not in product:
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
+		product['is_amazon']  = strbool.to_python(product.get('is_amazon' ))
+		product['is_virtual'] = strbool.to_python(product.get('is_virtual'))
+		product['is_curated'] = strbool.to_python(product.get('is_curated'))
+		product['is_pending'] = strbool.to_python(product.get('is_pending'))
 		
-		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
-		product['is_virtual'] = strbool.to_python(product['is_virtual'])
-		product['is_curated'] = strbool.to_python(product['is_curated'])
-
-		g.product_service.set_product(product, request)
-		
-		
-		
-
+		websession['pool'] = g.product_service.set_product(websession.get('pool') or Pool(), product, request)
+		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
 
-	
 	@jsonify
 	def verify_dates(self):
 		c.region = request.params.get('region', websession['region'])

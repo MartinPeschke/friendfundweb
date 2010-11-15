@@ -1,0 +1,35 @@
+<%inherit file="../master.html"/>
+<%namespace name="html" file="/widgets/html_elems.html"/>
+
+<%def name="title()">${_("CONTRIBSUCCESSPAGE_FAIL_TITLE")}</%def>
+<%def name="page_slogan()"><div id="page_slogan">${_("CONTRIBSUCCESSPAGE_FAIL_HEADING")}</div></%def>
+
+
+<div id="paymentdetailscontainer" class="innerbody">
+	<div class="panel_title">
+		${_("PAYMENT_DETAILS_Total Amount:")}
+	</div>
+	<div class="panel_content white">
+		<div id="payment_details_amount">
+			${_("PAYMENT_DETAILS_You are chipping in:")}
+			<div class="floaterRight amount clearer">${h.format_currency(c.contrib.get_amount(), c.contrib.currency)|n}</div>
+			%if c.has_fees:
+				<div class="floaterRight amount clearer"><span>+ </span>${h.format_currency(c.contrib.get_difference(), c.contrib.currency)|n}</div>
+			%endif
+			<div class="floaterRight amount clearer totalsum"><span class="total_label">${_("CONTRIBPAGE_LABEL_Total")}</span>${h.format_currency(c.contrib.get_total(), c.contrib.currency)|n}</div>
+		</div>
+	</div>
+	
+	<div id="payment_details_status">
+		<div class="panel_title">
+			${_("CONTRIBSUCCESSPAGE_LABEL_Payment Failed")}
+		</div>
+		<div class="panel_content white">
+			<h1>${_("CONTRIBSUCCESSPAGE_LABEL_That didnt work, u wanna try again?")}</h1>
+		</div>
+		<div style="position:relative;margin:0px 30px 30px;width:860px;float:left;">
+			<a class="submitSmallLeft" href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Try Again")}</span></a>
+			<a class="submitSmall" href="${url('ctrlpoolindex',controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBSUCCESSPAGE_LABEL_Back To Pool")}</span></a>
+		</div>
+	</div>
+</div>

@@ -23,10 +23,12 @@ def make_map(config):
 	# CUSTOM ROUTES HERE
 	map.connect('/pool/start', controller='pool', action='reset')
 	map.connect('/pool/create', controller='pool', action='create')
+	
 	map.connect('get_pool', '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
-	map.connect('chipin', '/pool/{pool_url}/chipin', controller='contribution', action="chipin", requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
-	map.connect('chipin_fixed', '/pool/{pool_url}/chipin_fixed', controller='contribution', action="chipin_fixed", requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
 	map.connect('pool_action', '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
+	map.connect('chipin', '/chipin/{pool_url}', controller='contribution', action="chipin", requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
+	map.connect('chipin_fixed', '/chipin/{pool_url}/fixed', controller='contribution', action="chipin_fixed", requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
+	map.connect('contribution', '/chipin/{pool_url}/{action}', controller='contribution', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
 	
 	map.connect('/invite/friends', controller='invite', action='friends')
 	
@@ -34,6 +36,7 @@ def make_map(config):
 	map.connect('invite', '/invite/{pool_url}/ext_{method}', controller='invite', action='get_extension', requirements={'pool_url': '[0-9a-zA-Z~_-]+', 'method':CONNECT_METHODS})
 	map.connect('invite_index', '/invite/{pool_url}', controller='invite', action='display', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
 	map.connect('invite_action', '/invite/{pool_url}/{action}', controller='invite', requirements={'pool_url': '[0-9a-zA-Z~_-]+'})
+	map.connect('getfriends', '/myfriends/get/{pmethod}', controller='myfriends', action='get', requirements={'method':CONNECT_METHODS})
 	map.connect('/receiver/{method}', controller='receiver', action='method', requirements={'method':CONNECT_METHODS})
 	map.connect('/receiver/ext_{method}', controller='receiver', action='get_extension', requirements={'method':CONNECT_METHODS})
 	map.connect('mybadges', '/mybadges/panel/{badge_name}', controller="mybadges", action="panel")

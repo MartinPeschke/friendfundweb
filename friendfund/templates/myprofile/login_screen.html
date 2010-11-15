@@ -5,16 +5,16 @@
 <%def name="title()">${_("LOGIN_PAGE_TITLE_Login")}</%def>
 <%def name="page_slogan()">&nbsp;</%def>
 
-<div id="login_signup_container" class="">
+<%def name="headscripts()">
+	page_reloader = function(){window.location.href="${c.furl}";};
+</%def>
 
+<div id="login_signup_container" class="">
 	<div id="login_form_container" class="left">
 		<div  class="panel_title">
 			${_("LOGIN_PAGE_TITLE_TEXT_Login")}
 		</div>
 			<div class="panel_content_inner">
-			<!--<div class="forminputline">
-                    <label>${_("LOGIN_PAGE_LABEL_Login with")}</label>
-			</div>-->
 				<div class="forminputline" style="margin:26px 0 0 0" >
 					<a onclick="fbLogin()" class="facebookBtn" title="${_("Connect with Facebook")}">
 						<span>${_("Connect with Facebook")}</span>
@@ -22,7 +22,7 @@
 				</div>
 				
 				<div class="forminputline" style="margin:15px 0  26px 0">
-					<a href="${url(controller='twitter', action='login')}?furl=${getattr(c, 'furl', url('home'))}" class="twitterBtn" title="${_("Connect with Twitter")}">
+					<a onclick="twInit('${getattr(c, 'furl', url('home'))}')" class="twitterBtn" title="${_("Connect with Twitter")}">
 						<span>${_("Connect with Twitter")}</span>
 					</a>
 				</div>
@@ -30,10 +30,6 @@
             <p class="facebookTxt" style="margin-top:15px"><img src="/static/imgs/icon_mail.png" complete="complete"/>Email</p>
 			<div  class="panel_content_inner" style="margin-top:0px">
 			<form action="${url('index', action='login')}" method="POST" id="login_form">
-				<!--<div class="forminputline">
-					<label>${_("LOGIN_PAGE_LABEL_or by")}</label><br>
-				</div>-->
-
 				<div class="forminputline signup_login">
 					${forms.input_text("login", "email", _("LOGIN_PAGE_LABEL_Email"))|n}
 				</div>
@@ -89,7 +85,6 @@
 				<a onclick="dojo.byId('signup_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Sign Up</span></a>
 			</form>
 			</div>
-		
 	</div>
 	${html.clearline()}
 </div>

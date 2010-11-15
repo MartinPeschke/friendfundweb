@@ -57,7 +57,7 @@ class BaseController(WSGIController):
 		c.navposition = getattr(c, 'navposition', self.navposition)
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
-		c.furl = request.path_info
+		c.furl = request.params.get("furl") or request.path_info
 		log.info('[%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], url.current())
 	
 	def __after__(self, action, environ):

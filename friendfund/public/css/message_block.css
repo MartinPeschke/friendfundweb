@@ -3,14 +3,169 @@ a, a:visited, a:link, a:hover {
 	outline: none;
 	-moz-outline-style: none;
 }
-
 a.somelink {	color: #333;}
+
+/*-------------------------------- BUTTONS ------------------------------------*/
+.BtnRed {background:url("../imgs/inputfield.png") no-repeat scroll 100% -1145px transparent;
+	bottom:0;
+	display:block;
+	float:right;
+	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
+	font-size:18px;
+	font-style:normal;
+	left:0;
+	min-width: 50px;
+	text-align:center;
+	padding-right:15px;
+	z-index:2;
+}
+.BtnRed:hover {background-position:100% -1078px}
+.BtnRed span{background:url("../imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:33px;
+	line-height:33px;
+	padding-left:15px;
+	text-shadow:0 -1px 0 #770B3E;
+}
+.BtnRed:hover span{background-position:0 -778px;}
+.BtnGold{
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -1281px transparent;
+	bottom:0;
+	display:block;
+	float:left;
+	min-width: 50px;
+	text-align:center;
+	padding-right:19px;
+}
+.BtnGold span{
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -1226px transparent;
+	display:block;
+	float:left;
+	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
+	font-size:28px;
+	font-style:normal;
+	color:white;
+	padding-left:19px;
+	height:53px;
+	line-height:53px;
+	text-align:center;
+	z-index:2;
+	text-shadow:0  1px 0 #D58000;
+}
+.BtnGold:hover{background-position:100% -1388px;}
+.BtnGold:hover span{background-position:0 -1333px;}
+
+.submitSmall {
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -213px transparent;
+	display:block;
+	padding-right:20px;
+	float:right;
+	min-width: 50px;
+	text-align:center;
+	z-index:2;}
+.submitSmall span{background:url("../imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:33px;
+	line-height:33px;
+	padding-left:15px;
+	padding-right:5px;
+	text-shadow:0 -1px 0 #770B3E;}
+.submitSmall:hover {background-position:100% -812px;}
+.submitSmall:hover span{background-position:0 -778px;}
+
+.submitSmallLeft {
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% -1477px transparent;
+	display:block;
+	float:left;
+	padding-right:8px;
+	min-width: 50px;
+	text-align:center;
+}
+.submitSmallLeft span {
+	background:url("../imgs/inputfield.png") no-repeat scroll 0 -1443px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:33px;
+	line-height:33px;
+	padding-left:24px;
+	padding-right:5px;
+	text-shadow:0 -1px 0 #770B3E;
+}
+.submitSmallLeft:hover span {background-position:0 -1012px;}
+.submitSmallLeft:hover {background-position:100% -1045px;}
+
+.facebookBtn {background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -695px transparent;
+	cursor:pointer;
+	display:block;
+	height:26px;
+	line-height:26px;
+	padding-right:15px;
+	width:185px;margin:0px auto;}
+.facebookBtn span{background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -668px transparent;
+		font-family:Arial,Helvetica,sans-serif;
+		color:white;
+		cursor:pointer;
+		display:block;
+		font-size:13px;
+		font-weight:bold;
+		height:26px;
+		line-height:25px;
+		padding-left:36px;
+		text-shadow:0 -1px 0 #333333;text-align:center;}
+.twitterBtn {
+	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -749px transparent;
+	cursor:pointer;
+	display:block;
+	height:26px;
+	line-height:26px;
+	padding-right:15px;
+	width:185px;margin:0px auto;}
+.twitterBtn span{
+		background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -722px transparent;
+		font-family:Arial,Helvetica,sans-serif;
+		color:#25568e;
+		cursor:pointer;
+		display:block;
+		font-size:13px;
+		font-weight:bold;
+		height:26px;
+		line-height:25px;
+		padding-left:36px;text-align:center;}
+
+/* ================== RED Submit ================== */
+
+a.red_labeled_container {
+	background:url("../imgs/inputfield.png") no-repeat scroll 100% 1px transparent;
+	color:#FFFFFF;
+	cursor:pointer;
+	display:block;
+	font-size:20px;
+	height:44px;
+	line-height:45px;
+	margin:63px auto 20px;
+	padding-right:25px;
+	position:relative;
+	text-align:center;
+	text-shadow:0 -1px 0 #770B3E;
+	width:160px;
+}
+a.red_labeled_container span {background:url("../imgs/inputfield.png") no-repeat scroll 0 -166px transparent;display:block;padding-left:18px;}
+a.red_labeled_container:hover {background-position:100% -43px;}
+a.red_labeled_container:hover span {background:url("../imgs/inputfield.png") no-repeat scroll 0 -1178px transparent;}
+.inactive {background-position:100% -545px !important;}
+.inactive span {background-position:0 -490px !important;}
 
 /*-------------------------------- black_labeled_input ------------------------------------*/
 
-input.small{
-	width:50px;
-}
+input.small{width:50px;}
 #receiver_selector_container .inputcontainer {
 	position: relative;
 	float: left;
@@ -56,7 +211,7 @@ div.black_labeled_container div.right_bracket {
 	height:25px;
 	width:12px;
 	right: -12px;
-	background: url(/static/imgs/inputfield.png) -80px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -80px -27px no-repeat;
 }
 div.black_labeled_container div.left_bracket {
 	position: absolute;
@@ -64,17 +219,17 @@ div.black_labeled_container div.left_bracket {
 	height:25px;
 	width:10px;
 	left: -10px;
-	background: url(/static/imgs/inputfield.png) -95px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -95px -27px no-repeat;
 }
 div.black_labeled_container .black_labeled_input {
 	position: absolute;
 	left:0px;
-	padding:0;
-	height:25px;
+	padding:5px 0 4px;
+	height:16px;
 	color: #ffffff;
 	font-size: 13px;
 	border: 0px solid transparent;
-	background: url(/static/imgs/inputfield.png) 0px 0px no-repeat;
+	background: url(../imgs/inputfield.png) 0px 0px no-repeat;
 }
 
 input.default {
@@ -92,7 +247,7 @@ div.black_labeled_container a.button_open_down {
 	width: 25px;
 	height: 25px;
 	cursor:pointer;
-	background: url(/static/imgs/inputfield.png) -24px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -24px -27px no-repeat;
 }
 div.black_labeled_container .black_labeled_input * {
 	color: #ffffff;
@@ -104,6 +259,9 @@ div.black_labeled_container .black_labeled_input div.dijitInputField {
 div.black_labeled_container .black_labeled_input .dijitTextBox {
 	border: 0px solid transparent;
 	color: #ffffff;
+	width:90px;
+	margin-top:-5px;
+	z-index:2px;
 }
 div.black_labeled_container a.left_button_search {
 	position: absolute;
@@ -111,7 +269,7 @@ div.black_labeled_container a.left_button_search {
 	left: -20px;
 	width: 25px;
 	height: 25px;
-	background: url(/static/imgs/inputfield.png) 0px -27px no-repeat;
+	background: url(../imgs/inputfield.png) 0px -27px no-repeat;
 }
 a.black_labeled_container {
 	position: relative;
@@ -121,7 +279,7 @@ a.black_labeled_container {
 	color: #ffffff;
 	font-size: 13px;
 	font-weight:bold;
-	background: url(/static/imgs/inputfield.png) 0px -56px no-repeat;
+	background: url(../imgs/inputfield.png) 0px -56px no-repeat;
 	cursor:pointer;
 }
 a.black_labeled_container div.right_bracket {
@@ -130,7 +288,7 @@ a.black_labeled_container div.right_bracket {
 	right:-14px;
 	top:0;
 	width:14px;
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -142px -27px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll -142px -27px transparent;
 }
 a.black_labeled_container:hover div.right_bracket {
 	background-position:-159px -27px
@@ -141,7 +299,7 @@ a.black_labeled_container div.left_bracket {
 	height:27px;
 	width:12px;
 	left: -12px;
-	background: url(/static/imgs/inputfield.png) -110px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -110px -27px no-repeat;
 }
 a.black_labeled_container div.right_bracket_back {
 	height:27px;
@@ -149,7 +307,7 @@ a.black_labeled_container div.right_bracket_back {
 	right:-11px;
 	top:0;
 	width:11px;
-	background: url(/static/imgs/inputfield.png) -127px -27px no-repeat;
+	background: url(../imgs/inputfield.png) -127px -27px no-repeat;
 }
 a.black_labeled_container div.left_bracket_back {
 	position: absolute;
@@ -157,7 +315,7 @@ a.black_labeled_container div.left_bracket_back {
 	height:27px;
 	width:14px;
 	left: -14px;
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -192px -27px transparent;
+	background:url("../imgs/inputfield.png") no-repeat scroll -192px -27px transparent;
 }
 a.black_labeled_container:hover div.left_bracket_back {
 	background-position:-176px -27px
@@ -166,16 +324,7 @@ a.black_labeled_container:hover div.left_bracket_back {
 
 /* ================== BIG INPUT ================== */
 
-div.black_labeled_container_big div.right_bracket {
-/*
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -434px -46px transparent;
-	height:36px;
-	position:absolute;
-	right:-13px;
-	top:0;
-	width:13px;
-*/	display:none
-}
+div.black_labeled_container_big div.right_bracket {display:none}
 div.black_labeled_container_big div.left_button_search {
 	background:url("/static/imgs/search_icon.png") no-repeat scroll right bottom  transparent;
 	height:72px;
@@ -191,10 +340,10 @@ div.black_labeled_container_big .black_labeled_input {
 	color:#FFFFFF;
 	float:left;
 	font-size:14px;
-	height:31px;
+	height:20px;
 	margin-left:-13px;
 	margin-top:30px;
-	padding:0 10px 0 15px;
+	padding:7px 10px 5px 15px;
 	width:650px;
 }
 
@@ -289,7 +438,6 @@ a.panel_closer {
 	min-height:75px;
 	height:auto !important;  /* für moderne Browser */
 	height:75px;  /*für den IE */
-	
 	width: 830px;
 	float: right;
 	background-color: #BBE3F7;
@@ -356,7 +504,6 @@ a.panel_closer {
 #pool_pool_panel div.product{
 	font-family: Arial, Helvetica, sans-serif;
 	position: absolute;
-/* 	right: 18px; */
 	width: 170px;
 	padding: 18px 18px 0 0;
 	min-height: 200px;
@@ -433,7 +580,6 @@ div.counter_container div.subscript{
 	margin: 0px;
 }
 div.counter{
-/* 	padding: 0px 3px; */
 	color: white;
 	display: inline;
 	position: relative;
@@ -480,9 +626,6 @@ padding-top:35px;
 position:relative;
 text-align:center;
 
-}
-#timeline_bar div.timeline_heading{
-/* 	margin:30px 0 -20px; */
 }
 #timeline_bar div.timeline {
 	position: relative;
@@ -531,57 +674,14 @@ text-align:center;
 }
 
 /*=========================================== Contributors ===========================================*/
-#pool_contributors{
-	position: relative;
-	width: 920px;
-	margin-left: 30px
-}
-#pool_contributors div.heading{
-	margin: 30px 0px 10px 0px;
-	color: #333;
-	font-size: 20px;
-	font-weight: bold;
-	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
-}
-
-#pool_contributors div.pcont_body div.contributor_leftcol{
-	position: relative;
-	width: 330px;
-	float: left;
-}
-#pool_contributors div.pcont_body div.contributor_rightcol{
-	position: relative;
-	width: 330px;
-	float: right;
-}
-#pool_contributors div.pcont_body div.contributor{
-	position: relative;
-	height: 85px;
-	width: 330px;
-	margin: 0px 0px 15px 0px;
-	background-color: #bbe3f7;
-}
-
-#pool_contributors div.pcont_body div.contributor img.contributor{
-	position: relative;
-	width: 75px;
-	height: 75px;
-	float: left;
-	margin: 5px;
-}
-#pool_contributors div.pcont_body div.contributor div.contributor_name{
-	position: relative;
-	padding: 5px;
-}
-
-#pool_contributors div.pcont_body div.contributor div.contributor_amount {
-	float: right;
-	margin-top: 10px;
-	padding-right: 10px;
-	font-weight: bold;
-	font-size: 18px;
-	font-family: Arial, Helvetica, sans-serif;
-}
+#pool_contributors{position: relative;width: 920px;margin-left: 30px}
+#pool_contributors div.heading{margin: 30px 0px 10px 0px;color: #333;font-size: 20px;font-weight: bold;font-family:Trebuchet MS, Arial, Helvetica, sans-serif;}
+.pcont_body .contributor_leftcol{position: relative;	width: 330px;float: left;}
+.pcont_body .contributor_rightcol{position: relative;width: 330px;float: right;}
+.pcont_body .contributor{position: relative;height: 85px;width: 330px;margin: 0px 0px 15px 0px;background-color: #bbe3f7;}
+.pcont_body img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 5px;}
+.pcont_body .contributor_name{position: relative;padding: 5px;}
+.pcont_body .contributor_amount {float: right;margin-top: 10px;padding-right: 10px;font-weight: bold;font-size: 18px;font-family: Arial, Helvetica, sans-serif;}
 
 /*============================ CONTRIBUTOR ==========================*/
 
@@ -595,9 +695,12 @@ text-align:center;
 	font-size: 14px;
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+#contribute .button_container{width:200px;}
+
 #contribute div.contribute_body {
 	position:relative;
-	width: 200px;
+	width: 220px;
 	margin: 0px auto;
 }
 
@@ -735,7 +838,7 @@ a.button_container span.button_label img{
 }
 
 a.button_container.orange{
-	background:url(/static/imgs/inputfield.png) -20px -220px no-repeat;
+	background:url(../imgs/inputfield.png) -20px -220px no-repeat;
 	height: 51px;
 	font-size: 28px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -746,11 +849,11 @@ a.button_container.orange{
 	text-shadow:0 -1px 0 #B55A00;
 }
 a.button_container.orange div.button_left {
-	background:url(/static/imgs/inputfield.png) 0px -220px no-repeat;
+	background:url(../imgs/inputfield.png) 0px -220px no-repeat;
 	width: 20px;height:51px;position:absolute;top:0px;left:-20px;
 }
 a.button_container.orange div.button_right{
-	background:url(/static/imgs/inputfield.png) -480px -220px no-repeat;
+	background:url(../imgs/inputfield.png) -480px -220px no-repeat;
 	width: 20px;height:51px;position:absolute;top:0px;right:-20px;
 }
 a.button_container.orange span.button_label{
@@ -760,11 +863,11 @@ a.button_container.orange span.button_label{
 
 div#fundstream_ra{
 	background:none repeat scroll 0 0 #B9E2F6;
-height:855px;
-margin-left:30px;
-overflow:hidden;
-position:relative;
-width:615px;
+	height:855px;
+	margin-left:30px;
+	overflow:hidden;
+	position:relative;
+	width:615px;
 }
 div#fundstream.recentactivity {overflow: hidden;
 			position:relative;width: 670px;height: 970px;float: left;
@@ -805,7 +908,6 @@ div#fundstream.recentactivity div.rabodycol img.profile {position: relative;widt
 
 
 div#mypools.recentactivity {position:relative;float: left;}
-
 div#mypools.recentactivity div.raheader{background-color:#BBE3F7;padding-bottom:55px;padding-top:30px;}
 div#mypools.recentactivity div.raheadercol{border-bottom: dotted 3px white;margin: 0px 20px 0px 0px; 
 			position:relative;float: left;text-align: center;
@@ -814,7 +916,6 @@ div#mypools.recentactivity div.raheadercol_profile { width: 120px; margin-left: 
 div#mypools.recentactivity div.raheadercol_product { width: 310px;}
 div#mypools.recentactivity div.raheadercol_pool { width: 165px; }
 div#mypools.recentactivity div.raheadercol_details { width: 220px; margin-right:0;}
-
 div#mypools.recentactivity div.raheadercol img{margin:0 10px -5px;}
 
 div#mypools.recentactivity div.rabody{
@@ -849,7 +950,6 @@ div#mypools.recentactivity div.rabodycol{
 	}
 div#mypools.recentactivity div.rabodycol div.imgContainer{ position: absolute; left: 0; bottom:0}
 div#mypools.recentactivity div.rabodycol div.desc { overflow:hidden; height: 30px}
-/* div#mypools.recentactivity div.rabodycol.pool 		div {margin:5px 0px;}*/
 div#mypools.recentactivity div.rabodycol.details 	{ position:relative;
 	float: left;
 	text-align: left;
@@ -886,7 +986,6 @@ div.contributor_chippid_in div.content{
 	color:#333333;
 }
 .panel_content_no_padding{ float: left; margin: 15px; background: white; height: 375px}
-
 
 div#mypools.recentactivity div.rabodycol img.profile  	{position: relative;display: block; margin: 0 auto;width:120px;height:120px;}
 div#mypools.recentactivity div.rabodycol img.product	 {position: relative; width: 158px;height: 119px;display: block; margin: 0 auto}
@@ -985,10 +1084,6 @@ div#lowerbody textarea.comment_text_input {
 	width:890px;
 }
 
-
-
-
-
 /* ========================POOL SETTINGS ====================== */
 
 .addressContainer select,.addressContainer input{position: relative;width: 250px;}
@@ -1060,14 +1155,15 @@ text-align:center;text-shadow: 1px 1px 0px #333}
 
 #button_panel.receiver .panel_title, #lowerbody_container.networkinviter .panel_title{padding: 15px 0px 0 0px; float:left}
 .prod_title{ color:#333333;
-float:left;
-font-weight:bold;
-padding:5px 15px;
-width:215px; height: 20px; line-height: 20px; }
-span.showme{position:absolute;
-right:174px;
-top:116px;
-z-index:999;}
+	float:left;
+	font-weight:bold;
+	padding:5px 15px;
+	width:215px; height: 20px; line-height: 20px; }
+	span.showme{position:absolute;
+	right:174px;
+	top:116px;
+	z-index:999;
+}
 .popuplink{color:#C11164; text-align: center; display: block}
 span.showme img{margin-left:10px;position:relative;top:10px;}
 span.showme a.showme{color: #c11164; text-decoration: none !important}
@@ -1096,8 +1192,9 @@ span.showme a.showme:hover{color: #c11164; text-decoration: underline !important
 #contributioncontainer .panel_content{ padding: 0px; margin: 10px 20px 20px 20px}
 #contributioncontainer h2{ font-family: "Trebuchet MS"; font-size: 20px; font-weight: bold; color: #5a4129; margin: 0; padding: 0; line-height: 20px; font-style: italic; padding:0 0 10px;}
 .whiteBoxSmall{ background: white; width: 850px; margin-top: 10px;  padding: 15px}
-#contributioncontainer input{ border: 1px solid #666; height: 24px; margin: 10px 5px 0 0;}
-#contributioncontainer input.contrib_amount{ text-align:right;width:100px }
+#contributioncontainer input{ height: 24px; margin: 10px 5px 0 0;}
+#contributioncontainer input[type=text]{ border: 1px solid #666;padding:4px 4px 0px 2px;}
+#contributioncontainer input[type=text].contrib_amount{ text-align:right;width:100px }
 span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; padding-top: 10px}
 #chipin_anonymous{ margin: 0 !important}
 #contributioncontainer .keepsecret input{ position: absolute; left:0; top:0; height: 13px; width: 13px; border: none}
@@ -1113,7 +1210,9 @@ span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; pad
 #contributioncontainer .radioContainer input, #contributioncontainer .radioContainer2 input, #contributioncontainer .payement_method input{ margin: 0; height: 13px}
 #contributioncontainer .radioContainer label, #contributioncontainer .radioContainer2 label,  #contributioncontainer .payement_method label{ display: inline}
 .radioContainer2 div{ padding-bottom: 3px} 
-#chipin_message{ width: 383px; margin-bottom: 20px }
+#chipin_message{ width: 380px; margin-bottom: 20px;float:left}
+#chipin_message_remLen{float:left;text-align:right;width:25px;margin:0 0px 0px 10px !important;}
+
 .heightAuto{ height: auto !important}
 .terms{ float: left; width:850px; padding-top: 0px}
 .payement_method{ float: left;}
@@ -1138,231 +1237,74 @@ width:13px; margin: 0 !important; }
 #poolactions{ margin: 0 0 0 30px }
 
 div.black_labeled_container .black_labeled_input div.dijitInputField {
-color:#FFFFFF;
-margin:2px 5px 0 !important;
+	color:#FFFFFF;
+	margin:2px 5px 0 !important;
 }
+.marginRight30{ margin-right: 30px; width:425px;}
 .marginRight45{ margin-right: 45px; width:410px;}
-#home_create_pool_button a:hover span,
-.BtnRed:hover span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -778px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:15px;
-text-shadow:0 -1px 0 #770B3E;
-}
-#home_create_pool_button a:hover ,  .BtnRed:hover {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1078px transparent;
-bottom:0;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:18px;
-font-style:normal;
-left:0;
-padding-right:15px;
-text-align:center;
-z-index:2;
-}
-#home_create_pool_button a span,
-.BtnRed span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:15px;
-text-shadow:0 -1px 0 #770B3E;
-}
-#home_create_pool_button a ,  .BtnRed {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1145px transparent;
-bottom:0;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:18px;
-font-style:normal;
-left:0;
-padding-right:15px;
-text-align:center;
-z-index:2;
-}
-/* ================== RED Submit ================== */
 
-a.red_labeled_container {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% 1px transparent;
-color:#FFFFFF;
-cursor:pointer;
-display:block;
-font-size:20px;
-height:44px;
-line-height:45px;
-margin:63px auto 20px;
-padding-right:25px;
-position:relative;
-text-align:center;
-text-shadow:0 -1px 0 #770B3E;
-width:150px;
-}
-a.red_labeled_container span {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -166px transparent;
-display:block;
-padding-left:18px;
-}
-a.red_labeled_container:hover {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -43px transparent;
-color:#FFFFFF;
-cursor:pointer;
-display:block;
-font-size:20px;
-height:44px;
-line-height:45px;
-margin:63px auto 20px;
-padding-right:25px;
-position:relative;
-text-align:center;
-text-shadow:0 -1px 0 #770B3E;
-width:150px;
-}
-a.red_labeled_container:hover span {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1178px transparent;
-display:block;
-padding-left:18px;
-}
-.inactive {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -545px transparent !important;
-}
-.inactive span {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -490px transparent !important;
-}
-#get_started div.content a{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1281px transparent;
-bottom:0;
-display:block;
-float:left;
-padding-right:19px;
-	
-}
-#get_started div.content a span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1226px transparent;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:28px;
-font-style:normal;
-color:white;
-padding-left:19px;
-height:53px;
-line-height:53px;
-text-align:center;
-z-index:2;
-text-shadow:0  1px 0 #D58000;
-	
-}
-#get_started div.content a:hover{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1389px transparent;
-bottom:0;
-display:block;
-float:left;
-padding-right:19px;
-}
-#get_started div.content a:hover span{
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1334px transparent;
-display:block;
-float:left;
-font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
-font-size:28px;
-font-style:normal;
-color:white;
-padding-left:19px;
-height:53px;
-line-height:53px;
-text-align:center;
-z-index:2;
-text-shadow:0  1px 0 #D58000;
-	
-}
-.submitSmall:hover {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -812px transparent;
-	display:block;
-	padding-right:20px;
-	float:right;
-	z-index:2;}
-.submitSmall:hover span{background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -778px transparent;
-	color:white;
-	cursor:pointer;
-	display:block;
-	font-size:18px;
-	height:33px;
-	line-height:33px;
-	padding-left:15px;
-	padding-right:5px;
-	text-shadow:0 -1px 0 #770B3E;}
-.submitSmall {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -213px transparent;
-	display:block;
-	padding-right:20px;
-	float:right;
-	z-index:2;}
-.submitSmall span{background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1111px transparent;
-	color:white;
-	cursor:pointer;
-	display:block;
-	font-size:18px;
-	height:33px;
-	line-height:33px;
-	padding-left:15px;
-	padding-right:5px;
-	text-shadow:0 -1px 0 #770B3E;}
-.submitSmallLeft:hover span {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1012px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:24px;
-padding-right:5px;
-text-shadow:0 -1px 0 #770B3E;
-}
-.submitSmallLeft:hover {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1045px transparent;
-display:block;
-float:left;
-padding-right:8px;
-}
-.submitSmallLeft span {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 0 -1443px transparent;
-color:white;
-cursor:pointer;
-display:block;
-font-size:18px;
-height:33px;
-line-height:33px;
-padding-left:24px;
-padding-right:5px;
-text-shadow:0 -1px 0 #770B3E;
-}
-.submitSmallLeft {
-background:url("/static/imgs/inputfield.png") no-repeat scroll 100% -1477px transparent;
-display:block;
-float:left;
-padding-right:8px;
-}
 
-.flagContainer{ position: absolute; right: 30px; bottom: 60px}
-.flagContainer a{ height:13px;width:20px; background:white; display:block;margin: 0px 0px 0px 13px;float:right;}
+.flagContainer{ margin:15px auto;padding-bottom:15px;position:relative;width:100px; }
+.flagContainer a{ height:13px;width:20px; background:white; display:block;margin: 0px 0px 0px 13px;float:left}
 .flagContainer a.flag_de_DE{ background: url(../imgs/flags.gif) 0px 0px no-repeat;}
 .flagContainer a.flag_en_GB{ background: url(../imgs/flags.gif) 0px -13px no-repeat;}
 .flagContainer a.flag_en_US{ background: url(../imgs/flags.gif) 0px -26px no-repeat;}
 .flagContainer a.flag_es_ES{ background: url(../imgs/flags.gif) 0px -39px no-repeat;}
-
 .pog_currency_symbol img.currency_symbol {position: relative;margin-top:-3px;top:3px;white-space:pre;}
 .pog_currency_symbol {font-family:Arial;font-weight:normal;position:relative;white-space:pre;}
 .pog_currency_symbol_subtype {height:1em;overflow:hidden;position:absolute;right:0;top:0;white-space:pre;}
+
+
+
+
+#poolresult{margin:90px auto;min-height:100px;width:720px;position:relative;
+	border: 1px solid #E8E8E8;
+	border-bottom-left-radius: 10px 10px;
+	border-bottom-right-radius: 10px 10px;
+	border-top-left-radius: 10px 10px;
+	border-top-right-radius: 10px 10px;
+	-moz-border-radius:10px 10px 10px 10px;
+	-webkit-box-shadow: #777 0px 0px 10px;
+	-moz-box-shadow:0 0 10px #777;
+	box-shadow: 0 0 10px #777; /*CSS3 Standard*/
+	background: #F5FBFE; /* muss definiert werden, da sonst der IE jedem Kind-Element einen Schatten verpasst */
+	zoom: 1;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=0, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=45, Strength=4)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=90, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=135, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=180, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=225, Strength=4)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=260, Strength=6)
+		    progid:DXImageTransform.Microsoft.Shadow(color='#aaaaaa', Direction=305, Strength=4);
+}
+#poolresult .completeRcpt{float:left}
+#poolresult .title {color:#B70158;padding: 45px 30px 15px 30px;font-family:"Trebuchet MS", Arial, sans-serif; font-size:28px;text-shadow:0 1px 0 #777;font-weight:bold}
+#poolresult .margin {margin: 5px 10px 0px 10px;}
+#poolresult .heading {font-family:"Trebuchet MS", Arial, sans-serif; font-weight:bold;font-size:14px;text-shadow:0 1px 0 #ccc;}
+#poolresult .inside {margin:0px;padding: 0px 0px 15px 30px;clear:both;float:left;width:700px;}
+
+.rcptPicture {background:white;width:225px;height:225px;float:left;margin: 0px 15px 15px 30px;border:#ccc solid 2px;position:relative;}
+.rcptPicture img {width:205px;height:205px;margin:10px 10px;}
+.rcptPicture .rcptRcvrIcon {background:url("../imgs/pool_result_rcvr.png") repeat scroll 0 0 transparent;bottom:-36px;height:118px;left:-45px;position:absolute;width:99px;}
+.rcptThankYouNotice {background: #ffe67d;width:420px;height:98px;float:left;position:relative;}
+.rcptThankYou {margin:0px 30px 0px 10px;overflow:hidden;height:75px;}
+.rcptContribMsg {margin: 0px 10px;}
+div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc solid 2px;}
+.rcptProductPicture {width:150px;height:112px;position:relative;}
+.rcptProductPicture .rcptGiftIcon {background:url("../imgs/pool_result_gift.png") repeat scroll 0 0 transparent;bottom:-15px;height:58px;left:-27px;position:absolute;width:56px;}
+.rcptProductText {margin:15px 15px; width:250px;height:110px;float:left;}
+.rcptProductText .rcptProductTextBody {margin:10px 0 0 0 ;}
+
+.triangle {position:absolute;display:block;width:10px;height:30px;top:10px;left:-10px;background:url("../imgs/inputfield.png") no-repeat scroll -320px 0px transparent;}
+.ctrbrText .triangle{background-position:-344px 0px;}
+
+.rcptRibbon {background:url("../imgs/pool_result_ribbon.png") no-repeat scroll 0 0 transparent;height:185px;position:absolute;right:-7px;top:-25px;width:319px;z-index:2;}
+
+.pcontBodyComplete {margin: 15px 0px 30px 0px;clear:both;float:left;}
+.pcontBodyComplete img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 0px 0px 15px 30px;}
+.ctrbrText{position: relative;height: 75px;width: 230px;margin: 0px 0px 15px 10px;background-color:#bbe3f7; float:right}
+
+
+.editIcon {position:absolute;display:block;width:30px;height:41px;top:10px;right:-10px;background:url("../imgs/edit-icon.png") no-repeat scroll 0px 0px transparent;cursor:pointer;z-index:3}
+#thankyou_editor .editIcon{right:-10px;top:63px;}

@@ -19,7 +19,8 @@
 			${forms.input_select("billing", "country", "Country", sorted(c.countries), choicegetter=(lambda x: (x, x.replace("COUNTRY_", "").title())), required = True)|n}
 		</div>
 		<div style="position:absolute; right:30px;bottom:15px;">
-			${forms.black_submitlink(_("POOLSETTINGS_Save Changes"), [("onclick", "xhrFormPost('%s', 'billing_form_container', place_element('billingAddressContainerBox'));"%url(controller='pool', pool_url=c.pool_url, action='set_address'))], "settings_submitter")|n}
+			<a class="Save settings_submitter" onclick="xhrFormPost('${url(controller="pool", pool_url=c.pool_url, action="set_address")}', 'billing_form_container', place_element('billingAddressContainerBox'));">
+					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
 		</div>
 		${forms.input_text("billing", "phone", _("POOLSETTINGS_LABEL_Phone"))|n}
 	</form>

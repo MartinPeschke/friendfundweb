@@ -2,7 +2,7 @@
 <%namespace name="form_widgets" file="../widgets/forms.html"/>
 
 <div id="button_panel" class="receiver">
-	<div id="network_methodselector" class="panel_title"><!-- <span class="selectFriend">${_("RECEIVER_PANEL_HEADER_Select a friend from:")} </span> -->
+	<div id="network_methodselector" class="TabsContainer">
 			<a class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _target="inviter" _type="facebook"><span><img src="/static/imgs/icon_fb_connect.png"> Facebook</span></a>
 			<a class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _target="inviter" _type="twitter"><span><img src="/static/imgs/icon_tw_connect.png">  Twitter</span></a>
 			<a class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _target="inviter" _type="email"><span><img src="/static/imgs/icon_mail.png"> Email</span></a>
@@ -13,8 +13,6 @@
 	</div>
 	<a class="button_panel_closer">&nbsp;</a>
 	${html.clearline()}
-	<div id="receiver_selector_container">
-		<div id="receiver_selector"><div style="margin: 0px auto;text-align:center;padding:30px;">${html.loading_animation()|n}</div></div>
-	</div>
+	<div id="receiver_selector_container"></div>
 	${html.clearline()}
 </div>

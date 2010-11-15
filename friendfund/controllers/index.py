@@ -42,6 +42,11 @@ class IndexController(BaseController):
 		return {"data":{"html":render("/widgets/ra_stream.html").strip()}}
 	
 	@jsonify
+	def login_panel(self):
+		return {'html':render('/myprofile/login_panel.html').strip()}
+	
+	
+	@jsonify
 	def logout(self):
 		c.user = ANONUSER
 		c.settings = {}

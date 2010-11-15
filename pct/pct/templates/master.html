@@ -93,7 +93,7 @@ ${self.master_foot()}
 <%def name="header_navigation()">
 	<ul class="navigation">
 		%for title, path, token in app_globals.globalnav:
-			<li class="${(c.navposition==token) and 'selected' or ''}"><a href="${url.current(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
+			<li class="${(c.navposition==token) and 'selected' or ''} floaterLeft"><a href="${url.current(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
 		%endfor
 		<li style="float:right">
 			<select name="program" onchange="window.location.href = '${url.current(program = None, page = None)}'+this.value+'/1';">

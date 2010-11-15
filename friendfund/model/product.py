@@ -27,6 +27,7 @@ class Product(DBMappedObject):
 				,GenericAttrib(bool    ,'is_virtual'               , 'is_virtual'               )
 				,GenericAttrib(bool    ,'is_curated'               , 'is_curated'               )
 				,GenericAttrib(bool    ,'is_amazon'                , None                       , persistable = False)
+				,GenericAttrib(bool    ,'is_pending'               , None                       , persistable = False)
 				,GenericAttrib(str     ,'aff_program_logo_url'     , 'aff_program_logo_url'     )
 				,GenericAttrib(str     ,'aff_program_delivery_time', 'aff_program_delivery_time')
 				,GenericAttrib(unicode ,'picture_small'            , 'picture_small'            )

@@ -19,6 +19,7 @@
 	</div>
 	
 	<div style="position:absolute; right:30px;bottom:15px;">
-		${forms.black_submitlink(_("POOLSETTINGS_Edit"), [("onclick", "loadElement('%s', 'billingAddressContainerBox',{type:'billing'});" % url(controller='pool', pool_url=c.pool_url, action='edit_address'))], "settings_submitter")|n}
+		<a class="Save settings_submitter" onclick="loadElement('${url(controller='pool', pool_url=c.pool_url, action='edit_address')}', 'billingAddressContainerBox',{type:'billing'});">
+					<span>${_("POOLSETTINGS_Edit")}</span></a>
 	</div>
 </div>

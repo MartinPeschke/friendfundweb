@@ -1,5 +1,6 @@
 import logging, formencode, uuid, os, md5
 from cgi import FieldStorage
+
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, config
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
@@ -8,7 +9,7 @@ from pylons.i18n.translation import set_lang
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData
+from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import PasswordRequestForm, PasswordResetForm, SignupForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
@@ -127,7 +128,7 @@ class MyprofileController(BaseController):
 			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
 			email = form_result['email']
 			g.dbm.set(DBRequestPWProc(email=email))
-			c.messages.append(_(u"PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!" % email))
+			c.messages.append(_(u"PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!") % email)
 			return self.render('/myprofile/password_request.html')
 		except formencode.validators.Invalid, error:
 			c.pwd_values = error.value
@@ -144,7 +145,26 @@ class MyprofileController(BaseController):
 				c.pwd_values = form_result
 				c.pwd_errors = {'email':_(u"PROFILE_PASSWORD_Unknown Error Occured")}
 			return self.render('/myprofile/password_request.html')
-
+	
+	def tlogin(self, token):
+		try:
+			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
+		except SProcWarningMessage, e:
+			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
+		return redirect(request.params.get('furl', url('home')))
+	
+	def setpassword(self, token):
+		"""
+			/myprofile/setpassword/TOKENSTRING
+			app.[web_login_token] '<LOGIN token = "sfgsdfvdfgwefgere"/>' 
+		"""
+		try:
+			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
+			return self.render('/myprofile/password_reset.html')
+		except SProcWarningMessage, e:
+			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
+			return redirect(url(controller='myprofile', action='password'))
+	
 	def setpassword(self, token):
 		"""
 			/myprofile/setpassword/TOKENSTRING

@@ -5,6 +5,9 @@
 	%if getattr(c, 'reload', False):
 		opener.page_reloader();
 	%endif
+	%if getattr(c, 'refresh_login', False):
+		opener.login_panel_refresh();
+	%endif
 	window.close(); 
 </script>
 </head>
