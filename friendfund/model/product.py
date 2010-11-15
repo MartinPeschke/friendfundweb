@@ -63,6 +63,8 @@ class Product(DBMappedObject):
 		return '%s %s' % (h.word_truncate_plain(self.name, 5), self.get_display_price(extended))
 	display_label = property(get_display_label)
 	
+	def fromDB(self, xml):
+		self.is_virtual = False
 
 class PendingProduct(Product):
 	def get_price_float(self, include_shipping = True):

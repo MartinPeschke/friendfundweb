@@ -34,7 +34,7 @@ class VirtualProduct(Product):
 		self.picture_large = "%s%s"%(base_url, self.picture_large)
 
 	def fromDB(self, xml):
-		self.is_virtual = self.is_virtual or True
+		self.is_virtual = True
 		
 		
 class VirtualGiftRegion(DBMappedObject):
