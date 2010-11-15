@@ -2,7 +2,7 @@ from babel.numbers import format_currency
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, GenericElement, DBMapping
 
-from pylons import session as websession
+from pylons import session as websession, app_globals
 
 
 class Product(DBMappedObject):
@@ -63,13 +63,17 @@ class Product(DBMappedObject):
 		return '%s %s' % (h.word_truncate_plain(self.name, 5), self.get_display_price(extended))
 	display_label = property(get_display_label)
 	
-	def fromDB(self, xml):
-		#TODO: HACK
-		if self.aff_program_name == u'Friendfund Virtual Gifts':
-			self.is_virtual = self.is_virtual or True
-		else:
-			self.is_virtual = self.is_virtual or False
-	
+
+class PendingProduct(Product):
+	def get_price_float(self, include_shipping = True):
+		return 0
+	def get_shipping_cost_float(self):
+		return 0
+	def get_display_price(self, extended = True, include_shipping = True):
+		return ''
+	def get_display_label(self, extended = True):
+		return _("PENDING_PRODUCT_NAME")
+
 class ProductRetrieval(DBMappedObject):
 	"""
 		exec imp.get_product_with_guid '<SEARCH  guid="0071831d-a57e-454f-9476-9317f45daf1f" region="DE"/>'

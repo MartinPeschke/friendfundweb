@@ -27,11 +27,21 @@ class ProductPager(object):
 		result = sorted(list(set([1] + range(lower(self.page_no), upper(self.page_no + 1)) + [self.pages] )))
 		return result
 
+		
+class VirtualProduct(Product):
+	def set_picture_urls(self, base_url):
+		self.picture_small = "%s%s"%(base_url, self.picture_small)
+		self.picture_large = "%s%s"%(base_url, self.picture_large)
+
+	def fromDB(self, xml):
+		self.is_virtual = self.is_virtual or True
+		
+		
 class VirtualGiftRegion(DBMappedObject):
 	_cachable = False
 	_set_root = _get_root = None
 	_unique_keys = []
-	_keys = [GenericAttrib(unicode,'name','name'),DBMapper(Product,'list','PRODUCT', is_list = True)]
+	_keys = [GenericAttrib(unicode,'name','name'),DBMapper(VirtualProduct,'list','PRODUCT', is_list = True)]
 
 class GetVirtualGiftsProc(DBMappedObject):
 	_cachable = False

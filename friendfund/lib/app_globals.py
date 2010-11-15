@@ -108,6 +108,9 @@ class Globals(object):
 		### Product Setup requirements ###
 		product_categories = self.dbsearch.get(GetPersonalityCategoryProc)
 		virtual_gifts = self.dbsearch.get(GetVirtualGiftsProc)
+		for region in virtual_gifts.list:
+			for vg in region.list:
+				vg.set_picture_urls(self.SITE_ROOT_URL)
 		top_sellers = self.dbsearch.get(GetTopSellersProc)
 		
 		##################################### SERVICES SETUP #####################################

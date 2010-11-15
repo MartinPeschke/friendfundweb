@@ -6,7 +6,7 @@ from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
 from friendfund.model.mapper import DBMapper
 from friendfund.model.pool import Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, Product
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, PendingProduct
 from friendfund.model.product_search import ProductSearchByCategory
 from friendfund.model.virtual_product import ProductPager
 
@@ -88,7 +88,7 @@ class ProductService(object):
 		
 		self.pending_products = {}
 		for k,v in PENDING_PRODUCTS.iteritems():
-			p = DBMapper.fromDB(Product,  etree.fromstring(v))
+			p = DBMapper.fromDB(PendingProduct,  etree.fromstring(v))
 			p.guid = k
 			p.is_pending = True
 			self.pending_products[k] = p
