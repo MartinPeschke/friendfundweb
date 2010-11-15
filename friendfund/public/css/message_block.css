@@ -876,7 +876,7 @@ div#fundstream.recentactivity .raheadercol{position:relative;float: left;text-al
 div#fundstream.recentactivity .raheadercol span {background:url("../imgs/Current_Pools_header.png") repeat scroll 0 0 white;display:block;float:left;height:40px;width:45px;}
 div#fundstream.recentactivity .raheadercol span.raheadgift {background-position: -55px 0;width:27px;}
 div#fundstream.recentactivity .raheadercol span.raheadrecipient {background-position:-100px 0;width:24px;}
-div#fundstream.recentactivity .raheadercol div {float:left;position:relative;top:15px;margin-left:15px;} 
+div#fundstream.recentactivity .raheadercol div {float:left;position:relative;top:15px;margin-left:15px;}
 div#fundstream.recentactivity .raheadercol.col1 {margin-left:15px;width:185px}
 div#fundstream.recentactivity .raheadercol.col2 {margin-left:25px;width:185px}
 div#fundstream.recentactivity .raheadercol.col3 {margin-left:15px;width:185px}
@@ -907,14 +907,8 @@ div#mypools.recentactivity div.rabody{
 	margin:15px 0 0;
 	width:890px;
 	position: relative;
+	padding: 15px
 }
-
-div#mypools.recentactivity div.rabody_contributor div.rabodycol.details {}
-div#mypools.recentactivity div.rabody_open { padding: 15px}
-div#mypools.recentactivity div.rabody_funded { padding: 15px}
-div#mypools.recentactivity div.rabody_closed { padding: 15px}
-div#mypools.recentactivity div.rabody_complete { padding: 15px}
-
 
 div#mypools.recentactivity div.rabodycol{
 	position:relative;
@@ -932,42 +926,8 @@ div#mypools.recentactivity div.rabodycol{
 	}
 div#mypools.recentactivity div.rabodycol div.imgContainer{ position: absolute; left: 0; bottom:0}
 div#mypools.recentactivity div.rabodycol div.desc { overflow:hidden; height: 30px}
-div#mypools.recentactivity div.rabodycol.details 	{ position:relative;
-	float: left;
-	text-align: left;
-	font-size: 12px;
-	color: #333;
-	font-style: normal;
-	font-family: Arial,Helvetica,Jamrul,sans-serif;
-	width: 160px;
-	margin-right: 30px;
-	font-weight: bold;
-	height: auto;
-	line-height: 15px;}
+div#mypools.recentactivity div.rabodycol.details 	{height: auto;}
 div#mypools.recentactivity div.details div.imgContainer{ padding: 10px; height:auto;width:140px; position: relative; margin-top: 34px; float: left}
-div.contributor_chippid_in{
-	background:url("/static/imgs/badges/chippedin.png") no-repeat scroll center 0 transparent;
-	color:white;
-	top:0;
-	padding-top: 65px;
-
-}
-div.poolpage_contributor{
-	margin-top: 30px;
-}
-div.contributor_chippid_in.mypoolspage_contributor{
-	width: 115px;
-	left:190px;
-	position:absolute;
-}
-div.contributor_chippid_in div.content{
-	font-size:12px;
-	font-weight:bold;
-	text-align:center;
-	font-family: Arial;
-	color:#333333;
-}
-.panel_content_no_padding{ float: left; margin: 15px; background: white; height: 375px}
 
 div#mypools.recentactivity div.rabodycol img.profile  	{position: relative;display: block; margin: 0 auto;width:120px;height:120px;}
 div#mypools.recentactivity div.rabodycol img.product	 {position: relative; width: 158px;height: 119px;display: block; margin: 0 auto}
@@ -984,42 +944,22 @@ div#mypools.recentactivity div.rabodycol.details span.money.green {color: #00990
 div#mypools.recentactivity div.rabodycol.details span.currency.red {color: #b20155;}
 div#mypools.recentactivity div.rabodycol.details span.currency.green {color: #009900;}
 
-div#productstream {
-	background:none repeat scroll 0 0 #B9E2F6;
-	float:right;
-	margin:30px 30px 0 0;
-	position:relative;
-	width:275px;}
-
-div#badgestream {
-	position: relative;width: 275px;float: right;
-	 margin: 56px 30px 0 0; background: #b9e2f6}
-div#badgestream .panel_title,
-div#productstream  .panel_title{
-	background:none repeat scroll 0 0 #403835;
-	height:45px; padding: 0; color: white; padding: 0 15px; line-height: 45px; border-bottom: 15px solid white
-}
+div.contributor_chippid_in{background:url("/static/imgs/badges/chippedin.png") no-repeat scroll center 0 transparent;color:white;top:0;padding-top: 65px;}
+div.poolpage_contributor{margin-top: 30px;}
+div.contributor_chippid_in.mypoolspage_contributor{width: 115px;left:190px;position:absolute;}
+div.contributor_chippid_in div.content{font-size:12px;font-weight:bold;text-align:center;font-family: Arial;color:#333333;}
+.panel_content_no_padding{ float: left; margin: 15px; background: white; height: 375px}
 
 
+div#successtream {position: relative;width: 275px;float: right;margin: 50px 30px 0 0;}
+div#successtream .inside{border-bottom:5px solid #403835;padding-bottom:4px;}
+div#successtream div.panel_content_no_padding {clear:both;position: relative;width: 245px; height: 330px}
+div#successtream div.badge_user_pic{float:right;width: 90px; padding-right: 15px; height: 90px; padding-top: 15px}
+div#successtream div.badge_user_pic img{width: 90px;height:90px;}
+div#successtream div.badge_pic{float:left;width: 115px; padding-left: 15px; height: 90px; padding-top: 15px}
+div#successtream div.badge_pic img{ display: block; margin: 0 auto}
+div#successtream div.badge_pic div{text-align:center; position: relative;top:-2px;}
 
-div#badgestream div.panel_content_no_padding {
-	clear:both;
-	position: relative;
-	float: left; width: 245px; margin: 15px; background: white; height: 330px
-}
-
-div#badgestream div.badge_user_pic{float:right;width: 90px; padding-right: 15px; height: 90px; padding-top: 15px}
-div#badgestream div.badge_user_pic img{width: 90px;height:90px;}
-
-div#badgestream div.badge_pic{float:left;width: 115px; padding-left: 15px; height: 90px; padding-top: 15px}
-div#badgestream div.badge_pic img{ display: block; margin: 0 auto}
-div#badgestream div.badge_pic div{text-align:center; position: relative;top:-2px;}
-
-
-div#productstream div.prod_pic{float:left;width: 90px;height:90px; padding-left: 15px }
-div#productstream div.prod_pic img{float:left;width: 90px;height:90px; }
-div#productstream div.prod_desc{float:right; width:110px; padding-right: 15px}
-div#productstream  a.product_top_seller {cursor:pointer}
 
 div#lowerbody div.heading {
 	position: relative;margin: 7px 0px 5px 0px;line-height: 28px;

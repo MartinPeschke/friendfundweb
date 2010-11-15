@@ -1,6 +1,5 @@
 <%inherit file="master.html"/>
 <%namespace name="links" file="links.html"/>
-<%namespace name="topsellers" file="product/topsellers.html"/>
 <%namespace name="html" file="widgets/html_elems.html"/>
 <%namespace name="forms" file="widgets/forms.html"/>
 <%namespace name="ra_stream" file="widgets/ra_stream.html"/>
@@ -118,10 +117,8 @@
 			</div>
 		</div>
 		
-		<div id="badgestream">
-			<div class="panel_title">
-				${_(u"PAGE_INDEX_HEADER_Recent Badges")}
-			</div>
+		<div id="successtream">
+			<h4 class="inside">${_(u"PAGE_INDEX_HEADER_Successful Pools")}</h4>
 			<div class="panel_content_no_padding">
 				%for badge in c.recent_activity.get_some_badges(3):
 					<div class="badge_pic"><img src="${badge.get_badge_picture('icon')}"/><div>${badge.display_name}</div></div>
@@ -130,13 +127,5 @@
 			</div>
 		</div>
 		
-		<div id="productstream">
-			<div class="panel_title">
-				${_(u"PAGE_INDEX_HEADER_Top Sellers")}
-			</div>
-			<div class="panel_content_no_padding">
-				${topsellers.render(str(session.get('region') or 'de'))|n}
-			</div>
-		</div>
 	</div>
 </%def>
