@@ -1,8 +1,10 @@
-import simplejson, logging
+import simplejson, logging, itertools
+
 from datetime import datetime, timedelta, date
+
+from friendfund.lib import helpers as h, tools
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
 from friendfund.model.product import Product
-from friendfund.lib import helpers as h
 from pylons.i18n import _
 
 from pylons import session as websession
@@ -10,14 +12,11 @@ from pylons import session as websession
 
 log = logging.getLogger(__name__)
 
-class NoPoolAdminException(AttributeError):
-	pass
-class NoPoolReceiverException(AttributeError):
-	pass
-class TooManyPoolAdminException(AttributeError):
-	pass
-class TooManyPoolReceiverException(AttributeError):
-	pass
+class NoPoolAdminException(AttributeError):pass
+class NoPoolReceiverException(AttributeError):pass
+class TooManyPoolAdminException(AttributeError):pass
+class TooManyPoolReceiverException(AttributeError):pass
+class InsufficientParamsException(Exception):pass
 
 class PoolComment(DBMappedObject):
 	_set_root = _get_root = 'COMMENT'
@@ -36,6 +35,18 @@ class PoolComment(DBMappedObject):
 		return self.get_profile_pic(type="PROFILE_S")
 	profile_s_pic = property(get_profile_s_pic)
 	
+class PoolThankYouMessage(DBMappedObject):
+	"""
+		exec app.add_thank_you_message'<POOL p_url ="UC0xMjUyNA~~" message = "thanks so much"/>'
+	"""
+	_set_root = _get_root = 'POOL'
+	_set_proc = _get_proc = "app.add_thank_you_message"
+	_unique_keys = ['p_url']
+	_keys = [	GenericAttrib(str,'p_url','p_url')
+				,GenericAttrib(unicode,'message','message')
+			]
+
+
 
 class PoolDescription(DBMappedObject):
 	"""
@@ -108,23 +119,25 @@ class PoolUserNetwork(DBMappedObject):
 			, GenericAttrib(str,'network_id', 'id')
 			, GenericAttrib(str,'email', 'email')]
 
-
 class PoolUser(DBMappedObject):
 	_set_root = _get_root = 'POOLUSER'
 	_unique_keys = ['u_id', 'name']
+	_required_attribs = ['name', 'network', 'network_id']
 	_keys = [ GenericAttrib(int,'u_id'               , 'u_id'               )
 			, GenericAttrib(unicode ,'name'          , 'name'               )
+			, GenericAttrib(unicode ,'message'       , 'message'            )
 			, GenericAttrib(bool,'is_admin'          , 'is_admin'           )
 			, GenericAttrib(bool,'is_receiver'       , 'is_receiver'        )
 			, GenericAttrib(bool,'is_suspected'       , 'is_suspected'      )
+			, GenericAttrib(bool,'is_selector'       , 'is_selector'      )
 			, GenericAttrib(bool,'has_email'         , 'has_email'          )
 			, GenericAttrib(str,'network'            , 'network'            )
 			, GenericAttrib(str,'network_id'         , 'id'                 )
 			, GenericAttrib(str,'screen_name'         ,'screen_name'         )
-			, GenericAttrib(str,'notification_method', 'notification_method')
 			, GenericAttrib(str,'email'              , 'email'              )
 			, GenericAttrib(str,'_sex'               , 'sex'                )
 			, GenericAttrib(str,'profile_picture_url', 'profile_picture_url')
+			, GenericAttrib(str,'large_profile_picture_url', None, persistable = False)
 			, GenericAttrib(int,'contributed_amount' , 'contribution')
 			, GenericAttrib(bool,'contribution_secret', 'secret')
 			, GenericAttrib(bool,'anonymous', 'anonymous')
@@ -142,6 +155,9 @@ class PoolUser(DBMappedObject):
 	def get_receiver_label(self):
 		return self.name
 	receiver_label = property(get_receiver_label)
+	
+	def is_contributor(self):
+		return bool(self.contributed_amount)
 	
 	def _get_contributed_amount_float(self):
 		return float(self.contributed_amount)/100
@@ -163,6 +179,18 @@ class PoolUser(DBMappedObject):
 		return self.get_profile_pic(type="PROFILE_S")
 	profile_s_pic = property(get_profile_s_pic)
 
+	@classmethod
+	def fromMap(cls, params):
+		if not tools.dict_contains(params, cls._required_attribs):
+			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
+		else:
+			if params['network'] == 'email':
+				params['email'] = params.pop('network_id')
+			params['is_selector'] = False
+			return PoolUser(**dict((str(k),v) for k,v in params.iteritems()))
+
+class PoolInvitee(PoolUser):
+	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]
 
 class Pool(DBMappedObject):
 	_set_proc   = 'app.create_pool'
@@ -176,6 +204,7 @@ class Pool(DBMappedObject):
 			, DBMapper(Product,'product', 'PRODUCT'				)
 			, DBMapper(Occasion,'occasion', 'OCCASION'			)
 			, GenericAttrib(unicode,'description','description'	)
+			, GenericAttrib(unicode,'thank_you_message','thank_you_message')
 			, GenericAttrib(str,'currency', 'currency'			)
 			, GenericAttrib(str,'region', 'region'				)
 			, GenericAttrib(str,'status', 'status'				)
@@ -204,6 +233,9 @@ class Pool(DBMappedObject):
 		else:
 			return [pu.networks[network].network_id for pu in self.participants if network in pu.networks]
 	
+	def get_contributors(self):
+		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
+	
 	def get_total_contribution(self):
 		total = 0
 		for invitee in self.participants:
@@ -226,6 +258,14 @@ class Pool(DBMappedObject):
 		if diff < timedelta(0):
 			diff = timedelta(0)
 		return (diff.days, diff.seconds/3600)
+	
+	
+	def get_my_message(self, user):
+		pu = self.participant_map.get(user.u_id)
+		if pu:
+			return pu.message
+		else:
+			return ""
 	
 	def am_i_admin(self, user):
 		return self.admin.u_id == user.u_id

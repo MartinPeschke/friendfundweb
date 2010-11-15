@@ -92,13 +92,14 @@ def get_mutual_friends(logger, target_id, access_token):
 
 def translate_friend_entry(u_id, friend_data):
 	result = {
-			'networkname':friend_data['name'], 
+			'name':friend_data['name'], 
 			'network_id':u_id,
 			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
 			'profile_picture_url':get_pic_url(friend_data['id']),
 			'notification_method':'STREAM_PUBLISH',
 			'network':'facebook',
-			'email':friend_data.get('email')
+			'email':friend_data.get('email'),
+			'is_selector':False
 		}
 	
 	dob = friend_data.get('birthday')
@@ -116,7 +117,7 @@ def translate_friend_entry(u_id, friend_data):
 			doy = dob-datetime(dob.year,1,1)
 			result['dob'] = datetime(year, 1,1) + doy
 			result['dob_difference'] = (result['dob'] - datetime.today()).days
-			if result['dob_difference'] < 7:
+			if result['dob_difference'] < 2:
 				result['dob'] = datetime(year + 1, 1,1) + doy
 				result['dob_difference'] = (result['dob'] - datetime.today()).days
 	return (u_id, result)
