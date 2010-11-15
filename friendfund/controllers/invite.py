@@ -8,16 +8,15 @@ from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper
 from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block
 from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.authuser import UserNotLoggedInWithMethod
-from friendfund.model.pool import Pool, PoolUser, AddInviteesProc
+from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc
 from friendfund.tasks import fb as fbservice, twitter as twservice
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
 
+
 from formencode.variabledecode import variable_decode
-
 from celery.task.sets import TaskSet
-
-
 log = logging.getLogger(__name__)
 
 class InviteController(BaseController):
@@ -73,7 +72,7 @@ class InviteController(BaseController):
 					return {'data':{'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
 				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if str(id) not in c.already_invited])
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if str(id) not in c.already_invited])
 				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
@@ -92,20 +91,21 @@ class InviteController(BaseController):
 			c.method = method
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['networkname']) if not str(id) in c.already_invited])
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if not str(id) in c.already_invited])
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
 	
 	
 	@logged_in(ajax=False)
 	def friends(self, pool_url):
-		params = variable_decode(request.params)
+		invitees = simplejson.loads(request.params.get('invitees'))
+		invitees = invitees.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
 		pool = g.dbm.get(Pool, p_url = pool_url)
-		pool.is_secret = params.get("is_secret", False)
+		pool.is_secret = request.params.get("is_secret", False)
+		pool.description = request.params['description']
 		
-		invitees = params.get('invitees')
 		#determine state of permissions and require missing ones
 		perms_required = False
 		if checkadd_block('email'):
@@ -128,26 +128,18 @@ class InviteController(BaseController):
 			c.invitees = {}
 			for inv in invitees:
 				netw = inv['network'].lower()
-				if netw == 'email':
-					network_id_name = 'email'
-				else:
-					network_id_name = 'network_id'
-				inv['networkname'] = inv.pop('name')
-				if 'screen_name' in inv:
-					inv['screenname'] = inv.pop('screen_name')
 				invs = c.invitees.get(netw,{})
-				invs[str(inv[network_id_name])] = inv
+				invs[str(inv['network_id'])] = inv
 				c.invitees[netw] = invs
 			return self._display_invites(pool, c.invitees)
-		
 		
 		if invitees is not None:
 			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
 							, p_url = pool.p_url
 							, inviter_user_id = c.user.u_id
-							, users=[PoolUser(**el) for el in invitees]
-							, description = params['description']
-							, is_secret = params.get("is_secret", False)))
+							, users=[PoolInvitee.fromMap(el) for el in invitees]
+							, description = pool.description
+							, is_secret = pool.is_secret))
 			g.dbm.expire(Pool(p_url = pool.p_url))
 			
 			tasks = deque()
@@ -164,82 +156,18 @@ class InviteController(BaseController):
 	
 	@jsonify
 	@logged_in(ajax=True)
-	def addall(self, pool_url):
-		if request.method != 'POST':
-			return self.ajax_messages("Not Allowed")
-		params = variable_decode(request.params)
-		network = params['network']
-		if network not in ['facebook', 'twitter']:
-			return self.ajax_messages("Network Not Allowed")
-		if 'userlist' not in params:
-			return self.ajax_messages("No Users Found")
-		invitees = websession.get('invitees', {})
-		network_invitees = invitees.get(network, {})
-		for user in params['userlist']:
-			network_id = user.pop('networkid')
-			networkname = user.get('networkname')
-			if networkname and network_id:
-				network_invitees[str(network_id)] = user
-		invitees[network] = network_invitees
-		websession['invitees'] = invitees
-		log.debug('added: %s/%s to websession' % (network, network_invitees))
-		return {'clearmessage':True}
-	
-	@jsonify
-	@logged_in(ajax=True)
 	def add(self, pool_url):
-		if request.method != 'POST':
-			return self.ajax_messages("Not Allowed")
 		params = variable_decode(request.params)
 		invitee = params.get("invitee")
 		network = invitee['network']
-		try:
-			if network == 'email':
+		if request.method != 'POST' or network!= 'email':
+			return self.ajax_messages("Not Allowed")
 				valid = formencode.validators.Email(min=5, max = 255, not_empty = True, resolve_domain=True)
 				try:
-					network_id = valid.to_python(invitee.pop('networkid'))
+			network_id = valid.to_python(invitee.get('network_id'), state=FriendFundFormEncodeState)
 				except formencode.validators.Invalid, error:
 					return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
 			else:
-				network_id = invitee.pop('networkid')
-			
-			invitees = websession.get('invitees', {})
-			network_invitees = invitees.get(network, {})
-			network_invitees[str(network_id)] = invitee
-			invitees[network] = network_invitees
-			websession['invitees'] = invitees
-			log.debug('add: %s' % websession['invitees'])
-		except Exception, e:
-			log.warning("Something wonky happened in /invite/add")
-			return self.ajax_messages("An error occured, please try again!")
-		else:
-			if network == 'email':
-				c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
 				c.method = 'email'
-				c.invitees = invitees
-				return {'clearmessage':True, 'data':{'success':True, 'html':self.render('/invite/invited.html').strip()}}
-			else:
-				return {'clearmessage':True, 'data':{'initial':len(network_invitees) == 1, 'len': len(network_invitees)}}
-	
-	@jsonify
-	@logged_in(ajax=False)
-	def rem(self, pool_url):
-		if request.method != 'POST':
-			return redirect(url('home'))
-		try:
-			network = request.params.get('network', None)
-			network_id = request.params.get('networkid', None)
-			
-			invitees = websession.get('invitees', {})
-			network_invitees = invitees.get(network, {})
-			if network_id in network_invitees:
-				del network_invitees[str(network_id)]
-			invitees[network] = network_invitees
-			websession['invitees'] = invitees
-			log.debug('rem: %s' % websession['invitees'])
-		except:
-			log.warning("Something wonky happened in /invite/rem")
-		if network != 'email':
-			return {'clearmessage':True, 'data':{'last':len(network_invitees) == 1, 'len': len(network_invitees)}}
-		else:
-			return {}
+			c.invitees = {network_id:invitee}
+			return {'clearmessage':True, 'data':{'success':True, 'html':self.render('/invite/email_invitee.html').strip()}}
