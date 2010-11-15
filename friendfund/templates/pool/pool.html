@@ -23,6 +23,14 @@
 			}
 %>
 
+
+<%def name="fb_meta_tags()">
+		<link rel="image_src" href="/static/imgs/fb_stream_publish_logo.png" />
+		<meta name="title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
+		<meta name="description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
+</%def>
+
+
 <%def name="onloadscripts()">
 	onLoadPagelets("lowerbody_container");
 	dojo.query(".popuplink", "timeline_bar").onclick(dojo.hitch(null, loadPopup));
@@ -107,6 +115,11 @@ ${html.clearline()|n}
 	%endif
 	${html.clearline()|n}
 </div>
+
+<div class="social_tools" style="margin-left:30px;height:35px;float:left">
+		<iframe src="http://www.facebook.com/plugins/like.php?href=${url.current(protocol="http")}&amp;layout=standard&amp;show_faces=FALSE&amp;&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+</div>
+
 
 <div id="pool_contributors">
 	<div class="heading">${_("POOL_PAGE_Already chipped in: %(number_contributors)d contributors from %(number_invitees)d invited people") % locals}</div>
