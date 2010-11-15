@@ -1,0 +1,157 @@
+<%inherit file="master.html"/>
+<%namespace name="links" file="links.html"/>
+<%namespace name="topsellers" file="product/topsellers.html"/>
+<%namespace name="html" file="widgets/html_elems.html"/>
+<%namespace name="forms" file="widgets/forms.html"/>
+<%namespace name="ra_stream" file="widgets/ra_stream.html"/>
+<%def name="title()">${_("PAGE_INDEX_TITLE_Welcome")}</%def>
+
+
+
+<%def name="scripts()">
+	${links.js('friendfund/HomePagePanel.js')}
+	${links.js('friendfund/NetworkFriendSelector.js')}
+	${links.js('friendfund/EmailFriendSelector.js')}
+	${links.js('friendfund/YourselfSelector.js')}
+	${links.js('friendfund/ProductSearch.js')}
+</%def>
+<%def name="bodyclass()">index</%def>
+<%def name="headscripts()">
+	page_reloader = function(){window.location.reload();};
+	dojo.require("dojo.io.iframe");
+	html = null;
+	function show_delay(){
+		var elementstream = dojo.query(".ra_scroller", "fundstream_ra");
+		var elem = elementstream[0];
+		if(elementstream.length > 2)
+			dojo.query("#"+elementstream[2].id, "fundstream_ra").orphan();
+		var init_top = parseInt(dojo.attr(elem, "_top"));
+		var final_top = init_top+170;
+		dojo.attr(elem, "_top", final_top);
+		var appear = dojo.animateProperty({node:elem.id, duration: 2000, 
+			properties:{marginTop:{start:init_top, end:init_top+170}}});
+		h = dojo.connect(appear, "onEnd", function(){
+				if(html!=null){dojo.place(html, dojo.byId("fundstream_ra"), "first");html = null;}
+				dojo.disconnect(h);
+		});
+		appear.play();
+		
+		if(final_top < 0) setTimeout("show_delay()", Math.round(3000 + (Math.random() * 12000)));
+		else {
+			xhrPost("/stream", {}, function(data){
+				html = data.html;setTimeout("show_delay()", Math.round(2000 + (Math.random() * 8000)));
+			});
+		}
+	};
+</%def>
+<%def name="onloadscripts()">
+		<% 
+			pool = getattr(c, "pool", None) 
+			receiver = str(getattr(pool, "receiver", None) is not None).lower()
+			occasion = str(getattr(pool, "occasion", None) is not None).lower()
+			product = str(getattr(pool, "product", None) is not None).lower()
+		%>
+		panels = new friendfund.HomePagePanel({
+						ref_node : "button_panel_container"
+						, config_node: "pool_configurator"
+						, fb_api_key : "${app_globals.FbApiKey}"
+						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
+		interval = setTimeout("show_delay()", Math.round(Math.random() * 2000));
+</%def>
+
+
+<%def name="page_slogan()">
+	<div id="page_slogan"><span class="emphasis">${_(u'PAGE_INDEX_SLOGAN_MOTTO_EMPHASIS')|n}</span> ${_(u'PAGE_INDEX_SLOGAN')|n} <span class="emphasis">${_(u'PAGE_INDEX_SLOGAN_CLOSING')|n}</span></div>
+</%def>
+
+
+<form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
+	<div id="pool_configurator">
+		<div id="verisignsealindex">
+		<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+			<tr>
+			<td width="135" align="center" valign="top">
+				<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=L&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+			</td>
+			</tr>
+		</table>
+		</div>
+		<div id="receiver_panel" class="frontpagebutton first">
+			<%include file="receiver/button.html"/>
+		</div>
+
+		<div id="occasion_panel" class="frontpagebutton">
+			<%include file="occasion/button.html"/>
+		</div>
+
+		<div id="product_panel" class="frontpagebutton">
+			<%include file="product/button.html"/>
+		</div>
+
+		<div id="funders_panel" class="frontpagebutton last">
+			<div class="hpbutton funders">
+				<a class="button funders">
+					${_(u"PAGE_INDEX_HEADING_One more step...")}
+				</a>
+				<div class="button_content funders">
+					<span id="funders_panel_tooltip" class="hidden">${_(u"PAGE_INDEX_MESSAGE_Please select Who, When and What first!")}</span>
+					<a id="funders_button" class="red_labeled_container funders inactive">
+						<span>${_("PAGE_INDEX_BUTTON_Invite Friends")}</span>
+                    </a>
+					<div style="position: relative; top: 34px;"><div class="sub_label ">${_(u"PAGE_INDEX_FUNDERSTEXT_Once you've selected a receiver, an event and a gift, invite your friends to chip in to your gift pool.")}</div></div>
+				</div>
+			</div>
+		</div>
+		${html.clearline()|n}
+		<div id="get_started">
+        	<div class="content">
+        	<a onclick="panels.load_receiver(panels);" name="" href="#"><span>${_(u"PAGE_INDEX_BUTTON_Get Started")}</span></a>
+            </div>   
+        </div>
+		<div id="button_panel_container">&nbsp;</div>
+	</div>
+	
+</form>
+
+
+
+
+<%def name="lowerbody()">
+	<div id="lowerbody_container">
+		<div id="fundstream" class="recentactivity">
+			<div class="panel_title">
+					${_(u"PAGE_INDEX_HEADER_Current Pools")}
+			</div>
+			
+			<div class="raheader">
+				<img src="/static/imgs/Current_Pools_header.png" />
+			</div>
+		
+			<div id="fundstream_ra">
+				${ra_stream.render_stream_block(c.recent_activity, c.uuid, offset = c.ra_offset)}
+			</div>
+		</div>
+		
+		<div id="badgestream">
+			<div class="panel_title">
+				${_(u"PAGE_INDEX_HEADER_Recent Badges")}
+			</div>
+			<div class="panel_content_no_padding">
+				%for badge in c.recent_activity.get_some_badges(3):
+					<div class="badge_pic"><img src="${badge.get_badge_picture('icon')}"/><div>${badge.display_name}</div></div>
+					<div class="badge_user_pic"><img src="${badge.get_profile_pic()}"/></div>
+				%endfor
+			</div>
+		</div>
+		
+		<div id="productstream">
+			<div class="panel_title">
+				${_(u"PAGE_INDEX_HEADER_Top Sellers")}
+			</div>
+			<div class="panel_content_no_padding">
+				${topsellers.render(str(session.get('region') or 'de'))|n}
+			</div>
+		</div>
+	</div>
+</%def>

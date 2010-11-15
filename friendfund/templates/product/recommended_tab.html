@@ -1,0 +1,54 @@
+<%inherit file="panel.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="common" file="common.html"/>
+<%!
+	from operator import mod
+%>
+
+<div class="whiteContainer">
+	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
+   
+	<div id="scrollingproductsuggestions" class="anythingSlider">
+	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
+	<span class="arrow forward arrowforward anchorelem"><a>&gt;&gt;</a></span>
+	<div dojoType="dojox.widget.AutoRotator" class="rotator" suspendOnHover="true" id="productslider" jsId="productsuggestionscroller1" transition="dojox.widget.rotator.panLeft" autoStart="true" duration="4000">
+			<% last_prod = len(c.top_sellers)-1 %>
+			%for i, prod in enumerate(c.top_sellers):
+				%if mod(i,c.SCROLLER_PAGE_SIZE) == 0:
+					<div class="pane pane${i%c.SCROLLER_PAGE_SIZE}" transition="dojox.widget.rotator.panLeft">
+				%endif
+				<div _target_id="slider${i}_elem"  class="productsuggestion ${mod(i,c.SCROLLER_PAGE_SIZE)<(c.SCROLLER_PAGE_SIZE-1) and 'psmiddle' or ''}">
+					<a class="productsuggestion">
+						<img id="slider${i}_elem" src="${prod.picture_large}" class="productsuggestion"><span>${prod.name}</span>
+					</a>
+					<textarea style="display:none">
+						${common.display_product(0, prod)|n}
+						<div style="clear:both"></div>
+					</textarea>
+				</div>
+				%if mod(i,c.SCROLLER_PAGE_SIZE) == (c.SCROLLER_PAGE_SIZE-1) or i==last_prod:
+					</div>
+				%endif
+			%endfor
+		</div>
+	</div>
+
+	<h4 class="inside">${_("PRODUCT_BROWSER_TITLE_Find a Gift by Personality")}</h4>
+	<div class="personalityBox">
+		%for cat in c.categories:
+		<div class="productsuggestion psmiddle">
+			<a class="productsuggestion categorytype anchorelem" _sort="${c.sort}" _category="${cat.name}" _search_keys="_category,_sort" _base_url="${c.search_base_url}">
+				<img class="productsuggestion" src="${h.get_category_picture(cat.picture_url)|n}">
+				<span>${_(cat.name)}</span>
+			</a>
+		</div>
+		%endfor
+	</div>
+	<div class="footer-big"></div>
+	<div style="clear:both"></div> 
+	
+	<div id="product_browser_container">
+		<%include file="recommended_tab_search.html"/>
+	</div>
+</div>

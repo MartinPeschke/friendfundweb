@@ -1,0 +1,12 @@
+<%def name="clearline(height=0)"><div style="clear: both; line-height: ${height}px; height: ${height}px;">&nbsp;</div></%def>
+
+
+<%def name="counter(number, subscript)"><div class="counter_container"><div class="counter"><div class="counter_left">&nbsp;</div><div class="counter_right">&nbsp;</div><span class="counter_number">${unicode(number)|n}</span><hr/></div><div class="subscript">${subscript}</div></div>
+</%def>
+
+
+<%def name="button(href,onclick='', name='', _class='button_container')"><a href="${href}" name="${name}" onclick="${onclick}" class="${_class}"><div class="button_left">&nbsp;</div><div class="button_right">&nbsp;</div><span class="button_label">${caller.body()}</span></a></%def>
+
+<%def name="loading_animation()"><div class="loading_animation"><img src="/static/imgs/ajax-loader.gif"></div></%def>
+<%def name="ajax_loading_animation_src()">/static/imgs/ajax-loader.gif</%def>
+<%def name="ajax_loading_animation()"><div class='loading_animation'><img src='${ajax_loading_animation_src()}'></div></%def>

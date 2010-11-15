@@ -1,0 +1,128 @@
+<%!
+	import md5
+%>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+
+
+%if c.method == 'facebook':
+	${networkinviter("facebook", c.friends, True)}
+%elif c.method == 'twitter':
+	${networkinviter("twitter", c.friends, False)}
+%elif c.method == 'email':
+	${mailinviter()}
+%endif
+
+<%def name="networkinviter(network_name, friends, mutuals)">
+	<div id="networkinviter_${network_name}">
+	<div id="inviteheader" class="inviteelist ${network_name}">
+		%if mutuals:
+			<div class="mutual_toggle_container">
+				<input type="checkbox" id="toggle_mutuals" checked="checked"/>
+				<label for="toggle_mutuals">${_("INVITE_PAGE_Only Mutual Friends")}</label>
+			</div>
+		%endif
+		<div style="float: left;">
+		${forms.black_input_text("fb_filter", "fb_filter", label="", default="Name", width=175)}
+		</div>
+		<a class="submitSmall" id="inviteall"><span>${_("INVITE_PAGE_LABEL_Invite All")}</span></a>
+	</div>
+
+	<div id="friend_list" class="inviteelist ${network_name}">
+		${render_network_friends(friends, mutuals = mutuals)|n}
+		${render_network_friends(c.already_invited, active=False, mutuals = mutuals)|n}
+	</div>
+	</div>
+</%def>
+
+<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False)">
+%for i,(id, user_data) in enumerate(friends.items()):
+	<%
+		if "mutual_with" in user_data:
+			mutual_class = "mutual"
+		elif mutuals:
+			mutual_class = "nonmutual hidden"
+		else:
+			mutual_class = "nonmutual"
+	%>
+	<div class="invitee_row ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}"
+			%if active:
+				pos="${i}" ${h.attrib_keys(user_data)|n}
+			%endif
+		>
+		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['name']}"/>
+		<span class="label"><b>${user_data['name']}</b>
+		%if show_birthdays and 'dob' in user_data:
+			<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
+			<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
+			%if user_data['dob_difference'] < 60:
+				<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div>
+			%endif
+			</div>
+		%endif
+		</span>
+		%if active:
+			<a class="selector" title="${user_data['name']}">&nbsp;</a>
+		%endif
+	</div>
+%endfor
+</%def>
+
+
+
+
+
+<%def name="mailinviter()">
+	<div id="inviteheader">
+		${html.clearline()}
+		<div class="headline">
+			Select Friend from:
+			<img src="/static/imgs/button_mail_gmail.png" class="networkicon" alt="GMail" />
+			<img src="/static/imgs/button_mail_yahoo.png" class="networkicon" alt="Yahho Mail" />
+		</div>
+		${html.clearline()}
+		<form action="" method="POST" id="emailinviter">
+			<div id="inviter_name" class="input_field">
+			<div class="label">
+				<label for "email_networkname">${_("INVITE_PAGE_LABEL_Name of your friend:")}</label>
+			</div>
+			<input type="text" id="email_networkname" name="invitee.name" value=""/>
+			</div>
+			
+			<div id="inviter_email" class="input_field">
+			<div class="label">
+			<label for "email_email">${_("INVITE_PAGE_LABEL_Email address of your friend:")}</label>
+			</div>
+			<input type="text" id="email_email" name="invitee.network_id" value=""/>
+				<span id="email_inviter_error"></span>
+			</div>
+			<br/>
+			<input type="hidden" name="invitee.network" value="email"/>
+			<input type="hidden" name="invitee.notification_method" value="email"/>
+			
+			<div style="float: right; margin:0px 50px 0px;position: relative;">
+				<a class="submitSmall selector" id="emailsubmitter" _imgurl="/static/imgs/default_m.png"><span>${_("INVITE_PAGE_LABEL_Submit")}</span></a>
+			</div>
+		</form>
+	${html.clearline(20)}
+	</div>
+	<div id="friend_list" class="emailpopup">
+		
+	</div>
+</%def>
+
+<%def name="render_email_friends(friends, active = True, class_='selectable')">
+	%for i,(id, user_data) in enumerate(friends.items()):
+	<div class="invitee_row ${class_}" id="email_${ md5.new(id).hexdigest() }"
+			%if active:
+				pos="i" ${h.attrib_keys(user_data)|n}
+			%endif
+		>
+		%if active:
+			<a class="selector" title="${user_data['name']}">&nbsp;</a>
+		%endif
+		<img src="${user_data['profile_picture_url']}" class="fbprofilepic">
+		<span class="label">${user_data['name']}<br/>${id}</span>
+	</div>
+	%endfor
+</%def>

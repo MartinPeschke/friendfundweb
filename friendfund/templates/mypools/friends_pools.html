@@ -1,0 +1,34 @@
+<%inherit file="../master.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="mypools_body" file="mypools_body.html"/>
+<%def name="title()">${_("FRIENDSPOOLS_TITLE_Friends' Pools")}</%def>
+
+${mypools_body.render_tabs("friends")|n}
+
+<div id="mypools" class="recentactivity">
+	%if c.my_pools.open_pools:
+		<div class="subCategories">${_("FRIENDSPOOLS_CONTENT_Friends Open Pools")}</div>
+		<div class="tooltipBoxMyPools">
+			<img src="/static/imgs/mypools_friend_header.png" />
+		</div>
+		%for pool in c.my_pools.open_pools:
+			${mypools_body.render(pool)}
+		%endfor
+	%endif
+	%if c.my_pools.closed_pools:
+		<div class="subCategories">${_("FRIENDSPOOLS_CONTENT_Friends Closed Pools")}</div>
+		<div class="tooltipBoxMyPools">
+			<img src="/static/imgs/mypools_friend_header.png" />
+		</div>
+		%for pool in c.my_pools.closed_pools:
+			${mypools_body.render(pool)}
+		%endfor
+	%endif
+	%if not c.my_pools.closed_pools and not c.my_pools.closed_pools:
+		<div></div>
+	%else:
+		<div style="margin-top: 20px">
+		<%call expr="html.button(href=url('home'))">${_("FRIENDSPOOLS_CONTENT_Create new Pool")}</%call>
+		</div>
+	%endif
+</div>

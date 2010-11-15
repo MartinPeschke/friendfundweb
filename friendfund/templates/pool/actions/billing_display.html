@@ -1,0 +1,24 @@
+<%namespace name="forms" file="/widgets/forms.html"/>
+<div class="addressHeader"><h2>${_("POOLSETTINGS_LABEL_Billing Address for the Gift:")}</h2></div>
+<div class="addressContainer" id="billingAddressContainer">
+	<div class="forminputline">
+		<label>${_("POOLSETTINGS_LABEL_Name")}(*)</label><span class="requiredvalue">${c.billing_values.get('line1', '')}</span>
+	</div>
+	<div class="forminputline">
+		<label>${_("POOLSETTINGS_LABEL_Street")}(*)</label><span class="requiredvalue">${c.billing_values.get('line2', '')}</span>
+	</div>
+	<div class="forminputline">
+		<label>${_("POOLSETTINGS_LABEL_City")}(*)</label><span class="requiredvalue">${c.billing_values.get('line3', '')}</span>
+	</div>
+
+	<div class="forminputline">
+		<label>${_("POOLSETTINGS_LABEL_Zip Code")}(*)</label><span class="requiredvalue">${c.billing_values.get('zipcode', '')}</span>
+	</div>
+	<div class="forminputline">
+		<label>${_("POOLSETTINGS_LABEL_Country")}(*)</label><span class="requiredvalue">${c.billing_values.get('country', '').replace('COUNTRY_', '').title()}</span>
+	</div>
+	
+	<div style="position:absolute; right:30px;bottom:15px;">
+		${forms.black_submitlink(_("POOLSETTINGS_Edit"), [("onclick", "loadElement('%s', 'billingAddressContainerBox',{type:'billing'});" % url(controller='pool', pool_url=c.pool_url, action='edit_address'))], "settings_submitter")|n}
+	</div>
+</div>
