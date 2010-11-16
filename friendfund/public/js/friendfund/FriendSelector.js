@@ -3,6 +3,7 @@ dojo.provide("friendfund.YourselfSelector");
 dojo.provide("friendfund.EmailFriendSelector");
 
 dojo.require("dojo.NodeList-traverse");
+dojo.require("dojo.NodeList-manipulate");
 
 dojo.declare("friendfund._Selector", null, {
 	_listener_locals : [],
@@ -67,7 +68,8 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	onSelect : function(_t, params, elem, evt){
 		dojo.place(elem, _t.invited_node, "last");
 		dojo.query("input[type=text]", "emailinviter").attr("value", "");
-	}
+	},
+	unSelect : function(_t, target){dojo.query('#'+target.id, _t.invited_node).orphan();}
 });
 
 dojo.declare("friendfund.NetworkFriendPanel", friendfund._Selector, {
@@ -84,13 +86,9 @@ dojo.declare("friendfund.NetworkFriendPanel", friendfund._Selector, {
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 	},select : function(_t, evt){
-		var target;
-		if(dojo.hasClass(evt.target, "invitee_row") && dojo.hasClass(evt.target, "selectable")){
-			target = evt.target;
-		} else {
-			target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
-			if(!target){return;}
-		}
+		if(!dojo.hasClass(evt.target,'invite')){return;}
+		var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
+		if(!target){return;}
 		var params = {};
 		dojo.forEach(dojo.attr(target, "_search_keys").split(","), 
 					function(key){params[key.substring(1)]=dojo.attr(target, key);}
@@ -273,23 +271,38 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		if(_t.invited_node_suffix){
 			_t._listener_locals.push(dojo.connect(dojo.byId(_t.global_invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
 		}
+	},unselectPendingSelector : function(_t, selector, target, evt){
+		dojo.removeClass("PendingPlaceHolder", "hidden");dojo.addClass("PendingNominator", "hidden");
+		dojo.query(".invitee_row .pending.selected", _t.global_invited_node).removeClass("selected");
+		dojo.attr("PendingSelectorSelector", {_network:"",_network_id:""});
+	},makePendingSelector : function(_t, selector, target, evt){
+		if(dojo.attr("PendingSelectorSelector", "_network")==dojo.attr(target, '_network')&&dojo.attr("PendingSelectorSelector", "_network_id")==dojo.attr(target, '_network_id'))
+		{_t.unselectPendingSelector(_t, selector, target, evt);return;}
+		
+		dojo.attr("PendingSelectorSelector", {_network:dojo.attr(target, '_network'), _network_id:dojo.attr(target, '_network_id')});
+		dojo.query("img", "PendingNominator").orphan();
+		dojo.place(dojo.create("IMG", {src:dojo.attr(target, '_profile_picture_url')}), dojo.byId("PendingNominator"), "first");
+		dojo.query("span.name", "PendingNominator").innerHTML(dojo.attr(target, '_name'));
+		dojo.addClass("PendingPlaceHolder", "hidden");dojo.removeClass("PendingNominator", "hidden");
+		dojo.query(".invitee_row .pending.selected", _t.global_invited_node).removeClass("selected");
+		dojo.addClass(evt.target, "selected");
 	},unselect : function(_t, evt){
-		var target;
-		if(dojo.hasClass(evt.target, "invitee_row") && dojo.hasClass(evt.target, "selectable")){
-			target = evt.target;
-		} else {
-			target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
-			if(!target){return;}
-		}
+		if(!(dojo.hasClass(evt.target,'pending') || dojo.hasClass(evt.target,'remove'))){return;}
+		var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
+		if(!target){return;}
 		var sel = _t.selectors[dojo.attr(target, "_network")];
-		sel.unSelect(sel, target);
+		if(dojo.hasClass(evt.target,'pending')){
+			_t.makePendingSelector(_t, sel, target, evt);
+		}else{
+			if(dojo.query(".pending.selected",target).length>0){_t.unselectPendingSelector(_t, sel, target, evt);}
+			sel.unSelect(sel, target);
+		}
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 		_t._widget_locals = [];
-	},
-	switchMethod : function(_t, evt){
+	},switchMethod : function(_t, evt){
 		var deselect = dojo.query("a.ajaxlink.selected", _t.container);
 		if(deselect.length > 0){
 			deselect = deselect[0];

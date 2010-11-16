@@ -18,7 +18,7 @@ hr {	clear: both;}
 h2 {font-family: "Trebuchet MS"; font-size: 20px !important; font-weight: bold !important; color:#403834 !important; margin: 0 !important; line-height: normal !important;}
 h3 {font-family: "Trebuchet MS" !important; font-size: 14px !important; font-weight: bold !important;; line-height: 14px !important}
 
-.hidden {display: None;}
+.hidden {display: None !important;}
 .white {background-color: white;}
 
 .left {position: relative;float: left;}
@@ -468,17 +468,15 @@ p.termsOf a{ color:#B70158;}
 	margin-top:-1px;
 	min-height:100px;
 }
-#invite_panel_header .invite_pool_panel.first {
-	margin: 30px 0px 0px 120px;
-}
-#invite_panel_header .invite_pool_panel {
+.invite_pool_panel.first {margin: 30px 0px 0px 120px;}
+.invite_pool_panel {
 	position: relative;
 	width:185px;
 	float: left;
 	color: #333;
 	margin: 30px 0px 0px 60px;
 }
-#invite_panel_header .invite_pool_panel div.label {
+.invite_pool_panel div.label {
 	text-align: left;
 	margin: 5px 0px;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
@@ -487,7 +485,7 @@ p.termsOf a{ color:#B70158;}
 	color:#403834;
 	overflow: hidden;
 }
-#invite_panel_header .invite_pool_panel .picture {
+.invite_pool_panel .picture {
 	background:url("../imgs/header/backgroundHomeShadow.png") no-repeat scroll 0 0 transparent;
 	display:block;
 	height:131px;
@@ -496,6 +494,12 @@ p.termsOf a{ color:#B70158;}
 	text-align:left;
 	width:174px;
 }
+
+.invite_pool_panel .picture .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-25px;position:absolute;width:60px;}
+.invite_pool_panel .picture.occasion .icon {background-position:-57px 0;}
+.invite_pool_panel .picture.gift .icon {background-position:-121px 0;}
+
+
 #invite_panel_header .invite_pool_panel .picture img {
 	height:111px;
 	max-width:174px;
@@ -516,14 +520,8 @@ p.termsOf a{ color:#B70158;}
 #inviteheader.inviteelist {
 	height:55px;
 }
-#inviteall {
-	margin-bottom:20px;
-}
-#inviteheader .mutual_toggle_container {
-	position: absolute;
-	top: 37px;
-	left: 0px;
-}
+#inviteall {top:37px;float:right}
+#inviteheader .mutual_toggle_container {position: absolute;top: 37px;left: 0px;}
 #inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
 #inviteheader input{ margin-right:10px}
 
@@ -601,13 +599,20 @@ div#lowerbody {margin: 30px;}
 .invitee_row .label .birthdaylabel{font-size:90%;color: #555;}
 .invitee_row img.fbprofilepic {width: 50px;height: 50px;z-index:1;position: relative;display: block; float: left}
 
-.invitee_row a.selector {
-	background:url("/static/imgs/inputfield.png") no-repeat scroll -270px -25px transparent;
-	bottom:15px;height:30px;position:absolute;width:30px;right:0px;}
-#friend_list .invitee_row a.selector {background-position:-215px -25px;right:0px;}
+.invitee_row a.selector {bottom:22px;position:absolute;right:0px;padding-right:15px;cursor:pointer;color:#064159;font-family:Arial,sans-serif;}
+.invitee_row a.selector span.selector{
+	background:url("../imgs/inputfield.png") no-repeat scroll -268px -30px transparent;
+	height:15px;position:absolute;width:10px;right:0px;
+}
+#friend_list .invitee_row a.selector span.selector {background-position:-220px -32px;}
+#friend_list .invitee_row a.selector.invite {display:Block}
+#friend_list .invitee_row a.selector.remove {display:None}
+#invited .invitee_row a.selector.invite {display:None}
+#invited .invitee_row a.selector.remove {display:block;top:0px;}
+#invited .invitee_row a.pending {background:url("../imgs/inputfield.png") no-repeat scroll -358px -24px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;}
+#invited .invitee_row a.pending.selected {background-position:-322px -24px}
 
 
-.invitee_row.selectable {cursor:pointer;}
 .invitee_row.nonselectable {	display:none;}
 .invitee_row.selected {background-color: #eee;margin: 0px;padding: 5px;cursor:normal;}
 
@@ -658,7 +663,7 @@ div#lowerbody {margin: 30px;}
 	width:395px;
 }
 #invited {
-	margin: 71px 30px 30px 30px;
+	margin: 6px 30px 30px 30px;
 	position: relative;
 	width:395px;
 	height:550px;
@@ -667,6 +672,13 @@ div#lowerbody {margin: 30px;}
 	border: 1px solid #aaa;
 	background-color:  #ffffff;
 }
+#invitescontainer .placeholder{position:relative;height:60px;float:right;margin: 15px 30px 0px 30px;width:395px;font-weight:bold;}
+#PendingSelectorSelector {position:relative;height:60px;background:white;}
+#PendingSelectorSelector .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 3px 3px transparent;height:30px;float:left;margin:15px; padding-left:40px;}
+#PendingSelectorSelector .nominator img {width:30px;height:30px;float:left;margin-right:15px;}
+#PendingSelectorSelector .nominator {display:block;height:30px;float:left;margin:15px;font-weight:normal;}
+#PendingSelectorSelector .nominator .name {font-weight:bold;}
+
 
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {

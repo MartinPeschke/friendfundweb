@@ -6,14 +6,14 @@
 
 
 %if c.method == 'facebook':
-	${networkinviter("facebook", c.friends, True)}
+	${networkinviter("facebook", c.friends, True, with_pending = c.pool.product.is_pending_ask_friend)}
 %elif c.method == 'twitter':
-	${networkinviter("twitter", c.friends, False)}
+	${networkinviter("twitter", c.friends, False, with_pending = c.pool.product.is_pending_ask_friend)}
 %elif c.method == 'email':
-	${mailinviter()}
+	${mailinviter(with_pending = c.pool.product.is_pending_ask_friend)}
 %endif
 
-<%def name="networkinviter(network_name, friends, mutuals)">
+<%def name="networkinviter(network_name, friends, mutuals, with_pending = False)">
 	<div id="networkinviter_${network_name}">
 	<div id="inviteheader" class="inviteelist ${network_name}">
 		%if mutuals:
@@ -23,19 +23,19 @@
 			</div>
 		%endif
 		<div style="float: left;">
-		${forms.black_input_text("fb_filter", "fb_filter", label="", default="Name", width=175)}
+		${forms.black_input_text("fb_filter", "fb_filter", label="", default=_("INVITE_PAGE_LABEL_Search friends ..."), width=175)}
 		</div>
-		<a class="submitSmall" id="inviteall"><span>${_("INVITE_PAGE_LABEL_Invite All")}</span></a>
+		<a class="submitMini" id="inviteall">${_("INVITE_PAGE_LABEL_Invite All")}<span></span></a>
 	</div>
 
 	<div id="friend_list" class="inviteelist ${network_name}">
-		${render_network_friends(friends, mutuals = mutuals)|n}
-		${render_network_friends(c.already_invited, active=False, mutuals = mutuals)|n}
+		${render_network_friends(friends, mutuals = mutuals, with_pending=with_pending)|n}
+		${render_network_friends(c.already_invited, active=False, mutuals = mutuals, with_pending=with_pending)|n}
 	</div>
 	</div>
 </%def>
 
-<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False)">
+<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False, with_pending=False)">
 %for i,(id, user_data) in enumerate(friends.items()):
 	<%
 		if "mutual_with" in user_data:
@@ -62,7 +62,11 @@
 		%endif
 		</span>
 		%if active:
-			<a class="selector" title="${user_data['name']}">&nbsp;</a>
+			<a class="selector invite" title="${user_data['name']}">${_("INVITE_LABEL_Invite")}<span class="selector invite"></span></a>
+			<a class="selector remove" title="${user_data['name']}">${_("INVITE_LABEL_Remove")}<span class="selector remove"></span></a>
+			%if with_pending:
+				<a class="pending" title="${_("PENDINGPRODUCT_SELECTOR")}">&nbsp;</a>
+			%endif
 		%endif
 	</div>
 %endfor
@@ -72,7 +76,7 @@
 
 
 
-<%def name="mailinviter()">
+<%def name="mailinviter(with_pending = False)">
 	<div id="inviteheader">
 		${html.clearline()}
 		<div class="headline">
@@ -98,6 +102,7 @@
 			</div>
 			<br/>
 			<input type="hidden" name="invitee.network" value="email"/>
+			<input type="hidden" name="invitee.with_pending" value="${with_pending and "1" or ""}"/>
 			<input type="hidden" name="invitee.notification_method" value="email"/>
 			
 			<div style="float: right; margin:0px 50px 0px;position: relative;">
@@ -119,7 +124,11 @@
 			%endif
 		>
 		%if active:
-			<a class="selector" title="${user_data['name']}">&nbsp;</a>
+			<a class="selector invite" title="${user_data['name']}">${_("INVITE_LABEL_Invite")}<span class="selector invite"></span></a>
+			<a class="selector remove" title="${user_data['name']}">${_("INVITE_LABEL_Remove")}<span class="selector remove"></span></a>
+			%if user_data['with_pending']:
+				<a class="pending" title="${_("PENDINGPRODUCT_SELECTOR")}">&nbsp;</a>
+			%endif
 		%endif
 		<img src="${user_data['profile_picture_url']}" class="fbprofilepic">
 		<span class="label">${user_data['name']}<br/>${id}</span>

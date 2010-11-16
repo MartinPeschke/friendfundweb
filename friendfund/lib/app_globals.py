@@ -161,7 +161,7 @@ class Globals(object):
 				amazon_services[k] = None
 				log.warning("AmazonService NOT AVAILABLE for %s", self.country_choices.r2c_map[k])
 		
-		self.product_service = ProductService(amazon_services, product_categories, virtual_gifts, top_sellers, self.country_choices)
+		self.product_service = ProductService(amazon_services, product_categories, virtual_gifts, top_sellers, self.country_choices, self.SITE_ROOT_URL)
 		log.info("ProductService set up")
 		
 		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home', True)

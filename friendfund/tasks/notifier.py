@@ -53,7 +53,11 @@ def main(argv=None):
 	ROOT_URL = config['short_site_root_url']
 	
 	debug = config['debug'].lower() == 'true'
-	log.info( 'DEBUG: %s for %s', debug, CONNECTION_NAME )
+	facebook_on = config['notification_fb'].lower() == 'on'
+	twitter_on  = config['notification_tw'].lower() == 'on'
+	email_on    = config['notification_email'].lower() == 'on'
+	
+	log.info( 'DEBUG: %s for %s (fb:%s,tw:%s,email:%s)', debug, CONNECTION_NAME,  facebook_on, twitter_on, email_on )
 	
 	while 1:
 		conn = dbpool.connection()
@@ -87,25 +91,37 @@ def main(argv=None):
 				try:
 					notification_method = meta_data.get('notification_method').lower()
 					if notification_method == 'email':
-						msg_id = email.send(sndr_data, rcpt_data, template_data)
-					elif notification_method == 'stream_publish':
-						msg_id = "1" # facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
-					elif notification_method in ['tweet', 'tweet_dm']:
-						if sndr_data['u_id'] in ['25710','25711','25712','25713','25714','25715','25716','25717','25718','25719','25720']:
-							sndr_data['twitterapikey'] = config['testtwitterapikey']
-							sndr_data['twitterapisecret'] = config['testtwitterapisecret']
-							print "USED TEST APP"
+						if email_on:
+							msg_id = email.send(sndr_data, rcpt_data, template_data)
 						else:
-							sndr_data['twitterapikey'] = config['twitterapikey']
-							sndr_data['twitterapisecret'] = config['twitterapisecret']
-						sndr_data['bitlylogin'] = config['bitly.login']
-						sndr_data['bitlyapikey'] = config['bitly.apikey']
-						
-						if notification_method == 'tweet':
-							msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
-						elif notification_method == 'tweet_dm':
-							pass
-							# msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data) @ disabled
+							msg_id = "1"
+							log.warning( "EMAILING_IS_OFF" )
+					elif notification_method == 'stream_publish':
+						if facebook_on:
+							msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
+						else:
+							msg_id = "1"
+							log.warning( "STREAM_PUBLISH_IS_OFF" )
+					elif notification_method in ['tweet', 'tweet_dm']:
+						if twitter_on:
+							if sndr_data['u_id'] in ['25710','25711','25712','25713','25714','25715','25716','25717','25718','25719','25720']:
+								sndr_data['twitterapikey'] = config['testtwitterapikey']
+								sndr_data['twitterapisecret'] = config['testtwitterapisecret']
+								print "USED TEST APP"
+							else:
+								sndr_data['twitterapikey'] = config['twitterapikey']
+								sndr_data['twitterapisecret'] = config['twitterapisecret']
+							sndr_data['bitlylogin'] = config['bitly.login']
+							sndr_data['bitlyapikey'] = config['bitly.apikey']
+							
+							if notification_method == 'tweet':
+								msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
+							elif notification_method == 'tweet_dm':
+								pass
+								# msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data) @ disabled
+						else:
+							msg_id = "1"
+							log.warning( "TWEETING_IS_OFF" )
 					else:
 						raise Exception("Unknown Notification Method")
 				except InvalidAccessTokenException, e:
@@ -133,7 +149,7 @@ def main(argv=None):
 			cur.close()
 			conn.commit()
 			conn.close()
-		time.sleep(2)
+		time.sleep(10)
 
 if __name__ == "__main__":
     sys.exit(main())

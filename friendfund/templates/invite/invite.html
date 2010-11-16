@@ -2,7 +2,6 @@
 <%namespace name="links" file="../links.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
-<%namespace name="invited" file="invited.html"/>
 <%def name="title()">${_("INVITE_PAGE_FB_LOGIN_Invite")}</%def>
 
 <%def name="scripts()">
@@ -29,15 +28,16 @@
 
 <div class="innerbody" id="invite_panel_header">
 	<div class="invite_pool_panel hpbutton first">
-		<div class="picture"><img src="${c.pool.receiver.get_profile_pic('RA')}"/></div>
+		<div class="picture receiver"><span class="icon"></span><img src="${c.pool.receiver.get_profile_pic('RA')}"/>
+		</div>
 		<div class="label">${c.pool.receiver.get_receiver_label()}</div>
 	</div>
 	<div class="invite_pool_panel hpbutton">
-		<div class="picture"><img src="/static/imgs/${c.pool.occasion.picture_url}"/></div>
+		<div class="picture occasion"><span class="icon"></span><img src="/static/imgs/${c.pool.occasion.picture_url}"/></div>
 		<div class="label">${c.pool.occasion.display_label}</div>
 	</div>
 	<div class="invite_pool_panel hpbutton">
-		<div class="picture"><img src="${c.pool.product.get_product_pic()}"/></div>
+		<div class="picture gift"><span class="icon"></span><img src="${c.pool.product.get_product_pic()}"/></div>
 		<div class="label">${c.pool.product.get_display_label()|n}</div>
 	</div>
 	${html.clearline()}
@@ -62,12 +62,30 @@
 			<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<div id="invites">
 				<div id="inviter"></div>
+				%if c.pool.product.is_pending_ask_friend:
+					<div id="PendingSelectorSelector" class="placeholder">
+						<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool.")}</span>
+						<span id="PendingNominator" class="nominator hidden"><img/>${_("INVITE_PAGE_<span class=\"name\"></span> has been nominated to choose a gift for this pool.")|n}</span>
+					</div>
+				%else:
+					<div class="placeholder">
+					</div>
+				%endif
 				<div id="invited">
-					${invited.mailinvitees()}
-					${invited.twitterinvitees()}
-					${invited.fbinvitees()}
+					<div id="email_invitees" class="invited_list">
+						<div class="seperator"><img src="/static/imgs/icon_mail.png"/></div>
+						<div style="clear:both;"></div>
+					</div>
+					<div id="twitter_invitees" class="invited_list">
+						<div class="seperator"><img src="/static/imgs/icon_tw_connect.png"/></div>
+						<div style="clear:both;"></div>
+					</div>
+					<div id="facebook_invitees" class="invited_list">
+						<div class="seperator"><img src="/static/imgs/icon_fb_connect.png"/></div>
+						<div style="clear:both;"></div>
+					</div>
 				</div>
-				${html.clearline()}
+				<div style="clear:both;"></div>
 			</div>
 			<div id="invite_message">
 				<div class="invite_message">${_("INVITE_PAGE_LABEL_Send a personal message to all invitees:")}

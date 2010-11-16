@@ -2,7 +2,7 @@ import logging, urllib, urllib2, simplejson, formencode
 from collections import deque
 from ordereddict import OrderedDict
 
-from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
+from pylons import request, response, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper
@@ -40,14 +40,12 @@ class InviteController(BaseController):
 		c.pool_url = pool.p_url
 		#Find all people that have been selected as to-be-invited but not added to pool yet
 		c.invitees = invitees
-		for network, invitees in c.invitees.items():
+		for network, invitees in c.invitees.iteritems():
 			if network and invitees:
 				il = c.pool.get_invitees(network)
 				c.invitees[network] = dict([(k,v) for k,v in invitees.iteritems() if k not in il])
 			else:
 				del c.invitees[network]
-		websession['invitees'] = c.invitees
-		
 		return self.render('/invite/invite.html')
 	
 	@jsonify
@@ -150,8 +148,6 @@ class InviteController(BaseController):
 			job.apply_async()
 			
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
-			if 'invitees' in websession:
-				del websession['invitees']
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = pool_url))
 	
 	@jsonify

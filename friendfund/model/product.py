@@ -65,8 +65,13 @@ class Product(DBMappedObject):
 	
 	def fromDB(self, xml):
 		self.is_virtual = self.is_virtual or False
+		self.is_pending = self.name.startswith( "PENDING_PRODUCT" )
+		self.is_pending_ask_friend = self.name ==  "PENDING_PRODUCT_NOMINATE"
 
 class PendingProduct(Product):
+	def set_picture_urls(self, base_url):
+		self.picture_small = "%s%s"%(base_url, self.picture_small)
+		self.picture_large = "%s%s"%(base_url, self.picture_large)
 	def get_price_float(self, include_shipping = True):
 		return 0
 	def get_shipping_cost_float(self):
@@ -75,7 +80,10 @@ class PendingProduct(Product):
 		return ''
 	def get_display_label(self, extended = True):
 		return _("PENDING_PRODUCT_NAME")
-
+	def fromDB(self, xml):
+		self.is_virtual = False
+		self.is_pending = True
+		
 class ProductRetrieval(DBMappedObject):
 	"""
 		exec imp.get_product_with_guid '<SEARCH  guid="0071831d-a57e-454f-9476-9317f45daf1f" region="DE"/>'

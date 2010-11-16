@@ -130,7 +130,7 @@ def get_friends(logger, id, access_token):
 		data = simplejson.loads(urllib2.urlopen(query).read())['data']
 	except urllib2.HTTPError, e:
 		logger.error("Error opening URL %s (%s):" % (query, e.fp.read()))
-		user_data = {}
+		ud = {}
 	else:
 		user_data = [
 					translate_friend_entry(str(elem['id']), elem)
@@ -139,7 +139,7 @@ def get_friends(logger, id, access_token):
 		ud = OrderedDict()
 		for k,user in sorted(user_data, key=lambda x: x[1].get("dob_difference", 999)):
 			ud[k] = user
-	logger.info('CACHE MISS %s, %s', query, len(user_data))
+	logger.info('CACHE MISS %s, %s', query, len(ud))
 	return ud
 
 def get_friends_from_cache(

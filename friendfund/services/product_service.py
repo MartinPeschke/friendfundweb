@@ -65,7 +65,7 @@ class ProductService(object):
 	"""
 	SCROLLER_PAGE_SIZE = 5
 	
-	def __init__(self, amazon_services, product_categories, virtual_gifts, top_sellers, country_choices):
+	def __init__(self, amazon_services, product_categories, virtual_gifts, top_sellers, country_choices, site_root_url):
 		if not isinstance(amazon_services, dict) or len(amazon_services) < 3:
 			raise Exception("Insufficient Amazon Services")
 		self.amazon_services = amazon_services
@@ -90,6 +90,7 @@ class ProductService(object):
 		for k,v in PENDING_PRODUCTS.iteritems():
 			p = DBMapper.fromDB(PendingProduct,  etree.fromstring(v))
 			p.guid = k
+			p.set_picture_urls(site_root_url)
 			p.is_pending = True
 			self.pending_products[k] = p
 		
