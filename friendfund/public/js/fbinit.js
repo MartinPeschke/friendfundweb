@@ -46,7 +46,8 @@ fbLogin = function() {
 	}else{fbSessionChange();}
 };
 
-fbLogout = function(){
+fbLogout = function(evt){
+	console.log(evt);
 	if(FB.getSession()){
 		FB.logout(function(response){});
 	}else{

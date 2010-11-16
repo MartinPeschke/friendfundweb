@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-16 18:14+0100\n"
+"PO-Revision-Date: 2010-11-16 20:56+0100\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -383,7 +383,7 @@ msgstr "El evento no ha sido encontrado"
 msgid "INDEX_PAGE_Invalid Format - Occasion"
 msgstr "Formato de fecha incorrecto. "
 
-#: friendfund/controllers/pool.py:21
+#: friendfund/controllers/pool.py:21 friendfund/controllers/product.py:29
 msgid "POOL_Your not authorized for this operation."
 msgstr "No estás autorizado para realizar esta acción."
 
@@ -417,51 +417,53 @@ msgstr ""
 "Para cerrar el bote, primero necesitas rellenar y guardar la dirección de"
 " envío y de facturación."
 
-#: friendfund/controllers/pool.py:46 friendfund/controllers/pool.py:65
-#: friendfund/controllers/pool.py:165 friendfund/controllers/pool.py:178
-#: friendfund/controllers/pool.py:197 friendfund/controllers/pool.py:210
+#: friendfund/controllers/pool.py:46 friendfund/controllers/pool.py:62
+#: friendfund/controllers/pool.py:162 friendfund/controllers/pool.py:175
+#: friendfund/controllers/pool.py:194 friendfund/controllers/pool.py:207
+#: friendfund/controllers/product.py:26 friendfund/controllers/product.py:39
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "Perdón, este bote no existe."
 
-#: friendfund/controllers/pool.py:68
+#: friendfund/controllers/pool.py:65
 msgid "POOL_CREATE_Product was unknown, what can I do?"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:71
+#: friendfund/controllers/pool.py:68
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr "No has escogido ningún evento. Por favor, inténtalo de nuevo. "
 
-#: friendfund/controllers/pool.py:74
+#: friendfund/controllers/pool.py:71
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:317
+#: friendfund/controllers/pool.py:314
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Los cambios han sido guardados"
 
-#: friendfund/controllers/pool.py:356 friendfund/controllers/product.py:108
+#: friendfund/controllers/pool.py:353 friendfund/controllers/product.py:45
+#: friendfund/controllers/product.py:144
 msgid "INDEX_PAGE_No Product"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:368
+#: friendfund/controllers/pool.py:365
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr "Los cambios de producto han sido guardados."
 
-#: friendfund/controllers/pool.py:378
+#: friendfund/controllers/pool.py:375
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "El regalo ha sido cambiado por vales! "
 
-#: friendfund/controllers/product.py:55
+#: friendfund/controllers/product.py:91
 msgid "PRODUCT_SEARCH_An Error Occured during search, please try again later."
 msgstr ""
 "Perdón, se produjo un error durante la búsqueda. Por favor, inténtalo de "
 "nuevo"
 
-#: friendfund/controllers/product.py:58
+#: friendfund/controllers/product.py:94
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "URL no reconocida"
 
-#: friendfund/controllers/product.py:61
+#: friendfund/controllers/product.py:97
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only "
@@ -470,11 +472,11 @@ msgstr ""
 "Este producto no pertenece a %(amazondomain)s. Por favor, usa sólo los "
 "links de %(amazondomain)s o cambia el país de envío."
 
-#: friendfund/controllers/product.py:66
+#: friendfund/controllers/product.py:102
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr "Este producto no está disponible. Por favor, inténtalo de nuevo más tarde."
 
-#: friendfund/controllers/product.py:70
+#: friendfund/controllers/product.py:106
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace "
 "article and is not sold by Amazon itself. Currently we do not support "
@@ -484,7 +486,7 @@ msgstr ""
 " desde Amazon. En este momento, no vendemos productos del mercado de "
 "Amazon."
 
-#: friendfund/controllers/product.py:73
+#: friendfund/controllers/product.py:109
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
@@ -492,7 +494,7 @@ msgstr ""
 "Amazon no nos ha proporcionado la información suficiente para ofrecer "
 "este producto."
 
-#: friendfund/controllers/product.py:142
+#: friendfund/controllers/product.py:178
 msgid ""
 "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
 "shipping much time!"
@@ -500,7 +502,7 @@ msgstr ""
 "¡La fecha de tu evento no le da mucho margen de actuación a los "
 "contribuyentes ni al transporte!"
 
-#: friendfund/controllers/product.py:145
+#: friendfund/controllers/product.py:181
 msgid ""
 "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a"
 " problem please pick a later date!"
@@ -735,7 +737,7 @@ msgstr "Cambiar el producto por Vales Regalo."
 msgid "POOLACTIONS_ISSUE_GIFT_VOUCHERS_SUBTITLE_"
 msgstr "Mándale a tu amigo un Vale Regalo de Amazon con la cantidad alcanzada."
 
-#: friendfund/model/product.py:83
+#: friendfund/model/product.py:65 friendfund/model/product.py:87
 msgid "PENDING_PRODUCT_NAME"
 msgstr ""
 
@@ -1017,8 +1019,8 @@ msgstr ""
 msgid "PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"
 msgstr ""
 
-#: friendfund/services/product_service.py:230
-#: friendfund/services/product_service.py:249
+#: friendfund/services/product_service.py:234
+#: friendfund/services/product_service.py:253
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
@@ -2641,7 +2643,7 @@ msgid "POOL_BUTTON_Chip in!"
 msgstr " ¡Pon Bote!"
 
 #: friendfund/templates/pool/parts/button_contribute.html:35
-#: friendfund/templates/pool/parts/selector_waiting.html:12
+#: friendfund/templates/pool/parts/selector_waiting.html:23
 msgid "POOL_BUTTON_Invite more Friends"
 msgstr "Invita Amigos"
 
@@ -2687,12 +2689,24 @@ msgstr "Por favor, inicia sesión."
 msgid "POOL_BUTTON_You are not invited to this Pool."
 msgstr "No has sido invitado a este Bote."
 
-#: friendfund/templates/pool/parts/selector_waiting.html:8
+#: friendfund/templates/pool/parts/selector_waiting.html:9
+#, python-format
+msgid ""
+"POOL_BUTTON_Hi %(user_name)s<br/>This pool is waiting for <em>you</em> to"
+" select a gift, chipping in will be possible after the perfect gift is "
+"chosen!"
+msgstr ""
+
+#: friendfund/templates/pool/parts/selector_waiting.html:11
 #, python-format
 msgid ""
 "POOL_BUTTON_Hi %(user_name)s<br/>This pool is waiting for "
 "<em>%(selector_name)s</em> to select a gift, chipping in will be possible"
 " after the perfect gift is chosen!"
+msgstr ""
+
+#: friendfund/templates/pool/parts/selector_waiting.html:18
+msgid "POOL_BUTTON_Select Product now!"
 msgstr ""
 
 #: friendfund/templates/product/button.html:20
@@ -2809,6 +2823,10 @@ msgstr "Mostrar cómo pegar un enlace de "
 msgid "PRODUCT_BROWSER_SEARCH_TITLE_Gifts for %s"
 msgstr ""
 
+#: friendfund/templates/product/selection_page.html:5
+msgid "PENDING_PRODUCT_SELECTION_PAGE_TITLE"
+msgstr ""
+
 #: friendfund/templates/product/virtual_tab.html:6
 #, fuzzy, python-format
 msgid ""
@@ -2864,10 +2882,4 @@ msgid ""
 "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
 "with Twitter!"
 msgstr "Para invitar a tus Amigos de Twitter, por favor, conéctate con Twitter."
-
-#~ msgid ""
-#~ "INVITE_PAGE_<span class=\"name\"></span> has been"
-#~ " nominated to choose a gift for "
-#~ "this pool."
-#~ msgstr ""
 

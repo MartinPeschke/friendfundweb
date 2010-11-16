@@ -609,7 +609,7 @@ div#lowerbody {margin: 30px;}
 #friend_list .invitee_row a.selector.remove {display:None}
 #invited .invitee_row a.selector.invite {display:None}
 #invited .invitee_row a.selector.remove {display:block;bottom:40px;}
-#invited .invitee_row a.pending {background:url("../imgs/inputfield.png") no-repeat scroll -358px -24px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;}
+#invited .invitee_row a.pending {background:url("../imgs/inputfield.png") no-repeat scroll -358px -24px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;cursor:pointer}
 #invited .invitee_row a.pending.selected {background-position:-322px -24px}
 
 
@@ -630,7 +630,7 @@ div#lowerbody {margin: 30px;}
 #birthdayselector .invitee_row.first { margin:15px 0px 0px 0px;}
 #birthdayselector .invitee_row span.label{ display:block;width:190px;float:left;}
 #birthdayselector .invitee_row img.fbprofilepic {margin-top:2px}
-#birthdayselector .invitee_row a.selector{ padding-top:15px;display:block;width:auto;height:auto;bottom:0px;color:#B70158;background:transparent;bottom:10px;}
+#birthdayselector .invitee_row a.selector{ display:block;width:auto;height:auto;bottom:0px;color:#B70158;background:transparent;bottom:10px;left: 58px;}
 
 
 
@@ -668,7 +668,8 @@ div#lowerbody {margin: 30px;}
 }
 #invitescontainer .placeholder{position:relative;height:60px;float:right;margin: 15px 30px 0px 30px;width:395px;font-weight:bold;}
 #PendingSelectorSelector {position:relative;height:60px;background:white;}
-#PendingSelectorSelector .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 3px 3px transparent;height:30px;float:left;margin:15px; padding-left:40px;}
+#inviters_selector_tooltip .gift, #PendingSelectorSelector .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 3px 3px transparent;height:30px;float:left;margin:15px; padding-left:40px;}
+#inviters_selector_tooltip .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 100% 3px transparent;height:30px;float:left;margin:0px; padding-left:0px;}
 #PendingSelectorSelector .nominator img {width:50px;height:50px;float:left;margin-right:15px;}
 #PendingSelectorSelector .nominator {display:block;height:30px;float:left;margin:5px;font-weight:normal;}
 #PendingSelectorSelector .nominator .name {font-weight:bold;}
@@ -714,7 +715,7 @@ div#lowerbody {margin: 30px;}
 	font-size: 20px;
 }
 #invite_message div.invite_secret {
-	width:135px;
+	width:145px;
 	float:right;
 	font-size: 12px;
 	margin-top:33px;
@@ -742,8 +743,10 @@ div#lowerbody {margin: 30px;}
 	font-weight:bold;
 	position:absolute;
 	right:0;
-	width:136px;
+	width:146px;
 }
+#invite_message #inviters_selector_tooltip {bottom:55px;}
+
 #invite_message .submitSmall {
 	position: absolute;
 	bottom: 0px;
