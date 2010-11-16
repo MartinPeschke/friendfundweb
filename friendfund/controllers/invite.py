@@ -16,6 +16,7 @@ from friendfund.tasks.photo_renderer import remote_profile_picture_render, remot
 
 
 from formencode.variabledecode import variable_decode
+strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 from celery.task.sets import TaskSet
 log = logging.getLogger(__name__)
 
@@ -96,8 +97,8 @@ class InviteController(BaseController):
 	
 	@logged_in(ajax=False)
 	def friends(self, pool_url):
-		invitees = simplejson.loads(request.params.get('invitees'))
-		invitees = invitees.get("invitees")
+		data = simplejson.loads(request.params.get('invitees'))
+		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
 		pool = g.dbm.get(Pool, p_url = pool_url)
@@ -129,6 +130,7 @@ class InviteController(BaseController):
 				invs = c.invitees.get(netw,{})
 				invs[str(inv['network_id'])] = inv
 				c.invitees[netw] = invs
+				if strbool.to_python(inv.get('is_selector')): pool.selector=PoolInvitee.fromMap(inv)
 			return self._display_invites(pool, c.invitees)
 		
 		if invitees is not None:

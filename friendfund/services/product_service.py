@@ -30,28 +30,28 @@ GIFT_PANEL_TABS = [("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts
 				]
 
 PENDING_PRODUCTS = {
-			"PPRODUCT_NOMINATE":"""
+			"PENDING_PRODUCT_NOMINATE":"""
 			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
 					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
 					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
-					 amount="2795" aff_net="PENDING_PRODUCT" guid="1" 
-					 aff_program_name="PENDING_PRODUCT" 
-					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
-			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
-			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
-			  <NAME>PENDING_PRODUCT_ASK_RECEIVER</NAME> 
-			</PRODUCT>
-			""",
-			"PPRODUCT_RECEIVER":"""
-			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
-					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
-					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
-					 amount="2795" aff_net="PENDING_PRODUCT" guid="2" 
+					 amount="2795" aff_net="PENDING_PRODUCT" guid="PENDING_PRODUCT_NOMINATE" 
 					 aff_program_name="PENDING_PRODUCT" 
 					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
 			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
 			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
 			  <NAME>PENDING_PRODUCT_NOMINATE</NAME> 
+			</PRODUCT>
+			""",
+			"PENDING_PRODUCT_ASK_RECEIVER":"""
+			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
+					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
+					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
+					 amount="2795" aff_net="PENDING_PRODUCT" guid="PENDING_PRODUCT_ASK_RECEIVER" 
+					 aff_program_name="PENDING_PRODUCT" 
+					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
+			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
+			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
+			  <NAME>PENDING_PRODUCT_ASK_RECEIVER</NAME> 
 			</PRODUCT>
 			"""
 			}
@@ -160,8 +160,8 @@ class ProductService(object):
 		tmpl_context = self.request_setup(request)
 		tmpl_context = self.request_search_setup(request)
 		tmpl_context.panel = 'friend_tab'
-		tmpl_context.pproduct_receiver = self.pending_products['PPRODUCT_RECEIVER']
-		tmpl_context.pproduct_nominate = self.pending_products['PPRODUCT_NOMINATE']
+		tmpl_context.pproduct_receiver = self.pending_products['PENDING_PRODUCT_ASK_RECEIVER']
+		tmpl_context.pproduct_nominate = self.pending_products['PENDING_PRODUCT_NOMINATE']
 		return tmpl_context	
 	
 	def search_tab_setup(self, request):
@@ -232,7 +232,6 @@ class ProductService(object):
 		return product
 	
 	def set_product(self, pool, product, request):
-		print product
 		tmpl_context = self.setup_region(request)
 		if product['is_amazon']:
 			product = self.amazon_services[tmpl_context.region].get_product_from_guid(product['guid'])

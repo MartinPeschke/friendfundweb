@@ -6,11 +6,11 @@
 
 
 %if c.method == 'facebook':
-	${networkinviter("facebook", c.friends, True, with_pending = c.pool.product.is_pending_ask_friend)}
+	${networkinviter("facebook", c.friends, True, with_pending = c.pool.require_pselector)}
 %elif c.method == 'twitter':
-	${networkinviter("twitter", c.friends, False, with_pending = c.pool.product.is_pending_ask_friend)}
+	${networkinviter("twitter", c.friends, False, with_pending = c.pool.require_pselector)}
 %elif c.method == 'email':
-	${mailinviter(with_pending = c.pool.product.is_pending_ask_friend)}
+	${mailinviter(with_pending = c.pool.require_pselector)}
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals, with_pending = False)">
@@ -36,7 +36,7 @@
 </%def>
 
 <%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False, with_pending=False)">
-%for i,(id, user_data) in enumerate(friends.items()):
+%for i,(id, user_data) in enumerate(friends.iteritems()):
 	<%
 		if "mutual_with" in user_data:
 			mutual_class = "mutual"
@@ -116,7 +116,7 @@
 	</div>
 </%def>
 
-<%def name="render_email_friends(friends, active = True, class_='selectable')">
+<%def name="render_email_friends(friends, active = True, class_='selectable', with_pending = False)">
 	%for i,(id, user_data) in enumerate(friends.items()):
 	<div class="invitee_row ${class_}" id="email_${ md5.new(id).hexdigest() }"
 			%if active:
@@ -126,7 +126,7 @@
 		%if active:
 			<a class="selector invite" title="${user_data['name']}">${_("INVITE_LABEL_Invite")}<span class="selector invite"></span></a>
 			<a class="selector remove" title="${user_data['name']}">${_("INVITE_LABEL_Remove")}<span class="selector remove"></span></a>
-			%if user_data['with_pending']:
+			%if user_data['with_pending'] or with_pending:
 				<a class="pending" title="${_("PENDINGPRODUCT_SELECTOR")}">&nbsp;</a>
 			%endif
 		%endif

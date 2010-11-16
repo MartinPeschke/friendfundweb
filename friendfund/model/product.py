@@ -67,6 +67,7 @@ class Product(DBMappedObject):
 		self.is_virtual = self.is_virtual or False
 		self.is_pending = self.name.startswith( "PENDING_PRODUCT" )
 		self.is_pending_ask_friend = self.name ==  "PENDING_PRODUCT_NOMINATE"
+		self.is_pending_receiver = self.name ==  "PENDING_PRODUCT_ASK_RECEIVER"
 
 class PendingProduct(Product):
 	def set_picture_urls(self, base_url):
@@ -80,9 +81,6 @@ class PendingProduct(Product):
 		return ''
 	def get_display_label(self, extended = True):
 		return _("PENDING_PRODUCT_NAME")
-	def fromDB(self, xml):
-		self.is_virtual = False
-		self.is_pending = True
 		
 class ProductRetrieval(DBMappedObject):
 	"""

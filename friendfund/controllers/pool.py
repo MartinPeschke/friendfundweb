@@ -78,8 +78,11 @@ class PoolController(BaseController):
 		if h.users_equal(c.pool.receiver, admin):
 			admin.profile_picture_url = c.pool.receiver.profile_picture_url
 		admin.is_admin = True
-		c.pool.participants.append(admin)
+		if c.pool.product.is_pending_receiver:
+			c.pool.selector = c.pool.receiver
+			c.pool.selector.is_selector = True
 		
+		c.pool.participants.append(admin)
 		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in c.pool.participants])
 		c.pool.occasion.picture_url = None
 		c.pool.occasion.custom = None

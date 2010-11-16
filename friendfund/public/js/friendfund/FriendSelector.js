@@ -274,6 +274,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 	},unselectPendingSelector : function(_t, selector, target, evt){
 		dojo.removeClass("PendingPlaceHolder", "hidden");dojo.addClass("PendingNominator", "hidden");
 		dojo.query(".invitee_row .pending.selected", _t.global_invited_node).removeClass("selected");
+		dojo.attr(target, "_is_selector", "");
 		dojo.attr("PendingSelectorSelector", {_network:"",_network_id:""});
 	},makePendingSelector : function(_t, selector, target, evt){
 		if(dojo.attr("PendingSelectorSelector", "_network")==dojo.attr(target, '_network')&&dojo.attr("PendingSelectorSelector", "_network_id")==dojo.attr(target, '_network_id'))
@@ -284,8 +285,9 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		dojo.place(dojo.create("IMG", {src:dojo.attr(target, '_profile_picture_url')}), dojo.byId("PendingNominator"), "first");
 		dojo.query("span.name", "PendingNominator").innerHTML(dojo.attr(target, '_name'));
 		dojo.addClass("PendingPlaceHolder", "hidden");dojo.removeClass("PendingNominator", "hidden");
+		dojo.query(".invitee_row[_is_selector=1]", _t.global_invited_node).attr("_is_selector", "");
 		dojo.query(".invitee_row .pending.selected", _t.global_invited_node).removeClass("selected");
-		dojo.addClass(evt.target, "selected");
+		dojo.addClass(evt.target, "selected");dojo.attr(target, "_is_selector", "1");
 	},unselect : function(_t, evt){
 		if(!(dojo.hasClass(evt.target,'pending') || dojo.hasClass(evt.target,'remove'))){return;}
 		var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];

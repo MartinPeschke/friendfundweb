@@ -130,8 +130,8 @@ def attrib_keys(keys, updates = {}):
 	else:
 		okeys = keys
 	return '_search_keys="%s" %s' % (
-				','.join('_%s'%k for k in okeys.keys() if okeys[k]),
-				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k])
+				','.join('_%s'%k for k in okeys.keys() if okeys[k] is not None),
+				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k] is not None)
 			)
 
 

@@ -1,4 +1,4 @@
-import simplejson, logging, itertools
+import simplejson, logging, itertools, formencode
 
 from datetime import datetime, timedelta, date
 
@@ -8,7 +8,7 @@ from friendfund.model.product import Product
 from pylons.i18n import _
 
 from pylons import session as websession
-
+strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 
 log = logging.getLogger(__name__)
 
@@ -181,12 +181,12 @@ class PoolUser(DBMappedObject):
 	
 	@classmethod
 	def fromMap(cls, params):
+		params['is_selector'] = strbool.to_python(params.get('is_selector'))
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		else:
 			if params['network'] == 'email':
 				params['email'] = params.pop('network_id')
-			params['is_selector'] = False
 			return PoolUser(**dict((str(k),v) for k,v in params.iteritems()))
 
 class PoolInvitee(PoolUser):
@@ -214,6 +214,7 @@ class Pool(DBMappedObject):
 
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
+			, DBMapper(PoolUser, 'selector', None, persistable = False)
 			, DBMapper(PoolUser, 'suspect', None, persistable = False)
 			, DBMapper(PoolUser, 'invitees', None, persistable = False)
 			, DBMapper(PoolUser, 'participant_map', None, persistable = False)
@@ -271,6 +272,8 @@ class Pool(DBMappedObject):
 		return self.admin.u_id == user.u_id
 	def am_i_receiver(self, user):
 		return self.receiver.u_id == user.u_id
+	def am_i_selector(self, user):
+		return self.selector.u_id == user.u_id
 	def am_i_member(self, user):
 		return user.u_id in self.participant_map
 	def am_i_contributor(self, user):
@@ -279,7 +282,11 @@ class Pool(DBMappedObject):
 			return (pu.contributed_amount or 0) > 0
 		else:
 			return False
-		
+	
+	def get_require_pselector(self):
+		return self.is_pending and not self.selector
+	require_pselector = property(get_require_pselector)
+	
 	def can_i_view(self, user):
 		return self.am_i_member(user) or not self.is_secret
 	
@@ -294,8 +301,11 @@ class Pool(DBMappedObject):
 					self.admin = pu
 				if pu.is_receiver == True:
 					self.receiver = pu
+			if pu.is_selector == True:
+				self.selector = pu
 			if pu.is_suspected:
 				self.suspect = pu
+				
 		if not self.admin:
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:
@@ -312,7 +322,9 @@ class Pool(DBMappedObject):
 	def is_funded(self):
 		return self.status == "FUNDED"
 	def is_contributable(self):
-		return self.status == "OPEN" and (self.phase == "INITIAL" or self.phase == "EXTENDED")
+		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
+	def is_pending(self):
+		return self.phase == "PENDING"
 	
 	
 	def mergewDB(self, xml):

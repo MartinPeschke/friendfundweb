@@ -85,15 +85,12 @@ class ProductController(BaseController):
 		c = g.product_service.friend_tab(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/friend_tab.html').strip(), '\n\r\t')}
 	
-	
-	
 	def set_region(self):
 		region = request.params.get('region')
 		if region not in g.country_choices.map:
 			abort(404)
 		websession['region'] = region
 		return getattr(self, request.params.get('action'), self.recommended_tab)()
-	
 	
 	@jsonify
 	def unset(self):

@@ -7,6 +7,7 @@
 <%namespace name="is_closed_banner" file="banner_is_closed.html"/>
 <%namespace name="user_suspected_button" file="button_user_suspected.html"/>
 <%namespace name="awaiting_action_banner" file="banner_awaiting_action.html"/>
+<%namespace name="selector_waiting" file="selector_waiting.html"/>
 
 
 <%def name="render(pool, is_anon, is_admin, is_member, i_can_view)">
@@ -57,6 +58,8 @@
 		${is_closed_banner.render()}
 	%elif pool.is_contributable():
 		${contribute_button.render(pool, c.user.name, pool.receiver.name)}
+	%elif pool.is_pending():
+		${selector_waiting.render(pool, c.user.name, pool.selector.name)}
 	%elif is_admin:
 		%if pool.is_funded():
 			<div id="contribute">

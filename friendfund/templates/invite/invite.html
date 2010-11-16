@@ -2,6 +2,7 @@
 <%namespace name="links" file="../links.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="inviter" file="inviter.html"/>
 <%def name="title()">${_("INVITE_PAGE_FB_LOGIN_Invite")}</%def>
 
 <%def name="scripts()">
@@ -62,10 +63,15 @@
 			<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<div id="invites">
 				<div id="inviter"></div>
-				%if c.pool.product.is_pending_ask_friend:
+				%if c.pool.require_pselector:
 					<div id="PendingSelectorSelector" class="placeholder">
 						<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool.")}</span>
-						<span id="PendingNominator" class="nominator hidden"><img/>${_("INVITE_PAGE_<span class=\"name\"></span> has been nominated to choose a gift for this pool.")|n}</span>
+						<span id="PendingNominator" class="nominator hidden"><img/>${_("INVITE_PAGE_<span class=\"name\">%s</span> has been nominated to choose a gift for this pool.")%""|n}</span>
+					</div>
+				%elif c.pool.selector:
+					<div id="PendingSelectorSelector" class="placeholder" _network="${c.pool.selector.network}" _network_id="${c.pool.selector.network_id}">
+						<span id="PendingPlaceHolder" class="gift hidden">${_("INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool.")}</span>
+						<span id="PendingNominator" class="nominator"><img src="${c.pool.selector.profile_s_pic}"/>${_("INVITE_PAGE_<span class=\"name\">%s</span> has been nominated to choose a gift for this pool.")%c.pool.selector.name|n}</span>
 					</div>
 				%else:
 					<div class="placeholder">
@@ -74,14 +80,17 @@
 				<div id="invited">
 					<div id="email_invitees" class="invited_list">
 						<div class="seperator"><img src="/static/imgs/icon_mail.png"/></div>
+						${inviter.render_email_friends(c.invitees.get("email", dict()), with_pending = c.pool.require_pselector)}
 						<div style="clear:both;"></div>
 					</div>
 					<div id="twitter_invitees" class="invited_list">
 						<div class="seperator"><img src="/static/imgs/icon_tw_connect.png"/></div>
+						${inviter.render_network_friends(c.invitees.get("twitter", dict()), with_pending = c.pool.require_pselector)|n}
 						<div style="clear:both;"></div>
 					</div>
 					<div id="facebook_invitees" class="invited_list">
 						<div class="seperator"><img src="/static/imgs/icon_fb_connect.png"/></div>
+						${inviter.render_network_friends(c.invitees.get("facebook", dict()), with_pending = c.pool.require_pselector)|n}
 						<div style="clear:both;"></div>
 					</div>
 				</div>
@@ -102,6 +111,9 @@
 				
 				<div id="inviters_panel_tooltip" class="hidden">
 					${_("INVITE_PAGE_TIP_Please invite some friends first!")}
+				</div>				
+				<div id="inviters_selector_tooltip" class="hidden">
+					${_("INVITE_PAGE_TIP_Please chose a Gift Selector First!")}
 				</div>
 				
 				<a class="submitSmall" id="invite_submitter"><span>${_("INVITE_PAGE_BUTTON_Send Invites")}</span></a>
