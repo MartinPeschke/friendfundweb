@@ -293,12 +293,13 @@ class PoolController(BaseController):
 		
 		try:
 			g.dbm.set(ClosePoolProc(p_url = pool_url))
+			g.dbm.expire(Pool(p_url = pool_url))
 		except db_access.SProcException,e:
 			c.messages.append(e)
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url))
 		except db_access.SProcWarningMessage,e:
 			c.messages.append(e)
-		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
+		return redirect(url('get_pool', pool_url=pool_url))
 	
 	
 	@logged_in(ajax=False)
