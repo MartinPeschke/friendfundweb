@@ -52,9 +52,6 @@ class PoolController(BaseController):
 				c.user.current_pool = c.pool
 		if c.pool.am_i_admin(c.user) and (c.pool.is_expired() and not c.pool.is_funded()):
 			c.messages.append(_(EXPIRED_MESSAGE))
-		elif not c.user.is_anon:
-			msg = render('/pool/fb_perms.html').strip()
-			if msg: c.messages.append(msg)
 		return self.render('/pool/pool.html')
 	
 	@logged_in()

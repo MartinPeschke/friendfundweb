@@ -1,9 +1,11 @@
 dojo.provide("friendfund.ProductSearch");
 dojo.require("dojox.fx.scroll");
+dojo.require("dojo.fx.easing");
 dojo.require("dojox.widget.AutoRotator");
 dojo.require("dojox.widget.rotator.Pan");
 dojo.require("friendfund.Tooltip");
-
+dojo.require("dojo.NodeList-manipulate");
+dojo.require("dojo.NodeList-traverse");
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
@@ -31,7 +33,10 @@ dojo.declare("friendfund.ProductSearch", null, {
 	loadProductBrowser : function(_t, target, extra_params){
 		_t.destroyBrowserLocals(_t);
 		var base_url = dojo.attr(target, "_base_url");
-		var params = {sort:dojo.attr(target, "sort")||"RANK",page:dojo.attr(target, "page")||1};
+		var params = _t.searchMixin && _t.searchMixin() || {};
+		params.sort = dojo.attr(target, "sort")||"RANK";
+		params.page=dojo.attr(target, "page")||1;
+		
 		dojo.forEach(dojo.attr(target, "_search_keys").split(","), 
 					function(key){params[key.substring(1)]=dojo.attr(target, key);}
 				);
@@ -55,7 +60,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 		if(dojo.hasClass(target, "productselector")){
 			return dojo.hitch(target, _t.productSelected, _t)();
 		} else if(dojo.hasClass(target, "methodselector")){
-			loadElement("/product/"+dojo.attr(target, "_base_url"), _t.ref_node, {}, dojo.hitch(null, _t.reinit, _t));
+			loadElement("/product/"+dojo.attr(target, "_base_url"), _t.ref_node, _t.searchMixin && _t.searchMixin() || {}, dojo.hitch(null, _t.reinit, _t));
 		} else if(dojo.hasClass(target, "popuplink")){
 			dojo.hitch(target, loadPopup)(evt);
 		} else if(dojo.hasClass(target, "searcher")){

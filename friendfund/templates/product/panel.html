@@ -9,9 +9,10 @@
 			<a class="methodselector anchorelem ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _base_url="${panel[0]}"><span>${_(panel[1])}</span></a>
 		%endfor
 	</div>
-	<a class="button_panel_closer">&nbsp;</a>
-	
-	
+	%if c.panelcloser:
+		<a class="button_panel_closer">&nbsp;</a>
+	%endif
+
 	${self.body()}
 	
 	<div style="clear:both"></div>

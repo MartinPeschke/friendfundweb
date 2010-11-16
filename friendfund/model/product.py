@@ -3,6 +3,7 @@ from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, GenericElement, DBMapping
 
 from pylons import session as websession, app_globals
+from pylons.i18n import ugettext as _
 
 
 class Product(DBMappedObject):
@@ -60,7 +61,10 @@ class Product(DBMappedObject):
 		return h.get_product_picture(self.product_picture_url, type)
 	
 	def get_display_label(self, extended = True):
-		return '%s %s' % (h.word_truncate_plain(self.name, 5), self.get_display_price(extended))
+		if self.is_pending:
+			return _("PENDING_PRODUCT_NAME")
+		else:
+			return '%s %s' % (h.word_truncate_plain(self.name, 5), self.get_display_price(extended))
 	display_label = property(get_display_label)
 	
 	def fromDB(self, xml):
@@ -175,3 +179,15 @@ class SwitchProductVouchersProc(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_get_proc = _set_proc = 'app.switch_product_vouchers'
 	_keys = [GenericAttrib(str,'p_url'         ,'p_url')]
+
+
+class SetPendingProductProc(DBMappedObject):
+	""" 
+		app.add_pending_product
+	"""
+	_cachable = False
+	_get_root = _set_root = 'POOL'
+	_get_proc = _set_proc = 'app.add_pending_product'
+	_keys = [	 GenericAttrib(str,'p_url'         ,'p_url')
+				,DBMapper(Product, 'product', 'PRODUCT')
+			]

@@ -10,6 +10,12 @@
 	
 	<div style="width:220px;margin:30px auto 0 auto;">
 	<%html:button href="${url('invite_index', controller='invite', pool_url=pool.p_url)}">${_("POOL_BUTTON_Invite more Friends")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></%html:button>
+	
+	
+	
+	%if pool.am_i_selector(c.user):
+		<a href="${url(action="select",pool_url=pool.p_url, controller="product")}">select product now</a>
+	%endif
 	</div>
 	</div>
 </%def>

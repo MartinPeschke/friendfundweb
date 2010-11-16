@@ -98,12 +98,16 @@ class ProductService(object):
 		tmpl_context.region = request.params.get('region', websession['region'])
 		return tmpl_context
 		
-	def request_setup(self, request):
+	def request_setup(self, request, minimal = False):
 		tmpl_context = self.setup_region(request)
-		tmpl_context.gift_panel_tabs = GIFT_PANEL_TABS
+		if request.params.get('minimal', minimal):
+			tmpl_context.gift_panel_tabs = GIFT_PANEL_TABS[:-1]
+		else:
+			tmpl_context.gift_panel_tabs = GIFT_PANEL_TABS
 		tmpl_context.sortees = SORTEES
 		tmpl_context.sort = SORTEES[0][0]
 		tmpl_context.search_keys = {}
+		tmpl_context.panelcloser = request.params.get('panelcloser', True)
 		return tmpl_context
 	def request_search_setup(self, request):
 		tmpl_context.page = int(request.params.get('page', 1))
@@ -113,8 +117,8 @@ class ProductService(object):
 		tmpl_context.page_size = 6
 		return tmpl_context
 	
-	def recommended_tab(self, request):
-		tmpl_context = self.request_setup(request)
+	def recommended_tab(self, request, minimal = False):
+		tmpl_context = self.request_setup(request, minimal)
 		tmpl_context.panel = 'recommended_tab'
 		tmpl_context.search_base_url='recommended_tab_search'
 		tmpl_context.categories = self.product_categories.list
