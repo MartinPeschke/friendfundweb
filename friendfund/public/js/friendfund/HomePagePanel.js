@@ -232,7 +232,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 								container : "button_panel",
 								ref_node: "receiver_selector_container",
 								inviter_node : "friend_list",
-								base_url : "/receiver",
+								base_url : "/myfriends",
 								avail_selectors : {'facebook':true, 'twitter':true, 'email':true, 'yourself':true},
 								onSelect : function(ctx, params, elem, evt){
 									loadElement("/receiver/set", "receiver_panel", params, dojo.hitch(null, _t.set_complete, _t, 'receiver'));

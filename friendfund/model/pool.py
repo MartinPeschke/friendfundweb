@@ -284,7 +284,7 @@ class Pool(DBMappedObject):
 			return False
 	
 	def get_require_pselector(self):
-		return self.is_pending and not self.selector
+		return self.is_pending() and not self.selector
 	require_pselector = property(get_require_pselector)
 	
 	def can_i_view(self, user):
@@ -305,7 +305,6 @@ class Pool(DBMappedObject):
 				self.selector = pu
 			if pu.is_suspected:
 				self.suspect = pu
-				
 		if not self.admin:
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:

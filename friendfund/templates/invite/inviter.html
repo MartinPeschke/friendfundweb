@@ -35,7 +35,7 @@
 	</div>
 </%def>
 
-<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False, with_pending=False)">
+<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False, with_pending=False, add_label = None, rem_label = None)">
 %for i,(id, user_data) in enumerate(friends.iteritems()):
 	<%
 		if "mutual_with" in user_data:
@@ -62,8 +62,8 @@
 		%endif
 		</span>
 		%if active:
-			<a class="selector invite" title="${user_data['name']}">${_("INVITE_LABEL_Invite")}<span class="selector invite"></span></a>
-			<a class="selector remove" title="${user_data['name']}">${_("INVITE_LABEL_Remove")}<span class="selector remove"></span></a>
+			<a class="selector invite" title="${user_data['name']}">${add_label or _("INVITE_LABEL_Invite")|n}<span class="selector invite"></span></a>
+			<a class="selector remove" title="${user_data['name']}">${rem_label or _("INVITE_LABEL_Remove")|n}<span class="selector remove"></span></a>
 			%if with_pending:
 				<a class="pending" title="${_("PENDINGPRODUCT_SELECTOR")}">&nbsp;</a>
 			%endif
@@ -116,7 +116,7 @@
 	</div>
 </%def>
 
-<%def name="render_email_friends(friends, active = True, class_='selectable', with_pending = False)">
+<%def name="render_email_friends(friends, active = True, class_='selectable', with_pending = False, add_label = None, rem_label = None)">
 	%for i,(id, user_data) in enumerate(friends.items()):
 	<div class="invitee_row ${class_}" id="email_${ md5.new(id).hexdigest() }"
 			%if active:
@@ -124,8 +124,8 @@
 			%endif
 		>
 		%if active:
-			<a class="selector invite" title="${user_data['name']}">${_("INVITE_LABEL_Invite")}<span class="selector invite"></span></a>
-			<a class="selector remove" title="${user_data['name']}">${_("INVITE_LABEL_Remove")}<span class="selector remove"></span></a>
+			<a class="selector invite" title="${user_data['name']}">${add_label or _("INVITE_LABEL_Invite")|n}<span class="selector invite"></span></a>
+			<a class="selector remove" title="${user_data['name']}">${rem_label or _("INVITE_LABEL_Remove")|n}<span class="selector remove"></span></a>
 			%if user_data['with_pending'] or with_pending:
 				<a class="pending" title="${_("PENDINGPRODUCT_SELECTOR")}">&nbsp;</a>
 			%endif

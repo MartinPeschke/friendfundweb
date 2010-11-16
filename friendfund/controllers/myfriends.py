@@ -18,6 +18,28 @@ from friendfund.tasks import photo_renderer, fb as fbservice, twitter as twservi
 log = logging.getLogger(__name__)
 
 class MyfriendsController(BaseController):
+	@jsonify
+	def method(self, method):
+		c.furl = url('home') # TODO: this might break shit, fix
+		c.method = str(method)
+		if method in ['facebook', 'twitter']:
+			is_complete = True
+			offset = 0
+			try:
+				c.friends, is_complete, offset = c.user.get_friends(c.method)
+			except UserNotLoggedInWithMethod, e:
+				if c.method == 'facebook':
+					result = self.ajax_messages()
+					result['data'] = {'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}
+					return result
+				else: 
+					result = self.ajax_messages()
+					result['data'] = {'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}
+					return result
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
+		else:
+			return {'html':render('/receiver/inviter.html').strip()}
+	
 	@logged_in(ajax=False)
 	@jsonify
 	def get(self, pmethod):

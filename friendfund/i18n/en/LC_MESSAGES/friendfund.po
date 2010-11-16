@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-16 13:48+0100\n"
+"PO-Revision-Date: 2010-11-16 18:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -234,7 +234,7 @@ msgstr "Email updated!"
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr "Email address already taken!"
 
-#: friendfund/controllers/myfriends.py:94
+#: friendfund/controllers/myfriends.py:116
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr "Unknown Network or Method"
 
@@ -315,10 +315,10 @@ msgstr "In order to Close the pool, you need to fill out and save Shipping and B
 
 #: friendfund/controllers/pool.py:46
 #: friendfund/controllers/pool.py:65
-#: friendfund/controllers/pool.py:162
-#: friendfund/controllers/pool.py:175
-#: friendfund/controllers/pool.py:194
-#: friendfund/controllers/pool.py:207
+#: friendfund/controllers/pool.py:165
+#: friendfund/controllers/pool.py:178
+#: friendfund/controllers/pool.py:197
+#: friendfund/controllers/pool.py:210
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "This pool does not exist, sorry."
 
@@ -334,20 +334,20 @@ msgstr "No event selected. Please try again."
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No friend selected. Please try again."
 
-#: friendfund/controllers/pool.py:314
+#: friendfund/controllers/pool.py:317
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Changes Saved"
 
-#: friendfund/controllers/pool.py:353
-#: friendfund/controllers/product.py:111
+#: friendfund/controllers/pool.py:356
+#: friendfund/controllers/product.py:108
 msgid "INDEX_PAGE_No Product"
 msgstr "Product not selected. Please try again."
 
-#: friendfund/controllers/pool.py:365
+#: friendfund/controllers/pool.py:368
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr "Product Change Saved"
 
-#: friendfund/controllers/pool.py:375
+#: friendfund/controllers/pool.py:378
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "The gift has been successfully switched to vouchers!"
 
@@ -376,11 +376,11 @@ msgstr "This product is an Amazon Marketplace product and is not sold directly b
 msgid "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."
 msgstr "Amazon has not provided enough information for us to offer this product."
 
-#: friendfund/controllers/product.py:145
+#: friendfund/controllers/product.py:142
 msgid "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or shipping much time!"
 msgstr "Your event date doesn't give your funders or shipping much time!"
 
-#: friendfund/controllers/product.py:148
+#: friendfund/controllers/product.py:145
 msgid "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"
 msgstr "We cannot ship this to you in time. If this is a problem please pick a later date!"
 
@@ -555,7 +555,7 @@ msgstr "Swap product for Gift Vouchers."
 msgid "POOLACTIONS_ISSUE_GIFT_VOUCHERS_SUBTITLE_"
 msgstr "Lets send your friend amazon gift vouchers for the total raised."
 
-#: friendfund/model/product.py:82
+#: friendfund/model/product.py:83
 msgid "PENDING_PRODUCT_NAME"
 msgstr ""
 
@@ -838,7 +838,7 @@ msgid "PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"
 msgstr "Nominate a friend to choose the gift"
 
 #: friendfund/services/product_service.py:230
-#: friendfund/services/product_service.py:250
+#: friendfund/services/product_service.py:249
 msgid "POOL_CREATE_Product not Found"
 msgstr "Product not Found. PLease try again."
 
@@ -1150,50 +1150,59 @@ msgstr "Payment Details"
 msgid "EVENT_PANEL_Submit"
 msgstr "Submit"
 
-#: friendfund/templates/invite/invite.html:5
+#: friendfund/templates/invite/invite.html:6
 msgid "INVITE_PAGE_FB_LOGIN_Invite"
 msgstr "Invite"
 
-#: friendfund/templates/invite/invite.html:26
+#: friendfund/templates/invite/invite.html:27
 #, python-format
 msgid "INVITE_PAGE_FB_LOGIN_Invite Your friends to chip in for <span class=\"emphasis\">%(receiver_name)s's</span> gift."
 msgstr "Invite Your friends to chip in for <br/><span class=\"emphasis\">%(receiver_name)s's</span> gift."
 
-#: friendfund/templates/invite/invite.html:55
+#: friendfund/templates/invite/invite.html:56
 msgid "INVITE_PAGE_LABEL_Select your friends from:"
 msgstr "Select your friends from:"
 
-#: friendfund/templates/invite/invite.html:67
+#: friendfund/templates/invite/invite.html:68
+#: friendfund/templates/invite/invite.html:73
 msgid "INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool."
 msgstr "Click on one of the gift icons below to nominate a friend to choose a gift for this pool."
 
-#: friendfund/templates/invite/invite.html:68
-msgid "INVITE_PAGE_<span class=\"name\"></span> has been nominated to choose a gift for this pool."
-msgstr "<span class=\"name\"></span> has been nominated to choose a gift for this pool."
+#: friendfund/templates/invite/invite.html:69
+#: friendfund/templates/invite/invite.html:74
+#, python-format
+#| msgid "" "INVITE_PAGE_<span class=\"name\"></span> has been nominated to
+#| choose a " "gift for this pool."
+msgid "INVITE_PAGE_<span class=\"name\">%s</span> has been nominated to choose a gift for this pool."
+msgstr "<span class=\"name\">%s</span> has been nominated to choose a gift for this pool."
 
-#: friendfund/templates/invite/invite.html:91
+#: friendfund/templates/invite/invite.html:100
 msgid "INVITE_PAGE_LABEL_Send a personal message to all invitees:"
 msgstr "Send a personal message to all invitees:"
 
-#: friendfund/templates/invite/invite.html:93
+#: friendfund/templates/invite/invite.html:102
 #, python-format
 msgid "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
 msgstr "%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
 
-#: friendfund/templates/invite/invite.html:97
+#: friendfund/templates/invite/invite.html:106
 #, python-format
 msgid "INVITE_PAGE_LABEL_Keep pool a secret from %(receiver_name)s"
 msgstr "Keep this pool a secret from %(receiver_name)s"
 
-#: friendfund/templates/invite/invite.html:99
+#: friendfund/templates/invite/invite.html:108
 msgid "INVITE_PAGE_BUTTON_Yes, please."
 msgstr "Yes, please."
 
-#: friendfund/templates/invite/invite.html:104
+#: friendfund/templates/invite/invite.html:113
 msgid "INVITE_PAGE_TIP_Please invite some friends first!"
 msgstr "Please invite some friends first!"
 
-#: friendfund/templates/invite/invite.html:107
+#: friendfund/templates/invite/invite.html:116
+msgid "INVITE_PAGE_TIP_Please chose a Gift Selector First!"
+msgstr "Please chose a Gift Selector First!"
+
+#: friendfund/templates/invite/invite.html:119
 msgid "INVITE_PAGE_BUTTON_Send Invites"
 msgstr "Send Invites"
 
@@ -1810,33 +1819,33 @@ msgstr "Friends have chipped in %(amount_left)s, only"
 msgid "POOL_PAGE_REMAINING_AMOUNT_to go!"
 msgstr "to go!"
 
-#: friendfund/templates/pool/pool.html:112
 #: friendfund/templates/pool/pool.html:113
+#: friendfund/templates/pool/pool.html:114
 msgid "POOL_PAGE_Visit Pool Admin"
 msgstr "Visit Pool Admin"
 
-#: friendfund/templates/pool/pool.html:125
+#: friendfund/templates/pool/pool.html:126
 #, python-format
 msgid "POOL_PAGE_Already chipped in: %(number_contributors)d contributors from %(number_invitees)d invited people"
 msgstr "Already chipped in: %(number_contributors)d contributors from %(number_invitees)d invited people"
 
-#: friendfund/templates/pool/pool.html:163
+#: friendfund/templates/pool/pool.html:164
 msgid "POOL_CHAT_Fund Chat"
 msgstr "Fund Chat"
 
-#: friendfund/templates/pool/pool.html:166
+#: friendfund/templates/pool/pool.html:167
 msgid "POOL_CHAT_Leave your Comment:"
 msgstr "Leave your Comment:"
 
-#: friendfund/templates/pool/pool.html:168
+#: friendfund/templates/pool/pool.html:169
 msgid "POOL_PAGE_BUTTON_Post!"
 msgstr "Post!"
 
-#: friendfund/templates/pool/pool.html:176
+#: friendfund/templates/pool/pool.html:177
 msgid "POOL_CHAT_This is a secret pool, no chat is shown."
 msgstr "This is a secret pool, no chat is shown."
 
-#: friendfund/templates/pool/pool.html:194
+#: friendfund/templates/pool/pool.html:195
 msgid "POOL_CHAT_Anonymous"
 msgstr "Anonymous"
 
@@ -2007,6 +2016,7 @@ msgid "POOL_BUTTON_Chip in!"
 msgstr "Chip in!"
 
 #: friendfund/templates/pool/parts/button_contribute.html:35
+#: friendfund/templates/pool/parts/selector_waiting.html:12
 msgid "POOL_BUTTON_Invite more Friends"
 msgstr "Invite more Friends"
 
@@ -2020,29 +2030,34 @@ msgid "POOL_BUTTON_Hi %(suspect_name)s<br/>Please login to participate in the fu
 msgstr "Hi %(suspect_name)s<br/>Please login to participate in the funding fun."
 
 #: friendfund/templates/pool/parts/button_user_suspected.html:13
-#: friendfund/templates/pool/parts/center_button.html:45
+#: friendfund/templates/pool/parts/center_button.html:46
 msgid "POOL_BUTTON_Login"
 msgstr "Login"
 
-#: friendfund/templates/pool/parts/center_button.html:20
+#: friendfund/templates/pool/parts/center_button.html:21
 msgid "POOL_BUTTON_This is a secret pool. If u have been invited, please login."
 msgstr "This is a secret pool. If u have been invited, please login."
 
-#: friendfund/templates/pool/parts/center_button.html:27
+#: friendfund/templates/pool/parts/center_button.html:28
 msgid "POOL_BUTTON_This is a secret pool."
 msgstr "This is a secret pool."
 
-#: friendfund/templates/pool/parts/center_button.html:35
+#: friendfund/templates/pool/parts/center_button.html:36
 msgid "POOL_BUTTON_This pool is closed."
 msgstr "This pool is closed."
 
-#: friendfund/templates/pool/parts/center_button.html:43
+#: friendfund/templates/pool/parts/center_button.html:44
 msgid "POOL_BUTTON_Please log in."
 msgstr "Please log in."
 
-#: friendfund/templates/pool/parts/center_button.html:52
+#: friendfund/templates/pool/parts/center_button.html:53
 msgid "POOL_BUTTON_You are not invited to this Pool."
 msgstr "You are not invited to this Pool."
+
+#: friendfund/templates/pool/parts/selector_waiting.html:8
+#, python-format
+msgid "POOL_BUTTON_Hi %(user_name)s<br/>This pool is waiting for <em>%(selector_name)s</em> to select a gift, chipping in will be possible after the perfect gift is chosen!"
+msgstr "Hi %(user_name)s<br/>This pool is waiting for <em>%(selector_name)s</em> to select a gift, chipping in will be possible after the perfect gift is chosen!"
 
 #: friendfund/templates/product/button.html:20
 msgid "PAGE_INDEX_BUTTON_Select a Gift"
@@ -2172,6 +2187,10 @@ msgstr "To invite your Facebook Friends, Please Connect with Facebook!"
 #, python-format
 msgid "RECEIVER_PANEL_Search your %s friends:"
 msgstr "Search your %s friends:"
+
+#: friendfund/templates/receiver/inviter.html:24
+msgid "RECEIVER_PANEL_Select"
+msgstr "Select"
 
 #: friendfund/templates/receiver/login_required.html:5
 msgid "RECEIVER_PANEL_HEADER_You need to login in order to choose yourself!"
