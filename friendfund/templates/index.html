@@ -116,42 +116,69 @@
 				${ra_stream.render_stream_block(c.recent_activity, c.uuid, offset = c.ra_offset)}
 			</div>
 		</div>
-		
 		<div id="successtream">
 			<h4 class="inside">${_(u"PAGE_INDEX_HEADER_Successful Pools")}</h4>
 			
 			<div class="panel_content_no_padding">
 				
+			%if session.get("region") != 'de':
 				<div class="successtory_outer">
 				<div class="successtory">
-					<img alt="Fallschirmspringen" src="/s/product/cf/5f/cf5f41da-e399-4465-ac2d-9267e012f6e6_RA.jpg" class="product">
-					<h3>Marco's Tandem Flight</h3>
-					<div>This was the most amazing experience. Thanks so much!<br/> You're the best!</div>
-					<a class="submitMini">&nbsp;&nbsp;&nbsp;<span></span></a>
+					<img alt="Edwards Balloon Ride" src="/static/imgs/top_sellers/success/ballon_160.jpg" class="product">
+					<h3>Edwards Balloon Ride</h3>
+					<div>Thanks so much to all of you it was truly amazing, an experience we wont forget. Cheers!</div>
+					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5Ng~~">&nbsp;&nbsp;&nbsp;<span></span></a>
 				</div>
 				</div>
-				
-				
-				
-				<div class="successtory_outer">
-				<div class="successtory">
-					<img alt="Fallschirmspringen" src="/s/product/cf/5f/cf5f41da-e399-4465-ac2d-9267e012f6e6_RA.jpg" class="product">
-					<h3>Marco's Tandem Flight</h3>
-					<div>This was the most amazing experience. Thanks so much!<br/> You're the best!</div>
-					<a class="submitMini">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				
 				
 				<div class="successtory_outer">
 				<div class="successtory">
-					<img alt="Fallschirmspringen" src="/s/product/cf/5f/cf5f41da-e399-4465-ac2d-9267e012f6e6_RA.jpg" class="product">
-					<h3>Marco's Tandem Flight</h3>
-					<div>This was the most amazing experience. Thanks so much!<br/> You're the best!</div>
-					<a class="submitMini">&nbsp;&nbsp;&nbsp;<span></span></a>
+					<img alt="Fuchs' Karting" src="/static/imgs/top_sellers/success/karting_160.jpg" class="product">
+					<h3>Fuchs' Karting</h3>
+					<div>I got to drive this crazy thing. Dont think they will invite me back ;) thanks a lot people.</div>
+					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5Nw~~">&nbsp;&nbsp;&nbsp;<span></span></a>
 				</div>
 				</div>
 				
+				<div class="successtory_outer">
+				<div class="successtory">
+					<img alt="Lambert's Parachuting" src="/static/imgs/top_sellers/success/parachute_160.jpg" class="product">
+					<h3>Lambert's Parachuting</h3>
+					<div>Absolutely loved it. Planning to go back next month! Thansk to all od you especially Megan for organising the whole thing. x</div>
+					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5OA~~">&nbsp;&nbsp;&nbsp;<span></span></a>
+				</div>
+				</div>
+				
+				%else:
+				
+				<div class="successtory_outer">
+				<div class="successtory">
+					<img alt="Jennifer's Seil&uuml;bung" src="/static/imgs/top_sellers/success/abseiling_160.jpg" class="product">
+					<h3>Jennifer's Seil&uuml;bung</h3>
+					<div>Super lieben Dank f&uuml;r den Abseilkurs, hat mir Riesenspass gemacht! Jederzeit wieder!</div>
+					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5OQ~~">&nbsp;&nbsp;&nbsp;<span></span></a>
+				</div>
+				</div>
+				
+				<div class="successtory_outer">
+				<div class="successtory">
+					<img alt="Fallschirmspringen" src="/static/imgs/top_sellers/success/ipad_160.jpg" class="product">
+					<h3>Miriam's iPad</h3>
+					<div>Bin total in mein iPad verliebt, Tausenddank! Endlich kann ich euch meine Farm zeigen!</div>
+					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjMwMQ~~">&nbsp;&nbsp;&nbsp;<span></span></a>
+				</div>
+				</div>
+				
+				<div class="successtory_outer">
+				<div class="successtory">
+					<img alt="Angela's Tauch&uuml;bung" src="/static/imgs/top_sellers/success/snorkling_160.jpg" class="product">
+					<h3>Angela's Tauch&uuml;bung</h3>
+					<div>Freitauchen, einfach Klasse, liebe das Wasser aber das hats echt gebracht, da ist man viel mehr dabei.</div>
+					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjMwMA~~">&nbsp;&nbsp;&nbsp;<span></span></a>
+				</div>
+				</div>
+				
+				%endif
 				
 				
 			</div>
