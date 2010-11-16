@@ -2,7 +2,7 @@ import logging, urllib, urllib2, simplejson, formencode
 from collections import deque
 from ordereddict import OrderedDict
 
-from pylons import request, response, tmpl_context as c, url, app_globals as g, cache
+from pylons import request, response, tmpl_context as c, url, app_globals as g, cache, session as websession
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper
@@ -32,6 +32,8 @@ class InviteController(BaseController):
 		pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
 		if pool is None:
 			return abort(404)
+		if 'invitees' in websession:
+			del websession['invitees']
 		return self._display_invites(pool)
 	
 	def _display_invites(self, pool, invitees = {}):
@@ -59,6 +61,7 @@ class InviteController(BaseController):
 		c.furl = '/invite/%s' % (pool_url)
 		
 		il = c.pool.get_invitees(c.method)
+		already_invited = (websession.get('invitees',{}).get(c.method, {}).keys())
 		if method in ['facebook', 'twitter']:
 			is_complete = True
 			offset = 0
@@ -71,12 +74,11 @@ class InviteController(BaseController):
 					return {'data':{'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
 				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if str(id) not in c.already_invited])
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if str(id) not in c.already_invited and str(id) not in already_invited])
 				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
 		return {'html':render('/invite/inviter.html').strip()}
-	
 	
 	@jsonify
 	def get_extension(self, method):
@@ -89,11 +91,12 @@ class InviteController(BaseController):
 			il = c.pool.get_invitees(c.method)
 			c.method = method
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
+			
+			already_invited = (websession.get('invitees',{}).get(c.method, {}).keys())
 			c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if not str(id) in c.already_invited])
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if not str(id) in c.already_invited and str(id) not in already_invited])
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
-	
 	
 	@logged_in(ajax=False)
 	def friends(self, pool_url):
@@ -131,6 +134,7 @@ class InviteController(BaseController):
 				invs[str(inv['network_id'])] = inv
 				c.invitees[netw] = invs
 				if strbool.to_python(inv.get('is_selector')): pool.selector=PoolInvitee.fromMap(inv)
+				websession['invitees'] = c.invitees
 			return self._display_invites(pool, c.invitees)
 		
 		if invitees is not None:
@@ -150,6 +154,8 @@ class InviteController(BaseController):
 			job.apply_async()
 			
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
+			if 'invitees' in websession:
+				del websession['invitees']
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = pool_url))
 	
 	@jsonify
