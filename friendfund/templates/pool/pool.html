@@ -97,8 +97,8 @@ ${html.clearline()|n}
 			<div class="countdown_hours">${html.counter(hoursremaining, _("POOL_PAGE_hours left"))}</div>
 		</div>
 	</div>
-	%if not c.pool.is_pending:
-		<div id="timeline_bar">
+	<div id="timeline_bar">
+	%if not c.pool.is_pending():
 			<div class="timeline_heading"><span style="position: relative; float: left;">${(_("POOL_PAGE_Friends have chipped in %(amount_left)s, only") % locals)|n} </span><span style="margin: -15px 15px 0px 15px; position: relative; float: left;">${html.counter(h.format_currency(c.pool.get_amount_left(), c.pool.currency), '')|n}</span> ${_("POOL_PAGE_REMAINING_AMOUNT_to go!")}</div>
 			<br/>
 			<div class="timeline">
@@ -107,8 +107,8 @@ ${html.clearline()|n}
 				<div class="legende"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
 				<div class="upper_limit">${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}</div>
 			</div>
-		</div>
 	%endif
+	</div>
 	%if i_am_member:
 				<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
 					<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
