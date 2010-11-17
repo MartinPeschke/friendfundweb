@@ -1,4 +1,4 @@
-import simplejson, logging, itertools, formencode
+import simplejson, logging, itertools, formencode, md5
 
 from datetime import datetime, timedelta, date
 
@@ -259,6 +259,12 @@ class Pool(DBMappedObject):
 		if diff < timedelta(0):
 			diff = timedelta(0)
 		return (diff.days, diff.seconds/3600)
+	def get_pool_picture(self, type = "RA"):
+		return h.get_pool_picture(self.p_url, type)
+	def get_pool_picture_tiles(self, type = "RA"):
+		pool_picture_url = h.get_upload_pic_name(md5.new(self.p_url).hexdigest())
+		return h.get_pool_picture(pool_picture_url, type)
+		
 	
 	def get_my_message(self, user):
 		pu = self.participant_map.get(user.u_id)
@@ -308,10 +314,6 @@ class Pool(DBMappedObject):
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:
 			raise NoPoolReceiverException('Pool has no Receiver: %s' % self)
-	
-	def get_pool_picture(self, type = "RA"):
-		return h.get_pool_picture(self.p_url, type)
-	
 	
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
