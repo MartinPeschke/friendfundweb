@@ -15,11 +15,8 @@
 %>
 
 <%def name="fb_meta_tags()">
-		<link rel="image_src" href="${c.pool.product.get_product_pic("POOL")}" />
-		<meta name="title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
-		<meta name="description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
-		<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 		<meta property="og:title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
+		<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 		<meta property="og:description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
 </%def>
 
