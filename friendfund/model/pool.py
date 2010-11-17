@@ -260,7 +260,6 @@ class Pool(DBMappedObject):
 			diff = timedelta(0)
 		return (diff.days, diff.seconds/3600)
 	
-	
 	def get_my_message(self, user):
 		pu = self.participant_map.get(user.u_id)
 		if pu:
