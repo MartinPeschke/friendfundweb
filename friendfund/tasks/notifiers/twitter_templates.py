@@ -30,9 +30,9 @@ TEMPLATES = {'INVITE':{
 					,"secret":Template(u"@${screen_name}:${admin} invites you to invite more for a friends gift pool at ")
 					,"url":Template(u"${ROOT_URL}/pool/${p_url}")
 				},
-			'ASK_CONTRIBUTORS_TO_INVITE':{
-					 "public":Template(u"@${screen_name}:${admin} invites you to invite more for ${receiver}'s ${product} at ")
-					,"secret":Template(u"@${screen_name}:${admin} invites you to invite more for a friends gift pool at ")
-					,"url":Template(u"${ROOT_URL}/pool/${p_url}")
+			'FRIEND_SELECTOR':{
+					 "public":Template(u"@${screen_name}:I nominated you to choose the gift for ${receiver}, pick it at ")
+					,"secret":Template(u"@${screen_name}:I nominated you to choose the gift for a friend's gift pool at ")
+					,"url":Template(u"${ROOT_URL}/pool/${up_url}")
 				}
 			}

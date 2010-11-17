@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2010-11-16 20:56+0100\n"
+"POT-Creation-Date: 2010-11-17 15:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,7 +137,7 @@ msgstr ""
 msgid "STATIC_Frequently Asked Questions_Answer15"
 msgstr ""
 
-#: friendfund/controllers/content.py:34 friendfund/templates/pool/pool.html:107
+#: friendfund/controllers/content.py:34 friendfund/templates/pool/pool.html:111
 msgid "POOL_PAGE_What happens if we raise less money?"
 msgstr ""
 
@@ -205,12 +205,12 @@ msgstr ""
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
 msgstr ""
 
-#: friendfund/controllers/fb.py:21
+#: friendfund/controllers/fb.py:22
 msgid "FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING"
 msgstr ""
 
-#: friendfund/controllers/fb.py:45 friendfund/controllers/fb.py:64
-#: friendfund/controllers/fb.py:81 friendfund/controllers/fb.py:101
+#: friendfund/controllers/fb.py:46 friendfund/controllers/fb.py:70
+#: friendfund/controllers/fb.py:91 friendfund/controllers/fb.py:115
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr ""
 
@@ -298,67 +298,67 @@ msgstr ""
 msgid "INDEX_PAGE_Invalid Format - Occasion"
 msgstr ""
 
-#: friendfund/controllers/pool.py:21 friendfund/controllers/product.py:29
+#: friendfund/controllers/pool.py:23 friendfund/controllers/product.py:29
 msgid "POOL_Your not authorized for this operation."
 msgstr ""
 
-#: friendfund/controllers/pool.py:22
+#: friendfund/controllers/pool.py:24
 msgid "POOL_ACTION_Pool is now Closed and the Gift has been ordered!"
 msgstr ""
 
-#: friendfund/controllers/pool.py:23
+#: friendfund/controllers/pool.py:25
 msgid ""
 "POOL_ACTION_This pool has not reached it's target. Please vist the pool admin"
 " page to continue fund raising!"
 msgstr ""
 
-#: friendfund/controllers/pool.py:24
+#: friendfund/controllers/pool.py:26
 msgid "POOL_ACTION_Changes saved."
 msgstr ""
 
-#: friendfund/controllers/pool.py:25
+#: friendfund/controllers/pool.py:27
 msgid "POOL_ACTION_This Action is not allowed as Pool is not in correct state."
 msgstr ""
 
-#: friendfund/controllers/pool.py:26
+#: friendfund/controllers/pool.py:28
 msgid ""
 "POOL_ACTION_In order to Close the pool, you need to fill out and save "
 "Shipping and Billing Address first!"
 msgstr ""
 
-#: friendfund/controllers/pool.py:46 friendfund/controllers/pool.py:62
-#: friendfund/controllers/pool.py:162 friendfund/controllers/pool.py:175
-#: friendfund/controllers/pool.py:194 friendfund/controllers/pool.py:207
+#: friendfund/controllers/pool.py:48 friendfund/controllers/pool.py:63
+#: friendfund/controllers/pool.py:168 friendfund/controllers/pool.py:181
+#: friendfund/controllers/pool.py:200 friendfund/controllers/pool.py:213
 #: friendfund/controllers/product.py:26 friendfund/controllers/product.py:39
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr ""
 
-#: friendfund/controllers/pool.py:65
+#: friendfund/controllers/pool.py:66
 msgid "POOL_CREATE_Product was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:68
+#: friendfund/controllers/pool.py:69
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:71
+#: friendfund/controllers/pool.py:72
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:314
+#: friendfund/controllers/pool.py:321
 msgid "POOL_ACTION_Changes Saved"
 msgstr ""
 
-#: friendfund/controllers/pool.py:353 friendfund/controllers/product.py:45
+#: friendfund/controllers/pool.py:360 friendfund/controllers/product.py:45
 #: friendfund/controllers/product.py:144
 msgid "INDEX_PAGE_No Product"
 msgstr ""
 
-#: friendfund/controllers/pool.py:365
+#: friendfund/controllers/pool.py:372
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr ""
 
-#: friendfund/controllers/pool.py:375
+#: friendfund/controllers/pool.py:382
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr ""
 
@@ -938,7 +938,7 @@ msgstr ""
 msgid "PAGE_INDEX_HEADER_Current Pools"
 msgstr ""
 
-#: friendfund/templates/index.html:121
+#: friendfund/templates/index.html:120
 msgid "PAGE_INDEX_HEADER_Successful Pools"
 msgstr ""
 
@@ -1880,7 +1880,7 @@ msgid "POOL_PAGE_Secret Gift Pool"
 msgstr ""
 
 #: friendfund/templates/pool/pool.html:53 friendfund/templates/pool/pool.html:55
-#: friendfund/templates/pool/pool.html:92
+#: friendfund/templates/pool/pool.html:96
 msgid "POOL_PAGE_This is a secret pool."
 msgstr ""
 
@@ -1896,56 +1896,62 @@ msgstr ""
 msgid "POOL_PAGE_Friend"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:90
+#: friendfund/templates/pool/pool.html:91
 #, python-format
 msgid "POOLPAGE_CENTERHEADER_Chip in for %(receiver_name)s's %(product_name)s"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:96
+#: friendfund/templates/pool/pool.html:93
+msgid ""
+"POOL_PENDING, This pool is waiting for gift selection, chipping in will be "
+"possible after the gift is chosen!"
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:100
 msgid "POOL_PAGE_days and"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:97
+#: friendfund/templates/pool/pool.html:101
 msgid "POOL_PAGE_hours left"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:102
+#: friendfund/templates/pool/pool.html:106
 #, python-format
 msgid "POOL_PAGE_Friends have chipped in %(amount_left)s, only"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:102
+#: friendfund/templates/pool/pool.html:106
 msgid "POOL_PAGE_REMAINING_AMOUNT_to go!"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:113 friendfund/templates/pool/pool.html:114
+#: friendfund/templates/pool/pool.html:119 friendfund/templates/pool/pool.html:120
 msgid "POOL_PAGE_Visit Pool Admin"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:126
+#: friendfund/templates/pool/pool.html:132
 #, python-format
 msgid ""
 "POOL_PAGE_Already chipped in: %(number_contributors)d contributors from "
 "%(number_invitees)d invited people"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:164
+#: friendfund/templates/pool/pool.html:170
 msgid "POOL_CHAT_Fund Chat"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:167
+#: friendfund/templates/pool/pool.html:173
 msgid "POOL_CHAT_Leave your Comment:"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:169
+#: friendfund/templates/pool/pool.html:175
 msgid "POOL_PAGE_BUTTON_Post!"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:177
+#: friendfund/templates/pool/pool.html:183
 msgid "POOL_CHAT_This is a secret pool, no chat is shown."
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:195
+#: friendfund/templates/pool/pool.html:201
 msgid "POOL_CHAT_Anonymous"
 msgstr ""
 

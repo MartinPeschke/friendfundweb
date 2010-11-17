@@ -87,7 +87,11 @@ ${html.clearline()|n}
 	
 	<div class="heading"><div class="heading_text">
 			%if i_can_view:
-			 ${(_("POOLPAGE_CENTERHEADER_Chip in for %(receiver_name)s's %(product_name)s") % dict([("receiver_name", c.pool.receiver.name),("product_name", c.pool.product.name)]))|n}
+				%if not c.pool.is_pending():
+					${(_("POOLPAGE_CENTERHEADER_Chip in for %(receiver_name)s's %(product_name)s") % dict([("receiver_name", c.pool.receiver.name),("product_name", c.pool.product.name)]))|n}
+				%else:
+					${(_("POOL_PENDING, This pool is waiting for gift selection, chipping in will be possible after the gift is chosen!"))|n}
+				%endif
 		%else:
 			${_("POOL_PAGE_This is a secret pool.")}
 		%endif
@@ -107,6 +111,8 @@ ${html.clearline()|n}
 				<div class="legende"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
 				<div class="upper_limit">${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}</div>
 			</div>
+	%else:
+		
 	%endif
 	</div>
 	%if i_am_member:
@@ -114,7 +120,7 @@ ${html.clearline()|n}
 					<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
 				</a>
 	%endif
-	${html.clearline()|n}
+	${html.clearline(10)|n}
 </div>
 
 <div class="social_tools" style="margin-left:30px;height:35px;float:left">

@@ -246,3 +246,32 @@ class DBRequestPWProc(DBMappedObject):
 	_keys = [	 GenericAttrib(str,'email','email')	]
 
 ANONUSER = User(networks={})
+
+
+
+
+class FBUserPermissions(DBMappedObject):
+	"""
+			<PERMISSIONS network = "FACEBOOK" id = "${fb_user_id}"
+			%if email:
+				email=${email|quoteattr}
+			%endif
+			%if not (stream_publish is None):
+				stream_publish=${(stream_publish and 1 or 0)|quoteattr}
+			%endif
+			%if not (permanent is None):
+				permanent=${(permanent and 1 or 0)|quoteattr}
+			%endif
+			 />
+	"""
+	_set_root = _get_root = 'PERMISSIONS'
+	_get_proc = _set_proc = "app.set_permissions"
+	_unique_keys = ['network', 'network_id']
+	_cachable = False
+	_keys = [	GenericAttrib(str,'network','network')
+				,GenericAttrib(str,'network_id','id')
+				,GenericAttrib(str,'email','email')
+				,GenericAttrib(str,'has_email','has_email')
+				,GenericAttrib(bool,'stream_publish','stream_publish')
+				,GenericAttrib(bool,'permanent','permanent')
+			]

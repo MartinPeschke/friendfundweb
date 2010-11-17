@@ -41,7 +41,8 @@ email = {
 		'ECARD_PROMPT': {'subject':Template("Send an eCard")},
 		'EMAIL_ECARD_RECEIVER': {'subject':Template("Happy %(occasion)s")},
 		'PHOTO_UPLOAD_ECARD_RECEIVER': {'subject':Template("Say Thank You")},
-		'POOL_FUNDED_ADMIN': {'subject':Template("${receiver}'s Gift Pool is Funded")}
+		'POOL_FUNDED_ADMIN': {'subject':Template("${receiver}'s Gift Pool is Funded")},
+		'FRIEND_SELECTOR': {'subject':Template("${admin} has nominated you to choose a gift for ${receiver}")}
 	}
 
 class UMSEmailUploadException(Exception):pass

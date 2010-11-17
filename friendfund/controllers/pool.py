@@ -5,7 +5,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only
+from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
 from friendfund.lib.base import BaseController, render
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains
@@ -16,6 +16,8 @@ from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDes
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
+
+from friendfund.controllers.index import IndexController
 
 _ = lambda x:x
 NOT_AUTHORIZED_MESSAGE = _("POOL_Your not authorized for this operation.")
@@ -56,7 +58,6 @@ class PoolController(BaseController):
 	
 	@logged_in()
 	def create(self):
-		params = formencode.variabledecode.variable_decode(request.params)
 		c.pool = websession.get('pool')
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
@@ -70,6 +71,11 @@ class PoolController(BaseController):
 		elif c.pool.receiver is None:
 			c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
 			return redirect(url('home'))
+		elif c.pool.product.is_pending_receiver and c.pool.receiver.network == 'facebook' and checkadd_block('fb_streampub'):
+			c.enforce_blocks = True
+			c.do_reload = True
+			idx = IndexController()
+			return idx.index()
 		
 		admin = PoolUser(**c.user.get_map())
 		if h.users_equal(c.pool.receiver, admin):
