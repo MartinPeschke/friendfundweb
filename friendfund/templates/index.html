@@ -121,7 +121,7 @@
 			
 			<div class="panel_content_no_padding">
 				
-			%if session.get("region") != 'de':
+			%if not (session.get("lang") or "").startswith('de'):
 				<div class="successtory_outer">
 				<div class="successtory">
 					<img alt="Edwards Balloon Ride" src="/static/imgs/top_sellers/success/ballon_180.jpg" class="product">
