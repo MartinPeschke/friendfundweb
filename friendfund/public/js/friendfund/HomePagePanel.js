@@ -33,7 +33,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		if (!dojo.hasClass(this, 'inactive')){
 			dojo.forEach(_t._listener_globals, dojo.disconnect);
 			_t._listener_globals = [];
-			dojo.byId("pool_configurator_form").submit();
+			window.location.href = dojo.byId("pool_configurator_form").action;
 		} else {
 			dojo.removeClass("funders_panel_tooltip", "hidden");
 			dojo.style("funders_panel_tooltip", "opacity", "1");

@@ -13,6 +13,7 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 		template_data['image_url'] = get_product_picture(template_data['image_url'], 'POOL', site_root=template_data['ROOT_URL'])
 	msg = dict((k,v.substitute(**dict(template_data)).encode("utf-8")) for k,v in msg.iteritems())
 	msg['access_token'] = sndr_data['access_token']
+	print msg
 	query = urllib.urlencode(msg)
 	try:
 		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query)

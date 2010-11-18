@@ -6,7 +6,8 @@ from pylons.decorators import jsonify
 from friendfund.lib.auth.decorators import remove_block
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper
-from friendfund.tasks.fb import remote_fb_perm, get_email_from_permissions, remote_persist_user
+from friendfund.model.authuser import FBUserPermissions
+from friendfund.tasks.fb import get_email_from_permissions, remote_persist_user
 
 log = logging.getLogger(__name__)
 
@@ -46,7 +47,12 @@ class FbController(BaseController):
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
 			c.user.email = get_email_from_permissions(fb_data)
-			remote_fb_perm.delay('facebook', fb_data['uid'], email = c.user.email)
+			
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], email = c.user.email)
+			try:
+				g.dbm.set(perms)
+			except db_access.SProcException, e:
+				log.error(str(e))
 			c.user.set_perm('facebook', 'has_email', True)
 			c.user.has_email = 1
 			remove_block('email')
@@ -64,7 +70,11 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			remote_fb_perm.delay('facebook', fb_data['uid'], stream_publish = True)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], stream_publish = True)
+			try:
+				g.dbm.set(perms)
+			except db_access.SProcException, e:
+				log.error(str(e))
 			c.user.set_perm('facebook', 'stream_publish', True)
 			remove_block('fb_streampub')
 			c.reload = True
@@ -81,13 +91,17 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], email = c.user.email, stream_publish = True)
+			try:
+				g.dbm.set(perms)
+			except db_access.SProcException, e:
+				log.error(str(e))
 			c.user.email = get_email_from_permissions(fb_data)
 			c.user.set_perm('facebook', 'has_email', True)
 			c.user.set_perm('facebook', 'stream_publish', True)
 			c.user.has_email = 1
 			remove_block('email')
 			c.reload = True
-			remote_fb_perm.delay('facebook', fb_data['uid'], email = c.user.email, stream_publish = True)
 		else:
 			log.info("FacebookPermissionDenied: %s", request.params)
 			c.reload = False
@@ -101,8 +115,13 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			remote_fb_perm.delay('facebook', fb_data['uid'], permanent = True)
-			c.user.set_perm('facebook', 'permanent', True)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], stream_publish = False, has_email = False, permanent = False)
+			try:
+				g.dbm.set(perms)
+			except db_access.SProcException, e:
+				log.error(str(e))
+			else:
+				c.user.set_perm('facebook', 'permanent', True)
 			c.reload = True
 		else:
 			log.info("FacebookPermissionDenied: %s", request.params)
@@ -115,5 +134,9 @@ class FbController(BaseController):
 		except fb_helper.FBIncorrectlySignedRequest, e: 
 			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
 			return '1'
-		remote_fb_perm.delay('facebook', user_id, stream_publish = False, has_email = False, permanent = False)
+		perms = FBUserPermissions(network='facebook', network_id=user_id, stream_publish = False, has_email = False, permanent = False)
+		try:
+			g.dbm.set(perms)
+		except db_access.SProcException, e:
+			log.error(str(e))
 		return '1'

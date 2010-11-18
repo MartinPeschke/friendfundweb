@@ -32,9 +32,10 @@ class VirtualProduct(Product):
 	def set_picture_urls(self, base_url):
 		self.picture_small = "%s%s"%(base_url, self.picture_small)
 		self.picture_large = "%s%s"%(base_url, self.picture_large)
-
 	def fromDB(self, xml):
+		super(self.__class__, self).fromDB(xml)
 		self.is_virtual = True
+		
 		
 		
 class VirtualGiftRegion(DBMappedObject):

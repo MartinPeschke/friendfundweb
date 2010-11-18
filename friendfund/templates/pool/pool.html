@@ -23,11 +23,21 @@
 			}
 %>
 
-
 <%def name="fb_meta_tags()">
-		<link rel="image_src" href="/static/imgs/fb_stream_publish_logo.png" />
-		<meta name="title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
-		<meta name="description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
+		<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+		%if not c.pool.is_secret:
+			<meta property="og:title" content="${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name)])}" />
+			<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+			<meta property="og:description" content="${c.pool.description}" />
+		%else:
+			<meta property="og:title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
+			<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+			<meta property="og:description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
+		%endif
+		<meta property="og:type" content="product"/>
+		<meta property="og:url" content="${url.current(protocol="http")}"/>
+		<meta property="og:site_name" content="Friendfund"/>
+		<meta property="fb:app_id" content="${app_globals.FbAppID}"/>
 </%def>
 
 
@@ -37,7 +47,7 @@
 </%def>
 <%def name="page_slogan()">
 	%if c.pool.can_i_view(c.user):
-		<div id="page_slogan">${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name,)])}</div>
+		<div id="page_slogan">${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name)])}</div>
 	%else:
 		<div id="page_slogan">${_("POOL_PAGE_Secret Gift Pool")}</div>
 	%endif
@@ -87,7 +97,11 @@ ${html.clearline()|n}
 	
 	<div class="heading"><div class="heading_text">
 			%if i_can_view:
-			 ${(_("POOLPAGE_CENTERHEADER_Chip in for %(receiver_name)s's %(product_name)s") % dict([("receiver_name", c.pool.receiver.name),("product_name", c.pool.product.name)]))|n}
+				%if not c.pool.is_pending():
+					${(_("POOLPAGE_CENTERHEADER_Chip in for %(receiver_name)s's %(product_name)s") % dict([("receiver_name", c.pool.receiver.name),("product_name", c.pool.product.name)]))|n}
+				%else:
+					${(_("POOL_PENDING, This pool is waiting for gift selection, chipping in will be possible after the gift is chosen!"))|n}
+				%endif
 		%else:
 			${_("POOL_PAGE_This is a secret pool.")}
 		%endif
@@ -107,6 +121,8 @@ ${html.clearline()|n}
 				<div class="legende"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
 				<div class="upper_limit">${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}</div>
 			</div>
+	%else:
+		
 	%endif
 	</div>
 	%if i_am_member:
@@ -114,7 +130,7 @@ ${html.clearline()|n}
 					<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
 				</a>
 	%endif
-	${html.clearline()|n}
+	${html.clearline(10)|n}
 </div>
 
 <div class="social_tools" style="margin-left:30px;height:35px;float:left">

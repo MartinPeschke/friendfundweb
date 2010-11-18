@@ -81,5 +81,19 @@ TEMPLATES = {"INVITE":{
 						,"link"   :Template(u"${ROOT_URL}/pool/${p_url}")
 						,"name"   :Template(u"Friend Fund for a friend of yours")
 					}
+				},
+			"FRIEND_SELECTOR":{
+					 "public":{
+						 "message":Template(u"${admin} has created a gift pool for ${receiver} and has nominated you to choose the gift! Please pick it here!")
+						,"link":   Template(u"${ROOT_URL}/pool/${up_url}")
+						,"name":   Template(u"Friend Fund for ${receiver}")
+						,"picture":Template(u"${image_url}")
+					}
+					,"secret":{
+						 "message":Template(u"${admin} has Created a gift pool for a friend at friendfund.com and nominated you to choose the gift! Please pick one here!")
+						,"link"   :Template(u"${ROOT_URL}/pool/${up_url}")
+						,"name"   :Template(u"Friend Fund for a friend of yours")
+						,"picture":Template(u"${image_url}")
+					}
 				}
 			}

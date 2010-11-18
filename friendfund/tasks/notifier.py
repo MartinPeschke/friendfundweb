@@ -19,7 +19,8 @@ import logging
 log = logging.getLogger(__name__)
 
 import gettext
-transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en'])
+
+transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de'])
 _ = transl.ugettext
 L10N_KEYS = ['occasion']
 
@@ -80,7 +81,7 @@ def main(argv=None):
 				template_data = msg_data.find("TEMPLATE").attrib
 				template_data['ROOT_URL'] = ROOT_URL
 				for k in L10N_KEYS:
-					if k in template_data:
+					if k in template_data and template_data[k]:
 						template_data[k] = _(template_data[k])
 				
 				log.info ( 'meta_data, %s', meta_data)

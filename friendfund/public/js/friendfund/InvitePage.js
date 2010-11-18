@@ -23,6 +23,7 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t.selector.draw(_t.method);
 	},
 	prepareSubmit : function(_t, evt){
+		var node;
 		if(_t.submitting){return false;}
 		_t.submitting = true;
 		var results = dojo.query("div.invitee_row", _t.invited_node);
@@ -45,14 +46,14 @@ dojo.declare("friendfund.InvitePage", null, {
 			dojo.byId('invitees').submit();
 		} else if(!results.length){
 			_t.submitting = false;
-			var node = dojo.byId("inviters_panel_tooltip");
+			node = dojo.byId("inviters_panel_tooltip");
 			dojo.removeClass(node, "hidden");
 			dojo.style(node, "opacity", "1");
 			dojo.fadeOut({node:node ,duration: 5000}).play();
 			return false;
 		} else {
 			_t.submitting = false;
-			var node = dojo.byId("inviters_selector_tooltip");
+			node = dojo.byId("inviters_selector_tooltip");
 			dojo.removeClass(node, "hidden");
 			dojo.style(node, "opacity", "1");
 			dojo.fadeOut({node:node ,duration: 5000}).play();
