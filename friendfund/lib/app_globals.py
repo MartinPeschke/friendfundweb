@@ -41,6 +41,7 @@ class Globals(object):
 		log.info("memcached set up at %s", config['app_conf']['memcached.cache.url'])
 		
 		self.ga_include = config.get('ga_include', '')
+		self.FbAppID =  config['app_conf']['fbappid']
 		self.FbApiKey =  config['app_conf']['fbapikey']
 		self.FbApiSecret =  minifb.FacebookSecret(config['app_conf']['fbapisecret'])
 		self.TwitterApiKey = config['app_conf']['twitterapikey']
