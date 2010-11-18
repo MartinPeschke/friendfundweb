@@ -17,7 +17,6 @@ def load_environment(global_conf, app_conf):
     
     # Pylons paths
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    print global_conf
     paths = dict(root=root,
                  controllers=os.path.join(root, 'controllers'),
                  static_files=os.path.join(root, 'public'),
