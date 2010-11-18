@@ -100,7 +100,7 @@ class InviteController(BaseController):
 	
 	@logged_in(ajax=False)
 	def friends(self, pool_url):
-		data = simplejson.loads(request.params.get('invitees'))
+		data = simplejson.loads(request.params.get('invitees') or '{}')
 		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
