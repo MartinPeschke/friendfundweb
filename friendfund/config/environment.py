@@ -17,10 +17,11 @@ def load_environment(global_conf, app_conf):
     
     # Pylons paths
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    print global_conf
     paths = dict(root=root,
                  controllers=os.path.join(root, 'controllers'),
                  static_files=os.path.join(root, 'public'),
-                 templates=[os.path.join(root, 'templates')],
+                 templates=[os.path.join(root, global_conf['templates'])],
                  uploads=os.path.join(app_conf['cache_dir'], 'uploads'))
 
     # Initialize config with the basic options
