@@ -76,7 +76,7 @@
 ### END INIT INFO
 
 set -e
-export PYTHONPATH="/opt/www/ff_live:/home/www-data/deployment/ff_current"
+export PYTHONPATH="/opt/www/ff_live:/home/www-data/instances/celery_curr"
 DEFAULT_CELERYD="/server/pylons1.0/bin/celeryd"
 CELERYD="/server/pylons1.0/bin/celeryd"
 CELERYD_LOG_FILE="/opt/www/ff_live/logs/celeryd_live.log"
