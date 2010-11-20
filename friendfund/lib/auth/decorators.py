@@ -39,7 +39,8 @@ from pylons import request, session as websession, tmpl_context as c
 
 BLOCKS = {
 	'email':lambda user:user.has_email,
-	'fb_streampub':lambda user: user.has_perm('facebook', 'stream_publish')
+	'fb_streampub':lambda user: user.has_perm('facebook', 'stream_publish'),
+	'create_event':lambda user: user.has_perm('facebook', 'create_event')
 }
 
 

@@ -67,6 +67,7 @@ class UserPermissions(DBMappedObject):
 				,GenericAttrib(bool,'has_email','has_email')
 				,GenericAttrib(str,'email','email')
 				,GenericAttrib(bool,'stream_publish','stream_publish')
+				,GenericAttrib(bool,'create_event','create_event')
 				,GenericAttrib(bool,'permanent','permanent')
 				,GenericAttrib(bool,'birthdays','birthdays')
 			]

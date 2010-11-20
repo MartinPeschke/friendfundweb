@@ -83,6 +83,11 @@ getfbStreamPublish = function(api_key){
 	window.open('https://graph.facebook.com/oauth/authorize?client_id='+api_key+'&redirect_uri='+localhost+'/fb/get_streampublish&display=popup&scope=publish_stream', '_blank', 'left=100,top=100,height=300,width=500,location=no,resizable=no,scrollbars=no');
 };
 
+getfbCreateEvent = function(api_key){
+	var localhost = window.location.protocol + '//' + window.location.host;
+	window.open('https://graph.facebook.com/oauth/authorize?client_id='+api_key+'&redirect_uri='+localhost+'/fb/get_create_event&display=popup&scope=create_event', '_blank', 'left=100,top=100,height=300,width=500,location=no,resizable=no,scrollbars=no');
+};
+
 getfbStreamPublishnEmail = function(api_key){
 	if (facebook_tried_getting_permissions===false){
 		facebook_tried_getting_permissions = true;

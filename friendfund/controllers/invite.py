@@ -1,4 +1,4 @@
-import logging, urllib, urllib2, simplejson, formencode
+import logging, urllib, urllib2, simplejson, formencode, datetime
 from collections import deque
 from ordereddict import OrderedDict
 
@@ -121,10 +121,10 @@ class InviteController(BaseController):
 						break
 				else:
 					log.warn("ADDINVITEES: found non dict invitee: %s", unicode(inv).encode("latin-1","xmlcharrefreplace"))
-			if (has_fb_invitees and checkadd_block('fb_streampub')):
+			if (has_fb_invitees and checkadd_block('create_event')):
 				perms_required = True
 			else:
-				remove_block('fb_streampub')
+				remove_block('create_event')
 		if perms_required:
 			c.enforce_blocks = True
 			c.invitees = {}
@@ -138,13 +138,16 @@ class InviteController(BaseController):
 			return self._display_invites(pool, c.invitees)
 		
 		if invitees is not None:
+			self.create_event(pool, invitees)
 			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
 							, p_url = pool.p_url
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
 							, description = pool.description
 							, is_secret = pool.is_secret))
+
 			g.dbm.expire(Pool(p_url = pool.p_url))
+			
 			
 			tasks = deque()
 			for i in invitees:
@@ -157,6 +160,78 @@ class InviteController(BaseController):
 			if 'invitees' in websession:
 				del websession['invitees']
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = pool_url))
+	
+	
+	
+	
+	def create_event(self, pool, invitees):
+		try:
+			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
+		except fb_helper.FBIncorrectlySignedRequest, e: 
+			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
+			return '1'
+		
+		fb_invitees = {}
+		for inv in invitees:
+				netw = inv['network'].lower()
+				if netw == 'facebook':
+					fb_invitees[str(inv['network_id'])] = inv
+				from poster.encode import multipart_encode
+		
+		from poster.streaminghttp import register_openers
+		import urllib2, simplejson
+		register_openers()
+		datagen, headers = multipart_encode({
+				"event_info": simplejson.dumps({"name":pool.occasion.get_display_label().encode("utf-8"), 
+												"start_time" : (pool.occasion.date - datetime.timedelta(0,3600)).strftime("%Y-%m-%d"), 
+												"end_time":pool.occasion.date.strftime("%Y-%m-%d"),
+												"description":"%s\n\n%s" % (pool.description, '%s/pool/%s'%(g.SITE_ROOT_URL,pool.p_url)),
+												"tagline":"Friendfund, group gifting",
+												"host":"Me",
+												"link" : "http://dev.friendfund.de"}),
+				"access_token":fb_data['access_token'],"format":"json",
+				"[no name]":open("/opt/www/friendfund/data%s" % pool.receiver.get_profile_pic("RA"), "rb"),
+				"link" : "http://dev.friendfund.de", "name":"Friendfund"})
+		req = urllib2.Request('https://api.facebook.com/method/events.create', datagen, headers)
+		try: 
+			event_id = urllib2.urlopen(req).read()
+		except Exception, e:
+			event_id = e.fp.read()
+		else:
+			msg = {"eid":str(event_id),
+					"uids" : '[%s,1707117978]'%(','.join(fb_invitees.keys())),
+					"personal_message":pool.description or 'Description', "format":"json",
+					"access_token":fb_data['access_token']}
+			msg = dict((k,v.encode("utf-8")) for k,v in msg.iteritems())
+			print msg
+			try:
+				resp = urllib2.urlopen('https://api.facebook.com/method/events.invite', urllib.urlencode(msg))
+			except urllib2.HTTPError, e:
+				resp = e.fp
+			post = resp.read()
+			print post
+		print event_id
+		
+		
+		# msg = {'access_token':fb_data['access_token'],
+				# 'link':'%s/pool/%s'%(g.SITE_ROOT_URL,pool.p_url),
+				# 'message':'Merry %s' % (pool.occasion.get_display_label()).encode("utf-8"),
+				# 'picture':'%s%s'%(g.SITE_ROOT_URL,pool.receiver.get_profile_pic("RA")),
+				# 'name':("Friendfund for %s's %s"%(pool.receiver.name, pool.occasion.get_display_label())).encode("utf-8"),
+				# 'caption':"Friendfund",
+				# 'description':("Friendfund for %s's %s"%(pool.receiver.name, pool.occasion.get_display_label())).encode("utf-8")}
+		
+		# print msg, 'https://graph.facebook.com/%s/feed'%str(event_id)
+		# try:
+			# resp = urllib2.urlopen('https://graph.facebook.com/%s/feed'%str(event_id), urllib.urlencode(msg))
+		# except urllib2.HTTPError, e:
+			# resp = e.fp
+		# post = resp.read()
+		# print post
+		
+		return event_id
+	
+	
 	
 	@jsonify
 	@logged_in(ajax=True)
