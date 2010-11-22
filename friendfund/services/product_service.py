@@ -239,6 +239,7 @@ class ProductService(object):
 		tmpl_context = self.setup_region(request)
 		if product['is_amazon']:
 			product = self.amazon_services[tmpl_context.region].get_product_from_guid(product['guid'])
+			product.fromDB(None)
 		elif product['is_virtual']:
 			product = self.virtual_gift_map[product['guid']]
 		elif product['is_pending']:

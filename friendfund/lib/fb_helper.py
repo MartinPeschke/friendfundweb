@@ -3,6 +3,9 @@ import cgi, hashlib, time, urllib2, re, simplejson, time, logging, hmac, urllib,
 from hashlib import sha256
 from datetime import datetime, timedelta
 from ordereddict import OrderedDict
+from poster.streaminghttp import register_openers
+from poster.encode import multipart_encode
+
 
 log = logging.getLogger(__name__)
 
@@ -96,7 +99,7 @@ def translate_friend_entry(u_id, friend_data):
 			'network_id':u_id,
 			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
 			'profile_picture_url':get_pic_url(friend_data['id']),
-			'notification_method':'STREAM_PUBLISH',
+			'notification_method':'CREATE_EVENT',
 			'network':'facebook',
 			'email':friend_data.get('email'),
 			'is_selector':False
@@ -172,3 +175,27 @@ def get_friends_from_cache(
 				obj[str(id)]['mutual_with'] = str(friend_id)
 	logger.info('Retrieved %s FBFriends' % len(obj))
 	return obj
+	
+	
+	
+	
+def create_event(self, fb_data, pool, site_root_url, physical_path):
+	register_openers()
+	datagen, headers = multipart_encode({
+			"event_info": simplejson.dumps({"name":pool.occasion.get_display_label().encode("utf-8"), 
+											"start_time" : (pool.occasion.date - timedelta(0,3600)).strftime("%Y-%m-%d"),
+											"description":"%s\n\n%s" % (pool.description, '%s/pool/%s'%(site_root_url,pool.p_url)),
+											"tagline":"Friendfund, group gifting",
+											"host":"Me",
+											"link" : site_root_url}),
+			"access_token":fb_data['access_token'],"format":"json",
+			"[no name]":open("%s%s" % (physical_path, pool.receiver.get_profile_pic("RA")), "rb"),
+			"link" : site_root_url, "name":"Friendfund"})
+	req = urllib2.Request('https://api.facebook.com/method/events.create', datagen, headers)
+	try: 
+		event_id = urllib2.urlopen(req).read()
+	except Exception, e:
+		log.error(e.fp.read())
+		raise e
+	else:
+		return event_id

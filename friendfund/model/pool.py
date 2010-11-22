@@ -182,17 +182,18 @@ class PoolUser(DBMappedObject):
 	
 	@classmethod
 	def fromMap(cls, params):
+		print params
 		params['is_selector'] = strbool.to_python(params.get('is_selector'))
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		else:
 			if params['network'] == 'email':
 				params['email'] = params.pop('network_id')
-			return PoolUser(**dict((str(k),v) for k,v in params.iteritems()))
+			return cls(**dict((str(k),v) for k,v in params.iteritems()))
 
 class PoolInvitee(PoolUser):
 	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]
-
+	
 class Pool(DBMappedObject):
 	_set_proc   = 'app.create_pool'
 	_get_proc   = 'app.get_pool'
@@ -345,6 +346,7 @@ class AddInviteesProc(DBMappedObject):
 	_unique_keys = ['p_id', 'p_url']
 	_keys = [GenericAttrib(int, 'p_id', 'p_id')
 			,GenericAttrib(str, 'p_url', 'p_url')
+			,GenericAttrib(str, 'event_id', 'event_id')
 			,GenericAttrib(str, 'inviter_user_id', 'u_id')
 			,GenericAttrib(unicode, 'description', 'description')
 			,GenericAttrib(bool, 'is_secret', 'is_secret')

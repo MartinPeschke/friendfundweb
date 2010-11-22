@@ -35,20 +35,21 @@ class Globals(object):
 		initialization and is available during requests via the
 		'app_globals' variable
 		"""
-		self.cache = pylibmc.Client([config['app_conf']['memcached.cache.url']], binary=True)
+		app_conf = config['app_conf']
+		self.cache = pylibmc.Client([app_conf['memcached.cache.url']], binary=True)
 		self.cache.behaviors = {"tcp_nodelay": True, "ketama": True}
 		self.cache_pool = pylibmc.ThreadMappedPool(self.cache)
-		log.info("memcached set up at %s", config['app_conf']['memcached.cache.url'])
+		log.info("memcached set up at %s", app_conf['memcached.cache.url'])
 		
 		self.ga_include = config.get('ga_include', '')
-		self.FbAppID =  config['app_conf']['fbappid']
-		self.FbApiKey =  config['app_conf']['fbapikey']
-		self.FbApiSecret =  minifb.FacebookSecret(config['app_conf']['fbapisecret'])
-		self.TwitterApiKey = config['app_conf']['twitterapikey']
-		self.TwitterApiSecret = config['app_conf']['twitterapisecret']
+		self.FbAppID =  app_conf['fbappid']
+		self.FbApiKey =  app_conf['fbapikey']
+		self.FbApiSecret =  minifb.FacebookSecret(app_conf['fbapisecret'])
+		self.TwitterApiKey = app_conf['twitterapikey']
+		self.TwitterApiSecret = app_conf['twitterapisecret']
 		
-		self.locale_codes = config['app_conf']['available_locale_codes'].split(',')
-		self.locales = config['app_conf']['available_locales'].split(',')
+		self.locale_codes = app_conf['available_locale_codes'].split(',')
+		self.locales = app_conf['available_locales'].split(',')
 		self.locale_lookup = dict(zip(self.locales, self.locale_codes))
 		
 		self.debug = config['debug']
@@ -58,10 +59,11 @@ class Globals(object):
 			self.revision_identifier = lambda: self.rv
 		else:
 			self.revision_identifier = lambda: REVISION_ENDING
-		app_conf = config['app_conf']
+		
 
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
+		self.UPLOAD_FOLDER = app_conf['cache_dir']
 		
 		dbpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
