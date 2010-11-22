@@ -19,6 +19,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	onDestroy : null,
 	constructor: function(args){
 		var _t = this;
+		_t.window = window;
 		dojo.mixin(_t, args);
 		for (var action in _t.selected_elems){
 			_t.connect(_t, action);
@@ -27,13 +28,15 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		_t.check_complete(_t);
 	},
 	connect:function(_t, action){
-		_t._listener_globals.push(dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false)));
+		if(dojo.hasClass(action+"_panel", 'enabled')){
+			_t._listener_globals.push(dojo.connect(dojo.byId("button_"+action), "onclick", dojo.hitch(null, _t.preload, _t, action, false)));
+		}
 	},
 	submit:function(_t, evt){
 		if (!dojo.hasClass(this, 'inactive')){
 			dojo.forEach(_t._listener_globals, dojo.disconnect);
 			_t._listener_globals = [];
-			window.location.href = dojo.byId("pool_configurator_form").action;
+			_t.window.location.href = dojo.byId("pool_configurator_form").action;
 		} else {
 			dojo.removeClass("funders_panel_tooltip", "hidden");
 			dojo.style("funders_panel_tooltip", "opacity", "1");

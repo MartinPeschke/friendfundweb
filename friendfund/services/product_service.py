@@ -1,4 +1,4 @@
-import logging, urlparse
+import logging, urlparse, uuid, urllib2
 from lxml import etree
 from datetime import datetime
 
@@ -6,7 +6,7 @@ from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
 from friendfund.model.mapper import DBMapper
 from friendfund.model.pool import Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, PendingProduct
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, PendingProduct, Product
 from friendfund.model.product_search import ProductSearchByCategory
 from friendfund.model.virtual_product import ProductPager
 
@@ -256,4 +256,36 @@ class ProductService(object):
 		pool.product = product
 		pool.region = tmpl_context.region
 		return pool
+	
+	def set_product_from_open_graph(self, pool, request):
+		transl = {"description_long":("og:description", lambda x:x),
+					"description":("description", lambda x:x),
+					"name":("og:name", lambda x:x),
+					"amount":("og:price", lambda x:int(x)),
+					"shipping_cost":("og:shipping_handling", lambda x:int(x)),
+					"picture_small":("og:image", lambda x:x),
+					"picture_large":("og:image", lambda x:x),
+					"currency":("og:currency", lambda x:x)}
+		query=request.params.get("referer")
+		if not query:
+			log.error("Query not found")
+			abort(404)
+		scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
+		product_page = urllib2.urlopen(query)
+
+		from BeautifulSoup import BeautifulSoup
+		soup = BeautifulSoup(product_page.read())
+		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta'))
+		if params.get("og:type") != 'product':
+			log.error("Markup not OKAY")
+			abort(404)
+		product = Product(aff_id=query, aff_program_id="-1", aff_program_name=domain, aff_net=domain,guid=uuid.uuid4(),category="170000", is_virtual=False,aff_program_logo_url="",aff_program_delivery_time=5,tracking_link=query)
+		for k,(name, transf) in transl.iteritems():
+			setattr(product, k, transf(params.get(name)))
+		product.fromDB(None)
+		pool.product = product
+		pool.region = params.get('og:location') or params.get('lang') or params.get('language') or 'de'
+		return pool
+		
+	
 	

@@ -1,4 +1,4 @@
-import logging, simplejson, formencode, urlparse
+import logging, simplejson, formencode, urlparse, urllib2
 from datetime import date, timedelta, datetime
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
@@ -18,10 +18,10 @@ log = logging.getLogger(__name__)
 
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
-	
-	
 	def bounce(self):
-		return '<html><head></head><body style="background:white">%s</body></html>' % unicode(request.params)
+		websession['pool'] = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
+		c.pool = websession['pool']
+		return self.render('/index_popup.html')
 	
 	@logged_in()
 	def select(self, pool_url):

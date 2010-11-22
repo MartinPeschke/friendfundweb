@@ -3,15 +3,16 @@ body.claro {
 	margin: 0px;
 	text-align: center;
 	font-size:12px;
-	background-color: #333333;
 	font-family:Arial, Helvetica, Jamrul, sans-serif;
 }
 div#outercontainer {
 	width:100%;
 	padding: 0px 0px 30px 0px !important ;
-	background: white url(../imgs/body_bg.png) 0 0 repeat-x !important;
 	float:left;
+	background: white url(../imgs/body_bg.png) 0 0 repeat-x !important;
 }
+
+body.popup div#outercontainer {background:none;}
 
 img {border: 0px transparent solid;}
 hr {	clear: both;}
@@ -92,6 +93,7 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	position: relative;
 	width: 980px;
 }
+body.popup #container {width:auto}
 #headercontainer {
 	background:url(/static/imgs/header/header_bg.png) 0px 0px repeat-y;
 	position: relative;
@@ -99,13 +101,11 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	width: 100%
 }
 #body_outer_container {
-	background-color: #ffffff;
 	position: relative;
 	clear: both;
 }
 #body_container {
 	clear:both;
-	background-color: #ffffff;
 	display: block;
 	padding: 0px;
 	position: relative;
@@ -540,7 +540,7 @@ a.methodselector.selected span {background:url("../imgs/inputfield.png?20101117"
 
 
 div#lowerbody_container.fullbackground{background-color: #fabb00;}
-div#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
+div#lowerbody_container.fullbackgroundwhite{padding-top: 1px;}
 div#lowerbody {margin: 30px;}
 #lowerbody_container {
 	position: relative;
@@ -548,7 +548,6 @@ div#lowerbody {margin: 30px;}
 	width: 980px;
 	margin-top: 20px;
 	float: left;
-	background: white ;
 	padding-bottom: 30px
 }
 
@@ -586,7 +585,7 @@ div#lowerbody {margin: 30px;}
 }
 #friend_list {position:relative;}
 #friend_list.emailpopup {clear:both;}
-#friend_list.fb {background:none repeat scroll 0 0 white;height:445px;margin:0 15px 15px;overflow:auto;}
+#friend_list.fb {background:none repeat scroll 0 0 white;height:185px;margin:0 15px 15px;overflow:auto;}
 
 #friend_list.inviteelist {
 	background-color:#FFFFFF;

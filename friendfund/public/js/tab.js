@@ -308,7 +308,7 @@ FriendFund.Popup = {
 	  display: block;\
 	  text-align: left;\
 	  margin: -2em auto 0 auto;\
-	  position: fixed; \
+	  position: absolute; \
 	}\
 	\
 	#FriendFund_overlay {\
@@ -469,7 +469,7 @@ FriendFund.Popin = {
         }
     },
     getContext: function () {
-        var context = {dialog: 'popin',width: '850px',height: '530px',lang: 'en'};
+        var context = {dialog: 'popin',width: '980px',height: '693px',lang: 'en'};
         for (attr in this.options) {context[attr] = this.options[attr];};
         context.url = this.url();
         context.params.lang = this.options.lang;
@@ -484,7 +484,7 @@ FriendFund.Popin = {
         }
         return referer;
     },
-    url: function () {return 'http://martin:thebard43@js.friendfund.de/product/bounce';}
+    url: function () {return 'http://js.friendfund.de/product/bounce';}
 };
 
 FriendFund.Button = {
@@ -493,9 +493,23 @@ FriendFund.Button = {
 	css_template: "#${button_id} {margin: 10px;width: auto} #${button_id}\
 					.friendfundButton{pointer:cursor;margin:10px auto;color:white;width:143px;height:32px;\
 					background:url(http://js.friendfund.de/static/imgs/button_logo.png) no-repeat 0 0 white;display:block}",
+	fixed_css_template: "#${button_id} {position:fixed;right:0px;top:${top};width:32px;height:143px;} #${button_id}\
+					.friendfundButton{pointer:cursor;color:white;width:32px;height:143px;\
+					background:url(http://js.friendfund.de/static/imgs/button_logo_vert.png) no-repeat 0 0 white;display:block}",
+	
 	show: function (options) {
 		FriendFund.Popin.setup(options);
 		this.button_id = options.button_id || this.button_id;
+		if(!document.getElementById(this.button_id)){
+			var bc = document.createElement('div');bc.id=this.button_id;
+			document.body.insertBefore(bc, document.body.firstChild);
+			
+			var pageDimensions = FriendFund.Page.getDimensions();
+			var computedTop = ((pageDimensions.height - 143) / 2);
+			options.css_template = FriendFund.Util.render(this.fixed_css_template, {top:Math.max(computedTop, 55) + "px"});
+		}else{
+			options.css_template = this.css_template;
+		}
 		var button = document.createElement('A');
 		button.id = "friendfund_button";
 		button.className="friendfundButton";

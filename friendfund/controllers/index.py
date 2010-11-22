@@ -24,6 +24,7 @@ class IndexController(BaseController):
 	navposition=g.globalnav[0][2]
 	ra_total_page_size = 50
 	ra_page_size = 5
+	
 	def index(self):
 		c.recent_activity = g.dbm.get(RecentActivityStream)
 		c.ra_offset = self.ra_page_size
