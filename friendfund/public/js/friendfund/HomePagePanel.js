@@ -112,7 +112,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		params.date = dojo.byId("occasion_date").value;
 		params.key = dojo.byId("occasion_key").value;
 		params.name = dojo.byId("occasion_name").value;
-		params.dob = dojo.byId("receiver_dob").value;
+		params.dob = dojo.byId("receiver_dob")&&dojo.byId("receiver_dob").value||"";
 		loadElement("/occasion/panel", _t.ref_node, params, dojo.hitch(null, _t.occLoaded, _t));
 		return false;
 	},occLoaded: function(_t){
