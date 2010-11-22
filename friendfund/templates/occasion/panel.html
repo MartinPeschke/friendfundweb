@@ -10,21 +10,22 @@ from datetime import date, timedelta
 	<div class="TabsContainer"><a _type="recommended_tab" class="methodselector ajaxlink selected "><span>${_("EVENT_PANEL_Select an Event")}</span></a></div>
 	<a class="button_panel_closer">&nbsp;</a>
 	${html.clearline()|n}
-		<div id="occasion_button_bar">
-%for occ in c.olist:
-	<a href="#" class="occasion_panel_button">
-		<div class="selector ${c.key != occ.key and ' ' or 'selected'}" imgurl="/static/imgs/${occ.picture_url}" custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}">
-			<img src="/static/imgs/${occ.picture_url}"/>
-			<div class="label">
-			%if occ.custom:
-				${forms.black_input_text(occ.key, "name", value=c.name, default=_("EVENT_PANEL_Just because..."), width=106)}
-			%else:
-				${occ.get_display_name()}
-			%endif
-			</div>
-		</div>
-	</a>
-%endfor
+	<div id="occasion_button_bar">
+		%for occ in c.olist:
+			<a href="#" class="occasion_panel_button">
+				<div class="selector ${c.key != occ.key and ' ' or 'selected'}" imgurl="/static/imgs/${occ.picture_url}" 
+					custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}">
+					<img src="/static/imgs/${occ.picture_url}"/>
+					<div class="label">
+					%if occ.custom:
+						${forms.black_input_text(occ.key, "name", value=c.name, default=_("EVENT_PANEL_Just because..."), width=106)}
+					%else:
+						${occ.get_display_name()}
+					%endif
+					</div>
+				</div>
+			</a>
+		%endfor
 	</div>
 	${html.clearline()|n}
 	<div id="occasion_date_input_bar">

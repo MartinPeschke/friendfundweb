@@ -18,7 +18,14 @@ class OccasionController(BaseController):
 	
 	@jsonify
 	def panel(self):
+		print request.params
 		c.lower_limit_date = h.format_date_internal(datetime.date.today() + datetime.timedelta(1))
+		
+		try:
+			dob = datetime.datetime.strptime(request.params.get('dob', "").split()[0], '%Y-%m-%d').date()
+		except:
+			dob = None
+		print dob
 		try:
 			c.date = datetime.datetime.strptime(request.params.get('date', None), '%Y-%m-%d').date()
 		except:
@@ -26,6 +33,9 @@ class OccasionController(BaseController):
 		c.key = request.params.get('key')
 		c.name = request.params.get('name')
 		c.olist = g.dbsearch.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		bday = filter(lambda x:x.key == 'EVENT_BIRTHDAY', c.olist)
+		if dob and len(bday):
+			bday[0].date = dob
 		result = {'clearmessage':True, 'html':render('/occasion/panel.html').strip()}
 		return result
 	
