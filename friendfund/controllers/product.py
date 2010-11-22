@@ -19,6 +19,10 @@ log = logging.getLogger(__name__)
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
 	
+	
+	def bounce(self):
+		return '<html><head></head><body style="background:white">%s</body></html>' % unicode(request.params)
+	
 	@logged_in()
 	def select(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
