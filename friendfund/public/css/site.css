@@ -14,7 +14,6 @@ div#outercontainer {
 }
 div#outercontainer_themed {
 	width:100%;
-	padding: 0px 0px 30px 0px !important ;
 	background: transparent url(../imgs/themes/christmas/bg.png) 0 0 repeat !important;
 	float:left;
 }
@@ -134,11 +133,8 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	font-size: 11px;
 	line-height: 11px
 }
-#loginpanel a.login_loginlink img{
-	position: relative;
-	top: 5px;
-	padding-left:10px;
-}
+a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif}
+a.login_loginlink img, a.loginlink img{position: relative;top: 5px;padding-left:10px;}
 #login_panel_profile_pic {
 	width: 30px;
 	height: 30px;
@@ -548,15 +544,7 @@ a.methodselector.selected span {background:url("../imgs/inputfield.png?20101123"
 div#lowerbody_container.fullbackground{background-color: #BBE3F7;}
 div#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
 div#lowerbody {margin: 30px;}
-#lowerbody_container {
-	position: relative;
-	margin: 30px 0px 0px;
-	width: 980px;
-	margin-top: 20px;
-	float: left;
-	background: white ;
-	padding-bottom: 30px
-}
+#lowerbody_container {background:none repeat scroll 0 0 white;border-top:1px solid #BBE3F7;float:left;margin:20px 30px;position:relative;width:920px;}
 
 #receiver_selector_container #inviteheader div.headline {margin:20px;}
 #inviter #inviteheader div.headline {}
@@ -1314,3 +1302,94 @@ div#scrollingproductsuggestions {
 .productSorterWidth .halfWidth {width:395px;margin:5px 0px;float:left;padding:10px 20px;background:white;}
 .productSorterWidth .label {margin: 15px 0px 15px;}
 .productSorterWidth img {margin: 0px 0px 15px;}
+
+
+
+
+
+
+
+/*=========================================== POOL HEADER ==========================================*/
+
+#pool_pool_panel{
+	position: relative;
+	color: #333;
+	margin: 0px 30px;
+	padding-bottom:30px;
+	float:left;
+}
+#pool_pool_panel a{ color: #C11164}
+
+#pool_pool_panel .pool_content {float:left;margin:30px 90px;width:740px;}
+#pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;position:relative;width:162px;height:210px}
+#pool_pool_panel .pool_content  .picture_area{background:white;border:1px solid #EEEEEE;text-align:center;top:-5px;position:absolute;width:160px;height:213px}
+#pool_pool_panel .receiver_picture{float:left;}
+#pool_pool_panel .product{float:right;}
+#pool_pool_panel .picture_area img{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
+#pool_pool_panel .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
+#pool_pool_panel .picture_area .product_more{position:absolute;bottom:5px;right:5px;}
+
+
+
+#pool_pool_panel div.heading{
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 36px;
+	width: 470px;
+	padding-top: 18px;
+	min-height: 255px;
+	margin: 0 auto
+}
+#pool_pool_panel div.heading div.heading_text{
+ 	max-height:220px;
+	overflow:hidden;
+	position:relative;
+	text-align:center;
+}
+
+
+
+#pool_pool_panel div.lower_forward_page{
+	bottom:-25px;
+	height:25px;
+	position:absolute;
+	right:24px;
+	width:120px;
+	background-color: #BBE3F7;
+}
+#pool_pool_panel div.gotopage_text_left_bracket  {
+	background: url(/static/imgs/gotopage_lower_bg.png) 0 0 no-repeat;
+	position: absolute;
+	left: -25px;
+	height: 25px;
+	width: 25px;
+	top: 0px;
+}
+#pool_pool_panel div.gotopage_text_right_bracket  {
+	background: url("/static/imgs/gotopage_lower_bg.png") no-repeat scroll -20px 0 transparent;
+	height:25px;
+	position:absolute;
+	right:-25px;
+	top:0;
+	width:25px;
+}
+
+#pool_pool_panel a.submitSmall {
+	position: absolute;
+	bottom:-48px;
+	right: 0px;
+}
+
+.social_tools_free {margin:0px 30px;padding:20px 0px 5px;clear:both}
+
+
+/*=========================================== COUNTER ===========================================*/
+#timeline_bar {clear:both;float:left;margin:0 30px;}
+#timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
+#timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;}
+#timeline_bar div.timeline_progressbar_bg {clear:both;height: 50px;background: url(/static/imgs/progressbar_bg.png) no-repeat left;}
+#timeline_bar div.timeline_progressbar {height: 40px;margin: 0px 5px 0px 5px;padding: 5px 0px 5px 0px;
+	background: url(/static/imgs/progressbar_progress.png) no-repeat left;}
+#timeline_bar div.legende {padding-top: 10px}
+#timeline_bar div.legende a{text-decoration: underline;text-align:right;}

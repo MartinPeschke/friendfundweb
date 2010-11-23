@@ -108,11 +108,11 @@ def format_currency(number, currency, extended = False):
 def format_number(number):
 	return fdec(number, locale=websession['lang'])
 
-def format_date(date, with_time = False):
+def format_date(date, with_time = False, format="medium"):
 	if with_time:
-		return fdatetime(date, locale=websession['lang'])
+		return fdatetime(date, format=format, locale=websession['lang'])
 	else:
-		return fdate(date, locale=websession['lang'])
+		return fdate(date, format=format, locale=websession['lang'])
 
 def format_date_internal(date):
 	return date.strftime('%Y-%m-%d')

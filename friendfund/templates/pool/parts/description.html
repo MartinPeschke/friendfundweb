@@ -19,9 +19,11 @@
 
 <%def name="view(pool)">
 	<div id="description_editor">
+		<span class="triangle bluetriangle"></span>
 		%if pool.am_i_admin(c.user):
 		<div class="editIcon" onclick="loadElement('${url(controller='pool', pool_url=pool.p_url, action='edit_description')}', 'description_editor', {});"></div>
 		%endif
-		<div class="admin">${pool.admin.name}:</div>${pool.description}
+		<div class="bold">${pool.admin.name} ${_("POOL_PAGE_DESCRIPTON_(Pool Admin)")|n}</div>
+		<div style="padding-top:5px;">${pool.description}</div>
 	</div>
 </%def>

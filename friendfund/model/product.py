@@ -60,6 +60,12 @@ class Product(DBMappedObject):
 	def get_product_pic(self, type="POOL"):
 		return h.get_product_picture(self.product_picture_url, type)
 	
+	def get_display_name(self):
+		if self.is_pending:
+			return _("PENDING_PRODUCT_NAME")
+		else:
+			return h.word_truncate_plain(self.name.title(), 2)
+	
 	def get_display_label(self, extended = True):
 		if self.is_pending:
 			return _("PENDING_PRODUCT_NAME")

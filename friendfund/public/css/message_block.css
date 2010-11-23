@@ -5,6 +5,14 @@ a, a:visited, a:link, a:hover {
 }
 a.somelink {	color: #333;}
 
+.underlined1 {border-bottom:1px solid #BBe3F7;}
+.underlined2 {border-bottom:2px solid #BBe3F7;}
+.vertNoPadding {padding: 0px 30px 15px 30px;}
+.vertHalfPadding {padding: 15px 30px 15px 30px;}
+.horFullPadding {padding: 0px 30px 0px 30px;}
+.textCenter {text-align:center}
+
+.bold {font-weight:bold}
 /*-------------------------------- BUTTONS ------------------------------------*/
 .BtnRed {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -1145px transparent;
 	bottom:0;
@@ -105,8 +113,13 @@ a.somelink {	color: #333;}
 
 .submitMini {padding-right:15px;text-align:right;cursor:pointer;position:relative;}
 .submitMini span{background:url("../imgs/inputfield.png?20101123") no-repeat scroll -304px -4px transparent;
-	position:absolute;right:0px;display:block;height:15px;width:10px;top:0px;}
+	position:absolute;right:0px;display:block;height:15px;width:10px;top:2px;}
 .submitMini:hover span{background-position:-285px -4px}
+
+.submitExtraMini {padding-right:8px;text-align:right;cursor:pointer;position:relative;}
+.submitExtraMini span{background:url("../imgs/inputfield.png?20101123") no-repeat scroll -381px -3px transparent;
+	position:absolute;right:0px;display:block;height:15px;width:5px;top:2px;}
+.submitExtraMini:hover span{background-position:-376px -3px}
 
 
 
@@ -172,6 +185,56 @@ a.red_labeled_container:hover {background-position:100% -43px;}
 a.red_labeled_container:hover span {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -1178px transparent;}
 .inactive {background-position:100% -545px !important;}
 .inactive span {background-position:0 -490px !important;}
+
+
+
+
+
+/*=========================================== COUNTER ===========================================*/
+#countdown {margin-left:90px;}
+#countdown div.countdown_days, #countdown div.countdown_hours{position: relative;float: left;}
+div.counter_container{float: left;text-align: center;margin: 0px;}
+
+div.counter_container div.subscript{float: left;font-size: 14px;margin: 11px;font-family:"Trebuchet MS";font-weight:bold;}
+div.counter{float:left;
+	color: white;
+	display: inline;
+	position: relative;
+	height: 40px;
+	font-size: 32px;
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-style: normal;
+}
+.counter_number{	background:url(/static/imgs/countdown_middle.png) 0 0 repeat-x;
+}
+div.counter div.counter_left {
+	background:url(/static/imgs/countdown_left.png) no-repeat top left;
+	width: 4px;height:39px;position:absolute;top:0px;left:-4px;
+}
+div.counter div.counter_right{
+	background:url(/static/imgs/countdown_right.png) no-repeat top right;
+	width: 4px;height:39px;position:absolute;top:0px;right:-4px;
+}
+
+div.counter hr{
+	position: absolute;
+	left: 2px;					/* for left position in WebKit only */
+	top: 0px;
+	margin: 20px 0px 0px 0px;			/* for left position in IE and WebKit */
+	display: inline;			/* for left position in FF only */
+	line-height: 1px; height: 1px;
+	border: 0px solid transparent;
+	background-color: black; 	/* for FF/WebKit */
+	color: black; 				/* for IE */
+	width:100%;		/* necessary for FF/WebKit so line width does not collapse */
+}
+
+
+
+
+
+
 
 /*-------------------------------- black_labeled_input ------------------------------------*/
 
@@ -398,7 +461,8 @@ div.black_labeled_container_big .black_labeled_input {
 	font-size: 28px;
 	color: #5a4129;
 	position: relative;
-	padding: 20px 30px 20px 30px;
+	padding: 20px 0px 10px 0px;
+	margin: 0px 30px 0px 30px;
 	z-index:1
 }
 #page_slogan .emphasis{
@@ -444,7 +508,7 @@ a.panel_closer {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	position: relative;
-	margin-right: 30px;
+	margin: 0px 30px 15px 0px;
 	min-height:75px;
 	height:auto !important;  /* für moderne Browser */
 	height:75px;  /*für den IE */
@@ -456,241 +520,14 @@ a.panel_closer {
 #pool_admin_slogan div.slogan {
 	margin: 10px;
 }
-#pool_admin_slogan div.admin {
-	display: inline;
-	font-weight: bold;
-}
 
-/*=========================================== POOL HEADER ==========================================*/
-
-#pool_pool_panel{
-	position: relative;
-	background-color: #BBE3F7;
-	color: #333;
-	margin: 15px 0px;
-	width: 920px;
-	margin-left: 30px
-}
-#pool_pool_panel a{ color: #C11164}
-
-#pool_pool_panel div.receiver_picture{
-	font-family: Arial, Helvetica, sans-serif;
-	position: absolute;
-	width: 170px;
-	min-width: 100px;
-	min-height: 200px;
-	padding: 18px 0 0 18px;
-	left: 0; top: 0;
-}
-#pool_pool_panel div.receiver_picture img{
-	position: relative;
-	width: 170px;
-	min-height: 200px;
-}
-#pool_pool_panel div.receiver_picture div.receiver_name{
-	font-size: 11px;
-	width: 120px;
-}
-
-#pool_pool_panel div.heading{
-	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-	font-style: italic;
-	font-weight: bold;
-	font-size: 36px;
-	width: 470px;
-	padding-top: 18px;
-	min-height: 255px;
-	margin: 0 auto
-}
-#pool_pool_panel div.heading div.heading_text{
- 	max-height:220px;
-	overflow:hidden;
-	position:relative;
-	text-align:center;
-}
-
-
-
-#pool_pool_panel div.product{
-	font-family: Arial, Helvetica, sans-serif;
-	position: absolute;
-	width: 170px;
-	padding: 18px 18px 0 0;
-	min-height: 200px;
-	right: 0;
-	top:0
-}
-#pool_pool_panel div.product img{
-	position: relative;
-	width: 170px;
-	height: 200px;
-}
-#pool_pool_panel div.product div.product_name{
-	font-size: 11px;
-	position: relative;
-	width: 170px;
-}
-#pool_pool_panel div.product a.product_more{
-	font-size: 11px;
-	position: relative;
-	width: 170px;
-}
-
-
-#pool_pool_panel div.lower_forward_page{
-	bottom:-25px;
-	height:25px;
-	position:absolute;
-	right:24px;
-	width:120px;
-	background-color: #BBE3F7;
-}
-#pool_pool_panel div.gotopage_text_left_bracket  {
-	background: url(/static/imgs/gotopage_lower_bg.png) 0 0 no-repeat;
-	position: absolute;
-	left: -25px;
-	height: 25px;
-	width: 25px;
-	top: 0px;
-}
-#pool_pool_panel div.gotopage_text_right_bracket  {
-	background: url("/static/imgs/gotopage_lower_bg.png") no-repeat scroll -20px 0 transparent;
-	height:25px;
-	position:absolute;
-	right:-25px;
-	top:0;
-	width:25px;
-}
-
-#pool_pool_panel a.submitSmall {
-	position: absolute;
-	bottom:-48px;
-	right: 0px;
-}
-
-
-/*=========================================== COUNTER ===========================================*/
-
-#countdown{
-	width: 205px;
-	margin:0 auto;
-}
-#countdown div.countdown_days, #countdown div.countdown_hours{
-	position: relative;
-	float: left;
-	margin: 25px 10px 0px 10px;
-}
-div.counter_container{
-	text-align: center;
-	margin: 0px;
-}
-
-div.counter_container div.subscript{
-	font-size: 16px;
-	margin: 0px;
-}
-div.counter{
-	color: white;
-	display: inline;
-	position: relative;
-	height: 40px;
-	font-size: 32px;
-	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-	font-weight: bold;
-	font-style: normal;
-}
-.counter_number{	background:url(/static/imgs/countdown_middle.png) 0 0 repeat-x;
-}
-div.counter div.counter_left {
-	background:url(/static/imgs/countdown_left.png) no-repeat top left;
-	width: 4px;height:39px;position:absolute;top:0px;left:-4px;
-}
-div.counter div.counter_right{
-	background:url(/static/imgs/countdown_right.png) no-repeat top right;
-	width: 4px;height:39px;position:absolute;top:0px;right:-4px;
-}
-
-div.counter hr{
-	position: absolute;
-	left: 2px;					/* for left position in WebKit only */
-	top: 0px;
-	margin: 20px 0px 0px 0px;			/* for left position in IE and WebKit */
-	display: inline;			/* for left position in FF only */
-	line-height: 1px; height: 1px;
-	border: 0px solid transparent;
-	background-color: black; 	/* for FF/WebKit */
-	color: black; 				/* for IE */
-	width:100%;		/* necessary for FF/WebKit so line width does not collapse */
-}
-
-/*=========================================== COUNTER ===========================================*/
-#timeline_bar {
-	float:left;
-	font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
-	font-size:20px;
-	font-style:italic;
-	font-weight:bold;
-	padding-bottom:20px;
-	padding-left:200px;
-	padding-top:35px;
-	position:relative;
-	text-align:center;
-}
-#timeline_bar div.timeline {
-	position: relative;
-	margin: 0px 50px;
-	text-align: left;
-	font-size: 15px;
-	width:450px;
-}
-#timeline_bar div.timeline_progressbar_bg {
-	position: relative;
-	height: 35px;
-	text-align: left;
-	background: url(/static/imgs/progressbar_bg.png) no-repeat left;
-}
-#timeline_bar div.timeline_progressbar {
-	position: relative;
-	height: 35px;
-	margin: 4px 5px 4px 5px;
-	background: url(/static/imgs/progressbar_progress.png) no-repeat left;
-}
-#timeline_bar div.lower_limit {
-	margin-left:-55px;
-	position:absolute;
-	text-align:right;
-	top:18px;
-	width:50px;
-}
-#timeline_bar div.upper_limit {
-	margin-left:455px;
-	position:absolute;
-	text-align:left;
-	top:18px;
-	width:100px;
-}
-#timeline_bar div.legende {
-	text-align: right;
-	font-size: 11px;
-	font-weight: normal;
-	font-style: normal;
-	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 10px
-}
-#timeline_bar div.legende a{
-	text-decoration: underline;
-	text-align:right;
-}
 
 /*=========================================== Contributors ===========================================*/
-#pool_contributors{position: relative;width: 920px;margin-left: 30px;clear:both;}
-#pool_contributors div.heading{margin: 30px 0px 10px 0px;color: #333;font-size: 20px;font-weight: bold;font-family:Trebuchet MS, Arial, Helvetica, sans-serif;}
-.pcont_body .contributor_leftcol{position: relative;	width: 330px;float: left;}
-.pcont_body .contributor_rightcol{position: relative;width: 330px;float: right;}
-.pcont_body .contributor{position: relative;height: 85px;width: 330px;margin: 0px 0px 15px 0px;background-color: #bbe3f7;}
+#pool_contributors{margin-left: 30px;float:left}
+.pcont_body .contributor{position: relative;height: 85px;width: 286px;margin: 0px 30px 15px 0px;background-color: #bbe3f7;float: left}
 .pcont_body img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 5px;}
-.pcont_body .contributor_name{position: relative;padding: 5px;}
-.pcont_body .contributor_amount {float: right;margin-top: 10px;padding-right: 10px;font-weight: bold;font-size: 18px;font-family: Arial, Helvetica, sans-serif;}
+.pcont_body .contributor_name{position: relative;padding: 5px;font-weight:bold;}
+.pcont_body .contributor_contributed{background:url("../imgs/inputfield.png?20101123") no-repeat scroll -395px -4px transparent;display:block;height:24px;position:absolute;right:-4px;top:-3px;width:26px;}
 
 /*============================ CONTRIBUTOR ==========================*/
 
@@ -975,11 +812,11 @@ div#successtream div.panel_content_no_padding {clear:both;position: relative;mar
 
 
 
-div#lowerbody div.heading {
+div#lowerbody_container div.heading {
 	position: relative;margin: 7px 0px 5px 0px;line-height: 28px;
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; font-size: 28px;}
 
-div#lowerbody div.comment {
+div#lowerbody_container div.comment {
 	position: relative;
 	height: 50px;
 	margin: 15px 0px 0px;
@@ -989,25 +826,25 @@ div#lowerbody div.comment {
 	font-family: Arial, Helvetica, sans-serif;
 	padding: 5px;
 }
-div#lowerbody div.comment img.comment_author{
+div#lowerbody_container div.comment img.comment_author{
 	position: relative;
 	float: left;
 	width: 50px;
 	height: 50px;
 }
-div#lowerbody div.comment div.comment_text {
+div#lowerbody_container div.comment div.comment_text {
 	position: relative;
 	left: 10px;
 	margin: 0px 10px;
 }
-div#lowerbody div.comment div.comment_author{
+div#lowerbody_container div.comment div.comment_author{
 	display: block;
 	line-height: 13px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bold;
 }
 
-div#lowerbody div.comment_input_panel{
+div#lowerbody_container div.comment_input_panel{
 	line-height: 20px;
 	margin-top: 15px;
 	margin-bottom: 10px;
@@ -1015,12 +852,7 @@ div#lowerbody div.comment_input_panel{
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
 
-div#lowerbody textarea.comment_text_input {
-	border: 15px solid #BBE3F7;
-	height:50px;
-	margin-bottom:15px;
-	width:890px;
-}
+div#lowerbody_container textarea.comment_text_input {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin-bottom:15px;width:890px;}
 
 /* ========================POOL SETTINGS ====================== */
 
@@ -1240,7 +1072,7 @@ div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc
 .rcptProductText .rcptProductTextBody {margin:10px 0 0 0 ;}
 
 .triangle {position:absolute;display:block;width:10px;height:20px;top:10px;left:-10px;background:url("../imgs/inputfield.png?20101123") no-repeat scroll -320px 0px transparent;}
-.ctrbrText .triangle{background-position:-344px 0px;}
+.triangle.bluetriangle{background-position:-344px 0px;}
 
 .rcptRibbon {background:url("../imgs/pool_result_ribbon.png") no-repeat scroll 0 0 transparent;height:163px;position:absolute;right:-9px;top:-22px;width:288px;z-index:2;}
 

@@ -90,6 +90,9 @@ class Occasion(DBMappedObject):
 			,GenericAttrib(str,'picture_url', 'picture_url')
 			,GenericAttrib(bool,'custom', 'custom')
 			]
+			
+	def get_display_date(self):
+		return h.format_date(self.date)
 	def get_display_name(self):
 		return self.name or (self.key and _(self.key)) or ''
 	def get_display_label(self):
