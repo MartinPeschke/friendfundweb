@@ -182,7 +182,6 @@ class PoolUser(DBMappedObject):
 	
 	@classmethod
 	def fromMap(cls, params):
-		print params
 		params['is_selector'] = strbool.to_python(params.get('is_selector'))
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
