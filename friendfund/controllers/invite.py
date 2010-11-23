@@ -1,4 +1,4 @@
-import logging, urllib, urllib2, simplejson, formencode, datetime
+import logging, urllib, urllib2, simplejson, formencode, datetime, types
 from collections import deque
 from ordereddict import OrderedDict
 
@@ -108,23 +108,22 @@ class InviteController(BaseController):
 		pool.is_secret = request.params.get("is_secret", False)
 		pool.description = request.params['description']
 		
+		
 		#determine state of permissions and require missing ones
-		perms_required = False
-		if checkadd_block('email'):
-			perms_required = True
+		perms_required = checkadd_block('email') # true if email is required and missing
 		if invitees is not None:
-			has_fb_invitees = False
+			has_stream_publish_invitees = False
+			has_create_event_invitees = False
 			for inv in invitees or []:
-				if isinstance(inv, dict) and 'network' in inv:
-					if inv['network'].lower() == 'facebook': 
-						has_fb_invitees = True
-						break
+				if isinstance(inv, (types.DictType, OrderedDict)) and 'network' in inv:
+					if inv['notification_method'] == 'STREAM_PUBLISH': 
+						has_stream_publish_invitees = True
+					elif inv['notification_method'] == 'CREATE_EVENT': 
+						has_create_event_invitees = True
 				else:
 					log.warn("ADDINVITEES: found non dict invitee: %s", unicode(inv).encode("latin-1","xmlcharrefreplace"))
-			if (has_fb_invitees and checkadd_block('create_event')):
-				perms_required = True
-			else:
-				remove_block('create_event')
+			perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event')) or \
+							 (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub'))
 		if perms_required:
 			c.enforce_blocks = True
 			c.invitees = {}
@@ -140,8 +139,10 @@ class InviteController(BaseController):
 		if invitees is not None:
 			fb_invitees = {}
 			
-			if len(list(inv for inv in invitees if inv['network'].lower() == 'facebook')):
+			if len([inv for inv in invitees if inv['notification_method'] == 'CREATE_EVENT']):
 				event_id = self.create_event(pool)
+			else:
+				event_id = None
 			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
 							, p_url = pool.p_url
 							, event_id = event_id

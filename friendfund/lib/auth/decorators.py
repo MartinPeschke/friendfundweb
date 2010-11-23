@@ -31,10 +31,10 @@ def post_only(ajax = False):
 			return func(self, *args, **kwargs)
 	return decorator(validate)
 
-	
-	
-	
-	
+
+
+
+
 from pylons import request, session as websession, tmpl_context as c
 
 BLOCKS = {
