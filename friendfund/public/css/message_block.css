@@ -10,7 +10,8 @@ a.somelink {	color: #333;}
 .underlined2 {border-bottom:2px solid #BBe3F7;}
 .vertNoPadding {padding: 0px 30px 15px 30px;}
 .vertHalfPadding {padding: 15px 30px 15px 30px;}
-.horFullPadding {padding: 0px 30px 0px 30px;}
+.horFullPadding {padding: 0px 30px;}
+.fullPadding {padding: 30px;}
 .textCenter {text-align:center}
 
 .marginTop{margin-top:30px;}
@@ -520,9 +521,8 @@ a.panel_closer {
 	background-color: #BBE3F7;
 	line-height: 140%;
 }
-#pool_admin_slogan div.slogan {
-	margin: 10px;
-}
+#pool_admin_slogan .slogan {margin: 10px;}
+#pool_admin_slogan .sloganText {padding-top:5px;font-size: 12px;}
 
 
 /*=========================================== Contributors ===========================================*/
@@ -641,7 +641,7 @@ a.buttonChipIn{
 	text-align:center;
 	width:140px;
 	float: none;
-	margin: 30px auto 15px auto
+	margin: 15px auto 15px auto
 }
 a.buttonChipIn.de_de, a.buttonChipIn.es_es{width:190px;}
 a.buttonChipIn.poolaction{width:190px;}
@@ -983,7 +983,7 @@ span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; pad
 #contributioncontainer .radioContainer input, #contributioncontainer .radioContainer2 input, #contributioncontainer .payement_method input{ margin: 0; height: 13px}
 #contributioncontainer .radioContainer label, #contributioncontainer .radioContainer2 label,  #contributioncontainer .payement_method label{ display: inline}
 .radioContainer2 div{ padding-bottom: 3px} 
-#chipin_message{ width: 380px; margin-bottom: 20px;float:left}
+#chipin_message{ width: 350px; float:left}
 #chipin_message_remLen{float:left;text-align:right;width:25px;margin:0 0px 0px 10px !important;}
 
 .heightAuto{ height: auto !important}
@@ -1075,6 +1075,7 @@ div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc
 .rcptProductText .rcptProductTextBody {margin:10px 0 0 0 ;}
 
 .triangle {position:absolute;display:block;width:10px;height:20px;top:10px;left:-10px;background:url("../imgs/inputfield.png?20101123") no-repeat scroll -320px 0px transparent;}
+.bottomYellowTriangle {position:absolute;display:block;width:20px;height:10px;bottom:-10px;margin:0px auto;background:url("../imgs/inputfield.png?20101123") no-repeat scroll -320px -10px transparent;}
 .triangle.bluetriangle{background-position:-344px 0px;}
 
 .rcptRibbon {background:url("../imgs/pool_result_ribbon.png") no-repeat scroll 0 0 transparent;height:163px;position:absolute;right:-9px;top:-22px;width:288px;z-index:2;}

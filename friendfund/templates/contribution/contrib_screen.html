@@ -42,11 +42,11 @@
 		<div class="whiteBoxSmall floaterLeft">
 			<div class="floaterLeft marginRight30">
 			<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
-			<textarea wrap=physical cols="30" rows="3" 
+			<textarea cols="30" rows="4" wrap="soft"
 							onKeyDown="textCounter(this,this.form.remLen,140);" 
 							onKeyUp="textCounter(this,this.form.remLen,140);" 
 							name="chipin.message" id="chipin_message">${c.chipin_values.get("message", c.pool.get_my_message(c.user))}</textarea>
-			<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user) or ''))}"> 
+			<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> 
 			</div>
 			%if not c.paymentpage.is_virtual:
 			<div class="floaterLeft"> 

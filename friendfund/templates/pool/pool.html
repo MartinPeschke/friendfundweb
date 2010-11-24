@@ -119,17 +119,13 @@ ${html.clearline()|n}
 				%if c.pool.am_i_contributor(c.user):
 					<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
 				%else:
-					<div class="centered">
-						<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
-					</div>
+					<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 					<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/> 
 						<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
 					</a>
 				%endif
 			%else:
-				<div class="centered">
-					<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
-				</div>
+				<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 				<img src="/static/imgs/icons_paymethod.png"/>
 			%endif
 			
@@ -143,7 +139,8 @@ ${html.clearline()|n}
 				<div class="floaterRight limit">${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}</div>
 				<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
 				
-				<div class="timeline_progressbar_bg"><div style="width: ${(860 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;" class="timeline_progressbar"></div></div>
+				<div class="timeline_progressbar_bg"><div style="width: ${(850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;" class="timeline_progressbar"></div>
+				<div class="tooltip" style="left:${(850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;">${locals.get("amount_contributed")}<span class="bottomYellowTriangle"></span></div></div>
 				
 				<div class="legende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
 				<div class="legende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
@@ -180,7 +177,7 @@ ${html.clearline()|n}
 </div>
 
 
-<div id="lowerbody_container">
+<div id="lowerbody_container" style="margin: 10px 30px 30px;width:920px;">
 	<div id="lowerbody_content"><a name="comments">&nbsp;</a>
 		${html.clearline()|n}
 		<div class="heading">${_("POOL_CHAT_Fund Chat")}</div>
