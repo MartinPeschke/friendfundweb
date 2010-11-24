@@ -24,7 +24,8 @@ checkForward = function(){
 
 fbInit = function(app_id, has_prev_tried_logging_in) {
 	window.fbAsyncInit = function() {
-		FB.init({appId  : app_id,status : true,cookie : true,xfbml  : false});
+		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
+		FB.init({appId  : app_id,status : true,cookie : true,xfbml  : false, channelUrl:channelUrl});
 		FB.Event.subscribe('auth.sessionChange', fbSessionChange);
 		if(!has_prev_tried_logging_in && FB.getSession()){
 			FB.api("/me", function(response) {loadElement("/fb/login", "accountcontainer", response, page_reloader);});

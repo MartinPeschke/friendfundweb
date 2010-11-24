@@ -47,7 +47,7 @@
 
 <%def name="onloadscripts()">
 	onLoadPagelets("lowerbody_container");
-	dojo.query(".popuplink", "timeline_bar").onclick(dojo.hitch(null, loadPopup));
+	dojo.query(".popuplink", "pool_pool_panel").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
 <%def name="page_slogan()">
@@ -91,8 +91,8 @@ ${html.clearline()|n}
 	<div class="pool_content">
 		<div class="picture_area_outer product">
 			<div class="picture_area product">
-				<img src="${c.pool.product.get_product_pic()}"/>
-				<div class="subtext">${c.pool.product.get_display_name()}<br/>${c.pool.product.get_display_price()}</div>
+				<img class="contentPic" src="${c.pool.product.get_product_pic()}"/>
+				<div class="subtext">${c.pool.product.get_display_name()}<br/>${c.pool.product.get_display_price()|n}</div>
 				%if c.pool.product.tracking_link:
 					<a class="submitExtraMini product_more" href="${c.pool.product.tracking_link}" target="_blank">${_("POOL_PAGE_more...")}<span></span></a>
 				%endif
@@ -101,9 +101,9 @@ ${html.clearline()|n}
 		<div class="picture_area_outer receiver_picture">
 			<div class="picture_area receiver_picture">
 				%if i_can_view:
-					<img src="${c.pool.receiver.get_profile_pic('POOL')}"/><div class="subtext">${_("POOL_PAGE_Help make %(receiver_first_name)s's day!") % locals | n}</div>
+					<img class="contentPic" src="${c.pool.receiver.get_profile_pic('POOL')}"/><div class="subtext">${_("POOL_PAGE_Help make %(receiver_first_name)s's day!") % locals | n}</div>
 				%else:
-					<img src="/static/imgs/secret_friend.png"/><div class="receiver_name">${_("POOL_PAGE_Friend")}</div>
+					<img class="contentPic" src="/static/imgs/secret_friend.png"/><div class="receiver_name">${_("POOL_PAGE_Friend")}</div>
 				%endif
 			</div>
 		</div>
@@ -122,7 +122,7 @@ ${html.clearline()|n}
 					<div class="centered">
 						<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 					</div>
-					<a class="somelink textCenter" href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}"><img src="/static/imgs/currencies/pog_large.png"/> 
+					<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/> 
 						<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
 					</a>
 				%endif
@@ -130,7 +130,7 @@ ${html.clearline()|n}
 				<div class="centered">
 					<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 				</div>
-				<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}"><img src="/static/imgs/icons_paymethod.png"/></a>
+				<img src="/static/imgs/icons_paymethod.png"/>
 			%endif
 			
 		</div>
