@@ -4,6 +4,7 @@ body.claro {
 	text-align: center;
 	font-size:12px;
 	background-color: #333333;
+	color:#333;
 	font-family:Arial, Helvetica, Jamrul, sans-serif;
 }
 div#outercontainer {
@@ -1319,6 +1320,7 @@ div#scrollingproductsuggestions {
 	float:left;
 	overflow:hidden
 }
+
 #pool_pool_panel a{ color: #C11164}
 #pool_pool_panel .pool_content {float:left;margin:30px 90px;width:740px;}
 #pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;position:relative;width:162px;height:210px}
@@ -1328,6 +1330,8 @@ div#scrollingproductsuggestions {
 #pool_pool_panel .picture_area img.contentPic{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
 #pool_pool_panel .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
 #pool_pool_panel .picture_area .product_more{position:absolute;bottom:5px;right:5px;}
+.picture_area_outer .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-30px;position:absolute;width:60px;}
+.picture_area_outer.product .icon{background-position:-121px 0;left:-40px;}
 
 
 
@@ -1390,8 +1394,13 @@ div#scrollingproductsuggestions {
 #timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;}
 #timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #FFE67D;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;padding:5px 0;position:absolute;text-align:center;top:-28px;}
 #timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;}
+
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:5px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage .bottomYellowTriangle {left:20px;}
+
+
 #timeline_bar div.timeline_progressbar_bg {position:relative;clear:both;height: 50px;background: url(/static/imgs/progressbar_bg.png) no-repeat left;}
 #timeline_bar div.timeline_progressbar {height: 40px;margin: 0px 5px 0px 5px;padding: 5px 0px 5px 0px;
 	background: url(/static/imgs/progressbar_progress.png) no-repeat left;}
 #timeline_bar div.legende {padding-top: 10px}
-#timeline_bar div.legende a{text-decoration: underline;text-align:right;}
+#timeline_bar div.legende a{text-align:right;}

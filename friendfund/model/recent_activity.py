@@ -34,6 +34,7 @@ class RecentActivityEntry(DBMappedObject):
 			, GenericAttrib(unicode, "friend_name", "friend_name")
 			, GenericAttrib(unicode, "friend_profile_picture", "friend_profile_picture")
 			, GenericAttrib(bool, "is_secret", "is_secret")
+			, GenericAttrib(bool, 'is_pending', None, persistable = False)
 			]
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
@@ -63,6 +64,8 @@ class RecentActivityEntry(DBMappedObject):
 			if diff < timedelta(0):
 				diff = timedelta(0)
 			return (diff.days, diff.seconds/3600)
+	def fromDB(self, xml):
+		self.is_pending = self.product_name.startswith( "PENDING_PRODUCT" )
 
 class RecentActivityStream(DBMappedObject):
 	_expiretime = 60

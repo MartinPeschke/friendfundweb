@@ -1,4 +1,4 @@
-import simplejson, logging, itertools, formencode, md5
+import simplejson, logging, itertools, formencode, md5, random
 
 from datetime import datetime, timedelta, date
 
@@ -123,6 +123,7 @@ class PoolUserNetwork(DBMappedObject):
 			, GenericAttrib(str,'email', 'email')]
 
 class PoolUser(DBMappedObject):
+	_possible_sexes = ['m', 'f']
 	_set_root = _get_root = 'POOLUSER'
 	_unique_keys = ['u_id', 'name']
 	_required_attribs = ['name', 'network', 'network_id']
@@ -153,7 +154,7 @@ class PoolUser(DBMappedObject):
 		else:
 			self._sex 		= sex
 	def _get_sex(self):
-		return self._sex
+		return (self._sex and self._sex == 'm' or random.choice(self._possible_sexes))
 	sex = property(_get_sex, _set_sex)
 	
 	def get_receiver_label(self):
@@ -174,7 +175,7 @@ class PoolUser(DBMappedObject):
 			else:
 				return _("CONTRIBPAGE_LABEL_A pot of gold")
 		else:
-			return h.format_currency(0, currency)
+			return ''
 	
 	def get_profile_pic(self, type="PROFILE_M"):
 		img = h.get_user_picture(self.profile_picture_url, type)

@@ -1,49 +1,20 @@
-<%inherit file="../master.html"/>
+<%inherit file="pool_master.html"/>
+
 <%namespace name="links" file="../links.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
-<%namespace name="center_button" file="parts/center_button.html"/>
 <%namespace name="description" file="parts/description.html"/>
 <%def name="title()">${_("POOL_PAGE__TITLE_Pool")}</%def>
 
-<% 
-	i_am_member = c.pool.am_i_member(c.user)
-	i_am_admin = c.pool.am_i_admin(c.user)
-	i_am_anon = c.user.is_anon
-	i_can_view = c.pool.can_i_view(c.user)
-	if i_can_view:
-		render_contributor = self.render_contributor
-	else:
-		render_contributor = self.render_contributor_secret
-	
-	daysremaining, hoursremaining = c.pool.get_remaining_days_tuple()
-	
-	locals = {"amount_contributed":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
-			"amount_left":h.format_currency(c.pool.get_amount_left(), c.pool.currency),
-			"end_date":h.format_date(c.pool.occasion.date, format="long"),
-			"number_contributors": c.pool.get_number_of_contributors(),
-			"number_invitees":len(c.pool.invitees)+1,
-			"receiver_first_name":c.pool.receiver.name.split()[0],
-			"receiver_name":c.pool.receiver.name
-			}
-%>
-
 <%def name="fb_meta_tags()">
-		<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
-		%if not c.pool.is_secret:
-			<meta property="og:title" content="${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name)])}" />
-			<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
-			<meta property="og:description" content="${c.pool.description}" />
-		%else:
-			<meta property="og:title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
-			<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
-			<meta property="og:description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
-		%endif
-		<meta property="og:type" content="product"/>
-		<meta property="og:url" content="${url.current(protocol="http")}"/>
-		<meta property="og:site_name" content="Friendfund"/>
-		<meta property="fb:app_id" content="${app_globals.FbAppID}"/>
+	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<meta property="og:title" content="${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name)])}" />
+	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<meta property="og:description" content="${c.pool.description}" />
+	<meta property="og:type" content="product"/>
+	<meta property="og:url" content="${url.current(protocol="http")}"/>
+	<meta property="og:site_name" content="Friendfund"/>
+	<meta property="fb:app_id" content="${app_globals.FbAppID}"/>
 </%def>
-
 
 <%def name="onloadscripts()">
 	onLoadPagelets("lowerbody_container");
@@ -51,154 +22,207 @@
 </%def>
 
 <%def name="page_slogan()">
-	%if c.pool.can_i_view(c.user):
-		<% locals = {'user_name':c.user.name, 'receiver_name':c.pool.receiver.name, 'occasion_name': c.pool.occasion.get_display_name(), 'admin_name':c.pool.admin.name, 'product_name':c.pool.product.get_display_name()} %>
-		<div id="page_slogan" class="underlined2">
-			${_("POOL_PAGE_SLOGAN_Hi, <span class=\"emphasis\">%(user_name)s!</span><br/>You've been invited to chip in for %(receiver_name)s %(occasion_name)s gift.") % locals|n}
-		</div>
-		<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for %(receiver_name)s's %(occasion_name)s and you've been invited to help purchase it!") % locals|n}</div>
+	<% locals = {'user_name':(c.user.name and "<span class=\"emphasis\">%s!</span>"%c.user.name) or "", 
+				'receiver_name':c.pool.receiver.name, 
+				'occasion_name': c.pool.occasion.get_display_name(), 
+				'admin_name':c.pool.admin.name, 
+				'product_name':c.pool.product.get_display_name()}
+	%>
+	%if not c.pool.is_pending():
+		%if c.user.is_anon:
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, log in and help out!") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Please log in to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}</div>
+		%elif c.pool.am_i_member(c.user):
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for %(receiver_name)s's %(occasion_name)s and they want you to contribute what you can.") % locals|n}</div>
+		%else:
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, chip in and join the pool.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Chip in and help %(receiver_name)s get a %(product_name)s for %(occasion_name)s.") % locals|n}</div>
+		%endif
 	%else:
-		<div id="page_slogan">${_("POOL_PAGE_Secret Gift Pool")}</div>
+		%if c.pool.am_i_selector(c.user):
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated <em>you</em> to choose %(receiver_name)s's gift.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Please click 'Choose Gift' below and find the perfect gift.") % locals|n}</div>
+		%else:
+			<% locals["selector_name"] = c.pool.selector.name %>
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated <em>%(selector_name)s</em> to choose %(receiver_name)s's gift.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_This pool is waiting for %(selector_name)s to select a gift, chipping in will be possible after they have chosen the perfect gift!") % locals|n}</div>
+		%endif
 	%endif
 </%def>
 
 
-<div id="pool_admin_slogan">
-	<div class="slogan">
-		%if i_can_view:
-			${description.view(c.pool)|n}
-		%else:
-			%if i_am_anon:
-				<div class="admin">${_("POOL_PAGE_This is a secret pool.")}</div> ${_("POOL_PAGE_If u have been invited, please login.")}
-			%else:
-				<div class="admin">${_("POOL_PAGE_This is a secret pool.")}</div>
-			%endif
+
+
+
+
+
+
+<%def name="admin_slogan(locals)">
+	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
+	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
+</%def>
+
+<%def name="render_product(locals)">
+	<div class="picture_area product">
+		<img class="contentPic" src="${c.pool.product.get_product_pic()}"/>
+		<div class="subtext">${c.pool.product.get_display_label(words = 2, seperator = '<br/>')|n}</div>
+		%if c.pool.product.tracking_link:
+			<a class="submitExtraMini product_more" href="${c.pool.product.tracking_link}" target="_blank">${_("POOL_PAGE_more...")}<span></span></a>
 		%endif
 	</div>
-</div>
-<div id="pool_admin_pic">
-	%if i_can_view:
-		<img src="${c.pool.admin.get_profile_pic()}"/>
-	%else:
-		<img src="/static/imgs/default_m_PROFILE_M.png"/>
-	%endif
-</div>
+</%def>
 
-${html.clearline()|n}
+<%def name="render_receiver_picture(locals)">
+	<div class="picture_area receiver_picture">
+		<img class="contentPic" src="${c.pool.receiver.get_profile_pic('POOL')}"/><div class="subtext">${_("POOL_PAGE_Help make %(receiver_first_name)s's day!") % locals | n}</div>
+	</div>
+</%def>
 
-<div id="pool_pool_panel" class="innerbody">
+<%def name="render_center_buttons(locals)">
+	<% daysremaining, hoursremaining = c.pool.get_remaining_days_tuple() %>
+	<div id="countdown" class="floaterLeft">
+		<div class="countdown_days">${html.counter(daysremaining, _("POOL_PAGE_days and"))}</div>
+		<div class="countdown_hours">${html.counter(hoursremaining, _("POOL_PAGE_hours left"))}</div>
+	</div>
+	<div style="clear:both;padding:15px;text-align:center">${_("POOL_PAGE_This gift pool closes on %(end_date)s.") % locals|n}</div>
 	
-	<div class="pool_content">
-		<div class="picture_area_outer product">
-			<div class="picture_area product">
-				<img class="contentPic" src="${c.pool.product.get_product_pic()}"/>
-				<div class="subtext">${c.pool.product.get_display_name()}<br/>${c.pool.product.get_display_price()|n}</div>
-				%if c.pool.product.tracking_link:
-					<a class="submitExtraMini product_more" href="${c.pool.product.tracking_link}" target="_blank">${_("POOL_PAGE_more...")}<span></span></a>
-				%endif
-			</div>
-		</div>
-		<div class="picture_area_outer receiver_picture">
-			<div class="picture_area receiver_picture">
-				%if i_can_view:
-					<img class="contentPic" src="${c.pool.receiver.get_profile_pic('POOL')}"/><div class="subtext">${_("POOL_PAGE_Help make %(receiver_first_name)s's day!") % locals | n}</div>
-				%else:
-					<img class="contentPic" src="/static/imgs/secret_friend.png"/><div class="receiver_name">${_("POOL_PAGE_Friend")}</div>
-				%endif
-			</div>
-		</div>
-		<div class="floaterLeft" style="text-align:center;width:412px;">
-			<div id="countdown" class="floaterLeft">
-				<div class="countdown_days">${html.counter(daysremaining, _("POOL_PAGE_days and"))}</div>
-				<div class="countdown_hours">${html.counter(hoursremaining, _("POOL_PAGE_hours left"))}</div>
-			</div>
-			<div style="clear:both;padding:15px;text-align:center">${_("POOL_PAGE_This gift pool closes on %(end_date)s.") % locals|n}</div>
-			
-			
-			%if c.pool.product.is_virtual:
-				%if c.pool.am_i_contributor(c.user):
-					<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
-				%else:
-					<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
-					<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/> 
-						<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
-					</a>
-				%endif
+	
+	%if c.pool.is_pending() and c.pool.am_i_selector(c.user):
+		<a href="${url(action="select",pool_url=c.pool.p_url, controller="product")}" class="buttonRed buttonChipIn extrawide"><span>${_("POOL_BUTTON_Select Product now!")}</span></a>
+	%elif c.pool.is_contributable():
+		%if c.pool.product.is_virtual:
+			%if c.pool.am_i_contributor(c.user):
+				<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
 			%else:
-				<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
-				<img src="/static/imgs/icons_paymethod.png"/>
-			%endif
-			
-		</div>
-	</div>
-	
-	
-	<div id="timeline_bar">
-	%if not c.pool.is_pending():
-			<div class="timeline">
-				<div class="floaterRight limit">${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}</div>
-				<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
-				
-				<div class="timeline_progressbar_bg"><div style="width: ${(850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;" class="timeline_progressbar"></div>
-				<div class="tooltip" style="left:${(850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;">${locals.get("amount_contributed")}<span class="bottomYellowTriangle"></span></div></div>
-				
-				<div class="legende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
-				<div class="legende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
-			</div>
-			
-	%endif
-	</div>
-	%if i_am_admin:
-				<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
-					<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
+				<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
+				<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/> 
+					<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
 				</a>
+			%endif
+		%else:
+			<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
+			<img src="/static/imgs/icons_paymethod.png"/>
+		%endif
+	%else:
+		<a class="buttonRed buttonChipIn inactive ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 	%endif
-</div>
+</%def>
 
-<div class="social_tools_free underlined1">
-		<iframe src="http://www.facebook.com/plugins/like.php?href=${url.current(protocol="http")}&amp;layout=standard&amp;show_faces=FALSE&amp;&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
-</div>
-
-<h4 class="inside" style="padding:0px 30px;">${_("POOL_PAGE_Contributors")}
-<div class="floaterRight">
-	<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
-</div></h4>
-<div class="vertNoPadding">${_("POOL_PAGE_%(number_contributors)d people have chipped in for %(receiver_name)s's gift.") % locals}</div>
-
-<div id="pool_contributors" class="pcont_body">
-	<% invitees = [c.pool.admin] + c.pool.invitees %>
-	%for i, invitee in enumerate(invitees):
-		%if invitee.anonymous:
-			${self.render_contributor_secret(i, invitee)}
-		%else:
-			${render_contributor(i, invitee, i==0)}
+<%def name="tooltip_text(locals)">
+	<div class="tooltip${(c.pool.is_pending() or c.pool.get_total_contribution()==0) and ' withMessage' or ''}" style="left:${(850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;">
+		${locals.get("amount_contributed")|n}
+		%if c.pool.is_pending():
+			<% locals["selector_name"] = c.pool.selector.name %>
+			${_("POOL_PAGE_TOOLTIP_- %(selector_name)s first needs to find a gift before we can start chipping in.") % locals|n}
+		%elif c.pool.get_total_contribution() == 0:
+			${_("POOL_PAGE_TOOLTIP_- Be the first among your friends to chip in!")|n}
 		%endif
-	%endfor
-</div>
+	<span class="bottomYellowTriangle"></span></div>
+</%def>
 
-
-<div id="lowerbody_container" style="margin: 10px 30px 30px;width:920px;">
-	<div id="lowerbody_content"><a name="comments">&nbsp;</a>
-		${html.clearline()|n}
-		<div class="heading">${_("POOL_CHAT_Fund Chat")}</div>
-		${html.clearline()|n}
-		%if c.pool.am_i_member(c.user):
-			<div class="comment_input_panel">${_("POOL_CHAT_Leave your Comment:")}</div>
-			<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea>
-			<div class="floaterLeft"><a class="BtnRed" href="#comments" onclick="submit_fundchat('addcommenttext')"><span>${_("POOL_PAGE_BUTTON_Post!")}</span></a></div>
-			${html.clearline()|n}
-		%endif
-		%if c.pool.can_i_view(c.user):
-			<div id="fundchat" class="pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}">
-				${html.loading_animation()|n}
+<%def name="pool_pool_panel(locals)">
+	<div id="pool_pool_panel" class="innerbody">
+		<div class="pool_content">
+			<div class="picture_area_outer product">
+				${self.render_product(locals)}
+				<span class="icon"></span>
 			</div>
-		%else:
-			${_("POOL_CHAT_This is a secret pool, no chat is shown.")}
+			<div class="picture_area_outer receiver_picture">
+				${self.render_receiver_picture(locals)}
+				<span class="icon"></span>
+			</div>
+			<div class="floaterLeft" style="text-align:center;width:412px;">
+				${self.render_center_buttons(locals)}
+			</div>
+		</div>
+		<div id="timeline_bar">
+				<div class="timeline">
+					
+					<div class="floaterRight limit">
+						%if not c.pool.is_pending():
+							${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}
+						%else:
+							???
+						%endif
+					</div>
+					<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
+					
+					<div class="timeline_progressbar_bg"><div style="width: ${(850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float()))}px;" class="timeline_progressbar"></div>
+					${self.tooltip_text(locals)|n}
+					</div>
+					
+					<div class="legende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
+					<div class="legende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
+				</div>
+		</div>
+		
+		%if c.pool.am_i_admin(c.user):
+			<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
+				<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
+			</a>
 		%endif
 	</div>
-</div>
+</%def>
 
+<%def name="social_tools(locals)">
+	<div class="social_tools_free underlined1">
+			<iframe src="http://www.facebook.com/plugins/like.php?href=${url.current(protocol="http")}&amp;layout=standard&amp;show_faces=FALSE&amp;&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+	</div>
+</%def>
 
+<%def name="contributors(locals)">
+	<% contributors_text = ungettext("POOL_PAGE_%(number_contributors)d person has chipped in for %(receiver_name)s's gift.",
+									 "POOL_PAGE_%(number_contributors)d people have chipped in for %(receiver_name)s's gift.", locals['number_contributors']) %>
+
+	<h4 class="inside" style="padding:0px 30px;">${_("POOL_PAGE_Contributors")}
+	<div class="floaterRight">
+		<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
+	</div></h4>
+	<div class="vertNoPadding">${contributors_text % locals}</div>
+
+	<div id="pool_contributors" class="pcont_body">
+		<% invitees = [c.pool.admin] + c.pool.invitees %>
+		%for i, invitee in enumerate(invitees):
+			%if invitee.anonymous:
+				${self.render_contributor_secret(i, invitee)}
+			%else:
+				${self.render_contributor(i, invitee, i==0)}
+			%endif
+		%endfor
+	</div>
+</%def>
+
+<%def name="fundchat(locals)">
+	<div id="lowerbody_container" style="margin: 10px 30px 30px;width:920px;">
+		<div id="lowerbody_content"><a name="comments"></a>
+			<h4 class="inside" style="padding:0;">${_("POOL_CHAT_Fund Chat")}</h4>
+			%if c.pool.am_i_member(c.user):
+				<div>${_("POOL_CHAT_Leave your Comment:")}</div>
+				<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea>
+				<div class="floaterLeft"><a class="BtnRed" href="#comments" onclick="submit_fundchat('addcommenttext')"><span>${_("POOL_PAGE_BUTTON_Post!")}</span></a></div>
+				<div style="clear:both"></div>
+			%endif
+			%if c.pool.can_i_view(c.user):
+				<div id="fundchat" class="pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}">
+					${html.loading_animation()|n}
+				</div>
+			%else:
+				${_("POOL_CHAT_This is a secret pool, no chat is shown.")}
+			%endif
+		</div>
+	</div>
+</%def>
 
 <%def name="render_contributor(position, invitee, is_admin = False)">
 	<div class="contributor">
@@ -210,10 +234,15 @@ ${html.clearline()|n}
 		%endif
 	</div>
 </%def>
+
 <%def name="render_contributor_secret(position, invitee, is_admin = False)">
 	<div class="contributor">
-		<img src="/static/imgs/default_m_PROFILE_M.png" class="contributor"/>
-		<div class="contributor_name">${_("POOL_CHAT_Anonymous")}</div>
+		<img src="/static/imgs/default_${invitee.sex}_PROFILE_M.png" class="contributor"/>
+		%if c.user.is_anon:
+			<div class="contributor_name">${_("POOL_CHAT_Someone you might know")}</div>
+		%else:
+			<div class="contributor_name">${_("POOL_CHAT_Anonymous")}</div>
+		%endif
 		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.product.is_virtual, c.pool.currency)|n}</div>
 	</div>
 </%def>

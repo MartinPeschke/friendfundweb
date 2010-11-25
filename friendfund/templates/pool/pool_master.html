@@ -1,0 +1,22 @@
+<%inherit file="../master.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+
+<%def name="title()">${_("POOL_PAGE__TITLE_Pool")}</%def>
+
+
+<%
+	locals = {"amount_contributed":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
+			"amount_left":c.pool.is_pending() and '???' or h.format_currency(c.pool.get_amount_left(), c.pool.currency),
+			"end_date":h.format_date(c.pool.occasion.date, format="long"),
+			"number_contributors": c.pool.get_number_of_contributors(),
+			"number_invitees":len(c.pool.invitees)+1,
+			"receiver_first_name":c.pool.receiver.name.split()[0],
+			"receiver_name":c.pool.receiver.name
+			}
+%>
+
+${self.admin_slogan(locals)}
+${self.pool_pool_panel(locals)}
+${self.social_tools(locals)}
+${self.contributors(locals)}
+${self.fundchat(locals)}

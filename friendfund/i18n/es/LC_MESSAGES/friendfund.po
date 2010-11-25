@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-11-23 21:23+0100\n"
+"PO-Revision-Date: 2010-11-25 13:51+0100\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -206,7 +206,7 @@ msgstr ""
 "social, con lo cual, puedes enviarlos y compartirlos al igual que una "
 "tarjeta de felicitación."
 
-#: friendfund/controllers/content.py:34 friendfund/templates/pool/pool.html:148
+#: friendfund/controllers/content.py:34 friendfund/templates/pool/pool.html:165
 msgid "POOL_PAGE_What happens if we raise less money?"
 msgstr "¿Qué pasa si alcanzamos menos dinero del esperado?"
 
@@ -418,39 +418,39 @@ msgstr ""
 "Para cerrar el bote, primero necesitas rellenar y guardar la dirección de"
 " envío y de facturación."
 
-#: friendfund/controllers/pool.py:48 friendfund/controllers/pool.py:63
-#: friendfund/controllers/pool.py:168 friendfund/controllers/pool.py:181
-#: friendfund/controllers/pool.py:200 friendfund/controllers/pool.py:213
+#: friendfund/controllers/pool.py:48 friendfund/controllers/pool.py:66
+#: friendfund/controllers/pool.py:171 friendfund/controllers/pool.py:184
+#: friendfund/controllers/pool.py:203 friendfund/controllers/pool.py:216
 #: friendfund/controllers/product.py:30 friendfund/controllers/product.py:43
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "Perdón, este bote no existe."
 
-#: friendfund/controllers/pool.py:66
+#: friendfund/controllers/pool.py:69
 msgid "POOL_CREATE_Product was unknown, what can I do?"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:69
+#: friendfund/controllers/pool.py:72
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr "No has escogido ningún evento. Por favor, inténtalo de nuevo. "
 
-#: friendfund/controllers/pool.py:72
+#: friendfund/controllers/pool.py:75
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:321
+#: friendfund/controllers/pool.py:324
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Los cambios han sido guardados"
 
-#: friendfund/controllers/pool.py:360 friendfund/controllers/product.py:49
+#: friendfund/controllers/pool.py:363 friendfund/controllers/product.py:49
 #: friendfund/controllers/product.py:148
 msgid "INDEX_PAGE_No Product"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:372
+#: friendfund/controllers/pool.py:375
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr "Los cambios de producto han sido guardados."
 
-#: friendfund/controllers/pool.py:382
+#: friendfund/controllers/pool.py:385
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "El regalo ha sido cambiado por vales! "
 
@@ -543,7 +543,8 @@ msgstr "Paypal"
 msgid "CONTRIBUTION_PAGE_Direct eBanking"
 msgstr "Direct eBanking"
 
-#: friendfund/lib/app_globals.py:142 friendfund/templates/pool/pool.html:126
+#: friendfund/lib/app_globals.py:142 friendfund/templates/pool/pool.html:110
+#: friendfund/templates/pool/pool_secret.html:54
 #: friendfund/templates/pool/parts/button_contribute.html:22
 msgid "CONTRIBUTION_PAGE_Virtual Pot of Gold"
 msgstr "Olla de oro virtual"
@@ -658,7 +659,7 @@ msgstr "Has sido premiado el Título de Diva por solicitar 3 o más regalos para
 msgid "BADGE_DESCRIPTION_MYSTERY_..."
 msgstr "..."
 
-#: friendfund/model/pool.py:175
+#: friendfund/model/pool.py:176
 #: friendfund/templates/contribution/contrib_screen.html:61
 msgid "CONTRIBPAGE_LABEL_A pot of gold"
 msgstr "Olla de oro"
@@ -1118,12 +1119,14 @@ msgstr "Preguntas frecuentes"
 msgid "ALLPAGE_BUTTON_Create a Pool"
 msgstr "Crear un Bote"
 
-#: friendfund/templates/master.html:167 friendfund/templates/pool/pool.html:37
+#: friendfund/templates/master.html:167
+#: friendfund/templates/pool/pool_secret.html:7
 msgid "FB_METATAG_TITLE_friendfund.com"
 msgstr "friendfund.com - Regalos en grupo"
 
-#: friendfund/templates/master.html:168 friendfund/templates/pool/pool.html:39
+#: friendfund/templates/master.html:168
 #: friendfund/templates/pool/pool_complete.html:21
+#: friendfund/templates/pool/pool_secret.html:9
 msgid "FB_METATAG_DESCRIPTION_friendfund.com - helping you!"
 msgstr "friendfund.com - ¡Regala en grupo!"
 
@@ -2105,7 +2108,7 @@ msgid "MYPOOLS_CONTENT_Already chipped in:"
 msgstr "Han puesto bote:"
 
 #: friendfund/templates/mypools/mypools_body.html:36
-#: friendfund/templates/pool/pool.html:120
+#: friendfund/templates/pool/pool.html:106
 #: friendfund/templates/pool/parts/button_contribute.html:16
 msgid "MYPOOLS_CONTENT_Chipped In"
 msgstr "Han puesto bote"
@@ -2122,23 +2125,23 @@ msgstr "Días restantes:"
 msgid "MYPOOLS_CONTENT_Price:"
 msgstr "Precio:"
 
-#: friendfund/templates/mypools/mypools_body.html:51
+#: friendfund/templates/mypools/mypools_body.html:57
 msgid "MYPOOLS_CONTENT_Already Funded:"
 msgstr "Recaudado:"
 
-#: friendfund/templates/mypools/mypools_body.html:55
+#: friendfund/templates/mypools/mypools_body.html:61
 msgid "MYPOOLS_CONTENT_Open:"
 msgstr "Restante:"
 
-#: friendfund/templates/mypools/mypools_body.html:65
+#: friendfund/templates/mypools/mypools_body.html:77
 msgid "MYPOOLS_CONTENT_Secret"
 msgstr "Secreto"
 
-#: friendfund/templates/mypools/mypools_body.html:70
+#: friendfund/templates/mypools/mypools_body.html:82
 msgid "MYPOOLS_LABEL_is in this Pool"
 msgstr "en este Bote"
 
-#: friendfund/templates/mypools/mypools_body.html:75
+#: friendfund/templates/mypools/mypools_body.html:87
 msgid "MYPOOLS_CONTENT_View"
 msgstr "Ver Bote"
 
@@ -2406,129 +2409,203 @@ msgid "FBPERMS_Facebook Offline Access"
 msgstr ""
 
 #: friendfund/templates/pool/pool.html:6
+#: friendfund/templates/pool/pool_master.html:4
 msgid "POOL_PAGE__TITLE_Pool"
 msgstr "Bote"
 
-#: friendfund/templates/pool/pool.html:33
+#: friendfund/templates/pool/pool.html:10
 #, python-format
 msgid "POOL_PAGE_Gift Pool for %(receiver)s"
 msgstr "Bote para %(receiver)s"
 
+#: friendfund/templates/pool/pool.html:34
+#, fuzzy, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift "
+"pool for %(receiver_name)s's %(occasion_name)s gift, log in and help out!"
+msgstr ""
+"%(admin_name)s ha creado un Friend Fund para %(receiver_name)s's "
+"%(occasion_name)s. ¡Entra y pon bote! "
+
+#: friendfund/templates/pool/pool.html:36
+#, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_Please log in to chip in for %(receiver_name)s's "
+"%(occasion_name)s gift."
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:39
+#, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You've been invited to chip in for"
+" %(receiver_name)s's %(occasion_name)s gift."
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:41
+#, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for "
+"%(receiver_name)s's %(occasion_name)s and they want you to contribute "
+"what you can."
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:44
+#, fuzzy, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift "
+"pool for %(receiver_name)s's %(occasion_name)s gift, chip in and join the"
+" pool."
+msgstr ""
+"%(admin_name)s ha creado un Friend Fund para %(receiver_name)s's "
+"%(occasion_name)s. ¡Entra y pon bote! "
+
+#: friendfund/templates/pool/pool.html:46
+#, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_Chip in and help %(receiver_name)s get a "
+"%(product_name)s for %(occasion_name)s."
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:51
+#, python-format
+msgid ""
+"POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated "
+"<em>you</em> to choose %(receiver_name)s's gift."
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:53
+msgid ""
+"POOL_PAGE_SLOGAN_Please click 'Choose Gift' below and find the perfect "
+"gift."
+msgstr ""
+
 #: friendfund/templates/pool/pool.html:57
 #, python-format
 msgid ""
-"POOL_PAGE_SLOGAN_Hi, <span "
-"class=\"emphasis\">%(user_name)s!</span><br/>You've been invited to chip "
-"in for %(receiver_name)s %(occasion_name)s gift."
+"POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated "
+"<em>%(selector_name)s</em> to choose %(receiver_name)s's gift."
 msgstr ""
 
 #: friendfund/templates/pool/pool.html:59
 #, python-format
 msgid ""
-"POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for "
-"%(receiver_name)s's %(occasion_name)s and you've been invited to help "
-"purchase it!"
+"POOL_PAGE_SLOGAN_This pool is waiting for %(selector_name)s to select a "
+"gift, chipping in will be possible after they have chosen the perfect "
+"gift!"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:61
-msgid "POOL_PAGE_Secret Gift Pool"
-msgstr "Bote de Regalo secreto"
-
-#: friendfund/templates/pool/pool.html:72
-#: friendfund/templates/pool/pool.html:74
-msgid "POOL_PAGE_This is a secret pool."
-msgstr "Este es un bote secreto."
-
-#: friendfund/templates/pool/pool.html:72
-msgid "POOL_PAGE_If u have been invited, please login."
-msgstr "Si has sido invitado, por favor, inicia sesión."
-
-#: friendfund/templates/pool/pool.html:97
+#: friendfund/templates/pool/pool.html:81
 msgid "POOL_PAGE_more..."
 msgstr "más..."
 
-#: friendfund/templates/pool/pool.html:104
+#: friendfund/templates/pool/pool.html:88
 #, python-format
 msgid "POOL_PAGE_Help make %(receiver_first_name)s's day!"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:106
-msgid "POOL_PAGE_Friend"
-msgstr "Amigo"
-
-#: friendfund/templates/pool/pool.html:112
+#: friendfund/templates/pool/pool.html:95
+#: friendfund/templates/pool/pool_secret.html:47
 msgid "POOL_PAGE_days and"
 msgstr "días y"
 
-#: friendfund/templates/pool/pool.html:113
+#: friendfund/templates/pool/pool.html:96
+#: friendfund/templates/pool/pool_secret.html:48
 msgid "POOL_PAGE_hours left"
 msgstr "horas restantes"
 
-#: friendfund/templates/pool/pool.html:115
+#: friendfund/templates/pool/pool.html:98
+#: friendfund/templates/pool/pool_secret.html:50
 #, python-format
 msgid "POOL_PAGE_This gift pool closes on %(end_date)s."
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:123
-#: friendfund/templates/pool/pool.html:131
+#: friendfund/templates/pool/pool.html:102
+#: friendfund/templates/pool/parts/selector_waiting.html:18
+msgid "POOL_BUTTON_Select Product now!"
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:108
+#: friendfund/templates/pool/pool.html:114
+#: friendfund/templates/pool/pool.html:118
+#: friendfund/templates/pool/pool_secret.html:51
 #: friendfund/templates/pool/parts/button_contribute.html:19
 #: friendfund/templates/pool/parts/button_contribute.html:27
 msgid "POOL_BUTTON_Chip in!"
 msgstr " ¡Pon Bote!"
 
-#: friendfund/templates/pool/pool.html:149
+#: friendfund/templates/pool/pool.html:127
+#, python-format
+msgid ""
+"POOL_PAGE_TOOLTIP_- %(selector_name)s first needs to find a gift before "
+"we can start chipping in."
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:129
+msgid "POOL_PAGE_TOOLTIP_- Be the first among your friends to chip in!"
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:166
 #, python-format
 msgid ""
 "POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only "
 "<b>%(amount_left)s to go</b> before %(end_date)s!"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:155
-#: friendfund/templates/pool/pool.html:156
+#: friendfund/templates/pool/pool.html:171
+#: friendfund/templates/pool/pool.html:172
 msgid "POOL_PAGE_Visit Pool Admin"
 msgstr "Gestión del Bote"
 
-#: friendfund/templates/pool/pool.html:165
+#: friendfund/templates/pool/pool.html:185
+#, python-format
+msgid ""
+"POOL_PAGE_%(number_contributors)d person has chipped in for "
+"%(receiver_name)s's gift."
+msgid_plural ""
+"POOL_PAGE_%(number_contributors)d people have chipped in for "
+"%(receiver_name)s's gift."
+msgstr[0] ""
+msgstr[1] ""
+
+#: friendfund/templates/pool/pool.html:188
+#: friendfund/templates/pool/pool_secret.html:69
 msgid "POOL_PAGE_Contributors"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:167
+#: friendfund/templates/pool/pool.html:190
 msgid "POOL_BUTTON_Invite more Friends to this pool"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:169
-#, python-format
-msgid ""
-"POOL_PAGE_%(number_contributors)d people have chipped in for "
-"%(receiver_name)s's gift."
-msgstr ""
-
-#: friendfund/templates/pool/pool.html:186
+#: friendfund/templates/pool/pool.html:209
 msgid "POOL_CHAT_Fund Chat"
 msgstr "Chat del Bote"
 
-#: friendfund/templates/pool/pool.html:189
+#: friendfund/templates/pool/pool.html:211
 msgid "POOL_CHAT_Leave your Comment:"
 msgstr "Deja tu comentario:"
 
-#: friendfund/templates/pool/pool.html:191
+#: friendfund/templates/pool/pool.html:213
 msgid "POOL_PAGE_BUTTON_Post!"
 msgstr "¡Envía!"
 
-#: friendfund/templates/pool/pool.html:199
+#: friendfund/templates/pool/pool.html:221
 msgid "POOL_CHAT_This is a secret pool, no chat is shown."
 msgstr "Este es un Bote secreto, el chat no se muestra."
 
-#: friendfund/templates/pool/pool.html:209
+#: friendfund/templates/pool/pool.html:230
 msgid "POOL_PAGE_(Admin)"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:211
+#: friendfund/templates/pool/pool.html:232
 #, python-format
 msgid "POOL_PAGE_Has chipped in %(amount)s"
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:219
+#: friendfund/templates/pool/pool.html:242
+msgid "POOL_CHAT_Someone you might know"
+msgstr ""
+
+#: friendfund/templates/pool/pool.html:244
 msgid "POOL_CHAT_Anonymous"
 msgstr "Anónimo"
 
@@ -2550,6 +2627,48 @@ msgstr ""
 #, python-format
 msgid "POOL_RESULT_PAGE_LABEL_%s Messages"
 msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:16
+msgid ""
+"POOL_PAGE_<span class=\"emphasis\">Shhh!</span><br/>This is a secret gift"
+" pool."
+msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:19
+msgid ""
+"POOL_PAGE_SECRET_Someone you might know has created a secret gift pool. "
+"Log in to see if you are invited."
+msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:21
+msgid ""
+"POOL_PAGE_SECRET_This is a secret gift pool and you have not been "
+"invited. Why not create a gift pool for someone?"
+msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:29
+msgid "POOL_PAGE_Someone you might know"
+msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:29
+msgid "POOL_PAGE_has created a secret gift pool."
+msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:31
+#, fuzzy
+msgid "POOL_PAGE_This is a secret gift pool."
+msgstr "Este es un bote secreto."
+
+#: friendfund/templates/pool/pool_secret.html:40
+msgid "POOL_PAGE_You will only see the receiver, if you're invited"
+msgstr ""
+
+#: friendfund/templates/pool/pool_secret.html:66
+#, python-format
+msgid "POOL_PAGE_%(number_contributors)d person has chipped in for this gift."
+msgid_plural "POOL_PAGE_%(number_contributors)d people have chipped in for this gift."
+msgstr[0] ""
+msgstr[1] ""
 
 #: friendfund/templates/pool/settings.html:7
 #: friendfund/templates/pool/settings.html:9
@@ -2769,10 +2888,6 @@ msgid ""
 " after the perfect gift is chosen!"
 msgstr ""
 
-#: friendfund/templates/pool/parts/selector_waiting.html:18
-msgid "POOL_BUTTON_Select Product now!"
-msgstr ""
-
 #: friendfund/templates/product/button.html:20
 msgid "PAGE_INDEX_BUTTON_Select a Gift"
 msgstr "Escoge un Regalo"
@@ -2946,27 +3061,4 @@ msgid ""
 "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
 "with Twitter!"
 msgstr "Para invitar a tus Amigos de Twitter, por favor, conéctate con Twitter."
-
-#~ msgid "POOLPAGE_CENTERHEADER_Chip in for %(receiver_name)s's %(product_name)s"
-#~ msgstr "Pon Bote para %(receiver_name)s's %(product_name)s"
-
-#~ msgid ""
-#~ "POOL_PENDING, This pool is waiting for"
-#~ " gift selection, chipping in will be"
-#~ " possible after the gift is chosen!"
-#~ msgstr ""
-
-#~ msgid "POOL_PAGE_Friends have chipped in %(amount_left)s, only"
-#~ msgstr "Tus amigos han puesto %(amount_left)s de Bote. Sólo faltan"
-
-#~ msgid "POOL_PAGE_REMAINING_AMOUNT_to go!"
-#~ msgstr " "
-
-#~ msgid ""
-#~ "POOL_PAGE_Already chipped in: "
-#~ "%(number_contributors)d contributors from "
-#~ "%(number_invitees)d invited people"
-#~ msgstr ""
-#~ "Ya han puesto Bote:  %(number_contributors)d"
-#~ " contribuyentes de %(number_invitees)d invitados"
 

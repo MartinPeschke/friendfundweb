@@ -3,9 +3,13 @@ ${self.render(c.comment)}
 
 <%def name="render(comment)">
 	<div class="comment">
-		<img class="comment_author" src="${comment.profile_s_pic}"/>
-		<div class="comment_text">
-			<div class="comment_author">${comment.name}:</div> ${comment.comment}
+		<img class="commentAuthor" src="${comment.profile_s_pic}"/>
+		<div class="commentText">
+			<span class="triangle bluetriangle"></span>
+			<div class="commentContent">
+			<div class="commentAuthorName">${comment.name}:</div>
+				${comment.comment}
+			</div>
 		</div>
 	</div>
 </%def>

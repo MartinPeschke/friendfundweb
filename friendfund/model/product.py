@@ -66,11 +66,11 @@ class Product(DBMappedObject):
 		else:
 			return h.word_truncate_plain(self.name.title(), 2)
 	
-	def get_display_label(self, extended = True):
+	def get_display_label(self, extended = True, words = 5, seperator = ' '):
 		if self.is_pending:
 			return _("PENDING_PRODUCT_NAME")
 		else:
-			return '%s %s' % (h.word_truncate_plain(self.name, 5), self.get_display_price(extended))
+			return '%s%s%s' % (h.word_truncate_plain(self.name, words), seperator, self.get_display_price(extended))
 	display_label = property(get_display_label)
 	
 	def fromDB(self, xml):

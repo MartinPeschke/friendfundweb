@@ -4,6 +4,7 @@ a, a:visited, a:link, a:hover {
 	-moz-outline-style: none;
 	cursor:pointer;
 }
+
 a.somelink {	color: #333;}
 
 .underlined1 {border-bottom:1px solid #BBe3F7;}
@@ -510,7 +511,7 @@ a.panel_closer {
 
 #pool_admin_slogan{
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-size: 14px;color:#333;
 	position: relative;
 	margin: 0px 30px 15px 0px;
 	min-height:75px;
@@ -526,7 +527,7 @@ a.panel_closer {
 
 
 /*=========================================== Contributors ===========================================*/
-#pool_contributors{margin-left: 30px;float:left}
+#pool_contributors{margin-left: 30px;float:left;}
 .pcont_body .contributor{position: relative;height: 85px;width: 286px;margin: 0px 30px 15px 0px;background-color: #bbe3f7;float: left}
 .pcont_body img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 5px;}
 .pcont_body .contributor_name{position: relative;padding: 5px;font-weight:bold;}
@@ -615,7 +616,10 @@ a.button_container div.button_right{
 	background:url(/static/imgs/button_big_right.png) no-repeat top right;
 	width: 11px;height:32px;position:absolute;top:0px;right:-11px;
 }
-a.buttonRed{ display: block;
+
+
+a.buttonRed{ 
+	display: block;
 	margin: 0 auto;
 	background: url(../imgs/inputfield.png?20101123) 100% -901px no-repeat;
 	height: 56px;
@@ -631,61 +635,19 @@ a.buttonRed span{ display: block;
 	height: 56px;
 	line-height: 53px;
 }
-a.buttonRed_right{
-	float:right;margin:30px 30px 0px;width:auto;
-}
-a.buttonRed_left{
-	float:left;margin:30px;width:auto;
-}
-a.buttonChipIn{
-	text-align:center;
-	width:140px;
-	float: none;
-	margin: 15px auto 15px auto
-}
+a.buttonRed_right{float:right;margin:30px 30px 0px;width:auto;}
+a.buttonRed_left{float:left;margin:30px;width:auto;}
+a.buttonChipIn{text-align:center;width:140px;float: none;margin: 15px auto 15px auto}
 a.buttonChipIn.de_de, a.buttonChipIn.es_es{width:190px;}
 a.buttonChipIn.poolaction{width:190px;}
 a.buttonChipIn.extrawide{width:220px;font-size: 22px;}
+a.buttonChipIn.inactive{background-position:100% -1676px !important;cursor:default ;}
+a.buttonChipIn.inactive span{background-position:0 -1620px !important;cursor:default ;}
 
-
-a.button_container.red{
-	background-image:url(/static/imgs/button_chipin_middle.png);
-	height: 56px;
-	float: None;
-	width: 110px;
-	display: block;
-	font-size: 28px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	left: 34px;
-}
-a.button_container.red div.button_left {
-	background:url(/static/imgs/button_chipin_left.png) no-repeat top left;
-	width: 20px;height:56px;position:absolute;top:0px;left:-20px;
-}
-a.button_container.red div.button_right{
-	background:url(/static/imgs/button_chipin_right.png) no-repeat top right;
-	width: 20px;height:56px;position:absolute;top:0px;right:-20px;
-}
-a.button_container span.button_label{
-	position: relative;
-	top: 4px;
-	line-height: 25px;
-}
-
-a.button_container.large span.button_label{
-	top: 3px;
-}
-a.button_container.red span.button_label{
-	top: 8px;
-}
-
-
-a.button_container span.button_label img{
-	position: relative;
-	top: 2px;
-	margin: 0px 0px 0px 5px;
-}
+a.button_container span.button_label{position: relative;top: 4px;line-height: 25px;}
+a.button_container.large span.button_label{top: 3px;}
+a.button_container.red span.button_label{top: 8px;}
+a.button_container span.button_label img{position: relative;top: 2px;margin: 0px 0px 0px 5px;}
 
 a.button_container.orange{
 	background:url(../imgs/inputfield.png?20101123) -20px -220px no-repeat;
@@ -819,33 +781,12 @@ div#lowerbody_container div.heading {
 	position: relative;margin: 7px 0px 5px 0px;line-height: 28px;
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; font-size: 28px;}
 
-div#lowerbody_container div.comment {
-	position: relative;
-	height: 50px;
-	margin: 15px 0px 0px;
-	color: #333;
-	background-color: #BBE3F7;
-	font-size: 13px;
-	font-family: Arial, Helvetica, sans-serif;
-	padding: 5px;
-}
-div#lowerbody_container div.comment img.comment_author{
-	position: relative;
-	float: left;
-	width: 50px;
-	height: 50px;
-}
-div#lowerbody_container div.comment div.comment_text {
-	position: relative;
-	left: 10px;
-	margin: 0px 10px;
-}
-div#lowerbody_container div.comment div.comment_author{
-	display: block;
-	line-height: 13px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-}
+div#lowerbody_container div.comment {padding: 15px 0;clear:both}
+
+div#lowerbody_container div.comment img.commentAuthor{position: relative;float: left;width: 50px;height: 50px;}
+div#lowerbody_container div.comment div.commentText {background-color: #BBE3F7;min-height:50px;margin: 0px 0px 0px 15px;width:840px; float:left;position:relative}
+div#lowerbody_container div.comment div.commentContent{margin:0px 10px;padding:5px;}
+div#lowerbody_container div.comment .commentAuthorName {font-weight:bold}
 
 div#lowerbody_container div.comment_input_panel{
 	line-height: 20px;
@@ -855,7 +796,7 @@ div#lowerbody_container div.comment_input_panel{
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
 
-div#lowerbody_container textarea.comment_text_input {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin-bottom:15px;width:890px;}
+div#lowerbody_container textarea.comment_text_input {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin:15px 0px 15px;width:918px;}
 
 /* ========================POOL SETTINGS ====================== */
 
