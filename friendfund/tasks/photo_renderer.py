@@ -22,13 +22,13 @@ log = setup_logger(loglevel=0)
 
 
 PROFILE_PIC_FORMATS = [('RA', (120,120))
-					,('POOL', (170,200))
+					,('POOL', (140,140))
 					,('PROFILE_S', (50,50))
 					,('PROFILE_M', (75,75))
 					,('MYPROFILE', (90,90))
 					,('RESULT', (205,205))]
 
-PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (170,200)), ('MYPOOLS', (153,114))]
+PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (140,140)), ('MYPOOLS', (153,114))]
 POOL_PIC_FORMATS = [('RA', (161,120), (4, 12)), ('MYPOOLS', (120,79), (3, 6))]
 
 class UnexpectedFileNameFormat(Exception):

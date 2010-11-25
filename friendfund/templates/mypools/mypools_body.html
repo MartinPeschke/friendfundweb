@@ -55,7 +55,14 @@
 				</div>
 				<div class="row">
 					<span class="label">${_("MYPOOLS_CONTENT_Already Funded:")}</span>
-					<span class="floaterRight"><span class="money green">${h.format_currency(ra_entry.get_total_contribution_float(),ra_entry.currency)|n}</span></span>
+					<span class="floaterRight"><span class="money green">
+						%if not ra_entry.is_pending:
+							${h.format_currency(ra_entry.get_total_contribution_float(),ra_entry.currency)|n}
+						%else:
+							???
+						%endif
+						
+						</span></span>
 				</div>
 				<div class="row lastPad">
 					<span class="label">${_("MYPOOLS_CONTENT_Open:")}</span>

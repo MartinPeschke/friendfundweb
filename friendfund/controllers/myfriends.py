@@ -102,7 +102,7 @@ class MyfriendsController(BaseController):
 			data = invitee
 			data['success'] = True
 			data['network'] = c.user.network.lower()
-			data['network_id'] = (network == 'email' and c.user.email or c.user.network_id)
+			data['network_id'] = (c.user.network.lower() == 'email' and c.user.email or c.user.network_id)
 			data['name'] = c.user.name
 			data['large_profile_picture_url'] = data['profile_picture_url'] = c.user.get_profile_pic('RA')
 			return {'clearmessage':True,'data':data}

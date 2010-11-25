@@ -18,7 +18,7 @@ from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm,
 from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.service')
-strbool = formencode.validators.StringBoolean()
+
 
 class ContributionController(BaseController):
 	navposition=g.globalnav[1][2]
@@ -70,7 +70,7 @@ class ContributionController(BaseController):
 		c.back_to_admin = True
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')
-		return self._check_chip_in_details(pool_url)
+		return self._check_chip_in_details(c.pool)
 	
 	@logged_in(ajax=False)
 	def virtual(self, pool_url):
@@ -114,24 +114,25 @@ class ContributionController(BaseController):
 		c.back_to_admin = False
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')
-		return self._check_chip_in_details(pool_url)
+		return self._check_chip_in_details(c.pool)
 	
-	def _check_chip_in_details(self, pool_url):
+	def _check_chip_in_details(self, pool):
 		chipin = formencode.variabledecode.variable_decode(request.params).get('chipin', None)
-		if not g.payment_service.check_payment_method(chipin.get('payment_method'), c.pool.region, c.pool.product.is_virtual):
+		if not g.payment_service.check_payment_method(chipin.get('payment_method'), pool.region, pool.product.is_virtual):
 			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL))
+			return redirect(url('chipin', pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
 		schema = PaymentConfForm()
 		try:
 			schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
-			user = copy(c.user)
-			user.__dict__["_"] = FriendFundFormEncodeState._
-			user.__dict__["payment_method"] = g.payment_service.get_payment_method(chipin['payment_method'])
-			form_result = schema.to_python(chipin, user)
+			chipin['agreedToS'] = chipin.get('agreedToS', 'no')
+			state = copy(pool)
+			state.__dict__["_"] = FriendFundFormEncodeState._
+			state.__dict__["payment_method"] = g.payment_service.get_payment_method(chipin['payment_method'])
+			state.__dict__["payment_currency"] = g.payment_service.get_payment_method(chipin['payment_method'])
+			form_result = schema.to_python(chipin, state)
 			
 		except formencode.validators.Invalid, error:
 			c.chipin_values = error.value
-			
 			#ugly hack, but otherwise i cant set selected or not not correctly, as template gets "yes" and True alternatively on error and on permission
 			c.chipin_values['is_secret'] = formencode.validators.StringBool(if_missing=False).to_python(c.chipin_values.get('is_secret'))
 			c.chipin_errors = error.error_dict or {}
@@ -150,10 +151,10 @@ class ContributionController(BaseController):
 			contrib.paymentmethod = chipin.get('payment_method')
 			websession['contribution'] = contrib
 			try:
-				return g.payment_service.process_payment(c, contrib, pool_url, render, redirect)
+				return g.payment_service.process_payment(c, contrib, pool.p_url, render, redirect)
 			except UnsupportedPaymentMethod, e:
 				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-				return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
+				return redirect(url('chipin', pool_url=pool.p_url, protocol='g.SSL_PROTOCOL'))
 			except DBErrorDuringSetup, e:
 				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
 			except DBErrorAfterPayment, e:

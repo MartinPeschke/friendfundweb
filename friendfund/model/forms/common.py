@@ -6,7 +6,7 @@ from pylons.i18n import _
 from friendfund.model.mapper import DBMappedObject
 from pylons import session as websession
 
-from babel.numbers import parse_decimal, NumberFormatError, format_number
+from babel.numbers import parse_decimal, NumberFormatError, format_currency
 
 enlocal = re.compile('^(([0-9]{1,3}\,?([0-9]{3}\,?)+)|[0-9]*)(\.[0-9]{2})?$')
 delocal = re.compile('^(([0-9]{1,3}\.?([0-9]{3}\.?)+)|[0-9]*)(\,[0-9]{2})?$')
@@ -14,6 +14,15 @@ emailmatcher = re.compile('^([0-9a-zA-Z]+([-._][0-9a-zA-Z]+)*@[0-9a-zA-Z]+([-._]
 socket.setdefaulttimeout(5)
 
 log = logging.getLogger(__name__)
+strbool = formencode.validators.StringBoolean(if_missing=False)
+
+class TOSValidator(formencode.validators.StringBoolean):
+	def _to_python(self, value, state):
+		value = strbool.to_python(value)
+		if not value:
+			raise formencode.Invalid(_('TOSVALIDATOR_You have to agree to our terms and conditions.'), value, state)
+		return value
+
 
 class PWDValidator(formencode.validators.String):
 	def _to_python(self, value, state):
@@ -29,7 +38,6 @@ class DateValidator(formencode.FancyValidator):
 			raise formencode.Invalid(
 				_('DATEVALIDATOR_Please input Date in Valid Format YYYY-MM-DD'), value, state)
 		return value
-
 
 class CurrencyValidator(formencode.FancyValidator):
 	def _to_python(self, value, state):
@@ -47,7 +55,7 @@ class MonetaryValidator(formencode.validators.Number):
 				_('MONETARYVALIDATOR_Please input a valid amount'), value, state)
 		else:
 			if value > self.max:
-				raise formencode.Invalid(_("Please enter a number that is %s or smaller") % format_number(self.max, locale=websession['lang']), value, state)
+				raise formencode.Invalid(_("Please enter a number that is %s or smaller") % format_currency(self.max, state.product.currency, locale=websession['lang']), value, state)
 			else:
 				super(self.__class__, self)._to_python(value, state)
 		return value

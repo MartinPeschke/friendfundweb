@@ -274,5 +274,6 @@ class FBUserPermissions(DBMappedObject):
 				,GenericAttrib(str,'email','email')
 				,GenericAttrib(str,'has_email','has_email')
 				,GenericAttrib(bool,'stream_publish','stream_publish')
+				,GenericAttrib(bool,'create_event','create_event')
 				,GenericAttrib(bool,'permanent','permanent')
 			]

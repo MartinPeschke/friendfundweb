@@ -1,11 +1,13 @@
 from __future__ import with_statement
-import cgi, hashlib, time, urllib2, re, simplejson, time, logging, hmac, urllib, base64
+import cgi, hashlib, time, urllib2, re, simplejson, time, logging, hmac, urllib, base64, os
+from StringIO import StringIO
 from hashlib import sha256
 from datetime import datetime, timedelta
 from ordereddict import OrderedDict
 from poster.streaminghttp import register_openers
 from poster.encode import multipart_encode
-
+from celery.execute import send_task
+from friendfund.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
@@ -99,8 +101,8 @@ def translate_friend_entry(u_id, friend_data):
 			'network_id':u_id,
 			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
 			'profile_picture_url':get_pic_url(friend_data['id']),
-			# 'notification_method':'CREATE_EVENT',
-			'notification_method':'STREAM_PUBLISH',
+			'notification_method':'CREATE_EVENT',
+			# 'notification_method':'STREAM_PUBLISH',
 			'network':'facebook',
 			'email':friend_data.get('email'),
 			'is_selector':False
@@ -181,6 +183,26 @@ def get_friends_from_cache(
 	
 	
 def create_event(self, fb_data, pool, site_root_url, physical_path):
+	query = {
+			"name":pool.occasion.get_display_label().encode("utf-8"), 
+			"start_time" : (pool.occasion.date - timedelta(0,3600)).strftime("%Y-%m-%d"),
+			"end_time" : pool.occasion.date.strftime("%Y-%m-%d"),
+			"description":"%s\n\n%s" % (pool.description, '%s/pool/%s'%(site_root_url,pool.p_url)),
+			"tagline":"Friendfund, group gifting",
+			"host":"Me",
+			"link" : site_root_url,
+			"access_token":fb_data['access_token']
+			,"format":"json",
+			"link" : site_root_url, "name":"Friendfund"
+		}
+	register_openers()
+	datagen, headers = multipart_encode(query)
+	req = urllib2.Request('https://graph.facebook.com/me/events', datagen, headers)
+	event_id = simplejson.load(urllib2.urlopen(req)).get('id')
+	send_task('friendfund.tasks.fb.upload_picture_to_event', args = [event_id, fb_data['access_token'], h.get_user_picture(pool.receiver.profile_picture_url, "RA", site_root=site_root_url)])
+	return event_id
+	
+def create_event_rest(self, fb_data, pool, site_root_url, physical_path):
 	register_openers()
 	datagen, headers = multipart_encode({
 			"event_info": simplejson.dumps({"name":pool.occasion.get_display_label().encode("utf-8"), 

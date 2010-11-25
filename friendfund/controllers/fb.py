@@ -93,6 +93,10 @@ class FbController(BaseController):
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
 			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], create_event = True)
+			try:
+				g.dbm.set(perms)
+			except db_access.SProcException, e:
+				log.error(str(e))
 			c.user.set_perm('facebook', 'create_event', True)
 			remove_block('create_event')
 			c.reload = True
@@ -159,99 +163,3 @@ class FbController(BaseController):
 			log.error(str(e))
 		return '1'
 		
-		
-		
-		
-	def post_link(self):
-		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
-		except fb_helper.FBIncorrectlySignedRequest, e: 
-			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
-			return '1'
-		pool = g.dbm.get(Pool, p_url = pool_url)
-		
-		msg = {'access_token':fb_data['access_token'],
-				'link':'%s%s'%(g.SITE_ROOT_URL,pool.p_url),
-				'picture':'%s%s'%(g.SITE_ROOT_URL,pool.receiver.get_profile_pic("RA")),
-				'name':("Friendfund for %s's %s"%(pool.receiver.name, pool.occasion.get_display_label())).encode("utf-8"),
-				'caption':"Friendfund",
-				'description':("Friendfund for %s's %s"%(pool.receiver.name, pool.occasion.get_display_label())).encode("utf-8")}
-		
-		print msg
-		try:
-			resp = urllib2.urlopen('https://graph.facebook.com/%s/feedc' % str(event_id), urllib.urlencode(msg))
-		except urllib2.HTTPError, e:
-			resp = e.fp
-		post = resp.read()
-		print post
-		return post
-		
-		
-		
-	def create_event(self, pool_url):
-		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
-		except fb_helper.FBIncorrectlySignedRequest, e: 
-			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
-			return '1'
-		pool = g.dbm.get(Pool, p_url = pool_url)
-		
-		from poster.encode import multipart_encode
-		from poster.streaminghttp import register_openers
-		import urllib2, simplejson
-		register_openers()
-		datagen, headers = multipart_encode({
-				"event_info": simplejson.dumps({"name":pool.occasion.get_display_label().encode("utf-8"), 
-												"start_time" : datetime.datetime.now().strftime("%Y-%m-%d"), 
-												"end_time":pool.occasion.date.strftime("%Y-%m-%d")}),
-				"access_token":fb_data['access_token'],"format":"json",
-				"[no name]":open("/opt/www/friendfund/data/s/user/d9/7e/d97e24ec7884ccec4181ee6d11af3758_POOL.jpg", "rb"),
-				"link" : "http://dev.friendfund.de"})
-		req = urllib2.Request('https://api.facebook.com/method/events.create', datagen, headers)
-		try: 
-			result = urllib2.urlopen(req).read()
-		except Exception, e:
-			result = e.fp.read()
-		print '='*80
-		print result
-		print '='*80
-		
-		
-		msg = {"eid":str(result),
-				"uids" : "[100001848870955]",
-				"personal_message":pool.description or 'Description', 
-				"access_token":fb_data['access_token']}
-		msg = dict((k,v.encode("utf-8")) for k,v in msg.iteritems())
-		try:
-			resp = urllib2.urlopen('https://api.facebook.com/method/events.invite', msg)
-		except urllib2.HTTPError, e:
-			resp = e.fp
-			print e.fp.read()
-		post = resp.read()
-		
-		
-		print post
-		return post
-	
-	def invite_to_event(self, pool_url):
-		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
-		except fb_helper.FBIncorrectlySignedRequest, e: 
-			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
-			return '1'
-		pool = g.dbm.get(Pool, p_url = pool_url)
-		msg = {"eid":"163945873644569",
-				"uids" : "[100001848870955]",
-				"personal_message	":pool.description, 
-				"access_token":fb_data['access_token']}
-		msg = dict((k,v.encode("utf-8")) for k,v in msg.iteritems())
-		log.info( msg )
-		query = urllib.urlencode(msg)
-		try:
-			resp = urllib2.urlopen('https://api.facebook.com/method/events.invite', query)
-		except urllib2.HTTPError, e:
-			resp = e.fp
-			print e.fp.read()
-		post = resp.read()
-		print post
-		return post

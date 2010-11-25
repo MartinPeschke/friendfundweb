@@ -102,7 +102,13 @@ def main(argv=None):
 							msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
 						else:
 							msg_id = "1"
-							log.warning( "STREAM_PUBLISH_IS_OFF" )
+							log.warning( "FACEBOOK_MESSAGING_IS_OFF" )
+					elif notification_method == 'create_event':
+						if facebook_on:
+							msg_id = facebook.create_event_invite(sndr_data, rcpt_data, template_data)
+						else:
+							msg_id = "1"
+							log.warning( "FACEBOOK_MESSAGING_IS_OFF" )
 					elif notification_method in ['tweet', 'tweet_dm']:
 						if twitter_on:
 							if sndr_data['u_id'] in ['25710','25711','25712','25713','25714','25715','25716','25717','25718','25719','25720']:

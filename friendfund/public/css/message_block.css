@@ -196,12 +196,13 @@ a.red_labeled_container:hover span {background:url("../imgs/inputfield.png?20101
 
 
 /*=========================================== COUNTER ===========================================*/
-#countdown {margin-left:90px;}
-#countdown div.countdown_days, #countdown div.countdown_hours{position: relative;float: left;}
-div.counter_container{float: left;text-align: center;margin: 0px;}
+#countdown {margin-left:90px;background:url(/static/imgs/counter_frame.png) no-repeat top right;width:200px;height:75px;}
+#countdown div.countdown_days{position: relative;float:left;margin-top:10px;width:100px;}
+#countdown div.countdown_hours{position: relative;float:left;margin-top:10px;width:100px;}
+div.counter_container{margin:0 auto;text-align:center;}
 
-div.counter_container div.subscript{float: left;font-size: 14px;margin: 11px;font-family:"Trebuchet MS";font-weight:bold;}
-div.counter{float:left;
+div.counter_container div.subscript{font-size: 14px;margin: 1px;font-family:"Trebuchet MS";font-weight:bold;}
+div.counter{
 	color: white;
 	display: inline;
 	position: relative;
@@ -892,7 +893,7 @@ span.showme a.showme:hover{color: #c11164; text-decoration: underline !important
 #contributioncontainer input#chipin_amount{ border:2px solid #131313;}
 .contributionAmount{ position: relative}
 .contributionAmount label{ width: 100px;position: relative}
-.contributionAmount .contrib_error_message{ color:#FF0000;float:left;margin:14px 0 0 10px;position:relative;width:155px;}
+.contributionAmount .contrib_error_message{ color: red;float: left;font-size: 18px;font-weight: bold;margin:0px 0px 0px 10px;position: relative;width: 145px;}
 .contributionAmount .currencyDisplay{ font-size:18px;font-weight:bold;position:relative;top:12px;float:left;}
 .contributionAmount input{ width: 147px;  width: 100px;float:left}
 .contributionAmount { font-family: Arial}
@@ -907,7 +908,7 @@ span.showme a.showme:hover{color: #c11164; text-decoration: underline !important
 #contributioncontainer h2{ font-family: "Trebuchet MS"; font-size: 20px; font-weight: bold; color: #5a4129; margin: 0; padding: 0; line-height: 20px; font-style: italic; padding:0 0 10px;}
 .whiteBoxSmall{ background: white; width: 850px; margin-top: 10px;  padding: 15px}
 #contributioncontainer input{ height: 24px; margin: 10px 5px 0 0;}
-#contributioncontainer input[type=text]{ border: 1px solid #666;padding:4px 4px 0px 2px;}
+#contributioncontainer input[type=text]{ background: white;border: 0px solid transparent;padding: 4px 4px 0px 2px;}
 #contributioncontainer input[type=text].contrib_amount{ text-align:right;width:100px }
 span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; padding-top: 10px}
 #chipin_anonymous{ margin: 0 !important}
@@ -918,7 +919,7 @@ span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; pad
 #contributioncontainer label.paymenticon img {position:relative;top:-3px;}
 #contributioncontainer label.paymenticon span.methodname {position:relative;top:-8px;margin-left:10px;}
 
-#contributioncontainer div.error_message {left:192px;top:16px; color: #ff0000}
+#contributioncontainer div.error_message {clear: both;color: red;font-size: 14px;font-weight: bold;left: 192px;}
 .radioContainer{ width: 150px}
 .radioContainer2{ width: 200px}
 #contributioncontainer .radioContainer input, #contributioncontainer .radioContainer2 input, #contributioncontainer .payement_method input{ margin: 0; height: 13px}
