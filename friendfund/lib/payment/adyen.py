@@ -56,9 +56,9 @@ class PaymentMethod(object):
 		return -0.01 < total - (base*(1 + self._fee_relative) + self._fee_absolute) < 0.01
 	def __repr__(self):
 		return '<%s: %s>' % (self.__class__.__name__, self.code)
-	def process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
+	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		raise UnsupportedPaymentMethod('process')
-	def post_process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
+	def post_process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		raise UnsupportedPaymentMethod('process')
 	def verify_signature(self, params):
 		raise Exception('NotImplemented')
@@ -70,13 +70,13 @@ class CreditCardPayment(PaymentMethod):
 		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 	
-	def process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
+	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		tmpl_context.form_secret = str(uuid.uuid4())
 		with g.cache_pool.reserve() as mc:
 			add_token(mc, tmpl_context.form_secret, tmpl_context.action)
-		return redirecter(url(controller='contribution', pool_url=pool_url, action='details', token=tmpl_context.form_secret, protocol=g.SSL_PROTOCOL))
+		return redirecter(url(controller='contribution', pool_url=pool.p_url, action='details', token=tmpl_context.form_secret, protocol=g.SSL_PROTOCOL))
 	
-	def post_process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
+	def post_process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		with g.cache_pool.reserve() as client:
 			action = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
 		tmpl_context.pool_fulfilled = action == 'chipin_fixed'
@@ -91,7 +91,7 @@ class CreditCardPayment(PaymentMethod):
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
 								,email = tmpl_context.user.email
-								,p_url = pool_url)
+								,p_url = pool.p_url)
 		try:
 			contrib = g.dbm.set(contrib, merge = True)
 		except SProcException, e:
@@ -113,14 +113,13 @@ class CreditCardPayment(PaymentMethod):
 			g.dbm.set(notice)
 		except SProcException, e:
 			log.error(e)
-			raise DBErrorAfterPayment(e)
-		g.dbm.expire(Pool(p_url = pool_url))
+		g.dbm.expire(Pool(p_url = pool.p_url))
 		tmpl_context.success = (paymentresult['resultCode'] == 'Authorised')
 		if tmpl_context.success : 
-			remote_pool_picture_render.delay(pool_url)
-			return {'redirect':url('contribution', pool_url=pool_url, action='success', token=tmpl_context.form_secret)}
+			remote_pool_picture_render.delay(pool.p_url)
+			return {'redirect':url('contribution', pool_url=pool.p_url, action='success', token=tmpl_context.form_secret)}
 		else:
-			return {'redirect':url('contribution', pool_url=pool_url, action='fail', token=tmpl_context.form_secret)}
+			return {'redirect':url('contribution', pool_url=pool.p_url, action='fail', token=tmpl_context.form_secret)}
 
 
 class RedirectPayment(PaymentMethod):
@@ -155,7 +154,7 @@ class RedirectPayment(PaymentMethod):
 		hm = hmac.new(self.secret, sign_base, hashlib.sha1)
 		return base64.encodestring(hm.digest()).strip()
 	
-	def process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
+	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		dbcontrib = DBContribution(amount = contribution.amount
 								,total = contribution.total
 								,is_secret = contribution.is_secret
@@ -166,7 +165,7 @@ class RedirectPayment(PaymentMethod):
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
 								,email = tmpl_context.user.email
-								,p_url = pool_url)
+								,p_url = pool.p_url)
 		try:
 			dbcontrib = g.dbm.set(dbcontrib, merge = True)
 		except SProcException, e:
@@ -185,7 +184,7 @@ class RedirectPayment(PaymentMethod):
 		return redirecter(url)
 		
 class VirtualPayment(PaymentMethod):
-	def process(self, tmpl_context, contribution, pool_url, renderer, redirecter):
+	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		dbcontrib = DBContribution(amount = contribution.amount
 								,total = contribution.total
 								,is_secret = contribution.is_secret
@@ -196,7 +195,7 @@ class VirtualPayment(PaymentMethod):
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
 								,email = tmpl_context.user.email
-								,p_url = pool_url)
+								,p_url = pool.p_url)
 		try:
 			dbcontrib = g.dbm.set(dbcontrib, merge = True)
 		except SProcException, e:
@@ -210,7 +209,7 @@ class VirtualPayment(PaymentMethod):
 			log.error(e)
 			raise DBErrorAfterPayment(e)
 		
-		g.dbm.expire(Pool(p_url = pool_url))
+		g.dbm.expire(Pool(p_url = pool.p_url))
 		
 		tmpl_context.success = True
 		tmpl_context.pool_fulfilled = False

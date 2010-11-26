@@ -14,6 +14,7 @@ from friendfund.services.amazon_service import AmazonService
 from friendfund.services.payment_service import PaymentService
 from friendfund.services.product_service import ProductService
 from friendfund.services.user_service import UserService
+from friendfund.services.pool_service import PoolService
 
 from friendfund.lib.payment.adyen import CreditCardPayment, RedirectPayment, VirtualPayment
 
@@ -118,6 +119,7 @@ class Globals(object):
 		
 		##################################### SERVICES SETUP #####################################
 		self.user_service = UserService(config)
+		self.pool_service = PoolService(config)
 		log.info("UserService set up")
 		
 		payment_methods = [

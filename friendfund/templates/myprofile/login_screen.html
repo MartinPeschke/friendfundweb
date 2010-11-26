@@ -30,6 +30,7 @@
             <p class="facebookTxt" style="margin-top:15px"><img src="/static/imgs/icon_mail.png" complete="complete"/>Email</p>
 			<div  class="panel_content_inner" style="margin-top:0px">
 			<form action="${url('index', action='login')}" method="POST" id="login_form">
+				<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
 				<div class="forminputline signup_login">
 					${forms.input_text("login", "email", _("LOGIN_PAGE_LABEL_Email"))|n}
 				</div>
@@ -52,6 +53,7 @@
 		</div>
 			<div class="panel_content_inner">
 			<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
 				<div class="forminputline">
 					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Name"))|n}
 				</div>

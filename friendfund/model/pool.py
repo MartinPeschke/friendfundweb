@@ -197,6 +197,15 @@ class PoolUser(DBMappedObject):
 class PoolInvitee(PoolUser):
 	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]
 	
+	@classmethod
+	def fromUser(cls, user):
+		obj = cls()
+		for k in user._keys:
+			if hasattr(obj, k.pykey):
+				setattr(obj, k.pykey, getattr(user, k.pykey))
+		return obj
+	
+	
 class Pool(DBMappedObject):
 	_set_proc   = 'app.create_pool'
 	_get_proc   = 'app.get_pool'
@@ -330,7 +339,6 @@ class Pool(DBMappedObject):
 		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
 	def is_pending(self):
 		return self.phase == "PENDING"
-	
 	
 	def mergewDB(self, xml):
 		super(self.__class__, self).mergewDB(xml)

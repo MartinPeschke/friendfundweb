@@ -58,6 +58,7 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
+		g.pool_service.invite_myself(c.pool, c.user)
 		try:
 			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
 		except NotAllowedToPayException, e:
@@ -77,6 +78,7 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
+		g.pool_service.invite_myself(c.pool, c.user)
 		c.action = 'chipin'
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
@@ -92,13 +94,14 @@ class ContributionController(BaseController):
 		contrib.set_amount(1)
 		contrib.set_total(1)
 		contrib.paymentmethod = c.paymentpage.methods[0].code
-		return g.payment_service.process_payment(c, contrib, pool_url, render, redirect)
+		return g.payment_service.process_payment(c, contrib, c.pool, render, redirect)
 	
 	@logged_in(ajax=False)
 	def chipin(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
+		g.pool_service.invite_myself(c.pool, c.user)
 		c.action = 'chipin'
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
@@ -123,7 +126,7 @@ class ContributionController(BaseController):
 			return redirect(url('chipin', pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
 		schema = PaymentConfForm()
 		try:
-			schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
+			schema.fields['amount'].max = round(pool.get_amount_left(), 2)
 			chipin['agreedToS'] = chipin.get('agreedToS', 'no')
 			state = copy(pool)
 			state.__dict__["_"] = FriendFundFormEncodeState._
@@ -145,13 +148,13 @@ class ContributionController(BaseController):
 				return self.render('/contribution/contrib_screen.html')
 			
 			contrib = Contribution(**form_result)
-			contrib.currency = c.pool.currency
+			contrib.currency = pool.currency
 			contrib.set_amount(form_result['amount'])
 			contrib.set_total(form_result['total'])
 			contrib.paymentmethod = chipin.get('payment_method')
 			websession['contribution'] = contrib
 			try:
-				return g.payment_service.process_payment(c, contrib, pool.p_url, render, redirect)
+				return g.payment_service.process_payment(c, contrib, pool, render, redirect)
 			except UnsupportedPaymentMethod, e:
 				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
 				return redirect(url('chipin', pool_url=pool.p_url, protocol='g.SSL_PROTOCOL'))
@@ -223,7 +226,7 @@ class ContributionController(BaseController):
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
 				return {'redirect':url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL')}
 		try:
-			return g.payment_service.post_process_payment(c, websession['contribution'], pool_url, render, redirect)
+			return g.payment_service.post_process_payment(c, websession['contribution'], c.pool, render, redirect)
 		except TokenNotExistsException, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"))
 		except UnsupportedPaymentMethod, e:
@@ -231,7 +234,7 @@ class ContributionController(BaseController):
 			return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
 		except DBErrorDuringSetup, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-		except DBErrorAfterPayment, e:
+		except DBErrorAfterPayment, e: # DISABLED since this is irrelevant with async notifications coming in
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
 	
 	def success(self, pool_url):

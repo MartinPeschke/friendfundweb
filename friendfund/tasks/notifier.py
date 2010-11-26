@@ -26,7 +26,16 @@ L10N_KEYS = ['occasion']
 
 
 CONNECTION_NAME = 'messaging'
-turbomail_config = None
+
+def empty_sender(name = None):
+	def es(sndr_data, rcpt_data, template_data, config):
+		log.warning( "%s_MESSAGING_IS_OFF", name )
+		return "1"
+	return es
+def error_sender(name = None):
+	def es(sndr_data, rcpt_data, template_data, config):
+		raise Exception( "NOT_IMPLEMENTED_ERROR(%s)" % name)
+	return es
 
 class Usage(Exception):
 	def __init__(self, msg):
@@ -54,9 +63,28 @@ def main(argv=None):
 	ROOT_URL = config['short_site_root_url']
 	
 	debug = config['debug'].lower() == 'true'
+	
 	facebook_on = config['notification_fb'].lower() == 'on'
-	twitter_on  = config['notification_tw'].lower() == 'on'
-	email_on    = config['notification_email'].lower() == 'on'
+	twitter_on = config['notification_tw'].lower() == 'on'
+	email_on = config['notification_email'].lower() == 'on'
+	
+	messengers = {}
+	if facebook_on:
+		messengers['create_event'] = facebook.create_event_invite
+		messengers['stream_publish'] = facebook.send_stream_publish
+	else:
+		messengers['create_event'] = empty_sender("create_event")
+		messengers['stream_publish'] = empty_sender('stream_publish')
+	if twitter_on:
+		messengers['tweet'] = twitter.send_tweet
+		messengers['tweet_dm'] = empty_sender('tweet_dm')
+	else:
+		messengers['tweet'] = empty_sender('tweet')
+		messengers['tweet_dm'] = empty_sender('tweet_dm')
+	if email_on:
+		messengers['email'] = email.send
+	else:
+		messengers['email'] = empty_sender('email')
 	
 	log.info( 'DEBUG: %s for %s (fb:%s,tw:%s,email:%s)', debug, CONNECTION_NAME,  facebook_on, twitter_on, email_on )
 	
@@ -91,46 +119,7 @@ def main(argv=None):
 				
 				try:
 					notification_method = meta_data.get('notification_method').lower()
-					if notification_method == 'email':
-						if email_on:
-							msg_id = email.send(sndr_data, rcpt_data, template_data)
-						else:
-							msg_id = "1"
-							log.warning( "EMAILING_IS_OFF" )
-					elif notification_method == 'stream_publish':
-						if facebook_on:
-							msg_id = facebook.send_stream_publish(sndr_data, rcpt_data, template_data)
-						else:
-							msg_id = "1"
-							log.warning( "FACEBOOK_MESSAGING_IS_OFF" )
-					elif notification_method == 'create_event':
-						if facebook_on:
-							msg_id = facebook.create_event_invite(sndr_data, rcpt_data, template_data)
-						else:
-							msg_id = "1"
-							log.warning( "FACEBOOK_MESSAGING_IS_OFF" )
-					elif notification_method in ['tweet', 'tweet_dm']:
-						if twitter_on:
-							if sndr_data['u_id'] in ['25710','25711','25712','25713','25714','25715','25716','25717','25718','25719','25720']:
-								sndr_data['twitterapikey'] = config['testtwitterapikey']
-								sndr_data['twitterapisecret'] = config['testtwitterapisecret']
-								print "USED TEST APP"
-							else:
-								sndr_data['twitterapikey'] = config['twitterapikey']
-								sndr_data['twitterapisecret'] = config['twitterapisecret']
-							sndr_data['bitlylogin'] = config['bitly.login']
-							sndr_data['bitlyapikey'] = config['bitly.apikey']
-							
-							if notification_method == 'tweet':
-								msg_id = twitter.send_tweet(sndr_data, rcpt_data, template_data)
-							elif notification_method == 'tweet_dm':
-								pass
-								# msg_id = twitter.send_dm(sndr_data, rcpt_data, template_data) @ disabled
-						else:
-							msg_id = "1"
-							log.warning( "TWEETING_IS_OFF" )
-					else:
-						raise Exception("Unknown Notification Method")
+					msg_id = messengers.get(notification_method, error_sender(notification_method))(sndr_data, rcpt_data, template_data, config)
 				except InvalidAccessTokenException, e:
 					log.warning( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}

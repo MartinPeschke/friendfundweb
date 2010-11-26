@@ -39,7 +39,7 @@ class PaymentService(object):
 		return str(method_code) in self.payment_methods_map
 	def get_payment_method(self, method_code):
 		return self.payment_methods_map[method_code]
-	def process_payment(self, tmpl_context, contribution, pool_url, renderer, redirecter):
-		return self.payment_methods_map[contribution.paymentmethod].process(tmpl_context, contribution, pool_url, renderer, redirecter)
-	def post_process_payment(self, tmpl_context, contribution, pool_url, renderer, redirecter):
-		return self.payment_methods_map[contribution.paymentmethod].post_process(tmpl_context, contribution, pool_url, renderer, redirecter)
+	def process_payment(self, tmpl_context, contribution, pool, renderer, redirecter):
+		return self.payment_methods_map[contribution.paymentmethod].process(tmpl_context, contribution, pool, renderer, redirecter)
+	def post_process_payment(self, tmpl_context, contribution, pool, renderer, redirecter):
+		return self.payment_methods_map[contribution.paymentmethod].post_process(tmpl_context, contribution, pool, renderer, redirecter)

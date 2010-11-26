@@ -61,10 +61,10 @@ class IndexController(BaseController):
 		return result
 	
 	def login(self):
+		c.furl = request.params.get('furl', url('home'))
 		if not c.user.is_anon:
 			c.messages.append(_(u"USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"))
-			return redirect(url('home'))
-		c.furl = request.params.get('furl', '')
+			return redirect(furl)
 		c.login_values = {}
 		c.login_errors = {}
 		if request.method != 'POST':
@@ -83,7 +83,7 @@ class IndexController(BaseController):
 						)
 			c.user.network = 'email'
 			c.user.email = c.login_values['email']
-			return redirect(url('home'))
+			return redirect(c.furl)
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}

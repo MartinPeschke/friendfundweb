@@ -25,7 +25,22 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	else:
 		return post['id']
 
-def send_stream_publish(sndr_data, rcpt_data, template_data):
+def create_event_invite(sndr_data, rcpt_data, template_data, config):
+	msg = {"eid":template_data['event_id'],
+			"uids" : '[%s]'%rcpt_data['network_ref'],
+			"personal_message":template_data['description'], 
+			"format":"json",
+			"access_token":sndr_data['access_token']}
+	msg = dict((k,v.encode("utf-8")) for k,v in msg.iteritems())
+	try:
+		resp = urllib2.urlopen('https://api.facebook.com/method/events.invite', urllib.urlencode(msg)).read()
+	except urllib2.HTTPError, e:
+		resp = e.fp
+	if resp != 'true':
+		raise InvalidAccessTokenException(resp)
+	return resp
+
+def send_stream_publish(sndr_data, rcpt_data, template_data, config):
 	msg_realm = template_data.get('is_secret') == '0' and "public" or "secret"
 	templ_name = template_data['t_name']
 	try:
