@@ -49,6 +49,7 @@ class IndexController(BaseController):
 	
 	@jsonify
 	def logout(self):
+		c.furl = request.params.get('furl', url('home'))
 		c.user = ANONUSER
 		c.settings = {}
 		c.messages = []
@@ -56,7 +57,7 @@ class IndexController(BaseController):
 			del websession['invitees']
 		if 'pool' in websession:
 			del websession['pool']
-		result = {'redirect':url('home')}
+		result = {'redirect':c.furl}
 		clear_blocks()
 		return result
 	

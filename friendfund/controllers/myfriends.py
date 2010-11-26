@@ -7,7 +7,7 @@ from pylons import request, response, session as websession, tmpl_context as c, 
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 
-from friendfund.lib import fb_helper, tw_helper
+from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import post_only, logged_in
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.base import BaseController, render, _
@@ -90,8 +90,8 @@ class MyfriendsController(BaseController):
 				return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
 			else:
 				c.method = 'email'
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', "/static/imgs/default_m.png")
-				invitee['large_profile_picture_url'] = invitee['profile_picture_url']
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=g.SITE_ROOT_URL))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=g.SITE_ROOT_URL))
 				c.invitees = {network_id:invitee}
 				data = invitee
 				data['success'] = True
@@ -104,7 +104,7 @@ class MyfriendsController(BaseController):
 			data['network'] = c.user.network.lower()
 			data['network_id'] = (c.user.network.lower() == 'email' and c.user.email or c.user.network_id)
 			data['name'] = c.user.name
-			data['large_profile_picture_url'] = data['profile_picture_url'] = c.user.get_profile_pic('RA')
+			data['large_profile_picture_url'] = data['profile_picture_url'] = c.user.get_profile_pic('POOL')
 			return {'clearmessage':True,'data':data}
 		elif(c.user.is_anon):
 			return {'data':

@@ -4,9 +4,6 @@ from StringIO import StringIO
 from hashlib import sha256
 from datetime import datetime, timedelta
 from ordereddict import OrderedDict
-from poster.streaminghttp import register_openers
-from poster.encode import multipart_encode
-from celery.execute import send_task
 from friendfund.lib import helpers as h
 
 log = logging.getLogger(__name__)
@@ -178,47 +175,3 @@ def get_friends_from_cache(
 				obj[str(id)]['mutual_with'] = str(friend_id)
 	logger.info('Retrieved %s FBFriends' % len(obj))
 	return obj
-	
-	
-	
-	
-def create_event(self, fb_data, pool, site_root_url, physical_path):
-	query = {
-			"name":pool.occasion.get_display_label().encode("utf-8"), 
-			"start_time" : (pool.occasion.date - timedelta(0,3600)).strftime("%Y-%m-%d"),
-			"end_time" : pool.occasion.date.strftime("%Y-%m-%d"),
-			"description":"%s\n\n%s" % (pool.description, '%s/pool/%s'%(site_root_url,pool.p_url)),
-			"tagline":"Friendfund, group gifting",
-			"host":"Me",
-			"link" : site_root_url,
-			"access_token":fb_data['access_token']
-			,"format":"json",
-			"link" : site_root_url, "name":"Friendfund"
-		}
-	register_openers()
-	datagen, headers = multipart_encode(query)
-	req = urllib2.Request('https://graph.facebook.com/me/events', datagen, headers)
-	event_id = simplejson.load(urllib2.urlopen(req)).get('id')
-	send_task('friendfund.tasks.fb.upload_picture_to_event', args = [event_id, fb_data['access_token'], h.get_user_picture(pool.receiver.profile_picture_url, "RA", site_root=site_root_url)])
-	return event_id
-	
-def create_event_rest(self, fb_data, pool, site_root_url, physical_path):
-	register_openers()
-	datagen, headers = multipart_encode({
-			"event_info": simplejson.dumps({"name":pool.occasion.get_display_label().encode("utf-8"), 
-											"start_time" : (pool.occasion.date - timedelta(0,3600)).strftime("%Y-%m-%d"),
-											"description":"%s\n\n%s" % (pool.description, '%s/pool/%s'%(site_root_url,pool.p_url)),
-											"tagline":"Friendfund, group gifting",
-											"host":"Me",
-											"link" : site_root_url}),
-			"access_token":fb_data['access_token'],"format":"json",
-			"[no name]":open("%s%s" % (physical_path, pool.receiver.get_profile_pic("RA")), "rb"),
-			"link" : site_root_url, "name":"Friendfund"})
-	req = urllib2.Request('https://api.facebook.com/method/events.create', datagen, headers)
-	try: 
-		event_id = urllib2.urlopen(req).read()
-	except Exception, e:
-		log.error(e.fp.read())
-		raise e
-	else:
-		return event_id

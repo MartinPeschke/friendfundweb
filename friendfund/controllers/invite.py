@@ -138,14 +138,9 @@ class InviteController(BaseController):
 		
 		if invitees is not None:
 			fb_invitees = {}
-			
-			if len([inv for inv in invitees if inv['notification_method'] == 'CREATE_EVENT']):
-				event_id = self.create_event(pool)
-			else:
-				event_id = None
 			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
 							, p_url = pool.p_url
-							, event_id = event_id
+							, event_id = pool.event_id
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
 							, description = pool.description
@@ -170,68 +165,6 @@ class InviteController(BaseController):
 			log.error("CREATE_EVENT with %s, %s", request.params, request.cookies)
 			return None
 		return fb_helper.create_event(self, fb_data, pool, g.SITE_ROOT_URL, physical_path = g.UPLOAD_FOLDER)
-		
-		
-		# fb_invitees = {}
-		# for inv in invitees:
-				# netw = inv['network'].lower()
-				# if netw == 'facebook':
-					# fb_invitees[str(inv['network_id'])] = inv
-				# from poster.encode import multipart_encode
-		
-		# from poster.streaminghttp import register_openers
-		# import urllib2, simplejson
-		# register_openers()
-		# datagen, headers = multipart_encode({
-				# "event_info": simplejson.dumps({"name":pool.occasion.get_display_label().encode("utf-8"), 
-												# "start_time" : (pool.occasion.date - datetime.timedelta(0,3600)).strftime("%Y-%m-%d"),
-												# "description":"%s\n\n%s" % (pool.description, '%s/pool/%s'%(g.SITE_ROOT_URL,pool.p_url)),
-												# "tagline":"Friendfund, group gifting",
-												# "host":"Me",
-												# "link" : "http://dev.friendfund.de"}),
-				# "access_token":fb_data['access_token'],"format":"json",
-				# "[no name]":open("/opt/www/friendfund/data%s" % pool.receiver.get_profile_pic("RA"), "rb"),
-				# "link" : "http://dev.friendfund.de", "name":"Friendfund"})
-		# req = urllib2.Request('https://api.facebook.com/method/events.create', datagen, headers)
-		# try: 
-			# event_id = urllib2.urlopen(req).read()
-		# except Exception, e:
-			# event_id = e.fp.read()
-		# else:
-			# msg = {"eid":str(event_id),
-					# "uids" : '[%s,1707117978]'%(','.join(fb_invitees.keys())),
-					# "personal_message":pool.description or 'Description', "format":"json",
-					# "access_token":fb_data['access_token']}
-			# msg = dict((k,v.encode("utf-8")) for k,v in msg.iteritems())
-			# print msg
-			# try:
-				# resp = urllib2.urlopen('https://api.facebook.com/method/events.invite', urllib.urlencode(msg))
-			# except urllib2.HTTPError, e:
-				# resp = e.fp
-			# post = resp.read()
-			# print post
-		# print event_id
-		
-		
-		# msg = {'access_token':fb_data['access_token'],
-				# 'link':'%s/pool/%s'%(g.SITE_ROOT_URL,pool.p_url),
-				# 'message':'Merry %s' % (pool.occasion.get_display_label()).encode("utf-8"),
-				# 'picture':'%s%s'%(g.SITE_ROOT_URL,pool.receiver.get_profile_pic("RA")),
-				# 'name':("Friendfund for %s's %s"%(pool.receiver.name, pool.occasion.get_display_label())).encode("utf-8"),
-				# 'caption':"Friendfund",
-				# 'description':("Friendfund for %s's %s"%(pool.receiver.name, pool.occasion.get_display_label())).encode("utf-8")}
-		
-		# print msg, 'https://graph.facebook.com/%s/feed'%str(event_id)
-		# try:
-			# resp = urllib2.urlopen('https://graph.facebook.com/%s/feed'%str(event_id), urllib.urlencode(msg))
-		# except urllib2.HTTPError, e:
-			# resp = e.fp
-		# post = resp.read()
-		# print post
-		
-		return event_id
-	
-	
 	
 	@jsonify
 	@logged_in(ajax=True)

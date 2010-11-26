@@ -22,7 +22,7 @@
 </%def>
 
 <%def name="page_slogan()">
-	<% locals = {'user_name':(c.user.name and "<span class=\"emphasis\">%s!</span>"%c.user.name) or "", 
+	<% locals = {'user_name':(c.user.name and "<span class=\"emphasis\">%s!</span>"%c.user.name) or (c.pool.suspect and "<span class=\"emphasis\">%s!</span>"%c.pool.suspect.name) or "", 
 				'receiver_name':c.pool.receiver.name, 
 				'occasion_name': c.pool.occasion.get_display_name(), 
 				'admin_name':c.pool.admin.name, 
@@ -60,9 +60,6 @@
 		%endif
 	%endif
 </%def>
-
-
-
 
 
 
@@ -114,6 +111,14 @@
 			<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 			<img src="/static/imgs/icons_paymethod.png"/>
 		%endif
+	%elif c.pool.am_i_admin(c.user) and c.pool.is_funded():
+		<a href="${url(controller='pool', pool_url=c.pool.p_url, action='settings')}" class="buttonRed buttonChipIn">
+			<span>${_("POOL_BUTTON_ACTION_Order Gift")}</span>
+		</a>
+	%elif c.pool.am_i_admin(c.user) and c.pool.is_expired():
+		<a href="${url(controller='pool', pool_url=c.pool.p_url, action='settings')}" class="buttonRed buttonChipIn superextrawide">
+			<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
+		</a>
 	%else:
 		<a class="buttonRed buttonChipIn inactive ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 	%endif
@@ -166,18 +171,18 @@
 					<div class="legende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
 				</div>
 		</div>
-		
-		%if c.pool.am_i_admin(c.user):
-			<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
-				<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
-			</a>
-		%endif
 	</div>
 </%def>
 
 <%def name="social_tools(locals)">
 	<div class="social_tools_free underlined1">
 			<iframe src="http://www.facebook.com/plugins/like.php?href=${url.current(protocol="http")}&amp;layout=standard&amp;show_faces=FALSE&amp;&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+	
+	%if c.pool.am_i_admin(c.user):
+		<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
+			<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
+		</a>
+	%endif
 	</div>
 </%def>
 
@@ -186,9 +191,12 @@
 									 "POOL_PAGE_%(number_contributors)d people have chipped in for %(receiver_name)s's gift.", locals['number_contributors']) %>
 
 	<h4 class="inside" style="padding:0px 30px;">${_("POOL_PAGE_Contributors")}
-	<div class="floaterRight">
-		<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
-	</div></h4>
+	%if c.pool.am_i_member(c.user):
+		<div class="floaterRight">
+			<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
+		</div>
+	%endif
+	</h4>
 	<div class="vertNoPadding">${contributors_text % locals}</div>
 
 	<div id="pool_contributors" class="pcont_body">

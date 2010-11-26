@@ -6,6 +6,27 @@ FF_SLOGAN = 'Friendfund is the easy way for you and your friends to organise gro
 #to print a $ in a message, use $$
 
 STANDARD_PARAMS = {'description':Template(FF_SLOGAN),"picture":Template(u"${ROOT_URL}/static/imgs/fb_stream_publish_logo.png")}
+
+EVENT_TEMPLATES = {
+	"public": {
+		"name":Template(u"FriendFund for ${receiver} for ${occasion}"),
+		"start_time" :Template(u"${occasion_date}"),
+		"end_time" : Template(u"${occasion_date}"),
+		"description":Template(u"${description} \n\n ${ROOT_URL}/pool/${p_url}"),
+		"link" : Template(u"${ROOT_URL}/pool/${p_url}")
+	},
+	"secret": {
+		"name":Template(u"A Friend Fund for a Friend of Yours"),
+		"start_time" : Template(u"${occasion_date}"),
+		"end_time" : Template(u"${occasion_date}"),
+		"description":Template(u"A Friend Fund for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at ${ROOT_URL}/pool/${p_url}"),
+		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
+		"privacy_type " : Template(u"SECRET")
+	}
+}
+
+
+
 TEMPLATES = {"INVITE":{
 					 "public":{
 						 "message":Template(u"${description}")

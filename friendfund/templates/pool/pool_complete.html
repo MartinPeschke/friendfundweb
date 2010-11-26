@@ -18,7 +18,7 @@
 		<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 		<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 		<meta property="og:title" content="friendfund.com - ${_("POOL_PAGE_TITLE_Pool Completed!")}" />
-		<meta property="og:description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
+		<meta property="og:description" content="${c.pool.thank_you_message or _(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
 		<meta property="og:type" content="product"/>
 		<meta property="og:url" content="${url.current(protocol="http")}"/>
 		<meta property="og:site_name" content="Friendfund"/>
@@ -66,9 +66,7 @@
 </div>
 	<div class="social_tools">
 		<a name="fb_share"></a> 
-		<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" 
-				type="text/javascript">
-		</script>
+		<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 		<div class="retweet">
 			<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="friendfund" data-lang="de">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		</div>

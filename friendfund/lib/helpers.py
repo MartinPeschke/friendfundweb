@@ -158,14 +158,18 @@ def get_badge_default_picture():
 
 
 def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
-	site_root = site_root
 	static_root = PROFILE_STATIC_ROOT
 	if not isinstance(profile_picture_url, basestring) or not profile_picture_url: 
 		return '%(site_root)s/static/imgs/default_m_%(type)s.png'%locals()
-	#dont modify absolute picture urls, just return them
-	return (not (profile_picture_url.startswith('http') or profile_picture_url.startswith('/'))) \
-			and ('%(site_root)s%(static_root)s/%(profile_picture_url)s_%(type)s.%(ext)s'%locals())\
-			or profile_picture_url
+	elif isinstance(profile_picture_url, basestring):
+		if profile_picture_url.startswith('/'):
+			return '%(site_root)%(profile_picture_url)s'%locals()
+		elif profile_picture_url.startswith('http'):
+			return profile_picture_url
+		else:
+			return ('%(site_root)s%(static_root)s/%(profile_picture_url)s_%(type)s.%(ext)s'%locals())
+	else:
+		return None
 
 def get_raw_product_image(product, site_root):
 	picture_large = product.picture_large

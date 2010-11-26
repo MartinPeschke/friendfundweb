@@ -214,6 +214,7 @@ class Pool(DBMappedObject):
 	_expiretime = 2
 	_keys = [ GenericAttrib(str,'p_url', 'p_url'				)
 			, GenericAttrib(int,'p_id', 'p_id'					)
+			, GenericAttrib(int,'event_id', 'event_id'			)
 			, DBMapper(PoolUser,'participants', 'POOLUSER', is_list = True)
 			, DBMapper(Product,'product', 'PRODUCT'				)
 			, DBMapper(Occasion,'occasion', 'OCCASION'			)
@@ -301,13 +302,13 @@ class Pool(DBMappedObject):
 			return (pu.contributed_amount or 0) > 0
 		else:
 			return False
+	def can_i_view(self, user):
+		return self.am_i_member(user) or not self.is_secret
 	
 	def get_require_pselector(self):
 		return self.is_pending() and not self.selector
 	require_pselector = property(get_require_pselector)
 	
-	def can_i_view(self, user):
-		return self.am_i_member(user) or not self.is_secret
 	
 	def determine_roles(self):
 		self.participant_map = {}

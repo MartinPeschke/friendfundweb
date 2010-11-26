@@ -1,6 +1,10 @@
 esc_handler_f = function(callback, evt){
 	if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}
 };
+accessability = function(callbackRet, callbackEsc, evt){
+	if(evt.keyCode == 13){dojo.hitch(this, callbackRet(this, evt));}
+	else if(evt.keyCode == 27){dojo.hitch(this, callbackEsc(this, evt));}
+};
 
 closePopup = function(evt){
 	dojo.query("#generic_popup *").orphan();

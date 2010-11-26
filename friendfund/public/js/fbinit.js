@@ -48,7 +48,6 @@ fbLogin = function() {
 };
 
 fbLogout = function(evt){
-	console.log(evt);
 	if(FB.getSession()){
 		FB.logout(function(response){});
 	}else{
@@ -70,7 +69,7 @@ fbSessionChange = function() {
 	if (FB.getSession()) {
 		doFBFFLogin(page_reloader);
 	} else {
-		loadElement("/logout", "accountcontainer");
+		loadElement("/logout?furl="+window.location.pathname, "accountcontainer");
 	}
 };
 

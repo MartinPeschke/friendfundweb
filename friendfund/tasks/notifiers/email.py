@@ -63,7 +63,7 @@ def send_email(subject, template, sndr_data, rcpt_data, template_data):
 		raise UMSEmailUploadException("UMS Sending Failed %s (%s)" % (response.find("emstatus").text, response.find("emstatuscodes").text))
 	
 	
-def send(sndr_data, rcpt_data, template_data, config):
+def send(sndr_data, rcpt_data, template_data, config, rcpts_data = None):
 	templ_name = template_data['t_name']
 	subject = email[templ_name]['subject']
 	try:
