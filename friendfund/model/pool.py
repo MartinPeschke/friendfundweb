@@ -293,7 +293,7 @@ class Pool(DBMappedObject):
 	def am_i_receiver(self, user):
 		return self.receiver.u_id == user.u_id
 	def am_i_selector(self, user):
-		return self.selector.u_id == user.u_id
+		return self.selector and self.selector.u_id == user.u_id or False
 	def am_i_member(self, user):
 		return user.u_id in self.participant_map
 	def am_i_contributor(self, user):

@@ -114,16 +114,15 @@ class InviteController(BaseController):
 		if invitees is not None:
 			has_stream_publish_invitees = False
 			has_create_event_invitees = False
-			for inv in invitees or []:
-				if isinstance(inv, (types.DictType, OrderedDict)) and 'network' in inv:
-					if inv['notification_method'] == 'STREAM_PUBLISH': 
-						has_stream_publish_invitees = True
-					elif inv['notification_method'] == 'CREATE_EVENT': 
-						has_create_event_invitees = True
+			has_fb_invites = len(filter(lambda x: x.get('network') == 'facebook', invitees or []))
+			if has_fb_invites:
+				if pool.am_i_admin(c.user):
+					has_create_event_invitees = True
 				else:
-					log.warn("ADDINVITEES: found non dict invitee: %s", unicode(inv).encode("latin-1","xmlcharrefreplace"))
-			perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event')) or \
-							 (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub'))
+					has_stream_publish_invitees = True
+				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
+				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
+				perms_required = (pool.is_pending() and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
 		if perms_required:
 			c.enforce_blocks = True
 			c.invitees = {}
@@ -137,7 +136,6 @@ class InviteController(BaseController):
 			return self._display_invites(pool, c.invitees)
 		
 		if invitees is not None:
-			fb_invitees = {}
 			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
 							, p_url = pool.p_url
 							, event_id = pool.event_id

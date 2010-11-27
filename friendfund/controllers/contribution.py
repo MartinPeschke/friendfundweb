@@ -19,6 +19,7 @@ from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.service')
 
+from friendfund.services.pool_service import MissingPermissionsException
 
 class ContributionController(BaseController):
 	navposition=g.globalnav[1][2]
@@ -58,7 +59,6 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
-		g.pool_service.invite_myself(c.pool, c.user)
 		try:
 			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
 		except NotAllowedToPayException, e:
@@ -78,7 +78,6 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
-		g.pool_service.invite_myself(c.pool, c.user)
 		c.action = 'chipin'
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
@@ -101,7 +100,6 @@ class ContributionController(BaseController):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return abort(404)
-		g.pool_service.invite_myself(c.pool, c.user)
 		c.action = 'chipin'
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
@@ -145,7 +143,10 @@ class ContributionController(BaseController):
 			if checkadd_block('email'):
 				c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
 				c.enforce_blocks = True
+				c.page = 'contrib'
 				return self.render('/contribution/contrib_screen.html')
+			else:
+				g.pool_service.invite_myself(c.pool, c.user)
 			
 			contrib = Contribution(**form_result)
 			contrib.currency = pool.currency
@@ -167,7 +168,6 @@ class ContributionController(BaseController):
 	@no_blocks(ajax=False)
 	def details(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		
 		if c.pool is None:
 			return abort(404)
 		try:

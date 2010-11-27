@@ -13,6 +13,10 @@
 			"receiver_first_name":c.pool.receiver.name.split()[0],
 			"receiver_name":c.pool.receiver.name
 			}
+	if c.pool.is_pending():
+		locals['progress'] = 0
+	else:
+		locals['progress'] = (850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float())) 
 %>
 
 ${self.admin_slogan(locals)}

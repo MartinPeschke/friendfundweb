@@ -39,7 +39,7 @@ def create_event_invite(sndr_data, rcpt_data, template_data, config, rcpts_data)
 		query = {}
 		msg_realm = template_data.get('is_secret') == '0' and "public" or "secret"
 		query.update(EVENT_TEMPLATES[msg_realm])
-
+		
 		query = dict((k,v.substitute(**dict(template_data)).encode("utf-8")) for k,v in query.iteritems())
 		query["access_token"] = sndr_data["access_token"]
 		query["format"] = "json"

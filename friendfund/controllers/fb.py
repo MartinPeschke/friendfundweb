@@ -137,7 +137,7 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], stream_publish = False, has_email = False, permanent = False)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], permanent = True)
 			try:
 				g.dbm.set(perms)
 			except db_access.SProcException, e:
@@ -156,7 +156,7 @@ class FbController(BaseController):
 		except fb_helper.FBIncorrectlySignedRequest, e: 
 			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
 			return '1'
-		perms = FBUserPermissions(network='facebook', network_id=user_id, stream_publish = False, has_email = False, permanent = False)
+		perms = FBUserPermissions(network='facebook', network_id=user_id, stream_publish = False, has_email = False, permanent = False, create_event = False)
 		try:
 			g.dbm.set(perms)
 		except db_access.SProcException, e:
