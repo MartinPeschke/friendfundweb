@@ -34,6 +34,11 @@
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, log in and help out!") % locals|n}
 			</div>
 			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Please log in to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}</div>
+		%elif c.pool.is_funded():
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_SO this pool is now fully funded and we are just waiting for %(admin_name)s to give us a shipping address and order the gift.") % locals|n}
+			</div>
+			
 		%elif c.pool.am_i_member(c.user):
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
@@ -52,7 +57,6 @@
 			</div>
 			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Please click 'Choose Gift' below and find the perfect gift.") % locals|n}</div>
 		%else:
-			<% locals["selector_name"] = c.pool.selector and c.pool.selector.name or _("POOL_PAGE_SELECTOR_Someone") %>
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated <em>%(selector_name)s</em> to choose %(receiver_name)s's gift.") % locals|n}
 			</div>
@@ -128,7 +132,6 @@
 	<div class="tooltip${(c.pool.is_pending() or c.pool.get_total_contribution()==0) and ' withMessage' or ''}" style="left:${locals['progress']}px;">
 		${locals.get("amount_contributed")|n}
 		%if c.pool.is_pending():
-			<% locals["selector_name"] = c.pool.selector and c.pool.selector.name or _("POOL_PAGE_SELECTOR_Someone") %>
 			${_("POOL_PAGE_TOOLTIP_- %(selector_name)s first needs to find a gift before we can start chipping in.") % locals|n}
 		%elif c.pool.get_total_contribution() == 0:
 			${_("POOL_PAGE_TOOLTIP_- Be the first among your friends to chip in!")|n}

@@ -273,7 +273,7 @@ class Pool(DBMappedObject):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 		if diff < timedelta(0):
 			diff = timedelta(0)
-		return (('%s'%diff.days).ljust(2,'0'),  ('%s'%(diff.seconds/3600)).ljust(2,'0'))
+		return (('%s'%diff.days).rjust(2,'0'),  ('%s'%(diff.seconds/3600)).rjust(2,'0'))
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.p_url, type)
 	def get_pool_picture_tiles(self, type = "RA"):
