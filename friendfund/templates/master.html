@@ -69,7 +69,6 @@ ${self.master_foot()}
 	${links.js('fbinit.js')}
 	${links.js('loader.js')}
 	${self.scripts()}
-	<div id="badge_popup"><%include file="/messages/badge_popup.html"/></div>
 	<div id="generic_popup"></div>
 	<div id="blocking_msgs" class="${(not (getattr(c, 'blocks', False) and getattr(c, 'enforce_blocks', False))) and 'hidden' or ''}">
 		<%include file="/messages/blocks.html"/>
@@ -132,7 +131,6 @@ ${self.master_foot()}
 <%def name="headscripts()"></%def>
 <%def name="onloadscripts()"></%def>
 <%def name="headerclass()">normal</%def>
-<%def name="show_infographic()"></%def>
 <%def name="user_voice()">
 	<script type="text/javascript">
 		var uservoiceOptions = {
@@ -148,7 +146,6 @@ ${self.master_foot()}
 		${self.header_navigation()}
 		<div id="home_create_pool_button"><a class="BtnRed" href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
 	</div>
-	${self.show_infographic()}
 </%def>
 
 

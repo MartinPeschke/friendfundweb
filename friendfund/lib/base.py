@@ -9,7 +9,6 @@ from pylons.i18n.translation import get_lang, set_lang, _
 from pylons.templating import render_mako as render
 
 from friendfund.model.authuser import ANONUSER
-from friendfund.model.badge import Badge
 from friendfund.lib.helpers import negotiate_locale_from_header
 
 log = logging.getLogger(__name__)
@@ -17,17 +16,8 @@ log = logging.getLogger(__name__)
 class BaseController(WSGIController):
 	navposition=g.globalnav[0][2]
 	
-	def render(self, template, with_badges = True):
+	def render(self, template):
 		c._msgs = [m for m in c.messages if isinstance(m, basestring)]
-		badges = [m for m in c.messages if isinstance(m, Badge)]
-		if badges:
-			c.badge = badges[0]
-		else:
-			c.badge = None
-		if with_badges:
-			c.messages = []
-		else:
-			c.messages = badges
 		c.blocks = websession.get('blocks', [])
 		return render(template)
 	
@@ -35,7 +25,7 @@ class BaseController(WSGIController):
 		if msg:
 			c.messages.append(unicode(msg))
 		if c.messages:
-			return {'clearmessage':'true', 'message':self.render('/messages/standard.html', with_badges = False).strip()}
+			return {'clearmessage':'true', 'message':self.render('/messages/standard.html').strip()}
 		else:
 			return {'clearmessage':'true'}
 	
