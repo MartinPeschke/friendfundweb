@@ -42,6 +42,7 @@ def make_map(config):
 
 	map.connect('mybadges', '/mybadges/panel/{badge_name}', controller="mybadges", action="panel")
 	map.connect('/myprofile/{action}/{token}', controller="myprofile")
+	map.connect('/user/{action}/{token}', controller="myprofile")
 	map.connect('/{controller}/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})
 	map.connect('/{controller}/{action}')
 	map.connect('/{controller}/{action}/{id}')

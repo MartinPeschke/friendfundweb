@@ -18,6 +18,7 @@ class BaseController(WSGIController):
 	
 	def render(self, template):
 		c._msgs = [m for m in c.messages if isinstance(m, basestring)]
+		c.messages = []
 		c.blocks = websession.get('blocks', [])
 		return render(template)
 	

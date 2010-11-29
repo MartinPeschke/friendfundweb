@@ -147,11 +147,15 @@ class MyprofileController(BaseController):
 			return self.render('/myprofile/password_request.html')
 	
 	def tlogin(self, token):
+		furl = request.params.get('furl', url('home'))
+		if not c.user.is_anon:
+			c.messages.append(_(u"USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"))
+			return redirect(furl)
 		try:
 			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
 		except SProcWarningMessage, e:
 			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
-		return redirect(request.params.get('furl', url('home')))
+		return redirect(furl)
 	
 	def setpassword(self, token):
 		"""
