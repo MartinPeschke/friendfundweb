@@ -4,3 +4,4 @@ config=./development.ini
 
 export PYTHONPATH="$runpath:$binpath";
 python $binpath/friendfund/tasks/notifier.py -f $config
+

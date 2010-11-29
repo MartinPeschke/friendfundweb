@@ -102,7 +102,7 @@
 		<div class="countdown_days">${html.counter(daysremaining, _("POOL_PAGE_days and"))}</div>
 		<div class="countdown_hours">${html.counter(hoursremaining, _("POOL_PAGE_hours left"))}</div>
 	</div>
-	<div style="clear:both;padding:15px;text-align:center">${_("POOL_PAGE_This gift pool closes on %(end_date)s.") % locals|n}</div>
+	<div style="clear:both;padding:10px 0 14px;text-align:center">${_("POOL_PAGE_This gift pool closes on %(end_date)s.") % locals|n}</div>
 	
 	
 	%if c.pool.is_pending() and c.pool.am_i_selector(c.user):
@@ -114,7 +114,7 @@
 			%else:
 				<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 				<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/> 
-					<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
+					<div style="display: inline;position: relative;top: -10px;">${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
 				</a>
 			%endif
 		%else:
@@ -122,7 +122,7 @@
 			<img src="/static/imgs/icons_paymethod.png"/>
 		%endif
 	%elif c.pool.am_i_admin(c.user) and c.pool.is_funded():
-		<a href="${url(controller='pool', pool_url=c.pool.p_url, action='settings')}" class="buttonRed buttonChipIn">
+		<a href="${url(controller='pool', pool_url=c.pool.p_url, action='settings')}" class="buttonRed buttonChipIn extrawide">
 			<span>${_("POOL_BUTTON_ACTION_Order Gift")}</span>
 		</a>
 	%elif c.pool.am_i_admin(c.user) and c.pool.is_expired():
