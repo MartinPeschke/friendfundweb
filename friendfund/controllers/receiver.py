@@ -1,4 +1,4 @@
-import logging, formencode
+import logging, formencode, datetime
 
 from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals as g, cache
 from pylons.decorators import jsonify
@@ -6,13 +6,13 @@ from pylons.controllers.util import abort, redirect
 from cgi import FieldStorage
 from formencode.variabledecode import variable_decode
 
-from friendfund.lib import fb_helper, tw_helper
+from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import post_only
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.helpers import get_upload_pic_name
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.forms import user, common
-from friendfund.model.pool import PoolUser, Pool, InsufficientParamsException
+from friendfund.model.pool import PoolUser, Pool, InsufficientParamsException, Occasion, OccasionSearch
 from friendfund.model.authuser import UserNotLoggedInWithMethod
 from friendfund.tasks import photo_renderer, fb as fbservice, twitter as twservice
 
@@ -34,6 +34,26 @@ class ReceiverController(BaseController):
 		del pool.receiver
 		websession['pool'] = c.pool
 		return {'clearmessage':True, 'html':render('/receiver/button.html').strip()}
+	
+	
+	def setbday(self):
+		receiver = formencode.variabledecode.variable_decode(request.params)
+		dob = receiver.get('dob', '')
+		if dob:
+			dv = common.DateValidator()
+			try:
+				dob = dv.to_python(dob.split()[0])
+			except formencode.validators.Invalid, error:
+				log.warning("Set Birthday failed, unrecognized format: %s", dob)
+			else:
+				olist = g.dbsearch.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+				bday = filter(lambda x:x.key == 'EVENT_BIRTHDAY', olist)
+				if dob and len(bday):
+					bday = bday[0]
+					c.pool = websession.get('pool') or Pool()
+					c.pool.occasion = Occasion(key="EVENT_BIRTHDAY", date=dob, picture_url = '/static/imgs/%s'%bday.picture_url)
+					websession['pool'] = c.pool
+		return self.set()
 	
 	@jsonify
 	def set(self):

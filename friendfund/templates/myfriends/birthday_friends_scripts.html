@@ -15,7 +15,7 @@
 					base_url : "/myfriends/get",
 					network : "${user.network}",
 					onSelect : function(ctx, params, target, evt){
-						xhrPost("/receiver/set", params, function(){window.location.href="${url('home')}";});
+						xhrPost("/receiver/setbday", params, function(){window.location.href="${url('home')}";});
 					}
 				});
 		selector.draw(selector);
@@ -25,7 +25,7 @@
 					base_url : "/myfriends/get",
 					network : "${user.network}",
 					onSelect : function(ctx, params, target, evt){
-						xhrPost("/receiver/set", params, function(){window.location.href="${url('home')}";});
+						xhrPost("/receiver/setbday", params, function(){window.location.href="${url('home')}";});
 					}
 				});
 		selector.draw(selector);
