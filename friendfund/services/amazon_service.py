@@ -31,7 +31,7 @@ class AmazonService(object):
 		self.query_url = "%s://%s%s" % (self.base_protocol, self.base_url, self.query_path)
 		self.api_version = "2010-09-01"
 		self.result_namespace = "http://webservices.amazon.com/AWSECommerceService/%s" % self.api_version
-		
+		self.page_size = 10
 		
 		self.domain = domain
 		self.url_product_identifer_prefixes = {
@@ -65,20 +65,20 @@ class AmazonService(object):
 		hashed.update(raw)
 		return  urllib.quote(binascii.b2a_base64(hashed.digest())[:-1], '~')
 	
-	def fetch_product(self, item_id):
+	def fetch_product(self, lookup_operation):
 		#SearchIndex=Books&Power=subject:history%20and%20(spain%20or%20mexico)%20and%20not%20military%20and%20language:spanish
 		query_base_params = {
 			'Service':'AWSECommerceService'
 			, 'Version':self.api_version
-			, 'Operation':'ItemLookup'
-			, 'ItemId':item_id
 			, 'ResponseGroup':'Large,Images,Request,ItemAttributes,EditorialReview'
 			, 'MerchantId':'Amazon'
+			, 'Condition':'New'
 			, 'IncludeReviewsSummary':"true"
 			, 'AssociateTag':self.affiliateid
 			, 'Timestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
 			, 'AWSAccessKeyId':self.key
 		}
+		query_base_params.update(lookup_operation)
 		signature = self.get_signature(query_base_params)
 		query_url = "%s?%s" % (self.query_url, urllib.urlencode(query_base_params))
 		query_url += '&Signature=%s' % signature
@@ -111,12 +111,15 @@ class AmazonService(object):
 			
 			errors = elem.xpath("t:Errors/t:Error/t:Code/text()", **self.query_nss)
 			if len(errors) > 1:
-				raise AmazonErrorsOccured("XML Contained Errors %s" % errors)
+				log.debug( AmazonErrorsOccured("XML Contained Errors %s" % errors) )
+				continue
 			offers = elem.xpath("t:Offers/t:Offer", **self.query_nss)
 			if len(offers) > 1:
-				raise TooManyOffersError("Too Many Offers Found")
+				log.debug( TooManyOffersError("Too Many Offers Found") )
+				continue
 			elif len(offers) == 0:
-				raise NoOffersError("No Offers Found")
+				log.debug( "No Offers Found in Product: %s" % etree.tostring(elem) )
+				continue
 			for key,(required, normalizer, xmlqueries) in self.product_mapper.iteritems():
 				value = None
 				for query in xmlqueries:
@@ -125,8 +128,9 @@ class AmazonService(object):
 						value = normalizer(hits[0])
 						break
 				if required and value is None:
-					log.warning("Amazon Link could not be imported because of: %s " % key)
-					raise AttributeMissingInProductException(key)
+					log.debug("Amazon Link could not be imported because of: %s " % key)
+					# raise AttributeMissingInProductException(key)
+					continue
 				elif value is None:
 					setattr(product, key, None)
 				else:
@@ -134,17 +138,16 @@ class AmazonService(object):
 			#set alternate product description, as no original was found
 			if not product.description or not product.description_long:
 				descr = self.parse_surrogate_description(elem)
-				if not descr:raise AttributeMissingInProductException("description")
+				if not descr:
+					log.debug( AttributeMissingInProductException("description") )
+					continue
 				product.description = descr
 				product.description_long = descr
 			#parse out any html tags
 			product.description = html.fromstring(product.description).text_content() 
 			product.description_long = html.fromstring(product.description_long).text_content()
 			
-			
-			
 			product.guid = 'AMAZON|%s' % product.aff_id
-			# product.merchant = 'AMAZON'
 			product.aff_net = 'AMAZON'
 			product.aff_program_id = '1'
 			product.aff_program_name = 'AMAZON'
@@ -158,9 +161,9 @@ class AmazonService(object):
 		return products
 	
 	def return_product_object(self, item_id):
-		xml = self.fetch_product(item_id)
+		xml = self.fetch_product({'ItemId':item_id, 'Operation':'ItemLookup'})
 		amazon_products = self.parse_result_xml(xml)
-		product_search = ProductSearch(page_no=1, items=len(amazon_products), pages=1, page_size=5, categories = [])
+		product_search = ProductSearch(page_no=1, items=len(amazon_products), pages=1, page_size=self.page_size, categories = [])
 		product_search.products = amazon_products
 		return product_search
 	
@@ -183,3 +186,10 @@ class AmazonService(object):
 			if not asin_suspect or len(asin_suspect.groups()) != 1:
 				raise URLUnacceptableError("Path did contain (%s) ASIN identifer but the actual ASIN was not found after it: %s" % (matcher[0].pattern, path))
 			return self.return_product_object(asin_suspect.group(1))
+	
+	def get_products_from_search(self, searchquery):
+		xml = self.fetch_product({'Keywords':searchquery, 'Operation':'ItemSearch', 'SearchIndex':'All'})
+		amazon_products = self.parse_result_xml(xml)
+		product_search = ProductSearch(page_no=1, items=len(amazon_products[:self.page_size]), pages=1, page_size=self.page_size, categories = [])
+		product_search.products = amazon_products[:self.page_size]
+		return product_search

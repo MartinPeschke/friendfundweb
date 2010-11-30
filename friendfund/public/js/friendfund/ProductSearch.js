@@ -23,7 +23,7 @@ dojo.declare("friendfund.ProductSearch", null, {
 	draw : function(_t, evt, extra_params){
 		var params = _t.searchMixin && _t.searchMixin() || {};
 		if(!extra_params || extra_params === {}){
-			loadElement("/product/recommended_tab", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
+			loadElement("/product/search_tab", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));
 		} else {
 			dojo.mixin(params, extra_params);
 			loadElement("/product/remote_search", _t.ref_node, params, dojo.hitch(null, _t.productLoaded, _t));

@@ -23,9 +23,9 @@ SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
 			("MERCHANT",_("PRODUCT_SORT_ORDER_Merchant"))]
 PAGESIZE = 5
 
-GIFT_PANEL_TABS = [("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts")),
+GIFT_PANEL_TABS = [("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search")),
+					("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts")),
 					("virtual_tab", _("PRODUCT_SEARCH_PANEL_Virtual Gifts")),
-					("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search")),
 					("friend_tab", _("PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"))
 				]
 
@@ -196,14 +196,15 @@ class ProductService(object):
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
 				return self._amazon_fallback(request, tmpl_context.searchterm)
 		else:
-			tmpl_context.searchresult = app_globals.dbsearch.call(ProductSearch( 
-										sort = tmpl_context.sort,
-										page_size = tmpl_context.page_size,
-										program_id = tmpl_context.aff_net_ref, 
-										search=tmpl_context.searchterm, 
-										page_no=tmpl_context.page,
-										region=tmpl_context.region,
-										max_price = tmpl_context.max_price), ProductSearch)
+			tmpl_context.searchresult = self.amazon_services[tmpl_context.region].get_products_from_search(tmpl_context.searchterm)
+										# app_globals.dbsearch.call(ProductSearch( 
+										# sort = tmpl_context.sort,
+										# page_size = tmpl_context.page_size,
+										# program_id = tmpl_context.aff_net_ref, 
+										# search=tmpl_context.searchterm, 
+										# page_no=tmpl_context.page,
+										# region=tmpl_context.region,
+										# max_price = tmpl_context.max_price), ProductSearch)
 			tmpl_context.searchterm = request.params.get("catname", tmpl_context.searchterm)
 		return tmpl_context
 	
