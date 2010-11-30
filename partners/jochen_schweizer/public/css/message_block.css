@@ -2,11 +2,23 @@ a, a:visited, a:link, a:hover {
 	text-decoration: None;
 	outline: none;
 	-moz-outline-style: none;
+	cursor:pointer;
 }
 a.somelink {	color: #333;}
 
+.underlined1 {border-bottom:1px solid #BBe3F7;}
+.underlined2 {border-bottom:2px solid #BBe3F7;}
+.vertNoPadding {padding: 0px 30px 15px 30px;}
+.vertHalfPadding {padding: 15px 30px 15px 30px;}
+.horFullPadding {padding: 0px 30px;}
+.fullPadding {padding: 30px;}
+.textCenter {text-align:center}
+
+.marginTop{margin-top:30px;}
+
+.bold {font-weight:bold}
 /*-------------------------------- BUTTONS ------------------------------------*/
-.BtnRed {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1145px transparent;
+.BtnRed {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -1145px transparent;
 	bottom:0;
 	display:block;
 	float:right;
@@ -20,7 +32,7 @@ a.somelink {	color: #333;}
 	z-index:2;
 }
 .BtnRed:hover {background-position:100% -1078px}
-.BtnRed span{background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1111px transparent;
+.BtnRed span{background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -1111px transparent;
 	color:white;
 	cursor:pointer;
 	display:block;
@@ -32,7 +44,7 @@ a.somelink {	color: #333;}
 }
 .BtnRed:hover span{background-position:0 -778px;}
 .BtnGold{
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1281px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -1281px transparent;
 	bottom:0;
 	display:block;
 	float:left;
@@ -41,7 +53,7 @@ a.somelink {	color: #333;}
 	padding-right:19px;
 }
 .BtnGold span{
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1226px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -1226px transparent;
 	display:block;
 	float:left;
 	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
@@ -59,14 +71,14 @@ a.somelink {	color: #333;}
 .BtnGold:hover span{background-position:0 -1333px;}
 
 .submitSmall {
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -213px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -213px transparent;
 	display:block;
 	padding-right:20px;
 	float:right;
 	min-width: 50px;
 	text-align:center;
 	z-index:2;}
-.submitSmall span{background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1111px transparent;
+.submitSmall span{background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -1111px transparent;
 	color:white;
 	cursor:pointer;
 	display:block;
@@ -80,7 +92,7 @@ a.somelink {	color: #333;}
 .submitSmall:hover span{background-position:0 -778px;}
 
 .submitSmallLeft {
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1477px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -1477px transparent;
 	display:block;
 	float:left;
 	padding-right:8px;
@@ -88,7 +100,7 @@ a.somelink {	color: #333;}
 	text-align:center;
 }
 .submitSmallLeft span {
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1443px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -1443px transparent;
 	color:white;
 	cursor:pointer;
 	display:block;
@@ -104,22 +116,27 @@ a.somelink {	color: #333;}
 
 
 .submitMini {padding-right:15px;text-align:right;cursor:pointer;position:relative;}
-.submitMini span{background:url("../imgs/inputfield.png?20101117") no-repeat scroll -304px -4px transparent;
-	position:absolute;right:0px;display:block;height:15px;width:10px;top:0px;}
+.submitMini span{background:url("../imgs/inputfield.png?20101123") no-repeat scroll -304px -4px transparent;
+	position:absolute;right:0px;display:block;height:15px;width:10px;top:2px;}
 .submitMini:hover span{background-position:-285px -4px}
 
+.submitExtraMini {padding-right:8px;text-align:right;cursor:pointer;position:relative;}
+.submitExtraMini span{background:url("../imgs/inputfield.png?20101123") no-repeat scroll -381px -3px transparent;
+	position:absolute;right:0px;display:block;height:15px;width:5px;top:2px;}
+.submitExtraMini:hover span{background-position:-376px -3px}
 
 
 
 
-.facebookBtn {background:url("/static/imgs/inputfield.png?20101117") no-repeat scroll 100% -695px transparent;
+
+.facebookBtn {background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll 100% -695px transparent;
 	cursor:pointer;
 	display:block;
 	height:26px;
 	line-height:26px;
 	padding-right:15px;
 	width:185px;margin:0px auto;}
-.facebookBtn span{background:url("/static/imgs/inputfield.png?20101117") no-repeat scroll 0 -668px transparent;
+.facebookBtn span{background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll 0 -668px transparent;
 		font-family:Arial,Helvetica,sans-serif;
 		color:white;
 		cursor:pointer;
@@ -131,7 +148,7 @@ a.somelink {	color: #333;}
 		padding-left:36px;
 		text-shadow:0 -1px 0 #333333;text-align:center;}
 .twitterBtn {
-	background:url("/static/imgs/inputfield.png?20101117") no-repeat scroll 100% -749px transparent;
+	background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll 100% -749px transparent;
 	cursor:pointer;
 	display:block;
 	height:26px;
@@ -139,7 +156,7 @@ a.somelink {	color: #333;}
 	padding-right:15px;
 	width:185px;margin:0px auto;}
 .twitterBtn span{
-		background:url("/static/imgs/inputfield.png?20101117") no-repeat scroll 0 -722px transparent;
+		background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll 0 -722px transparent;
 		font-family:Arial,Helvetica,sans-serif;
 		color:#25568e;
 		cursor:pointer;
@@ -153,7 +170,7 @@ a.somelink {	color: #333;}
 /* ================== RED Submit ================== */
 
 a.red_labeled_container {
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% 1px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% 1px transparent;
 	color:#FFFFFF;
 	cursor:pointer;
 	display:block;
@@ -167,11 +184,62 @@ a.red_labeled_container {
 	text-shadow:0 -1px 0 #770B3E;
 	width:160px;
 }
-a.red_labeled_container span {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -166px transparent;display:block;padding-left:18px;}
+a.red_labeled_container span {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -166px transparent;display:block;padding-left:18px;}
 a.red_labeled_container:hover {background-position:100% -43px;}
-a.red_labeled_container:hover span {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1178px transparent;}
+a.red_labeled_container:hover span {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -1178px transparent;}
 .inactive {background-position:100% -545px !important;}
 .inactive span {background-position:0 -490px !important;}
+
+
+
+
+
+/*=========================================== COUNTER ===========================================*/
+#countdown {margin-left:105px;background:url(/static/imgs/counter_frame.png) no-repeat top right;width:200px;height:75px;}
+#countdown div.countdown_days{position: relative;float:left;margin-top:10px;width:100px;}
+#countdown div.countdown_hours{position: relative;float:left;margin-top:10px;width:100px;}
+div.counter_container{margin:4px auto;text-align:center;}
+
+div.counter_container div.subscript{font-size: 14px;margin: 1px;font-family:"Trebuchet MS";font-weight:bold;}
+div.counter{
+	color: white;
+	display: inline;
+	position: relative;
+	height: 40px;
+	font-size: 32px;
+	line-height: 34px;
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-style: normal;
+}
+.counter_number{	background:url(/static/imgs/countdown_middle.png) 0 0 repeat-x;text-shadow:#d8f0fb 0px -1px 0px}
+div.counter div.counter_left {
+	background:url(/static/imgs/countdown_left.png) no-repeat top left;
+	width: 4px;height:39px;position:absolute;top:0px;left:-4px;
+}
+div.counter div.counter_right{
+	background:url(/static/imgs/countdown_right.png) no-repeat top right;
+	width: 4px;height:39px;position:absolute;top:0px;right:-4px;
+}
+
+div.counter hr{
+	position: absolute;
+	left: 2px;					/* for left position in WebKit only */
+	top: 0px;
+	margin: 20px 0px 0px 0px;			/* for left position in IE and WebKit */
+	display: inline;			/* for left position in FF only */
+	line-height: 1px; height: 1px;
+	border: 0px solid transparent;
+	background-color: black; 	/* for FF/WebKit */
+	color: black; 				/* for IE */
+	width:100%;		/* necessary for FF/WebKit so line width does not collapse */
+}
+
+
+
+
+
+
 
 /*-------------------------------- black_labeled_input ------------------------------------*/
 
@@ -221,7 +289,7 @@ div.black_labeled_container div.right_bracket {
 	height:25px;
 	width:12px;
 	right: -12px;
-	background: url(../imgs/inputfield.png?20101117) -80px -27px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) -80px -27px no-repeat;
 }
 div.black_labeled_container div.left_bracket {
 	position: absolute;
@@ -229,7 +297,7 @@ div.black_labeled_container div.left_bracket {
 	height:25px;
 	width:10px;
 	left: -10px;
-	background: url(../imgs/inputfield.png?20101117) -95px -27px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) -95px -27px no-repeat;
 }
 div.black_labeled_container .black_labeled_input {
 	position: absolute;
@@ -239,7 +307,7 @@ div.black_labeled_container .black_labeled_input {
 	color: #ffffff;
 	font-size: 13px;
 	border: 0px solid transparent;
-	background: url(../imgs/inputfield.png?20101117) 0px 0px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) 0px 0px no-repeat;
 }
 
 input.default {
@@ -257,7 +325,7 @@ div.black_labeled_container a.button_open_down {
 	width: 25px;
 	height: 25px;
 	cursor:pointer;
-	background: url(../imgs/inputfield.png?20101117) -24px -27px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) -24px -27px no-repeat;
 }
 div.black_labeled_container .black_labeled_input * {
 	color: #ffffff;
@@ -279,7 +347,7 @@ div.black_labeled_container a.left_button_search {
 	left: -20px;
 	width: 25px;
 	height: 25px;
-	background: url(../imgs/inputfield.png?20101117) 0px -27px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) 0px -27px no-repeat;
 }
 a.black_labeled_container {
 	position: relative;
@@ -289,7 +357,7 @@ a.black_labeled_container {
 	color: #ffffff;
 	font-size: 13px;
 	font-weight:bold;
-	background: url(../imgs/inputfield.png?20101117) 0px -56px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) 0px -56px no-repeat;
 	cursor:pointer;
 }
 a.black_labeled_container div.right_bracket {
@@ -298,7 +366,7 @@ a.black_labeled_container div.right_bracket {
 	right:-14px;
 	top:0;
 	width:14px;
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll -142px -27px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll -142px -27px transparent;
 }
 a.black_labeled_container:hover div.right_bracket {
 	background-position:-159px -27px
@@ -309,7 +377,7 @@ a.black_labeled_container div.left_bracket {
 	height:27px;
 	width:12px;
 	left: -12px;
-	background: url(../imgs/inputfield.png?20101117) -110px -27px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) -110px -27px no-repeat;
 }
 a.black_labeled_container div.right_bracket_back {
 	height:27px;
@@ -317,7 +385,7 @@ a.black_labeled_container div.right_bracket_back {
 	right:-11px;
 	top:0;
 	width:11px;
-	background: url(../imgs/inputfield.png?20101117) -127px -27px no-repeat;
+	background: url(../imgs/inputfield.png?20101123) -127px -27px no-repeat;
 }
 a.black_labeled_container div.left_bracket_back {
 	position: absolute;
@@ -325,7 +393,7 @@ a.black_labeled_container div.left_bracket_back {
 	height:27px;
 	width:14px;
 	left: -14px;
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll -192px -27px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll -192px -27px transparent;
 }
 a.black_labeled_container:hover div.left_bracket_back {
 	background-position:-176px -27px
@@ -398,7 +466,8 @@ div.black_labeled_container_big .black_labeled_input {
 	font-size: 28px;
 	color: #fff;
 	position: relative;
-	padding: 20px 30px 20px 30px;
+	padding: 20px 0px 10px 0px;
+	margin: 0px 30px 0px 30px;
 	z-index:1
 }
 #page_slogan .emphasis{
@@ -442,9 +511,9 @@ a.panel_closer {
 
 #pool_admin_slogan{
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-size: 14px;color:#333;
 	position: relative;
-	margin-right: 30px;
+	margin: 0px 30px 15px 0px;
 	min-height:75px;
 	height:auto !important;  /* für moderne Browser */
 	height:75px;  /*für den IE */
@@ -453,244 +522,16 @@ a.panel_closer {
 	background-color: #fabb00;
 	line-height: 140%;
 }
-#pool_admin_slogan div.slogan {
-	margin: 10px;
-}
-#pool_admin_slogan div.admin {
-	display: inline;
-	font-weight: bold;
-}
+#pool_admin_slogan .slogan {margin: 10px;}
+#pool_admin_slogan .sloganText {padding-top:5px;font-size: 12px;overflow:hidden}
 
-/*=========================================== POOL HEADER ==========================================*/
-
-#pool_pool_panel{
-	position: relative;
-	background-color: #fabb00;
-	color: #333;
-	margin: 15px 0px;
-	width: 920px;
-	margin-left: 30px
-}
-#pool_pool_panel a{ color: #C11164}
-
-#pool_pool_panel div.receiver_picture{
-	font-family: Arial, Helvetica, sans-serif;
-	position: absolute;
-	width: 170px;
-	min-width: 100px;
-	min-height: 200px;
-	padding: 18px 0 0 18px;
-	left: 0; top: 0;
-}
-#pool_pool_panel div.receiver_picture img{
-	position: relative;
-	width: 170px;
-	min-height: 200px;
-}
-#pool_pool_panel div.receiver_picture div.receiver_name{
-	font-size: 11px;
-	width: 120px;
-}
-
-#pool_pool_panel div.heading{
-	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-	font-style: italic;
-	font-weight: bold;
-	font-size: 36px;
-	width: 470px;
-	padding-top: 18px;
-	min-height: 255px;
-	margin: 0 auto
-}
-#pool_pool_panel div.heading div.heading_text{
- 	max-height:220px;
-	overflow:hidden;
-	position:relative;
-	text-align:center;
-}
-
-
-
-#pool_pool_panel div.product{
-	font-family: Arial, Helvetica, sans-serif;
-	position: absolute;
-	width: 170px;
-	padding: 18px 18px 0 0;
-	min-height: 200px;
-	right: 0;
-	top:0
-}
-#pool_pool_panel div.product img{
-	position: relative;
-	width: 170px;
-	height: 200px;
-}
-#pool_pool_panel div.product div.product_name{
-	font-size: 11px;
-	position: relative;
-	width: 170px;
-}
-#pool_pool_panel div.product a.product_more{
-	font-size: 11px;
-	position: relative;
-	width: 170px;
-}
-
-
-#pool_pool_panel div.lower_forward_page{
-	bottom:-25px;
-	height:25px;
-	position:absolute;
-	right:24px;
-	width:120px;
-	background-color: #fabb00;
-}
-#pool_pool_panel div.gotopage_text_left_bracket  {
-	background: url(/static/imgs/gotopage_lower_bg.png) 0 0 no-repeat;
-	position: absolute;
-	left: -25px;
-	height: 25px;
-	width: 25px;
-	top: 0px;
-}
-#pool_pool_panel div.gotopage_text_right_bracket  {
-	background: url("/static/imgs/gotopage_lower_bg.png") no-repeat scroll -20px 0 transparent;
-	height:25px;
-	position:absolute;
-	right:-25px;
-	top:0;
-	width:25px;
-}
-
-#pool_pool_panel a.submitSmall {
-	position: absolute;
-	bottom:-48px;
-	right: 0px;
-}
-
-
-/*=========================================== COUNTER ===========================================*/
-
-#countdown{
-	width: 205px;
-	margin:0 auto;
-}
-#countdown div.countdown_days, #countdown div.countdown_hours{
-	position: relative;
-	float: left;
-	margin: 25px 10px 0px 10px;
-}
-div.counter_container{
-	text-align: center;
-	margin: 0px;
-}
-
-div.counter_container div.subscript{
-	font-size: 16px;
-	margin: 0px;
-}
-div.counter{
-	color: white;
-	display: inline;
-	position: relative;
-	height: 40px;
-	font-size: 32px;
-	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-	font-weight: bold;
-	font-style: normal;
-}
-.counter_number{	background:url(/static/imgs/countdown_middle.png) 0 0 repeat-x;
-}
-div.counter div.counter_left {
-	background:url(/static/imgs/countdown_left.png) no-repeat top left;
-	width: 4px;height:39px;position:absolute;top:0px;left:-4px;
-}
-div.counter div.counter_right{
-	background:url(/static/imgs/countdown_right.png) no-repeat top right;
-	width: 4px;height:39px;position:absolute;top:0px;right:-4px;
-}
-
-div.counter hr{
-	position: absolute;
-	left: 2px;					/* for left position in WebKit only */
-	top: 0px;
-	margin: 20px 0px 0px 0px;			/* for left position in IE and WebKit */
-	display: inline;			/* for left position in FF only */
-	line-height: 1px; height: 1px;
-	border: 0px solid transparent;
-	background-color: black; 	/* for FF/WebKit */
-	color: black; 				/* for IE */
-	width:100%;		/* necessary for FF/WebKit so line width does not collapse */
-}
-
-/*=========================================== COUNTER ===========================================*/
-#timeline_bar {
-	float:left;
-	font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
-	font-size:20px;
-	font-style:italic;
-	font-weight:bold;
-	padding-bottom:20px;
-	padding-left:200px;
-	padding-top:35px;
-	position:relative;
-	text-align:center;
-}
-#timeline_bar div.timeline {
-	position: relative;
-	margin: 0px 50px;
-	text-align: left;
-	font-size: 15px;
-	width:450px;
-}
-#timeline_bar div.timeline_progressbar_bg {
-	position: relative;
-	height: 35px;
-	text-align: left;
-	background: url(/static/imgs/progressbar_bg.png) no-repeat left;
-}
-#timeline_bar div.timeline_progressbar {
-	position: relative;
-	height: 35px;
-	margin: 4px 5px 4px 5px;
-	background: url(/static/imgs/progressbar_progress.png) no-repeat left;
-}
-#timeline_bar div.lower_limit {
-	margin-left:-55px;
-	position:absolute;
-	text-align:right;
-	top:18px;
-	width:50px;
-}
-#timeline_bar div.upper_limit {
-	margin-left:455px;
-	position:absolute;
-	text-align:left;
-	top:18px;
-	width:100px;
-}
-#timeline_bar div.legende {
-	text-align: right;
-	font-size: 11px;
-	font-weight: normal;
-	font-style: normal;
-	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 10px
-}
-#timeline_bar div.legende a{
-	text-decoration: underline;
-	text-align:right;
-}
 
 /*=========================================== Contributors ===========================================*/
-#pool_contributors{position: relative;width: 920px;margin-left: 30px;clear:both;}
-#pool_contributors div.heading{margin: 30px 0px 10px 0px;color: #333;font-size: 20px;font-weight: bold;font-family:Trebuchet MS, Arial, Helvetica, sans-serif;}
-.pcont_body .contributor_leftcol{position: relative;	width: 330px;float: left;}
-.pcont_body .contributor_rightcol{position: relative;width: 330px;float: right;}
-.pcont_body .contributor{position: relative;height: 85px;width: 330px;margin: 0px 0px 15px 0px;background-color: #fabb00;}
+#pool_contributors{margin-left: 30px;float:left;}
+.pcont_body .contributor{position: relative;height: 85px;width: 286px;margin: 0px 30px 15px 0px;background-color: #bbe3f7;float: left}
 .pcont_body img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 5px;}
-.pcont_body .contributor_name{position: relative;padding: 5px;}
-.pcont_body .contributor_amount {float: right;margin-top: 10px;padding-right: 10px;font-weight: bold;font-size: 18px;font-family: Arial, Helvetica, sans-serif;}
+.pcont_body .contributor_name{position: relative;padding: 5px;font-weight:bold;}
+.pcont_body .contributor_contributed{background:url("../imgs/inputfield.png?20101123") no-repeat scroll -395px -4px transparent;display:block;height:24px;position:absolute;right:-4px;top:-3px;width:26px;}
 
 /*============================ CONTRIBUTOR ==========================*/
 
@@ -775,10 +616,13 @@ a.button_container div.button_right{
 	background:url(/static/imgs/button_big_right.png) no-repeat top right;
 	width: 11px;height:32px;position:absolute;top:0px;right:-11px;
 }
-a.buttonRed{ display: block;
+
+
+a.buttonRed{ 
+	display: block;
 	margin: 0 auto;
-	background: url(../imgs/inputfield.png?20101117) 100% -901px no-repeat;
-	height: 56px;
+	background: url(../imgs/inputfield.png?20101123) 100% -901px no-repeat;
+	height: 53px;
 	line-height: 53px;
 	font-size: 28px;
 	padding-right: 20px;
@@ -787,68 +631,26 @@ a.buttonRed{ display: block;
 a.buttonRed span{ display: block;
 	color:white;
 	padding-left: 20px;
-	background: url(../imgs/inputfield.png?20101117) 0 -845px no-repeat;
-	height: 56px;
+	background: url(../imgs/inputfield.png?20101123) 0 -845px no-repeat;
 	line-height: 53px;
 }
-a.buttonRed_right{
-	float:right;margin:30px 30px 0px;width:auto;
-}
-a.buttonRed_left{
-	float:left;margin:30px;width:auto;
-}
-a.buttonChipIn{
-	text-align:center;
-	width:140px;
-	float: none;
-	margin: 30px auto 15px auto
-}
+a.buttonRed_right{float:right;margin:30px 30px 0px;width:auto;}
+a.buttonRed_left{float:left;margin:30px;width:auto;}
+a.buttonChipIn{text-align:center;width:140px;float: none;margin: 11px auto}
 a.buttonChipIn.de_de, a.buttonChipIn.es_es{width:190px;}
 a.buttonChipIn.poolaction{width:190px;}
 a.buttonChipIn.extrawide{width:220px;font-size: 22px;}
+a.buttonChipIn.superextrawide{width:250px;font-size: 22px;}
+a.buttonChipIn.inactive{background-position:100% -1676px !important;cursor:default ;}
+a.buttonChipIn.inactive span{background-position:0 -1620px !important;cursor:default ;}
 
-
-a.button_container.red{
-	background-image:url(/static/imgs/button_chipin_middle.png);
-	height: 56px;
-	float: None;
-	width: 110px;
-	display: block;
-	font-size: 28px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	left: 34px;
-}
-a.button_container.red div.button_left {
-	background:url(/static/imgs/button_chipin_left.png) no-repeat top left;
-	width: 20px;height:56px;position:absolute;top:0px;left:-20px;
-}
-a.button_container.red div.button_right{
-	background:url(/static/imgs/button_chipin_right.png) no-repeat top right;
-	width: 20px;height:56px;position:absolute;top:0px;right:-20px;
-}
-a.button_container span.button_label{
-	position: relative;
-	top: 4px;
-	line-height: 25px;
-}
-
-a.button_container.large span.button_label{
-	top: 3px;
-}
-a.button_container.red span.button_label{
-	top: 8px;
-}
-
-
-a.button_container span.button_label img{
-	position: relative;
-	top: 2px;
-	margin: 0px 0px 0px 5px;
-}
+a.button_container span.button_label{position: relative;top: 4px;line-height: 25px;}
+a.button_container.large span.button_label{top: 3px;}
+a.button_container.red span.button_label{top: 8px;}
+a.button_container span.button_label img{position: relative;top: 2px;margin: 0px 0px 0px 5px;}
 
 a.button_container.orange{
-	background:url(../imgs/inputfield.png?20101117) -20px -220px no-repeat;
+	background:url(../imgs/inputfield.png?20101123) -20px -220px no-repeat;
 	height: 51px;
 	font-size: 28px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -859,11 +661,11 @@ a.button_container.orange{
 	text-shadow:0 -1px 0 #B55A00;
 }
 a.button_container.orange div.button_left {
-	background:url(../imgs/inputfield.png?20101117) 0px -220px no-repeat;
+	background:url(../imgs/inputfield.png?20101123) 0px -220px no-repeat;
 	width: 20px;height:51px;position:absolute;top:0px;left:-20px;
 }
 a.button_container.orange div.button_right{
-	background:url(../imgs/inputfield.png?20101117) -480px -220px no-repeat;
+	background:url(../imgs/inputfield.png?20101123) -480px -220px no-repeat;
 	width: 20px;height:51px;position:absolute;top:0px;right:-20px;
 }
 a.button_container.orange span.button_label{
@@ -960,7 +762,7 @@ div.contributor_chippid_in.mypoolspage_contributor{width: 115px;left:190px;posit
 div.contributor_chippid_in div.content{font-size:12px;font-weight:bold;text-align:center;font-family: Arial;color:#333333;}
 
 
-div#successtream {position: relative;width: 250px;float: right;margin: 50px 30px 0 0;}
+div#successtream {position: relative;width: 250px;float: right;margin: 50px 30px 0;}
 div#successtream .successtory_outer{border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;height:267px;margin:5px 0 23px;position:relative;width:248px;}
 div#successtream .successtory_outer.last{margin:5px 0 0 0;}
 div#successtream .successtory{border:1px solid #EEEEEE;height:270px;position:absolute;text-align:center;top:-5px;width:246px;}
@@ -975,39 +777,18 @@ div#successtream div.panel_content_no_padding {clear:both;position: relative;mar
 
 
 
-div#lowerbody div.heading {
+div#lowerbody_container div.heading {
 	position: relative;margin: 7px 0px 5px 0px;line-height: 28px;
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; font-size: 28px;}
 
-div#lowerbody div.comment {
-	position: relative;
-	height: 50px;
-	margin: 15px 0px 0px;
-	color: #333;
-	background-color: #fabb00;
-	font-size: 13px;
-	font-family: Arial, Helvetica, sans-serif;
-	padding: 5px;
-}
-div#lowerbody div.comment img.comment_author{
-	position: relative;
-	float: left;
-	width: 50px;
-	height: 50px;
-}
-div#lowerbody div.comment div.comment_text {
-	position: relative;
-	left: 10px;
-	margin: 0px 10px;
-}
-div#lowerbody div.comment div.comment_author{
-	display: block;
-	line-height: 13px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-}
+div#lowerbody_container div.comment {padding: 15px 0;clear:both}
 
-div#lowerbody div.comment_input_panel{
+div#lowerbody_container div.comment img.commentAuthor{position: relative;float: left;width: 50px;height: 50px;}
+div#lowerbody_container div.comment div.commentText {background-color: #BBE3F7;min-height:50px;margin: 0px 0px 0px 15px;width:840px; float:left;position:relative}
+div#lowerbody_container div.comment div.commentContent{margin:0px 10px;padding:5px;}
+div#lowerbody_container div.comment .commentAuthorName {font-weight:bold}
+
+div#lowerbody_container div.comment_input_panel{
 	line-height: 20px;
 	margin-top: 15px;
 	margin-bottom: 10px;
@@ -1015,12 +796,7 @@ div#lowerbody div.comment_input_panel{
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
 
-div#lowerbody textarea.comment_text_input {
-	border: 15px solid #fabb00;
-	height:50px;
-	margin-bottom:15px;
-	width:890px;
-}
+div#lowerbody_container textarea.comment_text_input {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin:15px 0px 15px;width:918px;}
 
 /* ========================POOL SETTINGS ====================== */
 
@@ -1116,7 +892,7 @@ span.showme a.showme:hover{color: #c11164; text-decoration: underline !important
 #contributioncontainer input#chipin_amount{ border:2px solid #131313;}
 .contributionAmount{ position: relative}
 .contributionAmount label{ width: 100px;position: relative}
-.contributionAmount .contrib_error_message{ color:#FF0000;float:left;margin:14px 0 0 10px;position:relative;width:155px;}
+.contributionAmount .contrib_error_message{ color: red;float: left;font-size: 18px;font-weight: bold;margin:0px 0px 0px 10px;position: relative;width: 145px;}
 .contributionAmount .currencyDisplay{ font-size:18px;font-weight:bold;position:relative;top:12px;float:left;}
 .contributionAmount input{ width: 147px;  width: 100px;float:left}
 .contributionAmount { font-family: Arial}
@@ -1131,7 +907,7 @@ span.showme a.showme:hover{color: #c11164; text-decoration: underline !important
 #contributioncontainer h2{ font-family: "Trebuchet MS"; font-size: 20px; font-weight: bold; color: #5a4129; margin: 0; padding: 0; line-height: 20px; font-style: italic; padding:0 0 10px;}
 .whiteBoxSmall{ background: white; width: 850px; margin-top: 10px;  padding: 15px}
 #contributioncontainer input{ height: 24px; margin: 10px 5px 0 0;}
-#contributioncontainer input[type=text]{ border: 1px solid #666;padding:4px 4px 0px 2px;}
+#contributioncontainer input[type=text]{ background: white;border: 0px solid transparent;padding: 4px 4px 0px 2px;}
 #contributioncontainer input[type=text].contrib_amount{ text-align:right;width:100px }
 span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; padding-top: 10px}
 #chipin_anonymous{ margin: 0 !important}
@@ -1142,13 +918,13 @@ span.grey{ font-family: Arial; font-size: 11px; color: #999; display: block; pad
 #contributioncontainer label.paymenticon img {position:relative;top:-3px;}
 #contributioncontainer label.paymenticon span.methodname {position:relative;top:-8px;margin-left:10px;}
 
-#contributioncontainer div.error_message {left:192px;top:16px; color: #ff0000}
+#contributioncontainer div.error_message {clear: both;color: red;font-size: 14px;font-weight: bold;left: 192px;}
 .radioContainer{ width: 150px}
 .radioContainer2{ width: 200px}
 #contributioncontainer .radioContainer input, #contributioncontainer .radioContainer2 input, #contributioncontainer .payement_method input{ margin: 0; height: 13px}
 #contributioncontainer .radioContainer label, #contributioncontainer .radioContainer2 label,  #contributioncontainer .payement_method label{ display: inline}
 .radioContainer2 div{ padding-bottom: 3px} 
-#chipin_message{ width: 380px; margin-bottom: 20px;float:left}
+#chipin_message{ width: 350px; float:left}
 #chipin_message_remLen{float:left;text-align:right;width:25px;margin:0 0px 0px 10px !important;}
 
 .heightAuto{ height: auto !important}
@@ -1239,15 +1015,18 @@ div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc
 .rcptProductText {margin:15px 15px; width:250px;height:110px;float:left;}
 .rcptProductText .rcptProductTextBody {margin:10px 0 0 0 ;}
 
-.triangle {position:absolute;display:block;width:10px;height:20px;top:10px;left:-10px;background:url("../imgs/inputfield.png?20101117") no-repeat scroll -320px 0px transparent;}
-.ctrbrText .triangle{background-position:-344px 0px;}
+.triangle {position:absolute;display:block;width:10px;height:20px;top:10px;left:-10px;background:url("../imgs/inputfield.png?20101123") no-repeat scroll -320px 0px transparent;}
+.bottomYellowTriangle {position:absolute;display:block;width:20px;height:10px;bottom:-10px;margin:0px auto;background:url("../imgs/inputfield.png?20101123") no-repeat scroll -320px -10px transparent;}
+.triangle.bluetriangle{background-position:-344px 0px;}
 
 .rcptRibbon {background:url("../imgs/pool_result_ribbon.png") no-repeat scroll 0 0 transparent;height:163px;position:absolute;right:-9px;top:-22px;width:288px;z-index:2;}
 
 .pcontBodyComplete {margin: 15px 0px 30px 0px;clear:both;float:left;}
 .pcontBodyComplete img.contributor{position: relative;width: 75px;height: 75px;float: left;margin: 0px 0px 15px 30px;}
-.ctrbrText{position: relative;height: 75px;width: 230px;margin: 0px 0px 15px 10px;background-color:#fabb00; float:right}
+.ctrbrText{position: relative;height: 75px;width: 230px;margin: 0px 0px 15px 10px;background-color:#bbe3f7; float:right}
 
 
 .editIcon {position:absolute;display:block;width:25px;height:25px;top:10px;right:-10px;background:url("../imgs/edit-icon.png") no-repeat scroll 0px 0px transparent;cursor:pointer;z-index:3}
+.raisedEditIcon {background: transparent url("http://dev.friendfund.de/static/imgs/edit-icon.png") scroll 100% 0px no-repeat;
+				cursor: pointer;display: block;height: 25px;padding: 9px 29px 0 ;position: absolute;right: 0px;top: -28px;z-index: 3;}
 #thankyou_editor .editIcon{right:-10px;top:23px;}

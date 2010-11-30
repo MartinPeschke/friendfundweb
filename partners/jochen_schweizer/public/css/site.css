@@ -9,7 +9,11 @@ div#outercontainer {
 	width:100%;
 	padding: 0px 0px 30px 0px !important ;
 	float:left;
-	background: white url(../imgs/body_bg.png) 0 0 repeat-x !important;
+}
+div#outercontainer_themed {
+	width:100%;
+	background: transparent url(../imgs/themes/christmas/bg.png) 0 0 repeat !important;
+	float:left;
 }
 
 body.popup div#outercontainer {background:none;}
@@ -150,7 +154,6 @@ div.frontpagebutton {
 	height:297px;
 	margin: 1px;
 }
-div.frontpagebutton.enabled {cursor:pointer}
 div.frontpagebutton.first {width:230px;margin: 1px 1px 1px 0px;}
 div.frontpagebutton.last {width:226px;margin: 1px 0px 1px 1px;}
 div.frontpagebuttonhover {background-color: #fac528;}
@@ -187,6 +190,7 @@ div.frontpagebutton.funders {
 	height: 100%;
 	padding-top: 1px;
 }
+#pool_configurator div.frontpagebutton.enabled {cursor:pointer}
 #pool_configurator div.front_panel_active{ background-color: #faeecb}
 
 .hpbutton .button {
@@ -219,7 +223,7 @@ div.frontpagebutton.funders {
 	text-align: left;
 }
 .hpbutton 			a.content.withbg {background: url(../imgs/header/backgroundHomeShadow.png) 0 0 no-repeat;height:131px;width:174px;padding: 0 2px 2px 2px;}
-.hpbutton 			a.content.nobg {height:133px;width:178px;background:url("../imgs/infographic_icons.png") 0px 0px transparent;}
+.hpbutton 			a.content.nobg {height:133px;width:178px;background:url("../imgs/themes/christmas/infographic_icons.png") 0px 0px transparent;}
 .hpbutton.receiver	a.content.nobg {}
 .hpbutton.gift		a.content.nobg {background-position:-179px 0px;}
 .hpbutton.occasion	a.content.nobg {background-position:-358px 0px;}
@@ -276,7 +280,7 @@ div.frontpagebutton.funders {
 	font-weight:bold;
 }
 #button_panel a.button_panel_closer {
-	background:url("/static/imgs/inputfield.png?20101117") no-repeat scroll -271px -30px transparent;	
+	background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll -271px -30px transparent;	
 	height:19px;
 	position:absolute;
 	right:5px;
@@ -319,7 +323,7 @@ div.panel_content_inner {margin: 40px 20px 20px;}
 
 div#occasion_button_bar {
 	float:left;
-	width:920px;background:none repeat scroll 0 0 #fabb00;
+	background:none repeat scroll 0 0 #fabb00;
 	border-top:1px solid #e6ac00;
 	float:left;
 	margin-top:-1px;
@@ -346,7 +350,6 @@ div#occasion_button_bar {
 	margin:0px;
 	position:relative;
 	text-align:center;
-	width:920px;
 	background:none repeat scroll 0 0 #fabb00;
 }
 
@@ -602,7 +605,7 @@ div#lowerbody {margin: 30px;}
 
 .invitee_row a.selector {bottom:22px;position:absolute;right:0px;padding-right:15px;cursor:pointer;color:#064159;font-family:Arial,sans-serif;}
 .invitee_row a.selector span.selector{
-	background:url("../imgs/inputfield.png?20101117") no-repeat scroll -240px -32px transparent;
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll -240px -32px transparent;
 	height:15px;position:absolute;width:10px;right:0px;
 }
 #friend_list .invitee_row a.selector span.selector {background-position:-220px -32px;}
@@ -610,8 +613,8 @@ div#lowerbody {margin: 30px;}
 #friend_list .invitee_row a.selector.remove {display:None}
 #invited .invitee_row a.selector.invite {display:None}
 #invited .invitee_row a.selector.remove {display:block;bottom:40px;}
-#invited .invitee_row a.pending {background:url("../imgs/inputfield.png?20101117") no-repeat scroll -358px -24px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;cursor:pointer}
-#invited .invitee_row a.pending.selected {background-position:-322px -24px}
+#invited .invitee_row a.pending {background:url("../imgs/inputfield.png?20101123") no-repeat scroll -410px -53px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;cursor:pointer}
+#invited .invitee_row a.pending.selected {background-position:-374px -53px}
 
 
 .invitee_row.nonselectable {	display:none;}
@@ -821,11 +824,27 @@ div#siteinfo div.siteinfo_copyright {
 	color:#eee;
 }
 #verisignsealindex{
-	left:25px;
+	left:30px;
 	top:315px;
 	position:absolute;
 	overflow:hidden;
 	height:77px;
+}
+#verisign_payment{
+	height: 77px;
+	overflow: hidden;
+	position: absolute;
+	right: 50px;
+	top: 215px;
+	z-index: 5;
+}
+#verisign_contrib{
+	height: 77px;
+	overflow: hidden;
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	z-index: 5;
 }
 #verisignseal{
 	left:30px;
@@ -1020,8 +1039,8 @@ div.window_container  div.window div.popupContent ol li{
 .tabContainer a {	 color:#403834;display:block;float:left;padding-right:15px;text-align:center;}
 .tabContainer a span {color:#403834;display:block;float:left;
 	cursor:pointer;font-size:18px;padding:7px 0px 8px 15px;font-family: Trebuchet MS,Arial;}
-.tabContainer a.selected {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -435px transparent;}
-.tabContainer a.selected span {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -379px transparent;}
+.tabContainer a.selected {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -435px transparent;}
+.tabContainer a.selected span {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -379px transparent;}
 
 .subCategories{clear:both; font-size: 20px ; font-weight: bold; color: #403834; height: 47px; line-height: 47px;padding-top: 28px; font-family: Trebuchet MS,Arial}
 .tooltipBoxMyPools{ height: 45px; background:none repeat scroll 0 0 #403835; position: relative}
@@ -1132,8 +1151,8 @@ h2.small{ font-size: 20px !important}
 .paddingZero{ padding: 15px  0 0 0 !important}
 .passwordFields label{ display: block; float: left; width: 140px}
 a.Save{ float: right; clear: both; font-family: Arial; font-size: 18px;  color:#333; display:block;  
-	margin-top: 30px; padding-right: 10px; background: url(../imgs/inputfield.png?20101117) 100% -632px no-repeat; height: 35px; line-height: 35px}
-a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px;  background: url(../imgs/inputfield.png?20101117) 0 -597px no-repeat;text-shadow:0 2px 0 #fff;}
+	margin-top: 30px; padding-right: 10px; background: url(../imgs/inputfield.png?20101123) 100% -632px no-repeat; height: 35px; line-height: 35px}
+a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px;  background: url(../imgs/inputfield.png?20101123) 0 -597px no-repeat;text-shadow:0 2px 0 #fff;}
 .borderRow{ width: 100%; border-bottom: 1px solid #e9e9e9; height: 25px; margin-top: 5px; font-family: Arial; font-size: 12px; line-height: 21px}
 .borderRow .floaterLeft img{ display: block; float: left; margin-right: 10px}
 .inside_row a{ text-decoration: underline; color: #b70158}
@@ -1307,3 +1326,104 @@ div#scrollingproductsuggestions {
 .productSorterWidth .halfWidth {width:395px;margin:5px 0px;float:left;padding:10px 20px;background:white;}
 .productSorterWidth .label {margin: 15px 0px 15px;}
 .productSorterWidth img {margin: 0px 0px 15px;}
+
+
+
+
+
+
+
+/*=========================================== POOL HEADER ==========================================*/
+
+#pool_pool_panel{
+	position: relative;
+	color: #333;
+	margin: 0px 30px;
+	padding-bottom:30px;
+	float:left;
+	overflow:hidden
+}
+
+#pool_pool_panel a{ color: #C11164}
+#pool_pool_panel .pool_content {float:left;margin:30px 90px;width:740px;}
+#pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;position:relative;width:162px;height:210px}
+#pool_pool_panel .pool_content  .picture_area{background:white;border:1px solid #EEEEEE;text-align:center;top:-5px;position:absolute;width:160px;height:213px}
+#pool_pool_panel .receiver_picture{float:left;}
+#pool_pool_panel .product{float:right;}
+#pool_pool_panel .picture_area img.contentPic{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
+#pool_pool_panel .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
+#pool_pool_panel .picture_area .product_more{position:absolute;bottom:5px;right:5px;}
+.picture_area_outer .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-30px;position:absolute;width:60px;}
+.picture_area_outer.product .icon{background-position:-121px 0;left:-40px;}
+
+
+
+#pool_pool_panel div.heading{
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 36px;
+	width: 470px;
+	padding-top: 18px;
+	min-height: 255px;
+	margin: 0 auto
+}
+#pool_pool_panel div.heading div.heading_text{
+ 	max-height:220px;
+	overflow:hidden;
+	position:relative;
+	text-align:center;
+}
+
+
+
+#pool_pool_panel div.lower_forward_page{
+	bottom:-25px;
+	height:25px;
+	position:absolute;
+	right:24px;
+	width:120px;
+	background-color: #BBE3F7;
+}
+#pool_pool_panel div.gotopage_text_left_bracket  {
+	background: url(/static/imgs/gotopage_lower_bg.png) 0 0 no-repeat;
+	position: absolute;
+	left: -25px;
+	height: 25px;
+	width: 25px;
+	top: 0px;
+}
+#pool_pool_panel div.gotopage_text_right_bracket  {
+	background: url("/static/imgs/gotopage_lower_bg.png") no-repeat scroll -20px 0 transparent;
+	height:25px;
+	position:absolute;
+	right:-25px;
+	top:0;
+	width:25px;
+}
+
+#pool_pool_panel a.submitSmall {
+	position: absolute;
+	bottom:-48px;
+	right: 0px;
+}
+
+.social_tools_free {margin:0px 30px;padding:20px 0px 5px;clear:both}
+
+
+/*=========================================== COUNTER ===========================================*/
+#timeline_bar {clear:both;float:left;margin:0 30px;}
+#timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
+#timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
+#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #FFEea8;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;padding:5px 0;position:absolute;text-align:center;top:-28px;text-shadow:#fff7d4 0px -1px 0px}
+
+#timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;background-position:-425px -20px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:5px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage .bottomYellowTriangle {left:20px;background-position:-425px -20px;}
+
+
+#timeline_bar div.timeline_progressbar_bg {position:relative;clear:both;height: 50px;background: url(/static/imgs/progressbar_bg.png) no-repeat left;}
+#timeline_bar div.timeline_progressbar {height: 40px;margin: 0px 5px 0px 5px;padding: 5px 0px 5px 0px;
+	background: url(/static/imgs/progressbar_progress.png) no-repeat left;}
+#timeline_bar div.legende {padding-top: 10px}
+#timeline_bar div.legende a{text-align:right;}
