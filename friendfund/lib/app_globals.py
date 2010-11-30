@@ -42,7 +42,6 @@ class Globals(object):
 		self.cache_pool = pylibmc.ThreadMappedPool(self.cache)
 		log.info("memcached set up at %s", app_conf['memcached.cache.url'])
 		
-		self.ga_include = config.get('ga_include', '')
 		self.FbAppID =  app_conf['fbappid']
 		self.FbApiKey =  app_conf['fbapikey']
 		self.FbApiSecret =  minifb.FacebookSecret(app_conf['fbapisecret'])

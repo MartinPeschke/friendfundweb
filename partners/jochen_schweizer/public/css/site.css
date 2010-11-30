@@ -5,18 +5,12 @@ body.claro {
 	font-size:12px;
 	font-family:Arial, Helvetica, Jamrul, sans-serif;
 }
-div#outercontainer {
-	width:100%;
-	padding: 0px 0px 30px 0px !important ;
-	float:left;
-}
-div#outercontainer_themed {
-	width:100%;
-	background: transparent url(../imgs/themes/christmas/bg.png) 0 0 repeat !important;
-	float:left;
-}
+body.base  {background: #fff url(../imgs/body_bg.png) 0 0 repeat-x !important;}
 
-body.popup div#outercontainer {background:none;}
+div#outercontainer {width:100%;padding: 0px 0px 30px 0px !important ;float:left;}
+div#outercontainer_themed {width:100%;float:left;background:url("../imgs/themes/christmas/bg.png") repeat scroll 0 0 transparent !important;}
+
+body_container.popup div#outercontainer {background:none;}
 
 img {border: 0px transparent solid;}
 hr {	clear: both;}
@@ -52,13 +46,9 @@ div.forminputline div.error_message {
 }
 
 /*-------------------------------------Header------------------------------------------------------*/
-.logoHeader {
-	display:block;
-	float:left;
-	height:105px;
-	margin:9px 0 0 17px;
-	width:372px;
-}
+.logoHeader {float:left;margin:9px 0 5px 17px;}
+.logoHeader:hover {margin:11px 0 3px 17px;}
+.logoBanner {float:left;margin:24px 0 0 29px;}
 ul.navigation {
 	list-style-type:none;
 	padding:0;
@@ -98,50 +88,27 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	width: 980px;
 }
 body.popup #container {width:auto}
+
+
 #headercontainer {
-	background:url(/static/imgs/header/header_bg.png) 0px 0px repeat-y;
 	position: relative;
 	float: left;
 	width: 100%
 }
-#body_outer_container {
-	position: relative;
-	clear: both;
-}
+#body_outer_container {position: relative;clear: both;background:white;border-top:1px solid #978779;}
 #body_container {
 	clear:both;
 	display: block;
 	padding: 0px;
 	position: relative;
 }
-#body_container.index{min-height:405px;}
-
-#body_container .innerbody {
-	background-color:  #fabb00;
-	padding-top: 1px;
-}
-#loginpanel {
-	position: absolute;
-	top: 0px;
-	right: 30px;
-	color: #ffffff;
-}
-#loginpanel * {
-	color: #ffffff;
-	font-size: 11px;
-	line-height: 11px
-}
-
-#loginpanel b {top: -5px; position: relative;}
-#loginpanel a.login_loginlink img{
-	position: relative;
-	padding-left:10px;
-}
-#login_panel_profile_pic {
-	width: 30px;
-	height: 30px;
-	position: absolute;
-}
+body.index #body_container{min-height:405px;}
+#body_container .innerbody {background-color:  #FFF5D7;padding-top: 1px;}
+#loginpanel {position: absolute;top: 10px;right: 30px;}
+#loginpanel * {color: #333;font-size: 11px;line-height: 11px}
+a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif}
+a.login_loginlink img, a.loginlink img{position: relative;top: 5px;padding-left:10px;}
+#login_panel_profile_pic {width: 30px;height: 30px;position: absolute;}
 #loginpanel span.name {margin-left: 33px}
 
 /*-------------------------------------Frontpage Panels/Popups-------------------------------------*/
@@ -149,7 +116,7 @@ body.popup #container {width:auto}
 div.frontpagebutton {
 	position: relative;
 	float: left;
-	background-color:#fabb00;
+	background-color:#FFF5D7;
 	width:229px;
 	height:297px;
 	margin: 1px;
@@ -323,7 +290,7 @@ div.panel_content_inner {margin: 40px 20px 20px;}
 
 div#occasion_button_bar {
 	float:left;
-	background:none repeat scroll 0 0 #fabb00;
+	background:none repeat scroll 0 0 #FFF5D7;
 	border-top:1px solid #e6ac00;
 	float:left;
 	margin-top:-1px;
@@ -350,7 +317,7 @@ div#occasion_button_bar {
 	margin:0px;
 	position:relative;
 	text-align:center;
-	background:none repeat scroll 0 0 #fabb00;
+	background:none repeat scroll 0 0 #FFF5D7;
 }
 
 #button_panel.occasion a.occasion_panel_button img {
@@ -401,7 +368,7 @@ a.productsuggestion img{ display:block; margin:0 auto}
 #product_browser {
 	position: relative;
 	background-color: white;
-	border-top: solid 6px #fabb00;
+	border-top: solid 6px #FFF5D7;
 	margin-top: 30px;
 }
 /*------------------------------------- LOGIN/SIGNUP PAGE -------------------------------------*/
@@ -469,7 +436,7 @@ p.termsOf a{ color:#B70158;}
 #receiver_selector_container {
 	position:relative;
 	border-top: 1px solid #e6ac00;
-	background-color:#fabb00;
+	background-color:#FFF5D7;
 	margin-top:-1px;
 	min-height:100px;
 }
@@ -542,17 +509,15 @@ a.methodselector.selected {background:url("../imgs/inputfield.png?20101117") no-
 a.methodselector.selected span {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -272px transparent;}
 
 
-div#lowerbody_container.fullbackground{background-color: #fabb00;}
+div#lowerbody_container.fullbackground{background-color: #FFF5D7;}
 div#lowerbody_container.fullbackgroundwhite{padding-top: 1px;}
 div#lowerbody {margin: 30px;}
 #lowerbody_container {
 	position: relative;
-	margin: 30px 0px 0px;
+	margin:0px;
 	width: 980px;
 	margin-top: 20px;
-	float: left;
-	padding-bottom: 30px
-}
+	float: left;}
 
 #receiver_selector_container #inviteheader div.headline {margin:20px;}
 #inviter #inviteheader div.headline {}
@@ -628,7 +593,7 @@ div#lowerbody {margin: 30px;}
 
 
 
-#birthdayselector {width:890px;padding:0px 15px 15px;background-color:#fabb00;float:left;margin:15px 0px}
+#birthdayselector {width:890px;padding:0px 15px 15px;background-color:#FFF5D7;float:left;margin:15px 0px}
 #birthdayselector #friend_list_container {background-color:white;float:left;padding:15px;width:860px;}
 #birthdayselector .invitee_row { width: 263px; margin:0px;float:None;margin:15px 0px 0px 30px;float: left;padding-bottom:35px;}
 #birthdayselector .invitee_row.first { margin:15px 0px 0px 0px;}
@@ -650,7 +615,7 @@ div#lowerbody {margin: 30px;}
 
 #invites {
 	border-top: 1px solid #e6ac00;
-	background-color:  #fabb00;
+	background-color:  #FFF5D7;
 	position: relative;
 	margin-top: -1px;
 }
@@ -681,12 +646,12 @@ div#lowerbody {margin: 30px;}
 
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {
-	border-bottom: 3px solid #fabb00;
+	border-bottom: 3px solid #FFF5D7;
 	padding: 15px 15px 0px 15px;
 	clear:both;
 }
 
-.whiteContainer{ background: #fabb00; border-top:1px solid #e6ac00; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
+.whiteContainer{ background: #FFF5D7; border-top:1px solid #e6ac00; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 #invite_message {
 	clear:both;
@@ -731,7 +696,7 @@ div#lowerbody {margin: 30px;}
 	top: 2px;
 }
 #invite_message div.invite_message textarea {
-	border:15px solid #fabb00;
+	border:15px solid #FFF5D7;
 	font-family:arial;
 	font-size:12px;
 	height:100px;
@@ -796,26 +761,21 @@ div#lowerbody {margin: 30px;}
 div#siteinfo {
 	clear:both;
 	width: 100%;
-	border-top:2px solid #D3EDFA;
-	background:#333;
 }
 div#siteinfo div.siteinfo1 {
-	border-top:1px solid #dadada;
 	width: 100%;
 	float:left;
-	background:#333;
 	text-align:center;
 }
 div#siteinfo div.siteinfo1 div.siteinfo2 {
 	position: relative;
 	width:980px;
-	margin:10px auto;
+	margin:0px auto 15px;
 	text-align:center;
 }
 
 div#siteinfo a.siteinfo_content {
 	padding: 10px 10px 10px 10px;
-	color:#eee;
 }
 div#siteinfo div.siteinfo_copyright {
 	text-align:right;
@@ -881,7 +841,7 @@ div#siteinfo div.siteinfo_copyright {
 	width: 800px;
 	height: 400px;
 	background-color: white;
-	border: 10px solid #fabb00;
+	border: 10px solid #FFF5D7;
 	position:relative;
 	overflow:hidden;
 }
@@ -944,7 +904,7 @@ div#siteinfo div.siteinfo_copyright {
 /* *************************************** BLOCKS ***************************************** */
 div.window_container div.window {
 	background-color:white;
-	border:15px solid #fabb00;
+	border:15px solid #FFF5D7;
 	margin:150px auto;
 	position:relative;
 	width:700px;
@@ -1116,7 +1076,7 @@ h2.small{ font-size: 20px !important}
 #login_signup_container .subCategories { padding-top: 0px}
 .profilePictureContainer{ float: left; width: 445px}
 .profilePictureContainer .profile-picture {
-	background-color:#fabb00;
+	background-color:#FFF5D7;
 	float:left;
 	padding:15px;
 	width:415px;
@@ -1140,7 +1100,7 @@ h2.small{ font-size: 20px !important}
 
 #paymentdetailscontainer input, #paymentdetailscontainer,{ border: 1px solid #999999}
 #paymentdetailscontainer{ margin: 0 30px 30px}
-.profile-picture{background-color:#fabb00; width: 445px ; padding: 15px; float: left;}
+.profile-picture{background-color:#FFF5D7; width: 445px ; padding: 15px; float: left;}
 .inside-profile-picture{ float: left; padding: 15px; background: white; width:415px;}
 .inside_row{ float: left; padding:10px 15px 15px 15px; background: white; width:415px;}
 .selectImage{ width: 280px}
@@ -1184,7 +1144,7 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 .borderBox .borderBoxContent{background-color:white;margin:15px;padding:15px; min-height:250px;}
 .borderBox .subheader{margin: 0px 0px 15px 0px;font-size:14px;font-weight:bold;}
 
-.payement-container #termsofservice {height:100px; border:1px solid #fabb00;padding:5px;overflow:auto;}
+.payement-container #termsofservice {height:100px; border:1px solid #FFF5D7;padding:5px;overflow:auto;}
 #termsofservice .tosheading {margin:0px 0px 0px 0px;font-weight:bold;font-size:14px;text-align:center;}
 #termsofservice .tosheading.effectivedate {margin:0px 0px 15px 0px;font-weight:normal;font-size:1em;}
 #termsofservice .preamble {margin:0px 0px 15px 0px;}
@@ -1346,7 +1306,7 @@ div#scrollingproductsuggestions {
 
 #pool_pool_panel a{ color: #C11164}
 #pool_pool_panel .pool_content {float:left;margin:30px 90px;width:740px;}
-#pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;position:relative;width:162px;height:210px}
+#pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #aaa;border-left:1px solid #aaa;border-right:1px solid #aaa;position:relative;width:162px;height:210px}
 #pool_pool_panel .pool_content  .picture_area{background:white;border:1px solid #EEEEEE;text-align:center;top:-5px;position:absolute;width:160px;height:213px}
 #pool_pool_panel .receiver_picture{float:left;}
 #pool_pool_panel .product{float:right;}
@@ -1415,7 +1375,7 @@ div#scrollingproductsuggestions {
 #timeline_bar {clear:both;float:left;margin:0 30px;}
 #timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
 #timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
-#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #FFEea8;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;padding:5px 0;position:absolute;text-align:center;top:-28px;text-shadow:#fff7d4 0px -1px 0px}
+#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
 
 #timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;background-position:-425px -20px;}
 #timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:5px;}

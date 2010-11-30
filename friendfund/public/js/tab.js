@@ -491,11 +491,12 @@ FriendFund.Button = {
 	button_id: "friendfund_fund_button",
 	button_text: "Friendfund this",
 	css_template: "#${button_id} {margin: 10px;width: auto} #${button_id}\
-					.friendfundButton{pointer:cursor;margin:10px auto;color:white;width:143px;height:32px;\
-					background:url(http://js.friendfund.de/static/imgs/button_logo.png) no-repeat 0 0 white;display:block}",
-	fixed_css_template: "#${button_id} {position:fixed;right:0px;top:${top};width:32px;height:143px;} #${button_id}\
-					.friendfundButton{pointer:cursor;color:white;width:32px;height:143px;\
-					background:url(http://js.friendfund.de/static/imgs/button_logo_vert.png) no-repeat 0 0 white;display:block}",
+					.friendfundButton{pointer:cursor;margin:10px auto;color:white;width:122px;height:196px;\
+					background:url(http://js.friendfund.de/static/imgs/button_logo.png) no-repeat 0 0 transparent;display:block}",
+	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
+					#${button_id}:hover {${alignment}:0px;} \
+					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:122px;\
+					background:url(http://js.friendfund.de/static/imgs/badges/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
 	show: function (options) {
 		FriendFund.Popin.setup(options);

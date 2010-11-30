@@ -1,4 +1,4 @@
-<%inherit file="master.html"/>
+<%inherit file="layout_layer.html"/>
 <%namespace name="links" file="links.html"/>
 <%namespace name="html" file="widgets/html_elems.html"/>
 <%namespace name="forms" file="widgets/forms.html"/>
@@ -12,7 +12,7 @@
 	${links.js('friendfund/ProductSearch.js')}
 </%def>
 
-<%def name="bodyclass()">index</%def>
+<%def name="bodyclass()">base index</%def>
 <%def name="headscripts()">page_reloader = ${getattr(c, "do_reload", False) and "page_reloader = function(){window.location.reload();};" or "function(){}"};var html;var show_delay = function (i){var es=dojo.query(".ra_scroller","fundstream_ra");var e=es[0];if(es.length>2){dojo.query("#"+es[2].id,"fundstream_ra").orphan();}var it=parseInt(dojo.attr(e,"_top"));var ft=it+170;dojo.attr(e,"_top",ft);var appear=dojo.animateProperty({node:e.id,duration:2000,properties:{marginTop:{start:it,end:ft}}});var h=dojo.connect(appear,"onEnd",function(evt){if(html){dojo.place(html, dojo.byId("fundstream_ra"),"first");html=null;}dojo.disconnect(h);});appear.play();if(ft<0){setTimeout(dojo.hitch(null, "show_delay",i+1),Math.round(3000+(Math.random()*12000)));}else{xhrPost("/stream",{},function(data){html=data.html;setTimeout(dojo.hitch(null, "show_delay",i+1),Math.round(2000+(Math.random()*8000)));});}};</%def>
 
 <%def name="onloadscripts()">
@@ -30,12 +30,8 @@
 		setTimeout(dojo.hitch(null, "show_delay",1),Math.round(Math.random()*2000));
 </%def>
 
-<%def name="header()">
-	<div id="headercontainer">
-		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/imgs/header/logo_banner.png"/></a>
-		${self.header_navigation()}
-	</div>
-</%def>
+<%def name="create_pool_button()"></%def>
+
 <%def name="page_slogan()">
 	<div id="page_slogan"><span class="emphasis">${_(u'PAGE_INDEX_SLOGAN_MOTTO_EMPHASIS')|n}</span> ${_(u'PAGE_INDEX_SLOGAN')|n} <span class="emphasis">${_(u'PAGE_INDEX_SLOGAN_CLOSING')|n}</span></div>
 </%def>
