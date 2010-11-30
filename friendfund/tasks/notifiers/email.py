@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from string import Template as Template
-import urllib2, os, logging, mako
+import urllib2, os, logging, mako, markdown
 from mako.lookup import TemplateLookup
 from lxml import etree
 from docutils.core import publish_parts
@@ -52,7 +52,7 @@ def send_email(subject, template, sndr_data, rcpt_data, template_data):
 	message_params['email'] = rcpt_data['email']
 	message_params['subject'] = subject.substitute(**dict(template_data)).encode("utf-8")
 	message_params['text'] = template.render_unicode(**{'h':h, 'data': template_data}) #'h':h, when locale is available
-	message_params['html'] = publish_parts(message_params['text'], writer_name="html")["html_body"]
+	message_params['html'] = markdown.markdown(message_params['text'])
 	datagen, headers = multipart_encode(message_params)
 	request = urllib2.Request(ums_url, datagen, headers)
 	response = etree.parse(urllib2.urlopen(request))
