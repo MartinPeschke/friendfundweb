@@ -35,8 +35,7 @@
 		}
 		
 		closeElement = function(elem){
-			dojo.removeClass(elem, "opened");
-			dojo.addClass(elem, "hidden");
+
 			dojo.query(".opened", "poolactions").addClass("hidden").removeClass("opened");
 			dojo.byId("poolactioncontent").className ="hidden";
 		}

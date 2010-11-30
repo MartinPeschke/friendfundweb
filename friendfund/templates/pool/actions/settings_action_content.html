@@ -35,7 +35,7 @@ from datetime import date, timedelta
 			%endif
 
 			<div style="margin:30px;float:right;position:relative;">
-				${forms.black_submitlink(_("ADMIN_ACTION_BUTTON_Submit"), [("onclick", "dojo.byId('form_%s').submit()" % action.name)], "action_submitter")|n}
+				<a class="submitSmall" href="#" onclick="dojo.byId('form_${action.name}').submit()" id="action_submitter"><span>${_("ADMIN_ACTION_BUTTON_Submit")}</span></a>
 			</div>
 			</form>
 		</div>
@@ -61,7 +61,7 @@ from datetime import date, timedelta
 		<div id="contributioncontainer" class="forminputline">
 			<label style="width: 200px;">${_("ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:")}</label><span class="fixedvalue">${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)|n}</span>
 			<div style="margin:30px;float:right;position:relative;">
-				${forms.black_submitlink(_("ADMIN_ACTION_BUTTON_Submit"), [], "submitter", href=url(controller="pool", pool_url=psettings.p_url, action="issue_gift_vouchers"))|n}
+				<a class="submitSmall" href="${url(controller="pool", pool_url=psettings.p_url, action="issue_gift_vouchers")}" id="submitter"><span>${_("ADMIN_ACTION_BUTTON_Submit")}</span></a>
 			</div>
 		</div>
 	</div>

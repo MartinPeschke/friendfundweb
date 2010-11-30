@@ -5,6 +5,6 @@
 <div class="forminputline" id="product_browser">
 	${product.display_product(0, c.product, 1)}
 	<div style="margin:30px;float:right;position:relative;">
-		${forms.black_submitlink(_("POOL_SETTINGS_ACTION_ALTPRODUCT_Confirm"), [], "submitter", href= "%s?guid=%s&aff_net=%s" % (url(controller="pool", pool_url=c.pool_url, action="setaltproduct"),c.product.guid, c.product.aff_net))|n}
+		<a class="submitSmall" href="${url(controller="pool", pool_url=c.pool_url, action="setaltproduct")}?guid=${c.product.guid}&aff_net=${c.product.aff_net}" id="submitter"><span>${_("POOL_SETTINGS_ACTION_ALTPRODUCT_Confirm")}</span></a>
 	</div>
 </div>

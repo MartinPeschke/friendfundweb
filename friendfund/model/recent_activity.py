@@ -55,7 +55,11 @@ class RecentActivityEntry(DBMappedObject):
 		return float(self.total_contribution)/100
 	def get_amount_left_float(self):
 		return self.get_amount_float() - self.get_total_contribution_float()
-	
+	def get_product_display_name(self):
+		if self.is_pending:
+			return _("PENDING_PRODUCT_NAME")
+		else:
+			return h.word_truncate_plain(self.product_name.title(), 2)
 	def get_remaining_days_tuple(self):
 		if self.is_closed():
 			return (0, 0)

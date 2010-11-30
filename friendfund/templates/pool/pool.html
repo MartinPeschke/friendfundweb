@@ -34,22 +34,46 @@
 		else:
 			locals['progress'] = (850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float())) 
 	%>
-	%if not c.pool.is_pending():
+	%if c.pool.is_funded():
+		%if c.pool.am_i_admin(c.user):
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s!<br/>Congratulations, this pool is now fully funded!") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_All you need to do now is visit the Pool Admin Page to order your gift.") % locals|n}</div>
+		%else:
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_SO this pool is now fully funded and we are just waiting for %(admin_name)s to give us a shipping address and order the gift.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_%(admin_name)s has been notified and should be ordering the gift soon.") % locals|n}</div>
+		%endif
+	%elif c.pool.is_expired():
+		%if c.pool.am_i_admin(c.user):
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s!<br/>Oh no! This pool has expired without reaching its goal.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Visit the Pool Admin Page to extend the deadline or remind your friends to chip in. ") % locals|n}</div>
+		%else:
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>Oh no! This pool has expired without reaching its goal.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_It's now up to %(admin_name)s to extend the deadline so %(receiver_name)s can get a %(product_name)s.") % locals|n}</div>
+		%endif
+	%elif not c.pool.is_pending():
 		%if c.user.is_anon:
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, log in and help out!") % locals|n}
 			</div>
 			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Please log in to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}</div>
-		%elif c.pool.is_funded():
+		%elif c.pool.am_i_admin(c.user):
 			<div id="page_slogan" class="underlined2">
-				${_("POOL_PAGE_SLOGAN_SO this pool is now fully funded and we are just waiting for %(admin_name)s to give us a shipping address and order the gift.") % locals|n}
+				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You have created a pool for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
 			</div>
-			
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for %(receiver_name)s's %(occasion_name)s and they want you to contribute what you can.") % locals|n}</div>
 		%elif c.pool.am_i_member(c.user):
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
 			</div>
-			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for %(receiver_name)s's %(occasion_name)s and they want you to contribute what you can.") % locals|n}</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_Edit pool settings any time by visiting the Pool Admin page.") % locals|n}</div>
 		%else:
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, chip in and join the pool.") % locals|n}

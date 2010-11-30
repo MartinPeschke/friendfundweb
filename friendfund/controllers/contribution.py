@@ -93,6 +93,7 @@ class ContributionController(BaseController):
 		contrib.set_amount(1)
 		contrib.set_total(1)
 		contrib.paymentmethod = c.paymentpage.methods[0].code
+		g.pool_service.invite_myself(c.pool, c.user)
 		return g.payment_service.process_payment(c, contrib, c.pool, render, redirect)
 	
 	@logged_in(ajax=False)
