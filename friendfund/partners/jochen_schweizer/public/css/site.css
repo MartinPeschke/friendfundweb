@@ -6,29 +6,17 @@ body.claro {
 	font-family:Arial, Helvetica, Jamrul, sans-serif;
 }
 body.base  {background: #fff url(../imgs/body_bg.png) 0 0 repeat-x !important;}
-
-div#outercontainer {width:100%;padding: 0px 0px 30px 0px !important ;float:left;}
+div#outercontainer {width:100%;float:left;background:none;padding: 0px 0px 5px 0px !important;}
 div#outercontainer_themed {width:100%;float:left;background:url("../imgs/themes/christmas/bg.png") repeat scroll 0 0 transparent !important;}
 
-body_container.popup div#outercontainer {background:none;}
+#container {text-align: left;margin: 0px auto;position: relative;width:auto}
+body.base div#container {width:980px;}
 
-img {border: 0px transparent solid;}
-hr {	clear: both;}
-h2 {font-family: "Trebuchet MS"; font-size: 20px !important; font-weight: bold !important; color:#403834 !important; margin: 0 !important; line-height: normal !important;}
-h3 {font-family: "Trebuchet MS" !important; font-size: 14px !important; font-weight: bold !important;; line-height: 14px !important}
+#headercontainer {position: relative;float: left;width: 100%}
+#body_outer_container {position: relative;clear: both;background:white;border-top:1px solid #978779;float:left;}
+#body_container {clear:both;display: block;padding: 0px;position: relative;}
+#body_container .innerbody {background-color:  #FFF5D7;padding-top: 1px;}
 
-.hidden {display: None !important;}
-.white {background-color: white;}
-
-.left {position: relative;float: left;}
-.floaterLeft{ float: left; position: relative}
-.right {position: relative;float: right;}
-.floaterRight{ float: right}
-.clearer{ clear:both}
-
-.hlast {	margin-right: 0px !important;}
-.vlast {	margin-bottom: 0px !important;}
-.hover {cursor:pointer}
 
 /*-------------------------------------Standard Inputs------------------------------------------------------*/
 div.forminputline {position: relative;height: 50px;}
@@ -81,36 +69,12 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	z-index:999;
 }
 /*-------------------------------------Main Structure Outline -------------------------------------*/
-#container {
-	text-align: left;
-	margin: 0px auto;
-	position: relative;
-	width: 980px;
-}
-body.popup #container {width:auto}
-
-
-#headercontainer {
-	position: relative;
-	float: left;
-	width: 100%
-}
-#body_outer_container {position: relative;clear: both;background:white;border-top:1px solid #978779;}
-#body_container {
-	clear:both;
-	display: block;
-	padding: 0px;
-	position: relative;
-}
-body.index #body_container{min-height:405px;}
-#body_container .innerbody {background-color:  #FFF5D7;padding-top: 1px;}
 #loginpanel {position: absolute;top: 10px;right: 30px;}
 #loginpanel * {color: #333;font-size: 11px;line-height: 11px}
 a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif}
 a.login_loginlink img, a.loginlink img{position: relative;top: 5px;padding-left:10px;}
 #login_panel_profile_pic {width: 30px;height: 30px;position: absolute;}
 #loginpanel span.name {margin-left: 33px}
-
 /*-------------------------------------Frontpage Panels/Popups-------------------------------------*/
 
 div.frontpagebutton {
@@ -118,14 +82,14 @@ div.frontpagebutton {
 	float: left;
 	background-color:#FFF5D7;
 	width:229px;
-	height:297px;
+	height:200px;
 	margin: 1px;
 }
 div.frontpagebutton.first {width:230px;margin: 1px 1px 1px 0px;}
 div.frontpagebutton.last {width:226px;margin: 1px 0px 1px 1px;}
 div.frontpagebuttonhover {background-color: #fac528;}
 
-
+#pool_configurator {padding:5px;}
 #pool_configurator div.frontpagebutton div.extender {
 	position: absolute;
 	width: 100%;
@@ -177,7 +141,7 @@ div.frontpagebutton.funders {
 #pool_configurator div.hpbutton div.button_content {
 	position: relative;
 	width:178px;
-	margin: 0px auto;
+	margin: 10px auto;
 }
 #pool_configurator div.hpbutton img.loaders_animation {
 	position: absolute;
@@ -219,7 +183,6 @@ div.frontpagebutton.funders {
 	color:#403834;
 	overflow: hidden;
 	width:174px;
-	height: 75px;
 }
 #pool_configurator div.hpbutton div.sub_label {
 	text-align: left;
@@ -228,15 +191,7 @@ div.frontpagebutton.funders {
 	font-size: 12px;
 	font-weight:normal;
 }
-#button_panel_container {
-	display: None;
-	margin-top: 2px;
-	background-color:#faeecb;
-	clear: both;
-	position: relative;
-	margin-right: 30px
-}
-
+#button_panel_container {display: None;width:100%;margin-top: 2px;background-color:#faeecb;clear: both;position: relative;}
 #button_panel {min-height:150px;position: relative;padding:15px 0 0 0;}
 
 #button_panel h2{
@@ -553,7 +508,7 @@ div#lowerbody {margin: 30px;}
 }
 #friend_list {position:relative;}
 #friend_list.emailpopup {clear:both;}
-#friend_list.fb {background:none repeat scroll 0 0 white;height:185px;margin:0 15px 15px;overflow:auto;}
+#friend_list.fb {background:none repeat scroll 0 0 white;height:244px;margin:0 15px 15px;overflow:auto;}
 
 #friend_list.inviteelist {
 	background-color:#FFFFFF;
@@ -779,7 +734,7 @@ div#siteinfo a.siteinfo_content {
 }
 div#siteinfo div.siteinfo_copyright {
 	text-align:right;
-	position:absolute;right:0px;
+	position:absolute;right:0px;top:0px;
 	padding: 0px 0px 10px 20px;
 	color:#eee;
 }
@@ -980,10 +935,6 @@ div.window_container  div.window div.popupContent ol li{
 
 #mypools {
 	padding: 0px 30px 30px;
-}
-#pool_configurator {
-	padding-left: 30px;
-	padding-bottom: 30px;
 }
 .tabContainer {
 	background-color:#E9E9E9;
@@ -1312,7 +1263,7 @@ div#scrollingproductsuggestions {
 #pool_pool_panel .product{float:right;}
 #pool_pool_panel .picture_area img.contentPic{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
 #pool_pool_panel .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
-#pool_pool_panel .picture_area .product_more{position:absolute;bottom:5px;right:5px;}
+#pool_pool_panel .picture_area .product_more{position:absolute;bottom:2px;right:5px;}
 .picture_area_outer .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-30px;position:absolute;width:60px;}
 .picture_area_outer.product .icon{background-position:-121px 0;left:-40px;}
 
@@ -1375,7 +1326,7 @@ div#scrollingproductsuggestions {
 #timeline_bar {clear:both;float:left;margin:0 30px;}
 #timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
 #timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
-#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
+#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;border:1px solid #333; padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
 
 #timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;background-position:-425px -20px;}
 #timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:5px;}

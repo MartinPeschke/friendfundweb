@@ -17,10 +17,26 @@
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/ProductSearch.js')}
 </%def>
+
 <%def name="header()"></%def>
-<%def name="user_voice()"></%def>
-<%def name="footer()"></%def>
+<%def name="page_slogan()">
+	<div id="page_slogan">
+		Share the costs with your friends!
+	</div>
+	<div class="horFullPadding">Share the costs with your friends by organising a group gift pool.</div>
+	</%def>
 <%def name="bodyclass()">popup</%def>
+<%def name="render_account_panel()"></%def>
+<%def name="user_voice()"></%def>
+<%def name="siteinfo()">
+	<div id="siteinfo">
+		<div class="siteinfo1">
+			<div class="siteinfo2">
+				${self.render_flag_container()}
+			</div>
+		</div>
+	</div>
+</%def>
 
 <%def name="onloadscripts()">
 		<% 
@@ -34,10 +50,10 @@
 						, config_node: "pool_configurator"
 						, fb_api_key : "${app_globals.FbApiKey}"
 						, window : window.parent
-						, scrolling : False
+						, scrolling : false
 						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
 </%def>
-<%def name="page_slogan()"></%def>
+
 
 
 <form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
@@ -84,16 +100,3 @@
 	</div>
 </form>
 
-
-
-
-
-<%def name="siteinfo()">
-	<div id="siteinfo">
-		<div class="siteinfo1">
-			<div class="siteinfo2">
-				${self.render_flag_container()}
-			</div>
-		</div>
-	</div>
-</%def>

@@ -17,13 +17,12 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	onLoaded : null,
 	onSelected : null,
 	onDestroy : null,
+	scrolling : true,
 	constructor: function(args){
 		var _t = this;
 		_t.window = window;
 		dojo.mixin(_t, args);
-		for (var action in _t.selected_elems){
-			_t.connect(_t, action);
-		}
+		for (var action in _t.selected_elems){_t.connect(_t, action);}
 		_t._listener_globals.push(dojo.connect(dojo.byId("funders_button"), "onclick", dojo.hitch(null, _t.submit, _t)));
 		_t.check_complete(_t);
 	},
@@ -69,9 +68,11 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		/*if closed panel was of another kind, we now wanna open this */
 		if (!thisisopen || open_at_all_costs){
 			_t["load_"+action](_t, evt, params);
-			var node = dojo.byId("button_panel_container_anchor");
-			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
-			anim0.play();
+			if(_t.scrolling){
+				var node = dojo.byId("button_panel_container_anchor");
+				var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
+				anim0.play();
+			}
 		}
 	}
 	,load: function(_t, elem){
@@ -99,7 +100,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.query(_t.ref_node).style("display", "None");
 		dojo.query(".enabled.front_panel_active", _t.config_node).removeClass("front_panel_active");
 		dojo.query("a.opened", _t.config_node).removeClass("opened");
-		if(success === true){
+		if(_t.scrolling && success === true){
 			var node = dojo.byId("top");
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();

@@ -21,7 +21,7 @@ class ProductController(BaseController):
 	def bounce(self):
 		websession['pool'] = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
 		c.pool = websession['pool']
-		return self.render('/index_popup.html')
+		return self.render('/index.html')
 	
 	@logged_in()
 	def select(self, pool_url):

@@ -469,7 +469,7 @@ FriendFund.Popin = {
         }
     },
     getContext: function () {
-        var context = {dialog: 'popin',width: '980px',height: '693px',lang: 'en'};
+        var context = {dialog: 'popin',width: '930px',height: '693px',lang: 'en'};
         for (attr in this.options) {context[attr] = this.options[attr];};
         context.url = this.url();
         context.params.lang = this.options.lang;

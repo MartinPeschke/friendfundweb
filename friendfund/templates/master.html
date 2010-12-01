@@ -16,7 +16,9 @@ ${self.render_html()}
 		${self.render_head()}
 	</head>
 	<body class="claro ${self.bodyclass()}">
-		${self.render_body()}
+		<div id="outercontainer">
+			${next.body()}
+		</div>
 		${self.siteinfo()}
 		${self.render_foot_scripts()}
 	</body>
@@ -36,25 +38,6 @@ ${self.render_html()}
 		${self.scripts_styles()}
 </%def>
 
-<%def name="render_body()">
-	<div id="outercontainer">
-	<div id="outercontainer_themed">
-	<div id="container" class="${self.headerclass()}">
-		<div id="top"></div>
-		${self.header()}
-		<div id="body_outer_container">
-			${self.messaging()}
-			${next.body()}
-		</div>
-		<div id="accountcontainer">
-			<%include file="/myprofile/login_panel.html"/>
-		</div>
-		<div class="clear"></div>
-	</div>
-	</div>
-	</div>
-	
-</%def>
 
 <%def name="render_foot_scripts()">
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
@@ -129,6 +112,13 @@ ${self.render_html()}
 <%def name="messaging()">
 <div id="messaging_container"><div id="message_container" class="${not h.has_ne_prop(c, '_msgs') and 'hidden' or ''}"><%include file="/messages/standard.html"/></div></div>
 </%def>
+<%def name="render_account_panel()">
+	<div id="accountcontainer">
+		<%include file="/myprofile/login_panel.html"/>
+	</div>
+</%def>
+
+
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="scripts_styles()"></%def>
