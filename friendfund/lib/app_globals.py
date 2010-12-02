@@ -3,6 +3,7 @@
 import logging, pyodbc, md5, pylibmc
 from random import random
 from DBUtils.PooledDB import PooledDB
+from pylons import url
 from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
@@ -57,6 +58,7 @@ class Globals(object):
 		if self.debug:
 			self.rv = random()
 			self.revision_identifier = lambda: self.rv
+			self.revision_identifier = lambda: REVISION_ENDING
 		else:
 			self.revision_identifier = lambda: REVISION_ENDING
 		
@@ -64,7 +66,6 @@ class Globals(object):
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
-		
 		dbpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
 			,server=app_conf['pool.connectstring.server']

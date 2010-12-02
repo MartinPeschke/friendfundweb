@@ -11,11 +11,12 @@ div#outercontainer_themed {width:100%;float:left;background:url("../imgs/themes/
 
 #container {text-align: left;margin: 0px auto;position: relative;width:auto}
 body.base div#container {width:980px;}
+body.popup div#container {height:650px;background:white}
 
 #headercontainer {position: relative;float: left;width: 100%}
 #body_outer_container {position: relative;clear: both;background:white;border-top:1px solid #978779;float:left;}
 #body_container {clear:both;display: block;padding: 0px;position: relative;}
-#body_container .innerbody {background-color:  #FFF5D7;padding-top: 1px;}
+#body_container .innerbody {background-color:  #FFE493;padding-top: 1px;}
 
 
 /*-------------------------------------Standard Inputs------------------------------------------------------*/
@@ -80,23 +81,23 @@ a.login_loginlink img, a.loginlink img{position: relative;top: 5px;padding-left:
 div.frontpagebutton {
 	position: relative;
 	float: left;
-	background-color:#FFF5D7;
+	background-color:#FFE493;
 	width:229px;
 	height:200px;
 	margin: 1px;
 }
 div.frontpagebutton.first {width:230px;margin: 1px 1px 1px 0px;}
 div.frontpagebutton.last {width:226px;margin: 1px 0px 1px 1px;}
-div.frontpagebuttonhover {background-color: #fac528;}
+div.frontpagebuttonhover {background-color: #FFEEB9;}
 
-#pool_configurator {padding:5px;}
+#pool_configurator {padding:5px;float:left;}
 #pool_configurator div.frontpagebutton div.extender {
 	position: absolute;
 	width: 100%;
 	height: 5px;
 	left: 0px;
 	bottom: -5px;
-	background-color:#faeecb;
+	background-color:#FFFAE6;
 	display:None;
 }
 #pool_configurator div.frontpagebutton.front_panel_active div.extender {display:Block;}
@@ -122,7 +123,7 @@ div.frontpagebutton.funders {
 	padding-top: 1px;
 }
 #pool_configurator div.frontpagebutton.enabled {cursor:pointer}
-#pool_configurator div.front_panel_active{ background-color: #faeecb}
+#pool_configurator div.front_panel_active{ background-color: #FFFAE6}
 
 .hpbutton .button {
 	position: relative;
@@ -191,8 +192,8 @@ div.frontpagebutton.funders {
 	font-size: 12px;
 	font-weight:normal;
 }
-#button_panel_container {display: None;width:100%;margin-top: 2px;background-color:#faeecb;clear: both;position: relative;}
-#button_panel {min-height:150px;position: relative;padding:15px 0 0 0;}
+#button_panel_container {float:left;display: None;width:100%;margin-top: 2px;background-color:#FFFAE6;clear: both;position: relative;}
+#button_panel {float:left;min-height:150px;position: relative;padding:15px 0 0 0;}
 
 #button_panel h2{
 	margin:0;
@@ -245,12 +246,14 @@ div.panel_content_inner {margin: 40px 20px 20px;}
 
 div#occasion_button_bar {
 	float:left;
-	background:none repeat scroll 0 0 #FFF5D7;
+	background:none repeat scroll 0 0 #FFE493;
 	border-top:1px solid #e6ac00;
 	float:left;
 	margin-top:-1px;
-	padding-top: 15px
 }
+body.base div#occasion_button_bar{padding: 15px 0px;}
+body.popup div#occasion_button_bar{padding: 12px 0px;}
+
 
 #button_panel.occasion a.occasion_panel_button {
 	position: relative;
@@ -390,8 +393,8 @@ p.termsOf a{ color:#B70158;}
 
 #receiver_selector_container {
 	position:relative;
-	border-top: 1px solid #e6ac00;
-	background-color:#FFF5D7;
+	border-top: 1px solid #faba00;
+	background-color:#FFE493;
 	margin-top:-1px;
 	min-height:100px;
 }
@@ -455,7 +458,7 @@ p.termsOf a{ color:#B70158;}
 .TabsContainer{ float: left; padding-left: 10px;width:880px}
 a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
 a.methodselector img{position:relative;top:3px;}
-a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1562px transparent;min-width:145px;}
+a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1563px transparent;min-width:145px;}
 
 a.methodselector span {padding:0 0 0 15px;color:#403834;display:block;line-height:30px; height:30px;}
 a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1512px transparent;}
@@ -570,7 +573,7 @@ div#lowerbody {margin: 30px;}
 
 #invites {
 	border-top: 1px solid #e6ac00;
-	background-color:  #FFF5D7;
+	background-color:  #FFE493;
 	position: relative;
 	margin-top: -1px;
 }
@@ -651,7 +654,7 @@ div#lowerbody {margin: 30px;}
 	top: 2px;
 }
 #invite_message div.invite_message textarea {
-	border:15px solid #FFF5D7;
+	border:15px solid #FFE493;
 	font-family:arial;
 	font-size:12px;
 	height:100px;
@@ -713,10 +716,7 @@ div#lowerbody {margin: 30px;}
 
 /* --------------------------------------- FOOTER ----------------------------------------- */
 
-div#siteinfo {
-	clear:both;
-	width: 100%;
-}
+div#siteinfo {clear: both;float: left;padding: 10px 0 0;width: 100%;}
 div#siteinfo div.siteinfo1 {
 	width: 100%;
 	float:left;
@@ -724,20 +724,23 @@ div#siteinfo div.siteinfo1 {
 }
 div#siteinfo div.siteinfo1 div.siteinfo2 {
 	position: relative;
-	width:980px;
+	width:100%;
 	margin:0px auto 15px;
 	text-align:center;
 }
-
-div#siteinfo a.siteinfo_content {
-	padding: 10px 10px 10px 10px;
-}
+body.base div#siteinfo div.siteinfo1 div.siteinfo2 {width:980px}
+div#siteinfo a.siteinfo_content {padding: 10px 10px 10px 10px;}
+div#siteinfo .poweredByFriendfund {width:110px;height:20px;display:block;top:-2px;position:relative;background:url("../imgs/inputfield.png") repeat scroll -5px -63px transparent;float:right;}
 div#siteinfo div.siteinfo_copyright {
 	text-align:right;
 	position:absolute;right:0px;top:0px;
 	padding: 0px 0px 10px 20px;
-	color:#eee;
+	color:#333;
 }
+div#siteinfo div.siteinfo_copyright.light {color:#eee;}
+div#siteinfo .siteinfo_copyright.light .poweredByFriendfund {background-position:-124px -63px}
+
+
 #verisignsealindex{
 	left:30px;
 	top:315px;
@@ -1173,10 +1176,6 @@ div.anythingSlider .back { left: 0px;  }
 div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
 div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
 
-.inside{ font-size:18px; font-weight:bold; margin-top:15px;padding:0 4px 0 4px;font-family:"Trebuchet MS"}
-h4.inside span{ float: right; font-size: 12px; font-weight: normal}
-
-
 .personalityBox{background:none repeat scroll 0 0 white;float:left;margin:10px 0 0 0;padding:30px 0 10px 45px;width:845px;}
 .personalityBox span{ padding-bottom: 10px}
 .productSorterContainer{ width: 890px; padding:0 ; margin-top: -5px;float:left}
@@ -1326,10 +1325,10 @@ div#scrollingproductsuggestions {
 #timeline_bar {clear:both;float:left;margin:0 30px;}
 #timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
 #timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
-#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;border:1px solid #333; padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
+#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;border:1px solid #ccc; padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
 
 #timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;background-position:-425px -20px;}
-#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:5px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:padding: 4px 5px;;}
 #timeline_bar div.timeline_progressbar_bg .tooltip.withMessage .bottomYellowTriangle {left:20px;background-position:-425px -20px;}
 
 

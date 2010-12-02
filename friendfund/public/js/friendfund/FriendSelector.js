@@ -118,6 +118,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
 	},draw : function(_t){
+		_t.backup_reloader = page_reloader;
 		page_reloader = dojo.hitch(_t, _t.draw, _t);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 		dojo.place(_t._loader, _t.ref_node, "only");
@@ -132,7 +133,6 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		} else if (!_t.is_selected(_t) || _t.is_loading !== true){
 			_t.is_loading = true;
 			xhrPost(_t.base_url+'/' + _t.network, {}, dojo.hitch(null, _t.onLoad, _t));
-			_t.backup_reloader = page_reloader;
 		}
 	},undraw : function(){
 		var _t = this;

@@ -137,7 +137,11 @@ loadFormElement = function(url, node, form, callback){
 };
 
 loadElement = function(url, node, args, callback, method){
-	xhrPost(url, args, place_element(node, callback), method);
+	if(dojo.byId(node)){
+		xhrPost(url, args, place_element(node, callback), method);
+	} else {
+		xhrPost(url, args, callback, method);
+	}
 };
 
 xhrFormPost = function(url, form, callback) {

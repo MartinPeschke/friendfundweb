@@ -26,17 +26,13 @@ from datetime import date, timedelta
 				</div>
 			</a>
 		%endfor
-	</div>
-	${html.clearline()|n}
-	<div id="occasion_date_input_bar">
-	<div style="right: 239px; top: 5px; position: absolute;">
-		${forms.black_input_datepicker("datestamp", "datestamp", c.date, label=_("EVENT_PANEL_And Pick a Date"), width=100, args=[("constraints", "{min:'%s'}"%c.lower_limit_date)])|n}
-	</div>
-	
-	<div style="right: 42px; position: relative;"> 
-		<a class="submitSmall occasion_submitter"><span>${_("EVENT_PANEL_Submit")}</span></a>
-	</div>
-	
-	${html.clearline(15)}
+		<div id="occasion_date_input_bar">
+			<div style="margin-right:50px;"> 
+				<a class="submitSmall occasion_submitter"><span>${_("EVENT_PANEL_Submit")}</span></a>
+			</div>
+			<div style="top: 5px; position: relative;float:right;margin-right:50px;">
+				${forms.black_input_datepicker("datestamp", "datestamp", c.date, label=_("EVENT_PANEL_And Pick a Date"), width=100, args=[("constraints", "{min:'%s'}"%c.lower_limit_date)])|n}
+			</div>
+		</div>
 	</div>
 </div>

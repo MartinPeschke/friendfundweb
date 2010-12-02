@@ -308,7 +308,7 @@ FriendFund.Popup = {
 	  display: block;\
 	  text-align: left;\
 	  margin: -2em auto 0 auto;\
-	  position: absolute; \
+	  position: fixed; \
 	}\
 	\
 	#FriendFund_overlay {\

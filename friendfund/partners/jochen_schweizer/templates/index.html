@@ -7,6 +7,7 @@
 
 <%def name="scripts()">
 	<script type="text/javascript">
+		page_reloader = function(){console.log('reloading')};
 		dojo.query(".frontpagebutton.enabled", "pool_configurator").forEach(
 			function(elem, pos, array){
 				dojo.connect(elem, "onmouseenter", function(evt){dojo.addClass(this, "frontpagebuttonhover")});
@@ -20,23 +21,18 @@
 
 <%def name="header()"></%def>
 <%def name="page_slogan()">
-	<div id="page_slogan">
+	<h4 class="inside">
 		Share the costs with your friends!
-	</div>
-	<div class="horFullPadding">Share the costs with your friends by organising a group gift pool.</div>
+	</h4>
+	<div class="insider">Share the costs with your friends by organising a group gift pool.</div>
 	</%def>
 <%def name="bodyclass()">popup</%def>
 <%def name="render_account_panel()"></%def>
 <%def name="user_voice()"></%def>
-<%def name="siteinfo()">
-	<div id="siteinfo">
-		<div class="siteinfo1">
-			<div class="siteinfo2">
-				${self.render_flag_container()}
-			</div>
-		</div>
-	</div>
+<%def name="render_siteinfo_copyright()">
+	<div class="siteinfo_copyright light"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></div>
 </%def>
+
 
 <%def name="onloadscripts()">
 		<% 
@@ -51,6 +47,8 @@
 						, fb_api_key : "${app_globals.FbApiKey}"
 						, window : window.parent
 						, scrolling : false
+						, auto_extend : "receiver"
+						, auto_suggest : false
 						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
 </%def>
 
@@ -58,26 +56,15 @@
 
 <form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
 	<div id="pool_configurator">
-		<div id="verisignsealindex">
-		<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-			<tr>
-			<td width="135" align="center" valign="top">
-				<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=L&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-			</td>
-			</tr>
-		</table>
-		</div>
-
-		<div id="product_panel" class="frontpagebutton first">
+		<div id="product_panel" _type="product" class="frontpagebutton first">
 			<%include file="product/button.html"/>
 		</div>
 
-		<div id="receiver_panel" class="frontpagebutton enabled">
+		<div id="receiver_panel" _type="receiver" class="frontpagebutton enabled">
 			<%include file="receiver/button.html"/>
 		</div>
 
-		<div id="occasion_panel" class="frontpagebutton enabled">
+		<div id="occasion_panel" _type="occasion" class="frontpagebutton enabled">
 			<%include file="occasion/button.html"/>
 		</div>
 

@@ -24,7 +24,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		dojo.mixin(_t, args);
 		for (var action in _t.selected_elems){_t.connect(_t, action);}
 		_t._listener_globals.push(dojo.connect(dojo.byId("funders_button"), "onclick", dojo.hitch(null, _t.submit, _t)));
-		_t.check_complete(_t);
+		if(!_t.check_complete(_t) && _t.auto_extend){_t.preload(_t, _t.auto_extend, false);}
 	},
 	connect:function(_t, action){
 		if(dojo.hasClass(action+"_panel", 'enabled')){
@@ -55,7 +55,14 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	set_complete : function(_t, action){
 		_t.selected_elems[action] = true;
 		_t.connect(_t, action);
-		_t.check_complete(_t);
+		if(!_t.check_complete(_t) && _t.auto_suggest){
+			var next = dojo.query(".frontpagebutton.enabled", _t.config_node);
+			for(var i=0; i<next.length;i++){
+				if(!_t.selected_elems[dojo.attr(next[i], "_type")]){
+					_t.preload(_t, dojo.attr(next[i], "_type"), false); 
+				}
+			}
+		}
 	},
 	preload: function(_t, action, open_at_all_costs, evt, params){
 		/*check if any panel is open*/
@@ -106,7 +113,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			anim0.play();
 		}
 	},
-	
 	/*                OCCASION PANELS               */
 	load_occasion: function(_t, evt, args){
 		var params = {};
