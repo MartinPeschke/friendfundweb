@@ -1,0 +1,1339 @@
+* { margin: 0; padding: 0; outline: none}
+body.claro {
+	margin: 0px;
+	text-align: center;
+	font-size:12px;
+	font-family:Arial, Helvetica, Jamrul, sans-serif;
+}
+body.base  {background: #fff url(../imgs/body_bg.png) 0 0 repeat-x !important;}
+div#outercontainer {width:100%;float:left;background:none;padding: 0px 0px 5px 0px !important;}
+div#outercontainer_themed {width:100%;float:left;background:url("../imgs/themes/christmas/bg.png") repeat scroll 0 0 transparent !important;}
+
+#container {text-align: left;margin: 0px auto;position: relative;width:auto}
+body.base div#container {width:980px;}
+body.popup div#container {height:650px;background:white}
+
+#headercontainer {position: relative;float: left;width: 100%}
+#body_outer_container {position: relative;clear: both;background:white;border-top:1px solid #978779;float:left;}
+#body_container {clear:both;display: block;padding: 0px;position: relative;}
+#body_container .innerbody {background-color:  #FFE493;padding-top: 1px;}
+
+
+/*-------------------------------------Standard Inputs------------------------------------------------------*/
+div.forminputline {position: relative;height: 50px;}
+div.forminputline label {display: block;}
+
+input.error, select.error {border: 1px solid #ff0000;}
+div.forminputline div.error_message {
+	color:#FF0000;
+	margin-left:150px;
+	margin-top:3px;
+	right:0;
+	text-align:left;
+	top:19px;
+	width:200px;
+}
+
+/*-------------------------------------Header------------------------------------------------------*/
+.logoHeader {float:left;margin:9px 0 5px 17px;}
+.logoHeader:hover {margin:11px 0 3px 17px;}
+.logoBanner {float:left;margin:24px 0 0 29px;}
+ul.navigation {
+	list-style-type:none;
+	padding:0;
+	margin:0;
+	clear: both;
+	float:left;
+	z-index: 999;
+	position: relative;
+	width: 100%;
+	border-top:2px solid white;
+	background:  url("../imgs/menu_tab_bg.png")  0 0 repeat-x;
+}
+
+ul.navigation li a {
+	color:#333333;
+	display:block;
+	font-family:"Trebuchet MS",Helvetica,Jamrul,Arial,sans-serif;
+	font-size:15px;
+	height:39px;
+	line-height:45px;
+	margin-left:30px;
+	padding-bottom:10px;
+	text-decoration:none;
+}
+ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no-repeat;}
+#home_create_pool_button {
+	bottom:13px;
+	position:absolute;
+	right:30px;
+	z-index:999;
+}
+/*-------------------------------------Main Structure Outline -------------------------------------*/
+#loginpanel {position: absolute;top: 10px;right: 30px;}
+#loginpanel * {color: #333;font-size: 11px;line-height: 11px}
+a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif}
+a.login_loginlink img, a.loginlink img{position: relative;top: 5px;padding-left:10px;}
+#login_panel_profile_pic {width: 30px;height: 30px;position: absolute;}
+#loginpanel span.name {margin-left: 33px}
+/*-------------------------------------Frontpage Panels/Popups-------------------------------------*/
+
+div.frontpagebutton {
+	position: relative;
+	float: left;
+	background-color:#FFE493;
+	width:229px;
+	height:200px;
+	margin: 1px;
+}
+div.frontpagebutton.first {width:230px;margin: 1px 1px 1px 0px;}
+div.frontpagebutton.last {width:226px;margin: 1px 0px 1px 1px;}
+div.frontpagebuttonhover {background-color: #FFEEB9;}
+
+#pool_configurator {padding:5px;float:left;}
+#pool_configurator div.frontpagebutton div.extender {
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	left: 0px;
+	bottom: -5px;
+	background-color:#FFFAE6;
+	display:None;
+}
+#pool_configurator div.frontpagebutton.front_panel_active div.extender {display:Block;}
+
+div.frontpagebutton.funders {
+	position: relative;
+	height: 120px;
+	width: 136px;
+	margin-right: 22px;
+	margin-top: 40px;
+}
+
+#funders_panel_tooltip {
+	color:#B70158;
+	font-weight:bold;
+	position:absolute;
+	top: -27px;
+}
+#pool_configurator div.hpbutton {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding-top: 1px;
+}
+#pool_configurator div.frontpagebutton.enabled {cursor:pointer}
+#pool_configurator div.front_panel_active{ background-color: #FFFAE6}
+
+.hpbutton .button {
+	position: relative;
+	margin: 15px 0px 10px;
+	display:block;
+	text-align: center;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	color:#333;
+}
+.hpbutton .button_label {color: #B70158; font-family: "Trebuchet MS"; font-weight: bold; font-style: italic; font-size: 28px;line-height:52px;position:relative}
+.hpbutton .button_label_q {font-style:normal;font-size:52px;top:10px;position:relative}
+
+#pool_configurator div.hpbutton a.button.funders {margin: 24px;}
+#pool_configurator div.hpbutton div.button_content {
+	position: relative;
+	width:178px;
+	margin: 10px auto;
+}
+#pool_configurator div.hpbutton img.loaders_animation {
+	position: absolute;
+	top: 60px;
+	left: 80px;
+}
+#pool_configurator div.hpbutton a.content {
+	display:block;
+	position: relative;
+	text-align: left;
+}
+.hpbutton 			a.content.withbg {background: url(../imgs/header/backgroundHomeShadow.png) 0 0 no-repeat;height:131px;width:174px;padding: 0 2px 2px 2px;}
+.hpbutton 			a.content.nobg {height:133px;width:178px;background:url("../imgs/themes/christmas/infographic_icons.png") 0px 0px transparent;}
+.hpbutton.receiver	a.content.nobg {}
+.hpbutton.gift		a.content.nobg {background-position:-179px 0px;}
+.hpbutton.occasion	a.content.nobg {background-position:-358px 0px;}
+
+
+#pool_configurator div.hpbutton a.content.funders {
+	margin:60px 0 50px;
+	height:52px;
+}
+#pool_configurator div.hpbutton img.button_content {
+	height:111px;
+	width:auto;
+	max-width:174px;
+	text-align: left;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	padding-top:10px;
+}
+#pool_configurator div.hpbutton div.label {
+	text-align: left;
+	margin-top: 10px;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color:#403834;
+	overflow: hidden;
+	width:174px;
+}
+#pool_configurator div.hpbutton div.sub_label {
+	text-align: left;
+	margin-top: 5px;
+	font-family: Arial, Helvetica, Jamrul, Arial, sans-serif;
+	font-size: 12px;
+	font-weight:normal;
+}
+#button_panel_container {float:left;display: None;width:100%;margin-top: 2px;background-color:#FFFAE6;clear: both;position: relative;}
+#button_panel {float:left;min-height:150px;position: relative;padding:15px 0 0 0;}
+
+#button_panel h2{
+	margin:0;
+	color:#403834;
+	font-family:"Trebuchet MS",Helvetica,Jamrul,Arial,sans-serif;
+	font-size:20px;
+	font-weight:bold;
+}
+#button_panel a.button_panel_closer {
+	background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll -271px -30px transparent;	
+	height:19px;
+	position:absolute;
+	right:5px;
+	top:5px;
+	width:17px;
+	cursor:pointer;
+}
+#get_started div.content {
+	float:right;
+	margin:30px 30px 15px 15px;
+	position:relative;
+}
+div.panel_title {
+	display: block;
+	position: relative;
+	font-size: 20px;
+	font-weight: bold;
+	color: #403834;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	line-height: 30px;
+	padding: 13px 30px
+}
+div.panel_title a, div.panel_title span {
+	display: block;
+	float:left
+}
+div.panel_content {
+	clear:both;
+	padding: 20px;
+	margin: 20px;
+	position: relative;
+}
+div.panel_content_no_margin {
+	clear:both;
+	padding: 20px;
+	position: relative;
+}
+div.panel_content_inner {margin: 40px 20px 20px;}
+/* -------------------------- OCCASION Panel ------------------------- */
+
+div#occasion_button_bar {
+	float:left;
+	background:none repeat scroll 0 0 #FFE493;
+	border-top:1px solid #e6ac00;
+	float:left;
+	margin-top:-1px;
+}
+body.base div#occasion_button_bar{padding: 15px 0px;}
+body.popup div#occasion_button_bar{padding: 12px 0px;}
+
+
+#button_panel.occasion a.occasion_panel_button {
+	position: relative;
+	margin: 0px 15px 20px 30px;
+	float: left;
+}
+#button_panel.occasion div.selector {
+	margin: 1px 1px 1px 1px;
+	width: 132px;
+	float: left;
+}
+#button_panel.occasion div.selector.selected {
+	margin: 0px 0px 0px 0px;
+	border: 1px solid #ffffff;
+	background: white;
+}
+#occasion_date_input_bar {
+	clear:both;
+	margin:0px;
+	position:relative;
+	text-align:center;
+	background:none repeat scroll 0 0 #FFF5D7;
+}
+
+#button_panel.occasion a.occasion_panel_button img {
+	position: relative;
+	width: 132px;
+	height: 83px;
+	margin-bottom: 5px;
+}
+#button_panel.occasion a.occasion_panel_button div.label {
+	color:#403834;
+	font-family:Trebuchet MS;
+	font-size:13px;
+	font-weight:bold;
+	text-align:center;
+}
+.dijitTextBoxFocused .dijitInputContainer, .dijitTextBox {background-color: transparent !important;color: #ffffff !important;}
+.dijitTextBoxError,  .dijitTextBoxError .dijitInputContainer {background-color: transparent !important;}
+.dijitTextBoxError input.dijitValidationInner, .dijitTextBox input.dijitArrowButtonInner {height: 20px !important;}
+.dijitTooltipContainer {left: 10px;}
+
+#product_suggestions {
+	padding-bottom:20px;
+	float:left;
+	height:170px;
+	overflow:hidden;
+	margin-top: 15px
+}
+#button_panel.product div.productsuggestion {
+	cursor:pointer;
+	float:left;
+	font-size:13px;
+	position:relative;
+	width:136px;
+}
+div.productsuggestion.psmiddle{margin-right:30px;}
+a.productsuggestion{ display:block; background:url("../imgs/backgroundSearchProducts.png") no-repeat scroll 0 0 transparent;padding:3px 0 0;}
+a.productsuggestion span{ display:block; margin-top:10px; font-family:Trebuchet MS; font-size:14px; font-weight:bold; text-align:center}
+a.productsuggestion img{ display:block; margin:0 auto}
+#button_panel.product div.productsuggestion img.productsuggestion {
+	width: 129px;
+	height:129px;
+}
+
+#product_browser_container {
+	position: relative;
+	background-color: white;
+}
+#product_browser {
+	position: relative;
+	background-color: white;
+	border-top: solid 6px #FFF5D7;
+	margin-top: 30px;
+}
+/*------------------------------------- LOGIN/SIGNUP PAGE -------------------------------------*/
+
+#login_form_container {
+	width: 445px;
+}
+#login_form .forminputline{ padding:15px}
+#signup_form_container {
+	width: 445px;
+}
+#login_form_container div.panel_content {
+	height: 360px;
+	padding: 0px;
+	padding: 1px 0px 0px 0px;
+}
+#login_signup_container div.panel_title{ padding:0; line-height:26px;}
+.forminputline.signup_login input {
+	width:229px;
+}
+#signup_form_container div.panel_content {
+	height: 360px;
+	padding: 1px 0px 0px 0px;
+}
+.forminputline.signup_login label {
+	width: 60px;
+	text-align: right;
+	margin: 5px;
+}
+
+#signup_form_container label {
+	width: 80px;
+	text-align: right;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#signup_form_container input {
+	width: 229px; display:bloc
+}
+#signup_form_container .forminputline{ padding-bottom:15px}
+
+#login_signup_container div.forminputline, #pwd_form_container div.forminputline {height:auto;position:relative;}
+#login_signup_container div.forminputline .error_message, #pwd_form_container div.forminputline .error_message{left:185px}
+#login_signup_container div.forminputline label, #pwd_form_container div.forminputline label {
+	margin:3px 0 0 0;
+	text-align:left;
+	width:150px;
+	float:left;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif
+}
+#login_signup_container  .panel_content_inner{ border:15px solid #BAE3F7;float:left;margin:10px 0 0;width:415px;}
+#signup_form_container .panel_content_inner{ width:385px; padding:15px;	min-height:312px;}
+
+.lostpass{ display: block; margin-top: 10px; color:#B70158;margin-left:150px;
+margin-top:3px; font-size:11px}
+.maleFemale {}
+.mandatoryPad{ padding-top: 20px}
+.maleFemaleContainer{ padding-bottom: 5px; float:left}
+p.termsOf{ clear:both; font-size:11px; width:280px; float:left}
+p.termsOf a{ color:#B70158;}
+
+/*------------------------------------- INVITE PAGE -------------------------------------*/
+
+#receiver_selector_container {
+	position:relative;
+	border-top: 1px solid #faba00;
+	background-color:#FFE493;
+	margin-top:-1px;
+	min-height:100px;
+}
+.invite_pool_panel.first {margin: 30px 0px 0px 120px;}
+.invite_pool_panel {
+	position: relative;
+	width:185px;
+	float: left;
+	color: #333;
+	margin: 30px 0px 0px 60px;
+}
+.invite_pool_panel div.label {
+	text-align: left;
+	margin: 5px 0px;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color:#403834;
+	overflow: hidden;
+}
+.invite_pool_panel .picture {
+	background:url("../imgs/header/backgroundHomeShadow.png") no-repeat scroll 0 0 transparent;
+	display:block;
+	height:131px;
+	padding:0 2px 2px;
+	position:relative;
+	text-align:left;
+	width:174px;
+}
+
+.invite_pool_panel .picture .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-25px;position:absolute;width:60px;}
+.invite_pool_panel .picture.occasion .icon {background-position:-57px 0;}
+.invite_pool_panel .picture.gift .icon {background-position:-121px 0;}
+
+
+#invite_panel_header .invite_pool_panel .picture img {
+	height:111px;
+	max-width:174px;
+	text-align:left;
+	width:auto;
+	margin: 0 auto;
+	display: block;
+	padding-top:10px;
+}
+#inviteheader {
+	position:relative;
+	text-align: left;
+}
+#inviteheader.fb {
+	height: 80px;
+}
+
+#inviteheader.inviteelist {
+	height:55px;
+}
+#inviteall {top:37px;float:right}
+#inviteheader .mutual_toggle_container {position: absolute;top: 37px;left: 0px;}
+#inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
+#inviteheader input{ margin-right:10px}
+
+.TabsContainer{ float: left; padding-left: 10px;width:880px}
+a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
+a.methodselector img{position:relative;top:3px;}
+a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1563px transparent;min-width:145px;}
+
+a.methodselector span {padding:0 0 0 15px;color:#403834;display:block;line-height:30px; height:30px;}
+a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1512px transparent;}
+
+a.methodselector.selected {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -322px transparent;}
+a.methodselector.selected span {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -272px transparent;}
+
+
+div#lowerbody_container.fullbackground{background-color: #FFF5D7;}
+div#lowerbody_container.fullbackgroundwhite{padding-top: 1px;}
+div#lowerbody {margin: 30px;}
+#lowerbody_container {
+	position: relative;
+	margin:0px;
+	width: 980px;
+	margin-top: 20px;
+	float: left;}
+
+#receiver_selector_container #inviteheader div.headline {margin:20px;}
+#inviter #inviteheader div.headline {}
+#inviteheader div.headline {
+	float: left;
+	font-size: 14px;
+	font-weight: bold;
+	color: #403834;
+	line-height:28px;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	margin-top:-10px
+}
+#inviteheader div.headline img.networkicon {
+	position:relative;
+	top:10px;
+	margin-left:7px
+}
+#inviteheader div.perm_dialog {
+	position: relative;
+	margin: 60px 0px;
+	text-align:center;
+	font-size:12px
+}
+#inviteheader a.perm_dialog {
+	text-align: center;
+	margin: 10px auto;
+	position: relative;
+	font-size: 14px;
+	font-weight: bold;
+	color: #403834;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	cursor:pointer;
+}
+#friend_list {position:relative;}
+#friend_list.emailpopup {clear:both;}
+#friend_list.fb {background:none repeat scroll 0 0 white;height:244px;margin:0 15px 15px;overflow:auto;}
+
+#friend_list.inviteelist {
+	background-color:#FFFFFF;
+	border:1px solid #AAAAAA;
+	height:550px;
+	width:395px;
+	overflow:auto;
+}
+
+.invitee_row {position: relative;padding-bottom: 5px;border-bottom: 1px solid #ccc;height: 50px;}
+.invitee_row .label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
+.invitee_row .label .birthdaylabel{font-size:90%;color: #555;}
+.invitee_row img.fbprofilepic {width: 50px;height: 50px;z-index:1;position: relative;display: block; float: left}
+
+.invitee_row a.selector {bottom:22px;position:absolute;right:0px;padding-right:15px;cursor:pointer;color:#064159;font-family:Arial,sans-serif;}
+.invitee_row a.selector span.selector{
+	background:url("../imgs/inputfield.png?20101123") no-repeat scroll -240px -32px transparent;
+	height:15px;position:absolute;width:10px;right:0px;
+}
+#friend_list .invitee_row a.selector span.selector {background-position:-220px -32px;}
+#friend_list .invitee_row a.selector.invite {display:Block}
+#friend_list .invitee_row a.selector.remove {display:None}
+#invited .invitee_row a.selector.invite {display:None}
+#invited .invitee_row a.selector.remove {display:block;bottom:40px;}
+#invited .invitee_row a.pending {background:url("../imgs/inputfield.png?20101123") no-repeat scroll -410px -53px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;cursor:pointer}
+#invited .invitee_row a.pending.selected {background-position:-374px -53px}
+
+
+.invitee_row.nonselectable {	display:none;}
+.invitee_row.selected {background-color: #eee;margin: 0px;padding: 5px;cursor:normal;}
+
+#receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 260px;}
+#receiver_selector_container .invitee_row span.label{ width:170px;}
+/*invite page only*/
+#lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
+#lowerbody_container .invitee_row span.label{ width:250px;}
+
+
+
+#birthdayselector {width:890px;padding:0px 15px 15px;background-color:#FFF5D7;float:left;margin:15px 0px}
+#birthdayselector #friend_list_container {background-color:white;float:left;padding:15px;width:860px;}
+#birthdayselector .invitee_row { width: 263px; margin:0px;float:None;margin:15px 0px 0px 30px;float: left;padding-bottom:35px;}
+#birthdayselector .invitee_row.first { margin:15px 0px 0px 0px;}
+#birthdayselector .invitee_row span.label{ display:block;width:190px;float:left;}
+#birthdayselector .invitee_row img.fbprofilepic {margin-top:2px}
+#birthdayselector .invitee_row a.selector{ display:block;width:auto;height:auto;bottom:0px;color:#B70158;background:transparent;bottom:10px;left: 58px;}
+
+
+
+
+
+#emailinviter{ margin-left: 20px}
+#emailinviter div.input_field {margin: 10px 0px;float:left;clear:both;}
+#emailinviter div.input_field div.label {float:left;margin-right:10px;position:relative;text-align:right;width:128px;}
+#emailinviter input{ border: 1px solid #999999}
+#email_inviter_error{float:right;width:237px;}
+
+#inviter_name{ margin-top:23px !important}
+
+#invites {
+	border-top: 1px solid #e6ac00;
+	background-color:  #FFE493;
+	position: relative;
+	margin-top: -1px;
+}
+#inviter {
+	float:left;
+	margin:26px 30px 30px;
+	position:relative;
+	width:395px;
+}
+#invited {
+	margin: 6px 30px 30px 30px;
+	position: relative;
+	width:395px;
+	height:550px;
+	float: right;
+	overflow:auto;
+	border: 1px solid #aaa;
+	background-color:  #ffffff;
+}
+#invitescontainer .placeholder{position:relative;height:60px;float:right;margin: 15px 30px 0px 30px;width:395px;font-weight:bold;}
+#PendingSelectorSelector {position:relative;height:60px;background:white;}
+#inviters_selector_tooltip .gift, #PendingSelectorSelector .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 3px 3px transparent;height:30px;float:left;margin:15px; padding-left:40px;}
+#inviters_selector_tooltip .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 100% 3px transparent;height:30px;float:left;margin:0px; padding-left:0px;}
+#PendingSelectorSelector .nominator img {width:50px;height:50px;float:left;margin-right:15px;}
+#PendingSelectorSelector .nominator {display:block;height:30px;float:left;margin:5px;font-weight:normal;}
+#PendingSelectorSelector .nominator .name {font-weight:bold;}
+
+
+#invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
+#invited div.seperator {
+	border-bottom: 3px solid #FFF5D7;
+	padding: 15px 15px 0px 15px;
+	clear:both;
+}
+
+.whiteContainer{ background: #FFF5D7; border-top:1px solid #e6ac00; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
+
+#invite_message {
+	clear:both;
+	float:left;
+	margin:25px 0 0;
+	position:relative;
+	width:100%;
+}
+#invite_message div.submit {
+	position: absolute;
+	right:0px;
+	bottom: 0px;
+}
+#invite_message div.submit a.skipper {
+	position: absolute;
+	bottom: -20px;
+	width: 100px;
+	left: 5px;
+}
+#invite_message div.invite_message, #invite_message div.invite_secret {
+	font-size: 20px;
+	font-weight: bold;
+	color: #403834;
+	float:left;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+}
+#invite_message div.invite_message {
+	width:760px;
+	float:left;
+	font-size: 20px;
+}
+#invite_message div.invite_secret {
+	width:145px;
+	float:right;
+	font-size: 12px;
+	margin-top:33px;
+	font-family: Arial;
+	font-weight: normal;
+}
+#invite_message div.invite_secret input {
+	position: relative;
+	top: 2px;
+}
+#invite_message div.invite_message textarea {
+	border:15px solid #FFE493;
+	font-family:arial;
+	font-size:12px;
+	height:100px;
+	margin-top:10px;
+	padding:10px;
+	width:710px;
+}
+#invite_message #inviters_selector_tooltip,
+#invite_message #inviters_panel_tooltip {
+	background:white;
+	bottom:45px;
+	color:#B70158;
+	font-weight:bold;
+	position:absolute;
+	right:0;
+	width:146px;
+}
+#invite_message #inviters_selector_tooltip {bottom:55px;}
+
+#invite_message .submitSmall {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+/*------------------------------------- CONTRIBUTION PAGE -------------------------------*/
+
+#paymentdetailscontainer div.forminputline {
+	padding-top: 5px
+}
+#paymentdetailscontainer label {
+	width: 170px;
+	text-align: left;
+	padding-bottom: 3px
+}
+#paymentdetailscontainer div.error_message {
+	left:210px;
+	bottom: 5px;
+}
+#paymentdetailscontainer .floaterLeft div.error_message {
+	color:#FF0000 !important;
+	left:0;
+	position:relative !important;
+	top:0;
+	width:150px !important;
+}
+
+
+#paymentdetailscontainer{ margin-top: 20px !important; float: left; width: 920px}
+#paymentdetailscontainer .panel_content{ float:left;height:auto;margin-top:0;padding:10px 15px 0;width:850px;}
+#paymentdetailscontainer div.validUntil{ float:left}
+.validUntil select{ display: inline !important}
+
+
+#payment_details_status{clear:both;}
+#payment_details_amount{position:relative;width:300px;padding: 15px;float: left;}
+#payment_details_amount .amount {margin: 3px;width: 120px;text-align:right}
+#payment_details_amount .totalsum span.total_label {position:absolute;bottom:0px;left:0px;}
+#payment_details_amount .totalsum{font-weight:bold;border-top:2px solid #333;position:relative;}
+
+/* --------------------------------------- FOOTER ----------------------------------------- */
+
+div#siteinfo {clear: both;float: left;padding: 10px 0 0;width: 100%;}
+div#siteinfo div.siteinfo1 {
+	width: 100%;
+	float:left;
+	text-align:center;
+}
+div#siteinfo div.siteinfo1 div.siteinfo2 {
+	position: relative;
+	width:100%;
+	margin:0px auto 15px;
+	text-align:center;
+}
+body.base div#siteinfo div.siteinfo1 div.siteinfo2 {width:980px}
+div#siteinfo a.siteinfo_content {padding: 10px 10px 10px 10px;}
+div#siteinfo .poweredByFriendfund {width:110px;height:20px;display:block;top:-2px;position:relative;background:url("../imgs/inputfield.png") repeat scroll -5px -63px transparent;float:right;}
+div#siteinfo div.siteinfo_copyright {
+	text-align:right;
+	position:absolute;right:0px;top:0px;
+	padding: 0px 0px 10px 20px;
+	color:#333;
+}
+div#siteinfo div.siteinfo_copyright.light {color:#eee;}
+div#siteinfo .siteinfo_copyright.light .poweredByFriendfund {background-position:-124px -63px}
+
+
+#verisignsealindex{
+	left:30px;
+	top:315px;
+	position:absolute;
+	overflow:hidden;
+	height:77px;
+}
+#verisign_payment{
+	height: 77px;
+	overflow: hidden;
+	position: absolute;
+	right: 50px;
+	top: 215px;
+	z-index: 5;
+}
+#verisign_contrib{
+	height: 77px;
+	overflow: hidden;
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	z-index: 5;
+}
+#verisignseal{
+	left:30px;
+	top:0px;
+	position:absolute;
+}
+/* --------------------------------------- ------ ----------------------------------------- */
+/* --------------------------------------- POPUPS ----------------------------------------- */
+/* --------------------------------------- ------ ----------------------------------------- */
+#badge_popup div.badge_background, .window_background {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	text-align:center;
+	background-color: #333;
+	top:0px;
+	left:0px;
+	z-index:1000;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+#badge_popup div.window, div.window_container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index:1005;
+}
+#badge_popup div.badge_window {
+	z-index:1005;
+	margin: 200px auto;
+	width: 800px;
+	height: 400px;
+	background-color: white;
+	border: 10px solid #FFF5D7;
+	position:relative;
+	overflow:hidden;
+}
+#mybadge_container {
+	padding: 15px 30px 30px;
+}
+#mybadge_container .mybadge {
+	float:left;
+	height:115px;
+	margin-bottom:15px;
+	margin-right:32px;
+	overflow:hidden;
+	padding-bottom:30px;
+	position:relative;
+	width:140px;
+}
+#mybadge_container .mybadge img{ width: 140px; height: 115px; display: block}
+#mybadge_container .badge_name {
+	font-size:12px;
+	font-weight:bold;
+	position:absolute;
+	text-align:center;
+	top:93px;
+	width:230px;
+}
+#mybadge_container .badge_name_awarded {
+	border-bottom:2px solid #DADADA;
+	height:30px;
+	left:0;
+	line-height:30px;
+	position:absolute;
+	text-align:center;
+	top:113px;
+	width:140px;
+	z-index:999;
+	font-family: Trebuchet MS;
+	font-size: 14px
+}
+#mybadge_container .badge_container {
+	float: left;
+	background: white;
+	padding: 30px 0 15px 30px;
+}
+
+#badge_popup_content{margin: 0px;font-family: Arial, Helvetica, sans-serif;position:relative;height:100%}
+#badge_popup_content .header {
+			padding:15px;
+			background-color:#333;
+			position: relative;text-align: center;
+			font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+			font-size:28px;font-weight:normal; color: #fff;
+		}
+#badge_popup_content .badge_text {float:right;font-size:20px;margin:90px 80px 0 0px;position:relative;width:300px;text-align: left;}
+#badge_popup_content .badge_icon {width: 350px;height: 300px;position: relative; float: left;margin:0px 0px 0px 30px;}
+.panelclosing_x {position: absolute;top: 3px; right: 10px;text-decoration: none;color:white;font-weight:bold;font-size:16px}
+.panelclosing_x_black {position: absolute;top: 3px; right: 10px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;}
+#badge_popup_content .share_link {bottom: 10px; position:absolute;right:10px;}
+#badge_popup_content .share_link img {top:2px;position:relative;margin-right:5px;}
+
+/* *************************************** BLOCKS ***************************************** */
+div.window_container div.window {
+	background-color:white;
+	border:15px solid #FFF5D7;
+	margin:150px auto;
+	position:relative;
+	width:700px;
+	z-index:1010;
+}
+
+div.window_container  div.window .header {
+	padding:15px;
+	position: relative;text-align: left;
+	background-color:#403834;
+	font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+	font-size:28px;font-weight:normal; color: #fff;
+}
+
+div.window_container  div.window .subheader {
+	padding:30px 30px 10px;
+	position: relative;text-align: left;
+	font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+	font-size:14px;font-weight:bold; color: #333;
+}
+div.window_container  div.window div.popupContent {
+	color:#333;
+	font-family:Arial,Helvetica,sans-serif;
+	padding: 10px 30px 30px 30px;
+	text-align:left;
+}
+
+div.window_container  div.window div.popupContent ol li{
+	margin-top: 30px;
+	font-size:14px;
+	font-weight:bold;
+}
+.explanation {
+	background-color: #f2f2f2;
+	border: 1px solid #dadada;
+	margin:10px 0px;
+	padding:15px 15px 10px 15px;
+	font-size:12px;
+	font-weight:normal;
+	font-weight:normal;
+}
+.explanation .text{
+	float:right;
+	width:190px;
+}
+#blocking_msgs div.blocking .block_header{
+	font-family:"Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
+	font-size: 14px;
+	font-weight:bold;
+}
+#blocking_msgs div.blocking .block_intro{
+	padding: 15px 15px 15px 0px;
+	font-weight:normal;
+}
+#blocking_msgs div.blocking .facebookBtn{
+	margin: 0px 0px 0px 10px;
+	width: 210px;
+}
+#blocking_msgs div.blocking label { margin-right:15px;}
+#blocking_msgs div.blocking.block_grantboth{
+	padding: 30px 0px 0px 0px;
+}
+#blocking_msgs div.blocking .grantboth{
+	position: relative;
+	padding-top: 5px;
+	padding-right:15px;
+	font-weight:bold;
+}
+
+/* *************************************** ****** ***************************************** */
+/* *************************************** POPUPS ***************************************** */
+/* *************************************** ****** ***************************************** */
+
+#mypools {
+	padding: 0px 30px 30px;
+}
+.tabContainer {
+	background-color:#E9E9E9;
+	border-bottom:1px solid #DADADA;
+	height:35px;
+	left:0;
+	padding:18px 0 0 30px;
+	position:relative;
+	top:-9px;
+	width:950px;
+	z-index:2;
+}
+.tabContainer a {	 color:#403834;display:block;float:left;padding-right:15px;text-align:center;}
+.tabContainer a span {color:#403834;display:block;float:left;
+	cursor:pointer;font-size:18px;padding:7px 0px 8px 15px;font-family: Trebuchet MS,Arial;}
+.tabContainer a.selected {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -435px transparent;}
+.tabContainer a.selected span {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -379px transparent;}
+
+.subCategories{clear:both; font-size: 20px ; font-weight: bold; color: #403834; height: 47px; line-height: 47px;padding-top: 28px; font-family: Trebuchet MS,Arial}
+.tooltipBoxMyPools{ height: 45px; background:none repeat scroll 0 0 #403835; position: relative}
+.tooltipBoxMyPools img{ position: absolute; display: block; left: 80px; bottom: 2px}
+.imgContainer{ background: url(../imgs/bg-rabody.png) left bottom no-repeat; width: 158px; height: 119px; padding: 0 1px 2px 1px}
+#invite_panel_header {margin: 0 30px 30px; padding-bottom:20px}
+span.label{ float: left; display: block; padding-top: 2px}
+span.money{ float: left; line-height: 24px}
+span.currency{ float: left; line-height: 24px}
+div.days span.label{ padding-top: 13px; padding-left: 5px}
+
+div.days { margin-top: 10px}
+div.days span.money{ padding: 5px 5px 0 0 }
+.width150px{ width: 125px;}
+.privatePublic{ float: right; font-weight: bold}
+.red{color:#B20155;}
+.alsoInvited{ position: absolute; left: 0px; top: 34px}
+.alsoInvited img{ width: 50px; height: 50px; display: block; float: left; margin-right: 5px}
+.alsoInvited p{ float: right; margin: 0; width: 70px; color:#333333; overflow:hidden}
+.alsoInvited p.bold{ font-weight: bold; line-height: 13px}
+
+.fixedWidth{text-align:right;width:230px;}
+.clear{ line-height: 0; font-size: 0; height: 0; clear: both}
+.myBadge{ width: 500px; margin-right: 25px; float: left; position: relative}
+.myBadge img{ float: left; display: block; width: 120px; height: 120px; margin-right: 30px}
+.friendsBadge{ float: left;  width: 385px}
+.myBadgeInfo{ width: 500px; float: left; padding-top: 10px}
+.myBadgeInfoText{ float: left; width: 340px}
+.myBadgeInfoText h3{ border-bottom: 2px solid #dadada;   padding-bottom: 4px; margin-top: 0 !important;
+line-height: normal !important; margin-top: -2px !important}
+.borderBottom{ float: left; width: 340px; padding: 8px 0; border-bottom: 1px solid #e9e9e9}
+.myBadgeInfo .imageBadgeContainer{ float: left; width: 150px; height: 120px; position: relative}
+.profile-picture .borderBottom {
+	border-bottom:1px solid #E9E9E9;
+	float:left;
+	padding:0 0 8px 0;
+	width:280px;
+}
+.profilebuttonBtn{ display: block; margin: 32px auto; width: 180px}
+.profile-picture .borderBottomSecond { border-bottom:1px solid #E9E9E9;
+	float:left;
+	padding:8px 0 8px 0;
+	width:280px; }
+.smallInside{ float: left; width: 400px}
+.subTitle{font-family:Trebuchet MS;font-size:14px;font-weight:bold;
+	border-bottom: 2px solid #dadada; padding-bottom: 7px; clear: both; float: left; width: 400px}
+.subInfo{ float: left; width: 295px; margin-top: 15px}
+.smallInside .imageBadgeContainer{ margin-top: 23px}
+.fixedW input{ width: 240px !important}
+
+.big{ width:920px !important}
+.big .profile-picture{ width: 890px !important}
+.big .inside-profile-picture{ width: 860px !important}
+.profile-picture .borderBottomSecond a{ display:block;color:#C11164; font-size: 11px; text-decoration: underline; padding-top: 3px }
+.passwordFields { padding-top: 15px; width: 100%}
+.passwordFields input{ float: right}
+.spacerInput{ float: left; width: 100%}
+.imageBadgeContainer{ float: left; width: 105px; height: 90px; position: relative}
+.myBadge  img.miniBadge{ width: 80px; height: 65px; margin: 0; position: absolute; bottom:-20px; right:10px}
+.friendsBadgesContainer{ float: left; width: 385px; padding-top: 10px}
+.friendsBadgesContainer .badge_user_pic{ float: left; width: 90px; height: 90px; margin-right: 30px; position: relative }
+.wide{ width: 100% !important;border-top:1px solid #E9E9E9 !important; margin-top: 15px}
+.fixedW{ width: 100%;height: 23px; padding-top: 12px}
+.fixedW input{ width: 160px}
+.friendsBadgesContainer .badge_user_pic img { float: left; width: 90px; height: 90px; }
+h2.small{ font-size: 20px !important}
+.friendsBadgesContainer .badge_user_pic img.miniBadge{ position: absolute; right: -15px; bottom:-15px; width: 65px; height: 50px}
+.friendsBadgesContainer div.label{ position:relative;text-align:right;top:12px;}
+.inside{ padding: 30px 0 30px 30px ;  }
+.badgeBox{ float: left; background: white; margin-top: 10px}
+.badgeBoxBorder{ float: left; background-color: #bae3f7; padding: 15px}
+#login_signup_container, #pwd_form_container{ margin:0 30px 30px 30px; float: left; width: 920px}
+#login_signup_container .subCategories { padding-top: 0px}
+.profilePictureContainer{ float: left; width: 445px}
+.profilePictureContainer .profile-picture {
+	background-color:#FFF5D7;
+	float:left;
+	padding:15px;
+	width:415px;
+}
+.profilePictureContainer .inside-profile-picture {
+	background:none repeat scroll 0 0 white;
+	float:left;
+	padding:15px;
+	width:385px;
+}
+.profilePictureContainer  .selectImage{}
+.facebookTxt{ font-family: Trebuchet MS; font-size: 14px; font-weight: bold; padding-bottom: 10px; padding-top: 10px; float:left}
+.facebookTxt img{ margin-right: 5px;}
+.imageBadgeContainer img.myProfilePicture{ margin-right: 5px;width:90px;height:90px;}
+.maleFemale label{ display:block !important;width:90px !important; float:left !important; margin:0 0 0 5px !important}
+.maleFemale input{ display:block !important;width:15px !important; float:left}
+.passwordFields .maleFemale label{ float: right !important;}
+#poolsettings{ margin:0 30px 30px 30px}
+
+#contributioncontainer{ margin:0px 30px 30px; padding-top: 5px !important}
+
+#paymentdetailscontainer input, #paymentdetailscontainer,{ border: 1px solid #999999}
+#paymentdetailscontainer{ margin: 0 30px 30px}
+.profile-picture{background-color:#FFF5D7; width: 445px ; padding: 15px; float: left;}
+.inside-profile-picture{ float: left; padding: 15px; background: white; width:415px;}
+.inside_row{ float: left; padding:10px 15px 15px 15px; background: white; width:415px;}
+.selectImage{ width: 280px}
+.subInfo span{ display: block; padding-bottom: 12px; font-size: 12px; font-family: Arial}
+.subInfo input{ display: block;}
+.subInfo span.small{ padding-top: 15px; font-size: 11px; padding-bottom: 0px}
+.subInfo span.small a{color:#B70158; text-decoration: underline}
+.paddingZero{ padding: 15px  0 0 0 !important}
+.passwordFields label{ display: block; float: left; width: 140px}
+a.Save{ float: right; clear: both; font-family: Arial; font-size: 18px;  color:#333; display:block;  
+	margin-top: 30px; padding-right: 10px; background: url(../imgs/inputfield.png?20101123) 100% -632px no-repeat; height: 35px; line-height: 35px}
+a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px;  background: url(../imgs/inputfield.png?20101123) 0 -597px no-repeat;text-shadow:0 2px 0 #fff;}
+.borderRow{ width: 100%; border-bottom: 1px solid #e9e9e9; height: 25px; margin-top: 5px; font-family: Arial; font-size: 12px; line-height: 21px}
+.borderRow .floaterLeft img{ display: block; float: left; margin-right: 10px}
+.inside_row a{ text-decoration: underline; color: #b70158}
+.subHeader{ font-size: 14px; font-weight: bold; font-family: "Trebuchet MS", Arial,Helvetica,Jamrul,Arial,sans-serif;; padding-top: 15px; border-bottom: 2px solid #e9e9e9; padding-bottom: 5px; float: left; width: 100%}
+.messageContainer{ margin:0 30px; background: white; padding: 15px; float: left; width: 830px;position:relative;}
+.messageContainer textarea{float: right; width: 740px; height: 72px}
+.messageContainer img{ width: 75px; height: 75px; float: left}
+.messageContainerlong img{ padding-bottom:50px;}
+
+
+.addressContainerLeft {margin:30px 15px 30px 30px; float: left;position: relative;width:414px;}
+.addressContainerRight {margin:30px 30px 30px 15px; float: left;position: relative;width:414px; }
+.addressContainerLeft div.addressHeader, .addressContainerRight div.addressHeader {height:55px; overflow:hidden;position:relative;}
+.addressContainerLeft h2, .addressContainerRight h2 {position: absolute;bottom:5px;}
+.addressContainer {background: white;padding: 30px 30px 60px 30px;float: left;width:354px; position:relative;}
+
+#poolsettings .panel_title{ font-style: italic }
+.panel_content white h1{ margin: 0; padding: 20px 0}
+
+
+
+.yes{ padding-top: 10px;}
+.yes label{ margin-left: 5px}
+
+
+.boxTitle { 	position: relative;padding: 30px 20px 0px 30px;font-size: 20px;font-weight: bold;color: #403834;
+	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;}
+.borderBox {	width: 920px;float:left;margin: 15px 30px 30px;background-color:#BAE3F7}
+.borderBox .borderBoxContent{background-color:white;margin:15px;padding:15px; min-height:250px;}
+.borderBox .subheader{margin: 0px 0px 15px 0px;font-size:14px;font-weight:bold;}
+
+.payement-container #termsofservice {height:100px; border:1px solid #FFF5D7;padding:5px;overflow:auto;}
+#termsofservice .tosheading {margin:0px 0px 0px 0px;font-weight:bold;font-size:14px;text-align:center;}
+#termsofservice .tosheading.effectivedate {margin:0px 0px 15px 0px;font-weight:normal;font-size:1em;}
+#termsofservice .preamble {margin:0px 0px 15px 0px;}
+#termsofservice p span{margin: 0px 10px;}
+#termsofservice p {margin:10px 30px;}
+#termsofservice p.tosmainsection {margin:30px 0px 0px 0px;font-weight:bold}
+#termsofservice p.tosmainsection span {width:30px;margin:0px;position:relative;display:block;float:left;text-align:center;}
+
+#privacy .tosheading {margin:0px 0px 0px 0px;font-weight:bold;font-size:14px;text-align:center;}
+#privacy .tosheading.effectivedate {margin:0px 0px 15px 0px;font-weight:normal;font-size:1em;}
+#privacy .preamble {margin:0px 0px 15px 0px;}
+#privacy p span{margin: 0px 10px;}
+#privacy p {margin:10px 30px;}
+#privacy p.tosmainsection {margin:30px 0px 0px 0px;font-weight:bold}
+#privacy p.tosmainsection span {width:30px;margin:0px;position:relative;display:block;float:left;text-align:center;}
+
+
+#faq {margin:30px;}
+#faq li {font-weight:bold; font-size: 12px;margin: 15px 0px;}
+#faq li p{font-weight:normal;font-size: 12px;}
+#impressum p.content {margin: 10px 0px;}
+#impressum p.content.firstline {}
+#impressum p.content.lastbeforeline {}
+#impressum p.content.lastline {}
+
+
+.marginSpecialSave{ margin:0 30px 30px 0 !important}
+.region_picker {float:right;
+	font-weight:bold;
+	width:700px;
+	padding-bottom: 15px;
+	text-align: right;
+	padding-top: 15px
+}
+
+div#scrollingproductsuggestions{width:810px;overflow:hidden;height:190px;position:relative;}
+
+div.anythingSlider {
+	background:none repeat scroll 0 0 white;
+	clear:both;
+	padding:30px 40px 10px;
+	position:relative;
+}
+div.anythingSlider div.pane {
+	background: transparent;
+	width:805px;
+	position:relative;
+	display: block;
+	padding: 0;
+	margin: 0;
+}
+
+div.anythingSlider .arrow {
+	cursor:pointer;
+	background-color:white;
+	color:white;
+	display:block;
+	position:absolute;
+	top:0;
+	width:40px;
+	z-index:5;
+	height: 220px
+}
+div.anythingSlider .arrow a {
+	color:white;
+	display:block;
+	height:70px;
+	margin:60px 0 0 0;
+	outline:0 none;
+	text-align:center;
+	width:40px;
+}
+div.anythingSlider .forward { right: 0px;  }
+div.anythingSlider .back { left: 0px;  }
+div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
+div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
+
+.personalityBox{background:none repeat scroll 0 0 white;float:left;margin:10px 0 0 0;padding:30px 0 10px 45px;width:845px;}
+.personalityBox span{ padding-bottom: 10px}
+.productSorterContainer{ width: 890px; padding:0 ; margin-top: -5px;float:left}
+.productSorter{background: url(/static/imgs/rounded-corner-small.png) 0 0 no-repeat white;margin-right:15px;margin-top:15px;width:437px; position: relative;text-align:left}
+.productSorterContainer .productSorter {float:left}
+
+.productSorter .footer-small{ width: 437px; height: 6px; line-height: 0; font-size: 0; background: url(/static/imgs/rounded-corner-small.png) 0 -6px no-repeat white; float: left}
+.marginRightClean{ margin-right:0 !important}
+.productSorter .colSx{ margin-top:5px;float:left; width: 180px; background: url(/static/imgs/backgroundSearchProducts124.png) center 15px no-repeat white; padding-bottom: 9px}
+.productSorter .colDx{ margin-top:5px;float:left;padding:10px 15px 15px 0;width:242px; position: relative;background:white}
+.productImage{ display: block;width: 146px; height: 146px; margin: 11px auto 0 auto}
+.productMerchant{ display:block;
+	font-family:Trebuchet MS;
+	font-size:14px;
+	font-weight:bold;
+	height:15px;
+	line-height:14px;
+	margin:15px auto 5px;
+	overflow:hidden;
+	padding:0;
+	text-align:center;
+}
+.productMerchantImage{ display: block; margin: 0 auto; height: 55px; margin-top: 15px}
+
+p.product{ font-size: 14px; font-weight: bold; font-family: Trebuchet MS; margin-top: -3px}
+p.product span.currency { display: block; padding-top: 5px;width:100%;}
+a.productMore{color: #B70158; display: block; float: left; margin-top: 10px}
+.productSorter .submitSmall{ position: absolute; right:15px; bottom: 15px}
+.productSorter .submitSmall:hover { float: left; clear: both; margin-top: 10px}
+.productSorter .submitSmall:hover span{ float: left}
+
+.whiteContainer #product_browser_container{ background: none}
+
+#product_browser_container #product_paginator{
+	bottom:-40px;
+	padding: 0px;
+	position:absolute;
+	text-align:center;
+	width:100%;
+}
+#product_browser_container #product_paginator span.selected{ border:1px solid #999;padding:2px 5px;}
+#product_browser_container #product_paginator a{border: 1px solid white;padding:2px 5px; cursor: pointer}
+.product  .whiteContainer{ border-bottom:10px solid white}
+div#scrollingproductsuggestions {
+	height:180px;
+	overflow:hidden;
+	position:relative;
+	width:810px;
+	background:url("../imgs/rounded-corner-big.png") no-repeat scroll 0 0 white;clear:both;
+	padding:30px 40px 10px;
+}
+.pane{ width:840px}
+#productslider{height:180px;margin-left:5px;overflow:hidden;width:804px;}
+
+.productSorterWidth{background: url(../imgs/rounded-corner-small_890.png) 0 0 no-repeat white;margin-top:15px;width:890px; position: relative;text-align:left;float:left}
+.productSorterWidth .footer-small{ height:6px; line-height: 0; font-size: 0; background: url(../imgs/rounded-corner-small_890.png) 0px -6px no-repeat white;float:left}
+
+.productSorterWidth .halfWidth {width:395px;margin:5px 0px;float:left;padding:10px 20px;background:white;}
+.productSorterWidth .label {margin: 15px 0px 15px;}
+.productSorterWidth img {margin: 0px 0px 15px;}
+
+
+
+
+
+
+
+/*=========================================== POOL HEADER ==========================================*/
+
+#pool_pool_panel{
+	position: relative;
+	color: #333;
+	margin: 0px 30px;
+	padding-bottom:30px;
+	float:left;
+	overflow:hidden
+}
+
+#pool_pool_panel a{ color: #C11164}
+#pool_pool_panel .pool_content {float:left;margin:30px 90px;width:740px;}
+#pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #aaa;border-left:1px solid #aaa;border-right:1px solid #aaa;position:relative;width:162px;height:210px}
+#pool_pool_panel .pool_content  .picture_area{background:white;border:1px solid #EEEEEE;text-align:center;top:-5px;position:absolute;width:160px;height:213px}
+#pool_pool_panel .receiver_picture{float:left;}
+#pool_pool_panel .product{float:right;}
+#pool_pool_panel .picture_area img.contentPic{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
+#pool_pool_panel .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
+#pool_pool_panel .picture_area .product_more{position:absolute;bottom:2px;right:5px;}
+.picture_area_outer .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-30px;position:absolute;width:60px;}
+.picture_area_outer.product .icon{background-position:-121px 0;left:-40px;}
+
+
+
+#pool_pool_panel div.heading{
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 36px;
+	width: 470px;
+	padding-top: 18px;
+	min-height: 255px;
+	margin: 0 auto
+}
+#pool_pool_panel div.heading div.heading_text{
+ 	max-height:220px;
+	overflow:hidden;
+	position:relative;
+	text-align:center;
+}
+
+
+
+#pool_pool_panel div.lower_forward_page{
+	bottom:-25px;
+	height:25px;
+	position:absolute;
+	right:24px;
+	width:120px;
+	background-color: #BBE3F7;
+}
+#pool_pool_panel div.gotopage_text_left_bracket  {
+	background: url(/static/imgs/gotopage_lower_bg.png) 0 0 no-repeat;
+	position: absolute;
+	left: -25px;
+	height: 25px;
+	width: 25px;
+	top: 0px;
+}
+#pool_pool_panel div.gotopage_text_right_bracket  {
+	background: url("/static/imgs/gotopage_lower_bg.png") no-repeat scroll -20px 0 transparent;
+	height:25px;
+	position:absolute;
+	right:-25px;
+	top:0;
+	width:25px;
+}
+
+#pool_pool_panel a.submitSmall {
+	position: absolute;
+	bottom:-48px;
+	right: 0px;
+}
+
+.social_tools_free {margin:0px 30px;padding:20px 0px 5px;clear:both}
+
+
+/*=========================================== COUNTER ===========================================*/
+#timeline_bar {clear:both;float:left;margin:0 30px;}
+#timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
+#timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
+#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;border:1px solid #ccc; padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
+
+#timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;background-position:-425px -20px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:padding: 4px 5px;;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage .bottomYellowTriangle {left:20px;background-position:-425px -20px;}
+
+
+#timeline_bar div.timeline_progressbar_bg {position:relative;clear:both;height: 50px;background: url(/static/imgs/progressbar_bg.png) no-repeat left;}
+#timeline_bar div.timeline_progressbar {height: 40px;margin: 0px 5px 0px 5px;padding: 5px 0px 5px 0px;
+	background: url(/static/imgs/progressbar_progress.png) no-repeat left;}
+#timeline_bar div.legende {padding-top: 10px}
+#timeline_bar div.legende a{text-align:right;}
