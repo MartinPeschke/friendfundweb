@@ -1,0 +1,1 @@
+../friendfund/celeryconfig.py
