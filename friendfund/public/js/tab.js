@@ -459,19 +459,19 @@ FriendFund.Popin = {
     },
     show: function (options) {
         this.setupOptions(options);
-        FriendFund.Popup.show(FriendFund.Util.render(this.content_template, this.getContext()));
+        FriendFund.Popup.show(FriendFund.Util.render(this.content_template, this.getContext(options)));
         try {
             var iframeElement = document.getElementById("friendfund_dialog_iframe").contentWindow;
-            iframeElement.location = FriendFund.Util.render(this.opened_url_template, this.getContext());
+            iframeElement.location = FriendFund.Util.render(this.opened_url_template, this.getContext(options));
         } catch (e) {
             FriendFund.Logger.warning("Error sending the 'open' notification");
             FriendFund.Logger.warning(e);
         }
     },
-    getContext: function () {
+    getContext: function (options) {
         var context = {dialog: 'popin',width: '930px',height: '693px',lang: 'en'};
         for (attr in this.options) {context[attr] = this.options[attr];};
-        context.url = this.url();
+        context.url = this.url(options);
         context.params.lang = this.options.lang;
         context.params.referer = this.getReferer();
         context.query = FriendFund.Util.toQueryString(context.params);
@@ -484,7 +484,7 @@ FriendFund.Popin = {
         }
         return referer;
     },
-    url: function () {return 'http://js.friendfund.de/product/bounce';}
+    url: function (options) {return options.protocol+options.host+'/product/bounce';}
 };
 
 FriendFund.Button = {
@@ -492,11 +492,11 @@ FriendFund.Button = {
 	button_text: "Friendfund this",
 	css_template: "#${button_id} {margin: 10px;width: auto} #${button_id}\
 					.friendfundButton{pointer:cursor;margin:10px auto;color:white;width:122px;height:196px;\
-					background:url(http://js.friendfund.de/static/imgs/button_logo.png) no-repeat 0 0 transparent;display:block}",
+					background:url(${protocol}${host}/static/imgs/button_logo.png) no-repeat 0 0 transparent;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;} \
 					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:122px;\
-					background:url(http://js.friendfund.de/static/imgs/badges/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
+					background:url(${protocol}${host}/static/imgs/badges/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
 	show: function (options) {
 		FriendFund.Popin.setup(options);
@@ -514,7 +514,7 @@ FriendFund.Button = {
 		var button = document.createElement('A');
 		button.id = "friendfund_button";
 		button.className="friendfundButton";
-		button.onclick=function(){FriendFund.Popin.show(); return false;};
+		button.onclick=function(){FriendFund.Popin.show(options); return false;};
 		button.innerHTML = "&nbsp;";
 		document.getElementById(this.button_id).appendChild(button);
 		FriendFund.Util.includeCss(FriendFund.Util.render(options.css_template || this.css_template, options));

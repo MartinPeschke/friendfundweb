@@ -65,7 +65,7 @@ class IndexController(BaseController):
 		c.furl = request.params.get('furl', url('home'))
 		if not c.user.is_anon:
 			c.messages.append(_(u"USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"))
-			return redirect(furl)
+			return redirect(c.furl)
 		c.login_values = {}
 		c.login_errors = {}
 		if request.method != 'POST':

@@ -27,11 +27,16 @@
 	</div>
 </%def>
 
+<%def name="header()">
+	<div id="headercontainer">
+		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/imgs/header/logo_banner.png"/></a>
+		<div class="logoBanner"><img src="/static/imgs/themes/christmas/js_christmas.png"/></div>
+	</div>
+</%def>
+
 
 <%def name="render_siteinfo_copyright()">
 	<div class="siteinfo_copyright"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></div>
 </%def>
 
 <%def name="messaging()"></%def>
-<%def name="header_navigation()"></%def>
-<%def name="create_pool_button()"></%def>
