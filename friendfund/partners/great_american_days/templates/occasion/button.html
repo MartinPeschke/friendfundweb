@@ -3,16 +3,12 @@
 %>
 <div id="button_occasion" class="hpbutton occasion">
 	%if occasion:
-		<div class="button_content">
-			<a class="content withbg"><img class="button_content" src="${getattr(occasion, 'picture_url')}"/></a>
-			<div class="label">${getattr(occasion, 'display_label')}</div>
-		</div>
+		<a class="content withbg"><img class="button_content" src="${getattr(occasion, 'picture_url')}"/></a>
+		<div class="label">${getattr(occasion, 'display_label')}</div>
 	%else:
-		<div class="button_content">
-			<a class="content nobg"></a>
-			<div class="label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select an Event")}
-				<div class="sub_label ">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created.")}</div>
-			</div>
+		<a class="content nobg"></a>
+		<div class="label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select an Event")}
+			<div class="sub_label ">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created.")}</div>
 		</div>
 	%endif
 	<input type="hidden" name="occasion.key" id="occasion_key" value="${getattr(occasion, 'key', '')}"/>

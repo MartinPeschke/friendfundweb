@@ -1,21 +1,16 @@
 <%
 	product = getattr(getattr(c, 'pool', None), 'product', None)
 %>
-<div id="button_product" class="hpbutton gift">
+<div id="button_product" class="hpbutton gift underlined2 floaterLeft" style="padding:0px 0px 5px;">
 	%if product:
-		<div class="button_content">
-			<a class="content withbg">
-				<img class="loaders_animation" src="/static/imgs/ajax-loader.gif"/>
-				<img class="button_content" src="${getattr(product, 'picture_large')}"/>
-			</a>
-			<div class="label">${getattr(product, 'display_label')|n}</div>
+		<img class="button_content" src="${getattr(product, 'picture_large')}"/>
+		<div class="label">${getattr(product, 'display_label')|n}
+			<div class="sub_label">${h.word_truncate_by_letters(product.description_long, 700)|n}</div>
 		</div>
 	%else:
-		<div class="button_content">
-			<a class="content nobg"></a>
-			<div class="label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Gift")}
-				<div class="sub_label ">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands.")}</div>
-			</div>
+		<a class="content content_full nobg"></a>
+		<div class="label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Gift")}
+			<div class="sub_label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands.")}</div>
 		</div>
 	%endif
 		<input type="hidden" id="product_guid" name="product.guid" value="${getattr(product, 'guid', '')}"/>
