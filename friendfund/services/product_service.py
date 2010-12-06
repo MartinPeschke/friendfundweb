@@ -284,6 +284,7 @@ class ProductService(object):
 		product = Product(aff_id=query, aff_program_id="-1", aff_program_name=domain, aff_net=domain,guid=uuid.uuid4(),category="170000", is_virtual=False,aff_program_logo_url="",aff_program_delivery_time=5,tracking_link=query)
 		for k,(name, transf) in transl.iteritems():
 			setattr(product, k, transf(params.get(name)))
+		product.tracking_link = request.params.get("referer")
 		product.fromDB(None)
 		pool.product = product
 		pool.region = params.get('og:location') or params.get('lang') or params.get('language') or 'de'

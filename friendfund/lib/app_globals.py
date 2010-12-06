@@ -63,7 +63,6 @@ class Globals(object):
 			self.revision_identifier = lambda: REVISION_ENDING
 		
 		
-		self.LIVE_FRIENDFUND = app_conf['LIVE_FRIENDFUND']
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		self.UPLOAD_FOLDER = app_conf['cache_dir']

@@ -8,14 +8,14 @@
 </%def>
 
 
-<%def name="scripts(user)">
+<%def name="scripts(user, furl = None)">
 	%if user.network in ['twitter', 'facebook']:
 		var selector = new friendfund.NetworkFriendPanel(
 				{	ref_node: "friend_list_container",
 					base_url : "/myfriends/get",
 					network : "${user.network}",
 					onSelect : function(ctx, params, target, evt){
-						xhrPost("/receiver/setbday", params, function(){window.location.href="${getattr(app_globals, 'LIVE_FRIENDFUND', url('home'))}";});
+						xhrPost("/receiver/setbday", params, function(){window.location.href="${furl or url('home')}";});
 					}
 				});
 		selector.draw(selector);

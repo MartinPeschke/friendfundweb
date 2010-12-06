@@ -2,9 +2,7 @@
 from string import Template
 FF_SLOGAN = 'Friendfund is the easy way for you and your friends to organise group gifts!'
 
-
 #to print a $ in a message, use $$
-
 STANDARD_PARAMS = {'description':Template(FF_SLOGAN),"picture":Template(u"${ROOT_URL}/static/imgs/fb_stream_publish_logo.png")}
 
 EVENT_TEMPLATES = {
@@ -12,8 +10,13 @@ EVENT_TEMPLATES = {
 		"name":Template(u"FriendFund for ${receiver} for ${occasion}"),
 		"start_time" :Template(u"${occasion_date}"),
 		"end_time" : Template(u"${occasion_date}"),
-		"description":Template(u"${description} \n\n ${ROOT_URL}/pool/${p_url}"),
-		"link" : Template(u"${ROOT_URL}/pool/${p_url}")
+		"description":Template("""${description} \n\n
+			${admin} has opened a gift pool for ${receiver}'s ${occasion} and you're invited to help out. Click on the link below to chip in as little or as much as you want and help make ${receiver}'s day!
+			Contributions should be made before the deadline or ${receiver} might not get their gift in time.\n\n
+			${ROOT_URL}/pool/${p_url}\n\n
+			This gift pool was created with friendfund, the easy way of organising group gifts."""),
+		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
+		"privacy_type" : Template(u"OPEN")
 	},
 	"secret": {
 		"name":Template(u"A Friend Fund for a Friend of Yours"),
@@ -21,11 +24,9 @@ EVENT_TEMPLATES = {
 		"end_time" : Template(u"${occasion_date}"),
 		"description":Template(u"A Friend Fund for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at ${ROOT_URL}/pool/${p_url}"),
 		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
-		"privacy_type " : Template(u"SECRET")
+		"privacy_type" : Template(u"SECRET")
 	}
 }
-
-
 
 TEMPLATES = {"INVITE":{
 					 "public":{
