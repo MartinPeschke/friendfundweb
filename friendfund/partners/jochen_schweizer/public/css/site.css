@@ -7,6 +7,8 @@ body.claro {
 }
 body.base  {background: #fff url(../imgs/body_bg.png) 0 0 repeat-x !important;}
 div#outercontainer {width:100%;float:left;background:none;padding: 0px 0px 5px 0px !important;}
+body.popup div#outercontainer{height:580px;overflow:hidden}
+
 div#outercontainer_themed {width:100%;float:left;background:url("../imgs/themes/christmas/bg.png") repeat scroll 0 0 transparent !important;}
 
 #container {text-align: left;margin: 0px auto;position: relative;width:auto}
@@ -83,7 +85,7 @@ div.frontpagebutton {
 	float: left;
 	background-color:#FFE493;
 	width:300px;
-	margin: 1px;
+	margin: 1px 1px 1px 10px;
 	padding: 1px;
 }
 div.frontpagebutton.first {width:100%;background:white;margin:0px;padding:0px}
@@ -253,15 +255,14 @@ div#occasion_button_bar {
 	border-top:1px solid #e6ac00;
 	margin-top:-1px;height:195px;
 }
-div#occasion_button_bar select,
-div#occasion_button_bar input{width:300px !important;background:white;padding:3px;}
+div#occasion_button_bar select,div#occasion_button_bar input{width:380px !important;background:white;padding:3px;}
 .dijitTextBoxFocused .dijitInputContainer, .dijitTextBox {background-color: white !important;}
 .dijitTextBoxError,  .dijitTextBoxError .dijitInputContainer {background-color: white !important;}
 .dijitTextBoxError input.dijitValidationInner, .dijitTextBox input.dijitArrowButtonInner {height: 20px !important;}
 .dijitTooltipContainer {left: 10px;}
 .claro .dijitTextBox .dijitInputField {background:white;width:100px;padding:3px;}
 .occasionLabel{font-weight:bold;}
-.horizontal_tiler {padding:30px;border-bottom: 1px solid #E8EEEC;}
+.horizontal_tiler {padding:30px 30px 20px;border-bottom: 1px solid #E8EEEC;}
 .dateopener {cursor:pointer;position: relative;top: 6px;}
 
 #button_panel.occasion a.occasion_panel_button {
@@ -279,7 +280,7 @@ div#occasion_button_bar input{width:300px !important;background:white;padding:3p
 	border: 1px solid #ffffff;
 	background: white;
 }
-#occasion_date_input_bar {clear:both;padding:0px 30px 30px;}
+#occasion_date_input_bar {clear:both;padding:20px 30px 30px;}
 
 #button_panel.occasion a.occasion_panel_button img {
 	position: relative;
@@ -680,6 +681,7 @@ div#lowerbody {margin: 30px;}
 /* --------------------------------------- FOOTER ----------------------------------------- */
 
 div#siteinfo {clear: both;float: left;padding: 10px 0 0;width: 100%;}
+
 div#siteinfo div.siteinfo1 {
 	width: 100%;
 	float:left;
@@ -693,14 +695,15 @@ div#siteinfo div.siteinfo1 div.siteinfo2 {
 }
 body.base div#siteinfo div.siteinfo1 div.siteinfo2 {width:980px}
 div#siteinfo a.siteinfo_content {padding: 10px 10px 10px 10px;}
-div#siteinfo .poweredByFriendfund {width:110px;height:20px;display:block;top:-2px;position:relative;background:url("../imgs/inputfield.png") repeat scroll -5px -63px transparent;float:right;}
-div#siteinfo div.siteinfo_copyright {
+div#siteinfo .poweredByFriendfund {width:110px;height:20px;display:block;top:-4px;position:relative;background:url("../imgs/inputfield.png") repeat scroll -5px -63px transparent;float:right;}
+div#siteinfo .siteinfo_copyright {white-space:no-wrap;
 	text-align:right;
 	position:absolute;right:0px;top:0px;
 	padding: 0px 0px 10px 20px;
 	color:#333;
+	white-space: pre;
 }
-div#siteinfo div.siteinfo_copyright.light {color:#eee;}
+div#siteinfo .siteinfo_copyright.light {color:#eee;}
 div#siteinfo .siteinfo_copyright.light .poweredByFriendfund {background-position:-124px -63px}
 
 

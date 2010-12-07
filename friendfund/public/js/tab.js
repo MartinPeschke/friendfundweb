@@ -450,7 +450,7 @@ FriendFund.Popin = {
         }
     },
     getContext: function (options) {
-        var context = {dialog: 'popin',width: '930px',height: '580px',lang: 'en'};
+        var context = {dialog: 'popin',width: '930px',height: '630px',lang: 'en'};
         for (attr in this.options) {context[attr] = this.options[attr];};
         context.url = this.url(options);
         context.params.lang = this.options.lang;

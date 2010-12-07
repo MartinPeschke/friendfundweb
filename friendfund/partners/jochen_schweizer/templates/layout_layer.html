@@ -1,6 +1,5 @@
 <%inherit file="master.html"/>
 
-<div id="outercontainer_themed">
 <div id="container" class="${self.headerclass()}">
 	<div id="top"></div>
 	${self.header()}
@@ -13,7 +12,6 @@
 	</div>
 	${self.render_account_panel()}
 	<div class="clear"></div>
-</div>
 </div>
 
 <%def name="siteinfo()">
@@ -29,7 +27,7 @@
 
 
 <%def name="render_siteinfo_copyright()">
-	<div class="siteinfo_copyright"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></div>
+	<a href="http://www.friendfund.com" target="_blank" class="siteinfo_copyright"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></a>
 </%def>
 
 <%def name="messaging()"></%def>

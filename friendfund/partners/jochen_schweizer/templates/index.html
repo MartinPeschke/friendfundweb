@@ -28,8 +28,9 @@
 	</%def>
 <%def name="bodyclass()">popup</%def>
 <%def name="render_account_panel()"></%def>
+
 <%def name="render_siteinfo_copyright()">
-	<div class="siteinfo_copyright light"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></div>
+	<a href="http://www.friendfund.com" target="_blank" class="siteinfo_copyright light"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></a>
 </%def>
 
 
@@ -46,7 +47,6 @@
 						, fb_api_key : "${app_globals.FbApiKey}"
 						, window : window.parent
 						, scrolling : false
-						, auto_extend : "receiver"
 						, auto_suggest : false
 						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
 </%def>
@@ -77,8 +77,10 @@
                 </a>
 			</div>
 		</div>
+		
 		${html.clearline()|n}
-		<div id="button_panel_container">&nbsp;</div>
+		<div id="button_panel_container"></div>
+		<img src="/static/imgs/themes/white_labelling_pop_up_info.png" style="margin-top: 25px;"/>
 	</div>
 </form>
 
