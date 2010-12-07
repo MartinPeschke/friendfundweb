@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-12-01 13:44+0100\n"
+"PO-Revision-Date: 2010-12-07 14:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -138,7 +138,7 @@ msgid "STATIC_Frequently Asked Questions_Answer15"
 msgstr "Unsere virtuellen Geschenke bleiben leider virtuell. Vielmehr sind sie jedoch wie eine liebe Karte oder eine wundervolle Aufmerksamkeit für die Menschen, die Dir wichtig sind."
 
 #: friendfund/controllers/content.py:34
-#: friendfund/templates/pool/pool.html:210
+#: friendfund/templates/pool/pool.html:220
 msgid "POOL_PAGE_What happens if we raise less money?"
 msgstr "Was passiert wenn wir zu wenig Geld auftreiben?"
 
@@ -406,38 +406,38 @@ msgstr "Twitter scheint überlastet zu sein, versuche es bitte zu einem spätere
 msgid "Twitter may be over capacity.<br/>Please try again later."
 msgstr "Twitter scheint überlastet zu sein, versuche es bitte zu einem späteren Zeitpunkt noch einmal!"
 
-#: friendfund/lib/app_globals.py:125
+#: friendfund/lib/app_globals.py:126
 msgid "CONTRIBUTION_PAGE_Creditcard"
 msgstr "Kreditkarte"
 
-#: friendfund/lib/app_globals.py:131
+#: friendfund/lib/app_globals.py:132
 msgid "CONTRIBUTION_PAGE_Paypal"
 msgstr "Paypal"
 
-#: friendfund/lib/app_globals.py:137
+#: friendfund/lib/app_globals.py:138
 msgid "CONTRIBUTION_PAGE_Direct eBanking"
 msgstr "Sofortüberweisung"
 
-#: friendfund/lib/app_globals.py:143
-#: friendfund/templates/pool/pool.html:141
+#: friendfund/lib/app_globals.py:144
+#: friendfund/templates/pool/pool.html:151
 #: friendfund/templates/pool/pool_secret.html:54
 #: friendfund/templates/pool/parts/button_contribute.html:22
 msgid "CONTRIBUTION_PAGE_Virtual Pot of Gold"
 msgstr "Zahl mit Topf voll Gold"
 
-#: friendfund/lib/app_globals.py:171
+#: friendfund/lib/app_globals.py:172
 msgid "GLOBAL_MENU_Home"
 msgstr "Home"
 
-#: friendfund/lib/app_globals.py:172
+#: friendfund/lib/app_globals.py:173
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Pools"
 
-#: friendfund/lib/app_globals.py:173
+#: friendfund/lib/app_globals.py:174
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Orden"
 
-#: friendfund/lib/app_globals.py:174
+#: friendfund/lib/app_globals.py:175
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Mein Profil"
 
@@ -498,6 +498,11 @@ msgstr ""
 #: friendfund/templates/contribution/contrib_screen.html:61
 msgid "CONTRIBPAGE_LABEL_A pot of gold"
 msgstr "Eine Menge Zaster"
+
+#: friendfund/model/pool.py:354
+#, python-format
+msgid "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
+msgstr "%(admin_name)s hat einen Geschenkpool für %(receiver_name)ss %(occasion_name)s gegründet. Mach mit!"
 
 #: friendfund/model/poolsettings.py:7
 msgid "POOLACTIONS_INVITE_TITLE_Invite more friends to help out!"
@@ -599,63 +604,148 @@ msgstr "Bitte trage einen gültigen Betrag ein"
 msgid "Invalid Totals"
 msgstr "Ungültiger Gesamtwert"
 
+#: friendfund/partners/great_american_days/templates/index.html:6
 #: friendfund/partners/jochen_schweizer/templates/index.html:6
 #: friendfund/templates/index.html:6
 #: friendfund/templates/index_popup.html:6
 msgid "PAGE_INDEX_TITLE_Welcome"
 msgstr "Group Gifts"
 
-#: friendfund/partners/jochen_schweizer/templates/index.html:87
-#: friendfund/templates/index.html:67
-#: friendfund/templates/index_popup.html:71
-msgid "PAGE_INDEX_HEADING_One more step..."
-msgstr "Noch ein Schritt"
+#: friendfund/partners/great_american_days/templates/index.html:32
+#: friendfund/partners/great_american_days/templates/layout_layer.html:32
+#: friendfund/partners/jochen_schweizer/templates/index.html:32
+#: friendfund/partners/jochen_schweizer/templates/layout_layer.html:32
+#| msgid "powered by <span class=\"emphasis\">friendfund</span>"
+msgid "powered by <span class=\"poweredByFriendfund\"></span>"
+msgstr "powered by <span class=\"emphasis\">friendfund</span>"
 
-#: friendfund/partners/jochen_schweizer/templates/index.html:90
+#: friendfund/partners/great_american_days/templates/index.html:74
+#: friendfund/partners/jochen_schweizer/templates/index.html:74
 #: friendfund/templates/index.html:70
 #: friendfund/templates/index_popup.html:74
 msgid "PAGE_INDEX_MESSAGE_Please select Who, When and What first!"
 msgstr "Bitte wähle zuerst Freund, Event und Geschenk aus."
 
-#: friendfund/partners/jochen_schweizer/templates/index.html:92
+#: friendfund/partners/great_american_days/templates/index.html:76
+#: friendfund/partners/jochen_schweizer/templates/index.html:76
 #: friendfund/templates/index.html:72
 #: friendfund/templates/index_popup.html:76
 msgid "PAGE_INDEX_BUTTON_Invite Friends"
 msgstr "Los geht's!"
 
-#: friendfund/partners/jochen_schweizer/templates/index.html:94
-#: friendfund/templates/index.html:74
-#: friendfund/templates/index_popup.html:78
-msgid "PAGE_INDEX_FUNDERSTEXT_Once you've selected a receiver, an event and a gift, invite your friends to chip in to your gift pool."
-msgstr "Lade deine Freunde zum mitmachen ein."
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:5
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:5
+#: friendfund/templates/contribution/contribution_result_success.html:5
+msgid "CONTRIBSUCCESSPAGE_SUCCESS_TITLE"
+msgstr "Zahlvorgang erfolgreich"
 
-#: friendfund/partners/jochen_schweizer/templates/layout_layer.html:32
-msgid "powered by <span class=\"emphasis\">friendfund</span>"
-msgstr "powered by <span class=\"emphasis\">friendfund</span>"
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:6
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:6
+#: friendfund/templates/contribution/contribution_result_success.html:6
+msgid "CONTRIBSUCCESSPAGE_SUCCESS_HEADING"
+msgstr "Zahlvorgang erfolgreich"
 
-#: friendfund/partners/jochen_schweizer/templates/occasion/button.html:13
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:20
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:20
+#: friendfund/templates/contribution/contribution_result_success.html:20
+#, python-format
+msgid "CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!"
+msgstr "%(receiver)s bedankt sich für deinen Beitrag! Vielen Dank!"
+
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:26
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:26
+#: friendfund/templates/contribution/contribution_result_success.html:26
+msgid "CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice"
+msgstr " "
+
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:30
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:30
+#: friendfund/templates/contribution/contribution_result_success.html:30
+msgid "CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take a couple of minutes to show up on the pool page, you will in any case receive a payment receipt by email."
+msgstr "Es kann ein bis zwei Minuten dauern, bis deine Zahlung auf der Pool Seite angezeigt wird."
+
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:36
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:36
+#: friendfund/templates/contribution/contribution_result_success.html:36
+#: friendfund/templates/mypools/friends_pools.html:40
+#: friendfund/templates/mypools/index.html:53
+msgid "CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"
+msgstr "Starte einen Pool für einen Freund"
+
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:39
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:39
+#: friendfund/templates/contribution/contribution_result_success.html:39
+msgid "CONTRIBSUCCESSPAGE_LABEL_Visit My Pools"
+msgstr "Meine Pools"
+
+#: friendfund/partners/great_american_days/templates/contribution/contribution_result_success.html:40
+#: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:40
+#: friendfund/templates/contribution/contribution_result_fail.html:32
+#: friendfund/templates/contribution/contribution_result_success.html:40
+msgid "CONTRIBSUCCESSPAGE_LABEL_Back To Pool"
+msgstr "Zurück zum Pool"
+
+#: friendfund/partners/great_american_days/templates/occasion/button.html:10
+#: friendfund/partners/jochen_schweizer/templates/occasion/button.html:10
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select an Event"
 msgstr "Für wann?"
 
-#: friendfund/partners/jochen_schweizer/templates/occasion/button.html:14
+#: friendfund/partners/great_american_days/templates/occasion/button.html:11
+#: friendfund/partners/jochen_schweizer/templates/occasion/button.html:11
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created."
 msgstr "Wähle einen Anlaß"
 
-#: friendfund/partners/jochen_schweizer/templates/product/button.html:16
+#: friendfund/partners/great_american_days/templates/occasion/panel.html:7
+#: friendfund/partners/jochen_schweizer/templates/occasion/panel.html:7
+#: friendfund/templates/occasion/panel.html:10
+msgid "EVENT_PANEL_Select an Event"
+msgstr "Wähle ein Event"
+
+#: friendfund/partners/great_american_days/templates/occasion/panel.html:18
+#: friendfund/partners/jochen_schweizer/templates/occasion/panel.html:18
+#: friendfund/templates/occasion/panel.html:21
+msgid "EVENT_PANEL_Just because..."
+msgstr "Einfach so..."
+
+#: friendfund/partners/great_american_days/templates/occasion/panel.html:37
+#: friendfund/partners/jochen_schweizer/templates/occasion/panel.html:37
+#: friendfund/templates/contribution/payment_details_form.html:18
+#: friendfund/templates/occasion/panel.html:31
+msgid "EVENT_PANEL_Submit"
+msgstr "Ok"
+
+#: friendfund/partners/great_american_days/templates/product/button.html:12
+#: friendfund/partners/jochen_schweizer/templates/product/button.html:12
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Gift"
 msgstr "Was?"
 
-#: friendfund/partners/jochen_schweizer/templates/product/button.html:17
+#: friendfund/partners/great_american_days/templates/product/button.html:13
+#: friendfund/partners/jochen_schweizer/templates/product/button.html:13
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands."
 msgstr "Wähle ein Geschenk"
 
-#: friendfund/partners/jochen_schweizer/templates/receiver/button.html:22
+#: friendfund/partners/great_american_days/templates/receiver/button.html:19
+#: friendfund/partners/jochen_schweizer/templates/receiver/button.html:19
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Friend"
 msgstr "Für wen?"
 
-#: friendfund/partners/jochen_schweizer/templates/receiver/button.html:23
+#: friendfund/partners/great_american_days/templates/receiver/button.html:20
+#: friendfund/partners/jochen_schweizer/templates/receiver/button.html:20
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your Facebook, Twitter or email friends."
 msgstr "Wähle den Empfänger"
+
+#: friendfund/partners/jochen_schweizer/templates/index.html:25
+#| msgid "BADGEPOPUP_Share this with your friends"
+msgid "JOCHEN_SCHWEIZER_Share the costs with your friends!"
+msgstr "Lade deine Freunde zum Mithelfen ein"
+
+#: friendfund/partners/jochen_schweizer/templates/index.html:27
+msgid "JOCHEN_SCHWEIZER_Share the costs with your friends by organising a group gift pool."
+msgstr "Teile die Kosten des Geschenkes durch einen Geschenkpool."
+
+#: friendfund/partners/jochen_schweizer/templates/index.html:62
+msgid "JOCHEN_SCHWEIZER_Complete the last Steps below"
+msgstr "Nur noch 2 kleine Schritte"
 
 #: friendfund/resources/db_keys.py:4
 msgid "EVENT_BIRTHDAY"
@@ -931,6 +1021,16 @@ msgstr "Finde das perfekte Geschenk für einen Freund oder dich selbst und lade 
 msgid "PAGE_INDEX_SLOGAN_CLOSING"
 msgstr "Beginne weiter unten"
 
+#: friendfund/templates/index.html:67
+#: friendfund/templates/index_popup.html:71
+msgid "PAGE_INDEX_HEADING_One more step..."
+msgstr "Noch ein Schritt"
+
+#: friendfund/templates/index.html:74
+#: friendfund/templates/index_popup.html:78
+msgid "PAGE_INDEX_FUNDERSTEXT_Once you've selected a receiver, an event and a gift, invite your friends to chip in to your gift pool."
+msgstr "Lade deine Freunde zum mitmachen ein."
+
 #: friendfund/templates/index.html:81
 msgid "PAGE_INDEX_BUTTON_Get Started"
 msgstr "Starte hier"
@@ -975,16 +1075,16 @@ msgstr "Impressum"
 msgid "SITEINFO_FAQ"
 msgstr "FAQ"
 
-#: friendfund/templates/master.html:153
+#: friendfund/templates/master.html:152
 msgid "ALLPAGE_BUTTON_Create a Pool"
 msgstr "Pool gründen"
 
-#: friendfund/templates/master.html:167
+#: friendfund/templates/master.html:166
 #: friendfund/templates/pool/pool_secret.html:7
 msgid "FB_METATAG_TITLE_friendfund.com"
 msgstr "Group Gifts"
 
-#: friendfund/templates/master.html:168
+#: friendfund/templates/master.html:167
 #: friendfund/templates/pool/pool_complete.html:21
 #: friendfund/templates/pool/pool_secret.html:9
 msgid "FB_METATAG_DESCRIPTION_friendfund.com - helping you!"
@@ -1153,42 +1253,6 @@ msgstr "Der Zahlvorgang wurde abgelehnt, vielleicht hast du dich vertippt? Probi
 msgid "CONTRIBSUCCESSPAGE_LABEL_Try Again"
 msgstr "Versuch's noch einmal"
 
-#: friendfund/templates/contribution/contribution_result_fail.html:32
-#: friendfund/templates/contribution/contribution_result_success.html:40
-msgid "CONTRIBSUCCESSPAGE_LABEL_Back To Pool"
-msgstr "Zurück zum Pool"
-
-#: friendfund/templates/contribution/contribution_result_success.html:5
-msgid "CONTRIBSUCCESSPAGE_SUCCESS_TITLE"
-msgstr "Zahlvorgang erfolgreich"
-
-#: friendfund/templates/contribution/contribution_result_success.html:6
-msgid "CONTRIBSUCCESSPAGE_SUCCESS_HEADING"
-msgstr "Zahlvorgang erfolgreich"
-
-#: friendfund/templates/contribution/contribution_result_success.html:20
-#, python-format
-msgid "CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!"
-msgstr "%(receiver)s bedankt sich für deinen Beitrag! Vielen Dank!"
-
-#: friendfund/templates/contribution/contribution_result_success.html:26
-msgid "CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice"
-msgstr " "
-
-#: friendfund/templates/contribution/contribution_result_success.html:30
-msgid "CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take a couple of minutes to show up on the pool page, you will in any case receive a payment receipt by email."
-msgstr "Es kann ein bis zwei Minuten dauern, bis deine Zahlung auf der Pool Seite angezeigt wird."
-
-#: friendfund/templates/contribution/contribution_result_success.html:36
-#: friendfund/templates/mypools/friends_pools.html:40
-#: friendfund/templates/mypools/index.html:53
-msgid "CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"
-msgstr "Starte einen Pool für einen Freund"
-
-#: friendfund/templates/contribution/contribution_result_success.html:39
-msgid "CONTRIBSUCCESSPAGE_LABEL_Visit My Pools"
-msgstr "Meine Pools"
-
 #: friendfund/templates/contribution/payment_details.html:20
 msgid "PAYMENT_DETAILS_Chip In Details"
 msgstr "Hinweise"
@@ -1196,11 +1260,6 @@ msgstr "Hinweise"
 #: friendfund/templates/contribution/payment_details.html:21
 msgid "PAYMENT_DETAILS_Payment Details"
 msgstr "Zahlungsangaben"
-
-#: friendfund/templates/contribution/payment_details_form.html:18
-#: friendfund/templates/occasion/panel.html:37
-msgid "EVENT_PANEL_Submit"
-msgstr "Ok"
 
 #: friendfund/templates/invite/invite.html:6
 msgid "INVITE_PAGE_FB_LOGIN_Invite"
@@ -1226,84 +1285,85 @@ msgstr "Klicke auf ein Geschenk-Icon unten um den Freund mit der besten Geschenk
 msgid "INVITE_PAGE_<span class=\"name\">%s</span> has been nominated to choose a gift for this pool."
 msgstr "<span class=\"name\">%s</span> soll das Geschenk aussuchen."
 
-#: friendfund/templates/invite/invite.html:100
+#: friendfund/templates/invite/invite.html:101
 msgid "INVITE_PAGE_LABEL_Send a personal message to all invitees:"
 msgstr "Sende eine persönliche Nachricht an alle eingeladenen Freunde:"
 
-#: friendfund/templates/invite/invite.html:102
-#, python-format
-msgid "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
-msgstr "%(admin_name)s hat einen Geschenkpool für %(receiver_name)ss %(occasion_name)s gegründet. Mach mit!"
-
-#: friendfund/templates/invite/invite.html:106
+#: friendfund/templates/invite/invite.html:110
 #, python-format
 msgid "INVITE_PAGE_LABEL_Keep pool a secret from %(receiver_name)s"
 msgstr "Pool vor %(receiver_name)s geheim halten"
 
-#: friendfund/templates/invite/invite.html:108
+#: friendfund/templates/invite/invite.html:112
 msgid "INVITE_PAGE_BUTTON_Yes, please."
 msgstr "Ja, bitte."
 
-#: friendfund/templates/invite/invite.html:113
+#: friendfund/templates/invite/invite.html:118
 msgid "INVITE_PAGE_TIP_Please invite some friends first!"
 msgstr "Bitte lade erst ein paar Freunde ein!"
 
-#: friendfund/templates/invite/invite.html:116
+#: friendfund/templates/invite/invite.html:121
 msgid "INVITE_PAGE_TIP_Please chose a Gift Selector First!"
 msgstr "Bestimme erst den Freund mit der Geschenkidee!"
 
-#: friendfund/templates/invite/invite.html:119
+#: friendfund/templates/invite/invite.html:123
 msgid "INVITE_PAGE_BUTTON_Send Invites"
 msgstr "Senden"
+
+#: friendfund/templates/invite/invite.html:127
+#: friendfund/templates/invite/invite.html:128
+msgid "Share on Facebook"
+msgstr ""
 
 #: friendfund/templates/invite/inviter.html:22
 msgid "INVITE_PAGE_Only Mutual Friends"
 msgstr "Nur gemeinsame Freunde"
 
-#: friendfund/templates/invite/inviter.html:26
+#: friendfund/templates/invite/inviter.html:25
+#: friendfund/templates/receiver/inviter.html:19
 msgid "INVITE_PAGE_LABEL_Search friends ..."
 msgstr "Freunde Suchen ..."
 
-#: friendfund/templates/invite/inviter.html:28
+#: friendfund/templates/invite/inviter.html:26
 msgid "INVITE_PAGE_LABEL_Invite All"
 msgstr "Alle einladen"
 
-#: friendfund/templates/invite/inviter.html:57
+#: friendfund/templates/invite/inviter.html:55
 #: friendfund/templates/receiver/networkfriends.html:12
 #, python-format
 msgid "RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s"
 msgstr "Geburtstag: %(dob_fmt)s"
 
-#: friendfund/templates/invite/inviter.html:59
+#: friendfund/templates/invite/inviter.html:57
 #: friendfund/templates/receiver/networkfriends.html:14
 #, python-format
 msgid "RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go"
 msgstr "Nur Noch <b>%(dob_difference)s Tage</b>"
 
-#: friendfund/templates/invite/inviter.html:65
-#: friendfund/templates/invite/inviter.html:127
+#: friendfund/templates/invite/inviter.html:63
+#: friendfund/templates/invite/inviter.html:125
 msgid "INVITE_LABEL_Invite"
 msgstr "Einladen"
 
-#: friendfund/templates/invite/inviter.html:66
-#: friendfund/templates/invite/inviter.html:128
+#: friendfund/templates/invite/inviter.html:64
+#: friendfund/templates/invite/inviter.html:126
 msgid "INVITE_LABEL_Remove"
 msgstr "Entfernen"
 
-#: friendfund/templates/invite/inviter.html:68
-#: friendfund/templates/invite/inviter.html:130
+#: friendfund/templates/invite/inviter.html:66
+#: friendfund/templates/invite/inviter.html:128
 msgid "PENDINGPRODUCT_SELECTOR"
 msgstr "Auswählen"
 
-#: friendfund/templates/invite/inviter.html:91
+#: friendfund/templates/invite/inviter.html:89
 msgid "INVITE_PAGE_LABEL_Name of your friend:"
 msgstr "Name deines Freundes:"
 
-#: friendfund/templates/invite/inviter.html:98
+#: friendfund/templates/invite/inviter.html:96
 msgid "INVITE_PAGE_LABEL_Email address of your friend:"
 msgstr "E-Mail Adresse deines Freundes"
 
-#: friendfund/templates/invite/inviter.html:109
+#: friendfund/templates/invite/inviter.html:107
 msgid "INVITE_PAGE_LABEL_Submit"
 msgstr "Abschicken"
 
@@ -1549,7 +1609,7 @@ msgid "MYPOOLS_CONTENT_Already chipped in:"
 msgstr "Mitgemacht haben:"
 
 #: friendfund/templates/mypools/mypools_body.html:36
-#: friendfund/templates/pool/pool.html:137
+#: friendfund/templates/pool/pool.html:147
 #: friendfund/templates/pool/parts/button_contribute.html:16
 msgid "MYPOOLS_CONTENT_Chipped In"
 msgstr "Beigesteuert"
@@ -1800,15 +1860,7 @@ msgstr "Event wählen"
 msgid "PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created."
 msgstr "Wähle das besondere Event für das du deinen Pool gründen möchtest."
 
-#: friendfund/templates/occasion/panel.html:10
-msgid "EVENT_PANEL_Select an Event"
-msgstr "Wähle ein Event"
-
-#: friendfund/templates/occasion/panel.html:21
-msgid "EVENT_PANEL_Just because..."
-msgstr "Einfach so..."
-
-#: friendfund/templates/occasion/panel.html:33
+#: friendfund/templates/occasion/panel.html:34
 msgid "EVENT_PANEL_And Pick a Date"
 msgstr "Wähle noch das Datum"
 
@@ -1845,223 +1897,223 @@ msgstr "wenn du offline bist an deine Facebook Pinnwand zu schreiben"
 msgid "POOL_PAGE__TITLE_Pool"
 msgstr "Pool"
 
-#: friendfund/templates/pool/pool.html:10
+#: friendfund/templates/pool/pool.html:21
 #, python-format
 msgid "POOL_PAGE_Gift Pool for %(receiver)s"
 msgstr "Geschenkpool für %(receiver)s"
 
-#: friendfund/templates/pool/pool.html:33
+#: friendfund/templates/pool/pool.html:43
 #: friendfund/templates/pool/pool_master.html:17
 msgid "POOL_PAGE_SELECTOR_Someone"
 msgstr "Jemand"
 
-#: friendfund/templates/pool/pool.html:40
+#: friendfund/templates/pool/pool.html:50
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s!<br/>Congratulations, this pool is now fully funded!"
 msgstr "Hi, %(user_name)s<br/>Glückwunsch, der Pool hat sein Ziel erreicht!"
 
-#: friendfund/templates/pool/pool.html:42
+#: friendfund/templates/pool/pool.html:52
 msgid "POOL_PAGE_SLOGAN_All you need to do now is visit the Pool Admin Page to order your gift."
 msgstr "Du musst jetzt nur noch zur Pool-Admin Seite gehen und das Geschenk bestellen."
 
-#: friendfund/templates/pool/pool.html:45
+#: friendfund/templates/pool/pool.html:55
 #, python-format
 msgid "POOL_PAGE_SLOGAN_SO this pool is now fully funded and we are just waiting for %(admin_name)s to give us a shipping address and order the gift."
 msgstr "SO, der Geschenkpool hat sein Ziel erreicht und wartet nur noch darauf, dass uns %(admin_name)s die Versandadresse mitteilt und das Geschenk bestellt."
 
-#: friendfund/templates/pool/pool.html:47
+#: friendfund/templates/pool/pool.html:57
 #, python-format
 msgid "POOL_PAGE_SLOGAN_%(admin_name)s has been notified and should be ordering the gift soon."
 msgstr "%(admin_name)s wurde benachrichtigt und wird wohl das Geschenk bald bestellen."
 
-#: friendfund/templates/pool/pool.html:52
+#: friendfund/templates/pool/pool.html:62
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s!<br/>Oh no! This pool has expired without reaching its goal."
 msgstr "Hi, %(user_name)s<br/> Oh Nein, der Geschenkpool ist abgelaufen ohne sein Ziel zu erreichen"
 
-#: friendfund/templates/pool/pool.html:54
+#: friendfund/templates/pool/pool.html:64
 msgid "POOL_PAGE_SLOGAN_Visit the Pool Admin Page to extend the deadline or remind your friends to chip in. "
 msgstr "Besuch die Pool-Admin Seite um die Deadline zu verschieben oder deine Freunde nocheinmal ans mitmachen zu erinnern."
 
-#: friendfund/templates/pool/pool.html:57
+#: friendfund/templates/pool/pool.html:67
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>Oh no! This pool has expired without reaching its goal."
 msgstr "Hi, %(user_name)s<br/>Oh Nein, der Geschenkpool ist abgelaufen ohne sein Ziel zu erreichen"
 
-#: friendfund/templates/pool/pool.html:59
+#: friendfund/templates/pool/pool.html:69
 #, python-format
 msgid "POOL_PAGE_SLOGAN_It's now up to %(admin_name)s to extend the deadline so %(receiver_name)s can get a %(product_name)s."
 msgstr "Es liegt nun an %(admin_name)s die Deadline zu verschieben, damit %(receiver_name)s doch noch ein %(product_name)s bekommen kann."
 
-#: friendfund/templates/pool/pool.html:64
+#: friendfund/templates/pool/pool.html:74
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, log in and help out!"
 msgstr "Hi, %(user_name)s<br/>%(admin_name)s hat einen Geschenkpool für %(receiver_name)ss %(occasion_name)s gegründet. Melde dich an und mach mit!"
 
-#: friendfund/templates/pool/pool.html:66
+#: friendfund/templates/pool/pool.html:76
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Please log in to chip in for %(receiver_name)s's %(occasion_name)s gift."
 msgstr "Melde dich an um zu %(receiver_name)s's %(occasion_name)s Geschenk beizutragen."
 
-#: friendfund/templates/pool/pool.html:69
+#: friendfund/templates/pool/pool.html:79
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You have created a pool for %(receiver_name)s's %(occasion_name)s gift."
 msgstr "Hi, %(user_name)s<br/>du hast einen Geschenkpool für  %(receiver_name)s zu %(occasion_name)s eingerichtet."
 
-#: friendfund/templates/pool/pool.html:71
+#: friendfund/templates/pool/pool.html:81
 msgid "POOL_PAGE_SLOGAN_Edit pool settings any time by visiting the Pool Admin page."
 msgstr "Bearbeite die Pooleinstellungen auf der Pool Admin Seite."
 
-#: friendfund/templates/pool/pool.html:74
+#: friendfund/templates/pool/pool.html:84
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift."
 msgstr "Hi, %(user_name)s<br/>Du wurdest eingeladen zu %(receiver_name)s's %(occasion_name)s Geschenk beizutragen."
 
-#: friendfund/templates/pool/pool.html:76
+#: friendfund/templates/pool/pool.html:86
 #, python-format
 msgid "POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for %(receiver_name)s's %(occasion_name)s and they want you to contribute what you can."
 msgstr "%(admin_name)s möchte ein %(product_name)s für %(receiver_name)s's %(occasion_name)s und möchte, daß du hilfst es zu kaufen."
 
-#: friendfund/templates/pool/pool.html:79
+#: friendfund/templates/pool/pool.html:89
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift, chip in and join the pool."
 msgstr "Hi, %(user_name)s<br/>%(admin_name)s hat einen Geschenkpool für %(receiver_name)s's %(occasion_name)s gegründet, mach mit und hilf das Geschenk zu kaufen!"
 
-#: friendfund/templates/pool/pool.html:81
+#: friendfund/templates/pool/pool.html:91
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Chip in and help %(receiver_name)s get a %(product_name)s for %(occasion_name)s."
 msgstr "Hilf %(receiver_name)s sein %(product_name)s zu %(occasion_name)s bekommen und steuere etwas dazu bei."
 
-#: friendfund/templates/pool/pool.html:86
+#: friendfund/templates/pool/pool.html:96
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated <em>you</em> to choose %(receiver_name)s's gift."
 msgstr "Hi, %(user_name)s<br/>%(admin_name)s möchte, daß <em>du</em> das perfekte Geschenk für %(receiver_name)s wählst."
 
-#: friendfund/templates/pool/pool.html:88
+#: friendfund/templates/pool/pool.html:98
 msgid "POOL_PAGE_SLOGAN_Please click 'Choose Gift' below and find the perfect gift."
 msgstr "Klicke unten auf 'Geschenk wählen' und finde das perfekte Geschenk."
 
-#: friendfund/templates/pool/pool.html:91
+#: friendfund/templates/pool/pool.html:101
 #, python-format
 msgid "POOL_PAGE_SLOGAN_Hi, %(user_name)s<br/>%(admin_name)s has nominated <em>%(selector_name)s</em> to choose %(receiver_name)s's gift."
 msgstr "Hi, %(user_name)s<br/>%(admin_name)s möchte, daß <em>%(selector_name)s</em> das perfekte Geschenk für %(receiver_name)s auswählt."
 
-#: friendfund/templates/pool/pool.html:93
+#: friendfund/templates/pool/pool.html:103
 #, python-format
 msgid "POOL_PAGE_SLOGAN_This pool is waiting for %(selector_name)s to select a gift, chipping in will be possible after they have chosen the perfect gift!"
 msgstr "Erst wenn <em>%(selector_name)s</em> das perfekte Geschenk ausgewählt hat, kannst du helfen es zu kaufen!"
 
-#: friendfund/templates/pool/pool.html:112
+#: friendfund/templates/pool/pool.html:122
 msgid "POOL_PAGE_more..."
 msgstr "mehr..."
 
-#: friendfund/templates/pool/pool.html:119
+#: friendfund/templates/pool/pool.html:129
 #, python-format
 msgid "POOL_PAGE_Help make %(receiver_first_name)s's day!"
 msgstr "Hilf %(receiver_first_name)s aus!"
 
-#: friendfund/templates/pool/pool.html:126
+#: friendfund/templates/pool/pool.html:136
 #: friendfund/templates/pool/pool_secret.html:47
 msgid "POOL_PAGE_days and"
 msgstr "Tage"
 
-#: friendfund/templates/pool/pool.html:127
+#: friendfund/templates/pool/pool.html:137
 #: friendfund/templates/pool/pool_secret.html:48
 msgid "POOL_PAGE_hours left"
 msgstr "Stunden übrig"
 
-#: friendfund/templates/pool/pool.html:129
+#: friendfund/templates/pool/pool.html:139
 #: friendfund/templates/pool/pool_secret.html:50
 #, python-format
 msgid "POOL_PAGE_This gift pool closes on %(end_date)s."
 msgstr "Dieser Pool schliesst am %(end_date)s."
 
-#: friendfund/templates/pool/pool.html:133
+#: friendfund/templates/pool/pool.html:143
 #: friendfund/templates/pool/parts/selector_waiting.html:18
 msgid "POOL_BUTTON_Select Product now!"
 msgstr "Geschenk Wählen"
 
-#: friendfund/templates/pool/pool.html:139
-#: friendfund/templates/pool/pool.html:145
-#: friendfund/templates/pool/pool.html:157
+#: friendfund/templates/pool/pool.html:149
+#: friendfund/templates/pool/pool.html:155
+#: friendfund/templates/pool/pool.html:167
 #: friendfund/templates/pool/pool_secret.html:51
 #: friendfund/templates/pool/parts/button_contribute.html:19
 #: friendfund/templates/pool/parts/button_contribute.html:27
 msgid "POOL_BUTTON_Chip in!"
 msgstr "Schenk mit!"
 
-#: friendfund/templates/pool/pool.html:150
+#: friendfund/templates/pool/pool.html:160
 #: friendfund/templates/pool/settings_admin.html:116
 #: friendfund/templates/pool/parts/button_close.html:5
 msgid "POOL_BUTTON_ACTION_Order Gift"
 msgstr "Bestellen"
 
-#: friendfund/templates/pool/pool.html:154
-#: friendfund/templates/pool/pool.html:222
-#: friendfund/templates/pool/pool.html:223
+#: friendfund/templates/pool/pool.html:164
+#: friendfund/templates/pool/pool.html:232
+#: friendfund/templates/pool/pool.html:233
 msgid "POOL_PAGE_Visit Pool Admin"
 msgstr "Zur Pool Admin Seite"
 
-#: friendfund/templates/pool/pool.html:165
+#: friendfund/templates/pool/pool.html:175
 #, python-format
 msgid "POOL_PAGE_TOOLTIP_- %(selector_name)s first needs to find a gift before we can start chipping in."
 msgstr " - %(selector_name)s muss zuerst das Geschenk aussuchen, bevor es losgehen kann."
 
-#: friendfund/templates/pool/pool.html:167
+#: friendfund/templates/pool/pool.html:177
 msgid "POOL_PAGE_TOOLTIP_- Be the first among your friends to chip in!"
 msgstr " - Steuere als Erster etwas bei!"
 
-#: friendfund/templates/pool/pool.html:211
+#: friendfund/templates/pool/pool.html:221
 #, python-format
 msgid "POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!"
 msgstr "<b>%(amount_contributed)s</b> wurden bereits beigesteuert. Es fehlen nur noch <b>%(amount_left)s</b> bis zum %(end_date)s!"
 
-#: friendfund/templates/pool/pool.html:230
+#: friendfund/templates/pool/pool.html:240
 #, python-format
 msgid "POOL_PAGE_%(number_contributors)d person has chipped in for %(receiver_name)s's gift."
 msgid_plural "POOL_PAGE_%(number_contributors)d people have chipped in for %(receiver_name)s's gift."
 msgstr[0] "%(number_contributors)d Freund hat bereits zu %(receiver_name)s's Geschenk beigesteuert."
 msgstr[1] "%(number_contributors)d Freunde haben bereits zu %(receiver_name)s's Geschenk beigesteuert."
 
-#: friendfund/templates/pool/pool.html:233
+#: friendfund/templates/pool/pool.html:243
 #: friendfund/templates/pool/pool_secret.html:69
 msgid "POOL_PAGE_Contributors"
 msgstr "Freunde"
 
-#: friendfund/templates/pool/pool.html:236
+#: friendfund/templates/pool/pool.html:246
 msgid "POOL_BUTTON_Invite more Friends to this pool"
 msgstr "Lade weitere Freunde ein"
 
-#: friendfund/templates/pool/pool.html:257
+#: friendfund/templates/pool/pool.html:267
 msgid "POOL_CHAT_Fund Chat"
 msgstr "Pool Chat"
 
-#: friendfund/templates/pool/pool.html:259
+#: friendfund/templates/pool/pool.html:269
 msgid "POOL_CHAT_Leave your Comment:"
 msgstr "Schreibe eine Nachricht:"
 
-#: friendfund/templates/pool/pool.html:261
+#: friendfund/templates/pool/pool.html:271
 msgid "POOL_PAGE_BUTTON_Post!"
 msgstr "Posten!"
 
-#: friendfund/templates/pool/pool.html:269
+#: friendfund/templates/pool/pool.html:279
 msgid "POOL_CHAT_This is a secret pool, no chat is shown."
 msgstr "Dieser Pool ist geheim, es werden keine Nachrichten angezeigt."
 
-#: friendfund/templates/pool/pool.html:278
+#: friendfund/templates/pool/pool.html:288
 msgid "POOL_PAGE_(Admin)"
 msgstr "(Admin)"
 
-#: friendfund/templates/pool/pool.html:280
+#: friendfund/templates/pool/pool.html:290
 #, python-format
 msgid "POOL_PAGE_Has chipped in %(amount)s"
 msgstr "Hat %(amount)s beigesteuert"
 
-#: friendfund/templates/pool/pool.html:290
+#: friendfund/templates/pool/pool.html:300
 msgid "POOL_CHAT_Someone you might know"
 msgstr "Jemand, den du vielleicht kennst"
 
-#: friendfund/templates/pool/pool.html:292
+#: friendfund/templates/pool/pool.html:302
 msgid "POOL_CHAT_Anonymous"
 msgstr "Anonym"
 
@@ -2442,7 +2494,7 @@ msgstr "Wähle einen Empfänger aus deinen Facebook, Twitter oder E-Mail Freunde
 msgid "RECEIVER_PANEL_FBLOGIN_To invite your Facebook Friends, You should Connect with Facebook!"
 msgstr "Um deine Facebook Freunde einzuladen musst du dich bei Facebook einloggen!"
 
-#: friendfund/templates/receiver/inviter.html:19
+#: friendfund/templates/receiver/inviter.html:18
 #, python-format
 msgid "RECEIVER_PANEL_Search your %s friends:"
 msgstr "Suche %s Freunde"
@@ -2455,11 +2507,11 @@ msgstr "Wählen"
 msgid "RECEIVER_PANEL_HEADER_You need to login in order to choose yourself!"
 msgstr "Um dich selbst auszuwählen, musst du dich zuerst mit Facebook einloggen."
 
-#: friendfund/templates/receiver/panel.html:9
+#: friendfund/templates/receiver/panel.html:6
 msgid "RECEIVER_PANEL_HEADER_or"
 msgstr "oder"
 
-#: friendfund/templates/receiver/panel.html:11
+#: friendfund/templates/receiver/panel.html:8
 msgid "RECEIVER_PANEL_HEADER_choose yourself"
 msgstr "dich selbst"
 

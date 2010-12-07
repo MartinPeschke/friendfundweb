@@ -170,7 +170,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			dojo.animateProperty(
 				{node: dojo.byId(id),duration: 1000,
 					properties: {
-						backgroundColor: {start: "red", end: "#89A79E"}
+						backgroundColor: {start: "red", end: "#FFE493"}
 					}}).play();
 			evt.stopPropagation();
 			evt.preventDefault();
