@@ -23,8 +23,9 @@ log = logging.getLogger(__name__)
 class InviteController(BaseController):
 	navposition=g.globalnav[1][2]
 	
-	@logged_in(ajax=False)
 	def display(self, pool_url):
+		if c.user.is_anon:
+			return redirect(url('get_pool', pool_url=pool_url))
 		if not pool_url:
 			return redirect(url('home'))
 		if not c.user.set_pool_url(pool_url):

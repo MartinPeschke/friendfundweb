@@ -102,13 +102,6 @@ getfbPermanent = function(api_key){
 	window.open('https://graph.facebook.com/oauth/authorize?client_id='+api_key+'&redirect_uri='+localhost+'/fb/get_offline&display=popup&scope=offline_access', '_blank', 'left=100,top=100,height=300,width=500,location=no,resizable=no,scrollbars=no');
 };
 
-
-
-
-
-
-
-
-
-
-
+fbShare = function(url, title){
+	window.open('http://www.facebook.com/sharer.php?u='+url+'&t='+title+'&src=sp', '_blank', 'left=100,top=100,height=350,width=600,location=no,resizable=no,scrollbars=no');
+}

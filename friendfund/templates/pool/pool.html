@@ -6,9 +6,19 @@
 <%def name="title()">${_("POOL_PAGE__TITLE_Pool")}</%def>
 
 <%def name="fb_meta_tags()">
+	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.receiver.get_profile_pic("POOL")}" />
+	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.product.get_product_pic()}" />
+	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.admin.get_profile_pic("POOL")}" />
 	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
-	<meta property="og:title" content="${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name)])}" />
+	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("RA")}" />
+	
 	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("RA")}" />
+	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.receiver.get_profile_pic("POOL")}" />
+	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.product.get_product_pic()}" />
+	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.admin.get_profile_pic("POOL")}" />
+	
+	<meta property="og:title" content="${_("POOL_PAGE_Gift Pool for %(receiver)s") % dict([("receiver",c.pool.receiver.name)])}" />
 	<meta property="og:description" content="${c.pool.description}" />
 	<meta property="og:type" content="product"/>
 	<meta property="og:url" content="${url.current(protocol="http")}"/>

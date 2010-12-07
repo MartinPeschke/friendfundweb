@@ -349,6 +349,9 @@ class Pool(DBMappedObject):
 		self.product.currency = self.currency
 		self.determine_roles()
 		self.region = self.region.lower()
+		if self.description == None:
+			locals = {"admin_name":self.admin.name, "receiver_name" : self.receiver.name, "occasion_name": self.occasion.get_display_name()}
+			self.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
 		return self
 
 class AddInviteesProc(DBMappedObject):

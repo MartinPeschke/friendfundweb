@@ -271,6 +271,7 @@ class ContributionController(BaseController):
 		"""basic auth: adyen/4epayeguka7ew43frEst5b4u"""
 		if request.method != 'POST':
 			return ['rejected']
+		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = request.POST
 		if str(params['eventCode']) in ['AUTHORISATION', 'REFUND', 'CANCELLATION', 'CAPTURE', 'CHARGEBACK', 'CHARGEBACK_REVERSED']:
 			paymentlog.info( 'headers=%s', request.headers )
