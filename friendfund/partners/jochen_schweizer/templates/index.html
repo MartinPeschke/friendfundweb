@@ -24,7 +24,7 @@
 	<h4 class="inside">
 		Share the costs with your friends!
 	</h4>
-	<div class="insider">Share the costs with your friends by organising a group gift pool.</div>
+	<div class="insider underlined5" style="margin:0 5px;">Share the costs with your friends by organising a group gift pool.</div>
 	</%def>
 <%def name="bodyclass()">popup</%def>
 <%def name="render_account_panel()"></%def>
@@ -58,8 +58,10 @@
 		<div id="product_panel" _type="product" class="frontpagebutton first">
 			<%include file="product/button.html"/>
 		</div>
-
-		<div id="receiver_panel" _type="receiver" class="frontpagebutton enabled">
+		
+		<div class="smallInside">Complete the last Steps below</div>
+		<div style="clear:both;height:5px;"></div>
+		<div id="receiver_panel" _type="receiver" class="frontpagebutton second enabled">
 			<%include file="receiver/button.html"/>
 		</div>
 
@@ -67,18 +69,12 @@
 			<%include file="occasion/button.html"/>
 		</div>
 
-		<div id="funders_panel" class="frontpagebutton last">
+		<div id="funders_panel" class="floaterLeft last">
 			<div class="hpbutton funders">
-				<a class="button funders">
-					${_(u"PAGE_INDEX_HEADING_One more step...")}
-				</a>
-				<div class="button_content funders">
-					<span id="funders_panel_tooltip" class="hidden">${_(u"PAGE_INDEX_MESSAGE_Please select Who, When and What first!")}</span>
-					<a id="funders_button" class="red_labeled_container funders inactive">
-						<span>${_("PAGE_INDEX_BUTTON_Invite Friends")}</span>
-                    </a>
-					<div style="position: relative; top: 15px;"><div class="sub_label ">${_(u"PAGE_INDEX_FUNDERSTEXT_Once you've selected a receiver, an event and a gift, invite your friends to chip in to your gift pool.")}</div></div>
-				</div>
+				<span id="funders_panel_tooltip" class="hidden">${_(u"PAGE_INDEX_MESSAGE_Please select Who, When and What first!")}</span>
+				<a id="funders_button" class="red_labeled_container funders inactive">
+					<span>${_("PAGE_INDEX_BUTTON_Invite Friends")}</span>
+                </a>
 			</div>
 		</div>
 		${html.clearline()|n}

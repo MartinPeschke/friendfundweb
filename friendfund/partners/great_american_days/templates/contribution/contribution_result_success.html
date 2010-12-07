@@ -9,7 +9,7 @@
 	${bdayfriends.includes()|n}
 </%def>
 <%def name="onloadscripts()">
-	${bdayfriends.scripts(c.user)|n}
+	${bdayfriends.scripts(c.user, furl = c.pool.product.tracking_link)|n}
 </%def>
 
 
