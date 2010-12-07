@@ -1,6 +1,3 @@
-<%namespace name="html" file="../widgets/html_elems.html"/>
-<%namespace name="form_widgets" file="../widgets/forms.html"/>
-
 <div id="button_panel" class="receiver">
 	<div id="network_methodselector" class="TabsContainer">
 			<a class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _target="inviter" _type="facebook"><span><img src="/static/imgs/icon_fb_connect.png"> Facebook</span></a>
@@ -12,7 +9,5 @@
 			</a>
 	</div>
 	<a class="button_panel_closer">&nbsp;</a>
-	${html.clearline()}
 	<div id="receiver_selector_container"></div>
-	${html.clearline()}
 </div>

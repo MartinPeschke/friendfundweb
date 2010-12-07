@@ -14,21 +14,19 @@
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals, with_pending = False)">
-	<div id="networkinviter_${network_name}">
-	<div id="inviteheader" class="inviteelist ${network_name}">
+	<div id="networkinviter_${network_name}" class="invitepage">
+	<div id="inviteheader" class="${network_name}">
 		%if mutuals:
 			<div class="mutual_toggle_container">
 				<input type="checkbox" id="toggle_mutuals" checked="checked"/>
 				<label for="toggle_mutuals">${_("INVITE_PAGE_Only Mutual Friends")}</label>
 			</div>
 		%endif
-		<div style="float: left;">
-		${forms.black_input_text("fb_filter", "fb_filter", label="", default=_("INVITE_PAGE_LABEL_Search friends ..."), width=175)}
-		</div>
+		<input type="text" value="${_("INVITE_PAGE_LABEL_Search friends ...")}" name="fb_filter" id="fb_filter" _default_text="${_("INVITE_PAGE_LABEL_Search friends ...")}" class="default">
 		<a class="submitMini" id="inviteall">${_("INVITE_PAGE_LABEL_Invite All")}<span></span></a>
 	</div>
 
-	<div id="friend_list" class="inviteelist ${network_name}">
+	<div id="friend_list" class="${network_name}">
 		${render_network_friends(friends, mutuals = mutuals, with_pending=with_pending)|n}
 		${render_network_friends(c.already_invited, active=False, mutuals = mutuals, with_pending=with_pending)|n}
 	</div>

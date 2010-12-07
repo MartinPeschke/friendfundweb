@@ -15,7 +15,7 @@ body.popup div#container {height:650px;background:white}
 
 #headercontainer {position: relative;float: left;width: 100%}
 #body_outer_container {position: relative;clear: both;background:white;border-top:1px solid #978779;float:left;}
-#body_container {clear:both;display: block;padding: 0px;position: relative;}
+#body_container {clear:both;display: block;padding: 0px;position: relative;float:left;}
 #body_container .innerbody {background-color:  #FFE493;padding-top: 1px;}
 
 
@@ -91,7 +91,7 @@ div.frontpagebutton.second {margin: 1px 1px 1px 0px;}
 div.frontpagebutton.last {width:250px;margin: 1px 0px 1px 1px;}
 div.frontpagebuttonhover {background-color: #FFEEB9;}
 
-#pool_configurator {padding:5px;float:left;}
+#pool_configurator {padding: 10px 15px 15px;float:left;}
 #pool_configurator div.frontpagebutton div.extender {
 	position: absolute;
 	width: 100%;
@@ -101,8 +101,8 @@ div.frontpagebuttonhover {background-color: #FFEEB9;}
 	background-color:#FFFAE6;
 	display:None;
 	z-index:5;
-	border-left: 1px solid #B7CAC5;
-	border-right: 1px solid #B7CAC5;
+	border-left: 1px solid #ffc20d;
+	border-right: 1px solid #ffc20d;
 }
 #pool_configurator div.frontpagebutton.front_panel_active div.extender {display:Block;}
 
@@ -125,7 +125,7 @@ div.frontpagebutton.funders {
 	padding-top: 1px;float:left;width:100%;
 }
 #pool_configurator div.frontpagebutton.enabled {cursor:pointer}
-#pool_configurator div.front_panel_active{ background-color: #FFFAE6; border: 1px solid #B7CAC5;padding: 0px;}
+#pool_configurator div.front_panel_active{ background-color: #FFFAE6; border: 1px solid #ffc20d;padding: 0px;}
 
 .hpbutton .button {
 	position: relative;
@@ -191,13 +191,14 @@ div.frontpagebutton.funders {
 	font-weight:normal;
 }
 
+#pool_configurator div.hpbutton.gift { padding:0px 0px 10px; }
 #pool_configurator div.hpbutton.gift div.label { margin:0px 10px;float:left;width:700px}
 #pool_configurator div.hpbutton.gift img.button_content {margin:0;float:left;max-width:178px;height:111px;padding:0;}
 
 #funders_panel{background:white !important;border:0px transparent solid !important;}
 
-#button_panel_container {float:left;display: None;width:100%;border: 1px solid #B7CAC5;background-color:#E8EEEC;clear: both;position: relative;margin-top:2px;}
-#button_panel {float:left;min-height:150px;position: relative;padding:10px 0 0 0;width:100%}
+#button_panel_container {float:left;display: None;width:100%;border: 1px solid #faba00;background-color:#FFFAE6;clear: both;position: relative;margin-top:2px;}
+#button_panel {float:left;height:225px;position: relative;padding:10px 0 0 0;width:100%}
 #button_panel h2{
 	margin:0;
 	color:#403834;
@@ -250,7 +251,7 @@ div.panel_content_inner {margin: 40px 20px 20px;}
 div#occasion_button_bar {
 	background:none repeat scroll 0 0 #FFE493;
 	border-top:1px solid #e6ac00;
-	margin-top:-1px;
+	margin-top:-1px;height:195px;
 }
 div#occasion_button_bar select,
 div#occasion_button_bar input{width:300px !important;background:white;padding:3px;}
@@ -278,7 +279,7 @@ div#occasion_button_bar input{width:300px !important;background:white;padding:3p
 	border: 1px solid #ffffff;
 	background: white;
 }
-#occasion_date_input_bar {clear:both;padding:30px;}
+#occasion_date_input_bar {clear:both;padding:0px 30px 30px;}
 
 #button_panel.occasion a.occasion_panel_button img {
 	position: relative;
@@ -394,7 +395,7 @@ p.termsOf a{ color:#B70158;}
 	border-top: 1px solid #faba00;
 	background-color:#FFE493;
 	margin-top:-1px;
-	min-height:100px;
+	height:195px;float:left;width:100%
 }
 .invite_pool_panel.first {margin: 30px 0px 0px 120px;}
 .invite_pool_panel {
@@ -437,21 +438,16 @@ p.termsOf a{ color:#B70158;}
 	display: block;
 	padding-top:10px;
 }
-#inviteheader {
-	position:relative;
-	text-align: left;
-}
-#inviteheader.fb {
-	height: 80px;
-}
+#inviteheader {position:relative;text-align: left;}
+.receiverselector #inviteheader{background: none repeat scroll 0 0 white;margin: 10px 10px 2px;padding: 11px 15px;}
+.invitepage #inviteheader {height:61px;}
 
-#inviteheader.inviteelist {
-	height:55px;
-}
-#inviteall {top:37px;float:right}
-#inviteheader .mutual_toggle_container {position: absolute;top: 37px;left: 0px;}
-#inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
-#inviteheader input{ margin-right:10px}
+#inviteall {top:43px;float:right}
+#inviteheader .mutual_toggle_container {position: absolute;top: 43px;left: 0px;float:left;}
+
+label.fb_filter {font-weight:bold;}
+#fb_filter {border: 1px solid #faba00;background:#eee;background: none repeat scroll 0 0 #FFFAF6;padding:6px;width:250px;-moz-border-radius: 15px;border-radius: 15px;}
+.receiverselector #fb_filter {margin-left:20px;}
 
 .TabsContainer{ float: left; padding-left: 10px;width:880px}
 a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
@@ -476,7 +472,6 @@ div#lowerbody {margin: 30px;}
 	float: left;}
 
 #receiver_selector_container #inviteheader div.headline {margin:20px;}
-#inviter #inviteheader div.headline {}
 #inviteheader div.headline {
 	float: left;
 	font-size: 14px;
@@ -507,17 +502,11 @@ div#lowerbody {margin: 30px;}
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 	cursor:pointer;
 }
+
 #friend_list {position:relative;}
 #friend_list.emailpopup {clear:both;}
-#friend_list.fb {background:none repeat scroll 0 0 white;height:125px;margin:0 15px 15px;overflow:auto;}
-
-#friend_list.inviteelist {
-	background-color:#FFFFFF;
-	border:1px solid #AAAAAA;
-	height:550px;
-	width:395px;
-	overflow:auto;
-}
+.receiverselector #friend_list {background:none repeat scroll 0 0 white;height:125px;margin:0 10px 15px;overflow:auto;}
+.invitepage #friend_list {background-color:#FFFFFF;border:1px solid #AAAAAA;height:550px;width:395px;overflow:auto;}
 
 .invitee_row {position: relative;padding-bottom: 5px;border-bottom: 1px solid #ccc;height: 50px;}
 .invitee_row .label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
@@ -541,7 +530,7 @@ div#lowerbody {margin: 30px;}
 .invitee_row.nonselectable {	display:none;}
 .invitee_row.selected {background-color: #eee;margin: 0px;padding: 5px;cursor:normal;}
 
-#receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 260px;}
+#receiver_selector_container .invitee_row{margin:5px 10px 0px 14px;float: left;width: 260px;}
 #receiver_selector_container .invitee_row span.label{ width:170px;}
 /*invite page only*/
 #lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
@@ -566,21 +555,10 @@ div#lowerbody {margin: 30px;}
 #emailinviter div.input_field div.label {float:left;margin-right:10px;position:relative;text-align:right;width:128px;}
 #emailinviter input{ border: 1px solid #999999}
 #email_inviter_error{float:right;width:237px;}
-
 #inviter_name{ margin-top:23px !important}
 
-#invites {
-	border-top: 1px solid #e6ac00;
-	background-color:  #FFE493;
-	position: relative;
-	margin-top: -1px;
-}
-#inviter {
-	float:left;
-	margin:26px 30px 30px;
-	position:relative;
-	width:395px;
-}
+#invites {border-top: 1px solid #e6ac00;background-color:  #FFE493;position: relative;margin-top: -1px;}
+#inviter {float:left;margin:20px 30px 30px;position:relative;width:395px;}
 #invited {
 	margin: 6px 30px 30px 30px;
 	position: relative;
