@@ -42,13 +42,21 @@ class PoolController(BaseController):
 			del websession['invitees']
 		return redirect(url('home'))
 	
+	def complete(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+		if not c.pool.is_closed():
+			 redirect(url('get_pool', pool_url=pool_url))
+		return self.render('/pool/pool_complete.html')
+	
 	def index(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
 		if c.pool.is_closed():
-			return self.render('/pool/pool_complete.html')
+			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
 		if not c.user.is_anon\
 			and c.pool.am_i_member(c.user):
 				c.user.current_pool = c.pool

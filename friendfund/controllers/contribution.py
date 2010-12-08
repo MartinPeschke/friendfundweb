@@ -87,7 +87,12 @@ class ContributionController(BaseController):
 		except NotAllowedToPayException, e:
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		
+		if checkadd_block('email'):
+			c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
+			c.enforce_blocks = True
+			c.page = 'contrib'
+			return self.render('/pool/pool.html')
+
 		contrib = Contribution(agreedToS=True, is_secret=False,anonymous=False, message="")
 		contrib.currency = c.pool.currency
 		contrib.set_amount(1)

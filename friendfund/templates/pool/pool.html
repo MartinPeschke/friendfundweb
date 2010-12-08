@@ -50,6 +50,11 @@
 				${_("POOL_PAGE_SLOGAN_Hi, %(user_name)s!<br/>Congratulations, this pool is now fully funded!") % locals|n}
 			</div>
 			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_All you need to do now is visit the Pool Admin Page to order your gift.") % locals|n}</div>
+		%elif c.pool.product.is_virtual:
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_This pool is now fully funded and we are just waiting for %(admin_name)s to close this pool.") % locals|n}
+			</div>
+			<div class="vertHalfPadding">${_("POOL_PAGE_SLOGAN_%(admin_name)s has been notified and should be ordering the gift soon.") % locals|n}</div>
 		%else:
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_SO this pool is now fully funded and we are just waiting for %(admin_name)s to give us a shipping address and order the gift.") % locals|n}

@@ -9,7 +9,7 @@
 		<form id="thankyou_form" method="POST">
 			<textarea cols="28" rows="4" name="thankyou">${pool.thank_you_message}</textarea>
 			<div style="float:right">
-				<a class="Save" onclick="loadFormElement('${url(controller='pool', pool_url=pool.p_url, action='set_thankyou')}', 'thankyou_editor', 'thankyou_form', place_element('thankyou_editor'));">
+				<a class="Save" onclick="loadFormElement('${url(controller='pool', pool_url=pool.p_url, action='set_thankyou')}', 'thankyou_editor', 'thankyou_form', page_reloader);">
 					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
 			</div>
 		</form>
