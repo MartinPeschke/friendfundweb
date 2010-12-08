@@ -2,6 +2,9 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="common" file="common.html"/>
+<%!
+	from operator import mod
+%>
 <%
 	if c.amazon_available:
 		default_text = _("Search for almost anything ... or paste a link from Amazon")
@@ -10,41 +13,46 @@
 %>
 <div class="whiteContainer">
 	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
+	<div class="clear"><br/><br/><br/></div>
 	<form id="product_search_form" onsubmit="return false;" >
 		<a name="product_search" id="product_search"></a> 
-		<div style="padding-bottom:15px;float:left;width:880px;">
-		
-		<div id="pq_container" style="" class="black_labeled_container_big">
-			<div class="right_bracket">&nbsp;</div>
-			<div class="left_button_search">&nbsp;</div>
-			<input type="text" value="${default_text}" name="q" id="pq" _default_text="${default_text}" class="black_labeled_input default">
+		<div class="product_search_container">
+			<div class="black_labeled_container_big">
+				<div class="right_bracket">&nbsp;</div>
+				<div class="left_button_search">&nbsp;</div>
+				<input type="text" value="${default_text}" name="q" id="pq" _default_text="${default_text}" class="black_labeled_input default">
+			</div>
+			<a class="searchButton submitSmall anchorelem searcher" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
+			%if c.amazon_available:
+				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme anchorelem popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
+			%endif
 		</div>
-		<div style="margin:28px 15px 30px;">
-			<a class="submitSmall anchorelem searcher" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
-		</div>
-		</div>
-		%if c.amazon_available:
-			<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme anchorelem popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
-		%endif
 	</form>
-	
-	
-	
-	<div class="clear"><br/><br/><br/></div>
-	<div id="product_suggestions" class="personalityBox">
-	%for i, ps in enumerate(c.psuggestions):
-		<div class="productsuggestion${(i+1)%5==0 and ' hlast' or ''} psmiddle">
-			<a class="productsuggestion anchorelem" _search_keys="_searchterm,_sort,_aff_net,_aff_net_ref,_catname" _base_url="${c.search_base_url}"
-			_searchterm="${ps.search}" _sort="${ps.sort or c.sort}" _aff_net="${ps.aff_net}" _aff_net_ref="${ps.aff_net_ref or ''}" _catname="${ps.name}">
-				<img class="productsuggestion" src="/static/imgs/suggestion/${ps.picture_url}"/>
-				<span>${ps.name}</span>
-				%if ps.help_link_href:
-					<span class="showme"><a href="#" _href="${url(controller='content', action=ps.help_link_href)}" class="showme anchorelem popuplink">${_(ps.help_link_title)}</a></span>
+	<div id="scrollingproductsuggestions" class="anythingSlider">
+	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
+	<span class="arrow forward arrowforward anchorelem"><a>&gt;&gt;</a></span>
+	<div dojoType="friendfund.AutoRotator" class="rotator" suspendOnHover="true" id="productslider" jsId="productsuggestionscroller1" fwdtransition="dojox.widget.rotator.panLeft" rwdtransition="dojox.widget.rotator.panRight" autoStart="true">
+			<% last_prod = len(c.top_sellers)-1 %>
+			%for i, prod in enumerate(c.top_sellers):
+				%if mod(i,c.SCROLLER_PAGE_SIZE) == 0:
+					<div class="pane pane${i%c.SCROLLER_PAGE_SIZE}">
 				%endif
-			</a>
+				<div _target_id="slider${i}_elem"  class="productsuggestion ${mod(i,c.SCROLLER_PAGE_SIZE)<(c.SCROLLER_PAGE_SIZE-1) and 'psmiddle' or ''}">
+					<a class="productsuggestion">
+						<img id="slider${i}_elem" src="${prod.picture_large}" class="productsuggestion"><span>${prod.name}</span>
+					</a>
+					<textarea style="display:none">
+						${common.display_product(0, prod)|n}
+						<div style="clear:both"></div>
+					</textarea>
+				</div>
+				%if mod(i,c.SCROLLER_PAGE_SIZE) == (c.SCROLLER_PAGE_SIZE-1) or i==last_prod:
+					</div>
+				%endif
+			%endfor
 		</div>
-	%endfor
 	</div>
+
 	<div class="clear" id="scroller_anchor"></div>
 	<div id="product_browser_container">
 		<%include file="search_tab_search.html"/>

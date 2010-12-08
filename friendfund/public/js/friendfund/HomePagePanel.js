@@ -1,5 +1,4 @@
 dojo.provide("friendfund.HomePagePanel");
-
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dojo.NodeList-manipulate");
 dojo.require("dojo.NodeList-traverse");

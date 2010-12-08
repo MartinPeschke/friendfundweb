@@ -124,9 +124,9 @@ class ProductService(object):
 		tmpl_context.panel = 'recommended_tab'
 		tmpl_context.search_base_url='recommended_tab_search'
 		tmpl_context.categories = self.product_categories.list
-		tmpl_context.SCROLLER_PAGE_SIZE = self.SCROLLER_PAGE_SIZE
 		tmpl_context.category = request.params.get('category')
 		
+		tmpl_context.SCROLLER_PAGE_SIZE = self.SCROLLER_PAGE_SIZE
 		tmpl_context.top_sellers = self.top_sellers[tmpl_context.region]
 		
 		if tmpl_context.category and tmpl_context.category not in self.category_map:
@@ -184,10 +184,8 @@ class ProductService(object):
 	def search_tab(self, request):
 		tmpl_context = self.search_tab_setup(request)
 		tmpl_context.search_base_url='search_tab_search'
-		tmpl_context.psuggestions = app_globals.dbsearch.get(ProductSuggestionSearch\
-									, country = tmpl_context.region\
-									, occasion = request.params.get('occasion_key', None)\
-									, receiver_sex = request.params.get('sex', None)).suggestions
+		tmpl_context.SCROLLER_PAGE_SIZE = self.SCROLLER_PAGE_SIZE
+		tmpl_context.top_sellers = self.top_sellers[tmpl_context.region]
 		return tmpl_context
 	
 	def search_tab_search(self, request):

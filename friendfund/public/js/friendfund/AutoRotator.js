@@ -1,7 +1,6 @@
-dojo.provide("friendfund.Rotator");
 dojo.provide("friendfund.AutoRotator");
-dojo.require("dojox.widget.rotator.Pan");
 dojo.require("dojo.parser");
+dojo.require("dojox.widget.rotator.Pan");
 
 (function(d){
 
@@ -71,7 +70,9 @@ dojo.require("dojo.parser");
 		//		The name of a function that is passed two panes nodes and a duration,
 		//		then returns a dojo.Animation object. The default value is
 		//		"dojox.widget.rotator.swap".
-		transition: _defaultTransition,
+		fwdtransition: _defaultTransition,
+		rwdtransition: _defaultTransition,
+
 		//	transitionParams: string
 		//		Parameters for the transition. The string is read in and eval'd as an
 		//		object.  If the duration is absent, the default value will be used.
@@ -88,12 +89,14 @@ dojo.require("dojo.parser");
 			d.mixin(this, params);
 
 			var _t = this,
-				t = _t.transition,
+				ft = _t.fwdtransition,
+				rt = _t.rwdtransition,
 				tt = _t._transitions = {},
 				idm = _t._idMap = {},
 				tp = _t.transitionParams = eval("({ " + _t.transitionParams + " })"),
 				node = _t._domNode = dojo.byId(node),
 				cb = _t._domNodeContentBox = d.contentBox(node), // we are going to assume the rotator will not be changing size
+
 				// default styles to apply to all the container node and rotator's panes
 				p = {
 					left: 0,
@@ -107,17 +110,23 @@ dojo.require("dojo.parser");
 			// if we don't have an id, then generate one
 			_t.id = node.id || (new Date()).getTime();
 
-
 			// force the rotator DOM node to a relative position and attach the container node to it
 			if(d.style(node, "position") == "static"){
 				d.style(node, "position", "relative");
 			}
 
 			// create our object for caching transition objects
-			tt[t] = d.getObject(t);
-			if(!tt[t]){
-				warn(t, _defaultTransition);
-				tt[_t.transition = _defaultTransition] = d.getObject(_defaultTransition);
+			tt[1] = d.getObject(ft);
+			if(!tt[1]){
+				warn(ft, _defaultTransition);
+				_t.fwdtransition = _defaultTransition;
+				tt[1] = d.getObject(_t.fwdtransition);
+			}
+			tt[-1] = d.getObject(rt);
+			if(!tt[-1]){
+				warn(rt, _defaultTransition);
+				_t.rwdtransition = _defaultTransition;
+				tt[-1] = d.getObject(_t.rwdtransition);
 			}
 
 			// clean up the transition params
@@ -135,8 +144,7 @@ dojo.require("dojo.parser");
 
 			// find and initialize the panes
 			d.query(">", node).forEach(function(n, i){
-				var q = { node: n, idx: i, params: d.mixin({}, tp, eval("({ " + (d.attr(n, "transitionParams") || "") + " })")) },
-					r = q.trans = d.attr(n, "transition") || _t.transition;
+				var q = { node: n, idx: i, params: d.mixin({}, tp, eval("({ " + (d.attr(n, "transitionParams") || "") + " })")) };
 
 				// cache each pane's title, duration, and waitForEvent attributes
 				d.forEach(["id", "title", "duration", "waitForEvent"], function(a){
@@ -145,11 +153,6 @@ dojo.require("dojo.parser");
 
 				if(q.id){
 					idm[q.id] = i;
-				}
-
-				// cache the transition function
-				if(!tt[r] && !(tt[r] = d.getObject(r))){
-					warn(r, q.trans = _t.transition);
 				}
 
 				p.position = "absolute";
@@ -190,18 +193,19 @@ dojo.require("dojo.parser");
 		next: function(){
 			//	summary:
 			//		Transitions the Rotator to the next pane.
-			return this.go(this.idx + 1, 1);
+			return this.go(this.idx, +1);
 		},
 
 		prev: function(){
 			//	summary:
 			//		Transitions the Rotator to the previous pane.
-			return this.go(this.idx - 1, -1);
+			return this.go(this.idx, -1);
 		},
 
-		go: function(/*int|string?*/p){
+		go: function(/*int|string?*/p, /* int */step){
 			//	summary:
 			//		Transitions the Rotator to the specified pane index.
+			p = p + step;
 			var _t = this,
 				i = _t.idx,
 				pp = _t.panes,
@@ -235,18 +239,10 @@ dojo.require("dojo.parser");
 					current: current,
 					next: next,
 					rotator: _t
-				};
+				},
+
 				// get the transition
-				
-				var anim = null;
-				if(!ffrwd){
-					anim = _t._transitions[next.trans];
-				} else if(ffrwd>0){
-					anim = _t.ffTransition;
-				} else if(ffrwd<0){
-					anim = _t.rwdTransition;
-				}
-				anim = _t.anim = anim(d.mixin({
+				anim = _t.anim = _t._transitions[step](d.mixin({
 					rotatorBox: _t._domNodeContentBox
 				}, info, next.params));
 
@@ -374,6 +370,7 @@ dojo.require("dojo.parser");
 
 
 (function(d){
+
 	d.declare("friendfund.AutoRotator", friendfund.Rotator, {
 		//	summary:
 		//		A rotator that automatically transitions between child nodes.
@@ -398,6 +395,7 @@ dojo.require("dojo.parser");
 		//	suspendOnHover: boolean
 		//		Pause the rotator when the mouse hovers over it.
 		suspendOnHover: false,
+
 		//	duration: int
 		//		The time in milliseconds before transitioning to the next pane.  The
 		//		default value is 4000 (4 seconds).
@@ -552,7 +550,7 @@ dojo.require("dojo.parser");
 			}
 
 			// rotate!
-			var def = _t.go(j);
+			var def = _t.go(j, (_t.reverse ? -1 : 1));
 
 			if(def){
 				def.addCallback(function(/*boolean?*/skipDuration){
@@ -585,16 +583,3 @@ dojo.require("dojo.parser");
 	});
 
 })(dojo);
-
-
-
-
-
-
-
-
-
-
-
-
-
