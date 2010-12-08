@@ -10,7 +10,8 @@ from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, SetPendingProductProc
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, SetPendingProductProc
+from friendfund.model.product_search import ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException
 log = logging.getLogger(__name__)

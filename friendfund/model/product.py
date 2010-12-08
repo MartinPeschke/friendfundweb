@@ -106,34 +106,6 @@ class ProductRetrieval(DBMappedObject):
 				,GenericAttrib(bool,'is_curated'      ,'is_curated')
 				,DBMapper(Product, 'product', 'PRODUCT')
 			]
-class ProductSearch(DBMappedObject):
-	"""
-		exec app.search_product'<SEARCH category ="garden" program_id ="123" search="schloss" page_no="1" region="de"/>'
-	"""
-	_get_root = _set_root = 'SEARCH'
-	_get_proc = _set_proc = 'imp.search_product'
-	_unique_keys = ['region', 'program_id', 'search', 'category', 'page_no']
-	_cacheable = False
-	_keys = [	 GenericAttrib(str ,'region'     ,'region')
-				,GenericAttrib(str ,'search'     ,'search')
-				,GenericAttrib(int ,'max_price'  ,'max_price')
-				,GenericAttrib(str ,'program_id' ,'program_id')
-				,GenericAttrib(int ,'category'   ,'category')
-				,GenericAttrib(int ,'page_no'    ,'page_no')
-				,GenericAttrib(int ,'pages'      ,'pages')
-				,GenericAttrib(int ,'page_size'  ,'page_size')
-				,GenericAttrib(int ,'items'      ,'items')
-				,GenericAttrib(str ,'sort'       ,'sort')
-				,DBMapper(Product  ,'products'   ,'PRODUCT', is_list = True)
-			]
-	
-	def page_field(self):
-		def lower(x):
-			return x>2 and x-2 or 1
-		def upper(x):
-			return x+2<self.pages and x+2 or self.pages
-		result = sorted(list(set([1] + range(lower(self.page_no), upper(self.page_no + 1)) + [self.pages] )))
-		return result
 
 class ProductSuggestion(DBMappedObject):
 	_expiretime = 10

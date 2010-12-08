@@ -3,7 +3,8 @@ from datetime import datetime
 from hashlib import sha256
 from lxml import etree, html
 
-from friendfund.model.product import ProductSearch, Product
+from friendfund.model.product import Product
+from friendfund.model.product_search import ProductSearch
 
 class AttributeMissingInProductException(Exception): pass
 class URLUnacceptableError(Exception): pass
@@ -31,7 +32,7 @@ class AmazonService(object):
 		self.query_url = "%s://%s%s" % (self.base_protocol, self.base_url, self.query_path)
 		self.api_version = "2010-09-01"
 		self.result_namespace = "http://webservices.amazon.com/AWSECommerceService/%s" % self.api_version
-		self.page_size = 10
+		self.page_size = 6
 		
 		self.domain = domain
 		self.url_product_identifer_prefixes = {

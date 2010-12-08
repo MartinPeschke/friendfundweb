@@ -1,13 +1,15 @@
 import logging, urlparse, uuid, urllib2
+
 from lxml import etree
 from datetime import datetime
 
+from BeautifulSoup import BeautifulSoup
 from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
 from friendfund.model.mapper import DBMapper
 from friendfund.model.pool import Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, ProductSearch, PendingProduct, Product
-from friendfund.model.product_search import ProductSearchByCategory
+from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, PendingProduct, Product
+from friendfund.model.product_search import ProductSearchByCategory, CombinedSearchResult, ProductSearch
 from friendfund.model.virtual_product import ProductPager
 
 log = logging.getLogger(__name__)
@@ -196,15 +198,16 @@ class ProductService(object):
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
 				return self._amazon_fallback(request, tmpl_context.searchterm)
 		else:
-			tmpl_context.searchresult = self.amazon_services[tmpl_context.region].get_products_from_search(tmpl_context.searchterm)
-										# app_globals.dbsearch.call(ProductSearch( 
-										# sort = tmpl_context.sort,
-										# page_size = tmpl_context.page_size,
-										# program_id = tmpl_context.aff_net_ref, 
-										# search=tmpl_context.searchterm, 
-										# page_no=tmpl_context.page,
-										# region=tmpl_context.region,
-										# max_price = tmpl_context.max_price), ProductSearch)
+			s1 = self.amazon_services[tmpl_context.region].get_products_from_search(tmpl_context.searchterm)
+			s2 = app_globals.dbsearch.call(ProductSearch( 
+						sort = tmpl_context.sort,
+						page_size = tmpl_context.page_size,
+						program_id = tmpl_context.aff_net_ref, 
+						search=tmpl_context.searchterm, 
+						page_no=tmpl_context.page,
+						region=tmpl_context.region,
+						max_price = tmpl_context.max_price), ProductSearch)
+			tmpl_context.searchresult = CombinedSearchResult(s1, s2, tmpl_context.page)
 			tmpl_context.searchterm = request.params.get("catname", tmpl_context.searchterm)
 		return tmpl_context
 	
@@ -218,7 +221,6 @@ class ProductService(object):
 		else:
 			tmpl_context.searchresult = self.amazon_services[domain].get_product_from_url(url)
 		return tmpl_context
-	
 	
 	def getaltproduct(self, product, region):
 		if product['is_amazon']:
@@ -275,16 +277,23 @@ class ProductService(object):
 		scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 		product_page = urllib2.urlopen(query)
 
-		from BeautifulSoup import BeautifulSoup
 		soup = BeautifulSoup(product_page.read())
 		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta'))
 		if params.get("og:type") != 'product':
 			log.error("Markup not OKAY")
 			abort(404)
-		product = Product(aff_id=query, aff_program_id="-1", aff_program_name=domain, aff_net=domain,guid=uuid.uuid4(),category="170000", is_virtual=False,aff_program_logo_url="",aff_program_delivery_time=5,tracking_link=query)
+		product = Product(aff_id=query, 
+							aff_program_id="-1", 
+							aff_program_name=domain, 
+							aff_net=domain,
+							guid=uuid.uuid4(),
+							category="170000", 
+							is_virtual=False,
+							aff_program_logo_url="",
+							aff_program_delivery_time=5,
+							tracking_link=query)
 		for k,(name, transf) in transl.iteritems():
 			setattr(product, k, transf(params.get(name)))
-		product.tracking_link = request.params.get("referer")
 		product.fromDB(None)
 		pool.product = product
 		pool.region = params.get('og:location') or params.get('lang') or params.get('language') or 'de'
