@@ -104,4 +104,18 @@ getfbPermanent = function(api_key){
 
 fbShare = function(url, title){
 	window.open('http://www.facebook.com/sharer.php?u='+url+'&t='+title+'&src=sp', '_blank', 'left=100,top=100,height=350,width=600,location=no,resizable=no,scrollbars=no');
-}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+

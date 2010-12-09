@@ -88,22 +88,17 @@ dojo.require("dojox.widget.rotator.Pan");
 			//		Initializes the panes and events.
 			d.mixin(this, params);
 
-			var _t = this,
-				ft = _t.fwdtransition,
-				rt = _t.rwdtransition,
-				tt = _t._transitions = {},
-				idm = _t._idMap = {},
-				tp = _t.transitionParams = eval("({ " + _t.transitionParams + " })"),
-				node = _t._domNode = dojo.byId(node),
-				cb = _t._domNodeContentBox = d.contentBox(node), // we are going to assume the rotator will not be changing size
-
+			var _t = this;
+			var ft = _t.fwdtransition;
+			var rt = _t.rwdtransition;
+			var tt = _t._transitions = {};
+			var idm = _t._idMap = {};
+			var tp = _t.transitionParams = eval("({ " + _t.transitionParams + " })");
+			var node = _t._domNode = dojo.byId(node);
+			var cb = _t._domNodeContentBox = d.contentBox(node); // we are going to assume the rotator will not be changing size
 				// default styles to apply to all the container node and rotator's panes
-				p = {
-					left: 0,
-					top: 0
-				},
-
-				warn = function(bt, dt){
+			var p = {left: 0,top: 0};
+			var warn = function(bt, dt){
 					console.warn(_t.declaredClass, ' - Unable to find transition "', bt, '", defaulting to "', dt, '".');
 				};
 
@@ -583,3 +578,16 @@ dojo.require("dojox.widget.rotator.Pan");
 	});
 
 })(dojo);
+
+
+
+
+
+
+
+
+
+
+
+
+

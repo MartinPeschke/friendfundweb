@@ -38,6 +38,33 @@
 %endif
 </%def>
 
+<%def name="display_topsellers(top_sellers, scroller_page_size)">
+	<div id="scrollingproductsuggestions" class="anythingSlider">
+	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
+	<span class="arrow forward arrowforward anchorelem"><a>&gt;&gt;</a></span>
+	<div dojoType="friendfund.AutoRotator" class="rotator" suspendOnHover="true" id="productslider" jsId="productsuggestionscroller1" fwdtransition="dojox.widget.rotator.panLeft" rwdtransition="dojox.widget.rotator.panRight" autoStart="true">
+			<% last_prod = len(top_sellers)-1 %>
+			%for i, prod in enumerate(top_sellers):
+				%if i%scroller_page_size == 0:
+					<div class="pane pane${i%scroller_page_size}">
+				%endif
+				<div _target_id="slider${i}_elem"  class="productsuggestion ${i%scroller_page_size<(scroller_page_size-1) and 'psmiddle' or ''}">
+					<a class="productsuggestion">
+						<img id="slider${i}_elem" src="${prod.picture_large}" class="productsuggestion"><span>${prod.name}</span>
+					</a>
+					<textarea style="display:none">
+						${display_product(0, prod)|n}
+						<div style="clear:both"></div>
+					</textarea>
+				</div>
+				%if i%scroller_page_size == (scroller_page_size-1) or i==last_prod:
+					</div>
+				%endif
+			%endfor
+		</div>
+	</div>
+</%def>
+
 
 
 <%def name="display_paginator(searchresult)">

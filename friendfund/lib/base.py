@@ -4,6 +4,7 @@ Provides the BaseController class for subclassing.
 """
 import logging
 from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
+from pylons.controllers.util import abort
 from pylons.controllers import WSGIController
 from pylons.i18n.translation import get_lang, set_lang, _
 from pylons.templating import render_mako as render

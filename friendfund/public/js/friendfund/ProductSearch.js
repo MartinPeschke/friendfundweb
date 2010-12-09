@@ -3,6 +3,7 @@ dojo.require("dojox.fx.scroll");
 dojo.require("dojo.fx.easing");
 dojo.require("dojo.NodeList-manipulate");
 dojo.require("dojo.NodeList-traverse");
+dojo.require("friendfund.Tooltip");
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
