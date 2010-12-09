@@ -174,12 +174,13 @@ class RedirectPayment(PaymentMethod):
 		except SProcException, e:
 			log.error(e)
 			raise DBErrorDuringSetup(e)
+		
 		redirect_params = {
 				"paymentAmount":'%s'%contribution.total,
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
-				"merchantReturnData" : '%s.'%(pool.p_url.split('.')[0])
+				"merchantReturnData" : ''.join(pool.p_url.partition('.')[:2])
 				}
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])

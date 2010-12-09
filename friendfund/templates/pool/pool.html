@@ -207,36 +207,41 @@
 			</div>
 		</div>
 		<div id="timeline_bar">
-				<div class="timeline">
-					
-					<div class="floaterRight limit">
-						%if not c.pool.is_pending():
-							${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}
-						%else:
-							???
-						%endif
-					</div>
-					<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
-					
-					<div class="timeline_progressbar_bg"><div style="width: ${locals['progress']}px;" class="timeline_progressbar"></div>
-					${self.tooltip_text(locals)|n}
-					</div>
-					
-					<div class="legende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
-					<div class="legende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
+			<div class="timeline">
+				
+				<div class="floaterRight limit">
+					%if not c.pool.is_pending():
+						${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}
+					%else:
+						???
+					%endif
 				</div>
+				<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
+				
+				<div class="timeline_progressbar_bg"><div style="width: ${locals['progress']}px;" class="timeline_progressbar"></div>
+				${self.tooltip_text(locals)|n}
+				</div>
+				
+				<div class="legende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
+				<div class="legende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
+			</div>
 		</div>
 	</div>
 </%def>
 
 <%def name="social_tools(locals)">
 	<div class="social_tools_free underlined1">
-		<a onclick="fbStreamPub('${app_globals.FbApiKey}', '${c.pool.description}', '${url.current(protocol="http")}', '${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}')">share</a>
+		<a onclick="fbShare('${url('get_pool', pool_url=c.pool.p_url, protocol='http')}', '${c.pool.description}')" class="floaterLeft facebookBtn" title="${_("Share on Facebook")}">
+			<span>${_("Share on Facebook")}</span>
+		</a>
+		
+	<a onclick="fbStreamPub('${app_globals.FbAppID}', '${c.pool.description}', '${url.current(protocol="http")}', '${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}', '${url(protocol="http", controller="index", action="close")}')">share</a>
 	%if c.pool.am_i_admin(c.user):
 		<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
 			<span>${_("POOL_PAGE_Visit Pool Admin")}</span>
 		</a>
 	%endif
+		<div style="clear:both"></div>
 	</div>
 </%def>
 

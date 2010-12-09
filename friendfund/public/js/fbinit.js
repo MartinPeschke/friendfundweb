@@ -107,6 +107,6 @@ fbShare = function(url, title){
 };
 
 
-fbStreamPub = function(app_id, title, link, picture, redirect) {
-	window.open('http://www.facebook.com/dialog/feed?app_id='+app_id+'&name=title123&link='+link+'&redirect_uri='+encodeURIComponent(redirect||window.location.protocol+window.location.host+'/index/close'), '_blank', 'left=100,top=100,height=350,width=600,location=no,resizable=no,scrollbars=no');
-}
+fbStreamPub = function(app_id, message, link, picture, redirect) {
+	window.open('http://www.facebook.com/dialog/feed?display=popup&app_id='+app_id+'&name=title123&message='+message+'&link='+link+'&redirect_uri='+redirect, '_blank', 'left=100,top=100,height=300,width=600,location=no,resizable=no,scrollbars=no');
+};
