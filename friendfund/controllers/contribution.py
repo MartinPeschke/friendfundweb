@@ -48,7 +48,7 @@ class ContributionController(BaseController):
 								, 'anonymous':c.contrib.anonymous and 'yes' or 'no'
 								, 'message':c.contrib.message
 							}
-		c.show_delay = c.contrib.paymentmethod in ['paypal','directEbanking']
+			c.show_delay = c.contrib.paymentmethod in ['paypal','directEbanking']
 		if request.params.get('authResult') == 'AUTHORISED':
 			return self.render('/contribution/contribution_result_success.html')
 		else:
