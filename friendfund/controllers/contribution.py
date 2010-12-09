@@ -27,12 +27,13 @@ class ContributionController(BaseController):
 	@logged_in(ajax=False)
 	def chipin_current(self):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
-		if not g.payment_service.verify_result(request.params):
+		pool_url = g.payment_service.verify_result(request.params)
+		if not pool_url:
+			log.warning("Payment Provider Signature could not be verified: %s", request.params)
 			return abort(404)
-		elif not c.user.current_pool:
-			return abort(404)
-		c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
+			log.warning("Pool from Payment Provider Signature not found: %s, %s", pool_url, request.params)
 			return abort(404)
 		c.contrib = websession.get('contribution')
 		try:

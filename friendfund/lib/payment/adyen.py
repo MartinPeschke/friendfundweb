@@ -184,7 +184,6 @@ class RedirectPayment(PaymentMethod):
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])
 		url = "%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params)))
-		print url
 		return redirecter(url)
 		
 class VirtualPayment(PaymentMethod):
