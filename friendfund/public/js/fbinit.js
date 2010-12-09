@@ -103,19 +103,10 @@ getfbPermanent = function(api_key){
 };
 
 fbShare = function(url, title){
-	window.open('http://www.facebook.com/sharer.php?u='+url+'&t='+title+'&src=sp', '_blank', 'left=100,top=100,height=350,width=600,location=no,resizable=no,scrollbars=no');
+	window.open('https://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title), '_blank', 'left=100,top=100,height=350,width=600,location=no,resizable=no,scrollbars=no');
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+fbStreamPub = function(app_id, title, link, picture, redirect) {
+	window.open('http://www.facebook.com/dialog/feed?app_id='+app_id+'&name=title123&link='+link+'&redirect_uri='+encodeURIComponent(redirect||window.location.protocol+window.location.host+'/index/close'), '_blank', 'left=100,top=100,height=350,width=600,location=no,resizable=no,scrollbars=no');
+}

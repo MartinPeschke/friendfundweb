@@ -231,8 +231,7 @@
 
 <%def name="social_tools(locals)">
 	<div class="social_tools_free underlined1">
-			<iframe src="http://www.facebook.com/plugins/like.php?href=${url.current(protocol="http")}&amp;layout=standard&amp;show_faces=FALSE&amp;&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
-	
+		<a onclick="fbStreamPub('${app_globals.FbApiKey}', '${c.pool.description}', '${url.current(protocol="http")}', '${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}')">share</a>
 	%if c.pool.am_i_admin(c.user):
 		<a href="${url(controller='pool', pool_url = c.pool.p_url, action='settings')}" class="submitSmall" id="visit_pool_admin" title="${_("POOL_PAGE_Visit Pool Admin")}">
 			<span>${_("POOL_PAGE_Visit Pool Admin")}</span>

@@ -10,11 +10,14 @@ EVENT_TEMPLATES = {
 		"name":Template(u"FriendFund for ${receiver} for ${occasion}"),
 		"start_time" :Template(u"${occasion_date}"),
 		"end_time" : Template(u"${occasion_date}"),
+		
 		"description":Template("""${description} \n\n
-			${admin} has opened a gift pool for ${receiver}'s ${occasion} and you're invited to help out. Click on the link below to chip in as little or as much as you want and help make ${receiver}'s day!
-			Contributions should be made before the deadline or ${receiver} might not get their gift in time.\n\n
-			${ROOT_URL}/pool/${p_url}\n\n
-			This gift pool was created with friendfund, the easy way of organising group gifts."""),
+			${admin} wants to get ${receiver} a ${occasion} gift and you've been invited to help purchase it.\n\n
+			Go on, chip in as little or as much as you like and help make ${receiver}'s day.\n\n
+			Go to the gift pool: ${ROOT_URL}/pool/${p_url}\n\n
+			Contributions must be made before the deadline or ${receiver} might not get their gift!\n\n
+			This gift pool was created with friendfund, the easy way to organise group gifts.\n\n
+			${ROOT_URL}"""),
 		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
 		"privacy_type" : Template(u"OPEN")
 	},
@@ -22,7 +25,10 @@ EVENT_TEMPLATES = {
 		"name":Template(u"A Friend Fund for a Friend of Yours"),
 		"start_time" : Template(u"${occasion_date}"),
 		"end_time" : Template(u"${occasion_date}"),
-		"description":Template(u"A Friend Fund for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at ${ROOT_URL}/pool/${p_url}"),
+		"description":Template(u"""A gift pool for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at ${ROOT_URL}/pool/${p_url}\n\n
+		This gift pool was created with friendfund, the easy way to organise group gifts.\n\n
+		${ROOT_URL}
+		"""),
 		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
 		"privacy_type" : Template(u"SECRET")
 	}

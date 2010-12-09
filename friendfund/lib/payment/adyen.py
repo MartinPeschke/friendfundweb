@@ -137,7 +137,10 @@ class RedirectPayment(PaymentMethod):
 	
 	def verify_signature(self, params):
 		merchantSig = params.get('merchantSig')
-		return self.get_signature(params, signorder = self.result_order) == merchantSig
+		if self.get_signature(params, signorder = self.result_order) == merchantSig:
+			return params['merchantReturnData']
+		else:
+			return None
 	
 	def get_request_parameters(self, params):
 		sign_base = self.standard_params.copy()
@@ -171,16 +174,17 @@ class RedirectPayment(PaymentMethod):
 		except SProcException, e:
 			log.error(e)
 			raise DBErrorDuringSetup(e)
-		paypal_params = {
+		redirect_params = {
 				"paymentAmount":'%s'%contribution.total,
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
-				"merchantReturnData" : dbcontrib.ref
+				"merchantReturnData" : '%s.'%(pool.p_url.split('.')[0])
 				}
-		params = self.get_request_parameters(paypal_params)
+		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])
 		url = "%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params)))
+		print url
 		return redirecter(url)
 		
 class VirtualPayment(PaymentMethod):

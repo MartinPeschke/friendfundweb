@@ -44,7 +44,11 @@ class IndexController(BaseController):
 	
 	@jsonify
 	def login_panel(self):
-		return {'html':render('/myprofile/login_panel.html').strip()}
+		return {'html':render('/myprofile/login_panel.html').strip()}	
+
+	def close(self):
+		c.reload = False
+		return render('/closepopup.html')
 	
 	
 	@jsonify
