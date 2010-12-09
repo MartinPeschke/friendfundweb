@@ -35,22 +35,9 @@ class PoolController(BaseController):
 	navposition=g.globalnav[1][2]
 	chat_page_size = 10
 	
-	def reset(self):
-		if 'pool' in websession:
-			del websession['pool']
-		if 'invitees' in websession:
-			del websession['invitees']
-		return redirect(url('home'))
-	
-	def complete(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-		if not c.pool.is_closed():
-			 redirect(url('get_pool', pool_url=pool_url))
-		return self.render('/pool/pool_complete.html')
-	
-	def index(self, pool_url):
+	def index(self, pool_url = None):
+		if pool_url is None:
+			return abort(404)
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
@@ -66,6 +53,21 @@ class PoolController(BaseController):
 			return self.render('/pool/pool.html')
 		else:
 			return self.render('/pool/pool_secret.html')
+	
+	def reset(self):
+		if 'pool' in websession:
+			del websession['pool']
+		if 'invitees' in websession:
+			del websession['invitees']
+		return redirect(url('home'))
+	
+	def complete(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if c.pool is None:
+			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+		if not c.pool.is_closed():
+			 redirect(url('get_pool', pool_url=pool_url))
+		return self.render('/pool/pool_complete.html')
 	
 	@logged_in()
 	def create(self):

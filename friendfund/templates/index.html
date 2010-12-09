@@ -9,8 +9,9 @@
 	<script type="text/javascript">dojo.query(".frontpagebutton.enabled", "pool_configurator").forEach(function(elem, pos, array){dojo.connect(elem, "onmouseenter", function(evt){dojo.addClass(this, "frontpagebuttonhover")});dojo.connect(elem, "onmouseleave", function(evt){dojo.removeClass(this, "frontpagebuttonhover")});});</script>
 	${links.js('friendfund/HomePagePanel.js')}
 	${links.js('friendfund/FriendSelector.js')}
-	${links.js('friendfund/ProductSearch.js')}
 	${links.js('friendfund/AutoRotator.js')}
+	${links.js('friendfund/Tooltip.js')}
+	${links.js('friendfund/ProductSearch.js')}
 </%def>
 
 <%def name="bodyclass()">base index</%def>

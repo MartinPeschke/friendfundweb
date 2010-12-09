@@ -15,6 +15,8 @@ log = logging.getLogger(__name__)
 
 class BaseController(WSGIController):
 	navposition=g.globalnav[0][2]
+	def index(self):
+		return abort(404)
 	
 	def render(self, template):
 		c._msgs = [m for m in c.messages if isinstance(m, basestring)]

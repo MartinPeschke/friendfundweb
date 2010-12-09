@@ -5,7 +5,11 @@
 <%def name="title()">${_("PENDING_PRODUCT_SELECTION_PAGE_TITLE")}</%def>
 
 
-<%def name="scripts()">${links.js('friendfund/ProductSearch.js')}</%def>
+<%def name="scripts()">
+	${links.js('friendfund/AutoRotator.js')}
+	${links.js('friendfund/Tooltip.js')}
+	${links.js('friendfund/ProductSearch.js')}
+</%def>
 <%def name="onloadscripts()">
 	var productsearch = new friendfund.ProductSearch({
 			ref_node:"button_panel_container",
