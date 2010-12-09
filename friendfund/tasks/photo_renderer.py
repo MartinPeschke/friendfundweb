@@ -149,6 +149,9 @@ def remote_profile_picture_render(userlist):
 	dltime = 0
 	rendertime = 0
 	for network, network_id, picture_url in userlist:
+		if not network_id:
+			log.error("RECEIVED NO NETWORK_ID (%s,%s,%s)", network, network_id, picture_url)
+			continue
 		if h.url_is_local(picture_url):
 			log.warning("Tried rendering local picture %s:%s:%s" % (network, network_id, picture_url))
 		else:
