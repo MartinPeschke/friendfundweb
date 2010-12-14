@@ -123,27 +123,25 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		return false;
 	},occLoaded: function(_t){
 		_t.load(_t, "occasion");
-		
-		dojo.query(".occasion_panel_button div.selector", _t.ref_node).onclick(dojo.hitch(null, _t.occasion_preselect, _t));
-		dojo.query(".occasion_submitter", _t.ref_node).onclick(dojo.hitch(null, _t.occasion_selected, _t));
-		
-		dojo.query(".occasion_panel_button div.selector[custom=1] input", _t.ref_node).connect("onfocus", dojo.hitch(null, _t.occasion_focused, _t));
+		dojo.query(".occasion_panel_button div.selector", _t.ref_node).forEach(
+			function(item){_t._listener_locals.push(dojo.connect(item, "onclick", dojo.hitch(null, _t.occasion_preselect, _t)));});
+		dojo.query(".occasion_submitter", _t.ref_node).forEach(
+			function(item){_t._listener_locals.push(dojo.connect(item, "onclick", dojo.hitch(null, _t.occasion_selected, _t)));});
+		dojo.query(".occasion_panel_button div.selector[custom=1] input", _t.ref_node).forEach(
+			function(item){_t._listener_locals.push(dojo.connect(item, "onfocus", dojo.hitch(null, _t.occasion_focused, _t)));});
 		
 		dojo.parser.parse(dojo.byId(_t.ref_node));
 		if(dijit.byId("datestamp")){_t._widget_locals.push(dijit.byId("datestamp"));}
-		dojo.query("div.black_labeled_container a.button_open_down", _t.ref_node).connect("onclick", dojo.hitch(null, _t.openDatePicker, _t));
-	}, openDatePicker:function(_t, evt){
-		dijit.byId("datestamp").focus();
-		evt.stopPropagation();
-		evt.preventDefault();
-		return false;
+		
+		dojo.query(".black_labeled_input.dijitTextBox", _t.ref_node).forEach(
+			function(item){_t._listener_locals.push(dojo.connect(item, "onclick", dijit.byId("datestamp"), "_open"));});
 	}, occasion_focused: function(_t, evt){
 		var elem = dojo.query(this).closest("div.selector")[0];
 		dojo.hitch(elem, _t.occasion_preselect, _t)();
 	}, occasion_preselect: function(_t, evt){
 		dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node).removeClass("selected");
 		dojo.addClass(this, "selected");
-		var datewijit =dijit.byId("datestamp");
+		var datewijit = dijit.byId("datestamp");
 		var newdate = dojo.attr(this, "date").split("-");
 		newdate = (newdate.length>=3)?(new Date(newdate[0], newdate[1]-1, newdate[2])) : null;
 		if(!datewijit.value) {
@@ -153,8 +151,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 				datewijit.focus();
 			}
 		}
-	},
-	occasion_selected : function(_t, evt){
+	}, occasion_selected : function(_t, evt){
 		var selected = dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node);
 		var datepicker = dijit.byId("datestamp");
 		if(datepicker.value && selected.length === 1 && datepicker.value >= datepicker.constraints.min){

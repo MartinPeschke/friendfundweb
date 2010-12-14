@@ -18,7 +18,7 @@ from datetime import date, timedelta
 					<img src="/static/imgs/${occ.picture_url}"/>
 					<div class="label">
 					%if occ.custom:
-						<input class="black_labeled_input default" _default_text="${_("EVENT_PANEL_Just because...")}" type="text" id="${occ.key}" name="name" value="${c.name or _("EVENT_PANEL_Just because...")}" style="width:106px;"/>
+						<input class="black_labeled_input ${(not c.name and default or "")}" _default_text="${_("EVENT_PANEL_Just because...")}" type="text" id="${occ.key}" name="name" value="${c.name or _("EVENT_PANEL_Just because...")}" style="width:106px;"/>
 					%else:
 						${occ.get_display_name()}
 					%endif
@@ -30,9 +30,10 @@ from datetime import date, timedelta
 			<div style="margin-right:50px;"> 
 				<a class="submitSmall occasion_submitter"><span>${_("EVENT_PANEL_Submit")}</span></a>
 			</div>
-			${_("EVENT_PANEL_And Pick a Date")}
+			
 			<div style="top: 5px; position: relative;float:right;margin-right:50px;">
-				<div id="datestamp" jsid="datestamp" type="text" class="black_labeled_input" name="datestamp" value="${c.date}" dojoType="dijit.form.DateTextBox" constraints="{min:'${c.lower_limit_date}'}"></div>
+				<label class="black_label floaterLeft" for="datestamp">${_("EVENT_PANEL_And Pick a Date")}</label>
+				<div id="datestamp" jsid="datestamp" type="text" class="black_labeled_input datepicker" name="datestamp" value="${c.date}" dojoType="dijit.form.DateTextBox" constraints="{min:'${c.lower_limit_date}'}"></div>
 			</div>
 		</div>
 	</div>
