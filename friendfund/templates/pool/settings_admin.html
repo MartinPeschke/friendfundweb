@@ -118,13 +118,15 @@ ${settings_common.render_tabs("settings")|n}
 		%for action in c.psettings.actions:
 			<div class="poolaction">
 				<img src="${h.get_action_picture(action)}" class="floaterLeft" />
-				<div class="poolActionButton">
-					<div class="title_container"><div class="title">${action.get_display_name()}</div></div>
+				<div class="poolActionButton underlined2">
 					%if action.remaining is not None:
-						<div class="remaining_counter">${(_("POOLSETTINGS_LABEL_%(number_remaining)sx Remaining")%dict([('number_remaining', action.remaining)]))|n}</div>
+						<div class="remaining_counter">
+							${(_("POOLSETTINGS_LABEL_%(number_remaining)sx Remaining")%dict([('number_remaining', action.remaining)]))|n}&nbsp;|&nbsp;${_("POOL_DESCRIPTION_edit")}
+						</div>
 					%endif
+					<div class="inside floaterLeft">${action.get_display_name()}</div>
 				</div>
-				<div class="poolactioncontent hidden">
+				<div class="poolActionContent hidden">
 						${actions_content.render(action, c.psettings)}
 				</div>
 			</div>
