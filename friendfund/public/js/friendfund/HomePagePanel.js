@@ -167,18 +167,16 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			_t.verify_dates(_t, {occasion_date:params['occasion.date']});
 			_t.unload(_t, true);
 		} else {
-			var id = (!selected)?"occasion_button_bar":"occasion_date_input_bar";
+			var id = (!selected.length)?"occasion_button_bar":"occasion_date_input_bar";
 			dojo.animateProperty(
 				{node: dojo.byId(id),duration: 1000,
 					properties: {
 						backgroundColor: {start: "red", end: "#c7dee4"}
-					}}).play();
-			evt.stopPropagation();
-			evt.preventDefault();
-			return false;
+					}
+				}
+			).play();
 		}
 	},
-	
 	verify_dates : function(_t, args){
 		args = args || {};
 		var params = {net: args.affnet || dojo.byId("product_net").value,

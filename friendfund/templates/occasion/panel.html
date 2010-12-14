@@ -10,7 +10,8 @@ from datetime import date, timedelta
 	<div class="TabsContainer"><a _type="recommended_tab" class="methodselector ajaxlink selected "><span>${_("EVENT_PANEL_Select an Event")}</span></a></div>
 	<a class="button_panel_closer">&nbsp;</a>
 	${html.clearline()|n}
-	<div id="occasion_button_bar">
+	<div id="occasion_container">
+		<div id="occasion_button_bar" class="floaterLeft">
 		%for occ in c.olist:
 			<a class="occasion_panel_button">
 				<div class="selector ${c.key != occ.key and ' ' or 'selected'}" imgurl="/static/imgs/${occ.picture_url}" 
@@ -26,6 +27,7 @@ from datetime import date, timedelta
 				</div>
 			</a>
 		%endfor
+		</div>
 		<div id="occasion_date_input_bar">
 			<div style="margin-right:50px;"> 
 				<a class="submitSmall occasion_submitter"><span>${_("EVENT_PANEL_Submit")}</span></a>
