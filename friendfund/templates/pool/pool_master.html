@@ -13,10 +13,7 @@
 			"receiver_name":c.pool.receiver.name
 			}
 	if c.pool.is_pending():
-		locals['progress'] = 0
 		locals["selector_name"] = c.pool.selector and c.pool.selector.name or _("POOL_PAGE_SELECTOR_Someone")
-	else:
-		locals['progress'] = (850 * (c.pool.get_total_contrib_float() / c.pool.product.get_price_float())) 
 %>
 
 ${self.admin_slogan(locals)}

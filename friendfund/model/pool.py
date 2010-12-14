@@ -253,6 +253,7 @@ class Pool(DBMappedObject):
 		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
 	
 	def get_total_contribution(self):
+		return 0
 		total = 0
 		for invitee in self.participants:
 			total += (invitee.contributed_amount or 0)
@@ -279,7 +280,11 @@ class Pool(DBMappedObject):
 	def get_pool_picture_tiles(self, type = "RA"):
 		pool_picture_url = h.get_upload_pic_name(md5.new(self.p_url).hexdigest())
 		return h.get_pool_picture(pool_picture_url, type)
-		
+	def funding_progress(self):
+		if self.is_pending():
+			return 0.0
+		else:
+			return self.get_total_contrib_float() / self.product.get_price_float()
 	
 	def get_my_message(self, user):
 		pu = self.participant_map.get(user.u_id)
@@ -329,7 +334,6 @@ class Pool(DBMappedObject):
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:
 			raise NoPoolReceiverException('Pool has no Receiver: %s' % self)
-	
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
 	def is_expired(self):
