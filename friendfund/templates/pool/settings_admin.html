@@ -5,6 +5,7 @@
 <%namespace name="actions" file="actions/settings_action.html"/>
 <%namespace name="actions_content" file="actions/settings_action_content.html"/>
 <%namespace name="description" file="parts/description.html"/>
+<%namespace name="settings_common" file="parts/settings.html"/>
 
 <%def name="scripts()">
 	${links.js('friendfund/AutoRotator.js')}
@@ -99,15 +100,16 @@
 
 
 <%def name="title()">${_("POOLSETTINGS_TITLE_Pool Admin")}</%def>
-<%def name="page_slogan()">
-	<div id="page_slogan">${_("POOLSETTINGS_LABEL_Pool Admin")}</div>
-</%def>
-
+${settings_common.render_tabs("mypools")|n}
+<div style="clear"both;height:30px;"></div>
 	
+<div id="poolsettings">
 	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
 	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
-	${html.clearline(15)|n}
-<div id="poolsettings" class="innerbody">
+	
+	
+	
+	<div id="lowerbody" class="innerbody">
 	%if c.psettings.is_funded() or c.psettings.actions:
 	<div  class="panel_title" style="clear:both">
 		${_("POOLSETTINGS_LABEL_Actions:")}
@@ -140,8 +142,9 @@
 		</div>
 	%endif
 	${html.clearline()|n}
-	<div style="padding:20px 30px;float:left;width:880px;">
+	<div style="padding:20px 30px;float:left;width:860px;">
 		<a class="submitSmallLeft" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool_url)}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
 	</div>
 	${html.clearline()|n}
+	</div>
 </div>

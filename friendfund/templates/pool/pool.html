@@ -115,7 +115,7 @@
 
 
 <%def name="admin_slogan(locals)">
-	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
+	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool, False)|n}</div></div>
 	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
 </%def>
 

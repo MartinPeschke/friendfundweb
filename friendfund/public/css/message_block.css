@@ -272,94 +272,22 @@ input.small{width:50px;}
 	margin-bottom: 0
 }
 
-.inputcontainer {
-	position: relative;
-	float: left;
-	width: 100%;
-	padding-bottom: 5px;
-}
-#button_panel.product .inputcontainer{
- padding-bottom: 15px;
- background:url("/static/imgs/rounded-corner-big.png") no-repeat scroll 0 0 white;
-}
+.inputcontainer {position: relative;float: left;width: 100%;padding-bottom: 5px;}
+input.default {color: #999 !important;}
+.black_labeled_input {-moz-border-radius: 10px 10px 10px 10px;background: none repeat scroll 0 0 #EEF8FD;border: 1px solid #BBE3F7;padding: 2px 24px 2px 4px;}
+.black_labeled_input.dijitTextBox {margin: 0 0 10px;padding: 0px 24px 0px 4px;}
 
-label.black_labeled_container {
-	position: relative;
-	float: left;
-	padding-right: 30px;
-	font-size: 20px;
-	font-weight: bold;
-	color: #403834;
-	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
-}
-div.black_labeled_container, div.white_labeled_container {
-	position: relative;
-	height:25px;
-	float: left;
-	margin-left: 12px;
-}
+.black_labeled_input .dijitInputField {color:#333;margin:2px 5px 0 !important;}
+.black_labeled_input .dijitTextBox {border: 0px solid transparent;color: #333;z-index:2px;}
+.dijitTextBoxError,
+	.dijitTextBoxError .dijitInputContainer {background-color: transparent !important;}
+.dijitTextBoxFocused .dijitInputContainer, 
+	.dijitTextBox {background-color: #EEF8FD !important;color: #333 !important;width: auto;}
 
-div.black_labeled_container.right, div.white_labeled_container.right {float: right;}
-label.black_labeled_container.right {float: right;}
+.dijitTooltipContainer {left: 10px;}
+.claro .dijitTextBox .dijitInputInner {padding: 1px 2px 1px 0;}
 
-div.black_labeled_container div.right_bracket {
-	position: absolute;
-	top: 0px;
-	height:25px;
-	width:12px;
-	right: -12px;
-	background: url(../imgs/inputfield.png?20101129) -80px -27px no-repeat;
-}
-div.black_labeled_container div.left_bracket {
-	position: absolute;
-	top: 0px;
-	height:25px;
-	width:10px;
-	left: -10px;
-	background: url(../imgs/inputfield.png?20101129) -95px -27px no-repeat;
-}
-div.black_labeled_container .black_labeled_input {
-	position: absolute;
-	left:0px;
-	padding:5px 0 4px;
-	height:16px;
-	color: #ffffff;
-	font-size: 13px;
-	border: 0px solid transparent;
-	background: url(../imgs/inputfield.png?20101129) 0px 0px no-repeat;
-}
 
-input.default {
-	color: #999 !important;
-}
-
-div.black_labeled_container input.black_labeled_input:focus div.black_labeled_container .black_labeled_input input:focus {
-	border: 0px solid transparent;
-	outline: none;
-}
-div.black_labeled_container a.button_open_down {
-	position: absolute;
-	top: 0px;
-	right: -20px;
-	width: 25px;
-	height: 25px;
-	cursor:pointer;
-	background: url(../imgs/inputfield.png?20101129) -24px -27px no-repeat;
-}
-div.black_labeled_container .black_labeled_input * {
-	color: #ffffff;
-}
-div.black_labeled_container .black_labeled_input div.dijitInputField {
-	margin: 5px 5px 0px 5px;
-	color: #ffffff;
-}
-div.black_labeled_container .black_labeled_input .dijitTextBox {
-	border: 0px solid transparent;
-	color: #ffffff;
-	width:90px;
-	margin-top:-5px;
-	z-index:2px;
-}
 div.black_labeled_container a.left_button_search {
 	position: absolute;
 	top: 0px;
@@ -537,8 +465,9 @@ a.panel_closer {
 	background-color: #BBE3F7;
 	line-height: 140%;
 }
-#pool_admin_slogan .slogan {margin: 10px;}
+#pool_admin_slogan .slogan {margin: 5px 10px 10px;}
 #pool_admin_slogan .sloganText {padding-top:5px;font-size: 12px;overflow:hidden}
+#description_editor.editable  .sloganText { background-color: white;font-size: 12px;overflow: hidden;padding: 5px 10px;margin-top:10px;}
 
 
 /*=========================================== Contributors ===========================================*/
@@ -716,7 +645,7 @@ div#fundstream.recentactivity div.rabodycol img {position: relative;width: 161px
 div#fundstream.recentactivity div.rabodycol img.profile {width: 120px;}
 
 
-div#mypools.recentactivity {position:relative;float: left;}
+div#mypools.recentactivity {position:relative;float: left;border-top: 1px solid #DADADA;}
 div#mypools.recentactivity div.raheader{background-color:#BBE3F7;padding-bottom:55px;padding-top:30px;}
 div#mypools.recentactivity div.raheadercol{border-bottom: dotted 3px white;margin: 0px 20px 0px 0px; 
 			position:relative;float: left;text-align: center;
@@ -967,10 +896,7 @@ width:13px; margin: 0 !important; }
 .spacerInput{ padding-bottom: 12px}
 #poolactions{ margin: 0 0 0 30px }
 
-div.black_labeled_container .black_labeled_input div.dijitInputField {
-	color:#FFFFFF;
-	margin:2px 5px 0 !important;
-}
+
 .marginRight30{ margin-right: 30px; width:425px;}
 .marginRight45{ margin-right: 45px; width:410px;}
 
@@ -1045,5 +971,5 @@ div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc
 
 .editIcon {position:absolute;display:block;width:25px;height:25px;top:10px;right:-10px;background:url("../imgs/edit-icon.png") no-repeat scroll 0px 0px transparent;cursor:pointer;z-index:3}
 .raisedEditIcon {background: transparent url("http://dev.friendfund.de/static/imgs/edit-icon.png") scroll 100% 0px no-repeat;
-				cursor: pointer;display: block;height: 25px;padding: 9px 29px 0 ;position: absolute;right: 0px;top: -28px;z-index: 3;}
+				cursor: pointer;display: block;height: 25px;padding: 9px 29px 0 ;position: absolute;right: 10px;top: 5px;z-index: 3;}
 #thankyou_editor .editIcon{right:-10px;top:23px;}

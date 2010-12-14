@@ -313,11 +313,6 @@ div#occasion_button_bar {
 	font-weight:bold;
 	text-align:center;
 }
-.dijitTextBoxFocused .dijitInputContainer, .dijitTextBox {background-color: transparent !important;color: #ffffff !important;}
-.dijitTextBoxError,  .dijitTextBoxError .dijitInputContainer {background-color: transparent !important;}
-.dijitTextBoxError input.dijitValidationInner, .dijitTextBox input.dijitArrowButtonInner {height: 20px !important;}
-.dijitTooltipContainer {left: 10px;}
-
 #product_suggestions {
 	padding-bottom:20px;
 	float:left;
@@ -468,13 +463,11 @@ label.fb_filter {font-weight:bold;}
 .TabsContainer{ float: left; padding-left: 10px;width:880px}
 a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
 a.methodselector img{position:relative;top:3px;}
-a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -1562px transparent;min-width:145px;}
-
 a.methodselector span {padding:0 0 0 15px;color:#403834;display:block;line-height:30px; height:30px;}
+a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -1542px transparent;min-width:145px;}
 a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -1512px transparent;}
-
-a.methodselector.selected {background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -322px transparent;}
-a.methodselector.selected span {background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -272px transparent;}
+a.methodselector.selected {background-position:100% -277px;}
+a.methodselector.selected span {background-position:0 -247px;}
 
 
 #lowerbody_container.fullbackground{background-color: #BBE3F7;}
@@ -922,21 +915,20 @@ div.window_container  div.window div.popupContent ol li{
 	padding: 0px 30px 30px;
 }
 .tabContainer {
-	background-color:#E9E9E9;
-	border-bottom:1px solid #DADADA;
-	height:35px;
-	left:0;
-	padding:18px 0 0 30px;
-	position:relative;
-	top:-9px;
-	width:950px;
-	z-index:2;
+	float: left;
+	background-color: #E9E9E9;
+	margin-top: -9px;
+	padding: 18px 0px 0px 30px;
+	position: relative;
+	width: 950px;
+	z-index: 2;
 }
-.tabContainer a {	 color:#403834;display:block;float:left;padding-right:15px;text-align:center;}
-.tabContainer a span {color:#403834;display:block;float:left;
-	cursor:pointer;font-size:18px;padding:7px 0px 8px 15px;font-family: Trebuchet MS,Arial;}
-.tabContainer a.selected {background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -435px transparent;}
-.tabContainer a.selected span {background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -379px transparent;}
+.tabContainer a { margin: 0 15px -1px 0;color: #403834;display: block;float: left;min-width: 145px;padding-right: 15px;text-align: center;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -397px transparent;}
+.tabContainer a span {color: #403834;cursor: pointer;display: block;padding-left: 15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";height: 30px;line-height: 30px;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -367px transparent;}
+
+.tabContainer a.selected {background-position:100% -337px;}
+.tabContainer a.selected span {background-position:0 -307px;}
+
 
 .subCategories{clear:both; font-size: 20px ; font-weight: bold; color: #403834; height: 47px; line-height: 47px;padding-top: 28px; font-family: Trebuchet MS,Arial}
 .tooltipBoxMyPools{ height: 45px; background:none repeat scroll 0 0 #403835; position: relative}
@@ -1030,7 +1022,7 @@ h2.small{ font-size: 20px !important}
 .maleFemale label{ display:block !important;width:90px !important; float:left !important; margin:0 0 0 5px !important}
 .maleFemale input{ display:block !important;width:15px !important; float:left}
 .passwordFields .maleFemale label{ float: right !important;}
-#poolsettings{ margin:0 30px 30px 30px}
+#poolsettings{ clear:both; padding:30px 0px 0px}
 
 #contributioncontainer{ margin:0px 30px 30px; padding-top: 5px !important}
 

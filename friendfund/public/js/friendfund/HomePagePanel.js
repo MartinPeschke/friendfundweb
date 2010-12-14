@@ -153,9 +153,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 				datewijit.focus();
 			}
 		}
-		evt.stopPropagation();
-		evt.preventDefault();
-		return false;
 	},
 	occasion_selected : function(_t, evt){
 		var selected = dojo.query(".occasion_panel_button div.selector.selected", _t.ref_node);
