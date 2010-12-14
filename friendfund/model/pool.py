@@ -253,7 +253,6 @@ class Pool(DBMappedObject):
 		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
 	
 	def get_total_contribution(self):
-		return 0
 		total = 0
 		for invitee in self.participants:
 			total += (invitee.contributed_amount or 0)

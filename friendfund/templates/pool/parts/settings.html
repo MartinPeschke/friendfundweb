@@ -1,9 +1,11 @@
 
 <%def name="render_tabs(selected)">
 	<div class="tabContainer">
-		%if selected=="mypools":
+		%if selected=="settings":
 			<a class="selected"><span>${_("POOL_ADMIN_TAB_Pool Settings")}</span></a>
-			<a class="unselected" href="${url(controller='pool', pool_url=c.pool.p_url, action='addresses')}"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
+			%if not c.pool.product.is_virtual:
+				<a class="unselected" href="${url(controller='pool', pool_url=c.pool.p_url, action='addresses')}"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
+			%endif
 		%else:
 			<a class="unselected" href="${url(controller='pool', pool_url=c.pool.p_url, action='settings')}"><span>${_("POOL_ADMIN_TAB_Pool Settings")}</span></a>
 			<a class="selected"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>

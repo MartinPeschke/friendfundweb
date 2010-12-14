@@ -47,6 +47,8 @@ def make_map(config):
 	map.connect('/{controller}/{action}')
 	map.connect('/{controller}/{action}/{id}')
 	
+	map.connect('sitemap', '/sitemap.xml', controller='index', action="sitemap")
+	
 	map.connect('ctrlpoolindex', '/{controller}/{pool_url}', action='index')
 	map.connect('controller', '/{controller}', action='index')
 	map.connect('index', '/{action}', controller='index')

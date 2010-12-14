@@ -20,6 +20,7 @@ POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
 CATEGORY_PIC_STATIC_ROOT = '/static/imgs/categories'
+ACTION_PIC_STATIC_ROOT = '/static/imgs'
 
 POG = '<span class="pog_currency_symbol">G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
 EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/></span>'
@@ -140,6 +141,10 @@ def attrib_keys(keys, updates = {}):
 def get_category_picture(name, ext='png'):
 	static_root = CATEGORY_PIC_STATIC_ROOT
 	return '%(static_root)s/%(name)s.%(ext)s' % locals()
+def get_action_picture(action, ext='png'):
+	name = action.name
+	static_root = ACTION_PIC_STATIC_ROOT
+	return '%(static_root)s/icon-%(name)s.%(ext)s' % locals()
 
 def get_pool_picture(pool_pic_url, type, ext="png"):
 	if pool_pic_url:

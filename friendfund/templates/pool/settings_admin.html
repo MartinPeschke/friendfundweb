@@ -97,17 +97,17 @@
 		});
 </%def>
 
-
-
 <%def name="title()">${_("POOLSETTINGS_TITLE_Pool Admin")}</%def>
-${settings_common.render_tabs("mypools")|n}
+${settings_common.render_tabs("settings")|n}
 <div style="clear"both;height:30px;"></div>
 	
 <div id="poolsettings">
 	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
 	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
-	
-	
+
+	%if c.psettings.is_funded():
+		<div class="poolActionContainer"><a onclick="order_gift()" class="poolaction buttonRed buttonChipIn"><span>${_("POOL_BUTTON_ACTION_Order Gift")}</span></a></div>
+	%endif
 	
 	<div id="lowerbody" class="innerbody">
 	%if c.psettings.is_funded() or c.psettings.actions:
@@ -115,36 +115,25 @@ ${settings_common.render_tabs("mypools")|n}
 		${_("POOLSETTINGS_LABEL_Actions:")}
 	</div>
 	<div id="poolactions">
-		%if c.psettings.is_funded():
-		<div class="centered"><a onclick="order_gift()" class="poolaction buttonRed buttonChipIn"><span>${_("POOL_BUTTON_ACTION_Order Gift")}</span></a></div>
-		%endif
 		%for action in c.psettings.actions:
-			${actions.render(action, c.psettings)}
+			<div class="poolaction">
+				<img src="${h.get_action_picture(action)}" class="floaterLeft" />
+				<div class="poolActionButton">
+					<div class="title_container"><div class="title">${action.get_display_name()}</div></div>
+					%if action.remaining is not None:
+						<div class="remaining_counter">${(_("POOLSETTINGS_LABEL_%(number_remaining)sx Remaining")%dict([('number_remaining', action.remaining)]))|n}</div>
+					%endif
+				</div>
+				<div class="poolactioncontent hidden">
+						${actions_content.render(action, c.psettings)}
+				</div>
+			</div>
 		%endfor
-		${html.clearline(10)}
-		<div id="poolactioncontent" class="hidden">
-			%for action in c.psettings.actions:
-				${actions_content.render(action, c.psettings)}
-			%endfor
-		</div>
-		
-		
-		${html.clearline()|n}
 	</div>
 	%endif
 	
-	%if not c.pool.product.is_virtual:
-		<div class="addressContainerLeft" id="shippingAddressContainerBox">
-			<%include file="actions/shipping_display.html"/>
-		</div>
-		<div class="addressContainerRight" id="billingAddressContainerBox">
-			<%include file="actions/billing_display.html"/>
-		</div>
-	%endif
-	${html.clearline()|n}
 	<div style="padding:20px 30px;float:left;width:860px;">
 		<a class="submitSmallLeft" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool_url)}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
 	</div>
-	${html.clearline()|n}
 	</div>
 </div>

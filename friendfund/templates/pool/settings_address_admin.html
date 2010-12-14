@@ -1,0 +1,31 @@
+<%inherit file="../layout_layer.html"/>
+<%namespace name="links" file="../links.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="description" file="parts/description.html"/>
+<%namespace name="settings_common" file="parts/settings.html"/>
+
+<%def name="title()">${_("POOLSETTINGS_TITLE_Pool Admin")}</%def>
+${settings_common.render_tabs("addresses")|n}
+<div style="clear"both;height:30px;"></div>
+<div id="poolsettings">
+	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
+	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
+	
+	<div id="lowerbody" class="innerbody">
+
+	%if not c.pool.product.is_virtual:
+		<div class="addressContainerLeft" id="shippingAddressContainerBox">
+			<%include file="actions/shipping_display.html"/>
+		</div>
+		<div class="addressContainerRight" id="billingAddressContainerBox">
+			<%include file="actions/billing_display.html"/>
+		</div>
+	%endif
+	${html.clearline()|n}
+	<div style="padding:20px 30px;float:left;width:860px;">
+		<a class="submitSmallLeft" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool_url)}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
+	</div>
+	${html.clearline()|n}
+	</div>
+</div>

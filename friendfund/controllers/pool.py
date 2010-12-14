@@ -152,6 +152,14 @@ class PoolController(BaseController):
 		return {'data':{'offset':c.offset, 'has_more':bool(c.offset), 'html':render("/pool/chat_content.html").strip()}}
 	
 	@logged_in(ajax=False)
+	def addresses(self, pool_url):
+		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
+		if not c.psettings.is_admin or c.psettings.is_closed():
+			return redirect('pool_action', pool_url=pool_url, action='settings')
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		return self.settings(pool_url)
+	
+	@logged_in(ajax=False)
 	def settings(self, pool_url):
 		c.pool_url = pool_url
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
