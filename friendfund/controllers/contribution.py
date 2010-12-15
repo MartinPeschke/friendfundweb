@@ -67,6 +67,7 @@ class ContributionController(BaseController):
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		c.action = 'chipin_fixed'
 		c.chipin_values = {"amount": h.format_number(c.pool.get_amount_left())}
+		print c.chipin_values
 		c.chipin_errors = {}
 		c.amount_fixed = True
 		c.back_to_admin = True

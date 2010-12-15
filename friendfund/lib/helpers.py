@@ -107,7 +107,8 @@ def format_currency(number, currency, extended = False):
 	return fc(fnumber, currency, locale=websession['lang'])
 
 def format_number(number):
-	return fdec(number, locale=websession['lang'])
+	fnumber = Decimal('%.2f' % number)
+	return fdec(fnumber, format='#,##0.##;-#', locale=websession['lang'])
 
 def format_date(date, with_time = False, format="medium"):
 	if with_time:

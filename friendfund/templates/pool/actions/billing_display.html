@@ -1,25 +1,24 @@
 <%namespace name="forms" file="../../widgets/forms.html"/>
-<div class="addressHeader"><h2>${_("POOLSETTINGS_LABEL_Billing Address for the Gift:")}</h2></div>
+<div class="addressHeader underlined2">
+	<h4 class="inside">${_("POOLSETTINGS_LABEL_Billing Address for the Gift:")}</h4>
+	<div class="addressSubHeader">${_("POOLSETTINGS_LABEL_Where is the invoice going to?")}</div>
+	<a onclick="loadElement('${url(controller='pool', pool_url=c.pool_url, action='edit_address')}', 'billingAddressContainerBox',{type:'billing'});" class="addressEditIcon emphasis">${_("POOLSETTINGS_Edit")}</a>
+</div>
 <div class="addressContainer" id="billingAddressContainer">
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Name")}(*)</label><span class="requiredvalue">${c.billing_values.get('line1', '')}</span>
+		<label>${_("POOLSETTINGS_LABEL_Name")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line1', '&nbsp')|n}</span>
 	</div>
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Street")}(*)</label><span class="requiredvalue">${c.billing_values.get('line2', '')}</span>
+		<label>${_("POOLSETTINGS_LABEL_Street")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line2', '&nbsp')|n}</span>
 	</div>
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_City")}(*)</label><span class="requiredvalue">${c.billing_values.get('line3', '')}</span>
+		<label>${_("POOLSETTINGS_LABEL_City")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line3', '&nbsp')|n}</span>
 	</div>
 
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Zip Code")}(*)</label><span class="requiredvalue">${c.billing_values.get('zipcode', '')}</span>
+		<label>${_("POOLSETTINGS_LABEL_Zip Code")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('zipcode', '&nbsp')|n}</span>
 	</div>
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Country")}(*)</label><span class="requiredvalue">${c.billing_values.get('country', '').replace('COUNTRY_', '').title()}</span>
-	</div>
-	
-	<div style="position:absolute; right:30px;bottom:15px;">
-		<a class="Save settings_submitter" onclick="loadElement('${url(controller='pool', pool_url=c.pool_url, action='edit_address')}', 'billingAddressContainerBox',{type:'billing'});">
-					<span>${_("POOLSETTINGS_Edit")}</span></a>
+		<label>${_("POOLSETTINGS_LABEL_Country")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('country', '&nbsp').replace('COUNTRY_', '').title()|n}</span>
 	</div>
 </div>

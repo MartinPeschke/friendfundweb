@@ -12,7 +12,7 @@
 <%def name="onloadscripts()">
 	var productsearch = new friendfund.ProductSearch({
 			ref_node:"button_panel_container",
-			searchMixin:function(){return {panelcloser:false,minimal:true};},
+			searchMixin:function(){return {panelcloser:'',minimal:true};},
 			onSelected : function(selection_args){
 						var params = {};
 						params["product.guid"] = selection_args.guid;

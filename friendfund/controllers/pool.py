@@ -153,11 +153,17 @@ class PoolController(BaseController):
 	
 	@logged_in(ajax=False)
 	def addresses(self, pool_url):
+		c.pool_url = pool_url
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.psettings.is_admin or c.psettings.is_closed():
 			return redirect('pool_action', pool_url=pool_url, action='settings')
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		return self.settings(pool_url)
+		c.user.set_am_i_admin(pool_url, c.psettings.is_admin)
+		c.shipping_values = to_displaymap(c.psettings.addresses.get("shipping"))
+		c.shipping_errors = {}
+		c.billing_values = to_displaymap(c.psettings.addresses.get("billing"))
+		c.billing_errors = {}
+		return self.render('/pool/settings_address_admin.html')
 	
 	@logged_in(ajax=False)
 	def settings(self, pool_url):
@@ -316,7 +322,7 @@ class PoolController(BaseController):
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		elif not c.psettings.information_complete():
 			c.messages.append(_(SAVE_ADDRESS_FIRST))
-			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
+			return redirect(url(controller='pool', action='addresses', pool_url=pool_url))
 		
 		try:
 			g.dbm.set(ClosePoolProc(p_url = pool_url))
@@ -339,33 +345,9 @@ class PoolController(BaseController):
 										, name=action
 										, expiry_date=request.params.get('expiry_date', None)
 										, message=request.params['message']))
-		c.messages.append(_(u"POOL_ACTION_Changes Saved"))
 		if action=="ADMIN_ACTION_INVITE":
 			return redirect(url('invite_index',  pool_url = pool_url))
 		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
-	
-	# @jsonify#double confirm not used currently
-	# @logged_in(ajax=False)
-	# def confirmaltproduct(self, pool_url):
-		# c.pool_url = pool_url
-		# if not c.user.am_i_admin(pool_url):
-			# return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
-		
-		# params = formencode.variabledecode.variable_decode(request.params)
-		# product = params.get('product', None)
-		# region=websession['region']
-		# if not 'guid' in product or not 'aff_net' in product:
-			# return self.ajax_messages(_(u"POOL_ALTPRODUCT_No Product Selected"))
-			
-		# if product['aff_net'] == 'AMAZON':
-			# product = g.amazon_service[region].get_product_from_guid(product['guid'])
-		# else:
-			# productresult = g.dbsearch.get(ProductRetrieval, guid=product['guid'], region=region)
-			# if not productresult.product:
-				# return self.ajax_messages(_("POOL_ALTPRODUCT_No Product Selected"))
-			# product = productresult.product
-		# c.product = product
-		# return {"html":self.render("/pool/actions/settings_alt_product_confirm.html").strip()}
 	
 	@jsonify
 	@logged_in(ajax=False)

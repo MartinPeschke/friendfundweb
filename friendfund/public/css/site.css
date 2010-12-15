@@ -830,7 +830,7 @@ div#siteinfo div.siteinfo_copyright {
 #badge_popup_content .badge_text {float:right;font-size:20px;margin:90px 80px 0 0px;position:relative;width:300px;text-align: left;}
 #badge_popup_content .badge_icon {width: 350px;height: 300px;position: relative; float: left;margin:0px 0px 0px 30px;}
 .panelclosing_x {position: absolute;top: 3px; right: 10px;text-decoration: none;color:white;font-weight:bold;font-size:16px}
-.panelclosing_x_black {position: absolute;top: 3px; right: 10px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;}
+.panelclosing_x_black {position: absolute;top: 3px; right: 2px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;padding: 3px 8px;}
 #badge_popup_content .share_link {bottom: 10px; position:absolute;right:10px;}
 #badge_popup_content .share_link img {top:2px;position:relative;margin-right:5px;}
 
@@ -914,7 +914,7 @@ div.window_container  div.window div.popupContent ol li{
 #mypools {
 	padding: 0px 30px 30px;
 }
-.tabContainer {
+.tabContainer {border-bottom: 1px solid #DADADA;
 	float: left;
 	background-color: #E9E9E9;
 	margin-top: -9px;
@@ -923,7 +923,7 @@ div.window_container  div.window div.popupContent ol li{
 	width: 950px;
 	z-index: 2;
 }
-.tabContainer a { margin: 0 15px -1px 0;color: #403834;display: block;float: left;min-width: 145px;padding-right: 15px;text-align: center;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -397px transparent;}
+.tabContainer a { margin: 0 5px -1px 0;color: #403834;display: block;float: left;min-width: 145px;padding-right: 15px;text-align: center;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -397px transparent;}
 .tabContainer a span {color: #403834;cursor: pointer;display: block;padding-left: 15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";height: 30px;line-height: 30px;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -367px transparent;}
 
 .tabContainer a.selected {background-position:100% -337px;}
@@ -1023,7 +1023,7 @@ h2.small{ font-size: 20px !important}
 .maleFemale label{ display:block !important;width:90px !important; float:left !important; margin:0 0 0 5px !important}
 .maleFemale input{ display:block !important;width:15px !important; float:left}
 .passwordFields .maleFemale label{ float: right !important;}
-#poolsettings{ clear:both; padding:30px 0px 0px; border-top: 1px solid #DADADA;}
+#poolsettings{ clear:both; padding:30px 0px 0px}
 
 #contributioncontainer{ margin:0px 30px 30px; padding-top: 5px !important}
 
@@ -1052,11 +1052,19 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 .messageContainerlong img{ padding-bottom:50px;}
 
 
-.addressContainerLeft {margin:30px 15px 30px 30px; float: left;position: relative;width:414px;}
-.addressContainerRight {margin:30px 30px 30px 15px; float: left;position: relative;width:414px; }
-.addressContainerLeft div.addressHeader, .addressContainerRight div.addressHeader {height:55px; overflow:hidden;position:relative;}
-.addressContainerLeft h2, .addressContainerRight h2 {position: absolute;bottom:5px;}
-.addressContainer {background: white;padding: 30px 30px 60px 30px;float: left;width:354px; position:relative;}
+.addressContainerOuter {margin:15px; padding:0px; float: left;background:white}
+.addressContainerInner {margin:15px; padding:0px; float: left;width:415px;position:relative}
+.addressContainer {background: white;padding: 5px 0 15px;float: left;position:relative;}
+.addressContainer a.Save {margin: 20px 0 0;float:left}
+.addressContainerOuter .addressEditIcon{background: url("../imgs/edit-icon.png") no-repeat scroll 100% 0 transparent;bottom: 4px;cursor: pointer;padding: 12px 30px 0 0;position: absolute;right: 0}
+.addressContainerOuter .addressHeader {position:relative;}
+.addressContainerOuter .addressSubHeader {padding: 5px 4px;}
+.addressContainerOuter .inputMockUp {color:#777;display:block;border:1px solid #DDF1FB; background-color:#F7FCFE;width:380px;padding: 5px 5px;}
+.addressContainerOuter input {display:block;border:1px solid #BBE3F7; background-color:#EEF8FD;width:380px;padding: 5px 5px;}
+.addressContainerOuter select  {display:block;border:1px solid #BBE3F7; background-color:#EEF8FD;width:390px;padding: 5px 0px;}
+.addressContainerOuter label {font-weight:bold;}
+.addressContainerOuter .forminputline {margin:15px 0 0;height:auto}
+.addressContainer div.error_message{color: red;margin:0 !important;}
 
 #poolsettings .panel_title{ font-style: italic }
 .panel_content white h1{ margin: 0; padding: 20px 0}

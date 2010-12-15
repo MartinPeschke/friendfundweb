@@ -7,11 +7,12 @@
 	profiles = c.myprofiles.profiles
 %>
 
-
+<%def name="page_slogan()">
+<div id="page_slogan">${_("MYPROFILE_PAGE_Manage your User Accounts")}</div>
+</%def>
 
 <div id="login_signup_container">
 	<form id="myprofile_form" action="${url(controller='myprofile', action='save')}" method="POST" enctype="multipart/form-data">
-	<div class="subCategories">Manage your User Accounts</div>
 	<div class="profilePictureContainer" style="margin-right:30px">
 	<p class="facebookTxt"><img src="/static/imgs/icon_fb_connect.png"/>Facebook</p>
 	<div class="profile-picture">

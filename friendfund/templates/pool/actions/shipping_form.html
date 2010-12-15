@@ -1,29 +1,28 @@
 <%namespace name="forms" file="../../widgets/forms.html"/>
-
-<div class="addressHeader"><h2>${_("POOLSETTINGS_LABEL_Shipping Address for the Gift:")}</h2></div>
+<div class="addressHeader underlined2">
+	<h4 class="inside">${_("POOLSETTINGS_LABEL_Shipping Address for the Gift:")}</h4>
+	<div class="addressSubHeader">${_("POOLSETTINGS_LABEL_Where is the gift going to?")}</div>
+</div>
+<a class="panelclosing_x_black" onclick="loadElement('${url(controller='pool', pool_url=c.pool_url, action='unedit_address')}', 'shippingAddressContainerBox',{type:'shipping'});")">x</a>
 <div class="addressContainer" id="shippingAddressContainer">
-	<a class="panelclosing_x_black" onclick="loadElement('${url(controller='pool', pool_url=c.pool_url, action='unedit_address')}', 'shippingAddressContainerBox',{type:'shipping'});")">x</a>
 	<form action="${url(controller='pool', pool_url=c.pool_url, action='set_address')}" method="POST" enctype="multipart/form-data" id="shipping_form_container">
-		<div>
-			${forms.input_text("shipping", "line1", _("POOLSETTINGS_LABEL_First Name"), required = True, _classes=['required'])|n}
+		<div class="forminputline">
+			${forms.input_text("shipping", "line1", _("POOLSETTINGS_LABEL_Name"), required = True, _classes=['required'])|n}
 		</div>
-		<div>
-			${forms.input_text("shipping", "line2", _("POOLSETTINGS_LABEL_Last Name"), required = True, _classes=['required'])|n}
+		<div class="forminputline">
+			${forms.input_text("shipping", "line2", _("POOLSETTINGS_LABEL_Street"), required = True, _classes=['required'])|n}
 		</div>
-		<div>
-			${forms.input_text("shipping", "line3", _("POOLSETTINGS_LABEL_Street"), required = True, _classes=['required'])|n}
+		<div class="forminputline">
+			${forms.input_text("shipping", "line3", _("POOLSETTINGS_LABEL_City"), required = True, _classes=['required'])|n}
 		</div>
-		<div>
+		<div class="forminputline">
 			${forms.input_text("shipping", "zipcode", _("POOLSETTINGS_LABEL_Zip Code"), required = True, _classes=['required'])|n} 
 		</div>
-		<div>
+		<div class="forminputline">
 			<label class="required">Country</label>
 			<input type="text" disabled="disabled" value="${_(c.psettings.shipping_address.country)}"/>
 		</div>
-		<div style="position:absolute; right:30px;bottom:15px;">
-			<a class="Save settings_submitter" onclick="xhrFormPost('${url(controller="pool", pool_url=c.pool_url, action="set_address")}', 'shipping_form_container', place_element('shippingAddressContainerBox'));">
+		<a class="Save settings_submitter" onclick="xhrFormPost('${url(controller="pool", pool_url=c.pool_url, action="set_address")}', 'shipping_form_container', place_element('shippingAddressContainerBox'));">
 					<span>${_("POOLSETTINGS_Save Changes")}</span></a>
-		</div>
-			${forms.input_text("shipping", "phone", _("POOLSETTINGS_LABEL_Phone"))|n}
 	</form>
 </div>
