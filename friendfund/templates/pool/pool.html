@@ -31,6 +31,10 @@
 	onLoadPagelets("lowerbody_container");
 	dojo.query(".popuplink", "pool_pool_panel").onclick(dojo.hitch(null, loadPopup));
 </%def>
+<%def name="scripts()">
+	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
+</%def>
 
 <%def name="tabContainer()">
 	%if c.pool.am_i_admin(c.user):
@@ -239,24 +243,28 @@
 
 <%def name="social_tools(locals)">
 	<div class="social_tools_free underlined1">
-		<a onclick="fbShare('${url('get_pool', pool_url=c.pool.p_url, protocol='http')}', '${c.pool.description}')" class="floaterLeft facebookBtn" title="${_("Share on Facebook")}">
-			<span>${_("Share on Facebook")}</span>
-		</a>
-		<div style="clear:both"></div>
+		<div class="addthis_toolbox addthis_default_style floaterLeft partialSocial left">
+		<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=friendfund" class="addthis_button_compact">${_("Share this Pool")}</a>
+		<span class="addthis_separator">|</span>
+		<a class="addthis_button_facebook"></a>
+		<a class="addthis_button_twitter"></a>
+		<a class="addthis_button_email"></a>
+		<a class="addthis_button_buzz"></a>
+		<a class="addthis_button_digg"></a>
+		<a class="addthis_button_stumbleupon"></a>
+		<a class="addthis_button_tumblr"></a>
+		</div>
+		<div class="floaterLeft partialSocial middle">${_("POOL_Permanent Link:")}<input type="text" value="${url.current(protocol='http')}"/></div>
+		<div class="floaterRight partialSocial right"><a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a></div>
 	</div>
+	<div style="clear:both"></div>
 </%def>
 
 <%def name="contributors(locals)">
 	<% contributors_text = ungettext("POOL_PAGE_%(number_contributors)d person has chipped in for %(receiver_name)s's gift.",
 									 "POOL_PAGE_%(number_contributors)d people have chipped in for %(receiver_name)s's gift.", locals['number_contributors']) %>
 
-	<h4 class="inside" style="padding:0px 30px;">${_("POOL_PAGE_Contributors")}
-	%if c.pool.am_i_member(c.user):
-		<div class="floaterRight">
-			<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
-		</div>
-	%endif
-	</h4>
+	<h4 class="inside" style="padding:0px 30px;">${_("POOL_PAGE_Contributors")}</h4>
 	<div class="vertNoPadding">${contributors_text % locals}</div>
 
 	<div id="pool_contributors" class="pcont_body">
