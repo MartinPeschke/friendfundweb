@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2010-12-14 16:44+0100\n"
+"PO-Revision-Date: 2010-12-15 11:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -209,31 +209,31 @@ msgstr "Facebook is having trouble logging you in, please try again."
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "This profile cannot be added to your account."
 
-#: friendfund/controllers/index.py:71
+#: friendfund/controllers/index.py:78
 #: friendfund/controllers/myprofile.py:152
 msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
 msgstr "You are already logged in."
 
-#: friendfund/controllers/index.py:97
+#: friendfund/controllers/index.py:104
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr "Incorrect email or password."
 
-#: friendfund/controllers/index.py:129
+#: friendfund/controllers/index.py:136
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr "Email already exists."
 
-#: friendfund/controllers/index.py:130
+#: friendfund/controllers/index.py:137
 #: friendfund/controllers/myprofile.py:72
 #: friendfund/controllers/myprofile.py:111
 #, python-format
 msgid "USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s"
 msgstr "This email  is owned by another user. Please try logging in with your email address and password or %(link_open)srequest a password change%(link_close)s!"
 
-#: friendfund/controllers/index.py:152
+#: friendfund/controllers/index.py:159
 msgid "USER_SETEMAILBLOCK_Email Updated!"
 msgstr "Email updated!"
 
-#: friendfund/controllers/index.py:158
+#: friendfund/controllers/index.py:165
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr "This email address is already taken!"
 
@@ -320,10 +320,10 @@ msgstr "In order to close the pool, you need to fill out a Shipping and Billing 
 #: friendfund/controllers/pool.py:43
 #: friendfund/controllers/pool.py:67
 #: friendfund/controllers/pool.py:76
-#: friendfund/controllers/pool.py:181
-#: friendfund/controllers/pool.py:194
-#: friendfund/controllers/pool.py:213
-#: friendfund/controllers/pool.py:226
+#: friendfund/controllers/pool.py:189
+#: friendfund/controllers/pool.py:202
+#: friendfund/controllers/pool.py:221
+#: friendfund/controllers/pool.py:234
 #: friendfund/controllers/product.py:31
 #: friendfund/controllers/product.py:44
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
@@ -341,21 +341,21 @@ msgstr "No event selected. Please try again."
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No friend selected. Please try again."
 
-#: friendfund/controllers/pool.py:334
+#: friendfund/controllers/pool.py:342
 msgid "POOL_ACTION_Changes Saved"
 msgstr "Changes Saved"
 
-#: friendfund/controllers/pool.py:373
+#: friendfund/controllers/pool.py:381
 #: friendfund/controllers/product.py:50
 #: friendfund/controllers/product.py:149
 msgid "INDEX_PAGE_No Product"
 msgstr "Product not selected. Please try again."
 
-#: friendfund/controllers/pool.py:385
+#: friendfund/controllers/pool.py:393
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr "Product Change Saved"
 
-#: friendfund/controllers/pool.py:395
+#: friendfund/controllers/pool.py:403
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "The gift has been successfully switched to vouchers!"
 
@@ -830,31 +830,31 @@ msgstr "Diva"
 
 #: friendfund/resources/db_keys.py:25
 msgid "ADMIN_ACTION_ASK_CONTRIBUTORS"
-msgstr "Ask Contributors"
+msgstr "Ask Contributors to Chip In the Remaining Amount"
 
 #: friendfund/resources/db_keys.py:26
 msgid "ADMIN_ACTION_ASK_CONTRIBUTORS_TO_INVITE"
-msgstr "Ask Contributors To Invite"
+msgstr "Ask Contributors To Invite More Friends"
 
 #: friendfund/resources/db_keys.py:27
 msgid "ADMIN_ACTION_ASK_RECEIVER"
-msgstr "Ask Receiver"
+msgstr "Ask Recipient to Chip In the Remaining Amount"
 
 #: friendfund/resources/db_keys.py:28
 msgid "ADMIN_ACTION_CHEAPER_PRODUCT"
-msgstr "Cheaper Product"
+msgstr "Find a Cheaper Product"
 
 #: friendfund/resources/db_keys.py:29
 msgid "ADMIN_ACTION_CHIP_IN_EXTEND"
-msgstr "Chip In And Extend"
+msgstr "Chip In And Extend the Deadline"
 
 #: friendfund/resources/db_keys.py:30
 msgid "ADMIN_ACTION_CHIP_IN_REMAINDER"
-msgstr "Chip In Remainder"
+msgstr "Chip In the Remaining Amount Yourself"
 
 #: friendfund/resources/db_keys.py:31
 msgid "ADMIN_ACTION_INVITE"
-msgstr "Invite"
+msgstr "Invite more Friends to Chip In"
 
 #: friendfund/resources/db_keys.py:32
 msgid "ADMIN_ACTION_ISSUE_GIFT_VOUCHERS"
@@ -2055,7 +2055,7 @@ msgid "POOL_BUTTON_Chip in!"
 msgstr "Chip in!"
 
 #: friendfund/templates/pool/pool.html:174
-#: friendfund/templates/pool/settings_admin.html:119
+#: friendfund/templates/pool/settings_admin.html:109
 #: friendfund/templates/pool/parts/button_close.html:5
 msgid "POOL_BUTTON_ACTION_Order Gift"
 msgstr "Order Gift"
@@ -2192,7 +2192,8 @@ msgstr[1] "%(number_contributors)d people have chipped in for this gift."
 
 #: friendfund/templates/pool/settings.html:7
 #: friendfund/templates/pool/settings.html:9
-#: friendfund/templates/pool/settings_admin.html:102
+#: friendfund/templates/pool/settings_address_admin.html:8
+#: friendfund/templates/pool/settings_admin.html:100
 msgid "POOLSETTINGS_TITLE_Pool Admin"
 msgstr "Pool Admin"
 
@@ -2241,13 +2242,20 @@ msgid "POOLSETTINGS_LABEL_Country"
 msgstr "Country"
 
 #: friendfund/templates/pool/settings.html:43
-#: friendfund/templates/pool/settings_admin.html:146
+#: friendfund/templates/pool/settings_address_admin.html:27
+#: friendfund/templates/pool/settings_admin.html:135
 msgid "POOLSETTINGS_LABEL_Back To Pool"
 msgstr "Back To Pool"
 
-#: friendfund/templates/pool/settings_admin.html:115
-msgid "POOLSETTINGS_LABEL_Actions:"
-msgstr "Actions:"
+#: friendfund/templates/pool/settings_admin.html:121
+#, python-format
+msgid "POOLSETTINGS_LABEL_<b class=\"emphasis\">%(number_remaining)sx</b> Remaining"
+msgstr "<b class=\"emphasis\">%(number_remaining)sx</b> to go!"
+
+#: friendfund/templates/pool/settings_admin.html:121
+#: friendfund/templates/pool/parts/description.html:24
+msgid "POOL_DESCRIPTION_edit"
+msgstr "edit"
 
 #: friendfund/templates/pool/actions/billing_display.html:2
 #: friendfund/templates/pool/actions/billing_form.html:2
@@ -2286,24 +2294,24 @@ msgstr "Phone"
 msgid "POOLSETTINGS_LABEL_%(number_remaining)sx Remaining"
 msgstr "%(number_remaining)sx"
 
-#: friendfund/templates/pool/actions/settings_action_content.html:28
+#: friendfund/templates/pool/actions/settings_action_content.html:23
 msgid "POOLSETTINGS_ACTION_LABEL_Pick an Extension Date"
 msgstr "Pick an Extension Date"
 
-#: friendfund/templates/pool/actions/settings_action_content.html:38
-#: friendfund/templates/pool/actions/settings_action_content.html:64
+#: friendfund/templates/pool/actions/settings_action_content.html:32
+#: friendfund/templates/pool/actions/settings_action_content.html:56
 msgid "ADMIN_ACTION_BUTTON_Submit"
 msgstr "Submit"
 
-#: friendfund/templates/pool/actions/settings_action_content.html:54
+#: friendfund/templates/pool/actions/settings_action_content.html:45
 msgid "ADMIN_ACTION_BUTTON_Go On and Contribute the missing:"
-msgstr "Chip in the remaining:"
+msgstr "Chip in the remaining amount:"
 
-#: friendfund/templates/pool/actions/settings_action_content.html:55
+#: friendfund/templates/pool/actions/settings_action_content.html:46
 msgid "CONTRIBPAGE_BUTTON_Chip in Remainder"
 msgstr "Chip in Remainder"
 
-#: friendfund/templates/pool/actions/settings_action_content.html:62
+#: friendfund/templates/pool/actions/settings_action_content.html:53
 msgid "ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:"
 msgstr "Issue Gift Vouchers for:"
 
@@ -2363,10 +2371,6 @@ msgstr "Please log in."
 msgid "POOL_BUTTON_You are not invited to this Pool."
 msgstr "You are not invited to this Pool."
 
-#: friendfund/templates/pool/parts/description.html:24
-msgid "POOL_DESCRIPTION_edit"
-msgstr "edit"
-
 #: friendfund/templates/pool/parts/description.html:26
 msgid "POOL_PAGE_DESCRIPTON_(Pool Admin)"
 msgstr "(Pool Admin)"
@@ -2382,12 +2386,12 @@ msgid "POOL_BUTTON_Hi %(user_name)s<br/>This pool is waiting for <em>%(selector_
 msgstr "Hi %(user_name)s!<br/>This Pool is waiting for <em>%(selector_name)s</em> to choose a gift. Chipping in will be possible once the gift has been chosen!"
 
 #: friendfund/templates/pool/parts/settings.html:5
-#: friendfund/templates/pool/parts/settings.html:8
+#: friendfund/templates/pool/parts/settings.html:10
 msgid "POOL_ADMIN_TAB_Pool Settings"
 msgstr "Pool Settings"
 
-#: friendfund/templates/pool/parts/settings.html:6
-#: friendfund/templates/pool/parts/settings.html:9
+#: friendfund/templates/pool/parts/settings.html:7
+#: friendfund/templates/pool/parts/settings.html:11
 msgid "POOL_ADMIN_TAB_Shipping and Billing Details"
 msgstr "Shipping and Billing Details"
 
@@ -2544,3 +2548,5 @@ msgstr "choose yourself"
 msgid "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect with Twitter!"
 msgstr "To invite your Twitter friends, please connect with Twitter!"
 
+#~ msgid "POOLSETTINGS_LABEL_Actions:"
+#~ msgstr "Actions:"

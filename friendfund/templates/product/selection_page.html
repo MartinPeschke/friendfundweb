@@ -7,7 +7,6 @@
 
 <%def name="scripts()">
 	${links.js('friendfund/AutoRotator.js')}
-	${links.js('friendfund/Tooltip.js')}
 	${links.js('friendfund/ProductSearch.js')}
 </%def>
 <%def name="onloadscripts()">
@@ -21,13 +20,13 @@
 						params["product.is_curated"] = selection_args.is_curated;
 						params["product.is_amazon"] = selection_args.is_amazon;
 						params["product.is_pending"] = selection_args.is_pending;
-						xhrPost("/product/${c.pool.p_url}/set_pending", params);
+						xhrPost("${url(controller='product', pool_url = c.pool.p_url, action='set_pending')}", params);
 				}
 			});
 	productsearch.productLoaded(productsearch);
 </%def>
 
-<div class="innerbody" id="invite_panel_header">
+<div class="innerbody productSelectionPage" id="invite_panel_header">
 	<div class="invite_pool_panel hpbutton first">
 		<div class="picture receiver"><span class="icon"></span><img src="${c.pool.receiver.get_profile_pic('RA')}"/>
 		</div>
@@ -44,8 +43,8 @@
 	${html.clearline()}
 </div>
 
-<div id="lowerbody_container" class="networkinviter fullbackgroundwhite">
-	<div id="button_panel_container" style="margin:0px 15px;display:block;">
+<div id="lowerbody_container" class="fullbackgroundwhite productSelectionPage">
+	<div id="button_panel_container" style="margin:30px;display:block;">
 		<%include file="recommended_tab.html"/>
 	</div>
 </div>

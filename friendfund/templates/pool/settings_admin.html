@@ -9,7 +9,6 @@
 
 <%def name="scripts()">
 	${links.js('friendfund/AutoRotator.js')}
-	${links.js('friendfund/Tooltip.js')}
 	${links.js('friendfund/ProductSearch.js')}
 </%def>
 
@@ -37,44 +36,42 @@
 		}
 		
 		closeElement = function(elem){
-
 			dojo.query(".opened", "poolactions").addClass("hidden").removeClass("opened");
-			dojo.byId("poolactioncontent").className ="hidden";
 		}
-		
 		closeAll = function(data){
 			dojo.query(".opened", "poolactions").forEach(closeElement);
 		}
 		
-		var open_actionpanel = function(evt){
-			var action = dojo.attr(this, "_action");
-			if(action){
+		open_actionpanel = function(evt){
+			if(!dojo.hasClass(evt.target, "anchor_elem_link")&&(dojo.query(evt.target).parents(".anchor_elem_link").length===0)){return;}
+			var target;
+			if(dojo.hasClass(evt.target, "anchorelem")){target=evt.target;}
+			else {target = dojo.query(evt.target).parents(".anchorelem")[0];}
+			var action = dojo.attr(target, "_action");
+			var content = dojo.query('.poolActionContent',target);
+			if(action && content.length>0){
 				var datestamp = "datestamp_"+action;
-				var extender = dojo.byId("actionextender_"+action);
-				if(dojo.hasClass(extender, "hidden")){ 
-					/* show */
-					dojo.byId("poolactioncontent").className = action;
+				if(content.filter(".hidden").length > 0){ /* show */
 					dojo.query(".opened", "poolactions").forEach(
 						function(elem){
 							dojo.removeClass(elem, "opened");
 							dojo.addClass(elem, "hidden");
 						});
-					dojo.removeClass(extender, "hidden");
-					dojo.query(".extender", this.parentNode).removeClass("hidden").addClass("opened");
-					dojo.addClass(extender, "opened");
-					dojo.parser.parse(dojo.byId("poolactions"));
-				
+					content.removeClass("hidden").addClass("opened");
+					dojo.parser.parse(content[0]);
+					
 					if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
 						productsearch.draw(productsearch);
 					}
 				} else {  /* hide */
-					closeElement(this);
+					closeElement(target);
 				}
 			}
 		}
 </%def>
 <%def name="onloadscripts()">
-	dojo.query("a.poolaction", "poolactions").onclick(open_actionpanel);
+	dojo.require("dijit.form.DateTextBox");
+	dojo.query("#poolactions").onclick(open_actionpanel);
 	productsearch = new friendfund.ProductSearch({
 		ref_node : "product_search_container",
 		canSelectRegion:false,
@@ -109,21 +106,20 @@ ${settings_common.render_tabs("settings")|n}
 		<div class="poolActionContainer"><a onclick="order_gift()" class="poolaction buttonRed buttonChipIn"><span>${_("POOL_BUTTON_ACTION_Order Gift")}</span></a></div>
 	%endif
 	
-	<div id="lowerbody" class="innerbody">
+	<div id="lowerbody" class="innerbody floaterLeft">
 	%if c.psettings.is_funded() or c.psettings.actions:
-	<div  class="panel_title" style="clear:both">
-		${_("POOLSETTINGS_LABEL_Actions:")}
-	</div>
 	<div id="poolactions">
 		%for action in c.psettings.actions:
-			<div class="poolaction">
+			<div _action="${action.name}" class="poolaction anchorelem">
 				<img src="${h.get_action_picture(action)}" class="floaterLeft" />
 				<div class="poolActionButton underlined2">
-					%if action.remaining is not None:
-						<div class="remaining_counter">
-							${(_("POOLSETTINGS_LABEL_%(number_remaining)sx Remaining")%dict([('number_remaining', action.remaining)]))|n}&nbsp;|&nbsp;${_("POOL_DESCRIPTION_edit")}
-						</div>
-					%endif
+						<a class="remaining_counter anchor_elem_link">
+						%if action.remaining is not None:
+							${(_("POOLSETTINGS_LABEL_<b class=\"emphasis\">%(number_remaining)sx</b> Remaining")%dict([('number_remaining', action.remaining)]))|n}&nbsp;|
+							%endif
+							<span class="emphasis somelink">${_("POOL_DESCRIPTION_edit")}</span>
+						</a>
+					
 					<div class="inside floaterLeft">${action.get_display_name()}</div>
 				</div>
 				<div class="poolActionContent hidden">

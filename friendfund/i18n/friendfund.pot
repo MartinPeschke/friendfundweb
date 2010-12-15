@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2010-12-14 16:42+0100\n"
+"POT-Creation-Date: 2010-12-15 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,19 +216,19 @@ msgstr ""
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr ""
 
-#: friendfund/controllers/index.py:71 friendfund/controllers/myprofile.py:152
+#: friendfund/controllers/index.py:78 friendfund/controllers/myprofile.py:152
 msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
 msgstr ""
 
-#: friendfund/controllers/index.py:97
+#: friendfund/controllers/index.py:104
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr ""
 
-#: friendfund/controllers/index.py:129
+#: friendfund/controllers/index.py:136
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr ""
 
-#: friendfund/controllers/index.py:130 friendfund/controllers/myprofile.py:72
+#: friendfund/controllers/index.py:137 friendfund/controllers/myprofile.py:72
 #: friendfund/controllers/myprofile.py:111
 #, python-format
 msgid ""
@@ -236,11 +236,11 @@ msgid ""
 " password or %(link_open)srequest a password change!%(link_close)s"
 msgstr ""
 
-#: friendfund/controllers/index.py:152
+#: friendfund/controllers/index.py:159
 msgid "USER_SETEMAILBLOCK_Email Updated!"
 msgstr ""
 
-#: friendfund/controllers/index.py:158
+#: friendfund/controllers/index.py:165
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr ""
 
@@ -329,9 +329,9 @@ msgid ""
 msgstr ""
 
 #: friendfund/controllers/pool.py:43 friendfund/controllers/pool.py:67
-#: friendfund/controllers/pool.py:76 friendfund/controllers/pool.py:181
-#: friendfund/controllers/pool.py:194 friendfund/controllers/pool.py:213
-#: friendfund/controllers/pool.py:226 friendfund/controllers/product.py:31
+#: friendfund/controllers/pool.py:76 friendfund/controllers/pool.py:189
+#: friendfund/controllers/pool.py:202 friendfund/controllers/pool.py:221
+#: friendfund/controllers/pool.py:234 friendfund/controllers/product.py:31
 #: friendfund/controllers/product.py:44
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr ""
@@ -348,20 +348,20 @@ msgstr ""
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:334
+#: friendfund/controllers/pool.py:342
 msgid "POOL_ACTION_Changes Saved"
 msgstr ""
 
-#: friendfund/controllers/pool.py:373 friendfund/controllers/product.py:50
+#: friendfund/controllers/pool.py:381 friendfund/controllers/product.py:50
 #: friendfund/controllers/product.py:149
 msgid "INDEX_PAGE_No Product"
 msgstr ""
 
-#: friendfund/controllers/pool.py:385
+#: friendfund/controllers/pool.py:393
 msgid "POOL_ALTPRODUCT_Product Change Saved"
 msgstr ""
 
-#: friendfund/controllers/pool.py:395
+#: friendfund/controllers/pool.py:403
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr ""
 
@@ -2205,7 +2205,7 @@ msgid "POOL_BUTTON_Chip in!"
 msgstr ""
 
 #: friendfund/templates/pool/pool.html:174
-#: friendfund/templates/pool/settings_admin.html:119
+#: friendfund/templates/pool/settings_admin.html:109
 #: friendfund/templates/pool/parts/button_close.html:5
 msgid "POOL_BUTTON_ACTION_Order Gift"
 msgstr ""
@@ -2354,7 +2354,8 @@ msgstr[1] ""
 
 #: friendfund/templates/pool/settings.html:7
 #: friendfund/templates/pool/settings.html:9
-#: friendfund/templates/pool/settings_admin.html:102
+#: friendfund/templates/pool/settings_address_admin.html:8
+#: friendfund/templates/pool/settings_admin.html:100
 msgid "POOLSETTINGS_TITLE_Pool Admin"
 msgstr ""
 
@@ -2403,12 +2404,19 @@ msgid "POOLSETTINGS_LABEL_Country"
 msgstr ""
 
 #: friendfund/templates/pool/settings.html:43
-#: friendfund/templates/pool/settings_admin.html:146
+#: friendfund/templates/pool/settings_address_admin.html:27
+#: friendfund/templates/pool/settings_admin.html:135
 msgid "POOLSETTINGS_LABEL_Back To Pool"
 msgstr ""
 
-#: friendfund/templates/pool/settings_admin.html:115
-msgid "POOLSETTINGS_LABEL_Actions:"
+#: friendfund/templates/pool/settings_admin.html:121
+#, python-format
+msgid "POOLSETTINGS_LABEL_<b class=\"emphasis\">%(number_remaining)sx</b> Remaining"
+msgstr ""
+
+#: friendfund/templates/pool/settings_admin.html:121
+#: friendfund/templates/pool/parts/description.html:24
+msgid "POOL_DESCRIPTION_edit"
 msgstr ""
 
 #: friendfund/templates/pool/actions/billing_display.html:2
@@ -2448,24 +2456,24 @@ msgstr ""
 msgid "POOLSETTINGS_LABEL_%(number_remaining)sx Remaining"
 msgstr ""
 
-#: friendfund/templates/pool/actions/settings_action_content.html:28
+#: friendfund/templates/pool/actions/settings_action_content.html:23
 msgid "POOLSETTINGS_ACTION_LABEL_Pick an Extension Date"
 msgstr ""
 
-#: friendfund/templates/pool/actions/settings_action_content.html:38
-#: friendfund/templates/pool/actions/settings_action_content.html:64
+#: friendfund/templates/pool/actions/settings_action_content.html:32
+#: friendfund/templates/pool/actions/settings_action_content.html:56
 msgid "ADMIN_ACTION_BUTTON_Submit"
 msgstr ""
 
-#: friendfund/templates/pool/actions/settings_action_content.html:54
+#: friendfund/templates/pool/actions/settings_action_content.html:45
 msgid "ADMIN_ACTION_BUTTON_Go On and Contribute the missing:"
 msgstr ""
 
-#: friendfund/templates/pool/actions/settings_action_content.html:55
+#: friendfund/templates/pool/actions/settings_action_content.html:46
 msgid "CONTRIBPAGE_BUTTON_Chip in Remainder"
 msgstr ""
 
-#: friendfund/templates/pool/actions/settings_action_content.html:62
+#: friendfund/templates/pool/actions/settings_action_content.html:53
 msgid "ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:"
 msgstr ""
 
@@ -2531,10 +2539,6 @@ msgstr ""
 msgid "POOL_BUTTON_You are not invited to this Pool."
 msgstr ""
 
-#: friendfund/templates/pool/parts/description.html:24
-msgid "POOL_DESCRIPTION_edit"
-msgstr ""
-
 #: friendfund/templates/pool/parts/description.html:26
 msgid "POOL_PAGE_DESCRIPTON_(Pool Admin)"
 msgstr ""
@@ -2555,12 +2559,12 @@ msgid ""
 msgstr ""
 
 #: friendfund/templates/pool/parts/settings.html:5
-#: friendfund/templates/pool/parts/settings.html:8
+#: friendfund/templates/pool/parts/settings.html:10
 msgid "POOL_ADMIN_TAB_Pool Settings"
 msgstr ""
 
-#: friendfund/templates/pool/parts/settings.html:6
-#: friendfund/templates/pool/parts/settings.html:9
+#: friendfund/templates/pool/parts/settings.html:7
+#: friendfund/templates/pool/parts/settings.html:11
 msgid "POOL_ADMIN_TAB_Shipping and Billing Details"
 msgstr ""
 

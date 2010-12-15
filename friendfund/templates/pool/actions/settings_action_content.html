@@ -7,13 +7,9 @@ from datetime import date, timedelta
 
 
 <%def name="render(action, psettings)">
-	<div id="actionextender_${action.name}" class="settings_action hidden">
-		<div  class="panel_title">
-			${action.get_display_title()}
-		</div>
-		<div  class="pool_action_subtitle">
-			${action.get_display_subtitle()}
-		</div>
+	<div  class="poolActionSubtitle">
+		${action.get_display_subtitle()}
+	</div>
 		
 	%if action.has_product_search():
 		${render_product_search(action, psettings)}
@@ -22,26 +18,24 @@ from datetime import date, timedelta
 	%elif action.is_gift_vouchers():
 		${render_gift_vouchers(action, psettings)}
 	%else:
-		<div class="panel_content">
-			<form method="POST" action="${url(controller='pool', pool_url=c.pool_url, action='action')}" id="form_${action.name}">
-			%if psettings.is_expired() and action.is_extending:
-					${forms.black_input_datepicker("datestamp_%s" % action.name, "expiry_date", psettings.get_internal_expiry_date(5), label=_("POOLSETTINGS_ACTION_LABEL_Pick an Extension Date"), width=150, args=[("constraints", "{min:'%s'}"%psettings.get_internal_expiry_date(5))])|n}
-			%endif
-			<input type="hidden" name="action" value="${action.name}"/>
-			
-			%if action.contains_message():
-				${html.clearline(15)}
-				<textarea cols="60" rows="5" name="message" id="message_${action.name}">${psettings.description}</textarea>
-			%endif
-
-			<div style="margin:30px;float:right;position:relative;">
-				<a class="submitSmall" href="#" onclick="dojo.byId('form_${action.name}').submit()" id="action_submitter"><span>${_("ADMIN_ACTION_BUTTON_Submit")}</span></a>
+		<form method="POST" action="${url(controller='pool', pool_url=c.pool_url, action='action')}" id="form_${action.name}">
+		<input type="hidden" name="action" value="${action.name}"/>
+		
+		%if action.contains_message():
+			<textarea cols="60" rows="5" name="message" id="message_${action.name}">${psettings.description}</textarea>
+		%endif
+		%if psettings.is_expired() and action.is_extending:
+			<div style="float: left;margin: 0 30px;">
+				<label class="black_label floaterLeft" for="datestamp_${action.name}">${_("POOLSETTINGS_ACTION_LABEL_Pick an Extension Date")}</label><br/>
+				<div id="datestamp_${action.name}" jsid="datestamp_${action.name}" type="text" class="black_labeled_input datepicker" name="expiry_date" value="${psettings.get_internal_expiry_date(5)}" dojoType="dijit.form.DateTextBox" constraints="{min:'${psettings.get_internal_expiry_date(5)}'}"></div>
 			</div>
-			</form>
+		%endif
+		<div style="clear:both"></div>
+		<div class="submitButton">
+			<a class="submitSmall" href="#" onclick="dojo.byId('form_${action.name}').submit()" id="action_submitter"><span>${_("ADMIN_ACTION_BUTTON_Submit")}</span></a>
 		</div>
+		</form>
 	%endif
-		${html.clearline()}
-	</div>
 </%def>
 
 
@@ -50,7 +44,7 @@ from datetime import date, timedelta
 </%def>
 
 <%def name="render_payment_form(action, psettings)">
-		<div id="contributioncontainer" class="forminputline">
+		<div class="forminputline">
 			<label style="width: 200px;">${_("ADMIN_ACTION_BUTTON_Go On and Contribute the missing:")} </label><span class="fixedvalue">${h.format_currency(c.pool.get_amount_left(),c.pool.currency)|n}</span>
 			<a class="submitSmall" href="${url('chipin_fixed', pool_url=psettings.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="submitter"><span>${_("CONTRIBPAGE_BUTTON_Chip in Remainder")}</span></a>
 		</div>
@@ -60,7 +54,8 @@ from datetime import date, timedelta
 	<div class="panel_content">
 		<div id="contributioncontainer" class="forminputline">
 			<label style="width: 200px;">${_("ADMIN_ACTION_BUTTON_Issue Gift Vouchers for:")}</label><span class="fixedvalue">${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)|n}</span>
-			<div style="margin:30px;float:right;position:relative;">
+			<div style="clear:both;"></div>
+			<div class="submitButton">
 				<a class="submitSmall" href="${url(controller="pool", pool_url=psettings.p_url, action="issue_gift_vouchers")}" id="submitter"><span>${_("ADMIN_ACTION_BUTTON_Submit")}</span></a>
 			</div>
 		</div>
