@@ -14,21 +14,23 @@
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals, with_pending = False)">
-	<div id="networkinviter_${network_name}" class="invitepage">
+	<div id="networkinviter_${network_name}">
 	<div id="inviteheader" class="${network_name}">
-		%if mutuals:
-			<div class="mutual_toggle_container">
-				<input type="checkbox" id="toggle_mutuals" checked="checked"/>
-				<label for="toggle_mutuals">${_("INVITE_PAGE_Only Mutual Friends")}</label>
-			</div>
-		%endif
 		<input type="text" value="${_("INVITE_PAGE_LABEL_Search friends ...")}" name="fb_filter" id="fb_filter" _default_text="${_("INVITE_PAGE_LABEL_Search friends ...")}" class="default">
-		<a class="submitMini" id="inviteall">${_("INVITE_PAGE_LABEL_Invite All")}<span></span></a>
 	</div>
+	<div class="invitepage">
+	%if mutuals:
+		<div class="mutual_toggle_container">
+			<input type="checkbox" id="toggle_mutuals" checked="checked"/>
+			<label for="toggle_mutuals">${_("INVITE_PAGE_Only Mutual Friends")}</label>
+		</div>
+	%endif
+	<a class="submitMini" id="inviteall">${_("INVITE_PAGE_LABEL_Invite All")}<span></span></a>
 
 	<div id="friend_list" class="${network_name}">
 		${render_network_friends(friends, mutuals = mutuals, with_pending=with_pending)|n}
 		${render_network_friends(c.already_invited, active=False, mutuals = mutuals, with_pending=with_pending)|n}
+	</div>
 	</div>
 	</div>
 </%def>
@@ -75,14 +77,16 @@
 
 
 <%def name="mailinviter(with_pending = False)">
+<div id="networkinviter_email">
 	<div id="inviteheader">
 		${html.clearline()}
+	</div>
+	<div class="perm_dialog" style="text-align:left;padding:0 0 0 30px;">
 		<div class="headline">
 			Select Friend from:
 			<img src="/static/imgs/button_mail_gmail.png" class="networkicon" alt="GMail" />
 			<img src="/static/imgs/button_mail_yahoo.png" class="networkicon" alt="Yahho Mail" />
 		</div>
-		${html.clearline()}
 		<form action="" method="POST" id="emailinviter">
 			<div id="inviter_name" class="input_field">
 			<div class="label">
@@ -107,11 +111,9 @@
 				<a class="submitSmall selector" id="emailsubmitter" _imgurl="/static/imgs/default_m.png"><span>${_("INVITE_PAGE_LABEL_Submit")}</span></a>
 			</div>
 		</form>
-	${html.clearline(20)}
+		<div style="clear:both"></div>
 	</div>
-	<div id="friend_list" class="emailpopup">
-		
-	</div>
+</div>
 </%def>
 
 <%def name="render_email_friends(friends, active = True, class_='selectable', with_pending = False, add_label = None, rem_label = None)">

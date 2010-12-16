@@ -43,7 +43,11 @@ class ContentController(BaseController):
 	def our_virtual_gifts_help(self):
 		c.faq_items = FAQ_KEYS[12:15]
 		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}
+		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}	
+	
+	@jsonify
+	def invite_preview(self):
+		return {"popup":self.render("/messages/popups/invite_preview.html").strip()}
 	
 	def contact(self):
 		return self.render("/content/contact.html")

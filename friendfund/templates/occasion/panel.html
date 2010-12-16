@@ -19,7 +19,7 @@ from datetime import date, timedelta
 					<img src="/static/imgs/${occ.picture_url}"/>
 					<div class="label">
 					%if occ.custom:
-						<input class="black_labeled_input ${(not c.name and default or "")}" _default_text="${_("EVENT_PANEL_Just because...")}" type="text" id="${occ.key}" name="name" value="${c.name or _("EVENT_PANEL_Just because...")}" style="width:106px;"/>
+						<input class="black_labeled_input ${(not c.name and 'default' or "")}" _default_text="${_("EVENT_PANEL_Just because...")}" type="text" id="${occ.key}" name="name" value="${c.name or _("EVENT_PANEL_Just because...")}" style="width:106px;"/>
 					%else:
 						${occ.get_display_name()}
 					%endif

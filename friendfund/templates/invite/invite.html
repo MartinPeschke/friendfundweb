@@ -20,6 +20,7 @@
 			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"
 		});
 	page_reloader = dojo.hitch(null, page.prepareSubmit, page);
+	dojo.query(".popuplink", "lowerbody_container").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
 <%def name="page_slogan()">
@@ -52,17 +53,19 @@
 %>
 
 <div id="lowerbody_container" class="networkinviter fullbackgroundwhite marginTop">
-	<div id="lowerbody">
-		<div id="network_methodselector" class="TabsContainer"><a class="methodselector"><span>${_("INVITE_PAGE_LABEL_Select your friends from:")}</span></a>
+	<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
+	<div class="lowerbody">
+		<div id="network_methodselector" class="TabsContainer">
 				<a class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _target="inviter" _type="facebook"><span><img src="/static/imgs/icon_fb_connect.png"> Facebook</span></a>
 				<a class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _target="inviter" _type="twitter"><span> <img src="/static/imgs/icon_tw_connect.png"> Twitter</span></a>
 				<a class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _target="inviter" _type="email"><span><img src="/static/imgs/icon_mail.png"> Email</span></a>
 		</div>
 		${html.clearline()}
 		<div id="invitescontainer" class="innerbody">
-			<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<div id="invites">
 				<div id="inviter"></div>
+				
+				<div id="invited">
 				%if c.pool.require_pselector:
 					<div id="PendingSelectorSelector" class="placeholder">
 						<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool.")}</span>
@@ -77,7 +80,7 @@
 					<div class="placeholder">
 					</div>
 				%endif
-				<div id="invited">
+				<div class="invitedBody">
 					<div id="email_invitees" class="invited_list">
 						<div class="seperator"><img src="/static/imgs/icon_mail.png"/></div>
 						${inviter.render_email_friends(c.invitees.get("email", dict()), with_pending = c.pool.require_pselector)}
@@ -96,45 +99,62 @@
 				</div>
 				<div style="clear:both;"></div>
 			</div>
-			
-			<div class="invite_body">
-				<h4 class="inside">${_("INVITE_PAGE_LABEL_Send a personal message to all invitees:")}</h4>
-				<% locals = {"admin_name":c.pool.admin.name, "receiver_name" : c.pool.receiver.name, "occasion_name": c.pool.occasion.get_display_name()} %>
-				<textarea name="description" id="default_slogan" cols="60" rows="5">${c.pool.description|n}</textarea>
-			</div>
-			
-			<div class="invite_body">
-				%if i_am_admin and not c.pool.product.is_virtual:
-				<div class="invite_secret floaterLeft">
-					<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
-					${(_("INVITE_PAGE_LABEL_Keep pool a secret from %(receiver_name)s")%locals)|n}:
-					<div class="yes">
-					<input type="checkbox" id="check_is_secret" name="is_secret" value="true" ${forms.expression_quote(c.pool.is_secret or False, "checked")|n}/><label for="check_is_secret">${_("INVITE_PAGE_BUTTON_Yes, please.")}</label></div>
-				</div>
-				%endif
-				
-				<div class="floaterRight">
-					<div id="inviters_panel_tooltip" class="hidden">
-						${_("INVITE_PAGE_TIP_Please invite some friends first!")}
-					</div>
-					<div id="inviters_selector_tooltip" class="hidden">
-						<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_TIP_Please chose a Gift Selector First!")}</span>
-					</div>
-					<a class="submitSmall" id="invite_submitter"><span>${_("INVITE_PAGE_BUTTON_Send Invites")}</span></a>
-				</div>
-				
-				<%doc>
-				<div class="social_tools">
-					<a onclick="fbShare('${url('get_pool', pool_url=c.pool.p_url, protocol='http')}', '${c.pool.description}')" class="facebookBtn" title="${_("Share on Facebook")}">
-						<span>${_("Share on Facebook")}</span>
-					</a>
-				</div>
-				</%doc>
-			</div>
-			</form>
+			<div style="clear:both;"></div>
 		</div>
 	</div>
+	</div>
+	
+	
 	${html.clearline()}
+	
+	<div class="lowerbody">
+		<div class="invite_body">
+			<h4 class="inside">${_("INVITE_PAGE_LABEL_Edit your invitation message:")}</h4>
+			<div class="insider underlined2" style="padding:4px;">${_("INVITE_PAGE_LABEL_This message will included in your Facebook and Email invitations.")}</div>
+			
+			<% locals = {"admin_name":c.pool.admin.name, "receiver_name" : c.pool.receiver.name, "occasion_name": c.pool.occasion.get_display_name()} %>
+			<textarea name="description" id="default_slogan" cols="60" rows="5">${c.pool.description|n}</textarea>
+			<a class="floaterRight popuplink" href="#" _href="${url(controller='content', action='invite_preview')}">${_("INVITE_PAGE_BUTTON_Popup")}</a>
+		</div>
+		
+		<div class="invite_body">
+			<h4 class="inside">${_("INVITE_PAGE_LABEL_Invitation Settings:")}</h4>
+			<div class="insider underlined2" style="padding:4px;margin-bottom:15px;">${_("INVITE_PAGE_LABEL_Edit your invitation settings")}</div>
+			
+			<div class="invite_secret">
+				<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
+				<input type="checkbox" id="check_opt_out" name="opt_out" value="true"/>
+				<label for="check_opt_out">${(_("INVITE_PAGE_LABEL_I will invite my friends manually, do not send out automated messages!")%locals)|n}</label>
+			</div>
+			
+			%if i_am_admin and not c.pool.product.is_virtual:
+			<div class="invite_secret">
+				<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
+				<input type="checkbox" id="check_is_secret" name="is_secret" value="true" ${forms.expression_quote(c.pool.is_secret or False, "checked")|n}/>
+				<label for="check_is_secret">${(_("INVITE_PAGE_LABEL_Keep pool a secret from %(receiver_name)s")%locals)|n}</label>
+			</div>
+			%endif
+			
+			<div class="floaterRight">
+				<div id="inviters_panel_tooltip" class="hidden">
+					${_("INVITE_PAGE_TIP_Please invite some friends first!")}
+				</div>
+				<div id="inviters_selector_tooltip" class="hidden">
+					<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_TIP_Please chose a Gift Selector First!")}</span>
+				</div>
+				<a class="submitSmall" id="invite_submitter"><span>${_("INVITE_PAGE_BUTTON_Send Invites")}</span></a>
+			</div>
+			
+			<%doc>
+			<div class="social_tools">
+				<a onclick="fbShare('${url('get_pool', pool_url=c.pool.p_url, protocol='http')}', '${c.pool.description}')" class="facebookBtn" title="${_("Share on Facebook")}">
+					<span>${_("Share on Facebook")}</span>
+				</a>
+			</div>
+			</%doc>
+		</div>
+	</div>
+	</form>
 </div>
 </%def>
 
