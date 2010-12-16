@@ -196,17 +196,16 @@ class ProductService(object):
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
 				return self._amazon_fallback(request, tmpl_context.searchterm)
 		else:
-			s1 = self.amazon_services[tmpl_context.region].get_products_from_search(tmpl_context.searchterm)
-			s2 = app_globals.dbsearch.call(ProductSearch( 
-						sort = tmpl_context.sort,
-						page_size = tmpl_context.page_size,
-						program_id = tmpl_context.aff_net_ref, 
-						search=tmpl_context.searchterm, 
-						page_no=tmpl_context.page,
-						region=tmpl_context.region,
-						max_price = tmpl_context.max_price), ProductSearch)
-			tmpl_context.searchresult = CombinedSearchResult(s1, s2, tmpl_context.page)
-			tmpl_context.searchterm = request.params.get("catname", tmpl_context.searchterm)
+			tmpl_context.searchresult = self.amazon_services[tmpl_context.region].get_products_from_search(tmpl_context.searchterm)
+			# s2 = app_globals.dbsearch.call(ProductSearch( 
+						# sort = tmpl_context.sort,
+						# page_size = tmpl_context.page_size,
+						# program_id = tmpl_context.aff_net_ref, 
+						# search=tmpl_context.searchterm, 
+						# page_no=tmpl_context.page,
+						# region=tmpl_context.region,
+						# max_price = tmpl_context.max_price), ProductSearch)
+			# tmpl_context.searchresult = CombinedSearchResult(s1, s2, tmpl_context.page)
 		return tmpl_context
 	
 	def _amazon_fallback(self, request, url):

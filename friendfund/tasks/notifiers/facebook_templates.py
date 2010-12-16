@@ -5,34 +5,21 @@ FF_SLOGAN = 'Friendfund is the easy way for you and your friends to organise gro
 #to print a $ in a message, use $$
 STANDARD_PARAMS = {'description':Template(FF_SLOGAN),"picture":Template(u"${ROOT_URL}/static/imgs/fb_stream_publish_logo.png")}
 
-EVENT_TEMPLATES = {
-	"public": {
+EVENT_TEMPLATE = {
 		"name":Template(u"FriendFund for ${receiver} for ${occasion}"),
 		"start_time" :Template(u"${occasion_date}"),
 		"end_time" : Template(u"${occasion_date}"),
 		
-		"description":Template("""${description} \n\n
-			${admin} wants to get ${receiver} a ${occasion} gift and you've been invited to help purchase it.\n\n
-			Go on, chip in as little or as much as you like and help make ${receiver}'s day.\n\n
-			Go to the gift pool: ${ROOT_URL}/pool/${p_url}\n\n
-			Contributions must be made before the deadline or ${receiver} might not get their gift!\n\n
-			This gift pool was created with friendfund, the easy way to organise group gifts.\n\n
+		"description":Template("""${description} \n
+			${admin} wants to get ${receiver} a ${occasion} gift and you've been invited to help purchase it.
+			Go on, chip in as little or as much as you like and help make ${receiver}'s day.\n
+			Go to the gift pool: ${ROOT_URL}/pool/${p_url}\n
+			Contributions must be made before the deadline or ${receiver} might not get their gift!\n
+			This gift pool was created with friendfund, the easy way to organise group gifts.
 			${ROOT_URL}"""),
 		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
 		"privacy_type" : Template(u"OPEN")
-	},
-	"secret": {
-		"name":Template(u"A Friend Fund for a Friend of Yours"),
-		"start_time" : Template(u"${occasion_date}"),
-		"end_time" : Template(u"${occasion_date}"),
-		"description":Template(u"""A gift pool for a Friend of yours has been opened, the admin wants this pool to remain secret, see it at ${ROOT_URL}/pool/${p_url}\n\n
-		This gift pool was created with friendfund, the easy way to organise group gifts.\n\n
-		${ROOT_URL}
-		"""),
-		"link" : Template(u"${ROOT_URL}/pool/${p_url}"),
-		"privacy_type" : Template(u"SECRET")
 	}
-}
 
 TEMPLATES = {"INVITE":{
 					 "public":{

@@ -109,7 +109,6 @@ class AmazonService(object):
 		products = []
 		for i, (action, elem) in enumerate(context):
 			product = Product()
-			
 			errors = elem.xpath("t:Errors/t:Error/t:Code/text()", **self.query_nss)
 			if len(errors) > 1:
 				log.debug( AmazonErrorsOccured("XML Contained Errors %s" % errors) )
@@ -191,6 +190,6 @@ class AmazonService(object):
 	def get_products_from_search(self, searchquery):
 		xml = self.fetch_product({'Keywords':searchquery, 'Operation':'ItemSearch', 'SearchIndex':'All'})
 		amazon_products = self.parse_result_xml(xml)
-		product_search = ProductSearch(page_no=1, items=len(amazon_products[:self.page_size]), pages=1, page_size=self.page_size, categories = [])
-		product_search.products = amazon_products[:self.page_size]
+		product_search = ProductSearch(page_no=1, items=len(amazon_products[:self.page_size]), pages=1, page_size=10, categories = [])
+		product_search.products = amazon_products[:10]
 		return product_search

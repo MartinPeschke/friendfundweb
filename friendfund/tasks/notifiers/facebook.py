@@ -5,7 +5,7 @@ from friendfund.tasks.notifiers.common import MissingTemplateException, InvalidA
 from celery.execute import send_task
 from poster.streaminghttp import register_openers
 from poster.encode import multipart_encode
-from friendfund.tasks.notifiers.facebook_templates import TEMPLATES, STANDARD_PARAMS, EVENT_TEMPLATES
+from friendfund.tasks.notifiers.facebook_templates import TEMPLATES, STANDARD_PARAMS, EVENT_TEMPLATE
 import logging.config
 logging.config.fileConfig("notifier_logging.conf")
 logging.basicConfig()
@@ -37,16 +37,15 @@ def _create_event(query, image_url, template_data, config):
 def create_event_invite(sndr_data, rcpt_data, template_data, config, rcpts_data):
 	if not template_data.get('event_id'):
 		query = {}
-		msg_realm = template_data.get('is_secret') == '0' and "public" or "secret"
-		query.update(EVENT_TEMPLATES[msg_realm])
-		
+		query.update(EVENT_TEMPLATE)
 		query = dict((k,v.substitute(**dict(template_data)).encode("utf-8")) for k,v in query.iteritems())
 		query["access_token"] = sndr_data["access_token"]
 		query["format"] = "json"
 		query["tagline"] = "Friendfund, group gifts"
 		query["host"] = "me"
+		query["privacy_type"] = template_data.get('is_secret') == '1' and "SECRET" or "OPEN"
 		
-		image_url = h.get_user_picture(msg_realm == 'public' and template_data["image_url"] or None, "POOL", site_root=template_data["ROOT_URL"])
+		image_url = h.get_user_picture(template_data["image_url"], "POOL", site_root=template_data["ROOT_URL"])
 		event_id = _create_event(query, image_url, template_data, config)
 	else:
 		event_id = template_data['event_id']

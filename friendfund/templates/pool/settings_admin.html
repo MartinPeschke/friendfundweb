@@ -12,54 +12,54 @@
 </%def>
 
 <%def name="headscripts()">
-		
-		order_gift = function(){
-			var shipexists = dojo.every(dojo.query("span.requiredvalue", "shippingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
-			var billexists = dojo.every(dojo.query("span.requiredvalue", "billingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
-			if(!shipexists||!billexists){
-				window.location.href = "${url('pool_action', controller='pool', pool_url=c.psettings.p_url, action='addresses')}";
-			} else {
-				window.location.href = "${url('pool_action', controller='pool', pool_url=c.psettings.p_url, action='close')}";
-				return;
-			}
+	dojo.require("dojo.parser");
+	dojo.require("dijit.form.DateTextBox");
+	order_gift = function(){
+		var shipexists = dojo.every(dojo.query("span.requiredvalue", "shippingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
+		var billexists = dojo.every(dojo.query("span.requiredvalue", "billingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
+		if(!shipexists||!billexists){
+			window.location.href = "${url('pool_action', controller='pool', pool_url=c.psettings.p_url, action='addresses')}";
+		} else {
+			window.location.href = "${url('pool_action', controller='pool', pool_url=c.psettings.p_url, action='close')}";
+			return;
 		}
-		
-		closeElement = function(elem){
-			dojo.query(".opened", "poolactions").addClass("hidden").removeClass("opened");
-		}
-		closeAll = function(data){
-			dojo.query(".opened", "poolactions").forEach(closeElement);
-		}
-		
-		open_actionpanel = function(evt){
-			if(!dojo.hasClass(evt.target, "anchor_elem_link")&&(dojo.query(evt.target).parents(".anchor_elem_link").length===0)){return;}
-			var target;
-			if(dojo.hasClass(evt.target, "anchorelem")){target=evt.target;}
-			else {target = dojo.query(evt.target).parents(".anchorelem")[0];}
-			var action = dojo.attr(target, "_action");
-			var content = dojo.query('.poolActionContent',target);
-			if(action && content.length>0){
-				var datestamp = "datestamp_"+action;
-				if(content.filter(".hidden").length > 0){ /* show */
-					dojo.query(".opened", "poolactions").forEach(
-						function(elem){
-							dojo.removeClass(elem, "opened");
-							dojo.addClass(elem, "hidden");
-						});
-					content.removeClass("hidden").addClass("opened");
-					dojo.parser.parse(content[0]);
-					
-					if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
-						productsearch.draw(productsearch);
-					}
-				} else {  /* hide */
-					closeElement(target);
+	}
+	
+	closeElement = function(elem){
+		dojo.query(".opened", "poolactions").addClass("hidden").removeClass("opened");
+	}
+	closeAll = function(data){
+		dojo.query(".opened", "poolactions").forEach(closeElement);
+	}
+	
+	open_actionpanel = function(evt){
+		if(!dojo.hasClass(evt.target, "anchor_elem_link")&&(dojo.query(evt.target).parents(".anchor_elem_link").length===0)){return;}
+		var target;
+		if(dojo.hasClass(evt.target, "anchorelem")){target=evt.target;}
+		else {target = dojo.query(evt.target).parents(".anchorelem")[0];}
+		var action = dojo.attr(target, "_action");
+		var content = dojo.query('.poolActionContent',target);
+		if(action && content.length>0){
+			var datestamp = "datestamp_"+action;
+			if(content.filter(".hidden").length > 0){ /* show */
+				dojo.query(".opened", "poolactions").forEach(
+					function(elem){
+						dojo.removeClass(elem, "opened");
+						dojo.addClass(elem, "hidden");
+					});
+				content.removeClass("hidden").addClass("opened");
+				dojo.parser.parse(content[0]);
+				
+				if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
+					productsearch.draw(productsearch);
 				}
+			} else {  /* hide */
+				closeElement(target);
 			}
 		}
+	}
 </%def>
 <%def name="onloadscripts()">
-	dojo.require("dijit.form.DateTextBox");
 	dojo.query("#poolactions").onclick(open_actionpanel);
 	productsearch = new friendfund.ProductSearch({
 		ref_node : "product_search_container",
@@ -106,12 +106,12 @@
 				<div class="poolActionButton underlined2">
 						<a class="remaining_counter anchor_elem_link">
 						%if action.remaining is not None:
-							${(_("POOLSETTINGS_LABEL_<b class=\"emphasis\">%(number_remaining)sx</b> Remaining")%dict([('number_remaining', action.remaining)]))|n}&nbsp;|
-							%endif
+							${(_("POOLSETTINGS_LABEL_<b class=\"emphasis\">%(number_remaining)sx</b> Remaining")%dict([('number_remaining', action.remaining)]))|n}<span class="seperator">|</span>
+						%endif
 							<span class="emphasis somelink">${_("POOL_DESCRIPTION_edit")}</span>
 						</a>
 					
-					<div class="inside floaterLeft">${action.get_display_name()}</div>
+					<a class="inside floaterLeft anchor_elem_link">${action.get_display_name()}</a>
 				</div>
 				<div class="poolActionContent hidden">
 						${actions_content.render(action, c.psettings)}
@@ -119,10 +119,6 @@
 			</div>
 		%endfor
 	%endif
-	</div>
-	
-	<div style="padding:20px 30px;float:left;width:860px;">
-		<a class="submitSmallLeft" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool_url)}"><span>${_("POOLSETTINGS_LABEL_Back To Pool")}</span></a>
 	</div>
 	</div>
 </div>
