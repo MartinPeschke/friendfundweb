@@ -38,8 +38,8 @@
 </%def>
 
 
-<form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
 	<div id="pool_configurator">
+		<form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
 		<div id="verisignsealindex">
 		<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 			<tr>
@@ -82,10 +82,10 @@
         	<a onclick="panels.load_receiver(panels);" class="BtnGold"><span>${_(u"PAGE_INDEX_BUTTON_Get Started")}</span></a>
             </div>   
         </div>
+		</form>
 		<div id="button_panel_container">&nbsp;</div>
 	</div>
 	
-</form>
 
 
 
