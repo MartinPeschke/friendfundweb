@@ -85,6 +85,7 @@ submit_fundchat = function(node){
 	};
 	var _node = dojo.byId(node);
 	var params = {};
+	if(!_node.value){return;}
 	params[_node.name] = _node.value;
 	xhrPost(dojo.attr(_node, '_href'), params, onLoaded);
 	return false;

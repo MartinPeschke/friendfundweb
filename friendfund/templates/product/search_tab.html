@@ -5,29 +5,19 @@
 <%!
 	from operator import mod
 %>
-<%
-	if c.amazon_available:
-		default_text = _("Search for almost anything ... or paste a link from Amazon")
-	else:
-		default_text = _("Search for almost anything ...")
-%>
 <div class="whiteContainer">
 	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
-	<div class="clear"><br/><br/><br/></div>
-	<form id="product_search_form" onsubmit="return false;" >
-		<a name="product_search" id="product_search"></a> 
-		<div class="product_search_container">
-			<div class="black_labeled_container_big">
-				<div class="right_bracket">&nbsp;</div>
-				<div class="left_button_search">&nbsp;</div>
-				<input type="text" value="${default_text}" name="q" id="pq" _default_text="${default_text}" class="black_labeled_input default">
-			</div>
-			<a class="searchButton submitSmall anchorelem searcher" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
-			%if c.amazon_available:
-				<span class="showme"><a href="#" _href="${url(controller='content', action='amazonhowto')}" class="showme anchorelem popuplink">${_("PRODUCT_PANEL_LABEL_Show me how")}<img src="/static/imgs/icon_amazon.png"/></a></span>
-			%endif
+	<div class="product_search_container_outer">
+	<div class="product_search_container">
+		<div class="search_container">
+			<input type="text" value="${_("Search for almost anything ...")}" name="q" id="pq" _default_text="${_("Search for almost anything ...")}" class="default">
+			<a class="searchButton anchorelem" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
 		</div>
-	</form>
+		<span class="showme">
+			${_("Search %s to find the perfect gift.")%'<img src="/static/imgs/icon_amazon.png"/>'|n}</a>
+		</span>
+	</div>
+	</div>
 
 	${common.display_topsellers(c.top_sellers, c.SCROLLER_PAGE_SIZE)}
 

@@ -6,7 +6,7 @@ from string import Template
 
 STANDARD_PARAMS = {}
 TEMPLATES = {'INVITE':{ 
-					 "public":Template(u"@${screen_name}:${admin} invites you to a gift pool for ${receiver}'s ${occasion} gift at ")
+					 "public":Template(u"@${screen_name}:${admin} invites you to chip in for ${receiver}'s ${product} gift at ")
 					,"secret":Template(u"@${screen_name}:${admin} invites you to a gift pool on friendfund at ")
 					,"url":Template(u"${ROOT_URL}/pool/${up_url}")
 				},

@@ -21,7 +21,7 @@
 	<div id="description_editor" class="${editable and "editable" or ""}">
 		<span class="triangle bluetriangle"></span>
 		%if pool.am_i_admin(c.user) and editable:
-		<div class="raisedEditIcon" onclick="loadElement('${url(controller='pool', pool_url=pool.p_url, action='edit_description')}', 'description_editor', {});">${_("POOL_DESCRIPTION_edit")}</div>
+		<div class="raisedEditIcon" onclick="loadElement('${url(controller='pool', pool_url=pool.p_url, action='edit_description')}', 'description_editor', {});">${_("POOLSETTINGS_Edit")}</div>
 		%endif
 		<div class="bold">${pool.admin.name} ${_("POOL_PAGE_DESCRIPTON_(Pool Admin)")|n}</div>
 		<div class="sloganText">${pool.description or ""|n}</div>

@@ -272,7 +272,11 @@
 		<a class="addthis_button_tumblr"></a>
 		</div>
 		<div class="floaterLeft partialSocial middle">${_("POOL_Permanent Link:")}<input type="text" value="${url.current(protocol='http')}"/></div>
-		<div class="floaterRight partialSocial right"><a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a></div>
+		<div class="floaterRight partialSocial right">
+		%if c.pool.is_contributable():
+			<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
+		%endif
+		</div>
 	</div>
 	<div style="clear:both"></div>
 </%def>
@@ -298,22 +302,21 @@
 
 <%def name="fundchat(locals)">
 	<div id="lowerbody_container" style="margin: 10px 30px 30px;width:920px;">
-		<div id="lowerbody_content"><a name="comments"></a>
-			<h4 class="inside" style="padding:0;">${_("POOL_CHAT_Fund Chat")}</h4>
-			%if c.pool.am_i_member(c.user):
-				<div>${_("POOL_CHAT_Leave your Comment:")}</div>
-				<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea>
-				<div class="floaterLeft"><a class="BtnRed" href="#comments" onclick="submit_fundchat('addcommenttext')"><span>${_("POOL_PAGE_BUTTON_Post!")}</span></a></div>
-				<div style="clear:both"></div>
-			%endif
-			%if c.pool.can_i_view(c.user):
-				<div id="fundchat" class="pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}">
-					${html.loading_animation()|n}
-				</div>
-			%else:
-				${_("POOL_CHAT_This is a secret pool, no chat is shown.")}
-			%endif
-		</div>
+		<a name="comments"></a>
+		<h4 class="inside" style="padding:0;">${_("POOL_CHAT_Fund Chat")}</h4>
+		%if c.pool.am_i_member(c.user):
+			<div>${_("POOL_CHAT_Leave your Comment:")}</div>
+			<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea>
+			<div class="floaterLeft"><a class="BtnRed" href="#comments" onclick="submit_fundchat('addcommenttext')"><span>${_("POOL_PAGE_BUTTON_Post!")}</span></a></div>
+			<div style="clear:both"></div>
+		%endif
+		%if c.pool.can_i_view(c.user):
+			<div id="fundchat" class="pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}">
+				${html.loading_animation()|n}
+			</div>
+		%else:
+			${_("POOL_CHAT_This is a secret pool, no chat is shown.")}
+		%endif
 	</div>
 </%def>
 

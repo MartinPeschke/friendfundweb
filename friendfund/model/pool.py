@@ -368,5 +368,6 @@ class AddInviteesProc(DBMappedObject):
 			,GenericAttrib(str, 'inviter_user_id', 'u_id')
 			,GenericAttrib(unicode, 'description', 'description')
 			,GenericAttrib(bool, 'is_secret', 'is_secret')
+			,GenericAttrib(bool, 'opt_out', 'opt_out')
 			,DBMapper(PoolUser, 'users', 'USER')
 			]

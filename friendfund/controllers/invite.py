@@ -107,12 +107,13 @@ class InviteController(BaseController):
 		c.pool_url = pool_url
 		pool = g.dbm.get(Pool, p_url = pool_url)
 		pool.is_secret = request.params.get("is_secret", False)
+		opt_out = request.params.get("opt_out", False)
 		pool.description = request.params['description']
 		
 		
 		#determine state of permissions and require missing ones
 		perms_required = checkadd_block('email') # true if email is required and missing
-		if invitees is not None:
+		if invitees is not None and not opt_out:
 			has_stream_publish_invitees = False
 			has_create_event_invitees = False
 			has_fb_invites = len(filter(lambda x: x.get('network') == 'facebook', invitees or []))
@@ -143,7 +144,8 @@ class InviteController(BaseController):
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
 							, description = pool.description
-							, is_secret = pool.is_secret))
+							, is_secret = pool.is_secret
+							, opt_out = opt_out))
 			g.dbm.expire(Pool(p_url = pool.p_url))
 			tasks = deque()
 			for i in invitees:

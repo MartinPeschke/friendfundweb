@@ -15,6 +15,7 @@ a.somelink {	color: #333;}
 .underlined2 {border-bottom:2px solid #BBe3F7;}
 .vertNoPadding {padding: 0px 30px 15px 30px;}
 .vertHalfPadding {padding: 15px 30px 15px 30px;}
+.horNoPadding {padding: 30px 0px;}
 .horFullPadding {padding: 0px 30px;}
 .fullPadding {padding: 30px;}
 .textCenter {text-align:center}
@@ -351,29 +352,6 @@ a.black_labeled_container:hover div.left_bracket_back {
 
 
 /* ================== BIG INPUT ================== */
-
-div.black_labeled_container_big div.right_bracket {display:none}
-div.black_labeled_container_big div.left_button_search {
-	background:url("/static/imgs/search_icon.png") no-repeat scroll right bottom  transparent;
-	height:72px;
-	width:59px;
-	float: left;
-	padding: 10px 0 0 15px;
-	z-index: 999;
-	position: relative
-}
-div.black_labeled_container_big .black_labeled_input {
-	background:url("/static/imgs/input-search.png") no-repeat scroll -19px 0 transparent;
-	border:0 solid transparent;
-	color:#FFFFFF;
-	float:left;
-	font-size:14px;
-	height:20px;
-	margin-left:-13px;
-	margin-top:30px;
-	padding:7px 10px 5px 15px;
-	width:650px;
-}
 
 #messaging_container {
 	float:right;
@@ -748,6 +726,7 @@ div#lowerbody_container textarea.comment_text_input {background:none repeat scro
 /* ========================POOL SETTINGS ====================== */
 
 #poolactions {margin:15px;background-color:white;float:left}
+#pool_pool_panel.poolactions {margin-bottom:30px;}
 .poolaction {float:left;position:relative;clear:both;margin:15px 30px}
 .poolaction .inside{margin:10px 0 0;font-size:14px;}
 .poolaction .remaining_counter{float:right;position:relative;white-space:no-wrap;background: transparent url("../imgs/edit-icon.png") scroll 100% 0px no-repeat;display: inline;padding: 11px 32px 3px 0;}
@@ -786,13 +765,9 @@ div#lowerbody_container textarea.comment_text_input {background:none repeat scro
 	font-weight:bold;
 	padding:5px 15px;
 	width:215px; height: 20px; line-height: 20px; }
-	span.showme{position:absolute;
-	right:146px;
-	bottom:16px;
-	z-index:999;
-}
+span.showme{position:absolute;right:6px;bottom:16px;}
 .popuplink{color:#C11164; text-align: center; display: block}
-span.showme img{margin-left:10px;position:relative;top:10px;}
+span.showme img{margin: 0 5px;position:relative;top:10px;}
 span.showme a.showme{color: #c11164; text-decoration: none !important}
 span.showme a.showme:hover{color: #c11164; text-decoration: underline !important}
 
@@ -936,6 +911,6 @@ div.rcptProductPicture{margin:15px 0px; background: #fff;float:left; border:#ccc
 
 
 .editIcon {position:absolute;display:block;width:25px;height:25px;top:10px;right:-10px;background:url("../imgs/edit-icon.png") no-repeat scroll 0px 0px transparent;cursor:pointer;z-index:3}
-.raisedEditIcon {background: transparent url("http://dev.friendfund.de/static/imgs/edit-icon.png") scroll 100% 0px no-repeat;
+.raisedEditIcon {background: transparent url("http://dev.friendfund.de/static/imgs/edit-icon.png") scroll 100% 0px no-repeat;font-size:12px;
 				cursor: pointer;display: block;height: 25px;padding: 9px 29px 0 ;position: absolute;right: 10px;top: 5px;z-index: 3;}
 #thankyou_editor .editIcon{right:-10px;top:23px;}

@@ -47,8 +47,6 @@ class PoolController(BaseController):
 		if not c.user.is_anon\
 			and c.pool.am_i_member(c.user):
 				c.user.current_pool = c.pool
-		if c.pool.am_i_admin(c.user) and (c.pool.is_expired() and not c.pool.is_funded()):
-			c.messages.append(_(EXPIRED_MESSAGE))
 		if c.pool.can_i_view(c.user):
 			return self.render('/pool/pool.html')
 		else:

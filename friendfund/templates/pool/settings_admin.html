@@ -94,7 +94,7 @@
 	<div id="pool_admin_slogan"><div class="slogan">${description.view(c.pool)|n}</div></div>
 	<div id="pool_admin_pic"><img src="${c.pool.admin.get_profile_pic()}"/></div>
 
-	<div id="lowerbody" class="innerbody floaterLeft">
+	<div id="pool_pool_panel" class="innerbody poolactions">
 
 	<div id="poolactions">
 	%if c.psettings.is_funded():
@@ -108,7 +108,7 @@
 						%if action.remaining is not None:
 							${(_("POOLSETTINGS_LABEL_<b class=\"emphasis\">%(number_remaining)sx</b> Remaining")%dict([('number_remaining', action.remaining)]))|n}<span class="seperator">|</span>
 						%endif
-							<span class="emphasis somelink">${_("POOL_DESCRIPTION_edit")}</span>
+							<span class="emphasis somelink">${_("POOLSETTINGS_Edit")}</span>
 						</a>
 					
 					<a class="inside floaterLeft anchor_elem_link">${action.get_display_name()}</a>

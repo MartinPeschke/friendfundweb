@@ -2,7 +2,7 @@
 <%namespace name="html" file="../widgets/html_elems.html"/>
 
 <%def name="display_region_picker(title)">
-<div class="region_picker">
+<div class="region_picker underlined2">
 			<span>${title|n} &nbsp;&nbsp;</span>
 			<select name="region" id="region_picker" style="padding: 3px;" _base_url="${c.panel}">
 				%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):

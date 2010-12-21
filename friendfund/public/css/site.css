@@ -337,9 +337,34 @@ a.productsuggestion span{ display:block; margin-top:10px; font-family:Trebuchet 
 a.productsuggestion img{ display:block; margin:0 auto}
 #button_panel.product div.productsuggestion img.productsuggestion {width: 129px;height:129px;}
 
+.product_search_container_outer{background-color:white;padding:15px;}
+.product_search_container {padding-bottom:15px;margin:0px auto;width:730px;position:relative}
+.search_container {background: url("../imgs/Magnifying_Glass.png") no-repeat scroll 0 0 transparent;padding: 22px 13px 28px 55px;}
+.search_container input {background-color: transparent;border: 0 solid transparent;font-size: 18px;padding: 8px;text-shadow: 1px 0 0 #FFFFFF;width: 550px;}
 
-.product_search_container {padding-bottom:15px;float:left;width:880px;position:relative}
-.searchButton {margin:28px 15px 30px}
+.searchButton {background:url("../imgs/Magnifying_Glass.png?20101129") no-repeat scroll 100% -128px transparent;
+	float:right;
+	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
+	font-size:18px;
+	font-style:normal;
+	text-align:center;
+	padding-right:10px;
+	min-width:75px;
+}
+.searchButton:hover {background-position:100% -206px}
+.searchButton span{background:url("../imgs/Magnifying_Glass.png?20101129") no-repeat scroll 0 -89px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:38px;
+	line-height:38px;
+	padding-left:10px;
+	text-shadow:0 -1px 0 #770B3E;
+}
+.searchButton:hover span{background-position:0 -167px;}
+
+
 #product_browser_container {position: relative;background-color: white;}
 #product_browser {position: relative;background-color: white;border-top: solid 6px #bbe3f7;margin-top: 30px;}
 /*------------------------------------- LOGIN/SIGNUP PAGE -------------------------------------*/
@@ -475,7 +500,7 @@ a.methodselector.selected span {background-position:0 -247px;}
 #lowerbody_container.fullbackground{background-color: #BBE3F7;}
 #lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
 #lowerbody {margin: 30px;}
-.lowerbody {margin: 15px 30px;}
+.lowerbody {margin: 15px 30px 0px;}
 .halfBody {width: 430px;}
 #lowerbody_container {background:none repeat scroll 0 0 white;border-top:1px solid #BBE3F7;float:left;position:relative;}
 
@@ -500,6 +525,7 @@ div.perm_dialog a.perm_dialog {
 }
 #friend_list {position:relative;clear:both;background-color:white;height:430px;overflow:auto;margin:0 15px 15px;}
 .invitepage #friend_list {border:1px solid #BBE3F7;}
+.lowerbody.invitepage {float: left;margin: 5px 30px 0;width: 920px;}
 #friend_list.emailpopup {margin:30px;}
 
 .invitee_row {position: relative;padding-bottom: 5px;border-bottom: 1px solid #ccc;height: 50px;}
@@ -571,7 +597,7 @@ div.perm_dialog a.perm_dialog {
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
 #invited div.seperator {border-bottom: 3px solid #bbe3f7;padding: 15px 15px 0px 15px;clear:both;}
 
-.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
+.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 #invite_message {
 	clear:both;
@@ -609,10 +635,17 @@ div.perm_dialog a.perm_dialog {
 
 #lowerbody_container.networkinviter 	.halfBody{width:}
 
-.invite_secret {padding: 5px;float:left;clear:left}
-div.invite_secret input {position: relative;top: 2px;}
-.invite_body {float: left;width: 100%;position:relative;}
-.invite_body textarea {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin:15px 0px 15px;padding:5px 0px;width:100%}
+.invite_secret {padding: 5px;float:left;clear:left;width:430px;position:relative}
+.invite_secret:hover {border:1px solid #DDF1FB; background-color:#F7FCFE;padding: 4px;}
+.invite_secret .tooltip {width:480px;background-color:#ffe67d;height:50px;position:absolute;right:-481px;top:-1px;display:None;}
+.invite_secret .tooltip .content {margin:10px;}
+.invite_secret:hover .tooltip {display:block}
+.invite_secret .tooltip .triangle{top:3px;}
+
+
+div.invite_secret input {position: relative;top: 2px;margin-right: 10px;}
+.invite_body {float: left;width: 100%;position:relative;padding-bottom:10px;}
+.invite_body textarea {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin:15px 0px 10px;padding:5px 0px;width:100%}
 .invite_body #inviters_selector_tooltip,.invite_body #inviters_panel_tooltip {background:white;top:-25px;color:#B70158;font-weight:bold;position:absolute;right:0;width:auto;text-align:right}
 .invite_body .submitSmall {margin-bottom:30px;}
 /*------------------------------------- CONTRIBUTION PAGE -------------------------------*/
@@ -1070,13 +1103,7 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 
 
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
-.region_picker {float:right;
-	font-weight:bold;
-	width:700px;
-	padding-bottom: 15px;
-	text-align: right;
-	padding-top: 15px
-}
+.region_picker {font-weight:bold;padding: 15px;text-align: right;background-color:white}
 
 div#scrollingproductsuggestions{width:810px;overflow:hidden;height:190px;position:relative;}
 
@@ -1198,7 +1225,6 @@ div#scrollingproductsuggestions {
 	position: relative;
 	color: #333;
 	margin: 0px 30px;
-	padding-bottom:30px;
 	float:left;
 	overflow:hidden
 }
@@ -1279,7 +1305,7 @@ div#scrollingproductsuggestions {
 
 
 /*=========================================== COUNTER ===========================================*/
-#timeline_bar {clear:both;float:left;margin:0 30px;}
+#timeline_bar {clear:both;float:left;margin:0 30px 30px;}
 #timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
 #timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
 #timeline_bar div.timeline_progressbar_bg .tooltip {margin-left:-5px;background:none repeat scroll 0 0 #FFEea8;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;min-width:100px;padding:5px 0;position:absolute;text-align:center;top:-28px;text-shadow:#fff7d4 0px -1px 0px}
