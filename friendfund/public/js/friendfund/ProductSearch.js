@@ -136,6 +136,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 				case (dojo.keys.ENTER):
 					if (!dojo.hasClass(dojo.byId("pq"), "default")){
 						_t.loadProductBrowser(_t, dojo.byId("searchsubmitter"), {searchterm:dojo.byId("pq").value});
+						evt.stopPropagation();
+						evt.preventDefault();
 					}
 					break;
 				case (dojo.keys.ESCAPE):

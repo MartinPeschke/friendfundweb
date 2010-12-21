@@ -10,8 +10,10 @@
 	<div class="product_search_container_outer">
 	<div class="product_search_container">
 		<div class="search_container">
+			<form action="" onSubmit="function(){return false;}">
 			<input type="text" value="${_("Search for almost anything ...")}" name="q" id="pq" _default_text="${_("Search for almost anything ...")}" class="default">
-			<a class="searchButton anchorelem" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
+			<a class="searchButton anchorelem searcher" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
+			</form>
 		</div>
 		<span class="showme">
 			${_("Search %s to find the perfect gift.")%'<img src="/static/imgs/icon_amazon.png"/>'|n}</a>
