@@ -19,18 +19,14 @@ ${mypools_body.render_tabs("friends")|n}
 <div id="mypools" class="recentactivity">
 	%if c.my_pools.open_pools:
 		<div class="subCategories">${_("FRIENDSPOOLS_CONTENT_Friends Open Pools")}</div>
-		<div class="tooltipBoxMyPools">
-			<img src="/static/imgs/mypools_friend_header.png" />
-		</div>
+		${mypools_body.render_header()}
 		%for pool in c.my_pools.open_pools:
 			${mypools_body.render(pool)}
 		%endfor
 	%endif
 	%if c.my_pools.closed_pools:
 		<div class="subCategories">${_("FRIENDSPOOLS_CONTENT_Friends Closed Pools")}</div>
-		<div class="tooltipBoxMyPools">
-			<img src="/static/imgs/mypools_friend_header.png" />
-		</div>
+		${mypools_body.render_header()}
 		%for pool in c.my_pools.closed_pools:
 			${mypools_body.render(pool)}
 		%endfor

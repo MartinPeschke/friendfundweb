@@ -12,6 +12,14 @@
 	</div>
 </%def>
 
+<%def name="render_header()">
+	<div class="raheader">
+		<div class="raheadercol raheadercol_profile"><span class="Icon"></span><div>Recipient</div></div>
+		<div class="raheadercol raheadercol_product"><span class="Icon"></span><div>Gift</div></div>
+		<div class="raheadercol raheadercol_pool"><span class="Icon"></span><div>Funders</div></div>
+		<div class="raheadercol raheadercol_details"><span class="Icon"></span><div>Details</div></div>
+	</div>
+</%def>
 <%def name="render(ra_entry)">
 	<div class="rabody ${ra_entry.is_admin and 'rabody_admin' or ''} ${ra_entry.is_contributor and 'rabody_contributor' or ''} rabody_${ra_entry.status.lower()}">
 		<div class="rabodycol profile">

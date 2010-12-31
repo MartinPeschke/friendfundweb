@@ -21,9 +21,7 @@ ${mypools_body.render_tabs("mypools")|n}
 	%if len(c.my_pools.pools):
 		%if c.my_pools.admin_pools:
 			<div class="subCategories">${_("MYPOOLS_CONTENT_Pools I created")}</div>
-			<div class="tooltipBoxMyPools">
-				<img src="/static/imgs/mypools_header.png" />
-			</div>
+			${mypools_body.render_header()}
 			%for pool in c.my_pools.admin_pools:
 				${mypools_body.render(pool)}
 			%endfor
@@ -31,9 +29,7 @@ ${mypools_body.render_tabs("mypools")|n}
 		
 		%if c.my_pools.nonadmin_pools:
 			<div class="subCategories">${_("MYPOOLS_CONTENT_Pools I've been invited to")}</div>
-			<div class="tooltipBoxMyPools">
-				<img src="/static/imgs/mypools_header.png" />
-			</div>
+			${mypools_body.render_header()}
 			%for pool in c.my_pools.nonadmin_pools:
 				${mypools_body.render(pool)}
 			%endfor
@@ -41,9 +37,7 @@ ${mypools_body.render_tabs("mypools")|n}
 		
 		%if c.my_pools.closed_pools:
 			<div class="subCategories">${_("MYPOOLS_CONTENT_Closed Pools")}</div>
-			<div class="tooltipBoxMyPools">
-				<img src="/static/imgs/mypools_header.png" />
-			</div>
+			${mypools_body.render_header()}
 			%for pool in c.my_pools.closed_pools:
 				${mypools_body.render(pool)}
 			%endfor

@@ -17,7 +17,6 @@ log = logging.getLogger(__name__)
 class AmazonWrongRegionException(Exception):pass
 class AmazonUnsupportedRegionException(Exception):pass
 
-
 _ = lambda x:x
 SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
 			("PRICE_UP",_("PRODUCT_SORT_ORDER_Price up")),
@@ -150,6 +149,7 @@ class ProductService(object):
 	def virtual_tab(self, request):
 		tmpl_context = self.request_setup(request)
 		tmpl_context = self.request_search_setup(request)
+		tmpl_context.region = app_globals.locale_lookup.get(websession.get('lang')) or tmpl_context.region
 		tmpl_context.panel = 'virtual_tab'
 		tmpl_context.search_base_url='virtual_tab_search'
 		tmpl_context.sort = request.params.get('sort', "PRICE_UP")
