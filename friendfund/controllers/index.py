@@ -51,7 +51,7 @@ class IndexController(BaseController):
 	
 	@jsonify
 	def login_panel(self):
-		return {'html':render('/myprofile/login_panel.html').strip()}	
+		return {'html':render('/myprofile/login_panel.html').strip()}
 
 	def close(self):
 		c.reload = False
@@ -72,15 +72,15 @@ class IndexController(BaseController):
 		clear_blocks()
 		return result
 	
+	
+	@jsonify
 	def login(self):
 		c.furl = request.params.get('furl', url('home'))
 		if not c.user.is_anon:
-			c.messages.append(_(u"USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"))
-			return redirect(c.furl)
+			return {}
 		c.login_values = {}
 		c.login_errors = {}
-		if request.method != 'POST':
-			return self.render('/myprofile/login_screen.html')
+		c.expanded = True
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
 		schema = LoginForm()
 		try:
@@ -95,14 +95,14 @@ class IndexController(BaseController):
 						)
 			c.user.network = 'email'
 			c.user.email = c.login_values['email']
-			return redirect(c.furl)
+			return {"redirect":c.furl}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			return self.render('/myprofile/login_screen.html')
+			return {'html':render('/myprofile/login_panel.html').strip()}
 		except SProcWarningMessage, e:
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return self.render('/myprofile/login_screen.html')
+			return {'html':render('/myprofile/login_panel.html').strip()}
 	
 	def signup(self):
 		c.furl = request.params.get('furl', '')
