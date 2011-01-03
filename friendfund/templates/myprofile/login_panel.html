@@ -11,8 +11,29 @@
 		<b class="floaterLeft">${_(u"PANEL_LOGIN_Login with")}</b>
 		<a onclick="fbLogin()" class="login_loginlink first"><img  class="floaterLeft" src="/static/imgs/icon_fb_connect.png"/></a>
 		<a onclick="twInit('${getattr(c, 'furl', url('home'))}')" class="login_loginlink"><img  class="floaterLeft" src="/static/imgs/icon_tw_connect.png"/></a>
-		<a class="login_loginlink ${getattr(c, "expanded", False) and 'selected' or ''}" onclick="toggleLoginPanel(this)"><span>${_("PANEL_LOGIN_Log In")}</span></a>
+		<a id="loginlink" class="login_loginlink ${getattr(c, "expanded", False) and 'selected' or ''}" onclick="toggleLoginPanel(this)"><span>${_("PANEL_LOGIN_Log In")}</span></a>
 		<a href="${url('index', action='signup')}?furl=${getattr(c, 'furl', url('home'))}" class="floaterLeft login_loginlink">${_("PANEL_LOGIN_Sign Up")}</a>
+		
+		
+		<script type="text/javascript">
+		closeLoginPanel = function(evt){
+			if(dojo.hasClass("loginlink", "selected")){
+				dojo.removeClass("loginlink", "selected");
+				dojo.addClass("loginPanelContent", "hidden");
+			}
+		}
+		toggleLoginPanel = function(link){
+			if(dojo.hasClass(link, "selected")){
+				dojo.removeClass(link, "selected");
+				dojo.addClass("loginPanelContent", "hidden");
+			} else {
+				dojo.addClass(link, "selected");
+				dojo.removeClass("loginPanelContent", "hidden");
+			}
+		}
+		document.onkeydown = function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}}
+		</script>
+		
 	%else:
 		<a class="login_loginlink" href="${url('controller', controller='mypools')}">
 			${_("PANEL_LOGIN_Welcome")}
@@ -23,16 +44,4 @@
 		%endif
 		<a href="#" class="login_loginlink" onclick="fbLogout();">${_("PANEL_LOGIN_logout")}</a>
 	%endif
-	
-	<script type="text/javascript"> 
-		toggleLoginPanel = function(link){
-			if(dojo.hasClass(link, "selected")){
-				dojo.removeClass(link, "selected");
-				dojo.addClass("loginPanelContent", "hidden");
-			} else {
-				dojo.addClass(link, "selected");
-				dojo.removeClass("loginPanelContent", "hidden");
-			}
-		}
-	</script>
 </div>

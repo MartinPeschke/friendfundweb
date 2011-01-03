@@ -34,10 +34,7 @@ class SignupForm(formencode.Schema):
 	
 	name = formencode.validators.String()
 	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
-	gender = formencode.validators.String(not_empty=True, min=1, max = 1)
 	pwd = PWDValidator(not_empty=True, min=5, max = 255)
-	pwd_confirm = PWDValidator(not_empty=True, min=5, max = 255)
-	chained_validators = [formencode.validators.FieldsMatch('pwd','pwd_confirm')]
 
 class MyProfileForm(formencode.Schema):
 	allow_extra_fields = True

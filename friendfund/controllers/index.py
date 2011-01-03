@@ -72,38 +72,8 @@ class IndexController(BaseController):
 		clear_blocks()
 		return result
 	
-	
-	@jsonify
 	def login(self):
-		c.furl = request.params.get('furl', url('home'))
-		if not c.user.is_anon:
-			return {}
-		c.login_values = {}
-		c.login_errors = {}
-		c.expanded = True
-		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
-		schema = LoginForm()
-		try:
-			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
-			c.login_values = form_result
-			c.login_values['network'] = 'email'
-			c.user = g.dbm.get(User, **c.login_values)
-			c.user.set_network('email', 
-							network_id = None,
-							access_token = None,
-							access_token_secret = None
-						)
-			c.user.network = 'email'
-			c.user.email = c.login_values['email']
-			return {"redirect":c.furl}
-		except formencode.validators.Invalid, error:
-			c.login_values = error.value
-			c.login_errors = error.error_dict or {}
-			return {'html':render('/myprofile/login_panel.html').strip()}
-		except SProcWarningMessage, e:
-			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'html':render('/myprofile/login_panel.html').strip()}
-	
+		return self.signup()
 	def signup(self):
 		c.furl = request.params.get('furl', '')
 		c.signup_values = {}

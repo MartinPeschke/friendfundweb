@@ -2,91 +2,67 @@
 <%namespace name="links" file="../links.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
-<%def name="title()">${_("LOGIN_PAGE_TITLE_Login")}</%def>
-<%def name="page_slogan()">&nbsp;</%def>
+<%def name="title()">${_("LOGIN_PAGE_TITLE_Sign Up")}</%def>
 
 <%def name="headscripts()">
 	page_reloader = function(){window.location.href="${c.furl}";};
 </%def>
 
+<%def name="page_slogan()">
+	<div id="page_slogan" class="underlined2">
+		${_('LOGIN_PAGE_SLOGAN_Create Your <span class="emphasis">Free</span> Account')|n}
+	</div>
+</%def>
+
 <div id="login_signup_container">
 	<div id="login_form_container" class="floaterLeft">
-		<div  class="panel_title">
-			${_("LOGIN_PAGE_TITLE_TEXT_Login")}
-		</div>
-			<div class="panel_content_inner">
-				<div class="forminputline" style="margin:26px 0 0 0" >
-					<a onclick="fbLogin()" class="facebookBtn" title="${_("Connect with Facebook")}">
-						<span>${_("Connect with Facebook")}</span>
-					</a>
-				</div>
-				
-				<div class="forminputline" style="margin:15px 0  26px 0">
-					<a onclick="twInit('${getattr(c, 'furl', url('home'))}')" class="twitterBtn" title="${_("Connect with Twitter")}">
-						<span>${_("Connect with Twitter")}</span>
-					</a>
-				</div>
+		<h3>${_("LOGIN_PAGE_LABEL_Sign up to friendfund and start organising a group gift in seconds!")|n}</h3>
+		<div>${_("LOGIN_PAGE_LABEL_Once you've signed up, organising a gift pool is easy:")|n}</div>
+		
+			<div class="legende"><span class="Counter">1.</span><div class="IconContainer"><span class="Icon"></span></div>
+				<div class="text">${_("LOGIN_PAGE_LABEL_<b>Choose your Recipient</b><br/>Who's your gift for?")|n}</div>
 			</div>
-            <p class="facebookTxt" style="margin-top:15px"><img src="/static/imgs/icon_mail.png" complete="complete"/>Email</p>
-			<div  class="panel_content_inner" style="margin-top:0px">
-			<form action="${url('index', action='login')}" method="POST" id="login_form">
-				<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
-				<div class="forminputline signup_login">
-					${forms.input_text("login", "email", _("LOGIN_PAGE_LABEL_Email"))|n}
-				</div>
-				<div class="forminputline signup_login" style="padding-top:0; padding-bottom:0px">
-					${forms.input_text("login", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False)|n}
-					<div><a class="lostpass" href="${url(controller='myprofile', action='password')}">${_("LOGIN_PAGE_LABEL_Forgot Password?")}</a></div>
-				</div>
-				<div >
-				
-                    <a onclick="dojo.byId('login_form').submit();" class="BtnRed" style="margin:0 15px 15px 0"><span>Login</span></a>
-
-				</div>
-			</form>
+			<div class="legende occasion"><span class="Counter">2.</span><div class="IconContainer"><span class="Icon"></span></div>
+				<div class="text">${_("LOGIN_PAGE_LABEL_<b>Choose the Occasion</b><br/>When is your gift for?")|n}</div>
 			</div>
+			<div class="legende product"><span class="Counter">3.</span><div class="IconContainer"><span class="Icon"></span></div>
+				<div class="text">${_("LOGIN_PAGE_LABEL_<b>Find a Gift</b><br/>What does your recipient really, <em> really </em> want?")|n}</div>
+			</div>
+			<div class="legende pool"><span class="Counter">4.</span><div class="IconContainer"><span class="Icon"></span></div>
+				<div class="text">${_("LOGIN_PAGE_LABEL_<b>Share the Costs</b><br/>Invite your friends to chip in as much or as little as they want!")|n}</div>
+			</div>
+		</ol>
 	</div>
 
-	<div id="signup_form_container" class="right">
-		<div  class="panel_title">
-			${_("LOGIN_PAGE_LABEL_Signup")}
-		</div>
-			<div class="panel_content_inner">
-			<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
-				<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
-				<div class="forminputline">
-					${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_Name"))|n}
-				</div>
-				<div class="forminputline">
-					${forms.input_text("signup", "email", _("LOGIN_PAGE_LABEL_Email"), required = True)|n}
-				</div>
-				<div class="forminputline">
-					${forms.input_text("signup", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False, required = True)|n}
-				</div>
-				<div class="forminputline">
-					${forms.input_text("signup", "pwd_confirm", _("LOGIN_PAGE_LABEL_Confirm Password"), "password", False, required = True)|n}
-				</div>
-                <div class="forminputline maleFemaleContainer">
-				<div  class="maleFemale">
-                <p style="width:150px; float:left">${_("LOGIN_PAGE_LABEL_Gender")}</p>
-                <input type="radio" id="signup_gender_m" name="signup.gender" value="m" ${forms.input_checked('signup', 'gender', 'm')} />
-					<label for="signup_gender_m">${_("LOGIN_PAGE_LABEL_Male")}</label>
-					
-<input type="radio" id="signup_gender_f" name="signup.gender" value="f" ${forms.input_checked('signup', 'gender', 'f')} />
-					<label for="signup_gender_f" >${_("LOGIN_PAGE_LABEL_Female")}</label>
-					
-				</div>
-					${forms.error_msg("signup", "gender", type="error_checkbox")}
-				</div>
-				<div class="forminputline floaterLeft">
-					<label for="profile_pic">${_("LOGIN_PAGE_LABEL_Profile Picture")}</label>
-					<input name="signup.profile_pic" id="profile_pic" type="file" size="10" maxlength="100000" accept="image/*">
-				</div>
-				
-				<p class="termsOf">${(_("MYPROFILE_PAGE_LABEL_* Mandatory Fields<br /> By clicking \"Sign Up\" you confirm that you accept the <a href=\"%s\">Terms and Conditions</a>") % url(controller="content", action="tos"))|n}</p>
+	<div id="signup_form_container" class="floaterRight newFormControls">
+		<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
+			<div class="inputline">
+				${forms.input_text("signup", "name", _("LOGIN_PAGE_LABEL_First and Last Name"))|n}
+			</div>
+			<div class="inputline">
+				${forms.input_text("signup", "email", _("LOGIN_PAGE_LABEL_Email Address"), required = True)|n}
+			</div>
+			<div class="inputline">
+				${forms.input_text("signup", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", False, required = True)|n}
+			</div>
+			<div class="inputline floaterLeft">
 				<a onclick="dojo.byId('signup_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Sign Up</span></a>
-			</form>
 			</div>
+			<p class="termsOf">${(_("MYPROFILE_PAGE_LABEL_By clicking \"Sign Up\" you confirm that you accept the <a href=\"%s\">Terms and Conditions</a>") % url(controller="content", action="tos"))|n}</p>
+			<div class="underlined2"></div>
+			
+			<h3>${_("PANEL_LOGIN_Have a Facebook or Twitter Account?")}</h3>
+			<div style="clear:both;height:20px"></div>
+			<a onclick="fbLogin()" class="floaterLeft facebookBtn" title="${_("Log in with Facebook")}">
+				<span>${_("Log in with Facebook")}</span>
+			</a>
+			<a onclick="twInit('${getattr(c, 'furl', url('home'))}')" class="floaterRight twitterBtn" title="${_("Log in with Twitter")}">
+				<span>${_("Log in with Twitter")}</span>
+			</a>
+			
+			
+		</form>
 	</div>
-	${html.clearline()}
+	<div style="clear:both"></div>
 </div>

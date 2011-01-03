@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-01-03 11:58+0100\n"
+"PO-Revision-Date: 2011-01-03 15:45+0100\n"
 "Last-Translator: Tareixa <tareixa@friendfund.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -291,20 +291,12 @@ msgstr ""
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Este perfil no puede ser añadido a tu cuenta."
 
-#: friendfund/controllers/index.py:78 friendfund/controllers/myprofile.py:152
-msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
-msgstr "Ya has iniciado sesión"
-
-#: friendfund/controllers/index.py:104
-msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
-msgstr "Error en correo electrónico o contraseña"
-
-#: friendfund/controllers/index.py:136
+#: friendfund/controllers/index.py:106
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr ""
 
-#: friendfund/controllers/index.py:137 friendfund/controllers/myprofile.py:72
-#: friendfund/controllers/myprofile.py:111
+#: friendfund/controllers/index.py:107 friendfund/controllers/myprofile.py:105
+#: friendfund/controllers/myprofile.py:144
 #, python-format
 msgid ""
 "USER_SIGNUP_If this is you, please try logging in with your email address"
@@ -314,11 +306,11 @@ msgstr ""
 "iniciar sesión con tu dirección de correo electrónico y contraseña o "
 "solicita un cambio de contraseña."
 
-#: friendfund/controllers/index.py:159
+#: friendfund/controllers/index.py:129
 msgid "USER_SETEMAILBLOCK_Email Updated!"
 msgstr "¡Correo electrónico actualizado!"
 
-#: friendfund/controllers/index.py:165
+#: friendfund/controllers/index.py:135
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr "La dirección de correo electrónico ya ha sido registrada"
 
@@ -326,15 +318,19 @@ msgstr "La dirección de correo electrónico ya ha sido registrada"
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr "Acción o Red desconocida"
 
-#: friendfund/controllers/myprofile.py:62
+#: friendfund/controllers/myprofile.py:55
+msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
+msgstr "Error en correo electrónico o contraseña"
+
+#: friendfund/controllers/myprofile.py:95
 msgid "MYPROFILE_EMAILSEIGNUP_Changes saved!"
 msgstr "¡Cambios guardados!"
 
-#: friendfund/controllers/myprofile.py:102
+#: friendfund/controllers/myprofile.py:135
 msgid "MYPROFILE_EMAILSEIGNUP_Details saved!"
 msgstr "¡Datos guardados!"
 
-#: friendfund/controllers/myprofile.py:131
+#: friendfund/controllers/myprofile.py:164
 #, python-format
 msgid ""
 "PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your"
@@ -343,35 +339,39 @@ msgstr ""
 "La contraseña de tu correo electrónico ha sido enviada a: %s, Por favor, "
 "mira tu bandeja de entrada."
 
-#: friendfund/controllers/myprofile.py:140
+#: friendfund/controllers/myprofile.py:173
 msgid "PROFILE_PASSWORD_Unknown Email Address"
 msgstr "Dirección de correo electrónico desconocida"
 
-#: friendfund/controllers/myprofile.py:143
+#: friendfund/controllers/myprofile.py:176
 msgid "PROFILE_PASSWORD_Token Already Sent"
 msgstr ""
 "Ya has solicitado un cambio de contraseña en las últimas 24 horas. Por "
 "favor, mira tu correo electrónico."
 
-#: friendfund/controllers/myprofile.py:146
+#: friendfund/controllers/myprofile.py:179
 msgid "PROFILE_PASSWORD_Unknown Error Occured"
 msgstr "Error desconocido"
 
-#: friendfund/controllers/myprofile.py:157
-#: friendfund/controllers/myprofile.py:169
-#: friendfund/controllers/myprofile.py:181
+#: friendfund/controllers/myprofile.py:185
+msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
+msgstr "Ya has iniciado sesión"
+
+#: friendfund/controllers/myprofile.py:190
+#: friendfund/controllers/myprofile.py:202
+#: friendfund/controllers/myprofile.py:214
 msgid "PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválida. Por favor, solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:192
+#: friendfund/controllers/myprofile.py:225
 msgid "PROFILE_RESETPASSWORD_Your password has been reset!"
 msgstr "Tu contraseña ha sido restablecida."
 
-#: friendfund/controllers/myprofile.py:207
+#: friendfund/controllers/myprofile.py:240
 msgid "PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválida. Por favor solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:209
+#: friendfund/controllers/myprofile.py:242
 msgid ""
 "PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank "
 "You!"
@@ -2406,22 +2406,18 @@ msgid "Confirm_Password"
 msgstr "Contraseña"
 
 #: friendfund/templates/myprofile/index.html:136
-#: friendfund/templates/myprofile/login_screen.html:71
 msgid "LOGIN_PAGE_LABEL_Gender"
 msgstr "Género"
 
 #: friendfund/templates/myprofile/index.html:138
-#: friendfund/templates/myprofile/login_screen.html:73
 msgid "LOGIN_PAGE_LABEL_Male"
 msgstr "Varón"
 
 #: friendfund/templates/myprofile/index.html:141
-#: friendfund/templates/myprofile/login_screen.html:76
 msgid "LOGIN_PAGE_LABEL_Female"
 msgstr "Mujer"
 
 #: friendfund/templates/myprofile/index.html:165
-#: friendfund/templates/myprofile/login_screen.html:86
 #, python-format
 msgid ""
 "MYPROFILE_PAGE_LABEL_* Mandatory Fields<br /> By clicking \"Sign Up\" you"
@@ -2438,113 +2434,125 @@ msgstr "Regístrate"
 msgid "MYPROFILE_PAGE_LABEL_Save"
 msgstr "Guardar"
 
-#: friendfund/templates/myprofile/login_panel.html:8
-msgid "PANEL_LOGIN_LABEL_Email"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_panel.html:10
-msgid "PANEL_LOGIN_LABEL_Password"
-msgstr ""
-
 #: friendfund/templates/myprofile/login_panel.html:11
-msgid "PANEL_LOGIN_LABEL_Forgot Password?"
+msgid "PANEL_LOGIN_Login with"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_panel.html:13
-#: friendfund/templates/myprofile/login_panel.html:36
+#: friendfund/templates/myprofile/login_panel.html:14
+#: friendfund/templates/myprofile/login_panel_content.html:13
 msgid "PANEL_LOGIN_Log In"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_panel.html:16
+#: friendfund/templates/myprofile/login_panel.html:15
+msgid "PANEL_LOGIN_Sign Up"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_panel.html:39
+msgid "PANEL_LOGIN_Welcome"
+msgstr "Bienvenido"
+
+#: friendfund/templates/myprofile/login_panel.html:45
+msgid "PANEL_LOGIN_logout"
+msgstr "Cerrar sesión"
+
+#: friendfund/templates/myprofile/login_panel_content.html:8
+msgid "PANEL_LOGIN_LABEL_Email"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_panel_content.html:10
+msgid "PANEL_LOGIN_LABEL_Password"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_panel_content.html:11
+msgid "PANEL_LOGIN_LABEL_Forgot Password?"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_panel_content.html:17
+#: friendfund/templates/myprofile/login_screen.html:55
 msgid "PANEL_LOGIN_Have a Facebook or Twitter Account?"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_panel.html:19
-#: friendfund/templates/myprofile/login_panel.html:20
+#: friendfund/templates/myprofile/login_panel_content.html:20
+#: friendfund/templates/myprofile/login_panel_content.html:21
+#: friendfund/templates/myprofile/login_screen.html:57
+#: friendfund/templates/myprofile/login_screen.html:58
 #, fuzzy
 msgid "Log in with Facebook"
 msgstr "Entra con Facebook"
 
-#: friendfund/templates/myprofile/login_panel.html:23
-#: friendfund/templates/myprofile/login_panel.html:24
+#: friendfund/templates/myprofile/login_panel_content.html:24
+#: friendfund/templates/myprofile/login_panel_content.html:25
+#: friendfund/templates/myprofile/login_screen.html:60
+#: friendfund/templates/myprofile/login_screen.html:61
 #, fuzzy
 msgid "Log in with Twitter"
 msgstr "Entra con Twitter"
 
-#: friendfund/templates/myprofile/login_panel.html:29
+#: friendfund/templates/myprofile/login_panel_content.html:30
 #, python-format
 msgid ""
 "PANEL_LOGIN_Dont have an account yet? <a href=\"%s\" "
 "class=\"lostpass\">Sign up here</a>"
 msgstr ""
 
-#: friendfund/templates/myprofile/login_panel.html:33
-msgid "PANEL_LOGIN_Login with"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_panel.html:37
-msgid "PANEL_LOGIN_Sign Up"
-msgstr ""
-
-#: friendfund/templates/myprofile/login_panel.html:40
-msgid "PANEL_LOGIN_Welcome"
-msgstr "Bienvenido"
-
-#: friendfund/templates/myprofile/login_panel.html:46
-msgid "PANEL_LOGIN_logout"
-msgstr "Cerrar sesión"
-
 #: friendfund/templates/myprofile/login_screen.html:5
-msgid "LOGIN_PAGE_TITLE_Login"
-msgstr "Iniciar sesión"
+msgid "LOGIN_PAGE_TITLE_Sign Up"
+msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:15
-msgid "LOGIN_PAGE_TITLE_TEXT_Login"
-msgstr "Iniciar sesión"
+#: friendfund/templates/myprofile/login_screen.html:13
+msgid "LOGIN_PAGE_SLOGAN_Create Your <span class=\"emphasis\">Free</span> Account"
+msgstr ""
 
 #: friendfund/templates/myprofile/login_screen.html:19
+msgid ""
+"LOGIN_PAGE_LABEL_Sign up to friendfund and start organising a group gift "
+"in seconds!"
+msgstr ""
+
 #: friendfund/templates/myprofile/login_screen.html:20
-#: friendfund/templates/receiver/fb_login.html:7
-#: friendfund/templates/receiver/fb_login.html:8
-msgid "Connect with Facebook"
-msgstr "Entra con Facebook"
+msgid "LOGIN_PAGE_LABEL_Once you've signed up, organising a gift pool is easy:"
+msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:25
+#: friendfund/templates/myprofile/login_screen.html:23
+msgid "LOGIN_PAGE_LABEL_<b>Choose your Recipient</b><br/>Who's your gift for?"
+msgstr ""
+
 #: friendfund/templates/myprofile/login_screen.html:26
-#: friendfund/templates/receiver/tw_login.html:7
-#: friendfund/templates/receiver/tw_login.html:8
-msgid "Connect with Twitter"
-msgstr "Entra con Twitter"
+msgid "LOGIN_PAGE_LABEL_<b>Choose the Occasion</b><br/>When is your gift for?"
+msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:35
-#: friendfund/templates/myprofile/login_screen.html:61
-msgid "LOGIN_PAGE_LABEL_Email"
-msgstr "correo electrónico"
+#: friendfund/templates/myprofile/login_screen.html:29
+msgid ""
+"LOGIN_PAGE_LABEL_<b>Find a Gift</b><br/>What does your recipient really, "
+"<em> really </em> want?"
+msgstr ""
 
-#: friendfund/templates/myprofile/login_screen.html:38
-#: friendfund/templates/myprofile/login_screen.html:64
+#: friendfund/templates/myprofile/login_screen.html:32
+msgid ""
+"LOGIN_PAGE_LABEL_<b>Share the Costs</b><br/>Invite your friends to chip "
+"in as much or as little as they want!"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_screen.html:41
+msgid "LOGIN_PAGE_LABEL_First and Last Name"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_screen.html:44
+msgid "LOGIN_PAGE_LABEL_Email Address"
+msgstr ""
+
+#: friendfund/templates/myprofile/login_screen.html:47
 msgid "LOGIN_PAGE_LABEL_Password"
 msgstr "Contraseña"
 
-#: friendfund/templates/myprofile/login_screen.html:39
-msgid "LOGIN_PAGE_LABEL_Forgot Password?"
-msgstr "¿Has olvidado tu contraseña?"
-
 #: friendfund/templates/myprofile/login_screen.html:52
-msgid "LOGIN_PAGE_LABEL_Signup"
-msgstr "Regístrate"
-
-#: friendfund/templates/myprofile/login_screen.html:58
-msgid "LOGIN_PAGE_LABEL_Name"
-msgstr "Nombre"
-
-#: friendfund/templates/myprofile/login_screen.html:67
-msgid "LOGIN_PAGE_LABEL_Confirm Password"
-msgstr "Confirma tu contraseña"
-
-#: friendfund/templates/myprofile/login_screen.html:82
-msgid "LOGIN_PAGE_LABEL_Profile Picture"
-msgstr "Foto de Perfil"
+#, fuzzy, python-format
+msgid ""
+"MYPROFILE_PAGE_LABEL_By clicking \"Sign Up\" you confirm that you accept "
+"the <a href=\"%s\">Terms and Conditions</a>"
+msgstr ""
+"* Información obligatoria<br /> Si pinchas en \"Sign Up\" confirmarás que"
+" aceptas los <a href=\"%s\">Términos y Condiciones</a>"
 
 #: friendfund/templates/myprofile/password_request.html:4
 msgid "PASSWORD_REQUEST_TITLE_Request Password"
@@ -3407,6 +3415,11 @@ msgstr ""
 "Escoge al destinatario de tu regalo desde tu Facebook, Twitter o Email de"
 " tu amigo."
 
+#: friendfund/templates/receiver/fb_login.html:7
+#: friendfund/templates/receiver/fb_login.html:8
+msgid "Connect with Facebook"
+msgstr "Entra con Facebook"
+
 #: friendfund/templates/receiver/fb_login.html:10
 msgid ""
 "RECEIVER_PANEL_FBLOGIN_To invite your Facebook Friends, You should "
@@ -3429,9 +3442,17 @@ msgstr "o"
 msgid "RECEIVER_PANEL_HEADER_choose yourself"
 msgstr "tú mismo"
 
+#: friendfund/templates/receiver/tw_login.html:7
+#: friendfund/templates/receiver/tw_login.html:8
+msgid "Connect with Twitter"
+msgstr "Entra con Twitter"
+
 #: friendfund/templates/receiver/tw_login.html:10
 msgid ""
 "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect "
 "with Twitter!"
 msgstr "Para invitar a tus Amigos de Twitter, por favor, conéctate con Twitter."
+
+#~ msgid "LOGIN_PAGE_TITLE_Login"
+#~ msgstr "Iniciar sesión"
 
