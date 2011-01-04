@@ -3,8 +3,6 @@ body.claro {
 	margin: 0px;
 	text-align: center;
 	font-size:12px;
-	background-color: #333333;
-	color:#333;
 	font-family:Arial, Helvetica, Jamrul, sans-serif;
 }
 div#outercontainer {
@@ -40,13 +38,6 @@ div.forminputline div.error_message {
 }
 
 /*-------------------------------------Header------------------------------------------------------*/
-.logoHeader {
-	display:block;
-	float:left;
-	height:75px;
-	margin:15px 0 0 17px;
-	width:372px;
-}
 ul.navigation {
 	list-style-type:none;
 	padding:0;
@@ -113,23 +104,17 @@ a.login_loginlink.selected span {padding:0 0 0 10px;color:#403834;display:block;
 div.frontpagebutton {
 	position: relative;
 	float: left;
-	background-color:#bbe3f7;
-	width:229px;
-	height:297px;
 	margin: 1px;
 }
-div.frontpagebutton.first {width:230px;margin: 1px 1px 1px 0px;}
-div.frontpagebutton.last {width:226px;margin: 1px 0px 1px 1px;}
-div.frontpagebuttonhover {background-color: #c3e9fc;}
+div.frontpagebutton.first {margin: 1px 1px 1px 0px;}
+div.frontpagebutton.last {margin: 1px 0px 1px 1px;}
 
-#pool_configurator {padding:0 30px 30px;float:left}
+#pool_configurator {float:left}
 #pool_configurator div.frontpagebutton div.extender {
 	position: absolute;
 	width: 100%;
 	height: 5px;
-	left: 0px;
 	bottom: -5px;
-	background-color:#ECF8Fd;
 	display:None;
 }
 #pool_configurator div.frontpagebutton.front_panel_active div.extender {display:Block;}
@@ -146,17 +131,13 @@ div.frontpagebutton.funders {
 	color:#B70158;
 	font-weight:bold;
 	position:absolute;
-	top: -45px;
 }
 #pool_configurator div.hpbutton {
 	position: relative;
-	width: 100%;
-	height: 100%;
 	padding-top: 1px;
 }
 
 #pool_configurator div.frontpagebutton.enabled {cursor:pointer}
-#pool_configurator div.front_panel_active{ background-color: #ECF8Fd}
 
 .hpbutton .button {
 	position: relative;
@@ -172,16 +153,6 @@ div.frontpagebutton.funders {
 .hpbutton .button_label_q {font-style:normal;font-size:52px;top:10px;position:relative}
 
 #pool_configurator div.hpbutton a.button.funders {margin: 24px;}
-#pool_configurator div.hpbutton div.button_content {
-	position: relative;
-	width:178px;
-	margin: 0px auto;
-}
-#pool_configurator div.hpbutton img.loaders_animation {
-	position: absolute;
-	top: 60px;
-	left: 80px;
-}
 #pool_configurator div.hpbutton a.content {
 	display:block;
 	position: relative;
@@ -200,14 +171,10 @@ div.frontpagebutton.funders {
 	height:52px;
 }
 #pool_configurator div.hpbutton img.button_content {
-	height:111px;
 	width:auto;
-	max-width:174px;
 	text-align: left;
 	display: block;
-	margin: 0 auto;
 	position: relative;
-	padding-top:10px;
 }
 #pool_configurator div.hpbutton div.label {
 	text-align: left;
@@ -227,8 +194,6 @@ div.frontpagebutton.funders {
 	font-size: 12px;
 	font-weight:normal;
 }
-#button_panel_container {float:left;display: None;margin-top: 2px;background-color:#ECF8Fd;clear: both;position: relative;}
-#button_panel {min-height:150px;position: relative;padding:15px 0 0 0;float:left;}
 
 #button_panel h2{
 	margin:0;
@@ -407,11 +372,8 @@ p.termsOf a{ color:#B70158;}
 
 #receiver_selector_container {
 	position:relative;
-	border-top: 1px solid #81CBEF;
-	background-color:#BBE3F7;
 	margin-top:-1px;
 	min-height:100px;
-	float:left;width:100%
 }
 .invite_pool_panel.first {margin: 30px 0px 0px 120px;}
 .invite_pool_panel {
@@ -661,35 +623,22 @@ div.invite_secret input {position: relative;top: 2px;margin-right: 10px;}
 
 /* --------------------------------------- FOOTER ----------------------------------------- */
 
-div#siteinfo {
-	clear:both;
-	width: 100%;
-	border-top:2px solid #D3EDFA;
-	background:#333;
-}
+div#siteinfo {clear:both;width: 100%;}
+
 div#siteinfo div.siteinfo1 {
-	border-top:1px solid #dadada;
 	width: 100%;
 	float:left;
-	background:#333;
 	text-align:center;
 }
 div#siteinfo div.siteinfo1 div.siteinfo2 {
 	position: relative;
-	width:980px;
-	margin:10px auto;
 	text-align:center;
 }
 
-div#siteinfo a.siteinfo_content {
-	padding: 10px 10px 10px 10px;
-	color:#eee;
-}
 div#siteinfo div.siteinfo_copyright {
 	text-align:right;
-	position:absolute;right:0px;
+	position:absolute;right:0px;top:0px;
 	padding: 0px 0px 10px 20px;
-	color:#eee;
 }
 #verisignsealindex{
 	left:30px;
@@ -722,97 +671,12 @@ div#siteinfo div.siteinfo_copyright {
 /* --------------------------------------- ------ ----------------------------------------- */
 /* --------------------------------------- POPUPS ----------------------------------------- */
 /* --------------------------------------- ------ ----------------------------------------- */
-#badge_popup div.badge_background, .window_background {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	text-align:center;
-	background-color: #333;
-	top:0px;
-	left:0px;
-	z-index:1000;
-	opacity: .5;
-	filter: alpha(opacity=50);
-	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-}
-#badge_popup div.window, div.window_container {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	z-index:1005;
-}
-#badge_popup div.badge_window {
-	z-index:1005;
-	margin: 200px auto;
-	width: 800px;
-	height: 400px;
-	background-color: white;
-	border: 10px solid #bbe3f7;
-	position:relative;
-	overflow:hidden;
-}
-#mybadge_container {
-	padding: 15px 30px 30px;
-}
-#mybadge_container .mybadge {
-	float:left;
-	height:115px;
-	margin-bottom:15px;
-	margin-right:32px;
-	overflow:hidden;
-	padding-bottom:30px;
-	position:relative;
-	width:140px;
-}
-#mybadge_container .mybadge img{ width: 140px; height: 115px; display: block}
-#mybadge_container .badge_name {
-	font-size:12px;
-	font-weight:bold;
-	position:absolute;
-	text-align:center;
-	top:93px;
-	width:230px;
-}
-#mybadge_container .badge_name_awarded {
-	border-bottom:2px solid #DADADA;
-	height:30px;
-	left:0;
-	line-height:30px;
-	position:absolute;
-	text-align:center;
-	top:113px;
-	width:140px;
-	z-index:999;
-	font-family: Trebuchet MS;
-	font-size: 14px
-}
-#mybadge_container .badge_container {
-	float: left;
-	background: white;
-	padding: 30px 0 15px 30px;
-}
-
-#badge_popup_content{margin: 0px;font-family: Arial, Helvetica, sans-serif;position:relative;height:100%}
-#badge_popup_content .header {
-			padding:15px;
-			background-color:#333;
-			position: relative;text-align: center;
-			font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
-			font-size:28px;font-weight:normal; color: #fff;
-		}
-#badge_popup_content .badge_text {float:right;font-size:20px;margin:90px 80px 0 0px;position:relative;width:300px;text-align: left;}
-#badge_popup_content .badge_icon {width: 350px;height: 300px;position: relative; float: left;margin:0px 0px 0px 30px;}
 .panelclosing_x {position: absolute;top: 3px; right: 10px;text-decoration: none;color:white;font-weight:bold;font-size:16px}
 .panelclosing_x_black {position: absolute;top: 3px; right: 2px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;padding: 3px 8px;}
-#badge_popup_content .share_link {bottom: 10px; position:absolute;right:10px;}
-#badge_popup_content .share_link img {top:2px;position:relative;margin-right:5px;}
 
 /* *************************************** BLOCKS ***************************************** */
 div.window_container div.window {
 	background-color:white;
-	border:15px solid #BBE3F7;
 	margin:150px auto;
 	position:relative;
 	width:700px;
@@ -985,7 +849,6 @@ line-height: normal !important; margin-top: -2px !important}
 #login_signup_container .subCategories { padding-top: 0px}
 .profilePictureContainer{ float: left; width: 445px}
 .profilePictureContainer .profile-picture {
-	background-color:#BBE3F7;
 	float:left;
 	padding:15px;
 	width:415px;
@@ -1009,7 +872,7 @@ line-height: normal !important; margin-top: -2px !important}
 
 #paymentdetailscontainer input, #paymentdetailscontainer,{ border: 1px solid #999999}
 #paymentdetailscontainer{ margin: 0 30px 30px}
-.profile-picture{background-color:#BBE3F7; width: 445px ; padding: 15px; float: left;}
+.profile-picture{width: 445px ; padding: 15px; float: left;}
 .inside-profile-picture{ float: left; padding: 15px; background: white; width:415px;}
 .inside_row{ float: left; padding:10px 15px 15px 15px; background: white; width:415px;}
 .selectImage{ width: 280px}
@@ -1047,7 +910,7 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 .borderBox .borderBoxContent{background-color:white;margin:15px;padding:15px; min-height:250px;}
 .borderBox .subheader{margin: 0px 0px 15px 0px;font-size:14px;font-weight:bold;}
 
-.payement-container #termsofservice {height:100px; border:1px solid #BBE3F7;padding:5px;overflow:auto;}
+.payement-container #termsofservice {height:100px; padding:5px;overflow:auto;}
 #termsofservice .tosheading {margin:0px 0px 0px 0px;font-weight:bold;font-size:14px;text-align:center;}
 #termsofservice .tosheading.effectivedate {margin:0px 0px 15px 0px;font-weight:normal;font-size:1em;}
 #termsofservice .preamble {margin:0px 0px 15px 0px;}
@@ -1199,7 +1062,7 @@ div#scrollingproductsuggestions {
 
 #pool_pool_panel a{ color: #C11164}
 #pool_pool_panel .pool_content {float:left;margin:30px 90px;width:740px;}
-#pool_pool_panel .pool_content  .picture_area_outer{background:white;border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;position:relative;width:162px;height:210px}
+#pool_pool_panel .pool_content  .picture_area_outer{position:relative;width:162px;height:210px}
 #pool_pool_panel .pool_content  .picture_area{background:white;border:1px solid #EEEEEE;text-align:center;top:-5px;position:absolute;width:160px;height:213px}
 #pool_pool_panel .receiver_picture{float:left;}
 #pool_pool_panel .product{float:right;}
@@ -1268,8 +1131,6 @@ div#scrollingproductsuggestions {
 .partialSocial.middle{text-align:center;border-right:1px solid #BBe3F7;}
 .partialSocial.middle input {margin-left:10px;}
 .partialSocial.right{position: relative;text-align: right;top: -5px;}
-
-
 
 
 /*=========================================== COUNTER ===========================================*/
