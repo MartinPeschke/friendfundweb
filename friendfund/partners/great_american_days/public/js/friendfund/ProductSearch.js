@@ -1,11 +1,9 @@
 dojo.provide("friendfund.ProductSearch");
 dojo.require("dojox.fx.scroll");
 dojo.require("dojo.fx.easing");
-dojo.require("dojox.widget.AutoRotator");
-dojo.require("dojox.widget.rotator.Pan");
-dojo.require("friendfund.Tooltip");
 dojo.require("dojo.NodeList-manipulate");
 dojo.require("dojo.NodeList-traverse");
+dojo.require("friendfund.Tooltip");
 
 dojo.declare("friendfund.ProductSearch", null, {
 	_listener_locals : [],
@@ -138,6 +136,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 				case (dojo.keys.ENTER):
 					if (!dojo.hasClass(dojo.byId("pq"), "default")){
 						_t.loadProductBrowser(_t, dojo.byId("searchsubmitter"), {searchterm:dojo.byId("pq").value});
+						evt.stopPropagation();
+						evt.preventDefault();
 					}
 					break;
 				case (dojo.keys.ESCAPE):

@@ -171,13 +171,11 @@ dojo.declare("friendfund.HomePagePanel", null, {
 				{node: dojo.byId(id),duration: 1000,
 					properties: {
 						backgroundColor: {start: "red", end: "#89A79E"}
-					}}).play();
-			evt.stopPropagation();
-			evt.preventDefault();
-			return false;
+					}
+				}
+			).play();
 		}
 	},
-	
 	verify_dates : function(_t, args){
 		args = args || {};
 		var params = {net: args.affnet || dojo.byId("product_net").value,

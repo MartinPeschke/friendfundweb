@@ -43,7 +43,6 @@ ul.navigation {
 	margin:0;
 	clear: both;
 	float:left;
-	z-index: 999;
 	position: relative;
 	width: 100%;
 	border-top:2px solid white;
@@ -69,12 +68,37 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	z-index:999;
 }
 /*-------------------------------------Main Structure Outline -------------------------------------*/
-#loginpanel {position: absolute;top: 10px;right: 30px;}
-#loginpanel * {color: #333;font-size: 11px;line-height: 11px}
+#loginpanel {
+	position: absolute;
+	top: 10px;
+	right: 30px;
+	color: #ffffff;
+}
 a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif}
-a.login_loginlink img, a.loginlink img{position: relative;top: 5px;padding-left:10px;}
-#login_panel_profile_pic {width: 30px;height: 30px;position: absolute;}
+#login_panel_profile_pic {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+}
 #loginpanel span.name {margin-left: 33px}
+
+#loginPanelContent {border:10px solid #BBe3F7;padding:10px 20px 20px;background-color:white;color:#333;margin-top:20px;
+	box-shadow:2px 2px 8px #666,-2px 0px 8px #666;
+	-webkit-box-shadow:2px 2px 8px #666,-2px 0px 8px #666;
+	-moz-box-shadow:2px 2px 8px #666,-2px 0px 8px #666;
+	min-height:300px;clear:both;position:absolute;right:0px;
+}
+.newFormControls.loginPanel input{width:250px;}
+.newFormControls.loginPanel select{width:260px;}
+
+a.login_loginlink {color: #ffffff;font-size: 11px;line-height:20px;padding:0px 10px;display: block; position: relative;float: left;cursor:pointer;}
+a.login_loginlink.selected{padding:0 10px 0 0;text-align:center;
+	background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -277px; transparent;color:#403834}
+a.login_loginlink.selected span {padding:0 0 0 10px;color:#403834;display:block;
+	cursor:pointer;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -247px transparent;}
+#loginPanelContent h3{margin-top:20px;text-align:center;}
+
+
 /*-------------------------------------Frontpage Panels/Popups-------------------------------------*/
 
 div.frontpagebutton {
@@ -179,7 +203,7 @@ div.frontpagebutton.funders {
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 	font-size: 14px;
 	font-weight: bold;
-	color:#333;
+	color:#403834;
 	overflow: hidden;
 	margin:10px 10px 10px 0px;
 }
@@ -200,13 +224,13 @@ div.frontpagebutton.funders {
 #button_panel {float:left;min-height:150px;position: relative;padding:10px 0 0 0;width:100%}
 #button_panel h2{
 	margin:0;
-	color:#333;
+	color:#403834;
 	font-family:"Trebuchet MS",Helvetica,Jamrul,Arial,sans-serif;
 	font-size:20px;
 	font-weight:bold;
 }
 #button_panel a.button_panel_closer {
-	background:url("/static/imgs/inputfield.png?20101123") no-repeat scroll -271px -30px transparent;	
+	background:url("../imgs/inputfield.png?20101129") no-repeat scroll -271px -30px transparent;	
 	height:19px;
 	position:absolute;
 	right:5px;
@@ -224,7 +248,7 @@ div.panel_title {
 	position: relative;
 	font-size: 20px;
 	font-weight: bold;
-	color: #333;
+	color: #403834;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 	line-height: 30px;
 	padding: 13px 30px
@@ -245,6 +269,10 @@ div.panel_content_no_margin {
 	position: relative;
 }
 div.panel_content_inner {margin: 40px 20px 20px;}
+
+
+.whiteContent{background-color:white;}
+
 /* -------------------------- OCCASION Panel ------------------------- */
 
 div#occasion_button_bar {
@@ -287,7 +315,7 @@ div#occasion_button_bar input{width:300px !important;background:white;padding:3p
 	margin-bottom: 5px;
 }
 #button_panel.occasion a.occasion_panel_button div.label {
-	color:#333;
+	color:#403834;
 	font-family:Trebuchet MS;
 	font-size:13px;
 	font-weight:bold;
@@ -312,79 +340,62 @@ div.productsuggestion.psmiddle{margin-right:30px;}
 a.productsuggestion{ display:block; background:url("../imgs/backgroundSearchProducts.png") no-repeat scroll 0 0 transparent;padding:3px 0 0;}
 a.productsuggestion span{ display:block; margin-top:10px; font-family:Trebuchet MS; font-size:14px; font-weight:bold; text-align:center}
 a.productsuggestion img{ display:block; margin:0 auto}
-#button_panel.product div.productsuggestion img.productsuggestion {
-	width: 129px;
-	height:129px;
-}
+#button_panel.product div.productsuggestion img.productsuggestion {width: 129px;height:129px;}
 
-#product_browser_container {
-	position: relative;
-	background-color: white;
+.product_search_container_outer{background-color:white;padding:15px;}
+.product_search_container {padding-bottom:15px;margin:0px auto;width:730px;position:relative}
+.search_container {background: url("../imgs/Magnifying_Glass.png") no-repeat scroll 0 0 transparent;padding: 22px 13px 28px 55px;}
+.search_container input {background-color: transparent;border: 0 solid transparent;font-size: 18px;padding: 8px;text-shadow: 1px 0 0 #FFFFFF;width: 550px;}
+
+.searchButton {background:url("../imgs/Magnifying_Glass.png?20101129") no-repeat scroll 100% -128px transparent;
+	float:right;
+	font-family:Arial,Helvetica,Jamrul,Arial,sans-serif;
+	font-size:18px;
+	font-style:normal;
+	text-align:center;
+	padding-right:10px;
+	min-width:75px;
 }
-#product_browser {
-	position: relative;
-	background-color: white;
-	border-top: solid 6px #b0c8c0;
-	margin-top: 30px;
+.searchButton:hover {background-position:100% -206px}
+.searchButton span{background:url("../imgs/Magnifying_Glass.png?20101129") no-repeat scroll 0 -89px transparent;
+	color:white;
+	cursor:pointer;
+	display:block;
+	font-size:18px;
+	height:38px;
+	line-height:38px;
+	padding-left:10px;
+	text-shadow:0 -1px 0 #770B3E;
 }
+.searchButton:hover span{background-position:0 -167px;}
+
+
+#product_browser_container {position: relative;background-color: white;}
+#product_browser {position: relative;background-color: white;border-top: solid 6px #bbe3f7;margin-top: 30px;}
 /*------------------------------------- LOGIN/SIGNUP PAGE -------------------------------------*/
 
-#login_form_container {
-	width: 445px;
-}
-#login_form .forminputline{ padding:15px}
-#signup_form_container {
-	width: 445px;
-}
-#login_form_container div.panel_content {
-	height: 360px;
-	padding: 0px;
-	padding: 1px 0px 0px 0px;
-}
-#login_signup_container div.panel_title{ padding:0; line-height:26px;}
-.forminputline.signup_login input {
-	width:229px;
-}
-#signup_form_container div.panel_content {
-	height: 360px;
-	padding: 1px 0px 0px 0px;
-}
-.forminputline.signup_login label {
-	width: 60px;
-	text-align: right;
-	margin: 5px;
-}
-
-#signup_form_container label {
-	width: 80px;
-	text-align: right;
-	margin-left: 0px;
-	margin-right: 0px;
-}
-#signup_form_container input {
-	width: 229px; display:bloc
-}
-#signup_form_container .forminputline{ padding-bottom:15px}
-
-#login_signup_container div.forminputline, #pwd_form_container div.forminputline {height:auto;position:relative;}
-#login_signup_container div.forminputline .error_message, #pwd_form_container div.forminputline .error_message{left:185px}
-#login_signup_container div.forminputline label, #pwd_form_container div.forminputline label {
-	margin:3px 0 0 0;
-	text-align:left;
-	width:150px;
+#login_form_container {width: 445px;margin-top:30px;}
+#login_form_container h3 {margin: 0px 0px 20px 0px;}
+div.legende {clear:both;float:left;margin-top:25px;}
+div.legende span.Counter {
+	color:#BAE3F7;
+	font-family:"Trebuchet MS", Arial, sans-serif;
+	font-size:28px;
+	font-weight:bold;
 	float:left;
-	font-size:12px;
-	font-family:Arial, Helvetica, sans-serif
 }
-#login_signup_container  .panel_content_inner{ border:15px solid #BAE3F7;float:left;margin:10px 0 0;width:415px;}
-#signup_form_container .panel_content_inner{ width:385px; padding:15px;	min-height:312px;}
+div.legende .Icon {margin:0px auto;float:None}
+div.legende .IconContainer {float:left;width:75px;margin-top:5px;}
+div.legende div.text {float:left;margin-top:5px; line-height: 19px;width:300px;}
 
-.lostpass{ display: block; margin-top: 10px; color:#B70158;margin-left:150px;
-margin-top:3px; font-size:11px}
-.maleFemale {}
+#signup_form_container {width: 445px;margin-top:10px;}
+#signup_form_container .inputline {margin-top:20px}
+#signup_form_container input {width: 380px;}
+#signup_form_container .underlined2 {margin-top:20px;clear:both}
+
 .mandatoryPad{ padding-top: 20px}
 .maleFemaleContainer{ padding-bottom: 5px; float:left}
-p.termsOf{ clear:both; font-size:11px; width:280px; float:left}
+p.termsOf{ clear:both; font-size:11px;float:left; margin: 20px 0px}
 p.termsOf a{ color:#B70158;}
 
 /*------------------------------------- INVITE PAGE -------------------------------------*/
@@ -410,7 +421,7 @@ p.termsOf a{ color:#B70158;}
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 	font-size: 14px;
 	font-weight: bold;
-	color:#333;
+	color:#403834;
 	overflow: hidden;
 }
 .invite_pool_panel .picture {
@@ -437,87 +448,55 @@ p.termsOf a{ color:#B70158;}
 	display: block;
 	padding-top:10px;
 }
-#inviteheader {
-	position:relative;
-	text-align: left;
-}
-#inviteheader.fb {
-	height: 80px;
-}
+#inviteheader {position:relative;text-align: left;border-bottom: 2px solid #BBE3F7;padding: 0px 15px; background: white;min-height:60px;}
+#receiver_selector_container #inviteheader {margin:15px 15px 0}
+#fb_filter {border: 1px solid #bbe3f7;background:#eee;background: none repeat scroll 0 0 #eef8fd;padding:6px;width:250px;-moz-border-radius: 5px;border-radius: 5px;margin:15px 0px;}
 
-#inviteheader.inviteelist {
-	height:55px;
-}
-#inviteall {top:37px;float:right}
-#inviteheader .mutual_toggle_container {position: absolute;top: 37px;left: 0px;}
-#inviteheader input, #inviteheader .mutual_toggle_container {float:left;}
-#inviteheader input{ margin-right:10px}
+.mutual_toggle_container {float:left;margin:10px 15px;}
+#inviteall {float:right;margin:10px 15px;}
+label.fb_filter {font-weight:bold;}
+
 
 .TabsContainer{ float: left; padding-left: 10px;width:880px}
 a.methodselector{display: block; position: relative; z-index: 2; float: left;margin-left: 5px;padding-right:15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";text-align:center}
 a.methodselector img{position:relative;top:3px;}
-a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -1563px transparent;min-width:145px;}
-
-a.methodselector span {padding:0 0 0 15px;color:#333;display:block;line-height:30px; height:30px;}
-a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -1512px transparent;}
-
-a.methodselector.selected {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 100% -322px transparent;}
-a.methodselector.selected span {background:url("../imgs/inputfield.png?20101117") no-repeat scroll 0 -272px transparent;}
+a.methodselector span {padding:0 0 0 15px;color:#403834;display:block;line-height:30px; height:30px;}
+a.methodselector.ajaxlink{background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -1542px transparent;min-width:145px;}
+a.methodselector.ajaxlink span {cursor:pointer;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -1512px transparent;}
+a.methodselector.selected {background-position:100% -277px;}
+a.methodselector.selected span {background-position:0 -247px;}
 
 
-div#lowerbody_container.fullbackground{background-color: #b0c8c0;}
-div#lowerbody_container.fullbackgroundwhite{padding-top: 1px;}
-div#lowerbody {margin: 30px;}
-#lowerbody_container {
-	position: relative;
-	margin:0px;
-	width: 980px;
-	margin-top: 20px;
-	float: left;}
+#lowerbody_container.fullbackground{background-color: #BBE3F7;}
+#lowerbody_container.fullbackgroundwhite{background-color: #fff;padding-top: 1px;}
+#lowerbody {margin: 30px;}
+.lowerbody {margin: 15px 30px 0px;}
+.halfBody {width: 430px;}
+#lowerbody_container {background:none repeat scroll 0 0 white;border-top:1px solid #BBE3F7;float:left;position:relative;}
 
 #receiver_selector_container #inviteheader div.headline {margin:20px;}
-#inviter #inviteheader div.headline {}
-#inviteheader div.headline {
-	float: left;
+div.perm_dialog div.headline {width:100%;
 	font-size: 14px;
 	font-weight: bold;
 	color: #333;
-	line-height:28px;
-	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
-	margin-top:-10px
+	line-height:18px;
 }
-#inviteheader div.headline img.networkicon {
-	position:relative;
-	top:10px;
-	margin-left:7px
-}
-#inviteheader div.perm_dialog {
-	position: relative;
-	margin: 60px 0px;
-	text-align:center;
-	font-size:12px
-}
-#inviteheader a.perm_dialog {
+div.perm_dialog div.headline img.networkicon {position:relative;top:10px;margin-left:7px}
+div.perm_dialog {background:#fff;position: relative;padding: 30px 0px;text-align:center;font-size:12px;margin:0 15px 15px;}
+div.perm_dialog a.perm_dialog {
 	text-align: center;
 	margin: 10px auto;
 	position: relative;
 	font-size: 14px;
 	font-weight: bold;
-	color: #333;
+	color: #403834;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 	cursor:pointer;
 }
-#friend_list {position:relative;}
-#friend_list.emailpopup {clear:both;}
-#friend_list.fb {background:none repeat scroll 0 0 white;height:125px;margin:0 15px 15px;overflow:auto;}
-
-#friend_list.inviteelist {
-	background-color:#FFFFFF;
-	border:1px solid #AAAAAA;
-	height:550px;
-	width:395px;
-	overflow:auto;
-}
+#friend_list {position:relative;clear:both;background-color:white;height:430px;overflow:auto;margin:0 15px 15px;}
+.invitepage #friend_list {border:1px solid #BBE3F7;}
+.lowerbody.invitepage {float: left;margin: 5px 30px 0;width: 920px;}
+#friend_list.emailpopup {margin:30px;}
 
 .invitee_row {position: relative;padding-bottom: 5px;border-bottom: 1px solid #ccc;height: 50px;}
 .invitee_row .label {overflow:hidden;float:left;padding: 0px 0px 0px 10px;}
@@ -526,7 +505,7 @@ div#lowerbody {margin: 30px;}
 
 .invitee_row a.selector {bottom:22px;position:absolute;right:0px;padding-right:15px;cursor:pointer;color:#064159;font-family:Arial,sans-serif;}
 .invitee_row a.selector span.selector{
-	background:url("../imgs/inputfield.png?20101123") no-repeat scroll -240px -32px transparent;
+	background:url("../imgs/inputfield.png?20101129") no-repeat scroll -240px -32px transparent;
 	height:15px;position:absolute;width:10px;right:0px;
 }
 #friend_list .invitee_row a.selector span.selector {background-position:-220px -32px;}
@@ -534,14 +513,14 @@ div#lowerbody {margin: 30px;}
 #friend_list .invitee_row a.selector.remove {display:None}
 #invited .invitee_row a.selector.invite {display:None}
 #invited .invitee_row a.selector.remove {display:block;bottom:40px;}
-#invited .invitee_row a.pending {background:url("../imgs/inputfield.png?20101123") no-repeat scroll -410px -53px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;cursor:pointer}
+#invited .invitee_row a.pending {background:url("../imgs/inputfield.png?20101129") no-repeat scroll -410px -53px transparent;bottom:7px;height:25px;position:absolute;right:5px;width:25px;cursor:pointer}
 #invited .invitee_row a.pending.selected {background-position:-374px -53px}
 
 
 .invitee_row.nonselectable {	display:none;}
 .invitee_row.selected {background-color: #eee;margin: 0px;padding: 5px;cursor:normal;}
 
-#receiver_selector_container .invitee_row{margin:5px 10px 0px 18px;float: left;width: 260px;}
+#receiver_selector_container .invitee_row{margin:5px 13px 0px 15px;float: left;width: 260px;}
 #receiver_selector_container .invitee_row span.label{ width:170px;}
 /*invite page only*/
 #lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
@@ -549,7 +528,7 @@ div#lowerbody {margin: 30px;}
 
 
 
-#birthdayselector {width:890px;padding:0px 15px 15px;background-color:#b0c8c0;float:left;margin:15px 0px}
+#birthdayselector {width:890px;padding:0px 15px 15px;background-color:#BBE3F7;float:left;margin:15px 0px}
 #birthdayselector #friend_list_container {background-color:white;float:left;padding:15px;width:860px;}
 #birthdayselector .invitee_row { width: 263px; margin:0px;float:None;margin:15px 0px 0px 30px;float: left;padding-bottom:35px;}
 #birthdayselector .invitee_row.first { margin:15px 0px 0px 0px;}
@@ -569,30 +548,15 @@ div#lowerbody {margin: 30px;}
 
 #inviter_name{ margin-top:23px !important}
 
-#invites {
-	border-top: 1px solid #e6ac00;
-	background-color:  #89A79E;
-	position: relative;
-	margin-top: -1px;
-}
-#inviter {
-	float:left;
-	margin:26px 30px 30px;
-	position:relative;
-	width:395px;
-}
-#invited {
-	margin: 6px 30px 30px 30px;
-	position: relative;
-	width:395px;
-	height:550px;
-	float: right;
-	overflow:auto;
-	border: 1px solid #aaa;
-	background-color:  #ffffff;
-}
-#invitescontainer .placeholder{position:relative;height:60px;float:right;margin: 15px 30px 0px 30px;width:395px;font-weight:bold;}
-#PendingSelectorSelector {position:relative;height:60px;background:white;}
+#invitescontainer {padding:15px;background-color:  #BBE3F7;	margin-top: -1px;border-top: 1px solid #81CBEF;}
+#invites {background-color:  #fff;position: relative;}
+
+#inviter {float:left;width:445px;}
+#invited {width:445px;float: right;}
+#invited .invitedBody {margin:36px 15px 15px;border: 1px solid #BBE3F7;height:430px;overflow:auto;}
+
+#invitescontainer .placeholder{position:relative;height: 60px;font-weight:bold;border-bottom: 2px solid #BBE3F7}
+#PendingSelectorSelector {position:relative;height:60px;background:white;padding: 0px 15px;width:420x;;}
 #inviters_selector_tooltip .gift, #PendingSelectorSelector .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 3px 3px transparent;height:30px;float:left;margin:15px; padding-left:40px;}
 #inviters_selector_tooltip .gift {display:block;background:url("../imgs/pending_gift_icon_sml.png") no-repeat scroll 100% 3px transparent;height:30px;float:left;margin:0px; padding-left:0px;}
 #PendingSelectorSelector .nominator img {width:50px;height:50px;float:left;margin-right:15px;}
@@ -601,18 +565,14 @@ div#lowerbody {margin: 30px;}
 
 
 #invited #mail_invitees .seperator img{ display:block; position:relative; left:-2px; top:-2px}
-#invited div.seperator {
-	border-bottom: 3px solid #b0c8c0;
-	padding: 15px 15px 0px 15px;
-	clear:both;
-}
+#invited div.seperator {border-bottom: 3px solid #bbe3f7;padding: 15px 15px 0px 15px;clear:both;}
 
-.whiteContainer{ background: #b0c8c0; border-top:1px solid #e6ac00; position: relative; padding:0 15px 15px 15px; margin-top: -1px; z-index: 1; float: left; width:890px}
+.whiteContainer{ background: #BBE3F7; border-top:1px solid #81cbef; position: relative; padding:15px; margin-top: -1px; z-index: 1; float: left; width:890px}
 
 #invite_message {
 	clear:both;
 	float:left;
-	margin:25px 0 0;
+	margin:30px 0;
 	position:relative;
 	width:100%;
 }
@@ -630,7 +590,7 @@ div#lowerbody {margin: 30px;}
 #invite_message div.invite_message, #invite_message div.invite_secret {
 	font-size: 20px;
 	font-weight: bold;
-	color: #333;
+	color: #403834;
 	float:left;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;
 }
@@ -639,44 +599,25 @@ div#lowerbody {margin: 30px;}
 	float:left;
 	font-size: 20px;
 }
-#invite_message div.invite_secret {
-	width:145px;
-	float:right;
-	font-size: 12px;
-	margin-top:33px;
-	font-family: Arial;
-	font-weight: normal;
-}
-#invite_message div.invite_secret input {
-	position: relative;
-	top: 2px;
-}
-#invite_message div.invite_message textarea {
-	border:15px solid #89A79E;
-	font-family:arial;
-	font-size:12px;
-	height:100px;
-	margin-top:10px;
-	padding:10px;
-	width:710px;
-}
-#invite_message #inviters_selector_tooltip,
-#invite_message #inviters_panel_tooltip {
-	background:white;
-	bottom:45px;
-	color:#B70158;
-	font-weight:bold;
-	position:absolute;
-	right:0;
-	width:146px;
-}
+
+
 #invite_message #inviters_selector_tooltip {bottom:55px;}
 
-#invite_message .submitSmall {
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-}
+#lowerbody_container.networkinviter 	.halfBody{width:}
+
+.invite_secret {padding: 5px;float:left;clear:left;width:430px;position:relative}
+.invite_secret:hover {border:1px solid #DDF1FB; background-color:#F7FCFE;padding: 4px;}
+.invite_secret .tooltip {width:480px;background-color:#ffe67d;height:50px;position:absolute;right:-481px;top:-1px;display:None;}
+.invite_secret .tooltip .content {margin:10px;}
+.invite_secret:hover .tooltip {display:block}
+.invite_secret .tooltip .triangle{top:3px;}
+
+
+div.invite_secret input {position: relative;top: 2px;margin-right: 10px;}
+.invite_body {float: left;width: 100%;position:relative;padding-bottom:10px;}
+.invite_body textarea {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin:15px 0px 10px;padding:5px 0px;width:100%}
+.invite_body #inviters_selector_tooltip,.invite_body #inviters_panel_tooltip {background:white;top:-25px;color:#B70158;font-weight:bold;position:absolute;right:0;width:auto;text-align:right}
+.invite_body .submitSmall {margin-bottom:30px;}
 /*------------------------------------- CONTRIBUTION PAGE -------------------------------*/
 
 #paymentdetailscontainer div.forminputline {
@@ -853,7 +794,7 @@ div#siteinfo .siteinfo_copyright.light .poweredByFriendfund {background-position
 #badge_popup_content .badge_text {float:right;font-size:20px;margin:90px 80px 0 0px;position:relative;width:300px;text-align: left;}
 #badge_popup_content .badge_icon {width: 350px;height: 300px;position: relative; float: left;margin:0px 0px 0px 30px;}
 .panelclosing_x {position: absolute;top: 3px; right: 10px;text-decoration: none;color:white;font-weight:bold;font-size:16px}
-.panelclosing_x_black {position: absolute;top: 3px; right: 10px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;}
+.panelclosing_x_black {position: absolute;top: 3px; right: 2px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;padding: 3px 8px;}
 #badge_popup_content .share_link {bottom: 10px; position:absolute;right:10px;}
 #badge_popup_content .share_link img {top:2px;position:relative;margin-right:5px;}
 
@@ -866,11 +807,20 @@ div.window_container div.window {
 	width:700px;
 	z-index:1010;
 }
-
+div.window_container .extrawidewindow {
+	background-color:white;
+	text-align:left;
+	padding:15px;
+	border:5px solid #BBE3F7;
+	margin:50px auto;
+	position:relative;
+	width:940px;
+	z-index:1010;}
+div.window_container .networkicon{ float:left; padding: 20px 10px;}
 div.window_container  div.window .header {
 	padding:15px;
 	position: relative;text-align: left;
-	background-color:#333;
+	background-color:#403834;
 	font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
 	font-size:28px;font-weight:normal; color: #fff;
 }
@@ -937,28 +887,28 @@ div.window_container  div.window div.popupContent ol li{
 #mypools {
 	padding: 0px 30px 30px;
 }
-.tabContainer {
-	background-color:#E9E9E9;
-	border-bottom:1px solid #DADADA;
-	height:35px;
-	left:0;
-	padding:18px 0 0 30px;
-	position:relative;
-	top:-9px;
-	width:950px;
-	z-index:2;
+.tabContainer {border-bottom: 1px solid #DADADA;
+	float: left;
+	background-color: #E9E9E9;
+	margin-top: -9px;
+	padding: 18px 0px 0px 30px;
+	position: relative;
+	width: 950px;
+	z-index: 2;
 }
-.tabContainer a {	 color:#333;display:block;float:left;padding-right:15px;text-align:center;}
-.tabContainer a span {color:#333;display:block;float:left;
-	cursor:pointer;font-size:18px;padding:7px 0px 8px 15px;font-family: Trebuchet MS,Arial;}
-.tabContainer a.selected {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 100% -435px transparent;}
-.tabContainer a.selected span {background:url("../imgs/inputfield.png?20101123") no-repeat scroll 0 -379px transparent;}
+.tabContainer a { margin: 0 5px -1px 0;color: #403834;display: block;float: left;min-width: 145px;padding-right: 15px;text-align: center;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -397px transparent;}
+.tabContainer a span {color: #403834;cursor: pointer;display: block;padding-left: 15px;font-size:14px;font-weight:bold;font-family:"Trebuchet MS";height: 30px;line-height: 30px;background:url("../imgs/inputfield.png?20101129") no-repeat scroll 0 -367px transparent;}
 
-.subCategories{clear:both; font-size: 20px ; font-weight: bold; color: #333; height: 47px; line-height: 47px;padding-top: 28px; font-family: Trebuchet MS,Arial}
+.tabContainer a.selected {background-position:100% -337px;}
+.tabContainer a.selected span {background-position:0 -307px;}
+
+
+.subCategories{clear:both; font-size: 20px ; font-weight: bold; color: #403834; height: 47px; line-height: 47px;padding-top: 28px; font-family: Trebuchet MS,Arial}
 .tooltipBoxMyPools{ height: 45px; background:none repeat scroll 0 0 #403835; position: relative}
 .tooltipBoxMyPools img{ position: absolute; display: block; left: 80px; bottom: 2px}
 .imgContainer{ background: url(../imgs/bg-rabody.png) left bottom no-repeat; width: 158px; height: 119px; padding: 0 1px 2px 1px}
 #invite_panel_header {margin: 0 30px 30px; padding-bottom:20px}
+#invite_panel_header.productSelectionPage {margin: 30px; padding-bottom:20px}
 span.label{ float: left; display: block; padding-top: 2px}
 span.money{ float: left; line-height: 24px}
 span.currency{ float: left; line-height: 24px}
@@ -1014,14 +964,10 @@ line-height: normal !important; margin-top: -2px !important}
 .myBadge  img.miniBadge{ width: 80px; height: 65px; margin: 0; position: absolute; bottom:-20px; right:10px}
 .friendsBadgesContainer{ float: left; width: 385px; padding-top: 10px}
 .friendsBadgesContainer .badge_user_pic{ float: left; width: 90px; height: 90px; margin-right: 30px; position: relative }
-.wide{ width: 100% !important;border-top:1px solid #E9E9E9 !important; margin-top: 15px}
-.fixedW{ width: 100%;height: 23px; padding-top: 12px}
-.fixedW input{ width: 160px}
 .friendsBadgesContainer .badge_user_pic img { float: left; width: 90px; height: 90px; }
-h2.small{ font-size: 20px !important}
 .friendsBadgesContainer .badge_user_pic img.miniBadge{ position: absolute; right: -15px; bottom:-15px; width: 65px; height: 50px}
 .friendsBadgesContainer div.label{ position:relative;text-align:right;top:12px;}
-.inside{ padding: 30px 0 30px 30px ;  }
+
 .badgeBox{ float: left; background: white; margin-top: 10px}
 .badgeBoxBorder{ float: left; background-color: #bae3f7; padding: 15px}
 #login_signup_container, #pwd_form_container{ margin:0 30px 30px 30px; float: left; width: 920px}
@@ -1046,7 +992,7 @@ h2.small{ font-size: 20px !important}
 .maleFemale label{ display:block !important;width:90px !important; float:left !important; margin:0 0 0 5px !important}
 .maleFemale input{ display:block !important;width:15px !important; float:left}
 .passwordFields .maleFemale label{ float: right !important;}
-#poolsettings{ margin:0 30px 30px 30px}
+#poolsettings{ clear:both; padding:30px 0px 0px}
 
 #contributioncontainer{ margin:0px 30px 30px; padding-top: 5px !important}
 
@@ -1063,8 +1009,8 @@ h2.small{ font-size: 20px !important}
 .paddingZero{ padding: 15px  0 0 0 !important}
 .passwordFields label{ display: block; float: left; width: 140px}
 a.Save{ float: right; clear: both; font-family: Arial; font-size: 18px;  color:#333; display:block;  
-	margin-top: 30px; padding-right: 10px; background: url(../imgs/inputfield.png?20101123) 100% -632px no-repeat; height: 35px; line-height: 35px}
-a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px;  background: url(../imgs/inputfield.png?20101123) 0 -597px no-repeat;text-shadow:0 2px 0 #fff;}
+	margin-top: 30px; padding-right: 10px; background: url(../imgs/inputfield.png?20101129) 100% -632px no-repeat; height: 35px; line-height: 35px}
+a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px;  background: url(../imgs/inputfield.png?20101129) 0 -597px no-repeat;text-shadow:0 2px 0 #fff;}
 .borderRow{ width: 100%; border-bottom: 1px solid #e9e9e9; height: 25px; margin-top: 5px; font-family: Arial; font-size: 12px; line-height: 21px}
 .borderRow .floaterLeft img{ display: block; float: left; margin-right: 10px}
 .inside_row a{ text-decoration: underline; color: #b70158}
@@ -1075,12 +1021,6 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 .messageContainerlong img{ padding-bottom:50px;}
 
 
-.addressContainerLeft {margin:30px 15px 30px 30px; float: left;position: relative;width:414px;}
-.addressContainerRight {margin:30px 30px 30px 15px; float: left;position: relative;width:414px; }
-.addressContainerLeft div.addressHeader, .addressContainerRight div.addressHeader {height:55px; overflow:hidden;position:relative;}
-.addressContainerLeft h2, .addressContainerRight h2 {position: absolute;bottom:5px;}
-.addressContainer {background: white;padding: 30px 30px 60px 30px;float: left;width:354px; position:relative;}
-
 #poolsettings .panel_title{ font-style: italic }
 .panel_content white h1{ margin: 0; padding: 20px 0}
 
@@ -1090,7 +1030,7 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 .yes label{ margin-left: 5px}
 
 
-.boxTitle { 	position: relative;padding: 30px 20px 0px 30px;font-size: 20px;font-weight: bold;color: #333;
+.boxTitle { 	position: relative;padding: 30px 20px 0px 30px;font-size: 20px;font-weight: bold;color: #403834;
 	font-family: "Trebuchet MS", Helvetica, Jamrul, Arial, sans-serif;}
 .borderBox {	width: 920px;float:left;margin: 15px 30px 30px;background-color:#BAE3F7}
 .borderBox .borderBoxContent{background-color:white;margin:15px;padding:15px; min-height:250px;}
@@ -1124,13 +1064,7 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 
 
 .marginSpecialSave{ margin:0 30px 30px 0 !important}
-.region_picker {float:right;
-	font-weight:bold;
-	width:700px;
-	padding-bottom: 15px;
-	text-align: right;
-	padding-top: 15px
-}
+.region_picker {font-weight:bold;padding: 15px;text-align: right;background-color:white}
 
 div#scrollingproductsuggestions{width:810px;overflow:hidden;height:190px;position:relative;}
 
@@ -1173,6 +1107,7 @@ div.anythingSlider .forward { right: 0px;  }
 div.anythingSlider .back { left: 0px;  }
 div.anythingSlider .forward a {background: url(../imgs/arrow-forward.png) center center no-repeat  }
 div.anythingSlider .back a {background: url(../imgs/arrow-back.png) center center no-repeat   }
+
 
 .personalityBox{background:none repeat scroll 0 0 white;float:left;margin:10px 0 0 0;padding:30px 0 10px 45px;width:845px;}
 .personalityBox span{ padding-bottom: 10px}
@@ -1247,7 +1182,6 @@ div#scrollingproductsuggestions {
 	position: relative;
 	color: #333;
 	margin: 0px 30px;
-	padding-bottom:30px;
 	float:left;
 	overflow:hidden
 }
@@ -1260,7 +1194,7 @@ div#scrollingproductsuggestions {
 #pool_pool_panel .product{float:right;}
 #pool_pool_panel .picture_area img.contentPic{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
 #pool_pool_panel .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
-#pool_pool_panel .picture_area .product_more{position:absolute;bottom:2px;right:5px;}
+#pool_pool_panel .picture_area .product_more{position:absolute;bottom:5px;right:5px;}
 .picture_area_outer .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-30px;position:absolute;width:60px;}
 .picture_area_outer.product .icon{background-position:-121px 0;left:-40px;}
 
@@ -1316,22 +1250,27 @@ div#scrollingproductsuggestions {
 	right: 0px;
 }
 
-.social_tools_free {margin:0px 30px;padding:20px 0px 5px;clear:both}
+.social_tools_free {margin:0px 30px;padding:10px 0 0;clear:both;float:left;width:920px;font-weight:bold}
+.social_tools_free .loginlink img{top:3px}
+.partialSocial {width:33%;padding:10px 0;height:16px;}
+.partialSocial.left{text-align:left;border-right:1px solid #BBe3F7;}
+.partialSocial.middle{text-align:center;border-right:1px solid #BBe3F7;}
+.partialSocial.middle input {margin-left:10px;}
+.partialSocial.right{position: relative;text-align: right;top: -5px;}
 
 
 /*=========================================== COUNTER ===========================================*/
-#timeline_bar {clear:both;float:left;margin:0 30px;}
+#timeline_bar {clear:both;float:left;margin:0 30px 30px;}
 #timeline_bar div.timeline {margin: 0px auto;padding-top:35px;width:860px;}
 #timeline_bar div.timeline .limit{font-size:14px; font-weight:bold;padding-bottom:3px;text-shadow:#e2f3fc 0px -1px 0px}
-#timeline_bar div.timeline_progressbar_bg .tooltip {background:none repeat scroll 0 0 #fff;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;margin-left:-35px;min-width:80px;border:1px solid #ccc; padding:4px 0;position:absolute;text-align:center;top:-29px;text-shadow:#fff7d4 0px -1px 0px}
+#timeline_bar div.timeline_progressbar_bg .tooltip {margin-left:-5px;background:none repeat scroll 0 0 #FFEea8;display:block;font-family:"Trebuchet MS";font-size:14px;font-weight:bold;min-width:100px;padding:5px 0;position:absolute;text-align:center;top:-28px;text-shadow:#fff7d4 0px -1px 0px}
 
-#timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {left:30px;background-position:-425px -20px;}
-#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {margin-left:-25px;padding:padding: 4px 5px;;}
-#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage .bottomYellowTriangle {left:20px;background-position:-425px -20px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip .bottomYellowTriangle {margin-left:10px;background-position:-425px -20px;}
+#timeline_bar div.timeline_progressbar_bg .tooltip.withMessage {padding:5px;}
 
 
-#timeline_bar div.timeline_progressbar_bg {position:relative;clear:both;height: 50px;background: url(/static/imgs/progressbar_bg.png) no-repeat left;}
+#timeline_bar div.timeline_progressbar_bg {position:relative;clear:both;height: 50px;background: url(/static/imgs/progressbar_bg.png?20101129) no-repeat left;}
 #timeline_bar div.timeline_progressbar {height: 40px;margin: 0px 5px 0px 5px;padding: 5px 0px 5px 0px;
-	background: url(/static/imgs/progressbar_progress.png) no-repeat left;}
+	background: url(/static/imgs/progressbar_progress.png?20101129) no-repeat left;}
 #timeline_bar div.legende {padding-top: 10px}
 #timeline_bar div.legende a{text-align:right;}
