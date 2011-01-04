@@ -21,6 +21,9 @@ def make_map(config):
 	map.connect('/error/{action}/{id}', controller='error')
 
 	# CUSTOM ROUTES HERE
+	map.connect('/custom.css', controller='customizer', action='css')
+	map.connect('/custom.js', controller='customizer', action='js')
+	
 	map.connect('/pool/start', controller='pool', action='reset')
 	map.connect('/pool/create', controller='pool', action='create')
 	
