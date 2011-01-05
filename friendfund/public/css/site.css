@@ -8,7 +8,6 @@ body.claro {
 div#outercontainer {
 	width:100%;
 	padding: 0px 0px 30px 0px !important ;
-	background: #e8f7fd url(../imgs/body_bg.png) 0 0 repeat-x !important;
 	float:left;
 }
 div#outercontainer_themed {
@@ -17,7 +16,7 @@ div#outercontainer_themed {
 	float:left;
 }
 #container {text-align: left;margin: 0px auto;position: relative;width:980px;}
-#headercontainer {background:white url(/static/imgs/header/header_bg.png) center top no-repeat;position: relative;float: left;width: 100%}
+#headercontainer {position: relative;float: left;width: 100%}
 #body_outer_container {position: relative;clear: both;float: left;}
 #body_container {width:100%;	clear:both;background-color: #ffffff;display: block;padding: 0px;position: relative;float:left;}
 #body_container .innerbody {background-color:  #bbe3f7;padding-top: 1px;clear: both;}
@@ -68,12 +67,7 @@ ul.navigation li.selected a {background: url(../imgs/arrow.gif) bottom center no
 	right:30px;
 }
 /*-------------------------------------Main Structure Outline -------------------------------------*/
-#loginpanel {
-	position: absolute;
-	top: 10px;
-	right: 30px;
-	color: #ffffff;
-}
+#loginpanel {position: absolute;top: 10px;right: 30px;}
 a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif}
 #login_panel_profile_pic {
 	width: 30px;
@@ -91,7 +85,8 @@ a.loginlink {font-size: 12px;color:#333;font-family:Arial, Helvetica, sans-serif
 .newFormControls.loginPanel input{width:250px;}
 .newFormControls.loginPanel select{width:260px;}
 
-a.login_loginlink {color: #ffffff;font-size: 11px;line-height:20px;padding:0px 10px;display: block; position: relative;float: left;cursor:pointer;}
+.login_loginlink {font-size: 11px;line-height:20px;padding:0px 10px;display: block; position: relative;float: left;}
+a.login_loginlink {cursor:pointer;}
 a.login_loginlink.selected{padding:0 10px 0 0;text-align:center;
 	background:url("../imgs/inputfield.png?20101129") no-repeat scroll 100% -277px; transparent;color:#403834}
 a.login_loginlink.selected span {padding:0 0 0 10px;color:#403834;display:block;
@@ -606,7 +601,7 @@ div.invite_secret input {position: relative;top: 2px;margin-right: 10px;}
 
 /* --------------------------------------- FOOTER ----------------------------------------- */
 
-
+div#siteinfo {width:100%}
 div#siteinfo div.siteinfo1 {
 	width: 100%;
 	float:left;
