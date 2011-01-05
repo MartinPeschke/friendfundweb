@@ -21,7 +21,7 @@
 
 <%def name="header()"></%def>
 <%def name="page_slogan()">
-	<h4 class="inside" style="margin: 5px 10px 0pt;">
+	<h4 class="inside" style="margin: 5px 10px 0;">
 		Share the costs with your friends!
 	</h4>
 	<div class="insider underlined5" style="margin: 0pt 15px;">Share the costs with your friends by organising a group gift pool.</div>
@@ -60,7 +60,7 @@
 		</div>
 		
 		<div class="smallInside">Complete the last Steps below</div>
-		<div style="clear:both;height:5px;"></div>
+		<div style="clear:both;height:3px;"></div>
 		<div id="receiver_panel" _type="receiver" class="frontpagebutton second enabled">
 			<%include file="receiver/button.html"/>
 		</div>
@@ -77,8 +77,9 @@
                 </a>
 			</div>
 		</div>
-		${html.clearline()|n}
-		<div id="button_panel_container">&nbsp;</div>
+		<div style="clear:both"></div>
+		<div id="button_panel_container"></div>
+		<img src="/static/imgs/themes/white_labelling_pop_up_info.png" style="margin-top: 25px;"/>
 	</div>
 </form>
 

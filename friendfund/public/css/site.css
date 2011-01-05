@@ -16,10 +16,10 @@ div#outercontainer_themed {
 	float:left;
 }
 #container {text-align: left;margin: 0px auto;position: relative;width:980px;}
-body.popup #container {background: none repeat scroll 0 0 white;height: 650px;}
+body.popup #container {background-color:white;height: 650px;width:auto;float:left}
 #headercontainer {position: relative;float: left;width: 100%}
 #body_outer_container {position: relative;clear: both;float: left;}
-#body_container {width:100%;	clear:both;background-color: #ffffff;display: block;padding: 0px;position: relative;float:left;}
+#body_container {width:100%;	clear:both;background-color: #ffffff;display: block;position: relative;float:left;}
 #body_container .innerbody {background-color:  #bbe3f7;padding-top: 1px;clear: both;}
 
 /*-------------------------------------Standard Inputs------------------------------------------------------*/
@@ -40,8 +40,6 @@ div.forminputline div.error_message {
 /*-------------------------------------Header------------------------------------------------------*/
 ul.navigation {
 	list-style-type:none;
-	padding:0;
-	margin:0;
 	clear: both;
 	float:left;
 	position: relative;
@@ -98,10 +96,10 @@ div.frontpagebutton {
 	margin: 1px;
 }
 div.frontpagebutton.first {margin: 1px 1px 1px 0px;}
+body.popup div.frontpagebutton.first {margin:0;}
 div.frontpagebutton.last {margin: 1px 0px 1px 1px;}
 
 #pool_configurator {float:left}
-body.popup  #pool_configurator {padding: 10px 15px 15px;}
 
 #pool_configurator div.frontpagebutton div.extender {
 	position: absolute;
@@ -145,6 +143,18 @@ div.frontpagebutton.funders {
 .hpbutton .button_label {color: #B70158; font-family: "Trebuchet MS"; font-weight: bold; font-style: italic; font-size: 28px;line-height:52px;position:relative}
 .hpbutton .button_label_q {font-style:normal;font-size:52px;top:10px;position:relative}
 
+body.popup #pool_configurator {padding: 10px 15px 15px;}
+body.popup #pool_configurator div.hpbutton.gift {padding:0px 0px 10px;}
+body.popup #pool_configurator div.hpbutton.gift div.label { margin:0px 10px;float:left;width:700px}
+body.popup #pool_configurator div.hpbutton.gift img.button_content {margin:0;float:left;max-width:178px;height:111px;padding:0;}
+body.popup #funders_panel_tooltip {top: -27px;}
+body.popup #pool_configurator .hpbutton {float:left;width:100%;}
+body.popup #pool_configurator .hpbutton div.button_content {position: relative;width:178px;margin: 0px auto;}
+body.popup #pool_configurator .hpbutton img.loaders_animation {position:absolute;top:30px;left:40px;}
+body.popup #pool_configurator .hpbutton img.button_content {	height:68px;width:auto;max-width:98px;margin:0 auto;padding-top:5px;}
+body.popup #pool_configurator .hpbutton div.label {margin:10px 10px 10px 0px;}
+body.popup #pool_configurator .hpbutton a.content {float:left;margin:5px 10px;}
+
 #pool_configurator div.hpbutton a.button.funders {margin: 24px;}
 #pool_configurator div.hpbutton a.content {
 	display:block;
@@ -157,6 +167,9 @@ div.frontpagebutton.funders {
 .hpbutton.receiver	a.content.nobg {}
 .hpbutton.gift		a.content.nobg {background-position:-179px 0px;}
 .hpbutton.occasion	a.content.nobg {background-position:-358px 0px;}
+
+body.popup .hpbutton a.content.withbg {height:74px;width:96px}
+body.popup .hpbutton a.content.nobg {height:76px;width:98px}
 
 
 #pool_configurator div.hpbutton a.content.funders {
@@ -350,8 +363,9 @@ p.termsOf a{ color:#B70158;}
 	position:relative;
 	margin-top:-1px;
 	min-height:100px;
-	float:left;
+	float:left;width:100%
 }
+
 .invite_pool_panel.first {margin: 30px 0px 0px 120px;}
 .invite_pool_panel {
 	position: relative;
@@ -393,9 +407,14 @@ p.termsOf a{ color:#B70158;}
 	display: block;
 	padding-top:10px;
 }
-#inviteheader {position:relative;text-align: left;border-bottom: 2px solid #BBE3F7;padding: 0px 15px; background: white;min-height:60px;}
+#inviteheader {position:relative;text-align: left;padding: 0px 15px; background: white;min-height:60px;}
+body.popup #receiver_selector_container #inviteheader { min-height:40px;}
+
 #receiver_selector_container #inviteheader {margin:15px 15px 0}
-#fb_filter {border: 1px solid #bbe3f7;background:#eee;background: none repeat scroll 0 0 #eef8fd;padding:6px;width:250px;-moz-border-radius: 5px;border-radius: 5px;margin:15px 0px;}
+body.popup #receiver_selector_container #inviteheader { margin: 10px 10px 2px;}
+
+#fb_filter {border: 1px solid #bbe3f7;background-color:#eef8fd;padding:6px;width:250px;-moz-border-radius: 5px;border-radius: 5px;margin:15px 0px;}
+body.popup #fb_filter {margin: 10px 0;}
 
 .mutual_toggle_container {float:left;margin:10px 15px;}
 #inviteall {float:right;margin:10px 15px;}
@@ -427,7 +446,8 @@ div.perm_dialog div.headline {width:100%;
 	line-height:18px;
 }
 div.perm_dialog div.headline img.networkicon {position:relative;top:10px;margin-left:7px}
-div.perm_dialog {background:#fff;position: relative;padding: 30px 0px;text-align:center;font-size:12px;margin:0 15px 15px;}
+div.perm_dialog {background-color:#fff;position: relative;padding: 30px 0px;text-align:center;font-size:12px;margin:0 15px 15px;}
+body.popup {margin:0 10px 5px;}
 div.perm_dialog a.perm_dialog {
 	text-align: center;
 	margin: 10px auto;
@@ -439,6 +459,8 @@ div.perm_dialog a.perm_dialog {
 	cursor:pointer;
 }
 #friend_list {position:relative;clear:both;background-color:white;height:430px;overflow:auto;margin:0 15px 15px;}
+body.popup .receiverselector #friend_list {height: 125px;margin: 0 10px 5px;overflow: auto;}
+
 .invitepage #friend_list {border:1px solid #BBE3F7;}
 .lowerbody.invitepage {float: left;margin: 5px 30px 0;width: 920px;}
 #friend_list.emailpopup {margin:30px;}
@@ -466,7 +488,11 @@ div.perm_dialog a.perm_dialog {
 .invitee_row.selected {background-color: #eee;margin: 0px;padding: 5px;cursor:normal;}
 
 #receiver_selector_container .invitee_row{margin:5px 13px 0px 15px;float: left;width: 260px;}
+body.popup #receiver_selector_container .invitee_row {margin: 5px 10px 0 14px;}
 #receiver_selector_container .invitee_row span.label{ width:170px;}
+
+
+
 /*invite page only*/
 #lowerbody_container .invitee_row {margin: 5px 5px 0px 5px;}
 #lowerbody_container .invitee_row span.label{ width:250px;}
@@ -797,7 +823,7 @@ line-height: normal !important; margin-top: -2px !important}
 	float:left;
 	padding:8px 0 8px 0;
 	width:280px; }
-.smallInside{ float: left; width: 400px}
+
 .subTitle{font-family:Trebuchet MS;font-size:14px;font-weight:bold;
 	border-bottom: 2px solid #dadada; padding-bottom: 7px; clear: both; float: left; width: 400px}
 .subInfo{ float: left; width: 295px; margin-top: 15px}

@@ -1,7 +1,7 @@
 <%
 	product = getattr(getattr(c, 'pool', None), 'product', None)
 %>
-<div id="button_product" class="hpbutton gift underlined2 floaterLeft" style="padding:0px 0px 5px;">
+<div id="button_product" class="hpbutton gift underlined2 floaterLeft">
 	%if product:
 		<img class="button_content" src="${getattr(product, 'picture_large')}"/>
 		<div class="label">${getattr(product, 'display_label')|n}
