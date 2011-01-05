@@ -16,6 +16,21 @@
 </div>
 
 <%def name="tabContainer()"></%def>
+<%def name="siteinfo()">
+	<div id="siteinfo">
+		<div class="siteinfo1">
+			<div class="siteinfo2">
+				${self.render_flag_container()}
+				${self.render_siteinfo_copyright()}
+			</div>
+		</div>
+	</div>
+</%def>
+
+
+<%def name="render_siteinfo_copyright()">
+	<a href="http://www.friendfund.com" class="siteinfo_copyright"><p>${_(u"powered by <span class=\"poweredByFriendfund\"></span>")|n}</p></a>
+</%def>
 
 <%def name="messaging()"></%def>
 <%def name="header_navigation()"></%def>
