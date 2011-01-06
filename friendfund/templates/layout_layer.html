@@ -4,7 +4,7 @@
 	<div id="top"></div>
 	${self.header()}
 	<div id="body_outer_container">
-		<div class="pageSlogan">${self.messaging()}${self.page_slogan()}</div>
+		${self.master_page_slogan()}
 		<div id="body_container">
 			${next.body()}
 		</div>
@@ -13,3 +13,4 @@
 	${self.render_account_panel()}
 	<div class="clear"></div>
 </div>
+<%def name="master_page_slogan()"><div class="pageSlogan">${self.messaging()}${self.page_slogan()}</div></%def>

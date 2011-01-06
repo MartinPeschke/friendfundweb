@@ -187,8 +187,8 @@
 				<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
 			%else:
 				<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
-				<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/> 
-					<div style="display: inline;position: relative;top: -10px;">${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
+				<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/>
+					<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
 				</a>
 			%endif
 		%else:
@@ -250,7 +250,7 @@
 				${self.tooltip_text(locals)|n}
 				</div>
 				
-				<div class="timelinelegende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
+				<div class="timelinelegende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="somelink popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
 				<div class="timelinelegende floaterLeft">${(_("POOL_PAGE_<b>%(amount_contributed)s</b> has been contributed sofar. Only <b>%(amount_left)s to go</b> before %(end_date)s!") % locals)|n}</div>
 			</div>
 		</div>

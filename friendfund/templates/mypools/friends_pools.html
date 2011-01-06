@@ -1,10 +1,12 @@
-<%inherit file="../layout_layer.html"/>
+<%inherit file="../layout_layer_tabbed.html"/>
 <%namespace name="mypools_body" file="mypools_body.html"/>
 <%namespace name="bdayfriends" file="../myfriends/birthday_friends_scripts.html"/>
 
 <%def name="title()">${_("FRIENDSPOOLS_TITLE_Friends' Pools")}</%def>
 
-${mypools_body.render_tabs("friends")|n}
+<%def name="tabContainer()">${mypools_body.render_tabs("friends")|n}</%def>
+<%def name="master_page_slogan()"></%def>
+
 
 <%def name="scripts()">
 	${bdayfriends.includes()|n}

@@ -5,7 +5,7 @@
 	${self.header()}
 	<div id="body_outer_container">
 		${self.tabContainer()}
-		<div class="pageSlogan">${self.messaging()}${self.page_slogan()}</div>
+		${self.master_page_slogan()}
 		<div id="body_container">
 			${next.body()}
 		</div>
@@ -16,3 +16,7 @@
 </div>
 
 <%def name="tabContainer()"></%def>
+<%def name="master_page_slogan()"><div class="pageSlogan">${self.messaging()}${self.page_slogan()}</div></%def>
+
+
+
