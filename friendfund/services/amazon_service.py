@@ -120,21 +120,24 @@ class AmazonService(object):
 			elif len(offers) == 0:
 				log.debug( "No Offers Found in Product: %s" % etree.tostring(elem) )
 				continue
-			for key,(required, normalizer, xmlqueries) in self.product_mapper.iteritems():
-				value = None
-				for query in xmlqueries:
-					hits = elem.xpath(query, **self.query_nss)
-					if len(hits) > 0:
-						value = normalizer(hits[0])
-						break
-				if required and value is None:
-					log.debug("Amazon Link could not be imported because of: %s " % key)
-					# raise AttributeMissingInProductException(key)
-					continue
-				elif value is None:
-					setattr(product, key, None)
-				else:
-					setattr(product, key, value)
+			try:
+				for key,(required, normalizer, xmlqueries) in self.product_mapper.iteritems():
+					value = None
+					for query in xmlqueries:
+						hits = elem.xpath(query, **self.query_nss)
+						if len(hits) > 0:
+							value = normalizer(hits[0])
+							break
+					if required and value is None:
+						raise AttributeMissingInProductException(key)
+						
+					elif value is None:
+						setattr(product, key, None)
+					else:
+						setattr(product, key, value)
+			except AttributeMissingInProductException, e:
+				log.debug("Amazon Link could not be imported because of: %s " % e)
+				continue
 			#set alternate product description, as no original was found
 			if not product.description or not product.description_long:
 				descr = self.parse_surrogate_description(elem)
