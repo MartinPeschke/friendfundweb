@@ -1,4 +1,5 @@
 dojo.provide("friendfund.HomePagePanel");
+dojo.provide("friendfund.MinifiedHomePagePanel");
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dojo.NodeList-manipulate");
 dojo.require("dojo.NodeList-traverse");
@@ -253,6 +254,63 @@ dojo.declare("friendfund.HomePagePanel", null, {
 								};
 		_t._widget_locals.push(_t.receiver_selectors);
 		_t.receiver_selectors.draw(data.method);
+	}
+});
+
+dojo.declare("friendfund.MinifiedHomePagePanel", "friendfund.HomePagePanel", {
+	occLoaded: function(_t){
+		_t.load(_t, "occasion");
+		
+		dojo.query("select", _t.ref_node).onchange(dojo.hitch(null, _t.occasion_preselect, _t));
+		dojo.query(".occasion_submitter", _t.ref_node).onclick(dojo.hitch(null, _t.occasion_selected, _t));
+		dojo.query(".dateopener", _t.ref_node).onclick(function(){dijit.byId("datestamp").focus()});
+		dojo.parser.parse(dojo.byId(_t.ref_node));
+		if(dijit.byId("datestamp")){_t._widget_locals.push(dijit.byId("datestamp"));}
+		dojo.query("div.black_labeled_container a.button_open_down", _t.ref_node).connect("onclick", dojo.hitch(null, _t.openDatePicker, _t));
+	}, openDatePicker:function(_t, evt){
+		dijit.byId("datestamp").focus();
+		evt.stopPropagation();
+		evt.preventDefault();
+		return false;
+	}, occasion_preselect: function(_t, evt){
+		var datewijit =dijit.byId("datestamp");
+		var selected_date = this.options[this.selectedIndex];
+		var newdate = dojo.attr(selected_date, "date").split("-");
+		
+		newdate = (newdate.length>=3)?(new Date(newdate[0], newdate[1]-1, newdate[2])) : null;
+		if(!datewijit.value) {
+			if(newdate){
+				datewijit.set("value", newdate);
+			}
+			if (parseInt(dojo.attr(selected_date, "custom"),10) === 1){
+				dojo.byId("occasion_custom_name").focus();
+			}
+		}
+	},
+	occasion_selected : function(_t, evt){
+		var selected = dojo.query("select", _t.ref_node);
+		var datepicker = dijit.byId("datestamp");
+		if(datepicker.value && selected.length === 1 && datepicker.value >= datepicker.constraints.min){
+			selected = selected[0].options[selected[0].selectedIndex];
+			var params = {};
+			params['occasion.custom'] = dojo.byId("occasion_custom_name").value !== "";
+			params['occasion.key'] = dojo.attr(selected, "key");
+			params['occasion.name'] = params['occasion.custom']?dojo.byId("occasion_custom_name").value:"";
+			params['occasion.date'] = formatDate(datepicker.value);
+			params['occasion.picture_url'] = dojo.attr(selected, "imgurl");
+			loadElement("/occasion/set", "occasion_panel", params, dojo.hitch(null, _t.set_complete, _t, 'occasion'));
+			_t.verify_dates(_t, {occasion_date:params['occasion.date']});
+			_t.unload(_t, true);
+		} else {
+			var id = (!selected)?"occasion_button_bar":"occasion_date_input_bar";
+			dojo.animateProperty(
+				{node: dojo.byId(id),duration: 1000,
+					properties: {
+						backgroundColor: {start: "red", end: "#89A79E"}
+					}
+				}
+			).play();
+		}
 	}
 });
 

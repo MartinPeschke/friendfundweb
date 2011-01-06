@@ -40,7 +40,7 @@
 			occasion = str(getattr(pool, "occasion", None) is not None).lower()
 			product = str(getattr(pool, "product", None) is not None).lower()
 		%>
-		panels = new friendfund.HomePagePanel({
+		panels = new friendfund.MinifiedHomePagePanel({
 						ref_node : "button_panel_container"
 						, config_node: "pool_configurator"
 						, fb_api_key : "${app_globals.FbApiKey}"
