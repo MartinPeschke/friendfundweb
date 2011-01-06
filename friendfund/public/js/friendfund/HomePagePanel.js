@@ -257,7 +257,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	}
 });
 
-dojo.declare("friendfund.MinifiedHomePagePanel", "friendfund.HomePagePanel", {
+dojo.declare("friendfund.MinifiedHomePagePanel", friendfund.HomePagePanel, {
 	occLoaded: function(_t){
 		_t.load(_t, "occasion");
 		
