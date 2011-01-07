@@ -459,10 +459,7 @@ FriendFund.Popin = {
         return context;
     },
     getReferer: function () {
-        var referer = window.location.href;
-        if (referer.indexOf('?') != -1) {
-            referer = referer.substring(0, referer.indexOf('?'));
-        }
+        var referer = encodeURIComponent(window.location.href);
         return referer;
     },
     url: function (options) {return options.protocol+options.host+'/product/bounce';}
