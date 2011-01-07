@@ -1,12 +1,33 @@
+<%namespace name="forms" file="../widgets/forms.html"/>
 <%
 	product = getattr(getattr(c, 'pool', None), 'product', None)
 %>
 <div id="button_product" class="hpbutton gift underlined2 floaterLeft">
 	%if product:
-		<img class="button_content" src="${getattr(product, 'picture_large')}"/>
-		<div class="label">${getattr(product, 'display_label')|n}
-			<div class="sub_label">${h.word_truncate_by_letters(product.description_long, 700)|n}</div>
-		</div>
+		<div style="text-align:center;width:178px;" class="floaterLeft"><img class="button_content" src="${getattr(product, 'picture_large')}"/></div>
+		%if c.product_list:
+			<div class="label minified">
+				<div class="minified_title">
+					<select id="product_selector">
+						%for p in c.product_list:
+						<option value="${p.guid}" ${forms.expression_quote(product.guid == p.guid, "selected")|n}>
+							${p.get_display_label(words = 10)}
+						</option>
+						%endfor
+					</select>
+					<div class="minified_title_text">
+						${product.get_display_label(words = 10)|n}
+					</div>
+				<div style="clear:both"></div>
+				</div>
+				<div class="sub_label">${h.word_truncate_by_letters(product.description_long, 200)|n}</div>
+			</div>
+			
+		%else:
+			<div class="label">${getattr(product, 'display_label')|n}
+				<div class="sub_label">${h.word_truncate_by_letters(product.description_long, 600)|n}</div>
+			</div>
+		%endif
 	%else:
 		<a class="content content_full nobg"></a>
 		<div class="label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Gift")}

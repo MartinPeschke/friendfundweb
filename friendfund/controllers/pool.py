@@ -52,11 +52,16 @@ class PoolController(BaseController):
 		else:
 			return self.render('/pool/pool_secret.html')
 	
-	def reset(self):
+	def _clean_session(self):
 		if 'pool' in websession:
 			del websession['pool']
 		if 'invitees' in websession:
 			del websession['invitees']
+		if 'product_list' in websession:
+			del websession['product_list']
+	
+	def reset(self):
+		self._clean_session()
 		return redirect(url('home'))
 	
 	def complete(self, pool_url):
@@ -107,8 +112,7 @@ class PoolController(BaseController):
 		if not c.pool:
 			return redirect(request.referer)
 		c.user.current_pool = c.pool
-		if 'pool' in websession:
-			del websession['pool']
+		self._clean_session()
 		return redirect(url('invite_index',  pool_url = c.pool.p_url))
 	
 	@jsonify

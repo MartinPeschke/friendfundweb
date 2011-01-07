@@ -20,9 +20,33 @@ log = logging.getLogger(__name__)
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
 	def bounce(self):
-		websession['pool'] = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
+		websession['pool'], product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
+		if len(product_list) > 1:
+			c.product_list = [product_list[k] for k in sorted(product_list)]
+			websession['product_list'] = c.product_list
+		else:
+			c.product_list = []
 		c.pool = websession['pool']
 		return self.render('/index.html')
+	
+	@jsonify
+	def set_minified(self):
+		product_guid = request.params.get("product_guid")
+		c.product_list = websession.get('product_list')
+		if not product_guid or not c.product_list:
+			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
+		product = None
+		for p in c.product_list:
+			if unicode(p.guid) == product_guid:
+				product = p
+				break
+		if not product:
+			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
+		c.pool = websession['pool']
+		c.pool.product = product
+		websession['pool'] = c.pool
+		return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
+	
 	
 	@logged_in()
 	def select(self, pool_url):

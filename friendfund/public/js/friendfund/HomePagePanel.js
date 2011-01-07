@@ -258,6 +258,31 @@ dojo.declare("friendfund.HomePagePanel", null, {
 });
 
 dojo.declare("friendfund.MinifiedHomePagePanel", friendfund.HomePagePanel, {
+	_displacement_backup : null,
+	_change_observer : null,
+	selected_elems : {receiver:false, occasion:false},
+	constructor: function(args){
+		var _t = this;
+		_t._change_observer = dojo.connect(dojo.byId("product_selector"), "onchange", dojo.hitch(null, _t.productSelected, _t));
+	},
+	productSelected : function(_t, evt){
+		dojo.disconnect(_t._change_observer);
+		var selected_product = this.options[this.selectedIndex];
+		loadElement("/product/set_minified", "product_panel", {product_guid:selected_product.value}, 
+			function(){
+				_t.set_complete(_t, 'product')
+				_t._change_observer = dojo.connect(dojo.byId("product_selector"), "onchange", dojo.hitch(null, _t.productSelected, _t));
+			}
+		);
+	},
+	preload: function(_t, action, open_at_all_costs, evt, params){
+		_t._displacement_backup = dojo.query(".displacement", _t.config_node).orphan();
+		_t.inherited(arguments);
+	},
+	unload: function(_t, success){
+		_t.inherited(arguments);
+		if(_t._displacement_backup){_t._displacement_backup.forEach(function(elem){dojo.place(elem, _t.config_node, "last")});}
+	},
 	occLoaded: function(_t){
 		_t.load(_t, "occasion");
 		

@@ -400,7 +400,7 @@ FriendFund.Popup = {
 };
 
 FriendFund.Util.includeCss(FriendFund.Util.render(FriendFund.Popup.css_template, {
-    background_image_url: FriendFund.Util.getFrameHost() + '/static/imgs/inputfield.png'
+    background_image_url: FriendFund.Util.getFrameHost() + '/static/custom_imgs/inputfield.png'
 }));
 FriendFund.onClose = function () {};
 

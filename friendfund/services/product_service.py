@@ -259,27 +259,39 @@ class ProductService(object):
 		return pool
 	
 	def set_product_from_open_graph(self, pool, request):
-		transl = {"description_long":("og:description", lambda x:x),
-					"description":("description", lambda x:x),
-					"name":("og:name", lambda x:x),
-					"amount":("og:price", lambda x:int(x)),
-					"shipping_cost":("og:shipping_handling", lambda x:int(x)),
-					"picture_small":("og:image", lambda x:x),
-					"picture_large":("og:image", lambda x:x),
-					"currency":("og:currency", lambda x:x)}
+		transl = {  "og:description":(["description_long","description"], lambda x:x),
+					"description":(["description"], lambda x:x),
+					"og:name":(["name"], lambda x:x),
+					"og:price":(["amount"], lambda x:int(x)),
+					"og:shipping_handling":(["shipping_cost"], lambda x:int(x)),
+					"og:image":(["picture_small", "picture_large"], lambda x:x),
+					"og:currency":(["currency"], lambda x:x)}
 		query=request.params.get("referer")
 		if not query:
 			log.error("Query not found")
 			abort(404)
-		scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
-		product_page = urllib2.urlopen(query)
-
+		try:
+			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
+			product_page = urllib2.urlopen(query)
+		except Exception, e:
+			log.error("Query could not opened or not wellformed: %s", e)
+			abort(404)
+		
 		soup = BeautifulSoup(product_page.read())
-		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta'))
+		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		if params.get("og:type") != 'product':
 			log.error("Markup not OKAY")
 			abort(404)
-		product = Product(aff_id=query, 
+		products = {}
+		for k in params:
+			parts = k.rsplit('-',1)
+			if parts[0] in transl:
+				if len(parts) == 1:
+					no = u'0'
+				else:
+					no = unicode(parts[1])
+				if no not in products:
+					products[no] = Product(aff_id=query, 
 							aff_program_id="-1", 
 							aff_program_name=domain, 
 							aff_net=domain,
@@ -289,12 +301,17 @@ class ProductService(object):
 							aff_program_logo_url="",
 							aff_program_delivery_time=5,
 							tracking_link=query)
-		for k,(name, transf) in transl.iteritems():
-			setattr(product, k, transf(params.get(name)))
-		product.fromDB(None)
+				attr_names, transf = transl.get(parts[0])
+				for attr in attr_names:
+					if not getattr(products[no], attr, None):
+						setattr(products[no], attr, transf(params.get(k)))
+		product = products.get(sorted(products)[0])
+		for key in products:
+			products[key].fromDB(None)
 		pool.product = product
 		pool.region = params.get('og:location') or params.get('lang') or params.get('language') or 'de'
-		return pool
+		print products
+		return pool, products
 		
 	
 	
