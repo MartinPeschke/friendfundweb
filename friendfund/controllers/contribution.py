@@ -13,7 +13,7 @@ from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, UnsupportedOp
 from friendfund.lib.synclock import TokenNotExistsException
 from friendfund.model.pool import Pool
 from friendfund.model.db_access import SProcException
-from friendfund.model.contribution import Contribution, CreditCard, DBPaymentNotice
+from friendfund.model.contribution import Contribution, CreditCard
 from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm, MonetaryValidator
 from friendfund.services.payment_service import NotAllowedToPayException
 
@@ -277,36 +277,5 @@ class ContributionController(BaseController):
 		"""basic auth: adyen/4epayeguka7ew43frEst5b4u"""
 		if request.method != 'POST':
 			return ['rejected']
-		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = request.POST
-		if str(params['eventCode']) in ['AUTHORISATION', 'REFUND', 'CANCELLATION', 'CAPTURE', 'CHARGEBACK', 'CHARGEBACK_REVERSED']:
-			paymentlog.info( 'headers=%s', request.headers )
-			paymentlog.info( 'post_params=%s', request.params )
-			paymentlog.info( '-'*40 )
-		else:
-			paymentlog.warning( request.headers )
-			paymentlog.warning( request.params )
-			paymentlog.info( '-'*40 )
-			return '[accepted]'
-		if str(params['eventCode']) in ['AUTHORISATION']:
-			transl = {  'merchantReference':'ref'\
-						,'pspReference':'tx_id'\
-						,'eventCode':'type'\
-						,'success':'success'
-					}
-		else:
-			transl = {  'merchantReference':'ref'\
-						,'originalReference':'tx_id'\
-						,'pspReference':'msg_id'\
-						,'eventCode':'type'\
-						,'success':'success'
-					}
-		noticeparams = dict([k for k in filter(lambda x: x[1], [(transl[k],v) for k,v in params.iteritems() if k in transl])])
-		noticeparams['success'] = strbool.to_python(noticeparams.get('success', False))
-		try:
-			notice = DBPaymentNotice(**noticeparams)
-			g.dbm.set(notice)
-		except SProcException, e:
-			log.error(e)
-		finally:
-			return '[accepted]'
+		return g.payment_service.receive_notification(paymentlog, params)

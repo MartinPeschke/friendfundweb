@@ -1,6 +1,8 @@
-import logging
+import logging, formencode
 from datetime import datetime
 from friendfund.lib.payment.adyen import VirtualPayment
+from friendfund.model.contribution import DBPaymentNotice
+
 log = logging.getLogger(__name__)
 
 class NotAllowedToPayException(Exception):pass
@@ -43,3 +45,40 @@ class PaymentService(object):
 		return self.payment_methods_map[contribution.paymentmethod].process(tmpl_context, contribution, pool, renderer, redirecter)
 	def post_process_payment(self, tmpl_context, contribution, pool, renderer, redirecter):
 		return self.payment_methods_map[contribution.paymentmethod].post_process(tmpl_context, contribution, pool, renderer, redirecter)
+	
+	
+	
+	
+	def receive_notification(self, params, paymentlog):
+		strbool = formencode.validators.StringBoolean(if_missing=False)
+		if str(params['eventCode']) in ['AUTHORISATION', 'REFUND', 'CANCELLATION', 'CAPTURE', 'CHARGEBACK', 'CHARGEBACK_REVERSED']:
+			paymentlog.info( 'headers=%s', request.headers )
+			paymentlog.info( 'post_params=%s', request.params )
+			paymentlog.info( '-'*40 )
+		else:
+			paymentlog.warning( request.headers )
+			paymentlog.warning( request.params )
+			paymentlog.info( '-'*40 )
+			return '[accepted]'
+		if str(params['eventCode']) in ['AUTHORISATION']:
+			transl = {  'merchantReference':'ref'\
+						,'pspReference':'tx_id'\
+						,'eventCode':'type'\
+						,'success':'success'
+					}
+		else:
+			transl = {  'merchantReference':'ref'\
+						,'originalReference':'tx_id'\
+						,'pspReference':'msg_id'\
+						,'eventCode':'type'\
+						,'success':'success'
+					}
+		noticeparams = dict([k for k in filter(lambda x: x[1], [(transl[k],v) for k,v in params.iteritems() if k in transl])])
+		noticeparams['success'] = strbool.to_python(noticeparams.get('success', False))
+		try:
+			notice = DBPaymentNotice(**noticeparams)
+			g.dbm.set(notice)
+		except SProcException, e:
+			log.error(e)
+		finally:
+			return '[accepted]'
