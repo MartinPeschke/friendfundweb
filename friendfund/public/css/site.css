@@ -679,6 +679,28 @@ div#siteinfo div.siteinfo_copyright {
 .panelclosing_x_black {position: absolute;top: 3px; right: 2px;text-decoration: none;color:#333;font-weight:bold;font-size:16px;cursor:pointer;padding: 3px 8px;}
 
 /* *************************************** BLOCKS ***************************************** */
+.window_background {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	text-align:center;
+	background-color: #333;
+	top:0px;
+	left:0px;
+	z-index:1000;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+div.window_container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index:1005;
+}
+
 div.window_container div.window {
 	background-color:white;
 	margin:150px auto;

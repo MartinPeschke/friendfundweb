@@ -49,7 +49,7 @@ class PaymentService(object):
 	
 	
 	
-	def receive_notification(self, params, paymentlog):
+	def receive_notification(self, paymentlog, params):
 		strbool = formencode.validators.StringBoolean(if_missing=False)
 		if str(params['eventCode']) in ['AUTHORISATION', 'REFUND', 'CANCELLATION', 'CAPTURE', 'CHARGEBACK', 'CHARGEBACK_REVERSED']:
 			paymentlog.info( 'headers=%s', request.headers )
