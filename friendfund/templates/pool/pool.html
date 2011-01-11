@@ -260,7 +260,7 @@
 <%def name="social_tools(locals)">
 	<div class="social_tools_free underlined1">
 		<div class="addthis_toolbox addthis_default_style floaterLeft partialSocial left">
-		<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=friendfund" class="addthis_button_compact">${_("Share this Pool")}</a>
+		<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=friendfund" class="somelink addthis_button_compact" style="color:#333">${_("Share this Pool")}</a>
 		<span class="addthis_separator">|</span>
 		<a class="addthis_button_facebook"></a>
 		<a class="addthis_button_twitter"></a>
@@ -270,10 +270,10 @@
 		<a class="addthis_button_stumbleupon"></a>
 		<a class="addthis_button_tumblr"></a>
 		</div>
-		<div class="floaterLeft partialSocial middle">${_("POOL_Permanent Link:")}<input type="text" value="${url.current(protocol='http')}"/></div>
+		<div class="floaterLeft partialSocial middle">${_("POOL_Permanent Link:")}<input type="text" onFocus="this.select();" value="${url.current(protocol='http')}"/></div>
 		<div class="floaterRight partialSocial right">
 		%if c.pool.is_contributable():
-			<a class="loginlink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
+			<a class="loginlink somelink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
 		%endif
 		</div>
 	</div>
