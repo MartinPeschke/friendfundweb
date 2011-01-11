@@ -30,7 +30,6 @@ from datetime import date, timedelta
 				<div id="datestamp_${action.name}" jsid="datestamp_${action.name}" type="text" class="black_labeled_input datepicker" name="expiry_date" value="${psettings.get_internal_expiry_date(5)}" dojoType="dijit.form.DateTextBox" constraints="{min:'${psettings.get_internal_expiry_date(5)}'}"></div>
 			</div>
 		%endif
-		<div style="clear:both"></div>
 		<div class="submitButton">
 			<a class="submitSmall" href="#" onclick="dojo.byId('form_${action.name}').submit()" id="action_submitter"><span>${_("ADMIN_ACTION_BUTTON_Submit")}</span></a>
 		</div>

@@ -1,16 +1,17 @@
 
 <%def name="render_tabs(selected, pool_url)">
+
 	<div class="tabContainer underlined_gray">
 		%if selected=="pool":
 			<a class="selected"><span>${_("POOL_ADMIN_TAB_Gift Pool Home")}</span></a>
 			<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='settings')}"><span>${_("POOL_ADMIN_TAB_Pool Admin")}</span></a>
-			%if not c.pool.product.is_virtual:
+			%if c.pool.require_addresses:
 				<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='addresses')}"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
 			%endif
 		%elif selected=="settings":
 			<a class="unselected" href="${url('get_pool', pool_url=pool_url)}"><span>${_("POOL_ADMIN_TAB_Gift Pool Home")}</span></a>
 			<a class="selected"><span>${_("POOL_ADMIN_TAB_Pool Admin")}</span></a>
-			%if not c.pool.product.is_virtual:
+			%if c.pool.require_addresses:
 				<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='addresses')}"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
 			%endif
 		%else:
@@ -19,4 +20,5 @@
 			<a class="selected"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
 		%endif
 	</div>
+
 </%def>

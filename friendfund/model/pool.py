@@ -314,6 +314,9 @@ class Pool(DBMappedObject):
 		return self.is_pending() and not self.selector
 	require_pselector = property(get_require_pselector)
 	
+	def get_require_addresses(self):
+		return not(self.product.is_virtual or self.is_merchant)
+	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):
 		self.participant_map = {}

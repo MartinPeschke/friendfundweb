@@ -113,16 +113,20 @@ class PoolSettings(DBMappedObject):
 				,GenericAttrib(str,'region'       , 'region')
 				,GenericAttrib(str,'shipping_country', 'shipping_country')
 				,GenericAttrib(bool,'is_admin'    , 'is_admin')
-				,GenericAttrib(bool,'is_virtual'    , 'is_virtual')
+				,GenericAttrib(bool, 'is_virtual' , 'is_virtual')
+				,GenericAttrib(bool, 'is_merchant', 'is_merchant')
 				,DBMapper(ShippingAddress         , 'addresses','ADDRESS', is_dict = True, dict_key = lambda x: (x.type or 'shipping').lower())
 				,DBMapper(PoolAction, 'actions'   , 'POOL_ACTION', is_list = True)
 			]
 	
 	def get_internal_expiry_date(self, value = 0):
 		return self.expiry_date and h.format_date_internal(self.expiry_date + timedelta(value)) or ''
-	
+	def get_require_addresses(self):
+		return not(self.is_virtual or self.is_merchant)
+	require_addresses = property(get_require_addresses)
+
 	def information_complete(self):
-		return self.is_virtual or \
+		return not self.require_addresses or \
 				(self.shipping_address.line1 and
 				self.shipping_address.line2 and 
 				self.shipping_address.line3 and 

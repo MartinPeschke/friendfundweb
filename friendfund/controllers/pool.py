@@ -320,23 +320,25 @@ class PoolController(BaseController):
 	@logged_in(ajax=False)
 	def close(self, pool_url):
 		c.pool_url = pool_url
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not (c.psettings.is_admin and c.psettings.is_funded()):
 			c.messages.append(_(NOT_CORRECT_STATE))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
-		elif not c.psettings.information_complete():
+		elif c.psettings.information_complete():
+			try:
+				g.dbm.set(ClosePoolProc(p_url = pool_url))
+				g.dbm.expire(Pool(p_url = pool_url))
+			except db_access.SProcException,e:
+				c.messages.append(e)
+				return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url))
+			except db_access.SProcWarningMessage,e:
+				c.messages.append(e)
+			return redirect(url('get_pool', pool_url=pool_url))
+		else:
 			c.messages.append(_(SAVE_ADDRESS_FIRST))
 			return redirect(url(controller='pool', action='addresses', pool_url=pool_url))
-		
-		try:
-			g.dbm.set(ClosePoolProc(p_url = pool_url))
-			g.dbm.expire(Pool(p_url = pool_url))
-		except db_access.SProcException,e:
-			c.messages.append(e)
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url))
-		except db_access.SProcWarningMessage,e:
-			c.messages.append(e)
-		return redirect(url('get_pool', pool_url=pool_url))
+
 	
 	
 	@logged_in(ajax=False)
