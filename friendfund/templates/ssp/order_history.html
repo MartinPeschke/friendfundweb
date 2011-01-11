@@ -1,0 +1,16 @@
+<%inherit file="master.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+
+<%def name="title()">Self Service Orders</%def>
+
+
+<h2>Orders Overview</h2>
+<hr/>
+<div class="login_panel newFormControls">
+	<table>
+		<tr><th>Pool</th><th>Product</th><th>Amount</th><th>Shipping</th><th>Amount Raised</th><th>Voucher Code</th><th>Invoice Reference</th></tr>
+		%for order in c.orders:
+		<tr><td>Pool</td><td>Product</td><td>Amount</td><td>Shipping</td><td>Amount Raised</td><td>Voucher Code</td><td>Invoice Reference</td></tr>
+		%endfor
+	</table>
+</div>

@@ -1,0 +1,21 @@
+<%inherit file="master.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+
+<%def name="title()">Self Service Login</%def>
+
+
+<h2>Login Area</h2>
+<hr/>
+<div class="login_panel newFormControls">
+	<form action="/ssp/login" method="POST" id="ssp_login_form">
+	<div class="inputline">
+		${forms.input_text("ssp_login", "email", _("LOGIN_PAGE_LABEL_Email Address"), required = True)|n}
+	</div>
+	<div class="inputline">
+		${forms.input_text("ssp_login", "password", _("LOGIN_PAGE_LABEL_Password"), required = True)|n}
+	</div>
+	<div class="inputline floaterLeft">
+		<a onclick="dojo.byId('ssp_login_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Log In</span></a>
+	</div>
+	</form>
+</div>
