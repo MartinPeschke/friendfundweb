@@ -81,3 +81,17 @@ class DBPaymentNotice(DBMappedObject):
 				,GenericAttrib(bool, 'success'  ,'success')
 				,GenericAttrib(str, 'reason'   ,'reason')
 			]
+
+class GetPoolURLFromContribRef(DBMappedObject):
+	"""
+	exec [app].[get_p_url_from_contribution_ref] '<POOL  contribution_ref="DA516A21-FEC7-4AC4-BF56-5D4FC265CDBE"/>'
+		<RESULT status="0" proc_name="get_p_url_from_contribution_ref">
+		  <POOL p_url="P3cD.Mapa-Technorac-Wellness-Massagen" />
+		</RESULT>
+	"""
+	_cachable = False
+	_get_root = _set_root = 'POOL'
+	_unique_keys = ['msg_id']
+	_set_proc =_get_proc = 'app.get_p_url_from_contribution_ref'
+	_keys = [	GenericAttrib(unicode, 'contribution_ref','contribution_ref')
+				,GenericAttrib(unicode, 'p_url'    ,'p_url')]

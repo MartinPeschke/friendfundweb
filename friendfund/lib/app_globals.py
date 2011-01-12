@@ -1,6 +1,6 @@
 """The application's Globals object"""
 
-import logging, pyodbc, md5, pylibmc
+import logging, pyodbc, md5, pylibmc, urlparse
 from random import random
 from DBUtils.PooledDB import PooledDB
 from pylons import url
@@ -66,6 +66,7 @@ class Globals(object):
 		
 		
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
+		self.SITE_SUBDOMAIN = '.'.join(urlparse.urlparse(app_conf['SITE_ROOT_URL'])[1].split('.')[:-2])
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
 		dbpool = PooledDB(pyodbc,10,autocommit=True

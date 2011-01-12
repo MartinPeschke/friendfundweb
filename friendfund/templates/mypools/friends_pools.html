@@ -34,7 +34,7 @@
 		%endfor
 	%endif
 	%if not c.my_pools.pools:
-		<div>${_("MYPOOLS_NOPOOLS_Sorry, None of your friends have created any pools!")}</div><div style="clear:both"></div>
+		<h4 class="inside">${_("MYPOOLS_NOPOOLS_Sorry, None of your friends have created any pools!")}</h4>
 		${bdayfriends.body(_("CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"))|n}
 	%endif
 </div>

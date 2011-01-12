@@ -180,8 +180,9 @@ class RedirectPayment(PaymentMethod):
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
-				"merchantReturnData" : ''.join(pool.p_url.partition('.')[:2])
+				"merchantReturnData" : g.SITE_SUBDOMAIN
 				}
+		print redirect_params
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])
 		url = "%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params)))

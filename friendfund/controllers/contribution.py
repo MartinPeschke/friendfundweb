@@ -13,11 +13,12 @@ from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, UnsupportedOp
 from friendfund.lib.synclock import TokenNotExistsException
 from friendfund.model.pool import Pool
 from friendfund.model.db_access import SProcException
-from friendfund.model.contribution import Contribution, CreditCard
+from friendfund.model.contribution import Contribution, CreditCard, GetPoolURLFromContribRef
 from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm, MonetaryValidator
 from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.service')
+log = logging.getLogger(__name__)
 
 from friendfund.services.pool_service import MissingPermissionsException
 
@@ -27,11 +28,14 @@ class ContributionController(BaseController):
 	@logged_in(ajax=False)
 	def chipin_current(self):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
-		pool_url = g.payment_service.verify_result(request.params)
-		if not pool_url:
+		subdomain = g.payment_service.verify_result(request.params)
+		merchantReference = request.params.get('merchantReference')
+		pool_url = g.dbm.get(GetPoolURLFromContribRef, contribution_ref = merchantReference)
+		if not subdomain or not pool_url:
 			log.warning("Payment Provider Signature could not be verified: %s", request.params)
 			return abort(404)
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		
+		c.pool = g.dbm.get(Pool, p_url = pool_url.p_url)
 		if c.pool is None:
 			log.warning("Pool from Payment Provider Signature not found: %s, %s", pool_url, request.params)
 			return abort(404)

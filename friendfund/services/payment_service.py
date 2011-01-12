@@ -2,7 +2,7 @@ import logging, formencode
 from datetime import datetime
 from friendfund.lib.payment.adyen import VirtualPayment
 from friendfund.model.contribution import DBPaymentNotice
-
+from pylons import request
 log = logging.getLogger(__name__)
 
 class NotAllowedToPayException(Exception):pass
