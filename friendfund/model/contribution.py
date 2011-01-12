@@ -72,7 +72,7 @@ class DBPaymentInitialization(DBMappedObject):
 class DBPaymentNotice(DBMappedObject):
 	_cachable = False
 	_get_root = _set_root = 'NOTICE'
-	_unique_keys = ['msg_id']
+	_unique_keys = ['msg_id', 'ref']
 	_set_proc = 'app.add_contribution_notice'
 	_keys = [	GenericAttrib(str, 'ref','contribution_ref')
 				,GenericAttrib(int, 'tx_id'    ,'transaction_id')
@@ -81,7 +81,20 @@ class DBPaymentNotice(DBMappedObject):
 				,GenericAttrib(bool, 'success'  ,'success')
 				,GenericAttrib(str, 'reason'   ,'reason')
 			]
-
+			
+class GlobalDBPaymentNotice(DBMappedObject):
+	_cachable = False
+	_get_root = _set_root = 'NOTICE'
+	_unique_keys = ['msg_id', 'ref']
+	_set_proc = _get_proc = 'dbo.exec_contribution_notice_db'
+	_keys = [	GenericAttrib(str, 'ref','contribution_ref')
+				,GenericAttrib(int, 'tx_id'    ,'transaction_id')
+				,GenericAttrib(int, 'msg_id'   ,'message_id')
+				,GenericAttrib(str, 'type'     ,'type')
+				,GenericAttrib(bool, 'success'  ,'success')
+				,GenericAttrib(str, 'reason'   ,'reason')
+			]
+	
 class GetPoolURLFromContribRef(DBMappedObject):
 	"""
 	exec [app].[get_p_url_from_contribution_ref] '<POOL  contribution_ref="DA516A21-FEC7-4AC4-BF56-5D4FC265CDBE"/>'

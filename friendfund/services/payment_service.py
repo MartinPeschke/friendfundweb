@@ -1,8 +1,8 @@
 import logging, formencode
 from datetime import datetime
 from friendfund.lib.payment.adyen import VirtualPayment
-from friendfund.model.contribution import DBPaymentNotice
-from pylons import request
+from friendfund.model.contribution import GlobalDBPaymentNotice
+from pylons import request, app_globals
 log = logging.getLogger(__name__)
 
 class NotAllowedToPayException(Exception):pass
@@ -52,10 +52,11 @@ class PaymentService(object):
 	def receive_notification(self, paymentlog, params):
 		strbool = formencode.validators.StringBoolean(if_missing=False)
 		if str(params['eventCode']) in ['AUTHORISATION', 'REFUND', 'CANCELLATION', 'CAPTURE', 'CHARGEBACK', 'CHARGEBACK_REVERSED']:
+			paymentlog.info( '-'*40 )
 			paymentlog.info( 'headers=%s', request.headers )
 			paymentlog.info( 'post_params=%s', request.params )
-			paymentlog.info( '-'*40 )
 		else:
+			paymentlog.info( '-'*40 )
 			paymentlog.warning( request.headers )
 			paymentlog.warning( request.params )
 			paymentlog.info( '-'*40 )
@@ -76,9 +77,12 @@ class PaymentService(object):
 		noticeparams = dict([k for k in filter(lambda x: x[1], [(transl[k],v) for k,v in params.iteritems() if k in transl])])
 		noticeparams['success'] = strbool.to_python(noticeparams.get('success', False))
 		try:
-			notice = DBPaymentNotice(**noticeparams)
-			g.dbm.set(notice)
+			notice = GlobalDBPaymentNotice(**noticeparams)
+			app_globals.dbconf.set(notice)
 		except SProcException, e:
-			log.error(e)
+			paymentlog.error(e)
+		except Exception, e:
+			paymentlog.error(e)
 		finally:
+			paymentlog.info( '-'*40 )
 			return '[accepted]'
