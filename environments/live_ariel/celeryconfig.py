@@ -16,15 +16,15 @@ CELERY_STORE_ERRORS_EVEN_IF_IGNORED = False
 CELERY_IGNORE_RESULT = True
 CELERY_DISABLE_RATE_LIMITS = True
 
-CELERY_EVENT_EXCHANGE_TYPE = "direct"
-CELERY_EVENT_EXCHANGE = "celeryevent_live"
-CELERY_EVENT_ROUTING_KEY = "celeryevent_live"
-
-CELERY_QUEUES = {"default_queue": {"exchange": "celeryevent_live",
+CELERY_QUEUES = {"default_queue": {
+				"exchange": "celeryevent_live",
 				"exchange_type": "direct",
-				"routing_key": "*"}}
+				"binding_key": "celeryevent_live_ff",
+				"routing_key": "celeryevent_live_ff"}}
 CELERY_DEFAULT_QUEUE = "default_queue"
-
+CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
+CELERY_DEFAULT_EXCHANGE = "celeryevent_live"
+CELERY_DEFAULT_ROUTING_KEY = "celeryevent_live_ff"
 
 CELERY_EVENT_SERIALIZER = "json"
 
