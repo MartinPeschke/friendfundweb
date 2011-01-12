@@ -1,5 +1,5 @@
 """Pylons environment configuration"""
-import os
+import os, logging
 
 from mako.lookup import TemplateLookup
 from pylons.configuration import PylonsConfig
@@ -8,6 +8,8 @@ from pylons.error import handle_mako_error
 import friendfund.lib.app_globals as app_globals
 import friendfund.lib.helpers
 from friendfund.config.routing import make_map
+
+log = logging.getLogger(__name__)
 
 def load_environment(global_conf, app_conf):
     """Configure the Pylons environment via the ``pylons.config``
@@ -22,7 +24,7 @@ def load_environment(global_conf, app_conf):
                  static_files=os.path.join(root, 'public'),
                  templates=[os.path.join(root, path) for path in global_conf['templates'].split(';')],
                  uploads=os.path.join(app_conf['cache_dir'], 'uploads'))
-
+    log.info("loaded templates from, %s", str([os.path.join(root, path) for path in global_conf['templates'].split(';')]))
     # Initialize config with the basic options
     config.init_app(global_conf, app_conf, package='friendfund', paths=paths)
 
