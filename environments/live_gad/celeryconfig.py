@@ -2,7 +2,7 @@ BROKER_HOST = "127.0.0.1"
 BROKER_PORT = 5672
 BROKER_USER = "rmquser_live"
 BROKER_PASSWORD = "rmqpw_liveHGasegoiAuhqfReo96r"
-BROKER_VHOST = "rmqvhost_live"
+BROKER_VHOST = "rmqvhost_live_gad"
 CELERY_RESULT_BACKEND = "amqp"
 CELERY_IMPORTS = ("friendfund.tasks.fb", 
 					"friendfund.tasks.twitter",
