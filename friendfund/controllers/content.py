@@ -25,6 +25,10 @@ FAQ_KEYS = [(_("STATIC_Frequently Asked Questions_Question1" ), _("STATIC_Freque
 from friendfund.lib.base import BaseController, render, _
 log = logging.getLogger(__name__)
 class ContentController(BaseController):
+	def __before__(self, action, environ):
+		pass
+	def __after__(self, action, environ):
+		pass
 	@jsonify
 	def amazonhowto(self):
 		return {"popup":self.render("/messages/popups/amazon.html").strip()}	

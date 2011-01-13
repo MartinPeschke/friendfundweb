@@ -1,23 +1,15 @@
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
+from friendfund.model.authuser import ProtoUser, ANONUSER
 
 
-def SSPUserRole(DBMappedObject):
-	_set_root = _get_root = "ROLE"
-	_unique_keys = ['name']
-	_cachable = False
-	_keys = [GenericAttrib(unicode,'name','name')]
-
-
-
-class SSPUserLogin(DBMappedObject):
+class SSPUserLogin(ProtoUser):
+	is_ssp_admin = True
 	_set_root = _get_root = "USER"
-	_get_proc = _set_proc = "ssp.web_login"
-	_unique_keys = ['email', 'name']
+	_get_proc = _set_proc = "adi.admin_login"
+	_unique_keys = ['email', 'pwd']
 	_cachable = False
 	_keys = [	 GenericAttrib(unicode,'email','email')
-				,GenericAttrib(str,'password','password')
-				,GenericAttrib(int,'merchant_id','merchant_id')
-				,GenericAttrib(unicode,'role','role')
+				,GenericAttrib(unicode,'pwd','pwd')
 			]
 	def am_i_admin(action):
 		return True
@@ -25,6 +17,7 @@ class SSPUserLogin(DBMappedObject):
 	def login(email, password):
 		user = SSPUserLogin(email = email, password = password)
 		return user
+
 
 class SSPOrderOverview(DBMappedObject):
 	_set_root = _get_root = "ORDER"

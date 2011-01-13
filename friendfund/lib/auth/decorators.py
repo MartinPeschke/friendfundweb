@@ -18,6 +18,20 @@ def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = N
 		return func(self, *args, **kwargs)
 	return decorator(validate)
 
+def is_ssp_admin(ajax = False, redirect_to = url(controller='ssp', action='index'), furl = None): 
+	def validate(func, self, *args, **kwargs):
+		pylons = get_pylons(args)
+		c = pylons.tmpl_context
+		if not c.user.is_ssp_admin:
+			if ajax:
+				return {'redirect':redirect_to}
+			else:
+				return redirect('%s?furl=%s' % (redirect_to, furl or pylons.request.path_info))
+		return func(self, *args, **kwargs)
+	return decorator(validate)
+
+
+
 def post_only(ajax = False): 
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)

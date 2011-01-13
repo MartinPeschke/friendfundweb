@@ -9,30 +9,6 @@
 
 <%def name="headscripts()">
 	var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
-	var thous_sep="${h.get_thous_sep()}";var dec_sep="${h.get_dec_sep()}"
-	var update_costs_hint = function(evt){
-		dojo.byId("label_absolute_fees").innerHTML=parseInt(dojo.attr(this, "_fee_absolute"));
-		dojo.byId("label_relative_fees").innerHTML=parseInt(dojo.attr(this, "_fee_relative"));
-		calcTotals();};
-	calcTotals = function(elem, evt){
-		var contrib=document.getElementById("chipin_amount");
-		var costs = document.getElementById("chipin_amount_costs");
-		var total = document.getElementById("chipin_total");
-		var total_show = document.getElementById("chipin_total_show");
-		var cost_carrier = dojo.filter(dojo.query("input.paymentselector", "contribution_form"), function(item){return item.checked})[0];
-		var absolute = parseInt(dojo.attr(cost_carrier, '_fee_absolute'));
-		var relative = parseInt(dojo.attr(cost_carrier, '_fee_relative'));
-		if(contrib.value){
-			var contrib_amount = Math.round(parseFloat(contrib.value.replace(thous_sep,"").replace(dec_sep, "."))*100);
-			var costs_amount = (contrib_amount * relative/100) + absolute;
-			costs.value=(costs_amount/100).toFixed(2).replace(".", dec_sep);
-			total.value=((contrib_amount + costs_amount)/100).toFixed(2).replace(".", dec_sep);
-			total_show.value=total.value;
-		} else{costs.value="";total.value="";total_show.value="";}
-	};calcTotals();
-	var pl=dojo.byId("contribution_form");page_reloader = dojo.hitch(pl, pl.submit);
-	dojo.query("input[type=radio].paymentselector").onchange(dojo.hitch(null, update_costs_hint));
-	dojo.query(".popuplink", "amount_costs_bar").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
 <div id="contributioncontainer" class="innerbody">
@@ -48,20 +24,6 @@
 							name="chipin.message" id="chipin_message">${c.chipin_values.get("message", c.pool.get_my_message(c.user))}</textarea>
 			<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> 
 			</div>
-			%if not c.paymentpage.is_virtual:
-			<div class="floaterLeft"> 
-			<h2>${_("CONTRIBPAGE_LABEL_How should displayed your amount")}</h2>
-			<div class="forminputline keepsecret"> ${forms.input_checkbox("chipin", "anonymous", _("CONTRIBPAGE_LABEL_Profil anonym"), "yes")} <span class="grey floaterLeft" style="padding:0 0 0 5px ">${_("CONTRIBPAGE_LABEL_your name will not be displayed")}</span></div>
-				<div class="floaterLeft radioContainer">
-					<input type="radio" name="chipin.is_secret" id="show-amount" ${forms.input_checked("chipin", "is_secret", False, default=True)|n} value="no"/>
-					<label for="show-amount">${_("CONTRIBPAGE_LABEL_show amount")}</label>
-				</div>
-				<div class="floaterLeft radioContainer2">
-					<div><input type="radio" id="pot-gold" name="chipin.is_secret" value="yes" ${forms.input_checked("chipin", "is_secret", True)|n}/>
-					<label for="pot-gold">${_("CONTRIBPAGE_LABEL_A pot of gold")}</label></div>
-				</div>
-			</div>
-			%endif
 		<div class="clear"></div>
 		</div>
 	  </div>
@@ -83,56 +45,30 @@
 					<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("amount", "")}</div>
 				</div>
 				
-				%if c.paymentpage.has_fees:
-					<div class="forminputline">
-						<span class="label"></span><span class="grey">${(_("CONTRIBPAGE_LABEL_+ Transaction cost of <span id=\"label_absolute_fees\">%(absolute)s</span> cents and <span id=\"label_relative_fees\">%(relative)s</span>%%")%dict([('absolute', c.paymentpage.default.fee_absolute), ('relative', c.paymentpage.default.fee_relative)]))|n}</span>
-					</div>
-				
-					<div class="forminputline" id="amount_costs_bar">
-						<span class="label">${_("CONTRIBPAGE_LABEL_Our cost")}</span> 
-						<input type="text" class="contrib_amount" id="chipin_amount_costs" disabled="disabled"/>
-						<a href="#" style="text-align:left" _href="${url(controller='content', action='why_transaction_costs')}" class="popuplink label">${_("CONTRIBPAGE_LABEL_(why)")}</a>
-					</div>
-					
-					<div class="forminputline">
-						<span class="label">${_("CONTRIBPAGE_LABEL_Total")}</span>
-						<input type="text" class="contrib_amount" id="chipin_total_show" disabled="disabled" />
-						<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("total", "")}</div>
-					</div>
-				%else:
-					<input type="hidden" class="contrib_amount" id="chipin_amount_costs" disabled="disabled"/>
-				%endif
-				<input type="hidden" class="contrib_amount" id="chipin_total" name="chipin.total" /> 
+				<div class="forminputline">
+					<span class="label"></span><span class="grey">${(_("CONTRIBPAGE_LABEL_+ Transaction cost of <span id=\"label_absolute_fees\">%(absolute)s</span> cents and <span id=\"label_relative_fees\">%(relative)s</span>%%")%dict([('absolute', c.paymentpage.default.fee_absolute), ('relative', c.paymentpage.default.fee_relative)]))|n}</span>
+				</div>
 			</div>
 			
 		</div>
-		<div class="floaterLeft">
-			<h2 style="clear:both">${_("CONTRIBPAGE_LABEL_Choose payment method")}</h2>
-			%for method in c.paymentpage.methods:
-			<div>
-				<input class="paymentselector" onselect="" type="radio" _fee_absolute="${'%.2f' % method.fee_absolute}" _fee_relative="${'%.2f' % method.fee_relative}" id="chipin_payment_method_${method.code}" name="chipin.payment_method" value="${method.code}" ${forms.input_checked("chipin", "payment_method", method.code, default=method.default)|n} />
-				<label class="paymenticon" for="chipin_payment_method_${method.code}"><img src="${method.logo_url}" alt="${_(method.name)}" /></label>
-			</div>
-			%endfor
-		</div>
-			<div id="verisign_contrib">
+		<div id="verisign_contrib">
 			<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 			<tr>
 			<td width="135" align="center" valign="top">
 				<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  
+						style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
 			</td>
 			</tr>
-			</table></div>
-        </div>
-      </div>
-      <div class="payement_method">
-      
-      </div>
-      <div class="terms">
-      
-        <div class="payement-container">
-				${_("STATIC_TERMS_OF_SERVICE_CONTENT")|n}
+			</table>
+		</div>
+	</div>
+  </div>
+
+  <div class="terms">
+  
+	<div class="payement-container">
+			${_("STATIC_TERMS_OF_SERVICE_CONTENT")|n}
       <div class="floaterRight agree">
 			<input type="checkbox" id="chipin_agreedToS" name="chipin.agreedToS" value="yes" ${forms.input_checked("chipin", "agreedToS", True)|n}/>
 			<label for="chipin_agreedToS">${_("CONTRIBPAGE_LABEL_Accept terms of services")}</label>

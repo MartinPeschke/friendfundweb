@@ -8,6 +8,10 @@ from friendfund.lib.base import BaseController, render
 log = logging.getLogger(__name__)
 
 class CustomizerController(BaseController):
+	def __before__(self, action, environ):
+		pass
+	def __after__(self, action, environ):
+		pass
 	def css(self):
 		response.content_type = "text/css"
 		return render('/customization/custom.css')

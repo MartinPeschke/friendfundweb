@@ -14,11 +14,12 @@ ${self.header()}
 		<hr/>
 		<div class="login_panel newFormControls">
 			<form action="/ssp/login" method="POST" id="ssp_login_form">
+			<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
 			<div class="inputline">
-				${forms.input_text("ssp_login", "email", _("LOGIN_PAGE_LABEL_Email Address"), required = True)|n}
+				${forms.input_text("login", "email", _("LOGIN_PAGE_LABEL_Email Address"), required = True)|n}
 			</div>
 			<div class="inputline">
-				${forms.input_text("ssp_login", "password", _("LOGIN_PAGE_LABEL_Password"), required = True)|n}
+				${forms.input_text("login", "pwd", _("LOGIN_PAGE_LABEL_Password"), "password", required = True)|n}
 			</div>
 			<div class="inputline floaterLeft">
 				<a onclick="dojo.byId('ssp_login_form').submit();" class="BtnRed" style="margin:0; clear:none"><span>Log In</span></a>

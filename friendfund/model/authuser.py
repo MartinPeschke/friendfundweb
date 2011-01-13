@@ -79,7 +79,12 @@ class SocialNetworkInformation(object):
 		self.access_token = access_token
 		self.access_token_secret = access_token_secret
 
-class User(DBMappedObject):
+class ProtoUser(DBMappedObject):
+	is_ssp_admin = False
+
+
+
+class User(ProtoUser):
 	"""
 		<RESULT status="0" proc_name="web_login">
 			<USER u_id="6102" name="Mapa Technorac" profile_picture_url="14/b8/14b87c7561441af56b1c9c26f7cd4aee" has_email="1">
@@ -177,7 +182,6 @@ class User(DBMappedObject):
 					"Get Friends Method not supported for %s" % network
 				)
 		return friends, is_complete, offset
-	
 	
 	def _get_current_pool(self):
 		"""Returns current PoolStub, no full Pools are returned, as this would be stored inSession otherwise"""

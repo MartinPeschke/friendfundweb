@@ -16,16 +16,20 @@ import logging
 log = logging.getLogger(__name__)
 
 class ErrorController(BaseController):
-    """Generates error documents as and when they are required.
+	"""Generates error documents as and when they are required.
 
-    The ErrorDocuments middleware forwards to ErrorController when error
-    related status codes are returned from the application.
+	The ErrorDocuments middleware forwards to ErrorController when error
+	related status codes are returned from the application.
 
-    This behaviour can be altered by changing the parameters to the
-    ErrorDocuments middleware in your config/middleware.py file.
+	This behaviour can be altered by changing the parameters to the
+	ErrorDocuments middleware in your config/middleware.py file.
 
-    """
-    def document(self):
+	"""
+	def __before__(self, action, environ):
+		pass
+	def __after__(self, action, environ):
+		pass
+	def document(self):
 		"""Render the error document"""
 		request = self._py_object.request
 		resp = request.environ.get('pylons.original_response')
