@@ -1,6 +1,7 @@
 <%inherit file="../layout_layer.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="pool" file="../pool/pool.html"/>
 
 <%def name="title()">${_("CONTRIBPAGE_TITLE_Payment Settings")}</%def>
 <%def name="page_slogan()">
@@ -12,45 +13,48 @@
 </%def>
 
 <div id="contributioncontainer" class="innerbody">
-  <div class="panel_content">
-	<form method="POST" action="${url(c.action, pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contribution_form">
-		<div class="floaterLeft">
-		<div class="whiteBoxSmall floaterLeft">
-			<div class="floaterLeft marginRight30">
-			<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
-			<textarea cols="30" rows="4" wrap="soft"
-							onKeyDown="textCounter(this,this.form.remLen,140);" 
-							onKeyUp="textCounter(this,this.form.remLen,140);" 
-							name="chipin.message" id="chipin_message">${c.chipin_values.get("message", c.pool.get_my_message(c.user))}</textarea>
-			<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> 
-			</div>
-		<div class="clear"></div>
+  <div class="panel_content whiteBoxSmall">
+	<div class="floaterLeft pool_content">
+		<div class="picture_area_outer product">
+			${pool.render_product(dict())}
+			<span class="icon"></span>
 		</div>
-	  </div>
-     
-	<div class="amount floaterLeft">   
-		<div class="whiteBoxSmall floaterLeft">
-		<div class="floaterLeft marginRight45">
-		 <h2>${_("CONTRIBPAGE_TITLE_LABEL_Amount")}</h2>
-			<div class="contributionAmount"> 
-				<div class="forminputline">
-					<label for="chipin_amount">${_("CONTRIBPAGE_LABEL_Chip in")}(*)</label>
-					%if c.paymentpage.amount_fixed:
-						<input disabled="disabled" type="text" class="contrib_amount" id="chipin_amount" value="${c.paymentpage.amount or c.chipin_values.get('amount', '')}" />
-						<input type="hidden" id="chipin_amount_fixed" name="chipin.amount" value="${c.paymentpage.amount or c.chipin_values.get('amount', '')}" />
-					%else:
-						<input type="text" class="contrib_amount" id="chipin_amount" name="chipin.amount" value="${c.chipin_values.get('amount', '')}" onKeyUp="calcTotals(this)" />
-					%endif
-					<span class="currencyDisplay">${h.display_currency(c.pool.currency)|n}</span>
-					<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("amount", "")}</div>
-				</div>
-				
-				<div class="forminputline">
-					<span class="label"></span><span class="grey">${(_("CONTRIBPAGE_LABEL_+ Transaction cost of <span id=\"label_absolute_fees\">%(absolute)s</span> cents and <span id=\"label_relative_fees\">%(relative)s</span>%%")%dict([('absolute', c.paymentpage.default.fee_absolute), ('relative', c.paymentpage.default.fee_relative)]))|n}</span>
-				</div>
+		<div class="picture_area_outer receiver_picture">
+			${pool.render_receiver_picture(dict([("receiver_first_name",c.pool.receiver.name.split()[0])]))}
+			<span class="icon"></span>
+		</div>
+	</div>
+	<form method="POST" action="${url(c.action, pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contribution_form">
+
+	<div class="floaterLeft">
+		<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
+		<textarea cols="30" rows="4" wrap="soft"
+						onKeyDown="textCounter(this,this.form.remLen,140);" 
+						onKeyUp="textCounter(this,this.form.remLen,140);" 
+						name="chipin.message" id="chipin_message">${c.chipin_values.get("message", c.pool.get_my_message(c.user))}</textarea>
+		<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> 
+		<div class="clear"></div>
+	
+	 <h2>${_("CONTRIBPAGE_TITLE_LABEL_Amount")}</h2>
+		<div class="contributionAmount"> 
+			<div class="forminputline">
+				<label for="chipin_amount">${_("CONTRIBPAGE_LABEL_Chip in")}(*)</label>
+				%if c.paymentpage.amount_fixed:
+					<input disabled="disabled" type="text" class="contrib_amount" id="chipin_amount" value="${c.paymentpage.amount or c.chipin_values.get('amount', '')}" />
+					<input type="hidden" id="chipin_amount_fixed" name="chipin.amount" value="${c.paymentpage.amount or c.chipin_values.get('amount', '')}" />
+				%else:
+					<input type="text" class="contrib_amount" id="chipin_amount" name="chipin.amount" value="${c.chipin_values.get('amount', '')}" onKeyUp="calcTotals(this)" />
+				%endif
+				<span class="currencyDisplay">${h.display_currency(c.pool.currency)|n}</span>
+				<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("amount", "")}</div>
 			</div>
 			
+			<div class="forminputline">
+				<span class="label"></span><span class="grey">${(_("CONTRIBPAGE_LABEL_+ Transaction cost of <span id=\"label_absolute_fees\">%(absolute)s</span> cents and <span id=\"label_relative_fees\">%(relative)s</span>%%")%dict([('absolute', c.paymentpage.default.fee_absolute), ('relative', c.paymentpage.default.fee_relative)]))|n}</span>
+			</div>
 		</div>
+			
+
 		<div id="verisign_contrib">
 			<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 			<tr>
@@ -85,5 +89,5 @@
 		%endif
 		<a class="submitSmall" onclick="dojo.byId('contribution_form').submit();" id="submitter"><span>${_("CONTRIBPAGE_LABEL_Submit")}</span></a>
 	</div>
-    ${html.clearline()|n} </div>
-  ${html.clearline()|n} </div>
+    ${html.clearline()|n} 
+</div>

@@ -27,6 +27,11 @@ class SspController(BaseController):
 	def index(self):
 		c.login_values = {}
 		return render("/ssp/login.html")
+	def logout(self):
+		c.user = ANONUSER
+		return redirect(url(controller="ssp", action="index"))
+	
+	
 	def login(self):
 		c.login_values = {}
 		c.login_errors = {}

@@ -11,6 +11,7 @@
 		</div>
 	</div>
 	<div class="clear"></div>
+	${self.render_account_panel()}
 </div>
 
 <%def name="tabContainer()">
@@ -22,4 +23,8 @@
 </%def>
 
 
-
+<%def name="render_account_panel()">
+	<div id="accountcontainer">
+		<div id="loginpanel"><a href="/ssp/logout">Logout</a></div>
+	</div>
+</%def>
