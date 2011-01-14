@@ -69,19 +69,20 @@ class AmazonService(object):
 	def fetch_product(self, lookup_operation):
 		#SearchIndex=Books&Power=subject:history%20and%20(spain%20or%20mexico)%20and%20not%20military%20and%20language:spanish
 		query_base_params = {
-			'Service':'AWSECommerceService'
+			'Service':u'AWSECommerceService'
 			, 'Version':self.api_version
-			, 'ResponseGroup':'Large,Images,Request,ItemAttributes,EditorialReview'
-			, 'MerchantId':'Amazon'
-			, 'Condition':'New'
-			, 'IncludeReviewsSummary':"true"
+			, 'ResponseGroup':u'Large,Images,Request,ItemAttributes,EditorialReview'
+			, 'MerchantId':u'Amazon'
+			, 'Condition':u'New'
+			, 'IncludeReviewsSummary':u'true'
 			, 'AssociateTag':self.affiliateid
 			, 'Timestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
 			, 'AWSAccessKeyId':self.key
 		}
 		query_base_params.update(lookup_operation)
-		signature = self.get_signature(query_base_params)
-		query_url = "%s?%s" % (self.query_url, urllib.urlencode(query_base_params))
+		params = dict([(k,v.encode('utf8')) for k,v in query_base_params.iteritems()])
+		signature = self.get_signature(params)
+		query_url = "%s?%s" % (self.query_url, urllib.urlencode(params))
 		query_url += '&Signature=%s' % signature
 		
 		try:
