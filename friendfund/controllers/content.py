@@ -25,42 +25,38 @@ FAQ_KEYS = [(_("STATIC_Frequently Asked Questions_Question1" ), _("STATIC_Freque
 from friendfund.lib.base import BaseController, render, _
 log = logging.getLogger(__name__)
 class ContentController(BaseController):
-	def __before__(self, action, environ):
-		pass
-	def __after__(self, action, environ):
-		pass
 	@jsonify
 	def amazonhowto(self):
-		return {"popup":self.render("/messages/popups/amazon.html").strip()}	
+		return {"popup":render("/messages/popups/amazon.html").strip()}
 	@jsonify
 	def pool_too_little_money(self):
 		c.faq_items = FAQ_KEYS[1:2]
 		c.faq_item_header = _("POOL_PAGE_What happens if we raise less money?")
-		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}
+		return {"popup":render("/messages/popups/faq_popup.html").strip()}
 	@jsonify
 	def why_transaction_costs(self):
 		c.faq_items = FAQ_KEYS[2:3]
 		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}
+		return {"popup":render("/messages/popups/faq_popup.html").strip()}
 	
 	@jsonify
 	def our_virtual_gifts_help(self):
 		c.faq_items = FAQ_KEYS[12:15]
 		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":self.render("/messages/popups/faq_popup.html").strip()}	
+		return {"popup":render("/messages/popups/faq_popup.html").strip()}
 	
 	@jsonify
 	def invite_preview(self):
-		return {"popup":self.render("/messages/popups/invite_preview.html").strip()}
+		return {"popup":render("/messages/popups/invite_preview.html").strip()}
 	
 	def contact(self):
-		return self.render("/content/contact.html")
+		return render("/content/contact.html")
 	def tos(self):
-		return self.render("/content/tos.html")
+		return render("/content/tos.html")
 	def privacy(self):
-		return self.render("/content/privacy.html")
+		return render("/content/privacy.html")
 	def impressum(self):
-		return self.render("/content/impressum.html")
+		return render("/content/impressum.html")
 	def faq(self):
 		c.faq_items = FAQ_KEYS
-		return self.render("/content/faq.html")
+		return render("/content/faq.html")

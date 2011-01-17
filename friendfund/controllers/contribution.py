@@ -70,7 +70,7 @@ class ContributionController(BaseController):
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		c.action = 'chipin_fixed'
-		c.chipin_values = {"amount": h.format_number(c.pool.get_amount_left())}
+		c.chipin_values = {"amount": c.paymentpage.amount or h.format_number(c.pool.get_amount_left())}
 		c.chipin_errors = {}
 		c.amount_fixed = True
 		c.back_to_admin = True

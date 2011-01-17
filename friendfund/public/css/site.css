@@ -12,7 +12,7 @@ body.popup #container {background-color:white;width:auto;float:left}
 #headercontainer {position: relative;float: left;width: 100%}
 #body_outer_container {position: relative;clear: both;float: left;}
 #body_container {width:100%;	clear:both;background-color: #ffffff;display: block;position: relative;float:left;}
-#body_container .innerbody {background-color:  #bbe3f7;padding-top: 1px;clear: both;}
+#body_container .innerbody {background-color:  #bbe3f7;padding: 1px 0;clear: both;}
 
 /*-------------------------------------Standard Inputs------------------------------------------------------*/
 div.forminputline {position: relative;height: 50px;}
@@ -588,7 +588,7 @@ body.popup #emailinviter div.input_field {margin: 5px 0px;float:left;clear:both;
 
 div.invite_secret input {position: relative;top: 2px;margin-right: 10px;}
 .invite_body {float: left;width: 100%;position:relative;padding-bottom:10px;}
-.invite_body textarea {background:none repeat scroll 0 0 #EEF8FD;border:1px solid #BBE3F7;height:60px;margin:15px 0px 10px;padding:5px 0px;width:100%}
+.invite_body textarea {height:60px;margin:15px 0px 10px;padding:5px 0px;width:100%}
 .invite_body #inviters_selector_tooltip,.invite_body #inviters_panel_tooltip {background:white;top:-25px;color:#B70158;font-weight:bold;position:absolute;right:0;width:auto;text-align:right}
 .invite_body .submitSmall {margin-bottom:30px;}
 /*------------------------------------- CONTRIBUTION PAGE -------------------------------*/
@@ -894,10 +894,8 @@ line-height: normal !important; margin-top: -2px !important}
 .passwordFields .maleFemale label{ float: right !important;}
 #poolsettings{ clear:both; padding:30px 0px 0px}
 
-#contributioncontainer{ margin:0px 30px 30px; padding-top: 5px !important}
-
-#paymentdetailscontainer input, #paymentdetailscontainer,{ border: 1px solid #999999}
 #paymentdetailscontainer{ margin: 0 30px 30px}
+#paymentdetailscontainer input { border: 1px solid #999999}
 .profile-picture{width: 445px ; padding: 15px; float: left;}
 .inside-profile-picture{ float: left; padding: 15px; background: white; width:415px;}
 .inside_row{ float: left; padding:10px 15px 15px 15px; background: white; width:415px;}
@@ -922,9 +920,6 @@ a.Save span{ display: block; float: right; cursor: pointer; padding-left: 10px; 
 
 
 #poolsettings .panel_title{ font-style: italic }
-.panel_content white h1{ margin: 0; padding: 20px 0}
-
-
 
 .yes{ padding-top: 10px;}
 .yes label{ margin-left: 5px}
@@ -1091,14 +1086,13 @@ div#scrollingproductsuggestions {
 .pool_content  .picture_area_outer{position:relative;width:162px;height:210px}
 .pool_content  .picture_area{background:white;border:1px solid #EEEEEE;text-align:center;top:-5px;position:absolute;width:160px;height:213px}
 .receiver_picture{float:left;position: relative;text-align: center;}
-.picture_area_outer .product{float:right;position: relative;text-align: center;}
 .picture_area img.contentPic{margin: 9px 9px 0px 9px;width: 140px;height: 140px;border:1px solid #CCCCCC}
 .picture_area .subtext{margin: 5px auto;width: 140px;font-weight:bold;font-family:"Trebuchet MS"}
 .picture_area .product_more{position:absolute;bottom:5px;right:5px;}
 .picture_area_outer .icon {background:url("../imgs/infographic_icons_mid.png") no-repeat scroll 0 0 transparent;bottom:-10px;display:block;height:70px;left:-30px;position:absolute;width:60px;}
+.picture_area_outer.product{float:right;position: relative;text-align: center;}
 .picture_area_outer.product .icon{background-position:-121px 0;left:-40px;}
-
-
+.pool_content  .picture_area_outer{background:white;border-bottom:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;}
 
 #pool_pool_panel div.heading{
 	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;

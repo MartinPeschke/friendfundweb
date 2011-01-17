@@ -77,13 +77,15 @@ ${label}</a>
 </%def>
 
 
-<%def name="input_text(group, name, label, type='text', with_value=True, with_errors=True, required = False, _classes = [],_labelclasses = [], _inputclasses = [], attribs = [])">
+<%def name="input_text(group, name, label = None, type='text', with_value=True, with_errors=True, required = False, _classes = [],_labelclasses = [], _inputclasses = [], attribs = [])">
 <%
 	value = getattr(c, "%s_values"%group, dict()).get(name, "")
 	if isinstance(value, float):
 		value = h.format_number(value)
 %>
-	<label for="${group}_${name}" class="${' '.join(_classes+_labelclasses)}">${label}${required and "(*)" or ""}</label>
+	%if label:
+		<label for="${group}_${name}" class="${' '.join(_classes+_labelclasses)}">${label}${required and "(*)" or ""}</label>
+	%endif
 	<input type="${type}" id="${group}_${name}" name="${group}.${name}"
 			${attribs and ' '.join('%s="%s"'%(k,v) for k,v in attribs) or ''|n}
 			value="${value}"
