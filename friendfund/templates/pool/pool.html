@@ -272,7 +272,7 @@
 		</div>
 		<div class="floaterLeft partialSocial middle">${_("POOL_Permanent Link:")}<input type="text" onFocus="this.select();" value="${url.current(protocol='http')}"/></div>
 		<div class="floaterRight partialSocial right">
-		%if c.pool.is_contributable():
+		%if c.pool.is_contributable() and c.pool.am_i_member(c.user):
 			<a class="loginlink somelink" href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}">${_("POOL_BUTTON_Invite more Friends to this pool")} <img src="/static/imgs/icon_fb_connect.png"/><img src="/static/imgs/icon_tw_connect.png"/><img src="/static/imgs/icon_mail.png"/></a>
 		%endif
 		</div>

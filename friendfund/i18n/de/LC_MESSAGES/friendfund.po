@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-01-17 11:03+0100\n"
+"PO-Revision-Date: 2011-01-18 18:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -203,7 +203,7 @@ msgstr ""
 "jedoch wie eine liebe Karte oder eine wundervolle Aufmerksamkeit für die "
 "Menschen, die Dir wichtig sind."
 
-#: friendfund/controllers/content.py:38 friendfund/templates/pool/pool.html:253
+#: friendfund/controllers/content.py:34 friendfund/templates/pool/pool.html:253
 msgid "POOL_PAGE_What happens if we raise less money?"
 msgstr "Was passiert wenn wir zu wenig Geld auftreiben?"
 
@@ -1740,40 +1740,51 @@ msgstr "Zahlungseinstellungen"
 msgid "CONTRIBPAGE_SLOGAN_Payment Settings"
 msgstr "Zahlungseinstellungen"
 
-#: friendfund/templates/contribution/contrib_screen.html:42
+#: friendfund/templates/contribution/contrib_screen.html:47
 msgid "CONTRIBPAGE_TITLE_LABEL_Enter your chip in amount"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:43
+#: friendfund/templates/contribution/contrib_screen.html:48
 #, python-format
 msgid ""
 "CONTRIBPAGE_TITLE_LABEL_How much do you want to contribute to "
 "%(receiver_first_name)s's gift?"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:47
-msgid "CONTRIBPAGE_LABEL_Chip in"
-msgstr "Dein Beitrag"
-
-#: friendfund/templates/contribution/contrib_screen.html:59
-#, python-format
+#: friendfund/templates/contribution/contrib_screen.html:57
+#, fuzzy, python-format
+#| msgid "" "CONTRIBPAGE_LABEL_+ Transaction cost of <span "
+#| "id=\"label_absolute_fees\">%(absolute)s</span> cents and <span "
+#| "id=\"label_relative_fees\">%(relative)s</span>%%"
 msgid ""
-"CONTRIBPAGE_LABEL_+ Transaction cost of <span "
-"id=\"label_absolute_fees\">%(absolute)s</span> cents and <span "
-"id=\"label_relative_fees\">%(relative)s</span>%%"
+"CONTRIBPAGE_LABEL_You will be charged <span "
+"id=\"label_absolute_fees\">%(fees_absolute)s</span> cents and a <span "
+"id=\"label_relative_fees\">%(fees_relative)s</span>%% transaction fee"
 msgstr ""
 "+ Transaktionskosten von <span "
 "id=\"label_absolute_fees\">%(absolute)s</span> Cent und <span "
 "id=\"label_relative_fees\">%(relative)s</span>%%"
 
-#: friendfund/templates/contribution/contrib_screen.html:63
+#: friendfund/templates/contribution/contrib_screen.html:58
+msgid "POOL_PAGE_Read about friendfund's transaction costs"
+msgstr ""
+
+#: friendfund/templates/contribution/contrib_screen.html:77
 #, python-format
 msgid "CONTRIBPAGE_LABEL_Your message to %(receivername)s"
 msgstr "Deine Nachricht an %(receivername)s"
 
-#: friendfund/templates/contribution/contrib_screen.html:86
-msgid "CONTRIBPAGE_LABEL_Accept terms of services"
-msgstr "Nutzungsbedingungen akzeptieren"
+#: friendfund/templates/contribution/contrib_screen.html:78
+#, python-format
+msgid ""
+"CONTRIBPAGE_TITLE_LABEL_Your message will appear on "
+"%(receiver_first_name)s's e greeting card."
+msgstr ""
+
+#: friendfund/templates/contribution/contrib_screen.html:87
+#, python-format
+msgid "CONTRIBPAGE_LABEL_I accept the <a href=\"%s\">Terms and Conditions</a>"
+msgstr ""
 
 #: friendfund/templates/contribution/contrib_screen.html:96
 msgid "CONTRIBPAGE_LABEL_Back To Pool Settings"
@@ -1786,6 +1797,14 @@ msgstr "Zurück zum Pool"
 #: friendfund/templates/contribution/contrib_screen.html:100
 msgid "CONTRIBPAGE_LABEL_Submit"
 msgstr "Abschicken"
+
+#: friendfund/templates/contribution/contrib_screen.html:105
+msgid "CONTRIBPAGE_TITLE_LABEL_<b>Step 2.</b> Payment Details"
+msgstr ""
+
+#: friendfund/templates/contribution/contrib_screen.html:106
+msgid "CONTRIBPAGE_TITLE_LABEL_<b>Step 1.</b> Chip in Details"
+msgstr ""
 
 #: friendfund/templates/contribution/contribution_result_fail.html:4
 msgid "CONTRIBSUCCESSPAGE_FAIL_TITLE"
@@ -3574,6 +3593,9 @@ msgid ""
 "with Twitter!"
 msgstr "Um Twitter Freunde einzuladen, musst dich erst mit Twitter anmelden."
 
-#~ msgid "STATIC_CONTACT_CONTENT"
-#~ msgstr "INHALT"
+#~ msgid "CONTRIBPAGE_LABEL_Chip in"
+#~ msgstr "Dein Beitrag"
+
+#~ msgid "CONTRIBPAGE_LABEL_Accept terms of services"
+#~ msgstr "Nutzungsbedingungen akzeptieren"
 
