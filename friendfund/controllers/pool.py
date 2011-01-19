@@ -160,7 +160,7 @@ class PoolController(BaseController):
 		c.pool_url = pool_url
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.psettings.is_admin or c.psettings.is_closed():
-			return redirect('pool_action', pool_url=pool_url, action='settings')
+			return redirect(url('get_pool', pool_url=pool_url))
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		c.user.set_am_i_admin(pool_url, c.psettings.is_admin)
 		c.shipping_values = to_displaymap(c.psettings.addresses.get("shipping"))
