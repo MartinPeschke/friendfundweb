@@ -270,7 +270,7 @@ dojo.declare("friendfund.MinifiedHomePagePanel", friendfund.HomePagePanel, {
 		var selected_product = this.options[this.selectedIndex];
 		loadElement("/product/set_minified", "product_panel", {product_guid:selected_product.value}, 
 			function(){
-				_t.set_complete(_t, 'product')
+				_t.set_complete(_t, 'product');
 				_t._change_observer = dojo.connect(dojo.byId("product_selector"), "onchange", dojo.hitch(null, _t.productSelected, _t));
 			}
 		);
@@ -281,14 +281,14 @@ dojo.declare("friendfund.MinifiedHomePagePanel", friendfund.HomePagePanel, {
 	},
 	unload: function(_t, success){
 		_t.inherited(arguments);
-		if(_t._displacement_backup){_t._displacement_backup.forEach(function(elem){dojo.place(elem, _t.config_node, "last")});}
+		if(_t._displacement_backup){_t._displacement_backup.forEach(function(elem){dojo.place(elem, _t.config_node, "last");});}
 	},
 	occLoaded: function(_t){
 		_t.load(_t, "occasion");
 		
 		dojo.query("select", _t.ref_node).onchange(dojo.hitch(null, _t.occasion_preselect, _t));
 		dojo.query(".occasion_submitter", _t.ref_node).onclick(dojo.hitch(null, _t.occasion_selected, _t));
-		dojo.query(".dateopener", _t.ref_node).onclick(function(){dijit.byId("datestamp").focus()});
+		dojo.query(".dateopener", _t.ref_node).onclick(function(){dijit.byId("datestamp").focus();});
 		dojo.parser.parse(dojo.byId(_t.ref_node));
 		if(dijit.byId("datestamp")){_t._widget_locals.push(dijit.byId("datestamp"));}
 		dojo.query("div.black_labeled_container a.button_open_down", _t.ref_node).connect("onclick", dojo.hitch(null, _t.openDatePicker, _t));

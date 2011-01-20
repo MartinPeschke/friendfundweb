@@ -23,14 +23,14 @@
 			"number_invitees":len(c.pool.invitees)+1,
 			"receiver_first_name":c.pool.receiver.name.split()[0],
 			"receiver_name":c.pool.receiver.name,
-			"fees_absolute":c.paymentpage.default.fee_absolute, 
-			"fees_relative": c.paymentpage.default.fee_relative
+			"fees_absolute":10, 
+			"fees_relative": 2
 			}
 %>
 
 <div id="contributioncontainer" class="innerbody">
   <div class="panel_content">
-	<div class="floaterLeft pool_content">
+	<div class="floaterLeft pool_content" style="margin-left: 5px;">
 		<div class="picture_area_outer product">
 			${pool.render_product(dict())}
 			<span class="icon"></span>
@@ -91,7 +91,7 @@
 		<div class="clear underlined1"></div>
 	</div>
 	</form>
-	<div style="float:left;width:100%;margin:15px 0;width:100%">
+	<div style="padding:15px;clear:both">
 		%if c.back_to_admin:
 			<a class="submitSmallLeft settings_submitter" href="${url(controller='pool', pool_url=c.pool.p_url, action='settings', protocol='http')}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool Settings")}</span></a>
 		%else:

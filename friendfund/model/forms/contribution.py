@@ -1,20 +1,31 @@
 import formencode
 from friendfund.model.forms.common import MonetaryValidator, TotalTransactionCostValidator, TOSValidator
 
+class ContributionForm(formencode.Schema):
+	allow_extra_fields = True
+	filter_extra_fields = True
+	
+	amount = MonetaryValidator(not_empty=True, min=0.01, max=9999)
+	agreedToS = TOSValidator(not_empty=False, if_missing=False)
+	message = formencode.validators.String(max=140)
+
+
 class PaymentConfForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True
 	
 	amount = MonetaryValidator(not_empty=True, min=0.01, max=9999)
 	total = MonetaryValidator(not_empty=False, min=0.01, max=9999)
-	agreedToS = TOSValidator(not_empty=False, if_missing=False)
 	is_secret = formencode.validators.StringBool(not_empty=False, if_missing=False)
 	anonymous = formencode.validators.StringBool(if_missing=False)
-	message = formencode.validators.String(max=140)
 	payment_method = formencode.validators.String(not_empty=True)
 	chained_validators = [
 		TotalTransactionCostValidator("amount", "total")
 	]
+
+
+
+
 
 class CreditCardForm(formencode.Schema):
 	allow_extra_fields = True

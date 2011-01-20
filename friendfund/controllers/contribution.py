@@ -14,7 +14,7 @@ from friendfund.lib.synclock import TokenNotExistsException
 from friendfund.model.pool import Pool
 from friendfund.model.db_access import SProcException
 from friendfund.model.contribution import Contribution, CreditCard, GetPoolURLFromContribRef
-from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm, MonetaryValidator
+from friendfund.model.forms.contribution import ContributionForm, PaymentConfForm, CreditCardForm, MonetaryValidator
 from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.service')
@@ -115,56 +115,29 @@ class ContributionController(BaseController):
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
-		except NotAllowedToPayException, e:
-			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.chipin_values = getattr(c, 'chipin_values', {})
 		c.chipin_errors = getattr(c, 'chipin_errors', {})
 		c.amount_fixed = False
 		c.back_to_admin = False
-		if request.method != 'POST':
-			return self.render('/contribution/contrib_screen.html')
-		return self._check_chip_in_details(c.pool)
+		if request.method == 'POST':
+			return self._check_chip_in_details(c.pool)
+		return self.render('/contribution/contrib_screen.html')
 	
 	def _check_chip_in_details(self, pool):
 		chipin = formencode.variabledecode.variable_decode(request.params).get('chipin', None)
-		if not g.payment_service.check_payment_method(chipin.get('payment_method'), pool.region, pool.product.is_virtual):
-			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url('chipin', pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
-		schema = PaymentConfForm()
+		schema = ContributionForm()
 		try:
 			schema.fields['amount'].max = round(pool.get_amount_left(), 2)
 			chipin['agreedToS'] = chipin.get('agreedToS', 'no')
 			state = copy(pool)
 			state.__dict__["_"] = FriendFundFormEncodeState._
-			state.__dict__["payment_method"] = g.payment_service.get_payment_method(chipin['payment_method'])
-			state.__dict__["payment_currency"] = g.payment_service.get_payment_method(chipin['payment_method'])
 			form_result = schema.to_python(chipin, state)
-			
 		except formencode.validators.Invalid, error:
 			c.chipin_values = error.value
-			#ugly hack, but otherwise i cant set selected or not not correctly, as template gets "yes" and True alternatively on error and on permission
-			c.chipin_values['is_secret'] = formencode.validators.StringBool(if_missing=False).to_python(c.chipin_values.get('is_secret'))
 			c.chipin_errors = error.error_dict or {}
 			return self.render('/contribution/contrib_screen.html')
 		else:
 			c.chipin_values = form_result
-			if checkadd_block('email'):
-				c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
-				c.enforce_blocks = True
-				c.page = 'contrib'
-				return self.render('/contribution/contrib_screen.html')
-			else:
-				g.pool_service.invite_myself(c.pool, c.user)
-			
-			contrib = Contribution(**form_result)
-			contrib.currency = pool.currency
-			contrib.set_amount(form_result['amount'])
-			contrib.set_total(form_result['total'])
-			contrib.paymentmethod = chipin.get('payment_method')
-			websession['contribution'] = contrib
 			try:
 				return g.payment_service.process_payment(c, contrib, pool, render, redirect)
 			except UnsupportedPaymentMethod, e:
