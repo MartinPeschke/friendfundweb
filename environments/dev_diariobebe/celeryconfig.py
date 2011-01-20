@@ -18,13 +18,13 @@ CELERY_IGNORE_RESULT = True
 CELERY_DISABLE_RATE_LIMITS = True
 
 
-CELERY_QUEUES = {"default_gad": {"exchange": "celeryevent_dev",
-				"binding_key":"celeryevent_dev_gad",
-				"routing_key": "celeryevent_dev_gad"}}
-CELERY_DEFAULT_QUEUE = "default_gad"
+CELERY_QUEUES = {"default_diariobebe": {"exchange": "celeryevent_dev",
+				"binding_key":"celeryevent_dev_diariobebe",
+				"routing_key": "celeryevent_dev_diariobebe"}}
+CELERY_DEFAULT_QUEUE = "default_diariobebe"
 CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
 CELERY_DEFAULT_EXCHANGE = "celeryevent_dev"
-CELERY_DEFAULT_ROUTING_KEY = "celeryevent_dev_gad"
+CELERY_DEFAULT_ROUTING_KEY = "celeryevent_dev_diariobebe"
 
 CELERY_DEFAULT_SERIALIZER = "json"
 CELERY_ADDITIONAL_CONFIG="development.ini"
@@ -36,5 +36,5 @@ CELERY_ADDITIONAL_CONFIG="development.ini"
 # available will be used.
 CELERYD_CONCURRENCY = 4
 
-CELERYD_LOG_FILE = "logs/celeryd_dev_gad.log"
+CELERYD_LOG_FILE = "logs/celeryd_dev_diariobebe.log"
 CELERYD_LOG_LEVEL = "DEBUG"
