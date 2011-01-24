@@ -49,7 +49,7 @@ class FbController(BaseController):
 		if fb_data and not 'error' in request.params:
 			c.user.email = get_email_from_permissions(fb_data)
 			
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], email = c.user.email)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['id'], email = c.user.email)
 			try:
 				g.dbm.set(perms)
 			except db_access.SProcException, e:
@@ -71,7 +71,7 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], stream_publish = True)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['id'], stream_publish = True)
 			try:
 				g.dbm.set(perms)
 			except db_access.SProcException, e:
@@ -92,7 +92,7 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], create_event = True)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['id'], create_event = True)
 			try:
 				g.dbm.set(perms)
 			except db_access.SProcException, e:
@@ -113,7 +113,7 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], email = c.user.email, stream_publish = True)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['id'], email = c.user.email, stream_publish = True)
 			try:
 				g.dbm.set(perms)
 			except db_access.SProcException, e:
@@ -137,7 +137,7 @@ class FbController(BaseController):
 			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
 			return render('/closepopup.html')
 		if fb_data and not 'error' in request.params:
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['uid'], permanent = True)
+			perms = FBUserPermissions(network='facebook', network_id=fb_data['id'], permanent = True)
 			try:
 				g.dbm.set(perms)
 			except db_access.SProcException, e:

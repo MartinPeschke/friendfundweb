@@ -159,14 +159,6 @@ class InviteController(BaseController):
 				del websession['invitees']
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = pool_url))
 	
-	def create_event(self, pool):
-		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
-		except fb_helper.FBIncorrectlySignedRequest, e: 
-			log.error("CREATE_EVENT with %s, %s", request.params, request.cookies)
-			return None
-		return fb_helper.create_event(self, fb_data, pool, g.SITE_ROOT_URL, physical_path = g.UPLOAD_FOLDER)
-	
 	@jsonify
 	@logged_in(ajax=True)
 	def add(self, pool_url):

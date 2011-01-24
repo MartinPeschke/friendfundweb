@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-01-21 08:56+0100\n"
-"Last-Translator: Timothy Blake <timothy.d.blake@gmail.com>\n"
+"PO-Revision-Date: 2011-01-21 16:55+0100\n"
+"Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
@@ -145,8 +145,7 @@ msgstr "¿Qué pasa si alcanzamos menos dinero del esperado?"
 #: friendfund/controllers/contribution.py:47
 #: friendfund/controllers/contribution.py:70
 #: friendfund/controllers/contribution.py:93
-#: friendfund/controllers/contribution.py:121
-#: friendfund/controllers/contribution.py:187
+#: friendfund/controllers/contribution.py:160
 msgid "CONTRIBUTION_Payment Not Allowed."
 msgstr "Pago no permitido"
 
@@ -156,44 +155,42 @@ msgid "CONTRIBUTION_You cannot contribute to this pool at this time, this pool i
 msgstr "No puedes contribuir a este Bote porque está cerrado. "
 
 #: friendfund/controllers/contribution.py:96
-#: friendfund/controllers/contribution.py:155
 msgid "CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!"
 msgstr "Por favor, danos tu email para poder enviarte el recibo"
 
-#: friendfund/controllers/contribution.py:134
-#: friendfund/controllers/contribution.py:171
-#: friendfund/controllers/contribution.py:244
+#: friendfund/controllers/contribution.py:144
+#: friendfund/controllers/contribution.py:217
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr "Forma de pago desconocida"
 
-#: friendfund/controllers/contribution.py:174
-#: friendfund/controllers/contribution.py:247
+#: friendfund/controllers/contribution.py:147
+#: friendfund/controllers/contribution.py:220
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."
 msgstr "Perdón, ha ocurrido un error. Tu pago no ha sido procesado."
 
-#: friendfund/controllers/contribution.py:176
-#: friendfund/controllers/contribution.py:249
+#: friendfund/controllers/contribution.py:149
+#: friendfund/controllers/contribution.py:222
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"
 msgstr "Perdón, ha ocurrido un error. Por favor, inténtalo de nuevo más tarde."
 
-#: friendfund/controllers/contribution.py:195
-#: friendfund/controllers/contribution.py:211
+#: friendfund/controllers/contribution.py:168
+#: friendfund/controllers/contribution.py:184
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."
 msgstr "Este formulario ya ha sido enviado"
 
-#: friendfund/controllers/contribution.py:214
+#: friendfund/controllers/contribution.py:187
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"
 msgstr "Acción no permitida"
 
-#: friendfund/controllers/contribution.py:218
+#: friendfund/controllers/contribution.py:191
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."
 msgstr "Los datos en el formulario de pago son incorrectos. Tu pago no ha sido procesado."
 
-#: friendfund/controllers/contribution.py:237
+#: friendfund/controllers/contribution.py:210
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."
 msgstr "Perdón, ha ocurrido un error. Tu pago no ha sido procesado."
 
-#: friendfund/controllers/contribution.py:242
+#: friendfund/controllers/contribution.py:215
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
 msgstr "Por favor ten paciencia, tus cambios se están guardando."
 
@@ -1043,16 +1040,16 @@ msgstr "Nosotros"
 msgid "SITEINFO_FAQ"
 msgstr "Preguntas frecuentes"
 
-#: friendfund/templates/master.html:152
+#: friendfund/templates/master.html:153
 msgid "ALLPAGE_BUTTON_Create a Pool"
 msgstr "Crear un Bote"
 
-#: friendfund/templates/master.html:166
+#: friendfund/templates/master.html:167
 #: friendfund/templates/pool/pool_secret.html:7
 msgid "FB_METATAG_TITLE_friendfund.com"
 msgstr "friendfund.com - Regalos en grupo"
 
-#: friendfund/templates/master.html:167
+#: friendfund/templates/master.html:168
 #: friendfund/templates/pool/pool_complete.html:30
 #: friendfund/templates/pool/pool_secret.html:9
 msgid "FB_METATAG_DESCRIPTION_friendfund.com - helping you!"
@@ -1129,12 +1126,9 @@ msgid "CONTRIBPAGE_TITLE_LABEL_How much do you want to contribute to %(receiver_
 msgstr "¿Cuánto quieres contribuir en el regalo de %(receiver_first_name)s's?"
 
 #: friendfund/templates/contribution/contrib_screen.html:57
-#, fuzzy, python-format
-#| msgid "" "CONTRIBPAGE_LABEL_+ Transaction cost of <span "
-#| "id=\"label_absolute_fees\">%(absolute)s</span> cents and <span "
-#| "id=\"label_relative_fees\">%(relative)s</span>%%"
+#, python-format
 msgid "CONTRIBPAGE_LABEL_You will be charged <span id=\"label_absolute_fees\">%(fees_absolute)s</span> cents and a <span id=\"label_relative_fees\">%(fees_relative)s</span>%% transaction fee"
-msgstr "Costes de transacción de <span id=\"label_absolute_fees\">%(absolute)s</span> céntimos y <span id=\"label_relative_fees\">%(relative)s</span>%%"
+msgstr "Costes de transacción de <span id=\"label_absolute_fees\">%(fees_absolute)s</span> céntimos y <span id=\"label_relative_fees\">%(fees_relative)s</span>%%"
 
 #: friendfund/templates/contribution/contrib_screen.html:58
 msgid "POOL_PAGE_Read about friendfund's transaction costs"
@@ -2627,8 +2621,3 @@ msgstr "Entra con Twitter"
 msgid "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect with Twitter!"
 msgstr "Para invitar a tus Amigos de Twitter, por favor, conéctate con Twitter."
 
-#~ msgid "CONTRIBPAGE_LABEL_Chip in"
-#~ msgstr "Pon Bote"
-
-#~ msgid "CONTRIBPAGE_LABEL_Accept terms of services"
-#~ msgstr "Acepto los términos de uso"

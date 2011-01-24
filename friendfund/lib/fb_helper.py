@@ -45,9 +45,10 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 	sig = hashlib.md5(payload + app_secret).hexdigest()
 	expires = int(args["expires"])
 	if sig == args.get("sig") and (expires == 0 or time.time() < expires):
+		args['id'] = args.get("uid", args.get("id"))
 		if user is not None and not user.is_anon:
 			nets = getattr(user, 'networks', {})
-			if "facebook" in nets and getattr(nets.get('facebook'), "network_id", None) != str(args['uid']):
+			if "facebook" in nets and getattr(nets.get('facebook'), "network_id", None) != str(args['id']):
 				log.warning("FBLoggedInWithIncorrectUser, %s" % args)
 				raise FBNotLoggedInException("No Facebook Cookies Found")
 		return args
