@@ -71,4 +71,5 @@ class ExtBaseController(BaseController):
 		if pool_url:
 			c.pool = g.dbm.get(Pool, p_url = pool_url)
 			if c.pool.merchant_key != g.merchant.key:
+				print "redirecting to", g.get_merchant_domain(c.pool.merchant_key)
 				return redirect(url.current(host=g.get_merchant_domain(c.pool.merchant_key)))

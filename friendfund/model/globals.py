@@ -99,11 +99,22 @@ class GetPersonalityCategoryProc(DBMappedObject):
 	_get_proc = 'imp.get_categories'
 	_keys = [DBMapper(PersonalityCategory,'list','CATEGORY', is_list = True)]
 
+class MerchantSettings(DBMappedObject):
+	_get_root = _set_root = 'SETTINGS'
+	_cachable = False
+	_unique_keys = ['key', 'value']
+	_keys = [GenericAttrib(unicode,'key','key'),GenericAttrib(bool,'value','value')]
+
+
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
 	_unique_keys = ['key', 'name', 'subdomain']
-	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'key','key'),GenericAttrib(str,'subdomain','subdomain')]
+	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'key','key'),GenericAttrib(str,'subdomain','subdomain')
+				, DBMapper(MerchantSettings,'settings','SETTINGS', is_dict = True, dict_key = lambda x:x.key.lower())]
+	
+	def get_setting(self, key):
+		return getattr(self.settings.get(key), 'value', False)
 
 class GetMerchantLinksProc(DBMappedObject):
 	"""app.[get_merchant]"""

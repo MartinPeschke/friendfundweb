@@ -7,7 +7,7 @@ from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMa
 from friendfund.model.product import Product
 from pylons.i18n import _
 
-from pylons import session as websession
+from pylons import session as websession, app_globals as g
 strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 
 log = logging.getLogger(__name__)
@@ -315,7 +315,7 @@ class Pool(DBMappedObject):
 	require_pselector = property(get_require_pselector)
 	
 	def get_require_addresses(self):
-		return not(self.product.is_virtual or self.merchant_key != 'ff')
+		return not(self.product.is_virtual or not g.merchant.get_setting("require_address"))
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):
