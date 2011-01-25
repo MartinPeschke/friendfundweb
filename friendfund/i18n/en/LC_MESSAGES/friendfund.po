@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-01-25 10:56+0100\n"
+"PO-Revision-Date: 2011-01-25 15:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -404,38 +404,38 @@ msgstr "Twitter seems to be overloaded again. Please try again at a later time."
 msgid "Twitter may be over capacity.<br/>Please try again later."
 msgstr "Twitter seems to be overloaded again. Please try again at a later time."
 
-#: friendfund/lib/app_globals.py:131
+#: friendfund/lib/app_globals.py:136
 msgid "CONTRIBUTION_PAGE_Creditcard"
 msgstr "Credit Card"
 
-#: friendfund/lib/app_globals.py:137
+#: friendfund/lib/app_globals.py:142
 msgid "CONTRIBUTION_PAGE_Paypal"
 msgstr "Paypal"
 
-#: friendfund/lib/app_globals.py:143
+#: friendfund/lib/app_globals.py:148
 msgid "CONTRIBUTION_PAGE_Direct eBanking"
 msgstr "Direct eBanking"
 
-#: friendfund/lib/app_globals.py:149
+#: friendfund/lib/app_globals.py:154
 #: friendfund/templates/pool/pool.html:191
 #: friendfund/templates/pool/pool_secret.html:54
 #: friendfund/templates/pool/parts/button_contribute.html:22
 msgid "CONTRIBUTION_PAGE_Virtual Pot of Gold"
 msgstr "Pots of Gold"
 
-#: friendfund/lib/app_globals.py:177
+#: friendfund/lib/app_globals.py:182
 msgid "GLOBAL_MENU_Home"
 msgstr "Home"
 
-#: friendfund/lib/app_globals.py:178
+#: friendfund/lib/app_globals.py:183
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Pools"
 
-#: friendfund/lib/app_globals.py:179
+#: friendfund/lib/app_globals.py:184
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Badges"
 
-#: friendfund/lib/app_globals.py:180
+#: friendfund/lib/app_globals.py:185
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Profile"
 
@@ -569,7 +569,7 @@ msgstr "Send your friend Amazon Gift Vouchers for the total raised."
 #: friendfund/model/product.py:65
 #: friendfund/model/product.py:71
 #: friendfund/model/product.py:93
-#: friendfund/model/recent_activity.py:60
+#: friendfund/model/recent_activity.py:61
 msgid "PENDING_PRODUCT_NAME"
 msgstr "Ask a Friend"
 
@@ -604,6 +604,7 @@ msgstr "Invalid totals"
 
 #: friendfund/partners/jochen_schweizer/templates/index.html:6
 #: friendfund/templates/index.html:6
+#: friendfund/templates_partner/index.html:6
 msgid "PAGE_INDEX_TITLE_Welcome"
 msgstr "Group Gifts"
 
@@ -617,6 +618,9 @@ msgstr "Share the costs with your friends by organising a group gift pool."
 
 #: friendfund/partners/jochen_schweizer/templates/index.html:33
 #: friendfund/partners/jochen_schweizer/templates/layout_layer.html:30
+#: friendfund/templates_partner/index.html:32
+#: friendfund/templates_partner/layout_layer.html:30
+#: friendfund/templates_partner/layout_layer_tabbed.html:32
 msgid "powered by <span class=\"poweredByFriendfund\"></span>"
 msgstr "powered by <span class=\"poweredByFriendfund\"></span>"
 
@@ -626,37 +630,44 @@ msgstr "Complete the last Steps below"
 
 #: friendfund/partners/jochen_schweizer/templates/index.html:74
 #: friendfund/templates/index.html:71
+#: friendfund/templates_partner/index.html:71
 msgid "PAGE_INDEX_MESSAGE_Please select Who, When and What first!"
 msgstr "Please select Who, When and What first!"
 
 #: friendfund/partners/jochen_schweizer/templates/index.html:76
 #: friendfund/templates/index.html:73
+#: friendfund/templates_partner/index.html:73
 msgid "PAGE_INDEX_BUTTON_Invite Friends"
 msgstr "Invite Friends"
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:5
 #: friendfund/templates/contribution/contribution_result_success.html:5
+#: friendfund/templates_partner/contribution/contribution_result_success.html:5
 msgid "CONTRIBSUCCESSPAGE_SUCCESS_TITLE"
 msgstr "Payment Successful"
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:6
 #: friendfund/templates/contribution/contribution_result_success.html:6
+#: friendfund/templates_partner/contribution/contribution_result_success.html:6
 msgid "CONTRIBSUCCESSPAGE_SUCCESS_HEADING"
 msgstr "Payment Successful"
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:20
 #: friendfund/templates/contribution/contribution_result_success.html:20
+#: friendfund/templates_partner/contribution/contribution_result_success.html:20
 #, python-format
 msgid "CONTRIBSUCCESSPAGE_LABEL_%(receiver)s says thank you for your contribution! Thanks!"
 msgstr "%(receiver)s will be very happy to know you have chipped in! Thanks!"
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:26
 #: friendfund/templates/contribution/contribution_result_success.html:26
+#: friendfund/templates_partner/contribution/contribution_result_success.html:26
 msgid "CONTRIBSUCCESSPAGE_TITLE_Payment Delay Notice"
 msgstr " "
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:30
 #: friendfund/templates/contribution/contribution_result_success.html:30
+#: friendfund/templates_partner/contribution/contribution_result_success.html:30
 msgid "CONTRIBSUCCESSPAGE_LABEL_Please note, that the payment result might take a couple of minutes to show up on the pool page, you will in any case receive a payment receipt by email."
 msgstr "Your payment might take a minute or two to appear on the pool page while we wait for payment authorisation."
 
@@ -664,57 +675,69 @@ msgstr "Your payment might take a minute or two to appear on the pool page while
 #: friendfund/templates/contribution/contribution_result_success.html:36
 #: friendfund/templates/mypools/friends_pools.html:38
 #: friendfund/templates/mypools/index.html:47
+#: friendfund/templates_partner/contribution/contribution_result_success.html:36
 msgid "CONTRIBSUCCESSPAGE_TITLE_Whose Birthday is next?"
 msgstr "Create a gift pool for a friend"
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:39
 #: friendfund/templates/contribution/contribution_result_success.html:39
+#: friendfund/templates_partner/contribution/contribution_result_success.html:39
 msgid "CONTRIBSUCCESSPAGE_LABEL_Visit My Pools"
 msgstr "My Pools"
 
 #: friendfund/partners/jochen_schweizer/templates/contribution/contribution_result_success.html:40
 #: friendfund/templates/contribution/contribution_result_fail.html:32
 #: friendfund/templates/contribution/contribution_result_success.html:40
+#: friendfund/templates_partner/contribution/contribution_result_success.html:40
 msgid "CONTRIBSUCCESSPAGE_LABEL_Back To Pool"
 msgstr "Pool"
 
 #: friendfund/partners/jochen_schweizer/templates/occasion/button.html:10
+#: friendfund/templates_partner/occasion/button.html:10
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select an Event"
 msgstr "Choose the Occasion"
 
 #: friendfund/partners/jochen_schweizer/templates/occasion/button.html:11
+#: friendfund/templates_partner/occasion/button.html:11
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select the special occasion for which your gift pool is being created."
 msgstr "When's your gift for?"
 
 #: friendfund/partners/jochen_schweizer/templates/occasion/panel.html:7
 #: friendfund/templates/occasion/panel.html:10
+#: friendfund/templates_partner/occasion/panel.html:7
 msgid "EVENT_PANEL_Select an Event"
 msgstr "Select an Event"
 
 #: friendfund/partners/jochen_schweizer/templates/occasion/panel.html:18
 #: friendfund/templates/occasion/panel.html:22
+#: friendfund/templates_partner/occasion/panel.html:18
 msgid "EVENT_PANEL_Just because..."
 msgstr "Just because..."
 
 #: friendfund/partners/jochen_schweizer/templates/occasion/panel.html:37
 #: friendfund/templates/contribution/payment_details_form.html:18
 #: friendfund/templates/occasion/panel.html:33
+#: friendfund/templates_partner/occasion/panel.html:37
 msgid "EVENT_PANEL_Submit"
 msgstr "Submit"
 
 #: friendfund/partners/jochen_schweizer/templates/product/button.html:12
+#: friendfund/templates_partner/product/button.html:33
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Gift"
 msgstr "Choose your Gift"
 
 #: friendfund/partners/jochen_schweizer/templates/product/button.html:13
+#: friendfund/templates_partner/product/button.html:34
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands."
 msgstr "What is your gift?"
 
 #: friendfund/partners/jochen_schweizer/templates/receiver/button.html:19
+#: friendfund/templates_partner/receiver/button.html:19
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Friend"
 msgstr "Choose your Recipient"
 
 #: friendfund/partners/jochen_schweizer/templates/receiver/button.html:20
+#: friendfund/templates_partner/receiver/button.html:20
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your Facebook, Twitter or email friends."
 msgstr "Who's your gift for?"
 
@@ -2627,4 +2650,16 @@ msgstr "Connect with Twitter"
 #: friendfund/templates/receiver/tw_login.html:10
 msgid "RECEIVER_PANEL_HEADER_To invite your Twitter Friends, You should Connect with Twitter!"
 msgstr "To invite your Twitter friends, please connect with Twitter!"
+
+#: friendfund/templates_partner/index.html:25
+msgid "MERCHANT_POPUP_SLOGAN_Share the costs with your friends!"
+msgstr "Share the costs with your friends!"
+
+#: friendfund/templates_partner/index.html:27
+msgid "MERCHANT_POPUP_SubSlogan_Share the costs with your friends by organising a group gift pool."
+msgstr "Share the costs with your friends by organising a group gift pool."
+
+#: friendfund/templates_partner/index.html:59
+msgid "MERCHANT_POPUP_Complete the last steps below"
+msgstr "Complete the last Steps below"
 

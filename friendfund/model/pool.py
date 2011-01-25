@@ -315,7 +315,7 @@ class Pool(DBMappedObject):
 	require_pselector = property(get_require_pselector)
 	
 	def get_require_addresses(self):
-		return not(self.product.is_virtual or self.merchant_key == 'ff')
+		return not(self.product.is_virtual or self.merchant_key != 'ff')
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):

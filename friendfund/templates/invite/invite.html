@@ -123,7 +123,7 @@
 			
 			<div class="invite_secret">
 				<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
-				<input type="checkbox" id="check_opt_out" name="opt_out" value="true"/>
+				<input class="floaterLeft" type="checkbox" id="check_opt_out" name="opt_out" value="true"/>
 				<label for="check_opt_out">${(_("INVITE_PAGE_LABEL_I will invite my friends manually, do not send out automated messages!")%locals)|n}</label>
 				<div class="tooltip"><span class="triangle"></span><div class="content">${_("INVITE_PAGE_SLOGAN_Tick this box if you're absolutely sure you don't want our help sending invites. This way, your friends will ONLY be notified of the pool once you have personally invited them.")}</div></div>
 			</div>
@@ -131,7 +131,7 @@
 			%if i_am_admin and not c.pool.product.is_virtual:
 			<div class="invite_secret">
 				<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
-				<input type="checkbox" id="check_is_secret" name="is_secret" value="true" ${forms.expression_quote(c.pool.is_secret or False, "checked")|n}/>
+				<input class="floaterLeft" type="checkbox" id="check_is_secret" name="is_secret" value="true" ${forms.expression_quote(c.pool.is_secret or False, "checked")|n}/>
 				<label for="check_is_secret">${(_("INVITE_PAGE_LABEL_Keep pool a secret from %(receiver_name)s")%locals)|n}</label>
 			</div>
 			%endif

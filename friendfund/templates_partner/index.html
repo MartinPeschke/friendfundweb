@@ -5,6 +5,9 @@
 <%namespace name="ra_stream" file="widgets/ra_stream.html"/>
 <%def name="title()">${_("PAGE_INDEX_TITLE_Welcome")}</%def>
 
+<%def name="siteinfo()"></%def>
+
+
 <%def name="scripts()">
 	<script type="text/javascript">
 		page_reloader = function(){console.log('reloading')};
@@ -22,9 +25,9 @@
 <%def name="header()"></%def>
 <%def name="page_slogan()">
 	<h4 class="inside" style="margin: 5px 10px 0;">
-		Share the costs with your friends!
+		${_("MERCHANT_POPUP_SLOGAN_Share the costs with your friends!")}
 	</h4>
-	<div class="insider underlined5" style="margin: 0pt 15px;">Share the costs with your friends by organising a group gift pool.</div>
+	<div class="insider underlined5" style="margin: 0pt 15px;">${_("MERCHANT_POPUP_SubSlogan_Share the costs with your friends by organising a group gift pool.")}</div>
 	</%def>
 <%def name="bodyclass()">popup</%def>
 <%def name="render_account_panel()"></%def>
@@ -46,12 +49,9 @@
 						, fb_api_key : "${app_globals.FbApiKey}"
 						, window : window.parent
 						, scrolling : false
-						, auto_extend : "receiver"
 						, auto_suggest : false
 						, selected_elems : {receiver:${receiver}, occasion:${occasion}, product:${product}}});
 </%def>
-
-
 
 <form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">
 	<div id="pool_configurator">
@@ -59,7 +59,7 @@
 			<%include file="product/button.html"/>
 		</div>
 		
-		<div class="smallInside">Complete the last Steps below</div>
+		<div class="smallInside">${_("MERCHANT_POPUP_Complete the last steps below")}</div>
 		<div style="clear:both;height:3px;"></div>
 		<div id="receiver_panel" _type="receiver" class="frontpagebutton second enabled">
 			<%include file="receiver/button.html"/>

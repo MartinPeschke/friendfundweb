@@ -473,8 +473,8 @@ FriendFund.Button = {
 					background:url(${protocol}${host}/static/imgs/button_logo.png) no-repeat 0 0 transparent;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
-					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:122px;\
-					background:url(${protocol}${host}/static/imgs/badges/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
+					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
+					background:url(${protocol}${host}/static/custom_imgs/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
 	show: function (options) {
 		FriendFund.Popin.setup(options);

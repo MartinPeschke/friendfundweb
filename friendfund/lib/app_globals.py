@@ -31,12 +31,16 @@ class Globals(object):
 	"""Globals acts as a container for objects available throughout the
 	life of the application
 	"""
+	def get_merchant_domain(self, key):
+		print key, '.'.join([self.merchants.get(key, self.merchant).subdomain, self.SITE_ROOTDOMAIN])
+		return '.'.join([self.merchants.get(key, self.merchant).subdomain, self.SITE_ROOTDOMAIN])
 
 	def __init__(self, config):
 		"""One instance of Globals is created during application
 		initialization and is available during requests via the
 		'app_globals' variable
 		"""
+		
 		app_conf = config['app_conf']
 		self.cache = pylibmc.Client([app_conf['memcached.cache.url']], binary=True)
 		self.cache.behaviors = {"tcp_nodelay": True, "ketama": True}
@@ -66,6 +70,7 @@ class Globals(object):
 		
 		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
 		self.SITE_SUBDOMAIN = '.'.join(urlparse.urlparse(app_conf['SITE_ROOT_URL'])[1].split('.')[:-2])
+		self.SITE_ROOTDOMAIN = '.'.join(urlparse.urlparse(app_conf['SITE_ROOT_URL'])[1].split('.')[-2:])
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
 		dbpool = PooledDB(pyodbc,10,autocommit=True
