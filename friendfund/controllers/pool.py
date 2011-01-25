@@ -6,7 +6,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
-from friendfund.lib.base import BaseController, render
+from friendfund.lib.base import BaseController, render, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains
 from friendfund.model import db_access
@@ -31,14 +31,13 @@ from friendfund.lib.base import _
 
 log = logging.getLogger(__name__)
 
-class PoolController(BaseController):
+class PoolController(ExtBaseController):
 	navposition=g.globalnav[1][2]
 	chat_page_size = 10
 	
 	def index(self, pool_url = None):
 		if pool_url is None:
 			return abort(404)
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
@@ -65,7 +64,6 @@ class PoolController(BaseController):
 		return redirect(url('home'))
 	
 	def complete(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 		if not c.pool.is_closed():
@@ -161,7 +159,6 @@ class PoolController(BaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.psettings.is_admin or c.psettings.is_closed():
 			return redirect(url('get_pool', pool_url=pool_url))
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		c.user.set_am_i_admin(pool_url, c.psettings.is_admin)
 		c.shipping_values = to_displaymap(c.psettings.addresses.get("shipping"))
 		c.shipping_errors = {}
@@ -181,7 +178,6 @@ class PoolController(BaseController):
 		c.shipping_errors = {}
 
 		if c.psettings.is_admin and not c.psettings.is_closed():
-			c.pool = g.dbm.get(Pool, p_url = pool_url)
 			c.billing_values = to_displaymap(c.psettings.addresses.get("billing"))
 			c.billing_errors = {}
 			return self.render('/pool/settings_admin.html')
@@ -194,7 +190,6 @@ class PoolController(BaseController):
 	@logged_in(ajax=True)
 	@post_only(ajax=True)
 	def edit_thankyou(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 		if not c.pool.am_i_receiver(c.user):
@@ -207,7 +202,6 @@ class PoolController(BaseController):
 	@logged_in(ajax=True)
 	@post_only(ajax=True)
 	def set_thankyou(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return {"redirect" : request.referer}
@@ -226,7 +220,6 @@ class PoolController(BaseController):
 	@logged_in(ajax=True)
 	@post_only(ajax=True)
 	def edit_description(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 		if not c.pool.am_i_admin(c.user):
@@ -239,7 +232,6 @@ class PoolController(BaseController):
 	@logged_in(ajax=True)
 	@post_only(ajax=True)
 	def set_description(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return {"redirect" : request.referer}
@@ -320,7 +312,6 @@ class PoolController(BaseController):
 	@logged_in(ajax=False)
 	def close(self, pool_url):
 		c.pool_url = pool_url
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not (c.psettings.is_admin and c.psettings.is_funded()):
 			c.messages.append(_(NOT_CORRECT_STATE))

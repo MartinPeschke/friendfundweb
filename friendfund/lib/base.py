@@ -4,12 +4,15 @@ Provides the BaseController class for subclassing.
 """
 import logging
 from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
-from pylons.controllers.util import abort
+from pylons.controllers.util import abort, redirect
 from pylons.controllers import WSGIController
 from pylons.i18n.translation import get_lang, set_lang, _
 from pylons.templating import render_mako as render
 
+
 from friendfund.model.authuser import ANONUSER
+from friendfund.model.pool import Pool
+
 from friendfund.lib.helpers import negotiate_locale_from_header
 
 log = logging.getLogger(__name__)
@@ -59,3 +62,13 @@ class BaseController(WSGIController):
 		websession['user'] = c.user
 		websession['messages'] = c.messages
 		websession.save()
+
+
+class ExtBaseController(BaseController):
+	def __before__(self, action, environ):
+		super(ExtBaseController, self).__before__(action, environ)
+		pool_url = environ['wsgiorg.routing_args'][1].get('pool_url')
+		if pool_url:
+			c.pool = g.dbm.get(Pool, p_url = pool_url)
+			if c.pool.merchant_key != g.merchant.key:
+				return redirect(url.current(host=g.get_merchant_domain(c.pool.merchant_key)))

@@ -7,7 +7,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper
 from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block
-from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.base import BaseController, render, _, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.authuser import UserNotLoggedInWithMethod
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc
@@ -20,7 +20,7 @@ strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 from celery.task.sets import TaskSet
 log = logging.getLogger(__name__)
 
-class InviteController(BaseController):
+class InviteController(ExtBaseController):
 	navposition=g.globalnav[1][2]
 	
 	def display(self, pool_url):

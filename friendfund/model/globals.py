@@ -103,7 +103,7 @@ class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
 	_unique_keys = ['key', 'name', 'subdomain']
-	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'key','key'),GenericAttrib(unicode,'subdomain','subdomain')]
+	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'key','key'),GenericAttrib(str,'subdomain','subdomain')]
 
 class GetMerchantLinksProc(DBMappedObject):
 	"""app.[get_merchant]"""
