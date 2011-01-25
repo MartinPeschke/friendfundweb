@@ -11,97 +11,83 @@
 <%def name="headscripts()">
 	var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 </%def>
-<%def name="onloadscripts()">
-	dojo.query(".popuplink", "contributioncontainer").onclick(dojo.hitch(null, loadPopup));
-</%def>
-
-<%
-	locals = {"amount_contributed":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
-			"amount_left":c.pool.is_pending() and '???' or h.format_currency(c.pool.get_amount_left(), c.pool.currency),
-			"end_date":h.format_date(c.pool.expiry_date, format="long"),
-			"number_contributors": c.pool.get_number_of_contributors(),
-			"number_invitees":len(c.pool.invitees)+1,
-			"receiver_first_name":c.pool.receiver.name.split()[0],
-			"receiver_name":c.pool.receiver.name,
-			"fees_absolute":10, 
-			"fees_relative": 2
-			}
-%>
 
 <div id="contributioncontainer" class="innerbody">
-  <div class="panel_content">
-	<div class="floaterLeft pool_content" style="margin-left: 5px;">
+  <div class="panel_content whiteBoxSmall">
+	<div class="floaterLeft pool_content">
 		<div class="picture_area_outer product">
 			${pool.render_product(dict())}
 			<span class="icon"></span>
 		</div>
 		<div class="picture_area_outer receiver_picture">
-			${pool.render_receiver_picture(locals)}
+			${pool.render_receiver_picture(dict([("receiver_first_name",c.pool.receiver.name.split()[0])]))}
 			<span class="icon"></span>
 		</div>
 	</div>
-	
 	<form method="POST" action="${url(c.action, pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contribution_form">
-	
-	<div class="floaterLeft newFormControls pool_content_right">
-		<h2 class="inside">${_("CONTRIBPAGE_TITLE_LABEL_Enter your chip in amount")}</h2>
-		<div class="underlined2 insider">${_("CONTRIBPAGE_TITLE_LABEL_How much do you want to contribute to %(receiver_first_name)s's gift?") % locals}</div>
-		
-		<div class="contributionAmount"> 
-			<div class="inputline floaterLeft">
-				${forms.input_text("chipin", "amount",_classes=["floaterLeft","alignerRight"])|n}
-				<span class="currencyDisplay">${h.display_currency(c.pool.currency)|n}</span>
-			</div>
-			<div class="clear"></div>
-			<div class="inputline grey">
-				${(_("CONTRIBPAGE_LABEL_You will be charged <span id=\"label_absolute_fees\">%(fees_absolute)s</span> cents and a <span id=\"label_relative_fees\">%(fees_relative)s</span>%% transaction fee")%locals)|n}
-				<a href="#" _href="${url(controller='content', action='why_transaction_costs')}" class="somelink popuplink">${_("POOL_PAGE_Read about friendfund's transaction costs")}</a>
-			</div>
-			<div class="inputline">
-				<img src="/static/imgs/icons_paymethod.png"/>
-				<div class="floaterRight">
-					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-					<tr>
-					<td width="135" align="center" valign="top">
-						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  
-								style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-					</td>
-					</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		
-		<div class="clear underlined1"></div>
-		<h2 class="inside">${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
-		<div class="insider">${_("CONTRIBPAGE_TITLE_LABEL_Your message will appear on %(receiver_first_name)s's e greeting card.") % locals}</div>
-		<textarea cols="30" rows="4" wrap="soft" class="floaterLeft"
+
+	<div class="floaterLeft">
+		<h2>${(_("CONTRIBPAGE_LABEL_Your message to %(receivername)s") % dict([("receivername", c.pool.receiver.receiver_label)]))|n}</h2>
+		<textarea cols="30" rows="4" wrap="soft"
 						onKeyDown="textCounter(this,this.form.remLen,140);" 
 						onKeyUp="textCounter(this,this.form.remLen,140);" 
 						name="chipin.message" id="chipin_message">${c.chipin_values.get("message", c.pool.get_my_message(c.user))}</textarea>
 		<input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> 
-		<div class="clear underlined1"></div>
-		<div class="agree">
-			<input class="floaterLeft" type="checkbox" id="chipin_agreedToS" name="chipin.agreedToS" value="yes" ${forms.input_checked("chipin", "agreedToS", True)|n}/>
-			<label class="floaterLeft" for="chipin_agreedToS">${_("CONTRIBPAGE_LABEL_I accept the <a href=\"%s\">Terms and Conditions</a>") % url(controller="content", action="tos")|n}</label>
+		<div class="clear"></div>
+	
+	 <h2>${_("CONTRIBPAGE_TITLE_LABEL_Amount")}</h2>
+		<div class="contributionAmount"> 
+			<div class="forminputline">
+				<label for="chipin_amount">${_("CONTRIBPAGE_LABEL_Chip in")}(*)</label>
+				%if c.paymentpage.amount_fixed:
+					<input disabled="disabled" type="text" class="contrib_amount" id="chipin_amount" value="${c.paymentpage.amount or c.chipin_values.get('amount', '')}" />
+					<input type="hidden" id="chipin_amount_fixed" name="chipin.amount" value="${c.paymentpage.amount or c.chipin_values.get('amount', '')}" />
+				%else:
+					<input type="text" class="contrib_amount" id="chipin_amount" name="chipin.amount" value="${c.chipin_values.get('amount', '')}" onKeyUp="calcTotals(this)" />
+				%endif
+				<span class="currencyDisplay">${h.display_currency(c.pool.currency)|n}</span>
+				<div class="contrib_error_message">${getattr(c, "chipin_errors", dict()).get("amount", "")}</div>
+			</div>
 			
-			<div class="error_message error_input">${getattr(c, "chipin_errors", dict()).get("agreedToS", "")}</div>
+			<div class="forminputline">
+				<span class="label"></span><span class="grey">${(_("CONTRIBPAGE_LABEL_+ Transaction cost of <span id=\"label_absolute_fees\">%(absolute)s</span> cents and <span id=\"label_relative_fees\">%(relative)s</span>%%")%dict([('absolute', c.paymentpage.default.fee_absolute), ('relative', c.paymentpage.default.fee_relative)]))|n}</span>
+			</div>
 		</div>
-		<div class="clear underlined1"></div>
+			
+
+		<div id="verisign_contrib">
+			<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+			<tr>
+			<td width="135" align="center" valign="top">
+				<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  
+						style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+			</td>
+			</tr>
+			</table>
+		</div>
 	</div>
-	</form>
-	<div style="padding:15px;clear:both">
+  </div>
+
+  <div class="terms">
+  
+	<div class="payement-container">
+			${_("STATIC_TERMS_OF_SERVICE_CONTENT")|n}
+      <div class="floaterRight agree">
+			<input type="checkbox" id="chipin_agreedToS" name="chipin.agreedToS" value="yes" ${forms.input_checked("chipin", "agreedToS", True)|n}/>
+			<label for="chipin_agreedToS">${_("CONTRIBPAGE_LABEL_Accept terms of services")}</label>
+			<div class="error_message error_input">${getattr(c, "chipin_errors", dict()).get("agreedToS", "")}</div>
+      </div>
+      </div>
+      </div>
+    </form>
+	<div style="padding-top:20px;float:left;width:880px;">
 		%if c.back_to_admin:
 			<a class="submitSmallLeft settings_submitter" href="${url(controller='pool', pool_url=c.pool.p_url, action='settings', protocol='http')}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool Settings")}</span></a>
 		%else:
 			<a class="submitSmallLeft settings_submitter" href="${url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http')}"><span>${_("CONTRIBPAGE_LABEL_Back To Pool")}</span></a>
 		%endif
 		<a class="submitSmall" onclick="dojo.byId('contribution_form').submit();" id="submitter"><span>${_("CONTRIBPAGE_LABEL_Submit")}</span></a>
-	<div style="clear:both"></div>
 	</div>
-	<div style="clear:both"></div>
-  </div>
-	<div class="progress" id="progress2">${_("CONTRIBPAGE_TITLE_LABEL_<b>Step 2.</b> Payment Details")|n}</div>
-	<div class="progress selected" id="progress1">${_("CONTRIBPAGE_TITLE_LABEL_<b>Step 1.</b> Chip in Details")|n}</div>
+    ${html.clearline()|n} 
 </div>
