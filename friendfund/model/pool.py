@@ -226,7 +226,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
-			, GenericAttrib(bool, 		'is_merchant', 		'is_merchant'				)
+			, GenericAttrib(bool, 		'merchant_key', 		'merchant_key'				)
 
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
@@ -315,7 +315,7 @@ class Pool(DBMappedObject):
 	require_pselector = property(get_require_pselector)
 	
 	def get_require_addresses(self):
-		return not(self.product.is_virtual or self.is_merchant)
+		return not(self.product.is_virtual or self.merchant_key == 'ff')
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):

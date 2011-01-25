@@ -7,7 +7,7 @@ from pylons import url
 from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
-from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc, GetPersonalityCategoryProc, GetCountryProc
+from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc, GetPersonalityCategoryProc, GetCountryProc, GetMerchantLinksProc
 from friendfund.model.virtual_product import GetVirtualGiftsProc
 from friendfund.model.product_search import GetTopSellersProc
 
@@ -43,7 +43,7 @@ class Globals(object):
 		self.cache_pool = pylibmc.ThreadMappedPool(self.cache)
 		log.info("memcached set up at %s", app_conf['memcached.cache.url'])
 		
-		self.isMerchantSite = app_conf.get('is_merchant_application') == 'true'
+		self.merchantKey = app_conf.get('merchant_key') == 'true'
 		
 		self.FbAppID =  app_conf['fbappid']
 		self.FbApiKey =  app_conf['fbapikey']
@@ -132,6 +132,7 @@ class Globals(object):
 				vg.set_picture_urls(self.SITE_ROOT_URL)
 		top_sellers = self.dbsearch.get(GetTopSellersProc)
 		
+		self.merchants = self.dbm.get(GetMerchantLinksProc).merchants_map
 		##################################### SERVICES SETUP #####################################
 		self.user_service = UserService(config)
 		self.pool_service = PoolService(config)
