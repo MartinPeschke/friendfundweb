@@ -114,7 +114,7 @@ class PoolSettings(DBMappedObject):
 				,GenericAttrib(str,'shipping_country', 'shipping_country')
 				,GenericAttrib(bool,'is_admin'    , 'is_admin')
 				,GenericAttrib(bool, 'is_virtual' , 'is_virtual')
-				,GenericAttrib(bool, 'merchant_key', 'merchant_key')
+				, GenericAttrib(unicode			  ,	'merchant_key', 	'merchant_key')
 				,DBMapper(ShippingAddress         , 'addresses','ADDRESS', is_dict = True, dict_key = lambda x: (x.type or 'shipping').lower())
 				,DBMapper(PoolAction, 'actions'   , 'POOL_ACTION', is_list = True)
 			]

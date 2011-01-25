@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-01-21 16:50+0100\n"
+"POT-Creation-Date: 2011-01-25 10:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,8 @@ msgstr ""
 #: friendfund/controllers/contribution.py:47
 #: friendfund/controllers/contribution.py:70
 #: friendfund/controllers/contribution.py:93
-#: friendfund/controllers/contribution.py:160
+#: friendfund/controllers/contribution.py:121
+#: friendfund/controllers/contribution.py:187
 msgid "CONTRIBUTION_Payment Not Allowed."
 msgstr ""
 
@@ -156,50 +157,52 @@ msgid ""
 msgstr ""
 
 #: friendfund/controllers/contribution.py:96
+#: friendfund/controllers/contribution.py:155
 msgid "CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:144
-#: friendfund/controllers/contribution.py:217
+#: friendfund/controllers/contribution.py:134
+#: friendfund/controllers/contribution.py:171
+#: friendfund/controllers/contribution.py:244
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:147
-#: friendfund/controllers/contribution.py:220
+#: friendfund/controllers/contribution.py:174
+#: friendfund/controllers/contribution.py:247
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later."
 " Your payment has not been processed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:149
-#: friendfund/controllers/contribution.py:222
+#: friendfund/controllers/contribution.py:176
+#: friendfund/controllers/contribution.py:249
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again "
 "later"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:168
-#: friendfund/controllers/contribution.py:184
+#: friendfund/controllers/contribution.py:195
+#: friendfund/controllers/contribution.py:211
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:187
+#: friendfund/controllers/contribution.py:214
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"
 msgstr ""
 
-#: friendfund/controllers/contribution.py:191
+#: friendfund/controllers/contribution.py:218
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. "
 "Your payment has not been processed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:210
+#: friendfund/controllers/contribution.py:237
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been"
 " processed."
 msgstr ""
 
-#: friendfund/controllers/contribution.py:215
+#: friendfund/controllers/contribution.py:242
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
 msgstr ""
 
@@ -422,37 +425,37 @@ msgstr ""
 msgid "Twitter may be over capacity.<br/>Please try again later."
 msgstr ""
 
-#: friendfund/lib/app_globals.py:141
+#: friendfund/lib/app_globals.py:131
 msgid "CONTRIBUTION_PAGE_Creditcard"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:147
+#: friendfund/lib/app_globals.py:137
 msgid "CONTRIBUTION_PAGE_Paypal"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:153
+#: friendfund/lib/app_globals.py:143
 msgid "CONTRIBUTION_PAGE_Direct eBanking"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:159 friendfund/templates/pool/pool.html:191
+#: friendfund/lib/app_globals.py:149 friendfund/templates/pool/pool.html:191
 #: friendfund/templates/pool/pool_secret.html:54
 #: friendfund/templates/pool/parts/button_contribute.html:22
 msgid "CONTRIBUTION_PAGE_Virtual Pot of Gold"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:187
+#: friendfund/lib/app_globals.py:177
 msgid "GLOBAL_MENU_Home"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:188
+#: friendfund/lib/app_globals.py:178
 msgid "GLOBAL_MENU_My_Pools"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:189
+#: friendfund/lib/app_globals.py:179
 msgid "GLOBAL_MENU_My_Badges"
 msgstr ""
 
-#: friendfund/lib/app_globals.py:190
+#: friendfund/lib/app_globals.py:180
 msgid "GLOBAL_MENU_My_Profile"
 msgstr ""
 
@@ -1163,75 +1166,53 @@ msgid "STATIC_HEADER_Terms of Service"
 msgstr ""
 
 #: friendfund/templates/content/tos.html:9
+#: friendfund/templates/contribution/contrib_screen.html:71
 msgid "STATIC_TERMS_OF_SERVICE_CONTENT"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:6
+#: friendfund/templates/contribution/contrib_screen.html:5
 msgid "CONTRIBPAGE_TITLE_Payment Settings"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:8
+#: friendfund/templates/contribution/contrib_screen.html:7
 msgid "CONTRIBPAGE_SLOGAN_Payment Settings"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:47
-msgid "CONTRIBPAGE_TITLE_LABEL_Enter your chip in amount"
-msgstr ""
-
-#: friendfund/templates/contribution/contrib_screen.html:48
-#, python-format
-msgid ""
-"CONTRIBPAGE_TITLE_LABEL_How much do you want to contribute to "
-"%(receiver_first_name)s's gift?"
-msgstr ""
-
-#: friendfund/templates/contribution/contrib_screen.html:57
-#, python-format
-msgid ""
-"CONTRIBPAGE_LABEL_You will be charged <span "
-"id=\"label_absolute_fees\">%(fees_absolute)s</span> cents and a <span "
-"id=\"label_relative_fees\">%(fees_relative)s</span>%% transaction fee"
-msgstr ""
-
-#: friendfund/templates/contribution/contrib_screen.html:58
-msgid "POOL_PAGE_Read about friendfund's transaction costs"
-msgstr ""
-
-#: friendfund/templates/contribution/contrib_screen.html:77
+#: friendfund/templates/contribution/contrib_screen.html:20
 #, python-format
 msgid "CONTRIBPAGE_LABEL_Your message to %(receivername)s"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:78
+#: friendfund/templates/contribution/contrib_screen.html:34
+msgid "CONTRIBPAGE_TITLE_LABEL_Amount"
+msgstr ""
+
+#: friendfund/templates/contribution/contrib_screen.html:37
+msgid "CONTRIBPAGE_LABEL_Chip in"
+msgstr ""
+
+#: friendfund/templates/contribution/contrib_screen.html:49
 #, python-format
 msgid ""
-"CONTRIBPAGE_TITLE_LABEL_Your message will appear on %(receiver_first_name)s's"
-" e greeting card."
+"CONTRIBPAGE_LABEL_+ Transaction cost of <span "
+"id=\"label_absolute_fees\">%(absolute)s</span> cents and <span "
+"id=\"label_relative_fees\">%(relative)s</span>%%"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:87
-#, python-format
-msgid "CONTRIBPAGE_LABEL_I accept the <a href=\"%s\">Terms and Conditions</a>"
+#: friendfund/templates/contribution/contrib_screen.html:74
+msgid "CONTRIBPAGE_LABEL_Accept terms of services"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:96
+#: friendfund/templates/contribution/contrib_screen.html:82
 msgid "CONTRIBPAGE_LABEL_Back To Pool Settings"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:98
+#: friendfund/templates/contribution/contrib_screen.html:84
 msgid "CONTRIBPAGE_LABEL_Back To Pool"
 msgstr ""
 
-#: friendfund/templates/contribution/contrib_screen.html:100
+#: friendfund/templates/contribution/contrib_screen.html:86
 msgid "CONTRIBPAGE_LABEL_Submit"
-msgstr ""
-
-#: friendfund/templates/contribution/contrib_screen.html:105
-msgid "CONTRIBPAGE_TITLE_LABEL_<b>Step 2.</b> Payment Details"
-msgstr ""
-
-#: friendfund/templates/contribution/contrib_screen.html:106
-msgid "CONTRIBPAGE_TITLE_LABEL_<b>Step 1.</b> Chip in Details"
 msgstr ""
 
 #: friendfund/templates/contribution/contribution_result_fail.html:4

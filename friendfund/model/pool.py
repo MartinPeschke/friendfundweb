@@ -226,7 +226,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
-			, GenericAttrib(bool, 		'merchant_key', 		'merchant_key'				)
+			, GenericAttrib(unicode, 	'merchant_key', 	'merchant_key'				)
 
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
