@@ -1,7 +1,7 @@
 import logging, formencode
 from datetime import datetime
 from friendfund.lib.payment.adyen import VirtualPayment
-from friendfund.model.contribution import GlobalDBPaymentNotice
+from friendfund.model.contribution import DBPaymentNotice
 from pylons import request, app_globals
 log = logging.getLogger(__name__)
 
@@ -55,6 +55,7 @@ class PaymentService(object):
 			paymentlog.info( '-'*40 )
 			paymentlog.info( 'headers=%s', request.headers )
 			paymentlog.info( 'post_params=%s', request.params )
+			paymentlog.info( '-'*40 )
 		else:
 			paymentlog.info( '-'*40 )
 			paymentlog.warning( request.headers )
@@ -77,8 +78,8 @@ class PaymentService(object):
 		noticeparams = dict([k for k in filter(lambda x: x[1], [(transl[k],v) for k,v in params.iteritems() if k in transl])])
 		noticeparams['success'] = strbool.to_python(noticeparams.get('success', False))
 		try:
-			notice = GlobalDBPaymentNotice(**noticeparams)
-			app_globals.dbconf.set(notice)
+			notice = DBPaymentNotice(**noticeparams)
+			app_globals.dbm.set(notice)
 		except SProcException, e:
 			paymentlog.error(e)
 		except Exception, e:

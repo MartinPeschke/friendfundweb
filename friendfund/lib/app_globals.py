@@ -92,18 +92,6 @@ class Globals(object):
 			,client_charset=app_conf['fundbsearch.connectstring.client_charset'])
 		self.dbsearch = common.DBManager(searchpool, self.cache_pool, logging.getLogger('DBSearch'))
 		
-		confpool = PooledDB(pyodbc,2,autocommit=True
-			,driver=app_conf['conf.connectstring.driver']
-			,server=app_conf['conf.connectstring.server']
-			,instance=app_conf['conf.connectstring.instance']
-			,database=app_conf['conf.connectstring.database']
-			,port=app_conf['conf.connectstring.port']
-			,tds_version=app_conf['conf.connectstring.tds_version']
-			,uid=app_conf['conf.connectstring.uid']
-			,pwd=app_conf['conf.connectstring.pwd']
-			,client_charset=app_conf['conf.connectstring.client_charset'])
-		self.dbconf = common.DBManager(confpool, self.cache_pool, logging.getLogger('DBConf'))
-		
 		if app_conf['serve_admin'] == 'true':
 			adminpool = PooledDB(pyodbc,2,autocommit=True
 				,driver=app_conf['admin.connectstring.driver']
