@@ -106,7 +106,7 @@ class PoolController(BaseController):
 		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in c.pool.participants])
 		c.pool.occasion.picture_url = None
 		c.pool.occasion.custom = None
-		c.pool.merchant_key = g.merchantKey
+		c.pool.merchant_key = g.merchant.key
 		g.dbm.set(c.pool, merge = True, cache=False)
 		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture_large)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])

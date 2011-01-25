@@ -112,4 +112,4 @@ class GetMerchantLinksProc(DBMappedObject):
 	_set_root = _get_root = None
 	_unique_keys = []
 	_get_proc = 'app.get_merchant'
-	_keys = [DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.key)]
+	_keys = [DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.key.lower())]

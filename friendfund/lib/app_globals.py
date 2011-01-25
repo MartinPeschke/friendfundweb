@@ -43,7 +43,6 @@ class Globals(object):
 		self.cache_pool = pylibmc.ThreadMappedPool(self.cache)
 		log.info("memcached set up at %s", app_conf['memcached.cache.url'])
 		
-		self.merchantKey = app_conf.get('merchant_key') == 'true'
 		
 		self.FbAppID =  app_conf['fbappid']
 		self.FbApiKey =  app_conf['fbapikey']
@@ -133,6 +132,8 @@ class Globals(object):
 		top_sellers = self.dbsearch.get(GetTopSellersProc)
 		
 		self.merchants = self.dbm.get(GetMerchantLinksProc).merchants_map
+		self.merchant = self.merchants[app_conf.get('merchant_key')]
+		log.info("STARTING UP with: %s", self.merchant)
 		##################################### SERVICES SETUP #####################################
 		self.user_service = UserService(config)
 		self.pool_service = PoolService(config)
