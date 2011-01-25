@@ -57,6 +57,8 @@ class ContentController(BaseController):
 		return render("/content/privacy.html")
 	def impressum(self):
 		return render("/content/impressum.html")
+	def merchant_explain(self):
+		return render("/content/merchant_explain.html")
 	def faq(self):
 		c.faq_items = FAQ_KEYS
 		return render("/content/faq.html")
