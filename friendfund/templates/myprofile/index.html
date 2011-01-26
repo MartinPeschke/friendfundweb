@@ -10,6 +10,9 @@
 <%def name="page_slogan()">
 <div id="page_slogan">${_("MYPROFILE_PAGE_Manage your User Accounts")}</div>
 </%def>
+<%def name="onloadscripts()">
+	dojo.query(".popuplink", "login_signup_container").onclick(dojo.hitch(null, loadPopup));
+</%def>
 
 <div id="login_signup_container">
 	<form id="myprofile_form" action="${url(controller='myprofile', action='save')}" method="POST" enctype="multipart/form-data">
@@ -27,7 +30,11 @@
 				<div class="floaterRight">${profiles["facebook"].name}</div>
 			</div>
 			<div class="borderBottomSecond">
-				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}<a href="#">${_("MYPROFILE_PAGE_LABEL_what's this?")}</a></div>
+				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}
+				<a _href="${url(controller="content", action="profile_help")}" class="popuplink somelink textCenter">
+					<div>${_("MYPROFILE_PAGE_LABEL_what's this?")}</div>
+				</a>
+				</div>
 				<div class="floaterRight"><input type="radio" name="myprofile.is_default" value="facebook" ${forms.expression_quote(profiles["facebook"].is_default==True, "checked")|n} /></div>
 			</div>
 		</div>
@@ -52,7 +59,10 @@
 				<div class="floaterRight">${profiles["twitter"].name}</div>
 			</div>
 			<div class="borderBottomSecond">
-				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}<a href="#">${_("MYPROFILE_PAGE_LABEL_what's this?")}</a></div>
+				<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}
+				<a _href="${url(controller="content", action="profile_help")}" class="popuplink somelink textCenter">
+					<div>${_("MYPROFILE_PAGE_LABEL_what's this?")}</div>
+				</a></div>
 				<div class="floaterRight"><input type="radio" name="myprofile.is_default" value="twitter" ${forms.expression_quote(profiles["twitter"].is_default==True, 'checked')|n} /></div>
 			</div>
 		</div>
@@ -101,7 +111,10 @@
 						</div>
 					
 						<div class="borderBottomSecond wide">
-							<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}<a href="#">${_("MYPROFILE_PAGE_LABEL_what's this?")}</a></div>
+							<div class="floaterLeft">${_("MYPROFILE_PAGE_LABEL_Set it as Default")}
+							<a _href="${url(controller="content", action="profile_help")}" class="popuplink somelink textCenter">
+								<div>${_("MYPROFILE_PAGE_LABEL_what's this?")}</div>
+							</a></div>
 							<div class="floaterRight"><input type="radio" name="myprofile.is_default" value="email" ${forms.expression_quote(profiles["email"].is_default==True, 'checked')|n} /></div>
 						</div>
 					</div>
@@ -116,7 +129,7 @@
 	   <div class="profile-picture">
 		<form id="signup_form" action="${url(controller='myprofile', action='add_email')}" method="POST" enctype="multipart/form-data">
 		<div class="inside-profile-picture">
-			<div class="smallInside" style="margin-right:60px">
+			<div class="smallInside" style="width:384px;margin-right:60px">
 				<div class="subTitle">${_("MYPROFILE_PAGE_LABEL_Sign Up With Email")}</div>
 				
 				<div class="floaterLeft fixedW">
@@ -148,7 +161,7 @@
 
 				</div>
 			</div>
-			<div class="smallInside">
+			<div class="smallInside" style="width:400px;">
 				<div class="imageBadgeContainer">
 					<img src="${h.get_user_picture(getattr(profiles.get('email'), 'profile_picture_url', ''), 'MYPROFILE')}">
 				</div>
