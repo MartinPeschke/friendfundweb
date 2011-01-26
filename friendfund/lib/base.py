@@ -70,6 +70,7 @@ class ExtBaseController(BaseController):
 		pool_url = environ['wsgiorg.routing_args'][1].get('pool_url')
 		if pool_url:
 			c.pool = g.dbm.get(Pool, p_url = pool_url)
-			if c.pool.merchant_key != g.merchant.key:
-				print "redirecting to", g.get_merchant_domain(c.pool.merchant_key)
+			if c.pool:
+				return abort(404)
+			elif c.pool.merchant_key != g.merchant.key:
 				return redirect(url.current(host=g.get_merchant_domain(c.pool.merchant_key)))
