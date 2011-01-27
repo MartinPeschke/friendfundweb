@@ -30,12 +30,9 @@ class InviteController(ExtBaseController):
 			return redirect(url('home'))
 		if not c.user.set_pool_url(pool_url):
 			return redirect(url('home'))
-		pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
-		if pool is None:
-			return abort(404)
 		if 'invitees' in websession:
 			del websession['invitees']
-		return self._display_invites(pool)
+		return self._display_invites(c.pool)
 	
 	def _display_invites(self, pool, invitees = {}):
 		c.pool = pool
@@ -55,9 +52,6 @@ class InviteController(ExtBaseController):
 	@jsonify
 	@logged_in(ajax=True)
 	def method(self, pool_url, method):
-		c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
-		if c.pool is None:
-			return abort(404)
 		c.method = str(method)
 		c.furl = '/invite/%s' % (pool_url)
 		
@@ -105,10 +99,10 @@ class InviteController(ExtBaseController):
 		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
-		pool = g.dbm.get(Pool, p_url = pool_url)
-		pool.is_secret = request.params.get("is_secret", False)
+
+		c.pool.is_secret = request.params.get("is_secret", False)
 		opt_out = request.params.get("opt_out", False)
-		pool.description = request.params['description']
+		c.pool.description = request.params.get('description')
 		
 		
 		#determine state of permissions and require missing ones
@@ -118,13 +112,13 @@ class InviteController(ExtBaseController):
 			has_create_event_invitees = False
 			has_fb_invites = len(filter(lambda x: x.get('network') == 'facebook', invitees or []))
 			if has_fb_invites:
-				if pool.am_i_admin(c.user):
+				if c.pool.am_i_admin(c.user):
 					has_create_event_invitees = True
 				else:
 					has_stream_publish_invitees = True
 				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
 				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
-				perms_required = (pool.is_pending() and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
+				perms_required = (c.pool.is_pending() and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
 		if perms_required:
 			c.enforce_blocks = True
 			c.invitees = {}
@@ -133,20 +127,20 @@ class InviteController(ExtBaseController):
 				invs = c.invitees.get(netw,{})
 				invs[str(inv['network_id'])] = inv
 				c.invitees[netw] = invs
-				if strbool.to_python(inv.get('is_selector')): pool.selector=PoolInvitee.fromMap(inv)
+				if strbool.to_python(inv.get('is_selector')): c.pool.selector=PoolInvitee.fromMap(inv)
 				websession['invitees'] = c.invitees
-			return self._display_invites(pool, c.invitees)
+			return self._display_invites(c.pool, c.invitees)
 		
 		if invitees is not None:
-			c.pool = g.dbm.set(AddInviteesProc(p_id = pool.p_id
-							, p_url = pool.p_url
-							, event_id = pool.event_id
+			invittes_proc_result = g.dbm.set(AddInviteesProc(p_id = c.pool.p_id
+							, p_url = c.pool.p_url
+							, event_id = c.pool.event_id
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
-							, description = pool.description
-							, is_secret = pool.is_secret
+							, description = c.pool.description
+							, is_secret = c.pool.is_secret
 							, opt_out = opt_out))
-			g.dbm.expire(Pool(p_url = pool.p_url))
+			g.dbm.expire(Pool(p_url = c.pool.p_url))
 			tasks = deque()
 			for i in invitees:
 				if i['network'] != 'email':
@@ -164,7 +158,7 @@ class InviteController(ExtBaseController):
 	def add(self, pool_url):
 		params = variable_decode(request.params)
 		invitee = params.get("invitee")
-		network = invitee['network']
+		network = invitee.get('network')
 		if request.method != 'POST' or network!= 'email':
 			return self.ajax_messages("Not Allowed")
 		valid = formencode.validators.Email(min=5, max = 255, not_empty = True, resolve_domain=True)
