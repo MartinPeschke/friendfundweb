@@ -305,7 +305,7 @@
 		<h4 class="inside" style="padding:0;">${_("POOL_CHAT_Fund Chat")}</h4>
 		%if c.pool.am_i_member(c.user):
 			<div>${_("POOL_CHAT_Leave your Comment:")}</div>
-			<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea>
+			<div class="textarea"><textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" class="comment_text_input"></textarea></div>
 			<div class="floaterLeft"><a class="BtnRed" href="#comments" onclick="submit_fundchat('addcommenttext')"><span>${_("POOL_PAGE_BUTTON_Post!")}</span></a></div>
 			<div style="clear:both"></div>
 		%endif

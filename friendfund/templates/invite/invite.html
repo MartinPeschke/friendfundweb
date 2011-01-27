@@ -113,7 +113,7 @@
 			<div class="insider underlined1" style="padding:4px;">${_("INVITE_PAGE_LABEL_This message will included in your Facebook and Email invitations.")}</div>
 			
 			<% locals = {"admin_name":c.pool.admin.name, "receiver_name" : c.pool.receiver.name, "occasion_name": c.pool.occasion.get_display_name()} %>
-			<textarea name="description" id="default_slogan" cols="60" rows="5">${c.pool.description|n}</textarea>
+			<div class="textarea"><textarea name="description" id="default_slogan" cols="60" rows="5">${c.pool.description|n}</textarea></div>
 			<a style="margin-left:4px;" class="floaterLeft popuplink submitExtraMini" href="#" _href="${url(controller='content', action='invite_preview')}">${_("INVITE_PAGE_BUTTON_Preview your invitations")}<span></span></a>
 		</div>
 		
