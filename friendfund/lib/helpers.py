@@ -169,7 +169,7 @@ def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 		return '%(site_root)s/static/imgs/default_m_%(type)s.png'%locals()
 	elif isinstance(profile_picture_url, basestring):
 		if profile_picture_url.startswith('/'):
-			return '%(site_root)%(profile_picture_url)s'%locals()
+			return '%(site_root)s%(profile_picture_url)s'%locals()
 		elif profile_picture_url.startswith('http'):
 			return profile_picture_url
 		else:

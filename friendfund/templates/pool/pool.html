@@ -119,7 +119,7 @@
 			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Please log in to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}</div>
 		%elif c.pool.am_i_admin(c.user):
 			<div id="page_slogan" class="underlined2">
-				${_("POOL_PAGE_SLOGAN_Hi, <span class=\"emphasis\">%(user_name)s!</span><br/>You have created a pool for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
+				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>You have created a pool for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
 			</div>
 			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Edit pool settings any time by visiting the Pool Admin page.") % locals|n}</div>
 		%elif c.pool.am_i_contributor(c.user):
@@ -136,12 +136,12 @@
 			%endif
 		%elif c.pool.am_i_member(c.user):
 			<div id="page_slogan" class="underlined2">
-				${_("POOL_PAGE_SLOGAN_Hi, <span class=\"emphasis\">%(user_name)s!</span><br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
+				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
 			</div>
 			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_%(admin_name)s wants to get a %(product_name)s for %(receiver_name)s's %(occasion_name)s and you've been invited to help purchase it.") % locals|n}</div>
 		%else:
 			<div id="page_slogan" class="underlined2">
-				${_("POOL_PAGE_SLOGAN_Hi, <span class=\"emphasis\">%(user_name)s!</span><br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
+				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>%(admin_name)s has created a gift pool for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
 			</div>
 			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Chip in any amount and help make %(receiver_name)s's day special.") % locals|n}</div>
 		%endif

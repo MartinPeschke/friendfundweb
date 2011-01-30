@@ -220,6 +220,7 @@ twInit = function(furl) {
 	}
 };
 
+var FBSCOPE="user_birthday,friends_birthday,email,publish_stream";
 checkForward = function(){
 	var loc = dojo.byId("furl").value;
 	if(loc !== ""){window.location.href = loc;}
@@ -231,7 +232,10 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 		FB.init({appId  : app_id,status : true,cookie : true,xfbml  : false, channelUrl:channelUrl});
 		FB.Event.subscribe('auth.sessionChange', fbSessionChange);
 		if(!has_prev_tried_logging_in && FB.getSession()){
-			FB.api("/me", function(response) {loadElement("/fb/login", "accountcontainer", response, page_reloader);});
+			FB.api("/me", function(response) {
+					response.scope=FBSCOPE;
+					loadElement("/fb/login", "accountcontainer", response, page_reloader);
+			});
 		}
 	};
 	var e = document.createElement('script');
@@ -245,7 +249,7 @@ fbLogin = function() {
 		if(facebook_tried_loggin_in_already === false){
 			facebook_tried_loggin_in_already = true;
 			setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
-			FB.login(function(){}, {perms:"user_birthday,friends_birthday,email"});
+			FB.login(function(){}, {perms:FBSCOPE});
 		}
 	}else{fbSessionChange();}
 };
@@ -264,6 +268,7 @@ forward = function(furl){
 
 doFBFFLogin = function(callback){
 	FB.api('/me', function(response) {
+		response.scope=FBSCOPE;
 		loadElement('/fb/login', "accountcontainer", response, callback);
 	});
 };
