@@ -90,7 +90,7 @@ div.frontpagebutton {
 	margin: 1px;
 }
 div.frontpagebutton.first {margin: 1px 1px 1px 0px;}
-body.popup div.frontpagebutton.first {margin:0;}
+body.popup div.frontpagebutton.first {margin:0;width:100%;}
 div.frontpagebutton.last {margin: 1px 0px 1px 1px;}
 
 #pool_configurator {float:left}
@@ -137,17 +137,18 @@ div.frontpagebutton.funders {
 .hpbutton .button_label {color: #B70158; font-family: "Trebuchet MS"; font-weight: bold; font-style: italic; font-size: 28px;line-height:52px;position:relative}
 .hpbutton .button_label_q {font-style:normal;font-size:52px;top:10px;position:relative}
 
-body.popup #pool_configurator {padding: 10px 15px 15px;}
-body.popup #pool_configurator div.hpbutton.gift {padding:0px 0px 10px;}
-body.popup #pool_configurator div.hpbutton.gift div.label { margin:0px 10px;float:right;width: 700px;}
-body.popup #pool_configurator div.hpbutton.gift img.button_content {margin:0 auto;max-width:178px;height:111px;padding:0;}
-body.popup #funders_panel_tooltip {top: -27px;}
+body.popup #pool_configurator {padding: 0px 15px 15px;}
 body.popup #pool_configurator .hpbutton {float:left;width:100%;}
+body.popup #pool_configurator div.hpbutton.gift {margin:10px;width:auto;}
+body.popup #pool_configurator div.hpbutton.gift div.label { margin:0px 10px;float:right;width: 700px;}
+body.popup #pool_configurator div.hpbutton.gift img.button_content {margin:0 auto;max-width:160px;height:111px;padding:0;}
+body.popup #funders_panel_tooltip {top: -27px;}
 body.popup #pool_configurator .hpbutton div.button_content {position: relative;width:178px;margin: 0px auto;}
 body.popup #pool_configurator .hpbutton img.loaders_animation {position:absolute;top:30px;left:40px;}
 body.popup #pool_configurator .hpbutton img.button_content {	height:68px;width:auto;max-width:98px;margin:0 auto;padding-top:5px;}
 body.popup #pool_configurator .hpbutton div.label {margin:10px 10px 10px 0px;}
 body.popup #pool_configurator .hpbutton a.content {float:left;margin:5px 10px;}
+body.popup #pool_configurator .hpbutton.gift a.content {margin:0px !important;}
 
 #pool_configurator div.hpbutton a.button.funders {margin: 24px;}
 #pool_configurator div.hpbutton a.content {
@@ -198,8 +199,6 @@ body.popup .hpbutton a.content.withbg {height:74px;width:96px}
 	font-weight:normal;
 	max-height:90px;overflow:hidden;
 }
-
-body.popup #pool_configurator div.hpbutton div.sub_label {max-height: 43px !important;}
 
 #button_panel h2{
 	margin:0;

@@ -2,9 +2,9 @@
 <%
 	product = getattr(getattr(c, 'pool', None), 'product', None)
 %>
-<div id="button_product" class="hpbutton gift underlined2 floaterLeft">
+<div id="button_product" class="hpbutton gift floaterLeft">
 	%if product:
-		<div style="text-align:center;width:178px;" class="floaterLeft"><img class="button_content" src="${getattr(product, 'picture_large')}"/></div>
+		<div style="text-align:center;width:160px;" class="floaterLeft"><img class="button_content" src="${getattr(product, 'picture_large')}"/></div>
 		%if c.product_list:
 			<div class="label minified">
 				<div class="minified_title">

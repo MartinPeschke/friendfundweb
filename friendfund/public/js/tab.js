@@ -468,8 +468,9 @@ FriendFund.Popin = {
 FriendFund.Button = {
 	button_id: "friendfund_fund_button",
 	button_text: "Friendfund this",
-	css_template: "#${button_id} {margin: 10px;width: auto} #${button_id}\
-					.friendfundButton{pointer:cursor;margin:10px auto;color:white;width:122px;height:196px;\
+	css_template: "#${button_id} {margin: 10px 0;width: auto} \
+					#${button_id}:hover {cursor:pointer}\
+					#${button_id} .friendfundButton{pointer:cursor;margin:10px auto;color:white;width:192px;height:71px;\
 					background:url(${protocol}${host}/static/custom_imgs/button_logo.png) no-repeat 0 0 transparent;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
