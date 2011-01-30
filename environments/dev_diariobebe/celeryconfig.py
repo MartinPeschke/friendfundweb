@@ -17,14 +17,15 @@ CELERY_STORE_ERRORS_EVEN_IF_IGNORED = False
 CELERY_IGNORE_RESULT = True
 CELERY_DISABLE_RATE_LIMITS = True
 
+CELERY_QUEUES = {"default_dev": {"exchange": "celeryevent_dev",
+				"binding_key": "celeryevent_dev_dev",
+				"routing_key": "celeryevent_dev_dev"}}
+CELERY_DEFAULT_QUEUE = "default_dev"
 
-CELERY_QUEUES = {"default_diariobebe": {"exchange": "celeryevent_dev",
-				"binding_key":"celeryevent_dev_diariobebe",
-				"routing_key": "celeryevent_dev_diariobebe"}}
-CELERY_DEFAULT_QUEUE = "default_diariobebe"
+
 CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
 CELERY_DEFAULT_EXCHANGE = "celeryevent_dev"
-CELERY_DEFAULT_ROUTING_KEY = "celeryevent_dev_diariobebe"
+CELERY_DEFAULT_ROUTING_KEY = "celeryevent_dev_dev"
 
 CELERY_DEFAULT_SERIALIZER = "json"
 CELERY_ADDITIONAL_CONFIG="development.ini"
