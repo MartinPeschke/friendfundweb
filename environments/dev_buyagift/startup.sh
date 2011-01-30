@@ -1,7 +1,7 @@
 #!/bin/bash
 
-exec_name=diariobebe
-runpath=/opt/www/diariobebe
+exec_name=buyagift
+runpath=/opt/www/buyagift
 binpath=/home/www-data/ff_dev
 config=./development.ini
 
