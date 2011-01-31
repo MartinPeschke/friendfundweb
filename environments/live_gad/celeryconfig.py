@@ -2,7 +2,7 @@ BROKER_HOST = "127.0.0.1"
 BROKER_PORT = 5672
 BROKER_USER = "rmquser_live"
 BROKER_PASSWORD = "rmqpw_liveHGasegoiAuhqfReo96r"
-BROKER_VHOST = "rmqvhost_live_gad"
+BROKER_VHOST = "rmqvhost_live"
 CELERY_RESULT_BACKEND = "amqp"
 CELERY_IMPORTS = ("friendfund.tasks.fb", 
 					"friendfund.tasks.twitter",
@@ -16,15 +16,15 @@ CELERY_STORE_ERRORS_EVEN_IF_IGNORED = False
 CELERY_IGNORE_RESULT = True
 CELERY_DISABLE_RATE_LIMITS = True
 
-CELERY_QUEUES = {"default_queue_gad": {
+CELERY_QUEUES = {"default_queue": {
 				"exchange": "celeryevent_live",
 				"exchange_type": "direct",
-				"binding_key": "celeryevent_live_gad",
-				"routing_key": "celeryevent_live_gad"}}
-CELERY_DEFAULT_QUEUE = "default_queue_gad"
+				"binding_key": "celeryevent_live_ff",
+				"routing_key": "celeryevent_live_ff"}}
+CELERY_DEFAULT_QUEUE = "default_queue"
 CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
 CELERY_DEFAULT_EXCHANGE = "celeryevent_live"
-CELERY_DEFAULT_ROUTING_KEY = "celeryevent_live_gad"
+CELERY_DEFAULT_ROUTING_KEY = "celeryevent_live_ff"
 
 
 CELERY_EVENT_SERIALIZER = "json"
