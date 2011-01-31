@@ -129,7 +129,7 @@ ${self.render_html()}
 <%def name="headerclass()">normal</%def>
 
 <%def name="user_voice()">
-	<script type="text/javascript">
+<script type="text/javascript">
 		var uservoiceOptions = {
 			/* required */key: 'friendfund',host: 'friendfund.uservoice.com', forum: '81919',showTab: true,  
 			/* optional */alignment: 'left',background_color:'#333', text_color: 'white',hover_color: '#06C',lang: 'en'};
@@ -137,7 +137,7 @@ ${self.render_html()}
 	</script>
 </%def>
 <%def name="google_analytics()">
-	<script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-17547754-2']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+	<%include file="widgets/ganalytics.html"/>
 </%def>
 
 <%def name="header()">
