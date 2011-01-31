@@ -84,43 +84,15 @@ class Globals(object):
 			,client_charset=app_conf['pool.connectstring.client_charset'])
 		self.dbm = common.DBManager(dbpool, self.cache_pool, logging.getLogger('DBM'))
 		
-		searchpool = PooledDB(pyodbc,10,autocommit=True
-			,driver=app_conf['fundbsearch.connectstring.driver']
-			,server=app_conf['fundbsearch.connectstring.server']
-			,instance=app_conf['fundbsearch.connectstring.instance']
-			,database=app_conf['fundbsearch.connectstring.database']
-			,port=app_conf['fundbsearch.connectstring.port']
-			,tds_version=app_conf['fundbsearch.connectstring.tds_version']
-			,uid=app_conf['fundbsearch.connectstring.uid']
-			,pwd=app_conf['fundbsearch.connectstring.pwd']
-			,client_charset=app_conf['fundbsearch.connectstring.client_charset'])
-		self.dbsearch = common.DBManager(searchpool, self.cache_pool, logging.getLogger('DBSearch'))
-		
-		if app_conf['serve_admin'] == 'true':
-			adminpool = PooledDB(pyodbc,2,autocommit=True
-				,driver=app_conf['admin.connectstring.driver']
-				,server=app_conf['admin.connectstring.server']
-				,instance=app_conf['admin.connectstring.instance']
-				,database=app_conf['admin.connectstring.database']
-				,port=app_conf['admin.connectstring.port']
-				,tds_version=app_conf['admin.connectstring.tds_version']
-				,uid=app_conf['admin.connectstring.uid']
-				,pwd=app_conf['admin.connectstring.pwd']
-				,client_charset=app_conf['admin.connectstring.client_charset'])
-			self.dbadmin = common.DBManager(adminpool, self.cache_pool, logging.getLogger('DBAdmin'))
-		
 		##################################### DB GLOBALS SETUP #####################################
 		
 		self._db_globals={}
 		self.countries = self._db_globals.setdefault('countries', self.dbm.get(GetCountryProc))
+		
+		#TODO:MIGRATE_TO_FUNDB
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
-		self.get_aff_programs = lambda region: self._db_globals.setdefault('affiliate_programs_%s' % region, self.dbsearch.get(GetAffiliateProgramsProc, country = region))
 		### Product Setup requirements ###
-		product_categories = self.dbsearch.get(GetPersonalityCategoryProc)
-		virtual_gifts = self.dbsearch.get(GetVirtualGiftsProc)
-		for region in virtual_gifts.list:
-			for vg in region.list:
-				vg.set_picture_urls(self.SITE_ROOT_URL)
+		#TODO:MIGRATE_TO_FUNDB
 		top_sellers = self.dbsearch.get(GetTopSellersProc)
 		
 		self.merchants = self.dbm.get(GetMerchantLinksProc).merchants_map
@@ -175,7 +147,7 @@ class Globals(object):
 				amazon_services[k] = None
 				log.warning("AmazonService NOT AVAILABLE for %s", self.country_choices.r2c_map[k])
 		
-		self.product_service = ProductService(amazon_services, product_categories, virtual_gifts, top_sellers, self.country_choices, self.SITE_ROOT_URL)
+		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices, self.SITE_ROOT_URL)
 		log.info("ProductService set up")
 		
 		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home', True)

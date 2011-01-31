@@ -10,7 +10,6 @@ from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, SetPendingProductProc
 from friendfund.model.product_search import ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException
@@ -81,35 +80,13 @@ class ProductController(BaseController):
 		g.dbm.set(SetPendingProductProc(product = pool.product, p_url=pool_url))
 		g.dbm.expire(pool)
 		return {"redirect":url("get_pool", pool_url=pool_url)}
-		
-		
+	
+	
 	@jsonify
 	def panel(self):
-		c.region = request.params.get('region', websession['region'])
-		return {'clearmessage':True, 'html':remove_chars(render('/product/panel.html').strip(), '\n\r\t')}
-	
-	@jsonify
-	def recommended_tab(self):
-		c = g.product_service.recommended_tab(request)
-		return {'clearmessage':True, 'html':remove_chars(render('/product/recommended_tab.html').strip(), '\n\r\t')}
-	@jsonify
-	def recommended_tab_search(self):
-		c = g.product_service.recommended_tab_search(request)
-		return {'clearmessage':True, 'html':remove_chars(render('/product/recommended_tab_search.html').strip(), '\n\r\t')}
-	
-	@jsonify
-	def virtual_tab(self):
-		c = g.product_service.virtual_tab(request)
-		return {'clearmessage':True, 'html':remove_chars(render('/product/virtual_tab.html').strip(), '\n\r\t')}
-	@jsonify
-	def virtual_tab_search(self):
-		c = g.product_service.virtual_tab(request)
-		return {'clearmessage':True, 'html':remove_chars(render('/product/virtual_tab_search.html').strip(), '\n\r\t')}
-	
-	@jsonify
-	def search_tab(self):
 		c = g.product_service.search_tab(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
+	
 	@jsonify
 	def search_tab_search(self):
 		c.product_messages = []
@@ -143,12 +120,6 @@ class ProductController(BaseController):
 		g.product_service.search_tab(request)
 		g.product_service.search_tab_search(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
-	
-	
-	@jsonify
-	def friend_tab(self):
-		c = g.product_service.friend_tab(request)
-		return {'clearmessage':True, 'html':remove_chars(render('/product/friend_tab.html').strip(), '\n\r\t')}
 	
 	def set_region(self):
 		region = request.params.get('region')
