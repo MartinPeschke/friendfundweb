@@ -28,7 +28,7 @@ class CountryRegion(DBMappedObject):
 	_keys = [	 GenericAttrib(str ,'code'   ,'code')
 				,GenericAttrib(str ,'name','name')
 				,GenericAttrib(str ,'region','region')
-				,GenericAttrib(bool ,'is_fall_back','is_fall_back')  # should be aptly named is_default
+				,GenericAttrib(bool ,'is_default','is_default')  # should be aptly named is_default
 			]
 	def fromDB(self, xml):
 		self.code = self.code.lower()
@@ -37,7 +37,7 @@ class GetCountryRegionProc(DBMappedObject):
 	_cachable = False
 	_no_params = True
 	_get_root = None
-	_get_proc = _set_proc = 'imp.get_country_region'
+	_get_proc = _set_proc = 'app.get_country_region'
 	_keys = [	 DBMapper(CountryRegion ,'countries', 'COUNTRY', is_list = True) ]
 	
 	def get_region_name(self, key):
@@ -50,7 +50,7 @@ class GetCountryRegionProc(DBMappedObject):
 			self.r2c_map[country.region] = self.r2c_map.get(country.region, []) + [country.code]
 			self.map[country.code] = country
 			
-		fallbacks = filter(lambda x: x.is_fall_back, self.countries)
+		fallbacks = filter(lambda x: x.is_default, self.countries)
 		if len(fallbacks) > 0:
 			setattr(self, 'fallback', fallbacks[0])
 		else:

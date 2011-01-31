@@ -7,8 +7,7 @@ from pylons import url
 from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
-from friendfund.model.globals import GetCountryRegionProc, GetAffiliateProgramsProc, GetPersonalityCategoryProc, GetCountryProc, GetMerchantLinksProc
-from friendfund.model.virtual_product import GetVirtualGiftsProc
+from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantLinksProc
 from friendfund.model.product_search import GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
@@ -88,12 +87,8 @@ class Globals(object):
 		
 		self._db_globals={}
 		self.countries = self._db_globals.setdefault('countries', self.dbm.get(GetCountryProc))
-		
-		#TODO:MIGRATE_TO_FUNDB
-		self.country_choices = self._db_globals.setdefault('country_choices', self.dbsearch.get(GetCountryRegionProc))
-		### Product Setup requirements ###
-		#TODO:MIGRATE_TO_FUNDB
-		top_sellers = self.dbsearch.get(GetTopSellersProc)
+		self.country_choices = self._db_globals.setdefault('country_choices', self.dbm.get(GetCountryRegionProc))
+		top_sellers = self.dbm.get(GetTopSellersProc)
 		
 		self.merchants = self.dbm.get(GetMerchantLinksProc).merchants_map
 		self.merchant = self.merchants[app_conf.get('merchant_key')]
