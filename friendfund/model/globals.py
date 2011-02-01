@@ -28,7 +28,7 @@ class CountryRegion(DBMappedObject):
 	_keys = [	 GenericAttrib(str ,'code'   ,'code')
 				,GenericAttrib(str ,'name','name')
 				,GenericAttrib(str ,'region','region')
-				,GenericAttrib(bool ,'is_fall_back','is_fall_back')
+				,GenericAttrib(bool ,'is_default','is_default')  # should be aptly named is_default
 			]
 	def fromDB(self, xml):
 		self.code = self.code.lower()
@@ -37,7 +37,7 @@ class GetCountryRegionProc(DBMappedObject):
 	_cachable = False
 	_no_params = True
 	_get_root = None
-	_get_proc = _set_proc = 'imp.get_country_region'
+	_get_proc = _set_proc = 'app.get_country_region'
 	_keys = [	 DBMapper(CountryRegion ,'countries', 'COUNTRY', is_list = True) ]
 	
 	def get_region_name(self, key):
@@ -50,54 +50,11 @@ class GetCountryRegionProc(DBMappedObject):
 			self.r2c_map[country.region] = self.r2c_map.get(country.region, []) + [country.code]
 			self.map[country.code] = country
 			
-		fallbacks = filter(lambda x: x.is_fall_back, self.countries)
+		fallbacks = filter(lambda x: x.is_default, self.countries)
 		if len(fallbacks) > 0:
 			setattr(self, 'fallback', fallbacks[0])
 		else:
 			raise Exception("GetCountryRegionProc: No Fallback Country provided")
-
-class AffProgram(DBMappedObject):
-	"""
-		<PROGRAM name="Conrad Electronic DE" aff_net_ref="258" shipping_days="5" shipping_days_offset_warning="5"/>
-	"""
-	_get_root = _set_root = 'PROGRAM'
-	_cachable = False
-	_unique_keys = ['id']
-	_keys = [GenericAttrib(str,'id','aff_program_id')
-			, GenericAttrib(unicode,'name','name')
-			, GenericAttrib(str,'aff_net','aff_net')
-			, GenericAttrib(int,'default_shippingdays','shipping_days')
-			, GenericAttrib(int,'default_shippingdays_warnlimit','shipping_days_offset_warning')]
-class GetAffiliateProgramsProc(DBMappedObject):
-	_cachable = False
-	_set_root = 'PRODUCT_SEARCH'
-	_unique_keys = ['country']
-	_get_proc = 'imp.get_affiliate_program'
-	_keys = [ GenericAttrib(str, 'country', 'country')
-			, DBMapper(AffProgram,'programs','PROGRAM', is_list = True)
-			]
-	def get_program_settings(self, id):
-		return dict([(p.id, p) for p in self.programs]).get(id, None)
-	def __init__(self, **kwargs):
-		super(self.__class__, self).__init__(**kwargs)
-		self.map = AutoVivification()
-	def fromDB(self, xml):
-		for p in self.programs:
-			self.map[p.aff_net][p.id] ={ 'shippingdays':p.default_shippingdays, 'shippingdays_warn':p.default_shippingdays_warnlimit }
-
-
-class PersonalityCategory(DBMappedObject):
-	_get_root = _set_root = 'CATEGORY'
-	_cachable = False
-	_unique_keys = ['name']
-	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'picture_url','picture_url')]
-class GetPersonalityCategoryProc(DBMappedObject):
-	_cachable = False
-	_no_params = True
-	_set_root = _get_root = None
-	_unique_keys = []
-	_get_proc = 'imp.get_categories'
-	_keys = [DBMapper(PersonalityCategory,'list','CATEGORY', is_list = True)]
 
 class MerchantSettings(DBMappedObject):
 	_get_root = _set_root = 'SETTINGS'

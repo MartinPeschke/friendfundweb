@@ -104,7 +104,7 @@ class Occasion(DBMappedObject):
 	internal_date_format = property(get_internal_date_format)
 
 class OccasionSearch(DBMappedObject):
-	_get_proc = "imp.get_occasion_group"
+	_get_proc = "app.get_occasion_group"
 	_get_root = None
 	_set_root = 'OCCASION'
 	_unique_keys = ['date', 'country']
