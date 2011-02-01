@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-01-30 18:42+0100\n"
+"PO-Revision-Date: 2011-02-01 10:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -368,7 +368,7 @@ msgstr "No event found"
 msgid "INDEX_PAGE_Invalid Format - Occasion"
 msgstr "Invalid date format - Occasion"
 
-#: friendfund/controllers/pool.py:23 friendfund/controllers/product.py:58
+#: friendfund/controllers/pool.py:23 friendfund/controllers/product.py:57
 msgid "POOL_Your not authorized for this operation."
 msgstr "You are not authorized for this operation."
 
@@ -403,8 +403,8 @@ msgstr ""
 #: friendfund/controllers/pool.py:42 friendfund/controllers/pool.py:68
 #: friendfund/controllers/pool.py:77 friendfund/controllers/pool.py:194
 #: friendfund/controllers/pool.py:206 friendfund/controllers/pool.py:224
-#: friendfund/controllers/pool.py:236 friendfund/controllers/product.py:55
-#: friendfund/controllers/product.py:68
+#: friendfund/controllers/pool.py:236 friendfund/controllers/product.py:54
+#: friendfund/controllers/product.py:67
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "This pool does not exist, sorry."
 
@@ -420,8 +420,8 @@ msgstr "No event selected. Please try again."
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No friend selected. Please try again."
 
-#: friendfund/controllers/pool.py:360 friendfund/controllers/product.py:74
-#: friendfund/controllers/product.py:173
+#: friendfund/controllers/pool.py:360 friendfund/controllers/product.py:73
+#: friendfund/controllers/product.py:144
 msgid "INDEX_PAGE_No Product"
 msgstr "Product not selected. Please try again."
 
@@ -433,15 +433,15 @@ msgstr "Product Change Saved"
 msgid "POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"
 msgstr "The gift has been successfully switched to vouchers!"
 
-#: friendfund/controllers/product.py:120
+#: friendfund/controllers/product.py:97
 msgid "PRODUCT_SEARCH_An Error Occured during search, please try again later."
 msgstr "Sorry, an error occured during search. Please try again later."
 
-#: friendfund/controllers/product.py:123
+#: friendfund/controllers/product.py:100
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "The URL is not recognized."
 
-#: friendfund/controllers/product.py:126
+#: friendfund/controllers/product.py:103
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only "
@@ -450,11 +450,11 @@ msgstr ""
 " This product is not from %(amazondomain)s, please use only links from "
 "%(amazondomain)s or change your shipping region."
 
-#: friendfund/controllers/product.py:131
+#: friendfund/controllers/product.py:108
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr "This product is currently not available. Please try again later."
 
-#: friendfund/controllers/product.py:135
+#: friendfund/controllers/product.py:112
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace "
 "article and is not sold by Amazon itself. Currently we do not support "
@@ -463,19 +463,19 @@ msgstr ""
 "This product is an Amazon Marketplace product and is not sold directly by"
 " Amazon. We currently only accept products sold directly by Amazon."
 
-#: friendfund/controllers/product.py:138
+#: friendfund/controllers/product.py:115
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
 msgstr "Amazon has not provided enough information for us to offer this product."
 
-#: friendfund/controllers/product.py:207
+#: friendfund/controllers/product.py:178
 msgid ""
 "PRODUCT_DELIVERY_WARNING_Your event date doesn't give your funders or "
 "shipping much time!"
 msgstr "Your event date doesn't give your funders or shipping much time!"
 
-#: friendfund/controllers/product.py:210
+#: friendfund/controllers/product.py:181
 msgid ""
 "PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a"
 " problem please pick a later date!"
@@ -503,135 +503,43 @@ msgstr "Twitter seems to be overloaded again. Please try again at a later time."
 msgid "Twitter may be over capacity.<br/>Please try again later."
 msgstr "Twitter seems to be overloaded again. Please try again at a later time."
 
-#: friendfund/lib/app_globals.py:135
+#: friendfund/lib/app_globals.py:102
 msgid "CONTRIBUTION_PAGE_Creditcard"
 msgstr "Credit Card"
 
-#: friendfund/lib/app_globals.py:141
+#: friendfund/lib/app_globals.py:108
 msgid "CONTRIBUTION_PAGE_Paypal"
 msgstr "Paypal"
 
-#: friendfund/lib/app_globals.py:147
+#: friendfund/lib/app_globals.py:114
 msgid "CONTRIBUTION_PAGE_Direct eBanking"
 msgstr "Direct eBanking"
 
-#: friendfund/lib/app_globals.py:153 friendfund/templates/pool/pool.html:191
+#: friendfund/lib/app_globals.py:120 friendfund/templates/pool/pool.html:191
 #: friendfund/templates/pool/pool_secret.html:54
 #: friendfund/templates/pool/parts/button_contribute.html:22
 msgid "CONTRIBUTION_PAGE_Virtual Pot of Gold"
 msgstr "Pots of Gold"
 
-#: friendfund/lib/app_globals.py:181
+#: friendfund/lib/app_globals.py:148
 msgid "GLOBAL_MENU_Home"
 msgstr "Home"
 
-#: friendfund/lib/app_globals.py:182
+#: friendfund/lib/app_globals.py:149
 msgid "GLOBAL_MENU_My_Pools"
 msgstr "Pools"
 
-#: friendfund/lib/app_globals.py:183
+#: friendfund/lib/app_globals.py:150
 msgid "GLOBAL_MENU_My_Badges"
 msgstr "Badges"
 
-#: friendfund/lib/app_globals.py:184
+#: friendfund/lib/app_globals.py:151
 msgid "GLOBAL_MENU_My_Profile"
 msgstr "Profile"
 
 #: friendfund/lib/auth/decorators.py:40 friendfund/lib/auth/decorators.py:42
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr "Operation not Allowed."
-
-#: friendfund/model/badge.py:7
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Best Friend Badge for creating "
-"a pool for your friend. They'll surely love you."
-msgstr ""
-"You've been awarded the Best Friend Badge for creating a pool for your "
-"friend. They'll surely love you."
-
-#: friendfund/model/badge.py:9
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Big Spender Badge for chipping "
-"in more than &euro;50.00 to one pool."
-msgstr ""
-"You've been awarded the Big Spender Badge for chipping in more than "
-"&euro;50.00 to one pool."
-
-#: friendfund/model/badge.py:11
-msgid ""
-"BADGE_DESCRIPTION_You have a heart of gold. You've been awarded the "
-"Philanthropist Badge for chipping in to two or more pools."
-msgstr ""
-"You have a heart of gold. You've been awarded the Philanthropist Badge "
-"for chipping in to two or more pools."
-
-#: friendfund/model/badge.py:13
-msgid ""
-"BADGE_DESCRIPTION_Nice one! You've been awarded the Fanatic Badge for "
-"chipping in to the same pool two times or more."
-msgstr ""
-"Nice one! You've been awarded the Fanatic Badge for chipping in to the "
-"same pool two times or more."
-
-#: friendfund/model/badge.py:15
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Team Player Badge for sending "
-"out two or more invites. There's no \"I\" in \"Team\"!"
-msgstr ""
-"You've been awarded the Team Player Badge for sending out two or more "
-"invites. There's no \"I\" in \"Team\"!"
-
-#: friendfund/model/badge.py:17
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Activist Badge for inviting 20 "
-"or more people to one pool. Go you."
-msgstr ""
-"You've been awarded the Activist Badge for inviting 20 or more people to "
-"one pool. Go you."
-
-#: friendfund/model/badge.py:19
-msgid ""
-"BADGE_DESCRIPTION_High five! You've been awarded the Patron Badge for "
-"contributing &euro;100.00 or more to the same pool."
-msgstr ""
-"High five! You've been awarded the Patron Badge for contributing "
-"&euro;100.00 or more to the same pool."
-
-#: friendfund/model/badge.py:21
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Soul Mate Badge for creating "
-"two pools for the same person. Awww."
-msgstr ""
-"You've been awarded the Soul Mate Badge for creating two pools for the "
-"same person. Awww."
-
-#: friendfund/model/badge.py:23
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Dreamer Badge for requesting "
-"one gift for yourself. Because you're worth it!"
-msgstr ""
-"You've been awarded the Dreamer Badge for requesting one gift for "
-"yourself. Because you're worth it!"
-
-#: friendfund/model/badge.py:25
-msgid ""
-"BADGE_DESCRIPTION_Hmmm, impressive! You've been awarded the Connoisseur "
-"Badge for requesting a gift of &euro;100.00 and over."
-msgstr ""
-"Hmmm, impressive! You've been awarded the Connoisseur Badge for "
-"requesting a gift of &euro;100.00 and over."
-
-#: friendfund/model/badge.py:27
-msgid ""
-"BADGE_DESCRIPTION_You've been awarded the Diva Badge for requesting 3 or "
-"more gifts for yourself. You're fabulous!"
-msgstr ""
-"You've been awarded the Diva Badge for requesting 3 or more gifts for "
-"yourself. You're fabulous!"
-
-#: friendfund/model/badge.py:29
-msgid "BADGE_DESCRIPTION_MYSTERY_..."
-msgstr "..."
 
 #: friendfund/model/pool.py:176
 #: friendfund/templates/contribution/contrib_screen.html:61
@@ -995,20 +903,8 @@ msgstr "Merchant"
 msgid "PRODUCT_SEARCH_PANEL_Gift Search"
 msgstr "Gift Search"
 
-#: friendfund/services/product_service.py:28
-msgid "PRODUCT_SEARCH_PANEL_Recommended Gifts"
-msgstr "Recommended Gifts"
-
-#: friendfund/services/product_service.py:29
-msgid "PRODUCT_SEARCH_PANEL_Virtual Gifts"
-msgstr "Virtual Gifts"
-
-#: friendfund/services/product_service.py:30
-msgid "PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"
-msgstr "Nominate a friend to choose the gift"
-
-#: friendfund/services/product_service.py:234
-#: friendfund/services/product_service.py:254
+#: friendfund/services/product_service.py:126
+#: friendfund/services/product_service.py:135
 msgid "POOL_CREATE_Product not Found"
 msgstr "Product not found. Please try again."
 
@@ -3485,4 +3381,124 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Who's your gift for?"
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the Best"
+#~ " Friend Badge for creating a pool "
+#~ "for your friend. They'll surely love "
+#~ "you."
+#~ msgstr ""
+#~ "You've been awarded the Best Friend "
+#~ "Badge for creating a pool for your"
+#~ " friend. They'll surely love you."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the Big"
+#~ " Spender Badge for chipping in more"
+#~ " than &euro;50.00 to one pool."
+#~ msgstr ""
+#~ "You've been awarded the Big Spender "
+#~ "Badge for chipping in more than "
+#~ "&euro;50.00 to one pool."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You have a heart of "
+#~ "gold. You've been awarded the "
+#~ "Philanthropist Badge for chipping in to"
+#~ " two or more pools."
+#~ msgstr ""
+#~ "You have a heart of gold. You've"
+#~ " been awarded the Philanthropist Badge "
+#~ "for chipping in to two or more "
+#~ "pools."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_Nice one! You've been "
+#~ "awarded the Fanatic Badge for chipping"
+#~ " in to the same pool two times"
+#~ " or more."
+#~ msgstr ""
+#~ "Nice one! You've been awarded the "
+#~ "Fanatic Badge for chipping in to "
+#~ "the same pool two times or more."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the Team"
+#~ " Player Badge for sending out two "
+#~ "or more invites. There's no \"I\" "
+#~ "in \"Team\"!"
+#~ msgstr ""
+#~ "You've been awarded the Team Player "
+#~ "Badge for sending out two or more"
+#~ " invites. There's no \"I\" in "
+#~ "\"Team\"!"
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the "
+#~ "Activist Badge for inviting 20 or "
+#~ "more people to one pool. Go you."
+#~ msgstr ""
+#~ "You've been awarded the Activist Badge"
+#~ " for inviting 20 or more people "
+#~ "to one pool. Go you."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_High five! You've been "
+#~ "awarded the Patron Badge for "
+#~ "contributing &euro;100.00 or more to the"
+#~ " same pool."
+#~ msgstr ""
+#~ "High five! You've been awarded the "
+#~ "Patron Badge for contributing &euro;100.00 "
+#~ "or more to the same pool."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the Soul"
+#~ " Mate Badge for creating two pools"
+#~ " for the same person. Awww."
+#~ msgstr ""
+#~ "You've been awarded the Soul Mate "
+#~ "Badge for creating two pools for "
+#~ "the same person. Awww."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the "
+#~ "Dreamer Badge for requesting one gift"
+#~ " for yourself. Because you're worth "
+#~ "it!"
+#~ msgstr ""
+#~ "You've been awarded the Dreamer Badge"
+#~ " for requesting one gift for "
+#~ "yourself. Because you're worth it!"
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_Hmmm, impressive! You've been "
+#~ "awarded the Connoisseur Badge for "
+#~ "requesting a gift of &euro;100.00 and"
+#~ " over."
+#~ msgstr ""
+#~ "Hmmm, impressive! You've been awarded "
+#~ "the Connoisseur Badge for requesting a"
+#~ " gift of &euro;100.00 and over."
+
+#~ msgid ""
+#~ "BADGE_DESCRIPTION_You've been awarded the Diva"
+#~ " Badge for requesting 3 or more "
+#~ "gifts for yourself. You're fabulous!"
+#~ msgstr ""
+#~ "You've been awarded the Diva Badge "
+#~ "for requesting 3 or more gifts for"
+#~ " yourself. You're fabulous!"
+
+#~ msgid "BADGE_DESCRIPTION_MYSTERY_..."
+#~ msgstr "..."
+
+#~ msgid "PRODUCT_SEARCH_PANEL_Recommended Gifts"
+#~ msgstr "Recommended Gifts"
+
+#~ msgid "PRODUCT_SEARCH_PANEL_Virtual Gifts"
+#~ msgstr "Virtual Gifts"
+
+#~ msgid "PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"
+#~ msgstr "Nominate a friend to choose the gift"
 

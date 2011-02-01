@@ -24,40 +24,7 @@ SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
 			("MERCHANT",_("PRODUCT_SORT_ORDER_Merchant"))]
 PAGESIZE = 5
 
-GIFT_PANEL_TABS = [("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search")),
-					("recommended_tab", _("PRODUCT_SEARCH_PANEL_Recommended Gifts")),
-					("virtual_tab", _("PRODUCT_SEARCH_PANEL_Virtual Gifts")),
-					("friend_tab", _("PRODUCT_SEARCH_PANEL_Nominate a friend to choose the gift"))
-				]
-
-PENDING_PRODUCTS = {
-			"PENDING_PRODUCT_NOMINATE":"""
-			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
-					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
-					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
-					 amount="0" aff_net="PENDING_PRODUCT" guid="PENDING_PRODUCT_NOMINATE" 
-					 aff_program_name="PENDING_PRODUCT" 
-					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
-			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
-			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
-			  <NAME>PENDING_PRODUCT_NOMINATE</NAME> 
-			</PRODUCT>
-			""",
-			"PENDING_PRODUCT_ASK_RECEIVER":"""
-			<PRODUCT xml:lang="de" category="150000" picture_large="/static/imgs/virtual/joker_gift.png" aff_program_delivery_time="5" tracking_link="http://www.friendfund.com/content/faq" 
-					 aff_program_logo_url="" aff_id="008a4fb588737a39b52fe5590dbf2bb5" aff_program_id="-86" 
-					 picture_small="/static/imgs/virtual/joker_gift.png" currency="EUR" 
-					 amount="0" aff_net="PENDING_PRODUCT" guid="PENDING_PRODUCT_ASK_RECEIVER" 
-					 aff_program_name="PENDING_PRODUCT" 
-					 ean="A0000820-44D1-4E56-8032-C40EE2BB288D"> 
-			  <DESCRIPTION>PENDING_PRODUCT</DESCRIPTION> 
-			  <DESCRIPTION_LONG>PENDING_PRODUCT</DESCRIPTION_LONG> 
-			  <NAME>PENDING_PRODUCT_ASK_RECEIVER</NAME> 
-			</PRODUCT>
-			"""
-			}
-				
-				
+GIFT_PANEL_TABS = [("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search"))]
 from pylons.i18n import ugettext as _
 
 class ProductService(object):

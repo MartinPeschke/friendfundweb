@@ -29,7 +29,7 @@ class OccasionController(BaseController):
 			c.date = ""
 		c.key = request.params.get('key')
 		c.name = request.params.get('name')
-		c.olist = g.dbsearch.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		bday = filter(lambda x:x.key == 'EVENT_BIRTHDAY', c.olist)
 		if dob and len(bday):
 			bday[0].date = dob

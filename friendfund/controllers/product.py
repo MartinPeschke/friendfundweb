@@ -83,7 +83,7 @@ class ProductController(BaseController):
 	
 	
 	@jsonify
-	def panel(self):
+	def search_tab(self):
 		c = g.product_service.search_tab(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
