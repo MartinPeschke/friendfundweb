@@ -18,8 +18,6 @@ class SspController(BaseController):
 		c.user = websession.get('user', ANONUSER)
 		c.pages = self.PAGES
 		c.page = environ['wsgiorg.routing_args'][1]['action']
-		if not g.isMerchantSite:
-			return abort(404)
 	def __after__(self, action, environ):
 		websession['user'] = c.user
 		websession.save()

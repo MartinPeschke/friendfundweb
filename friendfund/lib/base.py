@@ -94,5 +94,5 @@ class ExtBaseController(BaseController):
 			c.pool = g.dbm.get(Pool, p_url = pool_url)
 			if not c.pool:
 				return abort(404)
-			elif c.pool.merchant_key != g.merchant.key:
+			elif c.pool.merchant_key != request.merchant.key:
 				return redirect(url.current(host=g.get_merchant_domain(c.pool.merchant_key)))

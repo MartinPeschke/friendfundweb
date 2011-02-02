@@ -26,7 +26,7 @@ class ProductController(BaseController):
 		else:
 			c.product_list = []
 		c.pool = websession['pool']
-		return self.render('/merchants/index.html')
+		return self.render('/index.html')
 	
 	@jsonify
 	def set_minified(self):

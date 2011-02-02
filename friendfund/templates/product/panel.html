@@ -6,7 +6,7 @@
 <div id="button_panel" class="product">
 	<div class="TabsContainer">
 		%for panel in c.gift_panel_tabs:
-			<a class="methodselector anchorelem ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _base_url="${panel[0]}"><span>${_(panel[1])}</span></a>
+			<a class="methodselector anchorelem ajaxlink ${panel[0] == c.panel and 'selected' or ''}" _base_url="${panel[0]}">${_(panel[1])}</a>
 		%endfor
 	</div>
 	%if c.panelcloser:

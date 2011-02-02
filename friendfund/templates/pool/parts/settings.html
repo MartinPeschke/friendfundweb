@@ -3,21 +3,21 @@
 
 	<div class="tabContainer underlined_gray">
 		%if selected=="pool":
-			<a class="selected"><span>${_("POOL_ADMIN_TAB_Gift Pool Home")}</span></a>
-			<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='settings')}"><span>${_("POOL_ADMIN_TAB_Pool Admin")}</span></a>
+			<a class="selected">${_("POOL_ADMIN_TAB_Gift Pool Home")}</a>
+			<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='settings')}">${_("POOL_ADMIN_TAB_Pool Admin")}</a>
 			%if c.pool.require_addresses:
-				<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='addresses')}"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
+				<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='addresses')}">${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</a>
 			%endif
 		%elif selected=="settings":
-			<a class="unselected" href="${url('get_pool', pool_url=pool_url)}"><span>${_("POOL_ADMIN_TAB_Gift Pool Home")}</span></a>
-			<a class="selected"><span>${_("POOL_ADMIN_TAB_Pool Admin")}</span></a>
+			<a class="unselected" href="${url('get_pool', pool_url=pool_url)}">${_("POOL_ADMIN_TAB_Gift Pool Home")}</a>
+			<a class="selected">${_("POOL_ADMIN_TAB_Pool Admin")}</a>
 			%if c.pool.require_addresses:
-				<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='addresses')}"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
+				<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='addresses')}">${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</a>
 			%endif
 		%else:
-			<a class="unselected" href="${url('get_pool', pool_url=pool_url)}"><span>${_("POOL_ADMIN_TAB_Gift Pool Home")}</span></a>
-			<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='settings')}"><span>${_("POOL_ADMIN_TAB_Pool Admin")}</span></a>
-			<a class="selected"><span>${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</span></a>
+			<a class="unselected" href="${url('get_pool', pool_url=pool_url)}">${_("POOL_ADMIN_TAB_Gift Pool Home")}</a>
+			<a class="unselected" href="${url(controller='pool', pool_url=pool_url, action='settings')}">${_("POOL_ADMIN_TAB_Pool Admin")}</a>
+			<a class="selected">${_("POOL_ADMIN_TAB_Shipping and Billing Details")}</a>
 		%endif
 	</div>
 
