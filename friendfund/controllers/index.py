@@ -29,7 +29,7 @@ class IndexController(BaseController):
 	ra_page_size = 5
 	
 	def index(self):
-		c.recent_activity = g.dbm.get(RecentActivityStream)
+		c.recent_activity = RecentActivityStream() #g.dbm.get(RecentActivityStream)
 		c.ra_offset = self.ra_page_size
 		c.uuid = str(uuid.uuid4())
 		if 'pool' in websession:
