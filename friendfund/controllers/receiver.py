@@ -46,7 +46,7 @@ class ReceiverController(BaseController):
 			except formencode.validators.Invalid, error:
 				log.warning("Set Birthday failed, unrecognized format: %s", dob)
 			else:
-				olist = g.dbsearch.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+				olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 				bday = filter(lambda x:x.key == 'EVENT_BIRTHDAY', olist)
 				if dob and len(bday):
 					bday = bday[0]

@@ -126,7 +126,7 @@ class ProductController(BaseController):
 		if region not in g.country_choices.map:
 			abort(404)
 		websession['region'] = region
-		return getattr(self, request.params.get('action'), self.recommended_tab)()
+		return getattr(self, request.params.get('action'), self.search_tab)()
 	
 	@jsonify
 	def unset(self):
