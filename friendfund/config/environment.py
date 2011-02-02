@@ -23,6 +23,7 @@ def load_environment(global_conf, app_conf):
                  controllers=os.path.join(root, 'controllers'),
                  static_files=os.path.join(root, 'public'),
                  templates=[os.path.join(root, path) for path in global_conf['templates'].split(';')],
+                 merchant_templates=[os.path.join(root, path) for path in global_conf['merchant_templates'].split(';')],
                  uploads=os.path.join(app_conf['cache_dir'], 'uploads'))
     log.info("loaded templates from, %s", str([os.path.join(root, path) for path in global_conf['templates'].split(';')]))
     # Initialize config with the basic options
@@ -42,6 +43,14 @@ def load_environment(global_conf, app_conf):
         filesystem_checks=config['debug'],
         error_handler=handle_mako_error,
         module_directory=os.path.join(app_conf['cache_dir'], 'templates'),
+        input_encoding='utf-8', default_filters=['escape'],
+        imports=['from webhelpers.html import escape','from xml.sax.saxutils import quoteattr'])
+    # Create the Mako TemplateLookup, with the default auto-escaping
+    config['pylons.app_globals'].merchant_mako_lookup = TemplateLookup(
+        directories=paths['merchant_templates'],
+        filesystem_checks=config['debug'],
+        error_handler=handle_mako_error,
+        module_directory=os.path.join(app_conf['cache_dir'], 'merchant_templates'),
         input_encoding='utf-8', default_filters=['escape'],
         imports=['from webhelpers.html import escape','from xml.sax.saxutils import quoteattr'])
 

@@ -27,9 +27,9 @@ ${self.render_html()}
 
 <%def name="render_head()">
 		<title>friendfund.com | ${self.title()}</title>
-		${links.css('%s.css'%c.siteversion)}
+		${links.css('site.css')}
 		${links.css('message_block.css')}
-		${links.css('custom.css',path='/')}
+		${links.css('custom.css',path='/static/')}
 		<script type="text/javascript"> 
 			page_reloader = function(){window.location.reload();};
 			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};

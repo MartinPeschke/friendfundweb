@@ -31,7 +31,7 @@ class Globals(object):
 	life of the application
 	"""
 	def get_merchant_domain(self, key):
-		return '.'.join([self.merchants.get(key, self.merchant).subdomain, self.SITE_ROOTDOMAIN])
+		return '%s.%s'%(self.merchants.merchants_map.get(key, self.merchants.default).subdomain, self.BASE_DOMAIN)
 
 	def __init__(self, config):
 		"""One instance of Globals is created during application
@@ -66,10 +66,10 @@ class Globals(object):
 			self.revision_identifier = lambda: REVISION_ENDING
 		
 		
-		self.SITE_ROOT_URL = app_conf['SITE_ROOT_URL']
-		self.SITE_SUBDOMAIN = '.'.join(urlparse.urlparse(app_conf['SITE_ROOT_URL'])[1].split('.')[:-2])
-		self.SITE_ROOTDOMAIN = str('.'.join(urlparse.urlparse(app_conf['SITE_ROOT_URL'])[1].split('.')[-2:]))
+		self.BASE_DOMAIN = app_conf['BASE_DOMAIN']
+		self.BASE_DOMAIN_LOOKUP = '.%s'%app_conf['BASE_DOMAIN']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
+		
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
 		dbpool = PooledDB(pyodbc,10,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
@@ -90,9 +90,11 @@ class Globals(object):
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbm.get(GetCountryRegionProc))
 		top_sellers = self.dbm.get(GetTopSellersProc)
 		
-		self.merchants = self.dbm.get(GetMerchantLinksProc).merchants_map
-		self.merchant = self.merchants[app_conf.get('merchant_key')]
-		log.info("STARTING UP with: %s", self.merchant)
+		self.merchants = self.dbm.get(GetMerchantLinksProc)
+		
+		self.default_host = 'http://%s'%'.'.join([self.merchants.default_subdomain, self.BASE_DOMAIN])
+		log.info("STARTING UP WITH following subdomains: %s", list(self.merchants.domain_map.iterkeys()))
+		
 		##################################### SERVICES SETUP #####################################
 		self.user_service = UserService(config)
 		self.pool_service = PoolService(config)
@@ -142,7 +144,7 @@ class Globals(object):
 				amazon_services[k] = None
 				log.warning("AmazonService NOT AVAILABLE for %s", self.country_choices.r2c_map[k])
 		
-		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices, self.SITE_ROOT_URL)
+		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices)
 		log.info("ProductService set up")
 		
 		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home', True)

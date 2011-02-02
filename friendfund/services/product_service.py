@@ -33,7 +33,7 @@ class ProductService(object):
 	"""
 	SCROLLER_PAGE_SIZE = 5
 	
-	def __init__(self, amazon_services, top_sellers, country_choices, site_root_url):
+	def __init__(self, amazon_services, top_sellers, country_choices):
 		if not isinstance(amazon_services, dict) or len(amazon_services) < 3:
 			raise Exception("Insufficient Amazon Services")
 		self.amazon_services = amazon_services

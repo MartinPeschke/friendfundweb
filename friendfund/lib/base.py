@@ -2,12 +2,13 @@
 
 Provides the BaseController class for subclassing.
 """
-import logging
+import logging, time
 from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
 from pylons.controllers.util import abort, redirect
 from pylons.controllers import WSGIController
 from pylons.i18n.translation import get_lang, set_lang, _
-from pylons.templating import render_mako as render
+from pylons.templating import cached_template, pylons_globals
+from webhelpers.html import literal
 
 
 from friendfund.model.authuser import ANONUSER
@@ -16,6 +17,21 @@ from friendfund.model.pool import Pool
 from friendfund.lib.helpers import negotiate_locale_from_header
 
 log = logging.getLogger(__name__)
+
+
+def render(template_name, extra_vars=None, cache_key=None, 
+				cache_type=None, cache_expire=None):
+	def render_template():
+		globs = extra_vars or {}
+		globs.update(pylons_globals())
+		if request.merchant.is_default:
+			template = globs['app_globals'].mako_lookup.get_template(template_name)
+		else:
+			template = globs['app_globals'].merchant_mako_lookup.get_template(template_name)
+		return literal(template.render_unicode(**globs))
+	return cached_template(template_name, render_template, cache_key=cache_key,
+						   cache_type=cache_type, cache_expire=cache_expire)
+
 
 class BaseController(WSGIController):
 	navposition=g.globalnav[0][2]
@@ -45,12 +61,18 @@ class BaseController(WSGIController):
 			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
 			region = g.country_choices.map.get(region, g.country_choices.fallback).code
 			websession['region'] = region
-		c.siteversion = request.headers.get('X-VERSION', 'site')
-		if c.siteversion not in ['site', 'fbcanvas']: abort(404)
+		
 		return WSGIController.__call__(self, environ, start_response)
 	
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""
+		host = request.headers.get('Host')
+		if not (host and host.replace(g.BASE_DOMAIN_LOOKUP, '') in g.merchants.domain_map):
+			return redirect(g.default_host)
+		else:
+			request.merchant = g.merchants.domain_map[host.replace(g.BASE_DOMAIN_LOOKUP, '')]
+			request.host = host
+
 		c.navposition = getattr(c, 'navposition', self.navposition)
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
