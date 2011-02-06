@@ -58,7 +58,7 @@ _caches = {}
 config = get_config(CELERY_ADDITIONAL_CONFIG)
 
 def _create_cm(connection_name):
-	cache = pylibmc.Client([config['memcached.cache.url']], binary=True)
+	cache = pylibmc.Client(app_conf['memcached.cache.url'].split(';'), binary=True)
 	cache.behaviors = {"tcp_nodelay": True, "ketama": True}
 	cache_pool = pylibmc.ThreadMappedPool(cache)
 	return cache_pool
