@@ -40,7 +40,7 @@ class Globals(object):
 		"""
 		
 		app_conf = config['app_conf']
-		self.cache = pylibmc.Client([app_conf['memcached.cache.url']], binary=True)
+		self.cache = pylibmc.Client(app_conf['memcached.cache.url'].split(';'), binary=True)
 		self.cache.behaviors = {"tcp_nodelay": True, "ketama": True}
 		self.cache_pool = pylibmc.ThreadMappedPool(self.cache)
 		log.info("memcached set up at %s", app_conf['memcached.cache.url'])
