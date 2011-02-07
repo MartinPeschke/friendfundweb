@@ -29,7 +29,8 @@ class IndexController(BaseController):
 	ra_page_size = 5
 	
 	def index(self):
-		c.recent_activity = RecentActivityStream() #g.dbm.get(RecentActivityStream)
+		c.recent_activity = RecentActivityStream() 
+		#g.dbm.get(RecentActivityStream)
 		c.ra_offset = self.ra_page_size
 		c.uuid = str(uuid.uuid4())
 		if 'pool' in websession:
@@ -39,9 +40,6 @@ class IndexController(BaseController):
 	def sitemap(self):
 		c.pool_urls = g.dbm.get(SiteMap).entries
 		return render('/sitemap.xml')
-	
-	def test_error(self):
-		return abort(500, "TEST")
 	
 	@jsonify
 	def stream(self):
@@ -56,7 +54,6 @@ class IndexController(BaseController):
 	def close(self):
 		c.reload = False
 		return render('/closepopup.html')
-	
 	
 	@jsonify
 	def logout(self):
