@@ -4,7 +4,7 @@ import logging, urllib, urllib2
 import base64, hmac, hashlib, uuid
 from datetime import datetime, timedelta
 
-from pylons import session as websession, url, app_globals as g
+from pylons import session as websession, url, app_globals as g, request
 
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway
 from friendfund.lib.synclock import add_token, rem_token
@@ -36,11 +36,11 @@ class PaymentGateway(object):
 		return result
 
 class PaymentMethod(object):
-	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions):
+	def __init__(self, logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions):
 		self.logo_url = logo_url
 		self.code = code
 		self.name = name
-		self.regions = regions
+		self.currencies = currencies
 		self.virtual = virtual
 		self.fee_absolute = fee_absolute # in base units
 		self._fee_absolute = float(fee_absolute)/100
@@ -66,8 +66,8 @@ class PaymentMethod(object):
 		return None
 	
 class CreditCardPayment(PaymentMethod):
-	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
-		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions)
+	def __init__(self, logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
+		super(self.__class__, self).__init__(logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 	
 	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
@@ -129,8 +129,8 @@ class RedirectPayment(PaymentMethod):
 						,"shopperStatement","merchantReturnData","billingAddressType","offset"]
 	result_order = ["authResult", "pspReference", "merchantReference", "skinCode", "merchantReturnData"]
 	
-	def __init__(self, logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
-		super(self.__class__, self).__init__(logo_url, code, name, regions, virtual, fee_absolute, fee_relative, multi_contributions)
+	def __init__(self, logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
+		super(self.__class__, self).__init__(logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.base_url = base_url
 		self.secret = secret
 		self.standard_params = {"merchantAccount":merchantaccount, "skinCode":skincode}
@@ -180,9 +180,8 @@ class RedirectPayment(PaymentMethod):
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
-				"merchantReturnData" : g.SITE_SUBDOMAIN
+				"merchantReturnData" : request.merchant.key
 				}
-		print redirect_params
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])
 		url = "%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params)))

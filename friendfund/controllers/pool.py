@@ -14,7 +14,6 @@ from friendfund.model.forms.common import to_displaymap
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
-from friendfund.model.product import ProductRetrieval, SetAltProductProc, SwitchProductVouchersProc
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
 
 from friendfund.controllers.index import IndexController
@@ -85,19 +84,11 @@ class PoolController(ExtBaseController):
 		elif c.pool.receiver is None:
 			c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
 			return redirect(url('home'))
-		elif c.pool.product.is_pending_receiver and c.pool.receiver.network == 'facebook' and checkadd_block('fb_streampub'):
-			c.enforce_blocks = True
-			c.do_reload = True
-			idx = IndexController()
-			return idx.index()
 		
 		admin = PoolUser(**c.user.get_map())
 		if h.users_equal(c.pool.receiver, admin):
 			admin.profile_picture_url = c.pool.receiver.profile_picture_url
 		admin.is_admin = True
-		if c.pool.product.is_pending_receiver:
-			c.pool.selector = c.pool.receiver
-			c.pool.selector.is_selector = True
 		
 		#### Setting up the Pool for initial Persisting
 		c.pool.participants.append(admin)
@@ -106,13 +97,14 @@ class PoolController(ExtBaseController):
 		c.pool.occasion.custom = None
 		c.pool.merchant_key = request.merchant.key
 		g.dbm.set(c.pool, merge = True, cache=False)
-		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture_large)
+		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		
 		if not c.pool:
 			return redirect(request.referer)
 		c.user.current_pool = c.pool
 		self._clean_session()
+		print url('invite_index',  pool_url = c.pool.p_url)
 		return redirect(url('invite_index',  pool_url = c.pool.p_url))
 	
 	@jsonify
@@ -345,39 +337,3 @@ class PoolController(ExtBaseController):
 		if action=="ADMIN_ACTION_INVITE":
 			return redirect(url('invite_index',  pool_url = pool_url))
 		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
-	
-	@jsonify
-	@logged_in(ajax=False)
-	def setaltproduct(self, pool_url):
-		c.pool_url = pool_url
-		if not c.user.am_i_admin(pool_url):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
-		
-		strbool = formencode.validators.StringBoolean(if_missing=False)
-		params = formencode.variabledecode.variable_decode(request.params)
-		product = params.get('product', None)
-		if not product or not dict_contains(product, ['is_amazon', 'is_virtual', 'is_curated', 'guid']):
-			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		
-		product['is_amazon']  = strbool.to_python(product['is_amazon'] )
-		product['is_virtual'] = strbool.to_python(product['is_virtual'])
-		product['is_curated'] = strbool.to_python(product['is_curated'])
-		
-		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
-		region=c.psettings.region
-		product = g.product_service.getaltproduct(product, region)
-		if not product:
-			raise ValueError("POOL_ALTPRODUCT_No Product Selected")
-		g.dbm.set(SetAltProductProc(p_url = pool_url, product = product))
-		c.messages.append(_(u"POOL_ALTPRODUCT_Product Change Saved"))
-		return {"redirect":(url(controller='pool', action='settings', pool_url=pool_url))}
-	
-	@logged_in(ajax=False)
-	def issue_gift_vouchers(self, pool_url):
-		c.pool_url = pool_url
-		if not c.user.am_i_admin(pool_url):
-			c.messages.append("NOT ALLOWED")
-			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
-		g.dbm.set(SwitchProductVouchersProc(p_url = pool_url))
-		c.messages.append(_(u"POOL_ACTION_VOUCHERS_Gift Vouchers Change Saved"))
-		return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url))

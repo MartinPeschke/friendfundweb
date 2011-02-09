@@ -8,9 +8,7 @@ from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
 from friendfund.model.mapper import DBMapper
 from friendfund.model.pool import Pool
-from friendfund.model.product import ProductRetrieval, ProductSuggestionSearch, PendingProduct, Product
-from friendfund.model.product_search import CombinedSearchResult
-from friendfund.model.virtual_product import ProductPager
+from friendfund.model.product import Product
 
 log = logging.getLogger(__name__)
 
@@ -20,8 +18,7 @@ class AmazonUnsupportedRegionException(Exception):pass
 _ = lambda x:x
 SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
 			("PRICE_UP",_("PRODUCT_SORT_ORDER_Price up")),
-			("PRICE_DOWN",_("PRODUCT_SORT_ORDER_Price down")),
-			("MERCHANT",_("PRODUCT_SORT_ORDER_Merchant"))]
+			("PRICE_DOWN",_("PRODUCT_SORT_ORDER_Price down"))]
 PAGESIZE = 5
 
 GIFT_PANEL_TABS = [("search_tab", _("PRODUCT_SEARCH_PANEL_Gift Search"))]
@@ -112,26 +109,23 @@ class ProductService(object):
 		return tmpl_context
 	
 	def getaltproduct(self, product, region):
-		product = self.amazon_services[region].get_product_from_guid(product['guid'])
+		product = self.amazon_services[region].get_product_from_merchant_ref(product['merchant_ref'])
 		return product
 	
 	def set_product(self, pool, product, request):
 		tmpl_context = self.setup_region(request)
-		product = self.amazon_services[tmpl_context.region].get_product_from_guid(product['guid'])
-		product.fromDB(None)
+		product = self.amazon_services[tmpl_context.region].get_product_from_merchant_ref(product['merchant_ref'])
 		if not product:
 			return self.ajax_messages(_("POOL_CREATE_Product not Found"))
 		pool.product = product
-		pool.region = tmpl_context.region
 		return pool
 	
 	def set_product_from_open_graph(self, pool, request):
-		transl = {  "og:description":(["description_long","description"], lambda x:x),
-					"description":(["description"], lambda x:x),
+		transl = {  "og:description":(["description"], lambda x:x),
 					"og:name":(["name"], lambda x:x),
 					"og:price":(["amount"], lambda x:int(x)),
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x)),
-					"og:image":(["picture_small", "picture_large"], lambda x:x),
+					"og:image":(["picture"], lambda x:x),
 					"og:currency":(["currency"], lambda x:x)}
 		query=request.params.get("referer")
 		if not query:
@@ -158,26 +152,11 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = Product(aff_id=query, 
-							aff_program_id="-1", 
-							aff_program_name=domain, 
-							aff_net=domain,
-							guid=uuid.uuid4(),
-							category="170000", 
-							is_virtual=False,
-							aff_program_logo_url="",
-							aff_program_delivery_time=5,
-							tracking_link=query)
+					products[no] = Product(merchant_ref=query,tracking_link=query)
 				attr_names, transf = transl.get(parts[0])
 				for attr in attr_names:
 					if not getattr(products[no], attr, None):
 						setattr(products[no], attr, transf(params.get(k)))
 		product = products.get(sorted(products)[0])
-		for key in products:
-			products[key].fromDB(None)
 		pool.product = product
-		pool.region = params.get('og:location') or params.get('lang') or params.get('language') or 'de'
 		return pool, products
-		
-	
-	

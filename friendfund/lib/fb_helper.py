@@ -24,6 +24,8 @@ class FBNotLoggedInException(Exception):
 	pass
 class FBIncorrectlySignedRequest(Exception):
 	pass
+class FBLoggedInWithIncorrectUser(Exception):
+	pass
 
 def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 	"""Parses the cookie set by the official Facebook JavaScript SDK.
@@ -50,7 +52,7 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 			nets = getattr(user, 'networks', {})
 			if "facebook" in nets and getattr(nets.get('facebook'), "network_id", None) != str(args['id']):
 				log.warning("FBLoggedInWithIncorrectUser, %s" % args)
-				raise FBNotLoggedInException("No Facebook Cookies Found")
+				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found")
 		return args
 	else:
 		raise FBNotLoggedInException("No Facebook Cookies Found")

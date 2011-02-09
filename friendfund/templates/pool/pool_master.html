@@ -5,15 +5,13 @@
 
 <%
 	locals = {"amount_contributed":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
-			"amount_left":c.pool.is_pending() and '???' or h.format_currency(c.pool.get_amount_left(), c.pool.currency),
+			"amount_left":h.format_currency(c.pool.get_amount_left(), c.pool.currency),
 			"end_date":h.format_date(c.pool.expiry_date, format="long"),
 			"number_contributors": c.pool.get_number_of_contributors(),
 			"number_invitees":len(c.pool.invitees)+1,
 			"receiver_first_name":c.pool.receiver.name.split()[0],
 			"receiver_name":c.pool.receiver.name
 			}
-	if c.pool.is_pending():
-		locals["selector_name"] = c.pool.selector and c.pool.selector.name or _("POOL_PAGE_SELECTOR_Someone")
 %>
 
 ${self.admin_slogan(locals)}

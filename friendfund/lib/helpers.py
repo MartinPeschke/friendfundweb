@@ -19,14 +19,7 @@ from xml.sax.saxutils import quoteattr
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
-CATEGORY_PIC_STATIC_ROOT = '/static/imgs/categories'
 ACTION_PIC_STATIC_ROOT = '/static/imgs'
-
-POG = '<span class="pog_currency_symbol">G<span class="pog_currency_symbol_subtype">&#x2551;</span></span>'
-EXTENDED_POG = '<span class="pog_currency_symbol"><img class="currency_symbol" src="/static/imgs/currencies/pog.png"/></span>'
-CURRENCY_DISPLAY = {"EUR":"&euro;", "GBP":"&#163;", "USD":"&#36;", "POG":POG}
-
-
 
 
 from babel.core import Locale
@@ -35,12 +28,9 @@ def get_format(locale):
     format = locale.currency_formats.get(None)
     return format
 
-
-
 def negotiate_locale_from_header(accept_langs, available_languages):
 	langs = map(lambda x: x.replace('-', '_'), accept_langs)
 	return unicode(negotiate_locale(langs, available_languages, aliases={"gb":"en-GB"}) or available_languages[0])
-
 
 def get_upload_pic_name(name):
 	return os.path.join(name[0:2], name[2:4],name)
@@ -82,27 +72,8 @@ def get_thous_sep():
 def get_dec_sep():
 	return get_decimal_symbol(locale=websession['lang'])
 def display_currency(currency, extended = False):
-	if currency == 'POG':
-		if extended:
-			return EXTENDED_POG
-		else:
-			return POG
-	else:
-		return get_currency_symbol(currency, locale=websession['lang'])
+	return get_currency_symbol(currency, locale=websession['lang'])
 def format_currency(number, currency, extended = False):
-	if currency == 'POG':
-		fnumber = Decimal('%d' % number)
-		if number == 0:
-			return fdec(fnumber, locale=websession['lang'])
-		else:
-			if extended:
-				return '%d %s' % (number, EXTENDED_POG)
-			else:
-				if websession['lang'] == 'de_DE':
-					return '%d %s' % (number, POG)
-				else:
-					return '%s %d' % (POG, number)
-	
 	fnumber = Decimal('%.2f' % number)
 	return fc(fnumber, currency, locale=websession['lang'])
 
@@ -139,9 +110,6 @@ def attrib_keys(keys, updates = {}):
 
 ################## Picture Helpers #################
 
-def get_category_picture(name, ext='png'):
-	static_root = CATEGORY_PIC_STATIC_ROOT
-	return '%(static_root)s/%(name)s.%(ext)s' % locals()
 def get_action_picture(action, ext='png'):
 	name = action.name
 	static_root = ACTION_PIC_STATIC_ROOT
@@ -157,12 +125,6 @@ def get_pool_picture(pool_pic_url, type, ext="png"):
 def url_is_local(url):
 	return not url.startswith('http')
 
-def get_badge_picture(name, type): #"large, small, icon, outline"
-	return "/static/imgs/badges/%s_%s.png" % (name, type)
-def get_badge_default_picture():
-	return get_badge_picture('badge', 'outline')
-
-
 def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 	static_root = PROFILE_STATIC_ROOT
 	if not isinstance(profile_picture_url, basestring) or not profile_picture_url: 
@@ -177,18 +139,10 @@ def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 	else:
 		return None
 
-def get_raw_product_image(product, site_root):
-	picture_large = product.picture_large
-	if product.is_virtual or product.is_pending:
-		return '%(site_root)s%(picture_large)s'%locals()
-	else:
-		return picture_large
-	
-	
 def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 	static_root = PRODUCT_STATIC_ROOT
 	if not isinstance(product_picture_url, basestring): 
-		return '%(site_root)s/static/imgs/default_m.png'%locals()
+		return ''
 	return (not product_picture_url.startswith('http')) \
 			and ('%(site_root)s%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals())\
 			or product_picture_url

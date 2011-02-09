@@ -274,34 +274,11 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		if(_t.invited_node_suffix){
 			_t._listener_locals.push(dojo.connect(dojo.byId(_t.global_invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
 		}
-	},unselectPendingSelector : function(_t, selector, target, evt){
-		dojo.removeClass("PendingPlaceHolder", "hidden");dojo.addClass("PendingNominator", "hidden");
-		dojo.query(".invitee_row .pending.selected", _t.global_invited_node).removeClass("selected");
-		dojo.attr(target, "_is_selector", "");
-		dojo.attr("PendingSelectorSelector", {_network:"",_network_id:""});
-	},makePendingSelector : function(_t, selector, target, evt){
-		if(dojo.attr("PendingSelectorSelector", "_network")==dojo.attr(target, '_network')&&dojo.attr("PendingSelectorSelector", "_network_id")==dojo.attr(target, '_network_id'))
-		{_t.unselectPendingSelector(_t, selector, target, evt);return;}
-		
-		dojo.attr("PendingSelectorSelector", {_network:dojo.attr(target, '_network'), _network_id:dojo.attr(target, '_network_id')});
-		dojo.query("img", "PendingNominator").orphan();
-		dojo.place(dojo.create("IMG", {src:dojo.attr(target, '_profile_picture_url')}), dojo.byId("PendingNominator"), "first");
-		dojo.query("span.name", "PendingNominator").innerHTML(dojo.attr(target, '_name'));
-		dojo.addClass("PendingPlaceHolder", "hidden");dojo.removeClass("PendingNominator", "hidden");
-		dojo.query(".invitee_row[_is_selector=1]", _t.global_invited_node).attr("_is_selector", "");
-		dojo.query(".invitee_row .pending.selected", _t.global_invited_node).removeClass("selected");
-		dojo.addClass(evt.target, "selected");dojo.attr(target, "_is_selector", "1");
 	},unselect : function(_t, evt){
-		if(!(dojo.hasClass(evt.target,'pending') || dojo.hasClass(evt.target,'remove'))){return;}
 		var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
 		if(!target){return;}
 		var sel = _t.selectors[dojo.attr(target, "_network")];
-		if(dojo.hasClass(evt.target,'pending')){
-			_t.makePendingSelector(_t, sel, target, evt);
-		}else{
-			if(dojo.query(".pending.selected",target).length>0){_t.unselectPendingSelector(_t, sel, target, evt);}
-			sel.unSelect(sel, target);
-		}
+		sel.unSelect(sel, target);
 	},destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];

@@ -87,11 +87,11 @@ class GlobalDBPaymentNotice(DBMappedObject):
 	_get_root = _set_root = 'NOTICE'
 	_unique_keys = ['msg_id', 'ref']
 	_set_proc = _get_proc = 'dbo.exec_contribution_notice_db'
-	_keys = [	GenericAttrib(str, 'ref','contribution_ref')
+	_keys = [	GenericAttrib(str,  'ref','contribution_ref')
 				,GenericAttrib(int, 'tx_id'    ,'transaction_id')
 				,GenericAttrib(int, 'msg_id'   ,'message_id')
 				,GenericAttrib(str, 'type'     ,'type')
-				,GenericAttrib(bool, 'success'  ,'success')
+				,GenericAttrib(bool,'success'  ,'success')
 				,GenericAttrib(str, 'reason'   ,'reason')
 			]
 	
@@ -107,4 +107,5 @@ class GetPoolURLFromContribRef(DBMappedObject):
 	_unique_keys = ['msg_id']
 	_set_proc =_get_proc = 'app.get_p_url_from_contribution_ref'
 	_keys = [	GenericAttrib(unicode, 'contribution_ref','contribution_ref')
-				,GenericAttrib(unicode, 'p_url'    ,'p_url')]
+				,GenericAttrib(unicode, 'p_url'    ,'p_url')
+				,GenericAttrib(unicode, 'merchant_key'    ,'merchant_key')]

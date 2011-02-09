@@ -31,7 +31,7 @@ class TwitterController(BaseController):
 		# Step 1. Get a request token from Twitter.
 		try:
 			content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
-					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (g.SITE_ROOT_URL,  furl)})
+					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (request.qualified_host,  furl)})
 		except (urllib2.HTTPError, urllib2.URLError), e:
 			log.error(e)
 			return self.ERROR

@@ -47,6 +47,9 @@ ${self.render_html()}
 	${links.js('loader.js')}
 	${self.scripts()}
 	<div id="generic_popup"></div>
+	<div id="messaging_container">
+		<div id="message_container" class="hidden"></div>
+	</div>
 	<div id="blocking_msgs" class="${(not (getattr(c, 'blocks', False) and getattr(c, 'enforce_blocks', False))) and 'hidden' or ''}">
 		<%include file="/messages/blocks.html"/>
 	</div>

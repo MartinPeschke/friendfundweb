@@ -50,7 +50,7 @@
 				%endif
 				<div _target_id="slider${i}_elem"  class="productsuggestion ${i%scroller_page_size<(scroller_page_size-1) and 'psmiddle' or ''}">
 					<a class="productsuggestion">
-						<img id="slider${i}_elem" src="${prod.picture_large}" class="productsuggestion"><span>${prod.name}</span>
+						<img id="slider${i}_elem" src="${prod.picture}" class="productsuggestion"><span>${prod.name}</span>
 					</a>
 					<textarea style="display:none">
 						${display_product(0, prod)|n}
@@ -107,23 +107,22 @@
 <%def name="display_product(counter, product, word_truncate = 200)">
 	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
 		<div class="colSx">
-			<img class="productImage" src="${product.picture_large}"/>
-			<img src="${product.aff_program_logo_url}" class="productMerchantImage" />
+			<img class="productImage" src="${product.picture}"/>
+			<img src="" alt="AMAZON LOGO" class="productMerchantImage" />
 		</div>
 		<div class="colDx">
 			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(include_shipping = False), product.currency, extended = True)|n} ${product.display_shipping|n}</span></p>
 			
-			<p class="productText">${h.word_truncate_by_letters(product.description_long, word_truncate)|n}</p>
+			<p class="productText">${h.word_truncate_by_letters(product.description, word_truncate)|n}</p>
 			
 			%if product.tracking_link:
-				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} ${product.aff_program_name}</a>
+				<a href="${product.tracking_link}" target="_blank" class="productMore">${_("PRODUCT_SEARCH_PANEL_Read More")} AMAZON</a>
 			%endif
 			
 			
 		</div>
-			<a class="submitSmall"><span class="anchorelem productselector" _guid="${product.guid}" _search_keys="_affnet,_is_curated,_is_virtual,_is_amazon,_progid,_imgurl,_label,_guid"
-				_is_virtual="${product.is_virtual and "1" or "0"}" _is_curated="${product.is_curated and "1" or "0"}" _is_amazon="${product.is_amazon and "1" or "0"}"
-				_imgurl="${product.picture_large}" _label=${quoteattr(product.display_label)} _affnet="${product.aff_net}" _progid="${product.aff_program_id}">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
+			<a class="submitSmall"><span class="anchorelem productselector" _merchant_ref="${product.merchant_ref}" _search_keys="_affnet,_imgurl,_label,_merchant_ref"
+				_imgurl="${product.picture}" _label=${quoteattr(product.display_label)} _affnet="AMAZON">${_("PRODUCT_SEARCH_PANEL_Select")}</span></a>
 				<div class="footer-small"></div>
 				<div style="clear:both"></div>
 	</div>

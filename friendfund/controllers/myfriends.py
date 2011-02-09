@@ -90,8 +90,8 @@ class MyfriendsController(BaseController):
 				return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
 			else:
 				c.method = 'email'
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=g.SITE_ROOT_URL))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=g.SITE_ROOT_URL))
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
 				c.invitees = {network_id:invitee}
 				data = invitee
 				data['success'] = True

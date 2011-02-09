@@ -176,10 +176,10 @@ class DBMapper(object):
 					children.append(k.toDB(value))
 				else:
 					raise TypeNotSupportedException("Type %s not supported" % type(k))
-		if children:
+		if len(children):
 			return "<%s %s>%s</%s>" % (obj._set_root \
 											,' '.join(attribs)\
-											,' '.join(sorted(children))\
+											,''.join(children)\
 											,obj._set_root)
 		else:
 			return "<%s %s />" % (obj._set_root,   ' '.join(attribs))

@@ -71,8 +71,8 @@ class BaseController(WSGIController):
 			return redirect(g.default_host)
 		else:
 			request.merchant = g.merchants.domain_map[host.replace(g.BASE_DOMAIN_LOOKUP, '')]
-			request.host = host
-
+			request.qualified_host = '%s://%s'%(request.headers.get('X-Forwarded-Proto', 'http'), host)
+		
 		c.navposition = getattr(c, 'navposition', self.navposition)
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)

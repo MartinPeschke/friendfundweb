@@ -1,7 +1,10 @@
+import logging
 from pylons.i18n import _
 
 from friendfund.lib.tools import AutoVivification
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
+
+log = logging.getLogger(__name__)
 
 class DBCountry(DBMappedObject):
 	_cachable = False
@@ -60,7 +63,7 @@ class MerchantSettings(DBMappedObject):
 	_get_root = _set_root = 'SETTINGS'
 	_cachable = False
 	_unique_keys = ['key', 'value']
-	_keys = [GenericAttrib(unicode,'key','key'),GenericAttrib(bool,'value','value')]
+	_keys = [GenericAttrib(unicode,'key','key'),GenericAttrib(unicode,'value','value')]
 
 
 class MerchantLink(DBMappedObject):
@@ -84,5 +87,9 @@ class GetMerchantLinksProc(DBMappedObject):
 	
 	def fromDB(self, xml):
 		setattr(self, 'domain_map', dict([(m.subdomain.lower(), m) for m in self.merchants_map.itervalues()]))
-		setattr(self, 'default', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0])
-		setattr(self, 'default_subdomain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].subdomain)
+		try:
+			setattr(self, 'default', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0])
+			setattr(self, 'default_subdomain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].subdomain)
+		except IndexError, e:
+			log.error("No Default Merchant set, %s", e)
+			raise Exception("No Default Merchant set, %s" % e)

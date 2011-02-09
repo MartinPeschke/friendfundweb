@@ -46,42 +46,6 @@ class ProductController(BaseController):
 		websession['pool'] = c.pool
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
 	
-	
-	@logged_in()
-	def select(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-			return redirect(url("get_pool", pool_url=pool_url))
-		if not c.pool.am_i_selector(c.user) or not c.pool.is_pending():
-			c.messages.append(_("POOL_Your not authorized for this operation."))
-			return redirect(url("get_pool", pool_url=pool_url))
-		g.product_service.recommended_tab(request, minimal = True)
-		return self.render("/product/selection_page.html")
-	
-	@logged_in()
-	@jsonify
-	def set_pending(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None or not c.pool.am_i_selector(c.user) or not c.pool.is_pending():
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-			return redirect(url('home'))
-		strbool = formencode.validators.StringBoolean(if_missing=False)
-		params = formencode.variabledecode.variable_decode(request.params)
-		product = params.get('product', None)
-		if not product or 'guid' not in product:
-			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		product['is_amazon']  = strbool.to_python(product.get('is_amazon' ))
-		product['is_virtual'] = strbool.to_python(product.get('is_virtual'))
-		product['is_curated'] = strbool.to_python(product.get('is_curated'))
-		product['is_pending'] = strbool.to_python(product.get('is_pending'))
-		
-		pool = g.product_service.set_product(Pool(p_url = pool_url), product, request)
-		g.dbm.set(SetPendingProductProc(product = pool.product, p_url=pool_url))
-		g.dbm.expire(pool)
-		return {"redirect":url("get_pool", pool_url=pool_url)}
-	
-	
 	@jsonify
 	def search_tab(self):
 		c = g.product_service.search_tab(request)
@@ -140,44 +104,8 @@ class ProductController(BaseController):
 		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = formencode.variabledecode.variable_decode(request.params)
 		product = params.get('product', None)
-		if not product or 'guid' not in product:
+		if not product or 'merchant_ref' not in product:
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		product['is_amazon']  = strbool.to_python(product.get('is_amazon' ))
-		product['is_virtual'] = strbool.to_python(product.get('is_virtual'))
-		product['is_curated'] = strbool.to_python(product.get('is_curated'))
-		product['is_pending'] = strbool.to_python(product.get('is_pending'))
-		
 		websession['pool'] = g.product_service.set_product(websession.get('pool') or Pool(), product, request)
 		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
-
-	@jsonify
-	def verify_dates(self):
-		c.region = request.params.get('region', websession['region'])
-		try:
-			c.date = datetime.strptime(request.params.get('occasion_date', None), '%Y-%m-%d').date()
-			c.aff_net = request.params.get('net', None)
-			c.aff_prog_id = request.params.get('progid', None)
-		except:
-			log.info('parse error for date and aff_net and aff_prog_id in verify_dates: %s' % request.params)
-			return {'clearmessage':'true'}
-
-		programs = g.get_aff_programs(c.region)
-		props = programs.map[str(c.aff_net)][str(c.aff_prog_id)]
-		if not props:
-			return {'clearmessage':'true'}
-		try:
-			c.deliverydays = timedelta(int(props.get('shippingdays', 0)))
-			c.deliverydays_warnlimit = timedelta(int(props.get('shippingdays_warn', 0)))
-		except:
-			log.info('parse error for deliveryDates in verify_dates: %s' % programs.map)
-			return {'clearmessage':'true'}
-
-		if date.today() + c.deliverydays + c.deliverydays_warnlimit > c.date and date.today() + c.deliverydays <= c.date:
-			c.success = True
-			return self.ajax_messages(_(u"PRODUCT_DELIVERY_WARNING_Your event date doesn\'t give your funders or shipping much time!"))
-		elif date.today() + c.deliverydays > c.date:
-			c.success = True
-			return self.ajax_messages(_(u"PRODUCT_DELIVERY_WARNING_We cannot ship this to you in time, if this is a problem please pick a later date!"))
-		else:
-			return {'clearmessage':'true'}

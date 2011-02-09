@@ -33,8 +33,6 @@ class GetTopSellersProc(DBMappedObject):
 			self.map[region.name] = region.list
 
 
-
-
 class ProductSearch(DBMappedObject):
 	"""
 		exec app.search_product'<SEARCH category ="garden" program_id ="123" search="schloss" page_no="1" region="de"/>'
@@ -43,11 +41,7 @@ class ProductSearch(DBMappedObject):
 	_get_proc = _set_proc = 'imp.search_product'
 	_unique_keys = ['region', 'program_id', 'search', 'category', 'page_no']
 	_cacheable = False
-	_keys = [	 GenericAttrib(str ,'region'     ,'region')
-				,GenericAttrib(str ,'search'     ,'search')
-				,GenericAttrib(int ,'max_price'  ,'max_price')
-				,GenericAttrib(str ,'program_id' ,'program_id')
-				,GenericAttrib(int ,'category'   ,'category')
+	_keys = [	GenericAttrib(str ,'search'     ,'search')
 				,GenericAttrib(int ,'page_no'    ,'page_no')
 				,GenericAttrib(int ,'pages'      ,'pages')
 				,GenericAttrib(int ,'page_size'  ,'page_size')
@@ -55,23 +49,4 @@ class ProductSearch(DBMappedObject):
 				,GenericAttrib(str ,'sort'       ,'sort')
 				,DBMapper(Product  ,'products'   ,'PRODUCT', is_list = True)
 			]
-	page_field = page_field
-
-
-class CombinedSearchResult(object):
-	def __init__(self, s1, s2, page_no):
-		self.region = s1.region
-		self.page_size = s1.page_size
-		self.category = s1.category
-		self.sort = s1.sort
-		
-		self.page_no = page_no
-		if self.page_no>1:
-			self.products = s2.products[:self.page_size]
-		else:
-			self.products = (s1.products + s2.products)[:self.page_size]
-		self.items = s1.items + s2.items
-		
-		self.pages = self.items/self.page_size + (self.items%self.page_size>0)
-	
 	page_field = page_field

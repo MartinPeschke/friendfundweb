@@ -35,7 +35,6 @@ class RecentActivityEntry(DBMappedObject):
 			, GenericAttrib(unicode, "friend_profile_picture", "friend_profile_picture")
 			, GenericAttrib(bool, "is_secret", "is_secret")
 			, GenericAttrib(unicode, "merchant_key", "merchant_key")
-			, GenericAttrib(bool, 'is_pending', None, persistable = False)
 			]
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
@@ -46,7 +45,6 @@ class RecentActivityEntry(DBMappedObject):
 		return h.get_user_picture(self.profile_picture_url, type)
 	def get_friend_profile_pic(self, type="RA"):
 		return h.get_user_picture(self.friend_profile_picture, type)
-	
 	def get_product_pic(self, type="RA"):
 		return h.get_product_picture(self.product_picture_url, type)
 	
@@ -57,10 +55,7 @@ class RecentActivityEntry(DBMappedObject):
 	def get_amount_left_float(self):
 		return self.get_amount_float() - self.get_total_contribution_float()
 	def get_product_display_name(self):
-		if self.is_pending:
-			return _("PENDING_PRODUCT_NAME")
-		else:
-			return h.word_truncate_plain(self.product_name.title(), 2)
+		return h.word_truncate_plain(self.product_name.title(), 2)
 	def get_remaining_days_tuple(self):
 		if self.is_closed():
 			return (0, 0)
@@ -69,8 +64,6 @@ class RecentActivityEntry(DBMappedObject):
 			if diff < timedelta(0):
 				diff = timedelta(0)
 			return (diff.days, diff.seconds/3600)
-	def fromDB(self, xml):
-		self.is_pending = self.product_name.startswith( "PENDING_PRODUCT" )
 
 class RecentActivityStream(DBMappedObject):
 	_expiretime = 60
@@ -78,9 +71,4 @@ class RecentActivityStream(DBMappedObject):
 	_get_root = None
 	_get_proc = _set_proc = 'app.get_current_pool'
 	_no_params = True
-	_keys = [DBMapper(RecentActivityEntry,'pools','POOL', is_list = True), DBMapper(Badge,'badges','BADGE', is_list = True)]
-	def get_some_badges(self, count):
-		if len(self.badges) > count:
-			return random.sample(self.badges, count)
-		else:
-			return self.badges
+	_keys = [DBMapper(RecentActivityEntry,'pools','POOL', is_list = True)]

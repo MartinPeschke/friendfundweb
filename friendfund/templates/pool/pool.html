@@ -50,34 +50,13 @@
 				'occasion_name': c.pool.occasion.get_display_name(), 
 				'admin_name':c.pool.admin.name, 
 				'product_name':c.pool.product.get_display_name()}
-		if c.pool.is_pending():
-			locals["selector_name"] = c.pool.selector and c.pool.selector.name or _("POOL_PAGE_SELECTOR_Someone")
 	%>
-	%if c.pool.is_pending():
-		%if c.pool.am_i_selector(c.user):
-			<div id="page_slogan" class="underlined2">
-				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>%(admin_name)s has nominated <em>you</em> to find the perfect %(occasion_name)s gift for %(receiver_name)s's.") % locals|n}
-			</div>
-			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Chipping in will only be possible once a gift has been chosen.") % locals|n}</div>
-		%else:
-			<div id="page_slogan" class="underlined2">
-				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>%(admin_name)s has nominated <em>%(selector_name)s</em> to find the perfect %(occasion_name)s gift for %(receiver_name)s.") % locals|n}
-			</div>
-			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Chipping in will only be possible once a gift has been chosen.") % locals|n}</div>
-		%endif
-	%elif c.pool.is_funded():
+	%if c.pool.is_funded():
 		%if c.pool.am_i_admin(c.user):
-			%if not c.pool.product.is_virtual:
-				<div id="page_slogan" class="underlined2">
-					${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>Congratulations, this pool is now fully funded!") % locals|n}
-				</div>
-				<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_You can order the gift as soon as you have filled in shipping and billing addresses.") % locals|n}</div>
-			%else:
-				<div id="page_slogan" class="underlined2">
-					${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>Congratulations, this pool is now fully funded!") % locals|n}
-				</div>
-				<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_All you need to do now is visit the Pool Admin Page and order your gift.") % locals|n}</div>
-			%endif
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>Congratulations, this pool is now fully funded!") % locals|n}
+			</div>
+			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_You can order the gift as soon as you have filled in shipping and billing addresses.") % locals|n}</div>
 		%elif c.pool.am_i_contributor(c.user):
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>This pool is now fully funded!") % locals|n}
@@ -123,17 +102,10 @@
 			</div>
 			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Edit pool settings any time by visiting the Pool Admin page.") % locals|n}</div>
 		%elif c.pool.am_i_contributor(c.user):
-			%if c.pool.product.is_virtual:
-				<div id="page_slogan" class="underlined2">
-					${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>You've already chipped in a Pot of Gold, thank you!") % locals|n}
-				</div>
-				<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_ You can only contribute one Pot of Gold for each virtual gift pool. Why not invite more friends to chip in?") % locals|n}</div>
-			%else:
-				<div id="page_slogan" class="underlined2">
-					${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>You've already chipped in for %(receiver_name)s's %(occasion_name)s gift!") % locals|n}
-				</div>
-				<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Chip in as often as you like and help make %(receiver_name)s's day extra special!") % locals|n}</div>
-			%endif
+			<div id="page_slogan" class="underlined2">
+				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>You've already chipped in for %(receiver_name)s's %(occasion_name)s gift!") % locals|n}
+			</div>
+			<div class="pageSubSlogan">${_("POOL_PAGE_SLOGAN_Chip in as often as you like and help make %(receiver_name)s's day extra special!") % locals|n}</div>
 		%elif c.pool.am_i_member(c.user):
 			<div id="page_slogan" class="underlined2">
 				${_("POOL_PAGE_SLOGAN_Hi <span class=\"emphasis\">%(user_name)s!</span><br/>You've been invited to chip in for %(receiver_name)s's %(occasion_name)s gift.") % locals|n}
@@ -179,22 +151,9 @@
 	<div style="clear:both;padding:10px 0 14px;text-align:center">${_("POOL_PAGE_This gift pool closes on %(end_date)s.") % locals|n}</div>
 	
 	
-	%if c.pool.is_pending() and c.pool.am_i_selector(c.user):
-		<a href="${url(action="select",pool_url=c.pool.p_url, controller="product")}" class="buttonRed buttonChipIn extrawide"><span>${_("POOL_BUTTON_Select Product now!")}</span></a>
-	%elif c.pool.is_contributable():
-		%if c.pool.product.is_virtual:
-			%if c.pool.am_i_contributor(c.user):
-				<div class="contributor_chippid_in poolpage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
-			%else:
-				<a href="${url('contribution', pool_url=c.pool.p_url, action='virtual')}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
-				<a _href="${url(controller="content", action="our_virtual_gifts_help")}" class="popuplink somelink textCenter"><img src="/static/imgs/currencies/pog_large.png"/>
-					<div>${_("CONTRIBUTION_PAGE_Virtual Pot of Gold")}(${h.display_currency('POG')|n})</div>
-				</a>
-			%endif
-		%else:
+	%if c.pool.is_contributable():
 			<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="buttonRed buttonChipIn ${session.get('lang', '').lower()}"><span>${_("POOL_BUTTON_Chip in!")}</span></a>
 			<img src="/static/imgs/icons_paymethod.png"/>
-		%endif
 	%elif c.pool.am_i_admin(c.user) and c.pool.is_funded():
 		<a href="${url(controller='pool', pool_url=c.pool.p_url, action='settings')}" class="buttonRed buttonChipIn extrawide">
 			<span>${_("POOL_BUTTON_ACTION_Order Gift")}</span>
@@ -209,11 +168,9 @@
 </%def>
 
 <%def name="tooltip_text(locals)">
-	<div class="tooltip${(c.pool.is_pending() or c.pool.get_total_contribution()==0) and ' withMessage' or ''}" style="left:${850*c.pool.funding_progress() - 60*c.pool.funding_progress() - 10}px;">
+	<div class="tooltip${c.pool.get_total_contribution()==0 and ' withMessage' or ''}" style="left:${850*c.pool.funding_progress() - 60*c.pool.funding_progress() - 10}px;">
 		${locals.get("amount_contributed")|n}
-		%if c.pool.is_pending():
-			${_("POOL_PAGE_TOOLTIP_- %(selector_name)s first needs to find a gift before we can start chipping in.") % locals|n}
-		%elif c.pool.get_total_contribution() == 0:
+		%if c.pool.get_total_contribution() == 0:
 			${_("POOL_PAGE_TOOLTIP_- Be the first among your friends to chip in!")|n}
 		%endif
 	<span class="bottomYellowTriangle" style="left:${60*c.pool.funding_progress()}px;"></span></div>
@@ -238,16 +195,12 @@
 			<div class="timeline">
 				
 				<div class="floaterRight limit">
-					%if not c.pool.is_pending():
-						${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}
-					%else:
-						???
-					%endif
+					${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}
 				</div>
 				<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
 				
 				<div class="timeline_progressbar_bg"><div style="width:${c.pool.funding_progress()*850}px;" class="timeline_progressbar"></div>
-				${self.tooltip_text(locals)|n}
+					${self.tooltip_text(locals)|n}
 				</div>
 				
 				<div class="timelinelegende floaterRight"><a href="#" _href="${url(controller='content', action='pool_too_little_money')}" class="somelink popuplink">${_("POOL_PAGE_What happens if we raise less money?")}</a></div>
@@ -324,7 +277,7 @@
 		<img src="${invitee.get_profile_pic('PROFILE_M')}" alt="${invitee.name}" class="contributor"/>
 		<div class="contributor_name">${invitee.name} ${is_admin and _("POOL_PAGE_(Admin)") or ""}</div>
 		%if invitee.contributed_amount:
-			<div class="contributor_amount">${_("POOL_PAGE_Has chipped in %(amount)s") % dict([("amount", invitee.get_contribution_amount_text(c.pool.product.is_virtual, c.pool.currency))])|n}</div>
+			<div class="contributor_amount">${_("POOL_PAGE_Has chipped in %(amount)s") % dict([("amount", invitee.get_contribution_amount_text(c.pool.currency))])|n}</div>
 			<span class="contributor_contributed"></span>
 		%endif
 	</div>
@@ -338,6 +291,6 @@
 		%else:
 			<div class="contributor_name">${_("POOL_CHAT_Anonymous")}</div>
 		%endif
-		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.product.is_virtual, c.pool.currency)|n}</div>
+		<div class="contributor_amount">${invitee.get_contribution_amount_text(c.pool.currency)|n}</div>
 	</div>
 </%def>

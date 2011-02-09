@@ -28,7 +28,7 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t.submitting = true;
 		var results = dojo.query("div.invitee_row", _t.invited_node);
 		
-		if(results.length && (!dojo.byId("PendingSelectorSelector") || !dojo.hasClass("PendingNominator", "hidden"))){
+		if(results.length){
 			dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 			_t._widget_locals = [];
 			_t.receiver_selectors = {};
@@ -44,16 +44,9 @@ dojo.declare("friendfund.InvitePage", null, {
 			invitees = {"invitees":invitees};
 			dojo.place(dojo.create("textarea", {name:"invitees", style:"display:none",value:dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
 			dojo.byId('invitees').submit();
-		} else if(!results.length){
-			_t.submitting = false;
-			node = dojo.byId("inviters_panel_tooltip");
-			dojo.removeClass(node, "hidden");
-			dojo.style(node, "opacity", "1");
-			dojo.fadeOut({node:node ,duration: 5000}).play();
-			return false;
 		} else {
 			_t.submitting = false;
-			node = dojo.byId("inviters_selector_tooltip");
+			node = dojo.byId("inviters_panel_tooltip");
 			dojo.removeClass(node, "hidden");
 			dojo.style(node, "opacity", "1");
 			dojo.fadeOut({node:node ,duration: 5000}).play();

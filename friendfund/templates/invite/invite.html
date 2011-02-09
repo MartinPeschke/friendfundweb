@@ -66,37 +66,24 @@
 				<div id="inviter"></div>
 				
 				<div id="invited">
-				%if c.pool.require_pselector:
-					<div id="PendingSelectorSelector" class="placeholder">
-						<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool.")}</span>
-						<span id="PendingNominator" class="nominator hidden"><img/>${_("INVITE_PAGE_<span class=\"name\">%s</span> has been nominated to choose a gift for this pool.")%""|n}</span>
+					<div class="placeholder"></div>
+					<div class="invitedBody">
+						<div id="email_invitees" class="invited_list">
+							<div class="seperator"><img src="/static/imgs/icon_mail.png"/></div>
+							${inviter.render_email_friends(c.invitees.get("email", dict()))}
+							<div style="clear:both;"></div>
+						</div>
+						<div id="twitter_invitees" class="invited_list">
+							<div class="seperator"><img src="/static/imgs/icon_tw_connect.png"/></div>
+							${inviter.render_network_friends(c.invitees.get("twitter", dict()))|n}
+							<div style="clear:both;"></div>
+						</div>
+						<div id="facebook_invitees" class="invited_list">
+							<div class="seperator"><img src="/static/imgs/icon_fb_connect.png"/></div>
+							${inviter.render_network_friends(c.invitees.get("facebook", dict()))|n}
+							<div style="clear:both;"></div>
+						</div>
 					</div>
-				%elif c.pool.selector:
-					<div id="PendingSelectorSelector" class="placeholder" _network="${c.pool.selector.network}" _network_id="${c.pool.selector.network_id}">
-						<span id="PendingPlaceHolder" class="gift hidden">${_("INVITE_PAGE_Click on one of the gift icons below to nominate a friend to choose a gift for this pool.")}</span>
-						<span id="PendingNominator" class="nominator"><img src="${c.pool.selector.profile_s_pic}"/>${_("INVITE_PAGE_<span class=\"name\">%s</span> has been nominated to choose a gift for this pool.")%c.pool.selector.name|n}</span>
-					</div>
-				%else:
-					<div class="placeholder">
-					</div>
-				%endif
-				<div class="invitedBody">
-					<div id="email_invitees" class="invited_list">
-						<div class="seperator"><img src="/static/imgs/icon_mail.png"/></div>
-						${inviter.render_email_friends(c.invitees.get("email", dict()), with_pending = c.pool.require_pselector)}
-						<div style="clear:both;"></div>
-					</div>
-					<div id="twitter_invitees" class="invited_list">
-						<div class="seperator"><img src="/static/imgs/icon_tw_connect.png"/></div>
-						${inviter.render_network_friends(c.invitees.get("twitter", dict()), with_pending = c.pool.require_pselector)|n}
-						<div style="clear:both;"></div>
-					</div>
-					<div id="facebook_invitees" class="invited_list">
-						<div class="seperator"><img src="/static/imgs/icon_fb_connect.png"/></div>
-						${inviter.render_network_friends(c.invitees.get("facebook", dict()), with_pending = c.pool.require_pselector)|n}
-						<div style="clear:both;"></div>
-					</div>
-				</div>
 				<div style="clear:both;"></div>
 			</div>
 			<div style="clear:both;"></div>
@@ -128,7 +115,7 @@
 				<div class="tooltip"><span class="triangle"></span><div class="content">${_("INVITE_PAGE_SLOGAN_Tick this box if you're absolutely sure you don't want our help sending invites. This way, your friends will ONLY be notified of the pool once you have personally invited them.")}</div></div>
 			</div>
 			
-			%if i_am_admin and not c.pool.product.is_virtual:
+			%if i_am_admin:
 			<div class="invite_secret">
 				<% locals = {"receiver_name" : c.pool.receiver.get_receiver_label()} %>
 				<input class="floaterLeft" type="checkbox" id="check_is_secret" name="is_secret" value="true" ${forms.expression_quote(c.pool.is_secret or False, "checked")|n}/>
@@ -141,9 +128,6 @@
 		<div class="floaterRight horNoPadding clearer">
 			<div id="inviters_panel_tooltip" class="hidden">
 				${_("INVITE_PAGE_TIP_Please invite some friends first!")}
-			</div>
-			<div id="inviters_selector_tooltip" class="hidden">
-				<span id="PendingPlaceHolder" class="gift">${_("INVITE_PAGE_TIP_Please chose a Gift Selector First!")}</span>
 			</div>
 			<a class="submitSmall" id="invite_submitter"><span>${_("INVITE_PAGE_BUTTON_Send Invites")}</span></a>
 		</div>

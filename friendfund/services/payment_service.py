@@ -1,6 +1,5 @@
 import logging, formencode
 from datetime import datetime
-from friendfund.lib.payment.adyen import VirtualPayment
 from friendfund.model.contribution import DBPaymentNotice
 from pylons import request, app_globals
 log = logging.getLogger(__name__)
@@ -8,12 +7,9 @@ log = logging.getLogger(__name__)
 class NotAllowedToPayException(Exception):pass
 
 class PaymentPageSettings(object):
-	def __init__(self, region, is_virtual, user, pool):
-		self.amount_fixed = is_virtual
-		self.amount = is_virtual and 1 or None
-		self.methods = filter(lambda x: x.can_i_contribute(pool, user) and region in x.regions and is_virtual == x.virtual , PaymentService.payment_methods)
+	def __init__(self, currency, user, pool):
+		self.methods = filter(lambda x: x.can_i_contribute(pool, user) and currency in x.currencies, PaymentService.payment_methods)
 		self.has_fees = len(filter(lambda x: x.has_fees, self.methods)) > 0
-		self.is_virtual = len(filter(lambda x: isinstance(x, VirtualPayment), self.methods)) == len(self.methods)
 		if self.methods:
 			self.methods[0].default = True
 			self.default = self.methods[0]
@@ -35,9 +31,9 @@ class PaymentService(object):
 	def verify_result(self, params):
 		method = params['paymentMethod']
 		return self.payment_methods_map[method].verify_signature(params)
-	def get_payment_settings(self, region, is_virtual, user, pool):
-		return PaymentPageSettings(region, is_virtual, user, pool)
-	def check_payment_method(self, method_code, region, is_virtual):
+	def get_payment_settings(self, currency, user, pool):
+		return PaymentPageSettings(currency, user, pool)
+	def check_payment_method(self, method_code, currency):
 		return str(method_code) in self.payment_methods_map
 	def get_payment_method(self, method_code):
 		return self.payment_methods_map[method_code]

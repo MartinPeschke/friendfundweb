@@ -38,8 +38,7 @@
 		</div>
 		
 		<div class="rabodycol details">
-			
-				<div class="imgContainer">
+			<div class="imgContainer">
 				%if ra_entry.is_contributor:
 					<div class="contributor_chippid_in mypoolspage_contributor"><div class="content">${_("MYPOOLS_CONTENT_Chipped In")|n}</div></div>
 				%endif
@@ -54,38 +53,22 @@
 				<div class="row">
 					<span class="label">${_("MYPOOLS_CONTENT_Price:")}</span>
 					<span class="floaterRight"><span class="money">
-						%if not ra_entry.is_pending:
-							${h.format_currency(ra_entry.get_amount_float(),ra_entry.currency)|n}
-						%else:
-							???
-						%endif
+						${h.format_currency(ra_entry.get_amount_float(),ra_entry.currency)|n}
 					</span></span>
 				</div>
 				<div class="row">
 					<span class="label">${_("MYPOOLS_CONTENT_Already Funded:")}</span>
 					<span class="floaterRight"><span class="money green">
-						%if not ra_entry.is_pending:
-							${h.format_currency(ra_entry.get_total_contribution_float(),ra_entry.currency)|n}
-						%else:
-							???
-						%endif
-						
+						${h.format_currency(ra_entry.get_total_contribution_float(),ra_entry.currency)|n}
 						</span></span>
 				</div>
 				<div class="row lastPad">
 					<span class="label">${_("MYPOOLS_CONTENT_Open:")}</span>
 					<span class="floaterRight"><span class="money red">
-						%if not ra_entry.is_pending:
-							${h.format_currency(ra_entry.get_amount_left_float(),ra_entry.currency)|n}
-						%else:
-							???
-						%endif
+						${h.format_currency(ra_entry.get_amount_left_float(),ra_entry.currency)|n}
 					</span></span>
 				</div>
-				
-				
-				
-				</div>
+			</div>
 		</div>
 		
 			<div class="floaterLeft width150px">

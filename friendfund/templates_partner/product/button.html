@@ -4,7 +4,7 @@
 %>
 <div id="button_product" class="hpbutton gift floaterLeft">
 	%if product:
-		<div class="button_content_wrapper floaterLeft"><img class="button_content" src="${getattr(product, 'picture_large')}"/></div>
+		<div class="button_content_wrapper floaterLeft"><img class="button_content" src="${getattr(product, 'picture')}"/></div>
 		%if c.product_list:
 			<div class="label minified">
 				<div class="minified_title">
@@ -20,12 +20,12 @@
 					</div>
 				<div style="clear:both"></div>
 				</div>
-				<div class="sub_label">${h.word_truncate_by_letters(product.description_long, 200)|n}</div>
+				<div class="sub_label">${h.word_truncate_by_letters(product.description, 200)|n}</div>
 			</div>
 			
 		%else:
 			<div class="label">${getattr(product, 'display_label')|n}
-				<div class="sub_label">${h.word_truncate_by_letters(product.description_long, 600)|n}</div>
+				<div class="sub_label">${h.word_truncate_by_letters(product.description, 600)|n}</div>
 			</div>
 		%endif
 	%else:
@@ -34,8 +34,5 @@
 			<div class="sub_label">${_("JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Find the perfect gift from a selection of thousands.")}</div>
 		</div>
 	%endif
-		<input type="hidden" id="product_guid" name="product.guid" value="${getattr(product, 'guid', '')}"/>
-		<input type="hidden" id="product_net"  name="product.aff_net" value="${getattr(product, 'aff_net', '')}"/>
-		<input type="hidden" id="product_progid" value="${getattr(product, 'aff_program_id', '')}"/>
 </div>
 <div class="extender">&nbsp;</div>

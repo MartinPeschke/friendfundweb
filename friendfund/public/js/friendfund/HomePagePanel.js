@@ -165,7 +165,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			params['occasion.date'] = formatDate(datepicker.value);
 			params['occasion.picture_url'] = dojo.attr(selected, "imgurl");
 			loadElement("/occasion/set", "occasion_panel", params, dojo.hitch(null, _t.set_complete, _t, 'occasion'));
-			_t.verify_dates(_t, {occasion_date:params['occasion.date']});
 			_t.unload(_t, true);
 		} else {
 			var id = (!selected.length)?"occasion_button_bar":"occasion_date_input_bar";
@@ -176,16 +175,6 @@ dojo.declare("friendfund.HomePagePanel", null, {
 					}
 				}
 			).play();
-		}
-	},
-	verify_dates : function(_t, args){
-		args = args || {};
-		var params = {net: args.affnet || dojo.byId("product_net").value,
-						occasion_date : args.occasion_date || dojo.byId("occasion_date").value,
-						progid: args.progid || dojo.byId("product_progid").value
-					};
-		if(params.net && params.occasion_date && params.progid){
-			xhrPost("/product/verify_dates", params);
 		}
 	},
 	
@@ -209,15 +198,10 @@ dojo.declare("friendfund.HomePagePanel", null, {
 	},
 	productSelected : function(_t, selection_args){
 		var params = {};
-		params["product.guid"] = selection_args.guid;
-		params["product.is_virtual"] = selection_args.is_virtual;
-		params["product.is_curated"] = selection_args.is_curated;
-		params["product.is_amazon"] = selection_args.is_amazon;
-		params["product.is_pending"] = selection_args.is_pending;
+		params["product.merchant_ref"] = selection_args.merchant_ref;
 		loadElement("/product/set", "product_panel", params, 
 			function(){
 				_t.set_complete(_t, 'product');
-				_t.verify_dates(_t, selection_args);
 				_t.unload(_t, true);
 		});
 	},
@@ -324,7 +308,6 @@ dojo.declare("friendfund.MinifiedHomePagePanel", friendfund.HomePagePanel, {
 			params['occasion.date'] = formatDate(datepicker.value);
 			params['occasion.picture_url'] = dojo.attr(selected, "imgurl");
 			loadElement("/occasion/set", "occasion_panel", params, dojo.hitch(null, _t.set_complete, _t, 'occasion'));
-			_t.verify_dates(_t, {occasion_date:params['occasion.date']});
 			_t.unload(_t, true);
 		} else {
 			var id = (!selected)?"occasion_button_bar":"occasion_date_input_bar";

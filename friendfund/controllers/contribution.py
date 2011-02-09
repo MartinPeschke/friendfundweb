@@ -7,7 +7,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
-from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.base import ExtBaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, UnsupportedOperation, DBErrorAfterPayment, DBErrorDuringSetup
 from friendfund.lib.synclock import TokenNotExistsException
@@ -22,26 +22,28 @@ log = logging.getLogger(__name__)
 
 from friendfund.services.pool_service import MissingPermissionsException
 
-class ContributionController(BaseController):
+class ContributionController(ExtBaseController):
 	navposition=g.globalnav[1][2]
 	
 	@logged_in(ajax=False)
 	def chipin_current(self):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
-		subdomain = g.payment_service.verify_result(request.params)
 		merchantReference = request.params.get('merchantReference')
-		pool_url = g.dbm.get(GetPoolURLFromContribRef, contribution_ref = merchantReference)
-		if not subdomain or not pool_url:
+		pool_base_info = g.dbm.get(GetPoolURLFromContribRef, contribution_ref = merchantReference)
+		merchant_key = g.payment_service.verify_result(request.params)
+		if not merchant_key or not pool_base_info:
 			log.warning("Payment Provider Signature could not be verified: %s", request.params)
 			return abort(404)
+		elif pool_base_info.merchant_key != request.merchant.key:
+			return redirect(url.current(host=g.get_merchant_domain(pool_base_info.merchant_key), **dict(request.params.items())))
 		
-		c.pool = g.dbm.get(Pool, p_url = pool_url.p_url)
+		c.pool = g.dbm.get(Pool, p_url = pool_base_info.p_url)
 		if c.pool is None:
-			log.warning("Pool from Payment Provider Signature not found: %s, %s", pool_url, request.params)
+			log.warning("Pool from Payment Provider Signature not found: %s", request.params)
 			return abort(404)
 		c.contrib = websession.get('contribution')
 		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
 			c.has_fees = c.paymentpage.has_fees
 		except NotAllowedToPayException, e:
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
@@ -61,76 +63,38 @@ class ContributionController(BaseController):
 	
 	@logged_in(ajax=False)
 	def chipin_fixed(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			return abort(404)
 		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
 		except NotAllowedToPayException, e:
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		c.action = 'chipin_fixed'
 		c.chipin_values = {"amount": c.paymentpage.amount or h.format_number(c.pool.get_amount_left())}
 		c.chipin_errors = {}
-		c.amount_fixed = True
-		c.back_to_admin = True
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')
 		return self._check_chip_in_details(c.pool)
 	
 	@logged_in(ajax=False)
-	def virtual(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			return abort(404)
-		c.action = 'chipin'
-		if not c.pool.is_contributable():
-			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
-		except NotAllowedToPayException, e:
-			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		if checkadd_block('email'):
-			c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
-			c.enforce_blocks = True
-			c.page = 'contrib'
-			return self.render('/pool/pool.html')
-
-		contrib = Contribution(agreedToS=True, is_secret=False,anonymous=False, message="")
-		contrib.currency = c.pool.currency
-		contrib.set_amount(1)
-		contrib.set_total(1)
-		contrib.paymentmethod = c.paymentpage.methods[0].code
-		g.pool_service.invite_myself(c.pool, c.user)
-		return g.payment_service.process_payment(c, contrib, c.pool, render, redirect)
-	
-	@logged_in(ajax=False)
 	def chipin(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			return abort(404)
 		c.action = 'chipin'
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
 		except NotAllowedToPayException, e:
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.chipin_values = getattr(c, 'chipin_values', {})
 		c.chipin_errors = getattr(c, 'chipin_errors', {})
-		c.amount_fixed = False
-		c.back_to_admin = False
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')
 		return self._check_chip_in_details(c.pool)
 	
 	def _check_chip_in_details(self, pool):
 		chipin = formencode.variabledecode.variable_decode(request.params).get('chipin', None)
-		if not g.payment_service.check_payment_method(chipin.get('payment_method'), pool.region, pool.product.is_virtual):
+		if not g.payment_service.check_payment_method(chipin.get('payment_method'), pool.currency):
 			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
 			return redirect(url('chipin', pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
 		schema = PaymentConfForm()
@@ -169,7 +133,7 @@ class ContributionController(BaseController):
 				return g.payment_service.process_payment(c, contrib, pool, render, redirect)
 			except UnsupportedPaymentMethod, e:
 				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-				return redirect(url('chipin', pool_url=pool.p_url, protocol='g.SSL_PROTOCOL'))
+				return redirect(url('chipin', pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
 			except DBErrorDuringSetup, e:
 				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
 			except DBErrorAfterPayment, e:
@@ -178,11 +142,8 @@ class ContributionController(BaseController):
 	@logged_in(ajax=False)
 	@no_blocks(ajax=False)
 	def details(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			return abort(404)
 		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.region, c.pool.product.is_virtual, c.user, c.pool)
+			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
 		except NotAllowedToPayException, e:
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
@@ -193,7 +154,7 @@ class ContributionController(BaseController):
 			c.creditcard_values = {}
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
-			return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
+			return redirect(url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL))
 		c.contrib = websession['contribution']
 		return self.render('/contribution/payment_details.html')
 	
@@ -201,15 +162,12 @@ class ContributionController(BaseController):
 	@no_blocks(ajax=True)
 	@jsonify
 	def creditcard(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None or c.pool.product.is_virtual:
-			return abort(404)
 		c.creditcard_values = {}
 		c.creditcard_errors = {}
 		
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
-			return {'redirect':url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL')}
+			return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
 		if request.method != 'POST':
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
 		
@@ -235,14 +193,15 @@ class ContributionController(BaseController):
 				websession['contribution'].methoddetails = CreditCard(**form_result)
 			except AttributeError, e:
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
-				return {'redirect':url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL')}
+				return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
 		try:
 			return g.payment_service.post_process_payment(c, websession['contribution'], c.pool, render, redirect)
 		except TokenNotExistsException, e:
-			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"))
+			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"))
+			return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
 		except UnsupportedPaymentMethod, e:
 			tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url('chipin', pool_url=pool_url, protocol='g.SSL_PROTOCOL'))
+			return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
 		except DBErrorDuringSetup, e:
 			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
 		except DBErrorAfterPayment, e: # DISABLED since this is irrelevant with async notifications coming in
@@ -252,18 +211,12 @@ class ContributionController(BaseController):
 		c.contrib = websession.get('contribution', None)
 		if not c.contrib:
 			return redirect(url("get_pool", pool_url=pool_url))
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			return abort(404)
 		c.has_fees = c.contrib.amount < c.contrib.total
 		return render('/contribution/contribution_result_success.html')	
 	def fail(self, pool_url):
 		c.contrib = websession.get('contribution')
 		if not c.contrib:
 			return redirect(url("get_pool", pool_url=pool_url))
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if c.pool is None:
-			return abort(404)
 		c.has_fees = c.contrib.amount < c.contrib.total
 		return render('/contribution/contribution_result_fail.html')
 	

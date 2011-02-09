@@ -127,26 +127,25 @@ class PoolUser(DBMappedObject):
 	_set_root = _get_root = 'POOLUSER'
 	_unique_keys = ['u_id', 'name']
 	_required_attribs = ['name', 'network', 'network_id']
-	_keys = [ GenericAttrib(int,'u_id'               , 'u_id'               )
-			, GenericAttrib(unicode ,'name'          , 'name'               )
-			, GenericAttrib(unicode ,'message'       , 'message'            )
-			, GenericAttrib(bool,'is_admin'          , 'is_admin'           )
-			, GenericAttrib(bool,'is_receiver'       , 'is_receiver'        )
-			, GenericAttrib(bool,'is_suspected'      , 'is_suspected'       )
-			, GenericAttrib(bool,'is_selector'       , 'is_selector'        )
-			, GenericAttrib(bool,'has_email'         , 'has_email'          )
-			, GenericAttrib(datetime,'dob'           , None, persistable = False)
-			, GenericAttrib(str,'network'            , 'network'            )
-			, GenericAttrib(str,'network_id'         , 'id'                 )
-			, GenericAttrib(str,'screen_name'        ,'screen_name'         )
-			, GenericAttrib(str,'email'              , 'email'              )
-			, GenericAttrib(str,'_sex'               , 'sex'                )
-			, GenericAttrib(str,'profile_picture_url', 'profile_picture_url')
-			, GenericAttrib(str,'large_profile_picture_url', None, persistable = False)
-			, GenericAttrib(int,'contributed_amount' , 'contribution')
-			, GenericAttrib(bool,'contribution_secret', 'secret')
-			, GenericAttrib(bool,'anonymous', 'anonymous')
-			, DBMapper(PoolUserNetwork,'networks', 'POOLUSERNETWORK', is_dict=True, dict_key = lambda x: x.network.lower())
+	_keys = [ GenericAttrib(int,		'u_id'                       , 'u_id'               )
+			, GenericAttrib(unicode, 	'name'                       , 'name'               )
+			, GenericAttrib(unicode, 	'message'                    , 'message'            )
+			, GenericAttrib(bool,		'is_admin'                   , 'is_admin'           )
+			, GenericAttrib(bool,		'is_receiver'                , 'is_receiver'        )
+			, GenericAttrib(bool,		'is_suspected'               , 'is_suspected'       )
+			, GenericAttrib(bool,		'has_email'                  , 'has_email'          )
+			, GenericAttrib(datetime,	'dob'                        , None, persistable = False)
+			, GenericAttrib(str,		'network'                    , 'network'            )
+			, GenericAttrib(str,		'network_id'                 , 'id'                 )
+			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
+			, GenericAttrib(str,		'email'                      , 'email'              )
+			, GenericAttrib(str,		'_sex'                       , 'sex'                )
+			, GenericAttrib(str,		'profile_picture_url'        , 'profile_picture_url')
+			, GenericAttrib(str,		'large_profile_picture_url'  , None, persistable = False)
+			, GenericAttrib(int,		'contributed_amount'         , 'contribution')
+			, GenericAttrib(bool,		'contribution_secret'        , 'secret')
+			, GenericAttrib(bool,		'anonymous'                  , 'anonymous')
+			, DBMapper(PoolUserNetwork,	'networks', 'POOLUSERNETWORK', is_dict=True, dict_key = lambda x: x.network.lower())
 			]
 	def _set_sex(self, sex):
 		if sex and len(sex)>1:
@@ -168,7 +167,7 @@ class PoolUser(DBMappedObject):
 		return float(self.contributed_amount)/100
 	contributed_amount_float = property(_get_contributed_amount_float)
 	
-	def get_contribution_amount_text(self, is_virtual, currency):
+	def get_contribution_amount_text(self, currency):
 		if self.contributed_amount:
 			if(self.contribution_secret==False):
 				return '%s' % h.format_currency(self._get_contributed_amount_float(), currency)
@@ -186,7 +185,6 @@ class PoolUser(DBMappedObject):
 	
 	@classmethod
 	def fromMap(cls, params):
-		params['is_selector'] = strbool.to_python(params.get('is_selector'))
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		else:
@@ -215,22 +213,20 @@ class Pool(DBMappedObject):
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
 			, GenericAttrib(int,		'p_id',				'p_id'						)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
-			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True	)
-			, DBMapper(Product, 		'product', 			'PRODUCT'					)
-			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
 			, GenericAttrib(unicode,	'description',		'description'				)
 			, GenericAttrib(unicode,	'thank_you_message','thank_you_message'			)
 			, GenericAttrib(str,		'currency', 		'currency'					)
-			, GenericAttrib(str,		'region', 			'region'					)
 			, GenericAttrib(str,		'status', 			'status'					)
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
 			, GenericAttrib(unicode, 	'merchant_key', 	'merchant_key'				)
+			, DBMapper(Product, 		'product', 			'PRODUCT'					)
+			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
+			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True	)
 
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
-			, DBMapper(PoolUser, 'selector', None, persistable = False)
 			, DBMapper(PoolUser, 'suspect', None, persistable = False)
 			, DBMapper(PoolUser, 'invitees', None, persistable = False)
 			, DBMapper(PoolUser, 'participant_map', None, persistable = False)
@@ -263,10 +259,7 @@ class Pool(DBMappedObject):
 	def get_amount_left(self):
 		return self.product.get_price_float() - self.get_total_contrib_float()
 	def get_fixed_chipin_amount(self):
-		if self.product.is_virtual:
-			return 1
-		else:
-			return self.product.get_price_float() - self.get_total_contrib_float()
+		return self.product.get_price_float() - self.get_total_contrib_float()
 	def get_number_of_contributors(self):
 		return len([pu for pu in self.participants if pu.contributed_amount > 0])
 	
@@ -281,10 +274,7 @@ class Pool(DBMappedObject):
 		pool_picture_url = h.get_upload_pic_name(md5.new(self.p_url).hexdigest())
 		return h.get_pool_picture(pool_picture_url, type)
 	def funding_progress(self):
-		if self.is_pending():
-			return 0.0
-		else:
-			return self.get_total_contrib_float() / self.product.get_price_float()
+		return self.get_total_contrib_float() / self.product.get_price_float()
 	
 	def get_my_message(self, user):
 		pu = self.participant_map.get(user.u_id)
@@ -297,8 +287,6 @@ class Pool(DBMappedObject):
 		return self.admin.u_id == user.u_id
 	def am_i_receiver(self, user):
 		return self.receiver.u_id == user.u_id
-	def am_i_selector(self, user):
-		return self.selector and self.selector.u_id == user.u_id or False
 	def am_i_member(self, user):
 		return user.u_id in self.participant_map
 	def am_i_contributor(self, user):
@@ -310,12 +298,8 @@ class Pool(DBMappedObject):
 	def can_i_view(self, user):
 		return self.am_i_member(user) or not self.is_secret
 	
-	def get_require_pselector(self):
-		return self.is_pending() and not self.selector
-	require_pselector = property(get_require_pselector)
-	
 	def get_require_addresses(self):
-		return not(self.product.is_virtual or not request.merchant.get_setting("require_address"))
+		return request.merchant.get_setting("require_address")
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):
@@ -329,8 +313,6 @@ class Pool(DBMappedObject):
 					self.admin = pu
 				if pu.is_receiver == True:
 					self.receiver = pu
-			if pu.is_selector == True:
-				self.selector = pu
 			if pu.is_suspected:
 				self.suspect = pu
 		if not self.admin:
@@ -345,8 +327,6 @@ class Pool(DBMappedObject):
 		return self.status == "FUNDED"
 	def is_contributable(self):
 		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
-	def is_pending(self):
-		return self.phase == "PENDING"
 	
 	def mergewDB(self, xml):
 		super(self.__class__, self).mergewDB(xml)
@@ -355,7 +335,6 @@ class Pool(DBMappedObject):
 		self.invitees = []
 		self.product.currency = self.currency
 		self.determine_roles()
-		self.region = self.region.lower()
 		if self.description == None:
 			locals = {"admin_name":self.admin.name, "receiver_name" : self.receiver.name, "occasion_name": self.occasion.get_display_name()}
 			self.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)

@@ -21,6 +21,8 @@ class FbController(BaseController):
 			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
 		except fb_helper.FBNotLoggedInException, e: 
 			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
+		except fb_helper.FBLoggedInWithIncorrectUser, e: 
+			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
 		user_data = dict([(k,v) for k,v in request.params.iteritems()])
 		user_data.update(fb_data)
 		user_data['network'] = 'facebook'
@@ -32,7 +34,6 @@ class FbController(BaseController):
 		user_data['network_id'] = user_data.pop('id')
 		user_data['profile_picture_url'] = fb_helper.get_large_pic_url(user_data['network_id'])
 		user_data['access_token_secret'] = user_data.pop('secret')
-		
 		#Save and Persist, render profile
 		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
 		if not success:

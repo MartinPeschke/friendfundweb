@@ -42,17 +42,14 @@ class AmazonService(object):
 		
 		self.query_nss = {"namespaces":{'t':self.result_namespace}}
 		self.product_mapper = {}
-		self.product_mapper['aff_id'] = 			(True,  str, ["t:ASIN/text()"])
-		self.product_mapper['amount'] = 				(True,  int, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:Amount/text()"])
+		self.product_mapper['merchant_ref'] = 		(True,  str, ["t:ASIN/text()"])
+		self.product_mapper['amount'] = 			(True,  int, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:Amount/text()"])
 		self.product_mapper['currency'] = 			(True,  str, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:CurrencyCode/text()"])
 		self.product_mapper['delivery_time'] = 		(False, unicode, ["t:Offers/t:Offer/t:OfferListing/t:Availability/text()"])
 		self.product_mapper['name'] = 				(True,  unicode, ["t:ItemAttributes/t:Title/text()"])
 		self.product_mapper['description'] = 		(False,  unicode, ["t:EditorialReviews/t:EditorialReview/t:Content/text()"])
-		self.product_mapper['description_long'] = 	(False,  unicode, ["t:EditorialReviews/t:EditorialReview/t:Content/text()"])
-		self.product_mapper['manufacturer'] = 		(False, unicode, ["t:ItemAttributes/t:Manufacturer/text()"])
 		self.product_mapper['ean'] = 				(False, str, ["t:ItemAttributes/t:EAN/text()"])
-		self.product_mapper['picture_small'] = 		(True, unicode, ["t:SmallImage/t:URL/text()", "t:ImageSets/t:ImageSet/t:SmallImage/t:URL/text()"])
-		self.product_mapper['picture_large'] = 		(True, unicode, ["t:LargeImage/t:URL/text()", "t:ImageSets/t:ImageSet/t:LargeImage/t:URL/text()"])
+		self.product_mapper['picture'] = 			(True, unicode, ["t:LargeImage/t:URL/text()", "t:ImageSets/t:ImageSet/t:LargeImage/t:URL/text()"])
 		self.product_mapper['tracking_link'] = 		(True,  unicode, ["t:DetailPageURL/text()"])
 	
 	def get_sign_base(self, params):
@@ -140,27 +137,13 @@ class AmazonService(object):
 				log.debug("Amazon Link could not be imported because of: %s " % e)
 				continue
 			#set alternate product description, as no original was found
-			if not product.description or not product.description_long:
+			if not product.description:
 				descr = self.parse_surrogate_description(elem)
 				if not descr:
 					log.debug( AttributeMissingInProductException("description") )
 					continue
 				product.description = descr
-				product.description_long = descr
-			#parse out any html tags
-			product.description = html.fromstring(product.description).text_content() 
-			product.description_long = html.fromstring(product.description_long).text_content()
-			
-			product.guid = 'AMAZON|%s' % product.aff_id
-			product.aff_net = 'AMAZON'
-			product.aff_program_id = '1'
-			product.aff_program_name = 'AMAZON'
-			product.is_amazon = True
-			product.is_virtual = False
-			product.category = -1
-			product.delivery_time = 5
-			product.aff_program_logo_url = '/static/imgs/merch/amazon.png'
-			product.aff_program_delivery_time = 5
+			product.description = html.fromstring(product.description).text_content() #parse out any html tags
 			products.append(product)
 		return products
 	
@@ -171,8 +154,8 @@ class AmazonService(object):
 		product_search.products = amazon_products
 		return product_search
 	
-	def get_product_from_guid(self, guid):
-		results = self.return_product_object(guid.split("|")[1])
+	def get_product_from_merchant_ref(self, merchant_ref):
+		results = self.return_product_object(merchant_ref)
 		if len(results.products) != 1:
 			raise MoreThanOneProductFoundError("too many, %s" % len(results.products))
 		p = results.products[0]
@@ -195,5 +178,5 @@ class AmazonService(object):
 		xml = self.fetch_product({'Keywords':searchquery, 'Operation':'ItemSearch', 'SearchIndex':'All'})
 		amazon_products = self.parse_result_xml(xml)
 		product_search = ProductSearch(page_no=1, items=len(amazon_products[:self.page_size]), pages=1, page_size=10, categories = [])
-		product_search.products = amazon_products[:10]
+		product_search.products = amazon_products
 		return product_search
