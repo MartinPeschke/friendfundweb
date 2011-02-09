@@ -114,7 +114,7 @@ class PoolSettings(DBMappedObject):
 				,GenericAttrib(str,'shipping_country', 'shipping_country')
 				,GenericAttrib(bool,'is_admin'    , 'is_admin')
 				,GenericAttrib(bool, 'is_virtual' , 'is_virtual')
-				, GenericAttrib(unicode			  ,	'merchant_key', 	'merchant_key')
+				,GenericAttrib(str                , 'merchant_domain', 'merchant_domain')
 				,DBMapper(ShippingAddress         , 'addresses','ADDRESS', is_dict = True, dict_key = lambda x: (x.type or 'shipping').lower())
 				,DBMapper(PoolAction, 'actions'   , 'POOL_ACTION', is_list = True)
 			]
@@ -147,7 +147,6 @@ class PoolSettings(DBMappedObject):
 		return self.status == "OPEN" and (self.phase == "INITIAL" or self.phase == "EXTENDED")
 	
 	def fromDB(self, xml):
-		self.region = self.region.lower()
 		self.__dict__['shipping_address'] = self.addresses.get("shipping")
 		self.__dict__['billing_address'] = self.addresses.get("billing")
 		if not "billing" in self.addresses and self.addresses.get("shipping"):

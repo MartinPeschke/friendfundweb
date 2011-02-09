@@ -220,7 +220,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
-			, GenericAttrib(unicode, 	'merchant_key', 	'merchant_key'				)
+			, GenericAttrib(str,	 	'merchant_domain', 			'merchant_domain'				)
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
 			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True	)

@@ -82,6 +82,6 @@
 			%endif
 			</div>
 		
-		<div style="position: absolute;right:20px;bottom:18px;"><a class="submitSmall bottom"  href="${url('get_pool', pool_url=ra_entry.p_url, host=app_globals.get_merchant_domain(ra_entry.merchant_key))}"><span>${_("MYPOOLS_CONTENT_View")}</span></a></div></div>
+		<div style="position: absolute;right:20px;bottom:18px;"><a class="submitSmall bottom"  href="${url('get_pool', pool_url=ra_entry.p_url, host=ra_entry.merchant_domain)}"><span>${_("MYPOOLS_CONTENT_View")}</span></a></div></div>
 	
 </%def>

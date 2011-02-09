@@ -30,9 +30,7 @@ class Globals(object):
 	"""Globals acts as a container for objects available throughout the
 	life of the application
 	"""
-	def get_merchant_domain(self, key):
-		return '%s.%s'%(self.merchants.merchants_map.get(key, self.merchants.default).subdomain, self.BASE_DOMAIN)
-
+	
 	def __init__(self, config):
 		"""One instance of Globals is created during application
 		initialization and is available during requests via the
@@ -91,8 +89,7 @@ class Globals(object):
 		top_sellers = self.dbm.get(GetTopSellersProc)
 		
 		self.merchants = self.dbm.get(GetMerchantLinksProc)
-		
-		self.default_host = 'http://%s'%'.'.join([self.merchants.default_subdomain, self.BASE_DOMAIN])
+		self.default_host = 'http://%s'%self.merchants.default_domain
 		log.info("STARTING UP WITH following subdomains: %s", list(self.merchants.domain_map.iterkeys()))
 		
 		##################################### SERVICES SETUP #####################################

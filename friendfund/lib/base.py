@@ -67,17 +67,17 @@ class BaseController(WSGIController):
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
-		if not (host and host.replace(g.BASE_DOMAIN_LOOKUP, '') in g.merchants.domain_map):
+		if not (host and host in g.merchants.domain_map):
 			return redirect(g.default_host)
 		else:
-			request.merchant = g.merchants.domain_map[host.replace(g.BASE_DOMAIN_LOOKUP, '')]
+			request.merchant = g.merchants.domain_map[host]
 			request.qualified_host = '%s://%s'%(request.headers.get('X-Forwarded-Proto', 'http'), host)
 		
 		c.navposition = getattr(c, 'navposition', self.navposition)
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
 		c.furl = request.params.get("furl") or request.path_info
-		log.info('[%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], url.current())
+		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], host, url.current())
 	
 	def __after__(self, action, environ):
 		"""When everything is said and done, Save Session State"""
@@ -94,5 +94,5 @@ class ExtBaseController(BaseController):
 			c.pool = g.dbm.get(Pool, p_url = pool_url)
 			if not c.pool:
 				return abort(404)
-			elif c.pool.merchant_key != request.merchant.key:
-				return redirect(url.current(host=g.get_merchant_domain(c.pool.merchant_key)))
+			elif c.pool.merchant_domain != request.merchant.domain:
+				return redirect(url.current(host=c.pool.merchant_domain))

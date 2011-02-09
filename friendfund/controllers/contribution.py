@@ -29,14 +29,13 @@ class ContributionController(ExtBaseController):
 	def chipin_current(self):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
 		merchantReference = request.params.get('merchantReference')
-		pool_base_info = g.dbm.get(GetPoolURLFromContribRef, contribution_ref = merchantReference)
-		merchant_key = g.payment_service.verify_result(request.params)
-		if not merchant_key or not pool_base_info:
+		merchant_domain = g.payment_service.verify_result(request.params)
+		if not merchant_domain:
 			log.warning("Payment Provider Signature could not be verified: %s", request.params)
 			return abort(404)
-		elif pool_base_info.merchant_key != request.merchant.key:
-			return redirect(url.current(host=g.get_merchant_domain(pool_base_info.merchant_key), **dict(request.params.items())))
-		
+		elif merchant_domain != request.merchant.domain:
+			return redirect(url.current(host=merchant_domain.encode("latin-1"), **dict(request.params.items())))
+		pool_base_info = g.dbm.get(GetPoolURLFromContribRef, contribution_ref = merchantReference)
 		c.pool = g.dbm.get(Pool, p_url = pool_base_info.p_url)
 		if c.pool is None:
 			log.warning("Pool from Payment Provider Signature not found: %s", request.params)
@@ -69,7 +68,7 @@ class ContributionController(ExtBaseController):
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		c.action = 'chipin_fixed'
-		c.chipin_values = {"amount": c.paymentpage.amount or h.format_number(c.pool.get_amount_left())}
+		c.chipin_values = {"amount":h.format_number(c.pool.get_amount_left())}
 		c.chipin_errors = {}
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')

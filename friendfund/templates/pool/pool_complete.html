@@ -15,17 +15,17 @@
 %>
 
 <%def name="fb_meta_tags()">
-	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.receiver.get_profile_pic("POOL")}" />
-	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.product.get_product_pic()}" />
-	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.admin.get_profile_pic("POOL")}" />
-	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
-	<link rel="image_src" href="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("RA")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.receiver.get_profile_pic("POOL")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.product.get_product_pic()}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.admin.get_profile_pic("POOL")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
 	
-	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
-	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.get_pool_picture_tiles("RA")}" />
-	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.receiver.get_profile_pic("POOL")}" />
-	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.product.get_product_pic()}" />
-	<meta property="og:image" content="${app_globals.SITE_ROOT_URL}${c.pool.admin.get_profile_pic("POOL")}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.receiver.get_profile_pic("POOL")}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.product.get_product_pic()}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.admin.get_profile_pic("POOL")}" />
 	<meta property="og:title" content="friendfund.com - ${_("POOL_PAGE_TITLE_Pool Completed!")}" />
 	<meta property="og:description" content="${c.pool.thank_you_message or c.pool.description or _(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
 	<meta property="og:type" content="product"/>

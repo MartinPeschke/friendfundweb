@@ -108,4 +108,4 @@ class GetPoolURLFromContribRef(DBMappedObject):
 	_set_proc =_get_proc = 'app.get_p_url_from_contribution_ref'
 	_keys = [	GenericAttrib(unicode, 'contribution_ref','contribution_ref')
 				,GenericAttrib(unicode, 'p_url'    ,'p_url')
-				,GenericAttrib(unicode, 'merchant_key'    ,'merchant_key')]
+				,GenericAttrib(str, 'merchant_domain'    ,'merchant_domain')]

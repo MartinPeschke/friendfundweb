@@ -3,22 +3,25 @@
 ${render_network_friends(c.friends)|n}
 </div>
 <%def name="render_network_friends(friends)">
-%for i,(id, user_data) in enumerate(friends.iteritems()):
-	<div class="invitee_row selectable ${i%3 and 'middle' or 'first'}" id="${user_data['network']}_${id}" pos="${i}" ${h.attrib_keys(user_data)|n}>
-		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['name']}"/>
-		<span class="label"><b>${user_data['name']}</b>
-		%if 'dob' in user_data:
-			<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
-			<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
-			%if user_data['dob_difference'] < 60:
-				<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div>
-			%endif
-			</div>
-		%endif
-		<a class="selector invite" title="Create a Pool For ${user_data['name'].split()[0]}">Create a Pool For ${user_data['name'].split()[0]}</a>
-		</span>
-	</div>
-%else:
+
+%if not friends:
 	${_("FRIENDSELECTOR_You dont seem to have any friends on %(network)s yet, sorry.") % dict([('network',c.method)])}
-%endfor
+%else:
+	%for i,(id, user_data) in enumerate(friends.iteritems()):
+		<div class="invitee_row selectable ${i%3 and 'middle' or 'first'}" id="${user_data['network']}_${id}" pos="${i}" ${h.attrib_keys(user_data)|n}>
+			<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['name']}"/>
+			<span class="label"><b>${user_data['name']}</b>
+			%if 'dob' in user_data:
+				<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
+				<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
+				%if user_data['dob_difference'] < 60:
+					<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div>
+				%endif
+				</div>
+			%endif
+			<a class="selector invite" title="Create a Pool For ${user_data['name'].split()[0]}">Create a Pool For ${user_data['name'].split()[0]}</a>
+			</span>
+		</div>
+	%endfor
+%endif
 </%def>

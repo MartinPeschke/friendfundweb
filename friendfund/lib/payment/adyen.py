@@ -180,7 +180,7 @@ class RedirectPayment(PaymentMethod):
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
-				"merchantReturnData" : request.merchant.key
+				"merchantReturnData" : request.merchant.domain
 				}
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])

@@ -69,8 +69,8 @@ class MerchantSettings(DBMappedObject):
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
-	_unique_keys = ['key', 'name', 'subdomain']
-	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(unicode,'key','key'),GenericAttrib(str,'subdomain','subdomain'),GenericAttrib(bool,'is_default','is_default')
+	_unique_keys = ['name', 'domain']
+	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(str,'domain','merchant_domain'),GenericAttrib(bool,'is_default','is_default')
 				, DBMapper(MerchantSettings,'settings','SETTINGS', is_dict = True, dict_key = lambda x:x.key.lower())]
 	
 	def get_setting(self, key):
@@ -83,13 +83,13 @@ class GetMerchantLinksProc(DBMappedObject):
 	_set_root = _get_root = None
 	_unique_keys = []
 	_get_proc = 'app.get_merchant'
-	_keys = [DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.key.lower())]
+	_keys = [DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.domain.lower())]
 	
 	def fromDB(self, xml):
-		setattr(self, 'domain_map', dict([(m.subdomain.lower(), m) for m in self.merchants_map.itervalues()]))
+		setattr(self, 'domain_map', dict([(m.domain.lower(), m) for m in self.merchants_map.itervalues()]))
 		try:
 			setattr(self, 'default', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0])
-			setattr(self, 'default_subdomain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].subdomain)
+			setattr(self, 'default_domain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].domain)
 		except IndexError, e:
 			log.error("No Default Merchant set, %s", e)
 			raise Exception("No Default Merchant set, %s" % e)
