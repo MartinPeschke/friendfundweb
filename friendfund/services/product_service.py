@@ -152,7 +152,7 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = Product(merchant_ref=query,tracking_link=query)
+					products[no] = Product(merchant_ref=query,tracking_link=query, guid=uuid.uuid4())
 				attr_names, transf = transl.get(parts[0])
 				for attr in attr_names:
 					if not getattr(products[no], attr, None):

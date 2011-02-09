@@ -9,15 +9,16 @@ from pylons.i18n import ugettext as _
 class Product(DBMappedObject):
 	_get_root = _set_root = 'PRODUCT'
 	_unique_keys = ['merchant_ref','name']
-	_keys = [	GenericAttrib(unicode  ,'merchant_ref'             , 'merchant_ref'             )
-				,GenericAttrib(int     ,'amount'                   , 'amount'                   )
-				,GenericAttrib(int     ,'shipping_cost'            , 'shipping_cost'            )
-				,GenericAttrib(str     ,'currency'                 , 'currency'            )
-				,GenericElement(unicode,'name'                     , 'NAME'                     )
-				,GenericElement(unicode,'description'              , 'DESCRIPTION'              )
-				,GenericAttrib(unicode ,'ean'                      , 'ean'                      )
-				,GenericAttrib(unicode ,'picture'                  , 'picture'            )
-				,GenericAttrib(unicode ,'tracking_link'            , 'tracking_link'            )
+	_keys = [	GenericAttrib(unicode  ,'guid'         , 'guid'             , persistable=False)
+				,GenericAttrib(unicode ,'merchant_ref' , 'merchant_ref'     )
+				,GenericAttrib(int     ,'amount'       , 'amount'           )
+				,GenericAttrib(int     ,'shipping_cost', 'shipping_cost'    )
+				,GenericAttrib(str     ,'currency'     , 'currency'         )
+				,GenericElement(unicode,'name'         , 'NAME'             )
+				,GenericElement(unicode,'description'  , 'DESCRIPTION'      )
+				,GenericAttrib(unicode ,'ean'          , 'ean'              )
+				,GenericAttrib(unicode ,'picture'      , 'picture'          )
+				,GenericAttrib(unicode ,'tracking_link', 'tracking_link'    )
 				]
 	
 	def to_map(self):
