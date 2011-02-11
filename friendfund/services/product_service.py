@@ -90,7 +90,7 @@ class ProductService(object):
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
 				return self._amazon_fallback(request, tmpl_context.searchterm)
 		else:
-			tmpl_context.searchresult = self.region_amazon_map[tmpl_context.region].get_products_from_search(tmpl_context.searchterm)
+			tmpl_context.searchresult = self.region_amazon_map[tmpl_context.region].get_products_from_search(tmpl_context.searchterm, page_no = tmpl_context.page, sorting=tmpl_context.sort)
 		return tmpl_context
 	
 	def _amazon_fallback(self, request, url):

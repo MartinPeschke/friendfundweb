@@ -1,4 +1,4 @@
-import hmac, binascii, urllib, urllib2, urlparse, re, uuid, logging
+import hmac, binascii, urllib, urllib2, urlparse, re, uuid, logging, StringIO
 from datetime import datetime
 from hashlib import sha256
 from lxml import etree, html
@@ -103,10 +103,14 @@ class AmazonService(object):
 		descr = '<p>%s</p>' % ('</p><p>'.join(descr))
 		return descr
 	
-	def parse_result_xml(self, xml):
-		context = etree.iterparse(xml, tag='{%s}Item' % self.result_namespace)
+	def parse_result_xml_into_search(self, xml, page_no):
+		result = etree.parse(xml)
 		products = []
-		for i, (action, elem) in enumerate(context):
+		total_pages = reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalPages/text()', **self.query_nss))
+		total_items = reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalResults/text()', **self.query_nss))
+		if total_pages>5:total_pages=5
+		
+		for i, elem in enumerate(result.iter(tag='{%s}Item' % self.result_namespace)):
 			product = Product()
 			errors = elem.xpath("t:Errors/t:Error/t:Code/text()", **self.query_nss)
 			if len(errors) > 1:
@@ -146,14 +150,13 @@ class AmazonService(object):
 				product.description = descr
 			product.description = html.fromstring(product.description).text_content() #parse out any html tags
 			products.append(product)
-		return products
+		product_search = ProductSearch(page_no=page_no, items=total_items, pages=total_pages, page_size=10, categories = [])
+		product_search.products = products
+		return product_search
 	
 	def return_product_object(self, item_id):
 		xml = self.fetch_product({'ItemId':item_id, 'Operation':'ItemLookup'})
-		amazon_products = self.parse_result_xml(xml)
-		product_search = ProductSearch(page_no=1, items=len(amazon_products), pages=1, page_size=self.page_size, categories = [])
-		product_search.products = amazon_products
-		return product_search
+		return self.parse_result_xml_into_search(xml, 1)
 	
 	def get_product_from_merchant_ref(self, merchant_ref):
 		results = self.return_product_object(merchant_ref)
@@ -175,9 +178,12 @@ class AmazonService(object):
 				raise URLUnacceptableError("Path did contain (%s) ASIN identifer but the actual ASIN was not found after it: %s" % (matcher[0].pattern, path))
 			return self.return_product_object(asin_suspect.group(1))
 	
-	def get_products_from_search(self, searchquery):
-		xml = self.fetch_product({'Keywords':searchquery, 'Operation':'ItemSearch', 'SearchIndex':'All'})
-		amazon_products = self.parse_result_xml(xml)
-		product_search = ProductSearch(page_no=1, items=len(amazon_products[:self.page_size]), pages=1, page_size=10, categories = [])
-		product_search.products = amazon_products
-		return product_search
+	def get_products_from_search(self, searchquery, page_no = 1, sorting = None):
+		params = {'Keywords':searchquery, 'Operation':'ItemSearch', 'SearchIndex':'All','ItemPage':'%s'%page_no}
+		if sorting == 'PRICE_DOWN':
+			params['Sort'] = '-price' 
+		elif sorting == 'PRICE_UP':
+			params['Sort'] = 'price' 
+		xml = self.fetch_product(params)
+		return self.parse_result_xml_into_search(xml, page_no)
+		
