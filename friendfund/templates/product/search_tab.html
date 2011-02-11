@@ -6,7 +6,7 @@
 	from operator import mod
 %>
 <div class="whiteContainer">
-	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Your pools shipping address is in <b>%(countryname)s</b>, change it:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
+	${common.display_region_picker(_("PRODUCT_SEARCH_PANEL_Select your Amazon Site to search on:") % dict([("countryname", app_globals.country_choices.get_region_name(c.region))]))|n}
 	<div class="product_search_container_outer">
 	<div class="product_search_container">
 		<div class="search_container">

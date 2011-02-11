@@ -30,7 +30,7 @@ class GetTopSellersProc(DBMappedObject):
 	def fromDB(self, xml):
 		setattr(self, 'map', {})
 		for region in self.list:
-			self.map[region.name] = region.list
+			self.map[region.name.lower()] = region.list
 
 
 class ProductSearch(DBMappedObject):

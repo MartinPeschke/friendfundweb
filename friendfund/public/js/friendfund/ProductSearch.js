@@ -12,7 +12,6 @@ dojo.declare("friendfund.ProductSearch", null, {
 	onLoaded : null,
 	onSelected : null,
 	searchMixin : null,
-	canSelectRegion:true,
 	productBrowser : "product_browser_container",
 	constructor: function(args){
 		var _t = this;
@@ -111,7 +110,6 @@ dojo.declare("friendfund.ProductSearch", null, {
 		}
 	},productLoaded: function(_t){
 		if(_t.onLoaded){_t.onLoaded(_t);}
-		if (!_t.canSelectRegion){dojo.query("#region_picker", _t.ref_node).attr("disabled","disabled");}
 		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onclick", dojo.hitch(null, _t.loadResults, _t)));
 		_t._listener_locals.push(dojo.connect(dojo.byId(_t.ref_node), "onkeyup", dojo.hitch(null, _t.accessability, _t)));
 		_t._listener_locals.push(dojo.connect(dojo.byId("region_picker"), "onchange", dojo.hitch(null, _t.monitorChange, _t)));

@@ -6,13 +6,9 @@
 <%namespace name="description" file="parts/description.html"/>
 <%namespace name="settings_common" file="parts/settings.html"/>
 
-<%def name="scripts()">
-	${links.js('friendfund/AutoRotator.js')}
-	${links.js('friendfund/ProductSearch.js')}
-</%def>
-
 <%def name="headscripts()">
 	dojo.require("dojo.parser");
+	dojo.require("dojo.NodeList-traverse");
 	dojo.require("dijit.form.DateTextBox");
 	order_gift = function(){
 		var shipexists = dojo.every(dojo.query("span.requiredvalue", "shippingAddressContainerBox"), function(item){return item.innerHTML!=null && item.innerHTML!=""});
@@ -49,10 +45,6 @@
 					});
 				content.removeClass("hidden").addClass("opened");
 				dojo.parser.parse(content[0]);
-				
-				if(action==="ADMIN_ACTION_CHEAPER_PRODUCT"){
-					productsearch.draw(productsearch);
-				}
 			} else {  /* hide */
 				closeElement(target);
 			}
@@ -61,26 +53,6 @@
 </%def>
 <%def name="onloadscripts()">
 	dojo.query("#poolactions").onclick(open_actionpanel);
-	productsearch = new friendfund.ProductSearch({
-		ref_node : "product_search_container",
-		canSelectRegion:false,
-		searchMixin : 
-			function(){
-				var params = {panelcloser:'',minimal:true,price:"${c.pool.get_total_contribution()}",currency:"${c.pool.currency}", "region":"${c.psettings.region}"};
-				return params
-			},
-		onLoaded: function(_t){
-				parseDefaultsInputs(_t.ref_node);
-			},
-		onSelected : function(selection_args){
-				var params = {};
-				params["product.guid"] = selection_args.guid;
-				params["product.is_virtual"] = selection_args.is_virtual;
-				params["product.is_curated"] = selection_args.is_curated;
-				params["product.is_amazon"] = selection_args.is_amazon;
-				loadElement("${url(controller='pool', pool_url=c.pool_url, action='setaltproduct')}", "product_search_container", params);
-			}
-		});
 </%def>
 
 <%def name="title()">${_("POOLSETTINGS_TITLE_Pool Admin")}</%def>

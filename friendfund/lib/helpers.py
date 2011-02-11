@@ -146,7 +146,10 @@ def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 	return (not product_picture_url.startswith('http')) \
 			and ('%(site_root)s%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals())\
 			or product_picture_url
-
+			
+def get_merchant_logo_url(request):
+	return '/static/imgs/merch/%s' % request.merchant.logo_url
+	
 def users_equal(user1, user2):
 	if not user1.network or not user1.network_id or not user2.network or not user2.network_id:
 		return False

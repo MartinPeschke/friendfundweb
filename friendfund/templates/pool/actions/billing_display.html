@@ -6,19 +6,19 @@
 </div>
 <div class="addressContainer" id="billingAddressContainer">
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Name")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line1', '&nbsp')|n}</span>
+		<label>${_("POOLSETTINGS_LABEL_Name")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line1', '&nbsp;')|n}</span>
 	</div>
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Street")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line2', '&nbsp')|n}</span>
+		<label>${_("POOLSETTINGS_LABEL_Street")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line2', '&nbsp;')|n}</span>
 	</div>
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_City")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line3', '&nbsp')|n}</span>
+		<label>${_("POOLSETTINGS_LABEL_City")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('line3', '&nbsp;')|n}</span>
 	</div>
 
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Zip Code")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('zipcode', '&nbsp')|n}</span>
+		<label>${_("POOLSETTINGS_LABEL_Zip Code")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('zipcode', '&nbsp;')|n}</span>
 	</div>
 	<div class="forminputline">
-		<label>${_("POOLSETTINGS_LABEL_Country")}</label><span class="requiredvalue inputMockUp">${c.billing_values.get('country', '&nbsp').replace('COUNTRY_', '').title()|n}</span>
+		<label>${_("POOLSETTINGS_LABEL_Country")}</label><span class="requiredvalue inputMockUp">${(c.billing_values.get("country", "").replace("COUNTRY_", "").title() or "&nbsp;")|n}</span>
 	</div>
 </div>

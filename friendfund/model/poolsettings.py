@@ -104,29 +104,27 @@ class PoolSettings(DBMappedObject):
 	_unique_keys = ['p_url']
 	_set_proc   = 'app.set_pool_settings'
 	_get_proc   = 'app.get_pool_settings'
-	_keys = [	 GenericAttrib(str ,'p_url'       , 'p_url' )
-				,GenericAttrib(int,'u_id'         , 'u_id'  )
-				,GenericAttrib(datetime           , 'expiry_date','expiry_date')
-				,GenericAttrib(unicode            , 'description','description')
-				,GenericAttrib(str,'status'       , 'status')
-				,GenericAttrib(str,'phase'        , 'phase')
-				,GenericAttrib(str,'region'       , 'region')
-				,GenericAttrib(str,'shipping_country', 'shipping_country')
-				,GenericAttrib(bool,'is_admin'    , 'is_admin')
-				,GenericAttrib(bool, 'is_virtual' , 'is_virtual')
-				,GenericAttrib(str                , 'merchant_domain', 'merchant_domain')
-				,DBMapper(ShippingAddress         , 'addresses','ADDRESS', is_dict = True, dict_key = lambda x: (x.type or 'shipping').lower())
-				,DBMapper(PoolAction, 'actions'   , 'POOL_ACTION', is_list = True)
+	_keys = [	 GenericAttrib(str ,'p_url'             , 'p_url' )
+				,GenericAttrib(int,'u_id'               , 'u_id'  )
+				,GenericAttrib(datetime                 , 'expiry_date','expiry_date')
+				,GenericAttrib(unicode                  , 'description','description')
+				,GenericAttrib(str,'status'             , 'status')
+				,GenericAttrib(str,'phase'              , 'phase')
+				,GenericAttrib(str,'shipping_country'   , 'shipping_country')
+				,GenericAttrib(bool,'is_admin'          , 'is_admin')
+				,GenericAttrib(str                      , 'merchant_domain', 'merchant_domain')
+				,DBMapper(ShippingAddress               , 'addresses','ADDRESS', is_dict = True, dict_key = lambda x: (x.type or 'shipping').lower())
+				,DBMapper(PoolAction, 'actions'         , 'POOL_ACTION', is_list = True)
 			]
 	
 	def get_internal_expiry_date(self, value = 0):
 		return self.expiry_date and h.format_date_internal(self.expiry_date + timedelta(value)) or ''
 	def get_require_addresses(self):
-		return not(self.is_virtual or not request.merchant.get_setting("require_address"))
+		return self.require_address
 	require_addresses = property(get_require_addresses)
 
-	def information_complete(self):
-		return not self.require_addresses or \
+	def information_complete(self, pool):
+		return not pool.require_addresses or \
 				(self.shipping_address.line1 and
 				self.shipping_address.line2 and 
 				self.shipping_address.line3 and 

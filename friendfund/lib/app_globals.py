@@ -122,28 +122,25 @@ class Globals(object):
 		
 		
 		amazon_services = {}
-		for k in self.country_choices.r2c_map.keys():
-			if app_conf.get('amazon.%s.domain' % k):
+		for country_code in self.country_choices.map.keys():
+			if app_conf.get('amazon.%s.domain' % country_code):
 				amazon_service = \
 						AmazonService(
-										app_conf['amazon.%s.apiurl' % k], 
-										app_conf['amazon.%s.associateid' % k], 
-										app_conf['amazon.%s.apikey' % k], 
-										app_conf['amazon.%s.apisecret' % k],
-										app_conf['amazon.%s.domain' % k],
+										country_code,
+										app_conf['amazon.%s.apiurl' % country_code], 
+										app_conf['amazon.%s.associateid' % country_code], 
+										app_conf['amazon.%s.apikey' % country_code], 
+										app_conf['amazon.%s.apisecret' % country_code],
+										app_conf['amazon.%s.domain' % country_code],
 										)
-				amazon_services[app_conf['amazon.%s.domain' % k]] = amazon_service
-				for code in self.country_choices.r2c_map[k]:
-					amazon_services[code] = amazon_service
-				log.info("AmazonService set up for %s:%s", self.country_choices.r2c_map[k], app_conf['amazon.%s.domain' % k])
+				amazon_services[country_code] = amazon_service
+				log.warning("AmazonService setup for %s", country_code)
 			else:
-				amazon_services[k] = None
-				log.warning("AmazonService NOT AVAILABLE for %s", self.country_choices.r2c_map[k])
+				log.warning("AmazonService NOT AVAILABLE for %s", country_code)
 		
 		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices)
 		log.info("ProductService set up")
 		
 		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home', True)
 							,(_('GLOBAL_MENU_My_Pools'), {'args':['controller'], 'kwargs':{'controller':'mypools'}}, 'mypools', True)
-							,(_('GLOBAL_MENU_My_Badges'), {'args':['controller'], 'kwargs':{'controller':'mybadges'}}, 'badges', False)
 							,(_('GLOBAL_MENU_My_Profile'), {'args':['controller'], 'kwargs':{'controller':'myprofile'}}, 'myprofile', True)]

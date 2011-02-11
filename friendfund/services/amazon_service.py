@@ -21,7 +21,7 @@ class AmazonService(object):
 		This is shared between all threads, do not stick state in here!
 	"""
 	
-	def __init__(self, base_url, affiliateid, key, secret, domain):
+	def __init__(self, country_code, base_url, affiliateid, key, secret, domain):
 		self.affiliateid = affiliateid
 		self.key = key
 		self.hmac_256 = hmac.new(secret, digestmod=sha256)
@@ -34,6 +34,7 @@ class AmazonService(object):
 		self.result_namespace = "http://webservices.amazon.com/AWSECommerceService/%s" % self.api_version
 		self.page_size = 6
 		
+		self.country_code = country_code
 		self.domain = domain
 		self.url_product_identifer_prefixes = {
 				"/dp/"			: re.compile("/dp/([0-9A-Z]{10})")

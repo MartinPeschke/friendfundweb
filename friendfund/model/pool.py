@@ -220,7 +220,8 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
-			, GenericAttrib(str,	 	'merchant_domain', 			'merchant_domain'				)
+			, GenericAttrib(bool, 		'require_address', 	'require_address'			)
+			, GenericAttrib(str,	 	'merchant_domain', 	'merchant_domain'			)
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
 			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True	)
@@ -299,7 +300,7 @@ class Pool(DBMappedObject):
 		return self.am_i_member(user) or not self.is_secret
 	
 	def get_require_addresses(self):
-		return request.merchant.get_setting("require_address")
+		return self.require_address
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):

@@ -2,14 +2,14 @@
 <%namespace name="html" file="../widgets/html_elems.html"/>
 
 <%def name="display_region_picker(title)">
-<div class="region_picker underlined2">
-			<span>${title|n} &nbsp;&nbsp;</span>
-			<select name="region" id="region_picker" style="padding: 3px;" _base_url="${c.panel}">
-				%for country in sorted(app_globals.country_choices.countries, key=lambda x: _(x.name)):
-					<option value="${country.code}" ${forms.expression_quote(country.code==c.region, "selected")|n}>${_(country.name)}</option>
-				%endfor
-			</select>
-		</div>
+	<div class="region_picker underlined2">
+		<span>${title|n} &nbsp;&nbsp;</span>
+		<select name="region" id="region_picker" style="padding: 3px;" _base_url="${c.panel}">
+			%for country_code, amazon_service in sorted(c.region_amazon_map.items()):
+				<option value="${country_code}" ${forms.expression_quote(country_code==c.region, "selected")|n}>${amazon_service.domain}</option>
+			%endfor
+		</select>
+	</div>
 </%def>
 
 <%def name="display_product_browser(searchresult, word_truncate = 200)">
@@ -108,7 +108,7 @@
 	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
 		<div class="colSx">
 			<img class="productImage" src="${product.picture}"/>
-			<img src="" alt="AMAZON LOGO" class="productMerchantImage" />
+			<img src="${c.merchant_logo_url}" alt="${request.merchant.name}" class="productMerchantImage" />
 		</div>
 		<div class="colDx">
 			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(include_shipping = False), product.currency, extended = True)|n} ${product.display_shipping|n}</span></p>

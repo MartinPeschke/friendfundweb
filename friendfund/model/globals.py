@@ -52,29 +52,22 @@ class GetCountryRegionProc(DBMappedObject):
 		for country in self.countries:
 			self.r2c_map[country.region] = self.r2c_map.get(country.region, []) + [country.code]
 			self.map[country.code] = country
-			
-		fallbacks = filter(lambda x: x.is_default, self.countries)
-		if len(fallbacks) > 0:
-			setattr(self, 'fallback', fallbacks[0])
-		else:
-			raise Exception("GetCountryRegionProc: No Fallback Country provided")
-
-class MerchantSettings(DBMappedObject):
-	_get_root = _set_root = 'SETTINGS'
-	_cachable = False
-	_unique_keys = ['key', 'value']
-	_keys = [GenericAttrib(unicode,'key','key'),GenericAttrib(unicode,'value','value')]
-
+		try:
+			setattr(self, 'fallback', filter(lambda x: x.is_default, self.countries)[0])
+		except IndexError, e:
+			raise Exception("GetCountryRegionProc: No Fallback Country provided, %s", e)
 
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
 	_unique_keys = ['name', 'domain']
-	_keys = [GenericAttrib(unicode,'name','name'),GenericAttrib(str,'domain','merchant_domain'),GenericAttrib(bool,'is_default','is_default')
-				, DBMapper(MerchantSettings,'settings','SETTINGS', is_dict = True, dict_key = lambda x:x.key.lower())]
-	
-	def get_setting(self, key):
-		return getattr(self.settings.get(key), 'value', False)
+	_keys = [	GenericAttrib(unicode,'name','name')
+				,GenericAttrib(str,'domain','merchant_domain')
+				,GenericAttrib(str,'pool_type','pool_type')
+				,GenericAttrib(str,'entry_point','entry_point')
+				,GenericAttrib(bool,'is_default','is_default')
+				,GenericAttrib(str,'logo_url','logo_url')
+			]
 
 class GetMerchantLinksProc(DBMappedObject):
 	"""app.[get_merchant]"""
@@ -91,5 +84,4 @@ class GetMerchantLinksProc(DBMappedObject):
 			setattr(self, 'default', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0])
 			setattr(self, 'default_domain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].domain)
 		except IndexError, e:
-			log.error("No Default Merchant set, %s", e)
-			raise Exception("No Default Merchant set, %s" % e)
+			raise Exception("GetMerchantLinksProc:No Default Merchant set, %s" % e)

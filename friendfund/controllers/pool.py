@@ -308,7 +308,7 @@ class PoolController(ExtBaseController):
 		if not (c.psettings.is_admin and c.psettings.is_funded()):
 			c.messages.append(_(NOT_CORRECT_STATE))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
-		elif c.psettings.information_complete():
+		elif c.psettings.information_complete(c.pool):
 			try:
 				g.dbm.set(ClosePoolProc(p_url = pool_url))
 				g.dbm.expire(Pool(p_url = pool_url))

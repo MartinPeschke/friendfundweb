@@ -57,6 +57,7 @@ class ShippingAddressForm(formencode.Schema):
 	line2 = formencode.validators.String(not_empty=True, min=1, max = 255)
 	line3 = formencode.validators.String(not_empty=True, min=1, max = 255)
 	zipcode = formencode.validators.String(not_empty=True, min=1, max = 10)
+	country = formencode.validators.String(not_empty=True, min=1, max = 255)
 
 class BillingAddressForm(formencode.Schema):
 	allow_extra_fields = True
