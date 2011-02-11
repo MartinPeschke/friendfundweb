@@ -106,22 +106,21 @@ class AmazonService(object):
 	def parse_result_xml_into_search(self, xml, page_no):
 		result = etree.parse(xml)
 		products = []
-		total_pages = reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalPages/text()', **self.query_nss))
+		total_pages = 1#reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalPages/text()', **self.query_nss))
 		total_items = reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalResults/text()', **self.query_nss))
-		if total_pages>5:total_pages=5
 		
 		for i, elem in enumerate(result.iter(tag='{%s}Item' % self.result_namespace)):
 			product = Product()
 			errors = elem.xpath("t:Errors/t:Error/t:Code/text()", **self.query_nss)
 			if len(errors) > 1:
-				log.debug( AmazonErrorsOccured("XML Contained Errors %s" % errors) )
+				log.info( AmazonErrorsOccured("XML Contained Errors %s" % errors) )
 				continue
 			offers = elem.xpath("t:Offers/t:Offer", **self.query_nss)
 			if len(offers) > 1:
-				log.debug( TooManyOffersError("Too Many Offers Found") )
+				log.info( "Too Many Offers Found: %s", len(offers) )
 				continue
 			elif len(offers) == 0:
-				log.debug( "No Offers Found in Product: %s" % etree.tostring(elem) )
+				log.info( "No Offers Found in Product: %s" % result.xpath('t:ASIN/text()', **self.query_nss) )
 				continue
 			try:
 				for key,(required, normalizer, xmlqueries) in self.product_mapper.iteritems():
@@ -132,6 +131,7 @@ class AmazonService(object):
 							value = normalizer(hits[0])
 							break
 					if required and value is None:
+						log.info("Amazon Link could not be imported because of: %s " % e)
 						raise AttributeMissingInProductException(key)
 						
 					elif value is None:
@@ -139,13 +139,13 @@ class AmazonService(object):
 					else:
 						setattr(product, key, value)
 			except AttributeMissingInProductException, e:
-				log.debug("Amazon Link could not be imported because of: %s " % e)
+				log.info("Amazon Link could not be imported because of: %s " % e)
 				continue
 			#set alternate product description, as no original was found
 			if not product.description:
 				descr = self.parse_surrogate_description(elem)
 				if not descr:
-					log.debug( AttributeMissingInProductException("description") )
+					log.info( AttributeMissingInProductException("description") )
 					continue
 				product.description = descr
 			product.description = html.fromstring(product.description).text_content() #parse out any html tags
@@ -157,7 +157,7 @@ class AmazonService(object):
 	def return_product_object(self, item_id):
 		xml = self.fetch_product({'ItemId':item_id, 'Operation':'ItemLookup'})
 		result = self.parse_result_xml_into_search(xml, 1)
-		result.items = 1
+		result.items = len(result.products)
 		return result
 	
 	def get_product_from_merchant_ref(self, merchant_ref):

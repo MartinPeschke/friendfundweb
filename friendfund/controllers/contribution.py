@@ -227,11 +227,3 @@ class ContributionController(ExtBaseController):
 	
 	
 	
-	
-	
-	def service(self):
-		"""basic auth: adyen/4epayeguka7ew43frEst5b4u"""
-		if request.method != 'POST':
-			return ['rejected']
-		params = request.POST
-		return g.payment_service.receive_notification(paymentlog, params)

@@ -50,7 +50,7 @@ class ProductService(object):
 			topsellers = top_sellers.map.get(country_code)
 			if topsellers:
 				self.top_sellers[country_code] = topsellers
-				self.amazon_region_map[country_code] = amazon_service
+			self.amazon_region_map[country_code] = amazon_service
 		
 	def setup_region(self, request):
 		tmpl_context.region = request.params.get('region', websession['region'])
@@ -87,14 +87,14 @@ class ProductService(object):
 		tmpl_context = self.search_tab_setup(request)
 		tmpl_context.search_base_url='search_tab_search'
 		tmpl_context.SCROLLER_PAGE_SIZE = self.SCROLLER_PAGE_SIZE
-		tmpl_context.top_sellers = self.top_sellers[tmpl_context.region]
+		tmpl_context.top_sellers = self.top_sellers.get(tmpl_context.region, [])
 		return tmpl_context
 	
 	def search_tab_search(self, request):
 		tmpl_context = self.search_tab_setup(request)
 		tmpl_context = self.request_search_setup(request)
 		tmpl_context.search_base_url='search_tab_search'
-		
+		tmpl_context.searchterm = tmpl_context.searchterm.strip()
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
 			return self._amazon_fallback(request, tmpl_context.searchterm)
 		else:
