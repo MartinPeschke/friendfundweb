@@ -17,7 +17,7 @@ from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
 log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
-	navposition=g.globalnav[3][2]
+	navposition=g.globalnav[2][2]
 	@logged_in(ajax=False)
 	def index(self):
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)

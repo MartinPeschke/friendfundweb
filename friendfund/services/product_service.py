@@ -40,15 +40,23 @@ class ProductService(object):
 				top_sellers.map[k] = v + v[:self.SCROLLER_PAGE_SIZE-len(v)%self.SCROLLER_PAGE_SIZE]
 		
 		self.top_sellers = {}
-		self.region_amazon_map = {}
-		for domain, amazon_service in amazon_services.items():
-			topsellers = top_sellers.map.get(amazon_service.country_code)
+		self.amazon_region_map = {}
+		self.amazon_domain_map = {}
+		self.default_region = country_choices.fallback
+		
+		
+		for country_code, amazon_service in amazon_services.items():
+			self.amazon_domain_map[amazon_service.domain] = amazon_service
+			topsellers = top_sellers.map.get(country_code)
 			if topsellers:
-				self.top_sellers[amazon_service.country_code] = topsellers
-				self.region_amazon_map[amazon_service.country_code] = amazon_service
+				self.top_sellers[country_code] = topsellers
+				self.amazon_region_map[country_code] = amazon_service
+		
 	def setup_region(self, request):
 		tmpl_context.region = request.params.get('region', websession['region'])
-		tmpl_context.region_amazon_map = self.region_amazon_map
+		if tmpl_context.region not in self.amazon_region_map:
+			tmpl_context.region = self.default_region.code
+		tmpl_context.amazon_region_map = self.amazon_region_map
 		tmpl_context.merchant_logo_url = h.get_merchant_logo_url(request)
 		return tmpl_context
 	
@@ -72,7 +80,7 @@ class ProductService(object):
 		tmpl_context.panel = 'search_tab'
 		tmpl_context.searchterm = request.params.get('searchterm', '')
 		tmpl_context.currency = request.params.get('currency', None)
-		tmpl_context.amazon_available = bool(self.region_amazon_map.get(tmpl_context.region))
+		tmpl_context.amazon_available = bool(self.amazon_region_map.get(tmpl_context.region))
 		return tmpl_context
 	
 	def search_tab(self, request):
@@ -88,29 +96,30 @@ class ProductService(object):
 		tmpl_context.search_base_url='search_tab_search'
 		
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
-				return self._amazon_fallback(request, tmpl_context.searchterm)
+			return self._amazon_fallback(request, tmpl_context.searchterm)
 		else:
-			tmpl_context.searchresult = self.region_amazon_map[tmpl_context.region].get_products_from_search(tmpl_context.searchterm, page_no = tmpl_context.page, sorting=tmpl_context.sort)
+			tmpl_context.searchresult = self.amazon_region_map[tmpl_context.region].get_products_from_search(tmpl_context.searchterm, page_no = tmpl_context.page, sorting=tmpl_context.sort)
 		return tmpl_context
 	
 	def _amazon_fallback(self, request, url):
 		scheme, domain, path, query, fragment = urlparse.urlsplit(url)
 		tmpl_context.searchterm = "Amazon Link"
-		if domain not in self.region_amazon_map:
+		if domain not in self.amazon_domain_map:
 			raise AmazonUnsupportedRegionException()
-		elif domain != self.region_amazon_map[tmpl_context.region].domain:
-			raise AmazonWrongRegionException()
 		else:
-			tmpl_context.searchresult = self.region_amazon_map[domain].get_product_from_url(url)
+			svc = self.amazon_domain_map[domain]
+			tmpl_context.region = svc.country_code
+			websession['region'] = tmpl_context.region
+			tmpl_context.searchresult = svc.get_product_from_url(url)
 		return tmpl_context
 	
 	def getaltproduct(self, product, region):
-		product = self.region_amazon_map[region].get_product_from_merchant_ref(product['merchant_ref'])
+		product = self.amazon_region_map[region].get_product_from_merchant_ref(product['merchant_ref'])
 		return product
 	
 	def set_product(self, pool, product, request):
 		tmpl_context = self.setup_region(request)
-		product = self.region_amazon_map[tmpl_context.region].get_product_from_merchant_ref(product['merchant_ref'])
+		product = self.amazon_region_map[tmpl_context.region].get_product_from_merchant_ref(product['merchant_ref'])
 		if not product:
 			return self.ajax_messages(_("POOL_CREATE_Product not Found"))
 		pool.product = product

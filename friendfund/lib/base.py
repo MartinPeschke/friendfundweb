@@ -90,7 +90,7 @@ class ExtBaseController(BaseController):
 	def __before__(self, action, environ):
 		super(ExtBaseController, self).__before__(action, environ)
 		pool_url = environ['wsgiorg.routing_args'][1].get('pool_url')
-		if pool_url:
+		if pool_url is not None:
 			c.pool = g.dbm.get(Pool, p_url = pool_url)
 			if not c.pool:
 				return abort(404)

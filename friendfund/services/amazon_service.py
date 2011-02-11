@@ -156,7 +156,9 @@ class AmazonService(object):
 	
 	def return_product_object(self, item_id):
 		xml = self.fetch_product({'ItemId':item_id, 'Operation':'ItemLookup'})
-		return self.parse_result_xml_into_search(xml, 1)
+		result = self.parse_result_xml_into_search(xml, 1)
+		result.items = 1
+		return result
 	
 	def get_product_from_merchant_ref(self, merchant_ref):
 		results = self.return_product_object(merchant_ref)

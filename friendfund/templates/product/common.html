@@ -5,7 +5,7 @@
 	<div class="region_picker underlined2">
 		<span>${title|n} &nbsp;&nbsp;</span>
 		<select name="region" id="region_picker" style="padding: 3px;" _base_url="${c.panel}">
-			%for country_code, amazon_service in sorted(c.region_amazon_map.items()):
+			%for country_code, amazon_service in sorted(c.amazon_region_map.items()):
 				<option value="${country_code}" ${forms.expression_quote(country_code==c.region, "selected")|n}>${amazon_service.domain}</option>
 			%endfor
 		</select>
