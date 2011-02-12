@@ -106,8 +106,9 @@ class AmazonService(object):
 	def parse_result_xml_into_search(self, xml, page_no):
 		result = etree.parse(xml)
 		products = []
-		total_pages = 1#reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalPages/text()', **self.query_nss))
+		total_pages = min([5, reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalPages/text()', **self.query_nss))])
 		total_items = reduce(lambda x,y: int(x)+int(y), [0]+result.xpath('t:Items/t:TotalResults/text()', **self.query_nss))
+		
 		
 		for i, elem in enumerate(result.iter(tag='{%s}Item' % self.result_namespace)):
 			product = Product()
@@ -131,7 +132,7 @@ class AmazonService(object):
 							value = normalizer(hits[0])
 							break
 					if required and value is None:
-						log.info("Amazon Link could not be imported because of: %s " % e)
+						log.info("Amazon Link could not be imported because of: %s ", value)
 						raise AttributeMissingInProductException(key)
 						
 					elif value is None:

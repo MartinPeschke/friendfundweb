@@ -23,6 +23,9 @@
 
 	<div class="clear" id="scroller_anchor"></div>
 	<div id="product_browser_container">
-		<%include file="search_tab_search.html"/>
+		%if hasattr(c, "searchresult"):
+			<h4 class="inside">${_("PRODUCT_BROWSER_SEARCH_TITLE_Search Results for \"%s\"") % c.searchterm}</h4>
+			${common.display_product_browser(c.searchresult)|n}
+		%endif
 	</div>
 </div>

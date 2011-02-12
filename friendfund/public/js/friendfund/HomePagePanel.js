@@ -89,6 +89,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 		/* TODO: this gets disconnected on Product Panel Changing */
 		dojo.query("a.button_panel_closer", "button_panel").onclick(dojo.hitch(null, _t.unload, _t, true));
 		dojo.query("#"+elem+"_panel").addClass('front_panel_active');
+		dojo.query("#"+_t.config_node).addClass('configurator_opened');
 		parseDefaultsInputs(_t.ref_node);
 	},verify: function() {
 		return false;
@@ -112,6 +113,7 @@ dojo.declare("friendfund.HomePagePanel", null, {
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
 		}
+		dojo.query("#"+_t.config_node).removeClass('configurator_opened');
 	},
 	/*                OCCASION PANELS               */
 	load_occasion: function(_t, evt, args){

@@ -12,6 +12,8 @@ dojo.declare("friendfund.ProductSearch", null, {
 	onLoaded : null,
 	onSelected : null,
 	searchMixin : null,
+	has_more_token:"product_has_more",
+	extensionAttachment: "productSorterContainer",
 	productBrowser : "product_browser_container",
 	constructor: function(args){
 		var _t = this;
@@ -43,10 +45,30 @@ dojo.declare("friendfund.ProductSearch", null, {
 			var node = dojo.byId("scroller_anchor");
 			var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 			anim0.play();
+			_t.loadExtensionResults(_t, dojo.byId(_t.has_more_token), extra_params);
 		});
 		var node = dojo.byId("scroller_anchor");
 		var anim0 = dojox.fx.smoothScroll({node:node, win: window, duration:500, easing:dojo.fx.easing.expoOut});
 		anim0.play();
+	},
+	loadExtensionResults : function(_t, target, extra_params){
+		if(target){
+			var base_url = dojo.attr(target, "_base_url");
+			var params = _t.searchMixin && _t.searchMixin() || {};
+			params.sort = dojo.attr(target, "sort")||"RANK";
+			params.page=dojo.attr(target, "page")||1;
+			dojo.forEach(dojo.attr(target, "_search_keys").split(","), 
+						function(key){params[key.substring(1)]=dojo.attr(target, key);}
+			);
+			dojo.mixin(params, extra_params);
+			xhrPost("/product/"+base_url, params, 
+				function(data){
+					dojo.query("#"+_t.has_more_token).orphan();
+					dojo.place(data.html, _t.extensionAttachment, "last");
+					_t.loadExtensionResults(_t, dojo.byId(_t.has_more_token), extra_params);
+				}
+			);
+		}
 	},
 	loadResults : function(_t, evt){
 		var target;

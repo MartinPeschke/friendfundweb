@@ -12,32 +12,6 @@
 	</div>
 </%def>
 
-<%def name="display_product_browser(searchresult, word_truncate = 200)">
-%if searchresult and searchresult.items > 0:
-	<div class="productSorterContainer">
-		%for i, elem in enumerate(searchresult.products):
-			${display_product(i, elem, word_truncate)}
-		%endfor
-	</div>
-	<div style="clear:both"></div>
-	${display_paginator(c.searchresult)}
-%else:
-	<div class="panel_content_no_margin">
-	%if len(getattr(c ,"product_messages", [])) > 0:
-		%for m in c.product_messages:
-			<p>${m}</p>
-		%endfor
-	%else:
-		%if getattr(c ,"max_price", None) is not None and  getattr(c ,"currency", None):
-			${(_("PRODUCT_SEARCH_PANEL_Nothing Really Found with a Price of %s or less, search for something else?") % (h.format_currency(c.max_price/100, c.currency)))|n}
-		%else:
-			${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
-		%endif
-	%endif
-	</div>
-%endif
-</%def>
-
 <%def name="display_topsellers(top_sellers, scroller_page_size)">
 	<div id="scrollingproductsuggestions" class="anythingSlider">
 	<span class="arrow back arrowback anchorelem"><a>&lt;&lt;</a></span>
@@ -65,47 +39,39 @@
 	</div>
 </%def>
 
-
-
-<%def name="display_paginator(searchresult)">
-	<%
-		pages = searchresult.pages
-		page_no = searchresult.page_no
-		page_field = searchresult.page_field()
-	%>
-	%if pages > 1:
-		<div id="product_paginator">
-			%if page_no > 1:
-				<span class="veryfirst">
-				<a class="paginator anchorelem" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [('page', page_no-1)])|n} >&lt;&lt;${_("PRODUCT_SEARCH_PANEL_Back")}</a>
-				</span>
-			%endif
-			%for i in page_field:
-				<span class="${(i==1 and 'first' or i==pages and 'last' or 'middle')}">
-				%if i == page_no:
-					<span class="selected">${i}</span>
-				%else:
-					<span>
-						<a class="paginator anchorelem" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [('page', i)])|n} >${i}</a>
-					</span>
-				%endif
-				</span>
-			%endfor
-			%if page_no < pages:
-				<span class="verylast">
-				<a class="paginator anchorelem" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [('page', page_no+1)])|n}>${_("PRODUCT_SEARCH_PANEL_Next")}&gt;&gt;</a>
-				</span>
-			%endif
-		<div style="clear:both"></div>
+<%def name="has_more(searchresult)">
+	%if searchresult.pages > searchresult.page_no:
+		<div id="product_has_more" class="paginator anchorelem" _base_url="${c.search_base_url}" 
+			${h.attrib_keys(c.search_keys, [("page", searchresult.page_no+1)])|n} style="width: 437px; background-color: white; padding: 0px; height: 247px; float: left; margin: 15px auto 0pt;">
+			<div style="padding: 120px 210px;">${html.ajax_loading_animation()|n}</div>
 		</div>
-		<div style="clear:both"></div>
 	%endif
 </%def>
 
 
+<%def name="display_product_browser(searchresult, word_truncate = 200)">
+%if searchresult and searchresult.items > 0:
+	<div class="productSorterContainer" id="productSorterContainer">
+		%for i, elem in enumerate(searchresult.products):
+			${display_product(i, elem, word_truncate)}
+		%endfor
+		${has_more(searchresult)|n}
+	</div>
+%else:
+	<div class="panel_content_no_margin">
+	%if len(getattr(c ,"product_messages", [])) > 0:
+		%for m in c.product_messages:
+			<p>${m}</p>
+		%endfor
+	%else:
+		${_("PRODUCT_SEARCH_PANEL_Nothing Really Found, search for something else?")}
+	%endif
+	</div>
+%endif
+</%def>
 
 <%def name="display_product(counter, product, word_truncate = 200)">
-	<div class="productSorter ${counter%2==1 and "marginRightClean" or ""}">
+	<div class="productSorter">
 		<div class="colSx">
 			<img class="productImage" src="${product.picture}"/>
 			<img src="${c.merchant_logo_url}" alt="${request.merchant.name}" class="productMerchantImage" />

@@ -56,9 +56,6 @@ class ProductController(BaseController):
 		c.product_messages = []
 		try:
 			g.product_service.search_tab_search(request)
-		except SProcWarningMessage, e:
-			log.warning("Product Search Warning: %s" % e)
-			return self.ajax_messages(_(u"PRODUCT_SEARCH_An Error Occured during search, please try again later."))
 		except AmazonUnsupportedRegionException, e:
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_URL not recognized"))
@@ -78,6 +75,18 @@ class ProductController(BaseController):
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}
+	
+	
+	@jsonify
+	def search_tab_extension(self):
+		c.products = []
+		g.product_service.search_tab_extension(request)
+		return {'clearmessage':True, 'data':{
+					'page_no':c.searchresult.page_no, 
+					'has_more':c.searchresult.page_no < c.searchresult.pages,
+					'html':remove_chars(render('/product/search_tab_extension.html').strip(), '\n\r\t')
+				}
+			}
 	
 	@jsonify
 	def remote_search(self):

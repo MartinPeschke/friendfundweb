@@ -93,7 +93,18 @@ class ProductService(object):
 	def search_tab_search(self, request):
 		tmpl_context = self.search_tab_setup(request)
 		tmpl_context = self.request_search_setup(request)
-		tmpl_context.search_base_url='search_tab_search'
+		tmpl_context.search_base_url='search_tab_extension'
+		tmpl_context.searchterm = tmpl_context.searchterm.strip()
+		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
+			return self._amazon_fallback(request, tmpl_context.searchterm)
+		else:
+			tmpl_context.searchresult = self.amazon_region_map[tmpl_context.region].get_products_from_search(tmpl_context.searchterm, page_no = tmpl_context.page, sorting=tmpl_context.sort)
+		return tmpl_context
+	
+	def search_tab_extension(self, request):
+		tmpl_context = self.search_tab_setup(request)
+		tmpl_context = self.request_search_setup(request)
+		tmpl_context.search_base_url='search_tab_extension'
 		tmpl_context.searchterm = tmpl_context.searchterm.strip()
 		if tmpl_context.searchterm.startswith("http://") and tmpl_context.amazon_available:
 			return self._amazon_fallback(request, tmpl_context.searchterm)
