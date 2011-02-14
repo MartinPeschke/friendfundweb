@@ -29,7 +29,9 @@ class PaymentService(object):
 		self.__class__.payment_methods = payment_methods
 		self.payment_methods_map = dict([(pm.code, pm) for pm in self.payment_methods])
 	def verify_result(self, params):
-		method = params['paymentMethod']
+		method = params.get('paymentMethod')
+		if not method:
+			return None
 		return self.payment_methods_map[method].verify_signature(params)
 	def get_payment_settings(self, currency, user, pool):
 		return PaymentPageSettings(currency, user, pool)

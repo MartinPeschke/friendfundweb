@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-<loc>${app_globals.SITE_ROOT_URL}/</loc> 
+<loc>${request.qualified_host}</loc> 
 </url>
 %for entry in c.pool_urls:
 	<url>
-	<loc>${app_globals.SITE_ROOT_URL}/pool/${entry.p_url}</loc> 
+	<loc>${request.qualified_host}/pool/${entry.p_url}</loc> 
 	</url>
 %endfor
 <url>
-<loc>${app_globals.SITE_ROOT_URL}/content/faq</loc> 
+<loc>${request.qualified_host}/content/faq</loc> 
 </url>
 <url>
-<loc>${app_globals.SITE_ROOT_URL}/content/tos</loc> 
+<loc>${request.qualified_host}/content/tos</loc> 
 </url>
 <url>
-<loc>${app_globals.SITE_ROOT_URL}/content/privacy</loc> 
+<loc>${request.qualified_host}/content/privacy</loc> 
 </url>
 <url>
-<loc>${app_globals.SITE_ROOT_URL}/content/impressum</loc> 
+<loc>${request.qualified_host}/content/impressum</loc> 
 </url>
 </urlset>

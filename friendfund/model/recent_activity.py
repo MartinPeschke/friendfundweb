@@ -4,7 +4,7 @@ from pylons.i18n import ugettext as _
 
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
-from friendfund.model.badge import ALLBADGES_DICT, Badge
+
 from datetime import datetime, timedelta
 
 

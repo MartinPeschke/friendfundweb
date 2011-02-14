@@ -23,7 +23,7 @@ def make_map(config):
 	# CUSTOM ROUTES HERE
 	map.connect('/pool/start', controller='pool', action='reset')
 	map.connect('/pool/create', controller='pool', action='create')
-	map.connect('contribution_service', '/contribution/service', controller='contribution', action='service')
+	map.connect('contribution_service', '/contribution/service', controller='payment_service', action='service')
 	map.connect('get_pool', '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': purlpattern})
 	map.connect('pool_action', '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})
 	map.connect('chipin', '/chipin/{pool_url}', controller='contribution', action="chipin", requirements={'pool_url': purlpattern})
@@ -40,7 +40,6 @@ def make_map(config):
 	map.connect('invite_index', '/invite/{pool_url}', controller='invite', action='display', requirements={'pool_url': purlpattern})
 	map.connect('invite_action', '/invite/{pool_url}/{action}', controller='invite', requirements={'pool_url': purlpattern})
 
-	map.connect('mybadges', '/mybadges/panel/{badge_name}', controller="mybadges", action="panel")
 	map.connect('/myprofile/{action}/{token}', controller="myprofile")
 	map.connect('/user/{action}/{token}', controller="myprofile")
 	map.connect('/{controller}/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})

@@ -34,6 +34,7 @@ class ContributionController(ExtBaseController):
 			log.warning("Payment Provider Signature could not be verified: %s", request.params)
 			return abort(404)
 		elif merchant_domain != request.merchant.domain:
+			log.info("REDIRECTED, found:%s(%s), expected: %s(%s)", merchant_domain, type(merchant_domain), request.merchant.domain, type(request.merchant.domain))
 			return redirect(url.current(host=merchant_domain.encode("latin-1"), **dict(request.params.items())))
 		pool_base_info = g.dbm.get(GetPoolURLFromContribRef, contribution_ref = merchantReference)
 		c.pool = g.dbm.get(Pool, p_url = pool_base_info.p_url)
