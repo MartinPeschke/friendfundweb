@@ -1,0 +1,41 @@
+<%inherit file="master.html"/>
+<div id="outercontainer">
+	${next.body()}
+</div>
+${next.siteinfo()}
+
+
+
+<%def name="siteinfo()">
+	<div id="siteinfo">
+		${self.render_verisign(id="verisignseal")}
+		${self.render_siteinfo_copyright()}
+		${self.render_footer_links()}
+	</div>
+</%def>
+
+
+
+<%def name="render_verisign(id)">
+	<div id="${id}">
+		<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+		<tr><td width="135" align="center" valign="top">
+			<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br/>
+			<a href="http://www.verisign.com/ssl-certificate/" target="_blank"
+			style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+		</td></tr>
+		</table>
+	</div>
+</%def>
+
+<%def name="render_siteinfo_copyright()">
+	<div class="siteinfo_copyright"><p>${_(u"SITEINFO_2010(c) friendfund")|n}</p></div>
+</%def>
+<%def name="render_footer_links()">
+	<a href="http://blog.friendfund.com" class="siteinfo_content">${_(u"SITEINFO_Blog")|n}</a>
+	<a href="http://blog.friendfund.com/?page_id=108" class="siteinfo_content">${_(u"SITEINFO_Jobs")|n}</a>
+	<a href="${url(controller='content', action='tos')}" class="siteinfo_content">${_(u"SITEINFO_Terms")|n}</a>
+	<a href="${url(controller='content', action='privacy')}" class="siteinfo_content">${_(u"SITEINFO_Privacy")|n}</a>
+	<a href="${url(controller='content', action='impressum')}" class="siteinfo_content">${_(u"SITEINFO_Impressum")|n}</a>
+	<a href="${url(controller='content', action='faq')}" class="siteinfo_content">${_(u"SITEINFO_FAQ")|n}</a>
+</%def>

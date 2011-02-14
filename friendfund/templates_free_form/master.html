@@ -1,0 +1,64 @@
+<%namespace name="links" file="/widgets/links.html"/>
+${self.render_html()}
+
+<%def name="render_html()">
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		${next.render_head()}
+	</head>
+	<body class="${self.bodyclass()}">
+		${next.body()}
+		${next.render_foot_scripts()}
+	</body>
+	</html>
+</%def>
+
+<%def name="render_head()">
+		<title>friendfund.com | ${self.title()}</title>
+		${links.css('site.css')}
+		${links.js('loader.js')}
+		<script type="text/javascript"> 
+			page_reloader = function(){window.location.reload();};
+		</script>
+		${self.fb_meta_tags()}
+		${self.scripts_styles()}
+</%def>
+
+<%def name="render_foot_scripts()">
+	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
+	${self.scripts()}
+	<div id="generic_popup"></div>
+	<div id="fb-root"></div>
+	<script type="text/javascript">
+		var _loadInitials = function() {
+			fbInit("${app_globals.FbApiKey}", ${str(c.user.has_tried_logging_in_with("facebook")).lower()});
+			${self.onloadscripts()}
+		};
+		var _loadSuper = window.onload;window.onload = (typeof window.onload != 'function') ? _loadInitials : function() { _loadSuper(); _loadInitials(); }
+	</script>
+	${self.user_voice()|n}
+	${self.google_analytics()|n}
+</%def>
+
+
+
+<%def name="title()">${_("FF_Group Gifts")}</%def>
+<%def name="bodyclass()">base</%def>
+<%def name="fb_meta_tags()"></%def>
+<%def name="scripts_styles()"></%def>
+<%def name="scripts()"></%def>
+<%def name="onloadscripts()"></%def>
+<%def name="google_analytics()">
+	<%include file="widgets/ganalytics.html"/>
+</%def>
+<%def name="user_voice()">
+<script type="text/javascript">
+		var uservoiceOptions = {
+			/* required */key: 'friendfund',host: 'friendfund.uservoice.com', forum: '81919',showTab: true,  
+			/* optional */alignment: 'left',background_color:'#333', text_color: 'white',hover_color: '#06C',lang: 'en'};
+			function _loadUserVoice() {var s = document.createElement('script');s.setAttribute('type', 'text/javascript');s.setAttribute('src', ("https:" == document.location.protocol ? "https://" : "http://") + "cdn.uservoice.com/javascripts/widgets/tab.js");document.getElementsByTagName('head')[0].appendChild(s);}_loadSuper = window.onload;window.onload = (typeof window.onload != 'function') ? _loadUserVoice : function() { _loadSuper(); _loadUserVoice(); };
+	</script>
+</%def>

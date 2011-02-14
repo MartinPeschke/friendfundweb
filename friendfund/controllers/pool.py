@@ -8,15 +8,12 @@ from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
 from friendfund.lib.base import BaseController, render, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.tools import dict_contains
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
-
-from friendfund.controllers.index import IndexController
 
 _ = lambda x:x
 NOT_AUTHORIZED_MESSAGE = _("POOL_Your not authorized for this operation.")
@@ -33,7 +30,6 @@ log = logging.getLogger(__name__)
 class PoolController(ExtBaseController):
 	navposition=g.globalnav[1][2]
 	chat_page_size = 10
-	
 	def index(self, pool_url = None):
 		if pool_url is None:
 			return abort(404)
@@ -174,9 +170,7 @@ class PoolController(ExtBaseController):
 			c.billing_errors = {}
 			return self.render('/pool/settings_admin.html')
 		else:
-			if c.psettings.is_closed():
-				c.messages.append(_(CLOSING_MESSAGE))
-			return self.render('/pool/settings.html')
+			return redirect(url('get_pool', pool_url=pool_url))
 	
 	@jsonify
 	@logged_in(ajax=True)
