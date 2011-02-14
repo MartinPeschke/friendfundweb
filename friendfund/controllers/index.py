@@ -29,6 +29,8 @@ class IndexController(BaseController):
 	ra_page_size = 5
 	
 	def index(self):
+		if request.merchant.home_page:
+			return redirect(request.merchant.home_page, code=301)
 		c.recent_activity = g.dbm.get(RecentActivityStream)
 		c.ra_offset = self.ra_page_size
 		c.uuid = str(uuid.uuid4())

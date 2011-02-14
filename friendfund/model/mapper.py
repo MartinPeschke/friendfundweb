@@ -16,14 +16,17 @@ class DBMapping(object):
 	pass
 
 class GenericAttrib(DBMapping):
-	def __init__(self, cls, pykey, dbkey, persistable = True):
+	def __init__(self, cls, pykey, dbkey, persistable = True, enumeration = None):
 		self.dbkey = dbkey
 		self.pykey = pykey
 		self.cls = cls
 		self.persistable = persistable
+		self.enumeration = enumeration
 	
 	def toDB(self, val):
 		if val is None: return ''
+		elif self.enumeration and (not val in self.enumeration):
+			raise ValueError("UNEXPECTED VALUE in ENUM: %s (not in %s)" % (val, self.cls))
 		elif self.cls == bool:
 			result = (self.dbkey, '"%s"' % int(bool(val)))
 		elif issubclass(self.cls, date):
@@ -39,14 +42,21 @@ class GenericAttrib(DBMapping):
 		if val is None: return None
 		if self.cls == bool:
 			return val and bool(int(val))
+		elif isinstance(self.cls, set):
+			if not val in self.cls:
+				raise ValueError("UNEXPECTED VALUE in ENUM: %s (not in %s)" % (val, self.cls))
+			else:
+				return self.cls(val)
 		elif issubclass(self.cls, date):
 			try:
 				return datetime.strptime(val.rsplit('.',1)[0], '%Y-%m-%dT%H:%M:%S')
 			except ValueError, e:
 				return datetime.strptime(val.split('T')[0], '%Y-%m-%d')
-			
 		else:
+			if self.enumeration and (not self.cls(val) in self.enumeration):
+				raise ValueError("UNEXPECTED VALUE in ENUM: %s (not in %s)" % (val, self.enumeration))
 			return self.cls(val)
+
 	def __repr__(self):
 		return '<%s: %s,%s>' % (self.__class__.__name__, self.pykey,self.dbkey)
 

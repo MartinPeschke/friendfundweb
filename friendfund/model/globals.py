@@ -63,11 +63,18 @@ class MerchantLink(DBMappedObject):
 	_unique_keys = ['name', 'domain']
 	_keys = [	GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'domain','merchant_domain')
-				,GenericAttrib(str,'pool_type','pool_type')
-				,GenericAttrib(str,'entry_point','entry_point')
+				,GenericAttrib(str,'pool_type','pool_type', enumeration=set(['FREE_FORM', 'GROUP_GIFT']))
+				,GenericAttrib(str,'entry_point','entry_point', enumeration=set(['LANDING_PAGE', 'IFRAME']))
 				,GenericAttrib(bool,'is_default','is_default')
 				,GenericAttrib(str,'logo_url','logo_url')
+				,GenericAttrib(str,'home_page','home_page')
 			]
+	def fromDB(self, xml):
+		setattr(self, 'type_is_free_form', self.pool_type=="FREE_FORM")
+		setattr(self, 'type_is_group_gift', self.pool_type=="GROUP_GIFT")
+		setattr(self, 'entry_is_landing_page', self.entry_point=="LANDING_PAGE")
+		setattr(self, 'entry_is_iframe', self.entry_point=="IFRAME")
+		
 
 class GetMerchantLinksProc(DBMappedObject):
 	"""app.[get_merchant]"""

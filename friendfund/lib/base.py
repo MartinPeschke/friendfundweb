@@ -24,10 +24,14 @@ def render(template_name, extra_vars=None, cache_key=None,
 	def render_template():
 		globs = extra_vars or {}
 		globs.update(pylons_globals())
-		if request.merchant.is_default:
-			template = globs['app_globals'].mako_lookup.get_template(template_name)
+		if request.merchant.type_is_group_gift:
+			if request.merchant.entry_is_landing_page:
+				template = globs['app_globals'].mako_lookup.get_template(template_name)
+			else:
+				template = globs['app_globals'].merchant_mako_lookup.get_template(template_name)
 		else:
-			template = globs['app_globals'].merchant_mako_lookup.get_template(template_name)
+			template = globs['app_globals'].freeform_mako_lookup.get_template(template_name)
+			
 		return literal(template.render_unicode(**globs))
 	return cached_template(template_name, render_template, cache_key=cache_key,
 						   cache_type=cache_type, cache_expire=cache_expire)

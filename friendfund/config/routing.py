@@ -51,7 +51,5 @@ def make_map(config):
 	map.connect('ctrlpoolindex', '/{controller}/{pool_url}', action='index')
 	map.connect('controller', '/{controller}', action='index')
 	map.connect('index', '/{action}', controller='index')
-	if 'home_path' in config:
-		map.redirect('/', config['home_path'], _redirect_code='301 Moved Permanently')
 	map.connect('home', '/', controller='index', action='index')
 	return map
