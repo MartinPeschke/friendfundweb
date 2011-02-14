@@ -47,11 +47,7 @@
 	
 	
 	<div id="payment_details_status">
-	%if getattr(c, 'success', None) is None:
 		<%include file="payment_details_form.html"/>
-	%else:
-		<%include file="payment_success.html"/>
-	%endif
 	</div>
 	${html.clearline(20)|n}
 </div>
