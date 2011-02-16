@@ -28,7 +28,7 @@ CELERY_DEFAULT_ROUTING_KEY = "celeryevent_live_ff"
 
 CELERY_EVENT_SERIALIZER = "json"
 
-CELERY_ADDITIONAL_CONFIG="/opt/www/ff_live/ariel_1_paste.ini"
+CELERY_ADDITIONAL_CONFIG="/opt/www/ff_live/miranda_1_paste.ini"
 
 
 # If you're doing mostly I/O you can have more processes,
