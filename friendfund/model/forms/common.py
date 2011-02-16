@@ -55,7 +55,7 @@ class MonetaryValidator(formencode.validators.Number):
 				_('MONETARYVALIDATOR_Please input a valid amount'), value, state)
 		else:
 			if value > self.max:
-				raise formencode.Invalid(_("Please enter a number that is %s or smaller") % format_currency(self.max, state.product.currency, locale=websession['lang']), value, state)
+				raise formencode.Invalid(_("Please enter a number that is %s or smaller") % format_currency(self.max, state.currency, locale=websession['lang']), value, state)
 			else:
 				super(self.__class__, self)._to_python(value, state)
 		return value

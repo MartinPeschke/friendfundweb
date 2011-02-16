@@ -8,7 +8,8 @@ from pylons.i18n import ugettext as _
 class Product(DBMappedObject):
 	_get_root = _set_root = 'PRODUCT'
 	_unique_keys = ['merchant_ref','name']
-	_keys = [	GenericAttrib(int     ,'shipping_cost', 'shipping_cost'    )
+	_keys = [	GenericAttrib(int      ,'shipping_cost', 'shipping_cost'    )
+				,GenericAttrib(unicode ,'merchant_ref' , 'merchant_ref'     )
 				,GenericElement(unicode,'name'         , 'NAME'             )
 				,GenericElement(unicode,'description'  , 'DESCRIPTION'      )
 				,GenericAttrib(unicode ,'ean'          , 'ean'              )

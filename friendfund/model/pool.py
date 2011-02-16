@@ -131,9 +131,12 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(unicode, 	'message'                    , 'message'            )
 			, GenericAttrib(bool,		'is_admin'                   , 'is_admin'           , default = False)
 			, GenericAttrib(bool,		'is_receiver'                , 'is_receiver'        , default = False)
-			, GenericAttrib(bool,		'is_suspected'               , 'is_suspected'       , default = False)
-			, GenericAttrib(bool,		'has_email'                  , 'has_email'          , default = False)
+			, GenericAttrib(bool,		'is_suspected'               , 'is_suspected'       )
 			, GenericAttrib(datetime,	'dob'                        , None                 , persistable = False)
+			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
+			, GenericAttrib(str,		'network'                    ,'network'             )
+			, GenericAttrib(str,		'network_id'                 ,'id'                  )
+			, GenericAttrib(str,		'email'                      , 'email'              )
 			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
 			, GenericAttrib(str,		'_sex'                       , 'sex'                )
 			, GenericAttrib(str,		'profile_picture_url'        , 'profile_picture_url')
@@ -184,11 +187,9 @@ class PoolUser(DBMappedObject):
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		else:
-			para_map = dict((str(k),v) for k,v in params.iteritems())
-			network = PoolUserNetwork(**para_map)
-			pu = cls(**para_map)
-			pu.networks[para_map['network']] = network
-			return pu
+			if params['network'] == 'email':
+				params['email'] = params.pop('network_id')
+			return cls(**dict((str(k),v) for k,v in params.iteritems()))
 
 class PoolInvitee(PoolUser):
 	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]
@@ -284,7 +285,7 @@ class Pool(DBMappedObject):
 		pool_picture_url = h.get_upload_pic_name(md5.new(self.p_url).hexdigest())
 		return h.get_pool_picture(pool_picture_url, type)
 	def funding_progress(self):
-		return self.get_total_contrib_float() / self.product.get_price_float()
+		return float(self.get_total_contribution()) / self.amount
 	
 	def get_my_message(self, user):
 		pu = self.participant_map.get(user.u_id)
@@ -344,9 +345,6 @@ class Pool(DBMappedObject):
 	def fromDB(self, xml):
 		self.invitees = []
 		self.determine_roles()
-		if self.description == None:
-			locals = {"admin_name":self.admin.name, "receiver_name" : self.receiver.name, "occasion_name": self.occasion.get_display_name()}
-			self.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
 		return self
 	def set_product(self, dproduct):
 		if not isinstance(dproduct, DisplayProduct):
@@ -358,6 +356,7 @@ class Pool(DBMappedObject):
 				,ean = dproduct.ean
 				,picture = dproduct.picture
 				,tracking_link = dproduct.tracking_link
+				,merchant_ref = dproduct.merchant_ref
 			)
 		self.amount = dproduct.get_total_price_units()
 		self.currency = dproduct.currency

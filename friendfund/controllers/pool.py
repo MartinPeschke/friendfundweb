@@ -81,16 +81,16 @@ class PoolController(ExtBaseController):
 			c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
 			return redirect(url('home'))
 		
-		admin = PoolUser.fromMap(c.user.to_map())
-		if h.pool_users_equal(c.pool.receiver, admin):
+		admin = PoolUser(**c.user.get_map())
+		if h.users_equal(c.pool.receiver, admin):
 			admin.profile_picture_url = c.pool.receiver.profile_picture_url
 		admin.is_admin = True
 		
 		#### Setting up the Pool for initial Persisting
 		c.pool.participants.append(admin)
-		### find all networks and render the picture, should usually just be one
-		remote_profile_picture_render.delay([(nw, pu.networks[nw].network_id, pu.large_profile_picture_url or pu.profile_picture_url)
-											for pu in c.pool.participants for nw in pu.networks if pu.networks[nw].network_id])
+		locals = {"admin_name":admin.name, "receiver_name" : c.pool.receiver.name, "occasion_name":c.pool.occasion.get_display_name()}
+		c.pool.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
+		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in c.pool.participants])
 		
 		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)

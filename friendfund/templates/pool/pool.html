@@ -129,7 +129,7 @@
 <%def name="render_product(locals)">
 	<div class="picture_area product">
 		<img class="contentPic" src="${c.pool.product.get_product_pic()}"/>
-		<div class="subtext">${c.pool.product.get_display_label(words = 2, seperator = '<br/>')|n}</div>
+		<div class="subtext">${c.pool.get_product_display_label(words = 2, seperator = '<br/>')|n}</div>
 		%if c.pool.product.tracking_link:
 			<a class="submitExtraMini product_more" href="${c.pool.product.tracking_link}" target="_blank">${_("POOL_PAGE_more...")}<span></span></a>
 		%endif
