@@ -49,7 +49,7 @@
 				'receiver_name':c.pool.receiver.name, 
 				'occasion_name': c.pool.occasion.get_display_name(), 
 				'admin_name':c.pool.admin.name, 
-				'product_name':c.pool.product.get_display_name()}
+				'product_name':c.pool.get_product_display_label()}
 	%>
 	%if c.pool.is_funded():
 		%if c.pool.am_i_admin(c.user):
@@ -194,9 +194,7 @@
 		<div id="timeline_bar">
 			<div class="timeline">
 				
-				<div class="floaterRight limit">
-					${h.format_currency(c.pool.product.get_price_float(), c.pool.product.currency)|n}
-				</div>
+				<div class="floaterRight limit">${c.pool.get_display_amount()}</div>
 				<div class="floaterLeft limit">${h.format_currency(0, c.pool.currency)|n}</div>
 				
 				<div class="timeline_progressbar_bg"><div style="width:${c.pool.funding_progress()*850}px;" class="timeline_progressbar"></div>

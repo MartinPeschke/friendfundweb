@@ -7,8 +7,7 @@ from pylons import url
 from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
-from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantLinksProc
-from friendfund.model.product_search import GetTopSellersProc
+from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantLinksProc, GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
 from friendfund.services.payment_service import PaymentService

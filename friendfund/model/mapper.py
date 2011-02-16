@@ -16,16 +16,22 @@ class DBMapping(object):
 	pass
 
 class GenericAttrib(DBMapping):
-	def __init__(self, cls, pykey, dbkey, persistable = True, enumeration = None):
+	def __init__(self, cls, pykey, dbkey, persistable = True, enumeration = None, default = None):
 		self.dbkey = dbkey
 		self.pykey = pykey
 		self.cls = cls
 		self.persistable = persistable
 		self.enumeration = enumeration
+		self.default = default
 	
 	def toDB(self, val):
-		if val is None: return ''
-		elif self.enumeration and (not val in self.enumeration):
+		if val is None:
+			if self.default is None:
+				return ''
+			else:
+				val = self.default
+		
+		if self.enumeration and (not val in self.enumeration):
 			raise ValueError("UNEXPECTED VALUE in ENUM: %s (not in %s)" % (val, self.cls))
 		elif self.cls == bool:
 			result = (self.dbkey, '"%s"' % int(bool(val)))
@@ -39,7 +45,12 @@ class GenericAttrib(DBMapping):
 		return '%s=%s' % result
 	
 	def fromDB(self, val):
-		if val is None: return None
+		if val is None:
+			if self.default is None:
+				return None
+			else:
+				return self.default
+		
 		if self.cls == bool:
 			return val and bool(int(val))
 		elif isinstance(self.cls, set):
@@ -61,14 +72,21 @@ class GenericAttrib(DBMapping):
 		return '<%s: %s,%s>' % (self.__class__.__name__, self.pykey,self.dbkey)
 
 class GenericElement(DBMapping):
-	def __init__(self, cls, pykey, dbkey, persistable = True):
+	def __init__(self, cls, pykey, dbkey, persistable = True, default = None):
 		self.dbkey = dbkey
 		self.pykey = pykey
 		self.cls = cls
 		self.persistable = persistable
+		self.default = default
+		
 	def toDB(self, val):
-		if val == None: return ''
-		elif self.cls == bool:
+		if val is None:
+			if self.default is None:
+				return ''
+			else:
+				val = self.default
+		
+		if self.cls == bool:
 			result = (self.dbkey, int(bool(val)), self.dbkey)
 		elif issubclass(self.cls, date):
 			if isinstance(val, datetime):
@@ -80,7 +98,12 @@ class GenericElement(DBMapping):
 		return '<%s>%s</%s>' % result
 		
 	def fromDB(self, val):
-		if val == None: return None
+		if val is None:
+			if self.default is None:
+				return None
+			else:
+				return self.default
+		
 		if self.cls == bool:
 			return val and bool(int(val.text))
 		elif issubclass(self.cls, date):
@@ -114,9 +137,9 @@ class DBMappedObject(DBMapping):
 	def __init__(self, **kwargs):
 		for elem in self._keys:
 			if getattr(elem, "is_list", False):
-				setattr(self, elem.pykey, kwargs.get(elem.pykey, []))
+				setattr(self, elem.pykey, kwargs.get(elem.pykey, elem.default))
 			elif getattr(elem, "is_dict", False):
-				setattr(self, elem.pykey, kwargs.get(elem.pykey, {}))
+				setattr(self, elem.pykey, kwargs.get(elem.pykey, elem.default))
 			else:
 				setattr(self, elem.pykey, kwargs.get(elem.pykey, None))
 	
@@ -124,7 +147,8 @@ class DBMappedObject(DBMapping):
 		return '<%s: %s>' % (self.__class__.__name__, ','.join(['%s:%s'%(k.pykey,getattr(self, k.pykey)) for k in self._keys[:3]]))
 	def __repr__(self):
 		return '<%s: %s>' % (self.__class__.__name__, ','.join(['%s:%s'%(k,getattr(self, k)) for k in self._unique_keys[:3]]))
-	
+	def to_map(self):
+		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
 	def mergewDB(self, xml):
 		if xml.tag != self._get_root:
 			raise Exception('XML is not of expected property, expected: %s, found: %s' %(self._get_root, xml.tag))
@@ -163,6 +187,10 @@ class DBMapper(object):
 		self.is_list = is_list
 		self.is_dict = is_dict
 		self.dict_key = dict_key
+		if self.is_list: self.default = []
+		elif self.is_dict: self.default = {}
+		else: self.default = None
+			
 		if self.is_dict and not self.dict_key:
 			raise TypeError("DBMapper missing dict_key-extractor function parameter")
 	@classmethod
@@ -173,7 +201,7 @@ class DBMapper(object):
 			return None
 		for k in obj._keys:
 			value = getattr(obj, k.pykey, None)
-			if value is not None and k.persistable:
+			if k.persistable:
 				if isinstance(k, GenericAttrib):
 					attribs.append(k.toDB(value))
 				elif isinstance(k, GenericElement) or isinstance(k, DBCDATA):
@@ -188,7 +216,7 @@ class DBMapper(object):
 					raise TypeNotSupportedException("Type %s not supported" % type(k))
 		if len(children):
 			return "<%s %s>%s</%s>" % (obj._set_root \
-											,' '.join(attribs)\
+											,' '.join(filter(bool, attribs))\
 											,''.join(children)\
 											,obj._set_root)
 		else:

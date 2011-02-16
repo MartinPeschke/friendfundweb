@@ -69,9 +69,9 @@ def get_thous_sep():
 	return get_group_symbol(locale=websession['lang'])
 def get_dec_sep():
 	return get_decimal_symbol(locale=websession['lang'])
-def display_currency(currency, extended = False):
+def display_currency(currency):
 	return get_currency_symbol(currency, locale=websession['lang'])
-def format_currency(number, currency, extended = False):
+def format_currency(number, currency):
 	fnumber = Decimal('%.2f' % number)
 	return fc(fnumber, currency, locale=websession['lang'])
 
@@ -148,6 +148,17 @@ def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 def get_merchant_logo_url(request):
 	return '/static/imgs/merch/%s' % request.merchant.logo_url
 	
+def pool_users_equal(user1, user2):
+	### find at least one coresponding user network overlap
+	if not (user1.networks and user2.networks):
+		return False
+	else:
+		for network in user1.networks:
+			if (user1.networks[network].network_id and user1.networks[network].network_id == user2.networks[network].network_id) \
+				or (user1.networks[network].email and user1.networks[network].email == user2.networks['network'].email):
+				return True
+	return False
+		
 def users_equal(user1, user2):
 	if not user1.network or not user1.network_id or not user2.network or not user2.network_id:
 		return False

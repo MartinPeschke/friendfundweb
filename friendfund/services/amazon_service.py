@@ -3,8 +3,7 @@ from datetime import datetime
 from hashlib import sha256
 from lxml import etree, html
 
-from friendfund.model.product import Product
-from friendfund.model.product_search import ProductSearch
+from friendfund.model.product import DisplayProduct, ProductSearch
 
 class AttributeMissingInProductException(Exception): pass
 class URLUnacceptableError(Exception): pass
@@ -44,7 +43,7 @@ class AmazonService(object):
 		self.query_nss = {"namespaces":{'t':self.result_namespace}}
 		self.product_mapper = {}
 		self.product_mapper['merchant_ref'] = 		(True,  str, ["t:ASIN/text()"])
-		self.product_mapper['amount'] = 			(True,  int, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:Amount/text()"])
+		self.product_mapper['price'] = 				(True,  int, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:Amount/text()"])
 		self.product_mapper['currency'] = 			(True,  str, ["t:Offers/t:Offer/t:OfferListing/t:Price/t:CurrencyCode/text()"])
 		self.product_mapper['delivery_time'] = 		(False, unicode, ["t:Offers/t:Offer/t:OfferListing/t:Availability/text()"])
 		self.product_mapper['name'] = 				(True,  unicode, ["t:ItemAttributes/t:Title/text()"])
@@ -111,7 +110,7 @@ class AmazonService(object):
 		
 		
 		for i, elem in enumerate(result.iter(tag='{%s}Item' % self.result_namespace)):
-			product = Product()
+			product = DisplayProduct()
 			errors = elem.xpath("t:Errors/t:Error/t:Code/text()", **self.query_nss)
 			if len(errors) > 1:
 				log.info( AmazonErrorsOccured("XML Contained Errors %s" % errors) )
@@ -151,8 +150,7 @@ class AmazonService(object):
 				product.description = descr
 			product.description = html.fromstring(product.description).text_content() #parse out any html tags
 			products.append(product)
-		product_search = ProductSearch(page_no=page_no, items=total_items, pages=total_pages, page_size=10, categories = [])
-		product_search.products = products
+		product_search = ProductSearch(page_no=page_no, items=total_items, pages=total_pages, page_size=10, products = products)
 		return product_search
 	
 	def return_product_object(self, item_id):

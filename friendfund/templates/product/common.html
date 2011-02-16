@@ -77,7 +77,7 @@
 			<img src="${c.merchant_logo_url}" alt="${request.merchant.name}" class="productMerchantImage" />
 		</div>
 		<div class="colDx">
-			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(include_shipping = False), product.currency, extended = True)|n} ${product.display_shipping|n}</span></p>
+			<p class="product"><span>${product.name|n}</span> <span class="currency">${h.format_currency(product.get_price_float(include_shipping = False), product.currency)|n} ${product.display_shipping|n}</span></p>
 			
 			<p class="productText">${h.word_truncate_by_letters(product.description, word_truncate)|n}</p>
 			

@@ -10,7 +10,7 @@ from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool
-from friendfund.model.product_search import ProductSearch
+from friendfund.model.product import ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException
 log = logging.getLogger(__name__)
@@ -19,32 +19,10 @@ log = logging.getLogger(__name__)
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
 	def bounce(self):
-		websession['pool'], product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
-		if len(product_list) > 1:
-			c.product_list = [product_list[k] for k in sorted(product_list)]
-			websession['product_list'] = c.product_list
-		else:
-			c.product_list = []
+		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
+		websession['product_list'] = c.product_list
 		c.pool = websession['pool']
 		return self.render('/index.html')
-	
-	@jsonify
-	def set_minified(self):
-		product_guid = request.params.get("product_guid")
-		c.product_list = websession.get('product_list')
-		if not product_guid or not c.product_list:
-			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
-		product = None
-		for p in c.product_list:
-			if unicode(p.guid) == product_guid:
-				product = p
-				break
-		if not product:
-			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
-		c.pool = websession['pool']
-		c.pool.product = product
-		websession['pool'] = c.pool
-		return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
 	
 	@jsonify
 	def search_tab(self):
@@ -75,7 +53,6 @@ class ProductController(BaseController):
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to purchase this article."))
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab_search.html').strip(), '\n\r\t')}
-	
 	
 	@jsonify
 	def search_tab_extension(self):
@@ -110,11 +87,20 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def set(self):
-		strbool = formencode.validators.StringBoolean(if_missing=False)
 		params = formencode.variabledecode.variable_decode(request.params)
 		product = params.get('product', None)
 		if not product or 'merchant_ref' not in product:
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		websession['pool'] = g.product_service.set_product(websession.get('pool') or Pool(), product, request)
+		websession['pool'] = g.product_service.set_product_from_amazon(websession.get('pool') or Pool(), product['merchant_ref'], request)
 		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
+	
+	@jsonify
+	def set_minified(self):
+		product_guid = request.params.get('product_guid')
+		c.product_list = websession.get('product_list')
+		if not product_guid or not c.product_list:
+			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
+		websession['pool'] = g.product_service.set_product_from_guid(websession.get('pool') or Pool(), product_guid, c.product_list)
+		c.pool = websession['pool']
+		return {'clearmessage':True, 'html':render('/product/button.html').strip()} 

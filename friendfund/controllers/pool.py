@@ -81,16 +81,17 @@ class PoolController(ExtBaseController):
 			c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
 			return redirect(url('home'))
 		
-		admin = PoolUser(**c.user.get_map())
-		if h.users_equal(c.pool.receiver, admin):
+		admin = PoolUser.fromMap(c.user.to_map())
+		if h.pool_users_equal(c.pool.receiver, admin):
 			admin.profile_picture_url = c.pool.receiver.profile_picture_url
 		admin.is_admin = True
 		
 		#### Setting up the Pool for initial Persisting
 		c.pool.participants.append(admin)
-		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in c.pool.participants])
-		c.pool.occasion.picture_url = None
-		c.pool.occasion.custom = None
+		### find all networks and render the picture, should usually just be one
+		remote_profile_picture_render.delay([(nw, pu.networks[nw].network_id, pu.large_profile_picture_url or pu.profile_picture_url)
+											for pu in c.pool.participants for nw in pu.networks if pu.networks[nw].network_id])
+		
 		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)
 		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
@@ -100,7 +101,6 @@ class PoolController(ExtBaseController):
 			return redirect(request.referer)
 		c.user.current_pool = c.pool
 		self._clean_session()
-		print url('invite_index',  pool_url = c.pool.p_url)
 		return redirect(url('invite_index',  pool_url = c.pool.p_url))
 	
 	@jsonify

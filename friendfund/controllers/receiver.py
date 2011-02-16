@@ -25,7 +25,6 @@ class ReceiverController(BaseController):
 	@jsonify
 	def panel(self):
 		c.method = c.user.get_current_network() or 'facebook'
-		c.furl = url('home') # TODO: this might break shit, fix
 		return {'data':{'html':render('/receiver/panel.html').strip(), 'method':c.method}}
 	
 	@jsonify

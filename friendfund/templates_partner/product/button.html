@@ -1,6 +1,7 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%
-	product = getattr(getattr(c, 'pool', None), 'product', None)
+	pool = getattr(c, "pool", None)
+	product = getattr(pool, "product", None)
 %>
 <div id="button_product" class="hpbutton gift floaterLeft">
 	%if product:
@@ -9,20 +10,19 @@
 			<div class="label minified">
 				<div class="minified_title">
 					<select id="product_selector">
-						%for p in c.product_list:
+						%for p in c.product_list.values():
 						<option value="${p.guid}" ${forms.expression_quote(product.guid == p.guid, "selected")|n}>
 							${p.get_display_label(words = 10)}
 						</option>
 						%endfor
 					</select>
 					<div class="minified_title_text">
-						${product.get_display_label(words = 10)|n}
+						${pool.get_product_display_label(words = 10)|n}
 					</div>
 				<div style="clear:both"></div>
 				</div>
 				<div class="sub_label">${h.word_truncate_by_letters(product.description, 200)|n}</div>
 			</div>
-			
 		%else:
 			<div class="label">${getattr(product, 'display_label')|n}
 				<div class="sub_label">${h.word_truncate_by_letters(product.description, 600)|n}</div>

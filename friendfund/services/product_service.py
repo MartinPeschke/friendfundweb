@@ -1,4 +1,5 @@
 import logging, urlparse, uuid, urllib2
+from ordereddict import OrderedDict
 
 from lxml import etree
 from datetime import datetime
@@ -9,12 +10,13 @@ from pylons.controllers.util import abort
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMapper
 from friendfund.model.pool import Pool
-from friendfund.model.product import Product
+from friendfund.model.product import DisplayProduct, DisplayProduct
 
 log = logging.getLogger(__name__)
 
 class AmazonWrongRegionException(Exception):pass
 class AmazonUnsupportedRegionException(Exception):pass
+
 
 _ = lambda x:x
 SORTEES = [("RANK",_("PRODUCT_SORT_ORDER_Relevancy")),
@@ -128,18 +130,24 @@ class ProductService(object):
 		product = self.amazon_region_map[region].get_product_from_merchant_ref(product['merchant_ref'])
 		return product
 	
-	def set_product(self, pool, product, request):
+	def set_product_from_amazon(self, pool, product_merchant_ref, request):
 		tmpl_context = self.setup_region(request)
-		product = self.amazon_region_map[tmpl_context.region].get_product_from_merchant_ref(product['merchant_ref'])
+		product = self.amazon_region_map[tmpl_context.region].get_product_from_merchant_ref(product_merchant_ref)
 		if not product:
 			return self.ajax_messages(_("POOL_CREATE_Product not Found"))
-		pool.product = product
+		pool.set_product(product)
+		return pool
+	
+	def set_product_from_guid(self, pool, product_guid, product_list):
+		product = product_list.get(product_guid)
+		if product:
+			pool.set_product(product)
 		return pool
 	
 	def set_product_from_open_graph(self, pool, request):
 		transl = {  "og:description":(["description"], lambda x:x),
 					"og:name":(["name"], lambda x:x),
-					"og:price":(["amount"], lambda x:int(x)),
+					"og:price":(["price"], lambda x:int(x)),
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x)),
 					"og:image":(["picture"], lambda x:x),
 					"og:currency":(["currency"], lambda x:x)}
@@ -154,11 +162,14 @@ class ProductService(object):
 			log.error("Query could not opened or not wellformed: %s", e)
 			abort(404)
 		
+		### Parse Meta Tags or PartnerPage
 		soup = BeautifulSoup(product_page.read())
 		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		if params.get("og:type") != 'product':
 			log.error("Markup not OKAY")
 			abort(404)
+		
+		### Create and fill out Product List Objects for later reference
 		products = {}
 		for k in params:
 			parts = k.rsplit('-',1)
@@ -168,11 +179,13 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = Product(merchant_ref=query,tracking_link=query, guid=uuid.uuid4())
+					products[no] = DisplayProduct(merchant_ref=query,tracking_link=query, guid=uuid.uuid4())
 				attr_names, transf = transl.get(parts[0])
 				for attr in attr_names:
 					if not getattr(products[no], attr, None):
 						setattr(products[no], attr, transf(params.get(k)))
-		product = products.get(sorted(products)[0])
-		pool.product = product
-		return pool, products
+		
+		### Persist product list for later reference
+		product_list = OrderedDict([(unicode(products[k].guid), products[k]) for k in sorted(products)])
+		pool.set_product(products.get(sorted(products)[0]))
+		return pool, product_list

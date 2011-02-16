@@ -20,7 +20,6 @@ log = logging.getLogger(__name__)
 class MyfriendsController(BaseController):
 	@jsonify
 	def method(self, method):
-		c.furl = url('home') # TODO: this might break shit, fix
 		c.method = str(method)
 		if method in ['facebook', 'twitter']:
 			is_complete = True

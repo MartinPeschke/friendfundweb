@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, date
 
 from friendfund.lib import helpers as h, tools
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
-from friendfund.model.product import Product
+from friendfund.model.product import Product, DisplayProduct
 from pylons.i18n import _
 
 from pylons import session as websession, app_globals as g, request
@@ -87,8 +87,8 @@ class Occasion(DBMappedObject):
 	_keys = [GenericAttrib(str,'key' , 'key'  )
 			,GenericAttrib(unicode,'name', 'name')
 			,GenericAttrib(datetime,'date', 'date')
-			,GenericAttrib(str,'picture_url', 'picture_url')
-			,GenericAttrib(bool,'custom', 'custom')
+			,GenericAttrib(str,'picture_url', 'picture_url', persistable = False)
+			,GenericAttrib(bool,'custom', 'custom', persistable = False)
 			]
 			
 	def get_display_date(self):
@@ -115,8 +115,7 @@ class OccasionSearch(DBMappedObject):
 
 
 class PoolUserNetwork(DBMappedObject):
-	_set_root = None
-	_get_root = 'POOLUSERNETWORK'
+	_set_root = _get_root = 'POOLUSERNETWORK'
 	_unique_keys = ['network', 'network_id', 'email']
 	_keys = [ GenericAttrib(str,'network', 'network')
 			, GenericAttrib(str,'network_id', 'id')
@@ -125,26 +124,23 @@ class PoolUserNetwork(DBMappedObject):
 class PoolUser(DBMappedObject):
 	_possible_sexes = ['m', 'f']
 	_set_root = _get_root = 'POOLUSER'
-	_unique_keys = ['u_id', 'name']
-	_required_attribs = ['name', 'network', 'network_id']
+	_unique_keys = ['network', 'name', 'network_id']
+	_required_attribs = ['network', 'name', 'network_id']
 	_keys = [ GenericAttrib(int,		'u_id'                       , 'u_id'               )
 			, GenericAttrib(unicode, 	'name'                       , 'name'               )
 			, GenericAttrib(unicode, 	'message'                    , 'message'            )
-			, GenericAttrib(bool,		'is_admin'                   , 'is_admin'           )
-			, GenericAttrib(bool,		'is_receiver'                , 'is_receiver'        )
-			, GenericAttrib(bool,		'is_suspected'               , 'is_suspected'       )
-			, GenericAttrib(bool,		'has_email'                  , 'has_email'          )
-			, GenericAttrib(datetime,	'dob'                        , None, persistable = False)
-			, GenericAttrib(str,		'network'                    , 'network'            )
-			, GenericAttrib(str,		'network_id'                 , 'id'                 )
+			, GenericAttrib(bool,		'is_admin'                   , 'is_admin'           , default = False)
+			, GenericAttrib(bool,		'is_receiver'                , 'is_receiver'        , default = False)
+			, GenericAttrib(bool,		'is_suspected'               , 'is_suspected'       , default = False)
+			, GenericAttrib(bool,		'has_email'                  , 'has_email'          , default = False)
+			, GenericAttrib(datetime,	'dob'                        , None                 , persistable = False)
 			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
-			, GenericAttrib(str,		'email'                      , 'email'              )
 			, GenericAttrib(str,		'_sex'                       , 'sex'                )
 			, GenericAttrib(str,		'profile_picture_url'        , 'profile_picture_url')
-			, GenericAttrib(str,		'large_profile_picture_url'  , None, persistable = False)
-			, GenericAttrib(int,		'contributed_amount'         , 'contribution')
-			, GenericAttrib(bool,		'contribution_secret'        , 'secret')
-			, GenericAttrib(bool,		'anonymous'                  , 'anonymous')
+			, GenericAttrib(str,		'large_profile_picture_url'  , None                 , persistable = False)
+			, GenericAttrib(int,		'contributed_amount'         , 'contribution'       )
+			, GenericAttrib(bool,		'contribution_secret'        , 'secret'             )
+			, GenericAttrib(bool,		'anonymous'                  , 'anonymous'          )
 			, DBMapper(PoolUserNetwork,	'networks', 'POOLUSERNETWORK', is_dict=True, dict_key = lambda x: x.network.lower())
 			]
 	def _set_sex(self, sex):
@@ -188,9 +184,11 @@ class PoolUser(DBMappedObject):
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		else:
-			if params['network'] == 'email':
-				params['email'] = params.pop('network_id')
-			return cls(**dict((str(k),v) for k,v in params.iteritems()))
+			para_map = dict((str(k),v) for k,v in params.iteritems())
+			network = PoolUserNetwork(**para_map)
+			pu = cls(**para_map)
+			pu.networks[para_map['network']] = network
+			return pu
 
 class PoolInvitee(PoolUser):
 	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]
@@ -213,8 +211,10 @@ class Pool(DBMappedObject):
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
 			, GenericAttrib(int,		'p_id',				'p_id'						)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
+			, GenericAttrib(unicode,	'title',			'title'						)
 			, GenericAttrib(unicode,	'description',		'description'				)
 			, GenericAttrib(unicode,	'thank_you_message','thank_you_message'			)
+			, GenericAttrib(int,		'amount',			'amount'					)
 			, GenericAttrib(str,		'currency', 		'currency'					)
 			, GenericAttrib(str,		'status', 			'status'					)
 			, GenericAttrib(str,		'phase',  			'phase'						)
@@ -250,6 +250,11 @@ class Pool(DBMappedObject):
 	def get_contributors(self):
 		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
 	
+	
+	def get_amount_float(self):
+		return float(self.amount)/100
+	def get_display_amount(self):
+		return h.format_currency(self.get_amount_float(), self.currency)
 	def get_total_contribution(self):
 		total = 0
 		for invitee in self.participants:
@@ -258,11 +263,15 @@ class Pool(DBMappedObject):
 	def get_total_contrib_float(self):
 		return float(self.get_total_contribution())/100
 	def get_amount_left(self):
-		return self.product.get_price_float() - self.get_total_contrib_float()
-	def get_fixed_chipin_amount(self):
-		return self.product.get_price_float() - self.get_total_contrib_float()
+		return self.get_amount_float() - self.get_total_contrib_float()
+	get_fixed_chipin_amount = get_amount_left
+	
 	def get_number_of_contributors(self):
 		return len([pu for pu in self.participants if pu.contributed_amount > 0])
+	
+	def get_product_display_label(self, words = 5, seperator = ' '):
+		return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())
+	product_display_label = property(get_product_display_label)
 	
 	def get_remaining_days_tuple(self):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
@@ -334,12 +343,25 @@ class Pool(DBMappedObject):
 		self.determine_roles()
 	def fromDB(self, xml):
 		self.invitees = []
-		self.product.currency = self.currency
 		self.determine_roles()
 		if self.description == None:
 			locals = {"admin_name":self.admin.name, "receiver_name" : self.receiver.name, "occasion_name": self.occasion.get_display_name()}
 			self.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
 		return self
+	def set_product(self, dproduct):
+		if not isinstance(dproduct, DisplayProduct):
+			raise TypeError("Product not of correct type: DisplayProduct, found: %s" % type(dproduct))
+		self.product = Product(
+				shipping_cost = dproduct.shipping_cost
+				,name = dproduct.name
+				,description = dproduct.description
+				,ean = dproduct.ean
+				,picture = dproduct.picture
+				,tracking_link = dproduct.tracking_link
+			)
+		self.amount = dproduct.get_total_price_units()
+		self.currency = dproduct.currency
+		self.title = self.description = self.get_product_display_label()
 
 class AddInviteesProc(DBMappedObject):
 	_set_proc = "app.add_pool_invitees"

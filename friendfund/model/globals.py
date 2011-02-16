@@ -3,6 +3,7 @@ from pylons.i18n import _
 
 from friendfund.lib.tools import AutoVivification
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
+from friendfund.model.product import DisplayProduct
 
 log = logging.getLogger(__name__)
 
@@ -92,3 +93,21 @@ class GetMerchantLinksProc(DBMappedObject):
 			setattr(self, 'default_domain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].domain)
 		except IndexError, e:
 			raise Exception("GetMerchantLinksProc:No Default Merchant set, %s" % e)
+
+class TopSellersRegion(DBMappedObject):
+	_cachable = False
+	_set_root = _get_root = None
+	_unique_keys = ['name']
+	_keys = [GenericAttrib(unicode,'name','name'),DBMapper(DisplayProduct,'list','PRODUCT', is_list = True)]
+
+class GetTopSellersProc(DBMappedObject):
+	_cachable = False
+	_no_params = True
+	_set_root = _get_root = None
+	_unique_keys = []
+	_get_proc = 'app.get_top_seller'
+	_keys = [DBMapper(TopSellersRegion,'list','REGION', is_list = True)]
+	def fromDB(self, xml):
+		setattr(self, 'map', {})
+		for region in self.list:
+			self.map[region.name.lower()] = region.list
