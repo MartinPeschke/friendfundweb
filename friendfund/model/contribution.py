@@ -54,7 +54,7 @@ class DBContribution(DBMappedObject):
 				,GenericAttrib(int ,'u_id'  ,'u_id')
 				,GenericAttrib(str ,'network'  ,'network')
 				,GenericAttrib(str ,'network_id'  ,'id')
-				,GenericAttrib(str ,'email'  ,'email')
+				,GenericAttrib(str ,'email'  ,'shopper_email')
 			]
 
 class DBPaymentInitialization(DBMappedObject):

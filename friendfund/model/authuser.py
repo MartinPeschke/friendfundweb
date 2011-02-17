@@ -57,6 +57,14 @@ class SetUserEmailProc(DBMappedObject):
 	_unique_key = []
 	_keys = [GenericAttrib(int, 'u_id', 'u_id'), GenericAttrib(str, 'email', 'email'), GenericAttrib(str, 'name', 'name')]
 
+class SetNewPasswordForUser(DBMappedObject):
+	_set_root = _get_root = "USER"
+	_set_proc = "app.set_new_pwd"
+	_cachable = False
+	_unique_key = []
+	_keys = [	 GenericAttrib(int, 'u_id', 'u_id'),GenericAttrib(str,'pwd','pwd')]
+
+
 class UserPermissions(DBMappedObject):
 	"""<PERMISSIONS network="FACEBOOK" id="100000924808399" stream_publish="0" permanent="0" birthdays="0" has_email="0"/>"""
 	_set_root = _get_root = 'PERMISSIONS'
@@ -112,19 +120,9 @@ class User(ProtoUser):
 				,GenericAttrib(str,'access_token_secret','access_token_secret')
 				,DBMapper(UserPermissions, 'permissions', 'PERMISSIONS', is_list = True)
 				,DBMapper(PoolStub, 'pools', 'POOL', persistable = False, is_list = True)
-				,DBMapper(PoolStub,'_current_pool',None, persistable = False)
 				,DBMapper(None,'_perms',None, persistable = False)
 				,GenericAttrib(dict,'networks', None, persistable = False)
 			]
-	def set_pool_url(self, p_url):
-		if p_url not in self.pools:
-			return None
-		else:
-			self.current_pool = self.pools[p_url]
-			return self.current_pool
-	def has_pool(self, p_url):
-		return p_url in self.pools
-	
 	def set_network(self, network, **args):
 		if args:
 			network_info = SocialNetworkInformation(network=network, **args)
@@ -183,23 +181,6 @@ class User(ProtoUser):
 				)
 		return friends, is_complete, offset
 	
-	def _get_current_pool(self):
-		"""Returns current PoolStub, no full Pools are returned, as this would be stored inSession otherwise"""
-		return self._current_pool
-	def _set_current_pool(self, pool):
-		"""Takes a PoolInstance and sets a PoolStub into Users Session, as not to pickle a whole Pool in Session"""
-		if not pool: return None
-		if not (isinstance(pool, PoolStub) or isinstance(pool, Pool)):
-			raise ValueError('Parameter pool is neither Pool nor PoolStub')
-		if isinstance(pool, PoolStub):
-			self._current_pool = pool
-		elif isinstance(pool, Pool):
-			self._current_pool = PoolStub(p_url = pool.p_url, p_id = pool.p_id)
-			self._current_pool.im_admin = pool.am_i_admin(self)
-			self._current_pool.im_receiver = pool.am_i_receiver(self)
-		self.pools[pool.p_url] = self._current_pool
-	current_pool = property(_get_current_pool, _set_current_pool)
-	
 	def _get_is_anon(self):
 		return not self.u_id
 	is_anon = property(_get_is_anon)
@@ -237,14 +218,12 @@ class User(ProtoUser):
 
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"
-class SetNewPasswordForUser(User):
-	_set_proc = "app.set_new_pwd"
 class FBWebLogin(User):
 	_set_proc = "app.web_login"
 
 
 class DBRequestPWProc(DBMappedObject):
-	"""exec app.[set_user_forgot_password_token] '<USER u_id= "1340"/>'"""
+	"""exec app.[set_user_forgot_password_token] '<USER email= "some@mauil.com"/>'"""
 	_set_root = 'USER'
 	_set_proc = 'app.set_user_forgot_password_token'
 	_unique_keys = ['email']

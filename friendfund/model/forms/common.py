@@ -27,7 +27,10 @@ class TOSValidator(formencode.validators.StringBoolean):
 class PWDValidator(formencode.validators.String):
 	def _to_python(self, value, state):
 		super(self.__class__, self)._to_python(value, state)
-		value = md5.new(value).hexdigest()
+		try:
+			str(value)
+		except UnicodeEncodeError,e:
+			raise formencode.Invalid(_('PWDVALIDATOR_Please dont input any special characters.'), value, state)
 		return value
 
 class DateValidator(formencode.FancyValidator):

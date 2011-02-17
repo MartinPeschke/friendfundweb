@@ -24,12 +24,8 @@ class InviteController(ExtBaseController):
 	navposition=g.globalnav[1][2]
 	
 	def display(self, pool_url):
-		if c.user.is_anon:
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
-		if not pool_url:
-			return redirect(url('home'))
-		if not c.user.set_pool_url(pool_url):
-			return redirect(url('home'))
 		if 'invitees' in websession:
 			del websession['invitees']
 		return self._display_invites(c.pool)
@@ -76,15 +72,11 @@ class InviteController(ExtBaseController):
 		return {'html':render('/invite/inviter.html').strip()}
 	
 	@jsonify
-	def get_extension(self, method):
+	def get_extension(self, pool_url, method):
 		if method in ['twitter']:
 			offset = int(request.params['offset'])
-			c.pool = g.dbm.get(Pool, p_url = c.user.current_pool.p_url)
-			if c.pool is None:
-				return abort(404)
 			c.method = str(method)
 			il = c.pool.get_invitees(c.method)
-			c.method = method
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			
 			already_invited = (websession.get('invitees',{}).get(c.method, {}).keys())

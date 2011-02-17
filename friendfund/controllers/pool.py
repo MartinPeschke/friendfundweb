@@ -38,9 +38,6 @@ class PoolController(ExtBaseController):
 			return redirect(url('home'))
 		if c.pool.is_closed():
 			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
-		if not c.user.is_anon\
-			and c.pool.am_i_member(c.user):
-				c.user.current_pool = c.pool
 		if c.pool.can_i_view(c.user):
 			return self.render('/pool/pool.html')
 		else:
@@ -99,7 +96,6 @@ class PoolController(ExtBaseController):
 		
 		if not c.pool:
 			return redirect(request.referer)
-		c.user.current_pool = c.pool
 		self._clean_session()
 		return redirect(url('invite_index',  pool_url = c.pool.p_url))
 	

@@ -137,7 +137,6 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(str,		'network'                    ,'network'             )
 			, GenericAttrib(str,		'network_id'                 ,'id'                  )
 			, GenericAttrib(str,		'email'                      , 'email'              )
-			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
 			, GenericAttrib(str,		'_sex'                       , 'sex'                )
 			, GenericAttrib(str,		'profile_picture_url'        , 'profile_picture_url')
 			, GenericAttrib(str,		'large_profile_picture_url'  , None                 , persistable = False)

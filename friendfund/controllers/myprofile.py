@@ -26,7 +26,7 @@ class MyprofileController(BaseController):
 	
 	@jsonify
 	def loginpanel(self):
-		c.furl = request.params.get('furl', url('home'))
+		c.furl = request.params.get('furl', request.referer)
 		if not c.user.is_anon:
 			return {}
 		c.login_values = {}

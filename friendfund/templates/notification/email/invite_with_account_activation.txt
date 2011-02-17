@@ -2,9 +2,13 @@ Hi ${data['name']},
 
 ${data['description']}
 
-Open the link below in your browser to activate your account and join the funding effort.
+Visit friendfund.com and join the funding effort at <${data['ROOT_URL']}/pool/${data['up_url']}>!
 
-<${data['ROOT_URL']}/myprofile/setpassword/${data['activation_token']}?furl=/pool/${data['up_url']}>
+
+Your Login Details are:
+
+Login: ${recipient['email']}  
+Password: ${data['pwd']}
 
 Best wishes,
 ${data['admin']}

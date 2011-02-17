@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from pylons import session as websession, url, app_globals as g, request
 
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway
+
 from friendfund.lib.synclock import add_token, rem_token
 from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization
 from friendfund.model.db_access import SProcException
@@ -33,6 +34,22 @@ class PaymentGateway(object):
 					,contribution.methoddetails.ccExpiresYear
 					,contribution.methoddetails.ccCode]
 		result = self.gateway.authorise(*args)
+		return result
+	
+	def authorize_recurring(self, dbcontrib, contribution):
+		args = [contribution.ref 
+					,contribution.total
+					,contribution.currency
+					,contribution.methoddetails.ccHolder
+					,contribution.methoddetails.ccNumber
+					,contribution.methoddetails.ccExpiresMonth
+					,contribution.methoddetails.ccExpiresYear
+					,contribution.methoddetails.ccCode
+					,dbcontrib.email
+					,contribution.ref
+					,contribution.methoddetails.ccHolder
+					]
+		result = self.gateway.authorise_recurring_contract(*args)
 		return result
 
 class PaymentMethod(object):
@@ -99,7 +116,9 @@ class CreditCardPayment(PaymentMethod):
 			raise DBErrorDuringSetup(e)
 		
 		contribution.ref = contrib.ref
-		paymentresult = self.paymentGateway.authorize(contribution)
+		paymentresult = self.paymentGateway.authorize_recurring(contrib, contribution)
+		log.info(paymentresult)
+		# paymentresult = self.paymentGateway.authorize(contribution)
 		payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
 		notice = DBPaymentInitialization(\
 					ref = contrib.ref\
