@@ -195,20 +195,10 @@ class MyprofileController(BaseController):
 			/myprofile/setpassword/TOKENSTRING
 			app.[web_login_token] '<LOGIN token = "sfgsdfvdfgwefgere"/>' 
 		"""
+		c.furl = request.params.get('furl', url('home'))
 		try:
 			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
-			return self.render('/myprofile/password_reset.html')
-		except SProcWarningMessage, e:
-			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
-			return redirect(url(controller='myprofile', action='password'))
-	
-	def setpassword(self, token):
-		"""
-			/myprofile/setpassword/TOKENSTRING
-			app.[web_login_token] '<LOGIN token = "sfgsdfvdfgwefgere"/>' 
-		"""
-		try:
-			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
+			c.user.set_network('email', network_id = '1', access_token=None, access_token_secret=None) ###TODO: email is not returned by proc, would be needed to prevent fuckups
 			return self.render('/myprofile/password_reset.html')
 		except SProcWarningMessage, e:
 			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
@@ -216,6 +206,7 @@ class MyprofileController(BaseController):
 	
 	@logged_in(ajax=False)
 	def resetpwd(self):
+		c.furl = request.params.get('furl', url('home'))
 		pwdreset = formencode.variabledecode.variable_decode(request.params).get('pwdreset', None)
 		schema = PasswordResetForm()
 		try:
@@ -223,7 +214,7 @@ class MyprofileController(BaseController):
 			pwd = form_result['pwd']
 			g.dbm.set(SetNewPasswordForUser(u_id = c.user.u_id, pwd=pwd))
 			c.messages.append(_(u"PROFILE_RESETPASSWORD_Your password has been reset!"))
-			return redirect(url('home'))
+			return redirect(c.furl)
 		except formencode.validators.Invalid, error:
 			c.pwdreset_values = error.value
 			c.pwdreset_errors = error.error_dict or {}

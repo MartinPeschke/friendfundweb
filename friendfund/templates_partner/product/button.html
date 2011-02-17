@@ -24,7 +24,7 @@
 				<div class="sub_label">${h.word_truncate_by_letters(product.description, 200)|n}</div>
 			</div>
 		%else:
-			<div class="label">${getattr(product, 'display_label')|n}
+			<div class="label">${getattr(pool, 'product_display_label')|n}
 				<div class="sub_label">${h.word_truncate_by_letters(product.description, 600)|n}</div>
 			</div>
 		%endif

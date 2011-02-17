@@ -163,3 +163,22 @@ def users_equal(user1, user2):
 	if not user1.network or not user1.network_id or not user2.network or not user2.network_id:
 		return False
 	return str(user1.network).lower() == str(user2.network).lower() and str(user1.network_id).lower() == str(user2.network_id).lower()
+
+
+def generate_random_password():
+	import random, string
+	myrg = random.SystemRandom
+	length = 10
+	alphabet = string.letters + string.digits
+	pw = str().join(myrg(random).sample(alphabet,length))
+	return pw
+
+CHARSET = ('bdfghklmnprstvwz', 'aeiou') # consonants, vowels
+def generate_mnemonic_password(letters=8, digits=4, uppercase=False):
+	"""Generate a random mnemonic password."""
+	chars = ''.join([random.choice(CHARSET[i % 2]) for i in range(letters)])
+	if uppercase:
+		chars = chars.upper()
+	chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
+	return chars
+

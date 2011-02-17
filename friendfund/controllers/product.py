@@ -20,7 +20,9 @@ class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
 	def bounce(self):
 		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
-		websession['product_list'] = c.product_list
+		if len(c.product_list)>1:
+			websession['product_list'] = c.product_list
+		else:c.product_list = []
 		c.pool = websession['pool']
 		return self.render('/index.html')
 	

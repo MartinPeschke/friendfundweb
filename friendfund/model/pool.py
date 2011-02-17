@@ -357,6 +357,7 @@ class Pool(DBMappedObject):
 				,picture = dproduct.picture
 				,tracking_link = dproduct.tracking_link
 				,merchant_ref = dproduct.merchant_ref
+				,guid = dproduct.guid
 			)
 		self.amount = dproduct.get_total_price_units()
 		self.currency = dproduct.currency

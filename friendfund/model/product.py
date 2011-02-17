@@ -15,6 +15,7 @@ class Product(DBMappedObject):
 				,GenericAttrib(unicode ,'ean'          , 'ean'              )
 				,GenericAttrib(unicode ,'picture'      , 'picture'          )
 				,GenericAttrib(unicode ,'tracking_link', 'tracking_link'    )
+				,GenericAttrib(unicode ,'guid'         , 'guid'             , persistable=False)
 				]
 	def get_product_pic(self, type="POOL"):
 		return h.get_product_picture(self.picture, type)

@@ -100,8 +100,8 @@ class MyfriendsController(BaseController):
 		elif network == 'yourself' and not c.user.is_anon:
 			data = invitee
 			data['success'] = True
-			data['network'] = c.user.network.lower()
-			data['network_id'] = (c.user.network.lower() == 'email' and c.user.email or c.user.network_id)
+			data['network'] = c.user.get_current_network()
+			data['network_id'] = (data['network'] == 'email' and c.user.email or c.user.network_id)
 			data['name'] = c.user.name
 			data['large_profile_picture_url'] = data['profile_picture_url'] = c.user.get_profile_pic('POOL')
 			return {'clearmessage':True,'data':data}

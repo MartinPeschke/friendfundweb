@@ -60,7 +60,7 @@ def main(argv=None):
 	configname = opts['-f']
 	config = get_config(configname)
 	dbpool = get_db_pool(config, CONNECTION_NAME)
-	ROOT_URL = config['short_site_root_url']
+	ROOT_URL = config['site_root_url']
 	
 	debug = config['debug'].lower() == 'true'
 	
