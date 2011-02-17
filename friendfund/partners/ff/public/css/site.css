@@ -1,1 +1,412 @@
+*{
+	margin: 0;
+	padding: 0
+}
+body{
+	margin: 0;
+	font:14px/20px Arial,Helvetica,sans-serif
+}
 
+/* GENERAL CONTAINERS */
+
+div.wrap{
+	width: 100%	
+}
+
+div.wrapHeader{
+	background-color: #999999;
+	border-bottom: 1px solid black;
+}
+	div.header{
+		width:930px;
+		margin: 0 auto;
+		height: 60px
+	}
+		div.loginArea{
+			 float: right
+		}
+	
+div.wrapSubHeaderHome{
+	background: #ececec;
+	border-bottom: 1px solid #d3d3d3;
+	height: 410px
+}
+div.wrapSubHeader{
+	background: #ececec;
+	border-bottom: 1px solid #d3d3d3;
+	height: 150px
+}
+	div.subHeader{
+		width: 930px;
+		margin: 0 auto
+	}
+div.wrapContent{
+	 background: #f9f9f9
+
+}
+	div.content{
+		width: 930px;
+		margin: 0 auto;
+	}
+div.wrapFooter{
+
+}
+
+	div.subFooterTop{
+		background-color: white;
+		border-bottom: 1px solid #e6e6e6;
+		border-top:1px solid #e5e5e5
+	}
+	div.subFooterBottom{
+		background-color: #ececec;
+		height: 80px
+	}
+		div.footer{
+			width: 930px;
+			margin: 0 auto
+		}
+/* GENERAL ELEMENTS */
+.clear{ 
+	clear: both;
+	line-height: 0px;
+	font-size: 0;
+	height: 0
+}
+
+a{ 
+	text-decoration: none;
+	color: black
+}
+a.white{ color: white}
+
+span.white{ color: white}
+
+img{ border: none}
+
+.floatRight{ float: right}
+
+.floatLeft{ float: left}
+
+/* HEADER */
+div.header h1{
+	display: block;
+	width: 150px;
+	height: 30px;
+	background: url(../imgs/logo.png) 0 0 no-repeat;
+	margin: 15px 0 0 20px;
+	float:left
+}
+	div.header h1 a{
+		display: block;
+		width: 100%;
+		height: 100%
+	}
+		div.header h1 a span{
+			display: none
+		}
+div.header ul{
+	display: block;
+	float: left;
+	list-style-type: none;
+	margin: 22px 0 0 20px
+}
+	div.header ul li{
+		display: block;
+		float: left;
+		padding-right: 20px
+	}
+		div.header ul li a{
+			text-transform: uppercase;
+			font-size: 13px; 
+			color:black
+		}
+div.loginArea{
+	font-size: 12px;
+	color: black;
+	margin: 22px 0 0 20px
+}
+	div.loginArea a, div.loginArea span{
+		float:left;
+		display: block;
+		margin-right: 5px
+	}
+		div.loginArea a.language{
+			text-decoration: underline;
+			margin-right: 10px
+		}
+		
+/* SUBHEADER */
+
+div.subHeader h2{
+	color:#323232;
+	font-size: 60px;
+	line-height: 60px;
+	padding: 50px 30px 0 30px
+	
+}
+	div.subHeader h2 span{
+		display:block;
+		font-size: 20px;
+		line-height: 30px;
+		color: #373737;
+		font-weight:normal;
+		margin-top: 10px
+	}
+a.learnMoreBtn{
+	display: block;
+	color: #83ddaa;
+	-moz-border-radius: 5px;
+	background-color: #e2e2e2;
+	border-radius: 5px;
+	text-align: center;
+	width: 100px; 
+	height: 30px;
+	line-height: 30px;
+	margin: 30px 0 0 30px
+}
+
+
+/* HOMEPAGE */
+div.contentHome{
+	width: 930px;
+	margin: -172px auto 0 auto;
+	
+}
+div.weNeed{
+	border: 1px solid #D3D3D3;
+	height: 170px;
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+	-moz-border-radius-topright:10px;
+	-moz-border-radius-topleft:10px;
+	background: white;
+}
+	div.formWeNeed{
+		padding:30px 
+	
+	}
+
+	div.weNeed h3{
+		font-size: 25px;
+		line-height: 25px;
+		font-weight: normal
+	}
+	
+	div.weNeed input{
+		border: 1px solid black;
+		height: 30px;
+		font-size: 20px;
+		line-height: 30px
+	}
+	div.weNeed input.short{ width: 120px}
+	div.weNeed input.long{ width: 500px;}
+	div.weNeed input.button{ width: 130px}
+	div.formWeNeed span{
+		font-size: 15px;
+		font-weight: bold;
+		line-height: 30px
+	}
+
+div.logoContainer{
+	border-top: 1px solid #f4f4f4
+}
+	div.logoContainer div.logoContainerRight{
+		float:right
+	}
+	div.logoContainer div.logoContainerLeft{
+		float:left
+	}
+div.featuredPoolsBox{
+	padding: 30px
+}
+	div.featuredPoolsBox h4{
+		padding-bottom: 20px;
+		font-size: 16px
+	}
+	
+	div.homebox{
+		width: 215px;
+		border-bottom: 1px solid #dbdbdb;
+		padding-bottom: 20px;
+		float: left;
+		padding-right: 2px
+	}
+		div.homebox img{
+			display: block;
+			width: 190px; 
+			margin: 0 auto;
+		}
+		div.homebox h5{
+			font-size: 13px;
+			display: block;
+			width: 190px; 
+			margin: 0 auto;
+		}
+		div.homebox span{
+			color: #b3b3b3;
+			font-size: 10px;
+		}
+		span.homebox{
+			display: block;
+			width: 190px; 
+			margin: 0 auto;
+		}
+		
+		div.homebox span a{
+			text-decoration: underline;
+			font-size: 10px;
+			color: #b3b3b3;
+		}
+		div.timeCounter{
+			border-top:1px solid #e7e7e7;
+			margin: 10px 0 0 0;
+			padding: 10px 0 0 0;
+			display: block;
+			width: 190px; 
+			margin: 0 auto;
+		}
+		
+		div.timeCounterRight{
+			border-top-right-radius:10px;
+			border-bottom-right-radius:10px;
+			-moz-border-radius-topright:10px;
+			-moz-border-radius-bottomright:10px;
+			width: 20%;
+			float: left;
+			height: 20px;
+			background: #adadad
+		}
+		div.timeCounterLeft{
+			border-top-left-radius:10px;
+			border-bottom-left-radius:10px;
+			-moz-border-radius-topleft:10px;
+			-moz-border-radius-bottomleft:10px;
+			width: 80%;
+			float: left;
+			height: 20px;
+			background: #707070
+		}
+			div.timeCounter span{
+				font-size: 10px;
+				font-weight: bold;
+				color: #3a3a3a
+			
+			}
+		
+		div.contributors{
+			background: #f1c8fe;
+			margin: 10px 0 0 0;
+			-moz-box-shadow: 0px 1px #faa2f6;
+			-webkit-box-shadow: 0px 1px #faa2f6;
+			box-shadow: 0 1px #faa2f6;
+			border-bottom-left-radius:4px;
+			border-bottom-right-radius:4px;
+			-moz-border-radius-bottomleft:4px;
+			-moz-border-radius-bottomright:4px;
+			padding: 0 7px;
+			text-align: center
+			
+		}
+			div.contributors span{ 
+				color: black;
+				font-size:10px
+			}
+				div.contributors span.upper{ 
+					text-transform: uppercase;
+				}
+		div.fbHolder{
+			padding: 10px 0 0 15px
+		}
+		div.fbHolder img{ 
+			width: 30px ; 
+			height: 30px ; 
+			float: left;
+			margin-right: 8px
+		}
+	
+	div.whatElse{
+		padding-bottom: 20px
+	}
+		div.whatElse h4{
+			padding-bottom: 10px
+		}
+	div.whatElse .boxGray{
+		background: #dfdfdf;
+		border: #d7d7d7;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		float: left;
+		margin-right: 15px
+	}
+		.boxGray p{
+			color:#6a6a6a
+			
+		}
+		div.box1{
+			width: 400px;
+			padding: 20px
+		}
+		div.box2{
+			width: 150px;
+			padding: 20px
+		}
+		div.box3{
+			width: 150px;
+			padding: 20px
+		}
+/* POOL PAGE */
+div.userProfile{
+	padding: 0 20px
+}
+	div.userProfile img{
+		display:block;
+		float:left;
+		border: 5px solid white;
+		margin: 35px 20px 0 0;
+	}
+		div.subUserProfile{
+			float:left; 
+			width: 800px		
+		}
+	
+			div.subUserProfile h2{
+				font-size: 36px;
+				line-height: 36px;
+				padding: 0;
+				margin: 0;
+				float: left;
+				margin: 45px 0 0 0 
+			}
+			div.subUserProfile span{
+				display: block;
+				float: left
+			}
+			div.subUserProfile a{
+				display: block;
+				float: left
+			}
+	
+
+/* FOOTER */
+div.footerCol1{
+	float: left;
+	width: 25%
+}
+div.footerCol2{
+	float: left;
+	width: 25%
+}
+div.footerCol3{
+	float: left;
+	width: 25%
+}
+div.footerCol4{
+	float: left;
+	width: 25%
+}
+div.footerCol5{
+	clear:both;
+	width: 100%
+}
+	
+	

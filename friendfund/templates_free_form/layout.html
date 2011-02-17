@@ -1,18 +1,67 @@
 <%inherit file="master.html"/>
-<div id="outercontainer">
-	${next.body()}
-</div>
-${next.siteinfo()}
-
-
-
-<%def name="siteinfo()">
-	<div id="siteinfo">
-		${self.render_verisign(id="verisignseal")}
-		${self.render_siteinfo_copyright()}
-		${self.render_footer_links()}
+<div id="wrap">
+	<div class="wrapHeader">
+		<div class="header">
+			<div class="loginArea">
+				<a href="#" class="language">English</a>
+				<a href="#" class="white">Login</a>
+				<span class="white"> I </span>
+				<a href="#" class="white">Sign Up</a>
+			</div>
+			<h1>
+				<a href="#"><span>Friendfund</span></a>
+			</h1>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Learn</a></li>
+				<li><a href="#">Create a pool</a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
 	</div>
-</%def>
+	<div class="wrapContent">
+		${next.body()}
+	</div>
+	<div class="wrapFooter">
+		<div class="subFooterTop">
+			<div class="footer">
+				<div class="footerCol1">
+					<span>About</span>
+					<a href="#">About Friendfund</a>
+					<a href="#">Our blog</a>
+					<a href="#">Jobs</a>
+					<a href="#">FAQ</a>
+				</div>
+				<div class="footerCol2">
+					<span>Contact</span>
+					<a href="#">Contact Friendfund</a>
+					<a href="#">Become a partner</a>
+				</div>
+				<div class="footerCol3">
+					<span>Legal</span>
+					<a href="#">Terms of Service</a>
+					<a href="#">Privacy</a>
+				</div>
+				<div class="footerCol4">
+					<span>Connect</span>
+					<a href="#">Like us on Facebook</a>
+					<a href="#">Follow us on Twitter</a>
+					<a href="#">Subscribe to our blog</a>
+				</div>
+				<div class="footerCol5">
+					<span>Friendfund on Facebook</span>
+					<span>2010 friendfund All Rights Reserved</span>
+				</div>
+			</div>
+		</div>
+		<div class="subFooterBottom"></div>
+	</div>
+</div>
+
+
+
+
 
 
 
@@ -27,6 +76,3 @@ ${next.siteinfo()}
 		</table>
 	</div>
 </%def>
-
-<%def name="render_siteinfo_copyright()"></%def>
-<%def name="render_footer_links()"></%def>
