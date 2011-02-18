@@ -107,7 +107,7 @@ class CreditCardPayment(PaymentMethod):
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
-								,email = tmpl_context.user.email
+								,email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
 			contrib = g.dbm.set(contrib, merge = True)
@@ -186,7 +186,7 @@ class RedirectPayment(PaymentMethod):
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
-								,email = tmpl_context.user.email
+								,email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
 			dbcontrib = g.dbm.set(dbcontrib, merge = True)
@@ -217,7 +217,7 @@ class VirtualPayment(PaymentMethod):
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
-								,email = tmpl_context.user.email
+								,email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
 			dbcontrib = g.dbm.set(dbcontrib, merge = True)

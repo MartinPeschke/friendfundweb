@@ -89,12 +89,11 @@ class IndexController(BaseController):
 
 			c.user = g.dbm.call(User(**c.signup_values), User)
 			c.user.set_network('email', 
-							network_id = None,
+							network_id =  c.user.default_email,
 							access_token = None,
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			c.user.email = c.signup_values['email']
 			return redirect(url('home'))
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
@@ -120,10 +119,8 @@ class IndexController(BaseController):
 			c.email = valid.to_python(c.email, state = FriendFundFormEncodeState)
 			suep = SetUserEmailProc(u_id = c.user.u_id, name = c.user.name, email = c.email)
 			g.dbm.set(suep)
-			
 			remove_block('email')
-			c.user.email = c.email
-			c.user.has_email = True
+			c.user.default_email = c.user.default_email or c.email
 			c.messages.append(_(u'USER_SETEMAILBLOCK_Email Updated!'))
 			return {'data':{'success':True}}
 		except formencode.validators.Invalid, error:

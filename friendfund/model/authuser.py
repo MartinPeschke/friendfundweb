@@ -111,9 +111,8 @@ class User(ProtoUser):
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'profile_picture_url','profile_picture_url')
-				,GenericAttrib(str,'email','email')
+				,GenericAttrib(str,'default_email','default_email')
 				,GenericAttrib(str,'pwd','pwd')
-				,GenericAttrib(bool,'has_email','has_email')
 				,GenericAttrib(str,'sex','sex')
 				,GenericAttrib(str,'token','token')
 				,GenericAttrib(str,'access_token','access_token')
@@ -214,8 +213,11 @@ class User(ProtoUser):
 
 	def get_profile_pic(self, type="PROFILE_S"):
 		return h.get_user_picture(self.profile_picture_url, type)
-
-
+	
+	def get_has_email(self):
+		return bool(self.default_email)
+	has_email = property(get_has_email)
+	
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"
 class FBWebLogin(User):

@@ -39,7 +39,7 @@
 		<a class="login_loginlink somelink " href="${url('controller', controller='mypools')}">
 			<span class="name login_loginlink">${_("PANEL_LOGIN_Welcome")}</span>
 			<img id="login_panel_profile_pic" src="${c.user.get_profile_pic()}"/>
-			<span class="name login_loginlink">${c.user.name or c.user.email}</span></a>
+			<span class="name login_loginlink">${c.user.name or c.user.default_email}</span></a>
 		%if 'facebook' not in c.user.networks:
 			<a onclick="fbLogin()" class="somelink login_loginlink"><img src="/static/imgs/icon_fb_connect.png"/></a>
 		%endif

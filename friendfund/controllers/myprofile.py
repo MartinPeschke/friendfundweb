@@ -40,12 +40,11 @@ class MyprofileController(BaseController):
 			c.login_values['network'] = 'email'
 			c.user = g.dbm.get(User, **c.login_values)
 			c.user.set_network('email', 
-							network_id = None,
+							network_id = c.user.default_email
 							access_token = None,
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			c.user.email = c.login_values['email']
 			return {"redirect":c.furl}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
@@ -88,7 +87,7 @@ class MyprofileController(BaseController):
 			additional_user_data = g.dbm.call(suppl_user, User)
 			
 			c.user.set_network('email', 
-							network_id = c.myprofile_values['email'],
+							network_id =  c.user.default_email,
 							access_token = None,
 							access_token_secret = None
 						)
@@ -126,12 +125,10 @@ class MyprofileController(BaseController):
 			additional_user_data = g.dbm.call(suppl_user, User)
 				
 			c.user.set_network('email', 
-							network_id = c.signup_values['email'],
+							network_id = c.user.default_email,
 							access_token = None,
 							access_token_secret = None
 						)
-			c.user.has_email = True
-			c.user.email = c.signup_values['email']
 			c.messages.append(_("MYPROFILE_EMAILSEIGNUP_Details saved!"))
 			return redirect(url('controller', controller='myprofile'))
 		except formencode.validators.Invalid, error:

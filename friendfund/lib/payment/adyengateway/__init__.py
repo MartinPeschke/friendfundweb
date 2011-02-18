@@ -1,8 +1,9 @@
 from ZSI import TC
 from ZSI.client import Binding
 from ZSI.auth import AUTH
-import Payment_services, Payment_services_types
+import Payment_services, Payment_services_types, logging
 
+log = logging.getLogger("friendfund.lib.payment.adyengateway.AdyenPaymentGateway")
 
 def parse_dict_into_request(obj, map):
 	for k,v in map.iteritems():
@@ -53,7 +54,8 @@ class AdyenPaymentGateway(object):
 		service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))
 		req = Payment_services.authoriseRequest()
 		preq = req.new_paymentRequest() ###additionalData, amount, card, merchantAccount, recurring, reference, shopperEmail, shopperIP, shopperReference, 
-		preq = parse_dict_into_request(preq, dict(
+		
+		preq_params = dict(
 			merchantAccount=self.merchantAccount,
 			reference=txid,
 			shopperEmail=shopperEmail,
@@ -61,7 +63,9 @@ class AdyenPaymentGateway(object):
 			amount=dict(value=amount,currency=currency),
 			card = dict(cvc=cvc,expiryMonth=expiryMonth,expiryYear=expiryYear,holderName=holderName,number=number),
 			recurring = dict(contract = 'ONECLICK', recurringDetailName = recurringDetailName)
-			))
+			)
+		log.info(preq_params)
+		preq = parse_dict_into_request(preq, )
 		req.set_element_paymentRequest(preq)
 		result = service.authorise(req)
 		payment_result = result.get_element_paymentResult()
