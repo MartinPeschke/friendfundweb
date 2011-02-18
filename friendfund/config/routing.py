@@ -23,6 +23,7 @@ def make_map(config):
 	# CUSTOM ROUTES HERE
 	map.connect('/pool/start', controller='pool', action='reset')
 	map.connect('/pool/create', controller='pool', action='create')
+	map.connect('/pool/details', controller='pool', action='details')
 	map.connect('contribution_service', '/contribution/service', controller='payment_service', action='service')
 	map.connect('get_pool', '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': purlpattern})
 	map.connect('pool_action', '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})
