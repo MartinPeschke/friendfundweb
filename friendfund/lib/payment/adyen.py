@@ -52,6 +52,7 @@ class PaymentGateway(object):
 		result = self.gateway.authorise_recurring_contract(*args)
 		return result
 
+
 class PaymentMethod(object):
 	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions):
 		self.logo_url = logo_url

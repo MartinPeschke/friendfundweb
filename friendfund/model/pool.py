@@ -207,7 +207,7 @@ class Pool(DBMappedObject):
 	_get_proc   = 'app.get_pool'
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
-	_expiretime = 2
+	_expiretime = 20
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
 			, GenericAttrib(int,		'p_id',				'p_id'						)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
