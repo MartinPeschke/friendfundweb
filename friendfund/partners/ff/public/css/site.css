@@ -4,7 +4,7 @@
 }
 body{
 	margin: 0;
-	font:14px/20px Arial,Helvetica,sans-serif
+	font:12px/18px Arial,Helvetica,sans-serif
 }
 
 /* GENERAL CONTAINERS */
@@ -18,7 +18,7 @@ div.wrapHeader{
 	border-bottom: 1px solid black;
 }
 	div.header{
-		width:930px;
+		max-width:930px;
 		margin: 0 auto;
 		height: 60px
 	}
@@ -34,10 +34,9 @@ div.wrapSubHeaderHome{
 div.wrapSubHeader{
 	background: #ececec;
 	border-bottom: 1px solid #d3d3d3;
-	height: 150px
 }
 	div.subHeader{
-		width: 930px;
+		max-width: 930px;
 		margin: 0 auto
 	}
 div.wrapContent{
@@ -45,7 +44,7 @@ div.wrapContent{
 
 }
 	div.content{
-		width: 930px;
+		max-width: 930px;
 		margin: 0 auto;
 	}
 div.wrapFooter{
@@ -62,7 +61,7 @@ div.wrapFooter{
 		height: 80px
 	}
 		div.footer{
-			width: 930px;
+			max-width: 930px;
 			margin: 0 auto
 		}
 /* GENERAL ELEMENTS */
@@ -93,7 +92,7 @@ div.header h1{
 	width: 150px;
 	height: 30px;
 	background: url(../imgs/logo.png) 0 0 no-repeat;
-	margin: 15px 0 0 20px;
+	margin: 15px 0 0 0;
 	float:left
 }
 	div.header h1 a{
@@ -108,7 +107,7 @@ div.header ul{
 	display: block;
 	float: left;
 	list-style-type: none;
-	margin: 22px 0 0 20px
+	margin: 25px 0 0 20px
 }
 	div.header ul li{
 		display: block;
@@ -117,13 +116,13 @@ div.header ul{
 	}
 		div.header ul li a{
 			text-transform: uppercase;
-			font-size: 13px; 
-			color:black
+			font-size: 12px; 
+			color:#333333
 		}
 div.loginArea{
 	font-size: 12px;
 	color: black;
-	margin: 22px 0 0 20px
+	margin: 25px 0 0 20px
 }
 	div.loginArea a, div.loginArea span{
 		float:left;
@@ -138,7 +137,7 @@ div.loginArea{
 /* SUBHEADER */
 
 div.subHeader h2{
-	color:#323232;
+	color:#333333;
 	font-size: 60px;
 	line-height: 60px;
 	padding: 50px 30px 0 30px
@@ -250,6 +249,7 @@ div.featuredPoolsBox{
 			display: block;
 			width: 190px; 
 			margin: 0 auto;
+			border-bottom:1px solid #e7e7e7;
 		}
 		
 		div.homebox span a{
@@ -258,11 +258,12 @@ div.featuredPoolsBox{
 			color: #b3b3b3;
 		}
 		div.timeCounter{
-			border-top:1px solid #e7e7e7;
+			
 			margin: 10px 0 0 0;
-			padding: 10px 0 0 0;
+			padding: 0 0 0 0;
 			display: block;
-			width: 190px; 
+			width: 100%; 
+			float: left;
 			margin: 0 auto;
 		}
 		
@@ -273,8 +274,8 @@ div.featuredPoolsBox{
 			-moz-border-radius-bottomright:10px;
 			width: 20%;
 			float: left;
-			height: 20px;
-			background: #adadad
+			height: 15px;
+			background: #c9c9c9
 		}
 		div.timeCounterLeft{
 			border-top-left-radius:10px;
@@ -283,8 +284,8 @@ div.featuredPoolsBox{
 			-moz-border-radius-bottomleft:10px;
 			width: 80%;
 			float: left;
-			height: 20px;
-			background: #707070
+			height: 15px;
+			background: #b0b0b0
 		}
 			div.timeCounter span{
 				font-size: 10px;
@@ -293,9 +294,8 @@ div.featuredPoolsBox{
 			
 			}
 		
-		div.contributors{
+		div.boxContributors{
 			background: #f1c8fe;
-			margin: 10px 0 0 0;
 			-moz-box-shadow: 0px 1px #faa2f6;
 			-webkit-box-shadow: 0px 1px #faa2f6;
 			box-shadow: 0 1px #faa2f6;
@@ -304,14 +304,15 @@ div.featuredPoolsBox{
 			-moz-border-radius-bottomleft:4px;
 			-moz-border-radius-bottomright:4px;
 			padding: 0 7px;
-			text-align: center
+			text-align: center;
+			clear: both
 			
 		}
-			div.contributors span{ 
+			div.boxContributors span{ 
 				color: black;
 				font-size:10px
 			}
-				div.contributors span.upper{ 
+				div.boxContributors span.upper{ 
 					text-transform: uppercase;
 				}
 		div.fbHolder{
@@ -356,7 +357,7 @@ div.featuredPoolsBox{
 		}
 /* POOL PAGE */
 div.userProfile{
-	padding: 0 20px
+	min-height:150px
 }
 	div.userProfile img{
 		display:block;
@@ -366,7 +367,7 @@ div.userProfile{
 	}
 		div.subUserProfile{
 			float:left; 
-			width: 800px		
+			max-width: 800px		
 		}
 	
 			div.subUserProfile h2{
@@ -383,10 +384,243 @@ div.userProfile{
 			}
 			div.subUserProfile a{
 				display: block;
-				float: left
+				float: left;
+				color: #999999
 			}
-	
+		div.subTitleUserProfile{
+			float:left; 
+			max-width: 800px;
+			margin: 4px 0 0 0;
+			clear: both
+		}
+			span.poolClose{
+				font-weight: bold;
+				color:#666666
+			}
+		div.boxPoolDetails{
+			clear: both
+		}
+			div.timeTracker{
+				width: 210px
+			
+			}
+				div.timeTracker span{
+					font-weight: bold;
+					color: #333333
+				}
+			div.contributors{
+				float:left;
+				width: 180px;
+				height: 45px;
+				position: relative;
+				text-transform: uppercase;
+				color: #4e4e4e
+			}
+			div.chippedIn{
+				float:left;
+				width: 180px;
+				height: 45px;
+				position: relative;
+				text-transform: uppercase;
+				color: #4e4e4e
+			}
+			div.outstanding{
+				float:left;
+				width: 180px;
+				height: 45px;
+				position: relative;
+				text-transform: uppercase;
+				color: #4e4e4e
+			}
+			div.daysLeft{
+				float:left;
+				width: 180px;
+				height: 45px;
+				position: relative;
+				text-transform: uppercase;
+				color: #4e4e4e
+			}
+				div.contributors span{
+					position: absolute;
+					display: block;
+					left: 0;
+					bottom: 0;
+					padding:5px 0  10px 35px;
+					line-height: 12px;
+					background: url(../imgs/contributors-ico.png) left top no-repeat;
+				}
+				div.chippedIn span{
+					position: absolute;
+					display: block;
+					left: 0;
+					bottom: 0;
+					padding:4px 0 10px 20px;
+					line-height: 12px;
+					background: url(../imgs/dollar-ico.png) left top no-repeat;
+				}
+				div.outstanding span{
+					position: absolute;
+					display: block;
+					left: 0;
+					bottom: 0;
+					padding:0 0  10px 0;
+					line-height: 12px
+				}
+				div.daysLeft span{
+					position: absolute;
+					display: block;
+					left: 0;
+					bottom: 0;
+					padding:0 0  10px 0;
+					line-height: 12px
+				}
+div.greyBoxTitle{
+	margin: 20px 0 0 0;
+	width: 100%;
+	background: #e2e2e2;
+	height: 50px
+}
+	div.greyBoxTitle h3{
+		color:#333333;
+		font-size: 18px;
+		line-height: 50px;
+		padding: 0 0 0 12px
+	}
+	.btnShow{
+		color: white;
+		font-weight: bold;
+		font-size: 10px;
+		text-transform: uppercase;
+		display:block;
+		height: 20px;
+		line-height: 20px;
+		padding: 0 25px 0 10px;
+		border-top-left-radius:10px;
+		border-bottom-left-radius:10px;
+		-moz-border-radius-topleft:10px;
+		-moz-border-radius-bottomleft:10px;
+		border-top-right-radius:10px;
+		border-bottom-right-radius:10px;
+		-moz-border-radius-topright:10px;
+		-moz-border-radius-bottomright:10px;
+		background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
+		margin: 15px 12px 0 0 
+	}
+.colLeft{
+	max-width: 700px;
+	float: left;
+	margin: 0 20px 0 0;
 
+}
+	.colLeft h4{
+		display: block;
+		height: 25px;
+		color: #333;
+		font-size: 18px;
+		padding-top: 35px;
+		border-bottom: 2px solid #e4e4e4;
+		margin-right: 10px
+	}
+	.colLeft .btnViewAll{
+		display: block;
+		font-size: 11px;
+		color: #00bbea;
+		background: url(/static/imgs/arrow-all.gif) right center no-repeat;
+		padding: 0 15px 0 0;
+		margin: 38px 10px 0 0
+		
+	}
+	.colLeft .btnEdit{
+		display: block;
+		font-size: 11px;
+		color: #00bbea;
+		padding: 0 0 0 0;
+		margin: 38px 10px 0 0
+		
+	}
+	.colLeft p{ 
+		display: block;
+		padding:0 10px 10px 0;
+		font-size: 12px;
+		color: #333
+
+	}
+	.colLeft h5{
+		font-size: 11px;
+		font-weight: bold;
+		color: #00bbea
+	}
+	.colLeft p.small{
+		font-size: 11px;
+		color: #666;
+	}
+ul.faceList{
+	list-style-type: none;
+	margin: 20px 0 -10px 0;
+	float: left;
+	max-width: 700px;
+}
+	ul.faceList li{
+		float: left;
+		width: 58px;
+		height: 58px;
+		margin: 0 10px 10px 0;
+		position: relative
+	}
+		ul.faceList .ulTooltip{
+			position: absolute;
+			left: 0;
+			top:-25px;
+			min-width: 200px
+		}
+		.avt{ 
+			float:left;		
+			border: 1px solid #e1eae8;
+		}
+		.avt img{
+			display:block;
+			width: 48px;
+			height:48px;
+			border: 5px solid white
+		}
+		div.checked{
+			position: absolute;
+			right: -5px;
+			top: -5px
+		}
+div.imgEdit{
+	margin: 10px 0 -10px 0;
+	padding: 10px 0 0 0 
+	
+}		
+	div.imgEdit div{
+		position: relative;
+		border: 1px solid #E1EAE8;
+		width:200px;
+		float: left;
+		margin-right:20px 
+	}
+		div.imgEdit div img{
+			display:block;
+			border:5px solid white
+		}
+		div.imgEdit div a{
+			display: block;
+			position: absolute; top:0;
+			right: 0
+		}
+ul.comments{
+	list-style-type: none;
+	margin: 20px 0 0 0;
+	position: relative;
+}
+	ul.comments .avt{
+		margin-right: 10px
+	}
+.colRight{
+	max-width: 210px;
+	float: left
+}
 /* FOOTER */
 div.footerCol1{
 	float: left;
