@@ -33,8 +33,7 @@ class PaymentGateway(object):
 					,contribution.methoddetails.ccExpiresMonth
 					,contribution.methoddetails.ccExpiresYear
 					,contribution.methoddetails.ccCode]
-		result = self.gateway.authorise(*args)
-		return result
+		return self.gateway.authorise(*args)
 	
 	def authorize_recurring(self, dbcontrib, contribution):
 		args = [contribution.ref 
@@ -49,8 +48,7 @@ class PaymentGateway(object):
 					,contribution.ref
 					,contribution.ref 
 					]
-		result = self.gateway.authorise_recurring_contract(*args)
-		return result
+		return self.gateway.authorise_recurring_contract(*args)
 
 
 class PaymentMethod(object):
@@ -123,7 +121,6 @@ class CreditCardPayment(PaymentMethod):
 		
 		contribution.ref = contrib.ref
 		paymentresult = self.paymentGateway.authorize_recurring(contrib, contribution)
-		log.info(paymentresult)
 		# paymentresult = self.paymentGateway.authorize(contribution)
 		payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
 		notice = DBPaymentInitialization(\

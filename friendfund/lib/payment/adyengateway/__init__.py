@@ -28,8 +28,7 @@ class AdyenPaymentGateway(object):
 		self.merchantAccount = merchantAccount
 
 	### AUTHORIZE PAYMENTS / RECURRINGs
-	def _send_authorize(preq_params):
-		log.info(preq_params)
+	def _send_authorize(self, preq_params):
 		service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))
 		req = Payment_services.authoriseRequest()
 		preq = req.new_paymentRequest() ###additionalData, amount, card, merchantAccount, recurring, reference, shopperEmail, shopperIP, shopperReference, 
@@ -37,7 +36,9 @@ class AdyenPaymentGateway(object):
 		req.set_element_paymentRequest(preq)
 		result = service.authorise(req)
 		payment_result = result.get_element_paymentResult()
-		return dict([(k.replace("get_element_",""), getattr(payment_result, k)()) for k in dir(payment_result) if k.startswith('get_element')])
+		result_data = dict([(k.replace("get_element_",""), getattr(payment_result, k)()) for k in dir(payment_result) if k.startswith('get_element')])
+		log.debug("RECEIVED_PAYMENT_RESPONSE: %s", result_data)
+		return result_data
 		
 	def authorise(self, txid, amount, currency, holderName, number, expiryMonth, expiryYear, cvc, shopperEmail = None, shopperReference=None):
 		"""Send an authorise request"""
@@ -79,15 +80,17 @@ class AdyenPaymentGateway(object):
 	
 	###### MODIFICATIONS
 		
-	def _send_modification(req, preq_params):
+	def _send_modification(self, req, preq_params):
+		log.debug("SENDING_MODIFICATION_REQUEST: %s", preq_params)
 		preq = req.new_modificationRequest() ###merchantAccount, modificationAmount, originalReference
-		log.info(preq_params)
 		preq = parse_dict_into_request(preq, preq_params)
 		req.set_element_modificationRequest(preq)
 		service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))
 		result = service.authorise(req)
 		payment_result = result.get_element_paymentResult()
-		return dict([(k.replace("get_element_",""), getattr(payment_result, k)()) for k in dir(payment_result) if k.startswith('get_element')])
+		result_data = dict([(k.replace("get_element_",""), getattr(payment_result, k)()) for k in dir(payment_result) if k.startswith('get_element')])
+		log.debug("RECEIVED_MODIFICATION_RESPONSE: %s", preq_params)
+		return result_data
 	
 	def cancel_or_refund(self, original_txid):
 		req = Payment_services.cancelOrRefundRequest()
