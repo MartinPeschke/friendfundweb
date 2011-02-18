@@ -55,7 +55,8 @@ class PoolController(ExtBaseController):
 		self._clean_session()
 		return redirect(url('home'))
 	def details(self):
-			return self.render('/pool/pool_details.html')
+		return self.render('/pool/pool_details.html')
+	
 	def complete(self, pool_url):
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
