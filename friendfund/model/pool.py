@@ -126,7 +126,7 @@ class PoolUser(DBMappedObject):
 	_set_root = _get_root = 'POOLUSER'
 	_unique_keys = ['network', 'name', 'network_id']
 	_required_attribs = ['network', 'name', 'network_id']
-	_keys = [ GenericAttrib(int,		'u_id'                       , 'u_id'               )
+	_keys = [ GenericAttrib(int,		'u_id'                       , 'u_id'               , persistable = False)
 			, GenericAttrib(unicode, 	'name'                       , 'name'               )
 			, GenericAttrib(unicode, 	'message'                    , 'message'            )
 			, GenericAttrib(bool,		'is_admin'                   , 'is_admin'           , default = False)

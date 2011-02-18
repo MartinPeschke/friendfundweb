@@ -62,10 +62,10 @@ class AdyenPaymentGateway(object):
 			shopperReference=shopperReference,
 			amount=dict(value=amount,currency=currency),
 			card = dict(cvc=cvc,expiryMonth=expiryMonth,expiryYear=expiryYear,holderName=holderName,number=number),
-			recurring = dict(contract = 'ONECLICK', recurringDetailName = recurringDetailName)
+			recurring = dict(contract = 'RECURRING', recurringDetailName = recurringDetailName)
 			)
 		log.info(preq_params)
-		preq = parse_dict_into_request(preq, )
+		preq = parse_dict_into_request(preq, preq_params)
 		req.set_element_paymentRequest(preq)
 		result = service.authorise(req)
 		payment_result = result.get_element_paymentResult()
@@ -86,7 +86,7 @@ class AdyenPaymentGateway(object):
 			shopperReference=shopperReference,
 			selectedRecurringDetailReference = selectedRecurringDetailReference,
 			amount=dict(value=amount,currency=currency),
-			recurring = dict(contract = 'ONECLICK')
+			recurring = dict(contract = 'RECURRING')
 			))
 		req.set_element_paymentRequest(preq)
 		result = service.authorise(req)

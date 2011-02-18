@@ -9,7 +9,7 @@ from pylons.i18n.translation import set_lang
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod
+from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod, WebLoginUserByEmail
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import PasswordRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
@@ -38,9 +38,9 @@ class MyprofileController(BaseController):
 			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
 			c.login_values = form_result
 			c.login_values['network'] = 'email'
-			c.user = g.dbm.get(User, **c.login_values)
+			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
 			c.user.set_network('email', 
-							network_id = c.user.default_email
+							network_id = c.user.default_email,
 							access_token = None,
 							access_token_secret = None
 						)

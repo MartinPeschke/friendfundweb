@@ -11,7 +11,7 @@ access_token_url = 'http://api.twitter.com/oauth/access_token'
 authenticate_url = 'http://api.twitter.com/oauth/authenticate'
 
 img_matcher = re.compile('^(.*)_normal\.(gif|jpg|png|jpeg)$')
-default_img_matcher = re.compile("^(.*/images/default_profile_[0-9]+_)normal(\.png)$")
+default_img_matcher = re.compile("^(.*images/default_profile_[0-9]+_)normal(\.png)$")
 
 INPROCESS_TOKEN = 1
 

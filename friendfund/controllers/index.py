@@ -8,17 +8,15 @@ from pylons.decorators import jsonify
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.auth.decorators import logged_in, remove_block, enforce_blocks, clear_blocks
 from friendfund.lib.base import BaseController, render, _
-from friendfund.lib.helpers import get_upload_pic_name
 from friendfund.lib import fb_helper
 
 from friendfund.model.forms.user import LoginForm, SignupForm
 from friendfund.model.common import SProcWarningMessage
-from friendfund.model.authuser import User, SetUserEmailProc, DBRequestPWProc, ANONUSER
+from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER
 from friendfund.model.product import Product
 from friendfund.model.sitemap import SiteMap
 from friendfund.model.recent_activity import RecentActivityStream
 
-from friendfund.tasks.photo_renderer import remote_save_image
 
 log = logging.getLogger(__name__)
 ulpath = config['pylons.paths']['uploads']

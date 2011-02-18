@@ -47,15 +47,15 @@ class PaymentGateway(object):
 					,contribution.methoddetails.ccCode
 					,dbcontrib.email
 					,contribution.ref
-					,contribution.methoddetails.ccHolder
+					,contribution.ref 
 					]
 		result = self.gateway.authorise_recurring_contract(*args)
 		return result
 
 class PaymentMethod(object):
-	def __init__(self, logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions):
+	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions):
 		self.logo_url = logo_url
-		self.code = code
+		self.method_code = method_code
 		self.name = name
 		self.currencies = currencies
 		self.virtual = virtual
@@ -72,7 +72,7 @@ class PaymentMethod(object):
 	def check_totals(self, base, total):
 		return -0.01 < total - (base*(1 + self._fee_relative) + self._fee_absolute) < 0.01
 	def __repr__(self):
-		return '<%s: %s>' % (self.__class__.__name__, self.code)
+		return '<%s: %s>' % (self.__class__.__name__, self.method_code)
 	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		raise UnsupportedPaymentMethod('process')
 	def post_process(self, tmpl_context, contribution, pool, renderer, redirecter):
@@ -83,8 +83,10 @@ class PaymentMethod(object):
 		return None
 	
 class CreditCardPayment(PaymentMethod):
-	def __init__(self, logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
-		super(self.__class__, self).__init__(logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
+	valid_types = {'mc':'MASTER_CARD', 'visa':'VISA', 'amex':'AMEX'}
+	
+	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
+		super(self.__class__, self).__init__(logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 	
 	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
@@ -94,6 +96,9 @@ class CreditCardPayment(PaymentMethod):
 		return redirecter(url(controller='contribution', pool_url=pool.p_url, action='details', token=tmpl_context.form_secret, protocol=g.SSL_PROTOCOL))
 	
 	def post_process(self, tmpl_context, contribution, pool, renderer, redirecter):
+		ccType = self.valid_types.get(contribution.methoddetails.ccType)
+		if not ccType:
+			raise ValueError("Unknown PaymentMethod: %s not in %s" % (contribution.methoddetails.ccType, self.valid_types))
 		with g.cache_pool.reserve() as client:
 			action = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
 		tmpl_context.pool_fulfilled = action == 'chipin_fixed'
@@ -103,7 +108,7 @@ class CreditCardPayment(PaymentMethod):
 								,is_secret = contribution.is_secret
 								,anonymous = contribution.anonymous
 								,message = contribution.message
-								,paymentmethod = contribution.paymentmethod
+								,paymentmethod = ccType
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
@@ -148,8 +153,8 @@ class RedirectPayment(PaymentMethod):
 						,"shopperStatement","merchantReturnData","billingAddressType","offset"]
 	result_order = ["authResult", "pspReference", "merchantReference", "skinCode", "merchantReturnData"]
 	
-	def __init__(self, logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
-		super(self.__class__, self).__init__(logo_url, code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
+	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
+		super(self.__class__, self).__init__(logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
 		self.base_url = base_url
 		self.secret = secret
 		self.standard_params = {"merchantAccount":merchantaccount, "skinCode":skincode}
@@ -165,8 +170,8 @@ class RedirectPayment(PaymentMethod):
 		sign_base = self.standard_params.copy()
 		sign_base["shipBeforeDate"] = (datetime.now() + timedelta(1)).strftime("%Y-%m-%d")
 		sign_base["sessionValidity"] = (datetime.now() + timedelta(0, 1800)).strftime("%Y-%m-%dT%H:%M:%SZ")
-		sign_base["allowedMethods"] = self.code
-		sign_base["brandCode"] = self.code
+		sign_base["allowedMethods"] = self.method_code
+		sign_base["brandCode"] = self.method_code
 		sign_base.update(params)
 		return sign_base
 	
@@ -182,7 +187,7 @@ class RedirectPayment(PaymentMethod):
 								,is_secret = contribution.is_secret
 								,anonymous = contribution.anonymous
 								,message = contribution.message
-								,paymentmethod = self.code
+								,paymentmethod = self.method_code
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
@@ -213,7 +218,7 @@ class VirtualPayment(PaymentMethod):
 								,is_secret = contribution.is_secret
 								,anonymous = contribution.anonymous
 								,message = contribution.message
-								,paymentmethod = self.code
+								,paymentmethod = self.method_code
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id

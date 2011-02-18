@@ -220,6 +220,14 @@ class User(ProtoUser):
 	
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"
+class WebLoginUserByEmail(DBMappedObject):
+	_get_proc = _set_proc = "app.web_login"
+	_set_root = _Get_root = 'USER'
+	_unique_keys = ['email']
+	_keys = [	 GenericAttrib(str,'network','network')
+				,GenericAttrib(str,'email','email')
+				,GenericAttrib(str,'pwd','pwd')]
+	
 class FBWebLogin(User):
 	_set_proc = "app.web_login"
 

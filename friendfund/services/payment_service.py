@@ -28,7 +28,7 @@ class PaymentService(object):
 	
 	def __init__(self, payment_methods):
 		self.__class__.payment_methods = payment_methods
-		self.payment_methods_map = dict([(pm.code, pm) for pm in self.payment_methods])
+		self.payment_methods_map = dict([(pm.method_code, pm) for pm in self.payment_methods])
 	def verify_result(self, params):
 		method = params.get('paymentMethod')
 		if not method:

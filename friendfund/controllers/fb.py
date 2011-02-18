@@ -39,12 +39,13 @@ class FbController(BaseController):
 		if not success:
 			return self.ajax_messages(msg)
 		else:
-			perms = FBUserPermissions(network='facebook', network_id=user_data['network_id'], stream_publish = True)
-			try:
-				g.dbm.set(perms)
-			except db_access.SProcException, e:
-				log.error(str(e))
-			c.user.set_perm('facebook', 'stream_publish', True)
+			if not c.user.has_perm('facebook', 'stream_publish'):
+				perms = FBUserPermissions(network='facebook', network_id=user_data['network_id'], stream_publish = True)
+				try:
+					g.dbm.set(perms)
+				except db_access.SProcException, e:
+					log.error(str(e))
+				c.user.set_perm('facebook', 'stream_publish', True)
 			remove_block('fb_streampub')
 		return {'html':render('/myprofile/login_panel.html').strip()}
 	
