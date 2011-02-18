@@ -1,6 +1,7 @@
 *{
 	margin: 0;
-	padding: 0
+	padding: 0;
+	outline: none
 }
 body{
 	margin: 0;
@@ -48,6 +49,7 @@ div.wrapContent{
 		margin: 0 auto;
 	}
 div.wrapFooter{
+	padding: 30px 0 0 0
 
 }
 
@@ -85,6 +87,8 @@ img{ border: none}
 .floatRight{ float: right}
 
 .floatLeft{ float: left}
+
+.fontWeightBold{ font-weight: bold}
 
 /* HEADER */
 div.header h1{
@@ -562,20 +566,26 @@ ul.faceList{
 }
 	ul.faceList li{
 		float: left;
-		width: 58px;
-		height: 58px;
+		width: 60px;
+		height: 60px;
 		margin: 0 10px 10px 0;
 		position: relative
 	}
-		ul.faceList .ulTooltip{
+		ul.faceList li:hover div.tooltip{
+		display:block
+	}
+		ul.faceList .tooltip{
 			position: absolute;
 			left: 0;
 			top:-25px;
-			min-width: 200px
+			display: none; font-size: 10px; font-weight: bold; color: #616161; background: #d3d3d3; height: 20px; line-height: 20px;
+			padding: 0 10px
+
 		}
 		.avt{ 
 			float:left;		
-			border: 1px solid #e1eae8;
+			border: 1px solid #E1EAE8;
+			position: relative
 		}
 		.avt img{
 			display:block;
@@ -586,7 +596,22 @@ ul.faceList{
 		div.checked{
 			position: absolute;
 			right: -5px;
-			top: -5px
+			top: -5px;
+			z-index: 999
+		}
+			.checked img{
+				width: 18px;
+				height: 17px;
+				border: none
+			}
+		div.arrowAvatar{
+			background: url(/static/imgs/arrow-avatar-box.png) 0 0 no-repeat;
+			width: 6px;
+			height: 9px; 
+			position: absolute; 
+			right: -5px; 
+			top: 3px
+			
 		}
 div.imgEdit{
 	margin: 10px 0 -10px 0;
@@ -606,41 +631,212 @@ div.imgEdit{
 		}
 		div.imgEdit div a{
 			display: block;
-			position: absolute; top:0;
-			right: 0
+			position: absolute; 
+			top:5px;
+			right: 5px;
+			color: #00BBEA;
+			border: 1px solid #333;
+			background: white;
+			font-size: 11px;
+			padding:0 5px
 		}
 ul.comments{
 	list-style-type: none;
-	margin: 20px 0 0 0;
+	margin: 0 10px 0 0;
 	position: relative;
 }
-	ul.comments .avt{
-		margin-right: 10px
+	ul.comments li{
+		border-bottom: 1px solid #ebebeb;
+		padding:20px 0
 	}
+	ul.comments .avt{
+		margin:0 10px 10px 0
+	}
+		ul.comments span{
+			font-size: 12px;
+			font-weight: bold;
+			color: #616161;
+			
+		}
+			ul.comments span.date{
+				font-size: 10px; 
+				text-transform: uppercase;
+				color:#999;
+				font-weight: normal;
+			}
+			.percentage{
+				border-bottom: none !important
+			}
+
+				.percentage .txtComments{
+					width: 91.6% !important
+				}
+		ul.comments .txtArea{
+			border: 1px solid #666;
+			max-width: 618px;
+			height: 48px;
+			padding: 5px;
+			
+		}
+			.txtArea textarea{
+				border:none;
+				width: 100%;
+				font-family: Arial;
+				font-size: 12px;
+				color: #999999
+			}
+		ul.comments p{
+			color: #4e4e4e
+		}
+		div.comments input{
+			display: block;
+			height:35px;
+			margin-left: 70px
+		}
+		.txtComments{
+			max-width: 620px;
+			float: left
+		}
+/* COL RIGHT*/
+		
 .colRight{
 	max-width: 210px;
-	float: left
+	float: right;
+	margin-top: 60px
+}
+	.boxChipIn{
+		background:#ebebeb;
+		padding: 20px;
+		text-align: center
+	}
+		.boxChipIn a.suggested{
+			color:#00BBEA;
+			font-size: 11px;
+			line-height: 11px ;
+			display: block;
+			margin: 15px 0 0 0
+		}
+		a.btnChipIn{
+			width: 170px;
+			height: 60px;
+			display: block;
+			background-color: red;
+			font-size: 30px;
+			text-transform: uppercase;
+			text-align: center;
+			line-height: 60px;
+			margin: 0
+		}
+		.boxChipIn span{
+			display: block;
+			text-transform: uppercase;
+			font-size: 11px;
+			color: #666;
+			text-align: center;
+			line-height: 24px;
+			margin: 10px 0 0 0
+		}
+			.boxChipIn span span{
+				font-size: 24px;
+				font-weight: bold;
+				margin: 0
+			}
+		div.rose{
+			background-color: #feccff;
+			color: black;
+			width: 180px;
+			margin:18px 0 0 -25px;
+			padding: 6px 20px  10px 20px;
+			-moz-border-radius-bottomleft: 4px;
+    		-moz-border-radius-bottomright: 4px;
+    		-moz-box-shadow: 0 2px 2px #FAA2F6;
+		}
+			div.rose p{
+				text-align: left;
+				color: #333
+			}
+				div.rose p span{ 
+					text-transform: uppercase;
+					font-size: 11px;
+					color: black;
+					font-weight: bold;
+					margin-top: 0;
+					text-align: left;
+					color:#333;
+				}
+	div.generalBoxRight{
+		padding:11px 0 20px 0;
+		border-bottom:1px solid #EBEBEB
+	}
+	div.generalBoxRight input{
+		border:1px solid #b0b0b0;
+		display: block;
+		margin: 13px 0 0 0;
+		color:#b0b0b0;
+		height: 18px;
+		line-height: 18px;
+		width: 208px
+	}
+div.colRight h2{
+	font-size: 11px;
+	font-weight: bold;
+	color: #333;
+	line-height: 11px;
+	margin: 9px 0 0 0;
+	text-transform: uppercase
+}
+div.plus a{
+	display: block;
+	background: url(/static/imgs/plus-grey.png) 0 0 no-repeat;
+	color: #00bbea;
+	font-size: 11px;
+	padding: 0 0 0 20px;
+	line-height: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin: 9px 0 0 0
+}
+div.iconContainer a{
+	display:block;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin:12px 19px 0 0 
 }
 /* FOOTER */
 div.footerCol1{
 	float: left;
-	width: 25%
+	width: 25%;
+	padding: 20px 0 
 }
 div.footerCol2{
 	float: left;
-	width: 25%
+	width: 25%;
+	padding: 20px 0
 }
 div.footerCol3{
 	float: left;
-	width: 25%
+	width: 25%;
+	padding: 20px 0
 }
 div.footerCol4{
 	float: left;
-	width: 25%
+	width: 25%;
+	padding: 20px 0
 }
 div.footerCol5{
 	clear:both;
-	width: 100%
+	width: 100%;
+	border-top:1px solid #E5E5E5;
+	padding: 20px 0;
+	text-align: center
 }
-	
+div.footer span, div.footer a{
+	color:#b0c4be;
+	display: block;
+}
+div.footer a{
+	font-weight: normal;
+	margin: 5px 0 0 0
+}
 	
