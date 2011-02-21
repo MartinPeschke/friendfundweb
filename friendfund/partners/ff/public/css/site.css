@@ -1,97 +1,96 @@
-*{
+* {
 	margin: 0;
 	padding: 0;
 	outline: none
 }
-body{
+body {
 	margin: 0;
-	font:12px/18px Arial,Helvetica,sans-serif
+	font:12px/18px Arial, Helvetica, sans-serif
 }
-
 /* GENERAL CONTAINERS */
 
-div.wrap{
-	width: 100%	
+div.wrap {
+	width: 100%
 }
-
-div.wrapHeader{
+div.wrapHeader {
 	background-color: #999999;
 	border-bottom: 1px solid black;
 }
-	div.header{
-		max-width:930px;
-		margin: 0 auto;
-		height: 60px
-	}
-		div.loginArea{
-			 float: right
-		}
-	
-div.wrapSubHeaderHome{
+div.header {
+	max-width:930px;
+	margin: 0 auto;
+	height: 60px
+}
+div.loginArea {
+	float: right
+}
+div.wrapSubHeaderHome {
 	background: #ececec;
 	border-bottom: 1px solid #d3d3d3;
 	height: 410px
 }
-div.wrapSubHeader{
+div.wrapSubHeader {
 	background: #ececec;
 	border-bottom: 1px solid #d3d3d3;
 }
-	div.subHeader{
-		max-width: 930px;
-		margin: 0 auto
-	}
-div.wrapContent{
-	 background: #f9f9f9
-
+div.subHeader {
+	max-width: 930px;
+	margin: 0 auto
 }
-	div.content{
-		max-width: 930px;
-		margin: 0 auto;
-	}
-div.wrapFooter{
-	padding: 30px 0 0 0
-
+div.wrapContent {
+	background: #f9f9f9;
+	padding: 0 0 30px 0
 }
-
-	div.subFooterTop{
-		background-color: white;
-		border-bottom: 1px solid #e6e6e6;
-		border-top:1px solid #e5e5e5
-	}
-	div.subFooterBottom{
-		background-color: #ececec;
-		height: 80px
-	}
-		div.footer{
-			max-width: 930px;
-			margin: 0 auto
-		}
+div.content {
+	max-width: 930px;
+	margin: 0 auto;
+}
+div.wrapFooter {
+}
+div.subFooterTop {
+	background-color: white;
+	border-bottom: 1px solid #e6e6e6;
+	border-top:1px solid #e5e5e5
+}
+div.subFooterBottom {
+	background-color: #ececec;
+	height: 80px
+}
+div.footer {
+	max-width: 930px;
+	margin: 0 auto
+}
 /* GENERAL ELEMENTS */
-.clear{ 
+.clear {
 	clear: both;
 	line-height: 0px;
 	font-size: 0;
 	height: 0
 }
-
-a{ 
+a {
 	text-decoration: none;
 	color: black
 }
-a.white{ color: white}
-
-span.white{ color: white}
-
-img{ border: none}
-
-.floatRight{ float: right}
-
-.floatLeft{ float: left}
-
-.fontWeightBold{ font-weight: bold}
-
+a.white {
+	color: white
+}
+span.white {
+	color: white
+}
+img {
+	border: none
+}
+.floatRight {
+	float: right
+}
+.floatLeft {
+	float: left
+}
+.fontWeightBold {
+	font-weight: bold
+}
 /* HEADER */
-div.header h1{
+div.header h1 {
 	display: block;
 	width: 150px;
 	height: 30px;
@@ -99,144 +98,138 @@ div.header h1{
 	margin: 15px 0 0 0;
 	float:left
 }
-	div.header h1 a{
-		display: block;
-		width: 100%;
-		height: 100%
-	}
-		div.header h1 a span{
-			display: none
-		}
-div.header ul{
+div.header h1 a {
+	display: block;
+	width: 100%;
+	height: 100%
+}
+div.header h1 a span {
+	display: none
+}
+div.header ul {
 	display: block;
 	float: left;
 	list-style-type: none;
 	margin: 25px 0 0 20px
 }
-	div.header ul li{
-		display: block;
-		float: left;
-		padding-right: 20px
-	}
-		div.header ul li a{
-			text-transform: uppercase;
-			font-size: 12px; 
-			color:#333333
-		}
-div.loginArea{
+div.header ul li {
+	display: block;
+	float: left;
+	padding-right: 20px
+}
+div.header ul li a {
+	text-transform: uppercase;
+	font-size: 12px;
+	color:#333333
+}
+div.loginArea {
 	font-size: 12px;
 	color: black;
 	margin: 18px 0 0 0
 }
-	div.loginArea a, div.loginArea span{
-		float:left;
-		display: block;
-		margin-right: 5px;
-		line-height: 25px
-	}
-		div.loginArea a.language{
-			text-decoration: underline;
-			margin-right: 10px
-		}
-	div.loginArea img{
-		display: block;
-		margin: 0 10px 0 0;
-		float: left;
-	}
-	div.showHide{
-		float:left;
-		background: #666;
-		border-top-left-radius:3px;
-		border-bottom-left-radius:3px;
-		-moz-border-radius-topleft:3px;
-		-moz-border-radius-bottomleft:3px;
-		border-top-right-radius:3px;
-		border-bottom-right-radius:3px;
-		-moz-border-radius-topright:3px;
-		-moz-border-radius-bottomright:3px;
-		position: relative
-	}
-	div.showHide:hover{
-		border-bottom-left-radius:0px;
-		-moz-border-radius-bottomleft:0px;
-		border-bottom-right-radius:0px;
-		-moz-border-radius-bottomright:0px;
-		position: relative
-	}
-	div.showHide:hover div{
-		display: block
-	}
-	div.showHide div.widthGiver{
-		width:100%;
-		position: absolute;
-		height: 25px;
-		right: 0;
-		top:25px
-	}
-	div.showHide div div{
-		-moz-border-radius-bottomleft: 3px;
-    	-moz-border-radius-bottomright: 3px;
-    	background: none repeat scroll 0 0 white;
-    	border-bottom: 1px solid #D1D1D1;
-    	border-left: 1px solid #D1D1D1;
-    	border-right: 1px solid #D1D1D1;
-    	clear: both;
-    	display: none;
-
-
-	}
-		div.showHide a{
-			padding: 0  25px 0 10px;
-			color: white;
-			background: url(/static/imgs/arrow-show-small.png) right center no-repeat;
-			min-width: 80px
-		}
-		div.showHide div a{
-			display: block;
-			clear: both;
-			float: none;
-			padding: 0 10px;
-			color: black;
-			margin: 0
-		}
+div.loginArea a, div.loginArea span {
+	float:left;
+	display: block;
+	margin-right: 5px;
+	line-height: 25px
+}
+div.loginArea a.language {
+	text-decoration: underline;
+	margin-right: 10px
+}
+div.loginArea img {
+	display: block;
+	margin: 0 10px 0 0;
+	float: left;
+}
+div.showHide {
+	float:left;
+	background: #666;
+	border-top-left-radius:3px;
+	border-bottom-left-radius:3px;
+	-moz-border-radius-topleft:3px;
+	-moz-border-radius-bottomleft:3px;
+	border-top-right-radius:3px;
+	border-bottom-right-radius:3px;
+	-moz-border-radius-topright:3px;
+	-moz-border-radius-bottomright:3px;
+	position: relative
+}
+div.showHide:hover {
+	border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	position: relative
+}
+div.showHide:hover div {
+	display: block
+}
+div.showHide div.widthGiver {
+	width:100%;
+	position: absolute;
+	height: 25px;
+	right: 0;
+	top:25px
+}
+div.showHide div div {
+	-moz-border-radius-bottomleft: 3px;
+	-moz-border-radius-bottomright: 3px;
+	background: none repeat scroll 0 0 white;
+	border-bottom: 1px solid #D1D1D1;
+	border-left: 1px solid #D1D1D1;
+	border-right: 1px solid #D1D1D1;
+	clear: both;
+	display: none;
+}
+div.showHide a {
+	padding: 0 25px 0 10px;
+	color: white;
+	background: url(/static/imgs/arrow-show-small.png) right center no-repeat;
+	min-width: 80px
+}
+div.showHide div a {
+	display: block;
+	clear: both;
+	float: none;
+	padding: 0 10px;
+	color: black;
+	margin: 0
+}
 /* SUBHEADER */
 
-div.subHeader h2{
+div.subHeader h2 {
 	color:#333333;
 	font-size: 60px;
 	line-height: 60px;
 	padding: 50px 30px 0 30px
-	
 }
-	div.subHeader h2 span{
-		display:block;
-		font-size: 20px;
-		line-height: 30px;
-		color: #373737;
-		font-weight:normal;
-		margin-top: 10px
-	}
-a.learnMoreBtn{
+div.subHeader h2 span {
+	display:block;
+	font-size: 20px;
+	line-height: 30px;
+	color: #373737;
+	font-weight:normal;
+	margin-top: 10px
+}
+a.learnMoreBtn {
 	display: block;
 	color: #83ddaa;
 	-moz-border-radius: 5px;
 	background-color: #e2e2e2;
 	border-radius: 5px;
 	text-align: center;
-	width: 100px; 
+	width: 100px;
 	height: 30px;
 	line-height: 30px;
 	margin: 30px 0 0 30px
 }
-
-
 /* HOMEPAGE */
-div.contentHome{
+div.contentHome {
 	width: 930px;
 	margin: -172px auto 0 auto;
-	
 }
-div.weNeed{
+div.weNeed {
 	border: 1px solid #D3D3D3;
 	height: 170px;
 	border-top-left-radius:10px;
@@ -245,600 +238,588 @@ div.weNeed{
 	-moz-border-radius-topleft:10px;
 	background: white;
 }
-	div.formWeNeed{
-		padding:30px 
-	
-	}
-
-	div.weNeed h3{
-		font-size: 25px;
-		line-height: 25px;
-		font-weight: normal
-	}
-	
-	div.weNeed input{
-		border: 1px solid black;
-		height: 30px;
-		font-size: 20px;
-		line-height: 30px
-	}
-	div.weNeed input.short{ width: 120px}
-	div.weNeed input.long{ width: 500px;}
-	div.weNeed input.button{ width: 130px}
-	div.formWeNeed span{
-		font-size: 15px;
-		font-weight: bold;
-		line-height: 30px
-	}
-
-div.logoContainer{
+div.formWeNeed {
+	padding:30px
+}
+div.weNeed h3 {
+	font-size: 25px;
+	line-height: 25px;
+	font-weight: normal
+}
+div.weNeed input {
+	border: 1px solid black;
+	height: 30px;
+	font-size: 20px;
+	line-height: 30px
+}
+div.weNeed input.short {
+	width: 120px
+}
+div.weNeed input.long {
+	width: 500px;
+}
+div.weNeed input.button {
+	width: 130px
+}
+div.formWeNeed span {
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 30px
+}
+div.logoContainer {
 	border-top: 1px solid #f4f4f4
 }
-	div.logoContainer div.logoContainerRight{
-		float:right
-	}
-	div.logoContainer div.logoContainerLeft{
-		float:left
-	}
-div.featuredPoolsBox{
+div.logoContainer div.logoContainerRight {
+	float:right
+}
+div.logoContainer div.logoContainerLeft {
+	float:left
+}
+div.featuredPoolsBox {
 	padding: 30px
 }
-	div.featuredPoolsBox h4{
-		padding-bottom: 20px;
-		font-size: 16px
-	}
-	
-	div.homebox{
-		width: 215px;
-		border-bottom: 1px solid #dbdbdb;
-		padding-bottom: 20px;
-		float: left;
-		padding-right: 2px
-	}
-		div.homebox img{
-			display: block;
-			width: 190px; 
-			margin: 0 auto;
-		}
-		div.homebox h5{
-			font-size: 13px;
-			display: block;
-			width: 190px; 
-			margin: 0 auto;
-		}
-		div.homebox span{
-			color: #b3b3b3;
-			font-size: 10px;
-		}
-		span.homebox{
-			display: block;
-			width: 190px; 
-			margin: 0 auto;
-			border-bottom:1px solid #e7e7e7;
-		}
-		
-		div.homebox span a{
-			text-decoration: underline;
-			font-size: 10px;
-			color: #b3b3b3;
-		}
-		div.timeCounter{
-			
-			margin: 10px 0 0 0;
-			padding: 0 0 0 0;
-			display: block;
-			width: 100%; 
-			float: left;
-			margin: 0 auto;
-		}
-		
-		div.timeCounterRight{
-			border-top-right-radius:10px;
-			border-bottom-right-radius:10px;
-			-moz-border-radius-topright:10px;
-			-moz-border-radius-bottomright:10px;
-			width: 20%;
-			float: left;
-			height: 15px;
-			background: #c9c9c9
-		}
-		div.timeCounterLeft{
-			border-top-left-radius:10px;
-			border-bottom-left-radius:10px;
-			-moz-border-radius-topleft:10px;
-			-moz-border-radius-bottomleft:10px;
-			width: 80%;
-			float: left;
-			height: 15px;
-			background: #b0b0b0
-		}
-			div.timeCounter span{
-				font-size: 10px;
-				font-weight: bold;
-				color: #3a3a3a
-			
-			}
-		
-		div.boxContributors{
-			background: #f1c8fe;
-			-moz-box-shadow: 0px 1px #faa2f6;
-			-webkit-box-shadow: 0px 1px #faa2f6;
-			box-shadow: 0 1px #faa2f6;
-			border-bottom-left-radius:4px;
-			border-bottom-right-radius:4px;
-			-moz-border-radius-bottomleft:4px;
-			-moz-border-radius-bottomright:4px;
-			padding: 0 7px;
-			text-align: center;
-			clear: both
-			
-		}
-			div.boxContributors span{ 
-				color: black;
-				font-size:10px
-			}
-				div.boxContributors span.upper{ 
-					text-transform: uppercase;
-				}
-		div.fbHolder{
-			padding: 10px 0 0 15px
-		}
-		div.fbHolder img{ 
-			width: 30px ; 
-			height: 30px ; 
-			float: left;
-			margin-right: 8px
-		}
-	
-	div.whatElse{
-		padding-bottom: 20px
-	}
-		div.whatElse h4{
-			padding-bottom: 10px
-		}
-	div.whatElse .boxGray{
-		background: #dfdfdf;
-		border: #d7d7d7;
-		-moz-border-radius: 5px;
-		border-radius: 5px;
-		float: left;
-		margin-right: 15px
-	}
-		.boxGray p{
-			color:#6a6a6a
-			
-		}
-		div.box1{
-			width: 400px;
-			padding: 20px
-		}
-		div.box2{
-			width: 150px;
-			padding: 20px
-		}
-		div.box3{
-			width: 150px;
-			padding: 20px
-		}
+div.featuredPoolsBox h4 {
+	padding-bottom: 20px;
+	font-size: 16px
+}
+div.homebox {
+	width: 215px;
+	border-bottom: 1px solid #dbdbdb;
+	padding-bottom: 20px;
+	float: left;
+	padding-right: 2px
+}
+div.homebox img {
+	display: block;
+	width: 190px;
+	margin: 0 auto;
+}
+div.homebox h5 {
+	font-size: 13px;
+	display: block;
+	width: 190px;
+	margin: 0 auto;
+}
+div.homebox span {
+	color: #b3b3b3;
+	font-size: 10px;
+}
+span.homebox {
+	display: block;
+	width: 190px;
+	margin: 0 auto;
+	border-bottom:1px solid #e7e7e7;
+}
+div.homebox span a {
+	text-decoration: underline;
+	font-size: 10px;
+	color: #b3b3b3;
+}
+div.timeCounter {
+	margin: 10px 0 0 0;
+	padding: 0 0 0 0;
+	display: block;
+	width: 100%;
+	float: left;
+	margin: 0 auto;
+}
+div.timeCounterRight {
+	border-top-right-radius:10px;
+	border-bottom-right-radius:10px;
+	-moz-border-radius-topright:10px;
+	-moz-border-radius-bottomright:10px;
+	width: 20%;
+	float: left;
+	height: 15px;
+	background: #c9c9c9
+}
+div.timeCounterLeft {
+	border-top-left-radius:10px;
+	border-bottom-left-radius:10px;
+	-moz-border-radius-topleft:10px;
+	-moz-border-radius-bottomleft:10px;
+	width: 80%;
+	float: left;
+	height: 15px;
+	background: #b0b0b0
+}
+div.timeCounter span {
+	font-size: 10px;
+	font-weight: bold;
+	color: #3a3a3a
+}
+div.boxContributors {
+	background: #f1c8fe;
+	-moz-box-shadow: 0px 1px #faa2f6;
+	-webkit-box-shadow: 0px 1px #faa2f6;
+	box-shadow: 0 1px #faa2f6;
+	border-bottom-left-radius:4px;
+	border-bottom-right-radius:4px;
+	-moz-border-radius-bottomleft:4px;
+	-moz-border-radius-bottomright:4px;
+	padding: 0 7px;
+	text-align: center;
+	clear: both
+}
+div.boxContributors span {
+	color: black;
+	font-size:10px
+}
+div.boxContributors span.upper {
+	text-transform: uppercase;
+}
+div.fbHolder {
+	padding: 10px 0 0 15px
+}
+div.fbHolder img {
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-right: 8px
+}
+div.whatElse {
+	padding-bottom: 20px
+}
+div.whatElse h4 {
+	padding-bottom: 10px
+}
+div.whatElse .boxGray {
+	background: #dfdfdf;
+	border: #d7d7d7;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float: left;
+	margin-right: 15px
+}
+.boxGray p {
+	color:#6a6a6a
+}
+div.box1 {
+	width: 400px;
+	padding: 20px
+}
+div.box2 {
+	width: 150px;
+	padding: 20px
+}
+div.box3 {
+	width: 150px;
+	padding: 20px
+}
 /* POOL PAGE */
-div.userProfile{
+div.userProfile {
 	min-height:150px
 }
-	div.userProfile img{
-		display:block;
-		float:left;
-		border: 5px solid white;
-		margin: 35px 20px 0 0;
-	}
-		div.subUserProfile{
-			float:left; 
-			max-width: 800px		
-		}
-	
-			div.subUserProfile h2{
-				font-size: 36px;
-				line-height: 36px;
-				padding: 0;
-				margin: 0;
-				float: left;
-				margin: 45px 0 0 0 
-			}
-			div.subUserProfile span{
-				display: block;
-				float: left
-			}
-			div.subUserProfile a{
-				display: block;
-				float: left;
-				color: #999999
-			}
-		div.subTitleUserProfile{
-			float:left; 
-			max-width: 800px;
-			margin: 4px 0 0 0;
-			clear: both
-		}
-			span.poolClose{
-				font-weight: bold;
-				color:#666666
-			}
-		div.boxPoolDetails{
-			clear: both
-		}
-			div.timeTracker{
-				width: 210px
-			
-			}
-				div.timeTracker span{
-					font-weight: bold;
-					color: #333333
-				}
-			div.contributors{
-				float:left;
-				width: 180px;
-				height: 45px;
-				position: relative;
-				text-transform: uppercase;
-				color: #4e4e4e
-			}
-			div.chippedIn{
-				float:left;
-				width: 180px;
-				height: 45px;
-				position: relative;
-				text-transform: uppercase;
-				color: #4e4e4e
-			}
-			div.outstanding{
-				float:left;
-				width: 180px;
-				height: 45px;
-				position: relative;
-				text-transform: uppercase;
-				color: #4e4e4e
-			}
-			div.daysLeft{
-				float:left;
-				width: 180px;
-				height: 45px;
-				position: relative;
-				text-transform: uppercase;
-				color: #4e4e4e
-			}
-				div.contributors span{
-					position: absolute;
-					display: block;
-					left: 0;
-					bottom: 0;
-					padding:5px 0  10px 35px;
-					line-height: 12px;
-					background: url(../imgs/contributors-ico.png) left top no-repeat;
-				}
-				div.chippedIn span{
-					position: absolute;
-					display: block;
-					left: 0;
-					bottom: 0;
-					padding:4px 0 10px 20px;
-					line-height: 12px;
-					background: url(../imgs/dollar-ico.png) left top no-repeat;
-				}
-				div.outstanding span{
-					position: absolute;
-					display: block;
-					left: 0;
-					bottom: 0;
-					padding:0 0  10px 0;
-					line-height: 12px
-				}
-				div.daysLeft span{
-					position: absolute;
-					display: block;
-					left: 0;
-					bottom: 0;
-					padding:0 0  10px 0;
-					line-height: 12px
-				}
-div.greyBoxTitle{
+div.userProfile img {
+	display:block;
+	float:left;
+	border: 5px solid white;
+	margin: 35px 20px 0 0;
+}
+div.subUserProfile {
+	float:left;
+	max-width: 800px
+}
+div.subUserProfile h2 {
+	font-size: 36px;
+	line-height: 36px;
+	padding: 0;
+	margin: 0;
+	float: left;
+	margin: 45px 0 0 0
+}
+div.subUserProfile span {
+	display: block;
+	float: left
+}
+div.subUserProfile a {
+	display: block;
+	float: left;
+	color: #999999
+}
+div.subTitleUserProfile {
+	float:left;
+	max-width: 800px;
+	margin: 4px 0 0 0;
+	clear: both
+}
+span.poolClose {
+	font-weight: bold;
+	color:#666666
+}
+div.boxPoolDetails {
+	clear: both
+}
+div.timeTracker {
+	width: 210px
+}
+div.timeTracker span {
+	font-weight: bold;
+	color: #333333
+}
+div.contributors {
+	float:left;
+	width: 180px;
+	height: 45px;
+	position: relative;
+	text-transform: uppercase;
+	color: #4e4e4e
+}
+div.chippedIn {
+	float:left;
+	width: 180px;
+	height: 45px;
+	position: relative;
+	text-transform: uppercase;
+	color: #4e4e4e
+}
+div.outstanding {
+	float:left;
+	width: 180px;
+	height: 45px;
+	position: relative;
+	text-transform: uppercase;
+	color: #4e4e4e
+}
+div.daysLeft {
+	float:left;
+	width: 180px;
+	height: 45px;
+	position: relative;
+	text-transform: uppercase;
+	color: #4e4e4e
+}
+div.contributors span {
+	position: absolute;
+	display: block;
+	left: 0;
+	bottom: 0;
+	padding:5px 0 10px 35px;
+	line-height: 12px;
+	background: url(../imgs/contributors-ico.png) left top no-repeat;
+}
+div.chippedIn span {
+	position: absolute;
+	display: block;
+	left: 0;
+	bottom: 0;
+	padding:4px 0 10px 20px;
+	line-height: 12px;
+	background: url(../imgs/dollar-ico.png) left top no-repeat;
+}
+div.outstanding span {
+	position: absolute;
+	display: block;
+	left: 0;
+	bottom: 0;
+	padding:0 0 10px 0;
+	line-height: 12px
+}
+div.daysLeft span {
+	position: absolute;
+	display: block;
+	left: 0;
+	bottom: 0;
+	padding:0 0 10px 0;
+	line-height: 12px
+}
+div.greyBoxTitle {
 	margin: 20px 0 0 0;
 	width: 100%;
 	background: #e2e2e2;
 	height: 50px
 }
-	div.greyBoxTitle h3{
-		color:#333333;
-		font-size: 18px;
-		line-height: 50px;
-		padding: 0 0 0 12px
-	}
-	.btnShow{
-		color: white;
-		font-weight: bold;
-		font-size: 10px;
-		text-transform: uppercase;
-		display:block;
-		height: 20px;
-		line-height: 20px;
-		padding: 0 25px 0 10px;
-		border-top-left-radius:10px;
-		border-bottom-left-radius:10px;
-		-moz-border-radius-topleft:10px;
-		-moz-border-radius-bottomleft:10px;
-		border-top-right-radius:10px;
-		border-bottom-right-radius:10px;
-		-moz-border-radius-topright:10px;
-		-moz-border-radius-bottomright:10px;
-		background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
-		margin: 15px 12px 0 0 
-	}
-.colLeft{
+div.greyBoxTitle h3 {
+	color:#333333;
+	font-size: 18px;
+	line-height: 50px;
+	padding: 0 0 0 12px
+}
+.btnShow {
+	color: white;
+	font-weight: bold;
+	font-size: 10px;
+	text-transform: uppercase;
+	display:block;
+	height: 20px;
+	line-height: 20px;
+	padding: 0 25px 0 10px;
+	border-top-left-radius:10px;
+	border-bottom-left-radius:10px;
+	-moz-border-radius-topleft:10px;
+	-moz-border-radius-bottomleft:10px;
+	border-top-right-radius:10px;
+	border-bottom-right-radius:10px;
+	-moz-border-radius-topright:10px;
+	-moz-border-radius-bottomright:10px;
+	background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
+	margin: 15px 12px 0 0
+}
+.colLeft {
 	max-width: 700px;
 	float: left;
 	margin: 0 20px 0 0;
-
 }
-	.colLeft h4{
-		display: block;
-		height: 25px;
-		color: #333;
-		font-size: 18px;
-		padding-top: 35px;
-		border-bottom: 2px solid #e4e4e4;
-		margin-right: 10px
-	}
-	.colLeft .btnViewAll{
-		display: block;
-		font-size: 11px;
-		color: #00bbea;
-		background: url(/static/imgs/arrow-all.gif) right center no-repeat;
-		padding: 0 15px 0 0;
-		margin: 38px 10px 0 0
-		
-	}
-	.colLeft .btnEdit{
-		display: block;
-		font-size: 11px;
-		color: #00bbea;
-		padding: 0 0 0 0;
-		margin: 38px 10px 0 0
-		
-	}
-	.colLeft p{ 
-		display: block;
-		padding:0 10px 10px 0;
-		font-size: 12px;
-		color: #333
-
-	}
-	.colLeft h5{
-		font-size: 11px;
-		font-weight: bold;
-		color: #00bbea
-	}
-	.colLeft p.small{
-		font-size: 11px;
-		color: #666;
-	}
-ul.faceList{
+.colLeft h4 {
+	display: block;
+	height: 25px;
+	color: #333;
+	font-size: 18px;
+	padding-top: 35px;
+	border-bottom: 2px solid #e4e4e4;
+	margin-right: 10px;
+	min-width: 690px
+}
+.colLeft .btnViewAll {
+	display: block;
+	font-size: 11px;
+	color: #00bbea;
+	background: url(/static/imgs/arrow-all.gif) right center no-repeat;
+	padding: 0 15px 0 0;
+	margin: 38px 10px 0 0
+}
+.colLeft .btnEdit {
+	display: block;
+	font-size: 11px;
+	color: #00bbea;
+	padding: 0 0 0 0;
+	margin: 38px 10px 0 0
+}
+.colLeft p {
+	display: block;
+	padding:0 10px 10px 0;
+	font-size: 12px;
+	color: #333
+}
+.colLeft h5 {
+	font-size: 11px;
+	font-weight: bold;
+	color: #00bbea
+}
+.colLeft p.small {
+	font-size: 11px;
+	color: #666;
+}
+ul.faceList {
 	list-style-type: none;
 	margin: 20px 0 -10px 0;
 	float: left;
 	max-width: 700px;
 }
-	ul.faceList li{
-		float: left;
-		width: 60px;
-		height: 60px;
-		margin: 0 10px 10px 0;
-		position: relative
-	}
-		ul.faceList li:hover div.tooltip{
-		display:block
-	}
-		ul.faceList .tooltip{
-			position: absolute;
-			left: 0;
-			top:-25px;
-			display: none; font-size: 10px; font-weight: bold; color: #616161; background: #d3d3d3; height: 20px; line-height: 20px;
-			padding: 0 10px
-
-		}
-		.avt{ 
-			float:left;		
-			border: 1px solid #E1EAE8;
-			position: relative
-		}
-		.avt img{
-			display:block;
-			width: 48px;
-			height:48px;
-			border: 5px solid white
-		}
-		div.checked{
-			position: absolute;
-			right: -5px;
-			top: -5px;
-			z-index: 999
-		}
-			.checked img{
-				width: 18px;
-				height: 17px;
-				border: none
-			}
-		div.arrowAvatar{
-			background: url(/static/imgs/arrow-avatar-box.png) 0 0 no-repeat;
-			width: 6px;
-			height: 9px; 
-			position: absolute; 
-			right: -5px; 
-			top: 3px
-			
-		}
-div.imgEdit{
+ul.faceList li {
+	float: left;
+	width: 60px;
+	height: 60px;
+	margin: 0 10px 10px 0;
+	position: relative
+}
+ul.faceList li:hover div.tooltip {
+	display:block
+}
+ul.faceList .tooltip {
+	position: absolute;
+	left: 0;
+	top:-25px;
+	display: none;
+	font-size: 10px;
+	font-weight: bold;
+	color: #616161;
+	background: #d3d3d3;
+	height: 20px;
+	line-height: 20px;
+	padding: 0 10px
+}
+.avt {
+	float:left;
+	border: 1px solid #E1EAE8;
+	position: relative
+}
+.avt img {
+	display:block;
+	width: 48px;
+	height:48px;
+	border: 5px solid white
+}
+div.checked {
+	position: absolute;
+	right: -5px;
+	top: -5px;
+	z-index: 999
+}
+.checked img {
+	width: 18px;
+	height: 17px;
+	border: none
+}
+div.arrowAvatar {
+	background: url(/static/imgs/arrow-avatar-box.png) 0 0 no-repeat;
+	width: 6px;
+	height: 9px;
+	position: absolute;
+	right: -5px;
+	top: 3px
+}
+div.imgEdit {
 	margin: 10px 0 -10px 0;
-	padding: 10px 0 0 0 
-	
-}		
-	div.imgEdit div{
-		position: relative;
-		border: 1px solid #E1EAE8;
-		width:200px;
-		float: left;
-		margin-right:20px 
-	}
-		div.imgEdit div img{
-			display:block;
-			border:5px solid white
-		}
-		div.imgEdit div a{
-			display: block;
-			position: absolute; 
-			top:5px;
-			right: 5px;
-			color: #00BBEA;
-			border: 1px solid #333;
-			background: white;
-			font-size: 11px;
-			padding:0 5px
-		}
-ul.comments{
+	padding: 10px 0 0 0
+}
+div.imgEdit div {
+	position: relative;
+	border: 1px solid #E1EAE8;
+	width:200px;
+	float: left;
+	margin-right:20px
+}
+div.imgEdit div img {
+	display:block;
+	border:5px solid white
+}
+div.imgEdit div a {
+	display: block;
+	position: absolute;
+	top:5px;
+	right: 5px;
+	color: #00BBEA;
+	border: 1px solid #333;
+	background: white;
+	font-size: 11px;
+	padding:0 5px
+}
+ul.comments {
 	list-style-type: none;
 	margin: 0 10px 0 0;
 	position: relative;
 }
-	ul.comments li{
-		border-bottom: 1px solid #ebebeb;
-		padding:20px 0
-	}
-	ul.comments .avt{
-		margin:0 10px 10px 0
-	}
-		ul.comments span{
-			font-size: 12px;
-			font-weight: bold;
-			color: #616161;
-			
-		}
-			ul.comments span.date{
-				font-size: 10px; 
-				text-transform: uppercase;
-				color:#999;
-				font-weight: normal;
-			}
-			.percentage{
-				border-bottom: none !important
-			}
-
-				.percentage .txtComments{
-					width: 91.6% !important
-				}
-		ul.comments .txtArea{
-			border: 1px solid #666;
-			max-width: 618px;
-			height: 48px;
-			padding: 5px;
-			
-		}
-			.txtArea textarea{
-				border:none;
-				width: 100%;
-				font-family: Arial;
-				font-size: 12px;
-				color: #999999
-			}
-		ul.comments p{
-			color: #4e4e4e
-		}
-		div.comments input{
-			display: block;
-			height:35px;
-			margin-left: 70px
-		}
-		.txtComments{
-			max-width: 620px;
-			float: left
-		}
+ul.comments li {
+	border-bottom: 1px solid #ebebeb;
+	padding:20px 0
+}
+ul.comments .avt {
+	margin:0 10px 10px 0
+}
+ul.comments span {
+	font-size: 12px;
+	font-weight: bold;
+	color: #616161;
+}
+ul.comments span.date {
+	font-size: 10px;
+	text-transform: uppercase;
+	color:#999;
+	font-weight: normal;
+}
+.percentage {
+	border-bottom: none !important
+}
+.percentage .txtComments {
+	width: 91.6% !important
+}
+ul.comments .txtArea {
+	border: 1px solid #666;
+	max-width: 618px;
+	height: 48px;
+	padding: 5px;
+}
+.txtArea textarea {
+	border:none;
+	width: 100%;
+	font-family: Arial;
+	font-size: 12px;
+	color: #999999
+}
+ul.comments p {
+	color: #4e4e4e
+}
+div.comments input {
+	display: block;
+	height:35px;
+	margin-left: 70px
+}
+.txtComments {
+	max-width: 620px;
+	float: left
+}
 /* COL RIGHT*/
 		
-.colRight{
+.colRight {
 	max-width: 210px;
 	float: right;
 	margin-top: 60px
 }
-	.boxChipIn{
-		background:#ebebeb;
-		padding: 20px;
-		text-align: center
-	}
-		.boxChipIn a.suggested{
-			color:#00BBEA;
-			font-size: 11px;
-			line-height: 11px ;
-			display: block;
-			margin: 15px 0 0 0
-		}
-		a.btnChipIn{
-			width: 170px;
-			height: 60px;
-			display: block;
-			background-color: red;
-			font-size: 30px;
-			text-transform: uppercase;
-			text-align: center;
-			line-height: 60px;
-			margin: 0
-		}
-		.boxChipIn span{
-			display: block;
-			text-transform: uppercase;
-			font-size: 11px;
-			color: #666;
-			text-align: center;
-			line-height: 24px;
-			margin: 10px 0 0 0
-		}
-			.boxChipIn span span{
-				font-size: 24px;
-				font-weight: bold;
-				margin: 0
-			}
-		div.rose{
-			background-color: #feccff;
-			color: black;
-			width: 180px;
-			margin:18px 0 0 -25px;
-			padding: 6px 20px  10px 20px;
-			-moz-border-radius-bottomleft: 4px;
-    		-moz-border-radius-bottomright: 4px;
-    		-moz-box-shadow: 0 2px 2px #FAA2F6;
-		}
-			div.rose p{
-				text-align: left;
-				color: #333
-			}
-				div.rose p span{ 
-					text-transform: uppercase;
-					font-size: 11px;
-					color: black;
-					font-weight: bold;
-					margin-top: 0;
-					text-align: left;
-					color:#333;
-				}
-	div.generalBoxRight{
-		padding:11px 0 20px 0;
-		border-bottom:1px solid #EBEBEB
-	}
-	div.generalBoxRight input{
-		border:1px solid #b0b0b0;
-		display: block;
-		margin: 13px 0 0 0;
-		color:#b0b0b0;
-		height: 18px;
-		line-height: 18px;
-		width: 208px
-	}
-div.colRight h2{
+.boxChipIn {
+	background:#ebebeb;
+	padding: 20px;
+	text-align: center
+}
+.boxChipIn a.suggested {
+	color:#00BBEA;
+	font-size: 11px;
+	line-height: 11px;
+	display: block;
+	margin: 15px 0 0 0
+}
+a.btnChipIn {
+	width: 170px;
+	height: 60px;
+	display: block;
+	background-color: red;
+	font-size: 30px;
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 60px;
+	margin: 0
+}
+.boxChipIn span {
+	display: block;
+	text-transform: uppercase;
+	font-size: 11px;
+	color: #666;
+	text-align: center;
+	line-height: 24px;
+	margin: 10px 0 0 0
+}
+.boxChipIn span span {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0
+}
+div.rose {
+	background-color: #feccff;
+	color: black;
+	width: 180px;
+	margin:18px 0 0 -25px;
+	padding: 6px 20px 10px 20px;
+	-moz-border-radius-bottomleft: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-box-shadow: 0 2px 2px #FAA2F6;
+}
+div.rose p {
+	text-align: left;
+	color: #333
+}
+div.rose p span {
+	text-transform: uppercase;
+	font-size: 11px;
+	color: black;
+	font-weight: bold;
+	margin-top: 0;
+	text-align: left;
+	color:#333;
+}
+div.generalBoxRight {
+	padding:11px 0 20px 0;
+	border-bottom:1px solid #EBEBEB
+}
+div.generalBoxRight input {
+	border:1px solid #b0b0b0;
+	display: block;
+	margin: 13px 0 0 0;
+	color:#b0b0b0;
+	height: 18px;
+	line-height: 18px;
+	width: 208px
+}
+div.colRight h2 {
 	font-size: 11px;
 	font-weight: bold;
 	color: #333;
@@ -846,7 +827,7 @@ div.colRight h2{
 	margin: 9px 0 0 0;
 	text-transform: uppercase
 }
-div.plus a{
+div.plus a {
 	display: block;
 	background: url(/static/imgs/plus-grey.png) 0 0 no-repeat;
 	color: #00bbea;
@@ -857,47 +838,224 @@ div.plus a{
 	text-transform: uppercase;
 	margin: 9px 0 0 0
 }
-div.iconContainer a{
+div.iconContainer a {
 	display:block;
 	float: left;
 	width: 16px;
 	height: 16px;
-	margin:12px 19px 0 0 
+	margin:12px 19px 0 0
 }
 /* FOOTER */
-div.footerCol1{
-	float: left;
-	width: 25%;
-	padding: 20px 0 
-}
-div.footerCol2{
+div.footerCol1 {
 	float: left;
 	width: 25%;
 	padding: 20px 0
 }
-div.footerCol3{
+div.footerCol2 {
 	float: left;
 	width: 25%;
 	padding: 20px 0
 }
-div.footerCol4{
+div.footerCol3 {
 	float: left;
 	width: 25%;
 	padding: 20px 0
 }
-div.footerCol5{
+div.footerCol4 {
+	float: left;
+	width: 25%;
+	padding: 20px 0
+}
+div.footerCol5 {
 	clear:both;
 	width: 100%;
 	border-top:1px solid #E5E5E5;
 	padding: 20px 0;
 	text-align: center
 }
-div.footer span, div.footer a{
+div.footer span, div.footer a {
 	color:#b0c4be;
 	display: block;
 }
-div.footer a{
+div.footer a {
 	font-weight: normal;
 	margin: 5px 0 0 0
 }
-	
+/* POOL DETAILS */
+div.nonPoolHeader {
+	float:left;
+	max-width: 800px
+}
+div.nonPoolHeader h2 {
+	float: left;
+	font-size: 36px;
+	line-height: 36px;
+	margin: 55px 0 0;
+	padding: 0;
+}
+div.steps {
+	float: left;
+	width: 100%;
+	margin-top: 20px
+}
+div.steps div {
+	color: #666
+}
+div.stepOne {
+	min-width: 285px;
+	background: #ccc;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	padding: 0 0 0 10px
+}
+div.rightArrow {
+	border-top: 15px solid transparent;
+	border-left: 15px solid #ccc;
+	border-bottom: 15px solid transparent;
+	float: left;
+}
+div.stepTwo {
+	background: #ccc;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	min-width:270px;
+	padding: 0 0 0 25px
+}
+div.stepThree {
+	background: #ccc;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	min-width:285px;
+	padding: 0 0 0 25px
+}
+div.leftArrow {
+	border-top: 15px solid transparent;
+	border-left: 15px solid #ececec;
+	border-bottom: 15px solid transparent;
+	float: left;
+	margin-right: -15px;
+	position: relative;
+}
+div.stepThree, div.stepTwo, div.stepOne {
+	font-size: 14px;
+	font-weight: bold
+}
+div.stepOne.active, div.stepTwo.active, div.stepThree.active {
+	background-color: #ff75ff !important;
+	color: black
+}
+div.steps div.rightArrow.active {
+	border-left-color: #FF75FF
+}
+div.steps div span {
+	display: block;
+	float: left;
+	background: #ededed;
+	height: 20px;
+	width: 20px;
+	text-align: center;
+	margin-top: 5px;
+	line-height: 20px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	margin-right: 10px;
+	text-indent: 1px
+}
+.bold {
+	font-weight: bold
+}
+div.borderBottom {
+	float: left;
+	border-bottom: 2px solid #E4E4E4;
+	min-width: 690px;
+	padding: 15px 0;
+	position: relative;
+}
+
+div.borderBottom div {
+	float: left;
+	font-size: 14px;
+}
+div.borderBottom div.first {
+	width: 140px;
+	text-align: right;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px
+}
+div.greyInside {
+	background-color: #e8e8e8;
+	padding: 5px;
+	min-width: 520px
+}
+
+div.borderBottom input {
+	border: 1px solid #999;
+	height: 28px;
+	line-height: 28px;
+	font-size: 13px
+}
+div.greyInsideFullWidth {
+	background-color: #e8e8e8;
+	padding: 5px 0;
+	width:100%
+}
+div.greyInsideFullWidth input {
+	margin-left: 5px;
+	width: 75%
+}
+div.containerTxtArea {
+	float: none !important
+}
+div.containerTxtArea textarea {
+	margin-left: 5px;
+	width: 75%;
+	border: 1px solid #999999;
+	font-family: arial;
+}
+span.darkGrey {
+	color: #757575;
+	text-shadow: 2px 2px 2px #FFF;
+}
+div.borderBottom .imgContainer {
+	height: 130px;
+	width: 160px;
+	border: 1px solid #ccc;
+	margin-left: 5px
+}
+div.borderBottom .imgContainer img {
+	display: block;
+	width: 142px;
+	height: 112px;
+	border: 9px solid white
+}
+div.choose {
+	float: left;
+	padding: 0 0 0 20px;
+	max-width: 342px
+}
+div.choose input{ margin-right: 10px; margin-top: 5px}
+div.choose p{ color: #999; font-size: 10px; margin-top: 5px; padding: 0 0 4px 0}
+.receiveMoney{ margin-left: 165px; float: left; }
+.colLeft .receiveMoney p{ font-weight: bold; font-size: 14px; margin: 20px 10px 10px 0; padding: 0 }
+.receiveMoney p span{ font-size: 11px; display: block; font-weight: normal; padding: 0 }
+.receiveMoney div{ padding: 12px 0 0 0 }
+.receiveMoney div label{ font-size: 14px}
+.receiveMoney div input{ margin-right: 10px}
+.receiveMoney .smallLabel{ padding-left: 25px}
+.receiveMoney div.smallLabel label{ display: block; font-size: 12px; color: #7f7f7f}
+.receiveMoney .smallLabel input{ margin-top: 3px;  border: 1px solid #999999;
+    font-size: 13px;
+    height: 28px;
+    line-height: 28px; min-width: 300px}
+div.borderBottom div.greyBlock{ float: left; background-color: #E8E8E8; width: 20px; height: 40px; position: relative}
+div.borderBottom:hover div.tip{display: block}
+div.tip{  width: 240px; font-size: 12px; position: absolute; right: -240px; top: 15px; background: #FF75FF !important; min-height: 30px; display: none}
+div.tip span{ display: block; float: left; padding: 5px 0 0 5px}
+div.greyBlock div.arrow{border-bottom: 10px solid transparent;
+    border-right: 10px solid #FF75FF;
+    border-top: 10px solid transparent;
+    margin: 10px 0 0 10px;}
