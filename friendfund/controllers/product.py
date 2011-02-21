@@ -12,12 +12,24 @@ from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool
 from friendfund.model.product import ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
-from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException
+from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException, QueryMalformedException
 log = logging.getLogger(__name__)
 
 
 class ProductController(BaseController):
 	navposition=g.globalnav[1][2]
+	
+	@jsonify
+	def open_bounce(self):
+		try:
+			query, pool, img_list = g.product_service.set_product_from_open_web(websession.get('pool') or Pool(), request.params.get('query'))
+		except QueryMalformedException, e:
+			log.warning(e)
+			return {'success':False}
+		else:
+			c.pool = websession['pool'] = pool
+			return {'success':True, 'url':query, 'title':pool.title, 'description':pool.description, 'imgs':img_list}
+		
 	def bounce(self):
 		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
 		if len(c.product_list)>1:

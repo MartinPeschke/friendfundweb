@@ -168,7 +168,7 @@ ${self.render_html()}
 		<meta name="description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
 		
 		<meta property="og:site_name" content="Friendfund"/>
-		<meta property="og:url" content="${url.current()}"/>
+		<meta property="og:url" content="${request.qualified_host}${url.current()}"/>
 </%def>
 
 <%def name="page_slogan()"></%def>

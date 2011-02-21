@@ -133,7 +133,7 @@ class Globals(object):
 										app_conf['amazon.%s.domain' % country_code],
 										)
 				amazon_services[country_code] = amazon_service
-				log.warning("AmazonService setup for %s", country_code)
+				log.info("AmazonService setup for %s", country_code)
 			else:
 				log.warning("AmazonService NOT AVAILABLE for %s", country_code)
 		

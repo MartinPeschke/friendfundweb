@@ -14,9 +14,10 @@
 				<span>$</span>
 				<input type="text" class="short" />
 				<span>for</span>
-				<input type="text" class="long" />
+				<input type="text" id="home_title" class="long" _url="${url(controller="product", action="open_bounce")}"/>
 				<input type="button" class="button" value="button" />
 			</div>
+			<div id="homeurlexpander" class="hidden"></div>
 		</div>
 		<div class="logoContainer">
 			<div class="logoContainerRight">
@@ -172,3 +173,50 @@
 	</div>
 
 </div>
+
+
+<%def name="scripts()">
+	<script type="text/javascript">
+		var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.~#&=!]*)*(\?[-a-zA-Z0-9%_\+.~#&=!\/]+)*$/i, ht1, ht2;
+		
+		var pic_judger = function(evt){
+			if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50)dojo.query(evt.target).addClass("forbidden");
+		};
+		var loadSuccess = function(data){                                                                                                     
+			dojo.query(".loading", "homeurlexpander").orphan();
+			if(data.success == false){
+				dojo.addClass("homeurlexpander", "hidden");
+				connect_home();
+			} else {
+				var div = dojo.create("DIV", {class:"home_expander loading"});
+				div.appendChild(dojo.create("DIV", {innerHTML : data.url}));
+				for(var i=0;i<data.imgs.length; i++){
+					var classes = (i==0)?'selected':'';
+					var img = dojo.create("IMG", {src:data.imgs[i], class:classes});
+					dojo.connect(img, "onload", pic_judger);
+					div.appendChild(img);
+				};
+				dojo.place(div, "homeurlexpander", "last");
+			}
+		};
+		var parseTitle = function(type, evt){
+			if(dojo.hasClass("homeurlexpander", "hidden")&&(type=="onblur"||evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
+				evt.target.value.split(" ").some(function(elt){if(urlmatch.test(elt)){
+					dojo.disconnect(ht1);dojo.disconnect(ht2);
+					var div = dojo.create("DIV", {class:"home_expander loading"});
+					div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
+					dojo.place(div, "homeurlexpander", "last");dojo.removeClass("homeurlexpander", "hidden");
+					dojo.xhrPost({url:dojo.attr(evt.target, "_url"), content:{query:elt},
+									handleAs: 'json',
+									load:loadSuccess});
+					return true;
+			}})
+		}};
+		var connect_home = function(){
+			var dn = dojo.byId("home_title");
+			ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseTitle, "onkeyup"));
+			ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseTitle,"onblur"));
+		}
+		connect_home();
+	</script>
+</%def>

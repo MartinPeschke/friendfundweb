@@ -65,10 +65,10 @@ class AdyenPaymentGateway(object):
 		return self._send_authorize(preq_params)
 	
 	
-	def use_last_recurring(self, original_txid, amount, currency, shopperEmail, shopperReference, selectedRecurringDetailReference = 'LATEST'):
+	def use_last_recurring(self, txid, amount, currency, shopperEmail, shopperReference, selectedRecurringDetailReference = 'LATEST'):
 		preq_params = dict(
 			merchantAccount=self.merchantAccount,
-			reference=original_txid,
+			reference=txid,
 			shopperEmail=shopperEmail,
 			shopperReference=shopperReference,
 			amount=dict(value=amount,currency=currency),

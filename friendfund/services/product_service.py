@@ -7,15 +7,16 @@ from datetime import datetime
 from BeautifulSoup import BeautifulSoup
 from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
-from friendfund.lib import helpers as h
+from friendfund.lib import helpers as h, url_parser
 from friendfund.model.mapper import DBMapper
 from friendfund.model.pool import Pool
-from friendfund.model.product import DisplayProduct, DisplayProduct
+from friendfund.model.product import DisplayProduct, Product
 
 log = logging.getLogger(__name__)
 
 class AmazonWrongRegionException(Exception):pass
 class AmazonUnsupportedRegionException(Exception):pass
+class QueryMalformedException(Exception):pass
 
 
 _ = lambda x:x
@@ -189,3 +190,15 @@ class ProductService(object):
 		product_list = OrderedDict([(unicode(products[k].guid), products[k]) for k in sorted(products)])
 		pool.set_product(products.get(sorted(products)[0]))
 		return pool, product_list
+
+	def set_product_from_open_web(self, pool, query):
+		try:
+			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
+			if not scheme:query='http://%s'%query
+			product_page = urllib2.urlopen(query)
+		except Exception, e:
+			raise QueryMalformedException("Query could not opened or not wellformed: %s" % query)
+		else:
+			name, descr, imgs = url_parser.get_title_descr_imgs(query, product_page)
+			pool.product = Product(name=name, description=descr, tracking_link = query)
+			return query, pool, imgs
