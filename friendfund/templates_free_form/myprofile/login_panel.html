@@ -1,2 +1,18 @@
+%if c.user.is_anon:
+	<a href="#" class="white">Login</a>
+	<span class="white"> | </span>
+	<a href="#" class="white">Sign Up</a>
+	<img src="/static/imgs/loginarea-ico.png" />
+%else:
+	<div class="showHide">
+		<a href="#">${c.user.name or c.user.default_email}</a>
+		<div class="widthGiver">
+			<div>
+				<a href="#">Account Settings</a>
+				<a href="#">Profile</a>
+				<a href="#">Logout</a>
+			</div>
+		</div>
+	</div>
+%endif
 
-ello
