@@ -34,6 +34,7 @@ ${self.render_html()}
 	<div id="generic_popup"></div>
 	<div id="fb-root"></div>
 	<script type="text/javascript">
+		page_reloader = function(){window.location.reload();};
 		var _loadInitials = function() {
 			fbInit("${app_globals.FbApiKey}", ${str(c.user.has_tried_logging_in_with("facebook")).lower()});
 			${self.onloadscripts()}
