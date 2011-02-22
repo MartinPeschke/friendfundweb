@@ -49,12 +49,17 @@ class DBContribution(DBMappedObject):
 				,GenericAttrib(bool,'is_secret','secret')
 				,GenericAttrib(bool,'anonymous','anonymous')
 				,GenericAttrib(unicode, 'message'    ,'message')
-				,GenericAttrib(str, 'paymentmethod'    ,"payment_method")
 				,GenericAttrib(str ,'p_url' ,'p_url')
 				,GenericAttrib(int ,'u_id'  ,'u_id')
 				,GenericAttrib(str ,'network'  ,'network')
 				,GenericAttrib(str ,'network_id'  ,'id')
-				,GenericAttrib(str ,'email'  ,'shopper_email')
+				
+				,GenericAttrib(str, 'paymentmethod'    ,"payment_method")
+				,GenericAttrib(str ,'shopper_email'  ,'shopper_email')
+				
+				,GenericAttrib(str ,'shopper_ref'  ,'shopper_ref', persistable = False)
+				,GenericAttrib(bool ,'is_recurring'  ,'is_recurring', persistable = False)
+				,GenericAttrib(int ,'initial_transaction_total','initial_transaction_total', persistable = False)
 			]
 
 class DBPaymentInitialization(DBMappedObject):

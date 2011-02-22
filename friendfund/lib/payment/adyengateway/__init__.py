@@ -2,8 +2,28 @@ from ZSI import TC
 from ZSI.client import Binding
 from ZSI.auth import AUTH
 import Payment_services, Payment_services_types, logging
+from friendfund.model.contribution import DBPaymentInitialization
 
 log = logging.getLogger("friendfund.lib.payment.adyengateway.AdyenPaymentGateway")
+
+
+def get_contribution_from_adyen_result(merchantReference, paymentresult):
+	payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
+	print dir(paymentresult)
+	print paymentresult
+	notice = DBPaymentInitialization(\
+				ref = merchantReference\
+				, tx_id=paymentresult['pspReference']\
+				, msg_id=None\
+				, type=payment_transl[paymentresult['resultCode']]\
+				, success = True\
+				, reason=paymentresult['refusalReason']\
+				, fraud_result = paymentresult['fraudResult'])
+	return notice
+
+
+
+
 
 def parse_dict_into_request(obj, map):
 	for k,v in map.iteritems():
@@ -26,7 +46,8 @@ class AdyenPaymentGateway(object):
 		self.user = user
 		self.password = password
 		self.merchantAccount = merchantAccount
-
+	def __repr__(self):
+		return '<%s: %s/%s>' % (self.__class__.__name__, self.url, self.merchantAccount)
 	### AUTHORIZE PAYMENTS / RECURRINGs
 	def _send_authorize(self, preq_params):
 		service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))

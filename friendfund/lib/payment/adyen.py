@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 from pylons import session as websession, url, app_globals as g, request
 
-from friendfund.lib.payment.adyengateway import AdyenPaymentGateway
+from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
 
 from friendfund.lib.synclock import add_token, rem_token
 from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization
@@ -24,29 +24,29 @@ class DBErrorAfterPayment(Exception):pass
 class PaymentGateway(object):
 	def __init__(self, gtw_location, gtw_username, gtw_password, gtw_account):
 		self.gateway = AdyenPaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
-	def authorize(self, contribution):
-		args = [contribution.ref 
-					,contribution.total
-					,contribution.currency
-					,contribution.methoddetails.ccHolder
-					,contribution.methoddetails.ccNumber
-					,contribution.methoddetails.ccExpiresMonth
-					,contribution.methoddetails.ccExpiresYear
-					,contribution.methoddetails.ccCode]
+	def authorize(self, contrib_view):
+		args = [contrib_view.ref 
+					,contrib_view.total
+					,contrib_view.currency
+					,contrib_view.methoddetails.ccHolder
+					,contrib_view.methoddetails.ccNumber
+					,contrib_view.methoddetails.ccExpiresMonth
+					,contrib_view.methoddetails.ccExpiresYear
+					,contrib_view.methoddetails.ccCode]
 		return self.gateway.authorise(*args)
 	
-	def authorize_recurring(self, dbcontrib, contribution):
-		args = [contribution.ref 
-					,contribution.total
-					,contribution.currency
-					,contribution.methoddetails.ccHolder
-					,contribution.methoddetails.ccNumber
-					,contribution.methoddetails.ccExpiresMonth
-					,contribution.methoddetails.ccExpiresYear
-					,contribution.methoddetails.ccCode
-					,dbcontrib.email
-					,contribution.ref
-					,contribution.ref 
+	def authorize_recurring(self, contrib_model, contrib_view):
+		args = [contrib_model.ref 
+					,contrib_model.initial_transaction_total
+					,contrib_view.currency
+					,contrib_view.methoddetails.ccHolder
+					,contrib_view.methoddetails.ccNumber
+					,contrib_view.methoddetails.ccExpiresMonth
+					,contrib_view.methoddetails.ccExpiresYear
+					,contrib_view.methoddetails.ccCode
+					,contrib_model.shopper_email
+					,contrib_model.shopper_ref
+					,contrib_model.shopper_ref 
 					]
 		return self.gateway.authorise_recurring_contract(*args)
 
@@ -94,43 +94,39 @@ class CreditCardPayment(PaymentMethod):
 			add_token(mc, tmpl_context.form_secret, tmpl_context.action)
 		return redirecter(url(controller='contribution', pool_url=pool.p_url, action='details', token=tmpl_context.form_secret, protocol=g.SSL_PROTOCOL))
 	
-	def post_process(self, tmpl_context, contribution, pool, renderer, redirecter):
-		ccType = self.valid_types.get(contribution.methoddetails.ccType)
+	def post_process(self, tmpl_context, contrib_view, pool, renderer, redirecter):
+		ccType = self.valid_types.get(contrib_view.methoddetails.ccType)
 		if not ccType:
-			raise ValueError("Unknown PaymentMethod: %s not in %s" % (contribution.methoddetails.ccType, self.valid_types))
+			raise ValueError("Unknown PaymentMethod: %s not in %s" % (contrib_view.methoddetails.ccType, self.valid_types))
 		with g.cache_pool.reserve() as client:
 			action = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
 		tmpl_context.pool_fulfilled = action == 'chipin_fixed'
 		
-		contrib = DBContribution(amount = contribution.amount
-								,total = contribution.total
-								,is_secret = contribution.is_secret
-								,anonymous = contribution.anonymous
-								,message = contribution.message
+		contrib_model = DBContribution(amount = contrib_view.amount
+								,total = contrib_view.total
+								,is_secret = contrib_view.is_secret
+								,anonymous = contrib_view.anonymous
+								,message = contrib_view.message
 								,paymentmethod = ccType
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
-								,email = tmpl_context.user.default_email
+								,shopper_email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
-			contrib = g.dbm.set(contrib, merge = True)
+			contrib_model = g.dbm.set(contrib_model, merge = True)
 		except SProcException, e:
 			log.error(e)
 			raise DBErrorDuringSetup(e)
 		
-		contribution.ref = contrib.ref
-		paymentresult = self.paymentGateway.authorize_recurring(contrib, contribution)
-		# paymentresult = self.paymentGateway.authorize(contribution)
-		payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
-		notice = DBPaymentInitialization(\
-					ref = contrib.ref\
-					, tx_id=paymentresult['pspReference']\
-					, msg_id=None\
-					, type=payment_transl[paymentresult['resultCode']]\
-					, success = True\
-					, reason=paymentresult['refusalReason']\
-					, fraud_result = paymentresult['fraudResult'])
+		contrib_view.ref = contrib_model.ref
+		if contrib_model.is_recurring:
+			log.info("AUTHORIZING_RECURRING %s", contrib_view.ref)
+			paymentresult = self.paymentGateway.authorize_recurring(contrib_model, contrib_view)
+		else:
+			log.info("AUTHORIZING_NORMAL %s", contrib_view.ref)
+			paymentresult = self.paymentGateway.authorize(contrib_view)
+			notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
 		try:
 			g.dbm.set(notice)
 		except SProcException, e:

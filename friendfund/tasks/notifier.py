@@ -9,13 +9,9 @@ from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.tasks.notifiers import email, facebook, twitter
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException
 
-import logging.config
+import logging
 logging.config.fileConfig("notifier_logging.conf")
 logging.basicConfig()
-
-import logging
-
-
 log = logging.getLogger(__name__)
 
 import gettext
