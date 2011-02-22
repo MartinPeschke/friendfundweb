@@ -15,7 +15,7 @@ from friendfund.tasks import config, get_dbm\
 		, upload_tmp\
 		, IMAGEMAGICKROOT
 
-CONNECTION_NAME = 'jobs'
+CONNECTION_NAME = 'async'
 from celery.log import setup_logger
 log = setup_logger(loglevel=0)
 

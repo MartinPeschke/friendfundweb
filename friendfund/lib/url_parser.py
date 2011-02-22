@@ -31,7 +31,6 @@ def get_title_descr_imgs(query, product_page):
 	if not (name or descr):
 		return None, None, None
 	else:
-		
 		if params.get("og:image"):
 			img_collection = [params.get("og:image")]
 		else:

@@ -12,6 +12,11 @@ root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_root = os.path.join(os.getcwd(), 'data')
 log = setup_logger(loglevel=0)
 
+class Usage(Exception):
+	def __init__(self, msg):
+		self.msg = msg
+
+
 def getRecAttr(obj, attr):
     tmp = obj
     for a in attr.split('.'):

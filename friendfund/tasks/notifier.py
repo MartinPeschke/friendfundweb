@@ -1,11 +1,11 @@
 """
 FriendFund Notification Service, the only commandline argument should be the paster config file.
-i.e. invoke as: python friendfund/services/notifier.py -f development.ini
+i.e. invoke as: python friendfund/tasks/notifier.py -f development.ini
 """
 import logging, time, sys, getopt, os
 from lxml import etree
 from xml.sax.saxutils import quoteattr
-from friendfund.tasks import get_db_pool, get_config
+from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.tasks.notifiers import email, facebook, twitter
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException
 
@@ -25,7 +25,7 @@ _ = transl.ugettext
 L10N_KEYS = ['occasion']
 
 
-CONNECTION_NAME = 'messaging'
+CONNECTION_NAME = 'job'
 
 def empty_sender(name = None):
 	def es(sndr_data, rcpt_data, template_data, config, rcpts_data = None):
@@ -36,10 +36,6 @@ def error_sender(name = None):
 	def es(sndr_data, rcpt_data, template_data, config, rcpts_data = None):
 		raise Exception( "NOT_IMPLEMENTED_ERROR(%s)" % name)
 	return es
-
-class Usage(Exception):
-	def __init__(self, msg):
-		self.msg = msg
 
 def main(argv=None):
 	

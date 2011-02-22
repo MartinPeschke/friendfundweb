@@ -11,7 +11,7 @@ from friendfund.tasks.photo_renderer import remote_profile_picture_render
 from celery.log import setup_logger
 log = setup_logger(loglevel=0)
 
-CONNECTION_NAME = 'jobs'
+CONNECTION_NAME = 'async'
 
 
 @task

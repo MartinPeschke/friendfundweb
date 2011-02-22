@@ -13,7 +13,7 @@ from friendfund.tasks import get_dbm, get_cm
 from friendfund.tasks.photo_renderer import remote_profile_picture_render
 
 log = setup_logger(loglevel=0)
-CONNECTION_NAME = 'jobs'
+CONNECTION_NAME = 'async'
 
 
 @task
