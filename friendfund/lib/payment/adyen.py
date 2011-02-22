@@ -126,7 +126,7 @@ class CreditCardPayment(PaymentMethod):
 		else:
 			log.info("AUTHORIZING_NORMAL %s", contrib_view.ref)
 			paymentresult = self.paymentGateway.authorize(contrib_view)
-			notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
+		notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
 		try:
 			g.dbm.set(notice)
 		except SProcException, e:
