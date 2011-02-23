@@ -1,5 +1,7 @@
-.hidden{display:none !important}
-*{
+.hidden {
+	display:none !important
+}
+* {
 	margin: 0;
 	padding: 0;
 	outline: none
@@ -87,9 +89,18 @@ img {
 .floatLeft {
 	float: left
 }
-.fontWeightBold {
+.fontWeightBold, .bold {
 	font-weight: bold
 }
+input {
+	color: black
+}
+input.default {
+	color: #aeaeae
+}
+.borderGrey{ border:1px solid #cdcdcd}
+.borderGrey input{ width:120px}
+.noBorder{ border-width:1px !important}
 /* HEADER */
 div.header h1 {
 	display: block;
@@ -173,7 +184,6 @@ div.showHide div.widthGiver {
 	right: 0;
 	top:25px;
 	display: none
-
 }
 div.showHide div div {
 	-moz-border-radius-bottomleft: 3px;
@@ -255,9 +265,10 @@ div.weNeed input {
 	font-size: 18px;
 	line-height:18px;
 	padding: 10px;
-	color: #aeaeae
 }
-div.weNeed input.tipeIn{ color: black}
+div.weNeed input.tipeIn {
+	color: black
+}
 div.weNeed input.short {
 	width: 120px
 }
@@ -276,27 +287,91 @@ div.formWeNeed span {
 	line-height: 28px;
 	margin-right: 5px
 }
-div.formWeNeed p{ font-size: 11px; color: #999; margin: 5px 0 0 230px; line-height: 11px; float: left}
-div.home_expander{ padding: 10px 0 0 225px; float: left; font-size: 12px; width: 522px; position: relative}
-div.home_expander .address{ float: left; width: 250px; padding: 0 0 0 10px; color: #999}
-div.home_expander .title{ float: left; width: 250px; padding: 0 0 0 10px; font-weight: bold}
-div.home_expander .desc{ float: left;width: 250px; padding: 0 0 0 10px; position: relative}
-div.controller{position: absolute; bottom: 0; left: 395px}
-div.controller span{ font-size: 10px; color: #616161; font-weight: bold; line-height: 18px}
-div.controller span.counterDescr{ float: left;display: block;}
-div.controller span.counterDescr span{ margin:0px;}
-div.controller .smallLeft, div.controller .smallRight{ width: 18px; height: 18px; border: 1px solid #676767; float: left; margin-left: 4px; display: block}
-div.controller .smallLeft span{display: block; border-top:5px solid transparent; border-right:5px solid black; border-bottom: 5px solid transparent; margin: 4px 7px 0 0}
-div.controller .smallRight span{display: block; border-top:5px solid transparent; border-left:5px solid black; border-bottom: 5px solid transparent; margin: 4px 0 0 7px}
-div.imgCntSld{ border: 1px solid #CCCCCC;
-    height: 130px;
-    width: 160px;
-    float: left}
-div.imgCntSld img{border: 9px solid white;
-    display: block;
-    height: 112px;
-    width: 142px;}
-#homeurlexpander{ float: left; width: 100%}
+div.formWeNeed p {
+	font-size: 11px;
+	color: #999;
+	margin: 5px 0 0 230px;
+	line-height: 11px;
+	float: left
+}
+div.home_expander {
+	padding: 10px 0 0 225px;
+	float: left;
+	font-size: 12px;
+	width: 522px;
+	position: relative
+}
+div.home_expander .address {
+	float: left;
+	width: 250px;
+	padding: 0 0 0 10px;
+	color: #999
+}
+div.home_expander .title {
+	float: left;
+	width: 250px;
+	padding: 0 0 0 10px;
+	font-weight: bold
+}
+div.home_expander .desc {
+	float: left;
+	width: 250px;
+	padding: 0 0 20px 10px;
+	position: relative
+}
+div.controller {
+	position: absolute;
+	bottom: 0;
+	left: 395px
+}
+div.controller span {
+	font-size: 10px;
+	color: #616161;
+	font-weight: bold;
+	line-height: 18px
+}
+div.controller span.counterDescr {
+	float: left;
+	display: block;
+}
+div.controller .smallLeft, div.controller .smallRight {
+	width: 18px;
+	height: 18px;
+	border: 1px solid #676767;
+	float: left;
+	margin-left: 4px;
+	display: block
+}
+div.controller .smallLeft span {
+	display: block;
+	border-top:5px solid transparent;
+	border-right:5px solid black;
+	border-bottom: 5px solid transparent;
+	margin: 4px 7px 0 0
+}
+div.controller .smallRight span {
+	display: block;
+	border-top:5px solid transparent;
+	border-left:5px solid black;
+	border-bottom: 5px solid transparent;
+	margin: 4px 0 0 7px
+}
+div.imgCntSld {
+	border: 1px solid #CCCCCC;
+	height: 130px;
+	width: 160px;
+	float: left
+}
+div.imgCntSld img {
+	border: 9px solid white;
+	display: block;
+	height: 112px;
+	width: 142px;
+}
+#homeurlexpander {
+	float: left;
+	width: 100%
+}
 div.logoContainer {
 	border-top: 1px solid #f4f4f4;
 	padding: 4px 25px 0 25px;
@@ -308,9 +383,10 @@ div.logoContainer div.logoContainerRight {
 div.logoContainer div.logoContainerLeft {
 	float:left;
 }
-div.logoContainer div.logoContainerLeft span{
-	margin-top: 15px; display: block; float: left
-	
+div.logoContainer div.logoContainerLeft span {
+	margin-top: 15px;
+	display: block;
+	float: left
 }
 div.featuredPoolsBox {
 	padding:35px 0 0 0
@@ -327,7 +403,9 @@ div.homebox {
 	padding: 9px 9px 0;
 	margin-right: 30px
 }
-div.lastOne{ margin-right: 0 !important}
+div.lastOne {
+	margin-right: 0 !important
+}
 div.homebox img {
 	display: block;
 	width: 190px;
@@ -342,7 +420,8 @@ div.homebox h5 {
 div.homebox span {
 	color: #b3b3b3;
 	font-size: 10px;
-	line-height: 12px; padding: 0 0 5px 0
+	line-height: 12px;
+	padding: 0 0 5px 0
 }
 span.homebox {
 	display: block;
@@ -362,7 +441,9 @@ div.timeCounter {
 	float: left;
 	margin: 30px auto 0 auto;
 }
-div.subHeader .timeCounter{ margin: 0}
+div.subHeader .timeCounter {
+	margin: 0
+}
 div.timeCounterRight {
 	border-top-right-radius:10px;
 	border-bottom-right-radius:10px;
@@ -406,7 +487,7 @@ div.boxContributors span.upper {
 }
 div.fbHolder {
 	padding: 9px 0 9px 15px;
-	margin: 1px -9px 0 -9px ;
+	margin: 1px -9px 0 -9px;
 	background: #ebebeb
 }
 div.fbHolder img {
@@ -430,25 +511,38 @@ div.whatElse .boxGray {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	float: left;
-	margin-right: 30px; 
+	margin-right: 30px;
 	position: relative
 }
 .boxGray p {
 	color:#6a6a6a
 }
-.boxGray span{ color: #666; font-size: 12px; display: block}
-.grafx{     color: #D6D6D6;
-    font-size: 160px;
-    left: -14px;
-    position: absolute;
-    top: 25px;}
+.boxGray span {
+	color: #666;
+	font-size: 12px;
+	display: block
+}
+.grafx {
+	color: #D6D6D6;
+	font-size: 160px;
+	left: -14px;
+	position: absolute;
+	top: 25px;
+}
 div.box1 {
 	max-width: 436px;
 	padding: 12px 0 0 12px;
 	float: left;
 	min-height: 136px
 }
-div.box1 img{ display: block; margin-right: 12px; float: left; margin-bottom: 12px; height: 50px; width: 133px}
+div.box1 img {
+	display: block;
+	margin-right: 12px;
+	float: left;
+	margin-bottom: 12px;
+	height: 50px;
+	width: 133px
+}
 div.box2 {
 	max-width: 168px;
 	padding: 20px;
@@ -461,7 +555,7 @@ div.box3 {
 }
 /* POOL PAGE */
 div.userProfile {
-	/* min-height:150px */
+/* min-height:150px */
 }
 div.userProfile img {
 	display:block;
@@ -623,6 +717,12 @@ div.greyBoxTitle h3 {
 	margin-right: 10px;
 	min-width: 690px
 }
+.colLeft h4 span {
+	font-size: 12px;
+	font-style: italic;
+	font-weight: normal;
+	color: #333
+}
 .colLeft .btnViewAll {
 	display: block;
 	font-size: 11px;
@@ -647,11 +747,22 @@ div.greyBoxTitle h3 {
 .colLeft h5 {
 	font-size: 11px;
 	font-weight: bold;
-	color: #00bbea
+	color: #00bbea;
+}
+.colLeft a.titleProd {
+	color: #00BBEA;
+	font-size: 11px;
+	font-weight: bold;
+	display: block;
+	padding: 0 5px
+}
+.colLeft a.titleProd:hover {
+	background: #ffff00
 }
 .colLeft p.small {
 	font-size: 11px;
 	color: #666;
+	padding-bottom: 0
 }
 ul.faceList {
 	list-style-type: none;
@@ -713,19 +824,29 @@ div.arrowAvatar {
 	top: 3px
 }
 div.imgEdit {
-	margin: 10px 0 -10px 0;
+	margin: 10px 0 0 0;
 	padding: 10px 0 0 0
 }
-div.imgEdit div {
+div.imgEdit div.subImgEdit {
 	position: relative;
-	border: 1px solid #E1EAE8;
-	width:200px;
+	width:272px;
 	float: left;
 	margin-right:20px
 }
-div.imgEdit div img {
+div.imgEdit div.subImgEdit div.imgC {
+	border: 1px solid #E1EAE8;
+	float: left;
+	width: 200px;
+	position: relative
+}
+div.imgEdit div.subImgEdit img {
 	display:block;
-	border:5px solid white
+	border:5px solid white;
+}
+div.imgEdit div.subImgEdit div.recMerch {
+	width: 60px;
+	float: left;
+	padding: 0 0 0 10px
 }
 div.imgEdit div a {
 	display: block;
@@ -738,6 +859,20 @@ div.imgEdit div a {
 	font-size: 11px;
 	padding:0 5px
 }
+div.imgEdit div.recMerch span {
+	color: #999;
+	font-size: 10px;
+	display: block;
+	padding: 5px 0 0 0;
+	clear: both
+}
+img.merchant {
+	border: 0 !important
+}
+div.imgEdit div.recMerch span.recipient {
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 5px
+}
 ul.comments {
 	list-style-type: none;
 	margin: 0 10px 0 0;
@@ -747,10 +882,12 @@ ul.comments li {
 	border-bottom: 1px solid #ebebeb;
 	padding:20px 0
 }
-ul.comments .avt, {
+ul.comments li .avt {
 	margin:0 10px 10px 0
 }
-.boxGray .avt { margin: 0 10px 0 0}
+.boxGray .avt {
+	margin: 0 10px 0 0
+}
 ul.comments span {
 	font-size: 12px;
 	font-weight: bold;
@@ -897,7 +1034,8 @@ div.iconContainer a {
 	float: left;
 	width: 16px;
 	height: 16px;
-	margin:12px 19px 0 0
+	margin:12px 14px 0 0;
+	padding: 0 !important
 }
 /* FOOTER */
 div.footerCol1 {
@@ -1019,9 +1157,6 @@ div.steps div span {
 	margin-right: 10px;
 	text-indent: 1px
 }
-.bold {
-	font-weight: bold
-}
 div.borderBottom {
 	float: left;
 	border-bottom: 2px solid #E4E4E4;
@@ -1029,7 +1164,6 @@ div.borderBottom {
 	padding: 15px 0;
 	position: relative;
 }
-
 div.borderBottom div {
 	float: left;
 	font-size: 14px;
@@ -1044,9 +1178,7 @@ div.borderBottom div.first {
 div.greyInside {
 	background-color: #e8e8e8;
 	padding: 5px;
-	min-width: 520px
 }
-
 div.borderBottom input {
 	border: 1px solid #999;
 	height: 28px;
@@ -1092,68 +1224,221 @@ div.choose {
 	padding: 0 0 0 20px;
 	max-width: 342px
 }
-div.choose input{ margin-right: 10px; margin-top: 5px}
-div.choose p{ color: #999; font-size: 10px; margin-top: 5px; padding: 0 0 4px 0}
-.receiveMoney{ margin-left: 165px; float: left; }
-.colLeft .receiveMoney p{ font-weight: bold; font-size: 14px; margin: 20px 10px 10px 0; padding: 0 }
-.receiveMoney p span{ font-size: 11px; display: block; font-weight: normal; padding: 0 }
-.receiveMoney div{ padding: 12px 0 0 0 }
-.receiveMoney div label{ font-size: 14px}
-.receiveMoney div input{ margin-right: 10px}
-.receiveMoney .smallLabel{ padding-left: 25px}
-.receiveMoney div.smallLabel label{ display: block; font-size: 12px; color: #7f7f7f}
-.receiveMoney .smallLabel input{ margin-top: 3px;  border: 1px solid #999999;
-    font-size: 13px;
-    height: 28px;
-    line-height: 28px; min-width: 300px}
-div.borderBottom div.greyBlock{ float: left; background-color: #E8E8E8; width: 20px; height: 40px; position: relative}
-div.borderBottom:hover div.tip{display: block}
-div.tip{  width: 240px; font-size: 12px; position: absolute; right: -240px; top: 15px; background: #FF75FF !important; min-height: 30px; display: none}
-div.tip span{ display: block; float: left; padding: 5px 0 0 5px}
-div.greyBlock div.arrow{border-bottom: 10px solid transparent;
-    border-right: 10px solid #FF75FF;
-    border-top: 10px solid transparent;
-    margin: 10px 0 0 10px;}
-.prodImgWrap{ float: left; border: 1px solid #e4e4e4; margin: 45px 20px 0 0;}
-.prodImgSubWrap{ border: 4px solid white; float: left; width: 60px; height: 50px; overflow: hidden}
-div.subHeader .prodImgSubWrap img{ border: none; width: 60px; margin: 0}
-div.tabs a{
-    background-color: #ddd;
-    border-color: #c9c9c9 ;
-    border-style: solid;
-    border-width: 1px;
-    min-width: 80px;  display: block;
-    float: left;
-    font-size: 12px;
-    font-weight: bold;
-    height: 28px;
-    line-height: 28px;
-    margin-right: 5px;
-    padding: 0 10px;
-    position: relative;
-    text-align: center;}
-div.tabs{ float: left; margin-top: 20px}
+div.choose input {
+	margin-right: 10px;
+	margin-top: 5px
+}
+div.choose p {
+	color: #999;
+	font-size: 10px;
+	margin-top: 5px;
+	padding: 0 0 4px 0
+}
+div.borderBottom div.address{
+	font-size:10px;
+	color:#666;
+	padding:0 5px
+		
+}
+div.borderBottom div.desc{
+	clear:both;
+	font-size:11px;
+	color:#666;
+	padding:0 5px 20px 5px;
+	margin:5px 0 0 0
+		
+}
+div.borderBottom div.controller{
+	bottom:15px;
+	left:350px
+}
+.receiveMoney {
+	margin-left: 165px;
+	float: left;
+}
+.colLeft .receiveMoney p {
+	font-weight: bold;
+	font-size: 14px;
+	margin: 20px 10px 10px 0;
+	padding: 0
+}
+.receiveMoney p span {
+	font-size: 11px;
+	display: block;
+	font-weight: normal;
+	padding: 0
+}
+.receiveMoney div {
+	padding: 12px 0 0 0
+}
+.receiveMoney div label {
+	font-size: 14px
+}
+.receiveMoney div input {
+	margin-right: 10px
+}
+.receiveMoney .smallLabel {
+	padding-left: 25px
+}
+.receiveMoney div.smallLabel label {
+	display: block;
+	font-size: 12px;
+	color: #7f7f7f
+}
+.receiveMoney .smallLabel input {
+	margin-top: 3px;
+	border: 1px solid #999999;
+	font-size: 13px;
+	height: 28px;
+	line-height: 28px;
+	min-width: 300px
+}
+div.borderBottom div.greyBlock {
+	float: left;
+	background-color: #E8E8E8;
+	width: 20px;
+	height: 40px;
+	position: relative
+}
+div.borderBottom:hover div.tip {
+	display: block
+}
+div.tip {
+	width: 240px;
+	font-size: 12px;
+	position: absolute;
+	right: -240px;
+	top: 15px;
+	background: #FF75FF !important;
+	min-height: 30px;
+	display: none
+}
+div.tip span {
+	display: block;
+	float: left;
+	padding: 5px 0 0 5px
+}
+div.greyBlock div.arrow {
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid #FF75FF;
+	border-top: 10px solid transparent;
+	margin: 10px 0 0 10px;
+}
+.prodImgWrap {
+	float: left;
+	border: 1px solid #e4e4e4;
+	margin: 45px 20px 0 0;
+}
+.prodImgSubWrap {
+	border: 4px solid white;
+	float: left;
+	width: 60px;
+	height: 50px;
+	overflow: hidden
+}
+div.subHeader .prodImgSubWrap img {
+	border: none;
+	width: 60px;
+	margin: 0
+}
+div.tabs a {
+	background-color: #ddd;
+	border-color: #c9c9c9;
+	border-style: solid;
+	border-width: 1px;
+	min-width: 80px;
+	display: block;
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	height: 28px;
+	line-height: 28px;
+	margin-right: 5px;
+	padding: 0 10px;
+	position: relative;
+	text-align: center;
+}
+div.tabs {
+	float: left;
+	margin-top: 20px
+}
 div.tabs a.selected {
-    background-color: #f4f4f4;
-    border-style: solid;
-    border-width: 1px;
-    z-index: 2; border-bottom: none; position: relative; z-index: 2001
+	background-color: #f4f4f4;
+	border-style: solid;
+	border-width: 1px;
+	z-index: 2;
+	border-bottom: none;
+	position: relative;
+	z-index: 2001
 }
-div.subTab{ height: 298px;background-color: #f4f4f4;
-    border-color: #c9c9c9 ;
-    border-style: solid;
-    border-width: 1px; float: left; margin-top: -2px; width: 690px; position: relative; z-index: 2000}
-
-
-
-div.popupBackground {position: fixed;width: 100%;height: 100%;
-	top:0px;left:0px;z-index:1000;text-align:center;
-	opacity: .5;filter: alpha(opacity=50);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+div.subTab {
+	height: 298px;
+	background-color: #f4f4f4;
+	border-color: #c9c9c9;
+	border-style: solid;
+	border-width: 1px;
+	float: left;
+	margin-top: -2px;
+	width: 690px;
+	position: relative;
+	z-index: 2000
 }
-div.popupBackground.clear {background-color: transparent;}
-div.popupBackground.light {background-color: #777;}
-div.popupBackground.dark {background-color: #333;}
-div.outerPopupFrame {position: absolute;top: 0px;left: 0px;width: 100%;height: 100%;z-index:1001;}
-div.outerPopupFrame div.whitePopupFrame {background-color:white;margin:150px auto;position:relative;width:700px;z-index:1002;}
-div.outerPopupFrame div.whitePopupFrame.fixed {position:fixed;left: 50%;margin-left: -350px}
-div.outerPopupFrame .panelclosing_x {position: absolute;top: 3px; right: 10px;text-decoration: none;font-weight:bold;font-size:16px}
+div.popupBackground {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top:0px;
+	left:0px;
+	z-index:1000;
+	text-align:center;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+div.popupBackground.clear {
+	background-color: transparent;
+}
+div.popupBackground.light {
+	background-color: #777;
+}
+div.popupBackground.dark {
+	background-color: #333;
+}
+div.outerPopupFrame {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index:1001;
+}
+div.outerPopupFrame div.whitePopupFrame {
+	background-color:white;
+	margin:150px auto;
+	position:relative;
+	width:700px;
+	z-index:1002;
+}
+div.outerPopupFrame div.whitePopupFrame.fixed {
+	position:fixed;
+	left: 50%;
+	margin-left: -350px
+}
+div.outerPopupFrame .panelclosing_x {
+	position: absolute;
+	top: 3px;
+	right: 10px;
+	text-decoration: none;
+	font-weight:bold;
+	font-size:16px
+}
+span.value{ font-size:18px; font-weight:bold; color:#333; padding:0 10px}
+.colLeft p.alignInput{ display:block; float:left; height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    text-align: right; margin:5px 0 0 0}
+div.contentDetails{ float:left;  margin-right:10px; padding:0 0 0 160px; color:#999}
+h6{ font-size:12px; font-weight:bold; margin-top:15px; color:#999}
+div.contentDetails a{ color:#00bbea}
+div.imgSpacer{ margin:0 0 0 -10px}
+div.imgSpacer img{ margin-right:25px}

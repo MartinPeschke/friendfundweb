@@ -122,18 +122,17 @@
 		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
       </div>
       <div class="generalBoxRight">
+      <h2>Share the pool</h2>
       	<div class="iconContainer">
-		<div class="addthis_toolbox addthis_default_style">
-			<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=friendfund">${_("FF_POOL_PAGE_CHIPIN_Share this Pool")}</a>
-			<span class="addthis_separator">|</span>
-			<a class="addthis_button_facebook"></a>
-			<a class="addthis_button_twitter"></a>
-			<a class="addthis_button_email"></a>
-			<a class="addthis_button_buzz"></a>
-			<a class="addthis_button_digg"></a>
-			<a class="addthis_button_stumbleupon"></a>
-			<a class="addthis_button_tumblr"></a>
-		</div>
+		 <div class="addthis_toolbox addthis_default_style">
+  <a class="addthis_button_facebook"></a>
+  <a class="addthis_button_twitter"></a>
+  <a class="addthis_button_email"></a>
+  <a class="addthis_button_linkedin"></a>
+  <a class="addthis_button_stumbleupon"></a>
+  <a class="addthis_button_tumblr"></a>
+  <a class="addthis_button_expanded"></a>
+ </div>
 		<div class="clear"></div>
       	</div>
       </div>
@@ -166,11 +165,22 @@
 		<div class="about ${c.pool.am_i_admin(c.user) and "canedit" or " "}">
 			<h4>${_(u"FF_POOL_PAGE_BODY_About")}</h4>
 			<div class="imgEdit">
-				<div>
+				<div class="subImgEdit">
+				<div class="imgC">
 					<img src="/static/imgs/dummy/dummy-img-big.jpg" />
+				
 					%if c.pool.am_i_admin(c.user):
 						<a href="#">Edit Image</a>
 					%endif
+				</div>
+					<div class="recMerch">
+					<div class="avt">
+						<img width="48px" height="48px" alt="Harry McCarney" src="/s/user/ff/ec/ffec818cd181715164d6dc0aceb27fdb_PROFILE_S.jpg">
+					</div>
+					<span class="recipient">RECIPIENT</span>
+					<img src="/static/imgs/dummy/gad.gif" class="merchant" />
+					<span>MERCHANT</span>
+				</div>
 				</div>
 				
 				<p>${c.pool.description}</p>
@@ -178,6 +188,7 @@
 				<p class="small">${c.pool.product.description}</p>
 				<div class="clear"></div>
 			</div>
+			<div class="clear"></div>
 		</div>
 		<div class="comments" id="commentSection">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Comments")}</h4>
