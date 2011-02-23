@@ -1,4 +1,4 @@
-.hidden{display:none}
+.hidden{display:none !important}
 *{
 	margin: 0;
 	padding: 0;
@@ -28,7 +28,7 @@ div.loginArea {
 div.wrapSubHeaderHome {
 	background: #ececec;
 	border-bottom: 1px solid #d3d3d3;
-	height: 410px
+	height: 422px
 }
 div.wrapSubHeader {
 	background: #ececec;
@@ -163,7 +163,7 @@ div.showHide:hover {
 	-moz-border-radius-bottomright:0px;
 	position: relative
 }
-div.showHide:hover div {
+div.showHide:hover div.widthGiver {
 	display: block
 }
 div.showHide div.widthGiver {
@@ -171,7 +171,9 @@ div.showHide div.widthGiver {
 	position: absolute;
 	height: 25px;
 	right: 0;
-	top:25px
+	top:25px;
+	display: none
+
 }
 div.showHide div div {
 	-moz-border-radius-bottomleft: 3px;
@@ -181,7 +183,6 @@ div.showHide div div {
 	border-left: 1px solid #D1D1D1;
 	border-right: 1px solid #D1D1D1;
 	clear: both;
-	display: none;
 }
 div.showHide a {
 	padding: 0 25px 0 10px;
@@ -203,7 +204,7 @@ div.subHeader h2 {
 	color:#333333;
 	font-size: 60px;
 	line-height: 60px;
-	padding: 50px 30px 0 30px
+	padding: 50px 30px 0 0
 }
 div.subHeader h2 span {
 	display:block;
@@ -223,36 +224,40 @@ a.learnMoreBtn {
 	width: 100px;
 	height: 30px;
 	line-height: 30px;
-	margin: 30px 0 0 30px
+	margin: 20px 0 0 0px
 }
 /* HOMEPAGE */
 div.contentHome {
-	width: 930px;
-	margin: -172px auto 0 auto;
+	max-width: 930px;
+	margin: -210px auto 0 auto;
 }
 div.weNeed {
 	border: 1px solid #D3D3D3;
-	height: 170px;
 	border-top-left-radius:10px;
 	border-top-right-radius:10px;
 	-moz-border-radius-topright:10px;
 	-moz-border-radius-topleft:10px;
 	background: white;
+	margin: 0 -30px 0 -30px
 }
 div.formWeNeed {
-	padding:30px
+	padding:30px 30px 20px 30px;
+	float: left
 }
 div.weNeed h3 {
 	font-size: 25px;
 	line-height: 25px;
-	font-weight: normal
+	font-weight: normal;
+	padding-bottom: 20px
 }
 div.weNeed input {
 	border: 1px solid black;
-	height: 30px;
-	font-size: 20px;
-	line-height: 30px
+	font-size: 18px;
+	line-height:18px;
+	padding: 10px;
+	color: #aeaeae
 }
+div.weNeed input.tipeIn{ color: black}
 div.weNeed input.short {
 	width: 120px
 }
@@ -260,36 +265,67 @@ div.weNeed input.long {
 	width: 500px;
 }
 div.weNeed input.button {
-	width: 130px
+	width: 130px;
+	color: black;
+	font-weight: bold;
+	margin-left: 30px;
 }
 div.formWeNeed span {
-	font-size: 15px;
+	font-size: 18px;
 	font-weight: bold;
-	line-height: 30px
+	line-height: 28px;
+	margin-right: 5px
 }
+div.formWeNeed p{ font-size: 11px; color: #999; margin: 5px 0 0 230px; line-height: 11px; float: left}
+div.home_expander{ padding: 10px 0 0 225px; float: left; font-size: 12px; width: 522px; position: relative}
+div.home_expander .address{ float: left; width: 250px; padding: 0 0 0 10px; color: #999}
+div.home_expander .title{ float: left; width: 250px; padding: 0 0 0 10px; font-weight: bold}
+div.home_expander .desc{ float: left;width: 250px; padding: 0 0 0 10px; position: relative}
+div.controller{position: absolute; bottom: 0; left: 395px}
+div.controller span{ font-size: 10px; color: #616161; font-weight: bold; display: block; float: left; line-height: 18px}
+div.controller .smallLeft, div.controller .smallRight{ width: 18px; height: 18px; border: 1px solid #676767; float: left; margin-left: 4px; display: block}
+div.controller .smallLeft span{display: block; border-top:5px solid transparent; border-right:5px solid black; border-bottom: 5px solid transparent; margin: 4px 0 0 5px}
+div.controller .smallRight span{display: block; border-top:5px solid transparent; border-left:5px solid black; border-bottom: 5px solid transparent; margin: 4px 0 0  7px}
+div.imgCntSld{ border: 1px solid #CCCCCC;
+    height: 130px;
+    width: 160px;
+    float: left}
+div.imgCntSld img{border: 9px solid white;
+    display: block;
+    height: 112px;
+    width: 142px;}
+#homeurlexpander{ float: left; width: 100%}
 div.logoContainer {
-	border-top: 1px solid #f4f4f4
+	border-top: 1px solid #f4f4f4;
+	padding: 4px 25px 0 25px;
+	clear: both
 }
 div.logoContainer div.logoContainerRight {
 	float:right
 }
 div.logoContainer div.logoContainerLeft {
-	float:left
+	float:left;
+}
+div.logoContainer div.logoContainerLeft span{
+	margin-top: 15px; display: block; float: left
+	
 }
 div.featuredPoolsBox {
-	padding: 30px
+	padding:35px 0 0 0
 }
 div.featuredPoolsBox h4 {
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 	font-size: 16px
 }
 div.homebox {
-	width: 215px;
+	width: 190px;
 	border-bottom: 1px solid #dbdbdb;
-	padding-bottom: 20px;
 	float: left;
-	padding-right: 2px
+	border: 1px solid #d7d7d7;
+	padding: 9px 9px 0;
+	margin-right: 30px
 }
+div.lastOne{ margin-right: 0 !important}
 div.homebox img {
 	display: block;
 	width: 190px;
@@ -299,11 +335,12 @@ div.homebox h5 {
 	font-size: 13px;
 	display: block;
 	width: 190px;
-	margin: 0 auto;
+	margin: 9px auto 0 auto;
 }
 div.homebox span {
 	color: #b3b3b3;
 	font-size: 10px;
+	line-height: 12px; padding: 0 0 5px 0
 }
 span.homebox {
 	display: block;
@@ -317,13 +354,13 @@ div.homebox span a {
 	color: #b3b3b3;
 }
 div.timeCounter {
-	margin: 10px 0 0 0;
-	padding: 0 0 0 0;
+	padding: 0 0 10px 0;
 	display: block;
 	width: 100%;
 	float: left;
-	margin: 0 auto;
+	margin: 30px auto 0 auto;
 }
+div.subHeader .timeCounter{ margin: 0}
 div.timeCounterRight {
 	border-top-right-radius:10px;
 	border-bottom-right-radius:10px;
@@ -351,16 +388,13 @@ div.timeCounter span {
 }
 div.boxContributors {
 	background: #f1c8fe;
-	-moz-box-shadow: 0px 1px #faa2f6;
-	-webkit-box-shadow: 0px 1px #faa2f6;
-	box-shadow: 0 1px #faa2f6;
-	border-bottom-left-radius:4px;
-	border-bottom-right-radius:4px;
-	-moz-border-radius-bottomleft:4px;
-	-moz-border-radius-bottomright:4px;
+	-moz-box-shadow: 0px 1px #d7d7d7;
+	-webkit-box-shadow: 0px 1px #d7d7d7;
+	box-shadow: 0 1px #d7d7d7;
 	padding: 0 7px;
 	text-align: center;
-	clear: both
+	clear: both;
+	margin: 0 -11px 0 -11px
 }
 div.boxContributors span {
 	color: black;
@@ -370,7 +404,9 @@ div.boxContributors span.upper {
 	text-transform: uppercase;
 }
 div.fbHolder {
-	padding: 10px 0 0 15px
+	padding: 9px 0 9px 15px;
+	margin: 1px -9px 0 -9px ;
+	background: #ebebeb
 }
 div.fbHolder img {
 	width: 30px;
@@ -379,37 +415,52 @@ div.fbHolder img {
 	margin-right: 8px
 }
 div.whatElse {
-	padding-bottom: 20px
+	padding-bottom: 20px;
+	padding-top: 40px
 }
 div.whatElse h4 {
-	padding-bottom: 10px
+	padding-bottom: 10px;
+	font-size: 18px;
+	color: #333
 }
 div.whatElse .boxGray {
 	background: #dfdfdf;
-	border: #d7d7d7;
+	border:1px solid #d7d7d7;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	float: left;
-	margin-right: 15px
+	margin-right: 30px; 
+	position: relative
 }
 .boxGray p {
 	color:#6a6a6a
 }
+.boxGray span{ color: #666; font-size: 12px; display: block}
+.grafx{     color: #D6D6D6;
+    font-size: 160px;
+    left: -14px;
+    position: absolute;
+    top: 25px;}
 div.box1 {
-	width: 400px;
-	padding: 20px
+	max-width: 436px;
+	padding: 12px 0 0 12px;
+	float: left;
+	min-height: 136px
 }
+div.box1 img{ display: block; margin-right: 12px; float: left; margin-bottom: 12px; height: 50px; width: 133px}
 div.box2 {
-	width: 150px;
-	padding: 20px
+	max-width: 168px;
+	padding: 20px;
+	min-height: 158px
 }
 div.box3 {
-	width: 150px;
-	padding: 20px
+	max-width: 168px;
+	padding: 20px;
+	min-height: 158px
 }
 /* POOL PAGE */
 div.userProfile {
-	min-height:150px
+	/* min-height:150px */
 }
 div.userProfile img {
 	display:block;
@@ -695,9 +746,10 @@ ul.comments li {
 	border-bottom: 1px solid #ebebeb;
 	padding:20px 0
 }
-ul.comments .avt {
+ul.comments .avt, {
 	margin:0 10px 10px 0
 }
+.boxGray .avt { margin: 0 10px 0 0}
 ul.comments span {
 	font-size: 12px;
 	font-weight: bold;
@@ -897,7 +949,8 @@ div.nonPoolHeader h2 {
 div.steps {
 	float: left;
 	width: 100%;
-	margin-top: 20px
+	margin-top: 15px;
+	margin-bottom: 10px
 }
 div.steps div {
 	color: #666
@@ -1060,3 +1113,32 @@ div.greyBlock div.arrow{border-bottom: 10px solid transparent;
     border-right: 10px solid #FF75FF;
     border-top: 10px solid transparent;
     margin: 10px 0 0 10px;}
+.prodImgWrap{ float: left; border: 1px solid #e4e4e4; margin: 45px 20px 0 0;}
+.prodImgSubWrap{ border: 4px solid white; float: left; width: 60px; height: 50px; overflow: hidden}
+div.subHeader .prodImgSubWrap img{ border: none; width: 60px; margin: 0}
+div.tabs a{
+    background-color: #ddd;
+    border-color: #c9c9c9 ;
+    border-style: solid;
+    border-width: 1px;
+    min-width: 80px;  display: block;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 5px;
+    padding: 0 10px;
+    position: relative;
+    text-align: center;}
+div.tabs{ float: left; margin-top: 20px}
+div.tabs a.selected {
+    background-color: #f4f4f4;
+    border-style: solid;
+    border-width: 1px;
+    z-index: 2; border-bottom: none; position: relative; z-index: 2001
+}
+div.subTab{ height: 298px;background-color: #f4f4f4;
+    border-color: #c9c9c9 ;
+    border-style: solid;
+    border-width: 1px; float: left; margin-top: -2px; width: 690px; position: relative; z-index: 2000}

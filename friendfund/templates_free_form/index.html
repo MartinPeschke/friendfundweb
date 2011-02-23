@@ -12,27 +12,38 @@
 			<h3>We need</h3>
 			<div>
 				<span>$</span>
-				<input type="text" class="short" />
-				<span>for</span>
-				<input type="text" id="home_title" class="long" _url="${url(controller="product", action="open_bounce")}"/>
-				<input type="button" class="button" value="button" />
+				<input type="text" class="short tipeIn" />
+				<span style="margin-left:30px">for</span>
+				<input type="text" id="home_title" class="long" _url="${url(controller="product", action="open_bounce")}"/ value="Examples: a weekend away, my sports club...">
+				<input type="button" class="button" value="Get Started" />
+				<p>You can also paste a link from any website here.</p>
 			</div>
 			<div id="homeurlexpander" class="hidden"></div>
+			
+		<!-- 	Put the div class controller inside the home_expander div -->
+			<div class="controller">
+				<span>Choose a thumbnail (1 of 7)</span> 
+				<a href="#" class="smallLeft"><span></span></a>
+				<a href="#" class="smallRight"><span></span></a>
+			</div>
+		<!-- end controller -->
+			
+			
 		</div>
 		<div class="logoContainer">
 			<div class="logoContainerRight">
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-pay.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-pay.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-pay.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-pay.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-pay.png" /></a>
+				<img src="/static/imgs/paypal.png" />
+				<img src="/static/imgs/visa.png" />
+				<img src="/static/imgs/mastercard.png" />
+				<img src="/static/imgs/american.png" />
+				<img src="/static/imgs/veri-sign.png" />
 			</div>
 			<div class="logoContainerLeft">
 				<span> SEEN IN</span>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-sponsor.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-sponsor.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-sponsor.png" /></a>
-				<a href="#"><img src="/static/imgs/dummy/img-dummy-sponsor.png" /></a>
+				<img src="/static/imgs/lifehacker.png" />
+				<img src="/static/imgs/techcrunch.png" />
+				<img src="/static/imgs/mashable.png" />
+				<img src="/static/imgs/readwriteweb.png" />
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -120,7 +131,7 @@
 				<div class="clear"></div>
 			</div>
 		</div>
-		<div class="homebox">
+		<div class="homebox lastOne">
 			<img src="/static/imgs/dummy/dummy-pools.jpg" />
 			<h5>Peter Pan Home Invasion</h5>
 			<span class="homebox">created by <a href="#">Liz Stevens</a></span>
@@ -163,11 +174,37 @@
 			<img src="/static/imgs/dummy/img-dummy-sponsor.png" />
 		</div>
 		<div class="boxGray box2">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ut tellus at lorem vulputate viverra hendrerit ut quam. Nam nec est velit, in gravida arcu. Nullam nec dolor eros. Donec porttitor, elit at ullamcorper hendrerit, ante enim laoreet urna, luctus faucibus lorem leo tempor ipsum.</p>
-		
+			<div class="grafx">&#8220;</div>
+			<p><strong>Buying a group gift is 
+so affordable!</strong> Sharing 
+costs with friends meant 
+we could get Megan 
+something amazing.</p>
+			<div style="margin-top:20px">
+				<div class="avt">
+					<div class="arrowAvatar"></div>
+					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
+				</div>
+				<span class="name bold">Amanda</span>
+				<span class="desc">Created a Pool for her Tennis club</span>
+			</div>
 		</div>
-		<div class="boxGray box3">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ut tellus at lorem vulputate viverra hendrerit ut quam. Nam nec est velit, in gravida arcu. Nullam nec dolor eros. Donec porttitor, elit at ullamcorper hendrerit, ante enim laoreet urna, luctus faucibus lorem leo tempor ipsum.</p>
+		<div class="boxGray box3 lastOne">
+			<div class="grafx">&#8220;</div>
+			<p><strong>Buying a group gift is 
+so affordable!</strong> Sharing 
+costs with friends meant 
+we could get Megan 
+something amazing.</p>
+			<div style="margin-top:20px">
+				<div class="avt">
+					<div class="arrowAvatar"></div>
+					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
+				</div>
+				<span class="name bold">Amanda</span>
+				<span class="desc">Created a Pool for her Tennis club</span>
+			</div>
+			
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -189,13 +226,17 @@
 				connect_home();
 			} else {
 				var div = dojo.create("DIV", {class:"home_expander loading"});
-				div.appendChild(dojo.create("DIV", {innerHTML : data.url}));
+				var imgContainer = dojo.create ("DIV" , { class:"imgCntSld"})
 				for(var i=0;i<data.imgs.length; i++){
-					var classes = (i==0)?'selected':'';
+					var classes = (i==0)?'selected':'hidden';
 					var img = dojo.create("IMG", {src:data.imgs[i], class:classes});
 					dojo.connect(img, "onload", pic_judger);
-					div.appendChild(img);
+					imgContainer.appendChild(img);
 				};
+				div.appendChild(imgContainer);
+				div.appendChild(dojo.create("DIV", {innerHTML : data.url, class:'address'}));
+				div.appendChild(dojo.create("DIV", {innerHTML : 'blablablabla', class:'title'}));
+				div.appendChild(dojo.create("DIV", {innerHTML : 'blablablabla2', class:'desc'}));
 				dojo.place(div, "homeurlexpander", "last");
 			}
 		};
