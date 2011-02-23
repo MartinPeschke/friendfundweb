@@ -14,14 +14,15 @@
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
 			<h3>We need</h3>
-			<div>
+			<div><form metod="POST" action="${url("pool_details", protocol="http")}" onSubmit="getProductPic()">
+				<input type="hidden" id="productPicture" />
 				<span>$</span>
 				<input type="text" class="short tipeIn" />
 				<span style="margin-left:30px">for</span>
 				<input type="text" _default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="default long" _url="${url(controller="product", action="open_bounce")}"/ value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
-				<input type="button" class="button" value="${_("FF_HOME_PAGE_Get Started")}" />
+				<input type="submit" class="button" value="${_("FF_HOME_PAGE_Get Started")}" />
 				<p>You can also paste a link from any website here.</p>
-			</div>
+			</form></div>
 			<div id="homeurlexpander" class="hidden"></div>
 		</div>
 		<div class="logoContainer">
@@ -208,17 +209,33 @@ something amazing.</p>
 
 <%def name="scripts()">
 	<script type="text/javascript">
-		var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.~#&=!]*)*(\?[-a-zA-Z0-9%_\+.~#&=!\/]+)*$/i, ht1, ht2;
-		
+		var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i, ht1, ht2;
+		var totalcounter = 0, picCounter = 0;
 		var pic_judger = function(evt){
 			if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
-				dojo.query(evt.target).addClass("forbidden")
+				dojo.addClass(evt.target, "forbidden");
 			}else{
-				var counter=dojo.byId("pictureCounter")
-				counter.value=parseInt(counter.value)
+				dojo.byId("pictureCounter").innerHTML=++picCounter;
+				dojo.addClass(evt.target, "allowed");
+			}
+			if(!--totalcounter){
+				var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
+				if(imgs){dojo.removeClass(imgs[0], "hidden");dojo.addClass(imgs[0], "visible");}
+			};
+		};
+		var slide = function(step, evt){
+			var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
+			for(var i=0, len=imgs.length;i<len;i++){
+				var pos = ((i+step)<len&&(i+step)>=0)?(i+step):i;
+				if(!dojo.hasClass(imgs[i], "hidden")&&pos!=i){
+					dojo.addClass(imgs[i], "hidden");dojo.removeClass(imgs[pos], "hidden");
+					dojo.byId("pictureCounterPos").innerHTML=pos+1;
+					dojo.byId("productPicture").value=imgs[pos].src;
+					break;
+				}
 			}
 		};
-		var loadSuccess = function(data){                                                                                                     
+		var loadSuccess = function(data){
 			dojo.query(".loading", "homeurlexpander").orphan();
 			if(data.success == false){
 				dojo.addClass("homeurlexpander", "hidden");
@@ -226,20 +243,22 @@ something amazing.</p>
 			} else {
 				var div = dojo.create("DIV", {class:"home_expander loading"});
 				var imgContainer = dojo.create ("DIV" , { class:"imgCntSld"})
-				for(var i=0;i<data.imgs.length; i++){
-					var classes = (i==0)?'selected':'hidden';
-					var img = dojo.create("IMG", {src:data.imgs[i], class:classes});
+				totalcounter = data.imgs.length; 
+				for(var i=0;i<totalcounter; i++){
+					var img = dojo.create("IMG", {src:data.imgs[i], class:'hidden'});
 					dojo.connect(img, "onload", pic_judger);
 					imgContainer.appendChild(img);
 				};
 				div.appendChild(imgContainer);
-				div.appendChild(dojo.create("DIV", {innerHTML : data.url, class:'address'}));
-				div.appendChild(dojo.create("DIV", {innerHTML : data.title||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE")}", class:'title'}));
-				div.appendChild(dojo.create("DIV", {innerHTML : data.descr||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR")}", class:'desc'}));
+				div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
+				div.appendChild(dojo.create("DIV", {innerHTML : data.name||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE")}", class:'title'}));
+				div.appendChild(dojo.create("DIV", {innerHTML : data.description||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR")}", class:'desc'}));
 				var controller = dojo.create("DIV", {"class":"controller", 
-					innerHTML:'<span class="counterDescr">Choose a thumbnail (1 of <span id="pictureCounter">0</span>)</span><div class="smallLeft"><span></span></div><div class="smallRight"><span></span></div>'});
+					innerHTML:'<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span><div class="smallLeft"><span></span></div><div class="smallRight"><span></span></div>'});
 				div.appendChild(controller);
 				dojo.place(div, "homeurlexpander", "last");
+				dojo.query(".smallLeft", "homeurlexpander").onclick(dojo.hitch(null, slide, -1));
+				dojo.query(".smallRight", "homeurlexpander").onclick(dojo.hitch(null, slide, 1));
 			}
 		};
 		var parseTitle = function(type, evt){

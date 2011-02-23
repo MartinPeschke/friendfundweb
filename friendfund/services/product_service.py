@@ -200,5 +200,6 @@ class ProductService(object):
 			raise QueryMalformedException("Query could not opened or not wellformed: %s" % query)
 		else:
 			name, descr, imgs = url_parser.get_title_descr_imgs(query, product_page)
-			pool.product = Product(name=name, description=descr, tracking_link = query)
+			product_image = imgs and imgs[0] or None
+			pool.product = Product(name=name, description=descr, tracking_link = query, picture = product_image)
 			return query, pool, imgs

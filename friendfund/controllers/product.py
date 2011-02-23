@@ -5,6 +5,7 @@ from pylons import request, response, session as websession, tmpl_context as c, 
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 
+from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
@@ -28,7 +29,12 @@ class ProductController(BaseController):
 			return {'success':False}
 		else:
 			c.pool = websession['pool'] = pool
-			return {'success':True, 'url':query, 'title':pool.title, 'description':pool.description, 'imgs':img_list}
+			return {'success':True, 
+					'url':query, 
+					'display_url':h.word_truncate_by_letters(query, 40), 
+					'name':h.word_truncate_by_letters(pool.product.name, 40), 
+					'description':h.word_truncate_by_letters(pool.product.description,180), 
+					'imgs':img_list}
 		
 	def bounce(self):
 		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
