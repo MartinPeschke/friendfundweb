@@ -1,0 +1,5 @@
+<%namespace name="cmt" file="comment.html"/>
+
+%for comment in c.chat.comments:
+	${cmt.render(comment)}
+%endfor

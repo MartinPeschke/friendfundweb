@@ -268,6 +268,10 @@ class Pool(DBMappedObject):
 	
 	def get_number_of_contributors(self):
 		return len([pu for pu in self.participants if pu.contributed_amount > 0])
+	def get_suggested_amount(self):
+		return (self.amount-self.get_total_contribution())/(len([pu for pu in self.participants if not pu.contributed_amount > 0]))
+	def get_suggested_amount_float(self):
+		return self.get_amount_left()/(len([pu for pu in self.participants if not pu.contributed_amount > 0]))
 	
 	def get_product_display_label(self, words = 5, seperator = ' '):
 		return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())

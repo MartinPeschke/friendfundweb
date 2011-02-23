@@ -78,6 +78,7 @@ class ContributionController(ExtBaseController):
 	@logged_in(ajax=False)
 	def chipin(self, pool_url):
 		c.action = 'chipin'
+		suggested_amount = request.params.get('amount')
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
@@ -87,6 +88,12 @@ class ContributionController(ExtBaseController):
 			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.chipin_values = getattr(c, 'chipin_values', {})
+		if suggested_amount: 
+			try:
+				suggested_amount = (float(suggested_amount)/100)
+			except:
+				pass
+			c.chipin_values['amount'] = h.format_number(suggested_amount)
 		c.chipin_errors = getattr(c, 'chipin_errors', {})
 		if request.method != 'POST':
 			return self.render('/contribution/contrib_screen.html')

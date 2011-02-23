@@ -1,3 +1,25 @@
+parseDefaultsInputs = function(rootnode){
+	dojo.query("input[_default_text], textarea[_default_text]", rootnode).onfocus(
+		function(evt){
+			if(dojo.hasClass(this, 'default')){
+				dojo.removeClass(this, 'default');
+				this.value = "";
+			}
+		}).onblur(function(evt){
+			if(!dojo.hasClass(this, 'default')&&
+				this.value.replace(/ /g, "")===""){
+					dojo.addClass(this, 'default');
+					this.value = dojo.attr(this, '_default_text');
+				}
+		});
+};
+
+onLoadPagelets = function(root_node){
+	dojo.query('.pagelet', root_node).forEach(
+		function(elem){
+			loadElement(dojo.attr(elem, 'pagelet_href'), elem, {}, null, 'Get');
+		});
+};
 
 place_element = function(node, callback){
 	return function(data){

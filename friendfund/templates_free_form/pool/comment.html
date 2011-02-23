@@ -1,0 +1,15 @@
+${self.render(c.comment)}
+<%def name="render(comment)">
+		<li>
+			<div class="avt">
+				<div class="arrowAvatar"></div>
+				<img src="${comment.profile_s_pic}" width="48px" height="48px">
+			</div>
+			<div class="txtComments">
+				<span>${comment.name}</span>
+				<p>${comment.comment}</p>
+				<!--<span class="date">12 hours ago</span>-->
+			</div>
+			<div class="clear"></div>
+		</li>
+</%def>

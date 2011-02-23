@@ -35,11 +35,10 @@ ${self.render_html()}
 	<div id="fb-root"></div>
 	<script type="text/javascript">
 		page_reloader = function(){window.location.reload();};
-		var _loadInitials = function() {
+		dojo.addOnLoad( function() {
 			fbInit("${app_globals.FbApiKey}", ${str(c.user.has_tried_logging_in_with("facebook")).lower()});
 			${self.onloadscripts()}
-		};
-		var _loadSuper = window.onload;window.onload = (typeof window.onload != 'function') ? _loadInitials : function() { _loadSuper(); _loadInitials(); }
+		});
 	</script>
 	${self.user_voice()|n}
 	${self.google_analytics()|n}

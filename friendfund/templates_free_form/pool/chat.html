@@ -1,0 +1,12 @@
+<%namespace name="cmt" file="comment.html"/>
+
+
+%if c.chat.comments:
+		%for comment in c.chat.comments:
+			${cmt.render(comment)}
+		%endfor
+%else:
+	<li>
+		<div class="txtComments">${_("FF_POOL_CHAT_No Comments!")}</div>
+	</li>
+%endif

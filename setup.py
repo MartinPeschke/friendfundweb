@@ -20,7 +20,7 @@ setup(
         "FormEncode>1.2.2",
         "pyodbc>=2.1.8",
         "DBUtils>=1.0",
-	"Babel==0.9.5"
+        "Babel==0.9.5"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),
@@ -32,6 +32,7 @@ setup(
             ('templates/**.html', 'mako', {'input_encoding': 'utf-8'}),
             ('partners/**.html', 'mako', {'input_encoding': 'utf-8'}),
             ('templates_partner/**.html', 'mako', {'input_encoding': 'utf-8'}),
+            ('templates_free_form/**.html', 'mako', {'input_encoding': 'utf-8'}),
             ('public/**', 'ignore', None)]},
     zip_safe=False,
     paster_plugins=['PasteScript', 'Pylons'],

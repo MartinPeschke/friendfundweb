@@ -1,26 +1,98 @@
 <%inherit file="../layout.html"/>
+<%def name="fb_meta_tags()">
+	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.admin.get_profile_pic("POOL")}" />
+	<link rel="image_src" href="${request.qualified_host}${c.pool.product.get_product_pic()}" />
+	
+	<meta property="og:image" content="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.product.get_product_pic()}" />
+	<meta property="og:image" content="${request.qualified_host}${c.pool.admin.get_profile_pic("POOL")}" />
+	
+	<meta property="og:type" content="product"/>
+	<meta property="og:title" content="${c.pool.title}" />
+	<meta property="og:description" content="${c.pool.description}" />
+	<meta property="og:url" content="${url.current(protocol="http")}"/>
+	<meta property="og:site_name" content="Friendfund"/>
+	<meta property="fb:app_id" content="${app_globals.FbAppID}"/>
+</%def>
+<%def name="scripts()">
+	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
+	<script type="text/javascript">
+		submit_fundchat = function(node){
+			var onLoaded = function(data){
+				dojo.query("div.placeholder", dojo.byId("fundchat")).orphan();
+				dojo.place(data.html, dojo.byId("fundchat"), "last");
+				dojo.byId("addcommenttext").value=dojo.attr("addcommenttext", "_default_text");
+				dojo.addClass("addcommenttext", "default");
+			};
+			var _node = dojo.byId(node);
+			var params = {};
+			if(!_node.value){return;}
+			params[_node.name] = _node.value;
+			xhrPost(dojo.attr(_node, '_href'), params, onLoaded);
+			return false;
+		};
+	</script>
+</%def>
+<%def name="onloadscripts()">
+	onLoadPagelets("commentSection");
+	parseDefaultsInputs("commentSection");
+</%def>
+<%def name="render_contributor(position, invitee, is_admin = False)">
+	<li>
+		<div class="avt">
+			%if invitee.contributed_amount:
+				<div class="checked"><img src="/static/imgs/checked.png" /></div>
+			%endif
+			<img src="${invitee.get_profile_pic('PROFILE_S')}" alt="${invitee.name}" width="48px" height="48px" />
+		</div>
+	</li>
+</%def>
+<%def name="render_contributor_secret(position, invitee, is_admin = False)">
+	<li>
+		<div class="avt">
+			<div class="${invitee.contributed_amount and "checked" or " "}">
+				<img src="/static/imgs/defaultcontrib_${invitee.sex}_PROFILE_M.png" width="48px" height="48px" />
+			</div>
+			<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
+		</div>
+	</li>
+</%def>
+
+
+<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
+			"admin_name":c.pool.admin.name,
+			"suggested_amount":h.format_currency(c.pool.get_suggested_amount_float(), c.pool.currency),
+			"total_amount":c.pool.get_display_amount()}
+%>
+
+
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
+			<img src="${c.pool.admin.get_profile_pic('PROFILE_M')}" width="60px" height="60px"/>
 			<div class="subUserProfile">
-				<h2>Peter and Judy's Wedding</h2>
+				<h2>${c.pool.title}</h2>
 				<div class="subTitleUserProfile">
-					<span class="poolClose">Pool closes on Tuesday 25 October 2011 &middot; &nbsp; </span><span><a href="#"> by Judy Stevens</a></div>
+					<span class="poolClose">${_(u"FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s")%locals} &middot; &nbsp; </span><a href="#">${_(u"FF_POOL_PAGE_HEADER_by %(admin_name)s")%locals}</a></div>
 			</div>
 			<div class="boxPoolDetails">
 				<div class="timeTracker floatRight">
-					<span class="floatRight">&euro; 253.00</span>
-					<span class="floatLeft">&euro; 0.00</span>
+					<span class="floatRight">${c.pool.get_display_amount()}</span>
+					<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
 					<div class="timeCounter">
-						<div class="timeCounterLeft"></div>
-						<div class="timeCounterRight"></div>
+						<div class="timeCounterRight" style="width:100%">
+						<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
+						</div>
 					</div>
 				</div>
-				<div class="contributors"><span> <strong>4</strong> contributors</span></div>
-				<div class="chippedIn"><span> <strong>&euro;153.00</strong> Chipped in</span></div>
-				<div class="outstanding"><span><strong>&euro; 153.00</strong> Outstanding</span></div>
-				<div class="daysLeft"><span> <strong>6</strong> Days left</span></div>
+				<div class="contributors"><span><strong>${c.pool.get_number_of_contributors()}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
+				<div class="chippedIn"><span><strong>${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+				<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
+				<div class="daysLeft"><span><strong>${c.pool.get_remaining_days_tuple()[0]}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
 				<div class="clear"></div>
 			</div>
 		<div class="clear"></div>
@@ -29,272 +101,106 @@
 </div>
 <div class="content">
 	<div class="greyBoxTitle">
-		<a href="@" class="floatRight btnShow">Show</a>
-		<h3>Promote your pool</h3>
+		<a href="#" class="floatRight btnShow">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>
+		<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
 	</div>
   <div class="colRight">
 	<div class="boxChipIn">
-		<a href="#" class="btnChipIn">Chip In</a>
-		<span>Suggested amount <span>&euro; 21.09</span></span>
+		<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn">${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}</a>
+		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
 		
-		<a href="#" class="suggested">Chip in Suggested Amount > </a>
+		<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} </a>
 		<div class="rose">
-			<p><span>Its all or nothing!</span>This pool will only be founded if a minimum of &euro;253.00 has been chipped in by <strong>Tues 25 Oct 2011</strong></p>
+			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
+			${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
         </div>
       </div>
       <div class="plus generalBoxRight">
-      	<a href="#"> embed widget</a> 
-      	<a href="#"> invite more friends</a>      
+        <a href="#"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+        #### who can invite more friends?
+		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
       </div>
       <div class="generalBoxRight">
-      	<h2> Share this pool</h2>
       	<div class="iconContainer">
-      		<a href="#"><img src="/static/imgs/fb-icon.png" /></a>
-      		<a href="#"><img src="/static/imgs/twitter-icon.png" /></a>
-      		<a href="#"><img src="/static/imgs/mail-icon.png" /></a>
-      		<a href="#"><img src="/static/imgs/tumblr-icon.png" /></a>
-      		<a href="#"><img src="/static/imgs/stumble-upon-icon.png" /></a>
-      		<a href="#"><img src="/static/imgs/rss-icon.png" /></a>
-      		<div class="clear"></div>
+		<div class="addthis_toolbox addthis_default_style">
+			<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=friendfund">${_("FF_POOL_PAGE_CHIPIN_Share this Pool")}</a>
+			<span class="addthis_separator">|</span>
+			<a class="addthis_button_facebook"></a>
+			<a class="addthis_button_twitter"></a>
+			<a class="addthis_button_email"></a>
+			<a class="addthis_button_buzz"></a>
+			<a class="addthis_button_digg"></a>
+			<a class="addthis_button_stumbleupon"></a>
+			<a class="addthis_button_tumblr"></a>
+		</div>
+		<div class="clear"></div>
       	</div>
       </div>
       <div class="generalBoxRight">
-      	<h2> Share the link</h2>
-      	<input type="text" value="http://ecceccecc" onfocus="this.select" />
+      	<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
+      	<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
       </div>
    </div>
 	<div class="colLeft">
 		<div class="invited">
-			<a href="#" class="floatRight btnViewAll">View All</a>
-			<h4>Whos' invited</h4>
+			<% invitees = [c.pool.admin] + c.pool.invitees %>
+			%if len(invitees) > 20:
+				<a href="#" class="floatRight btnViewAll">${_(u"FF_POOL_PAGE_BODY_View All")}</a>
+			%endif
+			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}</h4>
+			
 			<ul class="faceList">
-				<li>
-					<!-- <div class="tooltip">Anne Smith chipped in &euro;10.0</div> -->
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-					</div>				
-				</li>
-				
+				%for i, invitee in enumerate(invitees[:20]):
+					%if invitee.anonymous:
+						${self.render_contributor_secret(i, invitee)}
+					%else:
+						${self.render_contributor(i, invitee, i==0)}
+					%endif
+				%endfor
 			</ul>
 			<div class="clear"></div>
 		</div>
 	
 
-		<div class="about">
-				<a href="#" class="floatRight btnEdit">Edit</a>
-				<h4>About</h4>
-				<div class="imgEdit">
-					<div>
-						<img src="/static/imgs/dummy/dummy-img-big.jpg" />
+		<div class="about ${c.pool.am_i_admin(c.user) and "canedit" or " "}">
+			<h4>${_(u"FF_POOL_PAGE_BODY_About")}</h4>
+			<div class="imgEdit">
+				<div>
+					<img src="/static/imgs/dummy/dummy-img-big.jpg" />
+					%if c.pool.am_i_admin(c.user):
 						<a href="#">Edit Image</a>
-					</div>
-					
-				
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus nibh, elementum in euismod ac, varius in mi. Nulla dui erat, auctor nec commodo a, volutpat vel mauris. Sed vel dui id sapien vestibulum sodales. Quisque fermentum, urna eu pulvinar aliquet, mauris orci dictum dolor, quis pulvinar nulla neque ac nisl. Vivamus convallis lobortis quam. Pellentesque faucibus pulvinar sapien eu pellentesque. Praesent sit amet tellus consequat nunc aliquet lacinia commodo tempor ligula. Aenean justo metus, eleifend at con</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus nibh, elementum in euismod ac, varius in mi. Nulla dui erat, auctor nec commodo a, volutpat vel mauris. Sed vel dui id sapien vestibulum sodales. Quisque fermentum, urna eu pulvinar aliquet, mauris orci dictum dolor, quis pulvinar nulla neque ac nisl. Vivamus convallis lobortis quam. Pellentesque faucibus pulvinar sapien eu pellentesque. Praesent sit amet tellus consequat nunc aliquet lacinia commodo tempor ligula. Aenean justo metus, eleifend at con</p>
-					<h5>Oven 360</h5>
-					<p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus nibh, elementum in euismod ac, varius in mi. Nulla dui erat, auctor nec commodo a, volutpat vel mauris. Sed vel dui id sapien vestibulum sodales. Quisque fermentum, urna eu pulvinar aliquet, mauris orci dictum dolor, quis pulvinar nulla neque ac nisl. Vivamus convallis lobortis quam. Pellentesque faucibus pulvinar sapien eu pellentesque. Praesent sit amet tellus consequat nunc aliquet lacinia commodo tempor ligula. Aenean justo metus, eleifend at con</p>
+					%endif
 				</div>
+				
+				<p>${c.pool.description}</p>
+				<h5>${c.pool.product.name}</h5>
+				<p class="small">${c.pool.product.description}</p>
+				<div class="clear"></div>
+			</div>
 		</div>
-		<div class="comments">
-			<h4>Comments</h4>
+		<div class="comments" id="commentSection">
+			<h4>${_(u"FF_POOL_PAGE_BODY_Comments")}</h4>
+			<ul id="fundchat" class="comments pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}"></ul>
+			
+			
+			%if c.pool.am_i_member(c.user):
 			<ul class="comments">
-				<li>
-					<div class="avt">
-						<div class="arrowAvatar"></div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg">
-					</div>
-					<div class="txtComments">
-						<span>Anne Smith</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus nibh, elementum in euismod ac, varius in mi. Nulla dui erat, auctor nec commodo a, volutpat vel mauris. Sed vel dui id sapien vestibulum sodales. Quisque fermentum, urna eu pulvinar aliquet,</p>
-						<span class="date">12 hours ago</span>
-					</div>
-					<div class="clear"></div>
-				</li>
-				<li>
-					<div class="avt">
-						<div class="checked">
-							<img src="/static/imgs/checked.png" />
-						</div>
-						<div class="arrowAvatar"></div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg">
-					</div>
-					<div class="txtComments">
-						<span>Anne Smith</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						<span class="date">06 january 2010</span>
-					</div>
-					<div class="clear"></div>
-				</li>
 				<li class="percentage">
 					<div class="avt">
 						<div class="arrowAvatar"></div>
-						<img src="/static/imgs/dummy/avatar-pool-big.jpg">
+						<img src="${c.user.get_profile_pic("PROFILE_S")}">
 					</div>
 					<div class="txtComments">
 						<div class="txtArea">
-						<textarea >Add your comment here... </textarea>					
+						<textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" 
+						_default_text="${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}" class="default">${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}</textarea>
 						</div>
 					</div>
 					<div class="clear"></div>
-				</li>				
+				</li>
 			</ul>
-			<input type="button" value="Post Comment" />
+			<input type="button" onclick="submit_fundchat('addcommenttext')" value="${_(u"FF_POOL_PAGE_BODY_Post Comment")}" />
+			%endif
 		</div>
 	
 </div>

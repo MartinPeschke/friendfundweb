@@ -78,10 +78,6 @@ submit_fundchat = function(node){
 		dojo.query("div.placeholder", dojo.byId("fundchat")).orphan();
 		dojo.place(data.html, dojo.byId("fundchat"), "first");
 		dojo.byId("addcommenttext").value="";
-		var elem = dojo.byId("chat_get_more_link");
-		if(elem){
-			dojo.attr(elem, "_offset", parseInt(dojo.attr(elem, "_offset"), 10)+1);
-		}
 	};
 	var _node = dojo.byId(node);
 	var params = {};

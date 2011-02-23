@@ -5,19 +5,13 @@
 			<div class="loginArea" id="accountcontainer">
 				<%include file="/myprofile/login_panel.html"/>
 			</div>
-			<!--
-<div class"loginArea loggedIn">
-				<img scr="/static/imgs/thumb-logarea.gif" />
-				
-			</div>
--->
 			<h1>
-				<a href="#"><span>Friendfund</span></a>
+				<a href="${url('home', protocol="http")}"><span>Friendfund</span></a>
 			</h1>
 			<ul>
-				<li><a href="#">Home</a></li>
+				<li><a href="${url('home', protocol="http")}">Home</a></li>
 				<li><a href="#">Learn</a></li>
-				<li><a href="#">Create a pool</a></li>
+				<li><a href="${url(controller='pool', action='details', protocol="http")}">Create a pool</a></li>
 			</ul>
 			<div class="clear"></div>
 		</div>
