@@ -1,34 +1,28 @@
 <%inherit file="layout.html"/>
+<%def name="onloadscripts()">
+	parseDefaultsInputs("poolProductFinder");
+</%def>
+
 <div class="wrapSubHeaderHome">
 	<div class="subHeader">
-		<h2>friendfund it. <span>Collect money by creating a pool and inviting friends to chip in.</span></h2>
+		<h2>friendfund it.<span>Collect money by creating a pool and inviting friends to chip in.</span></h2>
 		<a href="#" class="learnMoreBtn">Learn more</a>
 		
 	</div>
 </div>
 <div class="contentHome">
 	<div class="weNeed">
-		<div class="formWeNeed">
+		<div class="formWeNeed" id="poolProductFinder">
 			<h3>We need</h3>
 			<div>
 				<span>$</span>
 				<input type="text" class="short tipeIn" />
 				<span style="margin-left:30px">for</span>
-				<input type="text" id="home_title" class="long" _url="${url(controller="product", action="open_bounce")}"/ value="Examples: a weekend away, my sports club...">
-				<input type="button" class="button" value="Get Started" />
+				<input type="text" _default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="default long" _url="${url(controller="product", action="open_bounce")}"/ value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
+				<input type="button" class="button" value="${_("FF_HOME_PAGE_Get Started")}" />
 				<p>You can also paste a link from any website here.</p>
 			</div>
 			<div id="homeurlexpander" class="hidden"></div>
-			
-		<!-- 	Put the div class controller inside the home_expander div -->
-			<div class="controller">
-				<span>Choose a thumbnail (1 of 7)</span> 
-				<a href="#" class="smallLeft"><span></span></a>
-				<a href="#" class="smallRight"><span></span></a>
-			</div>
-		<!-- end controller -->
-			
-			
 		</div>
 		<div class="logoContainer">
 			<div class="logoContainerRight">
@@ -217,7 +211,12 @@ something amazing.</p>
 		var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.~#&=!]*)*(\?[-a-zA-Z0-9%_\+.~#&=!\/]+)*$/i, ht1, ht2;
 		
 		var pic_judger = function(evt){
-			if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50)dojo.query(evt.target).addClass("forbidden");
+			if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
+				dojo.query(evt.target).addClass("forbidden")
+			}else{
+				var counter=dojo.byId("pictureCounter")
+				counter.value=parseInt(counter.value)
+			}
 		};
 		var loadSuccess = function(data){                                                                                                     
 			dojo.query(".loading", "homeurlexpander").orphan();
@@ -235,8 +234,11 @@ something amazing.</p>
 				};
 				div.appendChild(imgContainer);
 				div.appendChild(dojo.create("DIV", {innerHTML : data.url, class:'address'}));
-				div.appendChild(dojo.create("DIV", {innerHTML : 'blablablabla', class:'title'}));
-				div.appendChild(dojo.create("DIV", {innerHTML : 'blablablabla2', class:'desc'}));
+				div.appendChild(dojo.create("DIV", {innerHTML : data.title||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE")}", class:'title'}));
+				div.appendChild(dojo.create("DIV", {innerHTML : data.descr||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR")}", class:'desc'}));
+				var controller = dojo.create("DIV", {"class":"controller", 
+					innerHTML:'<span class="counterDescr">Choose a thumbnail (1 of <span id="pictureCounter">0</span>)</span><div class="smallLeft"><span></span></div><div class="smallRight"><span></span></div>'});
+				div.appendChild(controller);
 				dojo.place(div, "homeurlexpander", "last");
 			}
 		};

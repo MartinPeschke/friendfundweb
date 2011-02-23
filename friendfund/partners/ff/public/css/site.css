@@ -282,10 +282,11 @@ div.home_expander .address{ float: left; width: 250px; padding: 0 0 0 10px; colo
 div.home_expander .title{ float: left; width: 250px; padding: 0 0 0 10px; font-weight: bold}
 div.home_expander .desc{ float: left;width: 250px; padding: 0 0 0 10px; position: relative}
 div.controller{position: absolute; bottom: 0; left: 395px}
-div.controller span{ font-size: 10px; color: #616161; font-weight: bold; display: block; float: left; line-height: 18px}
+div.controller span{ font-size: 10px; color: #616161; font-weight: bold; line-height: 18px}
+div.controller span.counterDescr{ float: left;display: block;}
 div.controller .smallLeft, div.controller .smallRight{ width: 18px; height: 18px; border: 1px solid #676767; float: left; margin-left: 4px; display: block}
-div.controller .smallLeft span{display: block; border-top:5px solid transparent; border-right:5px solid black; border-bottom: 5px solid transparent; margin: 4px 0 0 5px}
-div.controller .smallRight span{display: block; border-top:5px solid transparent; border-left:5px solid black; border-bottom: 5px solid transparent; margin: 4px 0 0  7px}
+div.controller .smallLeft span{display: block; border-top:5px solid transparent; border-right:5px solid black; border-bottom: 5px solid transparent; margin: 4px 7px 0 0}
+div.controller .smallRight span{display: block; border-top:5px solid transparent; border-left:5px solid black; border-bottom: 5px solid transparent; margin: 4px 0 0 7px}
 div.imgCntSld{ border: 1px solid #CCCCCC;
     height: 130px;
     width: 160px;
@@ -483,7 +484,7 @@ div.subUserProfile span {
 	display: block;
 	float: left
 }
-div.subUserProfile a {
+div.subUserProfile span.admin {
 	display: block;
 	float: left;
 	color: #999999
