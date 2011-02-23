@@ -4,7 +4,8 @@
 * {
 	margin: 0;
 	padding: 0;
-	outline: none
+	outline: none;
+	border:none;
 }
 body {
 	margin: 0;
@@ -72,7 +73,7 @@ div.footer {
 }
 a {
 	text-decoration: none;
-	color: black
+	color: #00BBEA;
 }
 a.white {
 	color: white
@@ -84,10 +85,10 @@ img {
 	border: none
 }
 .floatRight {
-	float: right
+	float:right !important;
 }
 .floatLeft {
-	float: left
+	float:left !important;
 }
 .fontWeightBold, .bold {
 	font-weight: bold
@@ -100,7 +101,7 @@ input.default {
 }
 .borderGrey{ border:1px solid #cdcdcd}
 .borderGrey input{ width:120px}
-.noBorder{ border-width:1px !important}
+.noBorder{ border-bottom:1px solid #E4E4E4 !important}
 /* HEADER */
 div.header h1 {
 	display: block;
@@ -287,7 +288,7 @@ div.formWeNeed span {
 	line-height: 28px;
 	margin-right: 5px
 }
-div.formWeNeed p {
+div.formWeNeed p.info {
 	font-size: 11px;
 	color: #999;
 	margin: 5px 0 0 230px;
@@ -715,7 +716,8 @@ div.greyBoxTitle h3 {
 	padding-top: 35px;
 	border-bottom: 2px solid #e4e4e4;
 	margin-right: 10px;
-	min-width: 690px
+	min-width: 690px;
+	clear: both
 }
 .colLeft h4 span {
 	font-size: 12px;
@@ -829,7 +831,6 @@ div.imgEdit {
 }
 div.imgEdit div.subImgEdit {
 	position: relative;
-	width:272px;
 	float: left;
 	margin-right:20px
 }
@@ -1191,17 +1192,27 @@ div.greyInsideFullWidth {
 	width:100%
 }
 div.greyInsideFullWidth input {
-	margin-left: 5px;
-	width: 75%
+	padding:0 5px;
+	width: 74%
 }
 div.containerTxtArea {
-	float: none !important
+	width:74%;
+	border: 1px solid #666666;
+	padding:5px
 }
 div.containerTxtArea textarea {
-	margin-left: 5px;
-	width: 75%;
-	border: 1px solid #999999;
-	font-family: arial;
+	border: medium none;
+    color: #999999;
+    font-family: Arial;
+    font-size: 12px;
+    width: 100%;
+}
+div.containerTxtArea input {
+	border: medium none;
+    color: #999999;
+    font-family: Arial;
+    font-size: 12px;
+    width: 100%;
 }
 span.darkGrey {
 	color: #757575;
@@ -1211,7 +1222,7 @@ div.borderBottom .imgContainer {
 	height: 130px;
 	width: 160px;
 	border: 1px solid #ccc;
-	margin-left: 5px
+
 }
 div.borderBottom .imgContainer img {
 	display: block;
@@ -1253,7 +1264,7 @@ div.borderBottom div.controller{
 	left:350px
 }
 .receiveMoney {
-	margin-left: 165px;
+	margin-left: 160px;
 	float: left;
 }
 .colLeft .receiveMoney p {
@@ -1442,3 +1453,19 @@ h6{ font-size:12px; font-weight:bold; margin-top:15px; color:#999}
 div.contentDetails a{ color:#00bbea}
 div.imgSpacer{ margin:0 0 0 -10px}
 div.imgSpacer img{ margin-right:25px}
+div.borderBottom p.info {
+	font-size: 11px;
+	color: #999;
+	margin: 10px 0 0 160px;
+	padding:0;
+	line-height: 11px;
+	float: left
+}
+div.number{ font-size:18px; color:#666; margin-right:10px; margin-top:5px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif}
+.lessPad{ border:none !important; padding:0 0 0 0  !important}
+.lessPad .tip{ top:0px !important}
+div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox{ width:18px; height:18px; margin:2px 10px 0 0 }
+.terms{ float:left; padding:15px 0 15px 160px; font-size:14px; margin:10px 0 0 0;border-top: 1px solid #E4E4E4 !important; width:530px}
+.action{padding:40px 0 0 0 ; text-align:right}
+.action p{ margin:0 15px; display:inline; padding:0}
+.padSpacer{ padding:15px 0 0 0; float:left; width:100%; height:0; line-height:0; font-size:0}
