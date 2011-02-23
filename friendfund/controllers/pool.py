@@ -9,7 +9,7 @@ from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
 from friendfund.lib.base import BaseController, render, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
-from friendfund.model.forms.common import to_displaymap
+from friendfund.model.forms.common import to_displaymap, MonetaryValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
@@ -22,6 +22,7 @@ EXPIRED_MESSAGE = _("POOL_ACTION_This pool has not reached it's target. Please v
 UPDATED_MESSAGE = _("POOL_ACTION_Changes saved.")
 NOT_CORRECT_STATE = _("POOL_ACTION_This Action is not allowed as Pool is not in correct state.")
 SAVE_ADDRESS_FIRST = _("POOL_ACTION_In order to Close the pool, you need to fill out and save Shipping and Billing Address first!")
+moneyval = MonetaryValidator(min=0.01, max=9999)
 
 from friendfund.lib.base import _
 
@@ -55,6 +56,12 @@ class PoolController(ExtBaseController):
 		self._clean_session()
 		return redirect(url('home'))
 	def details(self):
+		amount = moneyval.to_python(request.params.get("pool.amount"))
+		c.pool = websession.get('pool', Pool())
+		c.pool.set_amount_float(amount)
+		c.pool.currency = h.default_currency()
+		c.pool.title = request.params.get("pool.title","")
+		websession['pool'] = c.pool
 		return self.render('/pool/pool_details.html')
 	
 	def complete(self, pool_url):

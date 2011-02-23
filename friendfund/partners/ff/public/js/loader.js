@@ -20,6 +20,8 @@ parseDefaultsInputs = function(rootnode){
 					dojo.addClass(this, 'default');
 					this.value = dojo.attr(this, '_default_text');
 				}
+		}).forEach(function(elt){
+			if(elt.value!=dojo.attr(elt, "_default_text"))dojo.removeClass(elt, "default");
 		});
 };
 

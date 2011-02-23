@@ -19,7 +19,7 @@ def extract_imgs_from_soup(img):
 	attr_map = dict(img.attrs)
 	width_filter = ('width' not in attr_map) or (int(filter(lambda x: x.isdigit(), attr_map['width']))>49)
 	height_filter = ('height' not in attr_map) or (int(filter(lambda x: x.isdigit(), attr_map['height']))>49)
-	alt_filter = bool(attr_map.get('alt'))
+	alt_filter = True # bool(attr_map.get('alt'))
 	return alt_filter and width_filter and height_filter and img.get('src') or None
 
 def get_title_descr_imgs(query, product_page):

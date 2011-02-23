@@ -32,11 +32,14 @@ class CountryRegion(DBMappedObject):
 	_keys = [	 GenericAttrib(str ,'code'   ,'code')
 				,GenericAttrib(str ,'name','name')
 				,GenericAttrib(str ,'region','region')
+				,GenericAttrib(str ,'currency','currency')
 				,GenericAttrib(bool ,'is_default','is_default')  # should be aptly named is_default
 			]
 	def fromDB(self, xml):
 		self.code = self.code.lower()
 		self.region = self.region.lower()
+		self.currency = 'EUR' ###TODO: make variable from DB
+	
 class GetCountryRegionProc(DBMappedObject):
 	_cachable = False
 	_no_params = True

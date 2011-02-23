@@ -252,7 +252,13 @@ class Pool(DBMappedObject):
 	
 	
 	def get_amount_float(self):
-		return float(self.amount)/100
+		try:
+			return float(self.amount)/100
+		except:
+			return None
+	def set_amount_float(self, value):
+		if value is None: return
+		self.amount = int(value*100)
 	def get_display_amount(self):
 		return h.format_currency(self.get_amount_float(), self.currency)
 	def get_total_contribution(self):

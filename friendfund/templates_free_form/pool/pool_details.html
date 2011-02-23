@@ -1,4 +1,15 @@
 <%inherit file="../layout.html"/>
+<%namespace name="links" file="../widgets/links.html"/>
+<%def name="scripts_styles()">${links.js('datepicker.packed.js')}</%def>
+
+
+<%def name="onloadscripts()">
+	parseDefaultsInputs("poolDetails");
+	datePickerController.createDatePicker({
+	  formElements:{"datepicker":"d-sl-m-sl-Y"}
+	});
+
+</%def>
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
@@ -23,16 +34,14 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<div class="poolDets">
+		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			<div class="borderBottom">
-				<div class="first" style="margin-top:5px; width:135px">We Need $</div>
+				<div class="first" style="margin-top:5px; width:135px">We Need ${h.display_currency(c.pool.currency)}</div>
 				<div class="greyInside">
-					<input type="text" value="230.00" />
+					<input type="text" value="${h.format_number(c.pool.get_amount_float())}" />
 					<span>by</span>
-					<select>
-					<option>Select a date</option>
-					</select>
+					<input type="text" id="datepicker"/>
 				
 				<span class="darkGrey"><span class="bold">41</span> days left</span>
 			</div>
@@ -56,7 +65,7 @@
 					<span>Pool Description</span>
 				</div>
 				<div class="containerTxtArea">
-					<textarea>Write your description here...</textarea>
+					<textarea _default_text="Write your description here..." class="default">${c.pool.description or "Write your description here..."}</textarea>
 				</div>
 			</div>
 			<div class="borderBottom">

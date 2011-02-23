@@ -6,11 +6,10 @@ available to Controllers. This module is available to templates as 'h'.
 """
 import os, md5
 
-from pylons import config
+from pylons import config, session as websession, app_globals as g
 from babel import negotiate_locale
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol
 from babel.dates import format_date as fdate, format_datetime as fdatetime
-from pylons import session as websession
 from decimal import Decimal
 from xml.sax.saxutils import quoteattr
 
@@ -65,6 +64,9 @@ def format_int_amount(number):
 	else:
 		return '%.2f' % number
 
+def default_currency():
+	return g.country_choices.map.get(websession.get('region'), g.country_choices.fallback).currency
+
 def get_thous_sep():
 	return get_group_symbol(locale=websession['lang'])
 def get_dec_sep():
@@ -76,6 +78,7 @@ def format_currency(number, currency):
 	return fc(fnumber, currency, locale=websession['lang'])
 
 def format_number(number):
+	if number is None: return ""
 	fnumber = Decimal('%.2f' % number)
 	return fdec(fnumber, format='#,##0.##;-#', locale=websession['lang'])
 
