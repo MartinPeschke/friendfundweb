@@ -1,3 +1,12 @@
+popup_esc_handler = [];
+esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
+closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[]};
+displayPopup = function(html){
+	dojo.place(html, dojo.byId("generic_popup"), "only" );
+	dojo.query(".panelclosing_x,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
+	popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
+};
+loadPopup = function(evt){closePopup(evt);xhrPost(dojo.attr(this, "_href"), {});};
 parseDefaultsInputs = function(rootnode){
 	dojo.query("input[_default_text], textarea[_default_text]", rootnode).onfocus(
 		function(evt){

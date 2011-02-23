@@ -40,6 +40,7 @@
 <%def name="onloadscripts()">
 	onLoadPagelets("commentSection");
 	parseDefaultsInputs("commentSection");
+	dojo.query(".popuplink", "chipin_box").onclick(dojo.hitch(null, loadPopup));
 </%def>
 <%def name="render_contributor(position, invitee, is_admin = False)">
 	<li>
@@ -104,7 +105,7 @@
 		<a href="#" class="floatRight btnShow">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>
 		<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
 	</div>
-  <div class="colRight">
+  <div class="colRight" id="chipin_box">
 	<div class="boxChipIn">
 		<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn">${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}</a>
 		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
@@ -116,7 +117,7 @@
         </div>
       </div>
       <div class="plus generalBoxRight">
-        <a href="#"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+        <a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
         #### who can invite more friends?
 		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
       </div>

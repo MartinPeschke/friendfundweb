@@ -313,8 +313,6 @@ class PoolController(ExtBaseController):
 		else:
 			c.messages.append(_(SAVE_ADDRESS_FIRST))
 			return redirect(url(controller='pool', action='addresses', pool_url=pool_url))
-
-	
 	
 	@logged_in(ajax=False)
 	def action(self, pool_url):
@@ -329,3 +327,11 @@ class PoolController(ExtBaseController):
 		if action=="ADMIN_ACTION_INVITE":
 			return redirect(url('invite_index',  pool_url = pool_url))
 		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
+	
+	@jsonify
+	def widget(self, pool_url):
+		if not c.pool.am_i_member(c.user):
+			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+		else:
+			return {"popup":render("/pool/parts/widget.html").strip()}
+		
