@@ -24,6 +24,7 @@
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
+  <form action="${url('contribution', action="payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" method="POST">
     <div class="poolDets">
       <h4>How much do you want to contribute?</h4>
       <div class="borderBottom noBorder">
@@ -95,12 +96,13 @@
              <div class="action">
                   <a href="#"><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
                 <p>or</p>
-                <input type="button" value="Chip in with Credit Card" class="button" />
+                <input type="submit" value="Chip in with Credit Card" class="button" />
              </div>
         </div>
       
       <div class="clear"></div>
     </div>
+	</form>
   </div>
   <div class="clear"></div>
 </div>

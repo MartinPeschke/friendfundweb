@@ -147,6 +147,10 @@ class ContributionController(ExtBaseController):
 				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
 	
 	@logged_in(ajax=False)
+	def payment(self, pool_url):
+		return self.render('/contribution/payment_details.html')
+	
+	@logged_in(ajax=False)
 	@no_blocks(ajax=False)
 	def details(self, pool_url):
 		try:
