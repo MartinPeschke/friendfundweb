@@ -36,6 +36,7 @@ div.wrapSubHeaderHome {
 div.wrapSubHeader {
 	background: #ececec;
 	border-bottom: 1px solid #d3d3d3;
+	position:relative
 }
 div.subHeader {
 	max-width: 930px;
@@ -93,15 +94,22 @@ img {
 .fontWeightBold, .bold {
 	font-weight: bold
 }
-input,textarea {
+input, textarea {
 	color: black
 }
 input.default, textarea.default {
 	color: #aeaeae
 }
-.borderGrey{ border:1px solid #cdcdcd}
-.borderGrey input{ width:120px}
-.noBorder{ border-bottom:1px solid #E4E4E4 !important}
+.borderGrey {
+	border:1px solid #cdcdcd
+}
+.borderGrey input {
+	width:120px;
+	float:left
+}
+.noBorder {
+	border-bottom:1px solid #E4E4E4 !important
+}
 /* HEADER */
 div.header h1 {
 	display: block;
@@ -881,7 +889,7 @@ ul.comments {
 }
 ul.comments li {
 	border-bottom: 1px solid #ebebeb;
-	padding:20px 0
+	padding:20px 0 10px 0
 }
 ul.comments li .avt {
 	margin:0 10px 10px 0
@@ -1162,8 +1170,9 @@ div.borderBottom {
 	float: left;
 	border-bottom: 2px solid #E4E4E4;
 	min-width: 690px;
-	padding: 15px 0;
+	padding: 20px 0;
 	position: relative;
+	margin-right:10px
 }
 div.borderBottom div {
 	float: left;
@@ -1178,14 +1187,15 @@ div.borderBottom div.first {
 }
 div.greyInside {
 	background-color: #e8e8e8;
-	padding: 5px;
+	padding: 7px;
 }
 div.borderBottom input {
 	border: 1px solid #999;
-	height: 28px;
-	line-height: 28px;
+	height: 30px;
+	line-height: 30px;
 	font-size: 13px
 }
+div.borderBottom select{border: 1px solid #999; height:28px; line-height:28x; width:76% }
 div.greyInsideFullWidth {
 	background-color: #e8e8e8;
 	padding: 5px 0;
@@ -1202,17 +1212,19 @@ div.containerTxtArea {
 }
 div.containerTxtArea textarea {
 	border: medium none;
-    color: #999999;
-    font-family: Arial;
-    font-size: 12px;
-    width: 100%;
+	color: #999999;
+	font-family: Arial;
+	font-size: 12px;
+	width: 100%;
 }
 div.containerTxtArea input {
 	border: medium none;
-    color: #999999;
-    font-family: Arial;
-    font-size: 12px;
-    width: 100%;
+	color: #999999;
+	font-family: Arial;
+	font-size: 12px;
+	width: 100%;
+	height:20px;
+	line-height:20px
 }
 span.darkGrey {
 	color: #757575;
@@ -1222,7 +1234,6 @@ div.borderBottom .imgContainer {
 	height: 130px;
 	width: 160px;
 	border: 1px solid #ccc;
-
 }
 div.borderBottom .imgContainer img {
 	display: block;
@@ -1245,21 +1256,19 @@ div.choose p {
 	margin-top: 5px;
 	padding: 0 0 4px 0
 }
-div.borderBottom div.address{
+div.borderBottom div.address {
 	font-size:10px;
 	color:#666;
 	padding:0 5px
-		
 }
-div.borderBottom div.desc{
+div.borderBottom div.desc {
 	clear:both;
 	font-size:11px;
 	color:#666;
 	padding:0 5px 20px 5px;
 	margin:5px 0 0 0
-		
 }
-div.borderBottom div.controller{
+div.borderBottom div.controller {
 	bottom:15px;
 	left:350px
 }
@@ -1308,7 +1317,7 @@ div.borderBottom div.greyBlock {
 	float: left;
 	background-color: #E8E8E8;
 	width: 20px;
-	height: 40px;
+	height: 42px;
 	position: relative
 }
 div.borderBottom:hover div.tip {
@@ -1319,9 +1328,9 @@ div.tip {
 	font-size: 12px;
 	position: absolute;
 	right: -240px;
-	top: 15px;
+	top: 20px;
 	background: #FF75FF !important;
-	min-height: 30px;
+	min-height: 42px;
 	display: none
 }
 div.tip span {
@@ -1333,7 +1342,7 @@ div.greyBlock div.arrow {
 	border-bottom: 10px solid transparent;
 	border-right: 10px solid #FF75FF;
 	border-top: 10px solid transparent;
-	margin: 10px 0 0 10px;
+	margin: 12px 0 0 10px;
 }
 .prodImgWrap {
 	float: left;
@@ -1443,29 +1452,111 @@ div.outerPopupFrame .panelclosing_x {
 	font-weight:bold;
 	font-size:16px
 }
-span.value{ font-size:18px; font-weight:bold; color:#333; padding:0 10px}
-.colLeft p.alignInput{ display:block; float:left; height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    text-align: right; margin:5px 0 0 0}
-div.contentDetails{ float:left;  margin-right:10px; padding:0 0 0 160px; color:#999}
-h6{ font-size:12px; font-weight:bold; margin-top:15px; color:#999}
-div.contentDetails a{ color:#00bbea}
-div.imgSpacer{ margin:0 0 0 -10px}
-div.imgSpacer img{ margin-right:25px}
+span.value {
+	font-size:18px;
+	font-weight:bold;
+	color:#333;
+	padding:0 10px;
+	display:block;
+	float:left; margin:5px 0 0 0
+}
+.colLeft p.alignInput {
+	display:block;
+	float:left;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	text-align: right;
+	margin:8px 0 0 0
+}
+div.contentDetails {
+	float:left;
+	margin-right:10px;
+	padding:0 0 0 160px;
+	color:#999
+}
+h6 {
+	font-size:12px;
+	font-weight:bold;
+	margin-top:15px;
+	color:#999
+}
+div.contentDetails a {
+	color:#00bbea
+}
+div.imgSpacer {
+	margin:0 0 0 -10px
+}
+div.imgSpacer img {
+	margin-right:25px
+}
 div.borderBottom p.info {
 	font-size: 11px;
 	color: #999;
-	margin: 10px 0 0 160px;
+	margin: 5px 0 0 160px;
 	padding:0;
 	line-height: 11px;
 	float: left
 }
-div.number{ font-size:18px; color:#666; margin-right:10px; margin-top:5px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif}
-.lessPad{ border:none !important; padding:0 0 0 0  !important}
-.lessPad .tip{ top:0px !important}
-div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox{ width:18px; height:18px; margin:2px 10px 0 0 }
-.terms{ float:left; padding:15px 0 15px 160px; font-size:14px; margin:10px 0 0 0;border-top: 1px solid #E4E4E4 !important; width:530px}
-.action{padding:40px 0 0 0 ; text-align:right}
-.action p{ margin:0 15px; display:inline; padding:0}
-.padSpacer{ padding:15px 0 0 0; float:left; width:100%; height:0; line-height:0; font-size:0}
+div.number {
+	font-size:18px;
+	color:#666;
+	margin-right:10px;
+	margin-top:5px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif
+}
+.lessPad {
+	border:none !important;
+	padding:0 0 0 0 !important
+}
+.lessPad .tip {
+	top:0px !important
+}
+div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox {
+	width:18px;
+	height:18px;
+	margin:2px 10px 0 0
+}
+.terms {
+	float:left;
+	padding:15px 0 15px 160px;
+	font-size:14px;
+	margin:10px 0 0 0;
+	border-top: 1px solid #E4E4E4 !important;
+	width:530px
+}
+.action {
+	padding:40px 0 0 0;
+	text-align:right
+}
+.action p {
+	margin:0 15px;
+	display:inline;
+	padding:0
+}
+.padSpacer {
+	padding:15px 0 0 0;
+	float:left;
+	width:100%;
+	height:0;
+	line-height:0;
+	font-size:0
+}
+.overlayWrapper{position:absolute; width:100%; height:34px; top:0; left:0; overflow:hidden }
+.overlay{ width:100%; height:30px; line-height:30px; font-size:16px; color:#333; text-align:center;}
+.red{ background-color:#fa92ad;
+-moz-box-shadow:0px 2px 2px #888;/* Firefox 3.1+ */
+-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
+box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
+}
+.colLeft p.editableAmount{ line-height:32px; height:32px; min-width:122px; text-align:center; padding:0; float:left; font-size:32px; }
+.editContrib{ left: 159px;
+    position: absolute;
+    top: 69px; font-size:11px }
+.evenLessPad{ padding:10px 0 !important}
+div.evenLessPad div.tip{ top:10px !important}
+div.error span{ color:#FA92AD}
+div.error input { border-color:#FA92AD}
+div.error div.tip{ background-color:#FA92AD !important}
+div.error div.tip div.arrow{ display:none}
+div.error div.tip span{ color:black}
