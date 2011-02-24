@@ -1,0 +1,122 @@
+<%inherit file="../layout.html"/>
+<div class="wrapSubHeader">
+<div class="overlayWrapper">
+  <div class="overlay red">
+  	<p>Please fill in all required fields below.</p>
+  </div>
+</div>
+  <div class="subHeader">
+    <div class="userProfile">
+      <div class="nonPoolHeader">
+        <div class="prodImgWrap">
+          <div class="prodImgSubWrap"> <img src="/static/imgs/dummy/dummy-img-big.jpg" height="90"> </div>
+        </div>
+        <h2>Last Step: Your Payment Details</h2>
+      </div>
+      <div class="steps">
+        <div class="stepOne"><span>1</span>Chip in</div>
+        <div class="rightArrow"></div>
+        <div class="leftArrow active"></div>
+        <div class="stepTwo active"><span>2</span>Payment info</div>
+        <div class="rightArrow active"></div>
+        <div class="leftArrow "></div>
+        <div class="stepThree"><span>3</span>Done</div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="colRight"></div>
+  <div class="colLeft">
+  <form action="${url('contribution', action="payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" method="POST">
+    <div class="poolDets">
+      <h4>Confirm Your Contribution</h4>
+      <div class="borderBottom noBorder">
+        <div class="first" style="margin-top:8px">Your contribution</div>
+        <div class="greyInside widthAuto borderGrey">
+
+          <p class="editableAmount bold">10</p>
+          <span class="value">&euro;</span> </div>
+        <p class="alignInput">MAX. CONTRIBUTION: &euro;<span class="bold"> 22,203.45</span></p>
+        <img src="/static/imgs/veri-sign.png" align="right"> 
+        <a href="#" class="editContrib">Edit</a>
+      </div>
+      <div class="contentDetails">
+        <h6>When will I be charged?</h6>
+        You won't be charged anything unless this Pool is fully funded by Tuesday 21 Oct 2011. If it isn't 
+        funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
+        <h6>Accepted Payment Methods</h6>
+        <div class="imgSpacer"> <img src="/static/imgs/paypal.png"> <img src="/static/imgs/visa.png"> <img src="/static/imgs/mastercard.png"> <img src="/static/imgs/american.png"> <img src="/static/imgs/direct.png"> </div>
+      </div>
+      <div class="clear"></div>
+      <h4>Pay by CreditCard</h4>
+      <div class="borderBottom noBorder">
+      	<div class="first"> <span>Credit Card Type</span> </div>
+       
+          <select></select>
+        
+      </div>
+      <div class="borderBottom noBorder evenLessPad">
+				<div class="tip">
+					<div class="greyBlock"><div class="arrow"></div></div>
+					<span>Tip goes here</span>
+					
+				</div>
+				<div class="greyInsideFullWidth">
+				<div  class="first">
+					<span>Cardholder's Name</span>
+				</div>
+				
+					<input type="text" />
+                    
+				</div>
+                <p class="info">Please type the name as it appears on your card.</p>
+			</div>
+      <div class="borderBottom noBorder evenLessPad error">
+				<div class="tip">
+					<div class="greyBlock"><div class="arrow"></div></div>
+					<span>Error Message</span>
+					
+				</div>
+				<div class="greyInsideFullWidth">
+				<div  class="first">
+					<span>Card Number</span>
+				</div>
+				
+					<input type="text" />
+				</div>
+			</div>
+            <div class="borderBottom noBorder evenLessPad">
+				<div class="tip">
+					<div class="greyBlock"><div class="arrow"></div></div>
+					<span>Error Message</span>
+					
+				</div>
+				
+				<div  class="first">
+					<span>Expiry Date</span>
+				</div>
+				
+					<input type="text" />
+			</div>
+            <div class="borderBottom noBorder evenLessPad">
+				<div class="tip">
+					<div class="greyBlock"><div class="arrow"></div></div>
+					<span>Error Message</span>
+					
+				</div>
+				
+				<div  class="first">
+					<span>Card Validation Code</span>
+				</div>
+				
+					<input type="text" />
+			</div>
+      
+    </div>
+    
+	</form>
+  </div>
+  <div class="clear"></div>
+</div>
