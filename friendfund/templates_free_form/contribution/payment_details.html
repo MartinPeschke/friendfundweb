@@ -29,7 +29,7 @@
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
-  <form action="${url('contribution', action="payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" method="POST">
+  <form action="${url('contribution', action="payment_success", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" method="POST">
     <div class="poolDets">
       <h4>Confirm Your Contribution</h4>
       <div class="borderBottom noBorder">
@@ -112,6 +112,7 @@
 				</div>
 				
 					<input type="text" />
+					<input type="submit" value="Submit"/>
 			</div>
       
     </div>
