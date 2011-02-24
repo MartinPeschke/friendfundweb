@@ -24,7 +24,6 @@ class GetCountryProc(DBMappedObject):
 	def fromDB(self, xml):
 		self.list = [c.name for c in self.list]
 
-		
 class CountryRegion(DBMappedObject):
 	_cachable = False
 	_get_root = 'COUNTRY'
@@ -38,7 +37,9 @@ class CountryRegion(DBMappedObject):
 	def fromDB(self, xml):
 		self.code = self.code.lower()
 		self.region = self.region.lower()
-		self.currency = 'EUR' ###TODO: make variable from DB
+		import random
+		currencies = ['USD', 'GBP', 'EUR']
+		self.currency = random.choice(currencies) ###TODO: make variable from DB
 	
 class GetCountryRegionProc(DBMappedObject):
 	_cachable = False
@@ -53,9 +54,11 @@ class GetCountryRegionProc(DBMappedObject):
 	def fromDB(self, xml):
 		setattr(self, 'map', {})
 		setattr(self, 'r2c_map', {})
+		setattr(self, 'currencies', set())
 		for country in self.countries:
 			self.r2c_map[country.region] = self.r2c_map.get(country.region, []) + [country.code]
 			self.map[country.code] = country
+			self.currencies.add(country.currency)
 		try:
 			setattr(self, 'fallback', filter(lambda x: x.is_default, self.countries)[0])
 		except IndexError, e:

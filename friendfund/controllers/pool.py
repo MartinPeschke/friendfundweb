@@ -56,12 +56,17 @@ class PoolController(ExtBaseController):
 		self._clean_session()
 		return redirect(url('home'))
 	def details(self):
-		amount = moneyval.to_python(request.params.get("pool.amount"))
+		try:
+			amount = moneyval.to_python(request.params.get("pool.amount"))
+		except formencode.validators.Invalid, error:
+			amount = None
 		c.pool = websession.get('pool', Pool())
 		c.pool.set_amount_float(amount)
-		c.pool.currency = h.default_currency()
-		c.pool.title = request.params.get("pool.title","")
+		c.pool.currency = c.pool.currency or h.default_currency()
+		c.pool.title = request.params.get("pool.title",c.pool.title)
 		websession['pool'] = c.pool
+		if request.method=="POST":
+			return redirect(redirect(url(controller='pool', action='details')))
 		return self.render('/pool/pool_details.html')
 	
 	def complete(self, pool_url):

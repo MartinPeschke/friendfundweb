@@ -8,7 +8,9 @@ refer to the routes manual at http://routes.groovie.org/docs/
 from friendfund.lib.routes_middleware import VersionedMapper as Mapper
 
 CONNECT_METHODS = 'twitter|facebook|email|yourself'
+VERBS = "e|d"
 purlpattern = '[.0-9a-zA-Z~_-]+'
+
 def make_map(config):
 	"""Create, configure and return the routes Mapper"""
 	map = Mapper(directory=config['pylons.paths']['controllers'],
@@ -28,6 +30,7 @@ def make_map(config):
 	map.connect('get_pool', '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': purlpattern})
 	map.connect('pool_action', '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})
 	map.connect('chipin', '/chipin/{pool_url}', controller='contribution', action="chipin", requirements={'pool_url': purlpattern})
+	map.connect('data', '/d/{verb}/{action}', controller='data_editor', requirements={'verb':VERBS})
 	map.connect('chipin_fixed', '/chipin/{pool_url}/fixed', controller='contribution', action="chipin_fixed", requirements={'pool_url': purlpattern})
 	map.connect('contribution', '/chipin/{pool_url}/{action}', controller='contribution', requirements={'pool_url': purlpattern})
 	

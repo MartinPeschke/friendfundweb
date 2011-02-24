@@ -149,6 +149,11 @@ class ContributionController(ExtBaseController):
 	@logged_in(ajax=False)
 	def payment(self, pool_url):
 		return self.render('/contribution/payment_details.html')
+	@logged_in(ajax=False)
+	def payment_success(self, pool_url):
+		return self.render('/contribution/payment_success.html')
+	
+	
 	
 	@logged_in(ajax=False)
 	@no_blocks(ajax=False)

@@ -1,3 +1,47 @@
+parseEditables = function(rootnode){
+	dojo.query(".editable.active", rootnode).forEach(
+		function(root){
+			dojo.removeClass(root,'active');
+			var d = dojo.connect(root, "onclick", 
+				function(evt){
+					xhrPost('/d/e/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+						function(data){
+							dojo.place(data,root,"only");
+							dojo.disconnect(d);
+							dojo.query('input[type=text],select,textarea', root).forEach(
+								function(editor){
+									if(editor.tagName=='SELECT'){
+										var b = dojo.connect(editor, "onchange", 
+										function(editevt){
+											dojo.disconnect(b);
+											dojo.addClass(root,'active');
+											dojo.attr(root, '_value', editevt.target.options[editevt.target.selectedIndex].value);
+											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+												function(data){
+													root.innerHTML = data;
+													parseEditables(rootnode);
+												});
+										});
+									}else{
+										var b = dojo.connect(editor, "onblur", 
+										function(editevt){
+											dojo.disconnect(b);
+											dojo.addClass(root,'active');
+											dojo.attr(root, '_value', editevt.target.value);
+											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+												function(data){
+													root.innerHTML = data;
+													parseEditables(rootnode);
+												});
+										});
+									}
+								});
+						});
+				});
+		});
+};
+
+
 popup_esc_handler = [];
 esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
 closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[]};
