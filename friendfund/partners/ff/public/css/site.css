@@ -108,10 +108,11 @@ img {
 	font-weight: bold
 }
 input, textarea {
-	color: black
+	color: black;
+	font-family:Arial, Helvetica, sans-serif
 }
 input.default, textarea.default {
-	color: #aeaeae
+	color: #aeaeae !important
 }
 .borderGrey {
 	border:1px solid #cdcdcd
@@ -1317,6 +1318,11 @@ div.borderBottom {
 	position: relative;
 	margin-right:10px
 }
+div.selected{
+	
+	padding: 15px 0;
+	}
+div.selected div.greyInsideFullWidth{ padding:5px 0; background-color: #e8e8e8;}
 div.borderBottom div {
 	float: left;
 	font-size: 14px;
@@ -1336,8 +1342,10 @@ div.borderBottom input {
 	border: 1px solid #999;
 	height: 30px;
 	line-height: 30px;
-	font-size: 13px
+	font-size: 14px;
+	
 }
+div.greyInsideFullWidth input{ margin-left:3px}
 div.borderBottom div.title.editable input {
 	border: 1px solid #999;
 	height: auto;
@@ -1345,7 +1353,8 @@ div.borderBottom div.title.editable input {
 	font-size: 13px
 }
 div.borderBottom input.small {
-	width:120px
+	width:120px;
+	padding:0 5px
 }
 div.borderBottom select {
 	border: 1px solid #999;
@@ -1354,27 +1363,29 @@ div.borderBottom select {
 	width:76%;;
 	font-size:13px;
 }
-div.borderBottom span.editable select{ width:40px; display:block; float:right; font-size:16px; margin-left:5px}
+div.borderBottom span.editable select{ width:40px; display:block; float:right; font-size:16px; margin-left:3px}
 div.greyInsideFullWidth {
-	background-color: #e8e8e8;
-	padding: 5px 0;
+	
 	width:100%
 }
+
+
 div.greyInsideFullWidth input {
 	padding:0 5px;
 	width: 74%
 }
 div.containerTxtArea {
 	width:74%;
-	border: 1px solid #666666;
+	border: 1px solid #999;
 	padding:5px;
-	background:white
+	background:white;
+	margin-left:3px
 }
 div.containerTxtArea textarea {
 	border: medium none;
-	color: #999999;
+	color: #333;
 	font-family: Arial;
-	font-size: 12px;
+	font-size: 14px;
 	width: 100%;
 }
 div.containerTxtArea input {
@@ -1483,29 +1494,33 @@ div.borderBottom div.greyBlock {
 	height: 42px;
 	position: relative
 }
-div.borderBottom:hover div.tip {
-	display: block
+div.selected div.tip {
+	display: block !important
 }
-div.tip {
+div.borderBottom div.tip {
 	width: 240px;
-	font-size: 12px;
-	position: absolute;
-	right: -240px;
-	top: 20px;
+	font-size: 12px !important;
 	background: #FF75FF !important;
 	min-height: 42px;
-	display: none
+	display: none;
+	position:absolute;
+	right:-250px;
+	
 }
 div.tip span {
 	display: block;
-	float: left;
-	padding: 5px 0 0 5px
+    float: left;
+    padding: 5px 10px;
+    width: 200px;
 }
-div.greyBlock div.arrow {
+div.tip div.arrow {
 	border-bottom: 10px solid transparent;
 	border-right: 10px solid #FF75FF;
 	border-top: 10px solid transparent;
-	margin: 12px 0 0 10px;
+	left:-10px;
+	top:0;
+	position:absolute;
+	margin-top:10px
 }
 .prodImgWrap {
 	float: left;
@@ -1758,14 +1773,14 @@ div.evenLessPad div.tip {
 div.error span {
 	color:#FA92AD
 }
-div.error input {
+div.error input , div.error .containerTxtArea {
 	border-color:#FA92AD
 }
 div.error div.tip {
 	background-color:#FA92AD !important
 }
 div.error div.tip div.arrow {
-	display:none
+	border-right: 10px solid #FA92AD;
 }
 div.error div.tip span {
 	color:black
