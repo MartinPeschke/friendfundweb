@@ -250,6 +250,8 @@ var pic_judger = function(preselected, evt){
 	}else{
 		dojo.byId("pictureCounter").innerHTML=++picCounter;
 		dojo.addClass(evt.target, "allowed");
+		var input = dojo.create("INPUT", {type:"hidden", value:evt.target.src, name:'img_list'});
+		dojo.byId("productPicture").parentNode.appendChild(input);
 	}
 	if(!--totalcounter){
 		var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");

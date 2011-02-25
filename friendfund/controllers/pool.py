@@ -65,6 +65,18 @@ class PoolController(ExtBaseController):
 		return redirect(url('home'))
 	
 	###TODO: these UID Links could be shared and disclose unwanted information
+	def setup(self):
+		c.values = {
+			"amount":request.params.get("amount"),
+			"currency":h.default_currency(),
+			"title":request.params.get("title"),
+			"tracking_link":request.params.get("tracking_link"),
+			"product_picture":request.params.get("product_picture"),
+			"img_list":request.params.getall("img_list") or [],
+			"date":request.params.get("date") or (datetime.datetime.today() + datetime.timedelta(14))
+			}
+		print c.values
+		return self.render('/pool/pool_details.html')
 	def details(self):
 		c.pd = request.params.get("pd")
 		try:
@@ -86,9 +98,9 @@ class PoolController(ExtBaseController):
 					amount = None
 				c.pool.set_amount_float(amount)
 			c.pool.title = request.params.get("pool.title",c.pool.title)
-			c.pool.currency = c.pool.currency or h.default_currency()
+			c.pool.currency = c.pool.currency
 			if not c.pool.occasion:
-				c.pool.occasion = Occasion(key = "EVENT_OTHER", date=datetime.datetime.today() + datetime.timedelta(14))
+				c.pool.occasion = Occasion(key = "EVENT_OTHER")
 			if c.pool.title and c.pool.title.strip() in getattr(c.pool.product, "tracking_link", ""):
 				c.pool.title = None
 			if c.pool.product and "product.picture" in request.params:
@@ -116,8 +128,8 @@ class PoolController(ExtBaseController):
 			try:
 				c.pool = g.pool_service.create_free_form()
 			except formencode.validators.Invalid, error:
-				log.error( error )
-				raise
+				c.error_values = error.error_dict or {}
+				return self.render('/pool/pool_details.html')
 		
 		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)

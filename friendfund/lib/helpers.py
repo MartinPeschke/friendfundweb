@@ -89,7 +89,7 @@ def format_currency(number, currency):
 	return fc(fnumber, currency, locale=websession['lang'])
 
 def format_number(number):
-	if number is None: return ""
+	if number is None or number=="": return ""
 	fnumber = Decimal('%.2f' % number)
 	return fdec(fnumber, format='#,##0.##;-#', locale=websession['lang'])
 

@@ -11,13 +11,13 @@
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
 			<h3>We need</h3>
-			<div><form method="POST" onSubmit="onSubmitCleaner(this)" action="${url("pool_details", protocol="http", pd = c.pd)}" onSubmit="getProductPic()">
-				<input name="product.picture" type="hidden" id="productPicture" />
-				<input name="product.tracking_link" type="hidden" id="productLink" />
+			<div><form method="POST" onSubmit="onSubmitCleaner(this)" action="${url("pool_setup", protocol="http", pd = c.pd)}" onSubmit="getProductPic()">
+				<input name="product_picture" type="hidden" id="productPicture" />
+				<input name="tracking_link" type="hidden" id="productLink" />
 				<span>${h.display_currency(h.default_currency())}</span>
-				<input type="text" name="pool.amount" class="short tipeIn" />
+				<input type="text" name="amount" class="short tipeIn" />
 				<span style="margin-left:30px">for</span>
-				<input type="text" name="pool.title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="default long" _url="${url(controller="product", action="open_bounce", pd = c.pd)}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
+				<input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="default long" _url="${url(controller="product", action="open_bounce", pd = c.pd)}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 				<input type="submit" class="button" value="${_("FF_HOME_PAGE_Get Started")}" />
 				<p class="info">You can also paste a link from any website here.</p>
 			</form></div>
