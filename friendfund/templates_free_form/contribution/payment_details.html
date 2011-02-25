@@ -51,19 +51,25 @@
       </div>
       <div class="clear"></div>
       <h4>Pay by CreditCard</h4>
-      <div class="borderBottom noBorder">
-      	<div class="first"> <span>Credit Card Type</span> </div>
-       
-          <select></select>
-        
+      <div class="borderBottom noBorder selected error ">
+      	<div class="tip">
+					<div class="arrow"></div>
+					<span>Tip goes here</span>
+					
+				</div>
+          <div class="greyInsideFullWidth">
+              <div class="first"> <span>Credit Card Type</span> </div>
+              <select></select>
+          </div>  
       </div>
-      <div class="borderBottom noBorder evenLessPad">
+      <div class="borderBottom noBorder selected error">
 				<div class="tip">
-					<div class="greyBlock"><div class="arrow"></div></div>
+					<div class="arrow"></div>
 					<span>Tip goes here</span>
 					
 				</div>
 				<div class="greyInsideFullWidth">
+                
 				<div  class="first">
 					<span>Cardholder's Name</span>
 				</div>
@@ -71,11 +77,11 @@
 					<input type="text" />
                     
 				</div>
-                <p class="info">Please type the name as it appears on your card.</p>
+                <!--p class="info">Please type the name as it appears on your card.</p-->
 			</div>
-      <div class="borderBottom noBorder evenLessPad error">
+      <div class="borderBottom noBorder selected  error">
 				<div class="tip">
-					<div class="greyBlock"><div class="arrow"></div></div>
+					<div class="arrow"></div>
 					<span>Error Message</span>
 					
 				</div>
@@ -87,25 +93,34 @@
 					<input type="text" />
 				</div>
 			</div>
-            <div class="borderBottom noBorder evenLessPad">
-				
-				
+            <div class="borderBottom noBorder selected error">
+				<div class="tip">
+					<div class="arrow"></div>
+					<span>Error Message</span>
+					
+				</div>
+				<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>Expiry Date</span>
 				</div>
 				
 					<select class="smallForm"></select>
 					<select class="smallForm"></select>
-			</div>
-            <div class="borderBottom noBorder evenLessPad">
-				
-				
+				</div>
+            </div>
+            <div class="borderBottom noBorder selected error">
+				<div class="tip">
+					<div class="arrow"></div>
+					<span>Error Message</span>
+					
+				</div>
+				<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>Card Validation Code</span>
 				</div>
 				
 					<input type="text"  class="smallForm" /><a href="#" class="smallForm">what's this?</a>
-					
+				</div>
 			</div>
       <input type="submit" value="Submit"/>
     </div>
