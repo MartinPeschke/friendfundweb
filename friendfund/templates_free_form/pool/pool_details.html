@@ -57,12 +57,12 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			<div class="borderBottom">
-				<div class="first" style="margin-top:8px; width:135px">We Need <span class="editable active" _elem="currency" _value="${c.pool.currency}">${h.display_currency(c.pool.currency)}</span></div>
-				<div class="greyInside">
-					<input type="text" value="${h.format_number(c.pool.get_amount_float())}" />
-					<span>by</span>
-					<input type="text" id="datepicker"/>
-				<span class="darkGrey"><span class="bold" id="daysLeft">0</span> days left</span>
+				<div class="first" style="margin-top:8px; width:135px"><span>We Need</span> <span class="editable active" _elem="currency" _value="${c.pool.currency}">${h.display_currency(c.pool.currency)}</span></div>
+				<div class="greyInside" style="width:520px">
+					<input type="text" value="${h.format_number(c.pool.get_amount_float())}" class="small" />
+					<span style="margin-left:40px; margin-right:5px">by</span>
+					<input type="text" id="datepicker" class="small" />
+				<span class="darkGrey floatRight"><span class="bold" id="daysLeft">0</span> DAYS LEFT</span>
 			</div>
 			</div>
 			<div class="borderBottom ">
@@ -89,8 +89,8 @@
 				<div class="borderBottom">
 					<div id="homeurlexpander" class="home_expander">
 						<input type="hidden" id="productPicture" value="${c.pool.product.picture}" />
-						<a class="address" href="${c.pool.product.tracking_link}">${c.pool.product.get_display_link()}</a>
-						<div class="title editable active" _elem="prodname" _value="${c.pool.product.name}">${c.pool.product.name}</div>
+						
+						<div class="title editable active" _elem="prodname" _value="${c.pool.product.name}">${c.pool.product.name}</div><a class="address smallAddress" href="${c.pool.product.tracking_link}">${c.pool.product.get_display_link()}</a>
 						<div class="desc editable active" _elem="proddesc" _value="${c.pool.product.description}">${c.pool.product.get_display_description()}</div>
 					</div>
 				</div>
