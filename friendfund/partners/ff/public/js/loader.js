@@ -10,31 +10,24 @@ parseEditables = function(rootnode){
 							dojo.disconnect(d);
 							dojo.query('input[type=text],select,textarea', root).forEach(
 								function(editor){
-									if(editor.tagName=='SELECT'){
-										var b = dojo.connect(editor, "onchange", 
-										function(editevt){
-											dojo.disconnect(b);
+									editor.focus();
+									var evts = [];
+									var f = function(editevt){
+											dojo.forEach(evts, dojo.disconnect);
 											dojo.addClass(root,'active');
-											dojo.attr(root, '_value', editevt.target.options[editevt.target.selectedIndex].value);
+											if(editor.tagName=='SELECT'){
+												dojo.attr(root, '_value', editevt.target.options[editevt.target.selectedIndex].value);
+											} else {
+												dojo.attr(root, '_value', editevt.target.value);
+											}
 											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
 												function(data){
 													root.innerHTML = data;
 													parseEditables(rootnode);
 												});
-										});
-									}else{
-										var b = dojo.connect(editor, "onblur", 
-										function(editevt){
-											dojo.disconnect(b);
-											dojo.addClass(root,'active');
-											dojo.attr(root, '_value', editevt.target.value);
-											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
-												function(data){
-													root.innerHTML = data;
-													parseEditables(rootnode);
-												});
-										});
-									}
+											};
+									evts.push(dojo.connect(editor, "onchange", f));
+									evts.push(dojo.connect(editor, "onblur", f));
 								});
 						});
 				});

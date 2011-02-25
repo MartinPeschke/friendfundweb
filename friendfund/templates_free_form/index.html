@@ -11,7 +11,7 @@
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
 			<h3>We need</h3>
-			<div><form method="POST" action="${url("pool_details", protocol="http", pd = c.pd)}" onSubmit="getProductPic()">
+			<div><form method="POST" onSubmit="onSubmitCleaner(this)" action="${url("pool_details", protocol="http", pd = c.pd)}" onSubmit="getProductPic()">
 				<input name="product.picture" type="hidden" id="productPicture" />
 				<input name="product.tracking_link" type="hidden" id="productLink" />
 				<span>${h.display_currency(h.default_currency())}</span>

@@ -1,12 +1,9 @@
 %if c.user.is_anon:
-	<div class="newFormControls loginPanel" id="loginPanelContent">
+	<div class="newFormControls loginPanel hidden" id="loginPanelContent">
 		<form id="login_panel_form">
 		<div class="inputline">
-		
-
-		<label class="" for="login_email">Email Address</label>
-	<input type="text" class=" " value="" name="login.email" id="login_email">
-
+			<label class="" for="login_email">Email Address</label>
+			<input type="text" class=" " value="" name="login.email" id="login_email">
 		</div>
         <div class="inputline">
 		
@@ -35,9 +32,29 @@
 		<p>Dont have an account yet? <a class="lostpass" href="/signup?furl=/">Sign up here</a></p>
 
 	</div>
-	<a href="#" class="active btn">Login</a>
-	<a href="#" class="btn">Sign Up</a>
+	<a class="btn" id="loginlink" onclick="toggleLoginPanel(this)">Login</a>
+	<a href="/signup?furl=/" class="btn">Sign Up</a>
 	
+	<script type="text/javascript">
+	closeLoginPanel = function(evt){
+		if(dojo.hasClass("loginlink", "active")){
+			dojo.removeClass("loginlink", "active");
+			dojo.addClass("loginPanelContent", "hidden");
+		}
+	}
+	toggleLoginPanel = function(link){
+		if(dojo.hasClass(link, "active")){
+			dojo.removeClass(link, "active");
+			dojo.addClass("loginPanelContent", "hidden");
+		} else {
+			dojo.addClass(link, "active");
+			dojo.removeClass("loginPanelContent", "hidden");
+		}
+	}
+	document.onkeydown = function(evt){
+		if(evt.keyCode == 27){closeLoginPanel(evt);}
+	}
+	</script>
 %else:
 <img src="/static/imgs/loginarea-ico.png" />
 	<div class="showHide">

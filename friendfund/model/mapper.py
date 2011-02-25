@@ -171,6 +171,20 @@ class DBMappedObject(DBMapping):
 		return self
 	def get_map(self):
 		return dict([(k.pykey,getattr(self, k.pykey, None)) for k in self._keys])
+	
+	def fromMap(self, map, override = False):
+		keyMap = dict([(k.pykey,k) for k in self._keys])
+		for k,v in map.iteritems():
+			if k in keyMap:
+				if issubclass(keyMap[k].cls, DBMappedObject):
+					obj = getattr(self, k) or keyMap[k].cls()
+					obj = obj.fromMap(v, override)
+					setattr(self, k, obj)
+				else:
+					if not override:
+						v = getattr(self, k) or v
+					setattr(self, k, v)
+		return self
 
 
 
@@ -217,7 +231,7 @@ class DBMapper(object):
 		if len(children):
 			return "<%s %s>%s</%s>" % (obj._set_root \
 											,' '.join(filter(bool, attribs))\
-											,''.join(children)\
+											,''.join(filter(None, children))\
 											,obj._set_root)
 		else:
 			return "<%s %s />" % (obj._set_root,   ' '.join(attribs))

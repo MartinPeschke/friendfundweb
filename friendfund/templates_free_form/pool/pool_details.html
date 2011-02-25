@@ -9,16 +9,20 @@
 	parseEditables("poolDetails");
 	var today = new Date();
 	if(dojo.byId("datepicker").value){
-		var date = dojo.byId("datepicker").value.split('/');
-		date = new Date(date[2], parseInt(date[1])-1, date[0]);
+		var date = new Date(dojo.byId("dateValue").value);
 		dojo.byId("daysLeft").innerHTML = Math.ceil((date.getTime()-today.getTime())/(24*3600*1000));
 	}
 	datePickerController.createDatePicker({
-	  formElements:{"datepicker":"d-sl-m-sl-Y"},
+	  formElements:{"datepicker":"d-dt-m-dt-Y"},
 	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
 	  callbackFunctions:{"dateset":[
 			function(params){
-				dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
+				if(params.date){
+					dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
+					dojo.byId("dateValue").value=params.yyyy+"-"+lpad(params.mm)+"-"+lpad(params.dd);
+				} else {
+					alert("Please Input a Date greater than "+lpad(today.getDate())+ "." + lpad(today.getMonth()+1) +"." +today.getFullYear() , +"!");
+				}
 			}
 		]}
 	});
@@ -53,15 +57,16 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" action="${url('pool_create')}">
+		<form method="POST" onSubmit="onSubmitCleaner(this)" action="${url('pool_create', pd=c.pd)}">
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			<div class="borderBottom">
 				<div class="first" style="margin-top:8px; width:135px"><span>We Need</span> <span class="editable active" _elem="currency" _value="${c.pool.currency}">${h.display_currency(c.pool.currency)}</span></div>
 				<div class="greyInside" style="width:521px">
-					<input type="text default" value="${h.format_number(c.pool.get_amount_float())}" class="small" />
+					<input type="text" value="${h.format_number(c.pool.get_amount_float())}" class="small default" />
 					<span style="margin-left:40px; margin-right:5px">by</span>
-					<input type="text default" id="datepicker" class="small" />
+					<input class="small default" type="text" id="datepicker" value="${getattr(c.pool.occasion, "display_date", "")}"/>
+					<input type="hidden" name="occasion.date" id="dateValue" value="${getattr(c.pool.occasion, "internal_date_format", "")}"/>
 				<span class="darkGrey floatRight"><span class="bold" id="daysLeft">0</span> DAYS LEFT</span>
 			</div>
 			</div>
@@ -74,7 +79,7 @@
 				<div class="first">
 					<span>Pool Title</span>
 				</div>
-					<input type="text default" name="pool.title" _default_text="Write your title here..." class="default" value="${c.pool.title or "Write your title here..."}" />
+					<input type="text" name="title" _default_text="Write your title here..." class="default" value="${c.pool.title or "Write your title here..."}" />
 				</div>
 			</div>
 			<div class="borderBottom selected error">
@@ -87,7 +92,7 @@
 					<span>Pool Description</span>
 				</div>
 				<div class="containerTxtArea">
-					<textarea name="pool.description" _default_text="Write your description here..." class="default">${c.pool.description or "Write your description here..."}</textarea>
+					<textarea name="description" _default_text="Write your description here..." class="default">${c.pool.description or "Write your description here..."}</textarea>
 				</div>
                 </div>
 			</div>
@@ -96,7 +101,8 @@
 					<div id="homeurlexpander" class="home_expander">
 						<input type="hidden" id="productPicture" value="${c.pool.product.picture}" />
 						
-						<div class="title editable active" _elem="prodname" _value="${c.pool.product.name}">${c.pool.product.name}</div><a class="address smallAddress" href="${c.pool.product.tracking_link}">${c.pool.product.get_display_link()}</a>
+						<div class="title editable active" _elem="prodname" _value="${c.pool.product.name}">${c.pool.product.name}</div>
+						<a class="address smallAddress" href="${c.pool.product.tracking_link}">${c.pool.product.get_display_link()}</a>
 						<div class="desc editable active" _elem="proddesc" _value="${c.pool.product.description}">${c.pool.product.get_display_description()}</div>
 					</div>
 				</div>

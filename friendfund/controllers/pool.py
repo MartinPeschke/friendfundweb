@@ -1,6 +1,5 @@
 from __future__ import with_statement
 import logging, formencode, datetime
-
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
@@ -12,7 +11,7 @@ from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
-from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage
+from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
 
@@ -44,6 +43,13 @@ class PoolController(ExtBaseController):
 			return self.render('/pool/pool.html')
 		else:
 			return self.render('/pool/pool_secret.html')
+		
+	def complete(self, pool_url):
+		if c.pool is None:
+			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+		if not c.pool.is_closed():
+			 redirect(url('get_pool', pool_url=pool_url))
+		return self.render('/pool/pool_complete.html')
 	
 	def _clean_session(self):
 		if 'pool' in websession:
@@ -57,17 +63,18 @@ class PoolController(ExtBaseController):
 		self._clean_session()
 		return redirect(url('home'))
 	
+	###TODO: these UID Links could be shared and disclose unwanted information
 	def details(self):
-		pd = request.params.get("pd")
+		c.pd = request.params.get("pd")
 		try:
-			pd = str(pd).strip()
+			c.pd = str(c.pd).strip()
 		except:
-			pd = h.get_unique_token()
+			c.pd = h.get_unique_token()
 			if request.method != "POST":
-				return redirect(url(controller='pool', action='details', pd=pd))
+				return redirect(url(controller='pool', action='details', pd=c.pd))
 		
 		with g.cache_pool.reserve() as mc:
-			wizard = h.get_wizard(mc, pd)
+			wizard = h.get_wizard(mc, c.pd)
 			c.pool = wizard.get("pool", Pool())
 			amount = request.params.get("pool.amount")
 			if amount:
@@ -79,21 +86,17 @@ class PoolController(ExtBaseController):
 				c.pool.set_amount_float(amount)
 			c.pool.title = request.params.get("pool.title",c.pool.title)
 			c.pool.currency = c.pool.currency or h.default_currency()
+			if not c.pool.occasion:
+				c.pool.occasion = Occasion(key = "EVENT_OTHER", date=datetime.datetime.today() + datetime.timedelta(14))
 			if c.pool.title and c.pool.title.strip() in getattr(c.pool.product, "tracking_link", ""):
 				c.pool.title = None
 			if c.pool.product and "product.picture" in request.params:
 				c.pool.product.picture = request.params.get("product.picture",c.pool.product.picture)
 			c.images = wizard.get('product_picture_list', [])
 			wizard['pool'] = c.pool
-			h.set_wizard(mc, pd, wizard)
+			h.set_wizard(mc, c.pd, wizard)
 			return self.render('/pool/pool_details.html')
-		
-	def complete(self, pool_url):
-		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-		if not c.pool.is_closed():
-			 redirect(url('get_pool', pool_url=pool_url))
-		return self.render('/pool/pool_complete.html')
+
 	
 	@logged_in()
 	def create(self):
@@ -103,11 +106,30 @@ class PoolController(ExtBaseController):
 			return self._create_groupgift()
 	
 	def _create_freeform(self):
-		c.pool = websession.get('pool', Pool())
-		print request.params
+		c.pd = request.params.get("pd")
+		try:
+			c.pd = str(c.pd).strip()
+		except:
+			pass
+		if c.pd:
+			with g.cache_pool.reserve() as mc:
+				wizard = h.get_wizard(mc, c.pd)
+		else:
+			wizard = {}
+		c.pool = wizard.get("pool", Pool())
 		c.pool.merchant_domain = request.merchant.domain
+		pool_map = formencode.variabledecode.variable_decode(request.params)
+		c.pool.fromMap(pool_map, override = True)
+		admin = PoolUser(**c.user.get_map())
+		admin.is_admin = True
+		receiver = PoolUser(**c.user.get_map())
+		receiver.is_receiver = True
+		c.pool.participants.append(admin)
+		c.pool.participants.append(receiver)
+		
 		g.dbm.set(c.pool, merge = True, cache=False)
-		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
+		if c.pool.product:
+			remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		
 		if not c.pool:

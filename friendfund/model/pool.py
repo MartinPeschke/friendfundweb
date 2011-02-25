@@ -93,6 +93,8 @@ class Occasion(DBMappedObject):
 			
 	def get_display_date(self):
 		return h.format_date(self.date)
+	display_date = property(get_display_date)
+	
 	def get_display_name(self):
 		return self.name or (self.key and _(self.key)) or ''
 	def get_display_label(self):
