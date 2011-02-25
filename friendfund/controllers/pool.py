@@ -13,7 +13,8 @@ from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
-from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_product_picture_render, remote_pool_picture_render
+from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
+from friendfund.tasks.photo_renderer import remote_product_picture_render, remote_pool_picture_render
 
 _ = lambda x:x
 NOT_AUTHORIZED_MESSAGE = _("POOL_Your not authorized for this operation.")
@@ -67,7 +68,7 @@ class PoolController(ExtBaseController):
 	def details(self):
 		c.pd = request.params.get("pd")
 		try:
-			c.pd = str(c.pd).strip()
+			c.pd = str(c.pd.strip())
 		except:
 			c.pd = h.get_unique_token()
 			if request.method != "POST":
@@ -96,75 +97,32 @@ class PoolController(ExtBaseController):
 			wizard['pool'] = c.pool
 			h.set_wizard(mc, c.pd, wizard)
 			return self.render('/pool/pool_details.html')
-
 	
 	@logged_in()
 	def create(self):
-		if request.merchant.type_is_free_form:
-			return self._create_freeform()
+		if request.merchant.type_is_group_gift:
+			try:
+				c.pool = g.pool_service.create_group_gift()
+			except MissingProductException, e:
+				c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+				return redirect(url('home'))
+			except MissingOccasionException, e:
+				c.messages.append(_("POOL_CREATE_Occasion was unknown, what can I do?"))
+				return redirect(url('home'))
+			except MissingReceiverException, e:
+				c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
+				return redirect(url('home'))
 		else:
-			return self._create_groupgift()
-	
-	def _create_freeform(self):
-		c.pd = request.params.get("pd")
-		try:
-			c.pd = str(c.pd).strip()
-		except:
-			pass
-		if c.pd:
-			with g.cache_pool.reserve() as mc:
-				wizard = h.get_wizard(mc, c.pd)
-		else:
-			wizard = {}
-		c.pool = wizard.get("pool", Pool())
-		c.pool.merchant_domain = request.merchant.domain
-		pool_map = formencode.variabledecode.variable_decode(request.params)
-		c.pool.fromMap(pool_map, override = True)
-		admin = PoolUser(**c.user.get_map())
-		admin.is_admin = True
-		receiver = PoolUser(**c.user.get_map())
-		receiver.is_receiver = True
-		c.pool.participants.append(admin)
-		c.pool.participants.append(receiver)
+			try:
+				c.pool = g.pool_service.create_free_form()
+			except formencode.validators.Invalid, error:
+				log.error( error )
+				raise
 		
+		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)
 		if c.pool.product:
 			remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
-		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
-		
-		if not c.pool:
-			return redirect(request.referer)
-		self._clean_session()
-			
-	def _create_groupgift(self):
-		c.pool = websession.get('pool')
-		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-			return redirect(url('home'))
-		elif c.pool.product is None:
-			c.messages.append(_("POOL_CREATE_Product was unknown, what can I do?"))
-			return redirect(url('home'))
-		elif c.pool.occasion is None:
-			c.messages.append(_("POOL_CREATE_Occasion was unknown, what can I do?"))
-			return redirect(url('home'))
-		elif c.pool.receiver is None:
-			c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
-			return redirect(url('home'))
-		
-		admin = PoolUser(**c.user.get_map())
-		if h.users_equal(c.pool.receiver, admin):
-			admin.profile_picture_url = c.pool.receiver.profile_picture_url
-		admin.is_admin = True
-		
-		#### Setting up the Pool for initial Persisting
-		c.pool.participants.append(admin)
-		locals = {"admin_name":admin.name, "receiver_name" : c.pool.receiver.name, "occasion_name":c.pool.occasion.get_display_name()}
-		c.pool.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
-		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in c.pool.participants])
-		
-		c.pool.merchant_domain = request.merchant.domain
-		g.dbm.set(c.pool, merge = True, cache=False)
-		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		
 		if not c.pool:

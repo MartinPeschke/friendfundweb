@@ -1,12 +1,3 @@
-onSubmitCleaner = function(rootnode){
-	dojo.query("input[_default_text],textarea[_default_text]", rootnode).forEach(
-		function(element){
-			if(dojo.attr(elem, "_default_text") == elem.value){elem.value=""}
-		});
-	return true;
-};
-
-
 esc_handler_f = function(callback, evt){
 	if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}
 };

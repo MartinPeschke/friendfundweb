@@ -252,7 +252,6 @@ class Pool(DBMappedObject):
 	def get_contributors(self):
 		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
 	
-	
 	def get_amount_float(self):
 		try:
 			return float(self.amount)/100

@@ -1,3 +1,11 @@
+onSubmitCleaner = function(rootnode){
+	dojo.query("input[_default_text],textarea[_default_text]", rootnode).forEach(
+		function(element){
+			if(dojo.attr(element, "_default_text") == element.value){element.value=""}
+		});
+	return true;
+};
+
 parseEditables = function(rootnode){
 	dojo.query(".editable.active", rootnode).forEach(
 		function(root){
@@ -67,6 +75,12 @@ onLoadPagelets = function(root_node){
 			loadElement(dojo.attr(elem, 'pagelet_href'), elem, {}, null, 'Get');
 		});
 };
+
+
+findParent = function(rootnode, className){
+	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){findParent(rootnode.parentNode, className)}
+	else return null;
+}
 
 place_element = function(node, callback){
 	return function(data){

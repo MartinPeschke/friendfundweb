@@ -44,7 +44,7 @@ class DateValidator(formencode.FancyValidator):
 
 class CurrencyValidator(formencode.FancyValidator):
 	def _to_python(self, value, state):
-		if not value in map(lambda x: x[0], g.payment_service.currencies):
+		if not value in g.country_choices.currencies:
 			raise formencode.Invalid(
 				_('CURRENCYVALIDATOR_Please input a valid Currency'), value, state)
 		return value
