@@ -19,8 +19,12 @@ class Product(DBMappedObject):
 				]
 	def get_product_pic(self, type="POOL"):
 		return h.get_product_picture(self.picture, type)
+	def get_display_link(self):
+		return h.word_truncate_by_letters(self.tracking_link, 40)
 	def get_display_name(self):
 		return h.word_truncate_plain(self.name.title(), 2)
+	def get_display_description(self):
+		return h.word_truncate_by_letters(self.description, 180)
 
 class DisplayProduct(Product):
 	_keys = [	GenericAttrib(unicode  ,'guid'         , 'guid'             , persistable=False)

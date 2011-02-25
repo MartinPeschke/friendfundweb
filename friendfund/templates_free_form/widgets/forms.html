@@ -1,0 +1,3 @@
+<%def name="input_selected(group, name, value)">${expression_quote(hasattr(c, "%s_values"%group) and getattr(c, "%s_values"%group).get(name, "") == value, "selected")|n}</%def>
+<%def name="input_checked(group, name, value, default = False)">${expression_quote((name not in getattr(c, "%s_values"%group,dict()) and default) or hasattr(c, "%s_values"%group) and getattr(c, "%s_values"%group).get(name, "") == value, "checked")|n}</%def>
+<%def name="expression_quote(expr, tagname, value=None)">${(expr and '%s="%s"'%(tagname, value or tagname) or '')|n}</%def>

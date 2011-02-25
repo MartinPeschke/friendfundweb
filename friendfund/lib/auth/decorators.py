@@ -1,8 +1,9 @@
+from __future__ import with_statement
 from decorator import decorator
 
 from pylons import url
 from pylons.i18n import ugettext as _
-
+from friendfund.lib import helpers as h
 from pylons.controllers.util import abort, redirect
 from pylons.decorators.util import get_pylons
 
@@ -29,7 +30,7 @@ def is_ssp_admin(ajax = False, redirect_to = url(controller='ssp', action='index
 				return redirect('%s?furl=%s' % (redirect_to, furl or pylons.request.path_info))
 		return func(self, *args, **kwargs)
 	return decorator(validate)
-
+	
 
 
 def post_only(ajax = False): 
@@ -44,9 +45,6 @@ def post_only(ajax = False):
 		else:
 			return func(self, *args, **kwargs)
 	return decorator(validate)
-
-
-
 
 
 from pylons import request, session as websession, tmpl_context as c
@@ -95,3 +93,4 @@ def no_blocks(ajax = False, furl = None):
 				return redirect(request.referer)
 		return func(self, *args, **kwargs)
 	return decorator(validate)
+

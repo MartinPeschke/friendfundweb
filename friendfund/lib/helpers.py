@@ -4,7 +4,7 @@
 Consists of functions to typically be used within templates, but also
 available to Controllers. This module is available to templates as 'h'.
 """
-import os, md5
+import os, md5, base64, uuid
 
 from pylons import config, session as websession, app_globals as g
 from babel import negotiate_locale
@@ -20,6 +20,17 @@ ACTION_PIC_STATIC_ROOT = '/static/imgs'
 
 
 from babel.core import Locale
+
+def decode_unique_token(token):
+	return uuid.UUID(bytes=base64.urlsafe_b64decode(token+'=='))
+def get_unique_token():
+	return base64.urlsafe_b64encode(uuid.uuid4().bytes).strip('=')
+def get_wizard(mc, pd):
+	return mc.get("wizard_pd_%s"%pd) or {}
+def set_wizard(mc, pd, wizard):
+	mc.set("wizard_pd_%s"%pd, wizard, 7200)
+
+
 def get_format(locale):
     locale = Locale.parse(locale)
     format = locale.currency_formats.get(None)

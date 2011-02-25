@@ -1,16 +1,34 @@
 <%inherit file="../layout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
-<%def name="scripts_styles()">${links.js('datepicker.packed.js')}</%def>
-
-
+<%def name="scripts_styles()">
+	${links.js('datepicker.packed.js')}
+	${links.css('datepicker.css')}
+</%def>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolDetails");
 	parseEditables("poolDetails");
+	var today = new Date();
+	if(dojo.byId("datepicker").value){
+		var date = dojo.byId("datepicker").value.split('/');
+		date = new Date(date[2], parseInt(date[1])-1, date[0]);
+		dojo.byId("daysLeft").innerHTML = Math.ceil((date.getTime()-today.getTime())/(24*3600*1000));
+	}
 	datePickerController.createDatePicker({
-	  formElements:{"datepicker":"d-sl-m-sl-Y"}
+	  formElements:{"datepicker":"d-sl-m-sl-Y"},
+	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
+	  callbackFunctions:{"dateset":[
+			function(params){
+				dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
+			}
+		]}
 	});
-
+	%if getattr(c.pool.product, "tracking_link", False):
+		var hue = document.getElementById("homeurlexpander");
+		hue.appendChild(renderController());
+		hue.insertBefore(renderPictures(["${'","'.join(c.images)|n}"], "${c.pool.product.picture}"), hue.firstChild);
+	%endif
 </%def>
+
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
@@ -35,6 +53,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
+		<form method="POST" action="${url('pool_create')}">
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			<div class="borderBottom">
@@ -43,22 +62,19 @@
 					<input type="text" value="${h.format_number(c.pool.get_amount_float())}" />
 					<span>by</span>
 					<input type="text" id="datepicker"/>
-				
-				<span class="darkGrey"><span class="bold">41</span> days left</span>
+				<span class="darkGrey"><span class="bold" id="daysLeft">0</span> days left</span>
 			</div>
 			</div>
 			<div class="borderBottom ">
 				<div class="tip">
 					<div class="greyBlock"><div class="arrow"></div></div>
 					<span>Tip goes here</span>
-					
 				</div>
 				<div class="greyInsideFullWidth">
-				<div  class="first">
+				<div class="first">
 					<span>Pool Title</span>
 				</div>
-				
-					<input type="text" name="pool.title" value="${c.pool.title}" />
+					<input type="text" name="pool.title" _default_text="Write your title here..." class="default" value="${c.pool.title or "Write your title here..."}" />
 				</div>
 			</div>
 			<div class="borderBottom">
@@ -66,62 +82,62 @@
 					<span>Pool Description</span>
 				</div>
 				<div class="containerTxtArea">
-					<textarea _default_text="Write your description here..." class="default">${c.pool.description or "Write your description here..."}</textarea>
+					<textarea name="pool.description" _default_text="Write your description here..." class="default">${c.pool.description or "Write your description here..."}</textarea>
 				</div>
 			</div>
-			<div class="borderBottom">
-				<div class="first">
-					<span>Upload an image</span>
-					
+			%if getattr(c.pool.product, "tracking_link", False):
+				<div class="borderBottom">
+					<div id="homeurlexpander" class="home_expander">
+						<input type="hidden" id="productPicture" value="${c.pool.product.picture}" />
+						<a class="address" href="${c.pool.product.tracking_link}">${c.pool.product.get_display_link()}</a>
+						<div class="title editable active" _elem="prodname" _value="${c.pool.product.name}">${c.pool.product.name}</div>
+						<div class="desc editable active" _elem="proddesc" _value="${c.pool.product.description}">${c.pool.product.get_display_description()}</div>
+					</div>
 				</div>
-				<div class="imgContainer">
-					<img src="/static/imgs/dummy/dummy-img-big.jpg">
+			%else:
+				<div class="borderBottom">
+					<div class="first">
+						<span>Upload an image</span>
+					</div>
+					<div class="imgContainer">
+						<img src="/static/imgs/dummy/dummy-img-big.jpg">
+					</div>
+					<div class="choose">
+						<span class="bold">Choose a file from your computer</span><br>
+						<input type="button" value="Choose file" /><span>No file chosen</span>
+						<p>JPEG, PNG or GIF. MAX FILE SIZE: 5 MB</p>
+						<span class="bold">...or upload an image using a URL</span>
+						<input type="text" style="width:336px; margin:5px 0 0 0"/>
+					</div>
 				</div>
-				<div class="choose">
-					<span class="bold">Choose a file from your computer</span><br>
-					<input type="button" value="Choose file" /><span>No file chosen</span>
-					<p>JPEG, PNG or GIF. MAX FILE SIZE: 5 MB</p>
-					<span class="bold">...or upload an image using a URL</span>
-					<input type="text" style="width:336px; margin:5px 0 0 0"/>
-				</div>
-			</div>
-            <div class="borderBottom">
-				<div class="first">
-					<span>Upload an image</span>
-					
-				</div>
-				<div class="imgContainer">
-					<img src="/static/imgs/dummy/dummy-img-big.jpg">
-				</div>
-				<div class="choose">
-                	<a href="#" class="titleProd">Oven 360</a>
-					<div class="address">url:blablabla</div>
-                    <div class="desc">Lorem ipsum blablabla</div>
-                    
-				</div>
-                <div class="controller"><span class="counterDescr">Choose a thumbnail (1 of <span id="pictureCounter">0</span>)</span><div class="smallLeft"><span></span></div><div class="smallRight"><span></span></div></div>
-			</div>
-			
-				
+			%endif
 			<div class="clear"></div>
 		</div>
 	
 
 		<div class="recMoney">
-				<h4>Receiving Your Money</h4>
-				<div class="receiveMoney">
-					<p>How do you want to receive your money once the Pool is funded? 
-<span>You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else.</span></p>
-				<div><input type="checkbox" class="chkbox" /><label>Paypal</label></div>
-				<div class="smallLabel"><label>Paypal Account Email Address</label><input type="text" /></div>
-				<div class="smallLabel"><label>First Name</label><input type="text" /></div>
-				<div class="smallLabel"><label>Last Name</label><input type="text" /></div>
-				<div><input type="checkbox" class="chkbox" /><label>Amazon Vouchers</label></div>
+			<h4>Receiving Your Money</h4>
+			<div class="receiveMoney">
+				<p>How do you want to receive your money once the Pool is funded? 
+					<span>You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else.</span>
+				</p>
+				<div><input type="radio" onclick="this.checked?dojo.removeClass('paypalForm', 'hidden'):null;" 
+							name="settlementOption" value="paypal" checked="checked" id="paypalSettlement" class="chkbox" />
+					<label for="paypalSettlement">Paypal</label>
 				</div>
-                <input value="submit" type="submit" />
-				<div class="clear"></div>
+				<div id="paypalForm">
+				<div class="smallLabel"><label>Paypal Account Email Address</label><input type="text" name="paypal.email" /></div>
+				<div class="smallLabel"><label>First Name</label><input type="text" name="paypal.firstname" /></div>
+				<div class="smallLabel"><label>Last Name</label><input type="text" name="paypal.lastname" /></div>
+				</div>
+				<div><input type="radio" onclick="this.checked?dojo.addClass('paypalForm', 'hidden'):null;" name="settlementOption" id="amazonSettlement" value="amazon" class="chkbox" />
+					<label for="amazonSettlement">Amazon Vouchers</label>
+				</div>
+			</div>
+			<div class="clear"></div>
 		</div>
-	
+		<input type="submit" value="submit"/>
+	</form>
 </div>
 
 

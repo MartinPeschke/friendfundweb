@@ -1,6 +1,7 @@
+from __future__ import with_statement
 import logging, formencode, datetime
 
-from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
+from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
@@ -9,7 +10,7 @@ from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
 from friendfund.lib.base import BaseController, render, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
-from friendfund.model.forms.common import to_displaymap, MonetaryValidator
+from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
@@ -22,7 +23,7 @@ EXPIRED_MESSAGE = _("POOL_ACTION_This pool has not reached it's target. Please v
 UPDATED_MESSAGE = _("POOL_ACTION_Changes saved.")
 NOT_CORRECT_STATE = _("POOL_ACTION_This Action is not allowed as Pool is not in correct state.")
 SAVE_ADDRESS_FIRST = _("POOL_ACTION_In order to Close the pool, you need to fill out and save Shipping and Billing Address first!")
-moneyval = MonetaryValidator(min=0.01, max=9999)
+moneyval = DecimalValidator(min=0.01)
 
 from friendfund.lib.base import _
 
@@ -55,20 +56,38 @@ class PoolController(ExtBaseController):
 	def reset(self):
 		self._clean_session()
 		return redirect(url('home'))
-	def details(self):
-		try:
-			amount = moneyval.to_python(request.params.get("pool.amount"))
-		except formencode.validators.Invalid, error:
-			amount = None
-		c.pool = websession.get('pool', Pool())
-		c.pool.set_amount_float(amount)
-		c.pool.currency = c.pool.currency or h.default_currency()
-		c.pool.title = request.params.get("pool.title",c.pool.title)
-		websession['pool'] = c.pool
-		if request.method=="POST":
-			return redirect(redirect(url(controller='pool', action='details')))
-		return self.render('/pool/pool_details.html')
 	
+	def details(self):
+		pd = request.params.get("pd")
+		try:
+			pd = str(pd).strip()
+		except:
+			pd = h.get_unique_token()
+			if request.method != "POST":
+				return redirect(url(controller='pool', action='details', pd=pd))
+		
+		with g.cache_pool.reserve() as mc:
+			wizard = h.get_wizard(mc, pd)
+			c.pool = wizard.get("pool", Pool())
+			amount = request.params.get("pool.amount")
+			if amount:
+				try:
+					amount = moneyval.to_python(amount)
+				except formencode.validators.Invalid, error:
+					log.error(error)
+					amount = None
+				c.pool.set_amount_float(amount)
+			c.pool.title = request.params.get("pool.title",c.pool.title)
+			c.pool.currency = c.pool.currency or h.default_currency()
+			if c.pool.title and c.pool.title.strip() in getattr(c.pool.product, "tracking_link", ""):
+				c.pool.title = None
+			if c.pool.product and "product.picture" in request.params:
+				c.pool.product.picture = request.params.get("product.picture",c.pool.product.picture)
+			c.images = wizard.get('product_picture_list', [])
+			wizard['pool'] = c.pool
+			h.set_wizard(mc, pd, wizard)
+			return self.render('/pool/pool_details.html')
+		
 	def complete(self, pool_url):
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
@@ -78,6 +97,24 @@ class PoolController(ExtBaseController):
 	
 	@logged_in()
 	def create(self):
+		if request.merchant.type_is_free_form:
+			return self._create_freeform()
+		else:
+			return self._create_groupgift()
+	
+	def _create_freeform(self):
+		c.pool = websession.get('pool', Pool())
+		print request.params
+		c.pool.merchant_domain = request.merchant.domain
+		g.dbm.set(c.pool, merge = True, cache=False)
+		remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
+		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
+		
+		if not c.pool:
+			return redirect(request.referer)
+		self._clean_session()
+			
+	def _create_groupgift(self):
 		c.pool = websession.get('pool')
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))

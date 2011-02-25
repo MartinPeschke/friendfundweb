@@ -8,7 +8,7 @@ from pylons.decorators import jsonify
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.auth.decorators import logged_in, remove_block, enforce_blocks, clear_blocks
 from friendfund.lib.base import BaseController, render, _
-from friendfund.lib import fb_helper
+from friendfund.lib import fb_helper, helpers as h
 
 from friendfund.model.forms.user import LoginForm, SignupForm
 from friendfund.model.common import SProcWarningMessage
@@ -34,6 +34,7 @@ class IndexController(BaseController):
 		c.uuid = str(uuid.uuid4())
 		if 'pool' in websession:
 			c.pool = websession['pool']
+		c.pd = h.get_unique_token()
 		return self.render('/index.html')
 	
 	def sitemap(self):

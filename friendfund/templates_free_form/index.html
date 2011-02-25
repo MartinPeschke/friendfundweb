@@ -11,13 +11,13 @@
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
 			<h3>We need</h3>
-			<div><form method="POST" action="${url("pool_details", protocol="http")}" onSubmit="getProductPic()">
+			<div><form method="POST" action="${url("pool_details", protocol="http", pd = c.pd)}" onSubmit="getProductPic()">
 				<input name="product.picture" type="hidden" id="productPicture" />
 				<input name="product.tracking_link" type="hidden" id="productLink" />
 				<span>${h.display_currency(h.default_currency())}</span>
 				<input type="text" name="pool.amount" class="short tipeIn" />
 				<span style="margin-left:30px">for</span>
-				<input type="text" name="pool.title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="default long" _url="${url(controller="product", action="open_bounce")}"/ value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
+				<input type="text" name="pool.title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="default long" _url="${url(controller="product", action="open_bounce", pd = c.pd)}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 				<input type="submit" class="button" value="${_("FF_HOME_PAGE_Get Started")}" />
 				<p class="info">You can also paste a link from any website here.</p>
 			</form></div>
@@ -204,83 +204,7 @@ something amazing.</p>
 
 </div>
 
-
-<%def name="scripts()">
-	<script type="text/javascript">
-		var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i, ht1, ht2;
-		var totalcounter = 0, picCounter = 0;
-		var pic_judger = function(evt){
-			if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
-				dojo.addClass(evt.target, "forbidden");
-			}else{
-				dojo.byId("pictureCounter").innerHTML=++picCounter;
-				dojo.addClass(evt.target, "allowed");
-			}
-			if(!--totalcounter){
-				var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
-				if(imgs){dojo.removeClass(imgs[0], "hidden");dojo.addClass(imgs[0], "visible");}
-			};
-		};
-		var slide = function(step, evt){
-			var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
-			for(var i=0, len=imgs.length;i<len;i++){
-				var pos = ((i+step)<len&&(i+step)>=0)?(i+step):i;
-				if(!dojo.hasClass(imgs[i], "hidden")&&pos!=i){
-					dojo.addClass(imgs[i], "hidden");dojo.removeClass(imgs[pos], "hidden");
-					dojo.byId("pictureCounterPos").innerHTML=pos+1;
-					dojo.byId("productPicture").value=imgs[pos].src;
-					break;
-				}
-			}
-		};
-		var loadSuccess = function(data){
-			dojo.query(".loading", "homeurlexpander").orphan();
-			if(data.success == false){
-				dojo.addClass("homeurlexpander", "hidden");
-				dojo.byId("productLink").value="";
-				dojo.byId("productPicture").value="";
-				connect_home();
-			} else {
-				var div = dojo.create("DIV", {class:"home_expander loading"});
-				var imgContainer = dojo.create ("DIV" , { class:"imgCntSld"})
-				totalcounter = data.imgs.length; 
-				for(var i=0;i<totalcounter; i++){
-					var img = dojo.create("IMG", {src:data.imgs[i], class:'hidden'});
-					dojo.connect(img, "onload", pic_judger);
-					imgContainer.appendChild(img);
-				};
-				div.appendChild(imgContainer);
-				div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
-				div.appendChild(dojo.create("DIV", {innerHTML : data.name||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE")}", class:'title'}));
-				div.appendChild(dojo.create("DIV", {innerHTML : data.description||"${_("FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR")}", class:'desc'}));
-				var controller = dojo.create("DIV", {"class":"controller", 
-					innerHTML:'<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span><div class="smallLeft"><span></span></div><div class="smallRight"><span></span></div>'});
-				div.appendChild(controller);
-				dojo.place(div, "homeurlexpander", "last");
-				dojo.query(".smallLeft", "homeurlexpander").onclick(dojo.hitch(null, slide, -1));
-				dojo.query(".smallRight", "homeurlexpander").onclick(dojo.hitch(null, slide, 1));
-			}
-		};
-		var parseTitle = function(type, evt){
-			if(dojo.hasClass("homeurlexpander", "hidden")&&(type=="onblur"||evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
-				evt.target.value.split(" ").some(function(elt){if(urlmatch.test(elt)){
-					dojo.byId("productLink").value=elt;
-					dojo.disconnect(ht1);dojo.disconnect(ht2);
-					var div = dojo.create("DIV", {class:"home_expander loading"});
-					div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-					dojo.place(div, "homeurlexpander", "last");dojo.removeClass("homeurlexpander", "hidden");
-					dojo.xhrPost({url:dojo.attr(evt.target, "_url"), content:{query:elt},
-									handleAs: 'json',
-									load:loadSuccess});
-					return true;
-			}})
-		}};
-		var connect_home = function(){
-			var dn = dojo.byId("home_title");
-			ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseTitle, "onkeyup"));
-			ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseTitle,"onblur"));
-		}
-		connect_home();
-		parseDefaultsInputs("poolProductFinder");
-	</script>
+<%def name="onloadscripts()">
+	connect_home();
+	parseDefaultsInputs("poolProductFinder");
 </%def>

@@ -41,7 +41,6 @@ parseEditables = function(rootnode){
 		});
 };
 
-
 popup_esc_handler = [];
 esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
 closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[]};
@@ -232,4 +231,105 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 	e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
 	e.async = true;
 	document.getElementById('fb-root').appendChild(e);
+};
+
+/*===========================================*/
+var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i, ht1, ht2;
+var totalcounter = 0, picCounter = 0;
+
+var pic_judger = function(preselected, evt){
+	if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
+		dojo.addClass(evt.target, "forbidden");
+	}else{
+		dojo.byId("pictureCounter").innerHTML=++picCounter;
+		dojo.addClass(evt.target, "allowed");
+	}
+	if(!--totalcounter){
+		var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
+		var pos = 0;
+		if(imgs&&preselected){
+			for(var i=0;i<imgs.length;i++){
+				if(imgs[i].src==preselected){pos = i;break;}
+			}
+		}
+		if(imgs){
+			dojo.removeClass(imgs[pos], "hidden");dojo.addClass(imgs[pos], "visible");
+			dojo.byId("pictureCounterPos").innerHTML=pos+1;
+		}
+	};
+};
+var slide = function(step, evt){
+	var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
+	for(var i=0, len=imgs.length;i<len;i++){
+		var pos = ((i+step)<len&&(i+step)>=0)?(i+step):i;
+		if(!dojo.hasClass(imgs[i], "hidden")&&pos!=i){
+			dojo.addClass(imgs[i], "hidden");dojo.removeClass(imgs[pos], "hidden");
+			dojo.byId("pictureCounterPos").innerHTML=pos+1;
+			dojo.byId("productPicture").value=imgs[pos].src;
+			break;
+		}
+	}
+};
+var renderPictures = function(imgs, preselected){
+	var imgContainer = dojo.create ("DIV" , { class:"imgCntSld"})
+	totalcounter = imgs.length; 
+	for(var i=0;i<totalcounter; i++){
+		var img = dojo.create("IMG", {src:imgs[i], class:'hidden'});
+		dojo.connect(img, "onload", dojo.hitch(null, pic_judger, preselected));
+		imgContainer.appendChild(img);
+	};
+	return imgContainer;
+};
+var renderController = function(){
+	var left = dojo.create("SPAN", {"class":"smallLeft", "innerHTML":"<span></span>"});
+	var right = dojo.create("SPAN", {"class":"smallRight", "innerHTML":"<span></span>"});
+	left.onclick = dojo.hitch(null, slide, -1);
+	right.onclick = dojo.hitch(null, slide, 1);
+	var controller = dojo.create("DIV", {"class":"controller", 
+			innerHTML:'<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span>'});
+	controller.appendChild(left);
+	controller.appendChild(right);
+	return controller;
+};
+
+var loadSuccess = function(data){
+	dojo.query(".loading", "homeurlexpander").orphan();
+	if(data.success == false){
+		dojo.addClass("homeurlexpander", "hidden");
+		dojo.byId("productLink").value="";
+		dojo.byId("productPicture").value="";
+		connect_home();
+	} else {
+		var div = dojo.create("DIV", {class:"home_expander loading"});
+		div.appendChild(renderPictures(data.imgs));
+		div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
+		div.appendChild(dojo.create("DIV", {innerHTML : data.name, class:'title'}));
+		div.appendChild(dojo.create("DIV", {innerHTML : data.description, class:'desc'}));
+		dojo.place(div, "homeurlexpander", "last");
+		div.appendChild(renderController());
+	}
+};
+var parseURL = function(query, url){
+	dojo.disconnect(ht1);dojo.disconnect(ht2);
+	var div = dojo.create("DIV", {class:"home_expander loading"});
+	div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
+	dojo.place(div, "homeurlexpander", "last");dojo.removeClass("homeurlexpander", "hidden");
+	dojo.xhrPost({url:url, content:{query:query},
+					handleAs: 'json',
+					load:loadSuccess});
+	return true;
+};
+var parseInput = function(type, evt){
+	if(dojo.hasClass("homeurlexpander", "hidden")&&(type=="onblur"||evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
+		evt.target.value.split(" ").some(function(elt){
+			if(urlmatch.test(elt)){
+				dojo.byId("productLink").value=elt;
+				parseURL(elt, dojo.attr(evt.target, "_url"));
+			}
+		})
+}};
+var connect_home = function(){
+	var dn = dojo.byId("home_title");
+	ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseInput, "onkeyup"));
+	ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseInput,"onblur"));
 };

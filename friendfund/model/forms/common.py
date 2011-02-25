@@ -49,6 +49,15 @@ class CurrencyValidator(formencode.FancyValidator):
 				_('CURRENCYVALIDATOR_Please input a valid Currency'), value, state)
 		return value
 
+class DecimalValidator(formencode.validators.Number):
+	def _to_python(self, value, state):
+		try:
+			value = parse_decimal(value, locale = websession['lang'])
+		except NumberFormatError, e:
+			raise formencode.Invalid(
+				_('MONETARYVALIDATOR_Please input a valid amount'), value, state)
+		else: return value
+
 class MonetaryValidator(formencode.validators.Number):
 	def _to_python(self, value, state):
 		try:
