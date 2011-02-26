@@ -65,50 +65,25 @@ class PoolController(ExtBaseController):
 		return redirect(url('home'))
 	
 	###TODO: these UID Links could be shared and disclose unwanted information
-	def setup(self):
+	def details(self):
+		c.currencies = sorted(g.country_choices.currencies)
 		c.values = {
 			"amount":request.params.get("amount"),
 			"currency":h.default_currency(),
 			"title":request.params.get("title"),
 			"tracking_link":request.params.get("tracking_link"),
 			"product_picture":request.params.get("product_picture"),
+			"product_name":request.params.get("product_name"),
+			"product_description":request.params.get("product_description"),
 			"img_list":request.params.getall("img_list") or [],
-			"date":request.params.get("date") or (datetime.datetime.today() + datetime.timedelta(14))
+			"date": (datetime.datetime.today() + datetime.timedelta(14))
 			}
-		print c.values
-		return self.render('/pool/pool_details.html')
-	def details(self):
-		c.pd = request.params.get("pd")
 		try:
-			c.pd = str(c.pd.strip())
+			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:
-			c.pd = h.get_unique_token()
-			if request.method != "POST":
-				return redirect(url(controller='pool', action='details', pd=c.pd))
-		
-		with g.cache_pool.reserve() as mc:
-			wizard = h.get_wizard(mc, c.pd)
-			c.pool = wizard.get("pool", Pool())
-			amount = request.params.get("pool.amount")
-			if amount:
-				try:
-					amount = moneyval.to_python(amount)
-				except formencode.validators.Invalid, error:
-					log.error(error)
-					amount = None
-				c.pool.set_amount_float(amount)
-			c.pool.title = request.params.get("pool.title",c.pool.title)
-			c.pool.currency = c.pool.currency
-			if not c.pool.occasion:
-				c.pool.occasion = Occasion(key = "EVENT_OTHER")
-			if c.pool.title and c.pool.title.strip() in getattr(c.pool.product, "tracking_link", ""):
-				c.pool.title = None
-			if c.pool.product and "product.picture" in request.params:
-				c.pool.product.picture = request.params.get("product.picture",c.pool.product.picture)
-			c.images = wizard.get('product_picture_list', [])
-			wizard['pool'] = c.pool
-			h.set_wizard(mc, c.pd, wizard)
-			return self.render('/pool/pool_details.html')
+			pass
+		c.errors = {}
+		return self.render('/pool/pool_details.html')
 	
 	@logged_in()
 	def create(self):
@@ -128,9 +103,14 @@ class PoolController(ExtBaseController):
 			try:
 				c.pool = g.pool_service.create_free_form()
 			except formencode.validators.Invalid, error:
-				c.error_values = error.error_dict or {}
+				c.currencies = sorted(g.country_choices.currencies)
+				c.errors = error.error_dict or {}
+				c.values = error.value
+				try:
+					c.values['date'] = datetime.datetime.strptime(c.values['date'], "%Y-%m-%d")
+				except:
+					pass
 				return self.render('/pool/pool_details.html')
-		
 		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)
 		if c.pool.product:

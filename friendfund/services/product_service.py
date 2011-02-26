@@ -191,7 +191,7 @@ class ProductService(object):
 		pool.set_product(products.get(sorted(products)[0]))
 		return pool, product_list
 
-	def set_product_from_open_web(self, pool, query):
+	def set_product_from_open_web(self, query):
 		try:
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			if not scheme:query='http://%s'%query
@@ -201,9 +201,9 @@ class ProductService(object):
 		else:
 			name, descr, imgs = url_parser.get_title_descr_imgs(query, product_page)
 			product_image = imgs and imgs[0] or None
-			pool.product = Product(name=name or _("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE"),
+			product = Product(name=name or _("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE"),
 									description=descr or _("FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR"),
 									tracking_link = query.strip(), 
 									picture = product_image
 								)
-			return query, pool, imgs
+			return query, product, imgs

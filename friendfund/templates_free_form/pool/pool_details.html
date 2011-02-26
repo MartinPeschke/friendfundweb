@@ -7,6 +7,8 @@
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolDetails");
 	parseEditables("poolDetails");
+	parseSelectables("poolDetails");
+	
 	var today = new Date();
 	if(dojo.byId("datepicker").value){
 		var date = new Date(dojo.byId("dateValue").value);
@@ -16,7 +18,7 @@
 		
 	}
 	datePickerController.createDatePicker({
-	  formElements:{"datepicker":"d-dt-m-dt-Y"},
+	  formElements:{"datepicker":"M-sp-d-cc-sp-Y"},
 	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
 	  callbackFunctions:{"dateset":[
 			function(params){
@@ -36,7 +38,11 @@
 		var hue = document.getElementById("homeurlexpander");
 		hue.appendChild(renderController());
 		hue.insertBefore(renderPictures(["${'","'.join(c.values['img_list'])|n}"], "${c.values['product_picture']}"), hue.firstChild);
+	%else:
+		connect_home("home_title");
 	%endif
+	
+	dojo.query("input,textarea").onfocus(function(evt){addClassToParent(evt.target, "borderBottom", "selected");});
 </%def>
 
 <div class="wrapSubHeader">
@@ -63,27 +69,54 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" onSubmit="onSubmitCleaner(this)" action="${url('pool_create')}">
+		<form method="POST" id="submissionform" onSubmit="onSubmitCleaner(this)" action="${url('pool_create')}">
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
-			<div class="borderBottom">
+			
+			<div class="borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
+				%if h.contains_one(["currency", "amount", "date"], c.errors):
+					<div class="tip">
+						<div class="arrow"></div>
+						<span>
+							<ul>
+								%if 'currency' in c.errors:
+									<li>${c.errors.get("currency")}</li>
+								%endif
+								%if 'amount' in c.errors:
+									<li>${c.errors.get("amount")}</li>
+								%endif
+								%if 'date' in c.errors:
+									<li>${c.errors.get("date")}</li>
+								%endif
+							</ul>
+						</span>
+					</div>
+				%endif
+			
+			
 				<div class="first" style="margin-top:8px; width:135px"><span>We Need</span>
-					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="c.values['currency']"/></span>
-					
+					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
 				</div>
 				<div class="greyInside" style="width:521px">
 					<input type="text" value="${c.values['amount']}" name="amount" class="small" />
 					<span style="margin-left:40px; margin-right:5px">by</span>
 					<input class="small" type="text" id="datepicker" value="${h.format_date(c.values['date'])}"/>
-					<input type="hidden" name="occasion.date" id="dateValue" value="${h.format_date_internal(c.values['date'])}"/>
+					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values['date'])}"/>
 				<span class="darkGrey floatRight"><span class="bold" id="daysLeft">0</span> DAYS LEFT</span>
 			</div>
 			</div>
-			<div class="borderBottom selected">
+			
+			
+			<div class="borderBottom ${('title' in c.errors) and "error" or ""}">
 				<div class="tip">
 					<div class="arrow"></div>
-					<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+					%if 'title' in c.errors:
+						<span>${c.errors['title']}</span>
+					%else:
+						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+					%endif
 				</div>
+			
 				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>Pool Title</span>
@@ -91,11 +124,18 @@
 					<input type="text" name="title" _default_text="Write your title here..." class="default" value="${c.values['title'] or "Write your title here..."}" />
 				</div>
 			</div>
-			<div class="borderBottom error">
-            	<div class="tip">
+			
+			
+			<div class="borderBottom ${('description' in c.errors) and "error" or ""}">
+				<div class="tip">
 					<div class="arrow"></div>
-					<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+					%if 'description' in c.errors:
+						<span>${c.errors['description']}</span>
+					%else:
+						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+					%endif
 				</div>
+
             	<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>Pool Description</span>
@@ -108,34 +148,20 @@
 			%if c.values.get('tracking_link'):
 				<div class="borderBottom">
 					<div id="homeurlexpander" class="home_expander">
-						<input type="hidden" id="productPicture" value="${c.values['product_picture']}" />
-						
-						<div class="title editable active" _elem="prodname" _value="${c.values.get("product_name", "")}">${c.values.get("product_name", "")}</div>
-						<a class="address smallAddress" href="${c.values['tracking_link']}">${c.values['tracking_link']}</a>
-						<div class="desc editable active" _elem="proddesc" _value="${c.values.get("description", "")}">${c.values.get("description", "")}</div>
+						<div class="title editable active" _elem="prodname" _value="${c.values.get("product_name", "")}">${h.word_truncate_by_letters(c.values.get("product_name", ""), 50)}<input type="hidden" name="product_name" value="${c.values.get("product_name", "")}"/></div>
+						<a class="address smallAddress" href="${c.values['tracking_link']}">${h.word_truncate_by_letters(c.values['tracking_link'], 40)}<input type="hidden" name="tracking_link" value="${c.values['tracking_link']}" /></a>
+						<div class="desc editable active" _elem="proddesc" _value="${c.values.get("product_description", "")}">${h.word_truncate_by_letters(c.values.get("product_description", ""), 180)}<input type="hidden" name="product_description" value="${c.values.get("product_description", "")}"/></div>
 					</div>
 				</div>
 			%else:
 				<div class="borderBottom">
-					<div class="first">
-						<span>Upload an image</span>
-					</div>
-					<div class="imgContainer">
-						<img src="/static/imgs/dummy/dummy-img-big.jpg">
-					</div>
-					<div class="choose">
-						<span class="bold">Choose a file from your computer</span><br>
-						<input type="button" value="Choose file" /><span>No file chosen</span>
-						<p>JPEG, PNG or GIF. MAX FILE SIZE: 5 MB</p>
-						<span class="bold">...or upload an image using a URL</span>
-						<input type="text" style="width:336px; margin:5px 0 0 0"/>
-					</div>
+					<input type="text" name="tracking_link"_default_text="${_("FF_DETAILS_Examples: www.cnn.com")}" id="home_title" class="default" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_DETAILS_Examples: www.cnn.com")}">
+					<div id="homeurlexpander" class="home_expander hidden"></div>
 				</div>
 			%endif
 			<div class="clear"></div>
 		</div>
 	
-
 		<div class="recMoney">
 			<h4>Receiving Your Money</h4>
 			<div class="receiveMoney">

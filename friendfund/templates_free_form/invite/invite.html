@@ -1,4 +1,22 @@
 <%inherit file="../layout.html"/>
+<%namespace name="links" file="../widgets/links.html"/>
+
+<%def name="scripts()">
+	${links.js('friendfund/FriendSelector.js')}
+	${links.js('friendfund/InvitePage.js')}
+</%def>
+<%def name="onloadscripts()">
+	parseDefaultsInputs("inviteMessage");
+	page = new friendfund.InvitePage({
+			container : "inviteContainer",
+			invited_node :"invitedContainer",
+			method : "${c.method}",
+			fb_api_key : "",
+			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"
+		});
+	page_reloader = dojo.hitch(null, page.prepareSubmit, page);
+</%def>
+
 <div class="wrapSubHeader">
   <div class="subHeader">
     <div class="userProfile">
@@ -25,7 +43,7 @@
   <div class="colRight moreMarginTop">
   	<a href="#" class="floatRight">Remove All</a>
     <h3>Invited Friends (7)</h3>
-    	<div class="listSelectedFriends">
+    	<div class="listSelectedFriends" id="invitedContainer">
         	<p class="inviterTwo">Invite your friends from<br /> the left panel</p>
         </div>
   	<!--<div class="listSelectedFriends">	
@@ -132,12 +150,18 @@
     </div>-->
   </div>
   <div class="colLeft">
-    <div class="invited">
+    <div class="invited" id="inviteContainer">
       <h4>Invite your friends from Facebook, Twitter or Email </h4>
-      <div class="wrapTabs">
-        <div class="tabs"> <a href="#" class="selected">Facebook</a> <a href="#">Twitter</a> <a href="#">Email</a> </div>
+      
+	  <div class="wrapTabs">
+        <div class="tabs"> 
+			<a href="#" class="methodselector ajaxlink selected" _type="facebook">Facebook</a> 
+			<a href="#" class="methodselector ajaxlink" _type="twitter">Twitter</a> 
+			<a href="#" class="methodselector ajaxlink" _type="email">Email</a> 
+		</div>
       </div>
-      <div class="subTab">
+	  
+      <div class="subTab" id="inviter">
       <div class="arrowSubTab"></div>
       	<p class="inviter">Invite your Facebook friends.</p>
         <a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
@@ -265,16 +289,18 @@
         	
         </div>
       </div>-->
+	  
+	  
       <h4>Add a Personal Message to your Invitees <span>(optional)</span></h4>
-      <div style="border:none" class="borderBottom">
+      <div style="border:none" class="borderBottom" id="inviteMessage">
         <div class="first"> <span>Subject</span> </div>
         <div class="containerTxtArea">
-          <input type="text" />
+          <input type="text" class="default" _default_text="Write your description here..." value="Write your description here..."/>
         </div>
         <div class="padSpacer"></div>
         <div class="first"> <span>Your message</span> </div>
         <div class="containerTxtArea">
-          <textarea>Write your description here...</textarea>
+          <textarea class="default" _default_text="Write your description here...">Write your description here...</textarea>
         </div>
         <p class="info"><a href="#">How will my message be displayed?</a></p>
       </div>
@@ -284,7 +310,7 @@
         <label>I will invite my friends manually. Please do not send messages on my behalf!</label>
         	
             	<p>If you are inviting friends manually, here's a link to your pool:</p>
-                <input type="text" class=" copy">
+                <input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onfocus="this.select();"/>
                 <p class="bold">Some ways to share this link :</p>
                 <ul>
                 	<li>1.  Copy and paste it into an email</li>
@@ -299,7 +325,7 @@
                  <span>Tip goes here</span> </div>
                  <div class="greyInsideFullWidth">
                     <div class="first"> <span>&nbsp;</span> </div>
-                       <input type="checkbox" class="chkbox default"><label>I want to remain anonymous</label>
+                       <input type="checkbox" class="chkbox default"/><label>I want to remain anonymous</label>
                    </div> 
                 </div>
                 <div class="btnContainer">

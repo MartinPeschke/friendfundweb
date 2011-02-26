@@ -37,9 +37,6 @@ class CountryRegion(DBMappedObject):
 	def fromDB(self, xml):
 		self.code = self.code.lower()
 		self.region = self.region.lower()
-		import random
-		currencies = ['USD', 'GBP', 'EUR']
-		self.currency = random.choice(currencies) ###TODO: make variable from DB
 	
 class GetCountryRegionProc(DBMappedObject):
 	_cachable = False

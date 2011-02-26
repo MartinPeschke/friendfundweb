@@ -1,6 +1,6 @@
 %if c.verb=='e':
-	<textarea name="product.description">${c.pdesc}</textarea>
+	<textarea name="product_description">${c.pdesc}</textarea>
 %else:
 	${c.pdesc}
-	<input type="hidden" name="product.description" value="${c.pdesc}"/>
+	<input type="hidden" name="product_description" value="${c.pdesc}"/>
 %endif

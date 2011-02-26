@@ -137,9 +137,9 @@ class DBMappedObject(DBMapping):
 	def __init__(self, **kwargs):
 		for elem in self._keys:
 			if getattr(elem, "is_list", False):
-				setattr(self, elem.pykey, kwargs.get(elem.pykey, elem.default))
+				setattr(self, elem.pykey, kwargs.get(elem.pykey, []))
 			elif getattr(elem, "is_dict", False):
-				setattr(self, elem.pykey, kwargs.get(elem.pykey, elem.default))
+				setattr(self, elem.pykey, kwargs.get(elem.pykey, {}))
 			else:
 				setattr(self, elem.pykey, kwargs.get(elem.pykey, None))
 	
@@ -169,6 +169,7 @@ class DBMappedObject(DBMapping):
 					setattr(self, k.pykey, val)
 		if hasattr(self, 'fromDB'): self.fromDB(xml)
 		return self
+		
 	def get_map(self):
 		return dict([(k.pykey,getattr(self, k.pykey, None)) for k in self._keys])
 	
@@ -201,12 +202,10 @@ class DBMapper(object):
 		self.is_list = is_list
 		self.is_dict = is_dict
 		self.dict_key = dict_key
-		if self.is_list: self.default = []
-		elif self.is_dict: self.default = {}
-		else: self.default = None
-			
+		
 		if self.is_dict and not self.dict_key:
 			raise TypeError("DBMapper missing dict_key-extractor function parameter")
+	
 	@classmethod
 	def toDB(cls, obj):
 		attribs = collections.deque()
@@ -218,7 +217,7 @@ class DBMapper(object):
 			if k.persistable:
 				if isinstance(k, GenericAttrib):
 					attribs.append(k.toDB(value))
-				elif isinstance(k, GenericElement) or isinstance(k, DBCDATA):
+				elif (isinstance(k, GenericElement) or isinstance(k, DBCDATA)):
 					children.append(k.toDB(value))
 				elif isinstance(value, (types.ListType, collections.deque, types.GeneratorType)):
 					children.extend(map(lambda x: k.toDB(x), filter(lambda x: isinstance(x,DBMappedObject), value)))
@@ -228,13 +227,18 @@ class DBMapper(object):
 					children.append(k.toDB(value))
 				else:
 					raise TypeNotSupportedException("Type %s not supported" % type(k))
-		if len(children):
+		
+		attribs = filter(bool, attribs)
+		children = filter(bool, children)
+		if len(attribs) and len(children):
 			return "<%s %s>%s</%s>" % (obj._set_root \
 											,' '.join(filter(bool, attribs))\
 											,''.join(filter(None, children))\
 											,obj._set_root)
-		else:
+		elif len(attribs):
 			return "<%s %s />" % (obj._set_root,   ' '.join(attribs))
+		else:
+			None
 	
 	@classmethod
 	def _get_template(thiscls, cls, **kwargs):

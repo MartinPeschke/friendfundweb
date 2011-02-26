@@ -1,3 +1,12 @@
+parseSelectables = function(rootnode){
+	var f = function(evt){
+		dojo.query(".borderBottom.selected", rootnode).removeClass("selected");
+		addClassToParent(evt.target, "borderBottom", "selected");
+	};
+	dojo.byId(rootnode).onfocusin = f;
+	dojo.byId(rootnode).addEventListener('focus',f,true);
+};
+
 onSubmitCleaner = function(rootnode){
 	dojo.query("input[_default_text],textarea[_default_text]", rootnode).forEach(
 		function(element){
@@ -5,6 +14,36 @@ onSubmitCleaner = function(rootnode){
 		});
 	return true;
 };
+
+parseSimpleEditables = function(rootnode){
+	dojo.query(".simpleeditable.active", rootnode).forEach(
+		function(root){
+			dojo.removeClass(root,'active');
+			var d = dojo.connect(root, "onclick", 
+				function(evt){
+					dojo.disconnect(d);
+					var field = dojo.query("input[type=hidden]", root)[0];
+					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", value:field.value, name:field.name, id:field.id});
+					var evts = [];
+					var f = function(editevt){
+							dojo.forEach(evts, dojo.disconnect);
+							dojo.addClass(root,'active');
+							var newval=editevt.target.value;
+							var newfield = dojo.create("INPUT", {type:"hidden", _type:dojo.attr(field, "_type"), value:newval, name:field.name, id:field.id});
+							dojo.empty(root);
+							root.innerHTML = newval;
+							root.appendChild(newfield);
+							parseSimpleEditables(rootnode);
+						};
+					evts.push(dojo.connect(editor, "onchange", f));
+					evts.push(dojo.connect(editor, "onblur", f));
+					dojo.empty(root);
+					root.appendChild(editor);
+					editor.focus();
+				});
+		});
+}
+
 
 parseEditables = function(rootnode){
 	dojo.query(".editable.active", rootnode).forEach(
@@ -43,7 +82,7 @@ parseEditables = function(rootnode){
 };
 
 popup_esc_handler = [];
-esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
+esc_handler_f = function(callback, evt){if(evt.charCode == 27){dojo.hitch(this, callback(evt));}};
 closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[]};
 displayPopup = function(html){
 	dojo.place(html, dojo.byId("generic_popup"), "only" );
@@ -78,8 +117,13 @@ onLoadPagelets = function(root_node){
 
 
 findParent = function(rootnode, className){
-	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){findParent(rootnode.parentNode, className)}
+	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className)}
+	else if(dojo.hasClass(rootnode, className))return rootnode;
 	else return null;
+}
+addClassToParent = function(rootnode, className, addClass){
+	var node = findParent(rootnode, className);
+	if(node){dojo.addClass(node, addClass);}
 }
 
 place_element = function(node, callback){
@@ -250,8 +294,7 @@ var pic_judger = function(preselected, evt){
 	}else{
 		dojo.byId("pictureCounter").innerHTML=++picCounter;
 		dojo.addClass(evt.target, "allowed");
-		var input = dojo.create("INPUT", {type:"hidden", value:evt.target.src, name:'img_list'});
-		dojo.byId("productPicture").parentNode.appendChild(input);
+		dojo.byId("homeurlexpander").appendChild(dojo.create("INPUT", {type:"hidden", value:evt.target.src, name:'img_list'}));
 	}
 	if(!--totalcounter){
 		var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
@@ -264,9 +307,11 @@ var pic_judger = function(preselected, evt){
 		if(imgs){
 			dojo.removeClass(imgs[pos], "hidden");dojo.addClass(imgs[pos], "visible");
 			dojo.byId("pictureCounterPos").innerHTML=pos+1;
+			dojo.byId("homeurlexpander").appendChild(dojo.create("INPUT", {type:"hidden", value:imgs[pos].src, id:"productPicture", name:'product_picture'}));
 		}
 	};
 };
+
 var slide = function(step, evt){
 	var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
 	for(var i=0, len=imgs.length;i<len;i++){
@@ -280,10 +325,10 @@ var slide = function(step, evt){
 	}
 };
 var renderPictures = function(imgs, preselected){
-	var imgContainer = dojo.create ("DIV" , { class:"imgCntSld"})
+	var imgContainer = dojo.create ("DIV" , { "class":"imgCntSld"})
 	totalcounter = imgs.length; 
 	for(var i=0;i<totalcounter; i++){
-		var img = dojo.create("IMG", {src:imgs[i], class:'hidden'});
+		var img = dojo.create("IMG", {src:imgs[i], "class":'hidden'});
 		dojo.connect(img, "onload", dojo.hitch(null, pic_judger, preselected));
 		imgContainer.appendChild(img);
 	};
@@ -309,18 +354,34 @@ var loadSuccess = function(data){
 		dojo.byId("productPicture").value="";
 		connect_home();
 	} else {
-		var div = dojo.create("DIV", {class:"home_expander loading"});
+		var edithandler;
+		var editProduct = function(evt){
+			dojo.disconnect
+			dojo.empty(evt.target);
+			
+		};
+		
+		var div = dojo.create("DIV", {"class":"home_expander loading"});
 		div.appendChild(renderPictures(data.imgs));
 		div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
-		div.appendChild(dojo.create("DIV", {innerHTML : data.name, class:'title'}));
-		div.appendChild(dojo.create("DIV", {innerHTML : data.description, class:'desc'}));
+		
+		var name = dojo.create("DIV", {innerHTML : data.display_name, "class":'title active simpleeditable'});
+		name.appendChild(dojo.create("INPUT", {type:"hidden", _type:"INPUT", value:data.name, name:'product_name', id:"product_name_edit"}));
+		div.appendChild(name);
+		
+		var desc = dojo.create("DIV", {innerHTML : data.display_description, "class":'desc simpleeditable active'});
+		desc.appendChild(dojo.create("INPUT", {type:"hidden", _type:"TEXTAREA", value:data.description, name:'product_description', id:"product_desc_edit"}));
+		div.appendChild(desc);
+		
+		div.appendChild(dojo.create("INPUT", {type:"hidden", value:data.url, name:'tracking_link'}));
 		dojo.place(div, "homeurlexpander", "last");
+		parseSimpleEditables(div);
 		div.appendChild(renderController());
 	}
 };
 var parseURL = function(query, url){
 	dojo.disconnect(ht1);dojo.disconnect(ht2);
-	var div = dojo.create("DIV", {class:"home_expander loading"});
+	var div = dojo.create("DIV", {"class":"home_expander loading"});
 	div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
 	dojo.place(div, "homeurlexpander", "last");dojo.removeClass("homeurlexpander", "hidden");
 	dojo.xhrPost({url:url, content:{query:query},
@@ -329,16 +390,15 @@ var parseURL = function(query, url){
 	return true;
 };
 var parseInput = function(type, evt){
-	if(dojo.hasClass("homeurlexpander", "hidden")&&(type=="onblur"||evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
+	if(dojo.hasClass("homeurlexpander", "hidden")&&(type=="onblur"||evt.ctrlKey&&evt.charCode==86||evt.keyCode==32)){
 		evt.target.value.split(" ").some(function(elt){
 			if(urlmatch.test(elt)){
-				dojo.byId("productLink").value=elt;
 				parseURL(elt, dojo.attr(evt.target, "_url"));
 			}
 		})
 }};
-var connect_home = function(){
-	var dn = dojo.byId("home_title");
+var connect_home = function(rootnode){
+	var dn = dojo.byId(rootnode);
 	ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseInput, "onkeyup"));
 	ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseInput,"onblur"));
 };

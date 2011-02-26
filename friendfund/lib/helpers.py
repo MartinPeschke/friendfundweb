@@ -21,6 +21,14 @@ ACTION_PIC_STATIC_ROOT = '/static/imgs'
 
 from babel.core import Locale
 
+
+def contains_one(arr, map):
+	for k in arr:
+		if k in map:
+			return True
+	return False
+
+
 def decode_unique_token(token):
 	return uuid.UUID(bytes=base64.urlsafe_b64decode(token+'=='))
 def get_unique_token():

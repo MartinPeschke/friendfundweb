@@ -34,7 +34,6 @@ class IndexController(BaseController):
 		c.uuid = str(uuid.uuid4())
 		if 'pool' in websession:
 			c.pool = websession['pool']
-		c.pd = h.get_unique_token()
 		return self.render('/index.html')
 	
 	def sitemap(self):

@@ -23,32 +23,21 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def open_bounce(self):
-		pd = request.params.get("pd")
 		try:
-			pd = str(pd).strip()
-		except:
-			log.error("NO PD Found")
+			query, product, img_list = g.product_service.set_product_from_open_web(request.params.get('query'))
+		except QueryMalformedException, e:
+			log.warning(e)
 			return {'success':False}
-		
-		with g.cache_pool.reserve() as mc:
-			wizard = h.get_wizard(mc, pd)
-			pool = wizard.get("pool", Pool())
-			try:
-				query, pool, img_list = g.product_service.set_product_from_open_web(pool, request.params.get('query'))
-			except QueryMalformedException, e:
-				log.warning(e)
-				return {'success':False}
-			else:
-				wizard['product_picture_list'] = img_list
-				wizard['pool'] = c.pool = pool
-				h.set_wizard(mc, pd, wizard)
-				return {'success':True, 
-						'url':query, 
-						'display_url':pool.product.get_display_link(),
-						'name':h.word_truncate_by_letters(pool.product.name, 40), 
-						'description':pool.product.get_display_description(), 
-						'imgs':img_list}
-			return result
+		else:
+			return {'success':True, 
+					'url':query,
+					'display_url':product.get_display_link(),
+					'name':product.name,
+					'display_name':h.word_truncate_by_letters(product.name, 40), 
+					'description':product.get_display_description(), 
+					'display_description':product.description, 
+					'imgs':img_list}
+		return result
 		
 	def bounce(self):
 		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)

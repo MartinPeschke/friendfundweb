@@ -1,10 +1,12 @@
 from __future__ import with_statement
-import md5, uuid, os, formencode
+import md5, uuid, os, formencode, logging
+log = logging.getLogger(__name__)
 
 from pylons import app_globals, tmpl_context, request, session as websession
 from pylons.i18n import _
 from friendfund.lib import helpers as h
-from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser
+from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion
+from friendfund.model.product import Product
 from friendfund.tasks.photo_renderer import remote_profile_picture_render
 
 class MissingPermissionsException(Exception):pass
@@ -23,44 +25,27 @@ class PoolService(object):
 		self.config = config
 	
 	def create_free_form(self):
-		tmpl_context.pd = request.params.get("pd")
-		try:
-			tmpl_context.pd = str(tmpl_context.pd).strip()
-		except:
-			pass
-		if tmpl_context.pd:
-			with app_globals.cache_pool.reserve() as mc:
-				wizard = h.get_wizard(mc, tmpl_context.pd)
-		else:
-			wizard = {}
+		from friendfund.model.forms.pool import PoolCreateForm
 		
-		from friendfund.model.forms.pool import PoolCreateForm, ProductForm, OccasionForm
-		
-		pool = wizard.get("pool", Pool())
 		pool_map = formencode.variabledecode.variable_decode(request.params)
-		print pool_map
-		
 		pool_schema = PoolCreateForm().to_python(pool_map)
-		occasion_schema = OccasionForm().to_python(pool_map['occasion'])
 		
-		#pool.fromMap(pool_map, override = True)
+		pool = Pool(title = pool_schema['title'],
+				description = pool_schema['description'],
+				currency = pool_schema['currency']
+			)
+		
 		pool.set_amount_float(pool_schema.pop("amount"))
-		for k,v in pool_schema.iteritems():
-			setattr(pool, k, v)
+		pool.occasion = Occasion(key="EVENT_OTHER", date=pool_schema['date'])
 		
-		if not pool.occasion:
-			pool.occasion = Occasion()
-		pool.occasion.key = "EVENT_OTHER"
-		for k,v in occasion_schema.iteritems():
-			setattr(pool.occasion, k, v)
+		if "tracking_link" in pool_schema:
+			pool.product = Product(name=pool_schema.get("product_name"), 
+									description= pool_schema.get("product_description"),
+									tracking_link= pool_schema.get("tracking_link"),
+									picture= pool_schema.get("product_picture") )
 		
-		if "product" in pool_map:
-			product_schema = ProductForm().to_python(pool_map['product'])
-			if not pool.product:
-				pool.product = Product()
-			for k,v in product_schema.iteritems():
-				setattr(pool.product, k, v)
-				
+		
+		
 		admin = PoolUser(**tmpl_context.user.get_map())
 		admin.is_admin = True
 		pool.participants.append(admin)

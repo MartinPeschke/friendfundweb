@@ -226,7 +226,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,	 	'merchant_domain', 	'merchant_domain'			)
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
-			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True	)
+			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True)
 
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
@@ -234,7 +234,8 @@ class Pool(DBMappedObject):
 			, DBMapper(PoolUser, 'invitees', None, persistable = False)
 			, DBMapper(PoolUser, 'participant_map', None, persistable = False)
 			]
-	
+	def __init__(self, **kwargs):
+		super(self.__class__, self).__init__(**kwargs)
 	def get_invitee_json(self):
 		return simplejson.dumps(dict((pu.network_id, pu.network_id) for pu in self.invitees))
 	def get_comma_seperated_invitees(self):
