@@ -85,16 +85,39 @@ class InviteController(ExtBaseController):
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
 	
+	def _return_to_input(self):
+		c.enforce_blocks = True
+		c.invitees = {}
+		for inv in invitees:
+			netw = inv['network'].lower()
+			invs = c.invitees.get(netw,{})
+			invs[str(inv['network_id'])] = inv
+			c.invitees[netw] = invs
+			if strbool.to_python(inv.get('is_selector')): c.pool.selector=PoolInvitee.fromMap(inv)
+			websession['invitees'] = c.invitees
+		return self._display_invites(c.pool, c.invitees)
+	
+	
+	
 	@logged_in(ajax=False)
 	def friends(self, pool_url):
 		data = simplejson.loads(request.params.get('invitees') or '{}')
 		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
-
+		
+		c.errors = {}
+		
 		c.pool.is_secret = request.params.get("is_secret", False)
 		opt_out = request.params.get("opt_out", False)
 		c.pool.description = request.params.get('description')
+		if not opt_out and request.merchant.type_is_free_form:
+			if not request.params.get('description'):
+				c.errors['description']=_("FF_Please input a Message")
+			if not request.params.get('subject'):
+				c.errors['subject']=_("FF_Please input a Message Subject")
+			if c.errors:
+				return self._return_to_input()
 		
 		
 		#determine state of permissions and require missing ones
@@ -111,16 +134,7 @@ class InviteController(ExtBaseController):
 				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
 				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
 		if perms_required:
-			c.enforce_blocks = True
-			c.invitees = {}
-			for inv in invitees:
-				netw = inv['network'].lower()
-				invs = c.invitees.get(netw,{})
-				invs[str(inv['network_id'])] = inv
-				c.invitees[netw] = invs
-				if strbool.to_python(inv.get('is_selector')): c.pool.selector=PoolInvitee.fromMap(inv)
-				websession['invitees'] = c.invitees
-			return self._display_invites(c.pool, c.invitees)
+			return self._return_to_input()
 		
 		if invitees is not None:
 			invittes_proc_result = g.dbm.set(AddInviteesProc(p_id = c.pool.p_id
