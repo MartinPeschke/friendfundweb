@@ -22,6 +22,7 @@ ${self.render_html()}
 		${links.css('staging.css')}
 		${links.js('loader.js')}
 		<script type="text/javascript"> 
+			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
 			page_reloader = function(){window.location.reload();};
 		</script>
 		${self.fb_meta_tags()}

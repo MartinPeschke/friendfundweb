@@ -49,8 +49,6 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 		if http_method == "POST":
 			data = request.get_nonoauth_parameter_text()
 			header = request.to_header()
-			print '---', data, type(data)
-			print header
 			req = urllib2.Request(request.normalized_url, data, header)
 			url_data = opener.open(req).read()
 		else:

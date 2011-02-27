@@ -133,7 +133,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		dojo.place(_t._loader, _t.ref_node, "only");
 		if(_t._backup_node){
 			_t.onLoad(_t, {html:_t._backup_node, is_complete:true});
-			_t._to_append_nodes.forEach(dojo.hitch(null,_t.reAppendNode, _t));
+			_t._to_append_nodes.forEach(dojo.hitch(null,_t.uninviteAppendNode, _t));
 			_t._to_append_nodes = [];
 			_t._backup_node = null;
 		} else if (!_t.is_selected(_t) || _t.is_loading !== true){
@@ -183,14 +183,17 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	onSelect : function(_t, params, elem, evt){
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
 		dojo.query('#'+elem.id, _t.inviter_node).orphan().forEach(function(elem){
-			dojo.query(".hideable", elem).addClass("hidden");
-			dojo.query(".displayable", elem).removeClass("hidden");
-			dojo.place(elem, _t.invited_node, "last");
-			elem = dojo.byId("invitedCounter");
-			elem.innerHTML = parseInt(elem.innerHTML)+1;
+			_t.inviteAppendNode(_t, elem);
 		});
 	},
-	reAppendNode : function(_t, elem){
+	inviteAppendNode : function(_t, elem){
+		dojo.query(".hideable", elem).addClass("hidden");
+		dojo.query(".displayable", elem).removeClass("hidden");
+		dojo.place(elem, _t.invited_node, "last");
+		elem = dojo.byId("invitedCounter");
+		elem.innerHTML = parseInt(elem.innerHTML)+1;
+	},
+	uninviteAppendNode : function(_t, elem){
 		dojo.query(".hideable", elem).removeClass("hidden");
 		dojo.query(".displayable", elem).addClass("hidden");
 		if(_t.mutuals === true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden");}
@@ -207,7 +210,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			if(_t._backup_node){
 				_t._to_append_nodes.push(elem);
 			} else {
-				_t.reAppendNode(_t, elem);
+				_t.uninviteAppendNode(_t, elem);
 			}
 			var ctr = dojo.byId("invitedCounter");
 			var newctr = parseInt(ctr.innerHTML)-1
@@ -220,10 +223,11 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	},
 	/* ================= END selectors ========================= */
 	addall : function(_t, evt){
+		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
 		var selector = ".selectable.invitee_row";
 		if(_t.mutuals === true){selector = ".selectable.mutual.invitee_row";}
 		dojo.query(selector, _t.inviter_node).orphan().forEach(function(elem){
-			dojo.place(elem, _t.invited_node, "last");
+			_t.inviteAppendNode(_t, elem);
 		});
 	},toggle_mutuals: function(_t) {
 		if(_t.mutuals === true){
@@ -306,6 +310,16 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		if(_t.invited_node_suffix){
 			_t._listener_locals.push(dojo.connect(dojo.byId(_t.global_invited_node), "onclick", dojo.hitch(null, _t.unselect, _t)));
 		}
+		var removeall = dojo.byId("removeall");
+		if(removeall){
+			_t._listener_locals.push(dojo.connect(removeall, "onclick", dojo.hitch(null, _t.removeAll, _t)));
+		}
+
+	},removeAll : function(_t, evt){
+		dojo.query(".invitee_row.selectable", self.invited_node).forEach(function(elem){
+			var sel = _t.selectors[dojo.attr(elem, "_network")];
+			sel.unSelect(sel, elem);
+		});
 	},unselect : function(_t, evt){
 		var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
 		if(!target){return;}

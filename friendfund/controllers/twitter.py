@@ -60,8 +60,12 @@ class TwitterController(BaseController):
 			c.reload = True
 			c.refresh_login = False
 			return render('/closepopup.html')
-		content = tw_helper.fetch_url(tw_helper.access_token_url,"GET", oauth_token, oauth_token_secret, consumer, 
-				params = {'oauth_verifier':oauth_verifier})
+		try:
+			content = tw_helper.fetch_url(tw_helper.access_token_url,"GET", oauth_token, oauth_token_secret, consumer, 
+					params = {'oauth_verifier':oauth_verifier})
+		except (urllib2.HTTPError, urllib2.URLError), e:
+			log.error("COULDNOT GET TOKEN FROM %s, %s", tw_helper.access_token_url, e)
+			return self.ERROR
 		token_data = dict(cgi.parse_qsl(content))
 		# Step 3. User Details
 		try:

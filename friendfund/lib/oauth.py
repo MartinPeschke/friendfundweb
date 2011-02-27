@@ -712,7 +712,6 @@ class SignatureMethod_HMAC_SHA1(SignatureMethod):
     def sign(self, request, consumer, token):
         """Builds the base signature string."""
         key, raw = self.signing_base(request, consumer, token)
-        print raw
         # HMAC object.
         try:
             from hashlib import sha1 as sha

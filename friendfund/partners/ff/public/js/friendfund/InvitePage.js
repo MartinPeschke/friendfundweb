@@ -33,7 +33,7 @@ dojo.declare("friendfund.InvitePage", null, {
 			_t._widget_locals = [];
 			_t.receiver_selectors = {};
 			var invitees = [];
-			dojo.query("div.invitee_row.selectable", _t.invited_node).forEach(
+			dojo.query(".invitee_row.selectable", _t.invited_node).forEach(
 				function(elem, i){
 					var params = {};
 					dojo.forEach(dojo.attr(elem, "_search_keys").split(","), 
