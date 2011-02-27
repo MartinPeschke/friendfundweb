@@ -78,8 +78,7 @@ def get_friend_list(url, method, access_token, access_token_secret, consumer):
 						 'large_profile_picture_url':get_profile_picture_url(elem['profile_image_url']),
 						 'profile_picture_url':elem['profile_image_url'],
 						 'notification_method':method,
-						 'network':'twitter',
-						 'is_selector':False}
+						 'network':'twitter'}
 					)
 					for elem in data if 'screen_name' in elem
 				], next_cursor_str == '0'

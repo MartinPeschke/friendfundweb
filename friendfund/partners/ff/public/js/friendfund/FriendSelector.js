@@ -187,15 +187,11 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		});
 	},
 	inviteAppendNode : function(_t, elem){
-		dojo.query(".hideable", elem).addClass("hidden");
-		dojo.query(".displayable", elem).removeClass("hidden");
 		dojo.place(elem, _t.invited_node, "last");
 		elem = dojo.byId("invitedCounter");
 		elem.innerHTML = parseInt(elem.innerHTML)+1;
 	},
 	uninviteAppendNode : function(_t, elem){
-		dojo.query(".hideable", elem).removeClass("hidden");
-		dojo.query(".displayable", elem).addClass("hidden");
 		if(_t.mutuals === true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden");}
 		
 		var inviter = dojo.byId(_t.inviter_node);
@@ -207,7 +203,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	},
 	unSelect : function(_t, target){
 		dojo.query('#'+target.id, _t.invited_node).orphan().forEach(function(elem){
-			if(_t._backup_node){
+			if(_t._backup_node){//TODO: this is also true if NODE has not been initialized yet :(, i.e. then twitter users end up in facebook panel
 				_t._to_append_nodes.push(elem);
 			} else {
 				_t.uninviteAppendNode(_t, elem);

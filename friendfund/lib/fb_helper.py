@@ -104,8 +104,7 @@ def translate_friend_entry(u_id, friend_data):
 			'notification_method':'CREATE_EVENT',
 			# 'notification_method':'STREAM_PUBLISH',
 			'network':'facebook',
-			'email':friend_data.get('email'),
-			'is_selector':False
+			'email':friend_data.get('email')
 		}
 	
 	dob = friend_data.get('birthday')

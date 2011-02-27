@@ -1,7 +1,8 @@
-parseSelectables = function(rootnode){
+parseSelectables = function(rootnode, className){
+	var classes = className||"borderBottom";
 	var f = function(evt){
-		dojo.query(".borderBottom.selected", rootnode).removeClass("selected");
-		addClassToParent(evt.target, "borderBottom", "selected");
+		dojo.query("."+classes+".selected", rootnode).removeClass("selected");
+		addClassToParent(evt.target, classes, "selected");
 	};
 	dojo.byId(rootnode).onfocusin = f;
 	dojo.byId(rootnode).addEventListener('focus',f,true);

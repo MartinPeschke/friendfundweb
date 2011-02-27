@@ -28,6 +28,8 @@ class InviteController(ExtBaseController):
 			return redirect(url('get_pool', pool_url=pool_url))
 		if 'invitees' in websession:
 			del websession['invitees']
+		c.errors = {}
+		c.values = {}
 		return self._display_invites(c.pool)
 	
 	def _display_invites(self, pool, invitees = {}):
@@ -85,7 +87,7 @@ class InviteController(ExtBaseController):
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
 	
-	def _return_to_input(self):
+	def _return_to_input(self, invitees):
 		c.enforce_blocks = True
 		c.invitees = {}
 		for inv in invitees:
@@ -93,7 +95,6 @@ class InviteController(ExtBaseController):
 			invs = c.invitees.get(netw,{})
 			invs[str(inv['network_id'])] = inv
 			c.invitees[netw] = invs
-			if strbool.to_python(inv.get('is_selector')): c.pool.selector=PoolInvitee.fromMap(inv)
 			websession['invitees'] = c.invitees
 		return self._display_invites(c.pool, c.invitees)
 	
@@ -105,19 +106,24 @@ class InviteController(ExtBaseController):
 		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
-		
+		import pprint
+		pprint.pprint(request.params)
 		c.errors = {}
+		c.values = {}
 		
 		c.pool.is_secret = request.params.get("is_secret", False)
 		opt_out = request.params.get("opt_out", False)
-		c.pool.description = request.params.get('description')
 		if not opt_out and request.merchant.type_is_free_form:
-			if not request.params.get('description'):
-				c.errors['description']=_("FF_Please input a Message")
+			if not request.params.get('message'):
+				c.errors['message']=_("FF_Please input a Message")
 			if not request.params.get('subject'):
 				c.errors['subject']=_("FF_Please input a Message Subject")
 			if c.errors:
-				return self._return_to_input()
+				c.values['subject'] = request.params.get('subject')
+				c.values['message'] = request.params.get('message')
+				return self._return_to_input(invitees)
+			else:
+				c.pool
 		
 		
 		#determine state of permissions and require missing ones
@@ -134,7 +140,7 @@ class InviteController(ExtBaseController):
 				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
 				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
 		if perms_required:
-			return self._return_to_input()
+			return self._return_to_input(invitees)
 		
 		if invitees is not None:
 			invittes_proc_result = g.dbm.set(AddInviteesProc(p_id = c.pool.p_id
@@ -142,7 +148,8 @@ class InviteController(ExtBaseController):
 							, event_id = c.pool.event_id
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
-							, description = c.pool.description
+							, subject = request.params.get('subject') or None
+							, message = request.params.get('message') or None
 							, is_secret = c.pool.is_secret
 							, opt_out = opt_out))
 			g.dbm.expire(Pool(p_url = c.pool.p_url))
