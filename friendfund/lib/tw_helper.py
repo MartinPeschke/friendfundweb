@@ -6,9 +6,11 @@ from ordereddict import OrderedDict
 from friendfund.lib import oauth
 from celery.execute import send_task
 
-request_token_url = 'http://api.twitter.com/oauth/request_token'
-access_token_url = 'http://api.twitter.com/oauth/access_token'
-authenticate_url = 'http://api.twitter.com/oauth/authenticate'
+from pylons import request
+
+request_token_url = 'https://api.twitter.com/oauth/request_token'
+access_token_url = 'https://api.twitter.com/oauth/access_token'
+authenticate_url = 'https://api.twitter.com/oauth/authorize'
 
 img_matcher = re.compile('^(.*)_normal\.(gif|jpg|png|jpeg)$')
 default_img_matcher = re.compile("^(.*images/default_profile_[0-9]+_)normal(\.png)$")
@@ -32,7 +34,7 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 		oauth_base_params = {
 			'oauth_version': "1.0"
 			,'oauth_nonce': oauth.generate_nonce()
-			,'oauth_timestamp': int(time.time())
+			,'oauth_timestamp': oauth.generate_timestamp()
 		}
 		if token is not None:
 			token = oauth.Token(token, token_secret)
@@ -40,16 +42,21 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 			params.update(oauth_base_params)
 		else:
 			params = oauth_base_params
+		
 		request = oauth.Request(method=http_method,url=url,parameters=params)
 		request.sign_request(oauth.SignatureMethod_HMAC_SHA1(), consumer, token)
 		opener = urllib2.build_opener()
 		if http_method == "POST":
 			data = request.get_nonoauth_parameter_text()
 			header = request.to_header()
+			print '---', data, type(data)
+			print header
 			req = urllib2.Request(request.normalized_url, data, header)
 			url_data = opener.open(req).read()
 		else:
-			url_data = opener.open(request.to_url()).read()
+			header = request.to_header()
+			req = urllib2.Request(request.to_url(), headers = header)
+			url_data = opener.open(req).read()
 		opener.close()
 		return url_data
 

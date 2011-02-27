@@ -83,6 +83,10 @@ parseEditables = function(rootnode){
 
 popup_esc_handler = [];
 esc_handler_f = function(callback, evt){if(evt.charCode == 27){dojo.hitch(this, callback(evt));}};
+accessability = function(callbackRet, callbackEsc, evt){
+	if(evt.keyCode == 13){dojo.hitch(this, callbackRet(this, evt));}
+	else if(evt.keyCode == 27){dojo.hitch(this, callbackEsc(this, evt));}
+};
 closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[]};
 displayPopup = function(html){
 	dojo.place(html, dojo.byId("generic_popup"), "only" );
@@ -90,6 +94,14 @@ displayPopup = function(html){
 	popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
 };
 loadPopup = function(evt){closePopup(evt);xhrPost(dojo.attr(this, "_href"), {});};
+clear_messages = function(){destroyPopup("message_container");};
+destroyPopup = function(nodeid) {
+	var node = dojo.byId(nodeid);
+	if(node){
+		dojo.empty(nodeid);
+		dojo.style(nodeid, 'display', 'none');
+	}
+};
 parseDefaultsInputs = function(rootnode){
 	dojo.query("input[_default_text], textarea[_default_text]", rootnode).onfocus(
 		function(evt){

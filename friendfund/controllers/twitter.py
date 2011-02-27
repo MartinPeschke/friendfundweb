@@ -15,6 +15,7 @@ from friendfund.model.common import SProcWarningMessage
 log = logging.getLogger(__name__)
 
 consumer = oauth.Consumer(g.TwitterApiKey, g.TwitterApiSecret)
+# consumer = oauth.Consumer("GDdmIQH6jhtmLUypg82g", "MCD8BKwGdgPHvAuvgvz4EQpqDAtx89grbuNMRd7Eh98")
 
 class TwitterController(BaseController):
 	UNKNOWN_TWITTER_ERROR = _("TWITTER_An Error occured during Twitter authentication, please try again later.")
@@ -30,10 +31,11 @@ class TwitterController(BaseController):
 		furl = request.params.get('furl')
 		# Step 1. Get a request token from Twitter.
 		try:
-			content = tw_helper.fetch_url(tw_helper.request_token_url,"GET", None, None, consumer, 
-					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (request.qualified_host,  furl)})
+			content = tw_helper.fetch_url(tw_helper.request_token_url,"POST", None, None, consumer, 
+					params = {'oauth_callback':'%s/twitter/authorize' % (request.qualified_host)})
+					# params = {'oauth_callback':'http://localhost:3005/the_dance/process_callback?service_provider_id=11'})
 		except (urllib2.HTTPError, urllib2.URLError), e:
-			log.error(e)
+			log.error("COULDNOT GET TOKEN FROM %s, %s", tw_helper.request_token_url, e)
 			return self.ERROR
 		websession['request_token'] = dict(cgi.parse_qsl(content))
 		

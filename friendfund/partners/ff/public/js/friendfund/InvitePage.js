@@ -26,7 +26,7 @@ dojo.declare("friendfund.InvitePage", null, {
 		var node;
 		if(_t.submitting){return false;}
 		_t.submitting = true;
-		var results = dojo.query("div.invitee_row", _t.invited_node);
+		var results = dojo.query(".invitee_row", _t.invited_node);
 		
 		if(results.length){
 			dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});

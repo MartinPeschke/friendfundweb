@@ -1,5 +1,6 @@
 <%inherit file="../layout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="inviter" file="inviter.html"/>
 
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
@@ -43,9 +44,26 @@
   <div class="colRight moreMarginTop">
   	<a href="#" class="floatRight">Remove All</a>
     <h3>Invited Friends (7)</h3>
-    	<div class="listSelectedFriends" id="invitedContainer">
-        	<p class="inviterTwo">Invite your friends from<br /> the left panel</p>
-        </div>
+		
+		<div class="listSelectedFriends" id="invitedContainer" >
+			<p class="inviterTwo">Invite your friends from<br /> the left panel</p>
+			<div id="email_invitees" class="invited_list">
+				<div class="seperator"><img src="/static/imgs/icon_mail.png"/></div>
+				${inviter.render_email_friends(c.invitees.get("email", dict()))}
+				<div style="clear:both;"></div>
+			</div>
+			<div id="twitter_invitees" class="invited_list">
+				<div class="seperator"><img src="/static/imgs/icon_tw_connect.png"/></div>
+				${inviter.render_network_friends(c.invitees.get("twitter", dict()))|n}
+				<div style="clear:both;"></div>
+			</div>
+			<div id="facebook_invitees" class="invited_list">
+				<div class="seperator"><img src="/static/imgs/icon_fb_connect.png"/></div>
+				${inviter.render_network_friends(c.invitees.get("facebook", dict()))|n}
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		
   	<!--<div class="listSelectedFriends">	
     	<ul>
         	<li>
@@ -161,14 +179,15 @@
 		</div>
       </div>
 	  
-      <div class="subTab" id="inviter">
-      <div class="arrowSubTab"></div>
-      	<p class="inviter">Invite your Facebook friends.</p>
-        <a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
-			<span>Log in with Facebook</span>
-		</a>
-      </div>
-      
+      <!--
+		<div class="subTab" id="inviter">
+			<div class="arrowSubTab"></div>
+			<p class="inviter">Invite your Facebook friends.</p>
+			<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
+				<span>Log in with Facebook</span>
+			</a>
+		</div>
+      -->
       
       <!--TAB INVITE MAIL-->
       <!--<div class="subTab">
@@ -183,7 +202,7 @@
       
       
       <!--INVITE FRIENDS PANEL-->
-      <!--<div class="subTab"> 
+      <div class="subTab"  id="inviter"> 
       <div class="arrowSubTab"></div>
       	<div class="boxSearchFriend">
         	<input type="text" value="Search Friends" class="searchFriends default" />
@@ -288,7 +307,7 @@
             </ul>
         	
         </div>
-      </div>-->
+      </div>
 	  
 	  
       <h4>Add a Personal Message to your Invitees <span>(optional)</span></h4>
@@ -329,7 +348,7 @@
                    </div> 
                 </div>
                 <div class="btnContainer">
-                	<input type="button" value="Create Pool" />
+                	<input type="button" id="invite_submitter" value="Create Pool" />
                     <input type="button" value="Preview" />
                 	
                 </div>

@@ -93,11 +93,13 @@ def _utf8_str(s):
 
 def generate_timestamp():
     """Get seconds since epoch (UTC)."""
+    # return "1272323042"
     return int(time.time())
 
 
 def generate_nonce(length=8):
     """Generate pseudorandom number."""
+    # return "QP70eNmVz8jvdPevU3oJD2AfF7R7odC2XJcn4XlZJqk"
     return ''.join([str(random.randint(0, 9)) for i in range(length)])
 
 
@@ -317,15 +319,14 @@ class Request(dict):
  
     def to_header(self, realm=''):
         """Serialize as a header for an HTTPAuth request."""
-        oauth_params = ((k, v) for k, v in self.items() 
-                            if k.startswith('oauth_'))
+        oauth_params = ((k, v) for k, v in self.items() if k.startswith('oauth_'))
         stringy_params = ((k, escape(str(v))) for k, v in oauth_params)
         header_params = ('%s="%s"' % (k, v) for k, v in stringy_params)
         params_header = ', '.join(header_params)
  
-        auth_header = 'OAuth realm="%s"' % realm
+        auth_header = 'OAuth'
         if params_header:
-            auth_header = "%s, %s" % (auth_header, params_header)
+            auth_header = "%s %s" % (auth_header, params_header)
  
         return {'Authorization': auth_header}
  
@@ -711,7 +712,7 @@ class SignatureMethod_HMAC_SHA1(SignatureMethod):
     def sign(self, request, consumer, token):
         """Builds the base signature string."""
         key, raw = self.signing_base(request, consumer, token)
-
+        print raw
         # HMAC object.
         try:
             from hashlib import sha1 as sha

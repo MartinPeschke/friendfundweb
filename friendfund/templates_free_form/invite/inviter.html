@@ -6,7 +6,7 @@
 
 
 %if c.method == 'facebook':
-	${networkinviter("facebook", c.friends, True)}
+	${networkinviter("facebook", c.friends, request.merchant.type_is_group_gift)}
 %elif c.method == 'twitter':
 	${networkinviter("twitter", c.friends, False)}
 %elif c.method == 'email':
@@ -14,28 +14,20 @@
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals)">
-	<div id="networkinviter_${network_name}">
-	<div id="inviteheader" class="${network_name}">
-		<input type="text" value="${_("INVITE_PAGE_LABEL_Search friends ...")}" name="fb_filter" id="fb_filter" _default_text="${_("INVITE_PAGE_LABEL_Search friends ...")}" class="default">
+	<div class="arrowSubTab"></div>
+	<div class="boxSearchFriend" id="inviteheader">
+		<input type="text" id="fb_filter"  value="Search Friends" _default_text="Search Friends" class="searchFriends default" />
+		%if mutuals:
+			<span class="mutualToggleContainer"><input id="toggle_mutuals" type="checkbox"/><label for="toggle_mutuals">Mutual Friends</label></span>
+		%endif
+		<a href="#" class="floatRight inviteAll" id="inviteall">Invite All</a>
 	</div>
-	<div class="invitepage">
-	%if mutuals:
-		<div class="mutual_toggle_container">
-			<input type="checkbox" id="toggle_mutuals" checked="checked"/>
-			<label for="toggle_mutuals">${_("INVITE_PAGE_Only Mutual Friends")}</label>
-		</div>
-	%endif
-	<a class="submitMini" id="inviteall">${_("INVITE_PAGE_LABEL_Invite All")}<span></span></a>
-
-	<div id="friend_list" class="${network_name}">
-		${render_network_friends(friends, mutuals = mutuals)|n}
-		${render_network_friends(c.already_invited, active=False, mutuals = mutuals)|n}
-	</div>
-	</div>
+	 <div class="friendsList">
+		<ul id="friend_list" class="${network_name}">
+			${render_network_friends(friends, mutuals = mutuals)|n}
+		</ul>
 	</div>
 </%def>
-
-
 
 <%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False, add_label = None, rem_label = None)">
 %for i,(id, user_data) in enumerate(friends.iteritems()):
@@ -47,26 +39,47 @@
 		else:
 			mutual_class = "nonmutual"
 	%>
-	<div class="invitee_row ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}"
+		<li class="invitee_row invite ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}"
 			%if active:
 				pos="${i}" ${h.attrib_keys(user_data)|n}
 			%endif
 		>
-		<img src="${user_data['profile_picture_url']}" class="fbprofilepic" alt="${user_data['name']}"/>
-		<span class="label"><b>${user_data['name']}</b>
-		%if show_birthdays and 'dob' in user_data:
-			<% user_data["dob_fmt"] = h.format_short_date(user_data["dob"]) %>
-			<div class="birthdaylabel">${(_("RECEIVER_BIRTHDAY_LABEL_Birthday: %(dob_fmt)s")%user_data)|n}
-			%if user_data['dob_difference'] < 60:
-				<div>${(_("RECEIVER_BIRTHDAY_LABEL_%(dob_difference)s days to go")%user_data)|n}</div>
-			%endif
+			<a class="hidden displayable close" href="#">X</a>
+			<div class="avt">
+				<img src="${user_data["profile_picture_url"]}">
 			</div>
-		%endif
-		</span>
-		%if active:
-			<a class="selector invite" title="${user_data['name']}">${add_label or _("INVITE_LABEL_Invite")|n}<span class="selector invite"></span></a>
-			<a class="selector remove" title="${user_data['name']}">${rem_label or _("INVITE_LABEL_Remove")|n}<span class="selector remove"></span></a>
-		%endif
-	</div>
+			<p class="hideable">${user_data["name"]}</p>
+			<a class="hideable" href="#">Invite &raquo;</a>
+			
+		</li>
 %endfor
+</%def>
+
+<%def name="mailinviter()">
+	<form action="" method="POST" id="emailinviter">
+	<div class="arrowSubTab"></div>
+	<div class="firstSpacer floatLeft"><label for="email_networkname" class="fixedWidth">Friend's Name</label><input id="email_networkname" name="invitee.name" type="text" class="" /></div>
+	<div class="secondSpacer floatLeft"><label for="email_email" class="fixedWidth">Email</label><input id="email_email" name="invitee.network_id" type="text" class="" />
+		<span id="email_inviter_error"></span>
+	</div>
+	<div class="btnContainer">
+		<input type="button" id="emailsubmitter" value="Add to Invitees">
+	</div>
+	<input type="hidden" name="invitee.network" value="email"/>
+	<input type="hidden" name="invitee.notification_method" value="email"/>
+	 </form>
+</%def>
+<%def name="render_email_friends(friends, active = True, class_='selectable', add_label = None, rem_label = None)">
+%for i,(id, user_data) in enumerate(friends.items()):
+	<li class="invitee_row invite" id="email_${ md5.new(id).hexdigest() }"
+			%if active:
+				pos="i" ${h.attrib_keys(user_data)|n}
+			%endif
+	>
+		<a class="displayable close" href="#">X</a>
+		<div class="avt">
+			<img src="${user_data["profile_picture_url"]}">
+		</div>
+	</li>
+	%endfor
 </%def>
