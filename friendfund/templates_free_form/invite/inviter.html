@@ -14,6 +14,7 @@
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals)">
+	<div id="networkinviter_${network_name}">
 	<div class="arrowSubTab"></div>
 	<div class="boxSearchFriend" id="inviteheader">
 		<input type="text" id="fb_filter"  value="Search Friends" _default_text="Search Friends" class="searchFriends default" />
@@ -26,6 +27,7 @@
 		<ul id="friend_list" class="${network_name}">
 			${render_network_friends(friends, mutuals = mutuals)|n}
 		</ul>
+	</div>
 	</div>
 </%def>
 
