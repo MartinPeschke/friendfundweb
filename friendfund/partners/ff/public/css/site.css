@@ -1079,6 +1079,7 @@ ul.comments .txtArea {
 	max-width: 618px;
 	height: 48px;
 	padding: 5px;
+	background:white
 }
 .txtArea textarea {
 	border:none;
@@ -1138,9 +1139,10 @@ div.rose {
 	width: 180px;
 	margin:18px 0 0 -25px;
 	padding: 6px 20px 10px 20px;
-	-moz-border-radius-bottomleft: 4px;
-	-moz-border-radius-bottomright: 4px;
 	-moz-box-shadow: 0 2px 2px #FAA2F6;
+	-webkit-box-shadow: 0px 2px 2px #FAA2F6; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 2px 2px #FAA2F6; /* Opera 10.5, IE 9.0 */
+	
 }
 div.rose p {
 	text-align: left;
@@ -1412,7 +1414,7 @@ div.containerTxtArea input {
 	border: medium none;
 	color: #999999;
 	font-family: Arial;
-	font-size: 12px;
+	font-size: 14px;
 	width: 100%;
 	height:20px;
 	line-height:20px
@@ -2098,10 +2100,48 @@ p.inviterTwo {
 	display:block;
 	padding:0 10px
 }
-.primaryLarge:hover{
+.primaryLarge:hover, .primaryButton:hover, .forward:hover{
 	background:#d30165
+}
+.primaryButton{
+	height:35px;
+	line-height:35px;
+	font-size:16px;
+	color:white;
+	border:1px solid #cb3e7e;
+	background-color: #65da44;
+	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6eec4a), to(#5dc63e));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 1px 1px 1px #960148;
+	display:block;
+	padding:0 10px
 }
 #inviteMessage { padding:10px 0 15px 0}
 #inviteMessage div.wrapInside{ width:100%; padding:5px 0}
 #inviteMessage div.selected{background-color: #E8E8E8;
     padding: 5px 0; position:relative}
+.spacerButtons{ padding-top:20px; margin-left:25px}
+.forward{height:35px;
+	line-height:35px;
+	font-size:16px;
+	color:white;
+	border:1px solid #cb3e7e;
+	background-color: #65da44;
+	background: -moz-linear-gradient(100% 100% 90deg, #d40166, #fd1d88);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fd1d88), to(#d40166));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 1px 1px 1px #960148;
+	display:block;
+	padding:0 10px}
+.forward input{ -moz-border-radius: 15px;
+	border-radius: 15px; display:block; width:15px; height:15px; float:right; margin:10px 0 0 5px; color:white; font-weight:bold;
+	background-color: #f3167f;
+	background: -moz-linear-gradient(100% 100% 90deg, #d70469, #cb0e68);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cb0e68), to(#d70469));}
+.forward span{ float:left}
+.forward:hover input{background-color: #f3167f;
+	background: -moz-linear-gradient(100% 100% 90deg, #d70469, #cb0e68);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d60569), to(#cb0e68));}
