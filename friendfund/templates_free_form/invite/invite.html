@@ -45,7 +45,7 @@
 </div>
 <div class="content">
   <div class="colRight moreMarginTop">
-  	<a href="#" class="floatRight" id="removeall">Remove All</a>
+  	<span class="floatRight link" id="removeall">Remove All</span>
     <h3>Invited Friends (<span id="invitedCounter">${reduce(add, [0]+[len(c.invitees[invs]) for invs in c.invitees])}</span>)</h3>
 		<div class="listSelectedFriends" id="invitedContainer" >
 			<p class="inviterTwo ${bool(c.invitees) and "hidden" or ""}">Invite your friends from<br /> the left panel</p>
@@ -62,9 +62,9 @@
 		  
 		  <div class="wrapTabs">
 			<div class="tabs"> 
-				<a href="#" class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</a> 
-				<a href="#" class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</a> 
-				<a href="#" class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</a> 
+                <span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
+				<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
+				<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
 			</div>
 		  </div>
 		  <div class="subTab"  id="inviter"></div>

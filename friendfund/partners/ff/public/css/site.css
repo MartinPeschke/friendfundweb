@@ -53,7 +53,8 @@ div.subHeader {
 }
 div.wrapContent {
 	background: #f9f9f9;
-	padding: 0 0 360px 0
+	padding: 0 0 360px 0;
+	position:relative
 }
 div.content {
 	max-width: 930px;
@@ -93,7 +94,8 @@ a.white {
 	color: white
 }
 .link {
-	cursor:pointer
+	cursor:pointer;
+	color: #00BBEA;
 }
 span.white {
 	color: white
@@ -166,7 +168,8 @@ div.header ul li a:hover {
 div.loginArea {
 	font-size: 12px;
 	color: black;
-	margin: 18px 0 0 0
+	margin: 18px 0 0 0;
+	position:relative
 }
 div.loginArea a.btn {
 	float:left;
@@ -191,14 +194,14 @@ div.loginArea a.btn.active {
 #loginPanelContent {
 	color: #333;
 	position: absolute;
-	right: 282px;
-	top: 43px;
+	right:73px;
+	top: 25px;
 	background:white;
 	border:4px solid #cacaca;
 	width:247px;
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
-	bordser-top-right-radius:0px;
+	border-top-right-radius:0px;
 	-moz-border-radius-topright:0px;
 	z-index: 3001;
 	padding:5px 20px 0 20px
@@ -222,7 +225,7 @@ div.loginArea a.btn.active {
 	color:#333;
 	border-bottom:1px solid #e4e4e4;
 	padding-bottom:3px;
-	margin-top:10px
+	padding-top:15px; clear:both
 }
 .facebookBtn {
 	cursor: pointer;
@@ -1087,7 +1090,7 @@ ul.comments .txtArea {
 	width: 100%;
 	font-family: Arial;
 	font-size: 12px;
-	color: #999999
+	color: #333
 }
 ul.comments p {
 	color: #4e4e4e
@@ -1191,7 +1194,8 @@ div.plus a {
 	line-height: 14px;
 	font-weight: bold;
 	text-transform: uppercase;
-	margin: 9px 0 0 0
+	margin: 9px 0 0 0;
+	cursor:pointer
 }
 div.iconContainer a {
 	display:block;
@@ -1339,13 +1343,6 @@ div.selected div.greyInsideFullWidth {
 div.borderBottom div {
 	float: left;
 	font-size: 14px;
-}
-div.borderBottom div.first {
-	width: 140px;
-	text-align: right;
-	height: 30px;
-	line-height: 30px;
-	padding: 0 10px
 }
 div.greyInside {
 	background-color: #e8e8e8;
@@ -1573,7 +1570,7 @@ div.subHeader .prodImgSubWrap img {
 	width: 60px;
 	margin: 0
 }
-div.tabs a {
+div.tabs span {
 	background-color: #ddd;
 	border-color: #c9c9c9;
 	border-style: solid;
@@ -1589,6 +1586,7 @@ div.tabs a {
 	padding: 0 10px;
 	position: relative;
 	text-align: center;
+	cursor:pointer
 }
 div.wrapTabs {
 	float:left
@@ -1706,13 +1704,13 @@ div.imgSpacer {
 div.imgSpacer img {
 	margin-right:25px
 }
-div.borderBottom p.info {
+p.info {
 	font-size: 11px;
 	color: #999;
-	margin: 10px 0 0 163px;
+	margin: 10px 0 -5px 163px;
 	padding:0;
-	line-height: 11px;
-	float: left
+	line-height: 14px;
+	float: left;
 }
 div.selected.evenLessPad p.info {
 	margin-top:5px
@@ -1816,7 +1814,7 @@ div.error span {
 	color:#FA92AD
 }
 div.error input, div.error .containerTxtArea, div.error select {
-	border-color:#FA92AD
+	border-color:#FA92AD !important
 }
 div.error div.tip {
 	background-color:#FA92AD !important
@@ -1861,8 +1859,7 @@ div.inviteBottom {
 	margin-right:10px
 }
 div.friendsList {
-	padding:10px 0 10px 8px;
-	height:227px;
+	height:247px;
 	overflow:auto;
 	background:white
 }
@@ -1876,6 +1873,7 @@ div.friendsList ul li {
 	margin-bottom:5px;
 	position:relative
 }
+ul.facebook{ float:left; padding:8px 0 8px 10px}
 div.friendsList ul li .avt {
 	margin:0 10px 0 0
 }
@@ -1995,9 +1993,9 @@ div.friendsList ul li p {
 	width: 140px;
 	text-align: right;
 } /*moved here from top for email inviter */
-.subTab input {
+.subTab input.txtMail {
 	border: medium none;
-	color: #999999;
+	color: #333;
 	font-family: Arial;
 	font-size: 12px;
 	height: 28px;
@@ -2123,7 +2121,8 @@ p.inviterTwo {
 	-webkit-border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:0 10px
+	padding:0 10px;
+	cursor:pointer;
 }
 #inviteMessage { padding:10px 0 15px 0}
 #inviteMessage div.wrapInside{ width:100%; padding:5px 0}
@@ -2155,4 +2154,52 @@ p.inviterTwo {
 .special{padding:15px 0 !important}
 
 /*LOGIN PANEL BIG*/
-.loginPanelBig{ width:530px}
+.loginPanelBig{ width:450px;
+	border:4px solid #cacaca;
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top: none;
+	background:white;
+	padding:40px 40px 30px 40px
+}
+.colLeftLogin{ padding-bottom:50px}
+.colLeftLogin h3{ font-size:36px; color:#333; line-height:40px; margin-top:10px}
+.colLeftLogin h4{display: block;
+	height: 25px;
+	color: #333;
+	font-size: 18px;
+	padding-top: 35px;
+	border-bottom: 2px solid #e4e4e4;
+	clear: both}
+div.logInOnePx {
+    border-bottom: 1px solid #E4E4E4;
+    float: left;
+    min-width: 450px;
+    padding: 15px 0;
+    position: relative;
+}
+div.first{ height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    text-align: right;
+    width: 140px; font-size:14px; float:left}
+
+div.logInOnePx input {
+    border: 1px solid #333333;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+	float:left;
+	padding: 0 5px;
+    width: 61%;
+}
+.loginSocialWrap{ float:left; padding:30px 0 0 0}
+.loginSocialWrap a{ float:left; margin-left:17px}
+.loginSocialWrap p{color:#999; font-size:11px; clear:both; text-align:center; padding-top:20px}
+.colRightLogin{ width:350px; color:#666; padding:145px 0 0 30px}
+.colRightLogin h3{ font-size:18px; padding-top:20px}
+.colRightLogin p{ font-size:12px; padding-top:12px}
