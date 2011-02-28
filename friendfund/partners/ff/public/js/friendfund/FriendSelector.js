@@ -124,7 +124,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		} else {_t.invited_node=null;}
 		
 		/* since selector is outside of refnode, and does not get rerendered, this can get out of sync */
-		_t._is_selected_decider = "a.methodselector.ajaxlink.selected[_type="+_t.network+"]";
+		_t._is_selected_decider = ".methodselector.ajaxlink.selected[_type="+_t.network+"]";
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
 	},draw : function(_t){
