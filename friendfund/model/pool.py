@@ -209,7 +209,7 @@ class Pool(DBMappedObject):
 	_get_proc   = 'app.get_pool'
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
-	_expiretime = 20
+	_expiretime = 1
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
 			, GenericAttrib(int,		'p_id',				'p_id'						)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
@@ -285,6 +285,12 @@ class Pool(DBMappedObject):
 		return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())
 	product_display_label = property(get_product_display_label)
 	
+	def get_product_display_picture(self, type="POOL"):
+		if self.product:
+			return h.get_product_picture(self.product.picture, type)
+		else:
+			return h.get_product_picture(self.product.picture, type)
+	
 	def get_remaining_days_tuple(self):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 		if diff < timedelta(0):
@@ -348,6 +354,7 @@ class Pool(DBMappedObject):
 	def is_funded(self):
 		return self.status == "FUNDED"
 	def is_contributable(self):
+		print '-------------', self.status
 		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
 	
 	def mergewDB(self, xml):

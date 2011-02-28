@@ -56,7 +56,7 @@
 	}
 	</script>
 %else:
-<img src="/static/imgs/loginarea-ico.png" />
+<img src="${c.user.get_profile_pic()}" width="25px" height="25px" />
 	<div class="showHide">
 		<a href="#">${c.user.name or c.user.default_email}</a>
 		<div class="widthGiver">

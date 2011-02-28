@@ -2,11 +2,12 @@
 
 
 %if c.chat.comments:
-		%for comment in c.chat.comments:
-			${cmt.render(comment)}
-		%endfor
+	<%c.chat.comments.reverse()%>
+	%for comment in c.chat.comments:
+		${cmt.render(comment)}
+	%endfor
 %else:
 	<li>
-		<div class="txtComments">${_("FF_POOL_CHAT_No Comments!")}</div>
+		<div class="txtComments">${_("FF_POOL_CHAT_No Comments!")}</div><div class="clear"></div>
 	</li>
 %endif

@@ -315,7 +315,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 		_t._widget_locals = [];
 	},switchMethod : function(_t, evt){
-		var deselect = dojo.query("a.ajaxlink.selected", _t.container);
+		var deselect = dojo.query(".ajaxlink.selected", _t.container);
 		if(deselect.length > 0){
 			deselect = deselect[0];
 			if(deselect === this){return;}
@@ -333,7 +333,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 	draw : function(selector){
 		var _t = this;
 		_t.selectors[selector].draw(_t.selectors[selector]);
-		dojo.query("a.ajaxlink", _t.container).forEach(
+		dojo.query(".ajaxlink", _t.container).forEach(
 			function(elem){_t._listener_locals.push(dojo.connect(elem, "onclick", dojo.hitch(null, _t.switchMethod, _t)));}
 		);
 		

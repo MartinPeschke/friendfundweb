@@ -28,7 +28,7 @@ PROFILE_PIC_FORMATS = [('RA', (120,120))
 					,('MYPROFILE', (90,90))
 					,('RESULT', (205,205))]
 
-PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (140,140)), ('MYPOOLS', (153,114))]
+PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (140,140)), ('MYPOOLS', (153,114)), ('FF_POOLS', (190,150)), ('FF_POOL_PIC_S', (60,50))]
 POOL_PIC_FORMATS = [('RA', (161,120), (4, 12)), ('MYPOOLS', (120,79), (3, 6))]
 
 class UnexpectedFileNameFormat(Exception):

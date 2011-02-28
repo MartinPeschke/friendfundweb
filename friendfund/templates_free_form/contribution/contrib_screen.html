@@ -1,12 +1,24 @@
 <%inherit file="../layout.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
+<%def name="scripts()">
+	<script type="text/javascript">
+		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+	</script>
+</%def>
+
+<%def name="onloadscripts()">
+	parseDefaultsInputs("contributionForm");
+	parseSelectables("contributionForm");
+</%def>
+
 <div class="wrapSubHeader">
   <div class="subHeader">
     <div class="userProfile">
       <div class="nonPoolHeader">
         <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="/static/imgs/dummy/dummy-img-big.jpg" height="90"> </div>
+          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="60px" width="50px;"> </div>
         </div>
-        <h2>Chip In for Peter and Judy's Wedding</h2>
+        <h2>${c.pool.title}</h2>
       </div>
       <div class="steps">
         <div class="stepOne active"><span>1</span>Chip in</div>
@@ -24,84 +36,103 @@
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
-  <form action="${url('contribution', action="payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" method="POST">
+  <form action="${url('contribution', action="payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
     <div class="poolDets">
       <h4>How much do you want to contribute?</h4>
       <div class="borderBottom noBorder">
         <div class="first" style="margin-top:8px">Your contribution</div>
         <div class="greyInside widthAuto borderGrey">
-          <input type="text" class="default"  />
-          <span class="value">&euro;</span> </div>
-        <p class="alignInput">MAX. CONTRIBUTION: &euro;<span class="bold"> 22,203.45</span></p>
-        <img src="/static/imgs/veri-sign.png" align="right"> </div>
+          <input type="text" class="default" value="${c.chipin_values.get('amount')}"  />
+          <span class="value">${h.display_currency(c.pool.currency)}</span> </div>
+        <p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
+		<div id="verisign_contrib" class="floatRight">
+			<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+			<tr>
+			<td width="135" align="center" valign="top">
+				<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+			</td>
+			</tr>
+			</table></div>
+		</div>
       <div class="contentDetails">
         <h6>When will I be charged?</h6>
         You won't be charged anything unless this Pool is fully funded by Tuesday 21 Oct 2011. If it isn't 
         funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
         <h6>Accepted Payment Methods</h6>
-        <div class="imgSpacer"> <img src="/static/imgs/paypal.png"> <img src="/static/imgs/visa.png"> <img src="/static/imgs/mastercard.png"> <img src="/static/imgs/american.png"> <img src="/static/imgs/direct.png"> </div>
+        <div class="imgSpacer"> <img src="/static/imgs/paypal.png"> <img src="/static/imgs/visa.png"> <img src="/static/imgs/mastercard.png"> <img src="/static/imgs/american.png"> </div>
       </div>
       <div class="clear"></div>
       <h4>Add a personal message <span>(optional)</span></h4>
       <div class="borderBottom"  style="border:none">
         <div class="first"> <span>Your message</span> </div>
         <div class="containerTxtArea">
-          <textarea class="default">Write your description here...</textarea>
+          <textarea class="default" _default_text="Write your description here..." wrap="soft"
+							onKeyDown="textCounter(this,this.form.remLen,140);" 
+							onKeyUp="textCounter(this,this.form.remLen,140);" 
+							name="chipin.message" id="chipin_message">${c.chipin_values.get("message", "Write your description here...")}</textarea>
         </div>
-        <div class="floatRight number bold">140</div>
+        <div class="floatRight number bold"><input readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> </div>
         <p class="info">This message will appear on (Admin name's) e-card if the Pool is successfully funded.</p>
       </div>
       <div class="clear"></div>
     </div>
-    <div class="recMoney">
-      <h4 style="margin-bottom:10px">Privacy Settings</h4>
-      <div class="borderBottom noBorder lessPad selected" >
-        <div class="tip">
-            <div class="arrow"></div>
-          <span>Tip goes here</span> </div>
-        <div class="greyInsideFullWidth">
-          <div class="first"> <span>&nbsp</span> </div>
-          <input type="checkbox" class="chkbox default"><label>I want to remain anonymous</label>
-        </div>
-        
-      </div>
-      <div class="borderBottom noBorder lessPad">
-        <div class="tip">
-            <div class="arrow"></div>
-          <span>Tip goes here</span> </div>
-        <div class="greyInsideFullWidth">
-          <div class="first"> <span>&nbsp</span> </div>
-         <input type="radio" class="radio"><label>I'm happy to show how much I've chipped in</label>
-        </div>
-        
-      </div>
-      <div class="borderBottom noBorder lessPad">
-        <div class="tip">
-            <div class="arrow"></div>
-          <span>Tip goes here</span> </div>
-        <div class="greyInsideFullWidth">
-          <div class="first"> <span>&nbsp</span> </div>
-          <input type="radio" class="radio"><label>I don't want anyone to see how much I've chipped in</label>
-        </div>
+	<div class="recMoney">
+		<h4 style="margin-bottom:10px">Privacy Settings</h4>
+  
+		<div class="borderBottom noBorder lessPad" >
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>Tip goes here</span> 
+			</div>
+			<div class="greyInsideFullWidth">
+				<div class="first"> <span>&nbsp</span> </div>
+				<input type="checkbox" id="remainAnonymous" name="chipin.anonymous" value="yes" ${widgets.input_checked("chipin", "anonymous", "yes")} class="chkbox"><label for="remainAnonymous">I want to remain anonymous</label>
+			</div>
+		</div>
 
-      </div>
-      <div class="spacerBorder"></div>
+		<div class="borderBottom noBorder lessPad">
+			<div class="tip">
+				<div class="arrow"></div>
+			  <span>Tip goes here</span> </div>
+			<div class="greyInsideFullWidth">
+			  <div class="first"> <span>&nbsp</span> </div>
+			 <input type="radio" id="isSecretFalse" name="chipin.is_secret" value="no" ${widgets.input_checked("chipin", "is_secret", False, default=True)|n} class="radio"><label  for="isSecretFalse">I'm happy to show how much I've chipped in</label>
+			</div>
+		</div>
+
       <div class="borderBottom noBorder lessPad">
         <div class="tip">
             <div class="arrow"></div>
           <span>Tip goes here</span> </div>
         <div class="greyInsideFullWidth">
           <div class="first"> <span>&nbsp</span> </div>
-          <input type="checkbox" class="chkbox"><label>I accept the <a href="#">Terms of service</a></label>
+          <input type="radio" id="isSecretTrue" name="chipin.is_secret" value="yes" ${widgets.input_checked("chipin", "is_secret", True)|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
         </div>
-
       </div>
+
+	<div class="spacerBorder"></div>
+	<div class="borderBottom noBorder lessPad ${('agreedToS' in c.chipin_errors) and "error" or ""}">
+		<div class="tip">
+			<div class="arrow"></div>
+		%if ('agreedToS' in c.chipin_errors):
+			<span>${c.chipin_errors['agreedToS']}</span> 
+		%else:
+			<span>Tip goes here</span> 
+		%endif
+		</div>
+		<div class="greyInsideFullWidth">
+			<div class="first"> <span>&nbsp</span> </div>
+			<input type="checkbox" id="chipin_agreedToS" name="chipin.agreedToS" value="yes" ${widgets.input_checked("chipin", "agreedToS", True)|n} class="chkbox">
+			<label for="chipin_agreedToS">I accept the <a href="${url(controller="content", action="tos")}">Terms of service</a></label>
+		</div>
+	</div>
+
       <div class="terms">
-      		
              <div class="action">
-                  <a href="#"><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
+                  <a onclick="dojo.byId('contributionForm').submit();" id="ppsubmitter" ><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
                 <p>or</p>
-                <input type="submit" value="Chip in with Credit Card" class="button" />
+                <input type="submit" value="Chip in with Credit Card" class="button" id="submitter" />
              </div>
         </div>
       

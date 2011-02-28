@@ -106,14 +106,12 @@ class InviteController(ExtBaseController):
 		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
-		import pprint
-		pprint.pprint(request.params)
 		c.errors = {}
 		c.values = {}
 		
 		c.pool.is_secret = request.params.get("is_secret", False)
 		opt_out = request.params.get("opt_out", False)
-		if not opt_out and request.merchant.type_is_free_form:
+		if not opt_out and request.merchant.type_is_free_form and invitees:
 			if not request.params.get('message'):
 				c.errors['message']=_("FF_Please input a Message")
 			if not request.params.get('subject'):
@@ -122,8 +120,6 @@ class InviteController(ExtBaseController):
 				c.values['subject'] = request.params.get('subject')
 				c.values['message'] = request.params.get('message')
 				return self._return_to_input(invitees)
-			else:
-				c.pool
 		
 		
 		#determine state of permissions and require missing ones
@@ -142,7 +138,7 @@ class InviteController(ExtBaseController):
 		if perms_required:
 			return self._return_to_input(invitees)
 		
-		if invitees is not None:
+		if invitees:
 			invittes_proc_result = g.dbm.set(AddInviteesProc(p_id = c.pool.p_id
 							, p_url = c.pool.p_url
 							, event_id = c.pool.event_id

@@ -128,7 +128,6 @@ onLoadPagelets = function(root_node){
 		});
 };
 
-
 findParent = function(rootnode, className){
 	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className)}
 	else if(dojo.hasClass(rootnode, className))return rootnode;

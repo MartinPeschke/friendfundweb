@@ -1,4 +1,5 @@
 <%inherit file="../layout.html"/>
+<%namespace name="invitee_widget" file="parts/invitees.html"/>
 <%def name="fb_meta_tags()">
 	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
@@ -18,9 +19,8 @@
 	<meta property="fb:app_id" content="${app_globals.FbAppID}"/>
 </%def>
 <%def name="scripts()">
-	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 	<script type="text/javascript">
+		var addthis_config = {"data_track_clickback":true};
 		submit_fundchat = function(node){
 			var onLoaded = function(data){
 				dojo.query("div.placeholder", dojo.byId("fundchat")).orphan();
@@ -30,38 +30,33 @@
 			};
 			var _node = dojo.byId(node);
 			var params = {};
-			if(!_node.value){return;}
+			if(!_node.value||dojo.hasClass(node, "default")){return;}
 			params[_node.name] = _node.value;
-			xhrPost(dojo.attr(_node, '_href'), params, onLoaded);
+			xhrPost(dojo.attr(_node, "_href"), params, onLoaded);
 			return false;
 		};
+		connectpool = function(){
+			var cn = dojo.byId("btnViewAll");
+			if(cn){
+				var d = dojo.connect(cn, "onclick", function(evt){
+					dojo.disconnect(d);
+					xhrPost(dojo.attr(evt.target, "_href"), {}, function(data){
+						dojo.place(data.html, dojo.byId("inviteeList"), "last");
+					});
+					dojo.query(evt.target).orphan();
+				});
+			}
+		};
 	</script>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
 <%def name="onloadscripts()">
 	onLoadPagelets("commentSection");
 	parseDefaultsInputs("commentSection");
 	dojo.query(".popuplink", "chipin_box").onclick(dojo.hitch(null, loadPopup));
+	connectpool();
 </%def>
-<%def name="render_contributor(position, invitee, is_admin = False)">
-	<li>
-		<div class="avt">
-			%if invitee.contributed_amount:
-				<div class="checked"><img src="/static/imgs/checked.png" /></div>
-			%endif
-			<img src="${invitee.get_profile_pic('PROFILE_S')}" alt="${invitee.name}" width="48px" height="48px" />
-		</div>
-	</li>
-</%def>
-<%def name="render_contributor_secret(position, invitee, is_admin = False)">
-	<li>
-		<div class="avt">
-			<div class="${invitee.contributed_amount and "checked" or " "}">
-				<img src="/static/imgs/defaultcontrib_${invitee.sex}_PROFILE_M.png" width="48px" height="48px" />
-			</div>
-			<img src="/static/imgs/dummy/avatar-pool-big.jpg" />
-		</div>
-	</li>
-</%def>
+
 
 
 <% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
@@ -143,18 +138,18 @@
    </div>
 	<div class="colLeft">
 		<div class="invited">
-			<% invitees = [c.pool.admin] + c.pool.invitees %>
-			%if len(invitees) > 20:
-				<a href="#" class="floatRight btnViewAll">${_(u"FF_POOL_PAGE_BODY_View All")}</a>
-			%endif
-			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}</h4>
+			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}
+				%if len(c.pool.participants) > 20:
+					<a href="#" class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View All")}</a>
+				%endif
+			</h4>
 			
-			<ul class="faceList">
-				%for i, invitee in enumerate(invitees[:20]):
+			<ul class="faceList" id="inviteeList">
+				%for i, invitee in enumerate(c.pool.participants[:20]):
 					%if invitee.anonymous:
-						${self.render_contributor_secret(i, invitee)}
+						${invitee_widget.render_secret(i, invitee)}
 					%else:
-						${self.render_contributor(i, invitee, i==0)}
+						${invitee_widget.render(i, invitee, i==0)}
 					%endif
 				%endfor
 			</ul>
@@ -167,25 +162,29 @@
 			<div class="imgEdit">
 				<div class="subImgEdit">
 				<div class="imgC">
-					<img src="/static/imgs/dummy/dummy-img-big.jpg" />
+					<img src="${c.pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
 				
 					%if c.pool.am_i_admin(c.user):
 						<a class="imgEdit" href="#">Edit Image</a>
 					%endif
 				</div>
+				%if request.merchant.type_is_group_gift:
 					<div class="recMerch">
-					<div class="avt">
-						<img width="48px" height="48px" alt="Harry McCarney" src="/s/user/ff/ec/ffec818cd181715164d6dc0aceb27fdb_PROFILE_S.jpg">
+						<div class="avt">
+							<img width="48px" height="48px" alt="Harry McCarney" src="/s/user/ff/ec/ffec818cd181715164d6dc0aceb27fdb_PROFILE_S.jpg">
+						</div>
+						<span class="recipient">RECIPIENT</span>
+						<img src="/static/imgs/dummy/gad.gif" class="merchant" />
+						<span>MERCHANT</span>
 					</div>
-					<span class="recipient">RECIPIENT</span>
-					<img src="/static/imgs/dummy/gad.gif" class="merchant" />
-					<span>MERCHANT</span>
-				</div>
+				%endif
 				</div>
 				
 				<p>${c.pool.description}</p>
-				<h5>${c.pool.product.name}</h5>
-				<p class="small">${c.pool.product.description}</p>
+				%if c.pool.product:
+					<h5>${c.pool.product.name}</h5>
+					<p class="small">${c.pool.product.description}</p>
+				%endif
 				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>

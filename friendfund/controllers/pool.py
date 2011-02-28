@@ -356,4 +356,9 @@ class PoolController(ExtBaseController):
 			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
 		else:
 			return {"popup":render("/pool/parts/widget.html").strip()}
-		
+	
+	@jsonify
+	def invitees(self, pool_url):
+		return {"data":{"html":render("/pool/parts/invitees.html").strip()}}
+
+	
