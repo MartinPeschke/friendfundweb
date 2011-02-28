@@ -35,20 +35,30 @@ dojo.declare("friendfund.YourselfSelector", friendfund._Selector, {
 
 dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	_listener_locals : [],
+	rootNode : null,
 	constructor: function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 	},
 	draw : function(_t){
-		dojo.place(_t._loader, _t.ref_node, "only");
-		loadElement(_t.base_url+'/email', _t.ref_node, {}, dojo.hitch(null, _t.onLoad, _t));
+		if(_t.rootNode){
+			dojo.removeClass(_t.rootNode, "hidden");
+		} else {
+			_t.rootNode = dojo.create("DIV", {"id":("networkinviter_"+_t.network)});
+			dojo.byId(_t.ref_node).appendChild(_t.rootNode);
+			dojo.place(_t._loader, _t.rootNode, "only");
+			xhrPost(_t.base_url+'/' + _t.network, {}, dojo.hitch(null, _t.onLoad, _t));
+		}
 	},
-	onLoad : function(_t){
+	onLoad : function(_t, html){
+		dojo.place(html, _t.rootNode, "only");
 		_t._listener_locals.push(dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t)));
 		_t._listener_locals.push(dojo.connect(_t.ref_node, "onkeydown", dojo.hitch(_t, accessability, _t.select, function(){})));
 	},
-	undraw : function(_t){_t.destroy(_t);},
+	undraw : function(_t){
+		dojo.addClass(_t.rootNode, "hidden");
+	},
 	destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
@@ -278,7 +288,8 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 						{	ref_node: _t.ref_node,
 							invited_node : "network"+_t.invited_node_suffix,
 							global_invited_node : _t.invited_node,
-							base_url : _t.base_url
+							base_url : _t.base_url,
+							network : "email"
 						});
 			if(_t.onSelect){_t.selectors.email.onSelect = _t.onSelect;}
 		}
