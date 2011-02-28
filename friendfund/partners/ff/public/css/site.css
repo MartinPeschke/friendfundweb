@@ -8,6 +8,7 @@
 	border:none;
 	list-style-type:none
 }
+label, .chkbox { cursor: pointer}
 html {
 	height:100%
 }
@@ -59,6 +60,8 @@ div.wrapContent {
 div.content {
 	max-width: 930px;
 	margin: 0 auto;
+	border-top: 1px solid white;
+	
 }
 div.wrapFooter {
 	height:330px;
@@ -1328,14 +1331,15 @@ div.borderBottom {
 	float: left;
 	border-bottom: 2px solid #E4E4E4;
 	min-width: 690px;
-	padding: 15px 0;
+	padding: 20px 0;
 	position: relative;
-	margin-right:10px
+	margin-right:10px;
+	border-top: 1px solid white
 }
 div.selected {
-	padding: 10px 0;
+	padding: 15px 0;
 }
-div.selected div.greyInsideFullWidth {
+div.selected div.greyInsideFullWidth, div.error  div.greyInsideFullWidth{
 	padding:5px 0;
 	background-color: #e8e8e8;
 }
@@ -1524,18 +1528,18 @@ div.borderBottom div.greyBlock {
 	height: 42px;
 	position: relative
 }
-div.selected div.tip {
+div.selected div.tip, div.error div.tip {
 	display: block !important
 }
 div.borderBottom div.tip {
-	width: 240px;
+	width: 230px;
 	font-size: 12px !important;
 	background: #FF75FF !important;
 	min-height: 42px;
 	display: none;
 	position:absolute;
-	right:-250px;
-	top:10px
+	right:-240px;
+	top:15px
 }
 div.tip span {
 	display: block;
@@ -1594,7 +1598,7 @@ div.tabs {
 	float: left;
 	margin-top: 20px
 }
-div.tabs a.selected {
+div.tabs span.selected {
 	background-color: #f4f4f4;
 	border-style: solid;
 	border-width: 1px;
@@ -1714,13 +1718,16 @@ p.info {
 div.selected.evenLessPad p.info {
 	margin-top:5px
 }
-div.number {
+div.borderBottom  input.number {
 	font-size:18px;
-	color:#666;
-	margin-right:10px;
+	color:#666; text-align: right;
 	margin-top:5px;
-	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif
+	margin-right: 5px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	background: transparent;
+	border: none
 }
+div.selected input.number{ margin-top: 0; margin-bottom: 5px}
 .lessPad {
 	border:none !important;
 	padding:0 0 0 0 !important
@@ -1734,8 +1741,9 @@ div.lessPad div.greyInsideFullWidth {
 div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox {
 	width:15px;
 	height:15px;
-	margin:7px 10px 0 0
+	margin:6px 10px 0 0
 }
+
 .terms {
 	float:left;
 	padding:0 0 15px 160px;
@@ -1809,7 +1817,8 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 .evenLessPad.selected {
 	padding:5px 0 10px 0!important
 }
-div.error span {
+div.error{ padding: 15px 0}
+div.error span , div.error div,div.error p{
 	color:#FA92AD
 }
 div.error input, div.error .containerTxtArea, div.error select {
@@ -1854,7 +1863,7 @@ div.inviteBottom {
 	border-top: 1px solid #E4E4E4 !important;
 	clear:both;
 	font-size: 14px;
-	padding: 0;
+	padding: 10px 0 0 0 ;
 	margin-right:10px
 }
 div.friendsList {
@@ -1872,7 +1881,7 @@ div.friendsList ul li {
 	margin-bottom:5px;
 	position:relative
 }
-ul.facebook{ float:left; padding:8px 0 8px 10px}
+ul.facebook, ul.twitter{ float:left; padding:8px 0 8px 10px}
 div.friendsList ul li .avt {
 	margin:0 10px 0 0
 }
@@ -1881,10 +1890,10 @@ div.friendsList ul li:hover {
 	background-color:#f4f4f4;
 	cursor:pointer
 }
-div.friendsList ul li:hover a {
+div.friendsList ul li:hover span {
 	display:block
 }
-div.friendsList ul li a {
+div.friendsList ul li span {
 	font-size:10px;
 	color:#666;
 	display:none;
@@ -1951,10 +1960,10 @@ div.friendsList ul li p {
 .listSelectedFriends li:hover img {
 	border: 5px solid #E1EAE8;
 }
-.listSelectedFriends li:hover a {
+.listSelectedFriends li:hover span {
 	display:block
 }
-.listSelectedFriends a.close {
+.listSelectedFriends span.close {
 	color:black;
 	display:block;
 	width:15px;
@@ -1968,7 +1977,8 @@ div.friendsList ul li p {
 	line-height:15px;
 	font-weight:bold;
 	font-size:10px;
-	display:none
+	display:none;
+	cursor: pointer
 }
 
 .friendsList .displayable{display:None !important}
@@ -1977,6 +1987,7 @@ div.friendsList ul li p {
 
 .listSelectedFriends li {
 	position:relative;
+	cursor: pointer;
 	float:left
 }
 .subTab label {
@@ -2006,7 +2017,7 @@ div.friendsList ul li p {
 }
 .btnContainer {
 	clear:both;
-	padding-top:30px;
+	padding-top:20px;
 	margin-left:160px
 }
 .firstSpacer {
@@ -2043,7 +2054,7 @@ p.inviterTwo {
 	padding-top:130px
 }
 .spacerPadLeft {
-	padding:15px 0 15px 164px
+	padding:0 0 15px 164px
 }
 .colLeft .inviteBottom p {
 	display: block;
@@ -2115,7 +2126,7 @@ p.inviterTwo {
 	border:1px solid #cb3e7e;
 	background-color: #65da44;
 	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6eec4a), to(#5dc63e));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
@@ -2202,3 +2213,8 @@ div.logInOnePx input {
 .colRightLogin{ width:350px; color:#666; padding:145px 0 0 30px}
 .colRightLogin h3{ font-size:18px; padding-top:20px}
 .colRightLogin p{ font-size:12px; padding-top:12px}
+div.wrapInside div.tip{ top:0}
+div.selected p.info{ margin-top:5px}
+div.special div.tip{ top:15px !important}
+.tabsBig{ clear: both;padding-top: 25px}
+.tabsBig span{}
