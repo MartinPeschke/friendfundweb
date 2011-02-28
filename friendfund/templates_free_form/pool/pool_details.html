@@ -71,7 +71,7 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			
-			<div class="borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
+			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
 				%if h.contains_one(["currency", "amount", "date"], c.errors):
 					<div class="tip">
 						<div class="arrow"></div>

@@ -177,7 +177,8 @@ div.loginArea a.btn {
 	-moz-border-radius:3px;
 	-webkit-border-radius: 3px;
 	padding:0 10px;
-	color:white
+	color:white;
+	cursor: pointer
 }
 div.loginArea a.btn.active {
 	background:#cacaca;
@@ -1538,7 +1539,7 @@ div.borderBottom div.tip {
 	display: none;
 	position:absolute;
 	right:-250px;
-	top:0
+	top:10px
 }
 div.tip span {
 	display: block;
@@ -2098,12 +2099,13 @@ p.inviterTwo {
 	border:1px solid #cb3e7e;
 	background-color: #65da44;
 	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6eec4a), to(#5dc63e));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:0 10px
+	padding:0 10px;
+	cursor: pointer
 }
 .primaryLarge:hover, .primaryButton:hover, .forward:hover{
 	background:#d30165
@@ -2140,8 +2142,8 @@ p.inviterTwo {
 	-webkit-border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:0 10px}
-.forward input{ -moz-border-radius: 15px;
+	padding:0 10px; cursor: pointer}
+.forward input{ cursor: pointer; line-height: 15px; -moz-border-radius: 15px;
 	border-radius: 15px; display:block; width:15px; height:15px; float:right; margin:10px 0 0 5px; color:white; font-weight:bold;
 	background-color: #f3167f;
 	background: -moz-linear-gradient(100% 100% 90deg, #d70469, #cb0e68);
@@ -2150,3 +2152,7 @@ p.inviterTwo {
 .forward:hover input{background-color: #f3167f;
 	background: -moz-linear-gradient(100% 100% 90deg, #d70469, #cb0e68);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d60569), to(#cb0e68));}
+.special{padding:15px 0 !important}
+
+/*LOGIN PANEL BIG*/
+.loginPanelBig{ width:530px}
