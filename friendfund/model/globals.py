@@ -61,6 +61,34 @@ class GetCountryRegionProc(DBMappedObject):
 		except IndexError, e:
 			raise Exception("GetCountryRegionProc: No Fallback Country provided, %s", e)
 
+class FormField(object):
+	def __init__(self, name, type, required = True, default = None):
+		self.name = name
+		self.type = type
+	def validate(self, value):
+		if value == None and self.required: 
+			return False
+		try:
+			return bool(self.type(name))
+		except:
+			return False
+
+class MerchantSettlement(DBMappedObject):
+	_get_root = _set_root = 'SETTLEMENT'
+	_cachable = False
+	_unique_keys = ['name', 'fee']
+	_keys = [	GenericAttrib(unicode,'name','name')
+				,GenericAttrib(float,'fee','fee')
+				,DBMapper(None, "required_fields", None, is_list = True, persistable = None)
+			]
+	def is_valid(self, fields):
+		for k in self.required_fields:
+			if not k.validate(fields.get(k.name)): return False
+		return True
+	def fromDB(self, xml):
+		if self.name=="PAYPAL_TRANSFER":
+			self.required_fields.append(FormField("email", unicode))
+
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
@@ -72,13 +100,14 @@ class MerchantLink(DBMappedObject):
 				,GenericAttrib(bool,'is_default','is_default')
 				,GenericAttrib(str,'logo_url','logo_url')
 				,GenericAttrib(str,'home_page','home_page')
+				,DBMapper(MerchantSettlement,'settlement_options','SETTLEMENT', is_list = True)
 			]
 	def fromDB(self, xml):
 		setattr(self, 'type_is_free_form', self.pool_type=="FREE_FORM")
 		setattr(self, 'type_is_group_gift', self.pool_type=="GROUP_GIFT")
 		setattr(self, 'entry_is_landing_page', self.entry_point=="LANDING_PAGE")
 		setattr(self, 'entry_is_iframe', self.entry_point=="IFRAME")
-		
+		setattr(self, "map", dict([(so.name,so) for so in self.settlement_options]))
 
 class GetMerchantLinksProc(DBMappedObject):
 	"""app.[get_merchant]"""

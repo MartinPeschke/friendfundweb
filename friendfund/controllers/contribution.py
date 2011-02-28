@@ -82,7 +82,6 @@ class ContributionController(ExtBaseController):
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		print "CHIPPING IN2"
 		try:
 			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
 		except NotAllowedToPayException, e:

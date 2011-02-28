@@ -163,7 +163,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			dojo.place(data.html, _t.rootNode, "only");
 			_t.friendlist = dojo.byId("friend_list_"+_t.network);
 			dojo.connect(_t.rootNode, "onclick", dojo.hitch(null, _t.select, _t));
-			dojo.connect(dojo.byId("fb_filter_"+_t.network), "onkeyup", dojo.hitch(null, _t.filter, _t, _t.friendlist));
+			dojo.connect(dojo.byId("filter_"+_t.network), "onkeyup", dojo.hitch(null, _t.filter, _t, _t.friendlist));
 			
 			var addall = dojo.byId("inviteall_"+_t.network);
 			if(addall){dojo.connect(addall, "onclick", dojo.hitch(null, _t.addall, _t));}
@@ -182,7 +182,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
 		}
 		if (_t.is_selected(_t)){
-			if(!dojo.hasClass("fb_filter", 'default')){_t.filter(_t, _t.friendlist, null);}
+			if(!dojo.hasClass("filter_"+_t.network, 'default')){_t.filter(_t, _t.friendlist, null);}
 		}
 	},
 	/* ================= BEGIN selectors ========================= */
@@ -235,7 +235,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			dojo.query(".nonmutual.invitee_row[_search_keys]", _t.friendlist).addClass("hidden");
 		}
 	},filter : function(_t, refnode, evt){
-		var st = dojo.byId("fb_filter").value.toLowerCase();
+		var st = dojo.byId("filter_"+_t.network).value.toLowerCase();
 		var selector = ".invitee_row[_search_keys]";
 		if(_t.mutuals === true){selector = ".mutual.invitee_row[_search_keys]";}
 		dojo.query(selector, refnode).forEach(

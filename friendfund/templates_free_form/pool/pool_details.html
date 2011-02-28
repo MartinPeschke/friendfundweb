@@ -1,5 +1,6 @@
 <%inherit file="../layout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
 <%def name="scripts_styles()">
 	${links.js('datepicker.packed.js')}
 	${links.css('datepicker.css')}
@@ -40,8 +41,13 @@
 	%else:
 		connect_home("home_title");
 	%endif
-	
-	dojo.query("input,textarea").onfocus(function(evt){addClassToParent(evt.target, "borderBottom", "selected");});
+	toggleSettlement = function(id){
+		var _id = id;
+		dojo.query(".requiredForm:not(.hidden)", "settlementOptions").forEach(function(elem){
+			if(elem.id !=  _id){dojo.addClass(elem, "hidden");}
+		});
+		dojo.query("#"+ _id).removeClass("hidden");
+	}
 </%def>
 
 <div class="wrapSubHeader">
@@ -153,8 +159,10 @@
 				</div>
 			%else:
 				<div class="borderBottom">
-					<input type="text" name="tracking_link"_default_text="${_("FF_DETAILS_Examples: www.cnn.com")}" id="home_title" class="default" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_DETAILS_Examples: www.cnn.com")}">
-					<div id="homeurlexpander" class="home_expander hidden"></div>
+					<div id="homeurlexpander" class="home_expander">
+						<div class="imgCntSld"></div>
+						<input type="text" name="tracking_link" _default_text="${_("FF_DETAILS_Examples: www.cnn.com")}" id="home_title" class="default" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_DETAILS_Examples: www.cnn.com")}"/>
+					</div>
 				</div>
 			%endif
 			<div class="clear"></div>
@@ -162,22 +170,27 @@
 		<h4>Receiving Your Money</h4>
 		<div class="padLeft">
 			
-			<div class="receiveMoney">
+			<div class="receiveMoney" id="settlementOptions">
 				<p>How do you want to receive your money once the Pool is funded? 
 					<span>You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else.</span>
 				</p>
-				<div><input type="radio" onclick="this.checked?dojo.removeClass('paypalForm', 'hidden'):null;" 
-							name="settlementOption" value="paypal" checked="checked" id="paypalSettlement" class="chkbox" />
-					<label for="paypalSettlement">Paypal</label>
+				
+				%for i, so in enumerate(request.merchant.settlement_options):
+				<div><input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
+					<label for="${so.name}_option">${_(so.name)} 
+					%if so.fee:
+						(costs you ${so.fee*100}%)
+					%endif 
+					</label>
 				</div>
-				<div id="paypalForm">
-				<div class="smallLabel"><label>Paypal Account Email Address</label><input type="text" name="paypal.email" /></div>
-				<div class="smallLabel"><label>First Name</label><input type="text" name="paypal.firstname" /></div>
-				<div class="smallLabel"><label>Last Name</label><input type="text" name="paypal.lastname" /></div>
-				</div>
-				<div><input type="radio" onclick="this.checked?dojo.addClass('paypalForm', 'hidden'):null;" name="settlementOption" id="amazonSettlement" value="amazon" class="chkbox" />
-					<label for="amazonSettlement">Amazon Vouchers</label>
-				</div>
+					%if so.required_fields:
+						<div id="${so.name}_form" class="requiredForm ${i and "hidden" or ""}">
+							%for rf in so.required_fields:
+								<div class="smallLabel"><label>${_(so.name)} ${_(rf.name)}</label><input type="text" name="${so.name}.${rf.name}" /></div>
+							%endfor
+						</div>
+					%endif
+				%endfor
 			</div>
 			<div class="clear"></div>
 		</div>

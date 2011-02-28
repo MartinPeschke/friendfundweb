@@ -34,3 +34,7 @@ class MypoolsController(BaseController):
 				poolsparams.friends.append(UserFriend(network=network, network_id=friend))
 		c.my_pools = g.dbm.call(poolsparams, GetUserFriendPoolsProc)
 		return self.render('/mypools/friends_pools.html')
+	
+	@logged_in(ajax=False)
+	def stream(self):
+		return self.render('/mypools/stream.html')

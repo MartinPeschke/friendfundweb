@@ -85,6 +85,36 @@ def to_displaymap(obj):
 
 
 
+class SettlementValidator(formencode.validators.FormValidator):
+	messages = {
+		'MissingAField': _("Please enter a valid value"),
+		'InvalidOption': _("Invalid Settlement Option")
+		}
+
+	def validate_python(self, field_dict, request):
+		errors = self._validateReturn(field_dict, request)
+		if errors:
+			error_list = errors.items()
+			error_list.sort()
+			raise formencode.Invalid(
+				'<br>\n'.join(["%s: %s" % (name, value)
+							   for name, value in error_list]),
+				field_dict, state, error_dict=errors)
+
+	def _validateReturn(self, field_dict, request):
+		settlementOption = field_dict["settlementOption"]
+		
+		errors = {}
+		try:
+			so = request.merchant.map[settlementOption]
+		except:
+			return {"settlementOption": self.message('InvalidOption', request)}
+		else:
+			for rf in so.required_fields:
+				if not rf.is_valid(field_dict['%s.%s' % (so.name, rf.name)]):
+					errors['%s.%s' % (so.name, rf.name)] =  self.message('MissingAField', request)
+		return errors
+
 class TotalTransactionCostValidator(formencode.validators.FormValidator):
 	contrib_baseAmount = 'baseAmount'
 	contrib_totalAmount = 'totalAmount'

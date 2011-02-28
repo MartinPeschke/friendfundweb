@@ -354,7 +354,6 @@ class Pool(DBMappedObject):
 	def is_funded(self):
 		return self.status == "FUNDED"
 	def is_contributable(self):
-		print '-------------', self.status
 		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
 	
 	def mergewDB(self, xml):

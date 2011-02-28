@@ -28,7 +28,7 @@ class PoolService(object):
 		from friendfund.model.forms.pool import PoolCreateForm
 		
 		pool_map = formencode.variabledecode.variable_decode(request.params)
-		pool_schema = PoolCreateForm().to_python(pool_map)
+		pool_schema = PoolCreateForm().to_python(pool_map, state = request)
 		
 		pool = Pool(title = pool_schema['title'],
 				description = pool_schema['description'],

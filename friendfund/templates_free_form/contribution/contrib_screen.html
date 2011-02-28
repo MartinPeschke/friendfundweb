@@ -16,7 +16,7 @@
     <div class="userProfile">
       <div class="nonPoolHeader">
         <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="60px" width="50px;"> </div>
+          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
         </div>
         <h2>${c.pool.title}</h2>
       </div>
@@ -57,7 +57,7 @@
 		</div>
       <div class="contentDetails">
         <h6>When will I be charged?</h6>
-        You won't be charged anything unless this Pool is fully funded by Tuesday 21 Oct 2011. If it isn't 
+        You won't be charged anything unless this Pool is fully funded by ${h.format_date(c.pool.expiry_date, format="full")}. If it isn't 
         funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
         <h6>Accepted Payment Methods</h6>
         <div class="imgSpacer"> <img src="/static/imgs/paypal.png"> <img src="/static/imgs/visa.png"> <img src="/static/imgs/mastercard.png"> <img src="/static/imgs/american.png"> </div>
@@ -116,7 +116,6 @@
           <input type="radio" id="isSecretTrue" name="chipin.is_secret" value="yes" ${widgets.input_checked("chipin", "is_secret", True)|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
         </div>
       </div>
-
 	<div class="spacerBorder"></div>
 	<div class="borderBottom noBorder lessPad ${('agreedToS' in c.chipin_errors) and "error" or ""}">
 		<div class="tip">
@@ -133,11 +132,12 @@
 			<label for="chipin_agreedToS">I accept the <a href="${url(controller="content", action="tos")}">Terms of service</a></label>
 		</div>
 	</div>
-
+	<input type="hidden" name="chipin.payment_method" value="creditcard" id="pm"/>
       <div class="terms">
              <div class="action">
-                  <a onclick="dojo.byId('contributionForm').submit();" id="ppsubmitter" ><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
+                  <a onclick="dojo.byId('pm').value='paypal';dojo.byId('contributionForm').submit();" id="ppsubmitter" ><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
                 <p>or</p>
+				${c.chipin_errors}
                 <input type="submit" value="Chip in with Credit Card" class="primaryButton" id="submitter"  />
              </div>
         </div>
