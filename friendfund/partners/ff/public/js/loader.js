@@ -24,13 +24,13 @@ parseSimpleEditables = function(rootnode){
 				function(evt){
 					dojo.disconnect(d);
 					var field = dojo.query("input[type=hidden]", root)[0];
-					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", value:field.value, name:field.name, id:field.id});
+					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", "class":field.className, value:field.value, name:field.name, id:field.id});
 					var evts = [];
 					var f = function(editevt){
 							dojo.forEach(evts, dojo.disconnect);
 							dojo.addClass(root,'active');
 							var newval=editevt.target.value;
-							var newfield = dojo.create("INPUT", {type:"hidden", _type:dojo.attr(field, "_type"), value:newval, name:field.name, id:field.id});
+							var newfield = dojo.create("INPUT", {type:"hidden", _type:dojo.attr(field, "_type"), "class":field.className, value:newval, name:field.name, id:field.id});
 							dojo.empty(root);
 							root.innerHTML = newval;
 							root.appendChild(newfield);
@@ -373,7 +373,7 @@ var loadSuccess = function(data){
 			
 		};
 		
-		var div = dojo.create("DIV", {"class":"home_expander loading"});
+		var div = dojo.create("DIV", {"class":"loading"});
 		div.appendChild(renderPictures(data.imgs));
 		div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
 		
@@ -386,23 +386,24 @@ var loadSuccess = function(data){
 		div.appendChild(desc);
 		
 		div.appendChild(dojo.create("INPUT", {type:"hidden", value:data.url, name:'tracking_link'}));
-		dojo.place(div, "homeurlexpander", "last");
+		dojo.place(div, "homeurlexpander", "only");
 		parseSimpleEditables(div);
 		div.appendChild(renderController());
 	}
 };
 var parseURL = function(query, url){
 	dojo.disconnect(ht1);dojo.disconnect(ht2);
-	var div = dojo.create("DIV", {"class":"home_expander loading"});
+	var div = dojo.create("DIV", {"class":"loading"});
 	div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-	dojo.place(div, "homeurlexpander", "last");dojo.removeClass("homeurlexpander", "hidden");
+	dojo.place(div, "homeurlexpander", "last");
+	dojo.removeClass("homeurlexpander", "hidden");
 	dojo.xhrPost({url:url, content:{query:query},
 					handleAs: 'json',
 					load:loadSuccess});
 	return true;
 };
 var parseInput = function(type, evt){
-	if(dojo.hasClass("homeurlexpander", "hidden")&&(type=="onblur"||evt.ctrlKey&&evt.charCode==86||evt.keyCode==32)){
+	if(type=="onblur"||evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32){
 		evt.target.value.split(" ").some(function(elt){
 			if(urlmatch.test(elt)){
 				parseURL(elt, dojo.attr(evt.target, "_url"));

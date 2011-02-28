@@ -11,6 +11,7 @@ from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
+from friendfund.model.forms.pool import PoolHomePageForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
@@ -64,8 +65,13 @@ class PoolController(ExtBaseController):
 		self._clean_session()
 		return redirect(url('home'))
 	
-	###TODO: these UID Links could be shared and disclose unwanted information
 	def details(self):
+		c.errors = {}
+		try:
+			mini_pool_schema = PoolHomePageForm().to_python(request.params)
+		except formencode.validators.Invalid, error:
+			c.errors = error.error_dict or {}
+		
 		c.currencies = sorted(g.country_choices.currencies)
 		c.values = {
 			"amount":request.params.get("amount"),
@@ -82,7 +88,6 @@ class PoolController(ExtBaseController):
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:
 			pass
-		c.errors = {}
 		return self.render('/pool/pool_details.html')
 	
 	@logged_in()
