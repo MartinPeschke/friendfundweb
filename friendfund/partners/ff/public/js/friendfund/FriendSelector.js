@@ -145,6 +145,9 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		} else {
 			if (!_t.is_selected(_t) || _t.is_loading !== true){
 				_t.is_loading = true;
+				_t.rootNode = dojo.create("DIV", {"id":("networkinviter_"+_t.network)});
+				dojo.byId(_t.ref_node).appendChild(_t.rootNode);
+				dojo.place(_t._loader, _t.rootNode, "only");
 				xhrPost(_t.base_url+'/' + _t.network, {}, dojo.hitch(null, _t.onLoad, _t));
 			}
 		}
@@ -157,8 +160,6 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	},onLoad : function(_t, data){
 		_t.is_loading = false;
 		if (_t.is_selected(_t)){
-			_t.rootNode = dojo.create("DIV", {"id":("networkinviter_"+_t.network)});
-			dojo.byId(_t.ref_node).appendChild(_t.rootNode);
 			dojo.place(data.html, _t.rootNode, "only");
 			_t.friendlist = dojo.byId("friend_list_"+_t.network);
 			dojo.connect(_t.rootNode, "onclick", dojo.hitch(null, _t.select, _t));
