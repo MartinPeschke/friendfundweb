@@ -14,20 +14,18 @@
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals)">
-	<div id="networkinviter_${network_name}">
 	<div class="arrowSubTab"></div>
 	<div class="boxSearchFriend" id="inviteheader">
-		<input type="text" id="fb_filter"  value="Search Friends" _default_text="Search Friends" class="searchFriends default" />
+		<input type="text" id="filter_${network_name}"  value="Search Friends" _default_text="Search Friends" class="searchFriends default" />
 		%if mutuals:
-			<span class="mutualToggleContainer"><input id="toggle_mutuals" type="checkbox"/><label for="toggle_mutuals">Mutual Friends</label></span>
+			<span class="mutualToggleContainer"><input id="toggle_mutuals_${network_name}" type="checkbox"/><label for="toggle_mutuals">Mutual Friends</label></span>
 		%endif
-		<a href="#" class="floatRight inviteAll" id="inviteall">Invite All</a>
+		<a href="#" class="floatRight inviteAll" id="inviteall_${network_name}">Invite All</a>
 	</div>
 	 <div class="friendsList">
-		<ul id="friend_list" class="${network_name}">
+		<ul id="friend_list_${network_name}" class="${network_name}">
 			${render_network_friends(friends, mutuals = mutuals)|n}
 		</ul>
-	</div>
 	</div>
 </%def>
 

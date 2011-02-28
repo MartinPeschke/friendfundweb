@@ -33,10 +33,11 @@ class TwitterController(BaseController):
 		try:
 			content = tw_helper.fetch_url(tw_helper.request_token_url,"POST", None, None, consumer, 
 					params = {'oauth_callback':'%s/twitter/authorize' % (request.qualified_host)})
-					# params = {'oauth_callback':'http://localhost:3005/the_dance/process_callback?service_provider_id=11'})
 		except (urllib2.HTTPError, urllib2.URLError), e:
 			log.error("COULDNOT GET TOKEN FROM %s, %s", tw_helper.request_token_url, e)
 			return self.ERROR
+		else:
+			log.info("RECEIVED_TWITTER_INFO %s", content)
 		websession['request_token'] = dict(cgi.parse_qsl(content))
 		
 		# Step 3. Redirect the user to the authentication URL.

@@ -34,13 +34,13 @@ class DataEditorController(BaseController):
 		if verb not in ['e','d']:
 			return abort(403)
 		elif verb == 'e':
-			c.ptitle = request.params.get('value')
+			c.pname = request.params.get('value')
 			return {'html':render('/widgets/product_title_editor.html').strip()}
 		elif verb == 'd':
-			c.ptitle = request.params.get('value')
+			c.pname = request.params.get('value')
 			c.pool = websession.get('pool', Pool())
 			c.pool.product = c.pool.product or Product()
-			c.pool.product.title = c.ptitle
+			c.pool.product.title = c.pname
 			websession['pool'] = c.pool
 			return {'html':render('/widgets/product_title_editor.html').strip()}
 

@@ -106,6 +106,7 @@ class PoolController(ExtBaseController):
 				c.currencies = sorted(g.country_choices.currencies)
 				c.errors = error.error_dict or {}
 				c.values = error.value
+				c.values["img_list"] = c.values.get("img_list") or []
 				try:
 					c.values['date'] = datetime.datetime.strptime(c.values['date'], "%Y-%m-%d")
 				except:
