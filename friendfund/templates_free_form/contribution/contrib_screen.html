@@ -36,7 +36,7 @@
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
-  <form action="${url('contribution', action="payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
+  <form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
     <div class="poolDets">
       <h4>How much do you want to contribute?</h4>
       <div class="borderBottom noBorder special">
@@ -129,7 +129,7 @@
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("payment", "agreedToS", True)|n} class="chkbox">
-			<label for="chipin_agreedToS">I accept the <a href="${url(controller="content", action="tos")}">Terms of service</a></label>
+			<label for="chipin_agreedToS">I accept the </label><a href="${url(controller="content", action="tos")}">Terms of service</a>
 		</div>
 	</div>
 	<input type="hidden" name="payment.payment_method" value="creditcard" id="pm"/>
