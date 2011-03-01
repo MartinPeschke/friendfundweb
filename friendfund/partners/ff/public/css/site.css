@@ -1335,6 +1335,7 @@ div.borderBottom {
 div.selected {
 	padding: 15px 0;
 }
+div.selected #homeurlexpander{ padding-top:5px; padding-bottom: 5px }
 div.selected div.greyInsideFullWidth, div.error  div.greyInsideFullWidth{
 	padding:5px 0;
 	background-color: #e8e8e8;
@@ -2212,4 +2213,39 @@ div.wrapInside div.tip{ top:0}
 div.selected p.info{ margin-top:5px}
 div.special div.tip{ top:15px !important}
 .tabsBig{ clear: both;padding-top: 25px}
-.tabsBig span{}
+.tabsBig span{ background-color: #DDDDDD;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 5px;
+    min-width: 80px;
+    padding: 0 10px;
+    position: relative;
+    text-align: center;
+    color:#666;
+    margin-top: 1px;
+    position: relative
+    }
+.tabsBig span.selected{
+    color:#333;
+    background: #f9f9f9;
+    border: 1px solid #D3D3D3;
+    border-bottom: none;
+    margin-top: 0
+    }
+.tabsBig span span.spoiler{ display: none}
+.tabsBig span.selected span.spoiler{ display: block; position: absolute; height: 8px; line-height:0; font-size: 0; background: #fbfbfb; margin: 0; padding: 0; width: 100px; bottom:-5px; left: 0px}
+.fullWidth h4{
+	border-bottom: 2px solid #E4E4E4;
+    clear: both;
+    color: #333333;
+    display: block;
+    font-size: 18px;
+    height: 25px;
+    margin-right: 10px;
+    min-width: 690px;
+    padding-top: 35px;}
