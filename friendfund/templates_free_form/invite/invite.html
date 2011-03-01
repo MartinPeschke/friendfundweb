@@ -26,14 +26,16 @@
   <div class="subHeader">
     <div class="userProfile">
       
-	%if c.create_from_here:
+	%if c.workflow in ["2", "3"]:
 		<div class="nonPoolHeader">
 			<div class="prodImgWrap">
 			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
 			</div>
 			<h2>Invite friends to chip in</h2>
 		</div>
-		${widgets.renderSteps("Pool Details", "Invite friends to chip in", "Done!", 2)|n}
+		%if c.workflow=="2":
+			${widgets.renderSteps("Pool Details", "Invite friends to chip in", "Done!", 2)|n}
+		%endif
 	%else:
 		<div class="nonPoolHeader">
 			<div class="prodImgWrap">
@@ -75,9 +77,7 @@
 
 		  <h4>Add a Personal Message to your Invitees <span>(optional)</span></h4>
 		  <form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
-			%if c.create_from_here:
-				<input type="hidden" name="v" value="1"/>
-			%endif
+			<input type="hidden" name="v" value="${c.workflow}"/>
 		  <div style="border:none" class="borderBottom" id="inviteMessage">
       <div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 			<div class="tip">
@@ -130,7 +130,7 @@
 
 				
 				<div class="btnContainer">
-				%if len(c.pool.invitees) or c.create_from_here:
+				%if len(c.pool.invitees) or c.workflow!="1":
 					<input type="button" id="invite_submitter" value="Invite Friends" class="primaryButton" />
 				%else:
 					<input type="button" id="invite_submitter" value="Create Pool"  class="primaryButton" />

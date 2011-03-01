@@ -67,8 +67,8 @@ class PoolController(ExtBaseController):
 	
 	def details(self):
 		c.errors = {}
-		c.create_from_here = "v" in request.params
-		if not c.create_from_here:
+		c.workflow = request.params.get("v") or "1"
+		if c.workflow == "1":
 			try:
 				mini_pool_schema = PoolHomePageForm().to_python(request.params)
 			except formencode.validators.Invalid, error:
@@ -95,7 +95,7 @@ class PoolController(ExtBaseController):
 	
 	@logged_in()
 	def create(self):
-		c.create_from_here = "v" in request.params
+		c.workflow = request.params.get("v") or "1"
 		if request.merchant.type_is_group_gift:
 			try:
 				c.pool = g.pool_service.create_group_gift()
@@ -130,10 +130,7 @@ class PoolController(ExtBaseController):
 		if not c.pool:
 			return redirect(request.referer)
 		self._clean_session()
-		if c.create_from_here:
-			return redirect(url('invite_index',  pool_url = c.pool.p_url, v=1))
-		else:
-			return redirect(url('invite_index',  pool_url = c.pool.p_url))
+		return redirect(url('invite_index',  pool_url = c.pool.p_url, v=c.workflow))
 	
 	@jsonify
 	def chat(self, pool_url):

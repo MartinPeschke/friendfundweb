@@ -59,7 +59,7 @@
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			%if c.create_from_here:
+			%if c.workflow == "2":
 				<div class="nonPoolHeader">
 					<h2>Create a Pool</h2>
 				</div>
@@ -78,9 +78,7 @@
   <div class="colRight"></div>
 	<div class="colLeft">
 		<form method="POST" id="submissionform" name="submissionform" onSubmit="onSubmitCleaner(this)" action="${url('pool_create')}">
-		%if c.create_from_here:
-			<input type="hidden" name="v" value="1"/>
-		%endif
+		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			
@@ -109,7 +107,7 @@
 					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
 				</div>
 				<div class="greyInside" style="width:521px">
-					%if "amount" in c.errors or c.create_from_here:
+					%if "amount" in c.errors or c.workflow != "1":
 						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
 					%else:
 						<span class="simpleeditable active">${c.values['amount']}
@@ -192,7 +190,6 @@
 		</div>
 		<h4>Receiving Your Money</h4>
 		<div class="padLeft">
-			
 			<div class="receiveMoney" id="settlementOptions">
 				<p>How do you want to receive your money once the Pool is funded? 
 					<span>You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else.</span>
@@ -217,11 +214,11 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-        <div class="padLeft">
-        <div class="spacerButtons">
-		<span class="forward floatLeft" onclick="onSubmitCleaner(document.submissionform);document.submissionform.submit()"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
-        </div>
-        </div>
+		<div class="padLeft">
+			<div class="spacerButtons">
+				<span class="forward floatLeft" onclick="onSubmitCleaner(document.submissionform);document.submissionform.submit()"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
+			</div>
+		</div>
 	</form>
 </div>
 

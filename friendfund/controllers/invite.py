@@ -33,7 +33,7 @@ class InviteController(ExtBaseController):
 		return self._display_invites(c.pool)
 	
 	def _display_invites(self, pool, invitees = {}):
-		c.create_from_here = "v" in request.params
+		c.workflow = request.params.get("v") or "1"
 		c.pool = pool
 		c.method = c.user.get_current_network() or 'facebook'
 		c.furl = '/invite/%s' % pool.p_url
