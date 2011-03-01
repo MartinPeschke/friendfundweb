@@ -18,7 +18,7 @@
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
 			<h3>We need</h3>
-			<form method="GET" id="submissionform" onSubmit="onSubmitCleaner(this)" action="${url("pool_details", protocol="http")}">
+			<form method="GET" id="submissionform" onSubmit="return onSubmitCleaner(this)" action="${url("pool_details", protocol="http")}">
 			<div>
 				<span>${h.display_currency(h.default_currency())}</span>
 				<input type="text" name="amount" class="short tipeIn weNeed" />

@@ -61,8 +61,8 @@
 		<a href="#">${c.user.name or c.user.default_email}</a>
 		<div class="widthGiver">
 			<div>
-				<a href="#">Account Settings</a>
-				<a href="#">Profile</a>
+				<a href="${url(controller="myprofile", action="account")}">Account Settings</a>
+				<a href="${url(controller="myprofile", action="index")}">Profile</a>
 				<a href="#" onclick="fbLogout();">Logout</a>
 			</div>
 		</div>

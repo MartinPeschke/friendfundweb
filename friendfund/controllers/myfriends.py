@@ -29,13 +29,13 @@ class MyfriendsController(BaseController):
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
 					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}
+					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}
 					return result
 				else: 
 					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}
+					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}
 					return result
-			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
+			return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
 		else:
 			return {'html':render('/receiver/inviter.html').strip()}
 	
@@ -55,13 +55,13 @@ class MyfriendsController(BaseController):
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
 					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}
+					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}
 					return result
 				else: 
 					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}
+					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}
 					return result
-			return {'data':{'is_complete':True, 'offset':0, 'html':render('/receiver/networkfriends.html').strip()}}
+			return {'data':{'is_complete':True, 'success':True, 'offset':0, 'html':render('/receiver/networkfriends.html').strip()}}
 		else:
 			return {'html':render('/receiver/inviter.html').strip()}
 	

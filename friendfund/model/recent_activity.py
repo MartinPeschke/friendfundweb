@@ -1,4 +1,4 @@
-import uuid, random
+import uuid, random, logging
 from pylons.i18n import ugettext as _
 
 
@@ -7,7 +7,7 @@ from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBM
 
 from datetime import datetime, timedelta
 
-
+log = logging.getLogger(__name__)
 
 
 class RecentActivityEntry(DBMappedObject):
@@ -55,7 +55,11 @@ class RecentActivityEntry(DBMappedObject):
 	def get_amount_left_float(self):
 		return self.get_amount_float() - self.get_total_contribution_float()
 	def get_product_display_name(self):
-		return h.word_truncate_plain(self.product_name.title(), 2)
+		if self.product_name:
+			return h.word_truncate_plain(self.product_name.title(), 2)
+		else:
+			log.error("NO PRODUCT NAME FOUND")
+			return "XXX"
 	def get_remaining_days_tuple(self):
 		if self.is_closed():
 			return (0, 0)

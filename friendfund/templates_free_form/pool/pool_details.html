@@ -7,34 +7,38 @@
 </%def>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolDetails");
-	parseEditables("poolDetails");
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
 	
 	var today = new Date();
-	if(dojo.byId("datepicker").value){
-		var date = new Date(dojo.byId("dateValue").value);
-		var displaydate = Math.ceil((date.getTime()-today.getTime())/(24*3600*1000));
+	var defaultDateOffset = 14;
+	var defaultDate = new Date(today.getDate() + defaultDateOffset);
+	if(dojo.byId("dateValue").value){
+		defaultDate = new Date(dojo.byId("dateValue").value);
+		var displaydate = Math.ceil((defaultDate.getTime()-today.getTime())/(24*3600*1000));
 		if(isNaN(displaydate))displaydate=0;
 		dojo.byId("daysLeft").innerHTML = displaydate;
-		
 	}
+	var fmtDate = "M-sp-d-cc-sp-Y";
+	var machineFmtDate = "Y-ds-m-ds-d";
 	datePickerController.createDatePicker({
-	  formElements:{"datepicker":"M-sp-d-cc-sp-Y"},
+	  formElements:{"datepicker":fmtDate},
+	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
 	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
 	  callbackFunctions:{"dateset":[
 			function(params){
 				if(params.date){
 					dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
-					dojo.byId("dateValue").value=params.yyyy+"-"+lpad(params.mm)+"-"+lpad(params.dd);
+					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, true);
 				} else {
-					dojo.byId("dateValue").value=today.getFullYear()+"-"+lpad(today.getMonth()+1)+"-"+lpad(today.getDate());
-					dojo.byId("daysLeft").innerHTML=0;
-					dojo.byId("datepicker").value=lpad(today.getDate()) +"."+ lpad(today.getMonth()+1)+"."+today.getFullYear();
+					var nDate = new Date(dojo.byId("dateValue").value);
+					dojo.byId("datepicker").value=datePickerController.printFormattedDate(nDate, fmtDate, true);
+					dojo.byId("daysLeft").innerHTML=Math.ceil((nDate.getTime()-(today).getTime())/(24*3600*1000));
 				}
 			}
 		]}
 	});
+	
 	%if c.values.get('tracking_link'):
 		var hue = document.getElementById("homeurlexpander");
 		hue.appendChild(renderController());
@@ -51,22 +55,21 @@
 	}
 </%def>
 
+
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			<div class="nonPoolHeader">
-				<h2>Step 2. Enter Your Pool Details</h2>
-				
-			</div>
-			<div class="steps">
-				<div class="stepOne"><span>1</span>What are you collecting money for?</div>
-				<div class="rightArrow"></div>
-				<div class="leftArrow"></div>
-				<div class="stepTwo active"><span>2</span>Enter pool details</div>
-				<div class="rightArrow active"></div>
-				<div class="leftArrow active"></div>
-				<div class="stepThree"><span>3</span>Invite friends to chip in</div>
-			</div>
+			%if c.create_from_here:
+				<div class="nonPoolHeader">
+					<h2>Create a Pool</h2>
+				</div>
+				${widgets.renderSteps("Pool Details", "Invite friends to chip in", "Done!", 1)|n}
+			%else:
+				<div class="nonPoolHeader">
+					<h2>Step 2. Enter Your Pool Details</h2>
+				</div>
+				${widgets.renderSteps("What are you collecting money for?", "Enter pool details", "Invite friends to chip in", 2)|n}
+			%endif
 		<div class="clear"></div>
 		</div>
 	</div>
@@ -74,7 +77,10 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" onSubmit="onSubmitCleaner(this)" action="${url('pool_create')}">
+		<form method="POST" id="submissionform" name="submissionform" onSubmit="onSubmitCleaner(this)" action="${url('pool_create')}">
+		%if c.create_from_here:
+			<input type="hidden" name="v" value="1"/>
+		%endif
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
 			
@@ -103,12 +109,12 @@
 					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
 				</div>
 				<div class="greyInside" style="width:521px">
-					%if "amount" not in c.errors:
+					%if "amount" in c.errors or c.create_from_here:
+						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
+					%else:
 						<span class="simpleeditable active">${c.values['amount']}
 							<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
 						</span>
-					%else:
-						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
 					%endif
 					
 					
@@ -155,7 +161,7 @@
 					<span>Pool Description</span>
 				</div>
 				<div class="containerTxtArea">
-					<textarea name="description" _default_text="Write your description here..." class="default">${c.values.get("description", "Write your description here...")}</textarea>
+					<textarea name="description" _default_text="Write your description here..." class="default">${c.values['description'] or "Write your description here..."}</textarea>
 				</div>
                 </div>
 			</div>
@@ -163,19 +169,20 @@
 				<div class="borderBottom">
 					<div id="homeurlexpander" class="home_expander">
 						<div class="title simpleeditable active">${h.word_truncate_by_letters(c.values.get("product_name", ""), 50)}
-							<input type="hidden" _type="INPUT" class="ptitleSimpleEdit" id="product_name_edit" name="product_name" value="${c.values.get("product_name", "")}"/></div>
+							<input type="hidden" _type="INPUT" _length="50" class="ptitleSimpleEdit" id="product_name_edit" name="product_name" value="${c.values.get("product_name", "")}"/></div>
 						<a class="address smallAddress" href="${c.values['tracking_link']}">${h.word_truncate_by_letters(c.values['tracking_link'], 40)}
 							<input type="hidden" name="tracking_link" value="${c.values['tracking_link']}" /></a>
 						<div class="desc simpleeditable active">${h.word_truncate_by_letters(c.values.get("product_description", ""), 180)}
-							<input type="hidden" _type="TEXTAREA" name="product_description" value="${c.values.get("product_description", "")}"/></div>
+							<input type="hidden" _type="TEXTAREA" _length="180" name="product_description" value="${c.values.get("product_description", "")}"/></div>
 					</div>
 				</div>
 			%else:
+		
 				<div class="borderBottom">
 					<div id="homeurlexpander" class="home_expander">
 						<div class="imgCntSld"></div>
 						<div class="title">
-							<input type="text" class="ptitleSimpleEdit default" _default_text="${_("FF_DETAILS_Examples: www.cnn.com")}" 
+							<input type="text" class="ptitleSimpleEdit default" _default_text="${_("FF_DETAILS_Examples:www.cnn.com")}" 
 								id="tracking_link_edit" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_DETAILS_Examples:www.cnn.com")}"/>
 						</div>
 					</div>
@@ -212,7 +219,7 @@
 		</div>
         <div class="padLeft">
         <div class="spacerButtons">
-		<span class="forward floatLeft" onclick="dojo.byId('submissionform').submit()"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
+		<span class="forward floatLeft" onclick="onSubmitCleaner(document.submissionform);document.submissionform.submit()"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
         </div>
         </div>
 	</form>

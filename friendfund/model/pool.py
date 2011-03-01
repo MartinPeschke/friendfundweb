@@ -224,6 +224,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
 			, GenericAttrib(bool, 		'require_address', 	'require_address'			)
 			, GenericAttrib(str,	 	'merchant_domain', 	'merchant_domain'			)
+			, GenericAttrib(str,	 	'settlementOption', 'settlement'				)
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
 			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True)
@@ -289,7 +290,7 @@ class Pool(DBMappedObject):
 		if self.product:
 			return h.get_product_picture(self.product.picture, type)
 		else:
-			return h.get_product_picture(self.product.picture, type)
+			return h.get_product_picture(None, type)
 	
 	def get_remaining_days_tuple(self):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())

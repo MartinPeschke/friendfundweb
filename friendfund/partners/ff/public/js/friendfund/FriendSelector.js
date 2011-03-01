@@ -145,6 +145,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		} else {
 			if (!_t.is_selected(_t) || _t.is_loading !== true){
 				_t.is_loading = true;
+				dojo.query("#networkinviter_"+_t.network).orphan();
 				_t.rootNode = dojo.create("DIV", {"id":("networkinviter_"+_t.network)});
 				dojo.byId(_t.ref_node).appendChild(_t.rootNode);
 				dojo.place(_t._loader, _t.rootNode, "only");
@@ -159,8 +160,8 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		page_reloader = _t.backup_reloader;
 	},onLoad : function(_t, data){
 		_t.is_loading = false;
-		if (_t.is_selected(_t)){
-			dojo.place(data.html, _t.rootNode, "only");
+		dojo.place(data.html, _t.rootNode, "only");
+		if(data.success){
 			_t.friendlist = dojo.byId("friend_list_"+_t.network);
 			dojo.connect(_t.rootNode, "onclick", dojo.hitch(null, _t.select, _t));
 			dojo.connect(dojo.byId("filter_"+_t.network), "onkeyup", dojo.hitch(null, _t.filter, _t, _t.friendlist));
@@ -171,19 +172,26 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			parseDefaultsInputs(_t.ref_node);
 			var toggler = dojo.byId("toggle_mutuals_"+_t.network);
 			if(toggler){dojo.connect(toggler, "onchange", dojo.hitch(null, _t.toggle_mutuals, _t));}
+
+			if(_t._to_append_nodes){
+				_t._to_append_nodes.forEach(function(elt){
+					_t.friendlist.appendChild(elt);
+				});
+				_t._to_append_nodes=[];
+			}
 			
 			if(!data.is_complete){
 				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
 			}
+		} else {
+			 _t.rootNode = null;
 		}
 	},addLoad : function(_t, data){
 		dojo.place(data.html, _t.friendlist, "last");
 		if(!data.is_complete){
 			xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t), "Get");
 		}
-		if (_t.is_selected(_t)){
-			if(!dojo.hasClass("filter_"+_t.network, 'default')){_t.filter(_t, _t.friendlist, null);}
-		}
+		if(!dojo.hasClass("filter_"+_t.network, 'default')){_t.filter(_t, _t.friendlist, null);}
 	},
 	/* ================= BEGIN selectors ========================= */
 	/* ================= SELECT inherited ======================== */
@@ -199,13 +207,15 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		elem.innerHTML = parseInt(elem.innerHTML)+1;
 	},
 	uninviteAppendNode : function(_t, elem){
-		if(_t.mutuals === true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden");}
-		var list = dojo.query(".invitee_row", _t.rootNode), pos = parseInt(dojo.attr(elem, "pos"));
-		for(var i=0;i<list.length;i++){
-			if(parseInt(dojo.attr(list[i], "pos"))>pos)break;
-		}
-		if(list.length&&i<list.length)dojo.place(elem, list[i], "before");
-		else dojo.place(elem, _t.friendlist, "last");
+		if(_t.friendlist){
+			if(_t.mutuals === true && dojo.hasClass(elem, 'nonmutual')){dojo.addClass(elem, "hidden");}
+			var list = dojo.query(".invitee_row", _t.friendlist), pos = parseInt(dojo.attr(elem, "pos"));
+			for(var i=0;i<list.length;i++){
+				if(parseInt(dojo.attr(list[i], "pos"))>pos)break;
+			}
+			if(list.length&&i<list.length)dojo.place(elem, list[i], "before");
+			else dojo.place(elem, _t.friendlist, "last");
+		} else _t._to_append_nodes.push(elem);
 	},
 	unSelect : function(_t, target){
 		dojo.query('#'+target.id, _t.invited_node).orphan().forEach(function(elem){
@@ -235,7 +245,9 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			dojo.query(".nonmutual.invitee_row[_search_keys]", _t.friendlist).addClass("hidden");
 		}
 	},filter : function(_t, refnode, evt){
-		var st = dojo.byId("filter_"+_t.network).value.toLowerCase();
+		var filter = dojo.byId("filter_"+_t.network);
+		if(evt.keyCode==27){filter.value="";}
+		var st = filter.value.toLowerCase();
 		var selector = ".invitee_row[_search_keys]";
 		if(_t.mutuals === true){selector = ".mutual.invitee_row[_search_keys]";}
 		dojo.query(selector, refnode).forEach(

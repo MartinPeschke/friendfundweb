@@ -3,3 +3,18 @@
 <%def name="input_checked(group, name, value, default = False)">${expression_quote((name not in getattr(c, "%s_values"%group,dict()) and default) or hasattr(c, "%s_values"%group) and getattr(c, "%s_values"%group).get(name, "") == value, "checked")|n}</%def>
 
 <%def name="expression_quote(expr, tagname, value=None)">${(expr and '%s="%s"'%(tagname, value or tagname) or '')|n}</%def>
+
+
+
+
+<%def name="renderSteps(step1, step2, step3, active = 1)">
+<div class="steps">
+	<div class="stepOne ${active==1 and "active" or ""}"><span>1</span>${step1}</div>
+	<div class="rightArrow ${active==1 and "active" or ""}"></div>
+	<div class="leftArrow ${active==1 and "active" or ""}"></div>
+	<div class="stepTwo ${active==2 and "active" or ""}"><span>2</span>${step2}</div>
+	<div class="rightArrow ${active==2 and "active" or ""}"></div>
+	<div class="leftArrow ${active==2 and "active" or ""}"></div>
+	<div class="stepThree ${active==3 and "active" or ""}"><span>3</span>${step3}</div>
+</div>
+</%def>

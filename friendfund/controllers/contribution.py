@@ -1,7 +1,6 @@
-from __future__ import with_statement
 import logging, formencode, urllib, datetime
 from copy import copy
-from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache, config
+from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 

@@ -185,7 +185,7 @@ class RedirectPayment(PaymentMethod):
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id
-								,email = tmpl_context.user.default_email
+								,shopper_email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
 			dbcontrib = g.dbm.set(dbcontrib, merge = True)
@@ -198,7 +198,8 @@ class RedirectPayment(PaymentMethod):
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
-				"merchantReturnData" : request.merchant.domain
+				"merchantReturnData" : request.merchant.domain,
+				"resURL":"http://dev.friendfund.de/mypools" # can be used to redirect user to correct paymentResult Page
 				}
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])

@@ -32,19 +32,18 @@ class PoolService(object):
 		
 		pool = Pool(title = pool_schema['title'],
 				description = pool_schema['description'],
-				currency = pool_schema['currency']
+				currency = pool_schema['currency'],
+				settlementOption = pool_schema['settlementOption']
 			)
 		
 		pool.set_amount_float(pool_schema.pop("amount"))
 		pool.occasion = Occasion(key="EVENT_OTHER", date=pool_schema['date'])
 		
 		if "tracking_link" in pool_schema:
-			pool.product = Product(name=pool_schema.get("product_name"), 
-									description= pool_schema.get("product_description"),
-									tracking_link= pool_schema.get("tracking_link"),
-									picture= pool_schema.get("product_picture") )
-		
-		
+			pool.product = Product(name = pool_schema.get("product_name"), 
+									description = pool_schema.get("product_description"),
+									tracking_link = pool_schema.get("tracking_link"),
+									picture = pool_schema.get("product_picture") )
 		
 		admin = PoolUser(**tmpl_context.user.get_map())
 		admin.is_admin = True
@@ -75,6 +74,7 @@ class PoolService(object):
 		locals = {"admin_name":admin.name, "receiver_name" : pool.receiver.name, "occasion_name":pool.occasion.get_display_name()}
 		pool.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
 		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in pool.participants])
+		pool.settlementOption = request.merchant.settlement_options[0].name
 		return pool
 	
 	def invite_myself(self, pool, user):

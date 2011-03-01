@@ -33,6 +33,7 @@ class InviteController(ExtBaseController):
 		return self._display_invites(c.pool)
 	
 	def _display_invites(self, pool, invitees = {}):
+		c.create_from_here = "v" in request.params
 		c.pool = pool
 		c.method = c.user.get_current_network() or 'facebook'
 		c.furl = '/invite/%s' % pool.p_url
@@ -62,13 +63,13 @@ class InviteController(ExtBaseController):
 				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', None))
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					return {'data':{'is_complete': True, 'html':render('/receiver/fb_login.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}}
 				else: 
-					return {'data':{'is_complete': True, 'html':render('/receiver/tw_login.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
 				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
 				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if str(id) not in c.already_invited and str(id) not in already_invited])
-				return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
+				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
 		return {'html':render('/invite/inviter.html').strip()}
@@ -106,6 +107,7 @@ class InviteController(ExtBaseController):
 		invitees = data.get("invitees")
 		c.furl = '/invite/%s' % pool_url
 		c.pool_url = pool_url
+		c.create_from_here = "v" in request.params
 		c.errors = {}
 		c.values = {}
 		

@@ -1,11 +1,11 @@
 parseSelectables = function(rootnode, className){
 	var classes = className||"borderBottom";
-	var f = function(evt){
-		dojo.query("."+classes+".selected", rootnode).removeClass("selected");
-		addClassToParent(evt.target, classes, "selected");
-	};
-	dojo.byId(rootnode).onfocusin = f;
-	dojo.byId(rootnode).addEventListener('focus',f,true);
+	var a = function(evt){addClassToParent(evt.target, classes, "selected");},
+		r = function(evt){remClassFromParent(evt.target, classes, "selected");};
+	dojo.byId(rootnode).onfocusin = a;
+	dojo.byId(rootnode).onfocusout = r;
+	dojo.byId(rootnode).addEventListener('focus',a,true);
+	dojo.byId(rootnode).addEventListener('blur',r,true);
 };
 
 onSubmitCleaner = function(rootnode){
@@ -24,15 +24,17 @@ parseSimpleEditables = function(rootnode){
 				function(evt){
 					dojo.disconnect(d);
 					var field = dojo.query("input[type=hidden]", root)[0];
-					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", "class":field.className, value:field.value, name:field.name, id:field.id});
+					var length = dojo.attr(field, "_length");
+					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", "class":field.className, _length:length, value:field.value, name:field.name, id:field.id});
 					var evts = [];
 					var f = function(editevt){
 							dojo.forEach(evts, dojo.disconnect);
 							dojo.addClass(root,'active');
 							var newval=editevt.target.value;
-							var newfield = dojo.create("INPUT", {type:"hidden", _type:dojo.attr(field, "_type"), "class":field.className, value:newval, name:field.name, id:field.id});
+							var newfield = dojo.create("INPUT", {type:"hidden", _type:dojo.attr(field, "_type"), _length:length, "class":editevt.target.className, value:newval, name:editevt.target.name, id:editevt.target.id});
 							dojo.empty(root);
-							root.innerHTML = newval;
+							root.innerHTML = length?newval.substr(0,length):newval;
+							if(length&&newval.length>length)root.innerHTML=root.innerHTML+"...";
 							root.appendChild(newfield);
 							parseSimpleEditables(rootnode);
 						};
@@ -136,6 +138,10 @@ findParent = function(rootnode, className){
 addClassToParent = function(rootnode, className, addClass){
 	var node = findParent(rootnode, className);
 	if(node){dojo.addClass(node, addClass);}
+}
+remClassFromParent = function(rootnode, className, remClass){
+	var node = findParent(rootnode, className);
+	if(node){dojo.removeClass(node, remClass);}
 }
 
 place_element = function(node, callback){
@@ -297,7 +303,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 };
 
 /*===========================================*/
-var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i, ht1, ht2;
+var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i;
 var totalcounter = 0, picCounter = 0;
 
 var pic_judger = function(preselected, evt){
@@ -361,9 +367,7 @@ var renderController = function(){
 var loadSuccess = function(data){
 	dojo.query(".loading", "homeurlexpander").orphan();
 	if(data.success == false){
-		dojo.addClass("homeurlexpander", "hidden");
-		dojo.byId("productLink").value="";
-		dojo.byId("productPicture").value="";
+		//dojo.addClass("homeurlexpander", "hidden");
 		connect_home();
 	} else {
 		var edithandler;
@@ -378,11 +382,11 @@ var loadSuccess = function(data){
 		div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
 		
 		var name = dojo.create("DIV", {innerHTML : data.display_name, "class":'title active simpleeditable'});
-		name.appendChild(dojo.create("INPUT", {type:"hidden", _type:"INPUT", value:data.name, name:'product_name', id:"product_name_edit"}));
+		name.appendChild(dojo.create("INPUT", {type:"hidden", _type:"INPUT", value:data.name, _length:50, name:'product_name', "class":"ptitleSimpleEdit", id:"product_name_edit"}));
 		div.appendChild(name);
 		
 		var desc = dojo.create("DIV", {innerHTML : data.display_description, "class":'desc simpleeditable active'});
-		desc.appendChild(dojo.create("INPUT", {type:"hidden", _type:"TEXTAREA", value:data.description, name:'product_description', id:"product_desc_edit"}));
+		desc.appendChild(dojo.create("INPUT", {type:"hidden", _type:"TEXTAREA", _length:180, value:data.description, name:'product_description', id:"product_desc_edit"}));
 		div.appendChild(desc);
 		
 		div.appendChild(dojo.create("INPUT", {type:"hidden", value:data.url, name:'tracking_link'}));
@@ -391,27 +395,24 @@ var loadSuccess = function(data){
 		div.appendChild(renderController());
 	}
 };
-var parseURL = function(query, url){
-	dojo.disconnect(ht1);dojo.disconnect(ht2);
-	var div = dojo.create("DIV", {"class":"loading"});
-	div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-	dojo.place(div, "homeurlexpander", "last");
-	dojo.removeClass("homeurlexpander", "hidden");
-	dojo.xhrPost({url:url, content:{query:query},
-					handleAs: 'json',
-					load:loadSuccess});
-	return true;
-};
-var parseInput = function(type, evt){
-	if(type=="onblur"||evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32){
-		evt.target.value.split(" ").some(function(elt){
-			if(urlmatch.test(elt)){
-				parseURL(elt, dojo.attr(evt.target, "_url"));
-			}
-		})
-}};
 var connect_home = function(rootnode){
-	var dn = dojo.byId(rootnode);
+	var dn = dojo.byId(rootnode), ht1, ht2,
+		parseInput = function(type, evt){
+			evt.target.value.split(" ").some(function(elt){
+			if(urlmatch.test(elt)){
+				var query = elt, url = dojo.attr(evt.target, "_url");
+					dojo.disconnect(ht1);dojo.disconnect(ht2);
+					var div = dojo.create("DIV", {"class":"loading"});
+					div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
+					dojo.place(div, "homeurlexpander", "last");
+					dojo.removeClass("homeurlexpander", "hidden");
+					dojo.xhrPost({url:url, content:{query:query},
+									handleAs: 'json',
+									load:loadSuccess});
+					return true;
+				}
+			});
+		};
 	ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseInput, "onkeyup"));
 	ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseInput,"onblur"));
 };

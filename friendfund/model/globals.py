@@ -1,4 +1,4 @@
-import logging
+import logging, formencode
 from pylons.i18n import _
 
 from friendfund.lib.tools import AutoVivification

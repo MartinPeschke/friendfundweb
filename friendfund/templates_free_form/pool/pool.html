@@ -102,10 +102,14 @@
 	</div>
   <div class="colRight" id="chipin_box">
 	<div class="boxChipIn">
-		<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}</a>
+		<a href="${url(controller="payment", action="index", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">
+			${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}
+		</a>
 		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
+		<a href="${url(controller="payment", action="index", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">
+			${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")}
+		</a>
 		
-		<a href="${url('chipin', pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} </a>
 		<div class="rose">
 			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
 			${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
@@ -114,7 +118,7 @@
       <div class="plus generalBoxRight">
         <a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
         #### who can invite more friends?
-		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=1)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
       </div>
       <div class="generalBoxRight">
       <h2>Share the pool</h2>

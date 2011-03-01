@@ -19,4 +19,4 @@ class PoolCreateForm(formencode.Schema):
 	product_picture = formencode.validators.String(if_missing=None, max=1024)
 	product_name = formencode.validators.String(if_missing=None, max=1024)
 	product_description = formencode.validators.String(if_missing=None, max=4096)
-	#settlementOption = SettlementValidator(not_empty=True) #TODO: DO
+	settlementOption = formencode.validators.String(not_empty=True) #SettlementValidator() #TODO: DO

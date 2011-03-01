@@ -42,7 +42,7 @@
       <div class="borderBottom noBorder special">
         <div class="first" style="margin-top:8px">Your contribution</div>
         <div class="greyInside widthAuto borderGrey">
-          <input type="text" class="default" value="${c.chipin_values.get('amount')}"  />
+          <input type="text" value="${c.values.get('amount')}"  />
           <span class="value">${h.display_currency(c.pool.currency)}</span> </div>
         <p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 		<div id="verisign_contrib" class="floatRight">
@@ -75,10 +75,10 @@
           <textarea class="default" _default_text="Write your description here..." wrap="soft"
 							onKeyDown="textCounter(this,this.form.remLen,140);" 
 							onKeyUp="textCounter(this,this.form.remLen,140);" 
-							name="chipin.message" id="chipin_message">${c.chipin_values.get("message", "Write your description here...")}</textarea>
+							name="payment.message" id="chipin_message">${c.values.get("message", "Write your description here...")}</textarea>
         </div>
         </div>
-        <div class="floatRight"><input class="number bold" readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.chipin_values.get("message", c.pool.get_my_message(c.user)) or '')}"> </div>
+        <div class="floatRight"><input class="number bold" disabled="disabled" readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.values.get("message", c.pool.get_my_message(c.user)) or '')}"> </div>
         <p class="info">This message will appear on (Admin name's) e-card if the Pool is successfully funded.</p>
       </div>
       <div class="clear"></div>
@@ -93,7 +93,7 @@
 			</div>
 			<div class="greyInsideFullWidth">
 				<div class="first"> <span>&nbsp</span> </div>
-				<input type="checkbox" id="remainAnonymous" name="chipin.anonymous" value="yes" ${widgets.input_checked("chipin", "anonymous", "yes")} class="chkbox"><label for="remainAnonymous">I want to remain anonymous</label>
+				<input type="checkbox" id="remainAnonymous" name="payment.anonymous" value="yes" ${widgets.input_checked("payment", "anonymous", "yes")} class="chkbox"><label for="remainAnonymous">I want to remain anonymous</label>
 			</div>
 		</div>
 
@@ -103,7 +103,7 @@
 			  <span>Tip goes here</span> </div>
 			<div class="greyInsideFullWidth">
 			  <div class="first"> <span>&nbsp</span> </div>
-			 <input type="radio" id="isSecretFalse" name="chipin.is_secret" value="no" ${widgets.input_checked("chipin", "is_secret", False, default=True)|n} class="radio"><label  for="isSecretFalse">I'm happy to show how much I've chipped in</label>
+			 <input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("payment", "is_secret", False, default=True)|n} class="radio"><label  for="isSecretFalse">I'm happy to show how much I've chipped in</label>
 			</div>
 		</div>
 
@@ -113,31 +113,30 @@
           <span>Tip goes here</span> </div>
         <div class="greyInsideFullWidth">
           <div class="first"> <span>&nbsp</span> </div>
-          <input type="radio" id="isSecretTrue" name="chipin.is_secret" value="yes" ${widgets.input_checked("chipin", "is_secret", True)|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
+          <input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("payment", "is_secret", True)|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
         </div>
       </div>
 	<div class="spacerBorder"></div>
-	<div class="borderBottom noBorder lessPad ${('agreedToS' in c.chipin_errors) and "error" or ""}">
+	<div class="borderBottom noBorder lessPad ${('agreedToS' in c.errors) and "error" or ""}">
 		<div class="tip">
 			<div class="arrow"></div>
-		%if ('agreedToS' in c.chipin_errors):
-			<span>${c.chipin_errors['agreedToS']}</span> 
+		%if ('agreedToS' in c.errors):
+			<span>${c.errors['agreedToS']}</span> 
 		%else:
 			<span>Tip goes here</span> 
 		%endif
 		</div>
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
-			<input type="checkbox" id="chipin_agreedToS" name="chipin.agreedToS" value="yes" ${widgets.input_checked("chipin", "agreedToS", True)|n} class="chkbox">
+			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("payment", "agreedToS", True)|n} class="chkbox">
 			<label for="chipin_agreedToS">I accept the <a href="${url(controller="content", action="tos")}">Terms of service</a></label>
 		</div>
 	</div>
-	<input type="hidden" name="chipin.payment_method" value="creditcard" id="pm"/>
+	<input type="hidden" name="payment.payment_method" value="creditcard" id="pm"/>
       <div class="terms">
              <div class="action">
                   <a onclick="dojo.byId('pm').value='paypal';dojo.byId('contributionForm').submit();" id="ppsubmitter" ><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
                 <p>or</p>
-				${c.chipin_errors}
                 <input type="submit" value="Chip in with Credit Card" class="primaryButton" id="submitter"  />
              </div>
         </div>

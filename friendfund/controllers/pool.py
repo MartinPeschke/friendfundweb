@@ -67,16 +67,19 @@ class PoolController(ExtBaseController):
 	
 	def details(self):
 		c.errors = {}
-		try:
-			mini_pool_schema = PoolHomePageForm().to_python(request.params)
-		except formencode.validators.Invalid, error:
-			c.errors = error.error_dict or {}
+		c.create_from_here = "v" in request.params
+		if not c.create_from_here:
+			try:
+				mini_pool_schema = PoolHomePageForm().to_python(request.params)
+			except formencode.validators.Invalid, error:
+				c.errors = error.error_dict or {}
 		
 		c.currencies = sorted(g.country_choices.currencies)
 		c.values = {
 			"amount":request.params.get("amount"),
 			"currency":h.default_currency(),
 			"title":request.params.get("title"),
+			"description":request.params.get("description"),
 			"tracking_link":request.params.get("tracking_link"),
 			"product_picture":request.params.get("product_picture"),
 			"product_name":request.params.get("product_name"),
@@ -92,6 +95,7 @@ class PoolController(ExtBaseController):
 	
 	@logged_in()
 	def create(self):
+		c.create_from_here = "v" in request.params
 		if request.merchant.type_is_group_gift:
 			try:
 				c.pool = g.pool_service.create_group_gift()
@@ -126,7 +130,10 @@ class PoolController(ExtBaseController):
 		if not c.pool:
 			return redirect(request.referer)
 		self._clean_session()
-		return redirect(url('invite_index',  pool_url = c.pool.p_url))
+		if c.create_from_here:
+			return redirect(url('invite_index',  pool_url = c.pool.p_url, v=1))
+		else:
+			return redirect(url('invite_index',  pool_url = c.pool.p_url))
 	
 	@jsonify
 	def chat(self, pool_url):

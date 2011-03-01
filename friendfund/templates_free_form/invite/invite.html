@@ -2,6 +2,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="inviter.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
 
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
@@ -24,21 +25,24 @@
 <div class="wrapSubHeader">
   <div class="subHeader">
     <div class="userProfile">
-      <div class="nonPoolHeader">
-        <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="/static/imgs/dummy/dummy-img-big.jpg" height="90"> </div>
-        </div>
-        <h2>Step 3. Invite Your Friends To Chip In</h2>
-      </div>
-      <div class="steps">
-        <div class="stepOne"><span>1</span>What are you collecting money for?</div>
-        <div class="rightArrow"></div>
-        <div class="leftArrow"></div>
-        <div class="stepTwo"><span>2</span>Enter pool details</div>
-        <div class="rightArrow"></div>
-        <div class="leftArrow"></div>
-        <div class="stepThree active"><span>3</span>Invite friends to chip in</div>
-      </div>
+      
+	%if c.create_from_here:
+		<div class="nonPoolHeader">
+			<div class="prodImgWrap">
+			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
+			</div>
+			<h2>Invite friends to chip in</h2>
+		</div>
+		${widgets.renderSteps("Pool Details", "Invite friends to chip in", "Done!", 2)|n}
+	%else:
+		<div class="nonPoolHeader">
+			<div class="prodImgWrap">
+			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
+			</div>
+			<h2>Step 3. Invite Your Friends To Chip In</h2>
+		</div>
+		${widgets.renderSteps("What are you collecting money for?", "Enter pool details", "Invite friends to chip in", 3)|n}
+	%endif
       <div class="clear"></div>
     </div>
   </div>
@@ -59,7 +63,7 @@
 	<div class="colLeft">
 		<div class="invited" id="inviteContainer">
 		  <h4>Invite your friends from Facebook, Twitter or Email </h4>
-		  
+		  <p>Invitees will be notified through a Facebook Event, a Twitter @message or by email.</p>
 		  <div class="wrapTabs">
 			<div class="tabs"> 
                 <span class="link methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
@@ -71,6 +75,9 @@
 
 		  <h4>Add a Personal Message to your Invitees <span>(optional)</span></h4>
 		  <form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
+			%if c.create_from_here:
+				<input type="hidden" name="v" value="1"/>
+			%endif
 		  <div style="border:none" class="borderBottom" id="inviteMessage">
       <div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 			<div class="tip">
@@ -85,9 +92,9 @@
 			<div class="containerTxtArea">
 			  <input type="text" class="default" name="subject" _default_text="Write your subject here..." value="${c.values.get("subject", "Write your subject here...")}"/>
 			</div>
-       </div>
-			<div class="padSpacer"></div>
-        <div class="wrapInside ${('message' in c.errors) and "error" or ""}">
+		</div>
+		<div class="padSpacer"></div>
+		<div class="wrapInside ${('message' in c.errors) and "error" or ""}">
 			<div class="tip">
 					<div class="arrow"></div>
 				%if 'message' in c.errors:
@@ -101,13 +108,12 @@
 			<div class="containerTxtArea">
 			  <textarea name="message" class="default" _default_text="Write your message here...">${c.values.get("message", "Write your message here...")}</textarea>
 			</div>
-        </div>
+		</div>
 			<p class="info"><a href="#">How will my message be displayed?</a></p>
 		  </div>
 			<div class="inviteBottom">
-            
 				
-                <div class="wrapInside borderBottom noBorder lessPad">
+				<div class="wrapInside borderBottom noBorder lessPad">
 					<div class="tip">
 						<div class="arrow"></div>
 						<span>Tip goes here</span> 
@@ -118,31 +124,14 @@
 					</div> 
 				</div>
 			   <div class="spacerPadLeft floatLeft">
-					
-						
-							<p>If you are inviting friends manually, here's a link to your pool:</p>
-							<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onfocus="this.select();"/>
-							<p class="bold">Some ways to share this link :</p>
-							<ul>
-								<li>1.  Copy and paste it into an email</li>
-								<li>2.  Copy and paste it in your blog</li>
-								<li>3.  Share it in your social networks</li>
-								
-							</ul>
+					<p>If you are inviting friends manually, here's a link to your pool:</p>
+					<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onfocus="this.select();"/>
 				</div>
-				<div class="wrapInside borderBottom noBorder lessPad">
-					<div class="tip">
-						<div class="arrow"></div>
-						<span>Tip goes here</span> 
-					</div>
-					<div class="greyInsideFullWidth">
-						<div class="first"> <span>&nbsp;</span> </div>
-						<input type="checkbox" name="is_secret" id="remainSecretCheckbox" class="chkbox default"/><label for="remainSecretCheckbox">Keep this pool secret</label>
-					</div> 
-				</div>
+
+				
 				<div class="btnContainer">
-				%if len(c.pool.invitees):
-					<input type="button" id="invite_submitter" value="Proceed" class="primaryButton" />
+				%if len(c.pool.invitees) or c.create_from_here:
+					<input type="button" id="invite_submitter" value="Invite Friends" class="primaryButton" />
 				%else:
 					<input type="button" id="invite_submitter" value="Create Pool"  class="primaryButton" />
 				%endif
