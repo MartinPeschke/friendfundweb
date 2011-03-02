@@ -1,10 +1,6 @@
 
 %for i, invitee in enumerate(c.pool.participants[20:]):
-	%if invitee.anonymous:
-		${self.render_secret(i, invitee)}
-	%else:
-		${self.render(i, invitee, i==0)}
-	%endif
+	${self.render(i, invitee, i==0)}
 %endfor
 
 <%def name="render(position, invitee, is_admin = False)">

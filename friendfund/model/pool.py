@@ -144,7 +144,6 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(str,		'large_profile_picture_url'  , None                 , persistable = False)
 			, GenericAttrib(int,		'contributed_amount'         , 'contribution'       )
 			, GenericAttrib(bool,		'contribution_secret'        , 'secret'             )
-			, GenericAttrib(bool,		'anonymous'                  , 'anonymous'          )
 			, DBMapper(PoolUserNetwork,	'networks', 'POOLUSERNETWORK', is_dict=True, dict_key = lambda x: x.network.lower())
 			]
 	def _set_sex(self, sex):
@@ -393,6 +392,5 @@ class AddInviteesProc(DBMappedObject):
 			,GenericAttrib(unicode, 'subject', 'subject')
 			,GenericAttrib(unicode, 'message', 'message')
 			,GenericAttrib(bool, 'is_secret', 'is_secret')
-			,GenericAttrib(bool, 'opt_out', 'opt_out')
 			,DBMapper(PoolUser, 'users', 'USER')
 			]

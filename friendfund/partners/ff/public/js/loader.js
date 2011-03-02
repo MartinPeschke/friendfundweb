@@ -304,7 +304,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 
 /*===========================================*/
 var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i;
-var totalcounter = 0, picCounter = 0;
+var totalcounter = 0, picCounter = 0, accepted = false;
 
 var pic_judger = function(preselected, evt){
 	if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
@@ -313,21 +313,19 @@ var pic_judger = function(preselected, evt){
 		dojo.byId("pictureCounter").innerHTML=++picCounter;
 		dojo.addClass(evt.target, "allowed");
 		dojo.byId("homeurlexpander").appendChild(dojo.create("INPUT", {type:"hidden", value:evt.target.src, name:'img_list'}));
-	}
-	if(!--totalcounter){
-		var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
-		var pos = 0;
-		if(imgs&&preselected){
-			for(var i=0;i<imgs.length;i++){
-				if(imgs[i].src==preselected){pos = i;break;}
+		if(!preselected&&!accepted||evt.target.src==preselected){
+			accepted = true;
+			dojo.removeClass(evt.target, "hidden");
+			dojo.byId("pictureCounterPos").innerHTML=dojo.query(".imgCntSld img.allowed", "homeurlexpander").indexOf(evt.target)+1;
+			var ctrInput = dojo.byId("productPicture");
+			if(!ctrInput){
+				ctrInput = dojo.create("INPUT", {type:"hidden", value:evt.target.src, id:"productPicture", name:'product_picture'});
+				dojo.byId("homeurlexpander").appendChild(ctrInput);
+			} else {
+				ctrInput.value = evt.target.src;
 			}
 		}
-		if(imgs){
-			dojo.removeClass(imgs[pos], "hidden");dojo.addClass(imgs[pos], "visible");
-			dojo.byId("pictureCounterPos").innerHTML=pos+1;
-			dojo.byId("homeurlexpander").appendChild(dojo.create("INPUT", {type:"hidden", value:imgs[pos].src, id:"productPicture", name:'product_picture'}));
-		}
-	};
+	}
 };
 
 var slide = function(step, evt){
@@ -364,11 +362,10 @@ var renderController = function(){
 	return controller;
 };
 
-var loadSuccess = function(data){
+var loadSuccess = function(rootnode, data){
 	dojo.query(".loading", "homeurlexpander").orphan();
 	if(data.success == false){
-		//dojo.addClass("homeurlexpander", "hidden");
-		connect_home();
+		connect_home("rootnode");
 	} else {
 		var edithandler;
 		var editProduct = function(evt){
@@ -408,7 +405,7 @@ var connect_home = function(rootnode){
 					dojo.removeClass("homeurlexpander", "hidden");
 					dojo.xhrPost({url:url, content:{query:query},
 									handleAs: 'json',
-									load:loadSuccess});
+									load:dojo.hitch(null, loadSuccess, rootnode)});
 					return true;
 				}
 			});

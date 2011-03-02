@@ -17,7 +17,6 @@ class Contribution(DBMappedObject):
 				,GenericAttrib(int ,'total', None)
 				,GenericAttrib(bool, 'agreedToS'    ,None)
 				,GenericAttrib(bool, 'is_secret'    ,None)
-				,GenericAttrib(bool, 'anonymous'    ,None)
 				,GenericAttrib(unicode, 'message'    ,None)
 				,GenericAttrib(str, 'paymentmethod'    ,None)
 				,DBMapper(PaymentMethod, 'methoddetails',None)
@@ -47,7 +46,6 @@ class DBContribution(DBMappedObject):
 				,GenericAttrib(int ,'amount','amount')
 				,GenericAttrib(int ,'total','total')
 				,GenericAttrib(bool,'is_secret','secret')
-				,GenericAttrib(bool,'anonymous','anonymous')
 				,GenericAttrib(unicode, 'message'    ,'message')
 				,GenericAttrib(str ,'p_url' ,'p_url')
 				,GenericAttrib(int ,'u_id'  ,'u_id')
@@ -58,8 +56,8 @@ class DBContribution(DBMappedObject):
 				,GenericAttrib(str ,'shopper_email'  ,'shopper_email')
 				
 				,GenericAttrib(str ,'shopper_ref'  ,'shopper_ref', persistable = False)
-				,GenericAttrib(bool ,'is_recurring'  ,'is_recurring', persistable = False)
-				,GenericAttrib(int ,'initial_transaction_total','initial_transaction_total', persistable = False)
+				,GenericAttrib(bool,'is_recurring'  ,'is_recurring', persistable = False)
+				,GenericAttrib(int ,'total','total', persistable = False)
 			]
 
 class DBPaymentInitialization(DBMappedObject):

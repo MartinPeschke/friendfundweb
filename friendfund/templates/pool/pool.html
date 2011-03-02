@@ -241,11 +241,7 @@
 	<div id="pool_contributors" class="pcont_body">
 		<% invitees = [c.pool.admin] + c.pool.invitees %>
 		%for i, invitee in enumerate(invitees):
-			%if invitee.anonymous:
-				${self.render_contributor_secret(i, invitee)}
-			%else:
-				${self.render_contributor(i, invitee, i==0)}
-			%endif
+			${self.render_contributor(i, invitee, i==0)}
 		%endfor
 	</div>
 </%def>

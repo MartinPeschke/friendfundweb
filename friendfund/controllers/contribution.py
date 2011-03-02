@@ -51,7 +51,6 @@ class ContributionController(ExtBaseController):
 			c.chipin_values = {"amount": h.format_number(c.contrib.get_amount())
 								, 'payment_method':c.contrib.paymentmethod
 								, 'is_secret':c.contrib.is_secret
-								, 'anonymous':c.contrib.anonymous and 'yes' or 'no'
 								, 'message':c.contrib.message
 							}
 		c.show_delay = hasattr(c, 'contrib') and c.contrib.paymentmethod in ['paypal','directEbanking']

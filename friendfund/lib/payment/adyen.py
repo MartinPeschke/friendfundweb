@@ -52,12 +52,11 @@ class PaymentGateway(object):
 
 
 class PaymentMethod(object):
-	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions):
+	def __init__(self, logo_url, method_code, name, currencies, fee_absolute, fee_relative, multi_contributions):
 		self.logo_url = logo_url
 		self.method_code = method_code
 		self.name = name
 		self.currencies = currencies
-		self.virtual = virtual
 		self.fee_absolute = fee_absolute # in base units
 		self._fee_absolute = float(fee_absolute)/100
 		self.fee_relative = fee_relative # in percent
@@ -84,8 +83,8 @@ class PaymentMethod(object):
 class CreditCardPayment(PaymentMethod):
 	valid_types = {'mc':'MASTER_CARD', 'visa':'VISA', 'amex':'AMEX'}
 	
-	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
-		super(self.__class__, self).__init__(logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
+	def __init__(self, logo_url, method_code, name, currencies, fee_absolute, fee_relative, multi_contributions, gtw_location, gtw_username, gtw_password, gtw_account):
+		super(self.__class__, self).__init__(logo_url, method_code, name, currencies, fee_absolute, fee_relative, multi_contributions)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 	
 	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
@@ -105,7 +104,6 @@ class CreditCardPayment(PaymentMethod):
 		contrib_model = DBContribution(amount = contrib_view.amount
 								,total = contrib_view.total
 								,is_secret = contrib_view.is_secret
-								,anonymous = contrib_view.anonymous
 								,message = contrib_view.message
 								,paymentmethod = ccType
 								,u_id = tmpl_context.user.u_id
@@ -147,8 +145,8 @@ class RedirectPayment(PaymentMethod):
 						,"shopperStatement","merchantReturnData","billingAddressType","offset"]
 	result_order = ["authResult", "pspReference", "merchantReference", "skinCode", "merchantReturnData"]
 	
-	def __init__(self, logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
-		super(self.__class__, self).__init__(logo_url, method_code, name, currencies, virtual, fee_absolute, fee_relative, multi_contributions)
+	def __init__(self, logo_url, method_code, name, currencies, fee_absolute, fee_relative, multi_contributions, base_url, skincode, merchantaccount, secret):
+		super(self.__class__, self).__init__(logo_url, method_code, name, currencies, fee_absolute, fee_relative, multi_contributions)
 		self.base_url = base_url
 		self.secret = secret
 		self.standard_params = {"merchantAccount":merchantaccount, "skinCode":skincode}
@@ -179,7 +177,6 @@ class RedirectPayment(PaymentMethod):
 		dbcontrib = DBContribution(amount = contribution.amount
 								,total = contribution.total
 								,is_secret = contribution.is_secret
-								,anonymous = contribution.anonymous
 								,message = contribution.message
 								,paymentmethod = self.method_code
 								,u_id = tmpl_context.user.u_id
@@ -205,39 +202,3 @@ class RedirectPayment(PaymentMethod):
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])
 		url = "%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params)))
 		return redirecter(url)
-		
-class VirtualPayment(PaymentMethod):
-	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
-		dbcontrib = DBContribution(amount = contribution.amount
-								,total = contribution.total
-								,is_secret = contribution.is_secret
-								,anonymous = contribution.anonymous
-								,message = contribution.message
-								,paymentmethod = self.method_code
-								,u_id = tmpl_context.user.u_id
-								,network = tmpl_context.user.network
-								,network_id = tmpl_context.user.network_id
-								,email = tmpl_context.user.default_email
-								,p_url = pool.p_url)
-		try:
-			dbcontrib = g.dbm.set(dbcontrib, merge = True)
-		except SProcException, e:
-			log.error(e)
-			raise DBErrorDuringSetup(e)
-		
-		notice = DBPaymentInitialization(ref = dbcontrib.ref, tx_id='1', msg_id=None, type='AUTHORISATION', success = True, reason='VIRTUAL', fraud_result = '')
-		try:
-			g.dbm.set(notice)
-		except SProcException, e:
-			log.error(e)
-			raise DBErrorAfterPayment(e)
-		
-		g.dbm.expire(Pool(p_url = pool.p_url))
-		
-		tmpl_context.success = True
-		tmpl_context.pool_fulfilled = False
-		tmpl_context.show_delay = False
-		tmpl_context.contrib = contribution
-		return renderer('/contribution/contribution_result_success.html')
-	def check_totals(self, base, total):
-		return True

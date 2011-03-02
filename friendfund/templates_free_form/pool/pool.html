@@ -150,11 +150,7 @@
 			
 			<ul class="faceList" id="inviteeList">
 				%for i, invitee in enumerate(c.pool.participants[:20]):
-					%if invitee.anonymous:
-						${invitee_widget.render_secret(i, invitee)}
-					%else:
-						${invitee_widget.render(i, invitee, i==0)}
-					%endif
+					${invitee_widget.render(i, invitee, i==0)}
 				%endfor
 			</ul>
 			<div class="clear"></div>

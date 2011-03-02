@@ -85,6 +85,5 @@ class PoolService(object):
 						, inviter_user_id = user.u_id
 						, users=[PoolInvitee.fromUser(user)]
 						, description = pool.description
-						, is_secret = pool.is_secret
-						, opt_out = True))
+						, is_secret = pool.is_secret))
 			app_globals.dbm.expire(Pool(p_url = pool.p_url))

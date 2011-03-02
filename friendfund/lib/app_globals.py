@@ -97,19 +97,25 @@ class Globals(object):
 		log.info("UserService set up")
 		
 		payment_methods = [
-				CreditCardPayment('/static/imgs/icon-visa-mastercard-amex.png', 'credit_card', _("CONTRIBUTION_PAGE_Creditcard"), ['EUR','GBP','USD'], False, 10, 2, True
+				CreditCardPayment('/static/imgs/icon-visa.png', 'visa', _("CONTRIBUTION_PAGE_VISA"), ['EUR','GBP','USD'], 10, 2, True
+					,gtw_location = app_conf['adyen.location']
+					,gtw_username = app_conf['adyen.user']
+					,gtw_password = app_conf['adyen.password']
+					,gtw_account = app_conf['adyen.merchantAccount']
+				),				
+				CreditCardPayment('/static/imgs/icon-mastercard.png', 'mastercard', _("CONTRIBUTION_PAGE_MASTERCARD"), ['EUR','GBP','USD'], 10, 2, True
+					,gtw_location = app_conf['adyen.location']
+					,gtw_username = app_conf['adyen.user']
+					,gtw_password = app_conf['adyen.password']
+					,gtw_account = app_conf['adyen.merchantAccount']
+				),				
+				CreditCardPayment('/static/imgs/icon-amex.png', 'amex', _("CONTRIBUTION_PAGE_AMEX"), ['EUR','GBP','USD'], 10, 2, True
 					,gtw_location = app_conf['adyen.location']
 					,gtw_username = app_conf['adyen.user']
 					,gtw_password = app_conf['adyen.password']
 					,gtw_account = app_conf['adyen.merchantAccount']
 				),
-				RedirectPayment('/static/imgs/icon-paypal.png', 'paypal', _("CONTRIBUTION_PAGE_Paypal"), ['EUR','GBP','USD'], False, 10, 2, True
-					,base_url = app_conf['adyen.hostedlocation']
-					,skincode = app_conf['adyen.skincode']
-					,merchantaccount = app_conf['adyen.merchantAccount']
-					,secret = app_conf['adyen.hosted_secret']
-				),
-				RedirectPayment('/static/imgs/icon_directebanking.png', 'directEbanking', _("CONTRIBUTION_PAGE_Direct eBanking"), ['EUR'], False, 10, 2, True
+				RedirectPayment('/static/imgs/icon-paypal.png', 'paypal', _("CONTRIBUTION_PAGE_Paypal"), ['EUR','GBP','USD'], 10, 2, True
 					,base_url = app_conf['adyen.hostedlocation']
 					,skincode = app_conf['adyen.skincode']
 					,merchantaccount = app_conf['adyen.merchantAccount']

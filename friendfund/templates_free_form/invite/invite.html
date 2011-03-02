@@ -112,22 +112,10 @@
 			<p class="info"><a href="#">How will my message be displayed?</a></p>
 		  </div>
 			<div class="inviteBottom">
-				
-				<div class="wrapInside borderBottom noBorder lessPad">
-					<div class="tip">
-						<div class="arrow"></div>
-						<span>Tip goes here</span> 
-					</div>
-					<div class="greyInsideFullWidth">
-						<div class="first"> <span>&nbsp;</span> </div>
-						<input type="checkbox" id="check_opt_out" name="opt_out" class="chkbox"><label for="check_opt_out">I will invite my friends manually. Please do not send messages on my behalf!</label>
-					</div> 
-				</div>
 			   <div class="spacerPadLeft floatLeft">
 					<p>If you are inviting friends manually, here's a link to your pool:</p>
 					<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onfocus="this.select();"/>
 				</div>
-
 				
 				<div class="btnContainer">
 				%if len(c.pool.invitees) or c.workflow!="1":

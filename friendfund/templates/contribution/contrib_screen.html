@@ -50,7 +50,6 @@
 			</div>
 			<div class="floaterLeft"> 
 			<h2>${_("CONTRIBPAGE_LABEL_How should displayed your amount")}</h2>
-			<div class="forminputline keepsecret"> ${forms.input_checkbox("chipin", "anonymous", _("CONTRIBPAGE_LABEL_Profil anonym"), "yes")} <span class="grey floaterLeft" style="padding:0 0 0 5px ">${_("CONTRIBPAGE_LABEL_your name will not be displayed")}</span></div>
 				<div class="floaterLeft radioContainer">
 					<input type="radio" name="chipin.is_secret" id="show-amount" ${forms.input_checked("chipin", "is_secret", False, default=True)|n} value="no"/>
 					<label for="show-amount">${_("CONTRIBPAGE_LABEL_show amount")}</label>

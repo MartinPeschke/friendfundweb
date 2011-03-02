@@ -23,6 +23,12 @@ def make_map(config):
 	map.connect('/error/{action}/{id}', controller='error')
 
 	# CUSTOM ROUTES HERE
+	
+	
+	
+	
+	
+	
 	map.connect('clean_session', '/pool/start', controller='pool', action='reset')
 	map.connect('pool_create'  , '/pool/create', controller='pool', action='create')
 	map.connect('pool_details' , '/pool/details', controller='pool', action='details')
