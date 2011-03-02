@@ -93,13 +93,18 @@ a {
 	text-decoration: none;
 	color: #00BBEA;
 }
-a.white {
-	color: white
+.white {
+	color: white !important
 }
-.link {
+.link{
 	cursor:pointer;
-	color: #00BBEA;
+	color: #00BBEA !important;
 }
+.activeLink {
+	cursor:default !important;
+	color: #00BBEA !important;
+}
+
 span.white {
 	color: white
 }
@@ -628,12 +633,20 @@ div.timeCounterRight {
 	width: 100%;
 	float: left;
 	height: 15px;
-	background: #c9c9c9
+	background: #adadad
 }
 div.timeCounterLeft {
 	float: left;
 	height: 15px;
-	background: #b0b0b0
+	background: #6f6f6f;
+	border-top-right-radius:10px;
+	border-bottom-right-radius:10px;
+	-moz-border-radius-topright:10px;
+	-moz-border-radius-bottomright:10px;
+	border-top-left-radius:10px;
+	border-bottom-left-radius:10px;
+	-moz-border-radius-topleft:10px;
+	-moz-border-radius-bottomleft:10px;
 }
 div.timeCounter span {
 	font-size: 10px;
@@ -824,7 +837,7 @@ div.chippedIn span {
 	bottom: 0;
 	padding:4px 0 10px 20px;
 	line-height: 12px;
-	background: url(../imgs/dollar-ico.png) left top no-repeat;
+	background: url(../imgs/dollar-ico.png) left 2px no-repeat;
 }
 div.outstanding span {
 	position: absolute;
@@ -1053,7 +1066,7 @@ ul.comments li {
 	border-bottom: 1px solid #ebebeb;
 	padding:20px 0 10px 0
 }
-ul.comments li .avt {
+ul.comments li .avt, div.entryStream .avt {
 	margin:0 10px 10px 0
 }
 .boxGray .avt {
@@ -1100,7 +1113,8 @@ div.comments input {
 }
 .txtComments {
 	max-width: 620px;
-	float: left
+	float: left;
+	position: relative
 }
 /* COL RIGHT*/
 		
@@ -1779,18 +1793,17 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	font-size:16px;
 	color:#333;
 	text-align:center;
+	-moz-box-shadow:0px 2px 2px #888;/* Firefox 3.1+ */
+	-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
 }
 .red {
-	background-color:#fa92ad;
-	-moz-box-shadow:0px 2px 2px #888;/* Firefox 3.1+ */
-	-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
-	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
+	background-color:#fa92ad !important;
+	
 }
 .green {
-	background-color:#6ad647;
-	-moz-box-shadow:0px 2px 2px #888;/* Firefox 3.1+ */
-	-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
-	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
+	background-color:#6ad647 !important;
+	
 }
 .colLeft p.editableAmount {
 	line-height:32px;
@@ -2213,7 +2226,7 @@ div.wrapInside div.tip{ top:0}
 div.selected p.info{ margin-top:5px}
 div.special div.tip{ top:15px !important}
 .tabsBig{ clear: both;padding-top: 25px}
-.tabsBig span{ background-color: #DDDDDD;
+.tabsBig a{ background-color: #DDDDDD;
     cursor: pointer;
     display: block;
     float: left;
@@ -2230,15 +2243,15 @@ div.special div.tip{ top:15px !important}
     margin-top: 1px;
     position: relative
     }
-.tabsBig span.selected{
+.tabsBig a.selected{
     color:#333;
     background: #f9f9f9;
     border: 1px solid #D3D3D3;
     border-bottom: none;
     margin-top: 0
     }
-.tabsBig span span.spoiler{ display: none}
-.tabsBig span.selected span.spoiler{ display: block; position: absolute; height: 8px; line-height:0; font-size: 0; background: #fbfbfb; margin: 0; padding: 0; width: 100px; bottom:-5px; left: 0px}
+.tabsBig a span.spoiler{ display: none}
+.tabsBig a.selected span.spoiler{ display: block; position: absolute; height: 8px; line-height:0; font-size: 0; background: #fbfbfb; margin: 0; padding: 0; width: 100px; bottom:-5px; left: 0px}
 .fullWidth h4{
 	border-bottom: 2px solid #E4E4E4;
     clear: both;
@@ -2250,14 +2263,89 @@ div.special div.tip{ top:15px !important}
     padding-top: 35px;}
 .poolRowWrap{ border-top: 1px solid white; padding-top: 19px; float: left }
 .poolRow{background: #eeeeee; padding: 10px; float: left}
+.poolRow:hover{ background: #e5e5e5}
 .subPoolRow{border: 1px solid #D7D7D7; background: white; float: left}
-.textOne{ width: 450px; border: 1px solid #D7D7D7; float: left; border-top:0; border-bottom: 0; min-height: 128px; padding: 20px}
-.imgWrap{ float: left; padding: 9px; width: 190px}
+.textOne{ width: 450px; border: 1px solid #D7D7D7; float: left; border-top:0; border-bottom: 0; min-height: 118px; padding: 20px 20px 30px 20px; position: relative}
+.imgWrap{ float: left; padding: 9px; width: 190px; position: relative}
 .imgWrap img{ display: block; float: left}
 .textOne a{ font-size: 14px; font-weight: bold}
 .textOne span{ display: block; color: #999; font-size: 10px; line-height: 12px}
 .textOne p{ font-size: 12px; color: #333; display: block; padding: 10px 0 0 0 }
-.poolRow .daysLeft{ width: 175px; text-align: right}
-.poolRow .outstanding{width: 175px; text-align: right}
-.poolRow .chippedIn{width: 175px; text-align: right}
-.poolRow .contributors{width: 175px; text-align: right}
+.poolRow .daysLeft{ width: 165px; text-align: left; height: auto; padding: 10px 0 0 10px }
+.poolRow .outstanding{width: 165px; text-align: left; height: auto; padding: 10px 0 0 10px}
+.poolRow .chippedIn{width: 165px; text-align: left; height: auto; padding: 10px 0 0 10px}
+.poolRow .contributors{width: 165px; text-align: left; height: auto; padding: 10px 0 0 10px }
+.fullWidth h4 label{ cursor: default; font-size: 11px; color: #999; font-weight: normal}
+.fullWidth h4 select{ border: 1px solid #e5e5e5; min-width: 100px; margin-left: 10px}
+.vertSpacer{ border-top: 1px solid #e5e5e5; float:left; width: 190px; margin-top: 4px; padding-top: 4px}
+.smallestImgWrap{ border: 1px solid #e5e5e5; float: right; margin-left: 5px }
+.smallestImgWrap img{ display: block; border: 2px solid white}
+.vertSpacer span{ font-size: 10px; color: #999; margin-top: 7px; float: left}
+.multiTask{ height: 30px; color: #e5e5e5; position: relative}
+.multiTask span{ font-size: 10px; margin: 0 3px}
+.multiTask span:hover{ text-decoration: underline}
+.moreActions{ border: 1px solid #e2e2e2; padding:0 7px 10px 7px;background: #f9f9f9; width: 175px; }
+.maFriendPools{ background: #ffddff; border: 1px solid #ffddff}
+.moreActions h6{ font-size: 10px; color: #666; padding: 10px 0 2px 3px; margin: 0; line-height: 10px}
+.moreActions input{ border: 1px solid #B0B0B0;
+    color: #B0B0B0;
+    display: block;
+    padding:  3px;
+    width: 160px; margin: 5px 0 0 3px}
+.moreActions .addthis_toolbox{ margin: 7px 0 0 3px}
+.moreActions .addthis_toolbox a{ margin: 0 32px 0 0; padding: 0 }
+.moreActions .addthis_toolbox a span{ margin: 0}
+.arrowMoreActions{ position: absolute; left: 110px; top: 7px}
+span.hider:hover div.moreActions{ display: block !important}
+.moreActionsWrapper{ position: absolute;left: 0px; top: 14px; padding-top: 12px; cursor: default}
+.poolRow .boxPoolDetails div span{ position: relative;padding: 7px 0 8px 10px; text-align: left;}
+.poolRow .boxPoolDetails div.contributors span{ position: relative;padding: 7px 0 8px 30px; text-align: left;}
+.poolRow .boxPoolDetails div.chippedIn span{ padding: 7px 0 8px 15px}
+.poolRow .timeCounter{ padding: 0 0 5px 0; margin: 15px 0 0 0; position: relative}
+.highlight{ color: #ff0000}
+.poolRow .boxPoolDetails div.timeCounter span{ color: #4e4e4e; font-size: 12px; font-weight: bold; position: absolute; left: 0; top: 0; display: block; text-align: center; padding: 0; display: block; width: 100%; line-height: 15px}
+.moreActions span{ color: #999}
+.status{ position: absolute; padding: 3px 10px; background-color: #ff99ff; top: -6px; left: -6px; color: #333; font-size: 10px; font-weight: bold; border-top: 1px solid #f7f7f7;-moz-box-shadow:0px 2px 2px #888;/* Firefox 3.1+ */
+	-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */}
+.textOne div p{ display:inline; float: left; padding: 0 5px; font-size: 11px; color: #333; background-color: #ffd2e8}
+.textOne div  span{ float: left; margin:3px 0 0 10px; display: block}
+.textOne div{ position: absolute; left: 20px; bottom: 5px}
+.statusSecret{ position: absolute; padding: 3px 10px 3px 50px; background-color: #ff99ff; top: -6px; left: -6px; color: #333; font-size: 10px; font-weight: bold; border-top: 1px solid #f7f7f7;-moz-box-shadow:0px 2px 2px #888;/* Firefox 3.1+ */
+	-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */}
+.facebookName{ background: url(/static/imgs/fb-icon.png) 0 0 no-repeat; padding-left: 20px; margin-left: 10px; margin-top: 3px}
+.twitter{ background: url(/static/imgs/twitter-ico-special.png) 0 0 no-repeat; padding-left: 20px; margin-left: 0px; margin-top: 3px}
+.poolsFriends{ font-size: 11px; color: #333; padding-top: 7px}
+.arrowCss{
+	border-left: 5px solid transparent;
+    border-bottom: 6px solid #ffddff;
+    border-right: 5px solid transparent;}
+.selector span{ font-size: 11px; color: #999; cursor: pointer}
+.fullWidthBorder{ border-top:1px solid white}
+.entryStream{ float: left; width: 500px; margin-left:160px;border-bottom: 1px solid #EBEBEB;padding: 20px 30px 10px 0; position: relative}
+.entryStream  img.kind{ position: absolute; right: 7px; top: 17px}
+.low{ height: 10px !important;}
+div.timeCounterSmall span {
+    color: #4E4E4E;
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    left: 0;
+    line-height: 10px;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+.timeCounterSmall{ width: 130px; position: relative ; margin-top: 5px; float: left }
+.tenPix{ font-size: 11px; line-height: 10px; display: block; float: left; padding: 5px 0}
+.middot { padding: 5px 10px}
+.contribSmall{ background: url(/static/imgs/contributor.png) 0 0 no-repeat; padding-left: 25px}
+.inviteesSmall{ background: url(/static/imgs/people.png) 0 0 no-repeat; padding-left: 25px}
+.entryStream .txtComments{ max-width: auto; width: 430px}
+.liner{ float: left; width: 100%; padding-top: 10px; color: #666;}
+.mainSpan{ color:#333}
+.timeLeft{background: url(/static/imgs/calendar.png) 0 0 no-repeat; padding-left: 25px }
+.colLeft .liner p{ font-size: 11px; color: #666; padding-right: 0; padding-bottom: 0}
