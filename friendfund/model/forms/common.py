@@ -4,6 +4,7 @@ import dns.resolver, socket, re
 from pylons import app_globals as g
 from pylons.i18n import _
 from friendfund.model.mapper import DBMappedObject
+from friendfund.lib.payment.adyen import PaymentMethod
 from pylons import session as websession
 
 from babel.numbers import parse_decimal, NumberFormatError, format_currency
@@ -114,17 +115,31 @@ class SettlementValidator(formencode.validators.FormValidator):
 				if not rf.is_valid(field_dict['%s.%s' % (so.name, rf.name)]):
 					errors['%s.%s' % (so.name, rf.name)] =  self.message('MissingAField', request)
 		return errors
-
+	
+	
+class PaymentMethodValidator(formencode.validators.String):
+	def _to_python(self, value, state):
+		super(self.__class__, self)._to_python(value, state)
+		pm = state.payment_methods.get(value)
+		if not (pm and isinstance(pm, PaymentMethod)):
+			raise formencode.Invalid(_("unsupported payment method"), value, state)
+		return value
+	
+	
 class TotalTransactionCostValidator(formencode.validators.FormValidator):
 	contrib_baseAmount = 'baseAmount'
 	contrib_totalAmount = 'totalAmount'
-	__unpackargs__ = ('contrib_baseAmount', 'contrib_totalAmount')
+	contrib_method = 'method'
+	
+	__unpackargs__ = ('contrib_baseAmount', 'contrib_totalAmount','contrib_method')
 	messages = {
 		'notANumber': _("Please enter a valid amount"),
-		'TotalsDontAddUp': _("Invalid Totals")
+		'TotalsDontAddUp': _("Invalid Totals"),
+		'UnSupportedPaymentMethod': _("unsupported payment method")
 		}
-
 	def validate_python(self, field_dict, state):
+		import pprint
+		pprint.pprint(field_dict)
 		errors = self._validateReturn(field_dict, state)
 		if errors:
 			error_list = errors.items()
@@ -137,10 +152,15 @@ class TotalTransactionCostValidator(formencode.validators.FormValidator):
 	def _validateReturn(self, field_dict, state):
 		baseAmount = field_dict[self.contrib_baseAmount]
 		totalAmount = field_dict[self.contrib_totalAmount]
+		method = field_dict[self.contrib_method]
+		
+		pm = state.payment_methods.get(method)
+		if not (pm and isinstance(pm, PaymentMethod)):
+			return {self.contrib_method: self.message('UnSupportedPaymentMethod', state)}
 		try:
-			assert state.payment_method.check_totals(baseAmount, totalAmount)
+			assert pm.check_totals(baseAmount, totalAmount)
 		except ValueError:
 			return {self.contrib_totalAmount: self.message('notANumber', state)}
 		except AssertionError:
-			log.warning('TotalsDontAddUp:%s,%s,%s', baseAmount, totalAmount, state.payment_method)
+			log.warning('TotalsDontAddUp:%s,%s,%s', baseAmount, totalAmount, pm)
 			return {self.contrib_totalAmount: self.message('TotalsDontAddUp', state)}

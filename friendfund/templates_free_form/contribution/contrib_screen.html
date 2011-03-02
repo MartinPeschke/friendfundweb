@@ -3,12 +3,35 @@
 <%def name="scripts()">
 	<script type="text/javascript">
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+		
+		var thous_sep="${h.get_thous_sep()}";var dec_sep="${h.get_dec_sep()}"
+		var calcTotals = function(evt){
+			var contrib = dojo.byId("payment_amount");
+			var contrib_amount = Math.round(parseFloat(contrib.value.replace(thous_sep,"").replace(dec_sep, "."))*100);
+			dojo.forEach(document.contributionForm["payment.method"], function(rdio){
+				if(rdio.checked){
+					var absolute = parseInt(dojo.attr(rdio, "_fee_absolute"));
+					var relative = parseFloat(dojo.attr(rdio, "_fee_relative"));
+					var costs_amount = (contrib_amount * relative/100) + absolute;
+					var amount = dojo.byId("display_amount");
+					var tcosts = dojo.byId("display_transactioncosts");
+					var total = dojo.byId("display_total");
+					amount.value = (contrib_amount/100).toFixed(2).replace(".", dec_sep);
+					tcosts.value=(costs_amount/100).toFixed(2).replace(".", dec_sep);
+					total.value=((contrib_amount + costs_amount)/100).toFixed(2).replace(".", dec_sep);
+					dojo.byId("payment_total").value=total.value;
+				}
+			});
+		};
 	</script>
 </%def>
 
 <%def name="onloadscripts()">
 	parseDefaultsInputs("contributionForm");
 	parseSelectables("contributionForm");
+	dojo.query("input[type=radio].paymentselector").onchange(dojo.hitch(null, calcTotals));
+	dojo.query("#payment_amount").onkeyup(dojo.hitch(null, calcTotals));
+	calcTotals();
 </%def>
 
 <div class="wrapSubHeader">
@@ -36,13 +59,22 @@
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
-  <form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
+  <form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
     <div class="poolDets">
       <h4>How much do you want to contribute?</h4>
-      <div class="borderBottom noBorder special">
+      <div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
+	  
+		%if ('amount' in c.errors):
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>${c.errors['amount']}</span> 
+			</div>
+		%endif
+	  
+	  
         <div class="first" style="margin-top:8px">Your contribution</div>
         <div class="greyInside widthAuto borderGrey">
-          <input type="text" value="${c.values.get('amount')}"  />
+          <input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" />
           <span class="value">${h.display_currency(c.pool.currency)}</span> </div>
         <p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 		<div id="verisign_contrib" class="floatRight">
@@ -55,14 +87,19 @@
 			</tr>
 			</table></div>
 		</div>
-      <div class="contentDetails">
-        <h6>When will I be charged?</h6>
-        You won't be charged anything unless this Pool is fully funded by ${h.format_date(c.pool.expiry_date, format="full")}. If it isn't 
-        funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
-        <h6>Accepted Payment Methods</h6>
-        <div class="imgSpacer"> <img src="/static/imgs/paypal.png"> <img src="/static/imgs/visa.png"> <img src="/static/imgs/mastercard.png"> <img src="/static/imgs/american.png"> </div>
-      </div>
-      <div class="clear"></div>
+		<div class="contentDetails">
+			<h6>When will I be charged?</h6>
+				You won&#39;t be charged anything unless this Pool is fully funded by ${h.format_date(c.pool.expiry_date, format="full")}. If it isn't 
+				funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
+			<h6>Accepted Payment Methods</h6>
+			<div class="imgSpacer"> 
+				 %for i, pm in enumerate(c.payment_methods):
+					<img src="/static/imgs/${pm.code}.png"/>
+				%endfor
+			</div>
+		</div>
+      
+	  <div class="clear"></div>
       <h4>Add a personal message <span>(optional)</span></h4>
       <div class="borderBottom"  style="border:none">
       <div class="tip">
@@ -83,16 +120,42 @@
       </div>
       <div class="clear"></div>
     </div>
+
+	<div class="clear"></div>
+	<h4>Payment Method ${c.values.get("method", '--------------')}</h4>
+	<div class="borderBottom" style="border:none">
+		<div class="tip">
+			<div class="arrow"></div>
+				<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+			</div>
+			
+		
+		<div class="greyInsideFullWidth">        
+			%for i, pm in enumerate(c.payment_methods):
+				<input type="radio" class="paymentselector" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n}/>
+				<div class="first"> <span><label for="payment_method_${pm.code}"><img class="floatLeft" src="/static/imgs/${pm.code}.png"/>${_(pm.code)}</label></span> </div>
+			%endfor
+		</div>
+		<div style="margin:30px;">
+			<div class="floatLeft">Amount</div><input class="floatLeft" type="text" disabled="disabled" id="display_amount" value="0"/><div class="clear"></div>
+			<div class="floatLeft"><span id="payment_method_name"></span> Charges</div><input class="floatLeft" type="text" disabled="disabled" id="display_transactioncosts" value="0"/><div class="clear"></div>
+			<div class="floatLeft">Total</div><input class="floatLeft" type="text" disabled="disabled" id="display_total" value="0"/><div class="clear"></div>
+			<input type="hidden" id="payment_total" name="payment.total" /> 
+		</div>
+		<div class="clear"></div>
+	</div>
+
 	<div class="recMoney">
 		<h4 style="margin-bottom:10px">Privacy Settings</h4>
 
 		<div class="borderBottom noBorder lessPad">
 			<div class="tip">
 				<div class="arrow"></div>
-			  <span>Tip goes here</span> </div>
+				<span>Tip goes here</span>
+			</div>
 			<div class="greyInsideFullWidth">
-			  <div class="first"> <span>&nbsp</span> </div>
-			 <input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("payment", "is_secret", False, default=True)|n} class="radio"><label  for="isSecretFalse">I'm happy to show how much I've chipped in</label>
+				<div class="first"> <span>&nbsp</span> </div>
+				<input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("is_secret", "no", default=True)|n} class="radio"><label  for="isSecretFalse">I'm happy to show how much I've chipped in</label>
 			</div>
 		</div>
 
@@ -102,7 +165,7 @@
           <span>Tip goes here</span> </div>
         <div class="greyInsideFullWidth">
           <div class="first"> <span>&nbsp</span> </div>
-          <input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("payment", "is_secret", True)|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
+          <input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("is_secret", "yes")|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
         </div>
       </div>
 	<div class="spacerBorder"></div>
@@ -117,21 +180,16 @@
 		</div>
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
-			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("payment", "agreedToS", True)|n} class="chkbox">
+			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox">
 			<label for="chipin_agreedToS">I accept the </label><a href="${url(controller="content", action="tos")}">Terms of service</a>
 		</div>
 	</div>
-	<input type="hidden" name="payment.payment_method" value="creditcard" id="pm"/>
-      <div class="terms">
-             <div class="action">
-                  <a onclick="dojo.byId('pm').value='paypal';dojo.byId('contributionForm').submit();" id="ppsubmitter" ><img src="/static/imgs/paypalLogo.gif" align="left" /></a>
-                <p>or</p>
-                <input type="submit" value="Chip in with Credit Card" class="primaryButton" id="submitter"  />
-             </div>
-        </div>
+	<div class="terms">
+		<input type="submit" value="Chip In" class="primaryButton" id="submitter"/>
+	</div>
       
-      <div class="clear"></div>
-    </div>
+	<div class="clear"></div>
+	</div>
 	</form>
   </div>
   <div class="clear"></div>

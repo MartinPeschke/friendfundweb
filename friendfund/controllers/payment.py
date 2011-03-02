@@ -9,9 +9,8 @@ from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks,
 from friendfund.lib.base import ExtBaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 
-from friendfund.model.forms.contribution import PaymentIndexForm
+from friendfund.model.forms.contribution import PaymentIndexForm, PaymentConfForm
 from friendfund.model.db_access import SProcException
-from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.controller')
 log = logging.getLogger(__name__)
@@ -28,29 +27,63 @@ class PaymentController(ExtBaseController):
 		try:suggested_amount = (float(suggested_amount)/100)
 		except: pass
 		else: c.values['amount'] = h.format_number(suggested_amount)
-		
-		if request.method != 'POST':
-			return self.render('/contribution/contrib_screen.html')
-		return self._check_contrib_details(c.pool)
+		c.payment_methods = g.payment_methods
+		return self.render('/contribution/contrib_screen.html')
 	
-	def _check_contrib_details(self, pool):
-		pass
 	def details(self, pool_url):
+		c.payment_methods = g.payment_methods
 		details = formencode.variabledecode.variable_decode(request.params).get('payment', None)
 		details['agreedToS'] = details.get('agreedToS', False)  #if_missing wouldnt evaluate, and if_empty returns MISSING VALUE error message, both suck bad
-		schema = PaymentIndexForm()
+		schema = PaymentConfForm()
 		schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
-		state = copy(c.pool)
-		state.__dict__["_"] = FriendFundFormEncodeState._
 		try:
+			state = copy(c.pool)
+			state.__dict__["_"] = FriendFundFormEncodeState._
+			state.__dict__["payment_methods"] = g.payment_methods_map
 			form_result = schema.to_python(details, state)
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}
-			print c.errors
 			return self.render('/contribution/contrib_screen.html')
-		return self.render('/contribution/payment_details.html')
+		else:
+			c.values = form_result
+			if checkadd_block('email'):
+				c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
+				c.enforce_blocks = True
+				return self.render('/contribution/contrib_screen.html')
+			else:
+				g.pool_service.invite_myself(c.pool, c.user)
+			
+			contrib = Contribution(**form_result)
+			contrib.currency = c.pool.currency
+			contrib.set_amount(form_result['amount'])
+			contrib.set_total(form_result['total'])
+			contrib.paymentmethod = form_result.get('payment_method')
+			
+			try:
+				return g.payment_methods_map[contrib.paymentmethod].process(c, contrib, pool, render, redirect)
+			except UnsupportedPaymentMethod, e:
+				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+				return redirect(url("payment", pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
+			except DBErrorDuringSetup, e:
+				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+			except DBErrorAfterPayment, e:
+				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
+	
+	@logged_in(ajax=True)
+	@no_blocks(ajax=True)
+	@jsonify
+	def creditcard(self, pool_url):
+		c.values = {}
+		c.errors = {}
+		if request.method != 'POST':
+			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
+		
 	
 	@logged_in(ajax=False)
 	def payment_success(self, pool_url):
 		return self.render('/contribution/payment_success.html')
+
+	@logged_in(ajax=False)
+	def det(self, pool_url):
+		return self.render('/contribution/payment_details.html')

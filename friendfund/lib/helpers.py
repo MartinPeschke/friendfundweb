@@ -8,7 +8,7 @@ import os, md5, base64, uuid
 
 from pylons import config, session as websession, app_globals as g
 from babel import negotiate_locale
-from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol
+from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
 from babel.dates import format_date as fdate, format_datetime as fdatetime
 from decimal import Decimal
 from xml.sax.saxutils import quoteattr
@@ -96,6 +96,8 @@ def format_currency(number, currency):
 	fnumber = Decimal('%.2f' % number)
 	return fc(fnumber, currency, locale=websession['lang'])
 
+def parse_number(strNum):
+	return pn(strNum, locale=websession['lang'])
 def format_number(number):
 	if number is None or number=="": return ""
 	fnumber = Decimal('%.2f' % number)

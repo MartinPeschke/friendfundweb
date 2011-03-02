@@ -1,4 +1,6 @@
 <%inherit file="../layout.html"/>
+<%namespace name="common" file="common.html"/>
+
 <%def name="scripts()">
 	<script type="text/javascript">
 		var addthis_config = {"data_track_clickback":true};
@@ -17,12 +19,7 @@
 				<div class="subTitleUserProfile">
 					<span class="link twitter">@ Judyface</span><span class="link facebookName">Judy Stevens</span></div>
 			</div>
-	<div class="tabsBig">
-		<a class="selected"  href="/mypools/stream">Basic Info <span class="spoiler"></span></a>
-		<a href="/mypools/index">Password <span class="spoiler"></span></a>
-		<a href="/mypools/friends">Notifications <span class="spoiler"></span></a>
-	</div>
-			
+			${common.render_tabs("account")|n}
 			
 		<div class="clear"></div>
 		</div>

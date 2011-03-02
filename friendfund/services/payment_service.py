@@ -5,18 +5,6 @@ from pylons import request, app_globals
 
 log = logging.getLogger(__name__)
 
-class NotAllowedToPayException(Exception):pass
-
-class PaymentPageSettings(object):
-	def __init__(self, currency, user, pool):
-		self.methods = filter(lambda x: x.can_i_contribute(pool, user) and currency in x.currencies, PaymentService.payment_methods)
-		self.has_fees = len(filter(lambda x: x.has_fees, self.methods)) > 0
-		if self.methods:
-			self.methods[0].default = True
-			self.default = self.methods[0]
-		else:
-			raise NotAllowedToPayException('NoMethodsAvailableToUser')
-
 class PaymentService(object):
 	"""
 		This is shared between all threads, do not stick state in here!
@@ -28,7 +16,7 @@ class PaymentService(object):
 	
 	def __init__(self, payment_methods):
 		self.__class__.payment_methods = payment_methods
-		self.payment_methods_map = dict([(pm.method_code, pm) for pm in self.payment_methods])
+		self.payment_methods_map = dict([(pm.code, pm) for pm in self.payment_methods])
 	def verify_result(self, params):
 		method = params.get('paymentMethod')
 		if not method:
@@ -36,10 +24,10 @@ class PaymentService(object):
 		return self.payment_methods_map[method].verify_signature(params)
 	def get_payment_settings(self, currency, user, pool):
 		return PaymentPageSettings(currency, user, pool)
-	def check_payment_method(self, method_code, currency):
-		return str(method_code) in self.payment_methods_map
-	def get_payment_method(self, method_code):
-		return self.payment_methods_map[method_code]
+	def check_payment_method(self, code, currency):
+		return str(code) in self.payment_methods_map
+	def get_payment_method(self, code):
+		return self.payment_methods_map[code]
 	def process_payment(self, tmpl_context, contribution, pool, renderer, redirecter):
 		return self.payment_methods_map[contribution.paymentmethod].process(tmpl_context, contribution, pool, renderer, redirecter)
 	def post_process_payment(self, tmpl_context, contribution, pool, renderer, redirecter):

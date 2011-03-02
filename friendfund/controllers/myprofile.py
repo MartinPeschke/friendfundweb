@@ -23,8 +23,19 @@ class MyprofileController(BaseController):
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
 		c.myprofile_values = {'name' :getattr(c.myprofiles.profiles.get('email'), 'name', ''), 'email':getattr(c.myprofiles.profiles.get('email'), 'email', '')}
 		return self.render('/myprofile/index.html')
+	
+	@logged_in(ajax=False)
 	def account(self):
 		return self.render('/myprofile/account.html')
+	@logged_in(ajax=False)
+	def password(self):
+		return self.render('/myprofile/password.html')
+	@logged_in(ajax=False)
+	def notifications(self):
+		return self.render('/myprofile/notifications.html')
+		
+		
+	
 	@jsonify
 	def loginpanel(self):
 		c.furl = request.params.get('furl', request.referer)

@@ -14,7 +14,6 @@ from friendfund.model.pool import Pool
 from friendfund.model.db_access import SProcException
 from friendfund.model.contribution import Contribution, CreditCard, GetPoolURLFromContribRef
 from friendfund.model.forms.contribution import PaymentConfForm, CreditCardForm, MonetaryValidator
-from friendfund.services.payment_service import NotAllowedToPayException
 
 paymentlog = logging.getLogger('payment.service')
 log = logging.getLogger(__name__)
@@ -41,12 +40,7 @@ class ContributionController(ExtBaseController):
 			log.warning("Pool from Payment Provider Signature not found: %s", request.params)
 			return abort(404)
 		c.contrib = websession.get('contribution')
-		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
-			c.has_fees = c.paymentpage.has_fees
-		except NotAllowedToPayException, e:
-			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
+		
 		if c.contrib:
 			c.chipin_values = {"amount": h.format_number(c.contrib.get_amount())
 								, 'payment_method':c.contrib.paymentmethod
@@ -61,11 +55,6 @@ class ContributionController(ExtBaseController):
 	
 	@logged_in(ajax=False)
 	def chipin_fixed(self, pool_url):
-		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
-		except NotAllowedToPayException, e:
-			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=c.pool.p_url, protocol='http'))
 		c.action = 'chipin_fixed'
 		c.chipin_values = {"amount":h.format_number(c.pool.get_amount_left())}
 		c.chipin_errors = {}
@@ -80,11 +69,7 @@ class ContributionController(ExtBaseController):
 		if not c.pool.is_contributable():
 			c.messages.append(_(u"CONTRIBUTION_You cannot contribute to this pool at this time, this pool is closed."))
 			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
-		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
-		except NotAllowedToPayException, e:
-			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
+
 		c.chipin_values = getattr(c, 'chipin_values', {})
 		if suggested_amount: 
 			try:
@@ -133,7 +118,6 @@ class ContributionController(ExtBaseController):
 			contrib.set_amount(form_result['amount'])
 			contrib.set_total(form_result['total'])
 			contrib.paymentmethod = chipin.get('payment_method')
-			websession['contribution'] = contrib
 			try:
 				return g.payment_service.process_payment(c, contrib, pool, render, redirect)
 			except UnsupportedPaymentMethod, e:
@@ -156,11 +140,6 @@ class ContributionController(ExtBaseController):
 	@logged_in(ajax=False)
 	@no_blocks(ajax=False)
 	def details(self, pool_url):
-		try:
-			c.paymentpage = g.payment_service.get_payment_settings(c.pool.currency, c.user, c.pool)
-		except NotAllowedToPayException, e:
-			c.messages.append(_(u"CONTRIBUTION_Payment Not Allowed."))
-			return redirect(url('ctrlpoolindex', controller='pool', pool_url=pool_url, protocol='http'))
 		c.form_secret = request.params.get('token')
 		if g.test:
 			c.creditcard_values = {"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"}
@@ -209,7 +188,7 @@ class ContributionController(ExtBaseController):
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
 				return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
 		try:
-			return g.payment_service.post_process_payment(c, websession['contribution'], c.pool, render, redirect)
+			return g.payment_service.post_process_payment(c, c.pool, render, redirect)
 		except TokenNotExistsException, e:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"))
 			return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}

@@ -7,7 +7,7 @@ from pylons import url
 from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
-from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantLinksProc, GetTopSellersProc
+from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantConfigProc, GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
 from friendfund.services.payment_service import PaymentService
@@ -15,7 +15,7 @@ from friendfund.services.product_service import ProductService
 from friendfund.services.user_service import UserService
 from friendfund.services.pool_service import PoolService
 
-from friendfund.lib.payment.adyen import CreditCardPayment, RedirectPayment
+from friendfund.lib.payment import PaymentFactory
 
 log = logging.getLogger(__name__)
 _ = lambda x:x
@@ -87,7 +87,7 @@ class Globals(object):
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbm.get(GetCountryRegionProc))
 		top_sellers = self.dbm.get(GetTopSellersProc)
 		
-		self.merchants = self.dbm.get(GetMerchantLinksProc)
+		self.merchants = self.dbm.get(GetMerchantConfigProc)
 		self.default_host = 'http://%s'%self.merchants.default_domain
 		log.info("STARTING UP WITH following subdomains: %s", list(self.merchants.domain_map.iterkeys()))
 		
@@ -96,34 +96,18 @@ class Globals(object):
 		self.pool_service = PoolService(config)
 		log.info("UserService set up")
 		
-		payment_methods = [
-				CreditCardPayment('/static/imgs/icon-visa.png', 'visa', _("CONTRIBUTION_PAGE_VISA"), ['EUR','GBP','USD'], 10, 2, True
-					,gtw_location = app_conf['adyen.location']
-					,gtw_username = app_conf['adyen.user']
-					,gtw_password = app_conf['adyen.password']
-					,gtw_account = app_conf['adyen.merchantAccount']
-				),				
-				CreditCardPayment('/static/imgs/icon-mastercard.png', 'mastercard', _("CONTRIBUTION_PAGE_MASTERCARD"), ['EUR','GBP','USD'], 10, 2, True
-					,gtw_location = app_conf['adyen.location']
-					,gtw_username = app_conf['adyen.user']
-					,gtw_password = app_conf['adyen.password']
-					,gtw_account = app_conf['adyen.merchantAccount']
-				),				
-				CreditCardPayment('/static/imgs/icon-amex.png', 'amex', _("CONTRIBUTION_PAGE_AMEX"), ['EUR','GBP','USD'], 10, 2, True
-					,gtw_location = app_conf['adyen.location']
-					,gtw_username = app_conf['adyen.user']
-					,gtw_password = app_conf['adyen.password']
-					,gtw_account = app_conf['adyen.merchantAccount']
-				),
-				RedirectPayment('/static/imgs/icon-paypal.png', 'paypal', _("CONTRIBUTION_PAGE_Paypal"), ['EUR','GBP','USD'], 10, 2, True
-					,base_url = app_conf['adyen.hostedlocation']
-					,skincode = app_conf['adyen.skincode']
-					,merchantaccount = app_conf['adyen.merchantAccount']
-					,secret = app_conf['adyen.hosted_secret']
-				)
-			]
-		self.payment_service = PaymentService(payment_methods)
-		log.info("PaymentService set up with: %s", self.payment_service.payment_methods)
+		pfactory = PaymentFactory(
+				 gtw_location = app_conf['adyen.location']
+				,gtw_username = app_conf['adyen.user']
+				,gtw_password = app_conf['adyen.password']
+				,gtw_account = app_conf['adyen.merchantAccount']
+				,hosted_base_url = app_conf['adyen.hostedlocation']
+				,hosted_skincode = app_conf['adyen.skincode']
+				,merchantaccount = app_conf['adyen.merchantAccount']
+				,hosted_sign_secret = app_conf['adyen.hosted_secret'])
+		self.payment_methods = [pfactory.get(pm) for pm in self.merchants.payment_methods]
+		self.payment_methods_map = dict((pm.code, pm) for pm in self.payment_methods)
+		log.info("PaymentMethods set up: %s", self.payment_methods)
 		
 		
 		amazon_services = {}

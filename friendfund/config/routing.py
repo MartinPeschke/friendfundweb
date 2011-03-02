@@ -36,9 +36,10 @@ def make_map(config):
 	map.connect('get_pool'     , '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': purlpattern})
 	map.connect('pool_action'  , '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})
 	map.connect('chipin'       , '/chipin/{pool_url}', controller='contribution', action="chipin", requirements={'pool_url': purlpattern})
-	map.connect('data'         , '/d/{verb}/{action}', controller='data_editor', requirements={'verb':VERBS})
+	map.connect('payment'       , '/payment/{pool_url}', controller='payment', action="index", requirements={'pool_url': purlpattern})
 	map.connect('chipin_fixed' , '/chipin/{pool_url}/fixed', controller='contribution', action="chipin_fixed", requirements={'pool_url': purlpattern})
 	map.connect('contribution' , '/chipin/{pool_url}/{action}', controller='contribution', requirements={'pool_url': purlpattern})
+	map.connect('data'         , '/d/{verb}/{action}', controller='data_editor', requirements={'verb':VERBS})
 	
 	map.connect('/invite/friends', controller='invite', action='friends')
 	map.connect('invite'       , '/invite/{pool_url}/{method}', controller='invite', action='method', requirements={'pool_url': purlpattern, 'method':CONNECT_METHODS})

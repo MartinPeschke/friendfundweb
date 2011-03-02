@@ -1,5 +1,5 @@
 import formencode
-from friendfund.model.forms.common import MonetaryValidator, TotalTransactionCostValidator, TOSValidator
+from friendfund.model.forms.common import MonetaryValidator, TotalTransactionCostValidator, TOSValidator, PaymentMethodValidator
 
 
 class PaymentIndexForm(formencode.Schema):
@@ -9,7 +9,7 @@ class PaymentIndexForm(formencode.Schema):
 	agreedToS = TOSValidator(if_missing=False)
 	is_secret = formencode.validators.StringBool(if_empty=False, if_missing=False)
 	message = formencode.validators.String(max=140)
-	payment_method = formencode.validators.String(not_empty=True)
+	method = PaymentMethodValidator(not_empty=True)
 
 
 
@@ -24,7 +24,7 @@ class PaymentConfForm(formencode.Schema):
 	agreedToS = TOSValidator(not_empty=False, if_missing=False)
 	is_secret = formencode.validators.StringBool(not_empty=False, if_missing=False)
 	message = formencode.validators.String(max=140)
-	payment_method = formencode.validators.String(not_empty=True)
+	method = PaymentMethodValidator(not_empty=True)
 	chained_validators = [
 		TotalTransactionCostValidator("amount", "total")
 	]

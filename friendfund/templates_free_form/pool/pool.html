@@ -102,11 +102,11 @@
 	</div>
   <div class="colRight" id="chipin_box">
 	<div class="boxChipIn">
-		<a href="${url(controller="payment", action="index", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">
+		<a href="${url("payment", pool_url=pool.p_url, protocol=g.SSL_PROTOCOL)}" class="btnChipIn tertiary">
 			${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}
 		</a>
 		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
-		<a href="${url(controller="payment", action="index", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">
+		<a href="${url("payment", pool_url=pool.p_url, protocol=g.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">
 			${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")}
 		</a>
 		
