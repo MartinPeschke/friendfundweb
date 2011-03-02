@@ -13,11 +13,9 @@
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			<img src="" width="60px" height="60px"/>
 			<div class="subUserProfile">
-				<h2>poi</h2>
-				<div class="subTitleUserProfile">
-					<span class="link twitter">@ Judyface</span><span class="link facebookName">Judy Stevens</span></div>
+				<h2 class="padBtm">Account Settings</h2>
+				
 			</div>
 			${common.render_tabs("notifications")|n}
 			
@@ -25,5 +23,48 @@
 		</div>
 	</div>
 </div>
-<div class="content fullWidth">
-<h4 style="padding-top:0px"><div class="floatRight"><label>Sort by:</label><select></select></div></h4>
+<div class="content">
+<div class="colRight"></div>
+<div class="colLeft">
+	<h4 style="margin-bottom:10px">Please email me when...</h4>
+    <div class="borderBottom noBorder lessPad">
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>Tip goes here</span>
+			</div>
+			<div class="greyInsideFullWidth">
+				<div class="first"> <span>&nbsp;</span> </div>
+				<input type="checkbox" class="chkbox" checked="checked" value="no" name="payment.is_secret" id="isSecretFalse"><label for="isSecretFalse">Someone chips in to my Pool</label>
+			</div>
+		</div>
+        <div class="borderBottom noBorder lessPad">
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>Tip goes here</span>
+			</div>
+			<div class="greyInsideFullWidth">
+				<div class="first"> <span>&nbsp;</span> </div>
+				<input type="checkbox" class="chkbox"  checked="checked" value="no" name="payment.is_secret" id="isSecretFalse"><label for="isSecretFalse">Someone comments on a Pool I created</label>
+			</div>
+		</div>
+        <div class="borderBottom noBorder lessPad">
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>Tip goes here</span>
+			</div>
+			<div class="greyInsideFullWidth">
+				<div class="first"> <span>&nbsp;</span> </div>
+				<input type="checkbox" class="chkbox"  checked="checked" value="no" name="payment.is_secret" id="isSecretFalse"><label for="isSecretFalse">A friend creates a Pool</label>
+			</div>
+		</div>
+            
+            
+            
+            <div class="terms" style="margin-top:20px">
+				<input type="button" class="primaryButton" value="Save Changes">
+			</div>
+              
+</div>
+<div class="clear"></div>
+</div>
+
