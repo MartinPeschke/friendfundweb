@@ -1,0 +1,9 @@
+<%namespace name="widgets" file="/widgets/widgets.html"/>
+
+<%def name="render_tabs(tab)">
+	<div class="tabsBig">
+		<a href="${url(controller="myprofile", action="account")}" ${widgets.expression_quote(tab=="account", "class", "selected")|n}>Basic Info <span class="spoiler"></span></a>
+		<a href="${url(controller="myprofile", action="password")}" ${widgets.expression_quote(tab=="password", "class", "selected")|n}>Password <span class="spoiler"></span></a>
+		<a href="${url(controller="myprofile", action="notifications")}" ${widgets.expression_quote(tab=="notifications", "class", "selected")|n}>Notifications <span class="spoiler"></span></a>
+	</div>
+</%def>
