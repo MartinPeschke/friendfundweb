@@ -28,9 +28,6 @@ class MyprofileController(BaseController):
 	def account(self):
 		return self.render('/myprofile/account.html')
 	@logged_in(ajax=False)
-	def password(self):
-		return self.render('/myprofile/password.html')
-	@logged_in(ajax=False)
 	def notifications(self):
 		return self.render('/myprofile/notifications.html')
 		
@@ -158,7 +155,7 @@ class MyprofileController(BaseController):
 		
 	##########################################################################################
 	#Forgot Password Cycle
-	def password_req(self):
+	def password(self):
 		c.furl = request.referer
 		c.pwd_values ={}
 		c.pwd_errors ={}
