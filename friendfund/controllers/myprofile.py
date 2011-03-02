@@ -158,7 +158,7 @@ class MyprofileController(BaseController):
 		
 	##########################################################################################
 	#Forgot Password Cycle
-	def password(self):
+	def password_req(self):
 		c.furl = request.referer
 		c.pwd_values ={}
 		c.pwd_errors ={}
