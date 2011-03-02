@@ -98,17 +98,18 @@ class GlobalDBPaymentNotice(DBMappedObject):
 				,GenericAttrib(str, 'reason'   ,'reason')
 			]
 	
-class GetPoolURLFromContribRef(DBMappedObject):
+class GetDetailsFromContributionRefProc(DBMappedObject):
 	"""
-	exec [app].[get_p_url_from_contribution_ref] '<POOL  contribution_ref="DA516A21-FEC7-4AC4-BF56-5D4FC265CDBE"/>'
-		<RESULT status="0" proc_name="get_p_url_from_contribution_ref">
-		  <POOL p_url="P3cD.Mapa-Technorac-Wellness-Massagen" />
-		</RESULT>
+		[app].[get_details_from_contribution_ref]
+		<CONTRIBUTION  contribution_ref="30DBFB7B-4DD2-4C70-9470-FA4B0F5AF10F"/>
 	"""
 	_cachable = False
-	_get_root = _set_root = 'POOL'
+	_get_root = _set_root = 'CONTRIBUTION'
 	_unique_keys = ['msg_id']
-	_set_proc =_get_proc = 'app.get_p_url_from_contribution_ref'
+	_set_proc =_get_proc = 'app.get_details_from_contribution_ref'
 	_keys = [	GenericAttrib(unicode, 'contribution_ref','contribution_ref')
-				,GenericAttrib(unicode, 'p_url'    ,'p_url')
-				,GenericAttrib(str, 'merchant_domain'    ,'merchant_domain')]
+				,GenericAttrib(int, 'amount'      ,'amount')
+				,GenericAttrib(bool, 'is_secret'  ,'is_secret')
+				,GenericAttrib(unicode, 'message' ,'message')]
+	def get_amount(self):
+		return float(self.amount)/100

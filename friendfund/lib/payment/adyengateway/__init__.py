@@ -9,8 +9,6 @@ log = logging.getLogger("friendfund.lib.payment.adyengateway.AdyenPaymentGateway
 
 def get_contribution_from_adyen_result(merchantReference, paymentresult):
 	payment_transl = {'Authorised':'AUTHORISATION', 'Refused':'REFUSED'}
-	print dir(paymentresult)
-	print paymentresult
 	notice = DBPaymentInitialization(\
 				ref = merchantReference\
 				, tx_id=paymentresult['pspReference']\

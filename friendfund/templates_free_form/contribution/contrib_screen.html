@@ -34,12 +34,12 @@
 	calcTotals();
 </%def>
 
-<div class="wrapSubHeader">
+<div class="wrapSubHeader">${self.renderMessages()|n}
   <div class="subHeader">
     <div class="userProfile">
       <div class="nonPoolHeader">
         <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
+          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
         </div>
         <h2>${c.pool.title}</h2>
       </div>
@@ -56,6 +56,8 @@
     </div>
   </div>
 </div>
+
+
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
@@ -122,7 +124,7 @@
     </div>
 
 	<div class="clear"></div>
-	<h4>Payment Method ${c.values.get("method", '--------------')}</h4>
+	<h4>Payment Method</h4>
 	<div class="borderBottom" style="border:none">
 		<div class="tip">
 			<div class="arrow"></div>

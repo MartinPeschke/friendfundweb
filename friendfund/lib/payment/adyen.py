@@ -1,19 +1,21 @@
 from __future__ import with_statement
 
-import logging, urllib, urllib2
+import logging, urllib, urllib2, formencode
 import base64, hmac, hashlib, uuid
 from datetime import datetime, timedelta
 
 from pylons import session as websession, url, app_globals, request
 
 from friendfund.lib import helpers as h
+from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
-
 from friendfund.lib.synclock import add_token, rem_token
 from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization
 from friendfund.model.db_access import SProcException
+from friendfund.model.forms.creditcard import CreditCardForm
 from friendfund.model.pool import Pool
 from friendfund.tasks.photo_renderer import remote_pool_picture_render
+
 
 log = logging.getLogger(__name__)
 class UnsupportedOperation(Exception):pass
@@ -63,7 +65,6 @@ class PaymentMethod(object):
 		self._fee_relative = float(fee_relative)/100
 		self.has_fees = bool(fee_absolute or fee_relative)
 		self.default = False
-		
 	def check_totals(self, base, total):
 		return -0.01 < total - (base*(1 + self._fee_relative) + self._fee_absolute) < 0.01
 	def __repr__(self):
@@ -76,14 +77,14 @@ class PaymentMethod(object):
 		raise Exception('NotImplemented')
 	def calculate_costs(self, amount, currency):
 		amount = h.parse_number(amount)
-		print currency in self.currencies
 		return (amount*(1 + self._fee_relative) + self._fee_absolute)
 	
 class CreditCardPayment(PaymentMethod):
+	has_result_delay = False
 	def __init__(self, logo_url, code, currencies, fee_absolute, fee_relative, gtw_location, gtw_username, gtw_password, gtw_account):
 		super(self.__class__, self).__init__(logo_url, code, currencies, fee_absolute, fee_relative)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
-	
+
 	def process(self, tmpl_context, contrib_view, pool, renderer, redirecter):
 		tmpl_context.form_secret = str(uuid.uuid4())
 		with app_globals.cache_pool.reserve() as mc:
@@ -93,66 +94,70 @@ class CreditCardPayment(PaymentMethod):
 		else:
 			tmpl_context.creditcard_values = {}
 		tmpl_context.contrib_view = contrib_view
+		tmpl_context.payment_method = self
 		return renderer('/contribution/payment_details.html')
 	
 	def post_process(self, tmpl_context, pool, renderer, redirecter):
 		with app_globals.cache_pool.reserve() as client:
-			contrib_view = get_token_value(client, tmpl_context.form_secret) # raises TokenNotExistsException
+			tmpl_context.contrib_view = get_token_value(client, tmpl_context.form_secret) # raises TokenNotExistsException
+		if request.method != 'POST':
+			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
+			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
 		
+		tmpl_context.form_secret = request.POST.get('formtoken')
+		if not tmpl_context.form_secret:
+			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		with app_globals.cache_pool.reserve() as client:
-			contrib_view = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
-
-		
-		contrib_model = DBContribution(amount = contrib_view.amount
-								,total = contrib_view.total
-								,is_secret = contrib_view.is_secret
-								,message = contrib_view.message
-								,paymentmethod = ccType
-								,u_id = tmpl_context.user.u_id
-								,network = tmpl_context.user.network
-								,network_id = tmpl_context.user.network_id
-								,shopper_email = tmpl_context.user.default_email
-								,p_url = pool.p_url)
+		cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
+		schema = CreditCardForm()
 		try:
-			contrib_model = app_globals.dbm.set(contrib_model, merge = True)
-		except SProcException, e:
-			log.error(e)
-			raise DBErrorDuringSetup(e)
-		
-		contrib_view.ref = contrib_model.ref
-		if contrib_model.is_recurring:
-			log.info("AUTHORIZING_RECURRING %s", contrib_view.ref)
-			paymentresult = self.paymentGateway.authorize_recurring(contrib_model, contrib_view)
+			tmpl_context.values = schema.to_python(cc, state = FriendFundFormEncodeState)
+		except (formencode.validators.Invalid, AssertionError), error:
+			tmpl_context.values = error.value
+			tmpl_context.errors = error.error_dict or {}
+			return renderer('/contribution/payment_details.html')
 		else:
-			log.info("AUTHORIZING_NORMAL %s", contrib_view.ref)
-			paymentresult = self.paymentGateway.authorize(contrib_view)
-		notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
-		try:
-			app_globals.dbm.set(notice)
-		except SProcException, e:
-			log.error(e)
-		app_globals.dbm.expire(Pool(p_url = pool.p_url))
-		tmpl_context.success = (paymentresult['resultCode'] == 'Authorised')
-		if tmpl_context.success : 
-			remote_pool_picture_render.delay(pool.p_url)
-			return redirecter(url('contribution', pool_url=pool.p_url, action='success', token=tmpl_context.form_secret))
-		else:
-			return redirecter(url('contribution', pool_url=pool.p_url, action='fail', token=tmpl_context.form_secret))
+			ccard = CreditCard(**tmpl_context.values)
+			with app_globals.cache_pool.reserve() as client:
+				tmpl_context.contrib_view = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
+			contrib_model = DBContribution(amount = tmpl_context.contrib_view.amount
+									,total = tmpl_context.contrib_view.total
+									,is_secret = tmpl_context.contrib_view.is_secret
+									,message = tmpl_context.contrib_view.message
+									,paymentmethod = ccType
+									,u_id = tmpl_context.user.u_id
+									,network = tmpl_context.user.network
+									,network_id = tmpl_context.user.network_id
+									,shopper_email = tmpl_context.user.default_email
+									,p_url = pool.p_url)
+			try:
+				contrib_model = app_globals.dbm.set(contrib_model, merge = True)
+			except SProcException, e:
+				log.error(e)
+				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+				return renderer('/contribution/payment_details.html')
+			else:
+				tmpl_context.contrib_view.ref = contrib_model.ref
+				if contrib_model.is_recurring:
+					log.info("AUTHORIZING_RECURRING %s", tmpl_context.contrib_view.ref)
+					paymentresult = self.paymentGateway.authorize_recurring(contrib_model, tmpl_context.contrib_view)
+				else:
+					log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
+					paymentresult = self.paymentGateway.authorize(tmpl_context.contrib_view)
+				
+				notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
+				try:
+					app_globals.dbm.set(notice)
+				except SProcException, e:
+					log.error(e)
+				app_globals.dbm.expire(Pool(p_url = pool.p_url))
+				tmpl_context.success = (paymentresult['resultCode'] == 'Authorised')
+				if tmpl_context.success : 
+					remote_pool_picture_render.delay(pool.p_url)
+					return redirecter(url(controller='payment', pool_url=pool.p_url, action='success', token=tmpl_context.form_secret))
+				else:
+					return redirecter(url(controller='payment', pool_url=pool.p_url, action='fail', token=tmpl_context.form_secret))
 
 
 class RedirectPayment(PaymentMethod):
@@ -161,6 +166,7 @@ class RedirectPayment(PaymentMethod):
 						,"shopperReference","recurringContract","allowedMethods","blockedMethods"
 						,"shopperStatement","merchantReturnData","billingAddressType","offset"]
 	result_order = ["authResult", "pspReference", "merchantReference", "skinCode", "merchantReturnData"]
+	has_result_delay = True
 	
 	def __init__(self, logo_url, code, currencies, fee_absolute, fee_relative, base_url, skincode, merchantaccount, secret):
 		super(self.__class__, self).__init__(logo_url, code, currencies, fee_absolute, fee_relative)
@@ -217,5 +223,4 @@ class RedirectPayment(PaymentMethod):
 				}
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])
-		url = "%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params)))
-		return redirecter(url)
+		return redirecter("%s?%s&merchantSig=%s" % (self.base_url, urlparams, urllib.quote(self.get_signature(params))))

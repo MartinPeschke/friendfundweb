@@ -8,7 +8,11 @@ from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
 from friendfund.lib.base import ExtBaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 
+
+
+from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc
 from friendfund.model.forms.contribution import PaymentIndexForm, PaymentConfForm
 from friendfund.model.db_access import SProcException
 
@@ -22,7 +26,6 @@ class PaymentController(ExtBaseController):
 	def index(self, pool_url):
 		c.values = getattr(c, 'values', {})
 		c.errors = getattr(c, 'errors', {})
-		
 		suggested_amount = request.params.get('amount')
 		try:suggested_amount = (float(suggested_amount)/100)
 		except: pass
@@ -58,21 +61,22 @@ class PaymentController(ExtBaseController):
 			contrib.currency = c.pool.currency
 			contrib.set_amount(form_result['amount'])
 			contrib.set_total(form_result['total'])
-			contrib.paymentmethod = form_result.get('payment_method')
+			contrib.paymentmethod = form_result.get('method')
 			
 			try:
-				return g.payment_methods_map[contrib.paymentmethod].process(c, contrib, pool, render, redirect)
-			except UnsupportedPaymentMethod, e:
-				tmpl_context.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-				return redirect(url("payment", pool_url=pool.p_url, protocol=g.SSL_PROTOCOL))
+				return g.payment_methods_map[contrib.paymentmethod].process(c, contrib, c.pool, self.render, redirect)
+			except (UnsupportedPaymentMethod, KeyError), e:
+				c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
 			except DBErrorDuringSetup, e:
-				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
 			except DBErrorAfterPayment, e:
-				return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
+				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
 	
 	@logged_in(ajax=True)
 	@no_blocks(ajax=True)
-	@jsonify
 	def creditcard(self, pool_url):
 		c.values = {}
 		c.errors = {}
@@ -81,9 +85,39 @@ class PaymentController(ExtBaseController):
 		
 	
 	@logged_in(ajax=False)
-	def payment_success(self, pool_url):
+	def success(self, pool_url):
+		return self.render('/contribution/payment_success.html')
+	@logged_in(ajax=False)
+	def fail(self, pool_url):
 		return self.render('/contribution/payment_success.html')
 
 	@logged_in(ajax=False)
 	def ret(self, pool_url):
+		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
+		merchantReference = request.params.get('merchantReference')
+		try:
+			paymentmethod =  g.payment_methods_map[request.params.get('paymentMethod')]
+			merchant_domain = paymentmethod.verify_signature(request.params)
+		except KeyError, e:
+			merchant_domain = None
+		if not merchant_domain:
+			c.messages.append(_(u"Invalid payment data found, possibly some hiccup?"))
+			return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
+		elif merchant_domain != request.merchant.domain:
+			log.info("REDIRECTED, found:%s(%s), expected: %s(%s)", merchant_domain, type(merchant_domain), request.merchant.domain, type(request.merchant.domain))
+			return redirect(url.current(host=merchant_domain.encode("latin-1"), **dict(request.params.items())))
+		
+		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = merchantReference)
+		
+		if c.contrib:
+			c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
+						, "payment_method":paymentmethod.code
+						, "is_secret":c.contrib.is_secret
+						, "message":c.contrib.message
+						}
+		c.show_delay = paymentmethod.has_result_delay
+		if request.params.get('authResult') == 'AUTHORISED':
+			return self.render('/contribution/payment_success.html')
+		else:
+			return self.render('/contribution/payment_fail.html')
 		return self.render('/contribution/payment_details.html')

@@ -161,13 +161,10 @@ class ContributionController(ExtBaseController):
 		if 'contribution' not in websession:
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Form already submitted."))
 			return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
-		if request.method != 'POST':
-			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
+
 		
-		c.form_secret = request.POST.get('formtoken')
-		if not c.form_secret:
-			return self.ajax_messages(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
-		
+
+
 		cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
 		schema = CreditCardForm()
 		try:
@@ -187,6 +184,10 @@ class ContributionController(ExtBaseController):
 			except AttributeError, e:
 				self.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Some Error Occured. Your payment has not been processed."))
 				return {'redirect':url('chipin', pool_url=pool_url, protocol=g.SSL_PROTOCOL)}
+
+				
+				
+				
 		try:
 			return g.payment_service.post_process_payment(c, c.pool, render, redirect)
 		except TokenNotExistsException, e:

@@ -63,6 +63,19 @@
 
 
 
+<%def name="renderMessages()">
+<div id="messaging_container" class="overlayWrapper">
+  <div class="overlay red ${not h.has_ne_prop(c, '_msgs') and 'hidden' or ''}">
+  	<p id="messaging_messages">${' - '.join(msg for msg in getattr(c, "_msgs", []))}</p>
+  </div>
+</div>
+</%def>
+
+<%def name="render_account_panel()">
+	<div id="accountcontainer">
+		<%include file="/myprofile/login_panel.html"/>
+	</div>
+</%def>
 
 
 <%def name="render_verisign(id)">

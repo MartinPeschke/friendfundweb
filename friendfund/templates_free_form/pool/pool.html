@@ -66,12 +66,7 @@
 %>
 
 
-<div class="wrapSubHeader">
-	<div class="overlayWrapper">
-	  <div class="overlay red">
-		<p>Please fill in all required fields below.</p>
-	  </div>
-	</div>
+<div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
 		<div class="userProfile">
 			<img src="${c.pool.admin.get_profile_pic('PROFILE_M')}" width="60px" height="60px"/>
@@ -100,6 +95,8 @@
 		</div>
 	</div>
 </div>
+
+
 <div class="content">
 	<div class="greyBoxTitle">
 		<a href="#" class="floatRight btnShow">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>

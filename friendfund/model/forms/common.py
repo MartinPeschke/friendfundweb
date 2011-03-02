@@ -138,8 +138,6 @@ class TotalTransactionCostValidator(formencode.validators.FormValidator):
 		'UnSupportedPaymentMethod': _("unsupported payment method")
 		}
 	def validate_python(self, field_dict, state):
-		import pprint
-		pprint.pprint(field_dict)
 		errors = self._validateReturn(field_dict, state)
 		if errors:
 			error_list = errors.items()

@@ -1,0 +1,39 @@
+<%inherit file="../layout.html"/>
+<div class="wrapSubHeader">
+<div class="overlayWrapper">
+  <div class="overlay red">
+  	<p>Payment Failed!</p>
+  </div>
+</div>
+  <div class="subHeader">
+    <div class="userProfile">
+      <div class="nonPoolHeader">
+        <div class="prodImgWrap">
+          <div class="prodImgSubWrap"> <img src="/static/imgs/dummy/dummy-img-big.jpg" height="90"> </div>
+        </div>
+        <h2>Thanks for Chipping In!</h2>
+      </div>
+      <div class="steps">
+        <div class="stepOne"><span>1</span>Chip in</div>
+        <div class="rightArrow"></div>
+        <div class="leftArrow active"></div>
+        <div class="stepTwo"><span>2</span>Payment info</div>
+        <div class="rightArrow"></div>
+        <div class="leftArrow active"></div>
+        <div class="stepThree active"><span>3</span>Done !</div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="success">
+	<p><img src="/static/imgs/crossed.png" style="margin-right:5px" />You've not contributed ${c.values["amount"]} <br /> to ${c.pool.title}.</p> 
+	<div style="margin-top:30px">
+		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="button">Back to Pool</a>
+		<a href="${url("pool_details", protocol="http", v=2)}" class="button">Create a Pool</a>
+	</div>
+  </div>
+  
+  <div class="clear"></div>
+</div>
