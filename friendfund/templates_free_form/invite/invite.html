@@ -118,7 +118,7 @@
 				</div>
 				
 				<div class="btnContainer">
-				%if len(c.pool.invitees) or c.workflow!="1":
+				%if len(c.pool.invitees) or c.workflow=="3":
 					<input type="button" id="invite_submitter" value="Invite Friends" class="primaryButton" />
 				%else:
 					<input type="button" id="invite_submitter" value="Create Pool"  class="primaryButton" />
