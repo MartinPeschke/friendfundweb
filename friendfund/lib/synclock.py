@@ -18,3 +18,9 @@ def rem_token(client, token):
 	sucs = client.delete(tok)
 	if not sucs: raise TokenNotExistsException("Token could not be rmeoved, as it does not exist: %s" % token)
 	else: return val
+
+def get_token_value(client, token):
+	tok = 'ftoken_%s'%str(token)
+	val = client.get(tok)
+	if not val: raise TokenNotExistsException("Token could not be rmeoved, as it does not exist: %s" % token)
+	else: return val

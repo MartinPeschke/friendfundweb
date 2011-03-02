@@ -97,7 +97,26 @@ class CreditCardPayment(PaymentMethod):
 	
 	def post_process(self, tmpl_context, pool, renderer, redirecter):
 		with app_globals.cache_pool.reserve() as client:
+			contrib_view = get_token_value(client, tmpl_context.form_secret) # raises TokenNotExistsException
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		with app_globals.cache_pool.reserve() as client:
 			contrib_view = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
+
 		
 		contrib_model = DBContribution(amount = contrib_view.amount
 								,total = contrib_view.total
@@ -194,7 +213,7 @@ class RedirectPayment(PaymentMethod):
 				"shopperLocale":websession['lang'],
 				"merchantReference" : dbcontrib.ref,
 				"merchantReturnData" : request.merchant.domain,
-				"resURL":"http://dev.friendfund.de/mypools" # can be used to redirect user to correct paymentResult Page
+				"resURL":"%s"%(url("payment_current", pool_url = ''.join(pool.p_url.rpartition(".")[:2]), protocol="http"))
 				}
 		params = self.get_request_parameters(redirect_params)
 		urlparams = '&'.join(['%s=%s' % (k, urllib.quote(v)) for k,v in params.iteritems()])

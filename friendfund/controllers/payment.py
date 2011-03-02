@@ -85,5 +85,5 @@ class PaymentController(ExtBaseController):
 		return self.render('/contribution/payment_success.html')
 
 	@logged_in(ajax=False)
-	def det(self, pool_url):
+	def ret(self, pool_url):
 		return self.render('/contribution/payment_details.html')
