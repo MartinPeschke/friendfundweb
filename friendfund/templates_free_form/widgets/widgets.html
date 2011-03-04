@@ -1,5 +1,5 @@
 
-<%def name="input_selected(name, value)">${expression_quote(c.values.get(name, "") == value, "selected")|n}</%def>
+<%def name="input_selected(name, value)">${expression_quote(c.values.get(name, "") == unicode(value), "selected")|n}</%def>
 
 <%def name="input_checked(name, value, default = False)">${expression_quote((name not in c.values and default) or c.values.get(name, "") == value, "checked")|n}</%def>
 <%def name="expression_quote(expr, tagname, value=None)">${(expr and '%s="%s"'%(tagname, value or tagname) or '')|n}</%def>

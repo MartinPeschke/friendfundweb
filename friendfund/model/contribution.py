@@ -6,22 +6,24 @@ class PaymentMethod(DBMappedObject):
 class CreditCard(PaymentMethod):
 	_keys = [	 GenericAttrib(int, 'ccType'        ,None)
 				,GenericAttrib(str, 'ccHolder'      ,None)
-				,GenericAttrib(bool, 'ccNumber'      ,None)
+				,GenericAttrib(bool,'ccNumber'      ,None)
 				,GenericAttrib(str, 'ccCode'        ,None)
 				,GenericAttrib(int, 'ccExpiresMonth',None)
 				,GenericAttrib(int, 'ccExpiresYear' ,None)
 			]
 
 class Contribution(DBMappedObject):
-	_keys = [	 GenericAttrib(int, 'amount'       ,None)
-				,GenericAttrib(int ,'total', None)
-				,GenericAttrib(bool, 'agreedToS'    ,None)
-				,GenericAttrib(bool, 'is_secret'    ,None)
-				,GenericAttrib(unicode, 'message'    ,None)
-				,GenericAttrib(str, 'paymentmethod'    ,None)
-				,DBMapper(PaymentMethod, 'methoddetails',None)
-				,GenericAttrib(str, 'currency'     ,None)
-				,GenericAttrib(str, 'ref'          ,None)
+	_keys = [	 GenericAttrib(int,      'amount'            ,None)
+				,GenericAttrib(int,      'total'             ,None)
+				,GenericAttrib(bool,     'agreedToS'         ,None)
+				,GenericAttrib(bool,     'is_secret'         ,None)
+				,GenericAttrib(unicode,  'message'           ,None)
+				,GenericAttrib(str,      'paymentmethod_code',None)
+				,DBMapper(PaymentMethod, 'methoddetails'     ,None)
+				,GenericAttrib(str,      'currency'          ,None)
+				,GenericAttrib(str,      'ref'               ,None)
+				,GenericAttrib(int,      'user_id'           ,None)
+				,GenericAttrib(bool,     'is_valid'          ,None)
 			]
 	def get_amount(self):
 		return float(self.amount)/100
@@ -31,7 +33,12 @@ class Contribution(DBMappedObject):
 		return float(self.total)/100
 	def set_total(self, value):
 		self.total = int(value*100)
-	
+	def set_user(self, user):
+		self.user_id = user.id
+	def validate_user(self, user):
+		return self.user_id == user.id
+	def invalidate(self):
+		self.is_valid = False
 	def get_difference(self):
 		return float(self.total - self.amount)/100
 	def __repr__(self):

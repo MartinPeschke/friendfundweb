@@ -8,20 +8,27 @@
 		var calcTotals = function(evt){
 			var contrib = dojo.byId("payment_amount");
 			var contrib_amount = Math.round(parseFloat(contrib.value.replace(thous_sep,"").replace(dec_sep, "."))*100);
-			dojo.forEach(document.contributionForm["payment.method"], function(rdio){
-				if(rdio.checked){
-					var absolute = parseInt(dojo.attr(rdio, "_fee_absolute"));
-					var relative = parseFloat(dojo.attr(rdio, "_fee_relative"));
-					var costs_amount = (contrib_amount * relative/100) + absolute;
-					var amount = dojo.byId("display_amount");
-					var tcosts = dojo.byId("display_transactioncosts");
-					var total = dojo.byId("display_total");
-					amount.value = (contrib_amount/100).toFixed(2).replace(".", dec_sep);
-					tcosts.value=(costs_amount/100).toFixed(2).replace(".", dec_sep);
-					total.value=((contrib_amount + costs_amount)/100).toFixed(2).replace(".", dec_sep);
-					dojo.byId("payment_total").value=total.value;
-				}
-			});
+			if(isNaN(contrib_amount)){
+				dojo.byId("display_amount").value="-";
+				dojo.byId("display_transactioncosts").value="-";
+				dojo.byId("display_total").value="-";
+				dojo.byId("payment_total").value=0;
+				
+			} else {
+				dojo.forEach(document.contributionForm["payment.method"], function(rdio){
+					if(rdio.checked){
+						var absolute = parseInt(dojo.attr(rdio, "_fee_absolute"));
+						var relative = parseFloat(dojo.attr(rdio, "_fee_relative"));
+						var costs_amount = (contrib_amount * relative/100) + absolute;
+						var amount = dojo.byId("display_amount");
+						var tcosts = dojo.byId("display_transactioncosts");
+						var total = dojo.byId("display_total");
+						amount.value = (contrib_amount/100).toFixed(2).replace(".", dec_sep);
+						tcosts.value=(costs_amount/100).toFixed(2).replace(".", dec_sep);
+						total.value=((contrib_amount + costs_amount)/100).toFixed(2).replace(".", dec_sep);
+						dojo.byId("payment_total").value=total.value;
+					}
+				});}
 		};
 	</script>
 </%def>

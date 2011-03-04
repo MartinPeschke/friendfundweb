@@ -26,6 +26,14 @@ class IndexController(BaseController):
 	ra_total_page_size = 50
 	ra_page_size = 5
 	
+	def kill(self):
+		c = g.dbm.dbpool.connection()
+		cur = c.cursor()
+		print cur.execute("exec app.kill_connections;")
+		cur.close()
+		c.close()
+		return redirect("/")
+	
 	def index(self):
 		if request.merchant.home_page:
 			return redirect(request.merchant.home_page, code=301)

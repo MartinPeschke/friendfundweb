@@ -99,7 +99,6 @@ class ContributionController(ExtBaseController):
 			
 		except formencode.validators.Invalid, error:
 			c.chipin_values = error.value
-			#ugly hack, but otherwise i cant set selected or not not correctly, as template gets "yes" and True alternatively on error and on permission
 			c.chipin_values['is_secret'] = formencode.validators.StringBool(if_missing=False).to_python(c.chipin_values.get('is_secret'))
 			c.chipin_errors = error.error_dict or {}
 			return self.render('/contribution/contrib_screen.html')

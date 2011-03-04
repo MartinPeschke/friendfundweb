@@ -1,4 +1,10 @@
 <%inherit file="../layout.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
+<%def name="onloadscripts()">
+	parseDefaultsInputs("creditcardForm");
+	parseSelectables("creditcardForm");
+	dojo.query("#creditcardForm").onsubmit(function(evt){dojo.query("input[type=submit]", evt.target).orphan()});
+</%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
   <div class="subHeader">
@@ -24,119 +30,118 @@
 </div>
 
 <div class="content">
-  <div class="colRight"></div>
-  <div class="colLeft">
-  <form action="${url('contribution', action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" method="POST">
-    <div class="poolDets">
-      <h4>Confirm Your Contribution</h4>
-      <div class="borderBottom noBorder">
-        <div class="first" style="margin-top:8px">Your contribution</div>
-        <div class="greyInside widthAuto borderGrey">
-
-          <p class="editableAmount bold">10</p>
-          <span class="value">&euro;</span> </div>
-        <p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
-		<div id="verisign_contrib" class="floatRight">
-			<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-			<tr>
-			<td width="135" align="center" valign="top">
-				<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-				<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-			</td>
-			</tr>
-			</table></div>
+	<div class="colRight"></div>
+	<div class="colLeft">
+	<form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
+		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
+		<input type="hidden" name="fs" value="${c.form_secret}"/>
+		<div class="poolDets">
+			<h4>Confirm Your Contribution</h4>
+			<div class="borderBottom noBorder">
+				<div class="first" style="margin-top:8px">Your contribution</div>
+				<div class="greyInside widthAuto borderGrey">
+					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
+					<span class="value">&euro;</span> 
+				</div>
+				<p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
+				<div id="verisign_contrib" class="floatRight">
+					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+					<tr>
+					<td width="135" align="center" valign="top">
+						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+					</td>
+					</tr>
+					</table>
+				</div>
+			</div>
+			<!--<a href="#" class="editContrib">Edit</a>-->
 		</div>
-        <!--<a href="#" class="editContrib">Edit</a>-->
-      </div>
-      <div class="contentDetails">
-        <h6>When will I be charged?</h6>
-        You won't be charged anything unless this Pool is fully funded by ${h.format_date(c.pool.expiry_date, format="full")}. If it isn't 
-        funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
-        <h6>Selected Payment Method</h6>
-        <div class="imgSpacer"> <img src="/static/imgs/${c.payment_method.code}.png"> </div>
-      </div>
-      <div class="clear"></div>
-      <h4>Pay by CreditCard</h4>
-	  
-	  <!--
-	  <div class="borderBottom noBorder selected error ">
-		<div class="tip">
-					<div class="arrow"></div>
-					<span>Tip goes here</span>
-					
-				</div>
-		  <div class="greyInsideFullWidth">
-			  <div class="first"> <span>Credit Card Type</span> </div>
-			  <select></select>
-		  </div>  
-	  </div>
-	  -->
-	  
-	  
-      <div class="borderBottom noBorder selected error">
-				<div class="tip">
-					<div class="arrow"></div>
-					<span>Tip goes here</span>
-					
-				</div>
-				<div class="greyInsideFullWidth">
-                
-				<div  class="first">
+		<div class="contentDetails">
+			<h6>When will I be charged?</h6>
+			You won't be charged anything unless this Pool is fully funded by ${h.format_date(c.pool.expiry_date, format="full")}. If it isn't 
+			funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
+			<h6>Selected Payment Method</h6>
+			<div class="imgSpacer"> <img src="/static/imgs/${c.payment_method.code}.png"> </div>
+		</div>
+		<div class="clear"></div>
+		<h4>Pay by CreditCard</h4>
+		<div class="borderBottom noBorder ${('ccHolder' in c.errors) and "error" or ""}">
+			%if "ccHolder" in c.errors:
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>${c.errors.get("ccHolder")}</span>
+			</div>
+			%endif
+			<div class="greyInsideFullWidth">
+				<div class="first">
 					<span>Cardholder's Name</span>
 				</div>
-				
-					<input type="text" />
-                    
-				</div>
-                <!--p class="info">Please type the name as it appears on your card.</p-->
+				<input type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
 			</div>
-      <div class="borderBottom noBorder selected  error">
-				<div class="tip">
-					<div class="arrow"></div>
-					<span>Error Message</span>
-					
-				</div>
-				<div class="greyInsideFullWidth">
+		</div>
+		<div class="borderBottom noBorder ${('ccNumber' in c.errors) and "error" or ""}">
+			%if "ccNumber" in c.errors:
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>${c.errors.get("ccNumber")}</span>
+			</div>
+			%endif
+			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>Card Number</span>
 				</div>
-				
-					<input type="text" />
-				</div>
+				<input type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
 			</div>
-            <div class="borderBottom noBorder selected error">
-				<div class="tip">
-					<div class="arrow"></div>
-					<span>Error Message</span>
-					
-				</div>
-				<div class="greyInsideFullWidth">
+		</div>
+		<div class="borderBottom noBorder ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
+			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>
+					<ul>
+						%if 'ccExpiresMonth' in c.errors:
+							<li>${c.errors.get("ccExpiresMonth")}</li>
+						%endif
+						%if 'ccExpiresYear' in c.errors:
+							<li>${c.errors.get("ccExpiresYear")}</li>
+						%endif
+					</ul>
+				</span>
+			</div>
+			%endif
+			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>Expiry Date</span>
 				</div>
-				
-					<select class="smallForm"></select>
-					<select class="smallForm"></select>
-				</div>
-            </div>
-            <div class="borderBottom noBorder selected error">
+				<select name="creditcard.ccExpiresMonth" class="smallForm">
+				%for key,val in c.payment_method.cc_validity_months:
+					<option ${widgets.input_selected("ccExpiresMonth", key)} value="${key}">${val}</option>
+				%endfor
+				</select>
+				<select name="creditcard.ccExpiresYear" class="smallForm">
+				%for key,val in c.payment_method.cc_validity_years:
+					<option ${widgets.input_selected("ccExpiresYear", key)} value="${key}">${val}</option>
+				%endfor
+				</select>
+			</div>
+		</div>
+		<div class="borderBottom noBorder ${('ccCode' in c.errors) and "error" or ""}">
+			%if "ccCode" in c.errors:
 				<div class="tip">
 					<div class="arrow"></div>
-					<span>Error Message</span>
-					
+					<span>${c.errors.get("ccCode")}</span>
 				</div>
-				<div class="greyInsideFullWidth">
+			%endif
+			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>Card Validation Code</span>
 				</div>
-				
-					<input type="text"  class="smallForm" /><a href="#" class="smallForm">what's this?</a>
-				</div>
+				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" /><a href="#" class="smallForm">what's this?</a>
 			</div>
-      <input type="submit" value="Submit"/>
-    </div>
-    
+		</div>
+		<input type="submit" value="Submit"/>
+	</div>
 	</form>
-  </div>
-  <div class="clear"></div>
 </div>
+<div class="clear"></div>

@@ -49,8 +49,8 @@ class PoolController(ExtBaseController):
 	def complete(self, pool_url):
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
-		if not c.pool.is_closed():
-			 redirect(url('get_pool', pool_url=pool_url))
+		# if not c.pool.is_closed():
+			 # redirect(url('get_pool', pool_url=pool_url))
 		return self.render('/pool/pool_complete.html')
 	
 	def _clean_session(self):

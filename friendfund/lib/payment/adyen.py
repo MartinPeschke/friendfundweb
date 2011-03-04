@@ -5,12 +5,11 @@ import base64, hmac, hashlib, uuid
 from datetime import datetime, timedelta
 
 from pylons import session as websession, url, app_globals, request
-
+from pylons.i18n import _
 from friendfund.lib import helpers as h
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
-from friendfund.lib.synclock import add_token, rem_token
-from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization
+from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization, CreditCard
 from friendfund.model.db_access import SProcException
 from friendfund.model.forms.creditcard import CreditCardForm
 from friendfund.model.pool import Pool
@@ -40,7 +39,7 @@ class PaymentGateway(object):
 	
 	def authorize_recurring(self, contrib_model, contrib_view):
 		args = [contrib_model.ref 
-					,contrib_model.initial_transaction_total
+					,contrib_model.total
 					,contrib_view.currency
 					,contrib_view.methoddetails.ccHolder
 					,contrib_view.methoddetails.ccNumber
@@ -55,6 +54,7 @@ class PaymentGateway(object):
 
 
 class PaymentMethod(object):
+	_method_translation = {"master_card":"mc", "amex":"amex","visa":"visa", "paypal":"paypal"}
 	def __init__(self, logo_url, code, currencies, fee_absolute, fee_relative):
 		self.logo_url = logo_url
 		self.code = code
@@ -81,6 +81,9 @@ class PaymentMethod(object):
 	
 class CreditCardPayment(PaymentMethod):
 	has_result_delay = False
+	cc_validity_years = zip(range(datetime.today().year, datetime.today().year + 50), range(datetime.today().year, datetime.today().year + 100))
+	cc_validity_months = zip(range(1,13), range(1,13))
+	
 	def __init__(self, logo_url, code, currencies, fee_absolute, fee_relative, gtw_location, gtw_username, gtw_password, gtw_account):
 		super(self.__class__, self).__init__(logo_url, code, currencies, fee_absolute, fee_relative)
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
@@ -90,42 +93,51 @@ class CreditCardPayment(PaymentMethod):
 		with app_globals.cache_pool.reserve() as mc:
 			add_token(mc, tmpl_context.form_secret, contrib_view)
 		if app_globals.test:
-			tmpl_context.creditcard_values = {"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"}
-		else:
-			tmpl_context.creditcard_values = {}
-		tmpl_context.contrib_view = contrib_view
+			tmpl_context.values.update({"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"})
 		tmpl_context.payment_method = self
 		return renderer('/contribution/payment_details.html')
 	
+	
 	def post_process(self, tmpl_context, pool, renderer, redirecter):
+		tmpl_context.form_secret = request.POST.get('fs')
+		if not tmpl_context.form_secret:
+			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
 		with app_globals.cache_pool.reserve() as client:
-			tmpl_context.contrib_view = get_token_value(client, tmpl_context.form_secret) # raises TokenNotExistsException
+			try:
+				tmpl_context.contrib_view = get_token_value(client, tmpl_context.form_secret) # raises TokenNotExistsException
+			except TokenNotExistsException, e:
+				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+				return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
+		
 		if request.method != 'POST':
 			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
 			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
 		
-		tmpl_context.form_secret = request.POST.get('formtoken')
-		if not tmpl_context.form_secret:
-			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
-			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
-		
+		tmpl_context.payment_method = self
 		cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
+		tmpl_context.values = cc
+		tmpl_context.errors = {}
 		schema = CreditCardForm()
 		try:
 			tmpl_context.values = schema.to_python(cc, state = FriendFundFormEncodeState)
 		except (formencode.validators.Invalid, AssertionError), error:
 			tmpl_context.values = error.value
 			tmpl_context.errors = error.error_dict or {}
+			print tmpl_context.values
+			
 			return renderer('/contribution/payment_details.html')
 		else:
 			ccard = CreditCard(**tmpl_context.values)
 			with app_globals.cache_pool.reserve() as client:
 				tmpl_context.contrib_view = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
+				tmpl_context.contrib_view.methoddetails = ccard
+			
 			contrib_model = DBContribution(amount = tmpl_context.contrib_view.amount
 									,total = tmpl_context.contrib_view.total
 									,is_secret = tmpl_context.contrib_view.is_secret
 									,message = tmpl_context.contrib_view.message
-									,paymentmethod = ccType
+									,paymentmethod = self._method_translation[ccard.ccType]
 									,u_id = tmpl_context.user.u_id
 									,network = tmpl_context.user.network
 									,network_id = tmpl_context.user.network_id
