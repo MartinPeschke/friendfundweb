@@ -1,4 +1,4 @@
-import logging, formencode
+import logging, formencode, uuid
 from copy import copy
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
 from pylons.controllers.util import abort, redirect
@@ -63,9 +63,6 @@ class PaymentController(ExtBaseController):
 			contrib.set_total(form_result['total'])
 			contrib.paymentmethod_code = form_result.get('method')
 			
-			tmpl_context.form_secret = str(uuid.uuid4())
-			synclock.set_contribution(tmpl_context.form_secret, c.user, contrib)
-			
 			try:
 				return g.payment_methods_map[contrib.paymentmethod_code].process(c, contrib, c.pool, self.render, redirect)
 			except (UnsupportedPaymentMethod, KeyError), e:
@@ -85,6 +82,8 @@ class PaymentController(ExtBaseController):
 		c.errors = {}
 		if request.method != 'POST':
 			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
+			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
+
 		method_code = request.params.get("creditcard.ccType")
 		try:
 			return g.payment_methods_map[method_code].post_process(c, c.pool, self.render, redirect)

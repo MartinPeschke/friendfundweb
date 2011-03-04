@@ -34,7 +34,7 @@ class Contribution(DBMappedObject):
 	def set_total(self, value):
 		self.total = int(value*100)
 	def set_user(self, user):
-		self.user_id = user.id
+		self.user_id = user.u_id
 	def validate_user(self, user):
 		return self.user_id == user.id
 	def invalidate(self):

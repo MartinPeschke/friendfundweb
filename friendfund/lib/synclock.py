@@ -31,9 +31,9 @@ def get_token_value(client, token):
 from pylons import app_globals
 def set_contribution(ref, user, contrib_view):
 	contrib_view.is_valid = True
-	contrib_view.set_user(c.user)
+	contrib_view.set_user(user)
 	with app_globals.cache_pool.reserve() as mc:
-		add_token(mc, ref, contrib_view)
+		sucs = add_token(mc, ref, contrib_view)
 	if not sucs: raise TokenAlreadyExistsException("Token could not be added, as it already exists: %s" % token)
 	else: return sucs
 

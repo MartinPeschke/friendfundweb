@@ -1,12 +1,11 @@
 from __future__ import with_statement
 
-import logging, urllib, urllib2, formencode
-import base64, hmac, hashlib, uuid
+import logging, urllib, urllib2, formencode, base64, hmac, hashlib, uuid
 from datetime import datetime, timedelta
 
 from pylons import session as websession, url, app_globals, request
 from pylons.i18n import _
-from friendfund.lib import helpers as h
+from friendfund.lib import helpers as h, synclock
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
 from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization, CreditCard
@@ -90,8 +89,7 @@ class CreditCardPayment(PaymentMethod):
 
 	def process(self, tmpl_context, contrib_view, pool, renderer, redirecter):
 		tmpl_context.form_secret = str(uuid.uuid4())
-		with app_globals.cache_pool.reserve() as mc:
-			add_token(mc, tmpl_context.form_secret, contrib_view)
+		synclock.set_contribution(tmpl_context.form_secret, tmpl_context.user, contrib_view)
 		if app_globals.test:
 			tmpl_context.values.update({"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"})
 		tmpl_context.payment_method = self
@@ -105,14 +103,10 @@ class CreditCardPayment(PaymentMethod):
 			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
 		with app_globals.cache_pool.reserve() as client:
 			try:
-				tmpl_context.contrib_view = get_token_value(client, tmpl_context.form_secret) # raises TokenNotExistsException
-			except TokenNotExistsException, e:
+				tmpl_context.contrib_view = synclock.get_contribution(client, tmpl_context.form_secret) # raises TokenIncorrectException
+			except synclock.TokenIncorrectException, e:
 				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
 				return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
-		
-		if request.method != 'POST':
-			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
-			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
 		
 		tmpl_context.payment_method = self
 		cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
@@ -124,15 +118,16 @@ class CreditCardPayment(PaymentMethod):
 		except (formencode.validators.Invalid, AssertionError), error:
 			tmpl_context.values = error.value
 			tmpl_context.errors = error.error_dict or {}
-			print tmpl_context.values
-			
 			return renderer('/contribution/payment_details.html')
 		else:
 			ccard = CreditCard(**tmpl_context.values)
 			with app_globals.cache_pool.reserve() as client:
-				tmpl_context.contrib_view = rem_token(client, tmpl_context.form_secret) # raises TokenNotExistsException
-				tmpl_context.contrib_view.methoddetails = ccard
-			
+				try:
+					synclock.rem_contribution(client, tmpl_context.form_secret) # raises TokenIncorrectException
+				except synclock.TokenIncorrectException, e:
+					tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+					return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
+				
 			contrib_model = DBContribution(amount = tmpl_context.contrib_view.amount
 									,total = tmpl_context.contrib_view.total
 									,is_secret = tmpl_context.contrib_view.is_secret
