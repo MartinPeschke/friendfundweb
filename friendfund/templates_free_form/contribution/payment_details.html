@@ -34,7 +34,7 @@
 	<div class="colLeft">
 	<form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
 		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
-		<input type="hidden" name="fs" value="${c.form_secret}"/>
+		<input type="hidden" name="token" value="${c.form_secret}"/>
 		<div class="poolDets">
 			<h4>Confirm Your Contribution</h4>
 			<div class="borderBottom noBorder">

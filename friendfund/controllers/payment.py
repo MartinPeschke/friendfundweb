@@ -10,9 +10,9 @@ from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks,
 from friendfund.lib.base import ExtBaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
-
-from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc
+from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
 from friendfund.model.forms.contribution import PaymentIndexForm, PaymentConfForm
+from friendfund.model.forms.creditcard import CreditCardForm
 from friendfund.model.db_access import SProcException
 
 paymentlog = logging.getLogger('payment.controller')
@@ -67,54 +67,102 @@ class PaymentController(ExtBaseController):
 				return g.payment_methods_map[contrib.paymentmethod_code].process(c, contrib, c.pool, self.render, redirect)
 			except (UnsupportedPaymentMethod, KeyError), e:
 				c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-				return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 			except DBErrorDuringSetup, e:
 				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-				return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 			except DBErrorAfterPayment, e:
 				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
-				return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 	
-	@logged_in(ajax=True)
-	@no_blocks(ajax=True)
+	@logged_in(ajax=False)
+	@no_blocks(ajax=False)
 	def creditcard(self, pool_url):
+		### Establishing correctnes of Flow and getting colateral Info
+		c.form_secret = request.params.get('token')
+		if not c.form_secret:
+			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+		try:
+			c.contrib_view = synclock.get_contribution(c.form_secret, c.user) # raises TokenIncorrectException
+		except synclock.TokenIncorrectException, e:
+			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+		
+		
+		### Making colaterals available
 		c.values = {}
 		c.errors = {}
+		c.values.update({"amount": c.contrib_view.get_amount()
+					, "payment_method":c.contrib_view.paymentmethod_code
+					, "is_secret":c.contrib_view.is_secret
+					, "message":c.contrib_view.message
+					})
+		c.payment_method = g.payment_methods_map[c.contrib_view.paymentmethod_code]
+		if g.test:
+			c.values.update({"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"})
 		if request.method != 'POST':
-			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Method Not Allowed"))
-			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
-
-		method_code = request.params.get("creditcard.ccType")
-		try:
-			return g.payment_methods_map[method_code].post_process(c, c.pool, self.render, redirect)
-		except (UnsupportedPaymentMethod, KeyError), e:
-			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
-			return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
-		except DBErrorDuringSetup, e:
-			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-			return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
-		except DBErrorAfterPayment, e:
-			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
-			return redirect(url("payment", pool_url=c.pool.p_url, protocol=g.SSL_PROTOCOL))
-		
+			return render('/contribution/payment_details.html')
+		else:
+			### Validating creditcard details
+			cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
+			schema = CreditCardForm()
+			try:
+				cc_values = schema.to_python(cc, state = FriendFundFormEncodeState)
+			except (formencode.validators.Invalid, AssertionError), error:
+				c.values.update(error.value)
+				c.errors = error.error_dict or {}
+				return render('/contribution/payment_details.html')
+			else:
+				ccard = CreditCard(**cc_values)
+				try:
+					synclock.rem_contribution(c.form_secret) # raises TokenIncorrectException
+				except synclock.TokenIncorrectException, e:
+					c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing."))
+					return redirect(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
+			
+			### Handing control over to the specific creditcard method implementation for processing
+			try:
+				return g.payment_methods_map[c.contrib_view.paymentmethod_code].post_process(c, ccard, c.pool, self.render, redirect)
+			except (UnsupportedPaymentMethod, KeyError), e:
+				c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+			except DBErrorDuringSetup, e:
+				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+			except DBErrorAfterPayment, e:
+				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
+				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+	
+	
+	
 	
 	@logged_in(ajax=False)
 	def success(self, pool_url):
+		ref = request.params.get('ref')
+		if not ref:
+			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
-					, "payment_method":paymentmethod.code
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}
 		return self.render('/contribution/payment_success.html')
+	
 	@logged_in(ajax=False)
 	def fail(self, pool_url):
+		ref = request.params.get('ref')
+		if not ref:
+			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
+		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
-					, "payment_method":paymentmethod.code
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}
 		return self.render('/contribution/payment_fail.html')
-
+	
 	@logged_in(ajax=False)
 	def ret(self, pool_url):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )

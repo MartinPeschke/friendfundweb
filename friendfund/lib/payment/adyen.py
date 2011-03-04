@@ -1,5 +1,3 @@
-from __future__ import with_statement
-
 import logging, urllib, urllib2, formencode, base64, hmac, hashlib, uuid
 from datetime import datetime, timedelta
 
@@ -8,9 +6,8 @@ from pylons.i18n import _
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
-from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization, CreditCard
+from friendfund.model.contribution import Contribution, DBContribution, DBPaymentInitialization
 from friendfund.model.db_access import SProcException
-from friendfund.model.forms.creditcard import CreditCardForm
 from friendfund.model.pool import Pool
 from friendfund.tasks.photo_renderer import remote_pool_picture_render
 
@@ -70,7 +67,7 @@ class PaymentMethod(object):
 		return '<%s: %s (%s/%s)>' % (self.__class__.__name__, self.code, self.fee_absolute, self.fee_relative)
 	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
 		raise UnsupportedPaymentMethod('process')
-	def post_process(self, tmpl_context, pool, renderer, redirecter):
+	def post_process(self, tmpl_context, token, contrib_view, pool, renderer, redirecter):
 		raise UnsupportedPaymentMethod('process')
 	def verify_signature(self, params):
 		raise Exception('NotImplemented')
@@ -90,81 +87,51 @@ class CreditCardPayment(PaymentMethod):
 	def process(self, tmpl_context, contrib_view, pool, renderer, redirecter):
 		tmpl_context.form_secret = str(uuid.uuid4())
 		synclock.set_contribution(tmpl_context.form_secret, tmpl_context.user, contrib_view)
-		if app_globals.test:
-			tmpl_context.values.update({"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"})
-		tmpl_context.payment_method = self
-		return renderer('/contribution/payment_details.html')
+		return redirecter(url(controller="payment", action="creditcard", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL, token=tmpl_context.form_secret))
 	
 	
-	def post_process(self, tmpl_context, pool, renderer, redirecter):
-		tmpl_context.form_secret = request.POST.get('fs')
-		if not tmpl_context.form_secret:
-			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
-			return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
-		with app_globals.cache_pool.reserve() as client:
-			try:
-				tmpl_context.contrib_view = synclock.get_contribution(client, tmpl_context.form_secret) # raises TokenIncorrectException
-			except synclock.TokenIncorrectException, e:
-				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
-				return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
-		
-		tmpl_context.payment_method = self
-		cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
-		tmpl_context.values = cc
-		tmpl_context.errors = {}
-		schema = CreditCardForm()
+	def post_process(self, tmpl_context, ccard, pool, renderer, redirecter):
+		contrib_model = DBContribution(amount = tmpl_context.contrib_view.amount
+								,total = tmpl_context.contrib_view.total
+								,is_secret = tmpl_context.contrib_view.is_secret
+								,message = tmpl_context.contrib_view.message
+								,paymentmethod = self._method_translation[ccard.ccType]
+								,u_id = tmpl_context.user.u_id
+								,network = tmpl_context.user.network
+								,network_id = tmpl_context.user.network_id
+								,shopper_email = tmpl_context.user.default_email
+								,p_url = pool.p_url)
 		try:
-			tmpl_context.values = schema.to_python(cc, state = FriendFundFormEncodeState)
-		except (formencode.validators.Invalid, AssertionError), error:
-			tmpl_context.values = error.value
-			tmpl_context.errors = error.error_dict or {}
-			return renderer('/contribution/payment_details.html')
+			contrib_model = app_globals.dbm.set(contrib_model, merge = True)
+		except SProcException, e:
+			log.error(e)
+			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+			return redirecter(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		else:
-			ccard = CreditCard(**tmpl_context.values)
-			with app_globals.cache_pool.reserve() as client:
-				try:
-					synclock.rem_contribution(client, tmpl_context.form_secret) # raises TokenIncorrectException
-				except synclock.TokenIncorrectException, e:
-					tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
-					return redirecter(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
-				
-			contrib_model = DBContribution(amount = tmpl_context.contrib_view.amount
-									,total = tmpl_context.contrib_view.total
-									,is_secret = tmpl_context.contrib_view.is_secret
-									,message = tmpl_context.contrib_view.message
-									,paymentmethod = self._method_translation[ccard.ccType]
-									,u_id = tmpl_context.user.u_id
-									,network = tmpl_context.user.network
-									,network_id = tmpl_context.user.network_id
-									,shopper_email = tmpl_context.user.default_email
-									,p_url = pool.p_url)
+			tmpl_context.contrib_view.ref = contrib_model.ref
+			
+			### Adding and immediately removing credit cards details, dont want it bleeding anywhere
+			tmpl_context.contrib_view.methoddetails = ccard
+			if contrib_model.is_recurring:
+				log.info("AUTHORIZING_RECURRING %s", tmpl_context.contrib_view.ref)
+				paymentresult = self.paymentGateway.authorize_recurring(contrib_model, tmpl_context.contrib_view)
+			else:
+				log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
+				paymentresult = self.paymentGateway.authorize(tmpl_context.contrib_view)
+			del tmpl_context.contrib_view.methoddetails
+			
+			notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
 			try:
-				contrib_model = app_globals.dbm.set(contrib_model, merge = True)
+				app_globals.dbm.set(notice)
 			except SProcException, e:
 				log.error(e)
-				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-				return renderer('/contribution/payment_details.html')
+			app_globals.dbm.expire(Pool(p_url = pool.p_url))
+			tmpl_context.success = (paymentresult['resultCode'] == 'Authorised')
+			if tmpl_context.success : 
+				remote_pool_picture_render.delay(pool.p_url)
+				return redirecter(url(controller='payment', pool_url=pool.p_url, action='success', protocol="http", ref=contrib_model.ref))
 			else:
-				tmpl_context.contrib_view.ref = contrib_model.ref
-				if contrib_model.is_recurring:
-					log.info("AUTHORIZING_RECURRING %s", tmpl_context.contrib_view.ref)
-					paymentresult = self.paymentGateway.authorize_recurring(contrib_model, tmpl_context.contrib_view)
-				else:
-					log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
-					paymentresult = self.paymentGateway.authorize(tmpl_context.contrib_view)
-				
-				notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
-				try:
-					app_globals.dbm.set(notice)
-				except SProcException, e:
-					log.error(e)
-				app_globals.dbm.expire(Pool(p_url = pool.p_url))
-				tmpl_context.success = (paymentresult['resultCode'] == 'Authorised')
-				if tmpl_context.success : 
-					remote_pool_picture_render.delay(pool.p_url)
-					return redirecter(url(controller='payment', pool_url=pool.p_url, action='success', token=tmpl_context.form_secret))
-				else:
-					return redirecter(url(controller='payment', pool_url=pool.p_url, action='fail', token=tmpl_context.form_secret))
+				return redirecter(url(controller='payment', pool_url=pool.p_url, action='fail', protocol="http", ref=contrib_model.ref))
 
 
 class RedirectPayment(PaymentMethod):

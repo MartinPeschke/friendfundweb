@@ -36,7 +36,7 @@ class Contribution(DBMappedObject):
 	def set_user(self, user):
 		self.user_id = user.u_id
 	def validate_user(self, user):
-		return self.user_id == user.id
+		return self.user_id == user.u_id
 	def invalidate(self):
 		self.is_valid = False
 	def get_difference(self):

@@ -30,10 +30,10 @@
   <div class="success">
  	<p><img src="/static/imgs/checked.png" style="margin-right:5px" />You've contributed $29.03 <br />
 to Peter and Judy's Wedding.</p> 
-<div style="margin-top:30px">
-	<input type="button" value="Back to Pool" />
-    <input type="button" value="Create a Pool" />
-</div>
+	<div style="margin-top:30px">
+		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="button">Back to Pool</a>
+		<a href="${url("pool_details", protocol="http", v=2)}" class="button">Create a Pool</a>
+	</div>
   </div>
   
   <div class="clear"></div>
