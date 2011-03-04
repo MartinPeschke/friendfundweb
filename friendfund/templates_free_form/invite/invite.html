@@ -49,6 +49,7 @@
     </div>
   </div>
 </div>
+<div class="wrapSubContent">
 <div class="content">
   <div class="colRight moreMarginTop">
   	<span class="floatRight link" id="removeall">Remove All</span>
@@ -65,6 +66,7 @@
 	<div class="colLeft">
 		<div class="invited" id="inviteContainer">
 		  <h4>Invite your friends from Facebook, Twitter or Email </h4>
+		  <div class="subHeading"></div>
 		  <p>Invitees will be notified through a Facebook Event, a Twitter @message or by email.</p>
 		  <div class="wrapTabs">
 			<div class="tabs"> 
@@ -76,9 +78,10 @@
 		  <div class="subTab"  id="inviter"></div>
 
 		  <h4>Add a Personal Message to your Invitees <span>(optional)</span></h4>
+		  <div class="subHeading"></div>
 		  <form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<input type="hidden" name="v" value="${c.workflow}"/>
-		  <div style="border:none" class="borderBottom" id="inviteMessage">
+		  <div style="border-top:none" class="borderBottom" id="inviteMessage">
       <div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 			<div class="tip">
 					<div class="arrow"></div>
@@ -131,4 +134,5 @@
     </div>
   </div>
   <div class="clear"></div>
+</div>
 </div>

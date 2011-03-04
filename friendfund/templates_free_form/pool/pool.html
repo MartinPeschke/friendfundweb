@@ -122,6 +122,7 @@
         #### who can invite more friends?
 		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
       </div>
+      <div class="colRightWhite"></div>
       <div class="generalBoxRight">
       <h2>Share the pool</h2>
       	<div class="iconContainer">
@@ -137,11 +138,15 @@
 		<div class="clear"></div>
       	</div>
       </div>
+       <div class="colRightWhite"></div>
       <div class="generalBoxRight">
       	<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
       	<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
       </div>
+       <div class="colRightWhite"></div>
    </div>
+   
+   
 	<div class="colLeft">
 		<div class="invited">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}
@@ -149,7 +154,7 @@
 					<a href="#" class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View All")}</a>
 				%endif
 			</h4>
-			
+			<div class="subHeading"></div>
 			<ul class="faceList" id="inviteeList">
 				%for i, invitee in enumerate(c.pool.participants[:20]):
 					${invitee_widget.render(i, invitee, i==0)}
@@ -157,10 +162,12 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
+		
 	
 
 		<div class="about ${c.pool.am_i_admin(c.user) and "canedit" or " "}">
 			<h4>${_(u"FF_POOL_PAGE_BODY_About")}</h4>
+			<div class="subHeading"></div>
 			<div class="imgEdit">
 				<div class="subImgEdit">
 				<div class="imgC">
@@ -193,6 +200,7 @@
 		</div>
 		<div class="comments" id="commentSection">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Comments")}</h4>
+			<div class="subHeadingSpecial"></div>
 			<ul id="fundchat" class="comments pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}"></ul>
 			
 			

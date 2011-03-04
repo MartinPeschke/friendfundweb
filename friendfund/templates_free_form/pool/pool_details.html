@@ -81,7 +81,7 @@
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
-			
+			<div class="subHeading"></div>
 			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
 				%if h.contains_one(["currency", "amount", "date"], c.errors):
 					<div class="tip">
@@ -189,6 +189,7 @@
 			<div class="clear"></div>
 		</div>
 		<h4>Receiving Your Money</h4>
+		<div class="subHeading"></div>
 		<div class="padLeft">
 			<div class="receiveMoney" id="settlementOptions">
 				<p>How do you want to receive your money once the Pool is funded? 

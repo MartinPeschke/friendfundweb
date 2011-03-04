@@ -47,7 +47,7 @@ div.wrapSubHeaderHome {
 div.wrapSubHeader {
 	background: #ececec;
 	border-bottom: 1px solid #d9d9d9;
-	position:relative
+	position:relative;
 }
 div.subHeader {
 	max-width: 930px;
@@ -66,7 +66,6 @@ div.wrapSubContent{
 div.content {
 	max-width: 930px;
 	margin: 0 auto;
-	border-top: 1px solid white;
 	
 }
 div.wrapFooter {
@@ -78,7 +77,7 @@ div.wrapFooter {
 }
 div.subFooterTop {
 	background-color: #edece9;
-	border-top:1px solid #e5e5e5
+	border-top:1px solid #d9d9d9
 }
 div.subFooterBottom {
 	background-color: #ececec;
@@ -87,6 +86,9 @@ div.subFooterBottom {
 div.footer {
 	max-width: 930px;
 	margin: 0 auto
+}
+div.firstFourCol{
+	border-bottom:1px solid #cdcdcd
 }
 /* GENERAL ELEMENTS */
 .clear {
@@ -122,8 +124,12 @@ img {
 .floatLeft {
 	float:left !important;
 }
-.fontWeightBold, .bold {
+.bold {
 	font-weight: bold
+}
+.fontWeightBold{
+	font-weight: bold;
+	text-shadow: 0px 1px 1px white;
 }
 input, textarea {
 	color: #333;
@@ -145,6 +151,7 @@ input.default, textarea.default {
 .hidden {
 	display:none !important
 }
+
 /* HEADER */
 div.header h1 {
 	display: block;
@@ -751,7 +758,8 @@ div.box3 {
 /* POOL PAGE */
 div.userProfile {
 	/* min-height:150px */
-	height: 160px
+	height: 160px;
+	position: relative
 }
 div.userProfile img {
 	display:block;
@@ -791,7 +799,8 @@ span.poolClose {
 	color:#666666
 }
 div.boxPoolDetails {
-	clear: both
+	clear: both;
+	padding-top: 5px
 }
 div.timeTracker {
 	width: 210px
@@ -909,7 +918,7 @@ div.greyBoxTitle h3 {
 	color: #333;
 	font-size: 18px;
 	padding-top: 35px;
-	border-bottom: 2px solid #e4e4e4;
+	border-bottom: 1px solid #d0d0d0;
 	margin-right: 10px;
 	min-width: 690px;
 	clear: both;
@@ -920,6 +929,21 @@ div.greyBoxTitle h3 {
 	font-style: italic;
 	font-weight: normal;
 	color: #333
+}
+div.subHeading{
+	border-top: 2px solid #eeedec;
+	height: 0px;
+	line-height: 0;
+	font-size: 0;
+	margin-right: 10px;
+	border-bottom: 1px solid white
+}
+div.subHeadingSpecial{
+	border-top: 2px solid #eeedec;
+	height: 0px;
+	line-height: 0;
+	font-size: 0;
+	margin-right: 10px;
 }
 .colLeft .btnViewAll {
 	display: block;
@@ -939,8 +963,9 @@ div.greyBoxTitle h3 {
 	display: block;
 	padding:0 10px 10px 0;
 	font-size: 12px;
-	color: #333
+	color: #333;
 }
+.colLeft p.general{ padding-top: 10px}
 .colLeft h5 {
 	font-size: 11px;
 	font-weight: bold;
@@ -1076,7 +1101,8 @@ ul.comments {
 }
 ul.comments li {
 	border-bottom: 1px solid #ebebeb;
-	padding:20px 0 10px 0
+	padding:20px 0 10px 0;
+	border-top:1px solid white
 }
 ul.comments li .avt, div.entryStream .avt {
 	margin:0 10px 10px 0
@@ -1133,7 +1159,22 @@ div.comments input {
 .colRight {
 	max-width: 210px;
 	float: right;
-	margin-top: 60px
+	margin-top: 59px
+}
+.colRightWhite{
+	border-top: 1px solid white;
+	clear:both;
+	height: 0px;
+	line-height: 0;
+	font-size: 0 
+}
+.colRightWhiteMargin{
+	border-top: 1px solid white;
+	clear:both;
+	height: 0px;
+	line-height: 0;
+	font-size: 0;
+	margin-right: 10px
 }
 .boxChipIn {
 	background:#ebebeb;
@@ -1252,7 +1293,7 @@ div.footerCol4 {
 div.footerCol5 {
 	clear:both;
 	width: 100%;
-	border-top:1px solid #E5E5E5;
+	border-top:1px solid white;
 	padding: 20px 0;
 	text-align: center
 }
@@ -1277,10 +1318,10 @@ div.nonPoolHeader h2 {
 	padding: 0;
 }
 div.steps {
-	float: left;
-	width: 100%;
-	margin-top: 30px;
-	margin-bottom: 10px
+	position: absolute;
+	left: 0;
+	bottom: 10px;
+
 }
 div.steps div {
 	color: #666
@@ -1350,7 +1391,7 @@ div.steps div span {
 }
 div.borderBottom {
 	float: left;
-	border-bottom: 2px solid #E4E4E4;
+	border-bottom: 1px solid #E4E4E4;
 	min-width: 690px;
 	padding: 20px 0;
 	position: relative;
@@ -1583,7 +1624,7 @@ div.tip div.arrow {
 .prodImgWrap {
 	float: left;
 	border: 1px solid #e4e4e4;
-	margin: 45px 20px 0 0;
+	margin: 42px 20px 0 0;
 }
 .prodImgSubWrap {
 	border: 4px solid white;
@@ -1757,7 +1798,8 @@ div.contentDetails {
 	float:left;
 	margin-right:10px;
 	padding:0 0 0 160px;
-	color:#999
+	color:#999;
+	border-top:1px solid white
 }
 h6 {
 	font-size:12px;
@@ -1928,7 +1970,7 @@ div.success p {
 }
 /*---------END SUCCESS--------*/
 div.inviteBottom {
-	border-top: 1px solid #E4E4E4 !important;
+	border-top: 1px solid white !important;
 	clear:both;
 	font-size: 14px;
 	padding: 10px 0 0 0;
@@ -1981,6 +2023,7 @@ div.friendsList ul li p {
 }
 .spacerBorder {
 	border-top: 1px solid #E4E4E4 !important;
+	border-bottom: 1px solid white;
 	margin-right:10px;
 	height:0px;
 	line-height:0;
@@ -1988,7 +2031,7 @@ div.friendsList ul li p {
 	margin-top:10px;
 	min-width:690px;
 	float:left;
-	padding-bottom:10px
+	margin-bottom:10px
 }
 .searchFriends {
 	border:1px solid #c9c9c9;
@@ -2296,7 +2339,8 @@ p.inviterTwo {
 	font-size: 18px;
 	padding-top: 35px;
 	border-bottom: 2px solid #e4e4e4;
-	clear: both
+	clear: both;
+	text-shadow: 0px 1px 1px #fff
 }
 div.logInOnePx {
 	border-bottom: 1px solid #E4E4E4;
@@ -2352,7 +2396,7 @@ div.logInOnePx input {
 	padding-top:12px
 }
 div.wrapInside div.tip {
-	top:0
+	top:5px
 }
 div.selected p.info {
 	margin-top:5px
@@ -2362,7 +2406,7 @@ div.special div.tip {
 }
 .tabsBig {
 	clear: both;
-	padding-top: 25px
+	padding-top: 30px
 }
 .tabsBig a {
 	background-color: #DDDDDD;
@@ -2414,6 +2458,7 @@ div.special div.tip {
 	height: 25px;
 	min-width: 690px;
 	padding-top: 35px;
+	text-shadow: 0px 1px 1px #fff
 }
 .poolRowWrap {
 	border-top: 1px solid white;
@@ -2821,3 +2866,10 @@ div.empty h2 {
 	line-height: 36px;
 	padding: 0;
 }
+.team .avt img{ width: 60px; height: 60px}
+.team h5{ font-size: 14px; font-weight: bold; color: #333; }
+.team h5 span{ display: block; font-weight: normal}
+.team .avt{ margin: 0 10px 15px 0}
+.contactLinksBox{ margin: 10px 0 0 0}
+.contactLinksBox a{ margin-right: 5px}
+.colLeft .team p{ clear: both; padding-bottom: 0px; }

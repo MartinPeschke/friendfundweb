@@ -65,13 +65,14 @@
   </div>
 </div>
 
-
+<div class="wrapSubContent">
 <div class="content">
   <div class="colRight"></div>
   <div class="colLeft">
   <form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
     <div class="poolDets">
       <h4>How much do you want to contribute?</h4>
+      <div class="subHeading"></div>
       <div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
 	  
 		%if ('amount' in c.errors):
@@ -111,6 +112,7 @@
       
 	  <div class="clear"></div>
       <h4>Add a personal message <span>(optional)</span></h4>
+      <div class="subHeading"></div>
       <div class="borderBottom"  style="border:none">
       <div class="tip">
 					<div class="arrow"></div>
@@ -133,6 +135,7 @@
 
 	<div class="clear"></div>
 	<h4>Payment Method</h4>
+	<div class="subHeading"></div>
 	<div class="borderBottom" style="border:none">
 		<div class="tip">
 			<div class="arrow"></div>
@@ -156,7 +159,8 @@
 	</div>
 
 	<div class="recMoney">
-		<h4 style="margin-bottom:10px">Privacy Settings</h4>
+		<h4>Privacy Settings</h4>
+		<div class="subHeading" style="margin-bottom:10px"></div>
 
 		<div class="borderBottom noBorder lessPad">
 			<div class="tip">
@@ -203,4 +207,5 @@
 	</form>
   </div>
   <div class="clear"></div>
+</div>
 </div>
