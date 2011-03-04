@@ -13,7 +13,7 @@ def absolutize_img_src(rel_base, abs_base):
 	return inner
 
 def filter_pictures(img_src):
-	return isinstance(img_src, basestring) and img_src[-4:] in ('.jpg','.png')
+	return isinstance(img_src, basestring) and img_src[-4:].lower() in ('.jpg','.png','.gif')
 
 def extract_imgs_from_soup(img):
 	attr_map = dict(img.attrs)

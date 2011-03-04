@@ -48,42 +48,6 @@ parseSimpleEditables = function(rootnode){
 }
 
 
-parseEditables = function(rootnode){
-	dojo.query(".editable.active", rootnode).forEach(
-		function(root){
-			dojo.removeClass(root,'active');
-			var d = dojo.connect(root, "onclick", 
-				function(evt){
-					xhrPost('/d/e/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
-						function(data){
-							dojo.place(data,root,"only");
-							dojo.disconnect(d);
-							dojo.query('input[type=text],select,textarea', root).forEach(
-								function(editor){
-									editor.focus();
-									var evts = [];
-									var f = function(editevt){
-											dojo.forEach(evts, dojo.disconnect);
-											dojo.addClass(root,'active');
-											if(editor.tagName=='SELECT'){
-												dojo.attr(root, '_value', editevt.target.options[editevt.target.selectedIndex].value);
-											} else {
-												dojo.attr(root, '_value', editevt.target.value);
-											}
-											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
-												function(data){
-													root.innerHTML = data;
-													parseEditables(rootnode);
-												});
-											};
-									evts.push(dojo.connect(editor, "onchange", f));
-									evts.push(dojo.connect(editor, "onblur", f));
-								});
-						});
-				});
-		});
-};
-
 popup_esc_handler = [];
 esc_handler_f = function(callback, evt){if(evt.charCode == 27){dojo.hitch(this, callback(evt));}};
 accessability = function(callbackRet, callbackEsc, evt){
