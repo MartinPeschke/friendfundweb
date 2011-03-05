@@ -1,28 +1,29 @@
-%if c.user.is_anon:
-	<div class="newFormControls loginPanel hidden" id="loginPanelContent">
+<%def name="renderPanel(expanded)">
+	<div class="newFormControls loginPanel ${not expanded and "hidden" or ""}" id="loginPanelContent">
 		<form id="login_panel_form">
-		<div class="inputline">
-			<label class="" for="login_email">Email Address</label>
-			<input type="text" class=" " value="" name="login.email" id="login_email">
-		</div>
-        <div class="inputline">
-		
-
-		<label class="" for="login_pwd">Password</label>
-			<input type="password" class=" " value="" name="login.pwd" id="login_pwd">
-
-		<div>
-        	<a href="/myprofile/password" class="lostpass">Forgot Password?</a></div>
-		</div>
-        
-			<a href="button" class="primaryButton floatLeft" style="margin-top:7px">Log In</a>
-		
+			<div class="inputline">
+				<label for="login_email">Email Address</label>
+				<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
+				%if "email" in getattr(c, "login_errors", dict()):
+					<p class="error">${getattr(c, "login_errors", dict()).get("email")}</p>
+				%endif
+			</div>
+			<div class="inputline">
+				<label for="login_pwd">Password</label>
+				<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
+				%if "pwd" in getattr(c, "login_errors", dict()):
+					<p class="error">${getattr(c, "login_errors", dict()).get("pwd")}</p>
+				%endif
+			<div>
+				<a href="/myprofile/password" class="lostpass">Forgot Password?</a></div>
+			</div>
 		</form>
+		<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft" style="margin-top:7px">Log In</a>
 		<h3>Login with facebook or twitter</h3>
 		<div class="inputline">
-		<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
-			<span>Log in with Facebook</span>
-		</a>
+			<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
+				<span>Log in with Facebook</span>
+			</a>
 		</div><div class="inputline">
 		<a title="Log in with Twitter" class="twitterBtn" onclick="twInit('/')">
 			<span>Log in with Twitter</span>
@@ -32,6 +33,11 @@
 		<p>Dont have an account yet? <a class="lostpass" href="/signup?furl=/">Sign up here</a></p>
 
 	</div>
+</%def>
+
+
+%if c.user.is_anon:
+	${renderPanel(getattr(c, "expanded", False))|n}
 	<a class="btn" id="loginlink" onclick="toggleLoginPanel(this)">Login</a>
 	<a href="/signup?furl=/" class="btn">Sign Up</a>
 	
@@ -56,7 +62,7 @@
 	}
 	</script>
 %else:
-<img src="${c.user.get_profile_pic()}" width="25px" height="25px" />
+	<img src="${c.user.get_profile_pic()}" width="25px" height="25px" />
 	<div class="showHide">
 		<a href="#">${c.user.name or c.user.default_email}</a>
 		<div class="widthGiver">

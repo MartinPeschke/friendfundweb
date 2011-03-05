@@ -52,7 +52,23 @@
 			if(elem.id !=  _id){dojo.addClass(elem, "hidden");}
 		});
 		dojo.query("#"+ _id).removeClass("hidden");
-	}
+	};
+	
+	var submitters = [];
+	checkLoginStatus = function(evt){
+		%if c.user.is_anon:
+			xhrPost("${url(controller="myprofile", action="loginpopup")}", {});
+			evt.stopPropagation();
+			evt.preventDefault();
+			return false;
+		%else:
+			onSubmitCleaner(document.submissionform);
+		%endif
+	};
+	
+	submitters.push(dojo.connect(dojo.byId("submissionform"), "onsubmit", checkLoginStatus));
+	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
+	page_reloader = function(){document.submissionform.submit()};
 </%def>
 
 
@@ -77,7 +93,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" onSubmit="onSubmitCleaner(this)" action="${url('pool_create')}">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}">
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
@@ -217,7 +233,7 @@
 		</div>
 		<div class="padLeft">
 			<div class="spacerButtons">
-				<span class="forward floatLeft" onclick="onSubmitCleaner(document.submissionform);document.submissionform.submit()"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
+				<span class="forward floatLeft" id="submitter"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
 			</div>
 		</div>
 	</form>

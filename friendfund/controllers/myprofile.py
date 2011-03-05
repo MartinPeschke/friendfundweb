@@ -30,8 +30,40 @@ class MyprofileController(BaseController):
 	@logged_in(ajax=False)
 	def notifications(self):
 		return self.render('/myprofile/notifications.html')
-		
-		
+	
+	
+	@jsonify
+	def loginpopup(self):
+		c.furl = request.params.get('furl', request.referer)
+		if not c.user.is_anon:
+			return {}
+		else:
+			return {'popup':render('/myprofile/login_popup.html').strip()}
+		c.login_values = {}
+		c.login_errors = {}
+		c.expanded = True
+		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
+		schema = LoginForm()
+		try:
+			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
+			c.login_values = form_result
+			c.login_values['network'] = 'email'
+			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
+			c.user.set_network('email', 
+							network_id = c.user.default_email,
+							access_token = None,
+							access_token_secret = None
+						)
+			c.user.network = 'email'
+			return {"redirect":c.furl}
+		except formencode.validators.Invalid, error:
+			c.login_values = error.value
+			c.login_errors = error.error_dict or {}
+			return {'popup':render('/myprofile/login_panel.html').strip()}
+		except SProcWarningMessage, e:
+			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
+			return {'popup':render('/myprofile/login_panel.html').strip()}
+	
 	
 	@jsonify
 	def loginpanel(self):

@@ -327,7 +327,7 @@ class Pool(DBMappedObject):
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):
-		self.participant_map = set(map(int, self.u_id_csv.split(",")))
+		self.participant_map = self.u_id_csv and set(map(int, self.u_id_csv.split(","))) or set()
 		for pu in self.participants:
 			if not (pu.is_admin or pu.is_receiver):
 				self.invitees.append(pu)
