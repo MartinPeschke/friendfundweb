@@ -68,7 +68,7 @@ class Globals(object):
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
-		dbpool = PooledDB(pyodbc,1,autocommit=True
+		dbpool = PooledDB(pyodbc,100,autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
 			,server=app_conf['pool.connectstring.server']
 			,instance=app_conf['pool.connectstring.instance']

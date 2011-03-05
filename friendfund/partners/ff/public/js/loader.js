@@ -268,15 +268,20 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 
 /*===========================================*/
 var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i;
-var totalcounter = 0, picCounter = 0, accepted = false;
+var picCounter = 0, accepted = false;
 
-var pic_judger = function(preselected, evt){
+var createAppendPicture = function(imgContainer, imgs, preselected){
+	var img = dojo.create("IMG", {src:imgs.shift(), "class":'hidden'});
+	dojo.connect(img, "onload", dojo.hitch(null, pic_judger, imgContainer, imgs, preselected));
+	imgContainer.appendChild(img);
+};
+
+var pic_judger = function(imgContainer, imgs, preselected, evt){
 	if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
 		dojo.addClass(evt.target, "forbidden");
 	}else{
 		dojo.byId("pictureCounter").innerHTML=++picCounter;
 		dojo.addClass(evt.target, "allowed");
-		dojo.byId("homeurlexpander").appendChild(dojo.create("INPUT", {type:"hidden", value:evt.target.src, name:'img_list'}));
 		if(!preselected&&!accepted||evt.target.src==preselected){
 			accepted = true;
 			dojo.removeClass(evt.target, "hidden");
@@ -290,6 +295,7 @@ var pic_judger = function(preselected, evt){
 			}
 		}
 	}
+	createAppendPicture(imgContainer, imgs, preselected);
 };
 
 var slide = function(step, evt){
@@ -304,14 +310,15 @@ var slide = function(step, evt){
 		}
 	}
 };
+
+
 var renderPictures = function(imgs, preselected){
-	var imgContainer = dojo.create ("DIV" , { "class":"imgCntSld"})
-	totalcounter = imgs.length; 
-	for(var i=0;i<totalcounter; i++){
-		var img = dojo.create("IMG", {src:imgs[i], "class":'hidden'});
-		dojo.connect(img, "onload", dojo.hitch(null, pic_judger, preselected));
-		imgContainer.appendChild(img);
-	};
+	var imgContainer = dojo.create ("DIV" , { "class":"imgCntSld"}), tmp;
+	var i, totalcounter = imgs.length;
+	for(i=0;i<totalcounter; i++){
+		imgContainer.appendChild(dojo.create("INPUT", {type:"hidden", value:imgs[i], name:'img_list'}));
+	}
+	createAppendPicture(imgContainer, imgs, preselected);
 	return imgContainer;
 };
 var renderController = function(){

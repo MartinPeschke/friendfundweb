@@ -3,4 +3,7 @@
 	<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
 		<span>Log in with Facebook</span>
 	</a>
+	%if getattr(c, "error", False):
+	<p>${c.error}</p>
+	%endif
 </div>

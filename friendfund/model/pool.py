@@ -208,7 +208,8 @@ class Pool(DBMappedObject):
 	_get_proc   = 'app.get_pool'
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
-	_expiretime = 1
+	_expiretime = 2
+	_cacheable = False
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
 			, GenericAttrib(int,		'p_id',				'p_id'						)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
@@ -224,6 +225,10 @@ class Pool(DBMappedObject):
 			, GenericAttrib(bool, 		'require_address', 	'require_address'			)
 			, GenericAttrib(str,	 	'merchant_domain', 	'merchant_domain'			)
 			, GenericAttrib(str,	 	'settlementOption', 'settlement'				)
+			, GenericAttrib(int,	 	'total_contribution', 'total_contribution'		)
+			, GenericAttrib(int,	 	'total_contributors', 'total_contributors'		)
+			, GenericAttrib(str,	 	'u_id_csv'			, 'u_id_csv'				)
+			
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
 			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True)
@@ -264,10 +269,7 @@ class Pool(DBMappedObject):
 	def get_display_amount(self):
 		return h.format_currency(self.get_amount_float(), self.currency)
 	def get_total_contribution(self):
-		total = 0
-		for invitee in self.participants:
-			total += (invitee.contributed_amount or 0)
-		return total
+		return self.total_contribution
 	def get_total_contrib_float(self):
 		return float(self.get_total_contribution())/100
 	def get_amount_left(self):
@@ -275,11 +277,11 @@ class Pool(DBMappedObject):
 	get_fixed_chipin_amount = get_amount_left
 	
 	def get_number_of_contributors(self):
-		return len([pu for pu in self.participants if pu.contributed_amount > 0])
+		return self.total_contributors
 	def get_suggested_amount(self):
-		return (self.amount-self.get_total_contribution())/(len([pu for pu in self.participants if not pu.contributed_amount > 0]))
+		return (self.amount-self.get_total_contribution())/((len(self.participant_map)-self.get_number_of_contributors()) or 1)
 	def get_suggested_amount_float(self):
-		return self.get_amount_left()/(len([pu for pu in self.participants if not pu.contributed_amount > 0]))
+		return self.get_amount_left()/((len(self.participant_map)-self.get_number_of_contributors()) or 1)
 	
 	def get_product_display_label(self, words = 5, seperator = ' '):
 		return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())
@@ -305,11 +307,8 @@ class Pool(DBMappedObject):
 		return float(self.get_total_contribution()) / self.amount
 	
 	def get_my_message(self, user):
-		pu = self.participant_map.get(user.u_id)
-		if pu:
-			return pu.message
-		else:
-			return ""
+		log.warning("DEPRECATED - Pool.get_my_message() -- TODO")
+		return False
 	
 	def am_i_admin(self, user):
 		return self.admin.u_id == user.u_id
@@ -318,11 +317,8 @@ class Pool(DBMappedObject):
 	def am_i_member(self, user):
 		return user.u_id in self.participant_map
 	def am_i_contributor(self, user):
-		pu = self.participant_map.get(user.u_id)
-		if pu:
-			return (pu.contributed_amount or 0) > 0
-		else:
-			return False
+		log.warning("DEPRECATED - Pool.am_i_contributor()")
+		return False
 	def can_i_view(self, user):
 		return self.am_i_member(user) or not self.is_secret
 	
@@ -331,9 +327,8 @@ class Pool(DBMappedObject):
 	require_addresses = property(get_require_addresses)
 	
 	def determine_roles(self):
-		self.participant_map = {}
+		self.participant_map = set(map(int, self.u_id_csv.split(",")))
 		for pu in self.participants:
-			self.participant_map[pu.u_id] = pu
 			if not (pu.is_admin or pu.is_receiver):
 				self.invitees.append(pu)
 			else:
