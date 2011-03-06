@@ -389,3 +389,15 @@ class AddInviteesProc(DBMappedObject):
 			,GenericAttrib(bool, 'is_secret', 'is_secret')
 			,DBMapper(PoolUser, 'users', 'USER')
 			]
+			
+class GetMoreInviteesProc(DBMappedObject):
+	"""exec app.get_paged_invitee '<POOL p_url = "P3iF.WWW-SPIEGEL-DE" page_no = "1"/>' """
+	_set_proc = _get_proc = "app.get_paged_invitee"
+	_get_root = _set_root = "POOL"
+	_unique_keys = ['page_no', 'p_url']
+	_keys = [GenericAttrib(int, 'page_no', 'page_no')
+			,GenericAttrib(str, 'p_url', 'p_url')
+			,DBMapper(PoolUser, 'list', 'POOLUSER', is_list = True)
+			]
+	def fromDB(self, xml):
+		setattr(self, "has_more", len(self.list)==21) ####TODO: get proper boolean from database

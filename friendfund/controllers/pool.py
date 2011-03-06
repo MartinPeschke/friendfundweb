@@ -12,7 +12,7 @@ from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.forms.pool import PoolHomePageForm
-from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion
+from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion, GetMoreInviteesProc
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
 from friendfund.tasks.photo_renderer import remote_product_picture_render, remote_pool_picture_render
@@ -368,6 +368,13 @@ class PoolController(ExtBaseController):
 	
 	@jsonify
 	def invitees(self, pool_url):
+		page_no = request.params.get("page")
+		try:
+			c.page = int(page_no)
+		except:
+			return {"success":False}
+		c.participants = g.dbm.get(GetMoreInviteesProc,p_url=pool_url, page_no=c.page)
+		
 		return {"data":{"html":render("/pool/parts/invitees.html").strip()}}
 
 	

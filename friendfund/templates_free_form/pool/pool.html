@@ -40,10 +40,11 @@
 			if(cn){
 				var d = dojo.connect(cn, "onclick", function(evt){
 					dojo.disconnect(d);
-					xhrPost(dojo.attr(evt.target, "_href"), {}, function(data){
+					xhrPost(dojo.attr(evt.target, "_href"), {page:dojo.attr(cn, "_page")}, function(data){
+						dojo.query(evt.target).orphan();
 						dojo.place(data.html, dojo.byId("inviteeList"), "last");
+						connectpool();
 					});
-					dojo.query(evt.target).orphan();
 				});
 			}
 		};
@@ -127,14 +128,14 @@
       <h2>Share the pool</h2>
       	<div class="iconContainer">
 		 <div class="addthis_toolbox addthis_default_style">
-  <a class="addthis_button_facebook"></a>
-  <a class="addthis_button_twitter"></a>
-  <a class="addthis_button_email"></a>
-  <a class="addthis_button_linkedin"></a>
-  <a class="addthis_button_stumbleupon"></a>
-  <a class="addthis_button_tumblr"></a>
-  <a class="addthis_button_expanded"></a>
- </div>
+		  <a class="addthis_button_facebook"></a>
+		  <a class="addthis_button_twitter"></a>
+		  <a class="addthis_button_email"></a>
+		  <a class="addthis_button_linkedin"></a>
+		  <a class="addthis_button_stumbleupon"></a>
+		  <a class="addthis_button_tumblr"></a>
+		  <a class="addthis_button_expanded"></a>
+		 </div>
 		<div class="clear"></div>
       	</div>
       </div>
@@ -150,8 +151,8 @@
 	<div class="colLeft">
 		<div class="invited">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}
-				%if len(c.pool.participants) > 20:
-					<a href="#" class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View All")}</a>
+				%if len(c.pool.participants) > 20:				
+					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
 				%endif
 			</h4>
 			<div class="subHeading"></div>

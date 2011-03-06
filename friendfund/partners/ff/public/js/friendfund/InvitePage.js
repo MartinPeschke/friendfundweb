@@ -14,7 +14,7 @@ dojo.declare("friendfund.InvitePage", null, {
 								invited_node_suffix : "_invitees",
 								inviter_node : "friend_list",
 								base_url : _t.base_url ,
-								mutuals : true,
+								mutuals : false,
 								global_invited_node : _t.invited_node,
 								avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
 							});

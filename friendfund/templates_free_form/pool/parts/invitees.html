@@ -1,7 +1,11 @@
 
-%for i, invitee in enumerate(c.pool.participants[20:]):
+%for i, invitee in enumerate(c.participants.list):
 	${self.render(i, invitee, i==0)}
 %endfor
+%if c.participants.has_more:
+	<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="${c.page+1}" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
+%endif
+
 
 <%def name="render(position, invitee, is_admin = False)">
 	<li>
