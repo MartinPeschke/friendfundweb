@@ -1,72 +1,70 @@
 <%inherit file="../layout.html"/>
 
-<div class="overlayWrapper" style="">
-  <div class="overlay red">
-  	<p>Please fill in all required fields below.</p>
-  </div>
-</div>
-	<div class="subHeader">
-        <div class="colLeftLogin floatLeft">
-            <div class="loginPanelBig">
-                <h3>You're just seconds away from your new account!</h3>
-                <h4>Sign in with Facebook or Twitter</h4>
-                <div class="loginSocialWrap">
-                    <a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
-                        <span>Log in with Facebook</span>
-                    </a>
-
-                    <a title="Log in with Twitter" class="twitterBtn" onclick="twInit()">
-                        <span>Log in with Twitter</span>
-                    </a>
-                    <p>We won't share anything on these sites without your explicit permission.</p>
-                </div>
-                <h4>Sign up with a password instead</h4>
-                <div class="logInOnePx error">
-				
-				<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>Your Name</span>
-				</div>
-				
-					<input type="text" class="">
-				</div>
-				</div>
-                <div class="logInOnePx error">
-				
-				<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>Email Address</span>
-				</div>
-				
-					<input type="text" class="">
-				</div>
-				</div>
-                <div class="logInOnePx error">
-				
-				<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>Password</span>
-                    
-				</div>
-				
-					<input type="text" class="">
-                    <p class="info">Min 6 characters. Letters and numbers only please.</p>
-				</div>
-				</div>
-                <p class="info">By clicking "Sign Up", you confirm that you accept the 
-<a href="#">Terms and Conditions.</a></p>
-<div class="padLeft" style="padding-top:20px"><input type="submit" value="Sign Up"  class="primaryButton"/></div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="colRightLogin floatLeft">
-        	<h3>What is friendfund</h3>
-            <p>Lorem ipsum dolor s tempor tempus vel lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec tristique viverra pharetra. Cras sed felis mauris. Fusce in urna sapien. Cras at turpis nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non diam mauris, in gravida augue. Sed sagittis orci eu risus accumsan ornare. </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent laoreet, quam in consequat convallis, ipsum sapien consequat ipsum, at rutrum te</p>
-            <h3>Privacy</h3>
-            <p>Lorem tra, per inceptos himenaeos. Donec tristique viverra pharetra. Cras sed felis mauris. Fusce in urna sapien. Cras at turpis nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non diam mauris, in gravida augue. Sed sagittis orci eu risus accumsan ornare. </p>
-        </div>
-        <div class="clear"></div>
+%if c.signup_errors:
+	<div class="overlayWrapper">
+	  <div class="overlay red">
+		${" - ".join(map(str, c.signup_errors.values()))}
+	  </div>
 	</div>
+%endif
+
+<div class="subHeader">
+	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
+	<div class="colLeftLogin floatLeft">
+		<div class="loginPanelBig">
+			<h3>You're just seconds away from your new account!</h3>
+			<h4>Sign in with Facebook or Twitter</h4>
+			<div class="loginSocialWrap">
+				<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
+					<span>Log in with Facebook</span>
+				</a>
+
+				<a title="Log in with Twitter" class="twitterBtn" onclick="twInit()">
+					<span>Log in with Twitter</span>
+				</a>
+				<p>We won't share anything on these sites without your explicit permission.</p>
+			</div>
+			<h4>Sign up with a password instead</h4>
+			<div class="logInOnePx ${('name' in c.signup_errors) and "error" or ""}">
+				<div class="greyInsideFullWidth floatLeft">
+					<div class="first">
+						<span>Your Name</span>
+					</div>
+					<input name="signup.name" value="${c.signup_values.get("name")}" type="text" class=""/>
+				</div>
+			</div>
+			<div class="logInOnePx ${('email' in c.signup_errors) and "error" or ""}">
+				<div class="greyInsideFullWidth floatLeft">
+					<div class="first">
+						<span>Email Address</span>
+					</div>
+					<input  name="signup.email" value="${c.signup_values.get("email")}" type="text" class=""/>
+				</div>
+			</div>
+			<div class="logInOnePx ${('pwd' in c.signup_errors) and "error" or ""}">
+				<div class="greyInsideFullWidth floatLeft">
+					<div class="first">
+						<span>Password</span>
+					</div>
+					<input name="signup.pwd"  value="${c.signup_values.get("pwd")}" type="password" class=""/>
+					<p class="info">Min 6 characters. Letters and numbers only please.</p>
+				</div>
+			</div>
+			<p class="info">By clicking "Sign Up", you confirm that you accept the 
+			<a href="#">Terms and Conditions.</a></p>
+			<div class="padLeft" style="padding-top:20px"><input type="submit" value="Sign Up"  class="primaryButton"/></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	</form>
+	<div class="colRightLogin floatLeft">
+		<h3>What is friendfund</h3>
+		<p>Lorem ipsum dolor s tempor tempus vel lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec tristique viverra pharetra. Cras sed felis mauris. Fusce in urna sapien. Cras at turpis nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non diam mauris, in gravida augue. Sed sagittis orci eu risus accumsan ornare. </p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent laoreet, quam in consequat convallis, ipsum sapien consequat ipsum, at rutrum te</p>
+		<h3>Privacy</h3>
+		<p>Lorem tra, per inceptos himenaeos. Donec tristique viverra pharetra. Cras sed felis mauris. Fusce in urna sapien. Cras at turpis nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non diam mauris, in gravida augue. Sed sagittis orci eu risus accumsan ornare. </p>
+	</div>
+	<div class="clear"></div>
+</div>
 
 

@@ -103,8 +103,7 @@ class User(ProtoUser):
 	"""
 	_cachable = False
 	_unique_keys = ['u_id', 'profile_picture_url', 'network', 'network_id']
-	_get_proc = "app.web_login"
-	_set_proc = "app.create_email_user"
+	_set_proc = _get_proc = "app.web_login"
 	_set_root = _get_root = "USER"
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id')
 				,GenericAttrib(unicode,'name','name')
@@ -217,12 +216,21 @@ class User(ProtoUser):
 	def get_has_email(self):
 		return bool(self.default_email)
 	has_email = property(get_has_email)
+
+class CreateEmailUserProc(DBMappedObject):
+	_set_root = _get_root = 'USER'
+	_get_proc = _set_proc = "app.create_email_user"
+	_unique_keys = ['name', 'email']
+	_keys = [	 GenericAttrib(str,'network','network')
+				,GenericAttrib(unicode,'name','name')
+				,GenericAttrib(str,'email','email')
+				,GenericAttrib(unicode,'pwd','pwd')]
 	
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"
 class WebLoginUserByEmail(DBMappedObject):
 	_get_proc = _set_proc = "app.web_login"
-	_set_root = _Get_root = 'USER'
+	_set_root = _get_root = 'USER'
 	_unique_keys = ['email']
 	_keys = [	 GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'email','email')

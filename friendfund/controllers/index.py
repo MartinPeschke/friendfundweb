@@ -12,7 +12,7 @@ from friendfund.lib import fb_helper, helpers as h
 
 from friendfund.model.forms.user import LoginForm, SignupForm
 from friendfund.model.common import SProcWarningMessage
-from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER
+from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER, CreateEmailUserProc
 from friendfund.model.product import Product
 from friendfund.model.sitemap import SiteMap
 from friendfund.model.recent_activity import RecentActivityStream
@@ -88,12 +88,13 @@ class IndexController(BaseController):
 		schema = SignupForm()
 		try:
 			form_result = schema.to_python(signup, state = FriendFundFormEncodeState)
+			print form_result
 			c.signup_values = form_result
 			c.signup_values['network'] = 'EMAIL'
 			if ('profile_pic' in signup and isinstance(signup['profile_pic'], FieldStorage)):
 				g.user_service.save_email_user_picture(c.signup_values, signup['profile_pic'])
 
-			c.user = g.dbm.call(User(**c.signup_values), User)
+			c.user = g.dbm.call(CreateEmailUserProc(**c.signup_values), User)
 			c.user.set_network('email', 
 							network_id =  c.user.default_email,
 							access_token = None,
