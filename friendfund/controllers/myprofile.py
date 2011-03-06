@@ -36,16 +36,17 @@ class MyprofileController(BaseController):
 	def loginpopup(self):
 		c.furl = request.params.get('furl', request.referer)
 		if not c.user.is_anon:
-			return {}
-		else:
-			return {'popup':render('/myprofile/login_popup.html').strip()}
+			return {"reload":True}
+		
 		c.login_values = {}
 		c.login_errors = {}
-		c.expanded = True
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
+		if not login:
+			return {'popup':render('/myprofile/login_popup.html').strip()}
 		schema = LoginForm()
 		try:
 			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
+			print form_result
 			c.login_values = form_result
 			c.login_values['network'] = 'email'
 			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
@@ -59,17 +60,18 @@ class MyprofileController(BaseController):
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			return {'popup':render('/myprofile/login_panel.html').strip()}
+			print c.login_errors
+			return {'popup':render('/myprofile/login_popup.html').strip()}
 		except SProcWarningMessage, e:
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'popup':render('/myprofile/login_panel.html').strip()}
+			return {'popup':render('/myprofile/login_popup.html').strip()}
 	
 	
 	@jsonify
 	def loginpanel(self):
 		c.furl = request.params.get('furl', request.referer)
 		if not c.user.is_anon:
-			return {}
+			return {"reload":True}
 		c.login_values = {}
 		c.login_errors = {}
 		c.expanded = True
