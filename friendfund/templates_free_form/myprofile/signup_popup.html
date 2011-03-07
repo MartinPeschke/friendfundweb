@@ -1,0 +1,48 @@
+<div class="popupBackground dark"></div>
+<div class="outerPopupFrame">
+	<div class="whitePopupFrame fixed">
+	<span class="panelclosing_x">x</span>
+		<div>
+			<h3>signup First</h3>
+			
+			<h3>signup with facebook or twitter</h3>
+			<div class="inputline">
+				<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
+					<span>Log in with Facebook</span>
+				</a>
+			</div>
+			<div class="inputline">
+				<a title="Log in with Twitter" class="twitterBtn" onclick="twInit('/')">
+					<span>Log in with Twitter</span>
+				</a>
+			</div>
+			
+			<form id="signup_popup_form">
+				<div class="inputline">
+					<label for="login_name">Name</label>
+					<input type="text" value="${getattr(c, "signup_values", dict()).get("name")}" name="signup.name" id="login_name"/>
+					%if "name" in getattr(c, "signup_errors", dict()):
+						<p class="error">${getattr(c, "signup_errors", dict()).get("name")}</p>
+					%endif
+				</div>
+				<div class="inputline">
+					<label for="login_email">Email Address</label>
+					<input type="text" value="${getattr(c, "signup_values", dict()).get("email")}" name="signup.email" id="login_email"/>
+					%if "email" in getattr(c, "signup_errors", dict()):
+						<p class="error">${getattr(c, "signup_errors", dict()).get("email")}</p>
+					%endif
+				</div>
+				<div class="inputline">
+					<label for="login_pwd">Password</label>
+					<input type="password" value="${getattr(c, "signup_values", dict()).get("pwd")}" name="signup.pwd" id="login_pwd"/>
+					%if "pwd" in getattr(c, "signup_errors", dict()):
+						<p class="error">${getattr(c, "signup_errors", dict()).get("pwd")}</p>
+					%endif
+					<div><a href="/myprofile/password" class="lostpass">Forgot Password?</a></div>
+				</div>
+			</form>
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='signuppopup')}', 'signup_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft" style="margin-top:7px">Sign Up</a>
+			<p><a class="lostpass" onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'signup_popup_form', place_element(dojo.byId('accountcontainer')))">&laquo; Login</a></p>
+        </div>
+	</div>
+</div>
