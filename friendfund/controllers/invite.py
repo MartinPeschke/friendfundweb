@@ -137,6 +137,7 @@ class InviteController(ExtBaseController):
 				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
 				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
 		if perms_required:
+			log.error("PERMS_REQUIRED, ###TODO: Implement!!!")
 			return self._return_to_input(invitees)
 		
 		if invitees:

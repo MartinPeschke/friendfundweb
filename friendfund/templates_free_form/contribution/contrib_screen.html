@@ -50,17 +50,16 @@
           <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
         </div>
         <div class="subUserProfile">
-        	<h2>Chip In for ${c.pool.title}</h2>
-      	</div>
-      
+        <h2>${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</h2>
+      </div>
       <div class="steps">
-        <div class="stepOne active"><span>1</span>Chip in</div>
+        <div class="stepOne active"><span>1</span>${_("FF_CONTRIB_PAGE_HEADER_Chip in")}</div>
         <div class="rightArrow active"></div>
         <div class="leftArrow"></div>
-        <div class="stepTwo "><span>2</span>Payment Details</div>
+        <div class="stepTwo "><span>2</span>${_("FF_CONTRIB_PAGE_HEADER_Payment info")}</div>
         <div class="rightArrow "></div>
         <div class="leftArrow "></div>
-        <div class="stepThree"><span>3</span>Done !</div>
+        <div class="stepThree"><span>3</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
       </div>
       <div class="clear"></div>
     </div>
@@ -73,7 +72,7 @@
   <div class="colLeft">
   <form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
 
-      <h4>How much do you want to chip in?</h4>
+      <h4>${_("FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
       <div class="subHeading"></div>
       <div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
 	  
@@ -85,12 +84,12 @@
 		%endif
 	  
 	  
-        <div class="first" style="margin-top:15px">Your contribution</div>
+        <div class="first" style="margin-top:15px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
         <div style="width: 516px;" class="greyInside">
-         
+          
           <span class="value">${h.display_currency(c.pool.currency)}</span> 
           <input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" style="float:left; width:100px" />
-        <p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
+        <p class="alignInput">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 		<div id="verisign_contrib" class="floatRight">
 			<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 			<tr>
@@ -100,64 +99,57 @@
 			</td>
 			</tr>
 			</table></div>
-            </div>
 		</div>
+		</div>
+		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		<div class="contentDetails">
 			<div class="imgSpacer"> 
 				 %for i, pm in enumerate(c.payment_methods):
 					<img src="/static/imgs/${pm.code}.png"/>
 				%endfor
 			</div>
-				You will only be charged if this Pool reaches its total funding goal.
-		
-			
+		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")}
+		<a href="#">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
 		</div>
       
 	  <div class="clear"></div>
-      <h4>Add a personal message <span>(optional)</span></h4>
+      <h4>${_("FF_CONTRIB_PAGE_Add a personal message <span>(optional)</span>")|n}</h4>
       <div class="subHeading"></div>
       <div class="borderBottom noBtmPad noBorder">
       <div class="tip">
 					<div class="arrow"></div>
-						<span>This message will appear on (Admin name's) e-card if the Pool is successfully funded.</span>
+						<span>${_("FF_CONTRIB_PAGE_This message will appear on (%(admin_name)s's) e-card if the Pool is successfully funded.")%locals}</span>
 				</div>
         <div class="greyInsideFullWidth">        
-        <div class="first"> <span>Your message</span> </div>
-        <div class="containerTxtArea"> 
-          <textarea class="default" _default_text="Write your description here..." wrap="soft"
+        <div class="first"> <span>${_("FF_CONTRIB_PAGE_Your message")}</span> </div>
+        <div class="containerTxtArea">
+          <textarea class="default" _default_text="${_("FF_CONTRIB_PAGE_Write your description here...")}" wrap="soft"
 							onKeyDown="textCounter(this,this.form.remLen,140);" 
 							onKeyUp="textCounter(this,this.form.remLen,140);" 
-							name="payment.message" id="chipin_message">${c.values.get("message", "Write your description here...")}</textarea>
+							name="payment.message" id="chipin_message">${c.values.get("message", _("FF_CONTRIB_PAGE_Write your description here..."))}</textarea>
         </div>
         </div>
         <div class="floatRight"><input class="number bold" disabled="disabled" readonly="readonly" type="text" id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.values.get("message", c.pool.get_my_message(c.user)) or '')}"> </div>
         <p class="info"></p>
-      </div>
-
+    </div>
 
 	<div class="clear"></div>
-	<h4>Payment Method</h4>
+	<h4>${_("FF_CONTRIB_PAGE_Payment Method")}</h4>
 	<div class="subHeading" style="margin-bottom:10px"></div>
     <div style="position:relative" class="lessPad">
     %for i, pm in enumerate(c.payment_methods):
-    
-			<div class="greyInsideFullWidth">
+			<div class="greyInsideFullWidth">        
 				<div class="first"> <span>&nbsp</span> </div>
-				<input  type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} / > 
-                
-				 <label for="payment_method_${pm.code}" class="fourteen"> ${_(pm.code)} <span class="greySmallSpan">10 cents + 1.8% fee</span> </label>
+				<input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
+				<label for="payment_method_${pm.code}" class="fourteen"> ${_(pm.code)} <span class="greySmallSpan">10 cents + 1.8% fee</span> </label>
 			</div>
-	
     %endfor
-        
         <div class="smallTable">
-            
-                <div class="floatLeft">Chip In Amount</div><input class="floatRight" type="text" disabled="disabled" id="display_amount" value="0"/><div class="clear" style="padding-top:5px"></div>
-                <div class="floatLeft"><span id="payment_method_name"></span>Payment Fees</div><input class="floatRight" type="text" disabled="disabled" id="display_transactioncosts" value="0"/>
+			<div class="floatLeft">${_("FF_CONTRIB_PAGE_Amount")}</div><input class="floatLeft" type="text" disabled="disabled" id="display_amount" value="0"/><div class="clear" style="padding-top:5px"></div>
+                <div class="floatLeft"><span id="payment_method_name"></span>${_("FF_CONTRIB_PAGE_Payment Fees")}</div><input class="floatRight" type="text" disabled="disabled" id="display_transactioncosts" value="0"/>
                 <div class="clear"  style="padding-top:5px; border-bottom: 2px solid #dad9d8;"></div>
-               
                <div class="divider">
-                	<div class="floatLeft bold effect">Total Amount</div><input class="floatRight boldeffect" type="text" disabled="disabled" id="display_total" value="0"/><div class="clear"></div>
+                	<div class="floatLeft bold effect"${_("FF_CONTRIB_PAGE_Total")}</div><input class="floatRight boldeffect" type="text" disabled="disabled" id="display_total" value="0"/><div class="clear"></div>
                 <input type="hidden" id="payment_total" name="payment.total" /> 
                </div>
             <span class="link">What are these payment fees?</span>
@@ -165,17 +157,18 @@
     </div>
 
 	<div class="recMoney">
-		<h4>Privacy Settings</h4>
+		<h4>${_("FF_CONTRIB_PAGE_Privacy Settings")}</h4>
 		<div class="subHeading" style="margin-bottom:10px"></div>
 
 		<div class="borderBottom noBorder lessPad">
 			<div class="tip">
 				<div class="arrow"></div>
-				<span>Tip goes here</span>
+				<span>${_("FF_CONTRIB_PAGE_PRVACY_SETTING_Tip goes here")}</span>
 			</div>
 			<div class="greyInsideFullWidth">
 				<div class="first"> <span>&nbsp</span> </div>
-				<input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("is_secret", "no", default=True)|n} class="radio"><label  for="isSecretFalse">I'm happy to show how much I've chipped in</label>
+				<input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("is_secret", "no", default=True)|n} class="radio"><label  for="isSecretFalse">
+				${_("FF_CONTRIB_PAGE_I'm happy to show how much I've chipped in")}</label>
 			</div>
 		</div>
 
@@ -185,7 +178,8 @@
           <span>Tip goes here</span> </div>
         <div class="greyInsideFullWidth">
           <div class="first"> <span>&nbsp</span> </div>
-          <input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("is_secret", "yes")|n} class="radio"><label for="isSecretTrue">I don't want anyone to see how much I've chipped in</label>
+          <input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("is_secret", "yes")|n} class="radio"><label for="isSecretTrue">
+			${_("FF_CONTRIB_PAGE_I don't want anyone to see how much I've chipped in")}</label>
         </div>
       </div>
 	<div class="spacerBorder"></div>
@@ -195,24 +189,20 @@
 		%if ('agreedToS' in c.errors):
 			<span>${c.errors['agreedToS']}</span> 
 		%else:
-			<span>Tip goes here</span> 
+			<span>${_("FF_CONTRIB_PAGE_TERMSOFSERVICE_Tip goes here")}</span> 
 		%endif
 		</div>
-        <textarea class="disclaimer">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at diam et ante sagittis sodales. Mauris non lacus nec tellus bibendum molestie. Sed fermentum adipiscing tortor dignissim gravida. Nam ut diam quis augue ultricies interdum nec quis libero. Ut eget ornare tellus. Curabitur ullamcorper, mi a aliquam dapibus, enim felis rutrum dolor, non venenatis felis diam eu turpis. Vivamus bibendum semper erat sed facilisis. Cras nec rhoncus mauris. Quisque non mattis nunc. Phasellus mollis tristique libero varius facilisis. Ut purus lectus, mollis ac blandit in, elementum vitae libero. Phasellus eget nisi vestibulum libero condimentum vestibulum in fringilla purus. Ut vestibulum nibh vitae sapien vestibulum blandit sit amet eu ipsum. In adipiscing, magna a aliquam consequat, orci lacus elementum ligula, quis consectetur diam arcu eget lorem.
-
-Nulla blandit pulvinar orci, non lacinia arcu accumsan ut. Suspendisse est neque, tempus eget sagittis eget, faucibus non felis. Aliquam gravida lobortis sodales. Nam molestie sapien sed est mollis pharetra. Donec dignissim ante id leo consectetur posuere. Morbi commodo, diam nec mollis molestie, turpis nulla aliquet ipsum, vitae consectetur est dolor non enim. Nulla interdum, erat sed lacinia adipiscing, arcu urna dapibus purus, quis mattis libero ligula ac risus. Donec adipiscing nisl sit amet risus pulvinar vulputate. Cras feugiat odio id lectus condimentum egestas. Suspendisse tincidunt, tellus a suscipit pulvinar, quam sapien laoreet velit, a posuere sem elit non libero. Donec arcu enim, consequat sit amet vulputate vitae, porttitor sed tortor. Sed semper faucibus sapien at aliquet. Ut consectetur, dui vel ultricies laoreet, leo ante suscipit arcu, nec ornare sapien lectus in sapien. Aliquam erat volutpat. Phasellus ut risus in est viverra eleifend. Nullam neque sapien, laoreet eget fringilla at, auctor vel ipsum. Sed volutpat rhoncus arcu sit amet rutrum. Integer a nisl dui, ac semper odio. Sed vitae nisl eget odio convallis scelerisque. </textarea>
+        <textarea class="disclaimer">${_("STATIC_TERMS_OF_SERVICE_CONTENT")|n}</textarea>
 		<div class="greyInsideFullWidth">
-        	
 			<div class="first"> <span>&nbsp</span> </div>
-            
 			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox">
-			<label for="chipin_agreedToS">I accept the </label><a href="${url(controller="content", action="tos")}">Terms of service</a>
+			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label><a href="${url(controller="content", action="tos")}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
 		</div>
 	</div>
 	
     <div class="floatRight">
 			<div class="spacerButtons">
-				<span id="submitter" class="forward floatLeft"><span>Payment Details</span> <input type="submit" value="&gt;"></span>
+				<span id="submitter" class="forward floatLeft"><span>"${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}</span> <input type="submit" value="&gt;"></span>
 			</div>
 		</div>
       

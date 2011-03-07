@@ -7,7 +7,7 @@ from pylons.i18n import _
 from friendfund.lib import helpers as h
 from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion
 from friendfund.model.product import Product
-from friendfund.tasks.photo_renderer import remote_profile_picture_render
+from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_save_product_image
 
 class MissingPermissionsException(Exception):pass
 class MissingPoolException(Exception):pass
@@ -16,13 +16,15 @@ class MissingOccasionException(Exception):pass
 class MissingReceiverException(Exception):pass
 class MissingAmountException(MissingProductException):pass
 
-
 class PoolService(object):
 	"""
 		This is shared between all threads, do not stick state in here!
 	"""
 	def __init__(self, config):
 		self.config = config
+		self.ulpath = config['pylons.paths']['uploads']
+		if not os.path.exists(self.ulpath):
+			os.makedirs(self.ulpath)
 	
 	def create_free_form(self):
 		from friendfund.model.forms.pool import PoolCreateForm
@@ -87,3 +89,15 @@ class PoolService(object):
 						, description = pool.description
 						, is_secret = pool.is_secret))
 			app_globals.dbm.expire(Pool(p_url = pool.p_url))
+
+	def save_pool_picture(self, picture):
+		picture_url = h.get_upload_pic_name(str(uuid.uuid4()))
+		tmpname, ext = os.path.splitext(picture.filename)
+		tmpname = os.path.join(self.ulpath \
+			, '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
+		outf = open(tmpname, 'wb')
+		outf.write(picture.file.read())
+		outf.close()
+		remote_save_product_image.delay(picture_url, tmpname)
+		print tmpname, picture_url
+		return picture_url

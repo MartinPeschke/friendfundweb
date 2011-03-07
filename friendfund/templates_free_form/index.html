@@ -9,8 +9,8 @@
 
 <div class="wrapSubHeaderHome">
 	<div class="subHeader">
-		<h2>friendfund it.<span>Collect money by creating a pool and inviting friends to chip in.</span></h2>
-		<a href="#" class="learnMoreBtn">Learn more</a>
+		<h2>${_("FF_HOMEPAGE_SLOGAN_friendfund it.")}<span>${_("FF_HOMEPAGE_SLOGAN_Collect money by creating a pool and inviting friends to chip in.")}</span></h2>
+		<a href="#" class="learnMoreBtn">${_("FF_HOMEPAGE_SLOGAN_Learn more")}</a>
 		
 	</div>
 </div>
@@ -18,7 +18,7 @@
 <div class="contentHome">
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
-			<h3>We need</h3>
+			<h3>${_("FF_HOMEPAGE_FORM_We need")}</h3>
 			<form method="GET" id="submissionform" onSubmit="return onSubmitCleaner(this)" action="${url("pool_details", protocol="http")}">
 			<div>
 				<span>${h.display_currency(h.default_currency())}</span>
@@ -26,7 +26,7 @@
 				<span style="margin-left:30px">for</span>
 				<input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="weNeed default long" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 				<input type="submit" class="primaryLarge floatRight" value="${_("FF_HOME_PAGE_Get Started")}" />
-				<p class="info">You can also paste a link from any website here.</p>
+				<p class="info">${_("FF_HOMEPAGE_FORM_You can also paste a link from any website here.")}</p>
 			</div><div id="homeurlexpander" class="home_expander hidden"></div>
 			</form>
 		</div>
@@ -39,7 +39,7 @@
 				<img src="/static/imgs/veri-sign.png" />
 			</div>
 			<div class="logoContainerLeft">
-				<span> SEEN IN</span>
+				<span>${_("FF_HOMEPAGE_BOXES_SEEN IN")}</span>
 				<img src="/static/imgs/lifehacker.png" />
 				<img src="/static/imgs/techcrunch.png" />
 				<img src="/static/imgs/mashable.png" />
@@ -49,11 +49,12 @@
 		</div>
 	</div>
 	<div class="featuredPoolsBox">
-		<h4>Featured Pools</h4>
+		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
+		<% locals = {"no_contributors":14, "days_left":14, "admin_name":"Liz Stevens", "product_name":"her Tennis club"} %>
 		<div class="homebox">
 			<img src="/static/imgs/dummy/dummy-pools.jpg" />
 			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">created by <a href="#">Liz Stevens</a></span>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")}</span>
 			<div class="timeCounter">
 				<div class="timeCounterLeft"></div>
 				<div class="timeCounterRight"></div>
@@ -64,36 +65,9 @@
 			</div>
 			
 			<div class="boxContributors">
-				<span class="upper"><strong>14</strong> contributors</span>
-				<span> and </span>
-				<span class="upper"><strong>14</strong> days left</span>
-			</div>
-			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>				
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<div class="clear"></div>
-			</div>
-		</div>
-		<div class="homebox">
-			<img src="/static/imgs/dummy/dummy-pools.jpg" />
-			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">created by <a href="#">Liz Stevens</a></span>
-			<div class="timeCounter">
-				<div class="timeCounterLeft"></div>
-				<div class="timeCounterRight"></div>
-				
-				<span class="floatRight">12.00</span>
-				<span class="floatLeft">0.00</span>
-				<div class="clear"></div>
-			</div>
-			
-			<div class="boxContributors">
-				<span class="upper"><strong>14</strong> contributors</span>
-				<span> and </span>
-				<span class="upper"><strong>14</strong> days left</span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
@@ -107,7 +81,7 @@
 		<div class="homebox">
 			<img src="/static/imgs/dummy/dummy-pools.jpg" />
 			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">created by <a href="#">Liz Stevens</a></span>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
 			<div class="timeCounter">
 				<div class="timeCounterLeft"></div>
 				<div class="timeCounterRight"></div>
@@ -118,12 +92,39 @@
 			</div>
 			
 			<div class="boxContributors">
-				<span class="upper"><strong>14</strong> contributors</span>
-				<span> and </span>
-				<span class="upper"><strong>14</strong> days left</span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>				
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="homebox">
+			<img src="/static/imgs/dummy/dummy-pools.jpg" />
+			<h5>Peter Pan Home Invasion</h5>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
+			<div class="timeCounter">
+				<div class="timeCounterLeft"></div>
+				<div class="timeCounterRight"></div>
+				
+				<span class="floatRight">12.00</span>
+				<span class="floatLeft">0.00</span>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="boxContributors">
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
+			</div>
+			<div class="fbHolder">
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
@@ -134,7 +135,7 @@
 		<div class="homebox lastOne">
 			<img src="/static/imgs/dummy/dummy-pools.jpg" />
 			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">created by <a href="#">Liz Stevens</a></span>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
 			<div class="timeCounter">
 				<div class="timeCounterLeft"></div>
 				<div class="timeCounterRight"></div>
@@ -145,12 +146,12 @@
 			</div>
 			
 			<div class="boxContributors">
-				<span class="upper"><strong>14</strong> contributors</span>
-				<span> and </span>
-				<span class="upper"><strong>14</strong> days left</span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>				
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
@@ -161,7 +162,7 @@
 		<div class="clear"></div>
 	</div>
 	<div class="whatElse">
-		<h4>Where else can I use friendfund?</h4>
+		<h4>${_("FF_HOMEPAGE_BOXES_Where else can I use friendfund?")}</h4>
 		<div class="boxGray box1">
 			<img src="/static/imgs/dummy/img-dummy-sponsor.png" />
 			<img src="/static/imgs/dummy/img-dummy-sponsor.png" />
@@ -186,7 +187,7 @@ something amazing.</p>
 					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
 				</div>
 				<span class="name bold">Amanda</span>
-				<span class="desc">Created a Pool for her Tennis club</span>
+				<span class="desc">${_("FF_HOMEPAGE_BOXES_Created a Pool for %(product_name)s")%locals}</span>
 			</div>
 		</div>
 		<div class="boxGray box3 lastOne">
@@ -202,7 +203,7 @@ something amazing.</p>
 					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
 				</div>
 				<span class="name bold">Amanda</span>
-				<span class="desc">Created a Pool for her Tennis club</span>
+				<span class="desc">${_("FF_HOMEPAGE_BOXES_Created a Pool for %(product_name)s")%locals}</span>
 			</div>
 			
 		</div>

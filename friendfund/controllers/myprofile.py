@@ -314,3 +314,6 @@ class MyprofileController(BaseController):
 			websession['lang'] = lang
 			set_lang(lang)
 			return redirect(request.referer)
+
+	def require_email(self):
+		return render("/widgets/require_email_popup.html")

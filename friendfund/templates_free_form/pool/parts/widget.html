@@ -2,16 +2,14 @@
 <div class="outerPopupFrame">
 	<div class="whitePopupFrame fixed">
 	<span class="panelclosing_x">x</span>
+		<% locals = {"no_contributors":14, "days_left":14, "admin_name":"Liz Stevens", "product_name":"her Tennis club"} %>
 		<div>
-        	<h3>Embed a widget in your site</h3>
-            <p>Grab the code below and paste it into your website</p>
-            <textarea><iframe frameborder="0" 
-height="300px" 
-src="http://www.friendfund.com/protei
-nshakesandbabycakes"</textarea>
-<div class="homebox">
+        	<h3>${_("FF_WIDGET_POPUP_Embed a widget in your site")}</h3>
+            <p>${_("FF_WIDGET_POPUP_Grab the code below and paste it into your website")}</p>
+            <textarea><iframe frameborder="0" height="300px" src="http://www.friendfund.com/proteinshakesandbabycakes"</textarea>
+		<div class="homebox">
 			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">created by <a href="#">Liz Stevens</a></span>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")}</span>
 			<div class="timeCounter">
 				<div class="timeCounterLeft"></div>
 				<div class="timeCounterRight"></div>
@@ -22,12 +20,12 @@ nshakesandbabycakes"</textarea>
 			</div>
 			
 			<div class="boxContributors">
-				<span class="upper"><strong>14</strong> contributors</span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
 				<span class="middot"> &middot; </span>
-				<span class="upper"><strong>14</strong> days left</span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg"></a>				
+				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg"></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg"></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg"></a>
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg"></a>
@@ -37,7 +35,7 @@ nshakesandbabycakes"</textarea>
 		</div>
        <div class="popupBtnCont">
        	 <a class="btnChipIn tertiary" href="http://cristiano.friendfund.de/payment/P3iC.poi">
-			Chip In
+			${_("FF_WIDGET_POPUP_Chip In")}
 		</a>
 		</div>
         </div>

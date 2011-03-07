@@ -49,7 +49,7 @@ parseSimpleEditables = function(rootnode){
 
 
 popup_esc_handler = [];
-esc_handler_f = function(callback, evt){if(evt.charCode == 27){dojo.hitch(this, callback(evt));}};
+esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
 accessability = function(callbackRet, callbackEsc, evt){
 	if(evt.keyCode == 13){dojo.hitch(this, callbackRet(this, evt));}
 	else if(evt.keyCode == 27){dojo.hitch(this, callbackEsc(this, evt));}
@@ -116,6 +116,8 @@ place_element = function(node, callback){
 	};
 };
 
+displayMessage = console.log;
+
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
 				if ('clearblocks' in data){closeBlocks(data.clearblocks);}
@@ -174,7 +176,19 @@ xhrPost = function(url, args, callback, method) {
 		error:xhrErrorHandler
 	});
 };
-
+ioIframeGetJson = function(url, formid, callback){
+	var td = dojo.io.iframe.send({
+		url: url,
+		form: formid,
+		method: "post",
+		content: {},
+		timeoutSeconds: 15,
+		preventCache: true,
+		handleAs: "json",
+		handle: xhrHandler(callback),
+		error: function (res,ioArgs) {console.log(res);}
+	});
+};
 
 
 
@@ -247,7 +261,7 @@ twInit = function(furl) {
 	}
 };
 
-var FBSCOPE="user_birthday,friends_birthday,email,publish_stream";
+var FBSCOPE="user_birthday,friends_birthday,email,publish_stream,create_event";
 fbInit = function(app_id, has_prev_tried_logging_in) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";

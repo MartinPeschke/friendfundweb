@@ -13,16 +13,16 @@
         <div class="prodImgWrap">
           <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
         </div>
-        <h2>Last Step: Your Payment Details</h2>
+        <h2>${_("FF_CONTRIB_DETAILS_HEADER_Last Step: Your Payment Details")}</h2>
       </div>
       <div class="steps">
-        <div class="stepOne"><span>1</span>Chip in</div>
+        <div class="stepOne"><span>1</span>${_("FF_CONTRIB_PAGE_HEADER_Chip in")}</div>
         <div class="rightArrow"></div>
         <div class="leftArrow active"></div>
-        <div class="stepTwo active"><span>2</span>Payment Details</div>
+        <div class="stepTwo active"><span>2</span>${_("FF_CONTRIB_PAGE_HEADER_Payment info")}</div>
         <div class="rightArrow active"></div>
         <div class="leftArrow "></div>
-        <div class="stepThree"><span>3</span>Done!</div>
+        <div class="stepThree"><span>3</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
       </div>
       <div class="clear"></div>
     </div>
@@ -36,14 +36,14 @@
 		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
 		<input type="hidden" name="token" value="${c.form_secret}"/>
 		<div class="poolDets">
-			<h4>Confirm Your Contribution</h4>
+			<h4>${_("FF_CONTRIB_DETAILS_Confirm Your Contribution")}</h4>
 			<div class="borderBottom noBorder">
-				<div class="first" style="margin-top:8px">Your contribution</div>
+				<div class="first" style="margin-top:8px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
 				<div class="greyInside " style="width:516px">
 					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
-					<span class="value">&euro;</span> 
+					<span class="value">${h.display_currency(c.pool.currency)}}</span> 
 				
-				<p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
+				<p class="alignInput">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 				<div id="verisign_contrib" class="floatRight">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 					<tr>
@@ -54,17 +54,18 @@
 					</tr>
 					</table>
 				</div>
-              </div>
+			</div>
 			</div>
 			<!--<a href="#" class="editContrib">Edit</a>-->
+		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		</div>
-        <div class="contentDetails">
-				You will only be charged if this Pool reaches its total funding goal.
+		<div class="contentDetails">
+		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")}
+		<a href="#">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
 		</div>
-		
         
 		<div class="clear"></div>
-		<h4>Pay by CreditCard</h4>
+	<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
         <img src="/static/imgs/${c.payment_method.code}.png">
 		<div class="borderBottom noBorder ${('ccHolder' in c.errors) and "error" or ""}">
 			%if "ccHolder" in c.errors:
@@ -75,7 +76,7 @@
 			%endif
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Cardholder's Name</span>
+					<span>${_("FF_CONTRIB_DETAILS_Cardholder's Name")}</span>
 				</div>
 				<input type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
 			</div>
@@ -89,7 +90,7 @@
 			%endif
 			<div class="greyInsideFullWidth">
 				<div  class="first">
-					<span>Card Number</span>
+					<span>${_("FF_CONTRIB_DETAILS_Card Number")}</span>
 				</div>
 				<input type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
 			</div>
@@ -111,8 +112,8 @@
 			</div>
 			%endif
 			<div class="greyInsideFullWidth">
-				<div  class="first">
-					<span>Expiry Date</span>
+				<div class="first">
+					<span>${_("FF_CONTRIB_DETAILS_Expiry Date")}</span>
 				</div>
 				<select name="creditcard.ccExpiresMonth" class="smallForm">
 				%for key,val in c.payment_method.cc_validity_months:
@@ -135,12 +136,12 @@
 			%endif
 			<div class="greyInsideFullWidth">
 				<div  class="first">
-					<span>Card Validation Code</span>
+					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
 				</div>
-				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" /><a href="#" class="smallForm">what's this?</a>
+				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" /><a href="#" class="smallForm">${_("FF_CONTRIB_DETAILS_what's this?")}</a>
 			</div>
 		</div>
-		<input type="submit" value="Chip In Now" class="primaryButton"/>
+		<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton"/>
 	</div>
 	</form>
 </div>

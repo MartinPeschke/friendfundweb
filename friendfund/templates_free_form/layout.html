@@ -9,11 +9,11 @@
 				<a href="${url('home', protocol="http")}"><span>Friendfund</span></a>
 			</h1>
 			<ul>
-				<li><a href="${url('home', protocol="http")}">Home</a></li>
-				<li><a href="#">Learn</a></li>
-				<li><a href="${url("pool_details", protocol="http", v=2)}">Create a pool</a></li>
+				<li><a href="${url('home', protocol="http")}">${_("FF_MENU_Home")}</a></li>
+				<li><a href="#">${_("FF_MENU_Learn")}</a></li>
+				<li><a href="${url("pool_details", protocol="http", v=2)}">${_("FF_MENU_Create a pool")}</a></li>
 				%if not c.user.is_anon:
-					<li><a href="/mypools">Pools</a></li>
+					<li><a href="/mypools">${_("FF_MENU_My_Pools")}</a></li>
 				%endif
 			</ul>
 			<div class="clear"></div>
@@ -29,33 +29,33 @@
 			<div class="footer">
             	<div class="firstFourCol">
                     <div class="footerCol1">
-                        <span class="fontWeightBold">About</span>
-                        <a href="#">About Friendfund</a>
-                        <a href="#">Our blog</a>
-                        <a href="#">Jobs</a>
-                        <a href="#">FAQ</a>
+                        <span class="fontWeightBold">${_("FF_FOOTER_About")}</span>
+                        <a href="#">${_("FF_FOOTER_About Friendfund")}</a>
+                        <a href="#">${_("FF_FOOTER_Our blog")}</a>
+                        <a href="#">${_("FF_FOOTER_Jobs")}</a>
+                        <a href="#">${_("FF_FOOTER_FAQ")}</a>
                     </div>
                     <div class="footerCol2">
-                        <span class="fontWeightBold">Contact</span>
-                        <a href="#">Contact Friendfund</a>
-                        <a href="#">Become a partner</a>
+                        <span class="fontWeightBold">${_("FF_FOOTER_Contact")}</span>
+                        <a href="#">${_("FF_FOOTER_Contact Friendfund")}</a>
+                        <a href="#">${_("FF_FOOTER_Become a partner")}</a>
                     </div>
                     <div class="footerCol3">
-                        <span class="fontWeightBold">Legal</span>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Privacy</a>
+                        <span class="fontWeightBold">${_("FF_FOOTER_Legal")}</span>
+                        <a href="#">${_("FF_FOOTER_Terms of Service")}</a>
+                        <a href="#">${_("FF_FOOTER_Privacy")}</a>
                     </div>
                     <div class="footerCol4">
-                        <span class="fontWeightBold">Connect</span>
-                        <a href="#"><img src="/static/imgs/fb-icon.png" align="left" /> &nbsp;&nbsp;Like us on Facebook</a>
-                        <a href="#"><img src="/static/imgs/twitter-icon.png" align="left" /> &nbsp;&nbsp;Follow us on Twitter</a>
-                        <a href="#"><img src="/static/imgs/twitter-icon.png" align="left"  /> &nbsp;&nbsp;Subscribe to our blog</a>
+                        <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
+                        <a href="#"><img src="/static/imgs/fb-icon.png" align="left" /> &nbsp;&nbsp;${_("FF_FOOTER_Like us on Facebook")}</a>
+                        <a href="#"><img src="/static/imgs/twitter-icon.png" align="left" /> &nbsp;&nbsp;${_("FF_FOOTER_Follow us on Twitter")}</a>
+                        <a href="#"><img src="/static/imgs/twitter-icon.png" align="left"  /> &nbsp;&nbsp;${_("FF_FOOTER_Subscribe to our blog")}</a>
                     </div>
                     <div class="clear"></div>
 				</div>
                 <div class="footerCol5">
 					<div style="padding-bottom:20px">
-						<span>Friendfund on Facebook</span><span>2010 friendfund All Rights Reserved</span>
+						<span>${_("FF_FOOTER_Friendfund on Facebook")}</span><span>${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
 					</div>
 					
 				</div>
@@ -72,7 +72,7 @@
 			<p id="messaging_messages">${' - '.join(msg for msg in getattr(c, "_msgs", []))}</p>
 		</div>
 		%if pool_url:
-			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url)}" class="floatRight">&laquo; Back to Pool</a><div class="clear"></div></div>
+			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url)}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>
 		%endif
 	</div>
 </%def>

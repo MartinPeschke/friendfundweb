@@ -1,8 +1,8 @@
 
 <div class="arrowSubTab"></div>
-	<p class="inviter">Invite your Twitter friends.</p>
-	<a title="Log in with Twitter" class="twitterBtn" onclick="twInit()">
-		<span>Log in with Twitter</span>
+	<p class="inviter">${_("FF_Invite your Twitter friends.")}</p>
+	<a title="${_("FF_Log in with Twitter")}" class="twitterBtn" onclick="twInit()">
+		<span>${_("FF_Log in with Twitter")}</span>
 	</a>
 	%if getattr(c, "error", False):
 	<p>${c.error}</p>

@@ -1,7 +1,6 @@
 import uuid, random, logging
 from pylons.i18n import ugettext as _
 
-
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
 
@@ -20,29 +19,37 @@ class RecentActivityEntry(DBMappedObject):
 			, GenericAttrib(unicode,'profile_picture_url','profile_picture_url')
 			, GenericAttrib(unicode,'pool_picture_url','pool_picture_url')
 			, GenericAttrib(unicode,'receiver_name','receiver')
-			, GenericAttrib(int,'total_contribution','total_contribution')
-			, GenericAttrib(int,'no_invitees','no_invitees')
-			, GenericAttrib(int,'no_contributors','no_contributors')
-			, GenericAttrib(datetime,'expiry_date','expiry_date')
-			, GenericAttrib(int,'amount','amount')
-			, GenericAttrib(int,'shipping_cost','shipping_cost')
-			, GenericAttrib(str,'currency','currency')
-			, GenericAttrib(bool,'is_contributor','is_contributor')
 			, GenericAttrib(bool,'is_admin','is_admin')
 			, GenericAttrib(str,'status','status')
 			, GenericAttrib(int, "friend_id", "friend_id")
 			, GenericAttrib(unicode, "friend_name", "friend_name")
 			, GenericAttrib(unicode, "friend_profile_picture", "friend_profile_picture")
-			, GenericAttrib(bool, "is_secret", "is_secret")
 			, GenericAttrib(str, "merchant_domain", "merchant_domain")
+			
+			
+			, GenericAttrib(unicode, "title", "title")
+			, GenericAttrib(unicode, "description", "description")
+			, GenericAttrib(datetime,'expiry_date','expiry_date')
+			, GenericAttrib(bool, "is_secret", "is_secret")
+			, GenericAttrib(int,'total_contribution','total_contribution')
+			, GenericAttrib(int,'no_invitees','no_invitees')
+			, GenericAttrib(int,'no_contributors','no_contributors')
+			, GenericAttrib(int,'amount','amount')
+			, GenericAttrib(int,'shipping_cost','shipping_cost')
+			, GenericAttrib(str,'currency','currency')
+			, GenericAttrib(bool,'is_contributor','is_contributor')
+			, GenericAttrib(bool,'is_commenter','is_commenter')
 			]
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
+	def is_expired(self):
+		return self.expiry_date<datetime.today()
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.pool_picture_url, type)
 	
 	def get_profile_pic(self, type="RA"):
 		return h.get_user_picture(self.profile_picture_url, type)
+	get_receiver_profile_pic = get_profile_pic
 	def get_friend_profile_pic(self, type="RA"):
 		return h.get_user_picture(self.friend_profile_picture, type)
 	def get_product_pic(self, type="RA"):
@@ -54,6 +61,10 @@ class RecentActivityEntry(DBMappedObject):
 		return float(self.total_contribution)/100
 	def get_amount_left_float(self):
 		return self.get_amount_float() - self.get_total_contribution_float()
+	get_amount_left = get_amount_left_float
+	def funding_progress(self):
+		return self.get_total_contribution_float() / self.get_amount_float()
+	
 	def get_product_display_name(self):
 		if self.product_name:
 			return h.word_truncate_plain(self.product_name.title(), 2)

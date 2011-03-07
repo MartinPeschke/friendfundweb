@@ -11,8 +11,8 @@ from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
-from friendfund.model.pool import Pool
-from friendfund.model.product import ProductSearch
+from friendfund.model.pool import Pool, UpdatePoolProc
+from friendfund.model.product import Product, ProductSearch
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException, QueryMalformedException
 log = logging.getLogger(__name__)
@@ -126,4 +126,28 @@ class ProductController(BaseController):
 			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
 		websession['pool'] = g.product_service.set_product_from_guid(websession.get('pool') or Pool(), product_guid, c.product_list)
 		c.pool = websession['pool']
-		return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
+		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
+		
+	
+	def picturepopup(self, pool_url):
+		print request.params
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if not c.pool:
+			return abort(404)
+		elif not c.pool.am_i_admin(c.user):
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({'message':'Not authorized!'})
+		
+		pool_picture = request.params.get('pool_picture')
+		if pool_picture is None:
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({'popup':render('/product/picturepopup.html').strip()})
+		
+		picture_url = g.pool_service.save_pool_picture(pool_picture)
+		updater = UpdatePoolProc(p_url = c.pool.p_url)
+		updater.product = c.pool.product or Product()
+		updater.product.picture = picture_url
+		g.dbm.set(updater)
+		g.dbm.expire(Pool(p_url = c.pool.p_url))
+		c.pool = updater
+		return '<html><body><textarea>{}</textarea></body></html>'

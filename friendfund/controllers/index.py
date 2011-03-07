@@ -26,13 +26,13 @@ class IndexController(BaseController):
 	ra_total_page_size = 50
 	ra_page_size = 5
 	
-	def kill(self):
-		c = g.dbm.dbpool.connection()
-		cur = c.cursor()
-		print cur.execute("exec app.kill_connections;")
-		cur.close()
-		c.close()
-		return redirect("/")
+	# def kill(self):
+		# c = g.dbm.dbpool.connection()
+		# cur = c.cursor()
+		# print cur.execute("exec app.kill_connections;")
+		# cur.close()
+		# c.close()
+		# return redirect("/")
 	
 	def index(self):
 		if request.merchant.home_page:
@@ -129,4 +129,4 @@ class IndexController(BaseController):
 			return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
 		except SProcWarningMessage, e:
 			log.warning(str(e))
-			return {'data':{'success':False, 'message':'<span>%s</span>' % _(u'USER_SETEMAILBLOCK_Email_Email Address already taken!')}}
+			return {'data':{'success':False, 'message':'<span>%s</span>' % _(u'USER_SETEMAILBLOCK_Email_Email Address already taken!')}}	

@@ -25,25 +25,24 @@
 <div class="wrapSubHeader">
   <div class="subHeader">
     <div class="userProfile">
-      
 	%if c.workflow in ["2", "3"]:
 		<div class="nonPoolHeader">
 			<div class="prodImgWrap">
 			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
 			</div>
-			<h2>Invite friends to chip in</h2>
+			<h2>${_("FF_INVITEPAGE_HEADER_Invite friends to chip in")}</h2>
 		</div>
 		%if c.workflow=="2":
-			${widgets.renderSteps("Pool Details", "Invite friends to chip in", "Done!", 2)|n}
+			${widgets.renderSteps(_("FF_INVITEPAGE_HEADER_Pool Details"), _("FF_INVITEPAGE_HEADER_Invite friends to chip in"), _("FF_INVITEPAGE_HEADER_Done!"), 2)|n}
 		%endif
 	%else:
 		<div class="nonPoolHeader">
 			<div class="prodImgWrap">
 			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
 			</div>
-			<h2>Step 3. Invite Your Friends To Chip In</h2>
+			<h2>${_("FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In")}</h2>
 		</div>
-		${widgets.renderSteps("What are you collecting money for?", "Enter pool details", "Invite friends to chip in", 3)|n}
+		${widgets.renderSteps(_("FF_INVITEPAGE_HEADER_What are you collecting money for?"), _("FF_INVITEPAGE_HEADER_Enter pool details"), _("FF_INVITEPAGE_HEADER_Invite friends to chip in"), 3)|n}
 	%endif
       <div class="clear"></div>
     </div>
@@ -52,10 +51,10 @@
 <div class="wrapSubContent">
 <div class="content">
   <div class="colRight moreMarginTop">
-  	<span class="floatRight link" id="removeall">Remove All</span>
-    <h3>Invited Friends (<span id="invitedCounter">${reduce(add, [0]+[len(c.invitees[invs]) for invs in c.invitees])}</span>)</h3>
+  	<span class="floatRight link" id="removeall">${_("FF_INVITEPAGE_Remove All")}</span>
+    <h3>${_("FF_INVITEPAGE_HEADER_Invited Friends")} (<span id="invitedCounter">${reduce(add, [0]+[len(c.invitees[invs]) for invs in c.invitees])}</span>)</h3>
 		<div class="listSelectedFriends" id="invitedContainer" >
-			<p class="inviterTwo ${bool(c.invitees) and "hidden" or ""}">Invite your friends from<br /> the left panel</p>
+			<p class="inviterTwo ${bool(c.invitees) and "hidden" or ""}">${_("FF_INVITER_EMAIL_Invite your friends from<br /> the left panel")|n}</p>
 			<div id="network_invitees" class="invited_list">
 				${inviter.render_email_friends(c.invitees.get("email", dict()))}
 				${inviter.render_network_friends(c.invitees.get("twitter", dict()))|n}
@@ -65,9 +64,9 @@
   </div>
 	<div class="colLeft">
 		<div class="invited" id="inviteContainer">
-		  <h4>Invite your friends from Facebook, Twitter or Email </h4>
+		  <h4>${_("FF_INVITEPAGE_HEADER_Invite your friends from Facebook, Twitter or Email")}</h4>
 		  <div class="subHeading"></div>
-		  <p>Invitees will be notified through a Facebook Event, a Twitter @message or by email.</p>
+		  <p>${_("FF_INVITEPAGE_Invitees will be notified through a Facebook Event, a Twitter @message or by email.")}</p>
 		  <div class="wrapTabs">
 			<div class="tabs"> 
                 <span class="link methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
@@ -77,23 +76,23 @@
 		  </div>
 		  <div class="subTab"  id="inviter"></div>
 
-		  <h4>Add a Personal Message to your Invitees <span>(optional)</span></h4>
+		  <h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
 		  <div class="subHeading"></div>
 		  <form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<input type="hidden" name="v" value="${c.workflow}"/>
 		  <div style="border-top:none" class="borderBottom" id="inviteMessage">
-      <div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
+		<div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 			<div class="tip">
 					<div class="arrow"></div>
 				%if 'subject' in c.errors:
 					<span>${c.errors['subject']}</span>
 				%else:
-					<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+					<span>${_("FF_INVITEPAGE_SUBJECT_Tip goes here")}</span>
 				%endif
 			</div>
-			<div class="first"> <span>Subject</span> </div>
+			<div class="first"> <span>${_("FF_INVITEPAGE_Subject")}</span> </div>
 			<div class="containerTxtArea">
-			  <input type="text" class="default" name="subject" _default_text="Write your subject here..." value="${c.values.get("subject", "Write your subject here...")}"/>
+			  <input type="text" class="default" name="subject" _default_text="${_("FF_INVITEPAGE_Write your subject here...")}" value="${c.values.get("subject", _("FF_INVITEPAGE_Write your subject here..."))}"/>
 			</div>
 		</div>
 		<div class="padSpacer"></div>
@@ -103,28 +102,28 @@
 				%if 'message' in c.errors:
 					<span>${c.errors['message']}</span>
 				%else:
-					<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+					<span>${_("FF_INVITEPAGE_MESSAGE_Tip goes here")}</span>
 				%endif
 			</div>
 			
-			<div class="first"> <span>Your message</span> </div>
+			<div class="first"> <span>${_("FF_INVITEPAGE_Your message")}</span> </div>
 			<div class="containerTxtArea">
-			  <textarea name="message" class="default" _default_text="Write your message here...">${c.values.get("message", "Write your message here...")}</textarea>
+			  <textarea name="message" class="default" _default_text="${_("FF_INVITEPAGE_Write your message here...")}">${c.values.get("message", _("FF_INVITEPAGE_Write your message here..."))}</textarea>
 			</div>
 		</div>
-			<p class="info"><a href="#">How will my message be displayed?</a></p>
+			<p class="info"><a href="#">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
 		  </div>
 			<div class="inviteBottom">
 			   <div class="spacerPadLeft floatLeft">
-					<p>If you are inviting friends manually, here's a link to your pool:</p>
+					<p>${_("FF_INVITEPAGE_If you are inviting friends manually, here's a link to your pool:")}</p>
 					<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onfocus="this.select();"/>
 				</div>
 				
 				<div class="btnContainer">
 				%if len(c.pool.invitees) or c.workflow=="3":
-					<input type="button" id="invite_submitter" value="Invite Friends" class="primaryButton" />
+					<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Invite Friends")}" class="primaryButton" />
 				%else:
-					<input type="button" id="invite_submitter" value="Create Pool"  class="primaryButton" />
+					<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Create Pool")}"  class="primaryButton" />
 				%endif
 				</div>
 			</div>

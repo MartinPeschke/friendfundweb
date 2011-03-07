@@ -47,6 +47,15 @@ class FbController(BaseController):
 					log.error(str(e))
 				c.user.set_perm('facebook', 'stream_publish', True)
 			remove_block('fb_streampub')
+			if not c.user.has_perm('facebook', 'create_event'):
+				perms = FBUserPermissions(network='facebook', network_id=user_data['network_id'], create_event = True)
+				try:
+					g.dbm.set(perms)
+				except db_access.SProcException, e:
+					log.error(str(e))
+				c.user.set_perm('facebook', 'create_event', True)
+			remove_block('create_event')
+
 		return {'html':render('/myprofile/login_panel.html').strip()}
 	
 	def get_email(self):

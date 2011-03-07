@@ -66,7 +66,7 @@ class TwitterController(BaseController):
 					params = {'oauth_verifier':oauth_verifier})
 		except (urllib2.HTTPError, urllib2.URLError), e:
 			log.error("COULDNOT GET TOKEN FROM %s, %s", tw_helper.access_token_url, e)
-			return self.ERROR
+			return render('/closepopup.html')
 		token_data = dict(cgi.parse_qsl(content))
 		# Step 3. User Details
 		try:
@@ -93,4 +93,7 @@ class TwitterController(BaseController):
 			c.messages.append(msg)
 		c.reload = True
 		c.refresh_login = True
-		return render('/closepopup.html')
+		if not c.user.default_email:
+			return redirect(url(controller="myprofile", action="require_email"))
+		else:
+			return render('/closepopup.html')

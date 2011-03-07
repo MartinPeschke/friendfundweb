@@ -1,7 +1,7 @@
 <div class="arrowSubTab"></div>
-	<p class="inviter">Invite your Facebook friends.</p>
-	<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
-		<span>Log in with Facebook</span>
+	<p class="inviter">${_("FF_Invite your Facebook friends.")}</p>
+	<a title="${_("FF_Log in with Facebook")}" class="facebookBtn" onclick="fbLogin()">
+		<span>${_("FF_Log in with Facebook")}</span>
 	</a>
 	%if getattr(c, "error", False):
 	<p>${c.error}</p>

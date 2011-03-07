@@ -209,7 +209,6 @@ class Pool(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
 	_expiretime = 2
-	_cacheable = False
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
 			, GenericAttrib(int,		'p_id',				'p_id'						)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
@@ -241,12 +240,6 @@ class Pool(DBMappedObject):
 			]
 	def __init__(self, **kwargs):
 		super(self.__class__, self).__init__(**kwargs)
-	def get_invitee_json(self):
-		return simplejson.dumps(dict((pu.network_id, pu.network_id) for pu in self.invitees))
-	def get_comma_seperated_invitees(self):
-		return str(','.join([inv.network_id for inv in self.invitees if inv.network and inv.network.upper() == 'FACEBOOK']))
-	def get_pool_users(self):
-		return [pu.u_id for pu in self.participants]
 	
 	def get_invitees(self, network):
 		network = network.lower()
@@ -401,3 +394,18 @@ class GetMoreInviteesProc(DBMappedObject):
 			]
 	def fromDB(self, xml):
 		setattr(self, "has_more", len(self.list)==21) ####TODO: get proper boolean from database
+
+class UpdatePoolProc(DBMappedObject):
+	_get_proc = _set_proc   = 'app.update_pool'
+	_get_root = _set_root = 'POOL'
+	_unique_keys = ['p_url']
+	_cacheable = False
+	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
+			, DBMapper(Product, 		'product', 			'PRODUCT'					)
+			]
+	
+	def get_product_display_picture(self, type="POOL"):
+		if self.product:
+			return h.get_product_picture(self.product.picture, type)
+		else:
+			return h.get_product_picture(None, type)

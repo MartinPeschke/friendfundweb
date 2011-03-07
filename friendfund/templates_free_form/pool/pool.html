@@ -151,7 +151,7 @@
 	<div class="colLeft">
 		<div class="invited">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}
-				%if len(c.pool.participants) > 20:				
+				%if len(c.pool.participants) > 20:
 					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
 				%endif
 			</h4>
@@ -175,7 +175,7 @@
 					<img src="${c.pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
 				
 					%if c.pool.am_i_admin(c.user):
-						<a class="imgEdit" href="#">Edit Image</a>
+						<a class="imgEdit" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', pool_url = c.pool.p_url, action='picturepopup')}', {})">${_(u"FF_LINK_Edit Image")}</a>
 					%endif
 				</div>
 				%if request.merchant.type_is_group_gift:
@@ -183,9 +183,9 @@
 						<div class="avt">
 							<img width="48px" height="48px" alt="Harry McCarney" src="/s/user/ff/ec/ffec818cd181715164d6dc0aceb27fdb_PROFILE_S.jpg">
 						</div>
-						<span class="recipient">RECIPIENT</span>
+						<span class="recipient">${_(u"FF_POOL_PAGE_RECIPIENT")}</span>
 						<img src="/static/imgs/dummy/gad.gif" class="merchant" />
-						<span>MERCHANT</span>
+						<span>${_(u"FF_POOL_PAGE_MERCHANT")}</span>
 					</div>
 				%endif
 				</div>

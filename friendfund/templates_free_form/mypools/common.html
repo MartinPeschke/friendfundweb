@@ -7,3 +7,116 @@
 		<a href="${url(controller="mypools", action="friends")}" ${widgets.expression_quote(tab=="friends", "class", "selected")|n}>Friends' Pools <span class="spoiler"></span></a>
 	</div>
 </%def>
+
+
+<%def name="render_pool_card(pool)">
+<% 
+	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), "admin_name":c.user.name,
+			"no_contributors":pool.no_contributors, "days_left":14, "admin_name":"Liz Stevens", "product_name":"her Tennis club",
+			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
+			"days_left" : pool.get_remaining_days_tuple()[0]}
+%>
+<div class="poolRowWrap">
+	<div class="poolRow">
+		<div class="subPoolRow">
+			<div class="imgWrap">
+				%if pool.is_secret:
+					<div class="statusSecret">SECRET POOL</div>
+				%endif
+				<img src="${pool.get_product_pic("POOL")}" width="190px" height="150px"/>
+			</div>
+			<div class="textOne">
+				<a href="${locals['full_pool_url']}" class="link">${pool.title}</a>
+				<span>${_("Created by %(admin_name)s on %(closing_date)s")%locals}</span>
+				<p>${pool.description}</p>
+				%if pool.is_expired():
+					<div><p>This Pool has expired and will be automatically deleted.</p><a class="link" href="${url(controller="pool", pool_url = pool.p_url, action="delete")}">DELETE NOW&nbsp;&nbsp;&nbsp;X</a></div>
+				%endif
+			</div>
+			<div class="imgWrap">
+				<div class="multiTask">
+					%if pool.is_contributor:
+						<img src="/static/imgs/checked.png"/>
+					%endif
+					%if pool.is_commenter:
+						<img src="/static/imgs/cloud.png" style="margin:3px 0 0 10px"/>
+					%endif
+					<div class="floatRight">
+						<span class="link hider">PROMOTE
+							<div class="moreActionsWrapper">
+								<div class="moreActions hidden">
+									<div class="arrowMoreActions">
+										<img src="/static/imgs/arrowMoreAction.png" />
+									</div>
+									<h6>PROMOTE THIS POOL</h6>
+									<span class="link">Invite Friends</span>
+									<span>|</span>
+									<span class="link">Get Widget</span>
+									<h6>SHARE TOOLS</h6>
+									<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+									<div class="addthis_toolbox addthis_default_style">
+									  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+									  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+									  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+									  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+									 </div>
+								 </div>
+							</div>
+						</span>
+						<span>|</span>
+						<a href="${locals['full_pool_url']}" class="link" style="margin-right:0">VIEW</a>
+					</div>
+				</div>
+				
+				#### TODO: implement
+				%if not pool.is_admin:
+					<div class="vertSpacer">
+						<span>INVITED BY</span>
+						<div class="smallestImgWrap">
+							<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+						</div>
+					</div>
+				%endif
+				
+				<div class="vertSpacer">
+					<span>RECIPIENT</span>
+					<div class="smallestImgWrap">
+						<img width="24px" height="24px" src="${pool.get_receiver_profile_pic("PROFILE_S")}">
+					</div>
+				</div>
+				%if pool.product_picture_url:
+					<div class="vertSpacer">
+						<span>MERCHANT</span>
+						####TODO: implement
+						<img src="/static/imgs/dummy/gad-small.png" class="floatRight"/>
+					</div>
+				%endif
+			</div>
+		</div>
+		<div class="boxPoolDetails">
+			<div class="timeTracker floatLeft">
+				<div class="timeCounter">
+					<% progress = int(pool.funding_progress()*100) %>
+					<span>
+					####TODO: make this dependent on status rather than numbers
+					%if pool.is_closed():
+						SUCCESFUL
+					%else:
+						${progress}%
+					%endif
+					</span>
+					<div style="width: 100%" class="timeCounterRight">
+					<div style="width: ${pool.funding_progress()*100}%" class="timeCounterLeft ${pool.is_closed() and "green" or ""}"></div>
+					</div>
+				</div>
+			</div>
+			<div class="contributors"><span><strong>${pool.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
+			<div class="chippedIn"><span><strong>${h.format_currency(pool.get_total_contribution_float(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+			<div class="outstanding"><span><strong>${h.format_currency(pool.get_amount_left(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
+			<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+
+</%def>

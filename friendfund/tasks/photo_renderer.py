@@ -93,6 +93,25 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 	return 1
 
 @task
+def remote_save_product_image(newfname, tmpfname):
+	dbm = get_dbm(CONNECTION_NAME)
+	newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr'
+	filepath, filename = os.path.split(newfname)
+	newpath = os.path.join(upload_prodimg_folder, filepath)
+	if not os.path.exists(newpath):
+		os.makedirs(newpath)
+	try:
+		sizes = deque()
+		for name_ext, (target_w,target_h) in PRODUCT_PIC_FORMATS:
+			newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
+			newfname = os.path.join(newpath, newfname)
+			sizes.append((tmpfname, newfname, target_w,target_h))
+		crop_resize_original(sizes)
+		return 'ack'
+	finally:
+		os.unlink(tmpfname)
+
+@task
 def remote_save_image(email, tmpfname, newfname):
 	dbm = get_dbm(CONNECTION_NAME)
 	newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr'

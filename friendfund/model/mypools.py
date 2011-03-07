@@ -21,6 +21,9 @@ class GetMyPoolsProc(DBMappedObject):
 		self.nonadmin_pools = filter(lambda x: not x.is_admin and not x.is_closed(), self.pools)
 		self.closed_pools = filter(lambda x: x.is_closed(), self.pools)
 
+		self.ff_admin_pools = filter(lambda x: x.is_admin, self.pools)
+		self.ff_nonadmin_pools = filter(lambda x: not x.is_admin, self.pools)
+
 class UserFriend(DBMappedObject):
 	_cachable = False
 	_unique_keys = ['network', 'network_id']

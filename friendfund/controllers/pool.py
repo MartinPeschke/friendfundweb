@@ -374,7 +374,10 @@ class PoolController(ExtBaseController):
 		except:
 			return {"success":False}
 		c.participants = g.dbm.get(GetMoreInviteesProc,p_url=pool_url, page_no=c.page)
-		
 		return {"data":{"html":render("/pool/parts/invitees.html").strip()}}
-
+	
+	def delete(self, pool_url):
+		if c.pool.am_i_admin(c.user):
+			log.error("POOL_DELETE_NOT_IMPLEMENTED")
+		return redirect(request.referer)
 	

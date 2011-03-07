@@ -78,14 +78,14 @@
 		<div class="userProfile">
 			%if c.workflow == "2":
 				<div class="nonPoolHeader">
-					<h2>Create a Pool</h2>
+					<h2>${_("FF_POOLDETAILS_HEADER_Create a Pool")}</h2>
 				</div>
-				${widgets.renderSteps("Pool Details", "Invite friends to chip in", "Done!", 1)|n}
+				${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), _("FF_POOLDETAILS_HEADER_Done!"), 1)|n}
 			%else:
 				<div class="nonPoolHeader">
-					<h2>Step 2. Enter Your Pool Details</h2>
+					<h2>${_("FF_POOLDETAILS_HEADER_Step 2. Enter Your Pool Details")}</h2>
 				</div>
-				${widgets.renderSteps("What are you collecting money for?", "Enter pool details", "Invite friends to chip in", 2)|n}
+				${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_What are you collecting money for?"), _("FF_POOLDETAILS_HEADER_Enter pool details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), 2)|n}
 			%endif
 		<div class="clear"></div>
 		</div>
@@ -97,7 +97,7 @@
 		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}">
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
-			<h4>Pool Details</h4>
+			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
 			<div class="subHeadingSpecial"></div>
 			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
 				%if h.contains_one(["currency", "amount", "date"], c.errors):
@@ -120,12 +120,12 @@
 				%endif
 			
 			
-				<div class="first" style="margin-top:7px"><span>We Need</span>
+				<div class="first" style="margin-top:7px;"><span>${_("FF_POOLDETAILS_We Need")}</span>
 					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
 				</div>
 				<div class="greyInside" style="width:516px">
 					%if "amount" in c.errors or c.workflow != "1":
-						<input type="text" value="${c.values['amount']}" name="amount" class="small " />
+						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
 					%else:
 					<div class="editorCtn">
 						<span class="simpleeditable active mainValue">${c.values['amount']}
@@ -137,10 +137,10 @@
 					
 					
 					
-					<span style="margin-right:5px">by</span>
+					<span style="margin-right:5px">${_("FF_POOLDETAILS_by")}</span>
 					<input class="small" type="text" id="datepicker" value="${h.format_date(c.values['date'])}"/>
 					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values['date'])}"/>
-					<span class="darkGrey floatRight"><span class="bold" id="daysLeft">0</span> DAYS LEFT</span>
+					<span class="darkGrey floatRight">${_("FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT")|n}</span>
 				</div>
 			</div>
 			
@@ -151,15 +151,15 @@
 					%if 'title' in c.errors:
 						<span>${c.errors['title']}</span>
 					%else:
-						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+						<span>${_("FF_POOLDETAILS_TITLE_Tip goes here")}</span>
 					%endif
 				</div>
 			
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Pool Title</span>
+					<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
 				</div>
-					<input type="text" name="title" _default_text="Write your title here..." class="default" value="${c.values['title'] or "Write your title here..."}" />
+					<input type="text" name="title" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
 				</div>
 			</div>
 			
@@ -170,16 +170,16 @@
 					%if 'description' in c.errors:
 						<span>${c.errors['description']}</span>
 					%else:
-						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+						<span>${_("FF_POOLDETAILS_DESCRIPTION_Tip goes here")}</span>
 					%endif
 				</div>
 
             	<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Pool Description</span>
+					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
 				<div class="containerTxtArea">
-					<textarea name="description" _default_text="Write your description here..." class="default">${c.values['description'] or "Write your description here..."}</textarea>
+					<textarea name="description" _default_text="${_("FF_POOLDETAILS_Write your description here...")}" class="default">${c.values['description'] or _("FF_POOLDETAILS_Write your description here...")}</textarea>
 				</div>
                 </div>
 			</div>
@@ -208,26 +208,24 @@
 					<div id="homeurlexpander" class="home_expander">
 						<div class="imgCntSld"></div>
 						<div class="title">
-							<input type="text" class="ptitleSimpleEdit default" _default_text="${_("FF_DETAILS_Examples:www.cnn.com")}" 
-								id="tracking_link_edit" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_DETAILS_Examples:www.cnn.com")}"/>
+							<input type="text" class="ptitleSimpleEdit default" _default_text="${_("FF_POOLDETAILS_Examples:www.cnn.com")}" 
+								id="tracking_link_edit" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_POOLDETAILS_Examples:www.cnn.com")}"/>
 						</div>
 					</div>
 				</div>
 			%endif
 			<div class="clear"></div>
 		</div>
-		<h4>Receiving Your Money</h4>
+		<h4>${_("FF_POOLDETAILS_Receiving Your Money")}</h4>
 		<div class="subHeading"></div>
 		<div class="padLeft">
 			<div class="receiveMoney" id="settlementOptions">
-				<p>How do you want to receive your money once the Pool is funded? 
-					<span>You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else.</span>
+				<p>${_("FF_POOLDETAILS_How do you want to receive your money once the Pool is funded?")}
+					<span>${_("FF_POOLDETAILS_You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else.")}</span>
 				</p>
 				
 				%for i, so in enumerate(request.merchant.settlement_options):
-				<div>
-					
-				<input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
+				<div><input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
 					<label for="${so.name}_option">${_(so.name)} 
 					%if so.fee:
 						(costs you ${so.fee*100}%)
@@ -254,14 +252,11 @@ Do you want to add this to your Pool Funding Total?</span>
 		</div>
 		<div class="floatRight">
 			<div class="spacerButtons">
-				<span class="forward floatLeft" id="submitter"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
+				<span class="forward floatLeft" id="submitter"><span>${_("FF_POOLDETAILS_Invite Friends")}</span> <input type="submit" value="&gt;"/></span>
 			</div>
 		</div>
-	</form>
-</div>
-
-
+		</form>
+	</div>
 <div class="clear"></div>
-
 </div>
 
