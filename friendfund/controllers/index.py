@@ -53,10 +53,6 @@ class IndexController(BaseController):
 		c.recent_activity = g.dbm.get(RecentActivityStream)
 		c.uuid = str(uuid.uuid4())
 		return {"data":{"html":render("/widgets/ra_stream.html").strip()}}
-	
-	@jsonify
-	def login_panel(self):
-		return {'html':render('/myprofile/login_panel.html').strip()}
 
 	def close(self):
 		c.reload = False
@@ -88,7 +84,6 @@ class IndexController(BaseController):
 		schema = SignupForm()
 		try:
 			form_result = schema.to_python(signup, state = FriendFundFormEncodeState)
-			print form_result
 			c.signup_values = form_result
 			c.signup_values['network'] = 'EMAIL'
 			if ('profile_pic' in signup and isinstance(signup['profile_pic'], FieldStorage)):

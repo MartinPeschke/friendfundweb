@@ -4,7 +4,7 @@
 	<span class="panelclosing_x">x</span>
 		<div>
 			<h3>Login First</h3>
-			<form id="login_panel_form">
+			<form id="login_popup_form">
 				<div class="inputline">
 					<label for="login_email">Email Address</label>
 					<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
@@ -22,7 +22,7 @@
 					<a href="/myprofile/password" class="lostpass">Forgot Password?</a></div>
 				</div>
 			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_panel_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft" style="margin-top:7px">Log In</a>
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft" style="margin-top:7px">Log In</a>
 			<h3>Login with facebook or twitter</h3>
 			<div class="inputline">
 				<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
@@ -34,7 +34,7 @@
 			</a>
 			</div>
 
-			<p>Dont have an account yet? <a class="lostpass" href="/signup?furl=/">Sign up here</a></p>
+			<p>Dont have an account yet? <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">Sign up here</a></p>
 
         </div>
 	</div>

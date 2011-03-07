@@ -12,7 +12,9 @@
 				<li><a href="${url('home', protocol="http")}">Home</a></li>
 				<li><a href="#">Learn</a></li>
 				<li><a href="${url("pool_details", protocol="http", v=2)}">Create a pool</a></li>
-                <li><a href="#" class="hidden">Profile</a></li>
+				%if not c.user.is_anon:
+					<li><a href="/mypools">Pools</a></li>
+				%endif
 			</ul>
 			<div class="clear"></div>
 		</div>

@@ -9,7 +9,7 @@ from pylons.i18n.translation import set_lang
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod, WebLoginUserByEmail
+from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod, WebLoginUserByEmail, CreateEmailUserProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import PasswordRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
@@ -46,7 +46,6 @@ class MyprofileController(BaseController):
 		schema = LoginForm()
 		try:
 			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
-			print form_result
 			c.login_values = form_result
 			c.login_values['network'] = 'email'
 			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
@@ -56,15 +55,47 @@ class MyprofileController(BaseController):
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			return {"redirect":c.furl}
+			return {"reload":True}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			print c.login_errors
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 		except SProcWarningMessage, e:
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
 			return {'popup':render('/myprofile/login_popup.html').strip()}
+	@jsonify
+	def signuppopup(self):
+		c.furl = request.params.get('furl', '')
+		if not c.user.is_anon:
+			return {"reload":True}
+		c.signup_values = {}
+		c.signup_errors = {}
+		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
+		if not signup:
+			return {'popup':render('/myprofile/signup_popup.html').strip()}
+		schema = SignupForm()
+		try:
+			form_result = schema.to_python(signup, state = FriendFundFormEncodeState)
+			c.signup_values = form_result
+			c.signup_values['network'] = 'EMAIL'
+			c.user = g.dbm.call(CreateEmailUserProc(**c.signup_values), User)
+			c.user.set_network('email', 
+							network_id =  c.user.default_email,
+							access_token = None,
+							access_token_secret = None
+						)
+			c.user.network = 'email'
+			return {"reload":True}
+		except formencode.validators.Invalid, error:
+			c.signup_values = error.value
+			c.signup_errors = error.error_dict or {}
+			return {'popup':render('/myprofile/signup_popup.html').strip()}
+		except SProcWarningMessage, e:
+			c.signup_errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
+			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
+							% {'link_open':'<a href="/myprofile/password">', 'link_close':'</a>'})
+			return {'popup':render('/myprofile/signup_popup.html').strip()}
+	
 	
 	
 	@jsonify
