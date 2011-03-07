@@ -19,7 +19,7 @@
         <div class="stepOne"><span>1</span>Chip in</div>
         <div class="rightArrow"></div>
         <div class="leftArrow active"></div>
-        <div class="stepTwo active"><span>2</span>Payment info</div>
+        <div class="stepTwo active"><span>2</span>Payment Details</div>
         <div class="rightArrow active"></div>
         <div class="leftArrow "></div>
         <div class="stepThree"><span>3</span>Done!</div>
@@ -39,10 +39,10 @@
 			<h4>Confirm Your Contribution</h4>
 			<div class="borderBottom noBorder">
 				<div class="first" style="margin-top:8px">Your contribution</div>
-				<div class="greyInside widthAuto borderGrey">
+				<div class="greyInside " style="width:516px">
 					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
 					<span class="value">&euro;</span> 
-				</div>
+				
 				<p class="alignInput">MAX. CONTRIBUTION: <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 				<div id="verisign_contrib" class="floatRight">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
@@ -54,18 +54,18 @@
 					</tr>
 					</table>
 				</div>
+              </div>
 			</div>
 			<!--<a href="#" class="editContrib">Edit</a>-->
 		</div>
-		<div class="contentDetails">
-			<h6>When will I be charged?</h6>
-			You won't be charged anything unless this Pool is fully funded by ${h.format_date(c.pool.expiry_date, format="full")}. If it isn't 
-			funded in time, no one pays a single penny.<a href="#"> Learn More »</a>
-			<h6>Selected Payment Method</h6>
-			<div class="imgSpacer"> <img src="/static/imgs/${c.payment_method.code}.png"> </div>
+        <div class="contentDetails">
+				You will only be charged if this Pool reaches its total funding goal.
 		</div>
+		
+        
 		<div class="clear"></div>
 		<h4>Pay by CreditCard</h4>
+        <img src="/static/imgs/${c.payment_method.code}.png">
 		<div class="borderBottom noBorder ${('ccHolder' in c.errors) and "error" or ""}">
 			%if "ccHolder" in c.errors:
 			<div class="tip">
@@ -140,7 +140,7 @@
 				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" /><a href="#" class="smallForm">what's this?</a>
 			</div>
 		</div>
-		<input type="submit" value="Submit"/>
+		<input type="submit" value="Chip In Now" class="primaryButton"/>
 	</div>
 	</form>
 </div>

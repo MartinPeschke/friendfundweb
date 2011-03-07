@@ -1,40 +1,39 @@
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrame fixed">
+	<div class="whitePopupFrameLarge fixed">
 	<span class="panelclosing_x">x</span>
 		<div>
-			<h3>Login First</h3>
-			<form id="login_popup_form">
-				<div class="inputline">
-					<label for="login_email">Email Address</label>
-					<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
-					%if "email" in getattr(c, "login_errors", dict()):
-						<p class="error">${getattr(c, "login_errors", dict()).get("email")}</p>
-					%endif
-				</div>
-				<div class="inputline">
-					<label for="login_pwd">Password</label>
-					<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
-					%if "pwd" in getattr(c, "login_errors", dict()):
-						<p class="error">${getattr(c, "login_errors", dict()).get("pwd")}</p>
-					%endif
-				<div>
-					<a href="/myprofile/password" class="lostpass">Forgot Password?</a></div>
-				</div>
-			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft" style="margin-top:7px">Log In</a>
-			<h3>Login with facebook or twitter</h3>
-			<div class="inputline">
-				<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
+			<h3>Log in to invite your friends.</h3>
+			<div class="loginSocialWrap">
+				<a onclick="fbLogin()" class="facebookBtn" title="Log in with Facebook">
 					<span>Log in with Facebook</span>
 				</a>
-			</div><div class="inputline">
-			<a title="Log in with Twitter" class="twitterBtn" onclick="twInit('/')">
-				<span>Log in with Twitter</span>
-			</a>
-			</div>
 
-			<p>Dont have an account yet? <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">Sign up here</a></p>
+				<a onclick="twInit()" class="twitterBtn" title="Log in with Twitter">
+					<span>Log in with Twitter</span>
+				</a>
+				<div class="clear"></div>
+			</div>
+            <p class="info">Your privacy is sacred to us. This information won't ever be shared 
+without your explicit permission.</p>
+<h4>Log in with a password instead</h4>
+<div class="inputFields">
+	<div class="inputName floatLeft error">
+    	<label>Name or Email</label>
+        <input type="text" />
+    </div>
+    <div class="inputPass floatLeft">
+    	<label>Password</label>
+        <input type="text" />
+        <a class="link" href="/myprofile/password">Forgot your password?</a>
+    </div>
+    <div class="clear"></div>
+</div>
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">Log In</a>
+			
+			
+
+			<p>Don't have an account yet? <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">Sign up now</a></p>
 
         </div>
 	</div>

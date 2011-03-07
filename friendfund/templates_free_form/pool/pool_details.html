@@ -98,7 +98,7 @@
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>Pool Details</h4>
-			<div class="subHeading"></div>
+			<div class="subHeadingSpecial"></div>
 			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
 				%if h.contains_one(["currency", "amount", "date"], c.errors):
 					<div class="tip">
@@ -120,21 +120,24 @@
 				%endif
 			
 			
-				<div class="first" style="margin-top:8px; width:135px"><span>We Need</span>
+				<div class="first" style="margin-top:7px"><span>We Need</span>
 					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
 				</div>
-				<div class="greyInside" style="width:521px">
+				<div class="greyInside" style="width:516px">
 					%if "amount" in c.errors or c.workflow != "1":
-						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
+						<input type="text" value="${c.values['amount']}" name="amount" class="small " />
 					%else:
-						<span class="simpleeditable active">${c.values['amount']}
+					<div class="editorCtn">
+						<span class="simpleeditable active mainValue">${c.values['amount']}
 							<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
+							<span style="margin:0 0 0 5px" class="link ">Edit</span>
 						</span>
+					</div>
 					%endif
 					
 					
 					
-					<span style="margin-left:40px; margin-right:5px">by</span>
+					<span style="margin-right:5px">by</span>
 					<input class="small" type="text" id="datepicker" value="${h.format_date(c.values['date'])}"/>
 					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values['date'])}"/>
 					<span class="darkGrey floatRight"><span class="bold" id="daysLeft">0</span> DAYS LEFT</span>
@@ -181,9 +184,13 @@
                 </div>
 			</div>
 			%if c.values.get('tracking_link'):
-				<div class="borderBottom">
+				<div class="generalPadding">
+				<div class="first">
+						<span>Pool Image</span>
+					</div>
 					<div id="homeurlexpander" class="home_expander">
 						<div class="title simpleeditable active">${h.word_truncate_by_letters(c.values.get("product_name", ""), 50)}
+							<span class="link"> Edit</span>
 							<input type="hidden" _type="INPUT" _length="50" class="ptitleSimpleEdit" id="product_name_edit" name="product_name" value="${c.values.get("product_name", "")}"/></div>
 						<a class="address smallAddress" href="${c.values['tracking_link']}">${h.word_truncate_by_letters(c.values['tracking_link'], 40)}
 							<input type="hidden" name="tracking_link" value="${c.values['tracking_link']}" /></a>
@@ -193,7 +200,11 @@
 				</div>
 			%else:
 		
-				<div class="borderBottom">
+				<div class="generalPadding">
+					<div class="first">
+						<span>Pool Image</span>
+					</div>
+
 					<div id="homeurlexpander" class="home_expander">
 						<div class="imgCntSld"></div>
 						<div class="title">
@@ -214,12 +225,21 @@
 				</p>
 				
 				%for i, so in enumerate(request.merchant.settlement_options):
-				<div><input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
+				<div>
+					
+				<input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
 					<label for="${so.name}_option">${_(so.name)} 
 					%if so.fee:
 						(costs you ${so.fee*100}%)
 					%endif 
 					</label>
+					<span class="free">(FREE)</span>
+					<div class="verticalTip">
+					<div class="arrow"></div>
+						<span>If choosing this option, you will be charged a 2% fee. 
+Do you want to add this to your Pool Funding Total?</span>
+<div style="margin-top:5px"><input type="checkbox" /><span class="bold">Yes, please add the 2% to my Funding Total</span></div>
+					</div>
 				</div>
 					%if so.required_fields:
 						<div id="${so.name}_form" class="requiredForm ${i and "hidden" or ""}">
@@ -232,7 +252,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="padLeft">
+		<div class="floatRight">
 			<div class="spacerButtons">
 				<span class="forward floatLeft" id="submitter"><span>Invite Friends</span> <input type="submit" value="&gt;"/></span>
 			</div>
