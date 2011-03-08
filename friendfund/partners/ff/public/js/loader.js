@@ -11,7 +11,7 @@ parseSelectables = function(rootnode, className){
 onSubmitCleaner = function(rootnode){
 	dojo.query("input[_default_text],textarea[_default_text]", rootnode).forEach(
 		function(element){
-			if(dojo.attr(element, "_default_text") == element.value){element.value=""}
+			if(dojo.attr(element, "_default_text") === element.value){element.value="";}
 		});
 	return true;
 };
@@ -34,8 +34,8 @@ parseSimpleEditables = function(rootnode){
 							field.value = newval;
 							dojo.empty(root);
 							root.innerHTML = length?newval.substr(0,length):newval;
-							dojo.forEach(_backups, function(elem){root.appendChild(elem)});
-							if(length&&newval.length>length)root.innerHTML=root.innerHTML+"...";
+							dojo.forEach(_backups, function(elem){root.appendChild(elem);});
+							if(length&&newval.length>length){root.innerHTML=root.innerHTML+"...";}
 							parseSimpleEditables(rootnode);
 						};
 					evts.push(dojo.connect(editor, "onchange", f));
@@ -84,12 +84,12 @@ parseEditables = function(rootnode){
 };
 
 popup_esc_handler = [];
-esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
+esc_handler_f = function(callback, evt){if(evt.keyCode === 27){dojo.hitch(this, callback(evt));}};
 accessability = function(callbackRet, callbackEsc, evt){
-	if(evt.keyCode == 13){dojo.hitch(this, callbackRet(this, evt));}
-	else if(evt.keyCode == 27){dojo.hitch(this, callbackEsc(this, evt));}
+	if(evt.keyCode === 13){dojo.hitch(this, callbackRet(this, evt));}
+	else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
 };
-closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[]};
+closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
 displayPopup = function(html){
 	dojo.place(html, dojo.byId("generic_popup"), "only" );
 	dojo.query(".panelclosing_x,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
@@ -118,7 +118,7 @@ parseDefaultsInputs = function(rootnode){
 					this.value = dojo.attr(this, '_default_text');
 				}
 		}).forEach(function(elt){
-			if(elt.value!=dojo.attr(elt, "_default_text"))dojo.removeClass(elt, "default");
+			if(elt.value!=dojo.attr(elt, "_default_text")){dojo.removeClass(elt, "default");}
 		});
 };
 
@@ -130,9 +130,9 @@ onLoadPagelets = function(root_node){
 };
 
 findParent = function(rootnode, className){
-	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className)}
-	else if(dojo.hasClass(rootnode, className))return rootnode;
-	else return null;
+	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className);}
+	else if(dojo.hasClass(rootnode, className)){return rootnode;}
+	else {return null}
 }
 addClassToParent = function(rootnode, className, addClass){
 	var node = findParent(rootnode, className);
@@ -155,14 +155,14 @@ displayMessage = console.log;
 
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
-				if ('clearblocks' in data){closeBlocks(data.clearblocks);}
-				if ('clearmessage' in data){clear_messages();}
-				if ('message' in data){displayMessage(data.message);}
-				if (callback && 'html' in data){callback(data.html);}
-				if (callback && 'data' in data){callback(data.data);}
-				if ('redirect' in data){window.location.href = data.redirect;}
-				if ('popup' in data){displayPopup(data.popup);}
-				if ('reload' in data){page_reloader();}
+				if (data.clearblocks !== undefined){closeBlocks(data.clearblocks);}
+				if (data.clearmessage !== undefined){clear_messages();}
+				if (data.message !== undefined){displayMessage(data.message);}
+				if (callback && data.html !== undefined){callback(data.html);}
+				if (callback && data.data !== undefined){callback(data.data);}
+				if (data.redirect !== undefined){window.location.href = data.redirect;}
+				if (data.popup !== undefined){displayPopup(data.popup);}
+				if (data.reload !== undefined){page_reloader();}
 	};
 };
 
@@ -329,9 +329,10 @@ var pic_judger = function(imgContainer, imgs, preselected, evt){
 	if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
 		dojo.addClass(evt.target, "forbidden");
 	}else{
-		dojo.byId("pictureCounter").innerHTML=++picCounter;
+		picCounter+=1;
+		dojo.byId("pictureCounter").innerHTML=picCounter;
 		dojo.addClass(evt.target, "allowed");
-		if(!preselected&&!accepted||evt.target.src==preselected){
+		if(!preselected&&!accepted||evt.target.src===preselected){
 			accepted = true;
 			dojo.removeClass(evt.target, "hidden");
 			dojo.byId("pictureCounterPos").innerHTML=dojo.query(".imgCntSld img.allowed", "homeurlexpander").indexOf(evt.target)+1;
@@ -396,7 +397,7 @@ var resetParser = function(rootnode){
 
 var loadSuccess = function(rootnode, data){
 	dojo.query(".loading", "homeurlexpander").orphan();
-	if(data.success == false){
+	if(data.success === false){
 		resetParser("homeurlexpander");
 	} else {
 		var edithandler;

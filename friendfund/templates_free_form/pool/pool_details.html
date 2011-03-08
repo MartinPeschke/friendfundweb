@@ -242,13 +242,15 @@
 						<span class="free">(FREE)</span>
 					%endif 
 					</label>
-					<div class="verticalTip">
+					%if so.fee:
+					<div class="verticalTip ${i and "hidden" or ""}">
 					<div class="arrow"></div>
 						<span>
 							${_("FF_POOLDETAILS_If choosing this option, you will be charged a %s%% fee. Do you want to add this to your Pool Funding Total?")%(so.fee*100)}
 						</span>
 						<div style="margin-top:5px"><input type="checkbox" name="charge_settlement" value="1" /><span class="bold">${_("FF_POOLDETAILS_Yes, please add the %s%% to my Funding Total")%(so.fee*100)}</span></div>
 					</div>
+					%endif
 					%if so.required_fields:
 						<div id="${so.name}_form" class="requiredForm hideable ${i and "hidden" or ""}">
 							%for rf in so.required_fields:
