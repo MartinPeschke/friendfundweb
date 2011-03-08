@@ -10,6 +10,7 @@
 
 <div class="subHeader">
 	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
 	<div class="colLeftLogin floatLeft">
 		<div class="loginPanelBig">
 			<h3>${_("FF_LOGIN_You're just seconds away from your new account!")}</h3>

@@ -151,7 +151,7 @@
 					
 					
 					<span style="margin-right:5px">${_("FF_POOLDETAILS_by")}</span>
-					<input class="small" type="text" id="datepicker" value="${h.format_date(c.values.get('date'))}"/>
+					<input class="small" readonly="readonly" type="text" id="datepicker" value="${h.format_date(c.values.get('date'))}"/>
 					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
 					<span class="darkGrey floatRight">${_("FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT")|n}</span>
 				</div>
@@ -284,7 +284,7 @@
 		</div>
 		<div class="floatRight">
 			<div class="spacerButtons">
-				<span class="forward floatLeft" id="submitter"><span>${_("FF_POOLDETAILS_Invite Friends")}</span> <input type="submit" value="&gt;"/></span>
+				<span class="forward floatLeft" id="submitter"><span>${_("FF_POOLDETAILS_Invite Friends")}</span> <input type="button" value="&gt;"/></span>
 			</div>
 		</div>
 		</form>

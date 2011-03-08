@@ -75,9 +75,11 @@ class IndexController(BaseController):
 	def login(self):
 		return self.signup()
 	def signup(self):
-		c.furl = request.params.get('furl', '')
+		c.furl = request.params.get('furl', url("home"))
 		c.signup_values = {}
 		c.signup_errors = {}
+		if not c.user.is_anon:
+			return redirect(c.furl)
 		if request.method != 'POST':
 			return self.render('/myprofile/login_screen.html')
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)

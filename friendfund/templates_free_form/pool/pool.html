@@ -52,7 +52,7 @@
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
 <%def name="onloadscripts()">
-	//onLoadPagelets("commentSection");
+	onLoadPagelets("commentSection");
 	parseDefaultsInputs("commentSection");
 	dojo.query(".popuplink", "chipin_box").onclick(dojo.hitch(null, loadPopup));
 	connectpool();
@@ -163,29 +163,29 @@
       <div class="generalBoxRight">
       <h2>Share the pool</h2>
       	<div class="iconContainer">
-		 <div class="addthis_toolbox addthis_default_style">
-		  <a class="addthis_button_facebook"></a>
-		  <a class="addthis_button_twitter"></a>
-		  <a class="addthis_button_email"></a>
-		  <a class="addthis_button_linkedin"></a>
-		  <a class="addthis_button_stumbleupon"></a>
-		  <a class="addthis_button_tumblr"></a>
-		  <a class="addthis_button_expanded"></a>
-		 </div>
+			<div class="addthis_toolbox addthis_default_style">
+				<a class="addthis_button_facebook"></a>
+				<a class="addthis_button_twitter"></a>
+				<a class="addthis_button_email"></a>
+				<a class="addthis_button_linkedin"></a>
+				<a class="addthis_button_stumbleupon"></a>
+				<a class="addthis_button_tumblr"></a>
+				<a class="addthis_button_expanded"></a>
+			</div>
 		<div class="clear"></div>
-      	</div>
-      </div>
-       <div class="colRightWhite"></div>
-      <div class="generalBoxRight">
-      	<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
-      	<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
-      </div>
-       <div class="colRightWhite"></div>
-   </div>
+		</div>
+		</div>
+		<div class="colRightWhite"></div>
+		<div class="generalBoxRight">
+			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
+			<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
+		</div>
+		<div class="colRightWhite"></div>
+	</div>
    
    
 	<div class="colLeft">
-		<div class="invited">
+		<div class="invited" id="poolInviteesDisplay">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}
 				%if len(c.pool.participants) > 20:
 					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>

@@ -17,7 +17,7 @@
 				<a href="/myprofile/password" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
 			</div>
 		</form>
-		<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('loginPanelContent')))" class="primaryButton floatLeft" style="margin-top:7px">${_("FF_LOGINBUTTON_Log In")}</a>
+		<a onclick="submitLoginPanel(this)" class="primaryButton floatLeft" style="margin-top:7px">${_("FF_LOGINBUTTON_Log In")}</a>
 		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
 		<div class="inputline">
 			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="fbLogin()">
@@ -40,6 +40,7 @@
 	<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
 	
 	<script type="text/javascript">
+	submitLoginPanel = function(){xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('loginPanelContent')))};
 	closeLoginPanel = function(evt){
 		if(dojo.hasClass("loginlink", "active")){
 			dojo.removeClass("loginlink", "active");
@@ -55,7 +56,7 @@
 			dojo.removeClass("loginPanelContent", "hidden");
 		}
 	}
-	document.onkeydown = function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}};
+	document.onkeydown = function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}else if(evt.keyCode==13&&findParent(evt.target, "loginPanel")){submitLoginPanel();}};
 	document.onclick = function(evt){if(evt.target.id!="loginlink"&&!findParent(evt.target, "loginPanel")){closeLoginPanel(evt);}};
 	</script>
 %else:

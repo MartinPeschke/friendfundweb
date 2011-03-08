@@ -21,10 +21,6 @@ ${self.render_html()}
 		${links.css('site.css')}
 		${links.css('staging.css')}
 		${links.js('loader.js')}
-		<script type="text/javascript"> 
-			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
-			page_reloader = function(){window.location.reload();};
-		</script>
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
 </%def>
@@ -35,9 +31,12 @@ ${self.render_html()}
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" type="text/javascript"></script>
 	<div id="generic_popup"></div>
 	<div id="fb-root"></div>
+	<script type="text/javascript"> 
+		login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
+		page_reloader = function(){window.location.reload();};
+	</script>
 	${self.scripts()}
 	<script type="text/javascript">
-		page_reloader = function(){window.location.reload();};
 		dojo.addOnLoad( function() {
 			fbInit("${app_globals.FbApiKey}", ${str(c.user.has_tried_logging_in_with("facebook")).lower()});
 			${self.onloadscripts()}
