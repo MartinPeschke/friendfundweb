@@ -7,7 +7,7 @@ from pylons.decorators import jsonify
 from pylons.i18n.translation import set_lang
 
 from friendfund.lib.auth.decorators import logged_in
-from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod, WebLoginUserByEmail, CreateEmailUserProc
 from friendfund.model.common import SProcWarningMessage
@@ -123,10 +123,10 @@ class MyprofileController(BaseController):
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			return {'html':render('/myprofile/login_panel.html').strip()}
+			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
 		except SProcWarningMessage, e:
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'html':render('/myprofile/login_panel.html').strip()}
+			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
 	
 	
 	
