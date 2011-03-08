@@ -26,27 +26,62 @@ parseSimpleEditables = function(rootnode){
 					var field = dojo.query("input[type=hidden]", root)[0];
 					var length = dojo.attr(field, "_length");
 					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", "class":field.className, _length:length, value:field.value, name:field.name, id:field.id});
-					var evts = [];
+					var evts = [],  _backups = [];
 					var f = function(editevt){
 							dojo.forEach(evts, dojo.disconnect);
 							dojo.addClass(root,'active');
 							var newval=editevt.target.value;
-							var newfield = dojo.create("INPUT", {type:"hidden", _type:dojo.attr(field, "_type"), _length:length, "class":editevt.target.className, value:newval, name:editevt.target.name, id:editevt.target.id});
+							field.value = newval;
 							dojo.empty(root);
 							root.innerHTML = length?newval.substr(0,length):newval;
+							dojo.forEach(_backups, function(elem){root.appendChild(elem)});
 							if(length&&newval.length>length)root.innerHTML=root.innerHTML+"...";
-							root.appendChild(newfield);
 							parseSimpleEditables(rootnode);
 						};
 					evts.push(dojo.connect(editor, "onchange", f));
 					evts.push(dojo.connect(editor, "onblur", f));
+					_backups  = dojo.query('> *', root).orphan();
 					dojo.empty(root);
 					root.appendChild(editor);
 					editor.focus();
 				});
 		});
-}
-
+};
+parseEditables = function(rootnode){
+	dojo.query(".editable.active", rootnode).forEach(
+		function(root){
+			dojo.removeClass(root,'active');
+			var d = dojo.connect(root, "onclick", 
+				function(evt){
+					xhrPost('/d/e/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+						function(data){
+							dojo.place(data,root,"only");
+							dojo.disconnect(d);
+							dojo.query('input[type=text],select,textarea', root).forEach(
+								function(editor){
+									editor.focus();
+									var evts = [];
+									var f = function(editevt){
+											dojo.forEach(evts, dojo.disconnect);
+											dojo.addClass(root,'active');
+											if(editor.tagName=='SELECT'){
+												dojo.attr(root, '_value', editevt.target.options[editevt.target.selectedIndex].value);
+											} else {
+												dojo.attr(root, '_value', editevt.target.value);
+											}
+											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+												function(data){
+													root.innerHTML = data;
+													parseEditables(rootnode);
+												});
+											};
+									evts.push(dojo.connect(editor, "onchange", f));
+									evts.push(dojo.connect(editor, "onblur", f));
+								});
+						});
+				});
+		});
+};
 
 popup_esc_handler = [];
 esc_handler_f = function(callback, evt){if(evt.keyCode == 27){dojo.hitch(this, callback(evt));}};
@@ -282,7 +317,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 
 /*===========================================*/
 var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i;
-var picCounter = 0, accepted = false;
+var picCounter = 0, accepted = false, _parser_backups = [];
 
 var createAppendPicture = function(imgContainer, imgs, preselected){
 	var img = dojo.create("IMG", {src:imgs.shift(), "class":'hidden'});
@@ -335,7 +370,7 @@ var renderPictures = function(imgs, preselected){
 	createAppendPicture(imgContainer, imgs, preselected);
 	return imgContainer;
 };
-var renderController = function(){
+var renderController = function(rootnode){
 	var left = dojo.create("SPAN", {"class":"smallLeft", "innerHTML":"<span></span>"});
 	var right = dojo.create("SPAN", {"class":"smallRight", "innerHTML":"<span></span>"});
 	left.onclick = dojo.hitch(null, slide, -1);
@@ -344,13 +379,25 @@ var renderController = function(){
 			innerHTML:'<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span>'});
 	controller.appendChild(left);
 	controller.appendChild(right);
+	if(rootnode){
+		var parsercloser = dojo.create("A", {"class":"parsercloser", "innerHTML":"X"});
+		parsercloser.onclick = dojo.hitch(null, resetParser,rootnode);
+		controller.appendChild(parsercloser);
+	}
 	return controller;
 };
+
+var resetParser = function(rootnode){
+	dojo.empty("homeurlexpander");
+	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem)});
+	picCounter = 0; accepted = false; _parser_backups = [];
+	connectURLParser(rootnode);
+}
 
 var loadSuccess = function(rootnode, data){
 	dojo.query(".loading", "homeurlexpander").orphan();
 	if(data.success == false){
-		connect_home("rootnode");
+		resetParser("homeurlexpander");
 	} else {
 		var edithandler;
 		var editProduct = function(evt){
@@ -374,10 +421,10 @@ var loadSuccess = function(rootnode, data){
 		div.appendChild(dojo.create("INPUT", {type:"hidden", value:data.url, name:'tracking_link'}));
 		dojo.place(div, "homeurlexpander", "only");
 		parseSimpleEditables(div);
-		div.appendChild(renderController());
+		div.appendChild(renderController(rootnode));
 	}
 };
-var connect_home = function(rootnode){
+var connectURLParser = function(rootnode){
 	var dn = dojo.byId(rootnode), ht1, ht2,
 		parseInput = function(type, evt){
 			evt.target.value.split(" ").some(function(elt){
@@ -386,6 +433,7 @@ var connect_home = function(rootnode){
 					dojo.disconnect(ht1);dojo.disconnect(ht2);
 					var div = dojo.create("DIV", {"class":"loading"});
 					div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
+					_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
 					dojo.place(div, "homeurlexpander", "last");
 					dojo.removeClass("homeurlexpander", "hidden");
 					dojo.xhrPost({url:url, content:{query:query},

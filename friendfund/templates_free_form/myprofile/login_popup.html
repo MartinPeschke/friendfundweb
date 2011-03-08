@@ -14,21 +14,28 @@
 				</a>
 				<div class="clear"></div>
 			</div>
-            <p class="info">Your privacy is sacred to us. This information won't ever be shared 
-without your explicit permission.</p>
-<h4>Log in with a password instead</h4>
-<div class="inputFields">
-	<div class="inputName floatLeft error">
-    	<label>Name or Email</label>
-        <input type="text" />
-    </div>
-    <div class="inputPass floatLeft">
-    	<label>Password</label>
-        <input type="text" />
-        <a class="link" href="/myprofile/password">Forgot your password?</a>
-    </div>
-    <div class="clear"></div>
-</div>
+            <p class="info">Your privacy is sacred to us. This information won't ever be shared without your explicit permission.</p>
+			<h4>Log in with a password instead</h4>
+			<form id="login_popup_form">
+			<div class="inputFields">
+				<div class="inputName floatLeft ${"email" in c.login_errors and "error" or ""}">
+					<label for="login_email">Email</label>
+					<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
+					%if "email" in c.login_errors:
+						<p class="error">${c.login_errors.get("email")}</p>
+					%endif
+				</div>
+				<div class="inputPass floatLeft ${"pwd" in c.login_errors and "error" or ""}">
+					<label for="login_pwd">Password</label>
+					<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
+					<a class="link" href="/myprofile/password">Forgot your password?</a>
+					%if "pwd" in c.login_errors:
+						<p class="error">${c.login_errors.get("pwd")}</p>
+					%endif
+				</div>
+				<div class="clear"></div>
+			</div>
+			</form>
 			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">Log In</a>
 			
 			

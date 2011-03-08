@@ -14,32 +14,39 @@
 				</a>
 				<div class="clear"></div>
 			</div>
-            <p class="info">Your privacy is sacred to us. This information won't ever be shared 
-without your explicit permission.</p>
-<h4>Sign up with a password instead</h4>
-<div class="inputFields Fw">
-	<div class="error">
-    	<label>Your Name</label>
-        <input type="text" />
-    </div>
-    <div>
-    	<label>Email</label>
-        <input type="text" />
-        
-    </div>
-    <div>
-    	<label>Password</label>
-        <input type="text" />
-        <p class="info">Min 6 characters. Letters and numbers only please.</p>
-        
-    </div>
-    <div class="clear"></div>
-</div>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">Sign Up</a>
-			
-			
-
-			<p><a class="lostpass" onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'signup_popup_form', place_element(dojo.byId('accountcontainer')))">&laquo; Back to  Login</a></p>
+            <p class="info">Your privacy is sacred to us. This information won't ever be shared without your explicit permission.</p>
+			<h4>Sign up with a password instead</h4>
+			<form id="signup_popup_form">
+			<div class="inputFields Fw">
+				<div class="${"name" in c.signup_errors and "error" or ""}">
+					<label for="login_name">Your Name</label>
+					<input type="text" value="${getattr(c, "signup_values", dict()).get("name")}" name="signup.name" id="login_name"/>
+					%if "name" in c.signup_errors:
+						<p class="error">${c.signup_errors.get("name")}</p>
+					%endif
+				</div>
+				<div class="${"email" in c.signup_errors and "error" or ""}">
+					<label for="login_email">Email Address</label>
+					<input type="text" value="${getattr(c, "signup_values", dict()).get("email")}" name="signup.email" id="login_email"/>
+					%if "email" in c.signup_errors:
+						<p class="error">${c.signup_errors.get("email")}</p>
+					%endif
+					
+				</div>
+				<div class="${"pwd" in c.signup_errors and "error" or ""}">
+					<label for="login_pwd">Password</label>
+					<input type="password" value="${getattr(c, "signup_values", dict()).get("pwd")}" name="signup.pwd" id="login_pwd"/>
+					%if "pwd" in c.signup_errors:
+						<p class="error">${c.signup_errors.get("pwd")}</p>
+					%endif
+					<p class="info">Min 6 characters. Letters and numbers only please.</p>
+					
+				</div>
+				<div class="clear"></div>
+			</div>
+			</form>
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='signuppopup')}', 'signup_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">Sign Up</a>
+			<p><a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='loginpopup')}', {})">&laquo; Back to  Login</a></p>
 
         </div>
 	</div>

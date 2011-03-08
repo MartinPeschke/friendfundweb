@@ -24,8 +24,15 @@ def extract_imgs_from_soup(img):
 
 def get_title_descr_imgs(query, product_page):
 	soup = BeautifulSoup(product_page.read())
-	params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
+	params = dict((t.get('name').lower(), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 	descr = params.get("description", params.get("og:description"))
+	if not descr:
+		descr = soup.find('h1') or soup.find('h2') or soup.find('h3') or soup.find('h4')
+		if descr:
+			descr = descr.text
+		else: 
+			descr = None
+		
 	name = soup.find('title')
 	name = name and name.text or params.get("og:title")
 	if not (name or descr):

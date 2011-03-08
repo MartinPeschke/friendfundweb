@@ -9,6 +9,7 @@
 	parseDefaultsInputs("poolDetails");
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
+	parseEditables("poolDetails");
 	
 	var today = new Date();
 	var defaultDateOffset = 14;
@@ -44,7 +45,7 @@
 		hue.appendChild(renderController());
 		hue.insertBefore(renderPictures(["${'","'.join(c.values['img_list'])|n}"], "${c.values['product_picture']}"), hue.firstChild);
 	%else:
-		connect_home("tracking_link_edit");
+		connectURLParser("tracking_link_edit");
 	%endif
 	toggleSettlement = function(id){
 		var _id = id;
@@ -127,12 +128,12 @@
 					%if "amount" in c.errors or c.workflow != "1":
 						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
 					%else:
-					<div class="editorCtn">
-						<span class="simpleeditable active mainValue">${c.values['amount']}
-							<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
-							<span style="margin:0 0 0 5px" class="link ">Edit</span>
-						</span>
-					</div>
+						<div class="editorCtn">
+							<span class="simpleeditable active mainValue">${c.values['amount']}
+								<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
+								<span style="margin:0 0 0 5px" class="link ">Edit</span>
+							</span>
+						</div>
 					%endif
 					
 					
@@ -159,7 +160,16 @@
 				<div class="first">
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
 				</div>
-					<input type="text" name="title" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
+				
+					%if "title" in c.errors or c.workflow != "1":
+						<input type="text" name="title" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
+					%else:
+						<span class="simpleeditable active mainValue">${c.values['title']}
+							<input _type="INPUT" type="hidden" value="${c.values['title']}" name="title" id="titleInput" />
+							<span style="margin:0 0 0 5px" class="link ">Edit</span>
+						</span>
+					%endif
+				
 				</div>
 			</div>
 			
@@ -199,12 +209,10 @@
 					</div>
 				</div>
 			%else:
-		
 				<div class="generalPadding">
 					<div class="first">
 						<span>Pool Image</span>
 					</div>
-
 					<div id="homeurlexpander" class="home_expander">
 						<div class="imgCntSld"></div>
 						<div class="title">
@@ -225,27 +233,30 @@
 				</p>
 				
 				%for i, so in enumerate(request.merchant.settlement_options):
-				<div><input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
+				<div class="hiderParent">
+					<input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement('${so.name}_form');"/>
 					<label for="${so.name}_option">${_(so.name)} 
 					%if so.fee:
 						(costs you ${so.fee*100}%)
+					%else:
+						<span class="free">(FREE)</span>
 					%endif 
 					</label>
-					<span class="free">(FREE)</span>
 					<div class="verticalTip">
 					<div class="arrow"></div>
-						<span>If choosing this option, you will be charged a 2% fee. 
-Do you want to add this to your Pool Funding Total?</span>
-<div style="margin-top:5px"><input type="checkbox" /><span class="bold">Yes, please add the 2% to my Funding Total</span></div>
+						<span>
+							${_("FF_POOLDETAILS_If choosing this option, you will be charged a %s%% fee. Do you want to add this to your Pool Funding Total?")%(so.fee*100)}
+						</span>
+						<div style="margin-top:5px"><input type="checkbox" name="charge_settlement" value="1" /><span class="bold">${_("FF_POOLDETAILS_Yes, please add the %s%% to my Funding Total")%(so.fee*100)}</span></div>
 					</div>
-				</div>
 					%if so.required_fields:
-						<div id="${so.name}_form" class="requiredForm ${i and "hidden" or ""}">
+						<div id="${so.name}_form" class="requiredForm hideable ${i and "hidden" or ""}">
 							%for rf in so.required_fields:
 								<div class="smallLabel"><label>${_(so.name)} ${_(rf.name)}</label><input type="text" name="${so.name}.${rf.name}" /></div>
 							%endfor
 						</div>
 					%endif
+				</div>
 				%endfor
 			</div>
 			<div class="clear"></div>
