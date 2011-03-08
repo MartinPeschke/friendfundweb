@@ -39,15 +39,21 @@
 	  formElements:{"datepicker":fmtDate},
 	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
 	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
+	  rangeHigh:(today.getFullYear()+5) + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
 	  callbackFunctions:{"dateset":[
 			function(params){
 				if(params.date){
 					dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
 					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, true);
+					if(dojo.hasClass("date_error_row", "error")&&dojo.query(".tip", "date_error_row").length===0){dojo.removeClass("date_error_row", "error")}
+					
 				} else {
 					var nDate = new Date(dojo.byId("dateValue").value);
-					dojo.byId("datepicker").value=datePickerController.printFormattedDate(nDate, fmtDate, true);
-					dojo.byId("daysLeft").innerHTML=Math.ceil((nDate.getTime()-(today).getTime())/(24*3600*1000));
+					//dojo.byId("datepicker").value="---"; //datePickerController.printFormattedDate(nDate, fmtDate, true);
+					dojo.byId("daysLeft").innerHTML="---"; //Math.ceil((nDate.getTime()-(today).getTime())/(24*3600*1000));
+					dojo.byId("dateValue").value="";
+					var elem = dojo.byId("date_error_row");
+					if(!dojo.hasClass(elem, "error")){dojo.addClass(elem, "error")}
 				}
 			}
 		]}
@@ -106,7 +112,7 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
 			<div class="subHeadingSpecial"></div>
-			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}">
+			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}" id="date_error_row">
 				%if h.contains_one(["currency", "amount", "date"], c.errors):
 					<div class="tip">
 						<div class="arrow"></div>
@@ -145,8 +151,8 @@
 					
 					
 					<span style="margin-right:5px">${_("FF_POOLDETAILS_by")}</span>
-					<input class="small" type="text" id="datepicker" value="${h.format_date(c.values['date'])}"/>
-					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values['date'])}"/>
+					<input class="small" type="text" id="datepicker" value="${h.format_date(c.values.get('date'))}"/>
+					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
 					<span class="darkGrey floatRight">${_("FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT")|n}</span>
 				</div>
 			</div>

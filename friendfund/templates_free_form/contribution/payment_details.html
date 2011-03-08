@@ -41,7 +41,7 @@
 				<div class="first" style="margin-top:8px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
 				<div class="greyInside " style="width:516px">
 					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
-					<span class="value">${h.display_currency(c.pool.currency)}}</span> 
+					<span class="value">${h.display_currency(c.pool.currency)}</span> 
 				
 				<p class="alignInput">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 				<div id="verisign_contrib" class="floatRight">
@@ -60,7 +60,7 @@
 		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		</div>
 		<div class="contentDetails">
-		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")}
+		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
 		<a href="#">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
 		</div>
         

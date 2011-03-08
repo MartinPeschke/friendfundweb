@@ -39,7 +39,7 @@
 		else:
 			mutual_class = "nonmutual"
 	%>
-		<li class="invitee_row invite ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}"
+		<li class="invitee_row ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}"
 			%if active:
 				pos="${i}" ${h.attrib_keys(user_data)|n}
 			%endif
@@ -71,7 +71,7 @@
 </%def>
 <%def name="render_email_friends(friends, active = True, class_='selectable', add_label = None, rem_label = None)">
 %for i,(id, user_data) in enumerate(friends.items()):
-	<li class="invitee_row selectable invite" id="email_${ md5.new(id).hexdigest() }"
+	<li class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }"
 			%if active:
 				pos="i" ${h.attrib_keys(user_data)|n}
 			%endif

@@ -29,7 +29,7 @@
 <% locals = {"pool_title":c.pool.title} %>
 <div class="content">
   <div class="success">
-	<p><img src="/static/imgs/crossed.png" style="margin-right:5px" />${_("FF_CONTRIB_FAIL_You've failed to contributed <br /> to %(pool_title)s.")%locals|n}</p> 
+	<p><img src="/static/imgs/crossed.png" style="margin-right:5px" />${_("FF_CONTRIB_FAIL_You've failed to contribute.")%locals|n}</p> 
 	<div style="margin-top:30px">
 		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="button">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
 		<a href="${url("pool_details", protocol="http", v=2)}" class="button">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>

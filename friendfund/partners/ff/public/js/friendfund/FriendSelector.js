@@ -104,7 +104,6 @@ dojo.declare("friendfund.NetworkFriendPanel", friendfund._Selector, {
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 	},select : function(_t, evt){
-		//if(!dojo.hasClass(evt.target,'invite')){return;}
 		target = evt.target;
 		if(!(dojo.hasClass(target, "invitee_row")&&dojo.hasClass(target,"selectable"))){
 			var target = dojo.query(evt.target).parents(".invitee_row.selectable")[0];
@@ -154,7 +153,8 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		}
 	},undraw : function(){
 		var _t = this;
-		dojo.addClass(_t.rootNode, "hidden");
+		if(_t.rootNode){dojo.addClass(_t.rootNode, "hidden");}
+		else {dojo.query("#networkinviter_"+_t.network).orphan();}
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
 		page_reloader = _t.backup_reloader;

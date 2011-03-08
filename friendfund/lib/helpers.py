@@ -104,12 +104,14 @@ def format_number(number):
 	return fdec(fnumber, format='#,##0.##;-#', locale=websession['lang'])
 
 def format_date(date, with_time = False, format="medium"):
+	if not date: return ""
 	if with_time:
 		return fdatetime(date, format=format, locale=websession['lang'])
 	else:
 		return fdate(date, format=format, locale=websession['lang'])
 
 def format_date_internal(date):
+	if not date: return ""
 	return date.strftime('%Y-%m-%d')
 
 def format_short_date(date, with_time = False):
