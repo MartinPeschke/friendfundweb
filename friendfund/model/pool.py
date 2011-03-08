@@ -224,6 +224,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(bool, 		'require_address', 	'require_address'			)
 			, GenericAttrib(str,	 	'merchant_domain', 	'merchant_domain'			)
 			, GenericAttrib(str,	 	'settlementOption', 'settlement'				)
+			, GenericAttrib(str,	 	'paypal_email', 	'paypal_email'				)
 			, GenericAttrib(int,	 	'total_contribution', 'total_contribution'		)
 			, GenericAttrib(int,	 	'total_contributors', 'total_contributors'		)
 			, GenericAttrib(str,	 	'u_id_csv'			, 'u_id_csv'				)

@@ -62,16 +62,14 @@ class GetCountryRegionProc(DBMappedObject):
 			raise Exception("GetCountryRegionProc: No Fallback Country provided, %s", e)
 
 class FormField(object):
-	def __init__(self, name, type, required = True, default = None):
+	def __init__(self, name, type):
 		self.name = name
-		self.type = type
-	def validate(self, value):
-		if value == None and self.required: 
-			return False
-		try:
-			return bool(self.type(name))
-		except:
-			return False
+		if type == "email":
+			self.validator = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
+			self.persistence_attribute = "paypal_email"
+		else:
+			self.validator = formencode.validators.String(max=140, not_empty=True)
+			self.persistence_attribute = None
 
 class PaymentMethod(DBMappedObject):
 	"""
@@ -104,7 +102,7 @@ class MerchantSettlement(DBMappedObject):
 		return True
 	def fromDB(self, xml):
 		if self.name=="PAYPAL_TRANSFER":
-			self.required_fields.append(FormField("email", unicode))
+			self.required_fields.append(FormField("email", "email"))
 
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'

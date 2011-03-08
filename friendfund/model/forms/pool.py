@@ -1,5 +1,5 @@
 import formencode
-from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, DateValidator#, SettlementValidator
+from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, DateValidator, SettlementValidator
 
 class PoolHomePageForm(formencode.Schema):
 	allow_extra_fields = True
@@ -19,4 +19,7 @@ class PoolCreateForm(formencode.Schema):
 	product_picture = formencode.validators.String(if_missing=None, max=1024)
 	product_name = formencode.validators.String(if_missing=None, max=1024)
 	product_description = formencode.validators.String(if_missing=None, max=4096)
-	settlementOption = formencode.validators.String(not_empty=True) #SettlementValidator() #TODO: DO
+	settlementOption = formencode.validators.String(not_empty = True, max=4096)
+	chained_validators = [ 
+					SettlementValidator() 
+				]

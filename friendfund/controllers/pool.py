@@ -85,7 +85,8 @@ class PoolController(ExtBaseController):
 			"product_name":request.params.get("product_name"),
 			"product_description":request.params.get("product_description"),
 			"img_list":request.params.getall("img_list") or [],
-			"date": (datetime.datetime.today() + datetime.timedelta(14))
+			"date": (datetime.datetime.today() + datetime.timedelta(14)),
+			"settlementOption": None
 			}
 		try:
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")

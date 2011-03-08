@@ -38,6 +38,14 @@ class PoolService(object):
 				settlementOption = pool_schema['settlementOption']
 			)
 		
+		so = request.merchant.map[pool.settlementOption]
+		so_values = pool_map.get(pool.settlementOption)
+		for rf in so.required_fields:
+			if rf.persistence_attribute:
+				setattr(pool, rf.persistence_attribute, so_values.get(rf.name))
+			else:
+				log.error("POOLCREATE, REQUIRED FIELD has no PERSISTENCE_ATTRIBUTE")
+		
 		pool.set_amount_float(pool_schema.pop("amount"))
 		pool.occasion = Occasion(key="EVENT_OTHER", date=pool_schema['date'])
 		

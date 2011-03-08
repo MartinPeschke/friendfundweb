@@ -87,6 +87,8 @@ def to_displaymap(obj):
 
 
 class SettlementValidator(formencode.validators.FormValidator):
+	settlementOption = 'settlementOption'
+	__unpackargs__ = ('settlementOption',)
 	messages = {
 		'MissingAField': _("Please enter a valid value"),
 		'InvalidOption': _("Invalid Settlement Option")
@@ -100,20 +102,25 @@ class SettlementValidator(formencode.validators.FormValidator):
 			raise formencode.Invalid(
 				'<br>\n'.join(["%s: %s" % (name, value)
 							   for name, value in error_list]),
-				field_dict, state, error_dict=errors)
+				field_dict, request, error_dict=errors)
 
 	def _validateReturn(self, field_dict, request):
-		settlementOption = field_dict["settlementOption"]
-		
+		settlementOption = field_dict[self.settlementOption]
+		values = field_dict.get(settlementOption)
 		errors = {}
 		try:
 			so = request.merchant.map[settlementOption]
-		except:
-			return {"settlementOption": self.message('InvalidOption', request)}
+		except KeyError, e:
+			errors["settlementOption"] = self.message('InvalidOption', request)
 		else:
-			for rf in so.required_fields:
-				if not rf.is_valid(field_dict['%s.%s' % (so.name, rf.name)]):
-					errors['%s.%s' % (so.name, rf.name)] =  self.message('MissingAField', request)
+			for field in so.required_fields:
+				try:
+					field.validator.to_python(values[field.name])
+				except KeyError, e:
+					errors["settlementOption"] = self.message('MissingAField', request)
+				except formencode.Invalid, e:
+					errors[settlementOption] = errors.get(settlementOption, {})
+					errors[settlementOption][field.name] = e
 		return errors
 	
 	
