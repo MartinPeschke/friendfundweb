@@ -1,34 +1,34 @@
 <%def name="renderPanel()">
 		<form id="login_panel_form">
 			<div class="inputline">
-				<label for="login_email">Email Address</label>
+				<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
 				<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
 				%if "email" in getattr(c, "login_errors", dict()):
 					<p class="error">${getattr(c, "login_errors", dict()).get("email")}</p>
 				%endif
 			</div>
 			<div class="inputline">
-				<label for="login_pwd">Password</label>
+				<label for="login_pwd">${_("FF_LOGIN_Password")}</label>
 				<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
 				%if "pwd" in getattr(c, "login_errors", dict()):
 					<p class="error">${getattr(c, "login_errors", dict()).get("pwd")}</p>
 				%endif
 			<div>
-				<a href="/myprofile/password" class="lostpass">Forgot Password?</a></div>
+				<a href="/myprofile/password" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
 			</div>
 		</form>
-		<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('loginPanelContent')))" class="primaryButton floatLeft" style="margin-top:7px">Log In</a>
-		<h3>Login with facebook or twitter</h3>
+		<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('loginPanelContent')))" class="primaryButton floatLeft" style="margin-top:7px">${_("FF_LOGINBUTTON_Log In")}</a>
+		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
 		<div class="inputline">
-			<a title="Log in with Facebook" class="facebookBtn" onclick="fbLogin()">
-				<span>Log in with Facebook</span>
+			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="fbLogin()">
+				<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 			</a>
 		</div><div class="inputline">
-		<a title="Log in with Twitter" class="twitterBtn" onclick="twInit('/')">
-			<span>Log in with Twitter</span>
+		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="twInit('/')">
+			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 		</a>
 		</div>
-		<p>Dont have an account yet? <a class="lostpass" href="/signup?furl=/">Sign up here</a></p>
+		<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass" href="/signup?furl=/">${_("FF_LOGIN_Sign up here")}</a></p>
 </%def>
 
 
@@ -36,8 +36,8 @@
 	<div class="newFormControls loginPanel ${not getattr(c, "expanded", False) and "hidden" or ""}" id="loginPanelContent">
 		${renderPanel()|n}
 	</div>
-	<a class="btn" id="loginlink" onclick="toggleLoginPanel(this)">Login</a>
-	<a href="/signup?furl=/" class="btn">Sign Up</a>
+	<a class="btn" id="loginlink" onclick="toggleLoginPanel(this)">${_("FF_LOGIN_Login")}</a>
+	<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
 	
 	<script type="text/javascript">
 	closeLoginPanel = function(evt){
@@ -64,9 +64,9 @@
 		<a href="#">${c.user.name or c.user.default_email}</a>
 		<div class="widthGiver">
 			<div>
-				<a href="${url(controller="myprofile", action="account")}">Account Settings</a>
-				<a href="${url(controller="myprofile", action="index")}">Profile</a>
-				<a href="#" onclick="fbLogout();">Logout</a>
+				<a href="${url(controller="myprofile", action="account")}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
+				<a href="${url(controller="myprofile", action="index")}">${_("FF_LOGINDROPDOWN_Profile")}</a>
+				<a href="#" onclick="fbLogout();">${_("FF_LOGINDROPDOWN_Logout")}</a>
 			</div>
 		</div>
 	</div>

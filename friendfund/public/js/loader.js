@@ -117,9 +117,11 @@ xhrHandler = function(callback){
 };
 
 xhrErrorHandler = function(data,xhrobj,evt){
+	if(window.console){
 	console.log(data);
 	console.log(xhrobj);
 	console.log(evt);
+	}
 };
 
 loadFormElement = function(url, node, form, callback){
@@ -171,8 +173,8 @@ ioIframeGetJson = function(url, formid, callback){
 		timeoutSeconds: 15,
 		preventCache: true,
 		handleAs: "json",
-		handle: callback,
-		error: function (res,ioArgs) {console.log(res);}
+		handle: callback
+		//error: function (res,ioArgs) {console.log(res);}
 	});
 };
 

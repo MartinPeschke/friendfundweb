@@ -151,13 +151,13 @@ place_element = function(node, callback){
 	};
 };
 
-displayMessage = console.log;
+
 
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
 				if (data.clearblocks !== undefined){closeBlocks(data.clearblocks);}
 				if (data.clearmessage !== undefined){clear_messages();}
-				if (data.message !== undefined){displayMessage(data.message);}
+				//if (data.message !== undefined){displayMessage(data.message);}
 				if (callback && data.html !== undefined){callback(data.html);}
 				if (callback && data.data !== undefined){callback(data.data);}
 				if (data.redirect !== undefined){window.location.href = data.redirect;}
@@ -167,9 +167,11 @@ xhrHandler = function(callback){
 };
 
 xhrErrorHandler = function(data,xhrobj,evt){
-	console.log(data);
-	console.log(xhrobj);
-	console.log(evt);
+	if (window.console) {
+		console.log(data);
+		console.log(xhrobj);
+		console.log(evt);
+	}
 };
 
 loadFormElement = function(url, node, form, callback){
@@ -221,7 +223,7 @@ ioIframeGetJson = function(url, formid, callback){
 		preventCache: true,
 		handleAs: "json",
 		handle: xhrHandler(callback),
-		error: function (res,ioArgs) {console.log(res);}
+		//error: function (res,ioArgs) {console.log(res);}
 	});
 };
 

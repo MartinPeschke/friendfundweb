@@ -3,32 +3,32 @@
 	<div class="whitePopupFrameLarge fixed">
 	<span class="panelclosing_x">x</span>
 		<div>
-			<h3>Log in to invite your friends.</h3>
+			<h3>${_("FF_LOGINPOPUP_Log in to invite your friends.")}</h3>
 			<div class="loginSocialWrap">
-				<a onclick="fbLogin()" class="facebookBtn" title="Log in with Facebook">
-					<span>Log in with Facebook</span>
+				<a onclick="fbLogin()" class="facebookBtn" title="${_("FF_LOGIN_Log in with Facebook")}">
+					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
 
-				<a onclick="twInit()" class="twitterBtn" title="Log in with Twitter">
-					<span>Log in with Twitter</span>
+				<a onclick="twInit()" class="twitterBtn" title="${_("FF_LOGIN_Log in with Twitter")}">
+					<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 				</a>
 				<div class="clear"></div>
 			</div>
-            <p class="info">Your privacy is sacred to us. This information won't ever be shared without your explicit permission.</p>
-			<h4>Log in with a password instead</h4>
+            <p class="info">${_("FF_LOGINPOPUP_Your privacy is sacred to us. This information won't ever be shared without your explicit permission.")}</p>
+			<h4>${_("FF_LOGINPOPUP_Log in with a password instead")}</h4>
 			<form id="login_popup_form">
 			<div class="inputFields">
 				<div class="inputName floatLeft ${"email" in c.login_errors and "error" or ""}">
-					<label for="login_email">Email</label>
+					<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
 					<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
 					%if "email" in c.login_errors:
 						<p class="error">${c.login_errors.get("email")}</p>
 					%endif
 				</div>
 				<div class="inputPass floatLeft ${"pwd" in c.login_errors and "error" or ""}">
-					<label for="login_pwd">Password</label>
+					<label for="login_pwd">${_("FF_LOGIN_Password")}</label>
 					<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
-					<a class="link" href="/myprofile/password">Forgot your password?</a>
+					<a class="link" href="/myprofile/password">${_("FF_LOGIN_Forgot Password?")}</a>
 					%if "pwd" in c.login_errors:
 						<p class="error">${c.login_errors.get("pwd")}</p>
 					%endif
@@ -36,12 +36,8 @@
 				<div class="clear"></div>
 			</div>
 			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">Log In</a>
-			
-			
-
-			<p>Don't have an account yet? <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">Sign up now</a></p>
-
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">${_("FF_LOGINBUTTON_Log In")}</a>
+			<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">${_("FF_LOGIN_Sign up now")}</a></p>
         </div>
 	</div>
 </div>
