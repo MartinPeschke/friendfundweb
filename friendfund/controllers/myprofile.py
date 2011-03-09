@@ -171,7 +171,6 @@ class MyprofileController(BaseController):
 		except formencode.validators.Invalid, error:
 			c.myprofile_values = error.value
 			c.myprofile_errors = error.error_dict or {}
-			# print c.myprofile_errors
 			return self.render('/myprofile/index.html')
 		except SProcWarningMessage, e:
 			c.myprofile_errors = {'email':e}

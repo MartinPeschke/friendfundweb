@@ -138,8 +138,7 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
 			, GenericAttrib(str,		'network'                    ,'network'             )
 			, GenericAttrib(str,		'network_id'                 ,'id'                  )
-			, GenericAttrib(str,		'default_email'              , 'email'              )
-			, GenericAttrib(str,		'email'                      , 'email'              )
+			, GenericAttrib(str,		'email'                      , 'email'              )###TODO: VERY DIRTY!
 			, GenericAttrib(str,		'_sex'                       , 'sex'                )
 			, GenericAttrib(str,		'profile_picture_url'        , 'profile_picture_url')
 			, GenericAttrib(str,		'large_profile_picture_url'  , None                 , persistable = False)
@@ -194,13 +193,14 @@ class PoolUser(DBMappedObject):
 
 class PoolInvitee(PoolUser):
 	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]
-	
+	_transl = {"default_email":"email"}
 	@classmethod
 	def fromUser(cls, user):
 		obj = cls()
 		for k in user._keys:
-			if hasattr(obj, k.pykey):
-				setattr(obj, k.pykey, getattr(user, k.pykey))
+			nkey = cls._transl.get(k.pykey, k.pykey)
+			if hasattr(obj, nkey):
+				setattr(obj, nkey, getattr(user, k.pykey))
 		return obj
 	
 	
@@ -233,7 +233,7 @@ class Pool(DBMappedObject):
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			, DBMapper(Occasion,		'occasion', 		'OCCASION'					)
 			, DBMapper(PoolUser,		'participants', 	'POOLUSER', is_list = True)
-
+			
 			, DBMapper(PoolUser, 'admin', None, persistable = False)
 			, DBMapper(PoolUser, 'receiver', None, persistable = False)
 			, DBMapper(PoolUser, 'suspect', None, persistable = False)

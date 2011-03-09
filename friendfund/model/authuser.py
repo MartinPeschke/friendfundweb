@@ -102,7 +102,7 @@ class User(ProtoUser):
 		</RESULT>
 	"""
 	_cachable = False
-	_unique_keys = ['u_id', 'profile_picture_url', 'network', 'network_id']
+	_unique_keys = ['u_id', 'default_email', 'network', 'network_id']
 	_set_proc = _get_proc = "app.web_login"
 	_set_root = _get_root = "USER"
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id')
@@ -220,7 +220,7 @@ class User(ProtoUser):
 class CreateEmailUserProc(DBMappedObject):
 	_set_root = _get_root = 'USER'
 	_get_proc = _set_proc = "app.create_email_user"
-	_unique_keys = ['name', 'email']
+	_unique_keys = ['name', 'default_email']
 	_keys = [	 GenericAttrib(str,'network','network')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'email','email')

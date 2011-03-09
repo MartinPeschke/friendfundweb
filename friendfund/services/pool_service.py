@@ -55,11 +55,11 @@ class PoolService(object):
 									tracking_link = pool_schema.get("tracking_link"),
 									picture = pool_schema.get("product_picture") )
 		
-		admin = PoolUser(**tmpl_context.user.get_map())
+		admin = PoolInvitee.fromUser(tmpl_context.user)
 		admin.is_admin = True
 		pool.participants.append(admin)
 		
-		receiver = PoolUser(**tmpl_context.user.get_map())
+		receiver = PoolInvitee.fromUser(tmpl_context.user)
 		receiver.is_receiver = True
 		pool.participants.append(receiver)
 		return pool
@@ -74,7 +74,7 @@ class PoolService(object):
 			raise MissingOccasionException()
 		elif pool.receiver is None:
 			raise MissingReceiverException()
-		admin = PoolUser(**tmpl_context.user.get_map())
+		admin = PoolInvitee.fromUser(tmpl_context.user)
 		if h.users_equal(pool.receiver, admin):
 			admin.profile_picture_url = pool.receiver.profile_picture_url
 		admin.is_admin = True
