@@ -80,8 +80,6 @@
 			document.submissionform.submit();
 		%endif
 	};
-	
-	submitters.push(dojo.connect(dojo.byId("submissionform"), "onsubmit", checkLoginStatus));
 	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
 </%def>
 

@@ -49,19 +49,12 @@ class PaymentService(object):
 			paymentlog.warning( request.params )
 			paymentlog.info( '-'*40 )
 			return '[accepted]'
-		if str(params['eventCode']) in ['AUTHORISATION']:
-			transl = {  'merchantReference':'ref'\
-						,'pspReference':'tx_id'\
-						,'eventCode':'type'\
-						,'success':'success'
-					}
-		else:
-			transl = {  'merchantReference':'ref'\
-						,'originalReference':'tx_id'\
-						,'pspReference':'msg_id'\
-						,'eventCode':'type'\
-						,'success':'success'
-					}
+
+		transl = {  'merchantReference':'ref'\
+					,'pspReference':'tx_id'\
+					,'eventCode':'type'\
+					,'success':'success'
+				}
 		noticeparams = dict([k for k in filter(lambda x: x[1], [(transl[k],v) for k,v in params.iteritems() if k in transl])])
 		noticeparams['success'] = strbool.to_python(noticeparams.get('success', False))
 		try:

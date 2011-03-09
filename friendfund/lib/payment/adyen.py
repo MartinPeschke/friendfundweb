@@ -24,7 +24,7 @@ class PaymentGateway(object):
 		self.gateway = AdyenPaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 	def authorize(self, contrib_view):
 		args = [contrib_view.ref 
-					,contrib_view.total
+					,contrib_model.total  #### This is supposed to be Database configured total for the whole transaction, i.e. what the user input plus transaction costs
 					,contrib_view.currency
 					,contrib_view.methoddetails.ccHolder
 					,contrib_view.methoddetails.ccNumber
@@ -35,7 +35,7 @@ class PaymentGateway(object):
 	
 	def authorize_recurring(self, contrib_model, contrib_view):
 		args = [contrib_model.ref 
-					,contrib_model.total
+					,contrib_model.total  #### This is the Database configured total
 					,contrib_view.currency
 					,contrib_view.methoddetails.ccHolder
 					,contrib_view.methoddetails.ccNumber

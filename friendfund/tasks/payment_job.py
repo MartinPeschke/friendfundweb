@@ -1,6 +1,24 @@
 """
-FriendFund Payment Service, the only commandline argument should be the paster config file.
-i.e. invoke as: python friendfund/tasks/payment_job.py -f development.ini
+	FriendFund Payment Service, the only commandline argument should be the paster config file.
+	i.e. invoke as: python friendfund/tasks/payment_job.py -f development.ini
+
+	runs exec job.get_payment_queue;
+	and processes entries of following format
+
+	--refund 
+	<CONTRIBUTION queue_ref="B76F0C12-283E-49ED-90AE-2C091F15D72C" contribution_ref="C76C5165-517C-4014-861F-67D5A1F61499"> 
+	  <REFUND /> 
+	</CONTRIBUTION> 
+
+	--capture 
+	<CONTRIBUTION queue_ref="38A4D812-F792-4A82-B7D5-187C33E5E014" contribution_ref="B8A4A51C-1EB3-48B8-9D21-BFE6B1391B90"> 
+	  <CAPTURE total="21" currency_code="EUR" /> 
+	</CONTRIBUTION> 
+
+	--recurring 
+	<CONTRIBUTION queue_ref="EB8E6C5B-774F-4641-BD4C-0059161000E5" contribution_ref="801DEBDF-3365-410C-8983-1C9AB7F64C2F"> 
+	  <RECURRING shopper_ref="DC21D163-6185-4697-BEE0-618DBA19DFFB" shopper_email="martin@per-4.com" recurring_transaction_total="509" currency_code="EUR" /> 
+	</CONTRIBUTION> 
 """
 import logging, time, sys, getopt, os, ZSI
 from lxml import etree
@@ -17,6 +35,65 @@ log = logging.getLogger(__name__)
 CONNECTION_NAME = 'job'
 set_CONNECTION_NAME = 'pool'
 
+
+def execute_cancel_or_refund(dbset, gateway, contrib):
+	details = contrib.find("REFUND")
+	if details is None \
+			or contrib.get('contribution_ref') is None\
+			or contrib.get('queue_ref') is None\
+			or details.get('transaction_id') is None:
+		log.error("INCOMPLETE_REFUND_DETAILS %s (%s)" % (contrib.attrib, details.attrib))
+		raise AttributeError("INCOMPLETE_REFUND_DETAILS %s (%s)" % (contrib.attrib, details.attrib))
+	else:
+		log.info("PROCESSING_REFUND %s", details.get('transaction_id'))
+		payment_result = gateway.cancel_or_refund(details.get('transaction_id'))
+		log.info("REFUND_RESULT: %s", payment_result)
+
+def execute_capture(dbset, gateway, contrib):
+	details = contrib.find("CAPTURE")
+	if details is None\
+			or contrib.get('contribution_ref') is None\
+			or contrib.get('queue_ref') is None\
+			or details.get('total') is None\
+			or details.get('currency_code') is None\
+			or details.get('transaction_id') is None:
+		raise AttributeError("INCOMPLETE_CAPTURE_DETAILS %s (%s)" % (contrib.attrib, details.attrib))
+	else:
+		log.info("PROCESSING_CAPTURE %s, %d, %s", details.get('transaction_id'),  int(details.get('total')),details.get('currency_code'))
+		payment_result = gateway.capture(
+						details.get('transaction_id'),
+						int(details.get('total')),
+						details.get('currency_code')
+					)
+		if payment_result['response'] != u'[capture-received]':
+			raise ValueError("CAPTURE_INVALID_RECEIVE_RECEIPT, %s" % payment_result)
+		else:
+			log.info("CAPTURE_RESULT: %s", payment_result)
+		
+		
+def execute_recurring(dbset, gateway, contrib):
+	details = contrib.find("RECURRING")
+	if (details is None\
+			or contrib.get('contribution_ref') is None\
+			or contrib.get('queue_ref') is None\
+			or details.get('shopper_ref') is None\
+			or details.get('shopper_email') is None\
+			or details.get('recurring_transaction_total') is None\
+			or details.get('currency_code') is None):
+		raise AttributeError("INCOMPLETE_RECURRING_DETAILS %s (%s)" % (contrib.attrib, details.attrib))
+	else:
+		log.info("PROCESSING_RECURRING %s", contrib.get('contribution_ref'))
+		payment_result = gateway.use_last_recurring(
+							contrib.get('contribution_ref'), 
+							int(details.get('recurring_transaction_total')),
+							details.get('currency_code'), 
+							details.get('shopper_email'), 
+							details.get('shopper_ref'), 
+							selectedRecurringDetailReference = 'LATEST'
+						)
+		log.info("RECURRING_RESULT: %s", payment_result)
+		notice = get_contribution_from_adyen_result(contrib.get('contribution_ref'), payment_result)
+		result, cur = execute_query(dbset, log, 'exec %s ?;' % notice._set_proc, DBMapper.toDB(notice))
 
 def main(argv=None):
 	if argv is None:
@@ -46,40 +123,32 @@ def main(argv=None):
 	
 	log.info( 'DEBUG: %s for %s (%s)', debug, CONNECTION_NAME, gateway)
 	while 1:
-		conn = dbpool.connection()
-		cur = conn.cursor()
-		res = cur.execute('exec job.get_recurring_payment;')
-		res = res.fetchone()[0]
-		cur.close()
-		conn.commit()
-		conn.close()
-		log.info ( res )
-		contributions = etree.fromstring(res)
-		contrib_set = [c for c in contributions.findall('CONTRIBUTION') if c.get("contribution_ref")]
-		###		<CONTRIBUTION 
-		###		shopper_ref="3708AF13-7FBB-494C-B65B-F0BF5DE5C299" 
-		###		shopper_email="test201@friendfund.com" 
-		###		contribution_ref="0850DA3E-58E0-4D4C-9DCD-D0B44C00C13F" 
-		###		recurring_transaction_total="24489" 
-		###		currency_code="EUR" />
+		contributions, cur = execute_query(dbpool, log, "exec job.get_payment_queue;")
+		contrib_set = [c for c in contributions.findall('CONTRIBUTION') if c.get("contribution_ref") and c.get("queue_ref")]
 		if contrib_set:
 			log.info( 'RECEIVED %s, %s', len(contrib_set), 'Contributions' )
 			for contrib in contrib_set:
-				if not (contrib.get('shopper_ref') and contrib.get('shopper_email') and contrib.get('contribution_ref') and contrib.get('recurring_transaction_total') and contrib.get('currency_code')):
-					log.error("CONTRIBUTION_INCOMPLETE_RECURRING_DETAILS %s" % (contrib.attrib))
-				else:
-					log.info("RECURRING_CONTRIBUTION %s", contrib.attrib)
-					try:
-						payment_result = gateway.use_last_recurring(contrib.get('contribution_ref'), 
-										int(contrib.get('recurring_transaction_total')),
-										contrib.get('currency_code'), 
-										contrib.get('shopper_email'), 
-										contrib.get('shopper_ref'), 
-										selectedRecurringDetailReference = 'LATEST')
-						notice = get_contribution_from_adyen_result(contrib.get('contribution_ref'), payment_result)
-						result, cur = execute_query(dbset, log, 'exec %s ?;' % notice._set_proc, DBMapper.toDB(notice))
-					except ZSI.FaultException, e:
+				try:
+					if contrib.find("REFUND") is not None:
+						execute_cancel_or_refund(dbset, gateway, contrib)
+					elif contrib.find("CAPTURE") is not None:
+						execute_capture(dbset, gateway, contrib)
+					elif contrib.find("RECURRING") is not None:
+						execute_recurring(dbset, gateway, contrib)
+				except Exception, e:
+					if (isinstance(e, ZSI.FaultException)):
 						log.error("ADYEN_SOAP_ERROR: %s" % e)
+					else: log.error(e)
+					xml = execute_query(dbpool, log, 'job.set_payment_queue ?;', 
+								'<CONTRIBUTION queue_ref=%s contribution_ref=%s status="0"/>'\
+									%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
+								)
+					####raise
+				else:
+					xml = execute_query(dbpool, log, 'job.set_payment_queue ?;', 
+								'<CONTRIBUTION queue_ref=%s contribution_ref=%s status="1"/>'\
+									%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
+								)
 		else:
 			time.sleep(2)
 

@@ -39,8 +39,9 @@ class PoolController(ExtBaseController):
 		if c.pool is None:
 			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
 			return redirect(url('home'))
-		if c.pool.is_closed():
-			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
+		####TODO: Add back in
+		# if c.pool.is_closed():
+			# return redirect(url('pool_action', pool_url=pool_url, action='complete'))
 		if c.pool.can_i_view(c.user):
 			return self.render('/pool/pool.html')
 		else:

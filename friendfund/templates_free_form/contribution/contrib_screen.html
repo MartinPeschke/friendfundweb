@@ -30,6 +30,19 @@
 					}
 				});}
 		};
+		var submitters = [];
+		checkLoginStatus = function(evt){
+			%if c.user.is_anon:
+				xhrPost("${url(controller="myprofile", action="loginpopup")}", {});
+				evt.stopPropagation();
+				evt.preventDefault();
+				return false;
+			%else:
+				onSubmitCleaner(document.contributionForm);
+				document.contributionForm.submit();
+			%endif
+		};
+		submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
 	</script>
 </%def>
 
@@ -201,13 +214,13 @@
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox">
-			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label><a href="${url(controller="content", action="tos")}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
+			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label><a tabIndex="5000" href="${url(controller="content", action="tos")}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
 		</div>
 	</div>
 	
     <div class="floatRight">
 			<div class="spacerButtons">
-				<span id="submitter" onclick="document.contributionForm.submit()" class="forward floatLeft"><span>${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}</span> <input type="submit" value="&gt;"></span>
+				<span id="submitter" class="forward floatLeft"><span>${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}</span> <input type="button" value="&gt;"></span>
 			</div>
 		</div>
       

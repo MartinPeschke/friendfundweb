@@ -12,14 +12,11 @@ def get_contribution_from_adyen_result(merchantReference, paymentresult):
 	notice = DBPaymentInitialization(\
 				ref = merchantReference\
 				, tx_id=paymentresult['pspReference']\
-				, msg_id=None\
 				, type=payment_transl[paymentresult['resultCode']]\
 				, success = True\
 				, reason=paymentresult['refusalReason']\
 				, fraud_result = paymentresult['fraudResult'])
 	return notice
-
-
 
 
 
@@ -44,16 +41,16 @@ class AdyenPaymentGateway(object):
 		self.user = user
 		self.password = password
 		self.merchantAccount = merchantAccount
+		self.service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))
 	def __repr__(self):
 		return '<%s: %s/%s>' % (self.__class__.__name__, self.url, self.merchantAccount)
 	### AUTHORIZE PAYMENTS / RECURRINGs
 	def _send_authorize(self, preq_params):
-		service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))
 		req = Payment_services.authoriseRequest()
 		preq = req.new_paymentRequest() ###additionalData, amount, card, merchantAccount, recurring, reference, shopperEmail, shopperIP, shopperReference, 
 		preq = parse_dict_into_request(preq, preq_params)
 		req.set_element_paymentRequest(preq)
-		result = service.authorise(req)
+		result = self.service.authorise(req)
 		payment_result = result.get_element_paymentResult()
 		result_data = dict([(k.replace("get_element_",""), getattr(payment_result, k)()) for k in dir(payment_result) if k.startswith('get_element')])
 		log.debug("RECEIVED_PAYMENT_RESPONSE: %s", result_data)
@@ -99,50 +96,46 @@ class AdyenPaymentGateway(object):
 	
 	###### MODIFICATIONS
 		
-	def _send_modification(self, req, preq_params):
-		log.debug("SENDING_MODIFICATION_REQUEST: %s", preq_params)
+	def _send_modification(self, reqName, preq_params):
+		log.debug("SENDING_MODIFICATION_REQUEST(%s): %s", reqName, preq_params)
+		req = getattr(Payment_services, "%sRequest"%reqName)()
 		preq = req.new_modificationRequest() ###merchantAccount, modificationAmount, originalReference
 		preq = parse_dict_into_request(preq, preq_params)
 		req.set_element_modificationRequest(preq)
-		service = Payment_services.PaymentHttpBindingSOAP(url=self.url, auth=(AUTH.httpbasic, self.user, self.password))
-		result = service.authorise(req)
-		payment_result = result.get_element_paymentResult()
+		result = getattr(self.service, reqName)(req)
+		payment_result = getattr(result, "get_element_%sResult"%reqName)()
 		result_data = dict([(k.replace("get_element_",""), getattr(payment_result, k)()) for k in dir(payment_result) if k.startswith('get_element')])
 		log.debug("RECEIVED_MODIFICATION_RESPONSE: %s", preq_params)
 		return result_data
 	
 	def cancel_or_refund(self, original_txid):
-		req = Payment_services.cancelOrRefundRequest()
 		preq_params = dict(
 			merchantAccount=self.merchantAccount,
 			originalReference=original_txid,
 			)
-		return self._send_modification(req, preq_params)
+		return self._send_modification("cancelOrRefund", preq_params)
 	
 	def capture(self, original_txid, amount, currency):
-		req = Payment_services.captureRequest()
 		preq_params = dict(
 			merchantAccount=self.merchantAccount,
 			originalReference=original_txid,
 			modificationAmount=dict(value = amount, currency = currency)
 			)
-		return self._send_modification(req, preq_params)
+		return self._send_modification("capture", preq_params)
 		
 		
 	def refund(self, original_txid, amount, currency):
-		req = Payment_services.refundRequest()
 		preq_params = dict(
 			merchantAccount=self.merchantAccount,
 			originalReference=original_txid,
 			modificationAmount=dict(value = amount, currency = currency)
 			)
-		return self._send_modification(req, preq_params)
+		return self._send_modification("refund", preq_params)
 		
 	def cancel(self, original_txid):
-		req = Payment_services.cancelRequest()
 		preq_params = dict(
 			merchantAccount=self.merchantAccount,
 			originalReference=original_txid
 			)
-		return self._send_modification(req, preq_params)
+		return self._send_modification("cancel", preq_params)
 	

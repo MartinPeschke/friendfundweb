@@ -35,15 +35,18 @@
 			xhrPost(dojo.attr(_node, "_href"), params, onLoaded);
 			return false;
 		};
-		connectpool = function(){
-			var cn = dojo.byId("btnViewAll");
+		
+		
+		connectpool = function(rootbutton){
+			var cn = dojo.byId(rootbutton);
+			console.log(cn);
 			if(cn){
 				var d = dojo.connect(cn, "onclick", function(evt){
 					dojo.disconnect(d);
 					xhrPost(dojo.attr(evt.target, "_href"), {page:dojo.attr(cn, "_page")}, function(data){
 						dojo.query(evt.target).orphan();
 						dojo.place(data.html, dojo.byId("inviteeList"), "last");
-						connectpool();
+						connectpool(rootbutton);
 					});
 				});
 			}
@@ -55,7 +58,7 @@
 	onLoadPagelets("commentSection");
 	parseDefaultsInputs("commentSection");
 	dojo.query(".popuplink", "chipin_box").onclick(dojo.hitch(null, loadPopup));
-	connectpool();
+	connectpool("btnViewAll");
 </%def>
 
 
