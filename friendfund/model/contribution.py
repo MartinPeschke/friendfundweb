@@ -71,7 +71,7 @@ class DBPaymentInitialization(DBMappedObject):
 	_cachable = False
 	_get_root = _set_root = 'NOTICE'
 	_unique_keys = ['ref']
-	_set_proc   = 'app.add_contribution_notice'
+	_set_proc   = 'app.add_synch_contribution_notice'
 	_keys = [	 GenericAttrib(str, 'ref'      ,'contribution_ref')
 				,GenericAttrib(int, 'tx_id'    ,'transaction_id')
 				,GenericAttrib(int, 'msg_id'   ,'message_id')
@@ -79,6 +79,10 @@ class DBPaymentInitialization(DBMappedObject):
 				,GenericAttrib(str, 'reason'     ,'reason')
 				,GenericAttrib(bool, 'success'  ,'success')
 			]
+			
+class AsyncDBPaymentInitialization(DBPaymentInitialization):
+	_set_proc   = 'app.add_asynch_contribution_notice'
+
 class DBPaymentNotice(DBMappedObject):
 	_cachable = False
 	_get_root = _set_root = 'NOTICE'

@@ -47,6 +47,7 @@
 </%def>
 
 <%def name="onloadscripts()">
+	page_reloader = function(){document.contributionForm.submit()};
 	parseDefaultsInputs("contributionForm");
 	parseSelectables("contributionForm");
 	dojo.query("input[type=radio].paymentselector").onchange(dojo.hitch(null, calcTotals));

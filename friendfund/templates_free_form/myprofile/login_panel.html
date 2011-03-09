@@ -41,24 +41,25 @@
 	<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
 	
 	<script type="text/javascript">
+	var evts = [];
 	submitLoginPanel = function(){xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('loginPanelContent')))};
 	closeLoginPanel = function(evt){
 		if(dojo.hasClass("loginlink", "active")){
 			dojo.removeClass("loginlink", "active");
 			dojo.addClass("loginPanelContent", "hidden");
+			dojo.forEach(evts, dojo.disconnect);
 		}   
 	}
 	toggleLoginPanel = function(link){
 		if(dojo.hasClass(link, "active")){
 			dojo.removeClass(link, "active");
 			dojo.addClass("loginPanelContent", "hidden");
-			document.onkeydown = null;
-			document.onclick = null;
+			dojo.forEach(evts, dojo.disconnect);
 		} else {
 			dojo.addClass(link, "active");
 			dojo.removeClass("loginPanelContent", "hidden");
-			document.onkeydown = function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}};
-			document.onclick = function(evt){if(evt.target.id!="loginlink"&&!findParent(evt.target, "loginPanel")){closeLoginPanel(evt);}};
+			evts.push(dojo.connect(document, "onkeydown", function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}}));
+			evts.push(dojo.connect(document, "onclick", function(evt){if(evt.target.id!="loginlink"&&!findParent(evt.target, "loginPanel")){closeLoginPanel(evt);}}));
 		}
 	}
 	</script>

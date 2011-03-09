@@ -263,7 +263,7 @@ fbSessionChange = function() {
 	if (FB.getSession()) {
 		doFBFFLogin(page_reloader);
 	} else {
-		loadElement("/logout?furl="+window.location.pathname, "accountcontainer");
+		window.location.href = "/logout?furl=/";
 	}
 };
 
@@ -325,13 +325,17 @@ var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA
 var picCounter = 0, accepted = false, _parser_backups = [];
 
 var createAppendPicture = function(imgContainer, imgs, preselected){
-	var img = dojo.create("IMG", {src:imgs.shift(), "class":'hidden'});
-	dojo.connect(img, "onload", dojo.hitch(null, pic_judger, imgContainer, imgs, preselected));
-	imgContainer.appendChild(img);
+	var imgsrc = imgs.shift();
+	if(imgsrc!==undefined){
+		var img = dojo.create("IMG", {"class":'hidden'});
+		imgContainer.appendChild(img);
+		img.onload = dojo.hitch(null, pic_judger, imgContainer, imgs, preselected);
+		img.src = imgsrc;
+	}
 };
 
 var pic_judger = function(imgContainer, imgs, preselected, evt){
-	if((evt.target.width||evt.target.offsetWidth)<50||(evt.target.height||evt.target.offsetHeight)<50){
+	if((evt.target.width||evt.target.offsetWidth)<100||(evt.target.height||evt.target.offsetHeight)<75){
 		dojo.addClass(evt.target, "forbidden");
 	}else{
 		picCounter+=1;
@@ -368,7 +372,7 @@ var slide = function(step, evt){
 
 
 var renderPictures = function(imgs, preselected){
-	var imgContainer = dojo.create ("DIV" , { "class":"imgCntSld"}), tmp;
+	var imgContainer = dojo.create("DIV" , { "class":"imgCntSld"}), tmp;
 	var i, totalcounter = imgs.length;
 	for(i=0;i<totalcounter; i++){
 		imgContainer.appendChild(dojo.create("INPUT", {type:"hidden", value:imgs[i], name:'img_list'}));
@@ -433,21 +437,23 @@ var loadSuccess = function(rootnode, data){
 var connectURLParser = function(rootnode){
 	var dn = dojo.byId(rootnode), ht1, ht2,
 		parseInput = function(type, evt){
-			dojo.some(evt.target.value.split(" "), function(elt){
-			if(urlmatch.test(elt)){
-				var query = elt, url = dojo.attr(evt.target, "_url");
-					dojo.disconnect(ht1);dojo.disconnect(ht2);
-					var div = dojo.create("DIV", {"class":"loading"});
-					div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-					_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
-					dojo.place(div, "homeurlexpander", "last");
-					dojo.removeClass("homeurlexpander", "hidden");
-					dojo.xhrPost({url:url, content:{query:query},
-									handleAs: 'json',
-									load:dojo.hitch(null, loadSuccess, rootnode)});
-					return true;
-				}
-			});
+			if(!dojo.hasClass(evt.target, "default")){
+				dojo.some(evt.target.value.split(" "), function(elt){
+				if(urlmatch.test(elt)){
+					var query = elt, url = dojo.attr(evt.target, "_url");
+						dojo.disconnect(ht1);dojo.disconnect(ht2);
+						var div = dojo.create("DIV", {"class":"loading"});
+						div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
+						_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
+						dojo.place(div, "homeurlexpander", "last");
+						dojo.removeClass("homeurlexpander", "hidden");
+						dojo.xhrPost({url:url, content:{query:query},
+										handleAs: 'json',
+										load:dojo.hitch(null, loadSuccess, rootnode)});
+						return true;
+					}
+				});
+			};
 		};
 	ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseInput, "onkeyup"));
 	ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseInput,"onblur"));

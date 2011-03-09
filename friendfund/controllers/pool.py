@@ -118,6 +118,8 @@ class PoolController(ExtBaseController):
 				c.errors = error.error_dict or {}
 				c.values = error.value
 				c.values["img_list"] = c.values.get("img_list") or []
+				if not isinstance(c.values["img_list"], list):
+					c.values["img_list"] = [c.values["img_list"]]
 				try:
 					c.values['date'] = datetime.datetime.strptime(c.values['date'], "%Y-%m-%d")
 				except:

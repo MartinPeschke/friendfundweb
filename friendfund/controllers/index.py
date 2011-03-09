@@ -58,7 +58,7 @@ class IndexController(BaseController):
 		c.reload = False
 		return render('/closepopup.html')
 	
-	@jsonify
+	
 	def logout(self):
 		c.furl = request.params.get('furl', url('home'))
 		c.user = ANONUSER
@@ -68,9 +68,8 @@ class IndexController(BaseController):
 			del websession['invitees']
 		if 'pool' in websession:
 			del websession['pool']
-		result = {'redirect':c.furl}
 		clear_blocks()
-		return result
+		return redirect(c.furl)
 	
 	def login(self):
 		return self.signup()
