@@ -1750,7 +1750,7 @@ div.popupBackground.dark {
 	background-color: #333;
 }
 div.outerPopupFrame {
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	width: 100%;
@@ -1767,9 +1767,6 @@ div.outerPopupFrame div.whitePopupFrame {
 	padding: 20px;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
-}
-div.outerPopupFrame div.whitePopupFrame.fixed {
-	position:fixed;
 	left: 50%;
 	margin-left: -125px
 }
@@ -1783,9 +1780,6 @@ div.outerPopupFrame div.whitePopupFrameLarge {
 	padding: 20px 20px 5px 20px ;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
-}
-div.outerPopupFrame div.whitePopupFrameLarge.fixed {
-	position:fixed;
 	left: 50%;
 	margin-left: -242px
 }
@@ -3053,3 +3047,4 @@ div.footer div.footerCol5 span, div.footer div.footerCol5 a,  div.footer div.foo
     margin: 10px 0 0;
     padding: 0 5px;
     width: 198px;}
+input.invisible{background-color:transparent; color:transparent;border: 0px solid transparent;height:1px;width:1px;position:absolute;}

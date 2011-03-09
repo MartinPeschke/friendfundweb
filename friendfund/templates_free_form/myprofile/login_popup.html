@@ -1,6 +1,6 @@
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrameLarge fixed">
+	<div class="whitePopupFrameLarge">
 	<span class="panelclosing_x">x</span>
 		<div>
 			<h3>${_("FF_LOGINPOPUP_Log in to invite your friends.")}</h3>
@@ -16,7 +16,7 @@
 			</div>
             <p class="info">${_("FF_LOGINPOPUP_Your privacy is sacred to us. This information won't ever be shared without your explicit permission.")}</p>
 			<h4>${_("FF_LOGINPOPUP_Log in with a password instead")}</h4>
-			<form id="login_popup_form">
+			<form id="login_popup_form" onSubmit="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')));return false;">
 			<div class="inputFields">
 				<div class="inputName floatLeft ${"email" in c.login_errors and "error" or ""}">
 					<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
@@ -35,6 +35,7 @@
 				</div>
 				<div class="clear"></div>
 			</div>
+			<input type="submit" class="invisible" value="Go"/>
 			</form>
 			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">${_("FF_LOGINBUTTON_Log In")}</a>
 			<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">${_("FF_LOGIN_Sign up now")}</a></p>

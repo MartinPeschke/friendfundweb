@@ -1,5 +1,5 @@
 <%def name="renderPanel()">
-		<form id="login_panel_form">
+		<form id="login_panel_form" onSubmit="xhrFormPost('${url(controller='myprofile', action='loginpanel')}', 'login_panel_form', place_element(dojo.byId('loginPanelContent')));return false;">
 			<div class="inputline">
 				<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
 				<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
@@ -16,6 +16,7 @@
 			<div>
 				<a href="/myprofile/password" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
 			</div>
+			<input type="submit" class="invisible" value="Go"/>
 		</form>
 		<a onclick="submitLoginPanel(this)" class="primaryButton floatLeft" style="margin-top:7px">${_("FF_LOGINBUTTON_Log In")}</a>
 		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
@@ -51,13 +52,15 @@
 		if(dojo.hasClass(link, "active")){
 			dojo.removeClass(link, "active");
 			dojo.addClass("loginPanelContent", "hidden");
+			document.onkeydown = null;
+			document.onclick = null;
 		} else {
 			dojo.addClass(link, "active");
 			dojo.removeClass("loginPanelContent", "hidden");
+			document.onkeydown = function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}};
+			document.onclick = function(evt){if(evt.target.id!="loginlink"&&!findParent(evt.target, "loginPanel")){closeLoginPanel(evt);}};
 		}
 	}
-	document.onkeydown = function(evt){if(evt.keyCode == 27){closeLoginPanel(evt);}else if(evt.keyCode==13&&findParent(evt.target, "loginPanel")){submitLoginPanel();}};
-	document.onclick = function(evt){if(evt.target.id!="loginlink"&&!findParent(evt.target, "loginPanel")){closeLoginPanel(evt);}};
 	</script>
 %else:
 	<img src="${c.user.get_profile_pic()}" width="25px" height="25px" />

@@ -11,8 +11,8 @@
 
 <%def name="render_pool_card(pool)">
 <% 
-	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), "admin_name":c.user.name,
-			"no_contributors":pool.no_contributors, "days_left":14, "admin_name":"Liz Stevens", "product_name":"her Tennis club",
+	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), "admin_name":pool.admin_name,
+			"no_contributors":pool.no_contributors, "days_left":14, "product_name":"her Tennis club",
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
 			"days_left" : pool.get_remaining_days_tuple()[0]}
 %>
@@ -68,12 +68,11 @@
 					</div>
 				</div>
 				
-				#### TODO: implement
-				%if not pool.is_admin:
+				%if not pool.is_admin and pool.joined_name:
 					<div class="vertSpacer">
 						<span>INVITED BY</span>
 						<div class="smallestImgWrap">
-							<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+							<img width="24px" height="24px" src="${pool.get_friend_profile_pic("PROFILE_S")}"/>
 						</div>
 					</div>
 				%endif
@@ -81,7 +80,7 @@
 				<div class="vertSpacer">
 					<span>RECIPIENT</span>
 					<div class="smallestImgWrap">
-						<img width="24px" height="24px" src="${pool.get_receiver_profile_pic("PROFILE_S")}">
+						<img width="24px" height="24px" src="${pool.get_receiver_profile_pic("PROFILE_S")}"/>
 					</div>
 				</div>
 				%if pool.product_picture_url:
@@ -113,7 +112,9 @@
 			<div class="contributors"><span><strong>${pool.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
 			<div class="chippedIn"><span><strong>${h.format_currency(pool.get_total_contribution_float(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
 			<div class="outstanding"><span><strong>${h.format_currency(pool.get_amount_left(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
-			<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
+			%if not pool.is_closed():
+				<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
+			%endif
 			<div class="clear"></div>
 		</div>
 	</div>

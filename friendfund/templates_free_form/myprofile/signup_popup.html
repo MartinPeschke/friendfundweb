@@ -1,6 +1,6 @@
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrameLarge fixed">
+	<div class="whitePopupFrameLarge">
 	<span class="panelclosing_x">x</span>
 		<div>
 			<h3>${_("FF_LOGINPOPUP_Sign up to invite your friends.")}</h3>
@@ -44,6 +44,7 @@
 				</div>
 				<div class="clear"></div>
 			</div>
+			<input type="submit" class="invisible" value="Go"/>
 			</form>
 			<a onclick="xhrFormPost('${url(controller='myprofile', action='signuppopup')}', 'signup_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">${_("FF_LOGIN_Sign Up")}</a>
 			<p><a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='loginpopup')}', {})">&laquo; ${_("FF_LOGIN_Back to Login")}</a></p>

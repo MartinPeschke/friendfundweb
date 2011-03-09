@@ -4,8 +4,10 @@ parseSelectables = function(rootnode, className){
 		r = function(evt){remClassFromParent(evt.target, classes, "selected");};
 	dojo.byId(rootnode).onfocusin = a;
 	dojo.byId(rootnode).onfocusout = r;
-	dojo.byId(rootnode).addEventListener('focus',a,true);
-	dojo.byId(rootnode).addEventListener('blur',r,true);
+	if(dojo.isIE===undefined){
+		dojo.byId(rootnode).addEventListener('focus',a,true);
+		dojo.byId(rootnode).addEventListener('blur',r,true);
+	}
 };
 
 onSubmitCleaner = function(rootnode){
@@ -28,9 +30,10 @@ parseSimpleEditables = function(rootnode){
 					var editor = dojo.create(dojo.attr(field, "_type"), {type:"text", "class":field.className, _length:length, value:field.value, name:field.name, id:field.id});
 					var evts = [],  _backups = [];
 					var f = function(editevt){
+							var newval=editevt.target.value;
+							if(newval.length==0){return;}
 							dojo.forEach(evts, dojo.disconnect);
 							dojo.addClass(root,'active');
-							var newval=editevt.target.value;
 							field.value = newval;
 							dojo.empty(root);
 							root.innerHTML = length?newval.substr(0,length):newval;
@@ -94,6 +97,8 @@ displayPopup = function(html){
 	dojo.place(html, dojo.byId("generic_popup"), "only" );
 	dojo.query(".panelclosing_x,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
 	popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
+	var i = dojo.query("input", "generic_popup");
+	if(i.length>0){i[0].focus()};
 };
 loadPopup = function(evt){closePopup(evt);xhrPost(dojo.attr(this, "_href"), {});};
 clear_messages = function(){destroyPopup("message_container");};
@@ -150,8 +155,6 @@ place_element = function(node, callback){
 		if(callback){callback.call();}
 	};
 };
-
-
 
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
@@ -430,7 +433,7 @@ var loadSuccess = function(rootnode, data){
 var connectURLParser = function(rootnode){
 	var dn = dojo.byId(rootnode), ht1, ht2,
 		parseInput = function(type, evt){
-			evt.target.value.split(" ").some(function(elt){
+			dojo.some(evt.target.value.split(" "), function(elt){
 			if(urlmatch.test(elt)){
 				var query = elt, url = dojo.attr(evt.target, "_url");
 					dojo.disconnect(ht1);dojo.disconnect(ht2);
