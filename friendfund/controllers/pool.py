@@ -69,7 +69,7 @@ class PoolController(ExtBaseController):
 	def details(self):
 		c.errors = {}
 		c.workflow = request.params.get("v") or "1"
-		if c.workflow == "1":
+		if c.workflow == "1" and (request.params.get("amount") or request.params.get("title")):
 			try:
 				mini_pool_schema = PoolHomePageForm().to_python(request.params)
 			except formencode.validators.Invalid, error:
@@ -89,6 +89,9 @@ class PoolController(ExtBaseController):
 			"date": (datetime.datetime.today() + datetime.timedelta(14)),
 			"settlementOption": None
 			}
+		if  isinstance(c.values.get('title'),basestring) and isinstance(c.values.get('tracking_link'), basestring) \
+			and c.values['title'].strip() in c.values.get('tracking_link'):
+			c.pool.title = None
 		try:
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:

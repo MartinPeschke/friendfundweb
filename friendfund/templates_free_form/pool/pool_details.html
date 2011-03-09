@@ -135,7 +135,7 @@
 					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
 				</div>
 				<div class="greyInside" style="width:516px">
-					%if "amount" in c.errors or c.workflow != "1":
+					%if "amount" in c.errors or c.workflow != "1" or not c.values['amount']:
 						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
 					%else:
 						<div class="editorCtn">
@@ -171,7 +171,7 @@
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
 				</div>
 				
-					%if "title" in c.errors or c.workflow != "1":
+					%if "title" in c.errors or c.workflow != "1" or not c.values['title']:
 						<input type="text" name="title" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
 					%else:
 						<span class="simpleeditable active mainValue">${c.values['title']}

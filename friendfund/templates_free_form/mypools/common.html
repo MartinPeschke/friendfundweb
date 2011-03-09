@@ -15,6 +15,7 @@
 			"no_contributors":pool.no_contributors, "days_left":14, "product_name":"her Tennis club",
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
 			"days_left" : pool.get_remaining_days_tuple()[0]}
+	merchant = app_globals.merchants.domain_map.get(pool.merchant_domain)
 %>
 <div class="poolRowWrap">
 	<div class="poolRow">
@@ -77,17 +78,18 @@
 					</div>
 				%endif
 				
-				<div class="vertSpacer">
-					<span>RECIPIENT</span>
-					<div class="smallestImgWrap">
-						<img width="24px" height="24px" src="${pool.get_receiver_profile_pic("PROFILE_S")}"/>
+				%if merchant.type_is_group_gift:
+					<div class="vertSpacer">
+						<span>RECIPIENT</span>
+						<div class="smallestImgWrap">
+							<img width="24px" height="24px" src="${pool.get_receiver_profile_pic("PROFILE_S")}"/>
+						</div>
 					</div>
-				</div>
-				%if pool.product_picture_url:
+				%endif
+				%if merchant.is_default:
 					<div class="vertSpacer">
 						<span>MERCHANT</span>
-						####TODO: implement
-						<img src="/static/imgs/dummy/gad-small.png" class="floatRight"/>
+						<img src="${merchant.logo_url}" class="floatRight"/>
 					</div>
 				%endif
 			</div>
@@ -97,22 +99,21 @@
 				<div class="timeCounter">
 					<% progress = int(pool.funding_progress()*100) %>
 					<span>
-					####TODO: make this dependent on status rather than numbers
-					%if pool.is_closed():
+					%if pool._is_closed:
 						SUCCESFUL
 					%else:
 						${progress}%
 					%endif
 					</span>
 					<div style="width: 100%" class="timeCounterRight">
-					<div style="width: ${pool.funding_progress()*100}%" class="timeCounterLeft ${pool.is_closed() and "green" or ""}"></div>
+					<div style="width: ${pool.funding_progress()*100}%" class="timeCounterLeft ${pool._is_closed and "green" or ""}"></div>
 					</div>
 				</div>
 			</div>
 			<div class="contributors"><span><strong>${pool.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
 			<div class="chippedIn"><span><strong>${h.format_currency(pool.get_total_contribution_float(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
 			<div class="outstanding"><span><strong>${h.format_currency(pool.get_amount_left(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
-			%if not pool.is_closed():
+			%if not pool._is_closed:
 				<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
 			%endif
 			<div class="clear"></div>

@@ -31,9 +31,9 @@ class MyPoolEntry(DBMappedObject):
 			, GenericAttrib(str, "merchant_domain", "merchant_domain")
 			, GenericAttrib(bool, "is_secret", "is_secret")
 			]
-
+	
 	def is_closed(self):
-		return self.status in ["CLOSED", "COMPLETE"]
+		return self._is_closed
 	def is_expired(self):
 		return self.expiry_date<datetime.today()
 	def get_pool_picture(self, type = "RA"):
@@ -63,14 +63,15 @@ class MyPoolEntry(DBMappedObject):
 			log.error("NO PRODUCT NAME FOUND")
 			return "XXX"
 	def get_remaining_days_tuple(self):
-		if self.is_closed():
+		if self._is_closed:
 			return (0, 0)
 		else:
 			diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 			if diff < timedelta(0):
 				diff = timedelta(0)
 			return (diff.days, diff.seconds/3600)
-
+	def fromDB(self, xml):
+		setattr(self, "_is_closed", self.status in ["CLOSED", "COMPLETE"])
 
 class GetMyPoolsProc(DBMappedObject):
 	"""
