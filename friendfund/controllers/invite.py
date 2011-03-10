@@ -179,3 +179,11 @@ class InviteController(ExtBaseController):
 			c.method = 'email'
 			c.invitees = {network_id:invitee}
 			return {'clearmessage':True, 'data':{'success':True, 'html':self.render('/invite/email_invitee.html').strip()}}
+	
+	
+	
+	@jsonify
+	def preview(self, pool_url):
+		return  {"popup":self.render("/messages/preview.html").strip()}
+	
+	

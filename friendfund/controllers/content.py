@@ -40,6 +40,10 @@ class ContentController(BaseController):
 		return {"popup":render("/messages/popups/faq_popup.html").strip()}
 	
 	@jsonify
+	def pledging_faq(self):
+		return {"popup":render("/content/pledging_faq.html").strip()}
+	
+	@jsonify
 	def our_virtual_gifts_help(self):
 		c.faq_items = FAQ_KEYS[12:15]
 		c.faq_item_header = c.faq_items[0][0]
