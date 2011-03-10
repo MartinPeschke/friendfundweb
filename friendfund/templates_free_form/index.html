@@ -19,13 +19,20 @@
 		<div class="formWeNeed" id="poolProductFinder">
 			<h3>${_("FF_HOMEPAGE_FORM_We need")}</h3>
 			<form method="GET" id="submissionform" onSubmit="return onSubmitCleaner(this)" action="${url("pool_details", protocol="http")}">
-			<div>
+			<div class="exp">
 				<span>${h.display_currency(h.default_currency())}</span>
 				<input type="text" name="amount" class="short tipeIn weNeed" />
 				<span style="margin-left:30px">for</span>
 				<input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="weNeed default long" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 				<input type="submit" class="primaryLarge floatRight" value="${_("FF_HOME_PAGE_Get Started")}" />
-				<p class="info">${_("FF_HOMEPAGE_FORM_You can also paste a link from any website here.")}</p>
+				
+                <div class="verticalTip hideable">
+						<div class="arrow"></div>
+							<span>
+								${_("FF_HOMEPAGE_FORM_You can also paste a link from any website here.")}
+							</span>
+							
+						</div>
 			</div><div id="homeurlexpander" class="home_expander hidden"></div>
 			</form>
 		</div>
@@ -65,7 +72,8 @@
 			
 			<div class="boxContributors">
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
+            <span class="middot">&middot;</span>
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
@@ -92,7 +100,8 @@
 			
 			<div class="boxContributors">
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+			<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
+            <span class="middot">&middot;</span>
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
@@ -119,7 +128,8 @@
 			
 			<div class="boxContributors">
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
+            <span class="middot">&middot;</span>
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">
@@ -146,7 +156,8 @@
 			
 			<div class="boxContributors">
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>
+				<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
+            <span class="middot">&middot;</span>
 				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 			</div>
 			<div class="fbHolder">

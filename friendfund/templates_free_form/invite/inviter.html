@@ -58,9 +58,11 @@
 <%def name="mailinviter()">
 	<form action="" method="POST" id="emailinviter">
 	<div class="arrowSubTab"></div>
-	<div class="firstSpacer floatLeft"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label><input id="email_networkname" name="invitee.name" type="text" class="txtMail" /></div>
-	<div class="secondSpacer floatLeft"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label><input id="email_email" name="invitee.network_id" type="text" class="txtMail" />
-		<span id="email_inviter_error"></span>
+	<div class="firstSpacer floatLeft error"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label><input id="email_networkname" name="invitee.name" type="text" class="txtMail" />
+    	<p>Error msg</p>
+    </div>
+	<div class="secondSpacer floatLeft error"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label><input id="email_email" name="invitee.network_id" type="text" class="txtMail" />
+		<p id="email_inviter_error">error msg</p>
 	</div>
 	<div class="btnContainer">
 		<input type="button" id="emailsubmitter" value="${_("FF_INVITER_EMAIL_Add to Invitees")}" class="primaryButton" />

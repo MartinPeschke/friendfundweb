@@ -148,7 +148,7 @@
 					
 					
 					
-					<span style="margin-right:5px">${_("FF_POOLDETAILS_by")}</span>
+					<span style="margin:0 4px 0 3px">${_("FF_POOLDETAILS_by")}</span>
 					<input class="small" readonly="readonly" type="text" id="datepicker" value="${h.format_date(c.values.get('date'))}"/>
 					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
 					<span class="darkGrey floatRight">${_("FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT")|n}</span>
@@ -248,7 +248,7 @@
 						<label for="${so.name}_option">
 							${_(so.name)} 
 							%if so.fee:
-								(costs you ${so.fee*100}%)
+								<span class="free">(costs you ${so.fee*100}%)</span>
 							%else:
 								<span class="free">(FREE)</span>
 							%endif 
@@ -268,7 +268,11 @@
 						%if so.required_fields:
 							<div id="${so.name}_form" class="requiredForm hideable hidden">
 								%for rf in so.required_fields:
-									<div class="smallLabel"><label>${_(so.name)} ${_(rf.name)}</label><input type="text" name="${so.name}.${rf.name}" value="${c.values.get(so.name, dict()).get(rf.name)}" /></div>
+									<div class="smallLabel error">
+                                    
+                                    <label>${_(so.name)} ${_(rf.name)}</label><input type="text" name="${so.name}.${rf.name}" value="${c.values.get(so.name, dict()).get(rf.name)}" />
+                                    <p class="error">Error message</p>
+                                    </div>
 									%if rf.name in c.errors.get(so.name, dict()):
 										<span>${c.errors[so.name][rf.name]}</span>
 									%endif

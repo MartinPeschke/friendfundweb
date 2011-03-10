@@ -149,7 +149,7 @@
 		</a>
 		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
 		<a href="${url("payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">
-			${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")}
+			${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} &raquo;
 		</a>
 		
 		<div class="rose">
@@ -180,11 +180,11 @@
 		</div>
 		</div>
 		<div class="colRightWhite"></div>
-		<div class="generalBoxRight">
+		<div class="generalBoxRight noBorder">
 			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
 			<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
 		</div>
-		<div class="colRightWhite"></div>
+		
 	</div>
    
    

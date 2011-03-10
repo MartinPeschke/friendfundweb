@@ -98,12 +98,22 @@
 				</div>
 			%endif
 			
-			<div class="first" style="margin-top:15px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
+              <div class="first" style="margin-top:7px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
 			<div style="width: 516px;" class="greyInside">
+            <span class="darkGrey floatRight"><span id="daysLeft" class="bold">14</span> DAYS LEFT</span>
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 
 				<input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" style="float:left; width:100px" />
 				<p class="alignInput">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
-				<div id="verisign_contrib" class="floatRight">
+				
+			</div>
+		</div>
+		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
+		<div class="contentDetails">
+			<div class="imgSpacer"> 
+				 %for i, pm in enumerate(c.payment_methods):
+					<img src="/static/imgs/${pm.code}.png"/>
+				%endfor
+                <div id="verisign_contrib" class="floatRight">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 					<tr>
 					<td width="135" align="center" valign="top">
@@ -113,14 +123,6 @@
 					</tr>
 					</table>
 				</div>
-			</div>
-		</div>
-		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
-		<div class="contentDetails">
-			<div class="imgSpacer"> 
-				 %for i, pm in enumerate(c.payment_methods):
-					<img src="/static/imgs/${pm.code}.png"/>
-				%endfor
 			</div>
 			${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
 			<a class="popuplink" _href="${url(controller="content", action="pledging_faq")}">${_("FF_CONTRIB_PAGE_Learn More")} »</a>

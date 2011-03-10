@@ -43,8 +43,17 @@
 					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
 					<span class="value">${h.display_currency(c.pool.currency)}</span> 
 				
-				<p class="alignInput">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
-				<div id="verisign_contrib" class="floatRight">
+				<span class="darkGrey floatRight">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
+				
+			</div>
+			</div>
+			<!--<a href="#" class="editContrib">Edit</a>-->
+		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
+		</div>
+		<div class="contentDetails">
+        <div class="imgSpacer"> 
+				
+                <div id="verisign_contrib" class="floatRight" style="margin-left:20px">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 					<tr>
 					<td width="135" align="center" valign="top">
@@ -55,19 +64,17 @@
 					</table>
 				</div>
 			</div>
-			</div>
-			<!--<a href="#" class="editContrib">Edit</a>-->
-		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
-		</div>
-		<div class="contentDetails">
 		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
 		<a href="#">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
 		</div>
         
 		<div class="clear"></div>
 	<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
-        <img src="/static/imgs/${c.payment_method.code}.png">
-		<div class="borderBottom noBorder ${('ccHolder' in c.errors) and "error" or ""}">
+    <div class="borderBottom ">
+    
+        <div class="first">Card type</div><img src="/static/imgs/${c.payment_method.code}.png">
+     </div>
+		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
 			%if "ccHolder" in c.errors:
 			<div class="tip">
 				<div class="arrow"></div>
@@ -81,7 +88,7 @@
 				<input type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
 			</div>
 		</div>
-		<div class="borderBottom noBorder ${('ccNumber' in c.errors) and "error" or ""}">
+		<div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
 			%if "ccNumber" in c.errors:
 			<div class="tip">
 				<div class="arrow"></div>
@@ -95,7 +102,7 @@
 				<input type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
 			</div>
 		</div>
-		<div class="borderBottom noBorder ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
+		<div class="borderBottom  ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
 			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
 			<div class="tip">
 				<div class="arrow"></div>
@@ -127,7 +134,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="borderBottom noBorder ${('ccCode' in c.errors) and "error" or ""}">
+		<div class="borderBottom  ${('ccCode' in c.errors) and "error" or ""}" style="border-bottom:none">
 			%if "ccCode" in c.errors:
 				<div class="tip">
 					<div class="arrow"></div>
@@ -138,11 +145,14 @@
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
 				</div>
-				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" /><a href="#" class="smallForm">${_("FF_CONTRIB_DETAILS_what's this?")}</a>
+				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" style="width:40px !important" /><a href="#" class="smallForm">${_("FF_CONTRIB_DETAILS_what's this?")}</a>
 			</div>
 		</div>
-		<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton"/>
+        <div class=" floatRight spacerButtons">
+		<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatRight"/>
+        </div>
 	</div>
 	</form>
+    <div class="clear"></div> 
 </div>
-<div class="clear"></div>
+
