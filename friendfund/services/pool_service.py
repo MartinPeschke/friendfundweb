@@ -5,9 +5,12 @@ log = logging.getLogger(__name__)
 from pylons import app_globals, tmpl_context, request, session as websession
 from pylons.i18n import _
 from friendfund.lib import helpers as h
+from friendfund.lib.i18n import friendfund_formencode_gettext
+from friendfund.model.forms.pool import PoolCreateForm
 from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion
 from friendfund.model.product import Product
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_save_product_image
+
 
 class MissingPermissionsException(Exception):pass
 class MissingPoolException(Exception):pass
@@ -27,10 +30,10 @@ class PoolService(object):
 			os.makedirs(self.ulpath)
 	
 	def create_free_form(self):
-		from friendfund.model.forms.pool import PoolCreateForm
-		
+		tmpl_context._ = friendfund_formencode_gettext
+		tmpl_context.request = request
 		pool_map = formencode.variabledecode.variable_decode(request.params)
-		pool_schema = PoolCreateForm().to_python(pool_map, state = request)
+		pool_schema = PoolCreateForm().to_python(pool_map, state = tmpl_context)
 		
 		pool = Pool(title = pool_schema['title'],
 				description = pool_schema['description'],
@@ -107,5 +110,4 @@ class PoolService(object):
 		outf.write(picture.file.read())
 		outf.close()
 		remote_save_product_image.delay(picture_url, tmpname)
-		print tmpname, picture_url
 		return picture_url

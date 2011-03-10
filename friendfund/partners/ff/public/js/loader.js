@@ -380,7 +380,7 @@ var renderPictures = function(imgs, preselected){
 	createAppendPicture(imgContainer, imgs, preselected);
 	return imgContainer;
 };
-var renderController = function(rootnode){
+var renderController = function(editnode){
 	var left = dojo.create("SPAN", {"class":"smallLeft", "innerHTML":"<span></span>"});
 	var right = dojo.create("SPAN", {"class":"smallRight", "innerHTML":"<span></span>"});
 	left.onclick = dojo.hitch(null, slide, -1);
@@ -389,33 +389,26 @@ var renderController = function(rootnode){
 			innerHTML:'<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span>'});
 	controller.appendChild(left);
 	controller.appendChild(right);
-	if(rootnode){
+	if(editnode){
 		var parsercloser = dojo.create("A", {"class":"parsercloser", "innerHTML":"X"});
-		parsercloser.onclick = dojo.hitch(null, resetParser,rootnode);
+		parsercloser.onclick = dojo.hitch(null, resetParser,editnode);
 		controller.appendChild(parsercloser);
 	}
 	return controller;
 };
 
-var resetParser = function(rootnode){
+var resetParser = function(editnode){
 	dojo.empty("homeurlexpander");
 	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem)});
 	picCounter = 0; accepted = false; _parser_backups = [];
-	connectURLParser(rootnode);
+	connectURLParser(editnode);
 }
 
-var loadSuccess = function(rootnode, data){
+var loadSuccess = function(editnode, data){
 	dojo.query(".loading", "homeurlexpander").orphan();
 	if(data.success === false){
 		resetParser("homeurlexpander");
 	} else {
-		var edithandler;
-		var editProduct = function(evt){
-			dojo.disconnect
-			dojo.empty(evt.target);
-			
-		};
-		
 		var div = dojo.create("DIV", {"class":"loading"});
 		div.appendChild(renderPictures(data.imgs));
 		div.appendChild(dojo.create("a", {innerHTML : data.display_url, 'class':'address', 'href':data.url}));
@@ -431,16 +424,16 @@ var loadSuccess = function(rootnode, data){
 		div.appendChild(dojo.create("INPUT", {type:"hidden", value:data.url, name:'tracking_link'}));
 		dojo.place(div, "homeurlexpander", "only");
 		parseSimpleEditables(div);
-		div.appendChild(renderController(rootnode));
+		div.appendChild(renderController(editnode));
 	}
 };
-var connectURLParser = function(rootnode){
-	var dn = dojo.byId(rootnode), ht1, ht2,
-		parseInput = function(type, evt){
-			if(!dojo.hasClass(evt.target, "default")){
-				dojo.some(evt.target.value.split(" "), function(elt){
+var connectURLParser = function(editnode){
+	var dn = dojo.byId(editnode), ht1, ht2,
+		parseInput = function(elem){
+		if(!dojo.hasClass(elem, "default")){
+				dojo.some(elem.value.split(" "), function(elt){
 				if(urlmatch.test(elt)){
-					var query = elt, url = dojo.attr(evt.target, "_url");
+					var query = elt, url = dojo.attr(elem, "_url");
 						dojo.disconnect(ht1);dojo.disconnect(ht2);
 						var div = dojo.create("DIV", {"class":"loading"});
 						div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
@@ -449,12 +442,16 @@ var connectURLParser = function(rootnode){
 						dojo.removeClass("homeurlexpander", "hidden");
 						dojo.xhrPost({url:url, content:{query:query},
 										handleAs: 'json',
-										load:dojo.hitch(null, loadSuccess, rootnode)});
+										load:dojo.hitch(null, loadSuccess, editnode)});
 						return true;
 					}
 				});
 			};
+		},
+		parseInputFromEvt = function(evt){
+			parseInput(evt.target);
 		};
-	ht1 = dojo.connect(dn, "onkeyup", dojo.hitch(null, parseInput, "onkeyup"));
-	ht2 = dojo.connect(dn, "onblur", dojo.hitch(null, parseInput,"onblur"));
+	ht1 = dojo.connect(dn, "onkeyup", parseInputFromEvt);
+	ht2 = dojo.connect(dn, "onblur", parseInputFromEvt);
+	parseInput(dn);
 };

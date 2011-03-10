@@ -91,7 +91,7 @@ class PoolController(ExtBaseController):
 			}
 		if  isinstance(c.values.get('title'),basestring) and isinstance(c.values.get('tracking_link'), basestring) \
 			and c.values['title'].strip() in c.values.get('tracking_link'):
-			c.pool.title = None
+			 c.values['title'] = None
 		try:
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:
@@ -100,6 +100,8 @@ class PoolController(ExtBaseController):
 	
 	@logged_in()
 	def create(self):
+		c.errors = {}
+		c.values = {}
 		c.workflow = request.params.get("v") or "1"
 		if request.merchant.type_is_group_gift:
 			try:
@@ -120,6 +122,8 @@ class PoolController(ExtBaseController):
 				c.currencies = sorted(g.country_choices.currencies)
 				c.errors = error.error_dict or {}
 				c.values = error.value
+				if not c.values:
+					return redirect(url(controller="pool", action="details", v=2))
 				c.values["img_list"] = c.values.get("img_list") or []
 				if not isinstance(c.values["img_list"], list):
 					c.values["img_list"] = [c.values["img_list"]]

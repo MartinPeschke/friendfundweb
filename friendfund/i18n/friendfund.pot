@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-03-09 21:58+0100\n"
+"POT-Creation-Date: 2011-03-10 10:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,17 +335,17 @@ msgid ""
 msgstr ""
 
 #: friendfund/controllers/pool.py:40 friendfund/controllers/pool.py:52
-#: friendfund/controllers/pool.py:105 friendfund/controllers/pool.py:213
-#: friendfund/controllers/pool.py:225 friendfund/controllers/pool.py:243
-#: friendfund/controllers/pool.py:255
+#: friendfund/controllers/pool.py:110 friendfund/controllers/pool.py:221
+#: friendfund/controllers/pool.py:233 friendfund/controllers/pool.py:251
+#: friendfund/controllers/pool.py:263
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr ""
 
-#: friendfund/controllers/pool.py:108
+#: friendfund/controllers/pool.py:113
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:111
+#: friendfund/controllers/pool.py:116
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr ""
 
@@ -489,48 +489,48 @@ msgstr ""
 msgid "POOLACTIONS_ISSUE_GIFT_VOUCHERS_SUBTITLE_"
 msgstr ""
 
-#: friendfund/model/forms/common.py:24
+#: friendfund/model/forms/common.py:21
 msgid "TOSVALIDATOR_You have to agree to our terms and conditions."
 msgstr ""
 
-#: friendfund/model/forms/common.py:34
+#: friendfund/model/forms/common.py:30
 msgid "PWDVALIDATOR_Please dont input any special characters."
 msgstr ""
 
-#: friendfund/model/forms/common.py:43
+#: friendfund/model/forms/common.py:40
 msgid "DATEVALIDATOR_Please input Date in Valid Format YYYY-MM-DD"
 msgstr ""
 
-#: friendfund/model/forms/common.py:50
+#: friendfund/model/forms/common.py:49
 msgid "CURRENCYVALIDATOR_Please input a valid Currency"
 msgstr ""
 
-#: friendfund/model/forms/common.py:59 friendfund/model/forms/common.py:68
+#: friendfund/model/forms/common.py:56 friendfund/model/forms/common.py:65
 msgid "MONETARYVALIDATOR_Please input a valid amount"
 msgstr ""
 
-#: friendfund/model/forms/common.py:71
+#: friendfund/model/forms/common.py:66
 #, python-format
-msgid "Please enter a number that is %s or smaller"
+msgid "Please enter a number that is %(max_amount)s or smaller"
 msgstr ""
 
-#: friendfund/model/forms/common.py:93
-msgid "Please enter a valid value"
+#: friendfund/model/forms/common.py:95
+msgid "SETTLEMENT_PAYPAL_EMAIL_MISSIN_Please enter a valid value"
 msgstr ""
 
-#: friendfund/model/forms/common.py:94
-msgid "Invalid Settlement Option"
+#: friendfund/model/forms/common.py:96
+msgid "SETTLEMENT_Invalid Settlement Option"
 msgstr ""
 
-#: friendfund/model/forms/common.py:132 friendfund/model/forms/common.py:145
+#: friendfund/model/forms/common.py:130 friendfund/model/forms/common.py:148
 msgid "unsupported payment method"
 msgstr ""
 
-#: friendfund/model/forms/common.py:143
+#: friendfund/model/forms/common.py:146
 msgid "Please enter a valid amount"
 msgstr ""
 
-#: friendfund/model/forms/common.py:144
+#: friendfund/model/forms/common.py:147
 msgid "Invalid Totals"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgstr ""
 msgid "AMEX"
 msgstr ""
 
-#: friendfund/services/pool_service.py:85
+#: friendfund/services/pool_service.py:86
 #, python-format
 msgid ""
 "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for "
@@ -2316,70 +2316,70 @@ msgstr ""
 msgid "FF_HOMEPAGE_SLOGAN_Learn more"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:21
+#: friendfund/templates_free_form/index.html:20
 msgid "FF_HOMEPAGE_FORM_We need"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:27
+#: friendfund/templates_free_form/index.html:26
 msgid "FF_HOME_PAGE_Examples: a weekend away, my sports club..."
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:28
+#: friendfund/templates_free_form/index.html:27
 msgid "FF_HOME_PAGE_Get Started"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:29
+#: friendfund/templates_free_form/index.html:28
 msgid "FF_HOMEPAGE_FORM_You can also paste a link from any website here."
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:42
+#: friendfund/templates_free_form/index.html:41
 msgid "FF_HOMEPAGE_BOXES_SEEN IN"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:52
+#: friendfund/templates_free_form/index.html:51
 msgid "FF_HOMEPAGE_BOXES_Featured Pools"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:57
-#: friendfund/templates_free_form/index.html:84
-#: friendfund/templates_free_form/index.html:111
-#: friendfund/templates_free_form/index.html:138
+#: friendfund/templates_free_form/index.html:56
+#: friendfund/templates_free_form/index.html:83
+#: friendfund/templates_free_form/index.html:110
+#: friendfund/templates_free_form/index.html:137
 #: friendfund/templates_free_form/pool/parts/widget.html:12
 #, python-format
 msgid "FF_HOMEPAGE_BOXES_created by %(admin_name)s"
+msgstr ""
+
+#: friendfund/templates_free_form/index.html:67
+#: friendfund/templates_free_form/index.html:94
+#: friendfund/templates_free_form/index.html:121
+#: friendfund/templates_free_form/index.html:148
+#: friendfund/templates_free_form/pool/parts/widget.html:23
+#, python-format
+msgid "FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors"
 msgstr ""
 
 #: friendfund/templates_free_form/index.html:68
 #: friendfund/templates_free_form/index.html:95
 #: friendfund/templates_free_form/index.html:122
 #: friendfund/templates_free_form/index.html:149
-#: friendfund/templates_free_form/pool/parts/widget.html:23
-#, python-format
-msgid "FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors"
+msgid "FF_HOMEPAGE_BOXES_and"
 msgstr ""
 
 #: friendfund/templates_free_form/index.html:69
 #: friendfund/templates_free_form/index.html:96
 #: friendfund/templates_free_form/index.html:123
 #: friendfund/templates_free_form/index.html:150
-msgid "FF_HOMEPAGE_BOXES_and"
-msgstr ""
-
-#: friendfund/templates_free_form/index.html:70
-#: friendfund/templates_free_form/index.html:97
-#: friendfund/templates_free_form/index.html:124
-#: friendfund/templates_free_form/index.html:151
 #: friendfund/templates_free_form/pool/parts/widget.html:25
 #, python-format
 msgid "FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:165
+#: friendfund/templates_free_form/index.html:164
 msgid "FF_HOMEPAGE_BOXES_Where else can I use friendfund?"
 msgstr ""
 
-#: friendfund/templates_free_form/index.html:190
-#: friendfund/templates_free_form/index.html:206
+#: friendfund/templates_free_form/index.html:189
+#: friendfund/templates_free_form/index.html:205
 #, python-format
 msgid "FF_HOMEPAGE_BOXES_Created a Pool for %(product_name)s"
 msgstr ""
@@ -2805,27 +2805,27 @@ msgstr ""
 msgid "FF_INVITER_EMAIL_Add to Invitees"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:30
+#: friendfund/templates_free_form/mypools/common.html:31
 #, python-format
 msgid "Created by %(admin_name)s on %(closing_date)s"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:112
+#: friendfund/templates_free_form/mypools/common.html:113
 #: friendfund/templates_free_form/pool/pool.html:92
 msgid "FF_POOL_PAGE_HEADER_contributors"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:113
+#: friendfund/templates_free_form/mypools/common.html:114
 #: friendfund/templates_free_form/pool/pool.html:93
 msgid "FF_POOL_PAGE_HEADER_Chipped in"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:114
+#: friendfund/templates_free_form/mypools/common.html:115
 #: friendfund/templates_free_form/pool/pool.html:94
 msgid "FF_POOL_PAGE_HEADER_Outstanding"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:116
+#: friendfund/templates_free_form/mypools/common.html:117
 #: friendfund/templates_free_form/pool/pool.html:95
 msgid "FF_POOL_PAGE_HEADER_Days left"
 msgstr ""

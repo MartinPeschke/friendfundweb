@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: FormEncode 1.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2008-03-29 12:00+0100\n"
-"PO-Revision-Date: 2008-12-19 16:50-0800\n"
-"Last-Translator: Christoph Zwerschke <cito@online.de>\n"
+"PO-Revision-Date: 2011-03-10 10:52+0100\n"
+"Last-Translator: \n"
 "Language-Team: Gregor Horvath <gh@gregor-horvath.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev-r458\n"
 
-#: formencode/api.py:388 formencode/validators.py:447
+#: formencode/api.py:388
+#: formencode/validators.py:447
 msgid "Please enter a value"
 msgstr "Bitte einen Wert eingeben"
 
@@ -65,7 +66,8 @@ msgstr ""
 msgid "Please enter a zip code (%%s)"
 msgstr "Bitte eine Postleitzahl eingeben (%%s)"
 
-#: formencode/national.py:218 formencode/national.py:253
+#: formencode/national.py:218
+#: formencode/national.py:253
 #, python-format
 msgid "Please enter a zip code (%s)"
 msgstr "Bitte eine Postleitzahl eingeben (%s)"
@@ -103,12 +105,8 @@ msgid "That is not a valid state code"
 msgstr "Das ist kein gültiges Landeskürzel"
 
 #: formencode/national.py:528
-msgid ""
-"Please enter a number, with area code, in the form ###-###-####, "
-"optionally with \"ext.####\""
-msgstr ""
-"Bitte geben Sie eine Nummer mit Vorwahl in der Form ###-###-#### ein, "
-"oder mit \"ext.####\""
+msgid "Please enter a number, with area code, in the form ###-###-####, optionally with \"ext.####\""
+msgstr "Bitte geben Sie eine Nummer mit Vorwahl in der Form ###-###-#### ein, oder mit \"ext.####\""
 
 #: formencode/national.py:635
 msgid "Please enter a number, with area code, in the form +##-###-#######."
@@ -157,7 +155,8 @@ msgstr "%(object)r muss vom Typ %(type)s sein"
 msgid "Enter a value less than %(maxLength)i characters long"
 msgstr "Geben Sie einen Wert kürzer als %(maxLength)i Zeichen ein"
 
-#: formencode/validators.py:357 formencode/validators.py:413
+#: formencode/validators.py:357
+#: formencode/validators.py:413
 msgid "Invalid value (value with length expected)"
 msgstr "Ungültiger Wert (Wert mit Länge erwartet)"
 
@@ -202,12 +201,8 @@ msgstr "Dieser Wert ist unbekannt"
 
 #: formencode/validators.py:684
 #, python-format
-msgid ""
-"Nothing in my dictionary goes by the value %(value)s.  Choose one of: "
-"%(items)s"
-msgstr ""
-"Mein Wörterbuch enthält nicht den Wert: %(value)s. Wählen Sie einen der "
-"folgenden Wert: %(items)s"
+msgid "Nothing in my dictionary goes by the value %(value)s.  Choose one of: %(items)s"
+msgstr "Mein Wörterbuch enthält nicht den Wert: %(value)s. Wählen Sie einen der folgenden Wert: %(items)s"
 
 #: formencode/validators.py:745
 msgid "Must be an integer index"
@@ -242,14 +237,14 @@ msgid "The date must be sometime in the future"
 msgstr "Das Datum muss in der Zukunft liegen"
 
 #: formencode/validators.py:934
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter a number that is %(min)s or greater"
-msgstr "Bitte eine Jahreszahl eingeben"
+msgstr "Bitte einen Wert eingeben, der %(min)s ist oder größer"
 
 #: formencode/validators.py:935
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter a number that is %(max)s or smaller"
-msgstr "Bitte eine Jahreszahl eingeben"
+msgstr "Bitte einen Wert eingeben, der %(max)s ist oder kleiner"
 
 #: formencode/validators.py:974
 msgid "Please enter an integer value"
@@ -283,37 +278,24 @@ msgstr "Eine E-Mail-Adresse muss genau ein @-Zeichen enthalten"
 
 #: formencode/validators.py:1321
 #, python-format
-msgid ""
-"The username portion of the email address is invalid (the portion before "
-"the @: %(username)s)"
-msgstr ""
-"Der Benutzername in der E-Mail-Adresse is ungültig (der Teil vor dem @: "
-"%(username)s)"
+msgid "The username portion of the email address is invalid (the portion before the @: %(username)s)"
+msgstr "Der Benutzername in der E-Mail-Adresse is ungültig (der Teil vor dem @: %(username)s)"
 
-#: formencode/validators.py:1322 formencode/validators.py:1464
+#: formencode/validators.py:1322
+#: formencode/validators.py:1464
 #, python-format
 msgid "An error occured when trying to connect to the server: %(error)s"
-msgstr ""
-"Beim Verbindungsversuch mit dem Server ist ein Fehler aufgetreten: "
-"%(error)s"
+msgstr "Beim Verbindungsversuch mit dem Server ist ein Fehler aufgetreten: %(error)s"
 
 #: formencode/validators.py:1323
 #, python-format
-msgid ""
-"The domain portion of the email address is invalid (the portion after the"
-" @: %(domain)s)"
-msgstr ""
-"Der Domainname in der E-Mail-Adresse ist ungültig (der Teil nach dem @: "
-"%(domain)s)"
+msgid "The domain portion of the email address is invalid (the portion after the @: %(domain)s)"
+msgstr "Der Domainname in der E-Mail-Adresse ist ungültig (der Teil nach dem @: %(domain)s)"
 
 #: formencode/validators.py:1324
 #, python-format
-msgid ""
-"The domain of the email address does not exist (the portion after the @: "
-"%(domain)s)"
-msgstr ""
-"Die Domain in der E-Mail-Adresse existiert nicht (der Teil nach dem @: "
-"%(domain)s)"
+msgid "The domain of the email address does not exist (the portion after the @: %(domain)s)"
+msgstr "Die Domain in der E-Mail-Adresse existiert nicht (der Teil nach dem @: %(domain)s)"
 
 #: formencode/validators.py:1461
 msgid "You must start your URL with http://, https://, etc"
@@ -343,9 +325,7 @@ msgid "You must provide a full domain name (like %(domain)s.com)"
 msgstr ""
 
 #: formencode/validators.py:1603
-msgid ""
-"The type of i-name is not defined; it may be either individual or "
-"organizational"
+msgid "The type of i-name is not defined; it may be either individual or organizational"
 msgstr ""
 
 #: formencode/validators.py:1604
@@ -381,7 +361,8 @@ msgstr ""
 msgid "\"%(id)s\" is not a valid OpenId (it is neither an URL nor an XRI)"
 msgstr ""
 
-#: formencode/validators.py:1935 formencode/validators.py:1943
+#: formencode/validators.py:1935
+#: formencode/validators.py:1943
 #, python-format
 msgid "Please enter the date in the form %(format)s"
 msgstr "Bitte geben Sie das Datum in der Form %(format)s ein"
@@ -475,21 +456,13 @@ msgstr "Die Signatur stimmt nicht"
 
 #: formencode/validators.py:2547
 #, python-format
-msgid ""
-"A MAC address must contain 12 digits and A-F; the value you gave has "
-"%(length)s characters"
-msgstr ""
-"Eine MAC-Adresse muss 12 Ziffern und A-F enthalten; Ihre Eingabe hat "
-"%(length)s Zeichen"
+msgid "A MAC address must contain 12 digits and A-F; the value you gave has %(length)s characters"
+msgstr "Eine MAC-Adresse muss 12 Ziffern und A-F enthalten; Ihre Eingabe hat %(length)s Zeichen"
 
 #: formencode/validators.py:2548
 #, python-format
-msgid ""
-"MAC addresses may only contain 0-9 and A-F (and optionally :), not "
-"%(char)r"
-msgstr ""
-"MAC-Adressen dürfen nur 0-9 und A-F (und Doppelpunkte) enthalten, nicht "
-"%(char)r"
+msgid "MAC addresses may only contain 0-9 and A-F (and optionally :), not %(char)r"
+msgstr "MAC-Adressen dürfen nur 0-9 und A-F (und Doppelpunkte) enthalten, nicht %(char)r"
 
 #: formencode/validators.py:2680
 #, python-format
@@ -519,7 +492,7 @@ msgstr "Diese Nummer ist ungültig"
 #: formencode/validators.py:2762
 #, python-format
 msgid "The field %(key)s is missing"
-msgstr ""
+msgstr "Das Feld %(key)s fehlt"
 
 #: formencode/validators.py:2881
 msgid "Please enter numbers only for month and year"

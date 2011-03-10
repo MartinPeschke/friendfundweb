@@ -2,7 +2,6 @@ import formencode, md5, logging
 from datetime import datetime
 import dns.resolver, socket, re
 from pylons import app_globals as g
-from pylons.i18n import _
 from friendfund.model.mapper import DBMappedObject
 from friendfund.lib.payment.adyen import PaymentMethod
 from pylons import session as websession
@@ -16,59 +15,64 @@ socket.setdefaulttimeout(5)
 
 log = logging.getLogger(__name__)
 strbool = formencode.validators.StringBoolean(if_missing=False)
+_ = lambda x:x
 
 class TOSValidator(formencode.validators.StringBoolean):
+	messages = {"need_to_agree": _('TOSVALIDATOR_You have to agree to our terms and conditions.')}
 	def _to_python(self, value, state):
 		value = strbool.to_python(value)
 		if not value:
-			raise formencode.Invalid(_('TOSVALIDATOR_You have to agree to our terms and conditions.'), value, state)
+			raise formencode.Invalid(self.message("need_to_agree", state), value, state)
 		return value
 
 
 class PWDValidator(formencode.validators.String):
+	messages = {"invalid_chars":_('PWDVALIDATOR_Please dont input any special characters.')}
 	def _to_python(self, value, state):
 		super(self.__class__, self)._to_python(value, state)
 		try:
 			str(value)
 		except UnicodeEncodeError,e:
-			raise formencode.Invalid(_('PWDVALIDATOR_Please dont input any special characters.'), value, state)
+			raise formencode.Invalid(self.message("invalid_chars", state), value, state)
 		return value
 
 class DateValidator(formencode.FancyValidator):
+	messages = {"invalid_date":_('DATEVALIDATOR_Please input Date in Valid Format YYYY-MM-DD')}
 	def _to_python(self, value, state):
 		try:
 			value = datetime.strptime(value, '%Y-%m-%d')
 		except:
-			raise formencode.Invalid(
-				_('DATEVALIDATOR_Please input Date in Valid Format YYYY-MM-DD'), value, state)
+			raise formencode.Invalid(self.message("invalid_date", state), value, state)
 		return value
 
 class CurrencyValidator(formencode.FancyValidator):
+	messages = {"invalid_currency":_('CURRENCYVALIDATOR_Please input a valid Currency')}
 	def _to_python(self, value, state):
 		if not value in g.country_choices.currencies:
-			raise formencode.Invalid(
-				_('CURRENCYVALIDATOR_Please input a valid Currency'), value, state)
+			raise formencode.Invalid(self.message("invalid_currency", state), value, state)
 		return value
 
 class DecimalValidator(formencode.validators.Number):
+	messages = {"invalid_amount":_("MONETARYVALIDATOR_Please input a valid amount")}
 	def _to_python(self, value, state):
 		try:
 			value = parse_decimal(value, locale = websession['lang'])
 		except NumberFormatError, e:
-			raise formencode.Invalid(
-				_('MONETARYVALIDATOR_Please input a valid amount'), value, state)
+			raise formencode.Invalid(self.message("invalid_amount", state, value = value), value, state)
 		else: return value
 
 class MonetaryValidator(formencode.validators.Number):
+	messages = {"invalid_amount":_('MONETARYVALIDATOR_Please input a valid amount'),
+				"amount_too_high":_("Please enter a number that is %(max_amount)s or smaller")
+			}
 	def _to_python(self, value, state):
 		try:
 			value = parse_decimal(value, locale = websession['lang'])
 		except NumberFormatError, e:
-			raise formencode.Invalid(
-				_('MONETARYVALIDATOR_Please input a valid amount'), value, state)
+			raise formencode.Invalid(self.message("invalid_amount", state, value = value), value, state)
 		else:
 			if value > self.max:
-				raise formencode.Invalid(_("Please enter a number that is %s or smaller") % format_currency(self.max, state.currency, locale=websession['lang']), value, state)
+				raise formencode.Invalid(self.message("amount_too_high", state, max_amount = format_currency(self.max, state.currency, locale=websession['lang'])), value, state)
 			else:
 				super(self.__class__, self)._to_python(value, state)
 		return value
@@ -84,40 +88,38 @@ def to_displaymap(obj):
 			result[k.pykey] = value
 	return result
 
-
-
 class SettlementValidator(formencode.validators.FormValidator):
 	settlementOption = 'settlementOption'
 	__unpackargs__ = ('settlementOption',)
 	messages = {
-		'MissingAField': _("Please enter a valid value"),
-		'InvalidOption': _("Invalid Settlement Option")
+		'MissingAField': _("SETTLEMENT_PAYPAL_EMAIL_MISSIN_Please enter a valid value"),
+		'InvalidOption': _("SETTLEMENT_Invalid Settlement Option")
 		}
 
-	def validate_python(self, field_dict, request):
-		errors = self._validateReturn(field_dict, request)
+	def validate_python(self, field_dict, state):
+		errors = self._validateReturn(field_dict, state)
 		if errors:
 			error_list = errors.items()
 			error_list.sort()
 			raise formencode.Invalid(
 				'<br>\n'.join(["%s: %s" % (name, value)
 							   for name, value in error_list]),
-				field_dict, request, error_dict=errors)
+				field_dict, state, error_dict=errors)
 
-	def _validateReturn(self, field_dict, request):
+	def _validateReturn(self, field_dict, state):
 		settlementOption = field_dict[self.settlementOption]
 		values = field_dict.get(settlementOption)
 		errors = {}
 		try:
-			so = request.merchant.map[settlementOption]
+			so = state.request.merchant.map[settlementOption]
 		except KeyError, e:
-			errors["settlementOption"] = self.message('InvalidOption', request)
+			errors["settlementOption"] = self.message('InvalidOption', state)
 		else:
 			for field in so.required_fields:
 				try:
 					field.validator.to_python(values[field.name])
 				except KeyError, e:
-					errors["settlementOption"] = self.message('MissingAField', request)
+					errors["settlementOption"] = self.message('MissingAField', state)
 				except formencode.Invalid, e:
 					errors[settlementOption] = errors.get(settlementOption, {})
 					errors[settlementOption][field.name] = e
@@ -125,11 +127,12 @@ class SettlementValidator(formencode.validators.FormValidator):
 	
 	
 class PaymentMethodValidator(formencode.validators.String):
+	messages = {"payment_method_invalid":_("unsupported payment method")}
 	def _to_python(self, value, state):
 		super(self.__class__, self)._to_python(value, state)
 		pm = state.payment_methods.get(value)
 		if not (pm and isinstance(pm, PaymentMethod)):
-			raise formencode.Invalid(_("unsupported payment method"), value, state)
+			raise formencode.Invalid(self.message("payment_method_invalid", state), value, state)
 		return value
 	
 	

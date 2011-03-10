@@ -11,7 +11,8 @@ def _get_formencode_translator(lang, **kwargs):
     localedir = os.path.join(conf['pylons.paths']['root'], 'i18n')
     if not isinstance(lang, list):
         lang = [lang]
-    translator = translation("FormEncode", localedir, languages=lang,fallback=True, **kwargs)
+    translator = translation("friendfund", localedir, languages=lang,fallback=True, **kwargs)
+    translator.add_fallback(translation("FormEncode", localedir, languages=lang,fallback=True, **kwargs))
     return translator
 
 def friendfund_formencode_gettext(value):
