@@ -37,7 +37,9 @@
 	<div class="colLeft">
 
 	%for streamentry in c.activity.stream:
-###%if streamentry.is_my_event:
+		<% 
+		locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url)} ####, host=pool.merchant_domain)}
+		%>
 	%if streamentry.event._get_root == "SUCCESS":
 				<div class="entryStream">
 					<img src="/static/imgs/succesful.png" class="kind" />
@@ -59,31 +61,28 @@
 							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> CONTRIBUTORS</span>
 						</div>
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span href="#" class=" tenPix link">PROMOTE
-							
-							
-							<div class="moreActionsWrapper">
-								<div class="moreActions ">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span href="#" class=" tenPix link">PROMOTE
+								<div class="moreActionsWrapper">
+									<div class="moreActions ">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png">
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										</div>
+										<div class="atclear"></div>
 									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
-									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
-									<input type="text" value="http://cristiano.friendfund.de/pool/P3kY.98" onfocus="this.select()">
-									<div class="addthis_toolbox addthis_default_style">
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_facebook at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=facebook&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/1&amp;uid=4d79067b6d1ba50b&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Facebook"><span class="at300bs at15nc at15t_facebook"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_twitter at300b" target="_blank" title="Tweet This"><span class="at300bs at15nc at15t_twitter"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_email at300b" title="Email"><span class="at300bs at15nc at15t_email"></span></a>
-									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
-									 <div class="atclear"></div></div>
-								 </div>
-							</div>
-							
-							
-							
+								</div>
 							</span>
 						</div>
 					</div>
@@ -111,7 +110,27 @@
 							<span class="timeLeft tenPix highlight"><strong>6</strong> DAYS LEFT</span>
 						</div>
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">${_("FF_MYPOOLS_PROMOTE")}
+								<div class="moreActionsWrapper">
+									<div class="moreActions ">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png">
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										</div>
+										<div class="atclear"></div>
+									</div>
+								</div></a>
 						</div>
 					</div>
 				</div>
@@ -139,36 +158,120 @@
 						</div>
 						 
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">${_("FF_MYPOOLS_PROMOTE")}
+								<div class="moreActionsWrapper">
+									<div class="moreActions ">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png">
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										</div>
+										<div class="atclear"></div>
+									</div>
+								</div></a>
 						</div>
 					</div>
 				</div>
 	%elif streamentry.event._get_root == "CREATE_GROUP_GIFT_POOL":
 		
-		
-		
+				<div class="entryStream">
+					<img src="/static/imgs/creategroup.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
+					</div>
+					<div class="txtComments">
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> </span>
+						<div class="liner">
+							%for pu in streamentry.invitees:
+							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
+								<img width="24px" height="24px" src="${pu.get_profile_pic("PROFILE_S")}"/>
+							</div>
+							%endfor
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> INVITEES</span>
+							<div class="liner">
+								<a href="#" class="bold">${streamentry.event.title}</a>
+								<p>${streamentry.event.description}</p>
+							</div>
+						</div>
+						 
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">${_("FF_MYPOOLS_PROMOTE")}
+								<div class="moreActionsWrapper">
+									<div class="moreActions ">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png">
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										</div>
+										<div class="atclear"></div>
+									</div>
+								</div></a>
+						</div>
+					</div>
+				</div>
 		
 	%elif streamentry.event._get_root == "INVITE":
-		<div class="entryStream">
-			<img src="/static/imgs/invite.png" class="kind" />
-			<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
-			</div>
-			<div class="txtComments">
-				<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-					<img width="24px" height="24px" src="${streamentry.event.get_first_invitee_profile_pic("PROFILE_M")}">
+				<div class="entryStream">
+					<img src="/static/imgs/invite.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
+					</div>
+					<div class="txtComments">
+						<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
+							<img width="24px" height="24px" src="${streamentry.event.get_first_invitee_profile_pic("PROFILE_M")}">
+						</div>
+						
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> invited <span class="bold">Mario Smith</span> to 
+							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
+						 
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class="tenPix link">${_("FF_MYPOOLS_PROMOTE")}
+								<div class="moreActionsWrapper">
+									<div class="moreActions ">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png">
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										</div>
+										<div class="atclear"></div>
+									</div>
+								</div></a>
+						</div>
+					</div>
 				</div>
-				
-				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> invited <span class="bold">Mario Smith</span> to 
-					<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
-				 
-				<div class="liner">
-					<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class="tenPix link">PROMOTE</a>
-				</div>
-			</div>
-		</div>
-		
 	%else:
 		<hr/>
 		<hr/>
@@ -176,9 +279,6 @@
 		<hr/>
 		<hr/>
 	%endif
-###%else:
-###			FRIEND - ${streamentry.event._get_root}
-###%endif
 %endfor
 	
 	

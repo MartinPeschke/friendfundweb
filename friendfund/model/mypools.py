@@ -36,6 +36,7 @@ class MyPoolEntry(DBMappedObject):
 			, GenericAttrib(bool,'is_contributor','is_contributor')
 			, GenericAttrib(bool,'is_commenter','is_commenter')
 			, GenericAttrib(bool,'is_admin','is_admin')
+			, GenericAttrib(datetime,'creation_date','creation_date')
 			, GenericAttrib(datetime,'expiry_date','expiry_date')
 			, GenericAttrib(int,'amount','amount')
 			, GenericAttrib(int,'shipping_cost','shipping_cost')
@@ -48,7 +49,7 @@ class MyPoolEntry(DBMappedObject):
 	def is_closed(self):
 		return self._is_closed
 	def is_expired(self):
-		return self.expiry_date<datetime.today()
+		return self.phase in ["EXPIRED", "EXTENSION_EXPIRED"]
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.pool_picture_url, type)
 	

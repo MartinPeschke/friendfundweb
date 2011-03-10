@@ -11,10 +11,15 @@
 
 <%def name="render_pool_card(pool, friends_pool = False)">
 <% 
-	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), "admin_name":pool.admin_name,
-			"no_contributors":pool.no_contributors, "days_left":14, "product_name":"her Tennis club",
+	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), 
+			"creation_date":h.format_date(pool.creation_date, format="full"), 
+			"admin_name":pool.admin_name,
+			"no_contributors":pool.no_contributors, 
+			"days_left":14, 
+			"product_name":"her Tennis club", ####TODO:Implmement
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
-			"days_left" : pool.get_remaining_days_tuple()[0]}
+			"days_left" : pool.get_remaining_days_tuple()[0]
+		}
 	merchant = app_globals.merchants.domain_map.get(pool.merchant_domain)
 %>
 <div class="poolRowWrap">
@@ -28,12 +33,12 @@
 			</div>
 			<div class="textOne">
 				<a href="${locals['full_pool_url']}" class="link">${pool.title}</a>
-				<span>${_("FF_MYPOOLS_Created by %(admin_name)s on %(closing_date)s")%locals}</span>
+				<span>${_("FF_MYPOOLS_Created by %(admin_name)s on %(creation_date)s")%locals}</span>
 				<p>${pool.description}</p>
 				%if pool.is_expired():
 					<div><p>
 					${_("FF_MYPOOLS_This Pool has expired and will be automatically deleted.")}</p>
-					<a class="link" href="${url(controller="pool", pool_url = pool.p_url, action="delete")}">${_("FF_MYPOOLS_DELETE NOW")}&nbsp;&nbsp;&nbsp;X</a></div>
+					<a class="link" href="${url(controller="pool", pool_url = pool.p_url, action="delete", host=pool.merchant_domain)}">${_("FF_MYPOOLS_DELETE NOW")}&nbsp;&nbsp;&nbsp;X</a></div>
 				%endif
 			</div>
 			<div class="imgWrap">
@@ -52,9 +57,9 @@
 										<img src="/static/imgs/arrowMoreAction.png" />
 									</div>
 									<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
-									<a href="${url("invite_index", pool_url=pool.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</span>
+									<a href="${url("invite_index", pool_url=pool.p_url, host=pool.merchant_domain, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
 									<span>|</span>
-									<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+									<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=pool.p_url, host=pool.merchant_domain)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 									<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
 									<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
 									<div class="addthis_toolbox addthis_default_style">
