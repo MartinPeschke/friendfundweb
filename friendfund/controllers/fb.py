@@ -6,6 +6,7 @@ from pylons.decorators import jsonify
 from friendfund.lib.auth.decorators import remove_block
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper
+from friendfund.model import db_access
 from friendfund.model.authuser import FBUserPermissions
 from friendfund.model.pool import Pool
 from friendfund.tasks.fb import get_email_from_permissions, remote_persist_user

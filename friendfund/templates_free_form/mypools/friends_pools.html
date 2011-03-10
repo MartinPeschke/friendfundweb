@@ -1,5 +1,6 @@
 <%inherit file="../layout.html"/>
-<%namespace name="mypools_common" file="common.html"/>
+<%namespace name="common" file="common.html"/>
+
 <%def name="scripts()">
 	<script type="text/javascript">
 		var addthis_config = {"data_track_clickback":true};
@@ -12,291 +13,25 @@
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			<img src="" width="60px" height="60px"/>
+			<img src="${c.user.get_profile_pic("PROFILE_M")}" width="60px" height="60px"/>
 			<div class="subUserProfile">
-				<h2>poi</h2>
-				<div class="subTitleUserProfile">
-					<span class="link twitter">@ Judyface</span><span class="link facebookName">Judy Stevens</span></div>
+				<h2>${_("FF_FRIENDSPOOLS_Slogan")}</h2>
+				####TODO:<!--TODO
+				####TODO:<div class="subTitleUserProfile">
+				####TODO:	<span class="link twitter">@ Judyface</span><span class="link facebookName">Judy Stevens</span>
+				####TODO:</div>
+				####TODO:-->
 			</div>
 			
-			${mypools_common.render_tabs("friends")|n}
+			${common.render_tabs("friends")|n}
 		<div class="clear"></div>
 		</div>
 	</div>
 </div>
 <div class="content fullWidth">
 <h4 style="padding-top:0px"><div class="floatRight"><label>Sort by:</label><select></select></div></h4>
-
-<div class="poolRowWrap">
-	<div class="poolRow">
-		<div class="subPoolRow">
-			<div class="imgWrap"><img src="/static/imgs/dummy/dummy-pools.jpg"></div>
-			<div class="textOne">
-				<a href="#" class="link">Go Karting in the Alps</a>
-				<span>Created by Amy Dokes on 31 January 2011</span>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  </p>
-			</div>
-			<div class="imgWrap">
-				<div class="multiTask">
-	
-					<div class="floatRight">
-						<span class="link hider">JOIN THIS POOL
-						<div class="moreActionsWrapper">
-						<div class="moreActions hidden maFriendPools">
-						<div class="arrowMoreActions">
-							<div class="arrowCss"></div>
-						</div>
-							<p class="poolsFriends">Adding yourself to the Invitee List 
-means you can chip in, comment 
-and receive <a href="#">Pool Updates.</a></p>
-						
-						 </div>
-					</div>
-						
-						</span>
-						<span>|</span>
-						<span class="link" style="margin-right:0">VIEW</span>
-					</div>
-				</div>
-				<div class="vertSpacer">
-					<span> IN THIS POOL</span>
-					<div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    
-				</div>
-				<div class="vertSpacer">&nbsp;</div>
-				
-			</div>
-		</div>
-		<div class="boxPoolDetails">
-			<div class="timeTracker floatLeft">
-				<div class="timeCounter">
-					<span>30%</span>
-					<div style="width: 100%" class="timeCounterRight">
-					<div style="width: 30%" class="timeCounterLeft"></div>
-					</div>
-				</div>
-			</div>
-			<div class="contributors "><span><strong>0</strong> contributors</span></div>
-			<div class="chippedIn"><span><strong>€0.00</strong> Chipped in</span></div>
-			<div class="outstanding"><span><strong>€495.90</strong> Outstanding</span></div>
-			<div class="daysLeft"><span class="highlight"><strong>6</strong> Days left</span></div>
-			<div class="clear"></div>
-		</div>
-	</div>
-</div>
-<div class="poolRowWrap">
-	<div class="poolRow">
-		<div class="subPoolRow">
-			<div class="imgWrap"><img src="/static/imgs/dummy/dummy-pools.jpg"></div>
-			<div class="textOne">
-				<a href="#" class="link">Go Karting in the Alps</a>
-				<span>Created by Amy Dokes on 31 January 2011</span>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  </p>
-			</div>
-			<div class="imgWrap">
-				<div class="multiTask">
-	
-					<div class="floatRight">
-						<span class="link hider">JOIN THIS POOL
-						<div class="moreActionsWrapper">
-						<div class="moreActions hidden maFriendPools">
-						<div class="arrowMoreActions">
-							<div class="arrowCss"></div>
-						</div>
-							<p class="poolsFriends">Adding yourself to the Invitee List 
-means you can chip in, comment 
-and receive <a href="#">Pool Updates.</a></p>
-						
-						 </div>
-					</div>
-						
-						</span>
-						<span>|</span>
-						<span class="link" style="margin-right:0">VIEW</span>
-					</div>
-				</div>
-				<div class="vertSpacer">
-					<span> IN THIS POOL</span>
-					<div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    
-				</div>
-				<div class="vertSpacer">&nbsp;</div>
-				
-			</div>
-		</div>
-		<div class="boxPoolDetails">
-			<div class="timeTracker floatLeft">
-				<div class="timeCounter">
-					<span>30%</span>
-					<div style="width: 100%" class="timeCounterRight">
-					<div style="width: 30%" class="timeCounterLeft"></div>
-					</div>
-				</div>
-			</div>
-			<div class="contributors "><span><strong>0</strong> contributors</span></div>
-			<div class="chippedIn"><span><strong>€0.00</strong> Chipped in</span></div>
-			<div class="outstanding"><span><strong>€495.90</strong> Outstanding</span></div>
-			<div class="daysLeft"><span class="highlight"><strong>6</strong> Days left</span></div>
-			<div class="clear"></div>
-		</div>
-	</div>
-</div>
-<div class="poolRowWrap">
-	<div class="poolRow">
-		<div class="subPoolRow">
-			<div class="imgWrap"><img src="/static/imgs/dummy/dummy-pools.jpg"></div>
-			<div class="textOne">
-				<a href="#" class="link">Go Karting in the Alps</a>
-				<span>Created by Amy Dokes on 31 January 2011</span>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  </p>
-			</div>
-			<div class="imgWrap">
-				<div class="multiTask">
-	
-					<div class="floatRight">
-						<span class="link hider">JOIN THIS POOL
-						<div class="moreActionsWrapper">
-						<div class="moreActions hidden maFriendPools">
-						<div class="arrowMoreActions">
-							<div class="arrowCss"></div>
-						</div>
-							<p class="poolsFriends">Adding yourself to the Invitee List 
-means you can chip in, comment 
-and receive <a href="#">Pool Updates.</a></p>
-						
-						 </div>
-					</div>
-						
-						</span>
-						<span>|</span>
-						<span class="link" style="margin-right:0">VIEW</span>
-					</div>
-				</div>
-				<div class="vertSpacer">
-					<span> IN THIS POOL</span>
-					<div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    
-				</div>
-				<div class="vertSpacer">&nbsp;</div>
-				
-			</div>
-		</div>
-		<div class="boxPoolDetails">
-			<div class="timeTracker floatLeft">
-				<div class="timeCounter">
-					<span>30%</span>
-					<div style="width: 100%" class="timeCounterRight">
-					<div style="width: 30%" class="timeCounterLeft"></div>
-					</div>
-				</div>
-			</div>
-			<div class="contributors "><span><strong>0</strong> contributors</span></div>
-			<div class="chippedIn"><span><strong>€0.00</strong> Chipped in</span></div>
-			<div class="outstanding"><span><strong>€495.90</strong> Outstanding</span></div>
-			<div class="daysLeft"><span class="highlight"><strong>6</strong> Days left</span></div>
-			<div class="clear"></div>
-		</div>
-	</div>
-</div>
-<div class="poolRowWrap">
-	<div class="poolRow">
-		<div class="subPoolRow">
-			<div class="imgWrap"><img src="/static/imgs/dummy/dummy-pools.jpg"></div>
-			<div class="textOne">
-				<a href="#" class="link">Go Karting in the Alps</a>
-				<span>Created by Amy Dokes on 31 January 2011</span>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  </p>
-			</div>
-			<div class="imgWrap">
-				<div class="multiTask">
-	
-					<div class="floatRight">
-						<span class="link hider">JOIN THIS POOL
-						<div class="moreActionsWrapper">
-						<div class="moreActions hidden maFriendPools">
-						<div class="arrowMoreActions">
-							<div class="arrowCss"></div>
-						</div>
-							<p class="poolsFriends">Adding yourself to the Invitee List 
-means you can chip in, comment 
-and receive <a href="#">Pool Updates.</a></p>
-						
-						 </div>
-					</div>
-						
-						</span>
-						<span>|</span>
-						<span class="link" style="margin-right:0">VIEW</span>
-					</div>
-				</div>
-				<div class="vertSpacer">
-					<span> IN THIS POOL</span>
-					<div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    
-				</div>
-				<div class="vertSpacer">&nbsp;</div>
-				
-			</div>
-		</div>
-		<div class="boxPoolDetails">
-			<div class="timeTracker floatLeft">
-				<div class="timeCounter">
-					<span>30%</span>
-					<div style="width: 100%" class="timeCounterRight">
-					<div style="width: 30%" class="timeCounterLeft"></div>
-					</div>
-				</div>
-			</div>
-			<div class="contributors "><span><strong>0</strong> contributors</span></div>
-			<div class="chippedIn"><span><strong>€0.00</strong> Chipped in</span></div>
-			<div class="outstanding"><span><strong>€495.90</strong> Outstanding</span></div>
-			<div class="daysLeft"><span class="highlight"><strong>6</strong> Days left</span></div>
-			<div class="clear"></div>
-		</div>
-	</div>
-</div>
-
-
-
-<div class="clear"></div>
+	%for pool in c.my_pools.pools:
+		${common.render_pool_card(pool, True)|n}
+	%endfor
+	<div class="clear"></div>
 </div>

@@ -329,28 +329,36 @@ var createAppendPicture = function(imgContainer, imgs, preselected){
 	if(imgsrc!==undefined){
 		var img = dojo.create("IMG", {"class":'hidden'});
 		imgContainer.appendChild(img);
-		img.onload = dojo.hitch(null, pic_judger, imgContainer, imgs, preselected);
+		img.onload = dojo.hitch(null, pic_judger, img, imgContainer, imgs, preselected);
 		img.src = imgsrc;
 	}
 };
 
-var pic_judger = function(imgContainer, imgs, preselected, evt){
-	if((evt.target.width||evt.target.offsetWidth)<100||(evt.target.height||evt.target.offsetHeight)<75){
-		dojo.addClass(evt.target, "forbidden");
+var pic_judger = function(img, imgContainer, imgs, preselected, evt){
+	console.log(arguments);
+	console.log(img.width);
+	console.log(img.offsetWidth);
+	console.log(img.height);
+	console.log(img.offsetHeight);
+	console.log(this.width);
+	console.log(this.height);
+	
+	if((img.width||img.offsetWidth)<100||(img.height||img.offsetHeight)<75){
+		dojo.addClass(img, "forbidden");
 	}else{
 		picCounter+=1;
 		dojo.byId("pictureCounter").innerHTML=picCounter;
-		dojo.addClass(evt.target, "allowed");
-		if(!preselected&&!accepted||evt.target.src===preselected){
+		dojo.addClass(img, "allowed");
+		if(!preselected&&!accepted||img.src===preselected){
 			accepted = true;
-			dojo.removeClass(evt.target, "hidden");
-			dojo.byId("pictureCounterPos").innerHTML=dojo.query(".imgCntSld img.allowed", "homeurlexpander").indexOf(evt.target)+1;
+			dojo.removeClass(img, "hidden");
+			dojo.byId("pictureCounterPos").innerHTML=dojo.query(".imgCntSld img.allowed", "homeurlexpander").indexOf(img)+1;
 			var ctrInput = dojo.byId("productPicture");
 			if(!ctrInput){
-				ctrInput = dojo.create("INPUT", {type:"hidden", value:evt.target.src, id:"productPicture", name:'product_picture'});
+				ctrInput = dojo.create("INPUT", {type:"hidden", value:img.src, id:"productPicture", name:'product_picture'});
 				dojo.byId("homeurlexpander").appendChild(ctrInput);
 			} else {
-				ctrInput.value = evt.target.src;
+				ctrInput.value = img.src;
 			}
 		}
 	}

@@ -275,7 +275,7 @@ fbSessionChange = function() {
 	if (FB.getSession()) {
 		doFBFFLogin(page_reloader);
 	} else {
-		loadElement("/logout?furl="+window.location.pathname, "accountcontainer");
+		loadElement("/logout?furl="+window.location.href, "accountcontainer");
 	}
 };
 

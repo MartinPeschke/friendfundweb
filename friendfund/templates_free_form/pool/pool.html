@@ -36,6 +36,18 @@
 			return false;
 		};
 		
+		showInvitees = function(){
+			//dojo.query(">*", "inviteeList").forEach(function(elem, pos){if(pos>19){dojo.addClass(elem,"hidden");}});
+			dojo.style("inviteeList", "height", "auto");
+			dojo.addClass("showAllBtn", "hidden");
+			dojo.removeClass("hideAllBtn", "hidden");
+		}
+		hideInvitees = function(){
+			//dojo.query(">.hidden", "inviteeList").forEach(function(elem, pos){dojo.removeClass(elem,"hidden");});
+			dojo.style("inviteeList", "height", "130px");
+			dojo.addClass("hideAllBtn", "hidden");
+			dojo.removeClass("showAllBtn", "hidden");
+		}
 		
 		connectpool = function(rootbutton){
 			var cn = dojo.byId(rootbutton);
@@ -47,6 +59,7 @@
 						dojo.query(evt.target).orphan();
 						dojo.place(data.html, dojo.byId("inviteeList"), "last");
 						connectpool(rootbutton);
+						dojo.removeClass("hideAllBtn", "hidden");
 					});
 				});
 			}
@@ -66,7 +79,8 @@
 <% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 			"admin_name":c.pool.admin.name,
 			"suggested_amount":h.format_currency(c.pool.get_suggested_amount_float(), c.pool.currency),
-			"total_amount":c.pool.get_display_amount()}
+			"total_amount":c.pool.get_display_amount(),
+			"no_invitees":len(c.pool.participant_map)}
 %>
 
 
@@ -117,8 +131,7 @@
 		<div class="floatLeft promote">
 			<h4>Promote on your website</h4>
 			<p>Embed a widget on your site so visitors can find your Pool.</p>
-			
-				<a href="#" class="primaryButton floatLeft">Embed Widget</a>
+			<a class="primaryButton floatLeft popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 		</div>
 		<div class="floatLeft share">
 			<h4>Share on Social Networks</h4>
@@ -190,9 +203,16 @@
    
 	<div class="colLeft">
 		<div class="invited" id="poolInviteesDisplay">
-			<h4>${_(u"FF_POOL_PAGE_BODY_Who's invited")}
-				%if len(c.pool.participants) > 20:
+			<h4>
+				%if locals['no_invitees']:
+					${_(u"FF_POOL_PAGE_BODY_%(no_invitees)s Invitees") % locals}
+				%else:
+					${_(u"FF_POOL_PAGE_BODY_Who's invited")}
+				%endif
+				%if locals['no_invitees'] > 20:
 					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
+					<a class="hidden floatRight btnViewAll" onclick="showInvitees()" _page="1" id="showAllBtn">${_(u"FF_POOL_PAGE_BODY_Show All")}</a>
+					<a class="hidden floatRight btnViewAll" onclick="hideInvitees()" _page="1" id="hideAllBtn">${_(u"FF_POOL_PAGE_BODY_Hide All")}</a>
 				%endif
 			</h4>
 			<div class="subHeading"></div>

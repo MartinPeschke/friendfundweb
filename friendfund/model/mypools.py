@@ -2,6 +2,18 @@ from datetime import datetime, timedelta
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 
+
+
+class PoolFriend(DBMappedObject):
+	_cachable = False
+	_unique_keys = ['network', 'network_id']
+	_set_proc = _get_proc = None
+	_set_root = _get_root = "FRIEND"
+	_keys = [	 GenericAttrib(int, 'u_id', 'u_id'), GenericAttrib(unicode, 'name', 'name'), GenericAttrib(unicode, 'picture', 'picture') ]
+	def get_profile_pic(self, type="PROFILE_M"):
+		return h.get_user_picture(self.picture, type)
+
+
 class MyPoolEntry(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
@@ -30,6 +42,7 @@ class MyPoolEntry(DBMappedObject):
 			, GenericAttrib(str,'currency','currency')
 			, GenericAttrib(str, "merchant_domain", "merchant_domain")
 			, GenericAttrib(bool, "is_secret", "is_secret")
+			, DBMapper(PoolFriend, 'friends', 'FRIEND', is_list = True)
 			]
 	
 	def is_closed(self):
@@ -86,22 +99,10 @@ class GetMyPoolsProc(DBMappedObject):
 			,DBMapper(MyPoolEntry, 'pools', 'POOL', is_list = True)
 			,GenericAttrib(bool, 'admin_pools', None)
 			,GenericAttrib(bool, 'nonadmin_pools', None)
-			,GenericAttrib(bool, 'closed_pools', None)
 			]
 	def fromDB(self, xml):
-		self.admin_pools = filter(lambda x: x.is_admin and not x.is_closed(), self.pools)
-		self.nonadmin_pools = filter(lambda x: not x.is_admin and not x.is_closed(), self.pools)
-		self.closed_pools = filter(lambda x: x.is_closed(), self.pools)
-
-		self.ff_admin_pools = filter(lambda x: x.is_admin, self.pools)
-		self.ff_nonadmin_pools = filter(lambda x: not x.is_admin, self.pools)
-
-class UserFriend(DBMappedObject):
-	_cachable = False
-	_unique_keys = ['network', 'network_id']
-	_set_proc = _get_proc = None
-	_set_root = _get_root = "USER_FRIEND"
-	_keys = [	 GenericAttrib(str, 'network', 'network'), GenericAttrib(str, 'network_id', 'id') ]
+		self.admin_pools = filter(lambda x: x.is_admin, self.pools)
+		self.nonadmin_pools = filter(lambda x: not x.is_admin, self.pools)
 
 class GetUserFriendPoolsProc(DBMappedObject):
 	_cachable = False
@@ -110,17 +111,5 @@ class GetUserFriendPoolsProc(DBMappedObject):
 	_set_root = "USER"
 	_get_root = None
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id')
-				,DBMapper(UserFriend, 'friends', 'USER_FRIEND')
 				,DBMapper(MyPoolEntry, 'pools', 'POOL', is_list = True)
-				,GenericAttrib(bool, 'open_pools', None)
-				,GenericAttrib(bool, 'closed_pools', None)
 		]
-	def fromDB(self, xml):
-		self.closed_pools = []
-		self.open_pools = []
-		for pool in self.pools:
-			if pool.is_closed():
-				self.closed_pools.append(pool)
-			else:
-				self.open_pools.append(pool)
-

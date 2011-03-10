@@ -1,5 +1,5 @@
 <%inherit file="../layout.html"/>
-<%namespace name="mypools_common" file="common.html"/>
+<%namespace name="common" file="common.html"/>
 <%def name="scripts()">
 	<script type="text/javascript">
 		var addthis_config = {"data_track_clickback":true};
@@ -12,14 +12,14 @@
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			<img src="" width="60px" height="60px"/>
+			<img src="${c.user.get_profile_pic("PROFILE_M")}" width="60px" height="60px"/>
 			<div class="subUserProfile">
-				<h2>poi</h2>
-				<div class="subTitleUserProfile">
-					<span class="link twitter">@ Judyface</span><span class="link facebookName">Judy Stevens</span></div>
+				<h2>${_("FF_NEWSSTREAM_Slogan")}</h2>
+				####TODO:<div class="subTitleUserProfile">
+				####TODO:	<span class="link twitter">@ Judyface</span><span class="link facebookName">Judy Stevens</span>
+				####TODO:</div>
 			</div>
-			
-			${mypools_common.render_tabs("stream")|n}
+			${common.render_tabs("stream")|n}
 		<div class="clear"></div>
 		</div>
 	</div>
@@ -27,34 +27,42 @@
 <div class="content fullWidth">
 <h4 style="padding-top:0px">
 	<div class="floatRight selector">
-    	<span class="">Relevant News</span>
+    	<span class="bold">Relevant News</span>
         <span style="margin:0 5px">|</span>
-        <span class=" activeLink">Most Recent</span>
+        <span class="bold activeLink">Most Recent</span>
      </div>
 </h4>
+
 <div class="fullWidthBorder">
 	<div class="colLeft">
-    	<div class="entryStream">
-        	<img src="/static/imgs/succesful.png" class="kind" />
-        	<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-			</div>
-            <div class="txtComments">
-            	
-				<span class="mainSpan"><span class="bold">Ski Trip</span> for Jesse has been <span class="bold">successfully funded!</span></span>
-                 <div class="liner">
-                    <div class="timeCounterSmall">	
-                        <span>SUCCESSFUL!</span>
-                        <div style="width: 100%;" class="timeCounterRight low">
-                            <div style="width: 100%;" class="timeCounterLeft low green"></div>
-                            </div>
-                    </div>
-                	<span class="bold tenPix middot">&middot;</span>
-                    <span class="contribSmall tenPix"><strong>4</strong> CONTRIBUTORS</span>
-                </div>
-                <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link">PROMOTE <div class="moreActionsWrapper">
+
+	%for streamentry in c.activity.stream:
+###%if streamentry.is_my_event:
+	%if streamentry.event._get_root == "SUCCESS":
+				<div class="entryStream">
+					<img src="/static/imgs/succesful.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
+					</div>
+					<div class="txtComments">
+						
+						<span class="mainSpan"> <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> has been <span class="bold">successfully funded!</span></span>
+						 <div class="liner">
+							<div class="timeCounterSmall">
+								<span>SUCCESSFUL!</span>
+								<div style="width: 100%;" class="timeCounterRight low">
+									<div style="width: 100%;" class="timeCounterLeft low green"></div>
+									</div>
+							</div>
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> CONTRIBUTORS</span>
+						</div>
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span href="#" class=" tenPix link">PROMOTE
+							
+							
+							<div class="moreActionsWrapper">
 								<div class="moreActions ">
 									<div class="arrowMoreActions">
 										<img src="/static/imgs/arrowMoreAction.png">
@@ -72,56 +80,268 @@
 									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
 									 <div class="atclear"></div></div>
 								 </div>
-							</div></span>
-                </div>
-			</div>
-        </div>
-        <div class="colRightWhite"></div>
-        <div class="entryStream">
-        	<img src="/static/imgs/chipped.png" class="kind" />
-        	<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-			</div>
-            <div class="txtComments">
-            	
-				<span class="mainSpan"><span class="bold">Henry George</span> chipped in to <a href="#" class="bold">Ski trip for Jesse</a>. </span>
-                 <div class="liner">
-                    <div class="timeCounterSmall">	
-                        <span class="white">62%</span>
-                        <div style="width: 100%;" class="timeCounterRight low">
-                            <div style="width: 62%;" class="timeCounterLeft low "></div>
-                            </div>
-                    </div>
-                	<span class="bold tenPix middot">&middot;</span>
-                    <span class="contribSmall tenPix"><strong>4</strong> CONTRIBUTORS</span>
-                    <span class="bold tenPix middot">&middot;</span>
-                    <span class="timeLeft tenPix highlight"><strong>6</strong> DAYS LEFT</span>
-                </div>
-                <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link">PROMOTE <div class="moreActionsWrapper">
-								<div class="moreActions ">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png">
+							</div>
+							
+							
+							
+							</span>
+						</div>
+					</div>
+				</div>
+	%elif streamentry.event._get_root == "CONTRIBUTION":
+				<div class="entryStream">
+					<img src="/static/imgs/chipped.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
+					</div>
+					<div class="txtComments">
+						
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
+						 <div class="liner">
+							<div class="timeCounterSmall">	
+								<span class="white">62%</span>
+								<div style="width: 100%;" class="timeCounterRight low">
+									<div style="width: 62%;" class="timeCounterLeft low "></div>
 									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
-									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
-									<input type="text" value="http://cristiano.friendfund.de/pool/P3kY.98" onfocus="this.select()">
-									<div class="addthis_toolbox addthis_default_style">
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_facebook at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=facebook&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/1&amp;uid=4d79067b6d1ba50b&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Facebook"><span class="at300bs at15nc at15t_facebook"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_twitter at300b" target="_blank" title="Tweet This"><span class="at300bs at15nc at15t_twitter"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_email at300b" title="Email"><span class="at300bs at15nc at15t_email"></span></a>
-									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
-									 <div class="atclear"></div></div>
-								 </div>
-							</div></span>
-                </div>
+							</div>
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> CONTRIBUTORS</span>
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="timeLeft tenPix highlight"><strong>6</strong> DAYS LEFT</span>
+						</div>
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
+						</div>
+					</div>
+				</div>
+	%elif streamentry.event._get_root == "CREATE_FREE_FORM_POOL":
+				<div class="entryStream">
+					<img src="/static/imgs/creategroup.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
+					</div>
+					<div class="txtComments">
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> </span>
+						<div class="liner">
+							%for pu in streamentry.invitees:
+							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
+								<img width="24px" height="24px" src="${pu.get_profile_pic("PROFILE_S")}"/>
+							</div>
+							%endfor
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> INVITEES</span>
+							<div class="liner">
+								<a href="#" class="bold">${streamentry.event.title}</a>
+								<p>${streamentry.event.description}</p>
+							</div>
+						</div>
+						 
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
+						</div>
+					</div>
+				</div>
+	%elif streamentry.event._get_root == "CREATE_GROUP_GIFT_POOL":
+		
+		
+		
+		
+	%elif streamentry.event._get_root == "INVITE":
+		<div class="entryStream">
+			<img src="/static/imgs/invite.png" class="kind" />
+			<div class="avt">
+				<div class="arrowAvatar"></div>
+				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 			</div>
-        </div>
-        <div class="colRightWhite"></div>
+			<div class="txtComments">
+				<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
+					<img width="24px" height="24px" src="${streamentry.event.get_first_invitee_profile_pic("PROFILE_M")}">
+				</div>
+				
+				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> invited <span class="bold">Mario Smith</span> to 
+					<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
+				 
+				<div class="liner">
+					<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class="tenPix link">PROMOTE</a>
+				</div>
+			</div>
+		</div>
+		
+	%else:
+		<hr/>
+		<hr/>
+		Some Forgotten Type: ${streamentry.event._get_root}
+		<hr/>
+		<hr/>
+	%endif
+###%else:
+###			FRIEND - ${streamentry.event._get_root}
+###%endif
+%endfor
+	
+	
+
+	
+	<hr class="clear"/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/><hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	<hr/>
+	
+	
+	
+	
+	
+	
+				<div class="entryStream">
+					<img src="/static/imgs/succesful.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+					</div>
+					<div class="txtComments">
+						
+						<span class="mainSpan"><span class="bold">Ski Trip</span> for Jesse has been <span class="bold">successfully funded!</span></span>
+						 <div class="liner">
+							<div class="timeCounterSmall">	
+								<span>SUCCESSFUL!</span>
+								<div style="width: 100%;" class="timeCounterRight low">
+									<div style="width: 100%;" class="timeCounterLeft low green"></div>
+									</div>
+							</div>
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="contribSmall tenPix"><strong>4</strong> CONTRIBUTORS</span>
+						</div>
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+			
+				<div class="entryStream">
+					<img src="/static/imgs/chipped.png" class="kind" />
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+					</div>
+					<div class="txtComments">
+						
+						<span class="mainSpan"><span class="bold">Henry George</span> chipped in to <a href="#" class="bold">Ski trip for Jesse</a>. </span>
+						 <div class="liner">
+							<div class="timeCounterSmall">	
+								<span class="white">62%</span>
+								<div style="width: 100%;" class="timeCounterRight low">
+									<div style="width: 62%;" class="timeCounterLeft low "></div>
+									</div>
+							</div>
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="contribSmall tenPix"><strong>4</strong> CONTRIBUTORS</span>
+							<span class="bold tenPix middot">&middot;</span>
+							<span class="timeLeft tenPix highlight"><strong>6</strong> DAYS LEFT</span>
+						</div>
+						<div class="liner">
+							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
+						</div>
+					</div>
+				</div>
+	
+	
+	
+	
+
         <div class="entryStream">
         	<img src="/static/imgs/invite.png" class="kind" />
         	<div class="avt">
@@ -136,29 +356,10 @@
 				<span class="mainSpan"><span class="bold">Henry George</span> invited <span class="bold">Mario Smith</span> to <a href="#" class="bold">Ski trip for Jesse</a> .</span>
                  
                 <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link">PROMOTE <div class="moreActionsWrapper">
-								<div class="moreActions ">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png">
-									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
-									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
-									<input type="text" value="http://cristiano.friendfund.de/pool/P3kY.98" onfocus="this.select()">
-									<div class="addthis_toolbox addthis_default_style">
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_facebook at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=facebook&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/1&amp;uid=4d79067b6d1ba50b&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Facebook"><span class="at300bs at15nc at15t_facebook"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_twitter at300b" target="_blank" title="Tweet This"><span class="at300bs at15nc at15t_twitter"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_email at300b" title="Email"><span class="at300bs at15nc at15t_email"></span></a>
-									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
-									 <div class="atclear"></div></div>
-								 </div>
-							</div></span>
+               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class="tenPix link">PROMOTE</a>
                 </div>
 			</div>
         </div>
-        <div class="colRightWhite"></div>
         <div class="entryStream">
         	<img src="/static/imgs/creategroup.png" class="kind" />
         	<div class="avt">
@@ -192,29 +393,10 @@ ut labore et dolore magna aliqua. Ut enim ad minim</p>
                 </div>
                  
                 <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link">PROMOTE <div class="moreActionsWrapper">
-								<div class="moreActions ">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png">
-									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
-									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
-									<input type="text" value="http://cristiano.friendfund.de/pool/P3kY.98" onfocus="this.select()">
-									<div class="addthis_toolbox addthis_default_style">
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_facebook at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=facebook&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/1&amp;uid=4d79067b6d1ba50b&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Facebook"><span class="at300bs at15nc at15t_facebook"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_twitter at300b" target="_blank" title="Tweet This"><span class="at300bs at15nc at15t_twitter"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_email at300b" title="Email"><span class="at300bs at15nc at15t_email"></span></a>
-									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
-									 <div class="atclear"></div></div>
-								 </div>
-							</div></span>
+               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
                 </div>
 			</div>
         </div>
-        <div class="colRightWhite"></div>
         <div class="entryStream">
         	<img src="/static/imgs/comment.png" class="kind" />
         	<div class="avt">
@@ -233,29 +415,10 @@ ut labore et dolore magna aliqua. Ut enim ad minim..."</p>
                 </div>
                  
                 <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link">PROMOTE <div class="moreActionsWrapper">
-								<div class="moreActions ">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png">
-									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
-									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
-									<input type="text" value="http://cristiano.friendfund.de/pool/P3kY.98" onfocus="this.select()">
-									<div class="addthis_toolbox addthis_default_style">
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_facebook at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=facebook&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/1&amp;uid=4d79067b6d1ba50b&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Facebook"><span class="at300bs at15nc at15t_facebook"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_twitter at300b" target="_blank" title="Tweet This"><span class="at300bs at15nc at15t_twitter"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_email at300b" title="Email"><span class="at300bs at15nc at15t_email"></span></a>
-									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
-									 <div class="atclear"></div></div>
-								 </div>
-							</div></span>
+               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
                 </div>
 			</div>
         </div>
-        <div class="colRightWhite"></div>
         <div class="entryStream">
         	<img src="/static/imgs/creategroup.png" class="kind" />
         	<div class="avt">
@@ -289,29 +452,16 @@ ut labore et dolore magna aliqua. Ut enim ad minim</p>
                 </div>
                  
                 <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link">PROMOTE <div class="moreActionsWrapper">
-								<div class="moreActions ">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png">
-									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
-									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
-									<input type="text" value="http://cristiano.friendfund.de/pool/P3kY.98" onfocus="this.select()">
-									<div class="addthis_toolbox addthis_default_style">
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_facebook at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=facebook&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/1&amp;uid=4d79067b6d1ba50b&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Facebook"><span class="at300bs at15nc at15t_facebook"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_twitter at300b" target="_blank" title="Tweet This"><span class="at300bs at15nc at15t_twitter"></span></a>
-									  <a addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_email at300b" title="Email"><span class="at300bs at15nc at15t_email"></span></a>
-									  <a style="margin: 0pt;" addthis:url="http://cristiano.friendfund.de/pool/P3kY.98" class="addthis_button_tumblr at300b" href="http://www.addthis.com/bookmark.php?v=250&amp;winname=addthis&amp;pub=friendfund&amp;source=tbx-250&amp;lng=it&amp;s=tumblr&amp;url=http%3A%2F%2Fcristiano.friendfund.de%2Fpool%2FP3kY.98&amp;title=friendfund.com%20%7C%20Group%20Gifts&amp;ate=AT-friendfund/-/-/4d79067b0fbe0b15/2&amp;uid=4d79067bbe21de93&amp;sms_ss=1&amp;at_xt=1&amp;CXNID=2000001.5215456080540439074NXC&amp;pre=http%3A%2F%2Fcristiano.friendfund.de%2Fmypools%2Fstream&amp;tt=0" target="_blank" title="Send to Tumblr"><span class="at300bs at15nc at15t_tumblr"></span></a>
-									 <div class="atclear"></div></div>
-								 </div>
-							</div></span>
+               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><a href="#" class=" tenPix link">PROMOTE</a>
                 </div>
 			</div>
         </div>
-        <div class="colRightWhite"></div>
+	
+	
+	
+	
+	
+	
     </div>
     <div class="clear"></div>
 </div>

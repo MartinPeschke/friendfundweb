@@ -9,7 +9,7 @@
 </%def>
 
 
-<%def name="render_pool_card(pool)">
+<%def name="render_pool_card(pool, friends_pool = False)">
 <% 
 	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), "admin_name":pool.admin_name,
 			"no_contributors":pool.no_contributors, "days_left":14, "product_name":"her Tennis club",
@@ -22,16 +22,18 @@
 		<div class="subPoolRow">
 			<div class="imgWrap">
 				%if pool.is_secret:
-					<div class="statusSecret">SECRET POOL</div>
+					<div class="statusSecret">${_("FF_MYPOOLS_SECRET POOL")}</div>
 				%endif
 				<img src="${pool.get_product_pic("POOL")}" width="190px" height="150px"/>
 			</div>
 			<div class="textOne">
 				<a href="${locals['full_pool_url']}" class="link">${pool.title}</a>
-				<span>${_("Created by %(admin_name)s on %(closing_date)s")%locals}</span>
+				<span>${_("FF_MYPOOLS_Created by %(admin_name)s on %(closing_date)s")%locals}</span>
 				<p>${pool.description}</p>
 				%if pool.is_expired():
-					<div><p>This Pool has expired and will be automatically deleted.</p><a class="link" href="${url(controller="pool", pool_url = pool.p_url, action="delete")}">DELETE NOW&nbsp;&nbsp;&nbsp;X</a></div>
+					<div><p>
+					${_("FF_MYPOOLS_This Pool has expired and will be automatically deleted.")}</p>
+					<a class="link" href="${url(controller="pool", pool_url = pool.p_url, action="delete")}">${_("FF_MYPOOLS_DELETE NOW")}&nbsp;&nbsp;&nbsp;X</a></div>
 				%endif
 			</div>
 			<div class="imgWrap">
@@ -43,17 +45,17 @@
 						<img src="/static/imgs/cloud.png" style="margin:3px 0 0 10px"/>
 					%endif
 					<div class="floatRight">
-						<span class="link hider">PROMOTE
+						<span class="link hider">${_("FF_MYPOOLS_PROMOTE")}
 							<div class="moreActionsWrapper">
 								<div class="moreActions hidden">
 									<div class="arrowMoreActions">
 										<img src="/static/imgs/arrowMoreAction.png" />
 									</div>
-									<h6>PROMOTE THIS POOL</h6>
-									<span class="link">Invite Friends</span>
+									<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+									<a href="${url("invite_index", pool_url=pool.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</span>
 									<span>|</span>
-									<span class="link">Get Widget</span>
-									<h6>SHARE TOOLS</h6>
+									<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+									<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
 									<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
 									<div class="addthis_toolbox addthis_default_style">
 									  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
@@ -65,22 +67,31 @@
 							</div>
 						</span>
 						<span>|</span>
-						<a href="${locals['full_pool_url']}" class="link" style="margin-right:0">VIEW</a>
+						<a href="${locals['full_pool_url']}" class="link" style="margin-right:0">${_("FF_MYPOOLS_VIEW")}</a>
 					</div>
 				</div>
 				
-				%if not pool.is_admin and pool.joined_name:
+				%if friends_pool:
 					<div class="vertSpacer">
-						<span>INVITED BY</span>
-						<div class="smallestImgWrap">
-							<img width="24px" height="24px" src="${pool.get_friend_profile_pic("PROFILE_S")}"/>
+						<span>${_("FF_MYPOOLS_IN THIS POOL")}</span>
+						%for friend in pool.friends:
+						<div class="smallestImgWrap" title="${friend.name}">
+							<img width="24px" height="24px" src="${friend.get_profile_pic("PROFILE_S")}"/>
 						</div>
+						%endfor
 					</div>
+				%elif not pool.is_admin and pool.joined_name:
+						<div class="vertSpacer">
+							<span>${_("FF_MYPOOLS_INVITED BY")}</span>
+							<div class="smallestImgWrap">
+								<img width="24px" height="24px" src="${pool.get_friend_profile_pic("PROFILE_S")}"/>
+							</div>
+						</div>
 				%endif
 				
 				%if merchant.type_is_group_gift:
 					<div class="vertSpacer">
-						<span>RECIPIENT</span>
+						<span>${_("FF_MYPOOLS_RECIPIENT")}</span>
 						<div class="smallestImgWrap">
 							<img width="24px" height="24px" src="${pool.get_receiver_profile_pic("PROFILE_S")}"/>
 						</div>
@@ -88,8 +99,8 @@
 				%endif
 				%if merchant.is_default:
 					<div class="vertSpacer">
-						<span>MERCHANT</span>
-						<img src="${merchant.logo_url}" class="floatRight"/>
+						<span>${_("FF_MYPOOLS_MERCHANT")}</span>
+						<img src="${h.get_merchant_logo(merchant.logo_url)}" class="floatRight"/>
 					</div>
 				%endif
 			</div>
@@ -100,7 +111,7 @@
 					<% progress = int(pool.funding_progress()*100) %>
 					<span>
 					%if pool._is_closed:
-						SUCCESFUL
+						${_("FF_MYPOOLS_SUCCESFUL")}
 					%else:
 						${progress}%
 					%endif

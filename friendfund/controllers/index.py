@@ -60,7 +60,6 @@ class IndexController(BaseController):
 	
 	
 	def logout(self):
-		c.furl = request.params.get('furl', url('home'))
 		c.user = ANONUSER
 		c.settings = {}
 		c.messages = []

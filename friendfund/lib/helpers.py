@@ -171,8 +171,11 @@ def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 			and ('%(site_root)s%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals())\
 			or product_picture_url
 			
+
+def get_merchant_logo(name):
+	return '/static/imgs/merch/%s' % name
 def get_merchant_logo_url(request):
-	return '/static/imgs/merch/%s' % request.merchant.logo_url
+	return get_merchant_logo(request.merchant.logo_url)
 	
 def pool_users_equal(user1, user2):
 	### find at least one coresponding user network overlap

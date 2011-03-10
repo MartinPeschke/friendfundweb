@@ -6,7 +6,8 @@ from pylons.controllers.util import abort, redirect
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController
 from friendfund.model.authuser import UserNotLoggedInWithMethod, GetFriendsNotSupported
-from friendfund.model.mypools import GetUserFriendPoolsProc, UserFriend, GetMyPoolsProc
+from friendfund.model.mypools import GetUserFriendPoolsProc, GetMyPoolsProc
+from friendfund.model.activity import GetActivityStreamProc
 
 log = logging.getLogger(__name__)
 
@@ -20,21 +21,10 @@ class MypoolsController(BaseController):
 	
 	@logged_in(ajax=False)
 	def friends(self):
-		poolsparams = GetUserFriendPoolsProc(u_id = c.user.u_id)
-		poolsparams.friends = []
-		for network in c.user.networks:
-			friends = []
-			try:
-				friends, is_complete, offset = c.user.get_friends(network)
-			except UserNotLoggedInWithMethod, e:
-				pass
-			except GetFriendsNotSupported, e:
-				pass
-			for friend in friends:
-				poolsparams.friends.append(UserFriend(network=network, network_id=friend))
-		c.my_pools = g.dbm.call(poolsparams, GetUserFriendPoolsProc)
+		c.my_pools = g.dbm.get(GetUserFriendPoolsProc, u_id = c.user.u_id)
 		return self.render('/mypools/friends_pools.html')
 	
 	@logged_in(ajax=False)
 	def stream(self):
+		c.activity = g.dbm.get(GetActivityStreamProc, u_id = c.user.u_id)
 		return self.render('/mypools/stream.html')

@@ -490,6 +490,7 @@ FriendFund.Button = {
 		}else{
 			options.css_template = this.css_template;
 		}
+		options.alignment = options.alignment||"left";
 		var button = document.createElement('A');
 		button.id = "friendfund_button";
 		button.className="friendfundButton";

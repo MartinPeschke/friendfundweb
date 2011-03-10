@@ -9,7 +9,7 @@
 
 <%def name="render(position, invitee, is_admin = False)">
 	<li>
-		<div class="avt">
+		<div class="avt" title="${invitee.name}">
 			%if invitee.contributed_amount:
 				<div class="checked"><img src="/static/imgs/checked.png" /></div>
 			%endif
