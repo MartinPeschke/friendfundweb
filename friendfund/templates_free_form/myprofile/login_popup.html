@@ -3,7 +3,8 @@
 	<div class="whitePopupFrameLarge">
 	<span class="panelclosing_x">x</span>
 		<div>
-			<h3>${_("FF_LOGINPOPUP_Log in to invite your friends.")}</h3>
+			<h3 class="borderSmall">${_("FF_LOGINPOPUP_Log in to invite your friends.")}</h3>
+            <div class="colRightWhite"></div>
 			<div class="loginSocialWrap">
 				<a onclick="fbLogin()" class="facebookBtn" title="${_("FF_LOGIN_Log in with Facebook")}">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
@@ -14,7 +15,7 @@
 				</a>
 				<div class="clear"></div>
 			</div>
-            <p class="info">${_("FF_LOGINPOPUP_Your privacy is sacred to us. This information won't ever be shared without your explicit permission.")}</p>
+            <div class="popupPadder">
 			<h4>${_("FF_LOGINPOPUP_Log in with a password instead")}</h4>
 			<form id="login_popup_form" onSubmit="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')));return false;">
 			<div class="inputFields">
@@ -28,17 +29,19 @@
 				<div class="inputPass floatLeft ${"pwd" in c.login_errors and "error" or ""}">
 					<label for="login_pwd">${_("FF_LOGIN_Password")}</label>
 					<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
-					<a class="link" href="/myprofile/password">${_("FF_LOGIN_Forgot Password?")}</a>
+					
 					%if "pwd" in c.login_errors:
 						<p class="error">${c.login_errors.get("pwd")}</p>
 					%endif
+                    <a class="link" href="/myprofile/password">${_("FF_LOGIN_Forgot Password?")}</a>
 				</div>
 				<div class="clear"></div>
 			</div>
 			<input type="submit" class="invisible" value="Go"/>
 			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primaryButton floatLeft">${_("FF_LOGINBUTTON_Log In")}</a>
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='loginpopup')}', 'login_popup_form', place_element(dojo.byId('accountcontainer')))" class="primarySmall floatLeft">${_("FF_LOGINBUTTON_Log In")}</a>
 			<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">${_("FF_LOGIN_Sign up now")}</a></p>
+            </div>
         </div>
 	</div>
 </div>

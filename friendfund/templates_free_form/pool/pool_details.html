@@ -273,8 +273,9 @@
                                     
 									<div class="smallLabel ${rf.name in error_dict and "error", ""}">
 										<label>${_(so.name)} ${_(rf.name)}</label><input type="text" name="${so.name}.${rf.name}" value="${c.values.get(so.name, dict()).get(rf.name)}" />
+										<p class="error">Error message</p>
 									</div>
-                                    <p class="error">Error message</p>
+                                    
                                     </div>
 									%if rf.name in error_dict:
 										<span>${error_dict[rf.name]}</span>
