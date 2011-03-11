@@ -35,7 +35,6 @@
 
 <div class="fullWidthBorder">
 	<div class="colLeft">
-
 	%for streamentry in c.activity.stream:
 		<% 
 		locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain)}
@@ -58,7 +57,7 @@
 									</div>
 							</div>
 							<span class="bold tenPix middot">&middot;</span>
-							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> CONTRIBUTORS</span>
+							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
 						</div>
 						<div class="liner">
 							<span class="date tenPix">19 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
@@ -82,12 +81,11 @@
 										<div class="atclear"></div>
 									</div>
 								</div></span>
-								
-							
 						</div>
 					</div>
 				</div>
 	%elif streamentry.event._get_root == "CONTRIBUTION":
+		<% locals["days_left"] = streamentry.event.get_remaining_days_tuple()[0] %>
 				<div class="entryStream">
 					<img src="/static/imgs/chipped.png" class="kind" />
 					<div class="avt">
@@ -96,18 +94,18 @@
 					</div>
 					<div class="txtComments">
 						
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
+						<span class="mainSpan"><span class="bold">${streamentry.event.contributor}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
 						 <div class="liner">
 							<div class="timeCounterSmall">	
-								<span class="white">62%</span>
+								<span class="white">${streamentry.event.funding_progress()*100}%</span>
 								<div style="width: 100%;" class="timeCounterRight low">
-									<div style="width: 62%;" class="timeCounterLeft low "></div>
+									<div style="width: ${streamentry.event.funding_progress()*100}%;" class="timeCounterLeft low "></div>
 									</div>
 							</div>
 							<span class="bold tenPix middot">&middot;</span>
-							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> CONTRIBUTORS</span>
+							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
 							<span class="bold tenPix middot">&middot;</span>
-							<span class="timeLeft tenPix highlight"><strong>6</strong> DAYS LEFT</span>
+							<span class="timeLeft tenPix ${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 						</div>
 						<div class="liner">
 							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
@@ -145,9 +143,9 @@
 					<div class="txtComments">
 						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> </span>
 						<div class="liner">
-							%for pu in streamentry.invitees:
+							%for img in streamentry.event.get_random_n_invitee_profile_pic(8, "PROFILE_S"):
 							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-								<img width="24px" height="24px" src="${pu.get_profile_pic("PROFILE_S")}"/>
+								<img width="24px" height="24px" src="${img}"/>
 							</div>
 							%endfor
 							<span class="bold tenPix middot">&middot;</span>
@@ -195,9 +193,9 @@
 					<div class="txtComments">
 						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> </span>
 						<div class="liner">
-							%for pu in streamentry.invitees:
+							%for img in streamentry.event.get_random_n_invitee_profile_pic(8, "PROFILE_S"):
 							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-								<img width="24px" height="24px" src="${pu.get_profile_pic("PROFILE_S")}"/>
+								<img width="24px" height="24px" src="${img}"/>
 							</div>
 							%endfor
 							<span class="bold tenPix middot">&middot;</span>
@@ -244,10 +242,19 @@
 					</div>
 					<div class="txtComments">
 						<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-							<img width="24px" height="24px" src="${streamentry.event.get_first_invitee_profile_pic("PROFILE_M")}">
+							<img width="24px" height="24px" src="${streamentry.event.get_random_invitee_profile_pic("PROFILE_S")}">
 						</div>
 						
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> invited <span class="bold">Mario Smith</span> to 
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> invited 
+						
+						
+						%if len(streamentry.event.invitees)>4:
+							<span class="bold">${', '.join(streamentry.event.get_random_n_names(3))}</span>
+						and ${len(streamentry.event.invitees)-3} others
+						%else:
+							<span class="bold">${', '.join(pu.name for pu in streamentry.event.invitees)}</span>
+						%endif
+						 to 
 							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
 						 
 						<div class="liner">
@@ -381,126 +388,6 @@
 	
 	
 	
-	
-	
-				<div class="entryStream">
-					<img src="/static/imgs/succesful.png" class="kind" />
-					<div class="avt">
-						<div class="arrowAvatar"></div>
-						<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-					<div class="txtComments">
-						
-						<span class="mainSpan"><span class="bold">Ski Trip</span> for Jesse has been <span class="bold">successfully funded!</span></span>
-						 <div class="liner">
-							<div class="timeCounterSmall">	
-								<span>SUCCESSFUL!</span>
-								<div style="width: 100%;" class="timeCounterRight low">
-									<div style="width: 100%;" class="timeCounterLeft low green"></div>
-									</div>
-							</div>
-							<span class="bold tenPix middot">&middot;</span>
-							<span class="contribSmall tenPix"><strong>4</strong> CONTRIBUTORS</span>
-						</div>
-						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class="hider tenPix link">PROMOTE</span>
-						</div>
-					</div>
-				</div>
-				
-				
-				
-				
-				
-				
-				
-			
-				<div class="entryStream">
-					<img src="/static/imgs/chipped.png" class="kind" />
-					<div class="avt">
-						<div class="arrowAvatar"></div>
-						<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-					<div class="txtComments">
-						
-						<span class="mainSpan"><span class="bold">Henry George</span> chipped in to <a href="#" class="bold">Ski trip for Jesse</a>. </span>
-						 <div class="liner">
-							<div class="timeCounterSmall">	
-								<span class="white">62%</span>
-								<div style="width: 100%;" class="timeCounterRight low">
-									<div style="width: 62%;" class="timeCounterLeft low "></div>
-									</div>
-							</div>
-							<span class="bold tenPix middot">&middot;</span>
-							<span class="contribSmall tenPix"><strong>4</strong> CONTRIBUTORS</span>
-							<span class="bold tenPix middot">&middot;</span>
-							<span class="timeLeft tenPix highlight"><strong>6</strong> DAYS LEFT</span>
-						</div>
-						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
-						</div>
-					</div>
-				</div>
-	
-	
-	
-	
-
-        <div class="entryStream">
-        	<img src="/static/imgs/invite.png" class="kind" />
-        	<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-			</div>
-            <div class="txtComments">
-            	<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-            	
-				<span class="mainSpan"><span class="bold">Henry George</span> invited <span class="bold">Mario Smith</span> to <a href="#" class="bold">Ski trip for Jesse</a> .</span>
-                 
-                <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class="tenPix link hider">PROMOTE</span>
-                </div>
-			</div>
-        </div>
-        <div class="entryStream">
-        	<img src="/static/imgs/creategroup.png" class="kind" />
-        	<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-			</div>
-            <div class="txtComments">
-            	
-            	
-				<span class="mainSpan"><span class="bold">Henry George</span> created a <a class="bold" href="#">Group Gift</a> for <span class="bold">Jesse Eisenberg</span> .</span>
-                <div class="liner">
-                	<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <span class="bold tenPix middot">&middot;</span>
-                    <span class="inviteesSmall tenPix"><strong>8</strong> INVITEES</span>
-                    <div class="liner">
-                    	<a href="#" class="bold">Ski Trip for Jesse</a>
-                    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-ut labore et dolore magna aliqua. Ut enim ad minim</p>
-</div>
-                </div>
-                 
-                <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
-                </div>
-			</div>
-        </div>
         <div class="entryStream">
         	<img src="/static/imgs/comment.png" class="kind" />
         	<div class="avt">
@@ -522,49 +409,6 @@ ut labore et dolore magna aliqua. Ut enim ad minim..."</p>
                		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>                </div>
 			</div>
         </div>
-        <div class="entryStream">
-        	<img src="/static/imgs/creategroup.png" class="kind" />
-        	<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-			</div>
-            <div class="txtComments">
-            	
-            	
-				<span class="mainSpan"><span class="bold">Henry George</span> created <a class="bold" href="#">Peter and Judy's Wedding</a> </span>
-                <div class="liner">
-                	<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-						<img width="24px" height="24px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-					</div>
-                    <span class="bold tenPix middot">&middot;</span>
-                    <span class="inviteesSmall tenPix"><strong>8</strong> INVITEES</span>
-                    <div class="liner">
-                    	<a href="#" class="bold">Peter and Judy's Wedding</a>
-                    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-ut labore et dolore magna aliqua. Ut enim ad minim</p>
-</div>
-                </div>
-                 
-                <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
-                </div>
-			</div>
-        </div>
-	
-	
-	
-	
-	
-	
     </div>
     <div class="clear"></div>
 </div>

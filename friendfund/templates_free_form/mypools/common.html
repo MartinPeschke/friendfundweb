@@ -15,7 +15,6 @@
 			"creation_date":h.format_date(pool.creation_date, format="full"), 
 			"admin_name":pool.admin_name,
 			"no_contributors":pool.no_contributors, 
-			"days_left":14, 
 			"product_name":"her Tennis club", ####TODO:Implmement
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
 			"days_left" : pool.get_remaining_days_tuple()[0]

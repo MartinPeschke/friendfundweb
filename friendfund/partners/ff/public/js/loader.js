@@ -166,6 +166,7 @@ xhrHandler = function(callback){
 				if (data.redirect !== undefined){window.location.href = data.redirect;}
 				if (data.popup !== undefined){displayPopup(data.popup);}
 				if (data.reload !== undefined){page_reloader();}
+				return data;
 	};
 };
 

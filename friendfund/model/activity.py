@@ -1,6 +1,11 @@
 from datetime import datetime, timedelta
+from operator import attrgetter
+from random import sample, choice
+
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
+
+
 
 class PoolEventUser(DBMappedObject):
 	_cachable = False
@@ -15,7 +20,21 @@ class EventType(DBMappedObject):
 	def get_actor_profile_pic(self, type="PROFILE_M"):
 		return h.get_user_picture(self.picture, type)
 
-class CreateGroupGiftEvent(EventType):
+class EventWithInviteesType(EventType):
+	def get_random_invitee_profile_pic(self, type):
+		if len(self.invitees)>0:
+			return choice(self.invitees).get_profile_pic(type)
+		else:
+			return None
+	def get_random_n_invitee_profile_pic(self, n, type):
+		if len(self.invitees)<n:
+			n = len(self.invitees)
+		return map(lambda x: x.get_profile_pic(type), sample(self.invitees, n))
+	
+	def get_random_n_names(self, n):
+		return map(attrgetter("name"), sample(self.invitees, n))
+
+class CreateGroupGiftEvent(EventWithInviteesType):
 	_set_proc = _get_proc = _set_root = None
 	_get_root = "CREATE_GROUP_GIFT_POOL"
 	_cachable = False
@@ -28,7 +47,8 @@ class CreateGroupGiftEvent(EventType):
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
-class CreateFreeFormEvent(EventType):
+	
+class CreateFreeFormEvent(EventWithInviteesType):
 	_set_proc = _get_proc = _set_root = None
 	_get_root = "CREATE_FREE_FORM_POOL"
 	_cachable = False
@@ -38,10 +58,12 @@ class CreateFreeFormEvent(EventType):
 			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(unicode, 'description', 'description')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
+			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
-class InviteEvent(EventType):
+
+class InviteEvent(EventWithInviteesType):
 	_set_proc = _get_proc = _set_root = None
 	_get_root = "INVITE"
 	_cachable = False
@@ -51,11 +73,10 @@ class InviteEvent(EventType):
 			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(unicode, 'description', 'description')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
+			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
-	def get_first_invitee_profile_pic(self, type):
-		pass
 
 class ContributionEvent(EventType):
 	_set_proc = _get_proc = _set_root = None
@@ -63,12 +84,22 @@ class ContributionEvent(EventType):
 	_cachable = False
 	_unique_keys = ['title']
 	_keys = [GenericAttrib(unicode, 'title', 'title')
-			,GenericAttrib(unicode, 'name', 'name')
+			,GenericAttrib(unicode, 'contributor', 'contributor')
 			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
+			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
 			,GenericAttrib(int, 'no_contributors', 'no_contributors')
-			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
+			,GenericAttrib(int, 'amount', 'amount')
+			,GenericAttrib(int, 'total_contribution', 'total_contribution')
+			,GenericAttrib(str, 'currency', 'currency')
 			]
+	def get_remaining_days_tuple(self):
+		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
+		if diff < timedelta(0):
+			diff = timedelta(0)
+		return (('%s'%diff.days).rjust(2,'0'),  ('%s'%(diff.seconds/3600)).rjust(2,'0'))
+	def funding_progress(self):
+		return float(self.total_contribution) / self.amount
 
 class PoolSuccessEvent(EventType):
 	_set_proc = _get_proc = _set_root = None
@@ -79,8 +110,8 @@ class PoolSuccessEvent(EventType):
 			,GenericAttrib(int, 'no_contributors', 'no_contributors')
 			,GenericAttrib(str, 'admin_picture', 'admin_picture')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
+			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
 			,GenericAttrib(unicode, 'title', 'title')
-			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
 	
 
@@ -129,7 +160,6 @@ class ActivityStream(DBMappedObject):
 		setattr(self, "p_url", self._event.p_url)
 		setattr(self, "merchant_domain", self._event.merchant_domain)
 		setattr(self, "event", self._event.obj)
-		setattr(self, "invitees", self._event.obj.invitees)
 
 class GetActivityStreamProc(DBMappedObject):
 	"""
