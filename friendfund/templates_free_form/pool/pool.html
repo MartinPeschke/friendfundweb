@@ -35,23 +35,18 @@
 			xhrPost(dojo.attr(_node, "_href"), params, onLoaded);
 			return false;
 		};
-		
 		showInvitees = function(){
-			//dojo.query(">*", "inviteeList").forEach(function(elem, pos){if(pos>19){dojo.addClass(elem,"hidden");}});
 			dojo.style("inviteeList", "height", "auto");
 			dojo.addClass("showAllBtn", "hidden");
 			dojo.removeClass("hideAllBtn", "hidden");
 		}
 		hideInvitees = function(){
-			//dojo.query(">.hidden", "inviteeList").forEach(function(elem, pos){dojo.removeClass(elem,"hidden");});
 			dojo.style("inviteeList", "height", "130px");
 			dojo.addClass("hideAllBtn", "hidden");
 			dojo.removeClass("showAllBtn", "hidden");
 		}
-		
 		connectpool = function(rootbutton){
 			var cn = dojo.byId(rootbutton);
-			console.log(cn);
 			if(cn){
 				var d = dojo.connect(cn, "onclick", function(evt){
 					dojo.disconnect(d);
@@ -70,11 +65,13 @@
 <%def name="onloadscripts()">
 	onLoadPagelets("commentSection");
 	parseDefaultsInputs("commentSection");
-	dojo.query(".popuplink", "chipin_box").onclick(dojo.hitch(null, loadPopup));
+	dojo.query(".popuplink", "chipinBox").onclick(dojo.hitch(null, loadPopup));
+	%if c.pool.am_i_admin(c.user):
+		dojo.query(".popuplink", "adminBox").onclick(dojo.hitch(null, loadPopup));
+		dojo.query(".btnShowAdminPanel", "adminBox").onclick(function(evt){dojo.query(".hideable", "adminBox").toggleClass("hidden");});
+	%endif
 	connectpool("btnViewAll");
 </%def>
-
-
 
 <% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 			"admin_name":c.pool.admin.name,
@@ -82,7 +79,6 @@
 			"total_amount":c.pool.get_display_amount(),
 			"no_invitees":len(c.pool.participant_map)}
 %>
-
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
@@ -116,46 +112,46 @@
 
 <div class="wrapSubContent">
 <div class="content">
-	<div class="greyBoxTitle">
-		<a href="#" class="floatRight btnShow">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>
-		
-		<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
-	</div>
-	<div class="greyBoxTitle">
-		<a href="#" class="floatRight btnHide">Hide</a>
-		
-		<h3>Welcome to your Pool Page. Get started below: </h3>
-	</div>
-	<div class="hided">
-		<div class="brd"></div>
-		<div class="floatLeft promote">
-			<h4>Promote on your website</h4>
-			<p>Embed a widget on your site so visitors can find your Pool.</p>
-			<a class="primaryButton floatLeft popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+	%if c.pool.am_i_admin(c.user):
+		<div id="adminBox">
+			<div class="greyBoxTitle hideable">
+				<a href="#" class="floatRight btnShow btnShowAdminPanel">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>
+				<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
+			</div>
+			<div class="greyBoxTitle hideable hidden btnShowAdminPanel">
+				<a href="#" class="floatRight btnHide">${_(u"FF_POOL_PAGE_ADMIN_Hide")}</a>
+				<h3>${_(u"FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:")}</h3>
+			</div>
+			<div class="hided hideable hidden" >
+				<div class="brd"></div>
+				<div class="floatLeft promote">
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Promote on your website")}</h4>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool.")}</p>
+					<a class="primaryButton floatLeft popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
+				</div>
+				<div class="floatLeft share">
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
+					<div class="addthis_toolbox addthis_default_style">
+					  <a class="addthis_button_facebook"></a>
+					  <a class="addthis_button_twitter"></a>
+					  <a class="addthis_button_email"></a>
+					  <a class="addthis_button_linkedin"></a>
+					  <a class="addthis_button_stumbleupon"></a>
+					  <a class="addthis_button_tumblr"></a>
+					  <a class="addthis_button_expanded"></a>
+					</div>
+					<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
+				</div>
+				<div class="floatLeft invite">
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
+					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="forward floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
+				</div>
+				<div class="clear"></div>
+			</div>
 		</div>
-		<div class="floatLeft share">
-			<h4>Share on Social Networks</h4>
-			<div class="addthis_toolbox addthis_default_style">
-		  <a class="addthis_button_facebook"></a>
-		  <a class="addthis_button_twitter"></a>
-		  <a class="addthis_button_email"></a>
-		  <a class="addthis_button_linkedin"></a>
-		  <a class="addthis_button_stumbleupon"></a>
-		  <a class="addthis_button_tumblr"></a>
-		  <a class="addthis_button_expanded"></a>
-		 </div>
-		 <input type="text" onfocus="this.select()" value="http://cristiano.friendfund.de/pool/P3jz.www-spiegel-de">
-			
-
-		</div>
-		<div class="floatLeft invite">
-			<h4>Invite more friends to chip in</h4>
-			<p>Have you forgotten to invite anyone?</p>
-			<span class="forward floatLeft" id="submitter"><span>Invite more Friends</span> <input type="submit" value="&gt;"></span>
-		</div>
-		<div class="clear"></div>
-	</div>	
-  <div class="colRight" id="chipin_box">
+	%endif
+  <div class="colRight" id="chipinBox">
 	<div class="boxChipIn">
 		<a href="${url("payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">
 			${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}
@@ -173,7 +169,7 @@
       <div class="plus generalBoxRight">
         <a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 		%if c.pool.am_i_member(c.user):
-		<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+			<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
 		%endif
       </div>
       <div class="colRightWhite"></div>

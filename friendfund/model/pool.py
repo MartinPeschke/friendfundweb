@@ -408,19 +408,21 @@ class UpdatePoolProc(DBMappedObject):
 class SimpleUserNetwork(DBMappedObject):
 	_cacheable = False
 	_get_proc = _set_proc   = None
-	_get_root = _set_root = 'POOLUSERNETWORK'
+	_get_root = _set_root = 'POOLUSER'
 	_unique_keys = ['network_id']
-	_keys = [GenericAttrib(str,'network_id','id')]
+	_keys = [GenericAttrib(str,'network_id','id'),GenericAttrib(str,'network','network'),GenericAttrib(str,'email','email'),]
+
 
 class GetPoolInviteesProc(DBMappedObject):
 	"""	exec [app].[get_pool_invite] '<POOL p_url = "P3iF.WWW-SPIEGEL-DE"/>'"""
-	_expiretime = 30
+	_cacheable = False
 	_get_proc = _set_proc   = 'app.get_pool_invite'
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url', 'network']
 	_keys = [ GenericAttrib(str,'p_url','p_url')
+			, GenericAttrib(int,'p_id','p_id')
 			, GenericAttrib(str,'network','network')
-			, DBMapper(SimpleUserNetwork, 'users', 'POOLUSERNETWORK', is_list = True)]
+			, DBMapper(SimpleUserNetwork, 'users', 'POOLUSER', is_list = True)]
 	
 	def fromDB(self, xml):
 		setattr(self, "idset", set(map(operator.attrgetter("network_id"), self.users)))
