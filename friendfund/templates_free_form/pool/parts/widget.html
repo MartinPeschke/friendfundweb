@@ -2,27 +2,33 @@
 <div class="outerPopupFrame">
 	<div class="whitePopupFrame fixed">
 	<span class="panelclosing_x">x</span>
-		<% locals = {"no_contributors":14, "days_left":14, "admin_name":"Liz Stevens", "product_name":"her Tennis club"} %>
+		<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
+			"admin_name":c.pool.admin.name,
+			"total_amount":c.pool.get_display_amount(),
+			}
+		%>
+		
+		
 		<div>
         	<h3>${_("FF_WIDGET_POPUP_Embed a widget in your site")}</h3>
             <p>${_("FF_WIDGET_POPUP_Grab the code below and paste it into your website")}</p>
             <textarea><iframe frameborder="0" height="300px" src="http://www.friendfund.com/proteinshakesandbabycakes"</textarea>
 		<div class="homebox">
-			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")}</span>
+			<h5>${c.pool.title}</h5>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
 			<div class="timeCounter">
-				<div class="timeCounterLeft"></div>
-				<div class="timeCounterRight"></div>
+				<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
+				<div class="timeCounterRight" style="width:100%"></div>
 				
-				<span class="floatRight">12.00</span>
+				<span class="floatRight">${locals['total_amount']}</span>
 				<span class="floatLeft">0.00</span>
 				<div class="clear"></div>
 			</div>
 			
 			<div class="boxContributors">
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span class="upper"><strong>${c.pool.total_contributors}</strong>${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
 				<span class="middot"> &middot; </span>
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
+				<span class="upper"><strong>${c.pool.get_remaining_days_tuple()[0]}</strong>${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 			</div>
 			<div class="fbHolder">
 				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg"></a>

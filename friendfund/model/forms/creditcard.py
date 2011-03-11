@@ -1,7 +1,6 @@
 import formencode
 class CreditCardForm(formencode.Schema):
 	allow_extra_fields = True
-	filter_extra_fields = True
 	
 	ccType = formencode.validators.String(not_empty=True)
 	ccHolder = formencode.validators.String(not_empty=True)

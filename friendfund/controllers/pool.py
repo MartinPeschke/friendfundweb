@@ -371,11 +371,15 @@ class PoolController(ExtBaseController):
 		return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 	
 	@jsonify
+	def get_widget(self, pool_url):
+		return {"popup":render("/pool/parts/widget.html").strip()}
+			
+			
 	def widget(self, pool_url):
-		if not c.pool.am_i_member(c.user):
-			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
-		else:
-			return {"popup":render("/pool/parts/widget.html").strip()}
+		return render("/pool/parts/widget_frame.html")
+
+			
+			
 	
 	@jsonify
 	def invitees(self, pool_url):

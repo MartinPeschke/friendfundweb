@@ -50,10 +50,10 @@ class PaymentGateway(object):
 
 
 class PaymentMethod(object):
-	_method_translation = {"master_card":"mc", "amex":"amex","visa":"visa", "paypal":"paypal"}
+	_method_translation = {"master_card":"mastercard", "amex":"amex","visa":"visa", "paypal":"paypal"}
 	def __init__(self, logo_url, code, currencies, fee_absolute, fee_relative):
 		self.logo_url = logo_url
-		self.code = code
+		self.code = self._method_translation[code]
 		self.currencies = currencies
 		self.fee_absolute = fee_absolute # in base units
 		self._fee_absolute = float(fee_absolute)/100
@@ -95,7 +95,7 @@ class CreditCardPayment(PaymentMethod):
 								,total = tmpl_context.contrib_view.total
 								,is_secret = tmpl_context.contrib_view.is_secret
 								,message = tmpl_context.contrib_view.message
-								,paymentmethod = self._method_translation[ccard.ccType]
+								,paymentmethod = ccard.ccType
 								,u_id = tmpl_context.user.u_id
 								,network = tmpl_context.user.network
 								,network_id = tmpl_context.user.network_id

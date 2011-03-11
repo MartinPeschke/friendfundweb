@@ -114,7 +114,7 @@
 
 <div class="wrapSubContent">
 <div class="content">
-	%if c.pool.am_i_admin(c.user):
+	%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
 		<div id="adminBox">
 			<div class="greyBoxTitle hideable">
 				<a href="#" class="floatRight btnShow btnShowAdminPanel">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>
@@ -165,7 +165,7 @@
 	
 		<div class="plus generalBoxRight">
 			<a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
-			%if c.pool.am_i_member(c.user):
+			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 				<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
 			%endif
 		</div>

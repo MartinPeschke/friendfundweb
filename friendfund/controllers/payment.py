@@ -54,7 +54,7 @@ class PaymentController(ExtBaseController):
 				c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
 				c.enforce_blocks = True
 				return self.render('/contribution/contrib_screen.html')
-			else:
+			elif not c.pool.am_i_member(c.user):
 				g.pool_service.invite_myself(pool_url, c.user)
 			
 			contrib = Contribution(**form_result)
@@ -109,9 +109,15 @@ class PaymentController(ExtBaseController):
 			schema = CreditCardForm()
 			try:
 				cc_values = schema.to_python(cc, state = FriendFundFormEncodeState)
-			except (formencode.validators.Invalid, AssertionError), error:
+			except formencode.validators.Invalid, error:
 				c.values.update(error.value)
 				c.errors = error.error_dict or {}
+				print c.errors
+				return render('/contribution/payment_details.html')
+			except AssertionError, e:
+				c.values = cc
+				c.errors = {"ccType":_("Unknown Card Type")}
+				print c.errors
 				return render('/contribution/payment_details.html')
 			else:
 				ccard = CreditCard(**cc_values)
