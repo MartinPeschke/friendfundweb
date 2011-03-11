@@ -1,0 +1,44 @@
+<div class="popupBackground dark"></div>
+<div class="outerPopupFrame">
+	<div class="whitePopupFrameLarge Big fixed">
+	<span class="panelclosing_x">x</span>
+		<div>
+        	<h3 class="borderSmall">Preview your Invitations</h3>
+            <div class="colRightWhite"></div>
+            <div class="selectSocial">
+            	<span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'facebook'})">Facebook</span>
+                <span>|</span>
+                <span>Email</span>
+                <span>|</span>
+                <span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'twitter'})">Twitter</span>
+            </div>
+            <div class="popupPadder">
+            	<p style="padding:0">Your Facebook friends will be notified with a Email Message. </p>
+                <div class="fbPreview">
+                	<img src="/static/imgs/fbHeader.jpg" style="float:left; " />
+                      <div class="colRightFb">
+                      	<div class="profileHeaderMain"><h1><span class="profileName fsxl fwb">FriendFund for Barnaby Angus Stilton for Mother's Day</span></h1><div class="fsm fwn fcg"><span class="fsl"><span class="linkFb">Mapa Technorac</span> invited you</span> · <span class="fsl"><span class="linkFb">Share</span></span> · <span class="fsl">Public event</span></div></div>
+                        <table  border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td class="label border">Time</td>
+                            <td class="data border">07 May · 17:00 - 17:00</td>
+                          </tr>
+                          <tr>
+                            <td class="label border">Created by:</td>
+                            <td class="data border">Mapa Technorac, Friendfund</td>
+                          </tr>
+                          <tr>
+                            <td class="label">More info</td>
+                            <td class="data">Mapa Technorac hat einen Geschenkpool für Barnaby Angus Stiltons MUTTERTAG gegründet. Mach mit!
+<span class="linkFb">http://friendfund.com/pool/P30C.Barnaby-Angus-Stilton-Casio-Uhren-Edifice-EF-555D-7AVEF</span></td>
+                          </tr>
+                        </table>
+                        <img src="/static/imgs/fbFooter.jpg" />
+                      </div>
+                    <div class="colLeftFb"><img src="/static/imgs/fbLeftCol.jpg"  /></div>
+                    <div class="clear"></div>
+                </div>
+			</div>
+        </div>
+	</div>
+</div>

@@ -6,14 +6,14 @@
         	<h3 class="borderSmall">Preview your Invitations</h3>
             <div class="colRightWhite"></div>
             <div class="selectSocial">
-            	<span>Facebook</span>
+            	<span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'facebook'})">Facebook</span>
                 <span>|</span>
-                <span class="link">Email</span>
+                <span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'email'})">Email</span>
                 <span>|</span>
-                <span class="link">Twitter</span>
+                <span>Twitter</span>
             </div>
             <div class="popupPadder">
-            	<p style="padding:0">Your Facebook friends will be notified with a Facebook Event. </p>
+            	<p style="padding:0">Your Facebook friends will be notified with a Twitter Message. </p>
                 <div class="fbPreview">
                 	<img src="/static/imgs/fbHeader.jpg" style="float:left; " />
                       <div class="colRightFb">

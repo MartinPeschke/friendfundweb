@@ -170,6 +170,13 @@ class InviteController(ExtBaseController):
 	
 	@jsonify
 	def preview(self, pool_url):
-		return  {"popup":self.render("/messages/preview.html").strip()}
+		print request.params
+		method = request.params.get("method")
+		if method=="email":
+			return  {"popup":self.render("/messages/preview_email.html").strip()}
+		elif method=="twitter":
+			return  {"popup":self.render("/messages/preview_twitter.html").strip()}
+		else:
+			return  {"popup":self.render("/messages/preview_facebook.html").strip()}
 	
 	
