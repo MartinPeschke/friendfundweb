@@ -53,7 +53,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	},
 	onLoad : function(_t, html){
 		dojo.place(html, _t.rootNode, "only");
-		_t._listener_locals.push(dojo.connect(dojo.byId("emailsubmitter"), "onclick", dojo.hitch(null, _t.select, _t)));
+		_t._listener_locals.push(dojo.connect(_t.ref_node, "onclick", dojo.hitch(null, _t.selectClick, _t)));
 		_t._listener_locals.push(dojo.connect(_t.ref_node, "onkeydown", dojo.hitch(_t, accessability, _t.select, function(){})));
 	},
 	undraw : function(_t){
@@ -62,6 +62,9 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	destroy : function(_t){
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
+	},
+	selectClick : function(_t, evt){
+		if(evt.target.id==="emailsubmitter"){_t.select(_t, evt);}
 	},
 	select : function(_t, evt){
 		var tab = dojo.byId("email_email");
@@ -72,9 +75,11 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	_onSelect : function(_t, data){
 		if(data.success===true){
 			_t.onSelect(_t, data, data.html, null);
+			dojo.place(data.input_html, _t.rootNode, "only");
 		} else {
-			dojo.place(data.message, dojo.byId("email_inviter_error"), "only");
+			dojo.place(data.html, _t.rootNode, "only");
 		}
+		dojo.query("input[type=text]", _t.rootNode)[0].focus();
 	},
 	onSelect : function(_t, params, elem, evt){
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");

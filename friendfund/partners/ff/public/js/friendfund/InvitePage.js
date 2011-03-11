@@ -29,30 +29,21 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t.submitting = true;
 		var results = dojo.query(".invitee_row", _t.invited_node);
 		
-		//if(results.length){
-			dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
-			_t._widget_locals = [];
-			_t.receiver_selectors = {};
-			var invitees = [];
-			dojo.query(".invitee_row.selectable", _t.invited_node).forEach(
-				function(elem, i){
-					var params = {};
-					dojo.forEach(dojo.attr(elem, "_search_keys").split(","), 
-								function(key){params[key.substring(1)]=dojo.attr(elem, key);}
-							);
-					invitees.push(params);
-				});
-			invitees = {"invitees":invitees};
-			dojo.place(dojo.create("textarea", {name:_t.target_form, style:"display:none",value:dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
-			dojo.byId('invitees').submit();
-		// } else {
-			// _t.submitting = false;
-			// node = dojo.byId("inviters_panel_tooltip");
-			// dojo.removeClass(node, "hidden");
-			// dojo.style(node, "opacity", "1");
-			// dojo.fadeOut({node:node ,duration: 5000}).play();
-			// return false;
-		// }
+		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
+		_t._widget_locals = [];
+		_t.receiver_selectors = {};
+		var invitees = [];
+		dojo.query(".invitee_row.selectable", _t.invited_node).forEach(
+			function(elem, i){
+				var params = {};
+				dojo.forEach(dojo.attr(elem, "_search_keys").split(","), 
+							function(key){params[key.substring(1)]=dojo.attr(elem, key);}
+						);
+				invitees.push(params);
+			});
+		invitees = {"invitees":invitees};
+		dojo.place(dojo.create("textarea", {name:_t.target_form, style:"display:none",value:dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
+		dojo.byId('invitees').submit();
  	}
 });
 

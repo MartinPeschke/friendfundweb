@@ -50,27 +50,33 @@
 						<img src="/static/imgs/cloud.png" style="margin:3px 0 0 10px"/>
 					%endif
 					<div class="floatRight">
-						<span class="link hider">${_("FF_MYPOOLS_PROMOTE")}
-							<div class="moreActionsWrapper">
-								<div class="moreActions hidden">
-									<div class="arrowMoreActions">
-										<img src="/static/imgs/arrowMoreAction.png" />
-									</div>
-									<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
-									<a href="${url("invite_index", pool_url=pool.p_url, host=pool.merchant_domain, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
-									<span>|</span>
-									<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=pool.p_url, host=pool.merchant_domain)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
-									<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
-									<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
-									<div class="addthis_toolbox addthis_default_style">
-									  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
-									  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
-									  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
-									  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+						%if not friends_pool:
+							<span class="link hider">${_("FF_MYPOOLS_PROMOTE")}
+								<div class="moreActionsWrapper">
+									<div class="moreActions hidden">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png" />
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=pool.p_url, host=pool.merchant_domain, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=pool.p_url, host=pool.merchant_domain)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										 </div>
 									 </div>
-								 </div>
-							</div>
-						</span>
+								</div>
+							</span>
+						%else:
+							<a href="${url(controller="pool", pool_url=pool.p_url, action="join", host=pool.merchant_domain)}" class="link">
+								${_(u"FF_POOL_PAGE_CHIPIN_Join")}
+							</a>
+						%endif
 						<span>|</span>
 						<a href="${locals['full_pool_url']}" class="link" style="margin-right:0">${_("FF_MYPOOLS_VIEW")}</a>
 					</div>

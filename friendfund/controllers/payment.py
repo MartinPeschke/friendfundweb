@@ -55,7 +55,7 @@ class PaymentController(ExtBaseController):
 				c.enforce_blocks = True
 				return self.render('/contribution/contrib_screen.html')
 			else:
-				g.pool_service.invite_myself(c.pool, c.user)
+				g.pool_service.invite_myself(pool_url, c.user)
 			
 			contrib = Contribution(**form_result)
 			contrib.currency = c.pool.currency

@@ -1,6 +1,5 @@
 import formencode
 from friendfund.model.forms.common import CurrencyValidator, PWDValidator
-from pylons.i18n import _
 
 class LoginForm(formencode.Schema):
 	allow_extra_fields = True

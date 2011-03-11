@@ -10,9 +10,9 @@ from pylons.controllers.util import abort, redirect
 from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import post_only, logged_in
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.base import BaseController, render, _
-
+from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.model.authuser import UserNotLoggedInWithMethod
+from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.tasks import photo_renderer, fb as fbservice, twitter as twservice
 
 log = logging.getLogger(__name__)
@@ -80,23 +80,22 @@ class MyfriendsController(BaseController):
 		params = variable_decode(request.params)
 		invitee = params.get("invitee")
 		network = invitee['network']
-		
 		if network == 'email':
-			valid = formencode.validators.Email(min=5, max = 255, not_empty = True, resolve_domain=True)
+			c.email_values = c.email_errors = {}
 			try:
-				network_id = valid.to_python(invitee.get('network_id'), state=FriendFundFormEncodeState)
+				form_result = PoolEmailInviteeForm().to_python(invitee, state=FriendFundFormEncodeState)
 			except formencode.validators.Invalid, error:
-				return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
+				c.email_errors = error.error_dict or {}
+				c.email_values = error.value
+				return {"data":{'success':False, 'html':render_def('/invite/inviter.html', 'mailinviter').strip()}}
 			else:
 				c.method = 'email'
+				invitee['success'] = True
 				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
 				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
-				c.invitees = {network_id:invitee}
-				data = invitee
-				data['success'] = True
-				data['html'] = self.render('/invite/email_invitee.html').strip()
-				
-				return {'clearmessage':True, 'data':data}
+				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable').strip()
+				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter').strip()
+				return {'clearmessage':True, 'data':invitee}
 		elif network == 'yourself' and not c.user.is_anon:
 			data = invitee
 			data['success'] = True

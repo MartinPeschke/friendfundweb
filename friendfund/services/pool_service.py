@@ -7,7 +7,7 @@ from pylons.i18n import _
 from friendfund.lib import helpers as h
 from friendfund.lib.i18n import friendfund_formencode_gettext
 from friendfund.model.forms.pool import PoolCreateForm
-from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion
+from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion, JoinPoolProc
 from friendfund.model.product import Product
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_save_product_image
 
@@ -90,16 +90,9 @@ class PoolService(object):
 		pool.settlementOption = request.merchant.settlement_options[0].name
 		return pool
 	
-	def invite_myself(self, pool, user):
-		if not pool.am_i_member(user):
-			pool = app_globals.dbm.set(AddInviteesProc(p_id = pool.p_id
-						, p_url = pool.p_url
-						, event_id = pool.event_id
-						, inviter_user_id = user.u_id
-						, users=[PoolInvitee.fromUser(user)]
-						, description = pool.description
-						, is_secret = pool.is_secret))
-			app_globals.dbm.expire(Pool(p_url = pool.p_url))
+	def invite_myself(self, pool_url, user):
+		app_globals.dbm.get(JoinPoolProc, u_id = user.u_id, p_url = pool_url)
+		app_globals.dbm.expire(Pool(p_url = pool_url))
 
 	def save_pool_picture(self, picture):
 		picture_url = h.get_upload_pic_name(str(uuid.uuid4()))

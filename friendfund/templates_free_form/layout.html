@@ -98,9 +98,13 @@
 
 
 <%def name="renderMessages(pool_url = None)">
+	<% 
+		msgs = getattr(c, "_msgs", [])
+		_has_errors = getattr(c, "_has_errors", False)
+	%>
 	<div id="messaging_container" class="overlayWrapper">
-		<div class="overlay red ${not h.has_ne_prop(c, '_msgs') and 'hidden' or ''}">
-			<p id="messaging_messages">${' - '.join(msg for msg in getattr(c, "_msgs", []))}</p>
+		<div class="overlay ${_has_errors and "red" or "green"} ${len(msgs)==0 and 'hidden' or ''}">
+			<p id="messaging_messages">${' - '.join(m.msg for m in msgs)}</p>
 		</div>
 		%if pool_url:
 			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url)}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>

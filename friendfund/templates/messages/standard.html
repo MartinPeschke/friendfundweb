@@ -1,8 +1,8 @@
 %if h.has_ne_prop(c, '_msgs'):
 <div class="message">
 	<ul class="server_message">
-		%for msg in c._msgs:
-			<li>${msg|n}</li>
+		%for m in c._msgs:
+			<li>${m.msg|n}</li>
 		%endfor
 	</ul>
 	<a href="#" onclick="destroyPopup('message_container')" title="Hide" class="panel_closer">&nbsp;</a>

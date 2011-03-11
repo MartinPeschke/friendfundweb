@@ -136,5 +136,6 @@ class GetActivityStreamProc(DBMappedObject):
 	_expiretime = 5
 	_unique_keys = ['u_id']
 	_keys = [GenericAttrib(int, 'u_id', 'u_id')
+			,GenericAttrib(bool, 'include_friend', 'include_friend')
 			,DBMapper(ActivityStream, 'stream', 'STREAM', is_list = True)
 			]

@@ -55,14 +55,21 @@
 %endfor
 </%def>
 
+
 <%def name="mailinviter()">
 	<form action="" method="POST" id="emailinviter">
 	<div class="arrowSubTab"></div>
-	<div class="firstSpacer floatLeft error"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label><input id="email_networkname" name="invitee.name" type="text" class="txtMail" />
-    	<p>Error msg</p>
-    </div>
-	<div class="secondSpacer floatLeft error"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label><input id="email_email" name="invitee.network_id" type="text" class="txtMail" />
-		<p id="email_inviter_error">error msg</p>
+	<div class="firstSpacer floatLeft ${"name" in c.email_errors and "error" or ""}"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label>
+		<input value="${c.email_values.get("name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail" />
+		%if "name" in c.email_errors:
+			<p>${c.email_errors['name']}</p>
+		%endif
+	</div>
+	<div class="secondSpacer floatLeft ${"network_id" in c.email_errors and "error" or ""}"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label>
+		<input value="${c.email_values.get("network_id")}" id="email_email" name="invitee.network_id" type="text" class="txtMail" />
+		%if "network_id" in c.email_errors:
+			<p>${c.email_errors['network_id']}</p>
+		%endif
 	</div>
 	<div class="btnContainer">
 		<input type="button" id="emailsubmitter" value="${_("FF_INVITER_EMAIL_Add to Invitees")}" class="primaryButton" />
@@ -71,6 +78,8 @@
 	<input type="hidden" name="invitee.notification_method" value="email"/>
 	 </form>
 </%def>
+
+
 <%def name="render_email_friends(friends, active = True, class_='selectable', add_label = None, rem_label = None)">
 %for i,(id, user_data) in enumerate(friends.items()):
 	<li class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }"

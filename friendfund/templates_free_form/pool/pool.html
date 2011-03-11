@@ -1,5 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="invitee_widget" file="parts/invitees.html"/>
+<%namespace name="chipin_box" file="parts/chipin_box.html"/>
+
 <%def name="fb_meta_tags()">
 	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
@@ -151,52 +153,44 @@
 			</div>
 		</div>
 	%endif
-  <div class="colRight" id="chipinBox">
-	<div class="boxChipIn">
-		<a href="${url("payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">
-			${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}
-		</a>
-		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
-		<a href="${url("payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.pool.get_suggested_amount())}" class="suggested">
-			${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} &raquo;
-		</a>
-		
-		<div class="rose">
-			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
-			${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
-        </div>
-      </div>
-      <div class="plus generalBoxRight">
-        <a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
-		%if c.pool.am_i_member(c.user):
-			<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+	
+	<div class="colRight" id="chipinBox">
+		%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
+			${chipin_box.render_contributable(c.pool, c.user, locals)|n}
+		%elif c.pool.am_i_member(c.user) or not c.pool.is_contributable():
+			${chipin_box.render_closed(c.pool, c.user, locals)|n}
+		%elif c.pool.is_contributable():
+			${chipin_box.render_join(c.pool, c.user, locals)|n}
 		%endif
-      </div>
-      <div class="colRightWhite"></div>
-      <div class="generalBoxRight">
-      <h2>Share the pool</h2>
-      	<div class="iconContainer">
-			<div class="addthis_toolbox addthis_default_style">
-				<a class="addthis_button_facebook"></a>
-				<a class="addthis_button_twitter"></a>
-				<a class="addthis_button_email"></a>
-				<a class="addthis_button_linkedin"></a>
-				<a class="addthis_button_stumbleupon"></a>
-				<a class="addthis_button_tumblr"></a>
-				<a class="addthis_button_expanded"></a>
-			</div>
-		<div class="clear"></div>
+	
+		<div class="plus generalBoxRight">
+			<a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+			%if c.pool.am_i_member(c.user):
+				<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+			%endif
 		</div>
+		<div class="colRightWhite"></div>
+		<div class="generalBoxRight">
+			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the pool")}</h2>
+			<div class="iconContainer">
+				<div class="addthis_toolbox addthis_default_style">
+					<a class="addthis_button_facebook"></a>
+					<a class="addthis_button_twitter"></a>
+					<a class="addthis_button_email"></a>
+					<a class="addthis_button_linkedin"></a>
+					<a class="addthis_button_stumbleupon"></a>
+					<a class="addthis_button_tumblr"></a>
+					<a class="addthis_button_expanded"></a>
+				</div>
+			<div class="clear"></div>
+			</div>
 		</div>
 		<div class="colRightWhite"></div>
 		<div class="generalBoxRight noBorder">
 			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
 			<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
 		</div>
-		
 	</div>
-   
-   
 	<div class="colLeft">
 		<div class="invited" id="poolInviteesDisplay">
 			<h4>
@@ -220,8 +214,6 @@
 			<div class="clear"></div>
 		</div>
 		
-	
-
 		<div class="about ${c.pool.am_i_admin(c.user) and "canedit" or " "}">
 			<h4>${_(u"FF_POOL_PAGE_BODY_About")}</h4>
 			<div class="subHeading"></div>
@@ -248,7 +240,7 @@
 				
 				<p>${c.pool.description}</p>
 				%if c.pool.product:
-					<h5>${c.pool.product.name}</h5>
+					<h5><a href="${c.pool.product.tracking_link}">${c.pool.product.name}</a></h5>
 					<p class="small">${c.pool.product.description}</p>
 				%endif
 				<div class="clear"></div>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-11 11:28+0100\n"
+"PO-Revision-Date: 2011-03-11 15:28+0100\n"
 "Last-Translator: Antonio <antjimar@hotmail.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -492,6 +492,14 @@ msgstr "No has escogido ningún evento. Por favor, inténtalo de nuevo. "
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 
+#: friendfund/controllers/pool.py:202
+msgid "POOL_SETTINGS_Pool not found"
+msgstr ""
+
+#: friendfund/controllers/pool.py:400
+msgid "FF_POOL_PAGE_You Joined the Pool!"
+msgstr ""
+
 #: friendfund/controllers/product.py:62
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "URL no reconocida"
@@ -929,11 +937,11 @@ msgstr "Buscar Regalo"
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
-#: friendfund/services/product_service.py:204
+#: friendfund/services/product_service.py:206
 msgid "FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE"
 msgstr ""
 
-#: friendfund/services/product_service.py:205
+#: friendfund/services/product_service.py:207
 msgid "FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR"
 msgstr ""
 
@@ -3444,7 +3452,7 @@ msgstr ""
 msgid "FF_FOOTER_2010 friendfund All Rights Reserved"
 msgstr ""
 
-#: friendfund/templates_free_form/layout.html:106
+#: friendfund/templates_free_form/layout.html:110
 msgid "FF_MESSAGE_LINK_Back to Pool"
 msgstr ""
 
@@ -3796,7 +3804,7 @@ msgstr ""
 msgid "FF_MYPOOLS_DELETE NOW"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:53
+#: friendfund/templates_free_form/mypools/common.html:54
 #: friendfund/templates_free_form/mypools/stream.html:114
 #: friendfund/templates_free_form/mypools/stream.html:163
 #: friendfund/templates_free_form/mypools/stream.html:213
@@ -3804,7 +3812,7 @@ msgstr ""
 msgid "FF_MYPOOLS_PROMOTE"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:59
+#: friendfund/templates_free_form/mypools/common.html:60
 #: friendfund/templates_free_form/mypools/stream.html:70
 #: friendfund/templates_free_form/mypools/stream.html:120
 #: friendfund/templates_free_form/mypools/stream.html:168
@@ -3813,7 +3821,7 @@ msgstr ""
 msgid "FF_MYPOOLS_PROMOTE THIS POOL"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:60
+#: friendfund/templates_free_form/mypools/common.html:61
 #: friendfund/templates_free_form/mypools/stream.html:71
 #: friendfund/templates_free_form/mypools/stream.html:121
 #: friendfund/templates_free_form/mypools/stream.html:169
@@ -3822,17 +3830,17 @@ msgstr ""
 msgid "FF_MYPOOLS_Invite Friends"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:62
+#: friendfund/templates_free_form/mypools/common.html:63
 #: friendfund/templates_free_form/mypools/stream.html:73
 #: friendfund/templates_free_form/mypools/stream.html:123
 #: friendfund/templates_free_form/mypools/stream.html:171
 #: friendfund/templates_free_form/mypools/stream.html:221
 #: friendfund/templates_free_form/mypools/stream.html:263
-#: friendfund/templates_free_form/pool/pool.html:172
+#: friendfund/templates_free_form/pool/pool.html:167
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:63
+#: friendfund/templates_free_form/mypools/common.html:64
 #: friendfund/templates_free_form/mypools/stream.html:74
 #: friendfund/templates_free_form/mypools/stream.html:124
 #: friendfund/templates_free_form/mypools/stream.html:172
@@ -3841,47 +3849,52 @@ msgstr ""
 msgid "FF_MYPOOLS_SHARE TOOLS"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:75
-msgid "FF_MYPOOLS_VIEW"
+#: friendfund/templates_free_form/mypools/common.html:77
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:5
+msgid "FF_POOL_PAGE_CHIPIN_Join"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:81
+msgid "FF_MYPOOLS_VIEW"
+msgstr ""
+
+#: friendfund/templates_free_form/mypools/common.html:87
 msgid "FF_MYPOOLS_IN THIS POOL"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:90
+#: friendfund/templates_free_form/mypools/common.html:96
 msgid "FF_MYPOOLS_INVITED BY"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:99
+#: friendfund/templates_free_form/mypools/common.html:105
 msgid "FF_MYPOOLS_RECIPIENT"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:107
+#: friendfund/templates_free_form/mypools/common.html:113
 msgid "FF_MYPOOLS_MERCHANT"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:119
+#: friendfund/templates_free_form/mypools/common.html:125
 msgid "FF_MYPOOLS_SUCCESFUL"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:129
-#: friendfund/templates_free_form/pool/pool.html:106
+#: friendfund/templates_free_form/mypools/common.html:135
+#: friendfund/templates_free_form/pool/pool.html:104
 msgid "FF_POOL_PAGE_HEADER_contributors"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:130
-#: friendfund/templates_free_form/pool/pool.html:107
+#: friendfund/templates_free_form/mypools/common.html:136
+#: friendfund/templates_free_form/pool/pool.html:105
 msgid "FF_POOL_PAGE_HEADER_Chipped in"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:131
-#: friendfund/templates_free_form/pool/pool.html:108
+#: friendfund/templates_free_form/mypools/common.html:137
+#: friendfund/templates_free_form/pool/pool.html:106
 msgid "FF_POOL_PAGE_HEADER_Outstanding"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/common.html:133
-#: friendfund/templates_free_form/pool/pool.html:109
+#: friendfund/templates_free_form/mypools/common.html:139
+#: friendfund/templates_free_form/pool/pool.html:107
 msgid "FF_POOL_PAGE_HEADER_Days left"
 msgstr ""
 
@@ -4107,141 +4120,121 @@ msgstr ""
 msgid "FF_POOL_CHAT_No Comments!"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:94
+#: friendfund/templates_free_form/pool/pool.html:92
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:94
+#: friendfund/templates_free_form/pool/pool.html:92
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_by %(admin_name)s"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:121
+#: friendfund/templates_free_form/pool/pool.html:120
 msgid "FF_POOL_PAGE_ADMIN_Show"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:122
+#: friendfund/templates_free_form/pool/pool.html:121
 msgid "FF_POOL_PAGE_ADMIN_Promote your pool"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:125
+#: friendfund/templates_free_form/pool/pool.html:124
 msgid "FF_POOL_PAGE_ADMIN_Hide"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:126
+#: friendfund/templates_free_form/pool/pool.html:125
 msgid "FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:131
+#: friendfund/templates_free_form/pool/pool.html:130
 msgid "FF_POOL_PAGE_ADMIN_Promote on your website"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:132
+#: friendfund/templates_free_form/pool/pool.html:131
 msgid ""
 "FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your "
 "Pool."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:133
+#: friendfund/templates_free_form/pool/pool.html:132
 msgid "FF_POOL_PAGE_ADMIN_embed widget"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:136
+#: friendfund/templates_free_form/pool/pool.html:135
 msgid "FF_POOL_PAGE_ADMIN_Share on Social Networks"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:149
+#: friendfund/templates_free_form/pool/pool.html:148
 msgid "FF_POOL_PAGE_ADMIN_Invite more friends to chip in"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:150
+#: friendfund/templates_free_form/pool/pool.html:149
 msgid "FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:151
+#: friendfund/templates_free_form/pool/pool.html:150
 msgid "FF_POOL_PAGE_ADMIN_invite more friends"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:159
-msgid "FF_POOL_PAGE_CHIPIN_Chip In"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool.html:161
-#, python-format
-msgid "FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool.html:163
-msgid "FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool.html:167
-msgid "FF_POOL_PAGE_CHIPIN_Its all or nothing!"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool.html:168
-#, python-format
-msgid ""
-"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of "
-"%(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool.html:174
+#: friendfund/templates_free_form/pool/pool.html:169
 msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:195
+#: friendfund/templates_free_form/pool/pool.html:174
+msgid "FF_POOL_PAGE_CHIPIN_Share the pool"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/pool.html:190
 msgid "FF_POOL_PAGE_CHIPIN_Share the link"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:206
+#: friendfund/templates_free_form/pool/pool.html:198
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(no_invitees)s Invitees"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:208
+#: friendfund/templates_free_form/pool/pool.html:200
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:211
+#: friendfund/templates_free_form/pool/pool.html:203
 #: friendfund/templates_free_form/pool/parts/invitees.html:6
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:212
+#: friendfund/templates_free_form/pool/pool.html:204
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:213
+#: friendfund/templates_free_form/pool/pool.html:205
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:228
+#: friendfund/templates_free_form/pool/pool.html:218
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:236
+#: friendfund/templates_free_form/pool/pool.html:226
 msgid "FF_LINK_Edit Image"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:244
+#: friendfund/templates_free_form/pool/pool.html:234
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:246
+#: friendfund/templates_free_form/pool/pool.html:236
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:261
+#: friendfund/templates_free_form/pool/pool.html:251
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:276
+#: friendfund/templates_free_form/pool/pool.html:266
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:282
+#: friendfund/templates_free_form/pool/pool.html:272
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr ""
 
@@ -4348,6 +4341,34 @@ msgstr ""
 msgid "FF_POOLDETAILS_Invite Friends"
 msgstr ""
 
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:9
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:18
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:35
+msgid "FF_POOL_PAGE_CHIPIN_Its all or nothing!"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:10
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:19
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:36
+#, python-format
+msgid ""
+"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of "
+"%(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:27
+msgid "FF_POOL_PAGE_CHIPIN_Chip In"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:29
+#, python-format
+msgid "FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/chipin_box.html:31
+msgid "FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >"
+msgstr ""
+
 #: friendfund/templates_free_form/pool/parts/widget.html:7
 msgid "FF_WIDGET_POPUP_Embed a widget in your site"
 msgstr ""
@@ -4437,7 +4458,4 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Escoge al destinatario del regalo desde Facebook, Twitter o email."
-
-#~ msgid "FF_MYPOOLS_Created by %(admin_name)s on %(closing_date)s"
-#~ msgstr ""
 

@@ -53,7 +53,7 @@
 %>
 
 <div id="lowerbody_container" class="networkinviter fullbackgroundwhite marginTop">
-	<form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
+	<form action="${url(controller='invite', pool_url=c.pool.p_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 	<div class="lowerbody">
 		<div id="network_methodselector" class="TabsContainer">
 				<a class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _target="inviter" _type="facebook"><span><img src="/static/imgs/icon_fb_connect.png"> Facebook</span></a>

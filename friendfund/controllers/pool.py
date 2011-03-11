@@ -6,7 +6,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
-from friendfund.lib.base import BaseController, render, ExtBaseController
+from friendfund.lib.base import BaseController, render, ExtBaseController, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
@@ -37,7 +37,7 @@ class PoolController(ExtBaseController):
 		if pool_url is None:
 			return abort(404)
 		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 			return redirect(url('home'))
 		####TODO: Add back in
 		# if c.pool.is_closed():
@@ -49,7 +49,7 @@ class PoolController(ExtBaseController):
 		
 	def complete(self, pool_url):
 		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 		# if not c.pool.is_closed():
 			 # redirect(url('get_pool', pool_url=pool_url))
 		return self.render('/pool/pool_complete.html')
@@ -107,13 +107,13 @@ class PoolController(ExtBaseController):
 			try:
 				c.pool = g.pool_service.create_group_gift()
 			except MissingProductException, e:
-				c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+				c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 				return redirect(url('home'))
 			except MissingOccasionException, e:
-				c.messages.append(_("POOL_CREATE_Occasion was unknown, what can I do?"))
+				c.messages.append(ErrorMessage(_("POOL_CREATE_Occasion was unknown, what can I do?")))
 				return redirect(url('home'))
 			except MissingReceiverException, e:
-				c.messages.append(_("POOL_CREATE_Receiver was unknown, what can I do?"))
+				c.messages.append(ErrorMessage(_("POOL_CREATE_Receiver was unknown, what can I do?")))
 				return redirect(url('home'))
 		else:
 			try:
@@ -199,7 +199,7 @@ class PoolController(ExtBaseController):
 		c.pool_url = pool_url
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.psettings:
-			c.messages.append("POOL_SETTINGS_Pool not found")
+			c.messages.append(ErrorMessage(_("POOL_SETTINGS_Pool not found")))
 			return redirect(url('home'))
 		c.user.set_am_i_admin(pool_url, c.psettings.is_admin)
 		c.shipping_values = to_displaymap(c.psettings.addresses.get("shipping"))
@@ -217,9 +217,9 @@ class PoolController(ExtBaseController):
 	@post_only(ajax=True)
 	def edit_thankyou(self, pool_url):
 		if c.pool is None:
-			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			return self.ajax_messages(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 		if not c.pool.am_i_receiver(c.user):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		c.pool_url = pool_url
 		c.edit = True
 		return {'html':render('/pool/parts/receiver_thank_you.html').strip()}
@@ -229,10 +229,10 @@ class PoolController(ExtBaseController):
 	@post_only(ajax=True)
 	def set_thankyou(self, pool_url):
 		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 			return {"redirect" : request.referer}
 		if not c.pool.am_i_receiver(c.user):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		c.pool_url = pool_url
 		c.edit = False
 		thankyou = request.params.get('thankyou', None)
@@ -247,9 +247,9 @@ class PoolController(ExtBaseController):
 	@post_only(ajax=True)
 	def edit_description(self, pool_url):
 		if c.pool is None:
-			return self.ajax_messages(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			return self.ajax_messages(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 		if not c.pool.am_i_admin(c.user):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		c.pool_url = pool_url
 		c.edit = True
 		return {'html':render('/pool/parts/description.html').strip()}
@@ -259,10 +259,10 @@ class PoolController(ExtBaseController):
 	@post_only(ajax=True)
 	def set_description(self, pool_url):
 		if c.pool is None:
-			c.messages.append(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"))
+			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 			return {"redirect" : request.referer}
 		if not c.pool.am_i_admin(c.user):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		c.pool_url = pool_url
 		c.edit = False
 		
@@ -281,10 +281,10 @@ class PoolController(ExtBaseController):
 		c.countries = g.countries.list
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not c.user.am_i_admin(pool_url):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
 		return {"html":render('/pool/actions/%s_form.html' % type).strip()}
@@ -296,7 +296,7 @@ class PoolController(ExtBaseController):
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		type = str(request.params.get('type'))
 		if not type in ['billing', 'shipping']:
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		setattr(c, '%s_values' % type, to_displaymap(c.psettings.addresses.get(type)))
 		setattr(c, '%s_errors' % type, {})
 		return {"html":render('/pool/actions/%s_display.html' % type).strip()}
@@ -309,7 +309,7 @@ class PoolController(ExtBaseController):
 		c.pool_url = pool_url
 		c.countries = g.countries.list
 		if not c.user.am_i_admin(pool_url):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		form = formencode.variabledecode.variable_decode(request.params).get('shipping', None)
 		if not form:
 			form = formencode.variabledecode.variable_decode(request.params).get('billing', None)
@@ -340,7 +340,7 @@ class PoolController(ExtBaseController):
 		c.pool_url = pool_url
 		c.psettings = g.dbm.get(PoolSettings, p_url = pool_url, u_id = c.user.u_id)
 		if not (c.psettings.is_admin and c.psettings.is_funded()):
-			c.messages.append(_(NOT_CORRECT_STATE))
+			c.messages.append(ErrorMessage(_(NOT_CORRECT_STATE)))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		elif c.psettings.information_complete(c.pool):
 			try:
@@ -353,14 +353,14 @@ class PoolController(ExtBaseController):
 				c.messages.append(e)
 			return redirect(url('get_pool', pool_url=pool_url))
 		else:
-			c.messages.append(_(SAVE_ADDRESS_FIRST))
+			c.messages.append(ErrorMessage(_(SAVE_ADDRESS_FIRST)))
 			return redirect(url(controller='pool', action='addresses', pool_url=pool_url))
 	
 	@logged_in(ajax=False)
 	def action(self, pool_url):
 		action = str(request.params['action'])
 		if not c.user.am_i_admin(pool_url) or action not in POOLACTIONS:
-			c.messages.append(_(NOT_AUTHORIZED_MESSAGE))
+			c.messages.append(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 			return redirect(url(controller='pool', action='settings', pool_url=pool_url))
 		g.dbm.set(ExtendActionPoolProc(p_url = pool_url
 										, name=action
@@ -373,7 +373,7 @@ class PoolController(ExtBaseController):
 	@jsonify
 	def widget(self, pool_url):
 		if not c.pool.am_i_member(c.user):
-			return self.ajax_messages(_(NOT_AUTHORIZED_MESSAGE))
+			return self.ajax_messages(ErrorMessage(_(NOT_AUTHORIZED_MESSAGE)))
 		else:
 			return {"popup":render("/pool/parts/widget.html").strip()}
 	
@@ -387,8 +387,15 @@ class PoolController(ExtBaseController):
 		c.participants = g.dbm.get(GetMoreInviteesProc,p_url=pool_url, page_no=c.page)
 		return {"data":{"html":render("/pool/parts/invitees.html").strip()}}
 	
+	@logged_in(ajax=False)
 	def delete(self, pool_url):
 		if c.pool.am_i_admin(c.user):
 			log.error("POOL_DELETE_NOT_IMPLEMENTED")
 		return redirect(request.referer)
 	
+	@logged_in(ajax=False)
+	def join(self, pool_url):
+		if not c.pool.am_i_member(c.user):
+			g.pool_service.invite_myself(pool_url, c.user)
+			c.messages.append(SuccessMessage(_("FF_POOL_PAGE_You Joined the Pool!")))
+		return redirect(url("get_pool", pool_url=pool_url))

@@ -7,13 +7,14 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper
 from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block
-from friendfund.lib.base import BaseController, render, _, ExtBaseController
+from friendfund.lib.base import BaseController, render, render_def, _, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
 from friendfund.model.authuser import UserNotLoggedInWithMethod
+from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
 from friendfund.tasks import fb as fbservice, twitter as twservice
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
-
 
 from formencode.variabledecode import variable_decode
 strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
@@ -60,6 +61,8 @@ class InviteController(ExtBaseController):
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
+			c.email_errors = {}
+			c.email_values = {}
 		return {'html':render('/invite/inviter.html').strip()}
 	
 	@jsonify
@@ -126,8 +129,7 @@ class InviteController(ExtBaseController):
 			return self._return_to_input(invitees)
 		
 		if invitees:
-			invittes_proc_result = g.dbm.set(AddInviteesProc(p_id = c.pool.p_id
-							, p_url = c.pool.p_url
+			invittes_proc_result = g.dbm.set(AddInviteesProc(p_url = c.pool.p_url
 							, event_id = c.pool.event_id
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
@@ -145,23 +147,24 @@ class InviteController(ExtBaseController):
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url))
 	
-	@jsonify
-	@logged_in(ajax=True)
-	def add(self, pool_url):
-		params = variable_decode(request.params)
-		invitee = params.get("invitee")
-		network = invitee.get('network')
-		if request.method != 'POST' or network!= 'email':
-			return self.ajax_messages("Not Allowed")
-		valid = formencode.validators.Email(min=5, max = 255, not_empty = True, resolve_domain=True)
-		try:
-			network_id = valid.to_python(invitee.get('network_id'), state=FriendFundFormEncodeState)
-		except formencode.validators.Invalid, error:
-			return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
-		else:
-			c.method = 'email'
-			c.invitees = {network_id:invitee}
-			return {'clearmessage':True, 'data':{'success':True, 'html':self.render('/invite/email_invitee.html').strip()}}
+	# @jsonify
+	# @logged_in(ajax=True)
+	# def add(self, pool_url):
+		# params = variable_decode(request.params)
+		# invitee = params.get("invitee")
+		# network = invitee.get('network')
+		# if request.method != 'POST' or network!= 'email':
+			# return self.ajax_messages(ErrorMessage(_("Not Allowed")))
+		# try:
+			# form_result = PoolEmailInviteeForm().to_python(invitee, state=FriendFundFormEncodeState)
+		# except formencode.validators.Invalid, error:
+			# c.email_errors = error.error_dict or {}
+			# c.email_values = error.value
+			# return {"data":{'success':False, 'html':render_def('/invite/inviter.html', 'mailinviter')}}
+		# else:
+			# c.email_errors = {}
+			# c.email_values = {}
+			# return {'data':{'success':True, 'html':render_def('/invite/inviter.html', 'mailinviter').strip()}}
 	
 	
 	

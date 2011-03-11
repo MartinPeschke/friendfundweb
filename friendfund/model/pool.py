@@ -426,3 +426,12 @@ class GetPoolInviteesProc(DBMappedObject):
 	
 	def fromDB(self, xml):
 		setattr(self, "idset", set(map(operator.attrgetter("network_id"), self.users)))
+
+class JoinPoolProc(DBMappedObject):
+	"""	[app].[join_pool]  '<POOL_INVITEES p_url = "123" u_id = "123"/>'"""
+	_cacheable = False
+	_get_proc = _set_proc   = 'app.join_pool'
+	_get_root = _set_root = 'POOL_INVITEES'
+	_unique_keys = ['p_url', 'u_id']
+	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
+	

@@ -146,12 +146,13 @@ class ProductService(object):
 		return pool
 	
 	def set_product_from_open_graph(self, pool, request):
-		transl = {  "og:description":(["description"], lambda x:x),
-					"og:name":(["name"], lambda x:x),
-					"og:price":(["price"], lambda x:int(x)),
-					"og:shipping_handling":(["shipping_cost"], lambda x:int(x)),
-					"og:image":(["picture"], lambda x:x),
-					"og:currency":(["currency"], lambda x:x)}
+		transl = {  "og:description":(["description"], lambda x:x, False),
+					"og:name":(["name"], lambda x:x, False),
+					"og:price":(["price"], lambda x:int(x), False),
+					"og:tracking_link":(["tracking_link"], lambda x:x, True),
+					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False),
+					"og:image":(["picture"], lambda x:x, False),
+					"og:currency":(["currency"], lambda x:x, False)}
 		query=request.params.get("referer")
 		if not query:
 			log.error("Query not found")
@@ -180,11 +181,12 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = DisplayProduct(merchant_ref=query,tracking_link=query, guid=uuid.uuid4())
-				attr_names, transf = transl.get(parts[0])
+					products[no] = DisplayProduct(merchant_ref=query, tracking_link = query, guid=uuid.uuid4())
+				attr_names, transf, override = transl.get(parts[0])
 				for attr in attr_names:
-					if not getattr(products[no], attr, None):
+					if override or not getattr(products[no], attr, None):
 						setattr(products[no], attr, transf(params.get(k)))
+		
 		
 		### Persist product list for later reference
 		product_list = OrderedDict([(unicode(products[k].guid), products[k]) for k in sorted(products)])

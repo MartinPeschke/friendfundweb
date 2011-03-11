@@ -26,5 +26,6 @@ class MypoolsController(BaseController):
 	
 	@logged_in(ajax=False)
 	def stream(self):
-		c.activity = g.dbm.get(GetActivityStreamProc, u_id = c.user.u_id)
+		include_friend = request.params.get("all", False)
+		c.activity = g.dbm.get(GetActivityStreamProc, u_id = c.user.u_id, include_friend = include_friend)
 		return self.render('/mypools/stream.html')

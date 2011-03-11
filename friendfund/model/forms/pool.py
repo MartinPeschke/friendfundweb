@@ -23,3 +23,8 @@ class PoolCreateForm(formencode.Schema):
 	chained_validators = [ 
 					SettlementValidator() 
 				]
+
+class PoolEmailInviteeForm(formencode.Schema):
+	allow_extra_fields = True
+	name = formencode.validators.String(not_empty=True, min=1, max = 255)
+	network_id =  formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
