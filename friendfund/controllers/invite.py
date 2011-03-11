@@ -10,7 +10,7 @@ from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_b
 from friendfund.lib.base import BaseController, render, _, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.authuser import UserNotLoggedInWithMethod
-from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc
+from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
 from friendfund.tasks import fb as fbservice, twitter as twservice
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
 
@@ -26,37 +26,26 @@ class InviteController(ExtBaseController):
 	def display(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
-		if 'invitees' in websession:
-			del websession['invitees']
 		c.errors = {}
 		c.values = {}
-		return self._display_invites(c.pool)
+		return self._display_invites()
 	
-	def _display_invites(self, pool, invitees = {}):
+	def _display_invites(self, invitees = {}):
 		c.workflow = request.params.get("v") or "1"
-		c.pool = pool
 		c.method = c.user.get_current_network() or 'facebook'
-		c.furl = '/invite/%s' % pool.p_url
-		c.pool_url = pool.p_url
-		#Find all people that have been selected as to-be-invited but not added to pool yet
 		c.invitees = invitees
-		for network, invitees in c.invitees.iteritems():
-			if network and invitees:
-				il = c.pool.get_invitees(network)
-				c.invitees[network] = dict([(k,v) for k,v in invitees.iteritems() if k not in il])
-			else:
-				del c.invitees[network]
 		return self.render('/invite/invite.html')
 	
 	@jsonify
 	@logged_in(ajax=True)
 	def method(self, pool_url, method):
 		c.method = str(method)
-		c.furl = '/invite/%s' % (pool_url)
 		
-		il = c.pool.get_invitees(c.method)
-		already_invited = (websession.get('invitees',{}).get(c.method, {}).keys())
 		if method in ['facebook', 'twitter']:
+			pv =  request.params.getall('pv')
+			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
+			already_invited = already_invited.union(pv)
+			
 			is_complete = True
 			offset = 0
 			try:
@@ -67,8 +56,7 @@ class InviteController(ExtBaseController):
 				else: 
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
-				c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if str(id) not in c.already_invited and str(id) not in already_invited])
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
@@ -77,27 +65,26 @@ class InviteController(ExtBaseController):
 	@jsonify
 	def get_extension(self, pool_url, method):
 		if method in ['twitter']:
+			pv =  request.params.getall('pv')
+			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
+			already_invited = already_invited.union(pv)
 			offset = int(request.params['offset'])
 			c.method = str(method)
-			il = c.pool.get_invitees(c.method)
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
-			
-			already_invited = (websession.get('invitees',{}).get(c.method, {}).keys())
-			c.already_invited = dict([(i, friends[i]) for i in il if i in friends])
-			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if not str(id) in c.already_invited and str(id) not in already_invited])
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
 	
 	def _return_to_input(self, invitees):
 		c.enforce_blocks = True
 		c.invitees = {}
+		
 		for inv in invitees:
 			netw = inv['network'].lower()
 			invs = c.invitees.get(netw,{})
 			invs[str(inv['network_id'])] = inv
 			c.invitees[netw] = invs
-			websession['invitees'] = c.invitees
-		return self._display_invites(c.pool, c.invitees)
+		return self._display_invites(c.invitees)
 	
 	
 	
@@ -105,8 +92,6 @@ class InviteController(ExtBaseController):
 	def friends(self, pool_url):
 		data = simplejson.loads(request.params.get('invitees') or '{}')
 		invitees = data.get("invitees")
-		c.furl = '/invite/%s' % pool_url
-		c.pool_url = pool_url
 		c.workflow = request.params.get("v") or "1"
 		c.errors = {}
 		c.values = {}
@@ -158,9 +143,7 @@ class InviteController(ExtBaseController):
 			job.apply_async()
 			
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
-			if 'invitees' in websession:
-				del websession['invitees']
-		return redirect(url('ctrlpoolindex', controller='pool', pool_url = pool_url))
+		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url))
 	
 	@jsonify
 	@logged_in(ajax=True)

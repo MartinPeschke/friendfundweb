@@ -53,7 +53,7 @@
 <div class="content">
   <div class="colRight moreMarginTop">
   	<span class="floatRight link" id="removeall">${_("FF_INVITEPAGE_Remove All")}</span>
-    <h3>${_("FF_INVITEPAGE_HEADER_Invited Friends")} (<span id="invitedCounter">${reduce(add, [0]+[len(c.invitees[invs]) for invs in c.invitees])}</span>)</h3>
+    <h3>${_("FF_INVITEPAGE_HEADER_Invited Friends")} (<span id="invitedCounter">${reduce(add, map(len, c.invitees.values()) or [0])}</span>)</h3>
 		<div class="listSelectedFriends" id="invitedContainer" >
 			<p class="inviterTwo ${bool(c.invitees) and "hidden" or ""}">${_("FF_INVITER_EMAIL_Invite your friends from<br /> the left panel")|n}</p>
 			<div id="network_invitees" class="invited_list">
@@ -75,11 +75,12 @@
 				<span class=" methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
 			</div>
 		  </div>
-		  <div class="subTab"  id="inviter"></div>
+		  
+		  <div class="subTab" id="inviter"></div>
 
 		  <h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
 		  <div class="subHeading"></div>
-		  <form action="${url(controller='invite', pool_url=c.pool_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
+		  <form action="${url(controller='invite', pool_url=c.pool.p_url, action='friends')}" onsubmit="return prepareSubmit()" method="POST" id="invitees">
 			<input type="hidden" name="v" value="${c.workflow}"/>
 		  <div style="border-top:none" class="borderBottom" id="inviteMessage">
 			<div class="wrapInside ${('subject' in c.errors) and "error" or ""}">

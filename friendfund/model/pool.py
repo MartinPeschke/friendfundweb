@@ -1,4 +1,4 @@
-import simplejson, logging, itertools, formencode, md5, random
+import simplejson, logging, itertools, formencode, md5, random, operator
 
 from datetime import datetime, timedelta, date
 
@@ -243,13 +243,6 @@ class Pool(DBMappedObject):
 	def __init__(self, **kwargs):
 		super(self.__class__, self).__init__(**kwargs)
 	
-	def get_invitees(self, network):
-		network = network.lower()
-		if network == 'email':
-			return [pu.networks[network].email for pu in self.participants if network in pu.networks]
-		else:
-			return [pu.networks[network].network_id for pu in self.participants if network in pu.networks]
-	
 	def get_contributors(self):
 		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
 	
@@ -411,3 +404,23 @@ class UpdatePoolProc(DBMappedObject):
 			return h.get_product_picture(self.product.picture, type)
 		else:
 			return h.get_product_picture(None, type)
+			
+class SimpleUserNetwork(DBMappedObject):
+	_cacheable = False
+	_get_proc = _set_proc   = None
+	_get_root = _set_root = 'POOLUSERNETWORK'
+	_unique_keys = ['network_id']
+	_keys = [GenericAttrib(str,'network_id','id')]
+
+class GetPoolInviteesProc(DBMappedObject):
+	"""	exec [app].[get_pool_invite] '<POOL p_url = "P3iF.WWW-SPIEGEL-DE"/>'"""
+	_expiretime = 30
+	_get_proc = _set_proc   = 'app.get_pool_invite'
+	_get_root = _set_root = 'POOL'
+	_unique_keys = ['p_url', 'network']
+	_keys = [ GenericAttrib(str,'p_url','p_url')
+			, GenericAttrib(str,'network','network')
+			, DBMapper(SimpleUserNetwork, 'users', 'POOLUSERNETWORK', is_list = True)]
+	
+	def fromDB(self, xml):
+		setattr(self, "idset", set(map(operator.attrgetter("network_id"), self.users)))

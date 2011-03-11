@@ -42,6 +42,9 @@ class ContentController(BaseController):
 	@jsonify
 	def pledging_faq(self):
 		return {"popup":render("/content/pledging_faq.html").strip()}
+	@jsonify
+	def transaction_fees(self):
+		return {"popup":render("/content/transaction_fees.html").strip()}
 	
 	@jsonify
 	def our_virtual_gifts_help(self):
