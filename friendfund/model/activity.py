@@ -37,6 +37,7 @@ class CreateFreeFormEvent(EventType):
 			,GenericAttrib(unicode, 'name', 'name')
 			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(unicode, 'description', 'description')
+			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
@@ -49,6 +50,7 @@ class InviteEvent(EventType):
 			,GenericAttrib(unicode, 'name', 'name')
 			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(unicode, 'description', 'description')
+			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
@@ -63,6 +65,7 @@ class ContributionEvent(EventType):
 	_keys = [GenericAttrib(unicode, 'title', 'title')
 			,GenericAttrib(unicode, 'name', 'name')
 			,GenericAttrib(unicode, 'picture', 'picture')
+			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(int, 'no_contributors', 'no_contributors')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
@@ -75,6 +78,7 @@ class PoolSuccessEvent(EventType):
 	_keys = [GenericAttrib(str, 'picture', 'picture')
 			,GenericAttrib(int, 'no_contributors', 'no_contributors')
 			,GenericAttrib(str, 'admin_picture', 'admin_picture')
+			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(unicode, 'title', 'title')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
@@ -95,6 +99,7 @@ class ActivityStreamEvent(DBMappedObject):
 	_keys = [GenericAttrib(int, 'p_id', 'p_id')
 			,GenericAttrib(int, 'u_id', 'u_id')
 			,GenericAttrib(str, 'p_url', 'p_url')
+			,GenericAttrib(str, 'merchant_domain', 'merchant_domain')
 			,DBMapper(CreateGroupGiftEvent, '_cggp', 'CREATE_GROUP_GIFT_POOL')
 			,DBMapper(CreateFreeFormEvent, '_cffp', 'CREATE_FREE_FORM_POOL')
 			,DBMapper(InviteEvent, '_ivt', 'INVITE')
@@ -122,6 +127,7 @@ class ActivityStream(DBMappedObject):
 	def fromDB(self, xml):
 		setattr(self, "is_my_event", self.type=="MY")
 		setattr(self, "p_url", self._event.p_url)
+		setattr(self, "merchant_domain", self._event.merchant_domain)
 		setattr(self, "event", self._event.obj)
 		setattr(self, "invitees", self._event.obj.invitees)
 

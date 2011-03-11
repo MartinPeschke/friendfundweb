@@ -72,7 +72,7 @@
 									 </div>
 								</div>
 							</span>
-						%else:
+						%elif not pool._is_closed:
 							<a href="${url(controller="pool", pool_url=pool.p_url, action="join", host=pool.merchant_domain)}" class="link">
 								${_(u"FF_POOL_PAGE_CHIPIN_Join")}
 							</a>
@@ -128,7 +128,7 @@
 					%endif
 					</span>
 					<div style="width: 100%" class="timeCounterRight">
-					<div style="width: ${pool.funding_progress()*100}%" class="timeCounterLeft ${pool._is_closed and "green" or ""}"></div>
+						<div style="width: ${pool.funding_progress()*100}%" class="timeCounterLeft ${pool._is_closed and "green" or ""}"></div>
 					</div>
 				</div>
 			</div>
