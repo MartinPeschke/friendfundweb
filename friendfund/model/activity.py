@@ -6,6 +6,13 @@ from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 
 
+ranges = [(60,'seconds'), 
+		  (3600, 'minutes'), 
+		  (86400, 'hours'), 
+		  (604800, 'days'), 
+		  (2419200, 'weeks'), 
+		  (30758400, 'months')
+		]
 
 class PoolEventUser(DBMappedObject):
 	_cachable = False
@@ -166,8 +173,41 @@ class ActivityStream(DBMappedObject):
 	_cachable = False
 	_unique_keys = ['type']
 	_keys = [GenericAttrib(str, 'type', 'type')
+			,GenericAttrib(int, 'recency', 'recency')
 			,DBMapper(ActivityStreamEvent, '_event', 'EVENT')
 			]
+	def get_recency(self):
+		diff = timedelta(0, self.recency)
+		second_diff = diff.seconds
+		day_diff = diff.days
+		if day_diff < 0:
+			return ''
+		if day_diff == 0:
+			if second_diff < 10:
+				return "just now"
+			if second_diff < 60:
+				return str(second_diff) + " seconds ago"
+			if second_diff < 120:
+				return  "a minute ago"
+			if second_diff < 3600:
+				return str( second_diff / 60 ) + " minutes ago"
+			if second_diff < 7200:
+				return "an hour ago"
+			if second_diff < 86400:
+				return str( second_diff / 3600 ) + " hours ago"
+		if day_diff == 1:
+			return "Yesterday"
+		if day_diff < 7:
+			return str(day_diff) + " days ago"
+		if day_diff < 31:
+			return str(day_diff/7) + " weeks ago"
+		if day_diff < 365:
+			return str(day_diff/30) + " months ago"
+		return str(day_diff/365) + " years ago"
+	
+			
+			
+			
 	def fromDB(self, xml):
 		setattr(self, "is_my_event", self.type=="MY")
 		setattr(self, "p_url", self._event.p_url)

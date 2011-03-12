@@ -59,7 +59,7 @@
 							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
 						</div>
 						<div class="liner">
-							<span class="date tenPix">19 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">PROMOTE<div class="moreActionsWrapper">
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 							<span class="timeLeft tenPix ${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 						</div>
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}
 								<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
@@ -137,7 +137,7 @@
 						</div>
 						 
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
@@ -187,7 +187,7 @@
 						</div>
 						 
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
@@ -238,7 +238,7 @@
 							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
 						 
 						<div class="liner">
-							<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
 							<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
@@ -276,7 +276,7 @@
 					<p>"${h.word_truncate_by_letters(streamentry.event.comment, 180)}"</p>
 				</div>
 				<div class="liner">
-					<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
+					<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
 				</div>
 			</div>
 		</div>
