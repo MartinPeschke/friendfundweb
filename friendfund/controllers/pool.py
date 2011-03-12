@@ -69,12 +69,6 @@ class PoolController(ExtBaseController):
 	def details(self):
 		c.errors = {}
 		c.workflow = request.params.get("v") or "1"
-		if c.workflow == "1" and (request.params.get("amount") or request.params.get("title")):
-			try:
-				mini_pool_schema = PoolHomePageForm().to_python(request.params)
-			except formencode.validators.Invalid, error:
-				c.errors = error.error_dict or {}
-		
 		c.currencies = sorted(g.country_choices.currencies)
 		c.values = {
 			"amount":request.params.get("amount"),
@@ -96,6 +90,15 @@ class PoolController(ExtBaseController):
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:
 			pass
+		if c.workflow == "1" and (request.params.get("amount") or request.params.get("title")):
+			try:
+				mini_pool_schema = PoolHomePageForm().to_python(request.params)
+			except formencode.validators.Invalid, error:
+				c.errors = error.error_dict or {}
+				c.values.update(error.value)
+			else:
+				c.values.update(mini_pool_schema)
+
 		return self.render('/pool/pool_details.html')
 	
 	@logged_in()

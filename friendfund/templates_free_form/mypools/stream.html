@@ -26,9 +26,15 @@
 <div class="content fullWidth">
 <h4 style="padding-top:0px">
 	<div class="floatRight selector">
-    	<span class="bold">Relevant News</span>
-        <span style="margin:0 5px">|</span>
-        <span class="bold activeLink">Most Recent</span>
+	%if c.include_friend:
+		<a class="bold" href="${url(controller="mypools", action="stream", all="")}">Only Mine</a>
+		<span style="margin:0 5px">|</span>
+		<span class="bold">All</span>
+	%else:
+		<span class="bold">Only Mine</span>
+		<span style="margin:0 5px">|</span>
+		<a class="bold" href="${url(controller="mypools", action="stream", all=1)}">All</a>
+	%endif
      </div>
 </h4>
 
@@ -59,7 +65,7 @@
 							<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
 						</div>
 						<div class="liner">
-							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">PROMOTE<div class="moreActionsWrapper">
 						</div>
 					</div>
@@ -77,9 +83,9 @@
 						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
 						 <div class="liner">
 							<div class="timeCounterSmall">	
-								<span class="white">${streamentry.event.funding_progress()*100}%</span>
+								<span class="white">${streamentry.event.funding_progress()}%</span>
 								<div style="width: 100%;" class="timeCounterRight low">
-									<div style="width: ${streamentry.event.funding_progress()*100}%;" class="timeCounterLeft low "></div>
+									<div style="width: ${streamentry.event.funding_progress()}%;" class="timeCounterLeft low "></div>
 									</div>
 							</div>
 							<span class="bold tenPix middot">&middot;</span>
@@ -88,7 +94,7 @@
 							<span class="timeLeft tenPix ${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 						</div>
 						<div class="liner">
-							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}
 								<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
@@ -137,7 +143,7 @@
 						</div>
 						 
 						<div class="liner">
-							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
@@ -187,7 +193,7 @@
 						</div>
 						 
 						<div class="liner">
-							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
@@ -238,7 +244,7 @@
 							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
 						 
 						<div class="liner">
-							<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span>
+							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
 							<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
@@ -271,12 +277,32 @@
 				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 			</div>
 			<div class="txtComments">
-				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> commented on <a class="bold" href="#">Ski Trip</a> </span>
+				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> commented on <a class="bold" href="#">${streamentry.event.title}</a> </span>
 				<div class="liner">
 					<p>"${h.word_truncate_by_letters(streamentry.event.comment, 180)}"</p>
 				</div>
 				<div class="liner">
-					<span class="date tenPix">${streamentry.get_recency()} AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
+					<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span><span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
+									<div class="moreActions hidden">
+										<div class="arrowMoreActions">
+											<img src="/static/imgs/arrowMoreAction.png">
+										</div>
+										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+										<span>|</span>
+										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
+										<div class="addthis_toolbox addthis_default_style">
+										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+										</div>
+										<div class="atclear"></div>
+									</div>
+								</div>
+								</span>
 				</div>
 			</div>
 		</div>
@@ -291,13 +317,6 @@
     </div>
     <div class="clear"></div>
 </div>
-
-
-
-
-
-
-
 
 <div class="clear"></div>
 </div>

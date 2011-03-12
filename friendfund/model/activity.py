@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from operator import attrgetter
 from random import sample, choice
 
+from pylons.i18n import _
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 
@@ -98,6 +99,7 @@ class ContributionEvent(EventType):
 			,GenericAttrib(int, 'no_contributors', 'no_contributors')
 			,GenericAttrib(int, 'amount', 'amount')
 			,GenericAttrib(int, 'total_contribution', 'total_contribution')
+			,GenericAttrib(int, 'target', 'target')
 			,GenericAttrib(str, 'currency', 'currency')
 			]
 	def get_remaining_days_tuple(self):
@@ -106,7 +108,7 @@ class ContributionEvent(EventType):
 			diff = timedelta(0)
 		return (('%s'%diff.days).rjust(2,'0'),  ('%s'%(diff.seconds/3600)).rjust(2,'0'))
 	def funding_progress(self):
-		return float(self.total_contribution) / self.amount
+		return int((float(self.total_contribution) / self.target)*100)
 
 class PoolCommentEvent(EventType):
 	_set_proc = _get_proc = _set_root = None
@@ -184,26 +186,26 @@ class ActivityStream(DBMappedObject):
 			return ''
 		if day_diff == 0:
 			if second_diff < 10:
-				return "just now"
+				return _("FF_RECENCY_just now")
 			if second_diff < 60:
-				return str(second_diff) + " seconds ago"
+				return _("FF_RECENCY_%(seconds)d seconds ago") % {"seconds":second_diff}
 			if second_diff < 120:
-				return  "a minute ago"
+				return  _("FF_RECENCY_a minute ago")
 			if second_diff < 3600:
-				return str( second_diff / 60 ) + " minutes ago"
+				return _("FF_RECENCY_%(minutes)d minutes ago") % {"minutes":second_diff / 60}
 			if second_diff < 7200:
-				return "an hour ago"
+				return _("FF_RECENCY_an hour ago")
 			if second_diff < 86400:
-				return str( second_diff / 3600 ) + " hours ago"
+				return _("FF_RECENCY_%(hours)d hours ago") % {"hours":second_diff / 3600}
 		if day_diff == 1:
-			return "Yesterday"
+			return _("FF_RECENCY_Yesterday")
 		if day_diff < 7:
-			return str(day_diff) + " days ago"
+			return _("FF_RECENCY_%(days)d days ago") % {"days":day_diff}
 		if day_diff < 31:
-			return str(day_diff/7) + " weeks ago"
+			return _("FF_RECENCY_%(weeks)d weeks ago") % {"weeks":day_diff/7}
 		if day_diff < 365:
-			return str(day_diff/30) + " months ago"
-		return str(day_diff/365) + " years ago"
+			return _("FF_RECENCY_%(months)d months ago") %{"months":day_diff/30}
+		return _("FF_RECENCY_%(years)d years ago")%{"years":day_diff/365}
 	
 			
 			
