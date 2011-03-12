@@ -68,11 +68,11 @@ class InviteController(ExtBaseController):
 	@jsonify
 	def get_extension(self, pool_url, method):
 		if method in ['twitter']:
+			c.method = str(method)
 			pv =  request.params.getall('pv')
 			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
 			already_invited = already_invited.union(pv)
 			offset = int(request.params['offset'])
-			c.method = str(method)
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
