@@ -1,13 +1,12 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 <%def name="scripts()">
-	<script type="text/javascript">
-		var addthis_config = {"data_track_clickback":true};
-		
-	</script>
+	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
-
+<%def name="onloadscripts()">
+	dojo.query(".popuplink", "activityBody").onclick(dojo.hitch(null, loadPopup));
+</%def>
 
 <div class="wrapSubHeader">
 	<div class="subHeader">
@@ -33,7 +32,7 @@
      </div>
 </h4>
 
-<div class="fullWidthBorder">
+<div class="fullWidthBorder" id="activityBody">
 	<div class="colLeft">
 	%for streamentry in c.activity.stream:
 		<% 
@@ -62,25 +61,6 @@
 						<div class="liner">
 							<span class="date tenPix">19 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span>
 							<span class=" tenPix link hider">PROMOTE<div class="moreActionsWrapper">
-									<div class="moreActions hidden">
-										<div class="arrowMoreActions">
-											<img src="/static/imgs/arrowMoreAction.png">
-										</div>
-										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
-										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
-										<span>|</span>
-										<a class="link popuplink" _href="${url("pool_action", action="widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
-										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
-										<input type="text" onfocus="this.select()" value="${locals['full_pool_url']}"/>
-										<div class="addthis_toolbox addthis_default_style">
-										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
-										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
-										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
-										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
-										</div>
-										<div class="atclear"></div>
-									</div>
-								</div></span>
 						</div>
 					</div>
 				</div>
@@ -94,7 +74,7 @@
 					</div>
 					<div class="txtComments">
 						
-						<span class="mainSpan"><span class="bold">${streamentry.event.contributor}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
 						 <div class="liner">
 							<div class="timeCounterSmall">	
 								<span class="white">${streamentry.event.funding_progress()*100}%</span>
@@ -238,7 +218,7 @@
 					<img src="/static/imgs/invite.png" class="kind" />
 					<div class="avt">
 						<div class="arrowAvatar"></div>
-						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
+						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 					</div>
 					<div class="txtComments">
 						<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
@@ -283,6 +263,23 @@
 						</div>
 					</div>
 				</div>
+	%elif streamentry.event._get_root == "COMMENT":
+		<div class="entryStream">
+			<img src="/static/imgs/comment.png" class="kind" />
+			<div class="avt">
+				<div class="arrowAvatar"></div>
+				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
+			</div>
+			<div class="txtComments">
+				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> commented on <a class="bold" href="#">Ski Trip</a> </span>
+				<div class="liner">
+					<p>"${h.word_truncate_by_letters(streamentry.event.comment, 180)}"</p>
+				</div>
+				<div class="liner">
+					<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>
+				</div>
+			</div>
+		</div>
 	%else:
 		<hr/>
 		<hr/>
@@ -291,124 +288,6 @@
 		<hr/>
 	%endif
 %endfor
-	
-	
-
-	
-	<hr class="clear"/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/><hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	<hr/>
-	
-	
-	
-	
-        <div class="entryStream">
-        	<img src="/static/imgs/comment.png" class="kind" />
-        	<div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
-			</div>
-            <div class="txtComments">
-            	
-            	
-				<span class="mainSpan"><span class="bold">Henry George</span> commented on <a class="bold" href="#">Ski Trip</a> </span>
-                <div class="liner">
-                	
-                    	<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-ut labore et dolore magna aliqua. Ut enim ad minim..."</p>
-
-                </div>
-                 
-                <div class="liner">
-               		<span class="date tenPix">20 MINUTES AGO</span><span class="bold tenPix middot">&middot;</span><span class=" tenPix link hider">PROMOTE</span>                </div>
-			</div>
-        </div>
     </div>
     <div class="clear"></div>
 </div>

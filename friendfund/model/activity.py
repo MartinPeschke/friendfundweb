@@ -84,7 +84,7 @@ class ContributionEvent(EventType):
 	_cachable = False
 	_unique_keys = ['title']
 	_keys = [GenericAttrib(unicode, 'title', 'title')
-			,GenericAttrib(unicode, 'contributor', 'contributor')
+			,GenericAttrib(unicode, 'name', 'name')
 			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
@@ -101,6 +101,18 @@ class ContributionEvent(EventType):
 	def funding_progress(self):
 		return float(self.total_contribution) / self.amount
 
+class PoolCommentEvent(EventType):
+	_set_proc = _get_proc = _set_root = None
+	_get_root = "COMMENT"
+	_cachable = False
+	_unique_keys = ['title']
+	_keys = [GenericAttrib(str, 'name', 'name')
+			,GenericAttrib(str, 'picture', 'picture')
+			,GenericAttrib(datetime, 'creation_date', 'creation_date')
+			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
+			,GenericAttrib(unicode, 'title', 'title')
+			,GenericAttrib(unicode, 'comment', 'comment')
+			]
 class PoolSuccessEvent(EventType):
 	_set_proc = _get_proc = _set_root = None
 	_get_root = "SUCCESS"
@@ -136,10 +148,11 @@ class ActivityStreamEvent(DBMappedObject):
 			,DBMapper(InviteEvent, '_ivt', 'INVITE')
 			,DBMapper(ContributionEvent, '_ctb', 'CONTRIBUTION')
 			,DBMapper(PoolSuccessEvent, '_suc', 'SUCCESS')
+			,DBMapper(PoolCommentEvent, '_cmt', 'COMMENT')
 			]
 	def fromDB(self, xml):
 		try:
-			setattr(self, 'obj', filter(None, [self._cggp, self._cffp, self._ivt, self._ctb, self._suc])[0])
+			setattr(self, 'obj', filter(None, [self._cggp, self._cffp, self._ivt, self._ctb, self._suc, self._cmt])[0])
 		except IndexError,e:
 			raise Exception("Didnt Find any Event Details")
 			

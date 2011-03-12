@@ -26,12 +26,16 @@
 	</div>
 </div>
 <div class="content fullWidth" id="myPoolsBody">
-<h4>${_("FF_MYPOOLS_Pools I've Created")} <div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div></h4>
+	<h4>${_("FF_MYPOOLS_Pools I've Created")}
+	####<!--<div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div>-->
+	</h4>
 	%for pool in c.my_pools.admin_pools:
 		${common.render_pool_card(pool, False)|n}
 	%endfor
 	
-	<h4>${_("FF_MYPOOLS_Pools I'm In")} <div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div></h4>
+	<h4>${_("FF_MYPOOLS_Pools I'm In")} 
+		####<!--<div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div>-->
+	</h4>
 	%for pool in c.my_pools.nonadmin_pools:
 		${common.render_pool_card(pool, False)|n}
 	%endfor
