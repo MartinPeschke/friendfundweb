@@ -164,10 +164,10 @@
 				</div>
 				
 					%if "title" in c.errors or c.workflow != "1" or not c.values['title']:
-						<input type="text" name="title" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
+						<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
 					%else:
-						<span class="simpleeditable active mainValue">${c.values['title']}
-							<input _type="INPUT" type="hidden" value="${c.values['title']}" name="title" id="titleInput" />
+						<span class="simpleeditable active mainValue">${h.word_truncate_by_letters(c.values['title'], 60)}
+							<input _type="INPUT" type="hidden" value="${c.values['title']}" _length="60"  name="title" id="titleInput" />
 							<span style="margin:0 0 0 5px" class="link ">Edit</span>
 						</span>
 					%endif

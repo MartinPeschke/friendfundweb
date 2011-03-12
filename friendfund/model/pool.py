@@ -27,14 +27,41 @@ class PoolComment(DBMappedObject):
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(unicode,'comment','comment')
 				,GenericAttrib(unicode,'profile_picture_url','profile_picture_url')
-				,GenericAttrib(datetime,'created','created')
+				,GenericAttrib(int,'recency','recency')
 			]
 	def get_profile_pic(self, type="PROFILE_M"):
 		return h.get_user_picture(self.profile_picture_url, type)
 	def get_profile_s_pic(self):
 		return self.get_profile_pic(type="PROFILE_S")
 	profile_s_pic = property(get_profile_s_pic)
-	
+	def get_recency(self):
+		diff = timedelta(0, self.recency)
+		second_diff = diff.seconds
+		day_diff = diff.days
+		if day_diff < 0:
+			return ''
+		if day_diff == 0:
+			if second_diff < 10:
+				return _("FF_RECENCY_just now")
+			if second_diff < 60:
+				return _("FF_RECENCY_%(seconds)d seconds ago") % {"seconds":second_diff}
+			if second_diff < 120:
+				return  _("FF_RECENCY_a minute ago")
+			if second_diff < 3600:
+				return _("FF_RECENCY_%(minutes)d minutes ago") % {"minutes":second_diff / 60}
+			if second_diff < 7200:
+				return _("FF_RECENCY_an hour ago")
+			if second_diff < 86400:
+				return _("FF_RECENCY_%(hours)d hours ago") % {"hours":second_diff / 3600}
+		if day_diff == 1:
+			return _("FF_RECENCY_Yesterday")
+		if day_diff < 7:
+			return _("FF_RECENCY_%(days)d days ago") % {"days":day_diff}
+		if day_diff < 31:
+			return _("FF_RECENCY_%(weeks)d weeks ago") % {"weeks":day_diff/7}
+		if day_diff < 365:
+			return _("FF_RECENCY_%(months)d months ago") %{"months":day_diff/30}
+		return _("FF_RECENCY_%(years)d years ago")%{"years":day_diff/365}
 class PoolThankYouMessage(DBMappedObject):
 	"""
 		exec app.add_thank_you_message'<POOL p_url ="UC0xMjUyNA~~" message = "thanks so much"/>'
@@ -274,7 +301,9 @@ class Pool(DBMappedObject):
 	def get_product_display_label(self, words = 5, seperator = ' '):
 		return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())
 	product_display_label = property(get_product_display_label)
-	
+	def get_display_title(self, length = 60):
+		return h.word_truncate_by_letters(self.title, length)
+
 	def get_product_display_picture(self, type="POOL"):
 		if self.product:
 			return h.get_product_picture(self.product.picture, type)

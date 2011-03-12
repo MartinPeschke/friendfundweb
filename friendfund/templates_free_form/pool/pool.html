@@ -89,7 +89,7 @@
 		<div class="userProfile">
 			<img src="${c.pool.admin.get_profile_pic('PROFILE_M')}" width="60px" height="60px"/>
 			<div class="subUserProfile">
-				<h2>${c.pool.title}</h2>
+				<h2>${c.pool.get_display_title()}</h2>
 				<div class="subTitleUserProfile">
 					<span class="poolClose">${_(u"FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s")%locals} &middot; &nbsp; </span><span class="admin">${_(u"FF_POOL_PAGE_HEADER_by %(admin_name)s")%locals}</span></div>
 			</div>
