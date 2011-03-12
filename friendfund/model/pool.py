@@ -388,7 +388,7 @@ class GetMoreInviteesProc(DBMappedObject):
 			,DBMapper(PoolUser, 'list', 'POOLUSER', is_list = True)
 			]
 	def fromDB(self, xml):
-		setattr(self, "has_more", len(self.list)==21) ####TODO: get proper boolean from database
+		setattr(self, "has_more", len(self.list)>=500) ####TODO: get proper boolean from database
 
 class UpdatePoolProc(DBMappedObject):
 	_get_proc = _set_proc   = 'app.update_pool'

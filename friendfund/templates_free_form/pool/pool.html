@@ -207,7 +207,7 @@
 			</h4>
 			<div class="subHeading"></div>
 			<ul class="faceList" id="inviteeList">
-				%for i, invitee in enumerate(c.pool.participants[:20]):
+				%for i, invitee in enumerate(c.pool.participants):
 					${invitee_widget.render(i, invitee, i==0)}
 				%endfor
 			</ul>
