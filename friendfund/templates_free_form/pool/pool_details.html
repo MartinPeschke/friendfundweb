@@ -18,7 +18,6 @@
 </%def>
 
 <%def name="onloadscripts()">
-	page_reloader = function(){document.submissionform.submit()};
 	parseDefaultsInputs("poolDetails");
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
@@ -67,20 +66,13 @@
 	%endif
 	#### check settlementOptions
 	dojo.forEach(document.submissionform.settlementOption, function(elem){if(elem.checked){toggleSettlement(elem);}});
-	
 	var submitters = [];
-	checkLoginStatus = function(evt){
-		%if c.user.is_anon:
-			xhrPost("${url(controller="myprofile", action="loginpopup")}", {});
-			evt.stopPropagation();
-			evt.preventDefault();
-			return false;
-		%else:
-			onSubmitCleaner(document.submissionform);
-			document.submissionform.submit();
-		%endif
+	checkLoginStatus = function(){
+		onSubmitCleaner(document.submissionform);
+		document.submissionform.submit();
 	};
-	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
+	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
+	page_reloader = protect(checkLoginStatus);
 </%def>
 
 

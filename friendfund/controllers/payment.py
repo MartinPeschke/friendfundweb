@@ -21,6 +21,7 @@ log = logging.getLogger(__name__)
 class PaymentController(ExtBaseController):
 	navposition=g.globalnav[1][2]
 	
+	@logged_in(ajax=False)
 	def index(self, pool_url):
 		c.values = getattr(c, 'values', {})
 		c.errors = getattr(c, 'errors', {})
@@ -30,7 +31,7 @@ class PaymentController(ExtBaseController):
 		else: c.values['amount'] = h.format_number(suggested_amount)
 		c.payment_methods = g.payment_methods
 		return self.render('/contribution/contrib_screen.html')
-	
+	@logged_in(ajax=False)
 	def details(self, pool_url):
 		c.payment_methods = g.payment_methods
 		details = formencode.variabledecode.variable_decode(request.params).get('payment', None)

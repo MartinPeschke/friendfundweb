@@ -377,7 +377,6 @@ class PoolController(ExtBaseController):
 	def get_widget(self, pool_url):
 		return {"popup":render("/pool/parts/widget.html").strip()}
 			
-			
 	def widget(self, pool_url):
 		return render("/pool/parts/widget_frame.html")
 

@@ -59,7 +59,6 @@ class TwitterController(BaseController):
 			log.warning("No Oauth_Token found in session, why?")
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
 			c.reload = True
-			c.refresh_login = False
 			return render('/closepopup.html')
 		try:
 			content = tw_helper.fetch_url(tw_helper.access_token_url,"GET", oauth_token, oauth_token_secret, consumer, 
@@ -89,11 +88,5 @@ class TwitterController(BaseController):
 		user_data['link'] = user_data['url']
 		#Save and Persist, render profile
 		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
-		if not success:
-			c.messages.append(msg)
 		c.reload = True
-		c.refresh_login = True
-		if not c.user.default_email:
-			return redirect(url(controller="myprofile", action="require_email"))
-		else:
-			return render('/closepopup.html')
+		return render('/closepopup.html')

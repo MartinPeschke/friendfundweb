@@ -1,4 +1,5 @@
 <%inherit file="../layout.html"/>
+<%namespace name="common" file="common.html"/>
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
@@ -9,28 +10,15 @@
 		</div>
 	</div>
 </div>
+
 <div class="wrapSubContent">
 <div class="content">
-	<div class="colRight">
-       <div class="generalInfo">
-       	<h5>Learn more</h5>
-        <ul>
-        	<li><a href="#">About Us</a></li>
-        	<li><span>Frequently Asked Questions</span></li>
-        	<li><a href="#">Contact Friendfund</a></li>
-            <li><a href="#">Our blog</a></li>
-        	<li><a href="#">Jobs</a></li>
-            <li style="margin-top:20px"><a href="#">Create a Pool</a></li>
-        </ul>
-       </div>
-       <div class="colRightWhite"></div>
-       <div  class="generalInfo lastBox">
-       	<h5>Connect with Us</h5>
-        	<a href="#"><img align="left" src="/static/imgs/fb-icon.png"> &nbsp;&nbsp;  Facebook</a>
-            <a href="#"><img align="left" src="/static/imgs/twitter-icon.png"> &nbsp;&nbsp;  Twitter</a>
-       </div>
-       <div class="colRightWhite"></div>
-   </div>
+	
+	
+	${common.render_right_col()}
+   
+   
+   
 	<div class="colLeft">
 		<h4>Overview</h4>
 		<div class="subHeading"></div>

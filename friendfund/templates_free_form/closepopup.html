@@ -8,9 +8,13 @@
 	%if getattr(c, 'refresh_login', False):
 		opener.login_panel_refresh();
 	%endif
+	%if getattr(c, 'requireEmail', False):
+		opener.requireEmail();
+	%endif
 	window.close(); 
 </script>
 </head>
 <body>
+Connected with Twitter, please wait a moment...
 </body>
 </html>

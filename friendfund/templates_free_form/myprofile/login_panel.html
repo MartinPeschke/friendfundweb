@@ -14,7 +14,7 @@
 					<p class="error">${getattr(c, "login_errors", dict()).get("pwd")}</p>
 				%endif
 			<div>
-				<a href="/myprofile/password" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
+				<a onclick="xhrPost('${url(controller='myprofile', action='rppopup')}', {});closeLoginPanel();" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
 			</div>
 		</form>
 		<a onclick="submitLoginPanel(this)" class="primaryButton floatLeft" style="margin-top:7px">${_("FF_LOGINBUTTON_Log In")}</a>

@@ -1,4 +1,4 @@
-import logging, formencode, uuid, os, md5
+import logging, formencode,  simplejson
 from cgi import FieldStorage
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, config
@@ -7,11 +7,11 @@ from pylons.decorators import jsonify
 from pylons.i18n.translation import set_lang
 
 from friendfund.lib.auth.decorators import logged_in
-from friendfund.lib.base import BaseController, render, _, render_def
+from friendfund.lib.base import BaseController, render, _, render_def, SuccessMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, UserNotLoggedInWithMethod, WebLoginUserByEmail, CreateEmailUserProc
+from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, WebLoginUserByEmail, CreateEmailUserProc, SetUserEmailProc
 from friendfund.model.common import SProcWarningMessage
-from friendfund.model.forms.user import PasswordRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
+from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
 
 log = logging.getLogger(__name__)
@@ -32,12 +32,17 @@ class MyprofileController(BaseController):
 		return self.render('/myprofile/notifications.html')
 	
 	
+	def login(self):
+		if not c.user.is_anon:
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({"data":{"success":True}})
+		if c.user.is_anon and bool(c.user.u_id):
+			return self.addemailpopup()
+		else:
+			return self.loginpopup()
 	@jsonify
 	def loginpopup(self):
 		c.furl = request.params.get('furl', request.referer)
-		if not c.user.is_anon:
-			return {"reload":True}
-		
 		c.login_values = {}
 		c.login_errors = {}
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
@@ -219,6 +224,61 @@ class MyprofileController(BaseController):
 		
 	##########################################################################################
 	#Forgot Password Cycle
+	
+	@jsonify
+	def rppopup(self):
+		c.pwd_values ={}
+		c.pwd_errors ={}
+		pwd = formencode.variabledecode.variable_decode(request.params).get('pwd', None)
+		if not pwd:
+			return {'popup':render('/myprofile/forgotpassword_popup.html').strip()}
+		schema = EmailRequestForm()
+		try:
+			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
+			email = form_result['email']
+			g.dbm.set(DBRequestPWProc(email=email))
+			c.messages.append(SuccessMessage(_("FF_An email with your new password has been sent to %(email)s." % form_result)))
+			return {"reload":True}
+		except formencode.validators.Invalid, error:
+			c.pwd_values = error.value
+			c.pwd_errors = error.error_dict or {}
+			return {'popup':render('/myprofile/forgotpassword_popup.html').strip()}
+		except SProcWarningMessage, e:
+			c.pwd_values = pwd
+			c.pwd_errors = {"email":_("FF_RESETPASSWORD_Email does not exist.")}
+			return {'popup':render('/myprofile/forgotpassword_popup.html').strip()}	
+	
+	@jsonify
+	def addemailpopup(self):
+		c.values ={}
+		c.errors ={}
+		form = formencode.variabledecode.variable_decode(request.params).get('form', None)
+		if not form:
+			return {'popup':render('/myprofile/addemail_popup.html').strip()}
+		schema = EmailRequestForm()
+		try:
+			form_result = schema.to_python(form, state = FriendFundFormEncodeState)
+			email = form_result['email']
+			g.dbm.set(SetUserEmailProc(email=email, u_id = c.user.u_id))
+			c.user.default_email = email
+			return {"reload":True}
+		except formencode.validators.Invalid, error:
+			c.values = error.value
+			c.errors = error.error_dict or {}
+			return {'popup':render('/myprofile/addemail_popup.html').strip()}
+		except SProcWarningMessage, e:
+			c.values = form
+			c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
+			return {'popup':render('/myprofile/addemail_popup.html').strip()}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	def password(self):
 		c.furl = request.referer
 		c.pwd_values ={}
@@ -226,7 +286,7 @@ class MyprofileController(BaseController):
 		if request.method != 'POST':
 			return self.render('/myprofile/password_request.html')
 		pwd = formencode.variabledecode.variable_decode(request.params).get('pwd', None)
-		schema = PasswordRequestForm()
+		schema = EmailRequestForm()
 		try:
 			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
 			email = form_result['email']

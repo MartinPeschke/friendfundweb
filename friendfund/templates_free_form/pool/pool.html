@@ -61,6 +61,8 @@
 				});
 			}
 		};
+		joinF = function(){window.location.href = "${url("pool_action", pool_url = c.pool.p_url, action="join")}";}
+		page_reloader = protect(joinF);
 	</script>
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
@@ -129,7 +131,7 @@
 				<div class="floatLeft promote">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Promote on your website")}</h4>
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool.")}</p>
-					<a class="primaryButton floatLeft popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
+					<a class="primaryButton floatLeft popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
 				</div>
 				<div class="floatLeft share">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
@@ -164,7 +166,7 @@
 		%endif
 	
 		<div class="plus generalBoxRight">
-			<a class="popuplink" _href="${url("pool_action", action="widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+			<a class="popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 				<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
 			%endif

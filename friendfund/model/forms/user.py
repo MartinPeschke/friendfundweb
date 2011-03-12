@@ -7,7 +7,7 @@ class LoginForm(formencode.Schema):
 	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=False)
 	pwd = PWDValidator(not_empty=True)
 
-class PasswordRequestForm(formencode.Schema):
+class EmailRequestForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True
 	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)

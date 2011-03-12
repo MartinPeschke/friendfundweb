@@ -92,7 +92,7 @@ accessability = function(callbackRet, callbackEsc, evt){
 	if(evt.keyCode === 13){dojo.hitch(this, callbackRet(this, evt));}
 	else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
 };
-closePopup = function(evt){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
+closePopup = function(){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
 displayPopup = function(html){
 	dojo.place(html, dojo.byId("generic_popup"), "only" );
 	dojo.query(".panelclosing_x,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
@@ -158,15 +158,15 @@ place_element = function(node, callback){
 
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
-				if (data.clearblocks !== undefined){closeBlocks(data.clearblocks);}
-				if (data.clearmessage !== undefined){clear_messages();}
-				//if (data.message !== undefined){displayMessage(data.message);}
-				if (callback && data.html !== undefined){callback(data.html);}
-				if (callback && data.data !== undefined){callback(data.data);}
-				if (data.redirect !== undefined){window.location.href = data.redirect;}
-				if (data.popup !== undefined){displayPopup(data.popup);}
-				if (data.reload !== undefined){page_reloader();}
-				return data;
+		if (data.close_popup === true){closePopup();}
+		if (data.clearmessage !== undefined){clear_messages();}
+		//if (data.message !== undefined){displayMessage(data.message);}
+		if (callback && data.html !== undefined){callback(data.html);}
+		if (callback && data.data !== undefined){callback(data.data);}
+		if (data.redirect !== undefined){window.location.href = data.redirect;}
+		if (data.popup !== undefined){displayPopup(data.popup);}
+		if (data.reload === true){page_reloader();}
+		return data;
 	};
 };
 

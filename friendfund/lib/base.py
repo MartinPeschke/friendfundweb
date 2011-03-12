@@ -72,7 +72,6 @@ class BaseController(WSGIController):
 				c._msgs.append(m)
 			if isinstance(m, ErrorMessage):
 				c._has_errors = True
-			
 		c.messages = []
 		c.blocks = websession.get('blocks', [])
 		return render(template)

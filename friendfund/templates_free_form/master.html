@@ -34,8 +34,19 @@ ${self.render_html()}
 	<div id="generic_popup"></div>
 	<div id="fb-root"></div>
 	<script type="text/javascript"> 
-		login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
+		login_panel_refresh = function(){loadElement('${url(controller="myprofile", action="loginpanel")}', "accountcontainer")};
 		page_reloader = function(){window.location.reload();};
+		%if c.user.is_anon:
+			protected = function(callback){return function(data){
+				if(data.success){callback()} else {protect()};};
+			};
+			protect = function(callback){ return function(evt){
+				xhrPost("${url(controller="myprofile", action="login")}", {}, protected(callback));
+				if(evt){evt.stopPropagation();evt.preventDefault();}return false;
+			};};
+		%else:
+			protect = function(callback){return callback};
+		%endif
 	</script>
 	${self.scripts()}
 	<script type="text/javascript">

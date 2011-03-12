@@ -147,30 +147,9 @@ class InviteController(ExtBaseController):
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url))
 	
-	# @jsonify
-	# @logged_in(ajax=True)
-	# def add(self, pool_url):
-		# params = variable_decode(request.params)
-		# invitee = params.get("invitee")
-		# network = invitee.get('network')
-		# if request.method != 'POST' or network!= 'email':
-			# return self.ajax_messages(ErrorMessage(_("Not Allowed")))
-		# try:
-			# form_result = PoolEmailInviteeForm().to_python(invitee, state=FriendFundFormEncodeState)
-		# except formencode.validators.Invalid, error:
-			# c.email_errors = error.error_dict or {}
-			# c.email_values = error.value
-			# return {"data":{'success':False, 'html':render_def('/invite/inviter.html', 'mailinviter')}}
-		# else:
-			# c.email_errors = {}
-			# c.email_values = {}
-			# return {'data':{'success':True, 'html':render_def('/invite/inviter.html', 'mailinviter').strip()}}
-	
-	
 	
 	@jsonify
 	def preview(self, pool_url):
-		print request.params
 		method = request.params.get("method")
 		if method=="email":
 			return  {"popup":self.render("/messages/preview_email.html").strip()}

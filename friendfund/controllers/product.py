@@ -130,7 +130,6 @@ class ProductController(BaseController):
 		
 	
 	def picturepopup(self, pool_url):
-		print request.params
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if not c.pool:
 			return abort(404)
@@ -150,4 +149,4 @@ class ProductController(BaseController):
 		g.dbm.set(updater)
 		g.dbm.expire(Pool(p_url = c.pool.p_url))
 		c.pool = updater
-		return '<html><body><textarea>{}</textarea></body></html>'
+		return '<html><body><textarea>{"reload":true}</textarea></body></html>'

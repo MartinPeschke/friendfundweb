@@ -63,8 +63,12 @@ class ContentController(BaseController):
 	
 	def contact(self):
 		return render("/content/contact.html")
+	def aboutus(self):
+		return render("/content/aboutus.html")
 	def tos(self):
 		return render("/content/tos.html")
+	def jobs(self):
+		return render("/content/jobs.html")
 	def privacy(self):
 		return render("/content/privacy.html")
 	def impressum(self):

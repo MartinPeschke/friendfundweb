@@ -53,9 +53,9 @@ class VerifyAdminEmailProc(DBMappedObject):
 class SetUserEmailProc(DBMappedObject):
 	_set_root = _get_root = 'USER'
 	_cachable = False
-	_set_proc = 'app.add_admin_contributor_email_account'
+	_set_proc = 'app.add_twitter_email_account'
 	_unique_key = []
-	_keys = [GenericAttrib(int, 'u_id', 'u_id'), GenericAttrib(str, 'email', 'email'), GenericAttrib(str, 'name', 'name')]
+	_keys = [GenericAttrib(int, 'u_id', 'u_id'), GenericAttrib(str, 'email', 'email')]
 
 class SetNewPasswordForUser(DBMappedObject):
 	_set_root = _get_root = "USER"
@@ -180,7 +180,7 @@ class User(ProtoUser):
 		return friends, is_complete, offset
 	
 	def _get_is_anon(self):
-		return not self.u_id
+		return not (self.default_email and self.u_id)
 	is_anon = property(_get_is_anon)
 	
 	def am_i_admin(self, pool_url):
