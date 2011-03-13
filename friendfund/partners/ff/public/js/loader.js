@@ -95,7 +95,7 @@ accessability = function(callbackRet, callbackEsc, evt){
 closePopup = function(){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
 displayPopup = function(html){
 	dojo.place(html, dojo.byId("generic_popup"), "only" );
-	dojo.query(".panelclosing_x,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
+	dojo.query(".panelcloser,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
 	popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
 	var i = dojo.query("input", "generic_popup");
 	if(i.length>0){i[0].focus()};
