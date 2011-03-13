@@ -1,3 +1,8 @@
+reloadPicture = function(rootnode){
+	return function(data){
+		dojo.byId(rootnode).src = data.rendered_picture_url;
+}};
+
 parseSelectables = function(rootnode, className){
 	var classes = className||"borderBottom";
 	var a = function(evt){addClassToParent(evt.target, classes, "selected");},
@@ -158,6 +163,7 @@ place_element = function(node, callback){
 
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
+		console.log(data);
 		if (data.close_popup === true){closePopup();}
 		if (data.clearmessage !== undefined){clear_messages();}
 		//if (data.message !== undefined){displayMessage(data.message);}
@@ -226,7 +232,7 @@ ioIframeGetJson = function(url, formid, callback){
 		timeoutSeconds: 15,
 		preventCache: true,
 		handleAs: "json",
-		handle: xhrHandler(callback),
+		load: xhrHandler(callback)
 		//error: function (res,ioArgs) {console.log(res);}
 	});
 };

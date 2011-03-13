@@ -1,11 +1,11 @@
 from __future__ import with_statement
-import logging, simplejson, formencode, urlparse, urllib2
+import logging, simplejson, formencode, urlparse, urllib2, socket
 from datetime import date, timedelta, datetime
+from xml.sax.saxutils import quoteattr
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
-
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, _, render_def
@@ -26,6 +26,8 @@ class ProductController(BaseController):
 			query, product, img_list = g.product_service.set_product_from_open_web(request.params.get('query'))
 		except QueryMalformedException, e:
 			log.warning(e)
+			return {'success':False}
+		except socket.timeout, e:
 			return {'success':False}
 		else:
 			c.parser_values = {'url':query,
@@ -148,3 +150,15 @@ class ProductController(BaseController):
 		g.dbm.expire(Pool(p_url = c.pool.p_url))
 		c.pool = updater
 		return '<html><body><textarea>{"reload":true}</textarea></body></html>'
+	
+	def ulpicture(self):
+		pool_picture = request.params.get('pool_picture')
+		if pool_picture is None:
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
+		
+		picture_url = g.pool_service.save_pool_picture(pool_picture)
+		result = {"close_popup":True, "data":{"rendered_picture_url":h.get_product_picture(picture_url, "POOL"), "picture_url":picture_url}}
+		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
+		print result
+		return result

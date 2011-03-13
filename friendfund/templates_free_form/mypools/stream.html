@@ -27,13 +27,13 @@
 <h4 style="padding-top:0px">
 	<div class="floatRight selector">
 	%if c.include_friend:
-		<a class="bold" href="${url(controller="mypools", action="stream", all="")}">Only Mine</a>
+		<a class="bold" href="${url(controller="mypools", action="stream", all="")}">${_("FF_NEWSSTREAM_Only Mine")}</a>
 		<span style="margin:0 5px">|</span>
-		<span class="bold">All</span>
+		<span class="bold">${_("FF_NEWSSTREAM_All")}</span>
 	%else:
-		<span class="bold">Only Mine</span>
+		<span class="bold">${_("FF_NEWSSTREAM_Only Mine")}</span>
 		<span style="margin:0 5px">|</span>
-		<a class="bold" href="${url(controller="mypools", action="stream", all=1)}">All</a>
+		<a class="bold" href="${url(controller="mypools", action="stream", all=1)}">${_("FF_NEWSSTREAM_All")}</a>
 	%endif
      </div>
 </h4>
@@ -42,21 +42,25 @@
 	<div class="colLeft">
 	%for streamentry in c.activity.stream:
 		<% 
-		locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain)}
+			locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),
+				"pooltitle":'<a class="bold" href="%s">%s</a>'%(url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),h.word_truncate_by_letters(streamentry.event.title, 100)),
+				"actorname":'<span class="bold">%s</span>'%streamentry.event.name
+				}
 		%>
 	%if streamentry.event._get_root == "SUCCESS":
 				<div class="entryStream">
-					<img src="/static/imgs/succesful.png" class="kind" />
+					<img src="/static/imgs/succesful.png" title="${_("FF_NEWSSTREAMTYPE_Success")}" class="kind" />
 					<div class="avt">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
 					<div class="txtComments">
 						
-						<span class="mainSpan"> <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> has been <span class="bold">successfully funded!</span></span>
+						<span class="mainSpan">  
+							${_("FF_NEWSSTREAM_%(pooltitle)s has been <span class=\"bold\">successfully funded!</span>")%locals|n}</span>
 						 <div class="liner">
 							<div class="timeCounterSmall">
-								<span>SUCCESSFUL!</span>
+								<span>${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
 								<div style="width: 100%;" class="timeCounterRight low">
 									<div style="width: 100%;" class="timeCounterLeft low green"></div>
 									</div>
@@ -66,21 +70,21 @@
 						</div>
 						<div class="liner">
 							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
-							<span class=" tenPix link hider">PROMOTE<div class="moreActionsWrapper">
+							<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 						</div>
 					</div>
 				</div>
 	%elif streamentry.event._get_root == "CONTRIBUTION":
 		<% locals["days_left"] = streamentry.event.get_remaining_days_tuple()[0] %>
 				<div class="entryStream">
-					<img src="/static/imgs/chipped.png" class="kind" />
+					<img src="/static/imgs/chipped.png" title="${_("FF_NEWSSTREAMTYPE_Chipped in")}" class="kind" />
 					<div class="avt">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
 					<div class="txtComments">
 						
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>. </span>
+						<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s chipped in to %(pooltitle)s.")%locals|n} </span>
 						 <div class="liner">
 							<div class="timeCounterSmall">	
 								<span class="white">${streamentry.event.funding_progress()}%</span>
@@ -121,13 +125,13 @@
 				</div>
 	%elif streamentry.event._get_root == "CREATE_FREE_FORM_POOL":
 				<div class="entryStream">
-					<img src="/static/imgs/creategroup.png" class="kind" />
+					<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
 					<div class="avt">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
 					<div class="txtComments">
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> </span>
+						<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s created %(pooltitle)s.")%locals|n}</span>
 						<div class="liner">
 							%for img in streamentry.event.get_random_n_invitee_profile_pic(8, "PROFILE_S"):
 							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
@@ -135,7 +139,7 @@
 							</div>
 							%endfor
 							<span class="bold tenPix middot">&middot;</span>
-							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> INVITEES</span>
+							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> ${_("FF_NEWSSTREAM_INVITEES")}</span>
 							<div class="liner">
 								<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
 								<p>${h.word_truncate(streamentry.event.description, 250)}</p>
@@ -171,15 +175,13 @@
 	%elif streamentry.event._get_root == "CREATE_GROUP_GIFT_POOL":
 		
 				<div class="entryStream">
-					<img src="/static/imgs/creategroup.png" class="kind" />
+					<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
 					<div class="avt">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
 					<div class="txtComments">
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">
-							${h.word_truncate_by_letters(streamentry.event.title, 100)}
-						</a> </span>
+						<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s created %(pooltitle)s.")%locals|n}</span>
 						<div class="liner">
 							%for img in streamentry.event.get_random_n_invitee_profile_pic(8, "PROFILE_S"):
 							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
@@ -187,7 +189,7 @@
 							</div>
 							%endfor
 							<span class="bold tenPix middot">&middot;</span>
-							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> INVITEES</span>
+							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> ${_("FF_NEWSSTREAM_INVITEES")}</span>
 							<div class="liner">
 								<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
 								<p>${h.word_truncate(streamentry.event.description, 250)}</p>
@@ -196,7 +198,7 @@
 						 
 						<div class="liner">
 							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
-							<span class=" tenPix link">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
+							<span class="tenPix link">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
 										<div class="arrowMoreActions">
 											<img src="/static/imgs/arrowMoreAction.png">
@@ -223,7 +225,7 @@
 		
 	%elif streamentry.event._get_root == "INVITE":
 				<div class="entryStream">
-					<img src="/static/imgs/invite.png" class="kind" />
+					<img src="/static/imgs/invite.png" title="${_("FF_NEWSSTREAMTYPE_Invited")}" class="kind" />
 					<div class="avt">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
@@ -233,17 +235,18 @@
 							<img width="24px" height="24px" src="${streamentry.event.get_random_invitee_profile_pic("PROFILE_S")}">
 						</div>
 						
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> invited 
-						
-						
 						%if len(streamentry.event.invitees)>4:
-							<span class="bold">${', '.join(streamentry.event.get_random_n_names(3))}</span>
-						and ${len(streamentry.event.invitees)-3} others
+							<%
+								locals["invitee_names"] = '<span class="bold">%s</span>'%', '.join(streamentry.event.get_random_n_names(3))
+								locals["no_others"] = (len(streamentry.event.invitees)-3)
+							%>
+							<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s invited %(invitee_names)s and %(no_others)s others to %(pooltitle)s.")%locals|n}
 						%else:
-							<span class="bold">${', '.join(pu.name for pu in streamentry.event.invitees)}</span>
+							<%
+								locals["invitee_names"] = '<span class="bold">%s</span>'%', '.join(pu.name for pu in streamentry.event.invitees)
+							%>
+							<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s invited %(invitee_names)s to %(pooltitle)s.")%locals|n}
 						%endif
-						 to 
-							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> .</span>
 						 
 						<div class="liner">
 							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
@@ -273,13 +276,13 @@
 				</div>
 	%elif streamentry.event._get_root == "COMMENT":
 		<div class="entryStream">
-			<img src="/static/imgs/comment.png" class="kind" />
+			<img src="/static/imgs/comment.png" title="${_("FF_NEWSSTREAMTYPE_Commented")}" class="kind" />
 			<div class="avt">
 				<div class="arrowAvatar"></div>
 				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 			</div>
 			<div class="txtComments">
-				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> commented on <a class="bold" href="#">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> </span>
+				<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s commented on %(pooltitle)s.")%locals|n} </span>
 				<div class="liner">
 					<p>"${h.word_truncate_by_letters(streamentry.event.comment, 180)}"</p>
 				</div>
@@ -309,11 +312,7 @@
 			</div>
 		</div>
 	%else:
-		<hr/>
-		<hr/>
-		Some Forgotten Type: ${streamentry.event._get_root}
-		<hr/>
-		<hr/>
+		<% print "FORGOTTEN_NEWS_STREAM EVENT TYPE" %>
 	%endif
 %endfor
     </div>

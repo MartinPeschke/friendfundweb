@@ -1,0 +1,15 @@
+
+<div class="popupBackground dark"></div>
+<div class="outerPopupFrame">
+	<div class="whitePopupFrame fixed">
+	<span class="panelcloser panelclosing_x">x</span>
+		<div>
+			<h3>Change the Picture</h3>
+			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
+			<label for="pool_picture">Upload Picture</label>
+			<input name="pool_picture" id="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
+			<a onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPproductPicture'));"><span>Save</span></a>
+			</form>
+        </div>
+	</div>
+</div>
