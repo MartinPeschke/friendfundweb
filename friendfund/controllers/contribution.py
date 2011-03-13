@@ -21,7 +21,6 @@ log = logging.getLogger(__name__)
 from friendfund.services.pool_service import MissingPermissionsException
 
 class ContributionController(ExtBaseController):
-	navposition=g.globalnav[1][2]
 	
 	@logged_in(ajax=False)
 	def chipin_current(self):

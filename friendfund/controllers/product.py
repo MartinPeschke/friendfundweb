@@ -19,7 +19,6 @@ log = logging.getLogger(__name__)
 
 
 class ProductController(BaseController):
-	navposition=g.globalnav[1][2]
 	
 	@jsonify
 	def open_bounce(self):

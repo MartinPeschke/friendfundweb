@@ -2,7 +2,6 @@ import logging, urllib, urllib2, formencode, base64, hmac, hashlib, uuid
 from datetime import datetime, timedelta
 
 from pylons import session as websession, url, app_globals, request
-from pylons.i18n import _
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
@@ -18,6 +17,11 @@ class UnsupportedPaymentMethod(Exception):pass
 class DBErrorDuringSetup(Exception):pass
 class DBErrorAfterPayment(Exception):pass
 
+_ = lambda x:x
+
+LOCALIZATIONS = {"mastercard":_("FF_mastercard"), "amex":_("FF_amex"),"visa":_("FF_visa"), "paypal":_("FF_paypal")}
+
+from pylons.i18n import _
 
 class PaymentGateway(object):
 	def __init__(self, gtw_location, gtw_username, gtw_password, gtw_account):
@@ -74,6 +78,8 @@ class PaymentMethod(object):
 	def calculate_costs(self, amount, currency):
 		amount = h.parse_number(amount)
 		return (amount*(1 + self._fee_relative) + self._fee_absolute)
+	def get_display_name(self):
+		return _(LOCALIZATIONS[self.code])
 	
 class CreditCardPayment(PaymentMethod):
 	has_result_delay = False

@@ -14,7 +14,6 @@ from friendfund.tasks.fb import get_email_from_permissions, remote_persist_user
 log = logging.getLogger(__name__)
 
 class FbController(BaseController):
-	navposition=g.globalnav[1][2]
 	
 	@jsonify
 	def login(self):

@@ -19,8 +19,9 @@ paymentlog = logging.getLogger('payment.controller')
 log = logging.getLogger(__name__)
 
 class PaymentController(ExtBaseController):
-	navposition=g.globalnav[1][2]
-	
+	@jsonify
+	def transaction_fees(self, pool_url):
+		return {"popup":render("/content/transaction_fees.html").strip()}
 	@logged_in(ajax=False)
 	def index(self, pool_url):
 		c.values = getattr(c, 'values', {})

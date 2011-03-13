@@ -20,7 +20,6 @@ log = logging.getLogger(__name__)
 ulpath = config['pylons.paths']['uploads']
 
 class ReceiverController(BaseController):
-	navposition=g.globalnav[1][2]
 	
 	@jsonify
 	def panel(self):

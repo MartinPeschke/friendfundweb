@@ -12,7 +12,6 @@ from friendfund.model.activity import GetActivityStreamProc
 log = logging.getLogger(__name__)
 
 class MypoolsController(BaseController):
-	navposition=g.globalnav[1][2]
 	
 	@logged_in(ajax=False)
 	def index(self):

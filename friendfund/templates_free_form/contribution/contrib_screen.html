@@ -161,7 +161,7 @@
 				<div class="first"> <span>&nbsp</span> </div>
 				<input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
 					name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
-				<label for="payment_method_${pm.code}" class="fourteen"> ${_(pm.code)} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${pm.fee_relative/100}% fee</span> </label>
+				<label for="payment_method_${pm.code}" class="fourteen"> ${pm.get_display_name()} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${pm.fee_relative}% fee</span> </label>
 			</div>
 	%endfor
 		<div class="smallTable">
@@ -173,7 +173,7 @@
 					<div class="clear"></div>
 				<input type="hidden" id="payment_total" name="payment.total" /> 
 			   </div>
-			<a class="popuplink link" _href="${url(controller="content", action="transaction_fees")}">${_("FF_CONTRIB_PAGE_What are these payment fees?")} »</a>
+			<a class="popuplink link" _href="${url(controller="payment", pool_url = c.pool.p_url, action="transaction_fees")}">${_("FF_CONTRIB_PAGE_What are these payment fees?")} »</a>
 		</div>
 	</div>
 

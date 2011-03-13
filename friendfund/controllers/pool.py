@@ -31,7 +31,6 @@ from friendfund.lib.base import _
 log = logging.getLogger(__name__)
 
 class PoolController(ExtBaseController):
-	navposition=g.globalnav[1][2]
 	chat_page_size = 10
 	def index(self, pool_url = None):
 		if pool_url is None:

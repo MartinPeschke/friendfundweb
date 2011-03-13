@@ -58,7 +58,6 @@ def render_def(template_name, def_name, cache_key=None,
 
 
 class BaseController(WSGIController):
-	navposition=g.globalnav[0][2]
 	def index(self):
 		return abort(404)
 	
@@ -103,8 +102,6 @@ class BaseController(WSGIController):
 		else:
 			request.merchant = g.merchants.domain_map[host]
 			request.qualified_host = '%s://%s'%(request.headers.get('X-Forwarded-Proto', 'http'), host)
-		
-		c.navposition = getattr(c, 'navposition', self.navposition)
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
 		c.furl = request.params.get("furl") or request.url

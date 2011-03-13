@@ -53,7 +53,7 @@
 					</div>
 					<div class="txtComments">
 						
-						<span class="mainSpan"> <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> has been <span class="bold">successfully funded!</span></span>
+						<span class="mainSpan"> <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> has been <span class="bold">successfully funded!</span></span>
 						 <div class="liner">
 							<div class="timeCounterSmall">
 								<span>SUCCESSFUL!</span>
@@ -80,7 +80,7 @@
 					</div>
 					<div class="txtComments">
 						
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a>. </span>
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> chipped in to <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>. </span>
 						 <div class="liner">
 							<div class="timeCounterSmall">	
 								<span class="white">${streamentry.event.funding_progress()}%</span>
@@ -127,7 +127,7 @@
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
 					<div class="txtComments">
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> </span>
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> </span>
 						<div class="liner">
 							%for img in streamentry.event.get_random_n_invitee_profile_pic(8, "PROFILE_S"):
 							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
@@ -137,8 +137,8 @@
 							<span class="bold tenPix middot">&middot;</span>
 							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> INVITEES</span>
 							<div class="liner">
-								<a href="#" class="bold">${streamentry.event.title}</a>
-								<p>${streamentry.event.description}</p>
+								<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
+								<p>${h.word_truncate(streamentry.event.description, 250)}</p>
 							</div>
 						</div>
 						 
@@ -177,7 +177,9 @@
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
 					<div class="txtComments">
-						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> </span>
+						<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> created <a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">
+							${h.word_truncate_by_letters(streamentry.event.title, 100)}
+						</a> </span>
 						<div class="liner">
 							%for img in streamentry.event.get_random_n_invitee_profile_pic(8, "PROFILE_S"):
 							<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
@@ -187,8 +189,8 @@
 							<span class="bold tenPix middot">&middot;</span>
 							<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> INVITEES</span>
 							<div class="liner">
-								<a href="#" class="bold">${streamentry.event.title}</a>
-								<p>${streamentry.event.description}</p>
+								<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
+								<p>${h.word_truncate(streamentry.event.description, 250)}</p>
 							</div>
 						</div>
 						 
@@ -241,7 +243,7 @@
 							<span class="bold">${', '.join(pu.name for pu in streamentry.event.invitees)}</span>
 						%endif
 						 to 
-							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${streamentry.event.title}</a> .</span>
+							<a class="bold" href="${url("get_pool", pool_url=streamentry.p_url)}">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> .</span>
 						 
 						<div class="liner">
 							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
@@ -277,7 +279,7 @@
 				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 			</div>
 			<div class="txtComments">
-				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> commented on <a class="bold" href="#">${streamentry.event.title}</a> </span>
+				<span class="mainSpan"><span class="bold">${streamentry.event.name}</span> commented on <a class="bold" href="#">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a> </span>
 				<div class="liner">
 					<p>"${h.word_truncate_by_letters(streamentry.event.comment, 180)}"</p>
 				</div>

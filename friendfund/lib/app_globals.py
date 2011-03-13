@@ -129,7 +129,3 @@ class Globals(object):
 		
 		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices)
 		log.info("ProductService set up")
-		
-		self.globalnav = [(_('GLOBAL_MENU_Home'),{'args':['home'], 'kwargs':{}}, 'home', True)
-							,(_('GLOBAL_MENU_My_Pools'), {'args':['controller'], 'kwargs':{'controller':'mypools'}}, 'mypools', True)
-							,(_('GLOBAL_MENU_My_Profile'), {'args':['controller'], 'kwargs':{'controller':'myprofile'}}, 'myprofile', True)]

@@ -22,7 +22,6 @@ from celery.task.sets import TaskSet
 log = logging.getLogger(__name__)
 
 class InviteController(ExtBaseController):
-	navposition=g.globalnav[1][2]
 	
 	def display(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):

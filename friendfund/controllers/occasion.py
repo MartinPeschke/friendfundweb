@@ -14,7 +14,6 @@ from friendfund.model.forms.common import DateValidator
 log = logging.getLogger(__name__)
 
 class OccasionController(BaseController):
-	navposition=g.globalnav[1][2]
 	
 	@jsonify
 	def panel(self):
