@@ -7,7 +7,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
-from friendfund.lib.base import ExtBaseController, render, _
+from friendfund.lib.base import ExtBaseController, render, _, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
@@ -103,7 +103,7 @@ class PaymentController(ExtBaseController):
 		if g.test:
 			c.values.update({"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"})
 		if request.method != 'POST':
-			return render('/contribution/payment_details.html')
+			return self.render('/contribution/payment_details.html')
 		else:
 			### Validating creditcard details
 			cc = formencode.variabledecode.variable_decode(request.params).get('creditcard', None)
@@ -113,13 +113,12 @@ class PaymentController(ExtBaseController):
 			except formencode.validators.Invalid, error:
 				c.values.update(error.value)
 				c.errors = error.error_dict or {}
-				print c.errors
-				return render('/contribution/payment_details.html')
+				c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_VALIDATION_Please fill in all fields correctly!")))
+				return self.render('/contribution/payment_details.html')
 			except AssertionError, e:
 				c.values = cc
 				c.errors = {"ccType":_("Unknown Card Type")}
-				print c.errors
-				return render('/contribution/payment_details.html')
+				return self.render('/contribution/payment_details.html')
 			else:
 				ccard = CreditCard(**cc_values)
 				try:

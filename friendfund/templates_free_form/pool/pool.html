@@ -118,15 +118,16 @@
 <div class="content">
 	%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
 		<div id="adminBox">
-			<div class="greyBoxTitle hideable">
+			<% first_visit = c.workflow in ['1', '2'] %>
+			<div class="greyBoxTitle hideable ${first_visit and "hidden" or ""}">
 				<a href="#" class="floatRight btnShow btnShowAdminPanel">${_(u"FF_POOL_PAGE_ADMIN_Show")}</a>
 				<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
 			</div>
-			<div class="greyBoxTitle hideable hidden btnShowAdminPanel">
+			<div class="greyBoxTitle hideable ${not first_visit and "hidden" or ""} btnShowAdminPanel">
 				<a href="#" class="floatRight btnHide">${_(u"FF_POOL_PAGE_ADMIN_Hide")}</a>
 				<h3>${_(u"FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:")}</h3>
 			</div>
-			<div class="hided hideable hidden" >
+			<div class="hided hideable ${not first_visit and "hidden" or ""}" >
 				<div class="brd"></div>
 				<div class="floatLeft promote">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Promote on your website")}</h4>
@@ -240,7 +241,7 @@
 				%endif
 				</div>
 				
-				<p>${c.pool.description}</p>
+				<p>${c.pool.get_display_description()|n}</p>
 				%if c.pool.product:
 					<h5><a href="${c.pool.product.tracking_link}">${c.pool.product.name}</a></h5>
 					<p class="small">${c.pool.product.description}</p>

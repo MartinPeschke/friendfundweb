@@ -1,9 +1,18 @@
 <%inherit file="../layout.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
+<%namespace name="links" file="../widgets/links.html"/>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("creditcardForm");
 	parseSelectables("creditcardForm");
-	dojo.query("#creditcardForm").onsubmit(function(evt){dojo.query("input[type=submit]", evt.target).orphan()});
+	dojo.query("#creditcardForm").onsubmit(
+		function(evt){
+			dojo.query("input[type=submit]", evt.target).forEach(function(elem){
+				var parent = elem.parentNode;
+				dojo.empty(parent);
+				parent.appendChild(dojo.create("IMG", {src:"${links.ajax_loading_src()}"}));
+			});
+		
+		});
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
@@ -75,12 +84,14 @@
         <div class="first">Card type</div><img src="/static/imgs/${c.payment_method.code}.png">
      </div>
 		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
-			%if "ccHolder" in c.errors:
 			<div class="tip">
 				<div class="arrow"></div>
+			%if "ccHolder" in c.errors:
 				<span>${c.errors.get("ccHolder")}</span>
-			</div>
+			%else:
+				<span>${_("FF_CONTRIB_DETAILS_Holder Tip goes here")}</span>
 			%endif
+			</div>
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Cardholder's Name")}</span>
@@ -89,12 +100,14 @@
 			</div>
 		</div>
 		<div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
-			%if "ccNumber" in c.errors:
 			<div class="tip">
 				<div class="arrow"></div>
+			%if "ccNumber" in c.errors:
 				<span>${c.errors.get("ccNumber")}</span>
-			</div>
+			%else:
+				<span>${_("FF_CONTRIB_DETAILS_ccNumber Tip goes here")}</span>
 			%endif
+			</div>
 			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Number")}</span>
@@ -103,9 +116,9 @@
 			</div>
 		</div>
 		<div class="borderBottom  ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
-			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
 			<div class="tip">
 				<div class="arrow"></div>
+			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
 				<span>
 					<ul>
 						%if 'ccExpiresMonth' in c.errors:
@@ -116,8 +129,10 @@
 						%endif
 					</ul>
 				</span>
-			</div>
+			%else:
+				<span>${_("FF_CONTRIB_DETAILS_ccExpiryDate Tip goes here")}</span>
 			%endif
+			</div>
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Expiry Date")}</span>
@@ -135,12 +150,14 @@
 			</div>
 		</div>
 		<div class="borderBottom  ${('ccCode' in c.errors) and "error" or ""}" style="border-bottom:none">
+			<div class="tip">
+				<div class="arrow"></div>
 			%if "ccCode" in c.errors:
-				<div class="tip">
-					<div class="arrow"></div>
 					<span>${c.errors.get("ccCode")}</span>
-				</div>
+			%else:
+				<span>${_("FF_CONTRIB_DETAILS_ccSecurityCode Tip goes here")}</span>
 			%endif
+			</div>
 			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>

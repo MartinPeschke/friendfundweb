@@ -145,7 +145,7 @@ class InviteController(ExtBaseController):
 			job.apply_async()
 			
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
-		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url))
+		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url, v=c.workflow))
 	
 	
 	@jsonify

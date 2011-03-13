@@ -1,4 +1,4 @@
-import simplejson, logging, itertools, formencode, md5, random, operator
+import simplejson, logging, itertools, formencode, md5, random, operator, markdown
 
 from datetime import datetime, timedelta, date
 
@@ -303,6 +303,8 @@ class Pool(DBMappedObject):
 	product_display_label = property(get_product_display_label)
 	def get_display_title(self, length = 60):
 		return h.word_truncate_by_letters(self.title, length)
+	def get_display_description(self):
+		return markdown.markdown(self.description)
 
 	def get_product_display_picture(self, type="POOL"):
 		if self.product:

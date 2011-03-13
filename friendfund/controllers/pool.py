@@ -43,6 +43,7 @@ class PoolController(ExtBaseController):
 		# if c.pool.is_closed():
 			# return redirect(url('pool_action', pool_url=pool_url, action='complete'))
 		if c.pool.can_i_view(c.user):
+			c.workflow = request.params.get("v") or None
 			return self.render('/pool/pool.html')
 		else:
 			return self.render('/pool/pool_secret.html')
