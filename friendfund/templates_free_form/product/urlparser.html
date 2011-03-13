@@ -1,0 +1,23 @@
+<%def name="renderParser(values, with_closer)">
+	<div class="imgCntSld" id="URLPimgCntSld">
+		%for imgsrc in values['img_list']:
+		<input type="hidden" class="PURLImgListElem" value="${imgsrc}" name="img_list">
+		%endfor
+		<input type="hidden" value="${values.get('product_picture')}" id="URLPproductPicture" name="product_picture">
+	</div>
+	<a class="address" href="${values['url']}" target="_blank">${values['display_url']}</a>
+	<div class="title simpleeditable active">${values['display_name']}
+		<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit">
+	</div>
+	<div class="desc simpleeditable active">${values['display_description']}
+		<input type="hidden" _type="TEXTAREA" _length="180" value="${values['description']}" name="product_description" id="product_desc_edit">
+	</div>
+	<input type="hidden" value="${values['url']}" name="tracking_link">
+	<div class="controller">
+		<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span>
+		<span class="smallLeft"><span></span></span><span class="smallRight"><span></span></span>
+	%if with_closer:
+		<a class="parsercloser">X</a>
+	%endif
+	</div>
+</%def>

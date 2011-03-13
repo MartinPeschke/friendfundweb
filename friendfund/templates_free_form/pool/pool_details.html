@@ -1,6 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
+<%namespace name="parser" file="../product/urlparser.html"/>
 <%def name="scripts_styles()">
 	${links.js('datepicker.packed.js')}
 	${links.css('datepicker.css')}
@@ -58,11 +59,9 @@
 		]}
 	});
 	%if c.values.get('tracking_link'):
-		var hue = document.getElementById("homeurlexpander");
-		hue.appendChild(renderController());
-		hue.insertBefore(renderPictures(["${'","'.join(c.values['img_list'])|n}"], "${c.values['product_picture']}"), hue.firstChild);
+		connectURLP("homeurlexpander");
 	%else:
-		connectURLParser("tracking_link_edit");
+		connectURLParser("homeurlexpander", "tracking_link_edit");
 	%endif
 	#### check settlementOptions
 	dojo.forEach(document.submissionform.settlementOption, function(elem){if(elem.checked){toggleSettlement(elem);}});
@@ -201,13 +200,7 @@
 						<span>Pool Image</span>
 					</div>
 					<div id="homeurlexpander" class="home_expander">
-						<div class="title simpleeditable active">${h.word_truncate_by_letters(c.values.get("product_name", ""), 50)}
-							<span class="link"> Edit</span>
-							<input type="hidden" _type="INPUT" _length="50" class="ptitleSimpleEdit" id="product_name_edit" name="product_name" value="${c.values.get("product_name", "")}"/></div>
-						<a class="address smallAddress" href="${c.values['tracking_link']}">${h.word_truncate_by_letters(c.values['tracking_link'], 40)}
-							<input type="hidden" name="tracking_link" value="${c.values['tracking_link']}" /></a>
-						<div class="desc simpleeditable active">${h.word_truncate_by_letters(c.values.get("product_description", ""), 180)}
-							<input type="hidden" _type="TEXTAREA" _length="180" name="product_description" value="${c.values.get("product_description", "")}"/></div>
+						${parser.renderParser(c.parser_values, False)}
 					</div>
 				</div>
 			%else:

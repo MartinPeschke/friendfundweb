@@ -70,16 +70,27 @@ class PoolController(ExtBaseController):
 		c.errors = {}
 		c.workflow = request.params.get("v") or "1"
 		c.currencies = sorted(g.country_choices.currencies)
+		
+		tracking_link = request.params.get("tracking_link")
+		if tracking_link:
+			c.parser_values = {
+				"url":request.params.get("tracking_link"),
+				"product_picture":request.params.get("product_picture"),
+				"name":request.params.get("product_name"),
+				"description":request.params.get("product_description"),
+				"img_list":request.params.getall("img_list") or [],
+			}
+			c.parser_values['display_url'] = c.parser_values['url'] and h.word_truncate_by_letters(c.parser_values['url'], 40) or None
+			c.parser_values['display_name'] = c.parser_values['name'] and h.word_truncate_by_letters(c.parser_values['name'], 40) or None
+			c.parser_values['display_description'] = c.parser_values['description'] and h.word_truncate_by_letters(c.parser_values['description'], 180) or None
+			
+			
 		c.values = {
+			"tracking_link":tracking_link,
 			"amount":request.params.get("amount"),
 			"currency":h.default_currency(),
 			"title":request.params.get("title"),
 			"description":request.params.get("description"),
-			"tracking_link":request.params.get("tracking_link"),
-			"product_picture":request.params.get("product_picture"),
-			"product_name":request.params.get("product_name"),
-			"product_description":request.params.get("product_description"),
-			"img_list":request.params.getall("img_list") or [],
 			"date": (datetime.datetime.today() + datetime.timedelta(14)),
 			"settlementOption": None
 			}

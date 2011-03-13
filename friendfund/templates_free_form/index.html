@@ -3,7 +3,7 @@
 
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolProductFinder");
-	connectURLParser("home_title");
+	connectURLParser("submissionform", "home_title", true);
 </%def>
 
 
@@ -25,15 +25,12 @@
 				<span style="margin-left:30px">for</span>
 				<input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="weNeed default long" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 				<input type="submit" class="primaryLarge floatRight" value="${_("FF_HOME_PAGE_Get Started")}" />
-				
-                <div class="verticalTip hideable">
-						<div class="arrow"></div>
-							<span>
-								${_("FF_HOMEPAGE_FORM_You can also paste a link from any website here.")}
-							</span>
-							
-						</div>
-			</div><div id="homeurlexpander" class="home_expander hidden"></div>
+				<div class="verticalTip hideable">
+					<div class="arrow"></div>
+					<span>${_("FF_HOMEPAGE_FORM_You can also paste a link from any website here.")}</span>
+				</div>
+			</div>
+			<div id="homeurlexpander"></div>
 			</form>
 		</div>
 		<div class="logoContainer">

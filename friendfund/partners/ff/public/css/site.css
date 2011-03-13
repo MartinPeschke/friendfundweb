@@ -154,6 +154,12 @@ input.default, textarea.default {
 .hidden {
 	display:none !important
 }
+.hiddenSpec {
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:-1 !important
+}
 /* HEADER */
 div.header h1 {
 	display: block;
@@ -572,9 +578,10 @@ div.imgCntSld {
 	border: 1px solid #CCCCCC;
 	height: 130px;
 	width: 160px;
-	float: left
+	float: left;
+	position:relative;
 }
-div.imgCntSld img {
+div.imgCntSld img.displayed {
 	border: 9px solid white;
 	display: block;
 	height: 112px;

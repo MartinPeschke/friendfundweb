@@ -8,7 +8,7 @@ from pylons.controllers.util import abort, redirect
 
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only
-from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool, UpdatePoolProc
@@ -28,15 +28,14 @@ class ProductController(BaseController):
 			log.warning(e)
 			return {'success':False}
 		else:
-			return {'success':True, 
-					'url':query,
-					'display_url':product.get_display_link(),
-					'name':product.name,
-					'display_name':h.word_truncate_by_letters(product.name, 40), 
-					'description':product.get_display_description(), 
-					'display_description':product.description, 
-					'imgs':img_list}
-		return result
+			c.parser_values = {'url':query,
+						'display_url':h.word_truncate_by_letters(query, 40),
+						'name':product.name,
+						'display_name':h.word_truncate_by_letters(product.name, 40), 
+						'description':product.description, 
+						'display_description': h.word_truncate_by_letters(product.description, 180), 
+						'img_list':img_list}
+		return {'success':True, "html":render_def("/product/urlparser.html", "renderParser", values = c.parser_values, with_closer = True).strip()}
 		
 	def bounce(self):
 		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
