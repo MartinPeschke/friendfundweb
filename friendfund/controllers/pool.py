@@ -163,7 +163,7 @@ class PoolController(ExtBaseController):
 			if('comment' in request.params):
 				comment = request.params['comment']
 				if comment:
-					c.comment = PoolComment(u_id = c.user.u_id, p_url = pool_url, comment = comment)
+					c.comment = PoolComment(u_id = c.user.u_id, p_url = pool_url, comment = comment, recency = 0)
 					g.dbm.set(c.comment)
 					c.comment.name = c.user.name
 					c.comment.profile_picture_url = c.user.profile_picture_url

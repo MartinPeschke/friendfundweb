@@ -110,7 +110,7 @@
 				
 				<div class="first"> <span>${_("FF_INVITEPAGE_Your message")}</span> </div>
 				<div class="containerTxtArea">
-				  <textarea name="message" class="default" _default_text="${_("FF_INVITEPAGE_Write your message here...")}">${c.values.get("message", _("FF_INVITEPAGE_Write your message here..."))}</textarea>
+				  <textarea name="message" class="default" rows="6" _default_text="${_("FF_INVITEPAGE_Write your message here...")}">${c.values.get("message", _("FF_INVITEPAGE_Write your message here..."))}</textarea>
 				</div>
 			</div>
 			<p class="info"><a class="popuplink" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview", method="c.method")}">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>

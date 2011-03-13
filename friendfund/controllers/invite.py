@@ -5,7 +5,7 @@ from ordereddict import OrderedDict
 from pylons import request, response, tmpl_context as c, url, app_globals as g, cache, session as websession
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
-from friendfund.lib import fb_helper, tw_helper
+from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block
 from friendfund.lib.base import BaseController, render, render_def, _, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
@@ -26,8 +26,11 @@ class InviteController(ExtBaseController):
 	def display(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
+		locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"), "pool_url":url("get_pool", pool_url=pool_url, protocol="http"), "title":c.pool.title}
 		c.errors = {}
-		c.values = {}
+		c.values = {"subject":c.pool.title, \
+			"message":_("FF_INVITE_PAGE_Hey guys,\n\nI've created a Pool using friendfund to collect money for %(title)s.\nYou've been invited to chip in and help fund this Pool by %(closing_date)s.\n\n%(pool_url)s")%locals
+			}
 		return self._display_invites()
 	
 	def _display_invites(self, invitees = {}):
