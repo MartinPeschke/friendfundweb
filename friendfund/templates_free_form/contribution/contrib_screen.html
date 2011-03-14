@@ -19,7 +19,7 @@
 					if(rdio.checked){
 						var absolute = parseInt(dojo.attr(rdio, "_fee_absolute"));
 						var relative = parseFloat(dojo.attr(rdio, "_fee_relative"));
-						var costs_amount = (contrib_amount * relative/100) + absolute;
+						var costs_amount = (contrib_amount * relative) + absolute;
 						var amount = dojo.byId("display_amount");
 						var tcosts = dojo.byId("display_transactioncosts");
 						var total = dojo.byId("display_total");
@@ -161,7 +161,7 @@
 				<div class="first"> <span>&nbsp</span> </div>
 				<input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
 					name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
-				<label for="payment_method_${pm.code}" class="fourteen"> ${pm.get_display_name()} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${pm.fee_relative}% fee</span> </label>
+				<label for="payment_method_${pm.code}" class="fourteen"> ${pm.get_display_name()} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${'%.2f'%(pm.fee_relative*100)}% fee</span> </label>
 			</div>
 	%endfor
 		<div class="smallTable">

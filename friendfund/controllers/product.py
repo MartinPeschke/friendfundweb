@@ -31,6 +31,8 @@ class ProductController(BaseController):
 		except socket.timeout, e:
 			return {'success':False}
 		else:
+			if img_list is None:
+				return {'success':False}
 			c.parser_values = {'url':query,
 						'display_url':h.word_truncate_by_letters(query, 40),
 						'name':product.name,

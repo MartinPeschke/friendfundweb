@@ -141,6 +141,7 @@ class PoolController(ExtBaseController):
 			try:
 				c.pool = g.pool_service.create_free_form()
 			except formencode.validators.Invalid, error:
+				print error.value
 				tracking_link = request.params.get("tracking_link")
 				c.parser_values = self._determine_product(tracking_link)
 				c.currencies = sorted(g.country_choices.currencies)

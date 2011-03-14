@@ -62,7 +62,7 @@ class PaymentMethod(object):
 		self.fee_absolute = fee_absolute # in base units
 		self._fee_absolute = float(fee_absolute)/100
 		self.fee_relative = fee_relative # in percent
-		self._fee_relative = float(fee_relative)/100
+		self._fee_relative = fee_relative
 		self.has_fees = bool(fee_absolute or fee_relative)
 		self.default = False
 	def check_totals(self, base, total):

@@ -137,8 +137,6 @@
 						</div>
 					%endif
 					
-					
-					
 					<span style="margin:0 4px 0 3px">${_("FF_POOLDETAILS_by")}</span>
 					<input class="small" readonly="readonly" type="text" id="datepicker" value="${h.format_date(c.values.get('date'))}"/>
 					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
@@ -214,6 +212,9 @@
 					<div id="homeurlexpander" class="home_expander">
 						<div class="imgCntSld" id="URLPimgCntSld">
 						<input type="hidden" value="${c.values.get('product_picture')}" id="URLPproductPicture" name="product_picture">
+						%if c.values.get('product_picture'):
+							<img src="${c.values.get('product_picture')}" class="allowed displayed"/>
+						%endif
 						</div>
 						<div class="title">
 							URL:
@@ -241,8 +242,8 @@
 						<label for="${so.name}_option">
 							${_(so.name)} 
 							%if so.fee:
-								<% _locals = {"fees":so.fee} %>
-								<span class="free">${_("FF_POOLDETAILS_(costs you $(fees)s%%)")%_locals|n}</span>
+								<% _locals = {"fees":so.fee*100} %>
+								<span class="free">${_("FF_POOLDETAILS_(costs you %(fees).0f%%)")%_locals|n}</span>
 							%else:
 								<span class="free">${_("FF_POOLDETAILS_(FREE)")}</span>
 							%endif 
