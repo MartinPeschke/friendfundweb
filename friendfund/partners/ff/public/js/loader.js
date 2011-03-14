@@ -461,18 +461,12 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 			};
 		},
 		parseInputFromEvt = function(evt){
-			if((evt.keyCode === undefined)||(evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
+			if(!evt.keyCode||(evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
 				parseInput(evt.target);
 			};
-			if (!evt) var evt = window.event;
-			evt.cancelBubble = true;
-			if (evt.stopPropagation) evt.stopPropagation();
-
 		};
 	_linkers.push(dojo.connect(dn, "onkeyup", parseInputFromEvt));
-	//_linkers.push(dojo.connect(dn, "onpropertychange", parseInputFromEvt));
-	//_linkers.push(dojo.connect(dn, "oninput", parseInputFromEvt));
-	_linkers.push(dojo.connect(dn, "onclick", parseInputFromEvt));
+	_linkers.push(dojo.connect(dn, "onpaste", parseInputFromEvt));
 	_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));
 	if(parseNow){parseInput(dn);}
 };

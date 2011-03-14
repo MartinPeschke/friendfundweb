@@ -102,6 +102,10 @@ def save_render(fname_src, fname_dest):
 
 @task
 def remote_save_product_image(newfname, tmpfname):
+	_render_product_pictures(newfname, tmpfname)
+	return 'ack'
+
+def render_product_pictures(newfname, tmpfname):
 	newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr'
 	filepath, filename = os.path.split(newfname)
 	newpath = os.path.join(upload_prodimg_folder, filepath)
@@ -114,9 +118,10 @@ def remote_save_product_image(newfname, tmpfname):
 			newfname = os.path.join(newpath, newfname)
 			sizes.append((tmpfname, newfname, target_w,target_h))
 		crop_resize_original(sizes)
-		return 'ack'
+		return newurl
 	finally:
 		os.unlink(tmpfname)
+
 
 def save_product_image(newfname, tmpfname, type): 
 	newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr' 
