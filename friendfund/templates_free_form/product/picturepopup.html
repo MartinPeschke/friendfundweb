@@ -8,12 +8,18 @@
 		<div>
 			<h3 class="borderSmall">Change the Picture</h3>
 			<div class="popupPadder">
+			<div class="upImgCnt">
 			<img src="${c.pool.get_product_display_picture("FF_POOLS")}"/>
+			</div>
+			
 			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
+			<div class="floatLeft" style="margin: 5px 10px 15px 0">
 			<label for="pool_picture">Upload Picture</label>
 			<input name="pool_picture" id="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
-			<a onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>Save</span></a>
+			</div>
+			<a class="primarySmall floatLeft"  onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>Save</span></a>
 			</form>
+			<div class="clear"></div>
 			</div>
         </div>
 	</div>

@@ -95,9 +95,6 @@ div.firstFourCol {
 /* GENERAL ELEMENTS */
 .clear {
 	clear: both;
-	line-height: 0px;
-	font-size: 0;
-	height: 0
 }
 a {
 	text-decoration: none;
@@ -1087,7 +1084,7 @@ div.arrowAvatar {
 	width: 6px;
 	height: 9px;
 	position: absolute;
-	right: -5px;
+	right: -6px;
 	top: 3px
 }
 div.imgEdit {
@@ -1868,7 +1865,8 @@ div.outerPopupFrame textarea {
 	padding: 5px;
 	width: 193px;
 	display: block;
-	margin-bottom: 15px
+	margin-bottom: 15px;
+	margin-top: 10px
 }
 div.outerPopupFrame div.fbHolder {
 	background: none repeat scroll 0 0 #EBEBEB;
@@ -2079,17 +2077,25 @@ select.smallForm {
 /*---------SUCCESS--------*/
 div.success {
 	margin:110px auto;
-	width:380px;
+	width:400px;
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
 	border:4px solid #cacaca;
-	padding:50px
+	padding:20px 30px 30px 40px;
 }
 div.success p {
 	font-size:18px;
 	color:#333;
-	text-align:center;
+	text-align:left;
 	line-height:24px
+}
+div.success p img{ margin-left: -23px}
+div.success p.small {
+	font-size:12px;
+	color:#333;
+	text-align:left;
+	line-height:16px;
+	padding-top: 15px
 }
 /*---------END SUCCESS--------*/
 div.inviteBottom {
@@ -2407,6 +2413,23 @@ p.inviterTwo {
 	padding:0 10px;
 	cursor:pointer;
 }
+.secondary {
+	height:35px;
+	line-height:35px;
+	font-size:16px;
+	color:white;
+	border:1px solid #4180b0;
+	background-color: #025393;
+	background: -moz-linear-gradient(100% 100% 90deg, #025393, #018ecc);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#018ecc), to(#025393));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 1px 1px 1px #023153;
+	display:block;
+	padding:0 10px;
+	cursor:pointer;
+}
+.secondary:hover{ background: #025191}
 #inviteMessage {
 	padding:10px 0 15px 0
 }
@@ -3487,3 +3510,37 @@ div.outerPopupFrame .emailBody p{ padding:10px 20px  10px 20px}
 .spPad .tip{ margin-top: 18px}
 .upImgCnt{height:  300px; width: 300px; background: black; margin:0 auto 20px auto}
 .upImgCnt  img{ text-align: center;}
+.minorMargin{ margin-top: 19px !important}
+.icoPdf{ margin: 10px 0 -15px 0}
+.ecard{ width: 670px; margin: 30px 0 0 0; background: #ededed; padding: 10px; margin-bottom: 60px}
+.insideEcard{ border: 1px solid #e5e5e5; background: white; padding: 10px}
+.ecard h3{ font-size: 24px; line-height: 30px; color: #333; padding: 30px 10px 40px 5px}
+.stripe.rose{-moz-box-shadow: 0 2px 2px #999999;
+    background-color: #FECCFF;
+    color: black;
+    margin: 0px  -25px;
+    width: auto;
+    padding: 0px;
+    }
+.stripe div.imgEdit{ padding: 10px; margin: 0}
+.stripe div.imgEdit div.subImgEdit{ margin: -16px 10px -17px 12px; padding: 0; background: white}
+.stripe .avt, .contribMsg .avt {
+    margin: 0 10px 0 0;
+}
+.stripe .txtComments span{ font-size: 14px; font-weight: bold; color: #616161}
+div.stripe .txtComments p{ font-size: 12px; color: #333}
+.colLeft div.ecard  h4 {
+    border-bottom: 1px solid #D0D0D0;
+    clear: both;
+    color: #333333;
+    display: block;
+    font-size: 18px;
+    height: 25px;
+    margin:0 10px;;
+    min-width: 630px;
+    padding-top: 55px;
+    text-shadow: 0 1px 1px #FFFFFF;}
+.contribNum{ background: url("/static/imgs/contributors-ico.png") no-repeat scroll left top transparent; padding-left: 35px; }
+.contribMsg li{ width: 190px; float: left; margin-right: 30px; height: 160px; padding-bottom: 40px}
+.contribMsg{ float: left; margin: 20px 0 0 10px; width: 660px; overflow: hidden}
+.tx{ float: left; width: 120px; padding: 0px !important}
