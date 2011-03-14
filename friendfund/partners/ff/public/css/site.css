@@ -503,7 +503,7 @@ div.home_expander {
 .title input {
 	border: 1px solid #999999;
 	font-size: 12px;
-	padding: 3px;
+	padding:0 5px;
 	width: 342px;
 }
 div.borderBottom .title.editable {
@@ -1588,11 +1588,19 @@ div.generalPadding div.controller {
 	bottom:0px;
 	left:172px
 }
+
 div.simpleeditable input {
 	border:1px solid #999;
 	padding: 3px;
 	width: 342px;
-	font-size: 12px
+	font-size: 12px;
+}
+div.mainValue input {
+	border: 1px solid #333333;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+    width: 515px
 }
 div.simpleeditable textarea {
 	font-family:Arial, Helvetica, sans-serif;
@@ -1665,7 +1673,7 @@ div.borderBottom div.tip {
 	width: 230px;
 	font-size: 12px !important;
 	background: #FF75FF !important;
-	min-height: 42px;
+	min-height: 38px;
 	display: none;
 	position:absolute;
 	right:-240px;
@@ -1844,7 +1852,8 @@ div.outerPopupFrame h3 {
 }
 div.outerPopupFrame p {
 	font-size: 12px;
-	padding-top: 10px;
+	line-height: 12px;
+	padding-top: 9px;
 	color: #333;
 	clear: both;
 }
@@ -2185,7 +2194,7 @@ div.friendsList ul li p {
 	padding-bottom:2px
 }
 .moreMarginTop {
-	margin-top:90px !important
+	margin-top:92px !important
 }
 .listSelectedFriends .avt {
 	margin: 0 2px 2px 0
@@ -3102,10 +3111,12 @@ div.empty h2 {
 	margin-bottom: 8px
 }
 .mainValue {
-	line-height: 30px;
+	line-height: 32px;
+	height: 32px;
 	font-size: 14px;
 	color: #333;
 	font-weight: bold;
+	float: left
 }
 .editorCtn {
 	float: left;
@@ -3159,7 +3170,7 @@ div.verticalTip div.arrow {
 	width: 202px;
 }
 .inputFields .error {
-	padding:0
+	padding:2px 0 0 0 
 }
 .Fw {
 	width: 100%;
@@ -3220,7 +3231,7 @@ div.whitePopupFrameLarge .inputFields p.info {
 .smallTable a.link {
 	position: absolute;
 	left: 2px;
-	top: 110px;
+	top: 95px;
 	width: 208px
 }
 .disclaimer {
@@ -3339,7 +3350,7 @@ div.footer div.footerCol5 span, div.footer div.footerCol5 a, div.footer div.foot
 .hided div {
 	position: relative
 }
-.hided div a.primaryButton, .hided div span.forward {
+.hided div a.primaryButton, .hided div a.forward {
 	position: absolute;
 	left: 30px;
 	bottom: 30px
@@ -3471,3 +3482,8 @@ div.outerPopupFrame .emailBody p{ padding:10px 20px  10px 20px}
 	box-shadow: 0 0  4px #999;}
 .twit{ margin-left: 10px; float: left; max-width: 365px; font-size: 14px; line-height: 18px}
 .twit span{ color: #00bbea}
+
+.selected.spPad .first{ padding: 5px 10px 0 0}
+.spPad .tip{ margin-top: 18px}
+.upImgCnt{height:  300px; width: 300px; background: black; margin:0 auto 20px auto}
+.upImgCnt  img{ text-align: center;}

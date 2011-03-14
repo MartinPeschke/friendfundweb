@@ -31,8 +31,8 @@
   <div class="success">
  	<p><img src="/static/imgs/checked.png" style="margin-right:5px" />${_("FF_CONTRIB_SUCCESS_You've contributed %(amount)s <br />to %(pool_title)s.")%locals|n}</p> 
 	<div style="margin-top:30px">
-		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="button">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
-		<a href="${url("pool_details", protocol="http", v=2)}" class="button">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
+		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="primaryButton">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
+		<a href="${url("pool_details", protocol="http", v=2)}" class="primaryButton">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
 	</div>
   </div>
   

@@ -5,17 +5,12 @@
 		<div>
 			<h3 class="borderSmall">${_("FF_LOGINPOPUP_Hi %(name)s, please add your Email") % dict([("name", c.user.name)])}</h3>
             <div class="colRightWhite"></div>
-			<div class="loginSocialWrap">
-				<a onclick="fbLogin()" class="facebookBtn" title="${_("FF_LOGIN_Log in with Facebook")}">
-					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
-				</a>
-				<div class="clear"></div>
-			</div>
+			
             <div class="popupPadder">
 			<h4>${_("FF_LOGINPOPUP_Please add an email address")}</h4>
 			<form id="login_popup_form" onSubmit="xhrFormPost('${url(controller='myprofile', action='addemailpopup')}', 'login_popup_form');return false;">
-			<div class="inputFields">
-				<div class="inputName floatLeft ${"email" in c.errors and "error" or ""}">
+			<div class="inputFields Fw">
+				<div class="inputName  floatLeft ${"email" in c.errors and "error" or ""}">
 					<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
 					<input type="text" value="${getattr(c, "values", dict()).get("email")}" name="form.email" id="login_email"/>
 					%if "email" in c.errors:
@@ -27,7 +22,9 @@
 			</div>
 			<input type="submit" class="invisible" value="Go"/>
 			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='addemailpopup')}', 'login_popup_form')" class="primarySmall floatLeft">${_("FF_LOGINBUTTON_Add Emailauith")}</a>
+			<a onclick="xhrFormPost('${url(controller='myprofile', action='addemailpopup')}', 'login_popup_form')" class="primarySmall floatLeft" style="margin:30px 0 0 0">${_("FF_LOGINBUTTON_Add Emailauith")}</a>
+            <p>Log in with <a href="#"class="link">Facebook</a> instead.</p>
+            <div class="clear"></div>
             </div>
         </div>
 	</div>

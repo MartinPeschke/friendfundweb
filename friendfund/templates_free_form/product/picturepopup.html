@@ -3,16 +3,18 @@
 
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrame fixed">
+	<div class="whitePopupFrameLarge fixed">
 	<span class="panelcloser panelclosing_x">x</span>
 		<div>
-			<h3>Change the Picture</h3>
+			<h3 class="borderSmall">Change the Picture</h3>
+			<div class="popupPadder">
 			<img src="${c.pool.get_product_display_picture("FF_POOLS")}"/>
 			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
 			<label for="pool_picture">Upload Picture</label>
 			<input name="pool_picture" id="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
 			<a onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>Save</span></a>
 			</form>
+			</div>
         </div>
 	</div>
 </div>

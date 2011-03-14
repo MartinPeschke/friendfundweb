@@ -1,19 +1,26 @@
 
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrame fixed">
+	<div class="whitePopupFrameLarge fixed">
 	<span class="panelcloser panelclosing_x">x</span>
 		<div>
-			<h3>Change the Picture</h3>
+			<h3 class="borderSmall">Change the Picture</h3>
+			<div class="popupPadder">
 			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
-			<img src="" class="allowed displayed" id="URLPproductPictureImdt"/>
-			<label for="pool_picture">Upload Picture</label>
-			<input name="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
-			<a onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPimgCntSld', 'URLPproductPictureImdt', 'URLPproductPicture'));"><span>Save</span></a>
+			<div class="upImgCnt"></div>
+			<div class="floatLeft" style="margin: 5px 10px 15px 0">
+				<img src="" class="allowed displayed" id="URLPproductPictureImdt"/>			
+				<label for="pool_picture">Upload Picture</label>
+				<input name="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
+			</div>
+			<a class="primarySmall floatLeft "  onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPimgCntSld', 'URLPproductPictureImdt', 'URLPproductPicture'));"><span>Save</span></a>
 			
 			
 			<input type="button" value="Submit" class="hidden"/>
 			</form>
+			<div class="clear"></div>
+			</div>
+			
         </div>
 	</div>
 </div>
