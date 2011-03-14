@@ -52,7 +52,7 @@ class PoolService(object):
 		pool.set_amount_float(pool_schema.pop("amount"))
 		pool.occasion = Occasion(key="EVENT_OTHER", date=pool_schema['date'])
 		
-		if "tracking_link" in pool_schema:
+		if h.contains_one_ne(pool_schema, ["tracking_link", "product_picture"]):
 			pool.product = Product(name = pool_schema.get("product_name"), 
 									description = pool_schema.get("product_description"),
 									tracking_link = pool_schema.get("tracking_link"),

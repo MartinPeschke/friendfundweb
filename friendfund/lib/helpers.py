@@ -27,6 +27,11 @@ def contains_one(arr, map):
 		if k in map:
 			return True
 	return False
+def contains_one_ne(map, arr):
+	for k in arr:
+		if map.get(k):
+			return True
+	return False
 
 
 def decode_unique_token(token):

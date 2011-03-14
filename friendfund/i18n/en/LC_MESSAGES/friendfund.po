@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-14 11:45+0100\n"
+"PO-Revision-Date: 2011-03-14 14:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -474,11 +474,11 @@ msgstr "Pool not found"
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr "You joined this Pool!"
 
-#: friendfund/controllers/product.py:62
+#: friendfund/controllers/product.py:63
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "The URL is not recognized."
 
-#: friendfund/controllers/product.py:65
+#: friendfund/controllers/product.py:66
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only "
@@ -487,11 +487,11 @@ msgstr ""
 " This product is not from %(amazondomain)s, please use only links from "
 "%(amazondomain)s or change your shipping region."
 
-#: friendfund/controllers/product.py:70
+#: friendfund/controllers/product.py:71
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr "This product is currently not available. Please try again later."
 
-#: friendfund/controllers/product.py:74
+#: friendfund/controllers/product.py:75
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace "
 "article and is not sold by Amazon itself. Currently we do not support "
@@ -500,13 +500,13 @@ msgstr ""
 "This product is an Amazon Marketplace product and is not sold directly by"
 " Amazon. We currently only accept products sold directly by Amazon."
 
-#: friendfund/controllers/product.py:77
+#: friendfund/controllers/product.py:78
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
 msgstr "Amazon has not provided enough information for us to offer this product."
 
-#: friendfund/controllers/product.py:116
+#: friendfund/controllers/product.py:117
 msgid "INDEX_PAGE_No Product"
 msgstr "Product not selected. Please try again."
 
@@ -900,14 +900,6 @@ msgstr "Gift Search"
 #: friendfund/services/product_service.py:138
 msgid "POOL_CREATE_Product not Found"
 msgstr "Product not found. Please try again."
-
-#: friendfund/services/product_service.py:206
-msgid "FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE"
-msgstr ""
-
-#: friendfund/services/product_service.py:207
-msgid "FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR"
-msgstr ""
 
 #: friendfund/services/user_service.py:40
 msgid "LOGIN_ACCOUNTS_CANNOT_BE_CONSOLIDATED_WARNING"
@@ -4053,8 +4045,7 @@ msgid "FF_POOL_PAGE_BODY_About"
 msgstr "About"
 
 #: friendfund/templates_free_form/pool/pool.html:229
-#: friendfund/templates_free_form/pool/pool_details.html:220
-#: friendfund/templates_free_form/product/urlparser.html:7
+#: friendfund/templates_free_form/product/urlparser.html:8
 msgid "FF_LINK_Edit Image"
 msgstr "Edit Image"
 
@@ -4148,37 +4139,41 @@ msgstr "Write your description here..."
 msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:223
-#: friendfund/templates_free_form/pool/pool_details.html:224
+#: friendfund/templates_free_form/pool/pool_details.html:220
+#: friendfund/templates_free_form/pool/pool_details.html:221
 msgid "FF_POOLDETAILS_Examples:www.cnn.com"
 msgstr "Examples: www.cnn.com"
 
-#: friendfund/templates_free_form/pool/pool_details.html:231
+#: friendfund/templates_free_form/pool/pool_details.html:222
+msgid "FF_LINK_or Upload a picture"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/pool_details.html:230
 msgid "FF_POOLDETAILS_Receiving Your Money"
 msgstr "Receiving Your Money"
 
-#: friendfund/templates_free_form/pool/pool_details.html:235
+#: friendfund/templates_free_form/pool/pool_details.html:234
 msgid ""
 "FF_POOLDETAILS_How do you want to receive your money once the Pool is "
 "funded?"
 msgstr "How do you want to receive your funds if this Pool reaches its goal?"
 
-#: friendfund/templates_free_form/pool/pool_details.html:236
+#: friendfund/templates_free_form/pool/pool_details.html:235
 msgid ""
 "FF_POOLDETAILS_You will only be paid if your Pool is successfully funded."
 " This information will not be shared with anyone else."
 msgstr "This information won’t be shared with anyone."
 
-#: friendfund/templates_free_form/pool/pool_details.html:246
+#: friendfund/templates_free_form/pool/pool_details.html:245
 #, python-format
 msgid "FF_POOLDETAILS_(costs you $(fees)s%%)"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:248
+#: friendfund/templates_free_form/pool/pool_details.html:247
 msgid "FF_POOLDETAILS_(FREE)"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:255
+#: friendfund/templates_free_form/pool/pool_details.html:254
 #, python-format
 msgid ""
 "FF_POOLDETAILS_If choosing this option, you will be charged a %s%% fee. "
@@ -4187,12 +4182,12 @@ msgstr ""
 "If choosing this option, you will be charged a %s%% transaction fee. Do "
 "you want to add this to your Pool Funding Total?"
 
-#: friendfund/templates_free_form/pool/pool_details.html:259
+#: friendfund/templates_free_form/pool/pool_details.html:258
 #, python-format
 msgid "FF_POOLDETAILS_Yes, please add the %s%% to my Funding Total"
 msgstr "Yes, please add the %s%% to my Funding Total"
 
-#: friendfund/templates_free_form/pool/pool_details.html:285
+#: friendfund/templates_free_form/pool/pool_details.html:282
 msgid "FF_POOLDETAILS_Invite Friends"
 msgstr "Invite Friends"
 
@@ -4237,6 +4232,14 @@ msgstr "Grab the code below and paste it into your website:"
 #: friendfund/templates_free_form/pool/parts/widget.html:44
 msgid "FF_WIDGET_POPUP_Chip In"
 msgstr "Chip In"
+
+#: friendfund/templates_free_form/product/urlparser.html:20
+msgid "FF_HOMEPAGE_PRODUCT_default_standin_value"
+msgstr ""
+
+#: friendfund/templates_free_form/product/urlparser.html:31
+msgid "FF_HOMEPAGE_PRODUCT_default_standin_description"
+msgstr ""
 
 #: friendfund/templates_free_form/receiver/fb_login.html:2
 msgid "FF_Invite your Facebook friends."
