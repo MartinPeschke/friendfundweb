@@ -26,7 +26,7 @@ from pylons.i18n import _
 class PaymentGateway(object):
 	def __init__(self, gtw_location, gtw_username, gtw_password, gtw_account):
 		self.gateway = AdyenPaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
-	def authorize(self, contrib_view):
+	def authorize(self, contrib_model, contrib_view):
 		args = [contrib_view.ref 
 					,contrib_model.total  #### This is supposed to be Database configured total for the whole transaction, i.e. what the user input plus transaction costs
 					,contrib_view.currency
@@ -123,7 +123,7 @@ class CreditCardPayment(PaymentMethod):
 				paymentresult = self.paymentGateway.authorize_recurring(contrib_model, tmpl_context.contrib_view)
 			else:
 				log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
-				paymentresult = self.paymentGateway.authorize(tmpl_context.contrib_view)
+				paymentresult = self.paymentGateway.authorize(contrib_model, tmpl_context.contrib_view)
 			del tmpl_context.contrib_view.methoddetails
 			
 			notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
