@@ -9,7 +9,7 @@ from friendfund.lib.i18n import friendfund_formencode_gettext
 from friendfund.model.forms.pool import PoolCreateForm
 from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion, JoinPoolProc
 from friendfund.model.product import Product
-from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_save_product_image
+from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_save_product_image, save_product_image
 
 
 class MissingPermissionsException(Exception):pass
@@ -94,7 +94,7 @@ class PoolService(object):
 		app_globals.dbm.get(JoinPoolProc, u_id = user.u_id, p_url = pool_url)
 		app_globals.dbm.expire(Pool(p_url = pool_url))
 
-	def save_pool_picture(self, picture):
+	def save_pool_picture_sync(self, picture, type):
 		picture_url = h.get_upload_pic_name(str(uuid.uuid4()))
 		tmpname, ext = os.path.splitext(picture.filename)
 		tmpname = os.path.join(self.ulpath \
@@ -102,5 +102,5 @@ class PoolService(object):
 		outf = open(tmpname, 'wb')
 		outf.write(picture.file.read())
 		outf.close()
-		remote_save_product_image.delay(picture_url, tmpname)
-		return picture_url
+		newurl = save_product_image(picture_url, tmpname, type)
+		return newurl

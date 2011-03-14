@@ -22,6 +22,7 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def open_bounce(self):
+		c.upload = bool(request.params.get("noupload", False))
 		try:
 			query, product, img_list = g.product_service.set_product_from_open_web(request.params.get('query'))
 		except QueryMalformedException, e:
@@ -157,8 +158,8 @@ class ProductController(BaseController):
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
 		
-		picture_url = g.pool_service.save_pool_picture(pool_picture)
-		result = {"close_popup":True, "data":{"rendered_picture_url":h.get_product_picture(picture_url, "POOL"), "picture_url":picture_url}}
+		picture_url = g.pool_service.save_pool_picture_sync(pool_picture, type="TMP")
+		result = {"close_popup":False, "data":{"rendered_picture_url":h.get_product_picture(picture_url, type="TMP", site_root = request.qualified_host)}}
 		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
 		print result
 		return result

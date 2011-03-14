@@ -92,9 +92,16 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 		p.wait()
 	return 1
 
+def save_render(fname_src, fname_dest):
+	crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
+					'-resize', '%sx%s>' % (300,300), str(fname_dest)]
+	p = subprocess.Popen(crop_command, shell = False, stdout = None, stderr = subprocess.STDOUT)
+	p.wait()
+	return 1
+
+
 @task
 def remote_save_product_image(newfname, tmpfname):
-	dbm = get_dbm(CONNECTION_NAME)
 	newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr'
 	filepath, filename = os.path.split(newfname)
 	newpath = os.path.join(upload_prodimg_folder, filepath)
@@ -111,6 +118,23 @@ def remote_save_product_image(newfname, tmpfname):
 	finally:
 		os.unlink(tmpfname)
 
+def save_product_image(newfname, tmpfname, type): 
+	newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr' 
+	filepath, filename = os.path.split(newfname)
+	newpath = os.path.join(upload_prodimg_folder, filepath)
+	if not os.path.exists(newpath):
+		os.makedirs(newpath)
+	try:
+		newfname = os.extsep.join(['_'.join([filename, type]), 'jpg'])
+		newfname = os.path.join(newpath, newfname)
+		print newfname, newurl, tmpfname
+		save_render(tmpfname, newfname)
+		return newurl
+	finally:
+		os.unlink(tmpfname)
+		
+		
+		
 @task
 def remote_save_image(email, tmpfname, newfname):
 	dbm = get_dbm(CONNECTION_NAME)

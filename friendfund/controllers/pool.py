@@ -66,25 +66,29 @@ class PoolController(ExtBaseController):
 		self._clean_session()
 		return redirect(url('home'))
 	
-	def details(self):
-		c.errors = {}
-		c.workflow = request.params.get("v") or "1"
-		c.currencies = sorted(g.country_choices.currencies)
-		
-		tracking_link = request.params.get("tracking_link")
+	def _determine_product(self, tracking_link):
 		if tracking_link:
-			c.parser_values = {
+			parser_values = {
 				"url":request.params.get("tracking_link"),
 				"product_picture":request.params.get("product_picture"),
 				"name":request.params.get("product_name"),
 				"description":request.params.get("product_description"),
 				"img_list":request.params.getall("img_list") or [],
 			}
-			c.parser_values['display_url'] = c.parser_values['url'] and h.word_truncate_by_letters(c.parser_values['url'], 40) or None
-			c.parser_values['display_name'] = c.parser_values['name'] and h.word_truncate_by_letters(c.parser_values['name'], 40) or None
-			c.parser_values['display_description'] = c.parser_values['description'] and h.word_truncate_by_letters(c.parser_values['description'], 180) or None
-			
-			
+			parser_values['display_url'] = parser_values['url'] and h.word_truncate_by_letters(parser_values['url'], 40) or None
+			parser_values['display_name'] = parser_values['name'] and h.word_truncate_by_letters(parser_values['name'], 40) or None
+			parser_values['display_description'] = parser_values['description'] and h.word_truncate_by_letters(parser_values['description'], 180) or None
+		else: 
+			parser_values = {}
+		return parser_values
+	
+	
+	def details(self):
+		c.errors = {}
+		c.workflow = request.params.get("v") or "1"
+		c.currencies = sorted(g.country_choices.currencies)
+		
+		tracking_link = request.params.get("tracking_link")
 		c.values = {
 			"tracking_link":tracking_link,
 			"amount":request.params.get("amount"),
@@ -92,7 +96,8 @@ class PoolController(ExtBaseController):
 			"title":request.params.get("title"),
 			"description":request.params.get("description"),
 			"date": (datetime.datetime.today() + datetime.timedelta(14)),
-			"settlementOption": None
+			"settlementOption": None,
+			"product_picture":request.params.get("product_picture")
 			}
 		if  isinstance(c.values.get('title'),basestring) and isinstance(c.values.get('tracking_link'), basestring) \
 			and c.values['title'].strip() in c.values.get('tracking_link'):
@@ -101,6 +106,9 @@ class PoolController(ExtBaseController):
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:
 			pass
+		c.parser_values = self._determine_product(tracking_link)
+
+
 		if c.workflow == "1" and (request.params.get("amount") or request.params.get("title")):
 			try:
 				mini_pool_schema = PoolHomePageForm().to_python(request.params)
@@ -133,6 +141,8 @@ class PoolController(ExtBaseController):
 			try:
 				c.pool = g.pool_service.create_free_form()
 			except formencode.validators.Invalid, error:
+				tracking_link = request.params.get("tracking_link")
+				c.parser_values = self._determine_product(tracking_link)
 				c.currencies = sorted(g.country_choices.currencies)
 				c.errors = error.error_dict or {}
 				c.values = error.value

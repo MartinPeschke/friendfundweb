@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-13 22:42+0100\n"
+"PO-Revision-Date: 2011-03-14 11:45+0100\n"
 "Last-Translator: Antonio <antjimar@hotmail.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -508,36 +508,36 @@ msgstr ""
 " envío y de facturación."
 
 #: friendfund/controllers/pool.py:39 friendfund/controllers/pool.py:52
-#: friendfund/controllers/pool.py:124 friendfund/controllers/pool.py:234
-#: friendfund/controllers/pool.py:246 friendfund/controllers/pool.py:264
-#: friendfund/controllers/pool.py:276
+#: friendfund/controllers/pool.py:132 friendfund/controllers/pool.py:244
+#: friendfund/controllers/pool.py:256 friendfund/controllers/pool.py:274
+#: friendfund/controllers/pool.py:286
 #, fuzzy
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "Perdón, este bote no existe."
 
-#: friendfund/controllers/pool.py:127
+#: friendfund/controllers/pool.py:135
 #, fuzzy
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr "No has escogido ningún evento. Por favor, inténtalo de nuevo. "
 
-#: friendfund/controllers/pool.py:130
+#: friendfund/controllers/pool.py:138
 #, fuzzy
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 
-#: friendfund/controllers/pool.py:216
+#: friendfund/controllers/pool.py:226
 msgid "POOL_SETTINGS_Pool not found"
 msgstr ""
 
-#: friendfund/controllers/pool.py:417
+#: friendfund/controllers/pool.py:427
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr ""
 
-#: friendfund/controllers/product.py:60
+#: friendfund/controllers/product.py:62
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr "URL no reconocida"
 
-#: friendfund/controllers/product.py:63
+#: friendfund/controllers/product.py:65
 #, fuzzy, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only "
@@ -546,11 +546,11 @@ msgstr ""
 "Este producto no pertenece a %(amazondomain)s. Por favor, usa sólo los "
 "links de %(amazondomain)s o cambia el país de envío."
 
-#: friendfund/controllers/product.py:68
+#: friendfund/controllers/product.py:70
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr "Ha ocurrido algún error en Amazons."
 
-#: friendfund/controllers/product.py:72
+#: friendfund/controllers/product.py:74
 #, fuzzy
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace "
@@ -561,7 +561,7 @@ msgstr ""
 " desde Amazon. En este momento, no vendemos productos del mercado de "
 "Amazon."
 
-#: friendfund/controllers/product.py:75
+#: friendfund/controllers/product.py:77
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
@@ -569,7 +569,7 @@ msgstr ""
 "Amazon no nos ha proporcionado la información suficiente para ofrecer "
 "este producto."
 
-#: friendfund/controllers/product.py:114
+#: friendfund/controllers/product.py:116
 #, fuzzy
 msgid "INDEX_PAGE_No Product"
 msgstr "No has escogido ningún producto. Por favor, inténtalo de nuevo."
@@ -4425,6 +4425,8 @@ msgid "FF_POOL_PAGE_BODY_About"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/pool.html:229
+#: friendfund/templates_free_form/pool/pool_details.html:220
+#: friendfund/templates_free_form/product/urlparser.html:7
 msgid "FF_LINK_Edit Image"
 msgstr ""
 
@@ -4514,40 +4516,53 @@ msgstr ""
 msgid "FF_POOLDETAILS_Write your description here..."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:214
-#: friendfund/templates_free_form/pool/pool_details.html:215
+#: friendfund/templates_free_form/pool/pool_details.html:210
+msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/pool_details.html:223
+#: friendfund/templates_free_form/pool/pool_details.html:224
 msgid "FF_POOLDETAILS_Examples:www.cnn.com"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:222
+#: friendfund/templates_free_form/pool/pool_details.html:231
 msgid "FF_POOLDETAILS_Receiving Your Money"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:226
+#: friendfund/templates_free_form/pool/pool_details.html:235
 msgid ""
 "FF_POOLDETAILS_How do you want to receive your money once the Pool is "
 "funded?"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:227
+#: friendfund/templates_free_form/pool/pool_details.html:236
 msgid ""
 "FF_POOLDETAILS_You will only be paid if your Pool is successfully funded."
 " This information will not be shared with anyone else."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:245
+#: friendfund/templates_free_form/pool/pool_details.html:246
+#, python-format
+msgid "FF_POOLDETAILS_(costs you $(fees)s%%)"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/pool_details.html:248
+msgid "FF_POOLDETAILS_(FREE)"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/pool_details.html:255
 #, python-format
 msgid ""
 "FF_POOLDETAILS_If choosing this option, you will be charged a %s%% fee. "
 "Do you want to add this to your Pool Funding Total?"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:249
+#: friendfund/templates_free_form/pool/pool_details.html:259
 #, python-format
 msgid "FF_POOLDETAILS_Yes, please add the %s%% to my Funding Total"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_details.html:278
+#: friendfund/templates_free_form/pool/pool_details.html:285
 msgid "FF_POOLDETAILS_Invite Friends"
 msgstr ""
 

@@ -4,14 +4,34 @@
 		<input type="hidden" class="PURLImgListElem" value="${imgsrc}" name="img_list">
 		%endfor
 		<input type="hidden" value="${values.get('product_picture')}" id="URLPproductPicture" name="product_picture">
+		%if getattr(c, 'upload', True):
+			<a class="imgEdit" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})">${_(u"FF_LINK_Edit Image")}</a>
+		%endif
 	</div>
 	<a class="address" href="${values['url']}" target="_blank">${values['display_url']}</a>
-	<div class="title simpleeditable active">${values['display_name']}
-		<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit">
-	</div>
-	<div class="desc simpleeditable active">${values['display_description']}
-		<input type="hidden" _type="TEXTAREA" _length="180" value="${values['description']}" name="product_description" id="product_desc_edit">
-	</div>
+	
+	%if values.get('name'):
+		<div class="title simpleeditable active">
+			${values['display_name']}
+			<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit">
+		</div>
+	%else:
+		<div class="title simpleeditable">
+			<input _type="INPUT" type="text" value="${_("FF_HOMEPAGE_PRODUCT_default_standin_value")}" _default_text="${_("FF_HOMEPAGE_PRODUCT_default_standin_value")}" name="product_name" _length="40"  class="ptitleSimpleEdit default" id="product_name_edit" />
+		</div>
+	%endif
+	
+	%if values.get('description'):
+		<div class="desc simpleeditable active">
+			${values['display_description']}
+			<input type="hidden" _type="TEXTAREA" _default_text="default" _length="180" value="${values['description']}" name="product_description" id="product_desc_edit">
+		</div>
+	%else:
+		<div class="desc simpleeditable">
+			<textarea _type="TEXTAREA" type="text" name="product_name" _default_text="${_("FF_HOMEPAGE_PRODUCT_default_standin_description")}" class="ptitleSimpleEdit default" id="product_desc_edit">${_("FF_HOMEPAGE_PRODUCT_default_standin_description")}</textarea>
+		</div>
+	%endif
+	
 	<input type="hidden" value="${values['url']}" name="tracking_link">
 	<div class="controller">
 		<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span>

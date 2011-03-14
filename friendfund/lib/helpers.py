@@ -167,9 +167,12 @@ def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 	static_root = PRODUCT_STATIC_ROOT
 	if not isinstance(product_picture_url, basestring): 
 		return ''
-	return (not product_picture_url.startswith('http')) \
-			and ('%(site_root)s%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals())\
-			or product_picture_url
+	if product_picture_url.startswith('http'):
+		return product_picture_url
+	elif product_picture_url.startswith('/'):
+		return '%(site_root)s%(product_picture_url)s'%locals()
+	else:
+		return '%(site_root)s%(static_root)s/%(product_picture_url)s_%(type)s.%(ext)s'%locals()
 			
 
 def get_merchant_logo(name):

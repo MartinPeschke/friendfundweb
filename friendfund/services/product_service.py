@@ -203,9 +203,9 @@ class ProductService(object):
 		else:
 			name, descr, imgs = url_parser.get_title_descr_imgs(query, product_page)
 			product_image = imgs and imgs[0] or None
-			product = Product(name=name or _("FF_HOMEPAGE_PRODUCT_STAND_IN_TITLE"),
-									description=descr or _("FF_HOMEPAGE_PRODUCT_STAND_IN_DESCR"),
-									tracking_link = query.strip(), 
-									picture = product_image
-								)
+			product = Product(name=name,
+								description=descr,
+								tracking_link = query.strip(), 
+								picture = product_image
+							)
 			return query, product, imgs

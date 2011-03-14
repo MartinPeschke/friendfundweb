@@ -6,9 +6,13 @@
 		<div>
 			<h3>Change the Picture</h3>
 			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
+			<img src="" class="allowed displayed" id="URLPproductPictureImdt"/>
 			<label for="pool_picture">Upload Picture</label>
-			<input name="pool_picture" id="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
-			<a onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPproductPicture'));"><span>Save</span></a>
+			<input name="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
+			<a onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPimgCntSld', 'URLPproductPictureImdt', 'URLPproductPicture'));"><span>Save</span></a>
+			
+			
+			<input type="button" value="Submit" class="hidden"/>
 			</form>
         </div>
 	</div>
