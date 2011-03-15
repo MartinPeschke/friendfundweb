@@ -24,6 +24,8 @@ class MyPoolEntry(DBMappedObject):
 			, GenericAttrib(str,'status','status')
 			, GenericAttrib(unicode,'joined_name','joined_name')
 			, GenericAttrib(unicode,'joined_picture','joined_picture')
+			, GenericAttrib(unicode,'invitor_name','invitor_name')
+			, GenericAttrib(unicode,'invitor_picture','invitor_picture')
 			, GenericAttrib(unicode,'admin_name','admin_name')
 			, GenericAttrib(unicode,'pool_picture_url','pool_picture_url')
 			, GenericAttrib(unicode,'product_picture_url','product_picture_url')
@@ -56,8 +58,8 @@ class MyPoolEntry(DBMappedObject):
 	
 	def get_receiver_profile_pic(self, type="RA"):
 		return h.get_user_picture(self.profile_picture_url, type)
-	def get_friend_profile_pic(self, type="RA"):
-		return h.get_user_picture(self.joined_picture, type)
+	def get_invitor_profile_pic(self, type="RA"):
+		return h.get_user_picture(self.invitor_picture, type)
 	def get_product_pic(self, type="RA"):
 		return h.get_product_picture(self.product_picture_url, type)
 	

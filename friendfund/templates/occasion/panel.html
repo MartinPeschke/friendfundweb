@@ -1,8 +1,8 @@
 <%! 
 from datetime import date, timedelta
 %>
-<%namespace name="forms" file="../widgets/forms.html"/>
-<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="forms" file="../legacy/widgets/forms.html"/>
+<%namespace name="html" file="../legacy/widgets/html_elems.html"/>
 
 
 <div id="button_panel" class="occasion">
@@ -14,9 +14,9 @@ from datetime import date, timedelta
 		<div id="occasion_button_bar" class="floaterLeft">
 		%for occ in c.olist:
 			<a class="occasion_panel_button">
-				<div class="selector ${c.key != occ.key and ' ' or 'selected'}" imgurl="/static/imgs/${occ.picture_url}" 
+				<div class="selector ${c.key != occ.key and ' ' or 'selected'}" imgurl="/static/legacy/imgs/${occ.picture_url}" 
 					custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}">
-					<img src="/static/imgs/${occ.picture_url}"/>
+					<img src="/static/legacy/imgs/${occ.picture_url}"/>
 					<div class="label">
 					%if occ.custom:
 						<input class="black_labeled_input ${(not c.name and 'default' or "")}" _default_text="${_("EVENT_PANEL_Just because...")}" type="text" id="${occ.key}" name="name" value="${c.name or _("EVENT_PANEL_Just because...")}" style="width:106px;"/>

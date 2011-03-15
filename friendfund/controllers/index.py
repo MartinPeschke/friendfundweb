@@ -28,9 +28,6 @@ class IndexController(BaseController):
 	def index(self):
 		if request.merchant.home_page:
 			return redirect(request.merchant.home_page, code=301)
-		c.recent_activity = RecentActivityStream()# g.dbm.get(RecentActivityStream)
-		c.ra_offset = self.ra_page_size
-		c.uuid = str(uuid.uuid4())
 		if 'pool' in websession:
 			c.pool = websession['pool']
 		return self.render('/index.html')
@@ -38,12 +35,6 @@ class IndexController(BaseController):
 	def sitemap(self):
 		c.pool_urls = g.dbm.get(SiteMap).entries
 		return render('/sitemap.xml')
-	
-	@jsonify
-	def stream(self):
-		c.recent_activity = g.dbm.get(RecentActivityStream)
-		c.uuid = str(uuid.uuid4())
-		return {"data":{"html":render("/widgets/ra_stream.html").strip()}}
 
 	def close(self):
 		c.reload = False

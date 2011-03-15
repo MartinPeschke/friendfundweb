@@ -21,7 +21,8 @@ log = logging.getLogger(__name__)
 class PaymentController(ExtBaseController):
 	@jsonify
 	def transaction_fees(self, pool_url):
-		return {"popup":render("/content/transaction_fees.html").strip()}
+		return {"popup":render("/contribution/popups/transaction_fees.html").strip()}
+
 	@logged_in(ajax=False)
 	def index(self, pool_url):
 		c.values = getattr(c, 'values', {})
@@ -190,6 +191,7 @@ class PaymentController(ExtBaseController):
 		
 		if c.contrib:
 			c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
+						, "baseUnits" : c.contrib.amount
 						, "payment_method":paymentmethod.code
 						, "is_secret":c.contrib.is_secret
 						, "message":c.contrib.message

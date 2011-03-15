@@ -33,6 +33,8 @@ POOL_PIC_FORMATS = [('RA', (161,120), (4, 12)), ('MYPOOLS', (120,79), (3, 6))]
 
 class UnexpectedFileNameFormat(Exception):
 	pass
+class UnsupportedFileFormat(Exception):
+	pass
 
 def try_locate_sub_image_url(url):
 	"""
@@ -92,12 +94,15 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 		p.wait()
 	return 1
 
-def save_render(fname_src, fname_dest):
+def save_render(fname_src, fname_dest, target_w=380, target_h=300, gravity = "Center"):
 	crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
-					'-resize', '%sx%s>' % (300,300), str(fname_dest)]
-	p = subprocess.Popen(crop_command, shell = False, stdout = None, stderr = subprocess.STDOUT)
-	p.wait()
-	return 1
+					'-resize', '%sx%s>' % (target_w, target_h),\
+					'-gravity', gravity, '-filter','Lanczos',
+					'-extent', '%sx%s' % (target_w, target_h), str(fname_dest)]
+	retcode = subprocess.call(crop_command)
+	if not os.path.exists(fname_dest) or retcode!= 0:
+		raise UnsupportedFileFormat("IMAGEMAGICK: Could not convert!")
+	return fname_dest
 
 
 @task
@@ -132,7 +137,6 @@ def save_product_image(newfname, tmpfname, type):
 	try:
 		newfname = os.extsep.join(['_'.join([filename, type]), 'jpg'])
 		newfname = os.path.join(newpath, newfname)
-		print newfname, newurl, tmpfname
 		save_render(tmpfname, newfname)
 		return newurl
 	finally:

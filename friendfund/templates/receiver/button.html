@@ -2,12 +2,12 @@
 	receiver = getattr(getattr(c, 'pool', None), 'receiver', None)
 %>
 <div id="button_receiver" class="hpbutton receiver">
-	<a class="button"><img src="/static/imgs/header/panel_header_receiver.png"/></a>
+	<a class="button"><img src="/static/legacy/imgs/header/panel_header_receiver.png"/></a>
 	<!--<a class="button"><div class="button_label">Who<span class="button_label_q">?</span></div></a>-->
 	%if receiver:
 		<div class="button_content">
 			<a class="content withbg">
-				<img class="loaders_animation" src="/static/imgs/ajax-loader.gif"/>
+				<img class="loaders_animation" src="/static/legacy/imgs/ajax-loader.gif"/>
 				<img class="button_content" src="${getattr(receiver, 'profile_picture_url')}"/></a>
 			<a name="button_panel_container_anchor" id="button_panel_container_anchor" style="position: absolute;top: 135px;"></a>
 			<div class="label">${getattr(receiver, 'receiver_label')}</div>

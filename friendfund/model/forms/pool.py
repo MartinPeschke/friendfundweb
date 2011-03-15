@@ -1,9 +1,9 @@
 import formencode
-from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, DateValidator, SettlementValidator
+from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, DateValidator, SettlementValidator, DecimalStringValidator
 
 class PoolHomePageForm(formencode.Schema):
 	allow_extra_fields = True
-	amount = DecimalValidator(not_empty=True, min=0.01, max=9999999)
+	amount = DecimalStringValidator(not_empty=True, min=0.01, max=9999999)
 	title = formencode.validators.String(not_empty=True, max=1024)
 
 

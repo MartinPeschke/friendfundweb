@@ -355,8 +355,6 @@ class Pool(DBMappedObject):
 					self.admin = pu
 				if pu.is_receiver == True:
 					self.receiver = pu
-			if pu.is_suspected:
-				self.suspect = pu
 		if not self.admin:
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:
@@ -441,7 +439,7 @@ class SimpleUserNetwork(DBMappedObject):
 	_get_proc = _set_proc   = None
 	_get_root = _set_root = 'POOLUSER'
 	_unique_keys = ['network_id']
-	_keys = [GenericAttrib(str,'network_id','id'),GenericAttrib(str,'network','network'),GenericAttrib(str,'email','email'),]
+	_keys = [GenericAttrib(str,'network_id','id'),GenericAttrib(str,'network','network'),GenericAttrib(str,'email','email'),GenericAttrib(bool,'is_receiver','is_receiver')]
 
 
 class GetPoolInviteesProc(DBMappedObject):
@@ -453,10 +451,15 @@ class GetPoolInviteesProc(DBMappedObject):
 	_keys = [ GenericAttrib(str,'p_url','p_url')
 			, GenericAttrib(int,'p_id','p_id')
 			, GenericAttrib(str,'network','network')
-			, DBMapper(SimpleUserNetwork, 'users', 'POOLUSER', is_list = True)]
+			, DBMapper(SimpleUserNetwork, 'users', 'POOLUSER', is_list = True)
+			, DBMapper(PoolUser, 'receiver', None, persistable = False)]
 	
 	def fromDB(self, xml):
 		setattr(self, "idset", set(map(operator.attrgetter("network_id"), self.users)))
+		for pu in self.users:
+			if pu.is_receiver:
+				self.receiver = pu
+				break
 
 class JoinPoolProc(DBMappedObject):
 	"""	[app].[join_pool]  '<POOL_INVITEES p_url = "123" u_id = "123"/>'"""

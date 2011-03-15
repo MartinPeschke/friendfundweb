@@ -13,10 +13,10 @@ from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool, UpdatePoolProc
 from friendfund.model.product import Product, ProductSearch
+from friendfund.tasks.photo_renderer import UnsupportedFileFormat
 from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException, QueryMalformedException
 log = logging.getLogger(__name__)
-
 
 class ProductController(BaseController):
 	
@@ -40,7 +40,8 @@ class ProductController(BaseController):
 						'description':product.description, 
 						'display_description': h.word_truncate_by_letters(product.description, 180), 
 						'img_list':img_list}
-		return {'success':True, "html":render_def("/product/urlparser.html", "renderParser", values = c.parser_values, with_closer = True).strip()}
+			html = render_def("/product/urlparser.html", "renderParser", values = c.parser_values, with_closer = True).strip()
+		return {'success':True, 'html':html}
 		
 	def bounce(self):
 		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
@@ -49,6 +50,57 @@ class ProductController(BaseController):
 		else:c.product_list = []
 		c.pool = websession['pool']
 		return self.render('/index.html')
+	
+	
+	
+	def picturepopup(self, pool_url):
+		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		if not c.pool:
+			return abort(404)
+		elif not c.pool.am_i_admin(c.user):
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({'message':'Not authorized!'})
+		
+		pool_picture = request.params.get('pool_picture')
+		if pool_picture is None:
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({'popup':render('/product/picturepopup.html').strip()})
+		
+		picture_url = g.pool_service.save_pool_picture(pool_picture)
+		updater = UpdatePoolProc(p_url = c.pool.p_url)
+		updater.product = c.pool.product or Product()
+		updater.product.picture = picture_url
+		g.dbm.set(updater)
+		g.dbm.expire(Pool(p_url = c.pool.p_url))
+		c.pool = updater
+		return '<html><body><textarea>{"reload":true}</textarea></body></html>'
+	
+	def ulpicture(self):
+		pool_picture = request.params.get('pool_picture')
+		if pool_picture is None:
+			response.headers['Content-Type'] = 'application/json'
+			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
+		try:
+			picture_url = g.pool_service.save_pool_picture_sync(pool_picture, type="TMP")
+		except UnsupportedFileFormat, e:
+			result = {"data":{"success":False}}
+		else:
+			result = {"data":{"success":True, "rendered_picture_url":h.get_product_picture(picture_url, type="TMP", site_root = request.qualified_host)}}
+		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
+		print result
+		return result
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@jsonify
 	def search_tab(self):
@@ -130,38 +182,3 @@ class ProductController(BaseController):
 		websession['pool'] = g.product_service.set_product_from_guid(websession.get('pool') or Pool(), product_guid, c.product_list)
 		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
-		
-	
-	def picturepopup(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
-		if not c.pool:
-			return abort(404)
-		elif not c.pool.am_i_admin(c.user):
-			response.headers['Content-Type'] = 'application/json'
-			return simplejson.dumps({'message':'Not authorized!'})
-		
-		pool_picture = request.params.get('pool_picture')
-		if pool_picture is None:
-			response.headers['Content-Type'] = 'application/json'
-			return simplejson.dumps({'popup':render('/product/picturepopup.html').strip()})
-		
-		picture_url = g.pool_service.save_pool_picture(pool_picture)
-		updater = UpdatePoolProc(p_url = c.pool.p_url)
-		updater.product = c.pool.product or Product()
-		updater.product.picture = picture_url
-		g.dbm.set(updater)
-		g.dbm.expire(Pool(p_url = c.pool.p_url))
-		c.pool = updater
-		return '<html><body><textarea>{"reload":true}</textarea></body></html>'
-	
-	def ulpicture(self):
-		pool_picture = request.params.get('pool_picture')
-		if pool_picture is None:
-			response.headers['Content-Type'] = 'application/json'
-			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
-		
-		picture_url = g.pool_service.save_pool_picture_sync(pool_picture, type="TMP")
-		result = {"close_popup":False, "data":{"rendered_picture_url":h.get_product_picture(picture_url, type="TMP", site_root = request.qualified_host)}}
-		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
-		print result
-		return result

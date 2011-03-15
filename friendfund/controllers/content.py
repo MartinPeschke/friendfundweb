@@ -22,41 +22,41 @@ FAQ_KEYS = [(_("STATIC_Frequently Asked Questions_Question1" ), _("STATIC_Freque
 			(_("STATIC_Frequently Asked Questions_Question15"), _("STATIC_Frequently Asked Questions_Answer15"))
 		]
 
+
 from friendfund.lib.base import BaseController, render, _
 log = logging.getLogger(__name__)
 class ContentController(BaseController):
 	@jsonify
 	def amazonhowto(self):
-		return {"popup":render("/messages/popups/amazon.html").strip()}
+		return {"popup":render("/content/popups/amazon.html").strip()}
+	
 	@jsonify
 	def pool_too_little_money(self):
 		c.faq_items = FAQ_KEYS[1:2]
 		c.faq_item_header = _("POOL_PAGE_What happens if we raise less money?")
-		return {"popup":render("/messages/popups/faq_popup.html").strip()}
+		return {"popup":render("/content/popups/faq_popup.html").strip()}
 	@jsonify
 	def why_transaction_costs(self):
 		c.faq_items = FAQ_KEYS[2:3]
 		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":render("/messages/popups/faq_popup.html").strip()}
+		return {"popup":render("/content/popups/faq_popup.html").strip()}
 	
+	@jsonify
+	def what_is_cvc(self):
+		return {"popup":render("/content/popups/what_is_cvc.html").strip()}
 	@jsonify
 	def pledging_faq(self):
-		return {"popup":render("/content/pledging_faq.html").strip()}
+		return {"popup":render("/content/popups/pledging_faq.html").strip()}
 	
-	@jsonify
-	def our_virtual_gifts_help(self):
-		c.faq_items = FAQ_KEYS[12:15]
-		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":render("/messages/popups/faq_popup.html").strip()}	
 	@jsonify
 	def profile_help(self):
 		c.faq_items = FAQ_KEYS[9:12]
 		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":render("/messages/popups/faq_popup.html").strip()}
+		return {"popup":render("/content/popups/faq_popup.html").strip()}
 	
 	@jsonify
-	def invite_preview(self):
-		return {"popup":render("/messages/popups/invite_preview.html").strip()}
+	def invite_info(self):
+		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}	
 	
 	def contact(self):
 		return render("/content/contact.html")

@@ -50,7 +50,7 @@ class PoolController(ExtBaseController):
 	def complete(self, pool_url):
 		if c.pool is None:
 			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
-		# if not c.pool.is_closed():
+		# if not c.pool.is_closed(): ####TODO: Reactivate
 			 # redirect(url('get_pool', pool_url=pool_url))
 		return self.render('/pool/pool_complete.html')
 	
@@ -82,6 +82,10 @@ class PoolController(ExtBaseController):
 			parser_values = {}
 		return parser_values
 	
+	#### TODO: setup wizard process again
+	# def setup(self):
+		# tracking_link = request.params.get("tracking_link")
+		# c.parser_values = self._determine_product(tracking_link)
 	
 	def details(self):
 		c.errors = {}
@@ -99,16 +103,11 @@ class PoolController(ExtBaseController):
 			"settlementOption": None,
 			"product_picture":request.params.get("product_picture")
 			}
-		if  isinstance(c.values.get('title'),basestring) and isinstance(c.values.get('tracking_link'), basestring) \
-			and c.values['title'].strip() in c.values.get('tracking_link'):
-			 c.values['title'] = None
 		try:
 			c.values['date'] = datetime.datetime.strptime(request.params["date"], "%Y-%m-%d")
 		except:
 			pass
 		c.parser_values = self._determine_product(tracking_link)
-
-
 		if c.workflow == "1" and (request.params.get("amount") or request.params.get("title")):
 			try:
 				mini_pool_schema = PoolHomePageForm().to_python(request.params)
@@ -117,6 +116,9 @@ class PoolController(ExtBaseController):
 				c.values.update(error.value)
 			else:
 				c.values.update(mini_pool_schema)
+		if isinstance(c.values.get('title'),basestring) and isinstance(c.values.get('tracking_link'), basestring) \
+			and c.values['title'].strip() in c.values.get('tracking_link'):
+			 c.values['title'] = None
 
 		return self.render('/pool/pool_details.html')
 	

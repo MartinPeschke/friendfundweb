@@ -6,7 +6,7 @@ from pylons import request, response, tmpl_context as c, url, app_globals as g, 
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block
+from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block, post_only
 from friendfund.lib.base import BaseController, render, render_def, _, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
@@ -43,23 +43,27 @@ class InviteController(ExtBaseController):
 	@logged_in(ajax=True)
 	def method(self, pool_url, method):
 		c.method = str(method)
-		
 		if method in ['facebook', 'twitter']:
 			pv =  request.params.getall('pv')
-			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
-			already_invited = already_invited.union(pv)
+			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method)
+			already_invited.idset = already_invited.idset.union(pv)
+			
+			try:
+				receiver_id = already_invited.receiver.network_id
+			except:
+				receiver_id = None
 			
 			is_complete = True
 			offset = 0
 			try:
-				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', None))
+				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', receiver_id))
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}}
 				else: 
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}}
 			else:
-				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset])
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
@@ -73,10 +77,10 @@ class InviteController(ExtBaseController):
 			c.method = str(method)
 			pv =  request.params.getall('pv')
 			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
-			already_invited = already_invited.union(pv)
+			already_invited.idset = already_invited.idset.union(pv)
 			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
-			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset])
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
 	
@@ -154,10 +158,34 @@ class InviteController(ExtBaseController):
 	def preview(self, pool_url):
 		method = request.params.get("method")
 		if method=="email":
-			return  {"popup":self.render("/messages/preview_email.html").strip()}
+			return  {"popup":self.render("/invite/preview/preview_email.html").strip()}
 		elif method=="twitter":
-			return  {"popup":self.render("/messages/preview_twitter.html").strip()}
+			return  {"popup":self.render("/invite/preview/preview_twitter.html").strip()}
 		else:
-			return  {"popup":self.render("/messages/preview_facebook.html").strip()}
+			return  {"popup":self.render("/invite/preview/preview_facebook.html").strip()}
 	
-	
+
+	@jsonify
+	@post_only(ajax=True)
+	def validate(self):
+		params = variable_decode(request.params)
+		invitee = params.get("invitee")
+		network = invitee['network']
+		if network == 'email':
+			c.email_values = c.email_errors = {}
+			try:
+				form_result = PoolEmailInviteeForm().to_python(invitee, state=FriendFundFormEncodeState)
+			except formencode.validators.Invalid, error:
+				c.email_errors = error.error_dict or {}
+				c.email_values = error.value
+				return {"data":{'success':False, 'html':render_def('/invite/inviter.html', 'mailinviter').strip()}}
+			else:
+				c.method = 'email'
+				invitee['success'] = True
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
+				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable').strip()
+				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter').strip()
+				return {'clearmessage':True, 'data':invitee}
+		else:
+			return self.ajax_messages(_(u"RECEIVER_ADD_Unknown Network or Method"))

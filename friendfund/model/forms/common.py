@@ -6,7 +6,7 @@ from friendfund.model.mapper import DBMappedObject
 from friendfund.lib.payment.adyen import PaymentMethod
 from pylons import session as websession
 
-from babel.numbers import parse_decimal, NumberFormatError, format_currency
+from babel.numbers import parse_decimal, NumberFormatError, format_currency, format_decimal
 
 enlocal = re.compile('^(([0-9]{1,3}\,?([0-9]{3}\,?)+)|[0-9]*)(\.[0-9]{2})?$')
 delocal = re.compile('^(([0-9]{1,3}\.?([0-9]{3}\.?)+)|[0-9]*)(\,[0-9]{2})?$')
@@ -52,14 +52,23 @@ class CurrencyValidator(formencode.FancyValidator):
 			raise formencode.Invalid(self.message("invalid_currency", state), value, state)
 		return value
 
-class DecimalValidator(formencode.validators.Number):
+class DecimalValidator(formencode.FancyValidator):
 	messages = {"invalid_amount":_("MONETARYVALIDATOR_Please input a valid amount")}
 	def _to_python(self, value, state):
 		try:
 			value = parse_decimal(value, locale = websession['lang'])
+			if value > self.max:
+				raise ValueError("TooHigh")
 		except NumberFormatError, e:
 			raise formencode.Invalid(self.message("invalid_amount", state, value = value), value, state)
+		except ValueError, e:
+			raise formencode.Invalid(self.message("amount_too_high", state, max_amount = format_currency(self.max, state.currency, locale=websession['lang'])), value, state)
 		else: return value
+
+class DecimalStringValidator(DecimalValidator):
+	def _to_python(self, value, state):
+		value = super(self.__class__, self)._to_python(value, state)
+		return format_decimal(value)
 
 class MonetaryValidator(formencode.validators.Number):
 	messages = {"invalid_amount":_('MONETARYVALIDATOR_Please input a valid amount'),

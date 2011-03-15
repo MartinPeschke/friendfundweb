@@ -115,8 +115,8 @@ class PoolCommentEvent(EventType):
 	_get_root = "COMMENT"
 	_cachable = False
 	_unique_keys = ['title']
-	_keys = [GenericAttrib(str, 'name', 'name')
-			,GenericAttrib(str, 'picture', 'picture')
+	_keys = [GenericAttrib(unicode, 'name', 'name')
+			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
 			,GenericAttrib(unicode, 'title', 'title')
@@ -127,12 +127,13 @@ class PoolSuccessEvent(EventType):
 	_get_root = "SUCCESS"
 	_cachable = False
 	_unique_keys = ['title']
-	_keys = [GenericAttrib(str, 'picture', 'picture')
+	_keys = [GenericAttrib(unicode, 'title', 'title')
+			,GenericAttrib(unicode, 'name', 'name')
+			,GenericAttrib(unicode, 'picture', 'picture')
 			,GenericAttrib(int, 'no_contributors', 'no_contributors')
 			,GenericAttrib(str, 'admin_picture', 'admin_picture')
 			,GenericAttrib(datetime, 'creation_date', 'creation_date')
 			,GenericAttrib(datetime, 'expiry_date', 'expiry_date')
-			,GenericAttrib(unicode, 'title', 'title')
 			]
 	
 

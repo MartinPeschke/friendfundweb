@@ -1,6 +1,6 @@
 <%inherit file="panel.html"/>
-<%namespace name="forms" file="../widgets/forms.html"/>
-<%namespace name="html" file="../widgets/html_elems.html"/>
+<%namespace name="forms" file="../legacy/widgets/forms.html"/>
+<%namespace name="html" file="../legacy/widgets/html_elems.html"/>
 <%namespace name="common" file="common.html"/>
 <%!
 	from operator import mod
@@ -14,7 +14,7 @@
 			<a class="searchButton anchorelem searcher" id="searchsubmitter" _base_url="${c.search_base_url}" ${h.attrib_keys(c.search_keys, [("page", 1)])|n}><span>${_("PRODUCT_SEARCH_PANEL_Search")}</span></a>
 		</div>
 		<span class="showme">
-			${_("Search %s to find the perfect gift.")%'<img src="/static/imgs/icon_amazon.png"/>'|n}</a>
+			${_("Search %s to find the perfect gift.")%'<img src="/static/legacy/imgs/icon_amazon.png"/>'|n}</a>
 		</span>
 	</div>
 	</div>

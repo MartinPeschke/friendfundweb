@@ -1,4 +1,4 @@
-import logging, urllib, urllib2, formencode, base64, hmac, hashlib, uuid
+import logging, urllib, urllib2, formencode, base64, hmac, hashlib, uuid, socket
 from datetime import datetime, timedelta
 
 from pylons import session as websession, url, app_globals, request
@@ -54,10 +54,9 @@ class PaymentGateway(object):
 
 
 class PaymentMethod(object):
-	_method_translation = {"master_card":"mastercard", "amex":"amex","visa":"visa", "paypal":"paypal"}
 	def __init__(self, logo_url, code, currencies, fee_absolute, fee_relative):
 		self.logo_url = logo_url
-		self.code = self._method_translation[code]
+		self.code = code
 		self.currencies = currencies
 		self.fee_absolute = fee_absolute # in base units
 		self._fee_absolute = float(fee_absolute)/100
@@ -111,19 +110,24 @@ class CreditCardPayment(PaymentMethod):
 			contrib_model = app_globals.dbm.set(contrib_model, merge = True)
 		except SProcException, e:
 			log.error(e)
-			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
-			return redirecter(url("payment", pool_url=c.pool.p_url, protocol="http"))
+			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured. Your payment has not been processed. Please try again."))
+			return redirecter(url("payment", pool_url=tmpl_context.pool.p_url, protocol="http", amount = tmpl_context.contrib_view.amount))
 		else:
 			tmpl_context.contrib_view.ref = contrib_model.ref
 			
 			### Adding and immediately removing credit cards details, dont want it bleeding anywhere
 			tmpl_context.contrib_view.methoddetails = ccard
-			if contrib_model.is_recurring:
-				log.info("AUTHORIZING_RECURRING %s", tmpl_context.contrib_view.ref)
-				paymentresult = self.paymentGateway.authorize_recurring(contrib_model, tmpl_context.contrib_view)
-			else:
-				log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
-				paymentresult = self.paymentGateway.authorize(contrib_model, tmpl_context.contrib_view)
+			try:
+				if contrib_model.is_recurring:
+					log.info("AUTHORIZING_RECURRING %s", tmpl_context.contrib_view.ref)
+					paymentresult = self.paymentGateway.authorize_recurring(contrib_model, tmpl_context.contrib_view)
+				else:
+					log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
+					paymentresult = self.paymentGateway.authorize(contrib_model, tmpl_context.contrib_view)
+			except (socket.sslerror, socket.error), e:
+				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured. Your payment has not been processed. Please try again."))
+				return redirecter(url("payment", pool_url=pool.p_url, protocol="http", amount = tmpl_context.contrib_view.amount))
+			
 			del tmpl_context.contrib_view.methoddetails
 			
 			notice = get_contribution_from_adyen_result(contrib_model.ref, paymentresult)
