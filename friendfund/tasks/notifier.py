@@ -24,12 +24,12 @@ L10N_KEYS = ['occasion']
 CONNECTION_NAME = 'job'
 
 def empty_sender(name = None):
-	def es(sndr_data, rcpt_data, template_data, config, rcpts_data = None):
+	def es(file_no, sndr_data, rcpt_data, template_data, config, rcpts_data = None):
 		log.warning( "%s_MESSAGING_IS_OFF", name )
 		return "1"
 	return es
 def error_sender(name = None):
-	def es(sndr_data, rcpt_data, template_data, config, rcpts_data = None):
+	def es(file_no, sndr_data, rcpt_data, template_data, config, rcpts_data = None):
 		raise Exception( "NOT_IMPLEMENTED_ERROR(%s)" % name)
 	return es
 
@@ -99,8 +99,8 @@ def main(argv=None):
 				sndr_data = msg_data.find("SENDER").attrib
 				rcpt_data = msg_data.find("RECIPIENT").attrib
 				template_data = msg_data.find("TEMPLATE").attrib
+				template_data["DEFAULT_BASE_URL"] = ROOT_URL
 				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
-				template_data['ROOT_URL'] = ROOT_URL
 				for k in L10N_KEYS:
 					if k in template_data and template_data[k]:
 						template_data[k] = _(template_data[k])
@@ -113,7 +113,8 @@ def main(argv=None):
 				
 				try:
 					notification_method = meta_data.get('notification_method').lower()
-					msg_id = messengers.get(notification_method, error_sender(notification_method))(sndr_data, rcpt_data, template_data, config, rcpts_data)
+					sender = messengers.get(notification_method, error_sender(notification_method))
+					msg_id = sender(meta_data['file_no'], sndr_data, rcpt_data, template_data, config, rcpts_data)
 				except InvalidAccessTokenException, e:
 					log.warning( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
