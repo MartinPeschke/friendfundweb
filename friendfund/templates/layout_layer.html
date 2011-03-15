@@ -1,4 +1,4 @@
-<%inherit file="master.html"/>
+<%inherit file="base.html"/>
 
 <div id="container" class="${self.headerclass()}">
 	<div id="top"></div>
@@ -10,7 +10,13 @@
 		</div>
 		${self.lowerbody()}
 	</div>
-	${self.render_account_panel()}
 	<div class="clear"></div>
 </div>
 <%def name="master_page_slogan()"><div class="pageSlogan">${self.messaging()}${self.page_slogan()}</div></%def>
+
+
+<%def name="render_account_panel()">
+	<div id="accountcontainer" class="loginArea">
+		<%include file="/myprofile/login_panel.html"/>
+	</div>
+</%def>

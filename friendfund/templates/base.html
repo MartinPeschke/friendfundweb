@@ -1,6 +1,6 @@
 <%namespace name="links" file="links.html"/>
-<%namespace name="html" file="widgets/html_elems.html"/>
-<%namespace name="forms" file="widgets/forms.html"/>
+<%namespace name="html" file="legacy/widgets/html_elems.html"/>
+<%namespace name="forms" file="legacy/widgets/forms.html"/>
 ${self.render_html()}
 
 <%def name="render_html()">
@@ -26,7 +26,7 @@ ${self.render_html()}
 		<title>friendfund.com | ${self.title()}</title>
 		${links.css('site.css')}
 		${links.css('message_block.css')}
-		${links.css('custom.css',path='/static/')}
+		${links.css('legacy_custom.css',path='/static/')}
 		<script type="text/javascript"> 
 			page_reloader = function(){window.location.reload();};
 			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
@@ -39,7 +39,7 @@ ${self.render_html()}
 
 <%def name="render_foot_scripts()">
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
-	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/js/friendfund"},dojoBlankHtmlUrl : "/static/blank.html",xdWaitSeconds: 5};</script> 
+	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/legacy/js/friendfund"},dojoBlankHtmlUrl : "/static/legacy/blank.html",xdWaitSeconds: 5};</script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" type="text/javascript"></script>
 	${links.js('loader.js')}
 	${self.scripts()}
@@ -68,10 +68,8 @@ ${self.render_html()}
 	<div id="siteinfo">
 		<div class="siteinfo1">
 			<div class="siteinfo2">
-				${self.render_verisign(id="verisignseal")}
 				${self.render_siteinfo_copyright()}
 				${self.render_footer_links()}
-				${self.render_flag_container()}
 			</div>
 		</div>
 	</div>
@@ -113,11 +111,6 @@ ${self.render_html()}
 <%def name="messaging()">
 <div id="messaging_container"><div id="message_container" class="${not h.has_ne_prop(c, '_msgs') and 'hidden' or ''}"><%include file="/messages/standard.html"/></div></div>
 </%def>
-<%def name="render_account_panel()">
-	<div id="accountcontainer">
-		<%include file="/myprofile/login_panel.html"/>
-	</div>
-</%def>
 
 
 <%def name="title()"></%def>
@@ -137,33 +130,20 @@ ${self.render_html()}
 	</script>
 </%def>
 <%def name="google_analytics()">
-	<%include file="widgets/ganalytics.html"/>
+	<%include file="legacy/widgets/ganalytics.html"/>
 </%def>
 
 <%def name="header()">
 	<div id="headercontainer">
-		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/custom_imgs/logo_banner.png"/></a>
-		${self.header_navigation()}
-		${self.create_pool_button()}
+		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/static/legacy/custom_imgs/logo_banner.png"/></a>
+		${self.render_account_panel()}
 	</div>
 </%def>
 
-
-<%def name="create_pool_button()">
-	<div id="home_create_pool_button"><a class="BtnRed" href="${url(controller='pool', action='start')}"><span>${_(u"ALLPAGE_BUTTON_Create a Pool")|n}</span></a></div>
-</%def>
-<%def name="header_navigation()">
-	<ul class="navigation">
-		%for title, path, token, enabled in app_globals.globalnav:
-			%if enabled:
-				<li class="floaterLeft ${(c.navposition==token) and 'selected' or ''}"><a href="${url(*path['args'], **path['kwargs'])}">${_(title)}</a></li>
-			%endif
-		%endfor
-	</ul>
-</%def>
+<%def name="header_navigation()"></%def>
 
 <%def name="fb_meta_tags()">
-		<link rel="image_src" href="/static/imgs/fb_stream_publish_logo.png" />
+		<link rel="image_src" href="/static/legacy/imgs/fb_stream_publish_logo.png" />
 		<meta name="title" content="${_(u"FB_METATAG_TITLE_friendfund.com")|n}" />
 		<meta name="description" content="${_(u"FB_METATAG_DESCRIPTION_friendfund.com - helping you!")|n}" />
 		

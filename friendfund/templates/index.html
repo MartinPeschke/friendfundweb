@@ -1,8 +1,8 @@
 <%inherit file="layout_layer.html"/>
 <%namespace name="links" file="links.html"/>
-<%namespace name="html" file="widgets/html_elems.html"/>
-<%namespace name="forms" file="widgets/forms.html"/>
-<%namespace name="ra_stream" file="widgets/ra_stream.html"/>
+<%namespace name="html" file="legacy/widgets/html_elems.html"/>
+<%namespace name="forms" file="legacy/widgets/forms.html"/>
+<%namespace name="ra_stream" file="legacy/widgets/ra_stream.html"/>
 <%def name="title()">${_("PAGE_INDEX_TITLE_Welcome")}</%def>
 
 <%def name="scripts()">
@@ -77,96 +77,7 @@
 			</tr>
 		</table>
 		</div>
+		<img class="floaterRight" style="margin: 30px 0;position:absolute;right:30px;" src="/static/imgs/powered_by_button.png"/>
 		</form>
 		<div id="button_panel_container">&nbsp;</div>
 	</div>
-	
-
-
-
-
-<%def name="lowerbody()">
-	<div style="clear:both"></div>
-	<div id="lowerbody_container" style="margin-top:30px;padding-bottom:30px;">
-		<div id="fundstream" class="recentactivity">
-			<div class="panel_title">
-					${_(u"PAGE_INDEX_HEADER_Current Pools")}
-			</div>
-			
-			<div class="raheader">
-				<div class="raheadercol col1"><span class="raheadfunders"></span><div>Funders</div></div>
-				<div class="raheadercol col2"><span class="raheadgift"></span><div>Gift</div></div>
-				<div class="raheadercol col3"><span class="raheadrecipient"></span><div>Recipient</div></div>
-			</div>
-		
-			<div id="fundstream_ra">
-				${ra_stream.render_stream_block(c.recent_activity, c.uuid, offset = c.ra_offset)}
-			</div>
-		</div>
-		<div id="successtream">
-			<h4 class="inside">${_(u"PAGE_INDEX_HEADER_Successful Pools")}</h4>
-			
-			<div class="panel_content_no_padding">
-				
-			%if not (session.get("lang") or "").startswith('de'):
-				<div class="successtory_outer">
-				<div class="successtory">
-					<img alt="Edwards Balloon Ride" src="/static/imgs/top_sellers/success/ballon_180.jpg" class="product">
-					<h3>Edwards Balloon Ride</h3>
-					<div><span class="quote">&#8220;</span> Thanks so much to all of you it was truly amazing, an experience we wont forget. Cheers!<span class="quote"><span class="quote">&#8221;</span></span></div>
-					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5Ng~~">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				
-				<div class="successtory_outer">
-				<div class="successtory">
-					<img alt="Fuchs' Karting" src="/static/imgs/top_sellers/success/karting_180.jpg" class="product">
-					<h3>Fuchs' Karting</h3>
-					<div><span class="quote">&#8220;</span>I got to drive this crazy thing. Dont think they will invite me back ;) thanks a lot people.<span class="quote"><span class="quote">&#8221;</span></span></div>
-					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5Nw~~">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				
-				<div class="successtory_outer last">
-				<div class="successtory">
-					<img alt="Lambert's Parachuting" src="/static/imgs/top_sellers/success/parachute_180.jpg" class="product">
-					<h3>Lambert's Parachuting</h3>
-					<div><span class="quote">&#8220;</span>Absolutely loved it. Planning to go back next month! Thanks to all od you especially Megan for organising the whole thing. x<span class="quote">&#8221;</span></div>
-					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjI5OA~~">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				
-				%else:
-				
-				<div class="successtory_outer">
-				<div class="successtory">
-					<img alt="Jennifer's Seil&uuml;bung" src="/static/imgs/top_sellers/success/abseiling_180.jpg" class="product">
-					<h3>Jennifer's Seil&uuml;bung</h3>
-					<div><span class="quote">&#8220;</span>Super lieben Dank f&uuml;r den Abseilkurs, hat mir Riesenspass gemacht! Jederzeit wieder!<span class="quote">&#8221;</span></div>
-					<a class="product_more submitMini" href="http://www.friendfund.com/pool/UC0xMjI5OQ~~">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				
-				<div class="successtory_outer">
-				<div class="successtory">
-					<img alt="Fallschirmspringen" src="/static/imgs/top_sellers/success/ipad_180.jpg" class="product">
-					<h3>Miriam's iPad</h3>
-					<div><span class="quote">&#8220;</span>Bin total in mein iPad verliebt, Tausenddank! Endlich kann ich euch meine Farm zeigen!<span class="quote">&#8221;</span></div>
-					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjMwMQ~~">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				
-				<div class="successtory_outer last">
-				<div class="successtory">
-					<img alt="Angela's Tauch&uuml;bung" src="/static/imgs/top_sellers/success/snorkling_180.jpg" class="product">
-					<h3>Angela's Tauch&uuml;bung</h3>
-					<div><span class="quote">&#8220;</span>Einfach Klasse, liebe das Wasser und das hats echt gebracht. Danke f&uuml;r das traumhafte Geschenk!<span class="quote">&#8221;</span></div>
-					<a class="submitMini" href="http://www.friendfund.com/pool/UC0xMjMwMA~~">&nbsp;&nbsp;&nbsp;<span></span></a>
-				</div>
-				</div>
-				%endif
-			</div>
-		</div>
-		
-	</div>
-</%def>
