@@ -29,6 +29,6 @@ class MypoolsController(BaseController):
 		if c.include_friend is not None:
 			websession['session_vars.include_friend'] = c.include_friend = bool(c.include_friend)
 		else:
-			c.include_friend = websession.get('session_vars.include_friend') or False
+			c.include_friend = websession.get('session_vars.include_friend', True)
 		c.activity = g.dbm.get(GetActivityStreamProc, u_id = c.user.u_id, include_friend = c.include_friend)
 		return self.render('/mypools/stream.html')
