@@ -13,12 +13,13 @@
 			</div>
 			
 			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
-			<div class="floatLeft" style="margin: 5px 10px 15px 0">
+			<div class="floatLeft" style="margin: 3px 10px 0 0">
 			<label for="pool_picture">Upload Picture</label>
 			<input name="pool_picture" id="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
 			</div>
 			<a class="primarySmall floatLeft"  onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>Save</span></a>
 			</form>
+			<p>JPEG, PNG or GIF. MAX FILE SIZE: 5 MB</p>
 			<div class="clear"></div>
 			</div>
         </div>

@@ -25,6 +25,7 @@ div#wrap {
 	width: 100%;
 	height:auto;
 	min-height:100%;
+	background:none repeat scroll 0 0 #F9F9F9
 }
 div.wrapHeader {
 	border-bottom: 1px solid #c7c6c3;
@@ -102,10 +103,10 @@ a {
 	color: white !important
 }
 .link {
-	cursor:pointer;
+	cursor:pointer !important;
 	color: #00BBEA !important;
-	font-size: 11px;
-	font-weight: normal
+	font-size: 11px !important;
+	font-weight: normal !important;
 }
 .activeLink {
 	cursor:default !important;
@@ -594,6 +595,9 @@ div.logoContainer {
 div.logoContainer div.logoContainerRight {
 	float:right
 }
+div.logoContainer div.logoContainerRight img{
+	float:right
+}
 div.logoContainer div.logoContainerLeft {
 	float:left;
 }
@@ -647,15 +651,16 @@ div.homebox span a {
 	color: #b3b3b3;
 }
 div.timeCounter {
-	padding: 0 0 10px 0;
+	padding: 0 0 0 0;
 	display: block;
 	width: 100%;
-	float: left;
 	margin: 30px auto 0 auto;
+	position: relative
 }
 div.subHeader .timeCounter {
 	margin: 0
 }
+
 div.timeCounterRight {
 	border-top-right-radius:10px;
 	border-bottom-right-radius:10px;
@@ -665,15 +670,13 @@ div.timeCounterRight {
 	border-bottom-left-radius:10px;
 	-moz-border-radius-topleft:10px;
 	-moz-border-radius-bottomleft:10px;
-	width: 100%;
-	float: left;
-	height: 15px;
-	background: #adadad
+	height: 10px;
+	background: #adadad;
+	padding: 3px
 }
 div.timeCounterLeft {
-	float: left;
-	height: 15px;
-	background: #6f6f6f;
+	height: 10px;
+	background: #a3f46c;
 	border-top-right-radius:10px;
 	border-bottom-right-radius:10px;
 	-moz-border-radius-topright:10px;
@@ -688,6 +691,8 @@ div.timeCounter span {
 	font-weight: bold;
 	color: #3a3a3a
 }
+div.timeTrackerBig span.floatLeft{ line-height: 16px; margin-left: 5px; font-size: 11px}
+div.timeTrackerBig span.floatRight{line-height: 16px;  font-size: 11px}
 div.boxContributors {
 	background: #f1c8fe;
 	-moz-box-shadow: 0px 1px #d7d7d7;
@@ -696,7 +701,8 @@ div.boxContributors {
 	padding: 0 7px;
 	text-align: center;
 	clear: both;
-	margin: 0 -11px 0 -11px
+	margin: 0 -11px 0 -11px;
+	margin-top: 10px
 }
 div.boxContributors span {
 	color: black;
@@ -738,7 +744,7 @@ div.whatElse .boxGray {
 }
 .boxGray span {
 	color: #666;
-	font-size: 12px;
+	font-size: 11px;
 	display: block
 }
 .grafx {
@@ -798,7 +804,8 @@ div.subUserProfile h2 {
 }
 div.subUserProfile span {
 	display: block;
-	float: left
+	float: left;
+	font-size: 11px
 }
 div.subUserProfile span.admin {
 	display: block;
@@ -808,7 +815,7 @@ div.subUserProfile span.admin {
 div.subTitleUserProfile {
 	float:left;
 	max-width: 800px;
-	margin: 4px 0 0 0;
+	margin: 10px 0 0 0;
 	clear: both
 }
 span.poolClose {
@@ -817,80 +824,84 @@ span.poolClose {
 }
 div.boxPoolDetails {
 	clear: both;
-	padding-top: 5px
 }
 div.timeTracker {
 	width: 210px
 }
+span.percent{position: absolute; width: 30px; left: 50%; float: none !important; text-align: center; font-size: 11px; line-height: 16px; margin-left: -30px}
+div.timeTrackerBig{width: 684px; position: relative; margin-top: 25px; clear: both}
 div.timeTracker span {
 	font-weight: bold;
 	color: #333333
 }
 div.contributors {
 	float:left;
-	width: 180px;
-	height: 45px;
+	height: 35px;
 	position: relative;
 	text-transform: uppercase;
-	color: #4e4e4e
 }
 div.chippedIn {
 	float:left;
-	width: 180px;
-	height: 45px;
+	height: 35px;
 	position: relative;
 	text-transform: uppercase;
-	color: #4e4e4e
 }
 div.outstanding {
 	float:left;
-	width: 180px;
-	height: 45px;
+	height: 35px;
 	position: relative;
 	text-transform: uppercase;
-	color: #4e4e4e
+}
+div.invitees {
+	float:left;
+	height: 35px;
+	position: relative;
+	text-transform: uppercase;
 }
 div.daysLeft {
 	float:left;
-	width: 180px;
-	height: 45px;
+	height: 35px;
 	position: relative;
 	text-transform: uppercase;
-	color: #4e4e4e
 }
+div.heavyMd{ height:3px; line-height: 0; font-size: 0; background-color: #333; float: left; width: 3px; margin: 15px 15px 0 15px}
 div.contributors span {
-	position: absolute;
 	display: block;
-	left: 0;
-	bottom: 0;
-	padding:5px 0 10px 35px;
-	line-height: 12px;
-	background: url(../imgs/contributors-ico.png) left top no-repeat;
+	line-height: 11px;
+	background: url(../imgs/contributors-ico.png) 0px 7px no-repeat;
+	font-size: 11px;
+	line-height: 35px;
+	padding: 0 0 0 25px;
+	color: #8f8f8f
+}
+div.invitees span {
+	display: block;
+	line-height: 11px;
+	font-size: 11px;
+	color: #8f8f8f;
+	line-height: 35px
 }
 div.chippedIn span {
-	position: absolute;
 	display: block;
-	left: 0;
-	bottom: 0;
-	padding:4px 0 10px 20px;
-	line-height: 12px;
-	background: url(../imgs/dollar-ico.png) left 2px no-repeat;
+	line-height: 11px;
+	background: url(../imgs/dollar-ico.png) left 8px no-repeat;
+	font-size: 11px;
+	line-height: 35px;
+	padding: 0 0 0 20px;
+	margin-left: 30px;color: #8f8f8f
 }
 div.outstanding span {
-	position: absolute;
 	display: block;
-	left: 0;
-	bottom: 0;
-	padding:0 0 10px 0;
-	line-height: 12px
+	line-height: 11px;font-size: 11px;color: #8f8f8f; line-height: 35px
 }
 div.daysLeft span {
-	position: absolute;
 	display: block;
-	left: 0;
-	bottom: 0;
-	padding:0 0 10px 0;
-	line-height: 12px
+	line-height: 11px;
+	font-size: 11px;color: #8f8f8f;
+	margin-left: 30px;
+	line-height: 35px;
+	background: url(/static/imgs/calendarSmall.png) 0 10px no-repeat;
+	padding-left: 20px
 }
 div.greyBoxTitle {
 	margin: 20px 0 0 0;
@@ -1000,7 +1011,7 @@ div.subHeadingSpecial {
 .colLeft p {
 	display: block;
 	padding:0 10px 10px 0;
-	font-size: 11px;
+	font-size: 12px;
 	color: #333;
 }
 .colLeft p.general {
@@ -1926,7 +1937,7 @@ div.imgSpacer img {
 p.info {
 	font-size: 11px;
 	color: #999;
-	margin: 5px 0 -5px 160px;
+	margin: 5px 0 -10px 160px;
 	padding:0;
 	line-height: 14px;
 	float: left;
@@ -2036,7 +2047,7 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	padding:5px 0 10px 0!important
 }
 div.error {
-	padding: 15px 0
+	padding: 10px 0
 }
 .colLeft p.error {
 	margin: 3px 0 0 0;
@@ -2377,7 +2388,7 @@ p.inviterTwo {
 	padding:0 10px;
 	cursor: pointer
 }
-.primaryLarge:hover, .primaryButton:hover, .forward:hover, primarySmall:hover {
+.primaryLarge:hover, .primaryButton:hover, .forward:hover, .primarySmall:hover {
 	background:#d30165
 }
 .primaryButton {
@@ -2396,10 +2407,11 @@ p.inviterTwo {
 	padding:0 10px;
 	cursor:pointer;
 }
-.primarySmall {
-	height:25px;
-	line-height:25px;
-	font-size:12px;
+
+div.borderBottom .primaryButton {
+	height:35px;
+	line-height:35px;
+	font-size:16px;
 	color:white;
 	border:1px solid #cb3e7e;
 	background-color: #ff0585;
@@ -2410,7 +2422,24 @@ p.inviterTwo {
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
 	padding:0 10px;
+	width: auto;
 	cursor:pointer;
+}
+.primarySmall {
+	height:25px;
+	line-height:25px;
+	font-size:12px;
+	color:white;
+	background-color: #ff0585;
+	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 1px 1px 1px #960148;
+	display:block;
+	padding:0 10px;
+	cursor:pointer;
+
 }
 .secondary {
 	height:35px;
@@ -2656,8 +2685,14 @@ div.special div.tip {
 }
 .poolRow {
 	background: #eeeeee;
-	padding: 10px;
+	padding: 10px 10px 2px 10px;
 	float: left
+}
+.poolRow div.timeCounterRight {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: none repeat scroll 0 0 #ADADAD;
+    height: 15px;
+    padding: 0;
 }
 .poolRow:hover {
 	background: #e5e5e5
@@ -2704,28 +2739,33 @@ div.special div.tip {
 	padding: 10px 0 0 0
 }
 .poolRow .daysLeft {
-	width: 165px;
 	text-align: left;
 	height: auto;
-	padding: 10px 0 0 10px
+	padding: 0;
+		margin-top: 5px
+}
+
+.poolRow .daysLeft span{
+	padding: 0 0 0 20px !important;
+
 }
 .poolRow .outstanding {
-	width: 165px;
 	text-align: left;
 	height: auto;
-	padding: 10px 0 0 10px
+	padding: 0 0 0 0 ;
+		margin-top: 5px
 }
 .poolRow .chippedIn {
-	width: 165px;
 	text-align: left;
 	height: auto;
-	padding: 10px 0 0 10px
+	padding:0;
+		margin-top: 5px
 }
 .poolRow .contributors {
-	width: 165px;
 	text-align: left;
 	height: auto;
-	padding: 10px 0 0 10px
+	padding: 0 0 0 0;
+	margin-top: 5px
 }
 .fullWidth h4 label {
 	cursor: default;
@@ -2838,38 +2878,46 @@ span.hider:hover div.moreActions {
 }
 .poolRow .boxPoolDetails div span {
 	position: relative;
-	padding: 7px 0 8px 10px;
+	padding: 0 0 0 0;
 	text-align: left;
+	margin-left: 30px
 }
 .poolRow .boxPoolDetails div.contributors span {
 	position: relative;
-	padding: 7px 0 8px 30px;
+	padding: 0 0 0 20px;
 	text-align: left;
 }
 .poolRow .boxPoolDetails div.chippedIn span {
-	padding: 7px 0 8px 15px
+	padding: 0 0 0  20px
 }
 .poolRow .timeCounter {
-	padding: 0 0 5px 0;
-	margin: 15px 0 0 0;
-	position: relative
+	padding: 0 0 0 0;
+	margin: 13px 0 0 0;
+	position: relative;
+}
+.poolRow div.timeCounterLeft {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: none repeat scroll 0 0 #A3F46C;
+    height: 15px;
 }
 .highlight {
 	color: #ff0000
 }
 .poolRow .boxPoolDetails div.timeCounter span {
 	color: #4e4e4e;
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
 	position: absolute;
-	left: 0;
+	left: 50%;
 	top: 0;
 	display: block;
 	text-align: center;
 	padding: 0;
 	display: block;
 	width: 100%;
-	line-height: 15px
+	line-height: 16px;
+	width: 70px;
+	margin-left: -29px
 }
 .moreActions span {
 	color: #999
@@ -2894,6 +2942,7 @@ span.hider:hover div.moreActions {
 	padding: 0 5px;
 	font-size: 11px;
 	color: #333;
+	margin-right: 10px;
 	background-color: #ffd2e8
 }
 .textOne div span {
@@ -2981,10 +3030,17 @@ div.timeCounterSmall span {
 	width: 100%;
 }
 .timeCounterSmall {
-	width: 130px;
+	width: 124px;
 	position: relative;
 	margin-top: 5px;
-	float: left
+	float: left;
+	margin-right: 6px
+}
+.timeCounterSmall div.timeCounterRight {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: none repeat scroll 0 0 #ADADAD;
+    height: 10px;
+    padding: 0px;
 }
 .tenPix {
 	font-size: 10px;
@@ -3019,7 +3075,7 @@ div.timeCounterSmall span {
 	color:#333
 }
 .timeLeft {
-	background: url(/static/imgs/calendar.png) 0 0 no-repeat;
+	background: url(/static/imgs/calendar.png) 0 3px no-repeat;
 	padding-left: 25px
 }
 .colLeft .liner p {
@@ -3415,7 +3471,7 @@ div.weNeed .verticalTip {
 	left: 0
 }
 div.weNeed .verticalTip span {
-	font-size: 18px;
+	font-size: 12px;
 	font-weight: normal;
 }
 .exp {
@@ -3543,3 +3599,65 @@ div.stripe .txtComments p{ font-size: 12px; color: #333}
 .contribMsg li{ width: 190px; float: left; margin-right: 30px; height: 160px; padding-bottom: 40px}
 .contribMsg{ float: left; margin: 20px 0 0 10px; width: 660px; overflow: hidden}
 .tx{ float: left; width: 120px; padding: 0px !important}
+p.second{ padding: 7px 0 0 0; font-size: 12px; float: left; max-width: 600px}
+div.second p, div.second a{ font-size: 12px}
+.special2{ padding-top: 10px !important}
+.megaphon{ background: url(/static/imgs/megaphon.png) 0 0 no-repeat; display: block; padding-left: 35px}
+.poolHead img{   border: 5px solid white;
+    display: block;
+    float: left;
+    margin: 15px 20px 0 0;}
+.poolHead div.subUserProfile h2 {
+    float: left;
+    font-size: 36px;
+    line-height: 36px;
+    margin: 20px 0 0;
+    padding: 0;
+}
+.subSpacer{ width: 100%; padding-bottom: 30px}
+span.btnDef{
+	float:left;
+	background: #f4f4f4;
+	cursor: pointer;
+	-moz-border-radius:3px;
+	-webkit-border-radius: 3px;
+	height: 25px;
+	position: relative;
+	font-weight: bold;
+	color: #9f9f9f;
+	font-size: 12px;
+	margin-right: 20px;
+	margin-top: 2px;
+	display: block;
+	padding: 0  10px;
+	line-height: 25px;
+}
+span.btnDef.active{
+	background: #dddddd;
+	
+}
+span.btnDefMail{ background:#f4f4f4  url(/static/imgs/mailBtn.png) 5px 0 no-repeat !important; padding-left: 35px }
+span.btnDefMail.active{ background:#dddddd  url(/static/imgs/mailBtn.png) 5px -26px no-repeat !important;}
+p.no{ font-size:16px; color: #666; padding-bottom: 20px}
+.noContainer{ padding: 50px 0 50px 0; text-align: center}
+.fixedWidth{max-width: 150px; margin: 0 auto}
+.homebox div.timeCounter span {
+    color: #4E4E4E;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    left: 50%;
+    line-height: 16px;
+    margin-left: -29px;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 70px;
+}
+.transp{ opacity: 0.7; filter: alpha(opacity = 70);
+}
+div.outerPopupFrame .popupPadder p{color: #999999;
+    font-size: 10px;
+    margin-top: 5px;
+    padding: 5px 0 10px 0;}

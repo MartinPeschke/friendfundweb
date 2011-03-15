@@ -86,25 +86,30 @@
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
-		<div class="userProfile">
+		<div class="poolHead">
 			<img src="${c.pool.admin.get_profile_pic('PROFILE_M')}" width="60px" height="60px"/>
 			<div class="subUserProfile">
 				<h2>${c.pool.get_display_title()}</h2>
 				<div class="subTitleUserProfile">
-					<span class="poolClose">${_(u"FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s")%locals} &middot; &nbsp; </span><span class="admin">${_(u"FF_POOL_PAGE_HEADER_by %(admin_name)s")%locals}</span></div>
+					<span class="poolClose">${_(u"FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s")%locals}&nbsp; &nbsp; &middot; &nbsp; &nbsp;</span><span class="admin">${_(u"FF_POOL_PAGE_HEADER_by %(admin_name)s")%locals}</span></div>
 			</div>
-			<div class="boxPoolDetails">
-				<div class="timeTracker floatRight">
+			
+				<div class="timeTracker floatLeft timeTrackerBig">
 					<span class="floatRight">${c.pool.get_display_amount()}</span>
 					<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
+                    <span class="percent">36%</span>
 					<div class="timeCounter">
 						<div class="timeCounterRight" style="width:100%">
 						<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
 						</div>
 					</div>
 				</div>
+                <div class="boxPoolDetails">
 				<div class="contributors"><span><strong>${c.pool.get_number_of_contributors()}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
+                <div class="heavyMd"></div>
+                <div class="invitees"><span><strong>2</strong> Invitees</span></div>
 				<div class="chippedIn"><span><strong>${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+                <div class="heavyMd"></div>
 				<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
 				<div class="daysLeft"><span><strong>${c.pool.get_remaining_days_tuple()[0]}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
 				<div class="clear"></div>

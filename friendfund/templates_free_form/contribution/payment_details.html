@@ -13,6 +13,7 @@
 			});
 		
 		});
+	dojo.query(".popuplink", "creditcardForm").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
@@ -74,14 +75,14 @@
 				</div>
 			</div>
 		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
-		<a href="#">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
+		<a class="popuplink" _href="${url(controller="content", action="pledging_faq")}">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
 		</div>
         
 		<div class="clear"></div>
 	<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
     <div class="borderBottom ">
     
-        <div class="first">Card type</div><img src="/static/imgs/${c.payment_method.code}.png">
+     <div class="first">Card type</div><img src="/static/imgs/${c.payment_method.code}.png">
      </div>
 		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
 			<div class="tip">
@@ -162,7 +163,8 @@
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
 				</div>
-				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" style="width:40px !important" /><a href="#" class="smallForm">${_("FF_CONTRIB_DETAILS_what's this?")}</a>
+				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" style="width:40px !important" />
+					<a class="smallForm popuplink" _href="${url(controller="content", action="what_is_cvc")}">${_("FF_CONTRIB_DETAILS_what's this?")} »</a>
 			</div>
 		</div>
         <div class=" floatRight spacerButtons">
