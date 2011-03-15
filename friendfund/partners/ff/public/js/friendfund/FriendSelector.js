@@ -19,7 +19,7 @@ dojo.declare("friendfund.YourselfSelector", friendfund._Selector, {
 		dojo.mixin(_t, args);
 		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 	},draw : function(_t){
-		xhrPost("/myfriends/validate", {"invitee.network":"yourself"}, dojo.hitch(null, _t._onSelect, _t));
+		xhrPost(_t.base_url+"/validate", {"invitee.network":"yourself"}, dojo.hitch(null, _t._onSelect, _t));
 	},_onSelect : function(_t, data){
 		if(data.success===true){
 			_t.onSelect(_t, data, data.html, null);
@@ -69,7 +69,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	select : function(_t, evt){
 		var tab = dojo.byId("email_email");
 		if(tab && tab.value.length > 0){
-			xhrFormPost("/myfriends/validate", "emailinviter", dojo.hitch(null, _t._onSelect, _t));
+			xhrFormPost(_t.base_url+"/validate", "emailinviter", dojo.hitch(null, _t._onSelect, _t));
 		}
 	},
 	_onSelect : function(_t, data){

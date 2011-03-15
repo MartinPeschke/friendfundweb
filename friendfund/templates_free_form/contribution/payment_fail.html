@@ -33,7 +33,7 @@
 	<p class="small"> Lorem ipsum</p>
 	<div style="margin-top:30px">
 		
-		<a href="#" class="primaryButton floatLeft"  style="margin-right:20px">Try again</a>
+		<a href="${url("payment", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=c.values.get("baseUnits"))}" class="primaryButton floatLeft"  style="margin-right:20px">Try again</a>
 		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
 		<div class="clear"</div>
 	</div>

@@ -1,7 +1,6 @@
 <%!
 	import md5
 %>
-<%namespace name="html" file="../widgets/html_elems.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 
 
@@ -18,7 +17,7 @@
 	<div class="boxSearchFriend" id="inviteheader">
 		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default" />
 		%if mutuals:
-			<span class="mutualToggleContainer"><input id="toggle_mutuals_${network_name}" type="checkbox"/><label for="toggle_mutuals">${_("FF_INVITER_CHECKBOX_Mutual Friends")}</label></span>
+			<span class="mutualToggleContainer"><input id="toggle_mutuals_${network_name}" ${forms.expression_quote(mutuals, "checked")|n} type="checkbox"/><label for="toggle_mutuals">${_("FF_INVITER_CHECKBOX_Mutual Friends")}</label></span>
 		%endif
 		<span class="floatRight inviteAll link" id="inviteall_${network_name}">${_("FF_INVITER_BUTTON_Invite All")}</span>
 	</div>

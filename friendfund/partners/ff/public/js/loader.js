@@ -6,10 +6,15 @@ reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 			dojo.query("img.displayed", rn).addClass("hiddenSpec").removeClass("displayed");
 			if(dojo.byId("pictureCounter")){picCounter+=1;dojo.byId("pictureCounter").innerHTML=picCounter;}
 			rn.insertBefore(dojo.create("IMG", {"class":"allowed displayed", src:data.rendered_picture_url}), rn.firstChild);
+			rn.appendChild(dojo.create("INPUT", {"type":"hidden", value:data.rendered_picture_url, "class":"PURLImgListElem", name:"img_list"}));
 			closePopup();
 		};
+		if(data.success){
 		dojo.byId(intermediate_imgid).src = data.rendered_picture_url;
 		dojo.query("input.hidden", intermediate_imgid.parentNode).removeClass("hidden").onclick(f);
+		} else {
+			alert("Unsupported file type")
+		}
 	};
 };
 
@@ -52,8 +57,8 @@ parseSimpleEditables = function(rootnode){
 							field.value = newval;
 							dojo.empty(root);
 							root.innerHTML = length?newval.substr(0,length):newval;
-							dojo.forEach(_backups, function(elem){root.appendChild(elem);});
 							if(length&&newval.length>length){root.innerHTML=root.innerHTML+"...";}
+							dojo.forEach(_backups, function(elem){root.appendChild(elem);});
 							parseSimpleEditables(rootnode);
 						};
 					evts.push(dojo.connect(editor, "onchange", f));
@@ -359,7 +364,7 @@ var createAppendPicture = function(imgContainer, imgs, preselected){
 
 var pic_judger = function(imgContainer, imgs, preselected, evt){
 	if(dojo.byId("pictureCounter")){
-		if((this.width||this.offsetWidth)<100||(this.height||this.offsetHeight)<75){
+		if((this.width||this.offsetWidth||this.naturalWidth)<100||(this.height||this.offsetHeight||this.naturalHeight)<75){
 			dojo.query(this).orphan();
 		}else{
 			dojo.addClass(this, "allowed");
@@ -420,53 +425,64 @@ var resetParser = function(baseRoot, editnode){
 	dojo.forEach(_localhndlrs, dojo.disconnect);
 	picCounter = 0; accepted = false; _parser_backups = [], _localhndlrs = [];
 	dojo.query(".hideable", baseRoot).removeClass("hidden");
-	dojo.removeClass("homeurlexpander", "home_expander");
+	dojo.query("#homeurlexpander").removeClass("home_expander").addClass("hidden");
 	connectURLParser(baseRoot, editnode);
 }
 
 var loadSuccess = function(baseRoot, editnode, data){
-	dojo.query(".loading", "homeurlexpander").orphan();
+	dojo.empty("homeurlexpander");
 	if(data.success === false){
-		resetParser(baseRoot, "homeurlexpander");
+		resetParser(baseRoot, editnode);
 	} else {
 		var home = dojo.byId("homeurlexpander");
-		dojo.addClass(home, "home_expander");
-		dojo.query(".hideable", baseRoot).addClass("hidden");
 		dojo.place(data.html, home, "only");
 		connectURLP(baseRoot, editnode);
 	}
 };
 var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 	var dn = dojo.byId(editnode), _linkers= [],
-		parseInput = function(elem){
-		if(!dojo.hasClass(elem, "default")){
-				dojo.some(elem.value.split(" "), function(elt){
-				if(urlmatch.test(elt)){
-					var query = elt, url = dojo.attr(elem, "_url");
-						dojo.forEach(_linkers, dojo.disconnect);
-						var div = dojo.create("DIV", {"class":"loading"});
-						div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-						_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
-						dojo.place(div, "homeurlexpander", "last");
-						dojo.removeClass("homeurlexpander", "hidden");
-						extra_params = extra_params||{};
-						extra_params.query = query;
-						dojo.xhrPost({url:url, content:extra_params,
-										handleAs: 'json',
-										load:dojo.hitch(null, loadSuccess, baseRoot, editnode),
-										error: function(){resetParser(baseRoot, editnode)}});
-						return true;
-					}
-				});
+		reconnect = function(){
+			_linkers.push(dojo.connect(dn, "onkeyup", parseInputFromEvt));
+			_linkers.push(dojo.connect(dn, "onpaste", parseInputFromEvt));
+			_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));
+		},
+		parseInput = function(){
+		if(!dojo.hasClass(dn, "default")){
+				var token = dn.value.split(" "), found=false;
+				for(var i=0, len = token.length;i<len;i++){
+					var elt = token[i];
+					if(urlmatch.test(elt)){
+						var query = elt, url = dojo.attr(dn, "_url");
+							dojo.query(".hideable", baseRoot).addClass("hidden");
+							dojo.query("#homeurlexpander").addClass("home_expander").removeClass("hidden");
+							
+							var div = dojo.create("DIV", {"class":"loading"});
+							div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
+							_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
+							dojo.place(div, "homeurlexpander", "last");
+							extra_params = extra_params||{};
+							extra_params.query = query;
+							dojo.xhrPost({url:url, content:extra_params,
+											handleAs: 'json',
+											load:dojo.hitch(null, loadSuccess, baseRoot, editnode),
+											error: function(){resetParser(baseRoot, editnode)}});
+							found = true;
+							break;
+						};
+				}
+				if(!found){reconnect();}
 			};
 		},
-		parseInputFromEvt = function(evt){
-			if(!evt.keyCode||(evt.ctrlKey&&evt.keyCode==86||evt.keyCode==32)){
-				parseInput(evt.target);
+		parseInputFromEvt = function(evt, ename){
+			if(evt.type==="paste"){
+				dojo.forEach(_linkers, dojo.disconnect);_linkers=[];
+				window.setTimeout(parseInput, 200);
+			} else if(!evt.keyCode||(evt.keyCode==32)){
+				dojo.forEach(_linkers, dojo.disconnect);_linkers=[];
+				parseInput();
 			};
+			return evt;
 		};
-	_linkers.push(dojo.connect(dn, "onkeyup", parseInputFromEvt));
-	_linkers.push(dojo.connect(dn, "onpaste", parseInputFromEvt));
-	_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));
+	reconnect();
 	if(parseNow){parseInput(dn);}
 };

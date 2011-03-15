@@ -50,7 +50,7 @@
 	%if streamentry.event._get_root == "SUCCESS":
 				<div class="entryStream">
 					<img src="/static/imgs/succesful.png" title="${_("FF_NEWSSTREAMTYPE_Success")}" class="kind" />
-					<div class="avt">
+					<div class="avt" title="${streamentry.event.name}">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
@@ -78,7 +78,7 @@
 		<% locals["days_left"] = streamentry.event.get_remaining_days_tuple()[0] %>
 				<div class="entryStream">
 					<img src="/static/imgs/chipped.png" title="${_("FF_NEWSSTREAMTYPE_Chipped in")}" class="kind" />
-					<div class="avt">
+					<div class="avt" title="${streamentry.event.name}">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
@@ -126,7 +126,7 @@
 	%elif streamentry.event._get_root == "CREATE_FREE_FORM_POOL":
 				<div class="entryStream">
 					<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
-					<div class="avt">
+					<div class="avt" title="${streamentry.event.name}">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
@@ -176,7 +176,7 @@
 		
 				<div class="entryStream">
 					<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
-					<div class="avt">
+					<div class="avt" title="${streamentry.event.name}">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}">
 					</div>
@@ -226,7 +226,7 @@
 	%elif streamentry.event._get_root == "INVITE":
 				<div class="entryStream">
 					<img src="/static/imgs/invite.png" title="${_("FF_NEWSSTREAMTYPE_Invited")}" class="kind" />
-					<div class="avt">
+					<div class="avt" title="${streamentry.event.name}">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 					</div>
@@ -277,7 +277,7 @@
 	%elif streamentry.event._get_root == "COMMENT":
 		<div class="entryStream">
 			<img src="/static/imgs/comment.png" title="${_("FF_NEWSSTREAMTYPE_Commented")}" class="kind" />
-			<div class="avt">
+			<div class="avt" title="${streamentry.event.name}">
 				<div class="arrowAvatar"></div>
 				<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 			</div>

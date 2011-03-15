@@ -207,7 +207,7 @@
 				%else:
 					${_(u"FF_POOL_PAGE_BODY_Who's invited")}
 				%endif
-				%if locals['no_invitees'] > 20:
+				%if locals['no_invitees'] > len(c.pool.participants):
 					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
 					<a class="hidden floatRight btnViewAll" onclick="showInvitees()" _page="1" id="showAllBtn">${_(u"FF_POOL_PAGE_BODY_Show All")}</a>
 					<a class="hidden floatRight btnViewAll" onclick="hideInvitees()" _page="1" id="hideAllBtn">${_(u"FF_POOL_PAGE_BODY_Hide All")}</a>
@@ -236,11 +236,11 @@
 				</div>
 				%if request.merchant.type_is_group_gift:
 					<div class="recMerch">
-						<div class="avt">
-							<img width="48px" height="48px" alt="Harry McCarney" src="/s/user/ff/ec/ffec818cd181715164d6dc0aceb27fdb_PROFILE_S.jpg">
+						<div class="avt" title="${c.pool.receiver.name}">
+							<img width="48px" height="48px" alt="${c.pool.receiver.name}" src="${c.pool.receiver.get_profile_pic("PROFILE_S")}">
 						</div>
 						<span class="recipient">${_(u"FF_POOL_PAGE_RECIPIENT")}</span>
-						<img src="/static/imgs/dummy/gad.gif" class="merchant" />
+						<img src="/static/imgs/merch/${request.merchant.logo_url}" class="merchant" width="64px"/>
 						<span>${_(u"FF_POOL_PAGE_MERCHANT")}</span>
 					</div>
 				%endif

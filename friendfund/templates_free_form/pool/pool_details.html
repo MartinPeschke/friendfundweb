@@ -23,18 +23,17 @@
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
 	parseEditables("poolDetails");
-	
+	var fmtDate = "M-sp-d-cc-sp-Y";
+	var machineFmtDate = "Y-ds-m-ds-d";
 	var today = new Date();
 	var defaultDateOffset = 14;
 	var defaultDate = new Date(today.getDate() + defaultDateOffset);
 	if(dojo.byId("dateValue").value){
-		defaultDate = new Date(dojo.byId("dateValue").value);
+		defaultDate = new Date(datePickerController.parseDateString(dojo.byId("dateValue").value, machineFmtDate));
 		var displaydate = Math.ceil((defaultDate.getTime()-today.getTime())/(24*3600*1000));
 		if(isNaN(displaydate))displaydate=0;
 		dojo.byId("daysLeft").innerHTML = displaydate;
 	}
-	var fmtDate = "M-sp-d-cc-sp-Y";
-	var machineFmtDate = "Y-ds-m-ds-d";
 	datePickerController.createDatePicker({
 	  formElements:{"datepicker":fmtDate},
 	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
@@ -220,7 +219,7 @@
 							use URL:
 							<input type="text" class="default" _default_text="${_("FF_POOLDETAILS_Examples:www.cnn.com")}" 
 								id="tracking_link_edit" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_POOLDETAILS_Examples:www.cnn.com")}"/>
-							<a class="link" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})" style="margin-top:30px; float:left; display:block; clear:both">${_(u"FF_LINK_or Uplaod a picture")}</a>
+							<a class="link" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})" style="margin-top:30px; float:left; display:block; clear:both">${_(u"FF_LINK_or Upload a picture")}</a>
 						</div>
 						
 					</div>
