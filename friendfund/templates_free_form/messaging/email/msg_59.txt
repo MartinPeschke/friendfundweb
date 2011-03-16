@@ -1,0 +1,17 @@
+Hi ${data['admin_name']},  
+
+Congratulations your friendfund pool for ${data['pool_title']} has reached its target!  
+
+You and your friends collected ${data['target_amount']} for ${data['pool_description']}.  
+
+Check out the [ecard](http://${data['merchant_domain']}/pool/${data['ecard_url']})!  
+
+${data['settlement_option_details']}  
+
+All the best  
+the team @friendfund  
+
+<${data['DEFAULT_BASE_URL']}>  
+The simple and fun way to collect money with your friends.  Create a pool and chip in!  
+
+<%def name="subject()">${data['pool_title']} friendfund pool has reached its target!</%def>   

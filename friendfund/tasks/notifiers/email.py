@@ -37,7 +37,7 @@ def amount(key, data_map):
 def date(key, data_map):
 	return key, data_map[key]
 
-TRANSLATIONS = {"p_url":pool_url}
+TRANSLATIONS = {}
 
 def localize(data_map):
 	result = {}

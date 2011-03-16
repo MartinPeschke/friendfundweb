@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from random import sample
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 
@@ -73,6 +74,12 @@ class MyPoolEntry(DBMappedObject):
 	def funding_progress(self):
 		return self.get_total_contribution_float() / self.get_amount_float()
 	
+	def get_random_n_invitees(self, n):
+		if len(self.friends)>n:
+			return sample(self.friends, n)
+		else:
+			return self.friends[:n]
+
 	def get_product_display_name(self):
 		if self.product_name:
 			return h.word_truncate_plain(self.product_name, 2)

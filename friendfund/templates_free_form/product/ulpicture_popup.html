@@ -4,25 +4,25 @@
 	<div class="whitePopupFrameLarge fixed">
 	<span class="panelcloser panelclosing_x">x</span>
 		<div>
-			<h3 class="borderSmall">Change the Picture</h3>
+			<h3 class="borderSmall">${_("FF_UPLOADPICTUREPOPUP_Change the Picture")}</h3>
 			<div class="popupPadder">
 			<form id="picture_popup_form" method="POST" enctype="multipart/form-data">
 			<div class="upImgCnt">
 			<img src="" class="allowed displayed" id="URLPproductPictureImdt"/>
 			</div>
 			<div class="floatLeft" style="margin: 3px 10px 0 0">
-				<label for="pool_picture">Upload Picture</label>
+				<label for="pool_picture">${_("FF_UPLOADPICTUREPOPUP_Upload Picture")}</label>
 				<input name="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
 			</div>
 			<a class="primarySmall floatLeft" 
 				onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPimgCntSld', 'URLPproductPictureImdt', 'URLPproductPicture'));">
-				<span>Save</span>
+				<span>${_("FF_UPLOADPICTUREPOPUP_Save")}</span>
 			</a>
 			
 			
-			<input type="button" value="Submit" class="transp primarySmall floatLeft" style="margin-left:12px"/>
+			<input type="button" value="${_("FF_UPLOADPICTUREPOPUP_Submit")}" class="transp primarySmall floatLeft" style="margin-left:12px"/>
 			</form>
-			<p>JPEG, PNG or GIF. MAX FILE SIZE: 5 MB</p>
+			<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
 			<div class="clear"></div>
 			</div>
 			

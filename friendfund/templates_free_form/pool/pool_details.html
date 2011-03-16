@@ -60,7 +60,7 @@
 	%if c.values.get('tracking_link'):
 		connectURLP("homeurlexpander");
 	%else:
-		connectURLParser("homeurlexpander", "tracking_link_edit");
+		connectURLParser("homeurlexpander", "tracking_link_edit", false, {upload:'1'});
 	%endif
 	#### check settlementOptions
 	dojo.forEach(document.submissionform.settlementOption, function(elem){if(elem.checked){toggleSettlement(elem);}});
@@ -74,7 +74,7 @@
 </%def>
 
 
-<div class="wrapSubHeader">
+<div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
 		<div class="userProfile">
 			%if c.workflow == "2":

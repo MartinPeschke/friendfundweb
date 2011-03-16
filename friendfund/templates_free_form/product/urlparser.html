@@ -13,6 +13,7 @@
 	%if values.get('name'):
 		<div class="title simpleeditable active">
 			${values['display_name']}
+			<span style="margin:0 0 0 5px" class="link ">Edit</span>
 			<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit">
 		</div>
 	%else:
@@ -24,6 +25,7 @@
 	%if values.get('description'):
 		<div class="desc simpleeditable active">
 			${values['display_description']}
+			<span style="margin:0 0 0 5px" class="link ">Edit</span>
 			<input type="hidden" _type="TEXTAREA" _default_text="default" _length="180" value="${values['description']}" name="product_description" id="product_desc_edit">
 		</div>
 	%else:

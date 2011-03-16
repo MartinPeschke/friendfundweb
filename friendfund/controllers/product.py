@@ -22,7 +22,7 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def open_bounce(self):
-		c.upload = bool(request.params.get("noupload", False))
+		c.upload = bool(request.params.get("upload", False))
 		try:
 			query, product, img_list = g.product_service.set_product_from_open_web(request.params.get('query'))
 		except QueryMalformedException, e:
@@ -50,7 +50,6 @@ class ProductController(BaseController):
 		else:c.product_list = []
 		c.pool = websession['pool']
 		return self.render('/index.html')
-	
 	
 	
 	def picturepopup(self, pool_url):

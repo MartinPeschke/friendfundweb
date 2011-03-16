@@ -3,8 +3,8 @@ from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, D
 
 class PoolHomePageForm(formencode.Schema):
 	allow_extra_fields = True
-	amount = DecimalStringValidator(not_empty=True, min=0.01, max=9999999)
-	title = formencode.validators.String(not_empty=True, max=1024)
+	amount = DecimalStringValidator(min=0.01, max=9999999, if_missing="")
+	title = formencode.validators.String(max=1024, if_missing="")
 
 
 class PoolCreateForm(formencode.Schema):

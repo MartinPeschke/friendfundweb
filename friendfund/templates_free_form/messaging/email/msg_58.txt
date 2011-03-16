@@ -1,0 +1,18 @@
+Hi ${data['admin_name']},  
+
+Congratulations your friendfund pool for ${data['recipeint_name']}’s ${data['event_name']} gift has reached its target!  
+
+We have prepared an ecard with ${data['merchant_name']} coupon ready for you to send to ${data['recipient_name']}.   
+
+<${data['product_url']}>  
+<http://${data['merchant_domain']}/pool/${data['ecard_url']}>  
+${data['coupon']}  
+
+
+All the best  
+the team @friendfund  
+
+<DEFAULT_BASE_URL>  
+The simple and fun way to collect money with your friends.  Create a pool and chip in!  
+
+<%def name="subject()">${data['recipeint_name']}’s ${data['event_name']} friendfund gift pool has reached its target! </%def>  

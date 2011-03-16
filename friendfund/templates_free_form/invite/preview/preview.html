@@ -1,0 +1,26 @@
+<%def name="popupclass()"></%def>
+<%def name="renderLink(link, name)">
+	%if c.method != link:
+		<span class="link message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="${link}">${name}</span>
+	%else:
+		<span>${name}</span>
+	%endif
+</%def>
+<div class="popupBackground dark"></div>
+<div class="outerPopupFrame">
+	<div class="whitePopupFrameLarge ${self.popupclass()} fixed">
+	<span class="panelcloser panelclosing_x">x</span>
+		<div>
+			<h3 class="borderSmall">${_("FF_INVITE_PREVIEW_Preview your Invitations")}</h3>
+			<div class="colRightWhite"></div>
+			<div class="selectSocial">
+				${self.renderLink("facebook", "Facebook")}
+				<span>|</span>
+				${self.renderLink("email", "Email")}
+				<span>|</span>
+				${self.renderLink("twitter", "Twitter")}
+			</div>
+			${next.body()}
+        </div>
+	</div>
+</div>

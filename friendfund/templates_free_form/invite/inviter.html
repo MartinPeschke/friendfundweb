@@ -38,7 +38,7 @@
 		else:
 			mutual_class = "nonmutual"
 	%>
-		<li title="${user_data["name"]}" class="invitee_row ${active and 'selectable' or 'selected'} ${mutual_class}" id="${user_data['network']}_${id}"
+		<li title="${user_data["name"]}" class="invitee_row ${active and 'selectable' or 'selected'} ${mutual_class} network_${user_data['network']}" id="${user_data['network']}_${id}"
 			%if active:
 				pos="${i}" ${h.attrib_keys(user_data)|n}
 			%endif

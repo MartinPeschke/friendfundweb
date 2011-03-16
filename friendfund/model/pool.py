@@ -341,6 +341,12 @@ class Pool(DBMappedObject):
 	def can_i_view(self, user):
 		return self.am_i_member(user) or not self.is_secret
 	
+	def get_random_n_invitees(self, n):
+		try:
+			return random.sample(self.invitees, n)
+		except ValueError, e:
+			return self.invitees
+	
 	def get_require_addresses(self):
 		return self.require_address
 	require_addresses = property(get_require_addresses)

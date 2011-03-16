@@ -30,7 +30,10 @@
 <% locals = {"amount":c.values["amount"], "pool_title":c.pool.title} %>
   <div class="success">
  	<p><img src="/static/imgs/checked.png" style="margin-right:5px" />${_("FF_CONTRIB_SUCCESS_You've contributed %(amount)s to %(pool_title)s.")%locals|n}</p> 
- 	<p class="small">Lorem ipsum</p>
+ 	<p class="small">${_("FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive shortly.")}</p>
+	%if c.show_delay:
+		<p class="small">${_("FF_PAYMENT_SUCCESS_The payment will show up in a few minutes.")}</p>
+	%endif
 	<div style="margin-top:30px">
 		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="primaryButton floatLeft" style="margin-right:20px">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
 		<a href="${url("pool_details", protocol="http", v=2)}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>

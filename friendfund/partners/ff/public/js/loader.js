@@ -5,28 +5,48 @@ reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 			dojo.byId(persisterid).value=data.rendered_picture_url;
 			dojo.query("img.displayed", rn).addClass("hiddenSpec").removeClass("displayed");
 			if(dojo.byId("pictureCounter")){picCounter+=1;dojo.byId("pictureCounter").innerHTML=picCounter;}
+			if(dojo.byId("pictureCounterPos")){dojo.byId("pictureCounterPos").innerHTML=1;}
 			rn.insertBefore(dojo.create("IMG", {"class":"allowed displayed", src:data.rendered_picture_url}), rn.firstChild);
 			rn.appendChild(dojo.create("INPUT", {"type":"hidden", value:data.rendered_picture_url, "class":"PURLImgListElem", name:"img_list"}));
 			closePopup();
 		};
 		if(data.success){
 		dojo.byId(intermediate_imgid).src = data.rendered_picture_url;
-		dojo.query("input.hidden", intermediate_imgid.parentNode).removeClass("hidden").onclick(f);
+		dojo.query("input.transp", intermediate_imgid.parentNode).removeClass("transp").onclick(f);
 		} else {
 			alert("Unsupported file type")
 		}
 	};
 };
+findParent = function(rootnode, className){
+	if(dojo.hasClass(rootnode, className)){return rootnode;}
+	else if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className);}
+	else {return null}
+}
+addClassToParent = function(rootnode, className, addClass){
+	var node = findParent(rootnode, className);
+	if(node){dojo.addClass(node, addClass);}
+}
+remClassFromParent = function(rootnode, className, remClass){
+	var node = findParent(rootnode, className);
+	if(node){dojo.removeClass(node, remClass);}
+}
 
-parseSelectables = function(rootnode, className){
-	var classes = className||"borderBottom";
-	var a = function(evt){evt&&addClassToParent(evt.target, classes, "selected");},
-		r = function(evt){evt&&remClassFromParent(evt.target, classes, "selected");};
-	dojo.byId(rootnode).onfocusin = a;
-	dojo.byId(rootnode).onfocusout = r;
+parseSelectables = function(rootnode, parentClass, selectedName){
+	var parentClass = parentClass||"borderBottom";
+	var selectedName = selectedName||"selected";
+	var a = function(evt){
+			evt&&addClassToParent(evt.target, parentClass, selectedName);
+		},
+		r = function(evt){
+			evt&&remClassFromParent(evt.target, parentClass, selectedName);
+		};
 	if(dojo.isIE===undefined){
 		dojo.byId(rootnode).addEventListener('focus',a,true);
 		dojo.byId(rootnode).addEventListener('blur',r,true);
+	} else {
+		dojo.connect(dojo.byId(rootnode), "onfocusin", a);
+		dojo.connect(dojo.byId(rootnode), "onfocusout", r);
 	}
 };
 
@@ -120,7 +140,7 @@ displayPopup = function(html){
 	var i = dojo.query("input", "generic_popup");
 	if(i.length>0){i[0].focus()};
 };
-loadPopup = function(evt){closePopup(evt);xhrPost(dojo.attr(this, "_href"), {});};
+loadPopup = function(evt, params){closePopup(evt);xhrPost(dojo.attr(evt.target, "_href"), params || {});};
 clear_messages = function(){destroyPopup("message_container");};
 destroyPopup = function(nodeid) {
 	var node = dojo.byId(nodeid);
@@ -153,20 +173,6 @@ onLoadPagelets = function(root_node){
 			loadElement(dojo.attr(elem, 'pagelet_href'), elem, {}, null, 'Get');
 		});
 };
-
-findParent = function(rootnode, className){
-	if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className);}
-	else if(dojo.hasClass(rootnode, className)){return rootnode;}
-	else {return null}
-}
-addClassToParent = function(rootnode, className, addClass){
-	var node = findParent(rootnode, className);
-	if(node){dojo.addClass(node, addClass);}
-}
-remClassFromParent = function(rootnode, className, remClass){
-	var node = findParent(rootnode, className);
-	if(node){dojo.removeClass(node, remClass);}
-}
 
 place_element = function(node, callback){
 	return function(data){
@@ -425,7 +431,7 @@ var resetParser = function(baseRoot, editnode){
 	dojo.forEach(_localhndlrs, dojo.disconnect);
 	picCounter = 0; accepted = false; _parser_backups = [], _localhndlrs = [];
 	dojo.query(".hideable", baseRoot).removeClass("hidden");
-	dojo.query("#homeurlexpander").removeClass("home_expander").addClass("hidden");
+	dojo.query("#homeurlexpander").removeClass("home_expander");
 	connectURLParser(baseRoot, editnode);
 }
 

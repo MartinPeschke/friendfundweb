@@ -77,16 +77,15 @@
 					</div>
 				</div>
 				
-				%if friends_pool:
-					<div class="vertSpacer">
-						<span>${_("FF_MYPOOLS_IN THIS POOL")}</span>
-						%for friend in pool.friends[:3]:
-						<div class="smallestImgWrap" title="${friend.name}">
-							<img width="24px" height="24px" src="${friend.get_profile_pic("PROFILE_S")}"/>
-						</div>
-						%endfor
+				<div class="vertSpacer">
+					<span>${_("FF_MYPOOLS_IN THIS POOL")}</span>
+					%for friend in pool.get_random_n_invitees(3):
+					<div class="smallestImgWrap" title="${friend.name}">
+						<img width="24px" height="24px" src="${friend.get_profile_pic("PROFILE_S")}"/>
 					</div>
-				%elif not pool.is_admin and pool.invitor_name:
+					%endfor
+				</div>
+				%if not pool.is_admin and pool.invitor_name:
 						<div class="vertSpacer">
 							<span>${_("FF_MYPOOLS_INVITED BY")}</span>
 							<div class="smallestImgWrap" title="${pool.invitor_name}">

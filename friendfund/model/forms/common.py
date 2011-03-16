@@ -53,7 +53,9 @@ class CurrencyValidator(formencode.FancyValidator):
 		return value
 
 class DecimalValidator(formencode.FancyValidator):
-	messages = {"invalid_amount":_("MONETARYVALIDATOR_Please input a valid amount")}
+	messages = {"invalid_amount":_('MONETARYVALIDATOR_Please input a valid amount'),
+				"amount_too_high":_("Please enter a number that is %(max_amount)s or smaller")
+			}
 	def _to_python(self, value, state):
 		try:
 			value = parse_decimal(value, locale = websession['lang'])
@@ -62,7 +64,7 @@ class DecimalValidator(formencode.FancyValidator):
 		except NumberFormatError, e:
 			raise formencode.Invalid(self.message("invalid_amount", state, value = value), value, state)
 		except ValueError, e:
-			raise formencode.Invalid(self.message("amount_too_high", state, max_amount = format_currency(self.max, state.currency, locale=websession['lang'])), value, state)
+			raise formencode.Invalid(self.message("amount_too_high", state, max_amount = format_decimal(self.max, locale=websession['lang'])), value, state)
 		else: return value
 
 class DecimalStringValidator(DecimalValidator):

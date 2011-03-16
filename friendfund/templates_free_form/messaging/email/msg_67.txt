@@ -1,0 +1,22 @@
+Hi ${data['contributor_name']},  
+
+Congratulations, we collected ${data['contribution_amount']} for ${data['pool_title']}.  
+
+Unfortunately time is up, our friendfund pool has expired without reaching the target of ${data['target_amount']}.   
+
+As our pool was “All or Nothing” your PayPal contribution has now been refunded.  
+
+${data['refund_date']}   
+${data['chip_in_amount']}   
+${data['PayPal_account']}   
+
+Check out all the messages and contributions: <http://${data['merchant_domain']}/pool/${data['p_url']}>    
+Better luck next time!  
+
+All the best   
+${data['admin_name']}  
+
+${data['DEFAULT_BASE_URL']}  
+The simple and fun way to collect money with your friends.  Create a pool and chip in!  
+
+<%def name="subject()">${data['pool_title']} friendfund pool has closed</%def>       

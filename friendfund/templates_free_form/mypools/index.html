@@ -26,10 +26,12 @@
 	</div>
 </div>
 <div class="content fullWidth" id="myPoolsBody">
-	<div class="noContainer">
-    	<p class="no">You haven't created any Pools yet.</p>
-    	<a href="#" class="primaryButton fixedWidth">Create a Pool</a>
-    </div>
+	%if len(c.my_pools.pools) == 0:
+		<div class="noContainer">
+			<p class="no">${_("FF_MYPOOLS_You haven't created any Pools yet.")}</p>
+			<a href="${self.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
+		</div>
+	%else:
 	<h4>${_("FF_MYPOOLS_Pools I've Created")}
 	####<!--<div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div>-->
 	</h4><div class="subHeading omega"></div>
@@ -43,5 +45,6 @@
 	%for pool in c.my_pools.nonadmin_pools:
 		${common.render_pool_card(pool, False)|n}
 	%endfor
+	%endif
 <div class="clear"></div>
 </div>

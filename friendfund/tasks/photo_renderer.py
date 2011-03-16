@@ -94,9 +94,9 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 		p.wait()
 	return 1
 
-def save_render(fname_src, fname_dest, target_w=380, target_h=300, gravity = "Center"):
+def save_render(fname_src, fname_dest, target_w=190, target_h=150, gravity = "Center"):
 	crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
-					'-resize', '%sx%s>' % (target_w, target_h),\
+					'-resize', '%sx%s' % (target_w, target_h),\
 					'-gravity', gravity, '-filter','Lanczos',
 					'-extent', '%sx%s' % (target_w, target_h), str(fname_dest)]
 	retcode = subprocess.call(crop_command)
@@ -122,7 +122,7 @@ def render_product_pictures(newfname, tmpfname):
 			newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 			newfname = os.path.join(newpath, newfname)
 			sizes.append((tmpfname, newfname, target_w,target_h))
-		crop_resize_original(sizes)
+		crop_resize_original(sizes, True)
 		return newurl
 	finally:
 		os.unlink(tmpfname)

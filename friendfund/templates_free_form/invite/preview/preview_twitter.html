@@ -1,32 +1,15 @@
-<div class="popupBackground dark"></div>
-<div class="outerPopupFrame">
-	<div class="whitePopupFrameLarge  fixed">
-	<span class="panelcloser panelclosing_x">x</span>
-		<div>
-        	<h3 class="borderSmall">Preview your Invitations</h3>
-            <div class="colRightWhite"></div>
-            <div class="selectSocial">
-            	<span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'facebook'})">Facebook</span>
-                <span>|</span>
-                <span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'email'})">Email</span>
-                <span>|</span>
-                <span>Twitter</span>
-            </div>
-            <div class="popupPadder">
-            	<p style="padding:0">Twitter friends will receive a Twitter @message </p>
-                <div class="twitterPreview">
-                	<img src="/static/imgs/dummy/eggdummy.png" class="floatLeft" />
-                	<div class="twit">
-                    	<span class="bold"> &lt;YourTwitterProfile&gt; </span><br />
-                        @<span class="bold">Invitee</span>:  Help chip in for <span>&lt;pool_title&gt;</span> @friendfund <br />
-<span>&lt;pool_short_url&gt; #friendfundit</span>
-                    </div>
-                    <div class="clear"></div>
-                    
-                </div>
-                <span style="margin: 30px 0pt 20px;" class="panelcloser floatLeft primarySmall clear">Close</span>
-                <div class="clear"></div>
-			</div>
-        </div>
+<%inherit file="preview.html"/>
+<div class="popupPadder">
+<p style="padding:0">${_("FF_INVITE_PREVIEW_Twitter friends will receive a Twitter @message")}</p>
+<div class="twitterPreview">
+	<img src="/static/imgs/dummy/eggdummy.png" class="floatLeft" />
+	<div class="twit">
+		<span class="bold"> &lt;YourTwitterProfile&gt; </span><br />
+		@<span class="bold">Invitee</span>:  Help chip in for <span>&lt;${c.subject}&gt;</span> @friendfund <span>&lt;http://j.mp/34df3&gt; #friendfundit</span>
 	</div>
+	<div class="clear"></div>
+	
+</div>
+<span style="margin: 30px 0pt 20px;" class="panelcloser floatLeft primarySmall clear">${_("FF_INVITE_PREVIEW_Close")}</span>
+<div class="clear"></div>
 </div>

@@ -2,7 +2,7 @@
 FriendFund Notification Service, the only commandline argument should be the paster config file.
 i.e. invoke as: python friendfund/tasks/notifier.py -f development.ini
 """
-import logging, time, sys, getopt, os
+import logging, time, sys, getopt, os, datetime
 from lxml import etree
 from xml.sax.saxutils import quoteattr
 from friendfund.tasks import get_db_pool, get_config, Usage
@@ -100,6 +100,7 @@ def main(argv=None):
 				rcpt_data = msg_data.find("RECIPIENT").attrib
 				template_data = msg_data.find("TEMPLATE").attrib
 				template_data["DEFAULT_BASE_URL"] = ROOT_URL
+				template_data["today"] =datetime.datetime.today().strftime("%d.%m.%Y")
 				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
 				for k in L10N_KEYS:
 					if k in template_data and template_data[k]:

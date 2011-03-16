@@ -87,7 +87,7 @@ class InviteController(ExtBaseController):
 	def _return_to_input(self, invitees):
 		c.enforce_blocks = True
 		c.invitees = {}
-		
+		c.messages.append(ErrorMessage(_("FF_INVITE_PAGE_ERRORBAND_Please fill in below values correctly.")))
 		for inv in invitees:
 			netw = inv['network'].lower()
 			invs = c.invitees.get(netw,{})
@@ -131,7 +131,7 @@ class InviteController(ExtBaseController):
 				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
 				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
 		if perms_required:
-			log.error("PERMS_REQUIRED, ###TODO: Implement!!!")
+			log.error("PERMS_REQUIRED, ###TODO: deprecated!!!")
 			return self._return_to_input(invitees)
 		
 		if invitees:
@@ -156,10 +156,12 @@ class InviteController(ExtBaseController):
 	
 	@jsonify
 	def preview(self, pool_url):
-		method = request.params.get("method")
-		if method=="email":
+		c.method = request.params.get("method") or "facebook"
+		c.subject = request.params.get("subject")
+		c.message = request.params.get("message")
+		if c.method=="email":
 			return  {"popup":self.render("/invite/preview/preview_email.html").strip()}
-		elif method=="twitter":
+		elif c.method=="twitter":
 			return  {"popup":self.render("/invite/preview/preview_twitter.html").strip()}
 		else:
 			return  {"popup":self.render("/invite/preview/preview_facebook.html").strip()}

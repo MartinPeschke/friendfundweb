@@ -1,40 +1,24 @@
-<div class="popupBackground dark"></div>
-<div class="outerPopupFrame">
-	<div class="whitePopupFrameLarge  fixed">
-	<span class="panelcloser panelclosing_x">x</span>
-		<div>
-        	<h3 class="borderSmall">Preview your Invitations</h3>
-            <div class="colRightWhite"></div>
-            <div class="selectSocial">
-            	<span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'facebook'})">Facebook</span>
-                <span>|</span>
-                <span>Email</span>
-                <span>|</span>
-                <span class="link" onclick="xhrPost('${url(controller="invite", pool_url = c.pool.p_url, action="preview")}', {method:'twitter'})">Twitter</span>
-            </div>
-            <div class="popupPadder">
-            	<p style="padding:0">Friends will be emailed an invitation with a link to your Pool. </p>
-                <div class="emailPreview">
-                	<div class="emailHead">
-                    	<img src="/static/imgs/emailBtn.png" class="floatRight" />
-                    	<div class="emailDetail">
-                        	<div><span class="bold">To: </span><span>Joe</span></div>
-                            <div><span class="bold">Subject: </span><span>Jane needs a perfect gift</span></div>
-                            <div><span class="bold">Date: </span><span>10 November</span></div>
-                        </div>
-                    </div>
-                        <div class="emailBody">
-                        	<p>Hi Joe, <br /><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel metus id leo auctor mattis. Maecenas mollis tempus tortor ut vulputate. Maecenas arcu dui, fringilla vitae dignissim eu, eleifend sit amet nibh. Integer varius eros scelerisque est interdum sit amet congue enim consequat.<br><br>
-                        	Go to the gift pool : <a href="#">http://blablabla</a>
-                        	</p>
-                        	<p>Thank you</p>
-                        	<p class="bold">Your Name</p>
-                        </div>
-                        
-                    </div>
-                    <span style="margin: 30px 0pt 20px;" class="panelcloser floatLeft primarySmall clear">Close</span>
-                    <div class="clear"></div>
-                </div>
-			</div>
-        </div>
+<%inherit file="preview.html"/>
+<div class="popupPadder">
+<p style="padding:0">${_("FF_INVITE_PREVIEW_Friends will be emailed an invitation with a link to your Pool.")} </p>
+<div class="emailPreview">
+	<div class="emailHead">
+		<img src="/static/imgs/emailBtn.png" class="floatRight" />
+		<div class="emailDetail">
+			<div><span class="bold">To: </span><span>Joe</span></div>
+			<div><span class="bold">Subject: </span><span>${c.subject}</span></div>
+			<div><span class="bold">Date: </span><span>${h.format_date(c.pool.expiry_date)}</span></div>
+		</div>
 	</div>
+		<div class="emailBody">
+			<p>Hi Joe, <br /><br>${c.message}<br><br>
+			Visit the gift pool at : <a href="#">${url("get_pool", pool_url = c.pool.p_url, protocol="http")}</a>
+			</p>
+			<p>Thank you</p>
+			<p class="bold">${c.user.name}</p>
+		</div>
+		
+	</div>
+<span style="margin: 30px 0pt 20px;" class="panelcloser floatLeft primarySmall clear">${_("FF_INVITE_PREVIEW_Close")}</span>
+<div class="clear"></div>
+</div>

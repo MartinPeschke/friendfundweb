@@ -36,7 +36,7 @@ class PaymentController(ExtBaseController):
 	@logged_in(ajax=False)
 	def details(self, pool_url):
 		c.payment_methods = g.payment_methods
-		details = formencode.variabledecode.variable_decode(request.params).get('payment', None)
+		details = formencode.variabledecode.variable_decode(request.params).get('payment', {})
 		details['agreedToS'] = details.get('agreedToS', False)  #if_missing wouldnt evaluate, and if_empty returns MISSING VALUE error message, both suck bad
 		schema = PaymentConfForm()
 		schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
@@ -50,11 +50,12 @@ class PaymentController(ExtBaseController):
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}
+			c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below")))
 			return self.render('/contribution/contrib_screen.html')
 		else:
 			c.values = form_result
 			if checkadd_block('email'):
-				c.messages.append(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!'))
+				c.messages.append(ErrorMessage(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!')))
 				c.enforce_blocks = True
 				return self.render('/contribution/contrib_screen.html')
 			elif not c.pool.am_i_member(c.user):
@@ -69,13 +70,13 @@ class PaymentController(ExtBaseController):
 			try:
 				return g.payment_methods_map[contrib.paymentmethod_code].process(c, contrib, c.pool, self.render, redirect)
 			except (UnsupportedPaymentMethod, KeyError), e:
-				c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+				c.messages.append(ErrorMessage(_("CONTRIBUTION_PAGE_Unknown Payment Method")))
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 			except DBErrorDuringSetup, e:
-				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed."))
+				c.messages.append(ErrorMessage(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later. Your payment has not been processed.")))
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 			except DBErrorAfterPayment, e:
-				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
+				c.messages.append(ErrorMessage(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later")))
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 	
 	@logged_in(ajax=False)
@@ -84,12 +85,12 @@ class PaymentController(ExtBaseController):
 		### Establishing correctnes of Flow and getting colateral Info
 		c.form_secret = request.params.get('token')
 		if not c.form_secret:
-			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+			c.messages.append(ErrorMessage(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed.")))
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		try:
 			c.contrib_view = synclock.get_contribution(c.form_secret, c.user) # raises TokenIncorrectException
 		except synclock.TokenIncorrectException, e:
-			c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed."))
+			c.messages.append(ErrorMessage(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed.")))
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		
 		
@@ -115,7 +116,7 @@ class PaymentController(ExtBaseController):
 			except formencode.validators.Invalid, error:
 				c.values.update(error.value)
 				c.errors = error.error_dict or {}
-				c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_VALIDATION_Please fill in all fields correctly!")))
+				c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_VALIDATION_ERRORBAND_Please fill in all fields correctly!")))
 				return self.render('/contribution/payment_details.html')
 			except AssertionError, e:
 				c.values = cc
@@ -156,6 +157,7 @@ class PaymentController(ExtBaseController):
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}
+		c.show_delay = False
 		return self.render('/contribution/payment_success.html')
 	
 	@logged_in(ajax=False)
@@ -169,6 +171,7 @@ class PaymentController(ExtBaseController):
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}
+		c.show_delay = False
 		return self.render('/contribution/payment_fail.html')
 	
 	@logged_in(ajax=False)
@@ -189,6 +192,8 @@ class PaymentController(ExtBaseController):
 		
 		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = merchantReference)
 		
+		c.show_delay = paymentmethod.has_result_delay
+		
 		if c.contrib:
 			c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
 						, "baseUnits" : c.contrib.amount
@@ -196,7 +201,6 @@ class PaymentController(ExtBaseController):
 						, "is_secret":c.contrib.is_secret
 						, "message":c.contrib.message
 						}
-		c.show_delay = paymentmethod.has_result_delay
 		if request.params.get('authResult') == 'AUTHORISED':
 			return self.render('/contribution/payment_success.html')
 		else:

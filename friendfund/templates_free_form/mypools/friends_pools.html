@@ -29,9 +29,16 @@
 	</div>
 </div>
 <div class="content fullWidth">
+	%if len(c.my_pools.pools) == 0:
+		<div class="noContainer">
+			<p class="no">${_("FF_MYPOOLS_Your friends haven't created any Pools yet, to which you are not invited.")}</p>
+			<a href="${self.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
+		</div>
+	%else:
 ####<!--<h4 style="padding-top:0px" class="subHeading"><div class="floatRight"><label>Sort by:</label><select></select></div></h4>-->
-	%for pool in c.my_pools.pools:
-		${common.render_pool_card(pool, True)|n}
-	%endfor
-	<div class="clear"></div>
+		%for pool in c.my_pools.pools:
+			${common.render_pool_card(pool, True)|n}
+		%endfor
+		<div class="clear"></div>
+	%endif
 </div>

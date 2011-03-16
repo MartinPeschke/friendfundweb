@@ -2,10 +2,64 @@
 <html>
 <head>
 ${links.css('site.css')}
+
+<style type="text/css">
+div.homebox {
+	width: auto;
+	float: none;
+	border: 1px solid #d7d7d7;
+	padding: 9px 9px 0;
+	margin: 0
+}
+</style>
+
+
 </head>
 <body>
+<div>
+<div class="homebox">
+	<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
+		"admin_name":c.pool.admin.name,
+		"total_amount":c.pool.get_display_amount(),
+		"days_left":c.pool.get_remaining_days_tuple()[0],
+		"no_contributors":c.pool.total_contributors
+		}
+	%>
 
-WHOERL!!!!!!!!
 
+	<h5>${c.pool.title}</h5>
+	<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
+	<div class="timeCounter">
+		<% progress = int(c.pool.funding_progress()*100) %>
+		<span>
+		%if c.pool.is_closed():
+			${_("FF_MYPOOLS_SUCCESFUL")}
+		%else:
+			${progress}%
+		%endif
+		</span>
+		<div style="width: 100%" class="timeCounterRight">
+			<div style="width: ${c.pool.funding_progress()*100}%" class="timeCounterLeft ${c.pool.is_closed() and "green" or ""}"></div>
+		</div>
+	</div>
+	
+	<div class="boxContributors">
+		<span class="upper"><strong>${locals['no_contributors']}</strong>${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
+		<span class="middot"> &middot; </span>
+		<span class="upper"><strong>${locals['days_left']}</strong>${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
+	</div>
+	<div class="fbHolder">
+		
+		%for pu in c.pool.get_random_n_invitees(5):
+			<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
+		%endfor
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="popupBtnCont">
+	<a class="btnChipIn tertiary" href="${url("get_pool", pool_url=c.pool.p_url)}">${_("FF_WIDGET_POPUP_Chip In")}</a>
+</div>
+<div class="clear"></div>
+</div>
 </body>
 </html>

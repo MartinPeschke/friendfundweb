@@ -108,18 +108,20 @@ class PoolController(ExtBaseController):
 		except:
 			pass
 		c.parser_values = self._determine_product(tracking_link)
-		if c.workflow == "1" and (request.params.get("amount") or request.params.get("title")):
-			try:
-				mini_pool_schema = PoolHomePageForm().to_python(request.params)
-			except formencode.validators.Invalid, error:
-				c.errors = error.error_dict or {}
-				c.values.update(error.value)
-			else:
-				c.values.update(mini_pool_schema)
+		try:
+			mini_pool_schema = PoolHomePageForm().to_python(request.params)
+		except formencode.validators.Invalid, error:
+			c.errors = error.error_dict or {}
+			c.values.update(error.value)
+		else:
+			c.values.update(mini_pool_schema)
 		if isinstance(c.values.get('title'),basestring) and isinstance(c.values.get('tracking_link'), basestring) \
 			and c.values['title'].strip() in c.values.get('tracking_link'):
 			 c.values['title'] = None
-
+		
+		
+		if c.errors:
+			c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
 		return self.render('/pool/pool_details.html')
 	
 	@logged_in()
@@ -143,7 +145,6 @@ class PoolController(ExtBaseController):
 			try:
 				c.pool = g.pool_service.create_free_form()
 			except formencode.validators.Invalid, error:
-				print error.value
 				tracking_link = request.params.get("tracking_link")
 				c.parser_values = self._determine_product(tracking_link)
 				c.currencies = sorted(g.country_choices.currencies)
@@ -158,6 +159,7 @@ class PoolController(ExtBaseController):
 					c.values['date'] = datetime.datetime.strptime(c.values['date'], "%Y-%m-%d")
 				except:
 					pass
+				c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
 				return self.render('/pool/pool_details.html')
 		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)
