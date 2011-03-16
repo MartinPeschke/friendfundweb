@@ -15,7 +15,11 @@ class Profile(DBMappedObject):
 			]
 	def get_profile_pic(self, type="RA"):
 		return h.get_user_picture(self.profile_picture_url, type)
-
+	
+	def fromDB(self, xml):
+		self.network = self.network.lower()
+	
+	
 class GetMyProfileProc(DBMappedObject):
 	"""
 		[app].[get_my_profile] '<USER u_id="3540"/>'
@@ -30,7 +34,7 @@ class GetMyProfileProc(DBMappedObject):
 	_get_proc = _set_proc = "app.get_my_profile"
 	_unique_keys = ['u_id']
 	_keys = [GenericAttrib(int, 'u_id', 'u_id')
-			,DBMapper(Profile, 'profiles', 'PROFILE', is_dict = True, dict_key = lambda x: x.network.lower())
+			,DBMapper(Profile, 'profiles', 'PROFILE', is_dict = True, dict_key = lambda x: x.network)
 			]
 
 class SetDefaultProfileProc(DBMappedObject):

@@ -37,16 +37,11 @@ class SignupForm(formencode.Schema):
 
 class MyProfileForm(formencode.Schema):
 	allow_extra_fields = True
-	filter_extra_fields = True
 	
 	is_default = formencode.validators.String()
 	
-	name = formencode.validators.String()
-	email =  formencode.validators.Email(min=5, max = 255, resolve_domain=True)
-	# current_pwd = PWDValidator(not_empty=False, min=5, max = 255)
-	pwd = PWDValidator(not_empty=False, min=5, max = 255)
-	pwd_confirm = PWDValidator(not_empty=False, min=5, max = 255)
-	chained_validators = [formencode.validators.FieldsMatch('pwd','pwd_confirm')]
+	name = formencode.validators.String(not_empty=True)
+	email =  formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
 	
 class ShippingAddressForm(formencode.Schema):
 	allow_extra_fields = True

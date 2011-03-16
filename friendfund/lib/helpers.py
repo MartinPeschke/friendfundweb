@@ -30,8 +30,14 @@ def contains_one(arr, map):
 def contains_one_ne(map, arr):
 	for k in arr:
 		if map.get(k):
+			print k, map.get(k)
 			return True
 	return False
+def contains_all_ne(map, arr):
+	for k in arr:
+		if not map.get(k):
+			return False
+	return True
 
 
 def decode_unique_token(token):

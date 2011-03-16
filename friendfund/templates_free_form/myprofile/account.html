@@ -9,11 +9,12 @@
 
 <%def name="onloadscripts()">
 	dojo.query(".btnDef", "myProfile").onclick(function(evt){
-		var elem = findParent(evt.target, "btnDef");
+		var elem = findParent(evt.target, "btnDef"),  network = dojo.attr(elem, "_network");
 		dojo.query(".hideable:not(.hidden)", "myProfile").addClass("hidden");
-		dojo.query(".hideable.networkDefaultAccount"+dojo.attr(elem, "_network")).removeClass("hidden");
+		dojo.query(".hideable.networkDefaultAccount"+network).removeClass("hidden");
 		dojo.query(".btnDef.active", "myProfile").removeClass("active");
-		dojo.addClass(elem, "active")
+		dojo.addClass(elem, "active");
+		document.accountForm.is_default.value = network;
 	});
 	
 	
@@ -43,50 +44,59 @@
 	<h4>${_("FF_ACCOUNT_Default Account")}
 		####<span class="link floatRight">${_("FF_ACCOUNT_Edit")}</span>
 	</h4>
-	
-	<div class="subHeading"></div>
-    <div class="borderBottom">
-				<div class="greyInsideFullWidth">
-					<div class="subSpacer bold">
-					<div class="first">
-						&nbsp;
-					</div>
-				   ${_("FF_ACCOUNT_ Choose how you want to be identified on this site.")}
-					</div>
-					<div class="first">
-						<span>${_("FF_ACCOUNT_Default Account")}</span>
-					</div>
-					<span class="btnDef ${c.default == 'facebook' and 'active' or ''}" _network="Facebook" ><img align="left" src="/static/imgs/fb-icon.png" style="margin:4px 5px 0 0">Facebook</span>
-                    <span class="btnDef ${c.default == 'twitter' and 'active' or ''}" _network="Twitter" ><img align="left" src="/static/imgs/twitter-icon.png" style="margin:4px 5px 0 0">Twitter</span>
-                    <span class="btnDef btnDefMail ${c.default == 'email' and 'active' or ''}" _network="Email" >Mail</span>
+	<form action="${url(controller="myprofile", action="save")}" method="post" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="onSubmitCleaner(this);">
+		<input type="hidden" name="is_default" id="is_default" value="${c.values.get("is_default")}"/>
+		<div class="subHeading"></div>
+		<div class="borderBottom">
+			<div class="greyInsideFullWidth">
+				<div class="subSpacer bold">
+				<div class="first">
+					&nbsp;
 				</div>
+			   ${_("FF_ACCOUNT_ Choose how you want to be identified on this site.")}
+				</div>
+				<div class="first">
+					<span>${_("FF_ACCOUNT_Default Account")}</span>
+				</div>
+				<span class="btnDef ${c.values.get("is_default") == 'facebook' and 'active' or ''}" _network="Facebook" ><img align="left" src="/static/imgs/fb-icon.png" style="margin:4px 5px 0 0">Facebook</span>
+				<span class="btnDef ${c.values.get("is_default") == 'twitter' and 'active' or ''}" _network="Twitter" ><img align="left" src="/static/imgs/twitter-icon.png" style="margin:4px 5px 0 0">Twitter</span>
+				<span class="btnDef btnDefMail ${c.values.get("is_default") == 'email' and 'active' or ''}" _network="Email" >Mail</span>
 			</div>
+		</div>
 			
 			
-		<div class="hideable ${c.default != 'email' and 'hidden' or ''} networkDefaultAccountEmail">
-			<div class="borderBottom showToolTipHook">
+		<div class="hideable ${c.values.get("is_default") != 'email' and 'hidden' or ''} networkDefaultAccountEmail">
+			<div class="borderBottom showToolTipHook ${'name' in c.errors and 'error' or ''}">
 				<div class="tip">
 					<div class="arrow"></div>
+					%if 'name' in c.errors:
+						<span>${c.errors['name']}</span>
+					%else:
 						<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
+					%endif
 				</div>
 				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_ACCOUNT_Your Name")}</span>
 				</div>
-					<input type="text" class="default" value="${_("FF_ACCOUNT_Write your name here...")}" class="" _default_text="${_("FF_ACCOUNT_Write your name here...")}" name="name"/>
+					<input type="text" class="default" value="${c.values.get('name') or _("FF_ACCOUNT_Write your name here...")}" class="" _default_text="${_("FF_ACCOUNT_Write your name here...")}" name="name"/>
 				</div>
 			</div>
 			
-			<div class="borderBottom showToolTipHook">
+			<div class="borderBottom showToolTipHook ${'email' in c.errors and 'error' or ''}">
 				<div class="tip">
 					<div class="arrow"></div>
+					%if 'email' in c.errors:
+						<span>${c.errors['email']}</span>
+					%else:
 						<span>${_("FF_ACCOUNT_EMAIL_Tip goes here")}</span>
+					%endif
 				</div>
 				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_ACCOUNT_Email Address")}</span>
 				</div>
-					<input type="text" class="default" value="${_("FF_ACCOUNT_Write your email here...")}" class="" _default_text="${_("FF_ACCOUNT_Write your email here...")}" name="email"/>
+					<input type="text" class="default" value="${c.values.get('email') or _("FF_ACCOUNT_Write your email here...")}" class="" _default_text="${_("FF_ACCOUNT_Write your email here...")}" name="email"/>
 				</div>
 			</div>
 			
@@ -97,19 +107,22 @@
 						<span>&nbsp;</span>
 					</div>
 					<div class="userProfileBox">
+					%if 'email' in c.myprofiles:
+						<img width="60px" height="60px" src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
+					%else:
 						<img width="60px" height="60px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_M.jpg"/>
+					%endif
 					</div>
 					<div class="choose">
-						<input type="file" value="Choose file" name="profile_picture" style="border:medium none;" />
+						<input type="file" value="Choose file" name="profile_pic" style="border:medium none;" />
 						<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
 					</div>
 			  </div>
-			  <span class="primaryButton floatLeft" style="margin:10px 0 0 160px">${_("FF_ACCOUNT_Save Changes")}</span>
 		</div>
 			  
 			  
 			  
-		<div class="hideable ${c.default != 'twitter' and 'hidden' or ''}  networkDefaultAccountTwitter">
+		<div class="hideable ${c.values.get("is_default") != 'twitter' and 'hidden' or ''}  networkDefaultAccountTwitter">
 		%if 'twitter' in c.myprofiles:
 			<div class="borderBottom">
 				<div class="tip">
@@ -151,7 +164,7 @@
 		%endif
 		</div>
 		
-		<div class="hideable ${c.default != 'facebook' and 'hidden' or ''}  networkDefaultAccountFacebook">
+		<div class="hideable ${c.values.get("is_default") != 'facebook' and 'hidden' or ''}  networkDefaultAccountFacebook">
 		%if 'facebook' in c.myprofiles:
 			<div class="borderBottom">
 				<div class="tip">
@@ -192,6 +205,8 @@
 			</div>
 		%endif
 		</div>
+		<span class="primaryButton floatLeft" onclick="onSubmitCleaner(document.accountForm);document.accountForm.submit()" style="margin:10px 0 0 160px">${_("FF_ACCOUNT_Save Changes")}</span>
+	</form>
 </div>
 <div class="clear"></div>
 </div>

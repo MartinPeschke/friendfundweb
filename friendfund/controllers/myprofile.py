@@ -7,8 +7,9 @@ from pylons.decorators import jsonify
 from pylons.i18n.translation import set_lang
 
 from friendfund.lib.auth.decorators import logged_in
-from friendfund.lib.base import BaseController, render, _, render_def, SuccessMessage
+from friendfund.lib.base import BaseController, render, _, render_def, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib import helpers as h
 from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, WebLoginUserByEmail, CreateEmailUserProc, SetUserEmailProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
@@ -18,16 +19,61 @@ log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
-	def index(self):
-		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-		c.myprofile_values = {'name' :getattr(c.myprofiles.profiles.get('email'), 'name', ''), 'email':getattr(c.myprofiles.profiles.get('email'), 'email', '')}
-		return self.render('/myprofile/index.html')
-	
-	@logged_in(ajax=False)
 	def account(self):
+		c.values = {"name":"",
+					"email":""}
+		c.errors = {}
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
-		c.default = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))[0].lower()
+		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
+		if len(defaults):
+			c.values["is_default"] = defaults[0]
+		else:
+			c.values["is_default"] = "email"
+		if 'email' in c.myprofiles:
+			c.values['name'] = c.myprofiles['email'].name
+			c.values['email'] = c.myprofiles['email'].email
 		return self.render('/myprofile/account.html')
+		
+	@logged_in(ajax=False)
+	def save(self):
+		c.errors = {}
+		if request.method != 'POST':
+			return redirect(url(controller='myprofile', action="account"))
+		c.values = formencode.variabledecode.variable_decode(request.params)
+		schema = MyProfileForm()
+		g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=c.values['is_default']))
+		
+		if h.contains_one_ne(c.values, ['email', 'name']):
+			try:
+				form_result = schema.to_python(c.values, state = FriendFundFormEncodeState)
+				c.values = form_result
+				c.values['network'] = 'email'
+				c.values['u_id'] = c.user.u_id
+				
+				if ('profile_pic' in c.values and isinstance(c.values['profile_pic'], FieldStorage)):
+					g.user_service.save_email_user_picture(c.values, c.values['profile_pic'])
+				
+				suppl_user = OtherUserData(**c.values)
+				additional_user_data = g.dbm.call(suppl_user, User)
+				
+				c.user.set_network('email', 
+								network_id =  c.user.default_email,
+								access_token = None,
+								access_token_secret = None
+							)
+			except formencode.validators.Invalid, error:
+				c.values = error.value
+				c.errors = error.error_dict or {}
+				print c.errors
+				print c.values
+				c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
+				return self.render('/myprofile/account.html')
+		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
+		return redirect(url(controller='myprofile', action="account"))
+		
+		
+		
+		
 	@logged_in(ajax=False)
 	def notifications(self):
 		return self.render('/myprofile/notifications.html')
@@ -37,6 +83,7 @@ class MyprofileController(BaseController):
 		if not c.user.is_anon:
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({"data":{"success":True}})
+			
 		if c.user.is_anon and bool(c.user.u_id):
 			return self.addemailpopup()
 		else:
@@ -133,56 +180,6 @@ class MyprofileController(BaseController):
 		except SProcWarningMessage, e:
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
 			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
-	
-	
-	
-	@logged_in(ajax=False)
-	def save(self):
-		c.myprofile_values = {}
-		c.myprofile_errors = {}
-		if request.method != 'POST':
-			return redirect(url('controller', controller='myprofile'))
-		myprofile = formencode.variabledecode.variable_decode(request.params).get('myprofile', None)
-		schema = MyProfileForm()
-		
-		if 'is_default' in myprofile:
-			g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=myprofile['is_default']))
-		
-		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-		try:
-			myprofile['email'] = getattr(c.myprofiles.profiles.get('email'), 'email', '')
-			form_result = schema.to_python(myprofile, state = FriendFundFormEncodeState)
-			c.myprofile_values = form_result
-			c.myprofile_values['network'] = 'email'
-			c.myprofile_values['u_id'] = c.user.u_id
-			
-			if ('profile_pic' in myprofile and isinstance(myprofile['profile_pic'], FieldStorage)):
-				g.user_service.save_email_user_picture(c.myprofile_values, myprofile['profile_pic'])
-			
-			if not c.myprofile_values.get("pwd"):
-				del c.myprofile_values["pwd"]
-				del c.myprofile_values["pwd_confirm"]
-			
-			suppl_user = OtherUserData(**c.myprofile_values)
-			additional_user_data = g.dbm.call(suppl_user, User)
-			
-			c.user.set_network('email', 
-							network_id =  c.user.default_email,
-							access_token = None,
-							access_token_secret = None
-						)
-			c.messages.append(_("MYPROFILE_EMAILSEIGNUP_Changes saved!"))
-			
-			return redirect(url('controller', controller='myprofile'))
-		except formencode.validators.Invalid, error:
-			c.myprofile_values = error.value
-			c.myprofile_errors = error.error_dict or {}
-			return self.render('/myprofile/index.html')
-		except SProcWarningMessage, e:
-			c.myprofile_errors = {'email':e}
-			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
-							% {'link_open':'<a href="/myprofile/password">', 'link_close':'</a>'})
-			return self.render('/myprofile/index.html')
 	
 	@logged_in(ajax=False)
 	def add_email(self):
