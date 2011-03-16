@@ -64,8 +64,6 @@ class MyprofileController(BaseController):
 			except formencode.validators.Invalid, error:
 				c.values = error.value
 				c.errors = error.error_dict or {}
-				print c.errors
-				print c.values
 				c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
 				return self.render('/myprofile/account.html')
 		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))

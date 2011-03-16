@@ -58,14 +58,14 @@
 				<div class="first">
 					<span>${_("FF_ACCOUNT_Default Account")}</span>
 				</div>
-				<span class="btnDef ${c.values.get("is_default") == 'facebook' and 'active' or ''}" _network="Facebook" ><img align="left" src="/static/imgs/fb-icon.png" style="margin:4px 5px 0 0">Facebook</span>
-				<span class="btnDef ${c.values.get("is_default") == 'twitter' and 'active' or ''}" _network="Twitter" ><img align="left" src="/static/imgs/twitter-icon.png" style="margin:4px 5px 0 0">Twitter</span>
-				<span class="btnDef btnDefMail ${c.values.get("is_default") == 'email' and 'active' or ''}" _network="Email" >Mail</span>
+				<span class="btnDef ${c.values.get("is_default") == 'facebook' and 'active' or ''}" _network="facebook" ><img align="left" src="/static/imgs/fb-icon.png" style="margin:4px 5px 0 0">Facebook</span>
+				<span class="btnDef ${c.values.get("is_default") == 'twitter' and 'active' or ''}" _network="twitter" ><img align="left" src="/static/imgs/twitter-icon.png" style="margin:4px 5px 0 0">Twitter</span>
+				<span class="btnDef btnDefMail ${c.values.get("is_default") == 'email' and 'active' or ''}" _network="email" >Mail</span>
 			</div>
 		</div>
 			
 			
-		<div class="hideable ${c.values.get("is_default") != 'email' and 'hidden' or ''} networkDefaultAccountEmail">
+		<div class="hideable ${c.values.get("is_default") != 'email' and 'hidden' or ''} networkDefaultAccountemail">
 			<div class="borderBottom showToolTipHook ${'name' in c.errors and 'error' or ''}">
 				<div class="tip">
 					<div class="arrow"></div>
@@ -122,7 +122,7 @@
 			  
 			  
 			  
-		<div class="hideable ${c.values.get("is_default") != 'twitter' and 'hidden' or ''}  networkDefaultAccountTwitter">
+		<div class="hideable ${c.values.get("is_default") != 'twitter' and 'hidden' or ''}  networkDefaultAccounttwitter">
 		%if 'twitter' in c.myprofiles:
 			<div class="borderBottom">
 				<div class="tip">
@@ -164,7 +164,7 @@
 		%endif
 		</div>
 		
-		<div class="hideable ${c.values.get("is_default") != 'facebook' and 'hidden' or ''}  networkDefaultAccountFacebook">
+		<div class="hideable ${c.values.get("is_default") != 'facebook' and 'hidden' or ''}  networkDefaultAccountfacebook">
 		%if 'facebook' in c.myprofiles:
 			<div class="borderBottom">
 				<div class="tip">
