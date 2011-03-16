@@ -31,14 +31,10 @@
 				<img src="${pool.get_product_pic("FF_POOLS")}" width="190px" height="150px"/>
 			</div>
 			<div class="textOne">
-				<a href="${locals['full_pool_url']}" class="link">${h.word_truncate_by_letters(pool.title, 100)}</a>
+				<a href="${locals['full_pool_url']}" class="">${h.word_truncate_by_letters(pool.title, 100)}</a>
 				<span>${_("FF_MYPOOLS_Created by %(admin_name)s on %(creation_date)s")%locals}</span>
 				<p>${h.word_truncate(pool.description, 100)}</p>
-				%if pool.is_expired():
-					<div><p>
-					${_("FF_MYPOOLS_This Pool has expired and will be automatically deleted.")}</p>
-					<a class="link" href="${url(controller="pool", pool_url = pool.p_url, action="delete", host=pool.merchant_domain)}">${_("FF_MYPOOLS_DELETE NOW")}&nbsp;&nbsp;&nbsp;X</a></div>
-				%endif
+				
 			</div>
 			<div class="imgWrap">
 				<div class="multiTask">
@@ -141,5 +137,5 @@
 		</div>
 	</div>
 </div>
-
+<div class="colRightWhite"></div>
 </%def>

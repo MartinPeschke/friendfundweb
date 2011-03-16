@@ -62,7 +62,7 @@
     <div class="userProfile">
     
         <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
+          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL")}" height="50px" width="60px"> </div>
         </div>
         <div class="subUserProfile">
         <h2>${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</h2>
@@ -100,10 +100,9 @@
 			
               <div class="first" style="margin-top:7px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
 			<div style="width: 516px;" class="greyInside">
-            <span class="darkGrey floatRight"><span id="daysLeft" class="bold">14</span> DAYS LEFT</span>
+            <span class="darkGrey floatRight">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 
 				<input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" style="float:left; width:100px" />
-				<p class="alignInput">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></p>
 				
 			</div>
 		</div>
@@ -111,7 +110,7 @@
 		<div class="contentDetails">
 			<div class="imgSpacer"> 
 				 %for i, pm in enumerate(c.payment_methods):
-					<img src="/static/imgs/${pm.code}.png"/>
+					<img src="/static/imgs/${pm.code}_color.png"/>
 				%endfor
                 <div id="verisign_contrib" class="floatRight">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
@@ -123,6 +122,7 @@
 					</tr>
 					</table>
 				</div>
+                <div class="clear"></div>
 			</div>
 			${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
 			<a class="popuplink" _href="${url(controller="content", action="pledging_faq")}">${_("FF_CONTRIB_PAGE_Learn More")} »</a>

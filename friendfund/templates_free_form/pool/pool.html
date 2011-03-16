@@ -95,10 +95,11 @@
 			</div>
 			
 				<div class="timeTracker floatLeft timeTrackerBig">
+					
+					<div class="timeCounter">
 					<span class="floatRight">${c.pool.get_display_amount()}</span>
 					<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
                     <span class="percent">36%</span>
-					<div class="timeCounter">
 						<div class="timeCounterRight" style="width:100%">
 						<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
 						</div>
@@ -139,7 +140,13 @@
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool.")}</p>
 					<a class="primaryButton floatLeft popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
 				</div>
-				<div class="floatLeft share">
+				
+				<div class="floatLeft invite">
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
+					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="forward floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
+				</div>
+                <div class="floatLeft share">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
 					<div class="addthis_toolbox addthis_default_style">
 					  <a class="addthis_button_facebook"></a>
@@ -151,11 +158,6 @@
 					  <a class="addthis_button_expanded"></a>
 					</div>
 					<input type="text" value="${url.current(protocol="http")}" onfocus="this.select()" />
-				</div>
-				<div class="floatLeft invite">
-					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
-					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
-					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="forward floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
 				</div>
 				<div class="clear"></div>
 			</div>

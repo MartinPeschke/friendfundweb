@@ -99,6 +99,7 @@ a {
 	color: #00BBEA;
 	cursor: pointer
 }
+a:hover{ text-decoration: underline}
 .white {
 	color: white !important
 }
@@ -108,6 +109,7 @@ a {
 	font-size: 11px !important;
 	font-weight: normal !important;
 }
+.link:hover{ text-decoration: underline}
 .activeLink {
 	cursor:default !important;
 	color: #00BBEA !important;
@@ -190,7 +192,8 @@ div.header ul li a {
 	text-shadow: 0px -1px 1px #000;
 }
 div.header ul li a:hover {
-	color:white
+	color:white;
+	text-decoration: none
 }
 div.loginArea {
 	float: right;
@@ -198,7 +201,7 @@ div.loginArea {
 	color: black;
 	margin: 18px 0 0 0;
 	position:relative;
-	font-size:10px
+	font-size:11px
 }
 div.loginArea a.btn {
 	float:left;
@@ -217,7 +220,8 @@ div.loginArea a.btn:hover {
 	background:#003b4b !important
 }
 div.loginArea a.btn.active {
-	background:#cacaca;
+	background:#cacaca !important;
+	color: #333 !important;
 	border-bottom-left-radius:0px;
 	-moz-border-radius-bottomleft:0px;
 	border-bottom-right-radius:0px;
@@ -232,6 +236,7 @@ div.loginArea img {
 	margin: 0 10px 0 0;
 	float: left;
 }
+
 /* -------LOGIN PANEL-----------*/
 #loginPanelContent {
 	color: #333;
@@ -332,11 +337,12 @@ div.loginArea img {
 
 div.showHide {
 	float:left;
-	background: #666;
+	background: #003B4B;
 	-moz-border-radius:3px;
 	-webkit-border-radius: 3px;
 	height: 25px;
-	position: relative
+	position: relative;
+	
 }
 div.showHide:hover {
 	border-bottom-left-radius:0px;
@@ -373,6 +379,7 @@ div.showHide a {
 	min-width: 80px;
 	display:block
 }
+div.showHide a:hover{ text-decoration: none}
 div.showHide:hover a {
 	color:black;
 	background: url(/static/imgs/arrow-up.png) right center no-repeat;
@@ -385,6 +392,10 @@ div.showHide div a {
 	color: black;
 	margin: 0;
 	background:none !important
+}
+div.showHide div a:hover {
+	background:#f2f2f2 !important;
+	text-decoration: none
 }
 /* SUBHEADER */
 
@@ -480,26 +491,27 @@ div.home_expander {
 	float: left;
 	font-size: 12px;
 	width: 522px;
-	position: relative
+	position: relative;
+	margin-bottom: 10px
 }
 .address {
 	float: left;
 	width: 350px;
 	padding: 0 0 0 10px;
 	color: #999;
-	font-size:12px
+	font-size:11px
 }
-.title {
+#homeurlexpander .title {
 	float: left;
 	width: 350px;
 	margin: 0 0 0 10px;
 	font-weight: bold;
-	font-size:12px;
+	font-size:11px;
 	height: 20px;
 }
 .title input {
 	border: 1px solid #999999;
-	font-size: 12px;
+	font-size: 11px;
 	padding:0 5px;
 	width: 342px;
 }
@@ -523,7 +535,8 @@ div.home_expander div.desc {
 	padding:0 !important;
 	clear:none !important;
 	overflow:hidden;
-	height:65px
+	height:65px;
+	font-size: 11px
 }
 .smallAddress {
 	font-size:11px;
@@ -532,7 +545,7 @@ div.home_expander div.desc {
 }
 div.controller {
 	position: absolute;
-	bottom: 0;
+	top: 113px;
 	left: 395px;
 	width: 250px
 }
@@ -586,6 +599,7 @@ div.imgCntSld img.displayed {
 }
 div.generalPadding .home_expander {
 	padding:0 0 0 0;
+	font-size:11px
 }
 div.logoContainer {
 	border-top: 1px solid #f4f4f4;
@@ -828,11 +842,13 @@ div.boxPoolDetails {
 div.timeTracker {
 	width: 210px
 }
-span.percent{position: absolute; width: 30px; left: 50%; float: none !important; text-align: center; font-size: 11px; line-height: 16px; margin-left: -30px}
+div.timeTracker span.percent{position: absolute; width: 30px; left: 50%; float: none !important; text-align: center; font-size: 11px; line-height: 16px; margin-left: -30px}
 div.timeTrackerBig{width: 684px; position: relative; margin-top: 25px; clear: both}
 div.timeTracker span {
 	font-weight: bold;
-	color: #333333
+	color: #333333;
+	position: relative;
+	z-index: 10
 }
 div.contributors {
 	float:left;
@@ -931,7 +947,8 @@ div.greyBoxTitle h3 {
 	-moz-border-radius-topright:3px;
 	-moz-border-radius-bottomright:3px;
 	background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
-	margin: 15px 12px 0 0
+	margin: 15px 12px 0 0;
+	min-width: 40px
 }
 .btnHide {
 	color: white;
@@ -949,7 +966,8 @@ div.greyBoxTitle h3 {
 	-moz-border-radius-topright:3px;
 	-moz-border-radius-bottomright:3px;
 	background:#666666 url(../imgs/arrow-hide.png) right 6px no-repeat;
-	margin: 15px 12px 0 0
+	margin: 15px 12px 0 0;
+	min-width: 40px
 }
 .colLeft {
 	max-width: 700px;
@@ -1000,6 +1018,7 @@ div.subHeadingSpecial {
 	color: #00bbea;
 	background: url(/static/imgs/arrow-all.gif) right center no-repeat;
 	padding: 0 15px 0 0;
+	 font-weight: normal;
 }
 .colLeft .btnEdit {
 	display: block;
@@ -1015,7 +1034,8 @@ div.subHeadingSpecial {
 	color: #333;
 }
 .colLeft p.general {
-	padding-top: 10px
+	padding-top: 10px;
+	padding-bottom: 0
 }
 .colLeft h5 {
 	font-size: 11px;
@@ -1140,7 +1160,7 @@ div.imgEdit div.recMerch span {
 	clear: both
 }
 img.merchant {
-	border: 0 !important
+	border: 5px !important
 }
 div.imgEdit div.recMerch span.recipient {
 	border-bottom: 1px solid #e1e1e1;
@@ -1255,7 +1275,7 @@ div.comments input {
 .boxChipIn span span {
 	font-size: 24px;
 	font-weight: bold;
-	margin: 0
+	margin: 5px 0 0 0 
 }
 div.rose {
 	background-color: #feccff;
@@ -1485,15 +1505,19 @@ div.borderBottom input {
 	line-height: 30px;
 	font-size: 14px;
 }
+div.borderBottom .home_expander input#tracking_link_edit {
+	width:336px
+}
 div.greyInsideFullWidth input {
 /* margin-left:3px */
 }
 div.borderBottom input.ptitleSimpleEdit {
 	border: 1px solid #999;
-	height: auto;
+	height:18px;
 	line-height: auto;
-	font-size: 13px;
-	width:100%
+	font-size: 11px;
+	width:342px;
+	padding: 0
 }
 div.borderBottom input.small {
 	width:120px;
@@ -1523,7 +1547,6 @@ div.greyInsideFullWidth input {
 	width: 74%
 }
 div.greyInsideFullWidth select {
-	margin-left:3px;
 	width:75%
 }
 div.containerTxtArea {
@@ -1600,7 +1623,7 @@ div.simpleeditable input {
 	border:1px solid #999;
 	padding: 3px;
 	width: 342px;
-	font-size: 12px;
+	font-size: 11px;
 }
 div.mainValue input {
 	border: 1px solid #333333;
@@ -1613,7 +1636,7 @@ div.simpleeditable textarea {
 	font-family:Arial, Helvetica, sans-serif;
 	width:342px;
 	height:57px;
-	font-size:12px;
+	font-size:11px;
 	border:1px solid #999;
 	padding: 3px
 }
@@ -1738,6 +1761,7 @@ div.tabs span {
 	cursor:pointer;
 	color: #999
 }
+div.tabs span:hover{ color: #666}
 div.wrapTabs {
 	float:left
 }
@@ -1899,7 +1923,7 @@ span.value {
 	padding:0 10px;
 	display:block;
 	float:left;
-	margin:5px 0 0 0;
+	margin:7px 0 0 0;
 	float: left
 }
 .colLeft p.alignInput {
@@ -2028,7 +2052,6 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 .colLeft p.editableAmount {
 	line-height:32px;
 	height:32px;
-	min-width:122px;
 	text-align:center;
 	padding:0;
 	float:left;
@@ -2058,6 +2081,9 @@ div.error {
 div.error span, div.error div, div.error p, div.error label {
 	color:#FA92AD !important
 }
+div.error div#termsofservice p ,div.error div#termsofservice p 	span{
+	color: #333 !important;
+}
 div.error input, div.error .containerTxtArea, div.error select {
 	border-color:#FA92AD !important
 }
@@ -2074,7 +2100,6 @@ div.error div.tip span {
 	width:128px !important;
 	float:left !important;
 	margin-right:12px !important;
-	margin-left:3px !important;
 	line-height:30px;
 	font-size: 11px;
 <>
@@ -2160,6 +2185,7 @@ div.friendsList ul li p {
 	height: 50px;
 	line-height: 17px;
 	overflow: hidden;
+	font-size: 11px
 }
 .boxSearchFriend {
 	height:50px;
@@ -2191,7 +2217,7 @@ div.friendsList ul li p {
 }
 .mutualToggleContainer {
 	float:left;
-	margin: 15px 0 0 15px;
+	margin: 15px 0 0 0;
 } /*added for properly style mutualToggler, martin*/
 .inviteAll {
 	display:block;
@@ -2250,9 +2276,7 @@ div.friendsList ul li p {
 	float:left
 }
 .subTab label {
-	font-size:14px;
-	height: 30px;
-	line-height: 30px;
+	font-size:11px;
 	/*  width: 140px;text-align: right;       this applies to toggleMutual Box, should not, martin */
     padding: 0 10px;
 	display:block;
@@ -2388,7 +2412,7 @@ p.inviterTwo {
 	padding:0 10px;
 	cursor: pointer
 }
-.primaryLarge:hover, .primaryButton:hover, .forward:hover, .primarySmall:hover {
+.primaryLarge:hover, .primaryButton:hover, .forward:hover, .primarySmall:hover, div.borderBottom .primaryButton:hover {
 	background:#d30165
 }
 .primaryButton {
@@ -2458,9 +2482,7 @@ div.borderBottom .primaryButton {
 	cursor:pointer;
 }
 .secondary:hover{ background: #025191}
-#inviteMessage {
-	padding:10px 0 15px 0
-}
+
 #inviteMessage div.wrapInside {
 	width:100%;
 	padding:5px 0;
@@ -2556,7 +2578,7 @@ div.logInOnePx {
 	border-bottom: 1px solid #E4E4E4;
 	float: left;
 	min-width: 450px;
-	padding: 20px 0;
+	padding: 15px 0;
 	position: relative;
 }
 div.logInOnePx.error {
@@ -2640,10 +2662,11 @@ div.special div.tip {
 	padding: 0 10px;
 	position: relative;
 	text-align: center;
-	color:#666;
+	 color: #999999;
 	margin-top: 1px;
 	position: relative
 }
+.tabsBig a:hover{ text-decoration: none; color: #666}
 .tabsBig a.selected {
 	color:#333;
 	background: #f9f9f9;
@@ -2668,7 +2691,7 @@ div.special div.tip {
 	left: 0px
 }
 .fullWidth h4 {
-	border-bottom: 2px solid #E4E4E4;
+	border-bottom: 1px solid #D0D0D0;
 	clear: both;
 	color: #333333;
 	display: block;
@@ -2679,7 +2702,6 @@ div.special div.tip {
 	text-shadow: 0px 1px 1px #fff
 }
 .poolRowWrap {
-	border-top: 1px solid white;
 	padding-top: 19px;
 	float: left
 }
@@ -2998,7 +3020,7 @@ span.hider:hover div.moreActions {
 	font-weight: normal
 }
 .fullWidthBorder {
-	border-top:1px solid white
+
 }
 .entryStream {
 	float: left;
@@ -3061,6 +3083,7 @@ div.timeCounterSmall span {
 	background: url(/static/imgs/people.png) 0 0 no-repeat;
 	padding-left: 25px
 }
+div.liner span.tenPix{ margin-top: 5px}
 .entryStream .txtComments {
 	max-width: auto;
 	width: 430px
@@ -3070,6 +3093,7 @@ div.timeCounterSmall span {
 	width: 100%;
 	padding-top: 10px;
 	color: #666;
+	font-size: 11px !important
 }
 .mainSpan {
 	color:#333
@@ -3405,12 +3429,13 @@ div.footer div.footerCol5 span, div.footer div.footerCol5 a, div.footer div.foot
 .share {
 	padding:20px 30px 30px 30px;
 	width:248px;
-	border-right: 1px solid #C4C4C4;
+	
 	height: 110px;
 	border-left:1px solid white
 }
 .invite {
 	padding:20px 30px 30px 30px;
+	border-right: 1px solid #C4C4C4;
 	width:248px;
 	border-left:1px solid white;
 	height: 110px
@@ -3563,8 +3588,7 @@ div.outerPopupFrame .emailBody p{ padding:10px 20px  10px 20px}
 
 .selected.spPad .first{ padding: 5px 10px 0 0}
 .spPad .tip{ margin-top: 18px}
-.upImgCnt{height:  300px; width: 300px; background: black; margin:0 auto 20px auto}
-.upImgCnt  img{ text-align: center;}
+.upImgCnt{height:  300px; width: 300px; background: black; margin:0 auto 20px auto; text-align: center}
 .minorMargin{ margin-top: 19px !important}
 .icoPdf{ margin: 10px 0 -15px 0}
 .ecard{ width: 670px; margin: 30px 0 0 0; background: #ededed; padding: 10px; margin-bottom: 60px}
@@ -3658,6 +3682,14 @@ p.no{ font-size:16px; color: #666; padding-bottom: 20px}
 .transp{ opacity: 0.7; filter: alpha(opacity = 70);
 }
 div.outerPopupFrame .popupPadder p{color: #999999;
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 5px;
     padding: 5px 0 10px 0;}
+    div.outerPopupFrame p.big {
+    clear: both;
+    color: #333333;
+    font-size: 12px;
+    line-height: 12px;
+    padding-top: 9px;
+}
+.omega{ margin-right: 0px !important}

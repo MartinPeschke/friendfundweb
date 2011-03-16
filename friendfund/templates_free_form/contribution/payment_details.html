@@ -50,8 +50,9 @@
 			<div class="borderBottom noBorder">
 				<div class="first" style="margin-top:8px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
 				<div class="greyInside " style="width:516px">
+				<span class="value">${h.display_currency(c.pool.currency)}</span> 
 					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
-					<span class="value">${h.display_currency(c.pool.currency)}</span> 
+					
 				
 				<span class="darkGrey floatRight">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
 				
@@ -82,7 +83,7 @@
 	<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
     <div class="borderBottom ">
     
-     <div class="first">Card type</div><img src="/static/imgs/${c.payment_method.code}.png">
+     <div class="first">Card type</div><img src="/static/imgs/${c.payment_method.code}_color.png" style="margin-top:3px">
      </div>
 		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
 			<div class="tip">

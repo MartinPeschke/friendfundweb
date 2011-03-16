@@ -15,7 +15,7 @@
 <%def name="networkinviter(network_name, friends, mutuals)">
 	<div class="arrowSubTab"></div>
 	<div class="boxSearchFriend" id="inviteheader">
-		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default" />
+		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default floatLeft" />
 		%if mutuals:
 			<span class="mutualToggleContainer"><input id="toggle_mutuals_${network_name}" ${forms.expression_quote(mutuals, "checked")|n} type="checkbox"/><label for="toggle_mutuals">${_("FF_INVITER_CHECKBOX_Mutual Friends")}</label></span>
 		%endif

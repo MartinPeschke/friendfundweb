@@ -25,6 +25,7 @@
 </div>
 <div class="content fullWidth">
 <h4 style="padding-top:0px">
+
 	<div class="floatRight selector">
 	%if c.include_friend:
 		<a class="bold" href="${url(controller="mypools", action="stream", all="")}">${_("FF_NEWSSTREAM_Only Mine")}</a>
@@ -37,7 +38,7 @@
 	%endif
      </div>
 </h4>
-
+<div class="subHeading omega"></div>
 <div class="fullWidthBorder" id="activityBody">
 	<div class="colLeft">
 	%for streamentry in c.activity.stream:
@@ -74,6 +75,7 @@
 						</div>
 					</div>
 				</div>
+                <div class="colRightWhite"></div>
 	%elif streamentry.event._get_root == "CONTRIBUTION":
 		<% locals["days_left"] = streamentry.event.get_remaining_days_tuple()[0] %>
 				<div class="entryStream">
@@ -123,6 +125,7 @@
 						</div>
 					</div>
 				</div>
+                <div class="colRightWhite"></div>
 	%elif streamentry.event._get_root == "CREATE_FREE_FORM_POOL":
 				<div class="entryStream">
 					<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
@@ -172,6 +175,7 @@
 						</div>
 					</div>
 				</div>
+                <div class="colRightWhite"></div>
 	%elif streamentry.event._get_root == "CREATE_GROUP_GIFT_POOL":
 		
 				<div class="entryStream">
@@ -222,18 +226,16 @@
 						</div>
 					</div>
 				</div>
-		
+		<div class="colRightWhite"></div>
 	%elif streamentry.event._get_root == "INVITE":
 				<div class="entryStream">
-					<img src="/static/imgs/invite.png" title="${_("FF_NEWSSTREAMTYPE_Invited")}" class="kind" />
+					<img src="/static/imgs/people.png" title="${_("FF_NEWSSTREAMTYPE_Invited")}" class="kind" />
 					<div class="avt" title="${streamentry.event.name}">
 						<div class="arrowAvatar"></div>
 						<img width="48px" height="48px" src="${streamentry.event.get_actor_profile_pic("PROFILE_M")}"/>
 					</div>
 					<div class="txtComments">
-						<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
-							<img width="24px" height="24px" src="${streamentry.event.get_random_invitee_profile_pic("PROFILE_S")}">
-						</div>
+						
 						
 						%if len(streamentry.event.invitees)>4:
 							<%
@@ -247,8 +249,14 @@
 							%>
 							<span class="mainSpan">${_("FF_NEWSSTREAM_%(actorname)s invited %(invitee_names)s to %(pooltitle)s.")%locals|n}
 						%endif
-						 
+						 <div class="liner">
+                         	<div class="smallestImgWrap floatLeft" style="margin: 0 5px 0 0 ">
+							<img width="24px" height="24px" src="${streamentry.event.get_random_invitee_profile_pic("PROFILE_S")}">
+							</div>
+                         	
+                         </div>
 						<div class="liner">
+                        
 							<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
 							<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 									<div class="moreActions hidden">
@@ -274,6 +282,7 @@
 						</div>
 					</div>
 				</div>
+                <div class="colRightWhite"></div>
 	%elif streamentry.event._get_root == "COMMENT":
 		<div class="entryStream">
 			<img src="/static/imgs/comment.png" title="${_("FF_NEWSSTREAMTYPE_Commented")}" class="kind" />
