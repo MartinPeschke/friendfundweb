@@ -2,24 +2,36 @@
 <%namespace name="common" file="common.html"/>
 
 <%def name="scripts()">
-	<script type="text/javascript">
-		var addthis_config = {"data_track_clickback":true};
-		
-	</script>
+	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
+</%def>
+
+
+<%def name="onloadscripts()">
+	dojo.query(".btnDef", "myProfile").onclick(function(evt){
+		var elem = findParent(evt.target, "btnDef");
+		dojo.query(".hideable:not(.hidden)", "myProfile").addClass("hidden");
+		dojo.query(".hideable.networkDefaultAccount"+dojo.attr(elem, "_network")).removeClass("hidden");
+		dojo.query(".btnDef.active", "myProfile").removeClass("active");
+		dojo.addClass(elem, "active")
+	});
+	
+	
+	
+	parseDefaultsInputs("myProfile");
+	parseSelectables("myProfile", "showToolTipHook");
+	parseSimpleEditables("myProfile");
 </%def>
 
 
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-
 			<div class="subUserProfile">
-				<h2 class="padBtm">Account Settings</h2>
+				<h2 class="padBtm">${_("FF_ACCOUNT_Account Settings")}</h2>
 				
 			</div>
 			${common.render_tabs("account")|n}
-			
 		<div class="clear"></div>
 		</div>
 	</div>
@@ -27,101 +39,159 @@
 <div class="wrapSubContent">
 <div class="content">
 <div class="colRight"></div>
-<div class="colLeft">
-	<h4>Default Account <span class="link floatRight">Edit</span></h4>
+<div class="colLeft" id="myProfile">
+	<h4>${_("FF_ACCOUNT_Default Account")}
+		####<span class="link floatRight">${_("FF_ACCOUNT_Edit")}</span>
+	</h4>
 	
 	<div class="subHeading"></div>
     <div class="borderBottom">
 				<div class="greyInsideFullWidth">
-                <div class="subSpacer bold">
-                <div class="first">
-					&nbsp;
-				</div>
-                Choose how you want to be identified on this site.
-                </div>
-				<div class="first">
-					<span>Default Account</span>
-				</div>
-					<span class="btnDef "><img align="left" src="/static/imgs/fb-icon.png" style="margin:4px 5px 0 0"> Facebook</span>
-                    <span class="btnDef "><img align="left" src="/static/imgs/twitter-icon.png" style="margin:4px 5px 0 0">Twitter</span>
-                    <span class="btnDef btnDefMail active">Mail</span>
+					<div class="subSpacer bold">
+					<div class="first">
+						&nbsp;
+					</div>
+				   ${_("FF_ACCOUNT_ Choose how you want to be identified on this site.")}
+					</div>
+					<div class="first">
+						<span>${_("FF_ACCOUNT_Default Account")}</span>
+					</div>
+					<span class="btnDef ${c.default == 'facebook' and 'active' or ''}" _network="Facebook" ><img align="left" src="/static/imgs/fb-icon.png" style="margin:4px 5px 0 0">Facebook</span>
+                    <span class="btnDef ${c.default == 'twitter' and 'active' or ''}" _network="Twitter" ><img align="left" src="/static/imgs/twitter-icon.png" style="margin:4px 5px 0 0">Twitter</span>
+                    <span class="btnDef btnDefMail ${c.default == 'email' and 'active' or ''}" _network="Email" >Mail</span>
 				</div>
 			</div>
-    <div class="borderBottom">
+			
+			
+		<div class="hideable ${c.default != 'email' and 'hidden' or ''} networkDefaultAccountEmail">
+			<div class="borderBottom showToolTipHook">
 				<div class="tip">
 					<div class="arrow"></div>
-						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+						<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
 				</div>
-			
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Your Name</span>
+					<span>${_("FF_ACCOUNT_Your Name")}</span>
 				</div>
-					<input type="text" value="www.amazon.de" class="" _default_text="Write your title here..." name="title">
+					<input type="text" class="default" value="${_("FF_ACCOUNT_Write your name here...")}" class="" _default_text="${_("FF_ACCOUNT_Write your name here...")}" name="name"/>
 				</div>
 			</div>
-            <div class="borderBottom">
+			
+			<div class="borderBottom showToolTipHook">
 				<div class="tip">
 					<div class="arrow"></div>
-						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
+						<span>${_("FF_ACCOUNT_EMAIL_Tip goes here")}</span>
 				</div>
-			
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Username</span>
+					<span>${_("FF_ACCOUNT_Email Address")}</span>
 				</div>
-					<input type="text" value="www.amazon.de" class="" _default_text="Write your title here..." name="title">
+					<input type="text" class="default" value="${_("FF_ACCOUNT_Write your email here...")}" class="" _default_text="${_("FF_ACCOUNT_Write your email here...")}" name="email"/>
 				</div>
 			</div>
-            <div class="borderBottom">
-				<div class="tip">
-					<div class="arrow"></div>
-						<span>Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here Tip goes here</span>
-				</div>
 			
-				<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>Email Address</span>
-				</div>
-					<input type="text" value="www.amazon.de" class="" _default_text="Write your title here..." name="title">
-				</div>
-			</div>
 			<div class="colRightWhite"></div>
-       
-              <div class="borderBottom noBorder">
-              	    
-                     <div class="first">
-                      <span>&nbsp;</span>
-                     </div>
-                     <div class="userProfileBox">
-                     <img width="60px" height="60px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_M.jpg">
-                     </div>
-                     <div class="choose">
-                      
-                      <input type="button" value="Choose file" /><span>No file chosen</span>
-                      <p>JPEG, PNG or GIF. MAX FILE SIZE: 5 MB</p>
-                      
-                     </div>
-                    
-              </div>
-              <div class="borderBottom noBorder">
-              	    
-                     <div class="first">
-                      <span>&nbsp;</span>
-                     </div>
-                     <div class="floatLeft" style="padding:20px 0">
-                     <p>You're not connected with Twitter</p>
-                     <a onclick="twInit('/')" class="twitterBtn floatLeft" title="Connect in with Twitter">
-                        <span>Log in with Twitter</span>
-                    </a>
-                    </div>
-                    
-              </div>
-              
-                     
-                     <span class="primaryButton floatLeft" style="margin:10px 0 0 160px">Save Changes</span>
-       
-              
+	   
+			  <div class="borderBottom noBorder">
+					<div class="first">
+						<span>&nbsp;</span>
+					</div>
+					<div class="userProfileBox">
+						<img width="60px" height="60px" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_M.jpg"/>
+					</div>
+					<div class="choose">
+						<input type="file" value="Choose file" name="profile_picture" style="border:medium none;" />
+						<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
+					</div>
+			  </div>
+			  <span class="primaryButton floatLeft" style="margin:10px 0 0 160px">${_("FF_ACCOUNT_Save Changes")}</span>
+		</div>
+			  
+			  
+			  
+		<div class="hideable ${c.default != 'twitter' and 'hidden' or ''}  networkDefaultAccountTwitter">
+		%if 'twitter' in c.myprofiles:
+			<div class="borderBottom">
+				<div class="tip">
+					<div class="arrow"></div>
+						<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
+				</div>
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_ACCOUNT_Your Name")}</span>
+				</div>
+					${c.myprofiles['twitter'].name}
+				</div>
+			</div>
+			<div class="borderBottom">
+				<div class="tip">
+					<div class="arrow"></div>
+						<span>${_("FF_ACCOUNT_PICTURE_Tip goes here")}</span>
+				</div>
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_ACCOUNT_Picture")}</span>
+				</div>
+					<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
+				</div>
+			</div>
+		
+		%else:
+			<div class="borderBottom noBorder">
+				 <div class="first">
+					<span>&nbsp;</span>
+				 </div>
+				 <div class="floatLeft" style="padding:20px 0">
+					 <p>${_("FF_ACCOUNT_You're not connected with Twitter")}</p>
+					 <a onclick="twInit('/')" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}">
+						<span>${_("FF_LOGIN_Log in with Twitter")}</span>
+					</a>
+				</div>
+			</div>
+		%endif
+		</div>
+		
+		<div class="hideable ${c.default != 'facebook' and 'hidden' or ''}  networkDefaultAccountFacebook">
+		%if 'facebook' in c.myprofiles:
+			<div class="borderBottom">
+				<div class="tip">
+					<div class="arrow"></div>
+						<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
+				</div>
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_ACCOUNT_Your Name")}</span>
+				</div>
+					${c.myprofiles['facebook'].name}
+				</div>
+			</div>
+			<div class="borderBottom">
+				<div class="tip">
+					<div class="arrow"></div>
+						<span>${_("FF_ACCOUNT_PICTURE_Tip goes here")}</span>
+				</div>
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_ACCOUNT_Picture")}</span>
+				</div>
+					<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
+				</div>
+			</div>
+		
+		%else:
+			<div class="borderBottom noBorder">
+				<div class="first">
+					<span>&nbsp;</span>
+				</div>
+				<div class="floatLeft" style="padding:20px 0">
+					<p>${_("FF_ACCOUNT_You're not connected with Facebook")}</p>
+					<a onclick="fbLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}">
+						<span>${_("FF_LOGIN_Log in with Facebook")}</span>
+					</a>
+				</div>
+			</div>
+		%endif
+		</div>
 </div>
 <div class="clear"></div>
 </div>

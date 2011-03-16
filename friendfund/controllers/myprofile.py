@@ -25,6 +25,8 @@ class MyprofileController(BaseController):
 	
 	@logged_in(ajax=False)
 	def account(self):
+		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
+		c.default = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))[0].lower()
 		return self.render('/myprofile/account.html')
 	@logged_in(ajax=False)
 	def notifications(self):
