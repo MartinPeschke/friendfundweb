@@ -214,7 +214,8 @@ div.loginArea a.btn {
 	padding:0 10px;
 	color:white;
 	cursor: pointer;
-	font-size: 10px
+	font-size: 10px;
+	text-decoration: none
 }
 div.loginArea a.btn:hover {
 	background:#003b4b !important
@@ -251,7 +252,8 @@ div.loginArea img {
 	border-top-right-radius:0px;
 	-moz-border-radius-topright:0px;
 	z-index: 301;
-	padding:5px 20px 0 20px
+	padding:5px 20px 0 20px;
+	font-size: 12px
 }
 #loginPanelContent p {
 	display:block;
@@ -283,7 +285,8 @@ div.loginArea img {
 	margin: 0 auto;
 	padding-right: 15px;
 	width: 190px;
-	background:url(/static/imgs/facebook-slide.gif) 100% -27px no-repeat
+	background:url(/static/imgs/facebook-slide.gif) 100% -27px no-repeat;
+	text-decoration: none
 }
 .facebookBtn span {
 	color: white;
@@ -297,7 +300,8 @@ div.loginArea img {
 	padding-left: 36px;
 	text-align: center;
 	text-shadow: 0 -1px 0 #333333;
-	background:url(/static/imgs/facebook-slide.gif) 0 0 no-repeat
+	background:url(/static/imgs/facebook-slide.gif) 0 0 no-repeat;
+	
 }
 .twitterBtn {
 	cursor: pointer;
@@ -322,6 +326,7 @@ div.loginArea img {
 	text-align: center;
 	background:url(/static/imgs/twitter-slide.gif) 0 0 no-repeat
 }
+.twitterBtn:hover , .facebookBtn:hover{ text-decoration: none}
 .newFormControls.loginPanel input {
 	width: 235px;
 }
@@ -412,7 +417,8 @@ div.subHeader h2 span {
 	line-height: 30px;
 	color: #373737;
 	font-weight:normal;
-	margin-top: 10px
+	margin-top: 20px;
+	float: left
 }
 a.learnMoreBtn {
 	display: block;
@@ -424,7 +430,13 @@ a.learnMoreBtn {
 	width: 100px;
 	height: 30px;
 	line-height: 30px;
-	margin: 20px 0 0 0px
+	margin: 20px 0 0 0px;
+	font-size: 12px;
+	line-height: 30px;
+	float: left;
+	margin-left: 20px;
+	text-shadow: none;
+	font-weight: normal
 }
 /* HOMEPAGE */
 div.contentHome {
@@ -476,7 +488,6 @@ div.weNeed input.button {
 div.formWeNeed span {
 	font-size: 18px;
 	font-weight: bold;
-	line-height: 28px;
 	margin-right: 5px
 }
 div.formWeNeed p.info {
@@ -931,7 +942,7 @@ div.greyBoxTitle h3 {
 	line-height: 50px;
 	padding: 0 0 0 12px
 }
-.btnShow {
+a.btnShow {
 	color: white;
 	font-size: 11px;
 	display:block;
@@ -948,9 +959,10 @@ div.greyBoxTitle h3 {
 	-moz-border-radius-bottomright:3px;
 	background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
 	margin: 15px 12px 0 0;
-	min-width: 40px
+	min-width: 40px;
+	text-decoration: none
 }
-.btnHide {
+a.btnHide {
 	color: white;
 	font-size: 11px;
 	display:block;
@@ -967,7 +979,8 @@ div.greyBoxTitle h3 {
 	-moz-border-radius-bottomright:3px;
 	background:#666666 url(../imgs/arrow-hide.png) right 6px no-repeat;
 	margin: 15px 12px 0 0;
-	min-width: 40px
+	min-width: 40px;
+	text-decoration: none
 }
 .colLeft {
 	max-width: 700px;
@@ -1629,8 +1642,9 @@ div.mainValue input {
 	border: 1px solid #333333;
     font-size: 14px;
     height: 24px;
-    line-height: 24px;
-    width: 515px
+    line-height: 28px;
+    height: 30px;
+    float: left
 }
 div.simpleeditable textarea {
 	font-family:Arial, Helvetica, sans-serif;
@@ -1971,6 +1985,7 @@ div.selected.evenLessPad p.info {
 }
 div.borderBottom input.number {
 	font-size:18px;
+	line-height: 18px; height: 18px;
 	color:#666;
 	text-align: right;
 	margin-top: 5px;
@@ -2253,8 +2268,8 @@ div.friendsList ul li p {
 	width:15px;
 	height:15px;
 	position:absolute;
-	left:0;
-	bottom:2px;
+	right:2px;
+	top:2px;
 	z-index:99;
 	background:#e1eae8;
 	text-align:center;
@@ -2394,7 +2409,8 @@ p.inviterTwo {
 	text-shadow: 0px 1px 1px #529e0c;
 }
 .tertiary:hover {
-	background:#5dc53d
+	background:#5dc53d;
+	text-decoration: none
 }
 .primaryLarge {
 	height:40px;
@@ -2413,7 +2429,8 @@ p.inviterTwo {
 	cursor: pointer
 }
 .primaryLarge:hover, .primaryButton:hover, .forward:hover, .primarySmall:hover, div.borderBottom .primaryButton:hover {
-	background:#d30165
+	background:#d30165;
+	text-decoration: none
 }
 .primaryButton {
 	height:35px;
@@ -2463,6 +2480,7 @@ div.borderBottom .primaryButton {
 	display:block;
 	padding:0 10px;
 	cursor:pointer;
+	
 
 }
 .secondary {
@@ -3170,6 +3188,10 @@ div.empty h2 {
 .contactLinksBox {
 	margin: 10px 0 0 0
 }
+.contactLinksBox a img {
+	width: 16px;
+	height: 16px
+}
 .contactLinksBox a {
 	margin-right: 5px
 }
@@ -3215,14 +3237,14 @@ div.empty h2 {
 .mainValue {
 	line-height: 32px;
 	height: 32px;
-	font-size: 14px;
 	color: #333;
 	font-weight: bold;
-	float: left
+	height: 30px
 }
 .editorCtn {
 	float: left;
-	width: 142px;
+	width: 132px;
+	margin-right: 5px
 }
 .verticalTip span {
 	font-size: 11px
@@ -3354,7 +3376,7 @@ div.whitePopupFrameLarge .inputFields p.info {
 .parsercloser {
 	position: absolute;
 	right: -100px;
-	top: -112px;
+	top: -107px;
 	z-index: 200;
 }
 .language {
@@ -3693,3 +3715,5 @@ div.outerPopupFrame .popupPadder p{color: #999999;
     padding-top: 9px;
 }
 .omega{ margin-right: 0px !important}
+.simpleeditable span{ display: inline}
+div.verySmall{ color: #999; font-size: 10px; margin-top: -7px ; margin-bottom: 7px}

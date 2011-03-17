@@ -1,9 +1,17 @@
 <%namespace name="links" file="/widgets/links.html"/>
 <html>
 <head>
-${links.css('site.css')}
 
 <style type="text/css">
+body {
+    color: #333333;
+    font: 12px/18px Arial,Helvetica,sans-serif;
+    height: 100%;
+    margin: 0;
+    vertical-align: baseline;
+    width: 100%;
+}
+a{ text-decoration: none}
 div.homebox {
 	width: auto;
 	float: none;
@@ -11,12 +19,129 @@ div.homebox {
 	padding: 9px 9px 0;
 	margin: 0
 }
+div.homebox h5 {
+    display: block;
+    font-size: 13px;
+    margin: 9px auto 0;
+}
+div.homebox span {
+    color: #B3B3B3;
+    font-size: 10px;
+    line-height: 12px;
+    padding: 0 0 5px;
+}
+span.homebox {
+    border-bottom: 1px solid #E7E7E7;
+    display: block;
+    margin: 0 auto;
+}
+div.timeCounter {
+    display: block;
+    margin: 10px auto 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+.homebox div.timeCounter span {
+    color: #4E4E4E;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    left: 50%;
+    line-height: 16px;
+    margin-left: -29px;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 70px;
+}
+div.timeCounterRight {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: none repeat scroll 0 0 #ADADAD;
+    height: 10px;
+    padding: 3px;
+    border-top-right-radius:10px;
+	border-bottom-right-radius:10px;
+	border-top-left-radius:10px;
+	border-bottom-left-radius:10px;
+}
+div.timeCounterLeft {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: none repeat scroll 0 0 #A3F46C;
+    height: 10px;
+}
+div.boxContributors {
+    -moz-box-shadow: 0px 1px #d7d7d7;
+	-webkit-box-shadow: 0px 1px #d7d7d7;
+	box-shadow: 0 1px #d7d7d7;
+    background: none repeat scroll 0 0 #F1C8FE;
+    clear: both;
+    margin: 10px -9px 0;
+    padding: 0 7px;
+    text-align: center;
+}
+div.boxContributors span {
+    color: black;
+    font-size: 10px;
+}
+div.boxContributors span.middot {
+    font-size: 13px;
+    font-weight: bold;
+}
+div.fbHolder {
+    background: none repeat scroll 0 0 #EBEBEB;
+    margin: 1px -9px 0;
+    padding: 1px 0 9px 10px;
+}
+.popupBtnCont {
+	border: 1px solid #D7D7D7;
+	border-top:none;
+	padding: 20px 0;
+	text-align: center
+}
+
+.clear {
+    clear: both;
+}
+.tertiary {
+	height: 60px;
+	display: block;
+	font-size: 24px;
+	border:1px solid #77ad47;
+	text-align: center;
+	line-height: 60px;
+	color:white;
+	margin: 0 20px;
+	background-color: #65da44;
+	background: -moz-linear-gradient(100% 100% 90deg, #5dc63e, #6eec4a);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6eec4a), to(#5dc63e));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 0px 1px 1px #529e0c;
+}
+.tertiary:hover {
+	background:#5dc53d;
+	text-decoration: none
+}
+div.homebox img {
+    display: block;
+}
+div.fbHolder img {
+    float: left;
+    height: 30px;
+    margin-right: 8px;
+    margin-top: 8px;
+    width: 30px;
+}
+
+
 </style>
 
 
 </head>
 <body>
-<div>
+<div class="widget">
 <div class="homebox">
 	<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 		"admin_name":c.pool.admin.name,
@@ -38,15 +163,21 @@ div.homebox {
 			${progress}%
 		%endif
 		</span>
-		<div style="width: 100%" class="timeCounterRight">
+		<!-- <div style="width: 100%" class="timeCounterRight"> 
+			remove 100% widht cos this div has also padding
+			the right code is underneath
+			The div inside "timeCounterLeft" works normally with the %
+		-->
+		
+		<div class="timeCounterRight">
 			<div style="width: ${c.pool.funding_progress()*100}%" class="timeCounterLeft ${c.pool.is_closed() and "green" or ""}"></div>
 		</div>
 	</div>
 	
 	<div class="boxContributors">
-		<span class="upper"><strong>${locals['no_contributors']}</strong>${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
+		<span class="upper"><strong>${locals['no_contributors']}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
 		<span class="middot"> &middot; </span>
-		<span class="upper"><strong>${locals['days_left']}</strong>${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
+		<span class="upper"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 	</div>
 	<div class="fbHolder">
 		
@@ -57,7 +188,7 @@ div.homebox {
 	</div>
 </div>
 <div class="popupBtnCont">
-	<a class="btnChipIn tertiary" href="${url("get_pool", pool_url=c.pool.p_url)}">${_("FF_WIDGET_POPUP_Chip In")}</a>
+	<a class="btnChipIn tertiary" target="_blank" href="${url("get_pool", pool_url=c.pool.p_url)}">${_("FF_WIDGET_POPUP_Chip In")}</a>
 </div>
 <div class="clear"></div>
 </div>

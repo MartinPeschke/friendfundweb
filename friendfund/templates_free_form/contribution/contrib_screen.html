@@ -109,6 +109,7 @@
 		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		<div class="contentDetails">
 			<div class="imgSpacer"> 
+				<div class="verySmall">Accepted Payment Methods:</div>
 				 %for i, pm in enumerate(c.payment_methods):
 					<img src="/static/imgs/${pm.code}_color.png"/>
 				%endfor
@@ -127,7 +128,29 @@
 			${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
 			####<a class="popuplink" _href="${url(controller="content", action="pledging_faq")}">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
 		</div>
-      
+	<h4>${_("FF_CONTRIB_PAGE_Payment Method")}</h4>
+	<div class="subHeading" style="margin-bottom:10px"></div>
+	<div style="position:relative" class="lessPad">
+	%for i, pm in enumerate(c.payment_methods):
+			<div class="greyInsideFullWidth">        
+				<div class="first"> <span>&nbsp</span> </div>
+				<input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
+					name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
+				<label for="payment_method_${pm.code}" class="fourteen"> ${pm.get_display_name()} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${'%.2f'%(pm.fee_relative*100)}% fee</span> </label>
+			</div>
+	%endfor
+		<div class="smallTable">
+			<div class="floatLeft">${_("FF_CONTRIB_PAGE_Amount")}</div><input class="floatRight" type="text" disabled="disabled" id="display_amount" value="0"/><div class="clear" style="padding-top:5px"></div>
+				<div class="floatLeft"><span id="payment_method_name"></span>${_("FF_CONTRIB_PAGE_Payment Fees")}</div><input class="floatRight" type="text" disabled="disabled" id="display_transactioncosts" value="0"/>
+				<div class="clear"  style="padding-top:5px; border-bottom: 2px solid #dad9d8;"></div>
+			   <div class="divider">
+					<div class="floatLeft bold effect">${_("FF_CONTRIB_PAGE_Total")}</div><input class="floatRight bold effect" type="text" disabled="disabled" id="display_total" value="0"/>
+					<div class="clear"></div>
+				<input type="hidden" id="payment_total" name="payment.total" /> 
+			   </div>
+			<a class="popuplink link" _href="${url(controller="payment", pool_url = c.pool.p_url, action="transaction_fees")}">${_("FF_CONTRIB_PAGE_What are these payment fees?")} »</a>
+		</div>
+	</div>      
 		<div class="clear"></div>
 		<h4>${_("FF_CONTRIB_PAGE_Add a personal message <span>(optional)</span>")|n}</h4>
 		<div class="subHeading"></div>
@@ -153,29 +176,7 @@
 		</div>
 
 	<div class="clear"></div>
-	<h4>${_("FF_CONTRIB_PAGE_Payment Method")}</h4>
-	<div class="subHeading" style="margin-bottom:10px"></div>
-	<div style="position:relative" class="lessPad">
-	%for i, pm in enumerate(c.payment_methods):
-			<div class="greyInsideFullWidth">        
-				<div class="first"> <span>&nbsp</span> </div>
-				<input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
-					name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
-				<label for="payment_method_${pm.code}" class="fourteen"> ${pm.get_display_name()} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${'%.2f'%(pm.fee_relative*100)}% fee</span> </label>
-			</div>
-	%endfor
-		<div class="smallTable">
-			<div class="floatLeft">${_("FF_CONTRIB_PAGE_Amount")}</div><input class="floatRight" type="text" disabled="disabled" id="display_amount" value="0"/><div class="clear" style="padding-top:5px"></div>
-				<div class="floatLeft"><span id="payment_method_name"></span>${_("FF_CONTRIB_PAGE_Payment Fees")}</div><input class="floatRight" type="text" disabled="disabled" id="display_transactioncosts" value="0"/>
-				<div class="clear"  style="padding-top:5px; border-bottom: 2px solid #dad9d8;"></div>
-			   <div class="divider">
-					<div class="floatLeft bold effect">${_("FF_CONTRIB_PAGE_Total")}</div><input class="floatRight bold effect" type="text" disabled="disabled" id="display_total" value="0"/>
-					<div class="clear"></div>
-				<input type="hidden" id="payment_total" name="payment.total" /> 
-			   </div>
-			<a class="popuplink link" _href="${url(controller="payment", pool_url = c.pool.p_url, action="transaction_fees")}">${_("FF_CONTRIB_PAGE_What are these payment fees?")} »</a>
-		</div>
-	</div>
+
 
 	<div class="recMoney">
 		<h4>${_("FF_CONTRIB_PAGE_Privacy Settings")}</h4>
