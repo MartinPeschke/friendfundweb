@@ -50,13 +50,13 @@
 			</div>
 		</div>
 		<div class="colRightWhite"></div>
-		<div class="generalBoxRight ">
-			<h2>${_("FF_POOLECARD_Share card")}</h2>
-			<input type="text" value="${url.current()}" onfocus="this.select()" />
+		<div class="generalBoxRight">
+			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
+			<input type="text" value="${url.current(host=request.merchant.domain)}" onfocus="this.select()" />
 		</div>
 		<div class="colRightWhite"></div>
 		<div class="generalBoxRight noBorder ">
-			<a href="${url('get_pool', pool_url = c.pool.p_url)}" class="primaryButton clear floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
+			<a href="${url('get_pool', pool_url = c.pool.p_url, view=1)}" class="primaryButton clear floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
 			<div class="clear">
 				<a href="${self.create_pool_link()}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
 			</div>
@@ -92,14 +92,16 @@
 			  
 				<h4>${_("FF_POOLECARD_Contributor Messages")} <span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span></h4>
 				<ul class="contribMsg">
-				<li>
-					<div class="avt">
-						<div class="arrowAvatar"></div>
-						<img src="https://graph.facebook.com/100001688660434/picture">
-					</div>
-					<p class="bold grey">Adewumi Habib</p>
-					<p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-				</li>
+				%for cbtr in c.contributors:
+					<li>
+						<div class="avt">
+							<div class="arrowAvatar"></div>
+							<img src="${cbtr.get_profile_pic("PROFILE_M")}">
+						</div>
+						<p class="bold grey">${cbtr.name}</p>
+						<p class="tx">${cbtr.co_message}</p>
+					</li>
+				%endfor
 				</ul>
         <div class="clear"></div>
        	  </div>

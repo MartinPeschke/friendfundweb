@@ -316,7 +316,7 @@ class Pool(DBMappedObject):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 		if diff < timedelta(0):
 			diff = timedelta(0)
-		return (('%s'%diff.days).rjust(2,'0'),  ('%s'%(diff.seconds/3600)).rjust(2,'0'))
+		return ('%s'%diff.days),  ('%s'%(diff.seconds/3600))
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.p_url, type)
 	def get_pool_picture_tiles(self, type = "RA"):
@@ -475,3 +475,31 @@ class JoinPoolProc(DBMappedObject):
 	_unique_keys = ['p_url', 'u_id']
 	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
 	
+class ECardContributors(DBMappedObject):
+	"""<RESULT status="0" proc_name="get_ecard"><POOLUSER name="Henrietta Regina Goldmine" picture="8c/00/8c004e53261405b228a1f0f00c642c90" amount="800" co_message="chip in please !" /></RESULT>"""
+	_cacheable = False
+	_get_proc = _set_proc   = None
+	_get_root = _set_root = 'POOLUSER'
+	_unique_keys = ['p_url', 'u_id']
+	_keys = [ GenericAttrib(unicode,'name','name')
+			, GenericAttrib(unicode,'picture','picture')
+			, GenericAttrib(unicode,'co_message','co_message')
+			, GenericAttrib(int,'amount','amount')]
+	def get_profile_pic(self, type="PROFILE_M"):
+		return h.get_user_picture(self.picture, type)
+	def get_amount_float(self):
+		try:
+			return float(self.amount)/100
+		except:
+			return None
+	
+class GetECardContributorsProc(DBMappedObject):
+	"""exec app.get_ecard '<POOL p_url = "P3oB.my-first-pool"/>'"""
+	_get_proc = _set_proc = 'app.get_ecard'
+	_get_root = None
+	_set_root = 'POOL'
+	_unique_keys = ['p_url']
+	_expiretime = 30
+	_keys = [ GenericAttrib(str,'p_url','p_url')
+			, DBMapper(ECardContributors, 'contributors', "POOLUSER", is_list = True)
+			]

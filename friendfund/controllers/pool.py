@@ -12,7 +12,7 @@ from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
 from friendfund.model.forms.pool import PoolHomePageForm
-from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion, GetMoreInviteesProc
+from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion, GetMoreInviteesProc, GetECardContributorsProc
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
 from friendfund.tasks.photo_renderer import remote_product_picture_render, remote_pool_picture_render
@@ -38,7 +38,7 @@ class PoolController(ExtBaseController):
 		if c.pool is None:
 			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 			return redirect(url('home'))
-		if c.pool.is_closed() and not "force" in request.params:
+		if c.pool.is_closed() and not "view" in request.params:
 			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
 		if c.pool.can_i_view(c.user):
 			c.workflow = request.params.get("v") or None
@@ -51,6 +51,8 @@ class PoolController(ExtBaseController):
 			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 		if not c.pool.is_closed():
 			 redirect(url('get_pool', pool_url=pool_url))
+		
+		c.contributors = g.dbm.get(GetECardContributorsProc, p_url = pool_url).contributors
 		return self.render('/pool/pool_complete.html')
 	
 	def _clean_session(self):
