@@ -1,4 +1,5 @@
 <%inherit file="master.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
 <%def name="create_pool_link()">${request.merchant.type_is_group_gift and url("home") or url("pool_details", protocol="http", v=2)}</%def>
 
 <div id="wrap">
@@ -12,11 +13,15 @@
 			</h1>
 			%if request.merchant.is_default:
 			<ul>
-					<li><a href="${url('home', protocol="http")}">${_("FF_MENU_Home")}</a></li>
-					<li><a href="${url(controller="content", action="learn_more", host=app_globals.default_host)}">${_("FF_MENU_Learn")}</a></li>
-					<li><a href="${self.create_pool_link()}">${_("FF_MENU_Create a pool")}</a></li>
+					<% route = request.environ["wsgiorg.routing_args"][1] %>
+					<li><a href="${url('home', protocol="http")}" ${forms.expression_quote(route["controller"] == "index", "class", "navselected")} >${_("FF_MENU_Home")}</a></li>
+					<li><a href="${url(controller="content", action="learn_more", host=app_globals.default_host)}"
+						${forms.expression_quote(route["controller"] == "content", "class", "navselected")}>${_("FF_MENU_Learn")}</a></li>
+					<li><a href="${self.create_pool_link()}" 
+						${forms.expression_quote(route["controller"] == "pool" and route["action"] in ["details","create"], "class", "navselected")}>${_("FF_MENU_Create a pool")}</a></li>
 					%if not c.user.is_anon:
-						<li><a href="${url(controller="mypools", action="stream")}">${_("FF_MENU_My_Pools")}</a></li>
+						<li><a href="${url(controller="mypools", action="stream")}" 
+							${forms.expression_quote(route["controller"] in ["myprofile", "mypools"], "class", "navselected")}>${_("FF_MENU_My_Pools")}</a></li>
 					%endif
 			</ul>
 			%endif

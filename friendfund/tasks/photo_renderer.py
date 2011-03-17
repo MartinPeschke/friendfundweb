@@ -81,7 +81,7 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 		resize_parameter = '%sx%s'
 	else:
 		resize_parameter = '%sx%s^'
-		procs = deque()
+	procs = deque()
 	for fname_src, fname_dest, target_w, target_h in sizes:
 		crop_command = []
 		crop_command.extend([os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\

@@ -1,6 +1,5 @@
-<%def name="message()">
-${data['message']}
-</%def>
+<%def name="message()">Hi ${data['firstname_invitee_name']}, you have been invited to our friendfund pool for:  
+${data['message']}</%def>
 
 
 <%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>

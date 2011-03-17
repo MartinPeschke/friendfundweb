@@ -2,12 +2,17 @@
 FriendFund Notification Service, the only commandline argument should be the paster config file.
 i.e. invoke as: python friendfund/tasks/notifier.py -f development.ini
 """
-import logging, time, sys, getopt, os, datetime
+import logging, time, sys, getopt, os
 from lxml import etree
 from xml.sax.saxutils import quoteattr
 from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.tasks.notifiers import email, facebook, twitter
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException
+from datetime import datetime, date
+from decimal import Decimal
+
+from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
+from babel.dates import format_date as fdate, format_datetime as fdatetime
 
 import logging
 logging.config.fileConfig("notifier_logging.conf")
@@ -52,7 +57,42 @@ def save_results(dbpool, messaging_results):
 	conn.commit()
 	conn.close()
 
+
+def identity(key, data_map):
+	return {key: data_map[key]}
+def pool_url(key, data_map):
+	return {key: "http://%s/pool/%s" % (data_map["merchant_domain"], data_map[key])}
+def amount(key, data_map):
+	return {key: format_int_amount(data_map[key])}
+def currency(key, data_map):
+	val = float(data_map[key]) / 100
+	fnumber = Decimal('%.2f' % val)
+	return {key: fc(fnumber, data_map['currency'], locale="en_GB")}
+def firstname(key, data_map):
+	return {"firstname_%s"%key:data_map[key].split()[0], key:data_map[key]}
+def date(key, data_map):
+	val = data_map[key]
+	try:
+		val =  datetime.strptime(val.rsplit('.',1)[0], '%Y-%m-%dT%H:%M:%S')
+	except ValueError, e:
+		val = datetime.strptime(val.split('T')[0], '%Y-%m-%d')
+	if isinstance(val, datetime):
+		return {key: fdate(val, format="long", locale="en_GB")}
+	else:
+		return {key: val}
 	
+
+TRANSLATIONS = {"expiry_date": date, "target_amount":amount, "chip_in_amount":currency, "invitee_name": firstname}
+
+def localize(data_map):
+	result = {}
+	for key in data_map:
+		if key in TRANSLATIONS:
+			updates = TRANSLATIONS[key](key, data_map)
+			result.update(updates)
+		else:
+			result[key] = data_map[key]
+	return result
 
 def main(argv=None):
 	
@@ -121,10 +161,10 @@ def main(argv=None):
 				rcpt_data = msg_data.find("RECIPIENT").attrib
 				template_data = dict( msg_data.find("TEMPLATE").attrib )
 				template_data["DEFAULT_BASE_URL"] = ROOT_URL
-				template_data["today"] =datetime.datetime.today().strftime("%d.%m.%Y")
-				for k in L10N_KEYS:
-					if k in template_data and template_data[k]:
-						template_data[k] = _(template_data[k])
+				template_data["today"] =datetime.today().strftime("%d.%m.%Y")
+				
+				template_data = localize(template_data)
+				
 				
 				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
 				if rcpts_data:
