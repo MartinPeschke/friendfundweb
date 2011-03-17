@@ -21,16 +21,13 @@
 
 <div class="wrapSubContent">
 <div class="content">
-		
-
-	
 	<div class="colRight minorMargin">
     <div class="generalBoxRight">
-			<h2>Save as pdf</h2>
+			<h2>${_("FF_POOLECARD_Save as pdf")}</h2>
 			<img src="/static/imgs/pdf.png" class="icoPdf link" />
 		</div>
 		<div class="generalBoxRight">
-			<h2>Share card</h2>
+			<h2>${_("FF_POOLECARD_Share card")}</h2>
 			<div class="iconContainer">
 				<div class="addthis_toolbox addthis_default_style">
 					<a class="addthis_button_facebook"></a>
@@ -46,61 +43,58 @@
 		</div>
 		<div class="colRightWhite"></div>
 		<div class="generalBoxRight ">
-			<h2>Share to card</h2>
-			<input type="text" value="http://cristiano.friendfund.de/pool/P3mv.ziopuer" onfocus="this.select()" />
+			<h2>${_("FF_POOLECARD_Share to card")}</h2>
+			<input type="text" value="${url.current()}" onfocus="this.select()" />
 		</div>
-        <div class="colRightWhite"></div>
+		<div class="colRightWhite"></div>
 		<div class="generalBoxRight noBorder ">
-			<a href="#" class="primaryButton clear floatLeft" style="margin-top:9px; margin-bottom:5px"> View Pool</a>
-            <div class="clear">
-            	<a href="#">Create a new Pool &raquo;</a>
-            </div>
-            <div class="clear"></div>
-		</div>
-
-
-	</div>
-	<div class="colLeft">
-		<div class="ecard">
-        	<div class="insideEcard">
-            	<img src="/static/imgs/friendfund.png" class="floatRight"/>
-            	<h3>Peter and Judy's Wedding</h3>
-                <div class="stripe rose">
-                	<div class="imgEdit">
-						<div class="subImgEdit">
-							<div class="imgC">
-								<img width="190px" height="150px" src="/s/product/4e/c9/4ec98cac-246c-43a4-a67c-d57ddaa9b7b3_FF_POOLS.jpg" />
-							</div>
-                            
-                            <div class="clear"></div>
-						</div>
-                        <div class="avt">
-				<div class="arrowAvatar"></div>
-				<img width="48px" height="48px" src="https://graph.facebook.com/100001534908276/picture?type=large">
-			</div>
-			<div class="txtComments">
-				<span>Britney Starts</span>
-				<p>Lorem ipsum</p>
+			<a href="${url('get_pool', pool_url = c.pool.p_url)}" class="primaryButton clear floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
+			<div class="clear">
+				<a href="${self.create_pool_link()}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
 			</div>
 			<div class="clear"></div>
-                        <div class="clear"></div>
-                	</div>
-            	</div>
-              
-                <h4>Contributor Messages <span class="contribNum floatRight"><strong>1</strong> CONTRIBUTORS</span></h4>
-                <ul class="contribMsg">
-			
-		<li>
-			
-			<div class="avt">
-            	<div class="arrowAvatar"></div>
-				<img src="https://graph.facebook.com/100001688660434/picture">
-			</div>
-			<p class="bold grey">Adewumi Habib</p>
-            <p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-		
-			
-		</li>
+		</div>
+	</div>
+	
+	
+	<div class="colLeft">
+		<div class="ecard">
+			<div class="insideEcard">
+				<img src="/static/imgs/friendfund.png" class="floatRight"/>
+				<h3>${c.pool.title}</h3>
+				<div class="stripe rose">
+					<div class="imgEdit">
+						<div class="subImgEdit">
+							<div class="imgC">
+								<img width="190px" height="150px" src="${c.pool.get_product_display_picture("FF_POOLS")}" />
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="avt">
+							<div class="arrowAvatar"></div>
+							<img width="48px" height="48px" src="${c.pool.receiver.get_profile_pic("PROFILE_M")}">
+						</div>
+						<div class="txtComments">
+							<span>${c.pool.receiver.name}</span>
+							<p>${c.pool.description}</p>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			  
+				<h4>${_("FF_POOLECARD_Contributor Messages")} <span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span></h4>
+				<ul class="contribMsg">
+				<li>
+					
+					<div class="avt">
+						<div class="arrowAvatar"></div>
+						<img src="https://graph.facebook.com/100001688660434/picture">
+					</div>
+					<p class="bold grey">Adewumi Habib</p>
+					<p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
+				
+					
+				</li>
         <li>
 			
 			<div class="avt">
