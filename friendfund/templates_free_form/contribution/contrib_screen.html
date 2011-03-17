@@ -1,6 +1,6 @@
 <%inherit file="../layout.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
-<%def name="title()">Chipin to ${c.pool.title}</%def>
+<%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
 <%def name="scripts()">
 	<script type="text/javascript">
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
