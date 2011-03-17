@@ -83,6 +83,7 @@
 <% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 			"admin_name":c.pool.admin.name,
 			"suggested_amount":h.format_currency(c.pool.get_suggested_amount_float(), c.pool.currency),
+			"chipped_in_amount":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
 			"total_amount":c.pool.get_display_amount(),
 			"no_invitees":len(c.pool.participant_map)}
 %>
@@ -105,6 +106,7 @@
                     <span class="percent">36%</span>
 						<div class="timeCounterRight" style="width:100%">
 						<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
+						<div style="position: absolute; top:-20px;left:${int(c.pool.funding_progress()*100)}%;background-color:red">${locals['chipped_in_amount']}</div>
 						</div>
 					</div>
 				</div>
@@ -112,7 +114,7 @@
 				<div class="contributors"><span><strong>${c.pool.get_number_of_contributors()}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
                 <div class="heavyMd"></div>
                 <div class="invitees"><span><strong>2</strong> Invitees</span></div>
-				<div class="chippedIn"><span><strong>${h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+				<div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
                 <div class="heavyMd"></div>
 				<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
 				<div class="daysLeft"><span><strong>${c.pool.get_remaining_days_tuple()[0]}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>

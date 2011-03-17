@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-17 14:13+0100\n"
+"PO-Revision-Date: 2011-03-17 20:40+0100\n"
 "Last-Translator: Julia <julia.gomez.gonzalez@gmail.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -284,12 +284,12 @@ msgstr ""
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Este Perfil no puede ser añadido a tu Cuenta."
 
-#: friendfund/controllers/index.py:87 friendfund/controllers/myprofile.py:145
+#: friendfund/controllers/index.py:87 friendfund/controllers/myprofile.py:146
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr "EMAIL_DE_USUARIO_YA_REGISTRADO"
 
-#: friendfund/controllers/index.py:88 friendfund/controllers/myprofile.py:146
-#: friendfund/controllers/myprofile.py:215
+#: friendfund/controllers/index.py:88 friendfund/controllers/myprofile.py:147
+#: friendfund/controllers/myprofile.py:216
 #, python-format
 msgid ""
 "USER_SIGNUP_If this is you, please try logging in with your email address"
@@ -306,61 +306,56 @@ msgstr "¡Email actualizado!"
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr "¡La dirección de Email ya ha sido registrada!"
 
-#: friendfund/controllers/invite.py:32
-#, python-format
-msgid ""
-"FF_INVITE_PAGE_Hey guys,\n"
-"\n"
-"I've created a Pool using friendfund to collect money for %(title)s.\n"
-"You've been invited to chip in and help fund this Pool by "
-"%(closing_date)s."
-msgstr ""
-
-#: friendfund/controllers/invite.py:90
+#: friendfund/controllers/invite.py:88
 msgid "FF_INVITE_PAGE_ERRORBAND_Please fill in below values correctly."
 msgstr ""
 
-#: friendfund/controllers/invite.py:111
+#: friendfund/controllers/invite.py:109
 msgid "Please input an Invite Message"
 msgstr "introducir un mensaje de invitación "
 
-#: friendfund/controllers/invite.py:113
+#: friendfund/controllers/invite.py:111
 msgid "Please input an Invite Subject"
 msgstr "introducir "
+
+#: friendfund/controllers/invite.py:153
+msgid "FF_POOL_PAGE_Welcome to your new Pool!"
+msgstr ""
 
 #: friendfund/controllers/invite.py:193 friendfund/controllers/myfriends.py:114
 #: friendfund/controllers/receiver.py:143
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr "Acción o Red desconocida"
 
-#: friendfund/controllers/myprofile.py:69
+#: friendfund/controllers/myprofile.py:70
 msgid "FF_ACCOUNT_Your changes have been changed."
 msgstr ""
 
-#: friendfund/controllers/myprofile.py:115
-#: friendfund/controllers/myprofile.py:179 friendfund/controllers/ssp.py:48
+#: friendfund/controllers/myprofile.py:116
+#: friendfund/controllers/myprofile.py:180 friendfund/controllers/ssp.py:48
 #, fuzzy
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr "Error en correo electrónico o contraseña"
 
-#: friendfund/controllers/myprofile.py:206
+#: friendfund/controllers/myprofile.py:207
 msgid "MYPROFILE_EMAILSEIGNUP_Details saved!"
 msgstr "¡Datos guardados!"
 
-#: friendfund/controllers/myprofile.py:236
+#: friendfund/controllers/myprofile.py:237
 #, python-format
 msgid "FF_An email with your new password has been sent to %(email)s."
 msgstr ""
 
-#: friendfund/controllers/myprofile.py:244
+#: friendfund/controllers/myprofile.py:245
 msgid "FF_RESETPASSWORD_Email does not exist."
 msgstr ""
 
-#: friendfund/controllers/myprofile.py:267
+#: friendfund/controllers/myprofile.py:263
+#: friendfund/controllers/myprofile.py:273
 msgid "FF_RESETPASSWORD_Email is already owned by another user."
 msgstr ""
 
-#: friendfund/controllers/myprofile.py:290
+#: friendfund/controllers/myprofile.py:296
 #, python-format
 msgid ""
 "PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your"
@@ -369,42 +364,42 @@ msgstr ""
 "La contraseña de tu Email ha sido enviada a: %s, por favor, comprueba tu "
 "bandeja de entrada."
 
-#: friendfund/controllers/myprofile.py:299
+#: friendfund/controllers/myprofile.py:305
 msgid "PROFILE_PASSWORD_Unknown Email Address"
 msgstr "Dirección de Email desconocida"
 
-#: friendfund/controllers/myprofile.py:302
+#: friendfund/controllers/myprofile.py:308
 #, fuzzy
 msgid "PROFILE_PASSWORD_Token Already Sent"
 msgstr ""
 "Ya has solicitado un cambio de contraseña en las últimas 24 horas. Por "
 "favor, mira tu correo electrónico."
 
-#: friendfund/controllers/myprofile.py:305
+#: friendfund/controllers/myprofile.py:311
 msgid "PROFILE_PASSWORD_Unknown Error Occured"
 msgstr "Error desconocido"
 
-#: friendfund/controllers/myprofile.py:311
+#: friendfund/controllers/myprofile.py:317
 #, fuzzy
 msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
 msgstr "Ya has iniciado sesión"
 
-#: friendfund/controllers/myprofile.py:316
-#: friendfund/controllers/myprofile.py:330
+#: friendfund/controllers/myprofile.py:322
+#: friendfund/controllers/myprofile.py:336
 #, fuzzy
 msgid "PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválidada. Por favor, solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:342
+#: friendfund/controllers/myprofile.py:348
 msgid "PROFILE_RESETPASSWORD_Your password has been reset!"
 msgstr "¡Tu contraseña ha sido restablecida!"
 
-#: friendfund/controllers/myprofile.py:357
+#: friendfund/controllers/myprofile.py:363
 #, fuzzy
 msgid "PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválida. Por favor solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:359
+#: friendfund/controllers/myprofile.py:365
 msgid ""
 "PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank "
 "You!"
@@ -1043,7 +1038,7 @@ msgstr "Mastercard"
 msgid "AMEX"
 msgstr "Amex"
 
-#: friendfund/services/pool_service.py:88
+#: friendfund/services/pool_service.py:90
 #, python-format
 msgid ""
 "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for "
@@ -1077,7 +1072,7 @@ msgstr "Buscar Regalo"
 msgid "POOL_CREATE_Product not Found"
 msgstr "El producto no ha sido encontrado. Por favor, inténtalo de nuevo."
 
-#: friendfund/services/user_service.py:51
+#: friendfund/services/user_service.py:56
 #, fuzzy
 msgid "LOGIN_ACCOUNTS_CANNOT_BE_CONSOLIDATED_WARNING"
 msgstr ""
@@ -2326,7 +2321,7 @@ msgid ""
 msgstr ""
 
 #: friendfund/templates_free_form/content/popups/what_is_cvc.html:14
-#: friendfund/templates_free_form/invite/preview/preview_email.html:24
+#: friendfund/templates_free_form/invite/preview/preview_email.html:25
 msgid "FF_Close"
 msgstr ""
 
@@ -3588,4 +3583,13 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Escoge al destinatario del regalo desde Facebook, Twitter o email."
+
+#~ msgid ""
+#~ "FF_INVITE_PAGE_Hey guys,\n"
+#~ "\n"
+#~ "I've created a Pool using friendfund to collect money for %(title)s.\n"
+#~ "You've been invited to chip in and"
+#~ " help fund this Pool by "
+#~ "%(closing_date)s."
+#~ msgstr ""
 
