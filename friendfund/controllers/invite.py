@@ -59,9 +59,9 @@ class InviteController(ExtBaseController):
 				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', receiver_id))
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/fb_login.html').strip()}}
 				else: 
-					return {'data':{'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
 			else:
 				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset])
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
