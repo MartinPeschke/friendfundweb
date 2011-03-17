@@ -6,7 +6,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 from pylons.i18n.translation import set_lang
 
-from friendfund.lib.auth.decorators import logged_in
+from friendfund.lib.auth.decorators import logged_in, default_domain_only
 from friendfund.lib.base import BaseController, render, _, render_def, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib import helpers as h
@@ -20,6 +20,7 @@ log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
+	@default_domain_only()
 	def account(self):
 		c.values = {"name":"",
 					"email":""}
@@ -36,6 +37,7 @@ class MyprofileController(BaseController):
 		return self.render('/myprofile/account.html')
 		
 	@logged_in(ajax=False)
+	@default_domain_only()
 	def save(self):
 		c.errors = {}
 		if request.method != 'POST':
@@ -74,6 +76,7 @@ class MyprofileController(BaseController):
 		
 		
 	@logged_in(ajax=False)
+	@default_domain_only()
 	def notifications(self):
 		return self.render('/myprofile/notifications.html')
 	

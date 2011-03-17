@@ -4,6 +4,8 @@
 <%namespace name="inviter" file="inviter.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 
+<%def name="title()">Invite to ${c.pool.title}</%def>
+
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/InvitePage.js')}

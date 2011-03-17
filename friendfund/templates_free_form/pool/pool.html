@@ -2,6 +2,8 @@
 <%namespace name="invitee_widget" file="parts/invitees.html"/>
 <%namespace name="chipin_box" file="parts/chipin_box.html"/>
 
+<%def name="title()">${c.pool.title}</%def>
+
 <%def name="fb_meta_tags()">
 	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 	<link rel="image_src" href="${request.qualified_host}${c.pool.get_pool_picture_tiles("RA")}" />
