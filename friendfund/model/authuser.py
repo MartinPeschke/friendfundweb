@@ -110,6 +110,7 @@ class User(ProtoUser):
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'profile_picture_url','profile_picture_url')
+				,GenericAttrib(str,'email','email')
 				,GenericAttrib(str,'default_email','default_email')
 				,GenericAttrib(str,'pwd','pwd')
 				,GenericAttrib(str,'sex','sex')
@@ -119,7 +120,8 @@ class User(ProtoUser):
 				,DBMapper(UserPermissions, 'permissions', 'PERMISSIONS', is_list = True)
 				,DBMapper(PoolStub, 'pools', 'POOL', persistable = False, is_list = True)
 				,DBMapper(None,'_perms',None, persistable = False)
-				,GenericAttrib(dict,'networks', None, persistable = False)
+				,DBMapper(dict,'networks', None, persistable = False, is_dict = True, dict_key = lambda x:x )
+				,GenericAttrib(dict,'user_data_temp', None, persistable = False)
 			]
 	def set_network(self, network, **args):
 		if args:
@@ -278,3 +280,10 @@ class FBUserPermissions(DBMappedObject):
 				,GenericAttrib(bool,'create_event','create_event')
 				,GenericAttrib(bool,'permanent','permanent')
 			]
+class TwitterUserHasEmailProc(DBMappedObject):
+	"""app.has_twitter_default_email"""
+	_set_root = _get_root = 'USER'
+	_get_proc = _set_proc = "app.has_twitter_default_email"
+	_unique_keys = ['email', 'id']
+	_cachable = False
+	_keys = [	GenericAttrib(str,'network_id','id'),GenericAttrib(unicode,'default_email','default_email')]

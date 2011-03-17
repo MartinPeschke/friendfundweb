@@ -29,7 +29,7 @@ class InviteController(ExtBaseController):
 		locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"), "pool_url":url("get_pool", pool_url=pool_url, protocol="http"), "title":c.pool.title}
 		c.errors = {}
 		c.values = {"subject":c.pool.title, \
-			"message":_("FF_INVITE_PAGE_Hey guys,\n\nI've created a Pool using friendfund to collect money for %(title)s.\nYou've been invited to chip in and help fund this Pool by %(closing_date)s.\n\n%(pool_url)s")%locals
+			"message":_("FF_INVITE_PAGE_Hey guys,\n\nI've created a Pool using friendfund to collect money for %(title)s.\nYou've been invited to chip in and help fund this Pool by %(closing_date)s.")%locals
 			}
 		return self._display_invites()
 	

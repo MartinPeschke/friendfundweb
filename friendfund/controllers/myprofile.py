@@ -14,6 +14,7 @@ from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPW
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
+from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
 
 log = logging.getLogger(__name__)
 
@@ -82,7 +83,7 @@ class MyprofileController(BaseController):
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({"data":{"success":True}})
 			
-		if c.user.is_anon and bool(c.user.u_id):
+		if c.user.is_anon and bool(c.user.user_data_temp):
 			return self.addemailpopup()
 		else:
 			return self.loginpopup()
@@ -254,16 +255,21 @@ class MyprofileController(BaseController):
 		schema = EmailRequestForm()
 		try:
 			form_result = schema.to_python(form, state = FriendFundFormEncodeState)
-			email = form_result['email']
-			g.dbm.set(SetUserEmailProc(email=email, u_id = c.user.u_id))
-			c.user.default_email = email
+			
+			c.user.user_data_temp['email'] = form_result['email']
+			success, msg = g.user_service.login_or_consolidate(c.user.user_data_temp, tw_remote_persist_user)
+			if not success:
+				c.values = form_result
+				c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
+				return {'popup':render('/myprofile/addemail_popup.html').strip()}
+			c.user.default_email = form_result['email']
 			return {"reload":True}
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}
 			return {'popup':render('/myprofile/addemail_popup.html').strip()}
 		except SProcWarningMessage, e:
-			c.values = form
+			c.values = form_result
 			c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
 			return {'popup':render('/myprofile/addemail_popup.html').strip()}
 	

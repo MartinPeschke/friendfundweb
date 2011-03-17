@@ -237,12 +237,13 @@
 				
 				%for i, so in enumerate(request.merchant.settlement_options):
 					<div class="hiderParent">
-						<input type="radio" name="settlementOption" value="${so.name}" ${widgets.expression_quote(c.values['settlementOption']==so.name or i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement(this);"/>
+						<input type="radio" name="settlementOption" value="${so.name}" 
+							${widgets.expression_quote(c.values['settlementOption']==so.name or i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement(this);"/>
 						<label for="${so.name}_option">
 							${_(so.name)} 
 							%if so.fee:
 								<% _locals = {"fees":so.fee} %>
-								<span class="free">${_("FF_POOLDETAILS_(costs you $(fees)s%%)")%_locals|n}</span>
+								<span class="free">${_("FF_POOLDETAILS_(costs you %(fees)s%%)")%_locals|n}</span>
 							%else:
 								<span class="free">${_("FF_POOLDETAILS_(FREE)")}</span>
 							%endif 
