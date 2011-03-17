@@ -108,7 +108,7 @@
                     <span class="percent">${int(c.pool.funding_progress()*100)}%</span>
 						<div class="timeCounterRight" style="width:100%">
 						<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
-						<div style="position: absolute; top:-20px;left:${int(c.pool.funding_progress()*100)}%;background-color:red">${locals['chipped_in_amount']}</div>
+						<div class="progTooltip" style="position: absolute; top:-23px;left:${int(c.pool.funding_progress()*100)}%;">${locals['chipped_in_amount']} <div class="arrTool"></div></div>
 						</div>
 					</div>
 				</div>

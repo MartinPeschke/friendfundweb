@@ -9,12 +9,12 @@
 
 <%def name="renderSteps(step1, step2, step3, active = 1)">
 <div class="steps">
-	<div class="stepOne ${active==1 and "active" or ""}"><span>1</span>${step1}</div>
-	<div class="rightArrow ${active==1 and "active" or ""}"></div>
-	<div class="leftArrow ${active==1 and "active" or ""}"></div>
-	<div class="stepTwo ${active==2 and "active" or ""}"><span>2</span>${step2}</div>
-	<div class="rightArrow ${active==2 and "active" or ""}"></div>
-	<div class="leftArrow ${active==2 and "active" or ""}"></div>
+	<div class="stepOne ${active==1 and "active" or ""} ${active>1 and "done" or ""}"><span>1</span>${step1}</div>
+	<div class="rightArrow ${active==1 and "active" or ""} ${active>1 and "done" or ""}"></div>
+	<div class="leftArrow ${active==1 and "active" or ""} ${active>1 and "done" or ""}"></div>
+	<div class="stepTwo ${active==2 and "active" or ""} ${active>2 and "done" or ""}"><span>2</span>${step2}</div>
+	<div class="rightArrow ${active==2 and "active" or ""} ${active>2 and "done" or ""}"></div>
+	<div class="leftArrow ${active==2 and "active" or ""} ${active>2 and "done" or ""}"></div>
 	<div class="stepThree ${active==3 and "active" or ""}"><span>3</span>${step3}</div>
 </div>
 </%def>
