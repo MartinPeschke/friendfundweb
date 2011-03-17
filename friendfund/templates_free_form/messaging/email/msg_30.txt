@@ -1,21 +1,19 @@
-Hi ${data['invitee_name']} ${data['admin_name']},  
+Hi ${data['firstname_invitee_name']},  
 
-${data['contributor_name']} has just chipped in ${data['chip_in_amount']} to ${data['pool_title']}!   
+${data['contributor_name']} has just chipped in to ${data['pool_title']}!   
 
-${data['contributor_comment']}  
+"${data['contributor_comment']}"  
 
-There are still ${data['x_days_left']} days left to help out ${data['pool_description']} reach it's target of ${data['target_amount']}.  
+There are still ${data['x_days_left']} days left to reach the target.   
 
-<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+${data['pool_description']}  
 
-[Promote this pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite some more friends] to join in (http://${data['merchant_domain']}/pool/${data['p_url']}).  
+Chip in or promote your pool: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
 All the best   
 the team @friendfund  
 
 <${data['DEFAULT_BASE_URL']}>  
-The simple and fun way to collect money with your friends.  Create a pool and chip in!  
-
-Don't want to know? You can unsubscribe from messages from this pool here: <${data['unsubscribe']}>  
+Collect money with friends. Create a pool. Chip in. friendfund it!   
 
 <%def name="subject()">${data['contributor_name']} has chipped into ${data['pool_title']}</%def>     

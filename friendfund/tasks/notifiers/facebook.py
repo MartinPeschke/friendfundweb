@@ -81,6 +81,7 @@ def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config):
 
 def stream_publish(template, sndr_data, rcpt_data, template_data):
 	data = template_data
+	scrap = template.get_def("picture").render_unicode(h = h, data = data)
 	msg = {}
 	msg['message'] = template.get_def("message").render_unicode(h = h, data = data)
 	msg['link'] = template.get_def("link").render_unicode(h = h, data = data)
@@ -91,7 +92,7 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	actions['name'] = template.get_def("action_name").render_unicode(h = h, data = data)
 	actions['link'] = template.get_def("action_link").render_unicode(h = h, data = data)
 	msg['actions'] = simplejson.dumps(actions)
-	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOL", site_root=template_data["DEFAULT_BASE_URL"])
+	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOLS", site_root=template_data["DEFAULT_BASE_URL"])
 	
 	msg['access_token'] = sndr_data['access_token']
 	query = urllib.urlencode(msg)

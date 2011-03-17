@@ -12,7 +12,6 @@ from poster.streaminghttp import register_openers
 from friendfund.lib import helpers as h
 from friendfund.tasks import data_root
 from friendfund.tasks.notifiers.common import MissingTemplateException
-from friendfund.lib.helpers import format_int_amount
 
 register_openers()
 
