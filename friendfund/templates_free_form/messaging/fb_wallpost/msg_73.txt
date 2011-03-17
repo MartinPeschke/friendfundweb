@@ -1,18 +1,17 @@
-
 <%def name="message()">
-Friendfund is the greatest place to be
+${data['message']}
 </%def>
 
 
-<%def name="link()">http://${data['merchant_domain']}/pool/${data'[p_url']}</%def>
-<%def name="name()">A NEW FRIENDFUND WHEEEEEEEEEEEEEEEEEEE</%def>
-<%def name="caption()">A NEW FRIENDFUND WHEEEEEEEEEEEEEEEEEEE</%def>
+<%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
+<%def name="name()">${data['subject']}</%def>
+<%def name="caption()">friendfund it!</%def>
 <%def name="description()">
-Friendfund is the greatest place to be
+${data['pool_description']}
 </%def>
 
 
-<%def name="picture()"></%def>
+<%def name="picture()">http://profile.ak.fbcdn.net/hprofile-ak-snc4/70372_100001786269216_6311229_n.jpg</%def>
 
 
 

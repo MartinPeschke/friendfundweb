@@ -28,9 +28,7 @@ class InviteController(ExtBaseController):
 			return redirect(url('get_pool', pool_url=pool_url))
 		locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"), "pool_url":url("get_pool", pool_url=pool_url, protocol="http"), "title":c.pool.title}
 		c.errors = {}
-		c.values = {"subject":c.pool.title, \
-			"message":_("FF_INVITE_PAGE_Hey guys,\n\nI've created a Pool using friendfund to collect money for %(title)s.\nYou've been invited to chip in and help fund this Pool by %(closing_date)s.")%locals
-			}
+		c.values = {"subject":c.pool.title, "message":c.pool.description}
 		return self._display_invites()
 	
 	def _display_invites(self, invitees = {}):
@@ -151,6 +149,8 @@ class InviteController(ExtBaseController):
 			job.apply_async()
 			
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
+			if c.workflow != "3":
+				c.messages.append(SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool!")))
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url, v=c.workflow))
 	
 	
@@ -184,8 +184,8 @@ class InviteController(ExtBaseController):
 			else:
 				c.method = 'email'
 				invitee['success'] = True
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_default_user_picture_token())
+				invitee['large_profile_picture_url'] = h.get_user_picture(invitee['profile_picture_url'], "PROFILE_S", ext="png", site_root=request.qualified_host)
 				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable').strip()
 				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter').strip()
 				return {'clearmessage':True, 'data':invitee}

@@ -159,10 +159,13 @@ def get_pool_picture(pool_pic_url, type, ext="png"):
 def url_is_local(url):
 	return not url.startswith('http')
 
+def get_default_user_picture_token():
+	return "DEFAULT_USER_PICTURE"
+
 def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 	static_root = PROFILE_STATIC_ROOT
-	if not isinstance(profile_picture_url, basestring) or not profile_picture_url: 
-		return '%(site_root)s/static/imgs/default_m_%(type)s.png'%locals()
+	if not isinstance(profile_picture_url, basestring) or not profile_picture_url or profile_picture_url == "DEFAULT_USER_PICTURE": 
+		return '%(site_root)s/static/imgs/default_user_PROFILE_M.png'%locals()
 	elif isinstance(profile_picture_url, basestring):
 		if profile_picture_url.startswith('/'):
 			return '%(site_root)s%(profile_picture_url)s'%locals()
@@ -173,11 +176,14 @@ def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
 	else:
 		return None
 
+
+def get_default_product_picture_token():
+	return "DEFAULT_PRODUCT_PICTURE"
 def get_product_picture(product_picture_url, type, ext="jpg", site_root = ''):
 	static_root = PRODUCT_STATIC_ROOT
-	if not isinstance(product_picture_url, basestring): 
-		return ''
-	if product_picture_url.startswith('http'):
+	if not isinstance(product_picture_url, basestring) or not product_picture_url or product_picture_url == 'DEFAULT_PRODUCT_PICTURE':
+		return '%(site_root)s/static/imgs/default_product_FF_POOL.png'%locals()
+	elif product_picture_url.startswith('http'):
 		return product_picture_url
 	elif product_picture_url.startswith('/'):
 		return '%(site_root)s%(product_picture_url)s'%locals()

@@ -1,14 +1,17 @@
 Hi ${data['admin_name']},  
 
-Congratulations you have successfully set up a pool : ${data['pool_title']} for ${data['pool_description']}.
-Invitations have been sent out to ${data['invitee_list']} to chip in.  
+Congratulations you have successfully set up a pool : ${data['pool_title']}: ${data['pool_description']}.  
+Invitations to chip in have been sent out to:  
 
-[Promote your pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite more friends](http://${data['merchant_domain']}/pool/${data['p_url']}) to help reach your target of ${data['target_amount']} by ${data['expiry_date']}.  
+${self.show_names(data['invitee_list'])}  
+
+Promote your pool or invite more friends: <http://${data['merchant_domain']}/pool/${data['p_url']}> to help reach your target of ${data['target_amount']} by ${data['expiry_date']}.  
 
 All the best  
 the team @friendfund   
 
-<${data['DEFAULT_BASE_URL']}>  
+<${data['DEFAULT_BASE_URL']}> 
 The simple and fun way to collect money with your friends.  Create a pool and chip in!  
 
 <%def name="subject()">friendfund pool confirmation</%def>
+<%def name="show_names(invitees)">${"\n".join("- %s"%ivt["name"] for ivt in invitees)}</%def>

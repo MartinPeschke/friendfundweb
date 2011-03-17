@@ -24,14 +24,35 @@ L10N_KEYS = ['occasion']
 CONNECTION_NAME = 'job'
 
 def empty_sender(name = None):
-	def es(file_no, sndr_data, rcpt_data, template_data, config, rcpts_data = None):
+	def es(file_no, sndr_data, rcpt_data, template_data, config):
 		log.warning( "%s_MESSAGING_IS_OFF", name )
 		return "1"
 	return es
 def error_sender(name = None):
-	def es(file_no, sndr_data, rcpt_data, template_data, config, rcpts_data = None):
+	def es(file_no, sndr_data, rcpt_data, template_data, config):
 		raise Exception( "NOT_IMPLEMENTED_ERROR(%s)" % name)
 	return es
+	
+	
+def save_results(dbpool, messaging_results):
+
+	conn = dbpool.connection()
+	cur = conn.cursor()
+	status_update =  "<MESSAGES>"
+	for mref,values in messaging_results.items():
+		status_update += "<MESSAGE message_ref=%s %s/>" % \
+			(quoteattr(mref), ' '.join(map(lambda x: ('%s=%s' % (x[0], quoteattr(x[1]))),
+							values.iteritems())))
+	status_update +=  "</MESSAGES>"
+	log.info( 'exec job.set_message_status %s;', status_update )
+	res = cur.execute('exec job.set_message_status ?;', status_update)
+	res = res.fetchone()[0]
+	log.info( res )
+	cur.close()
+	conn.commit()
+	conn.close()
+
+	
 
 def main(argv=None):
 	
@@ -98,31 +119,41 @@ def main(argv=None):
 				meta_data = msg_data.attrib
 				sndr_data = msg_data.find("SENDER").attrib
 				rcpt_data = msg_data.find("RECIPIENT").attrib
-				template_data = msg_data.find("TEMPLATE").attrib
+				template_data = dict( msg_data.find("TEMPLATE").attrib )
 				template_data["DEFAULT_BASE_URL"] = ROOT_URL
 				template_data["today"] =datetime.datetime.today().strftime("%d.%m.%Y")
-				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
 				for k in L10N_KEYS:
 					if k in template_data and template_data[k]:
 						template_data[k] = _(template_data[k])
 				
+				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
+				if rcpts_data:
+					template_data['recipients'] = rcpts_data
+				ivts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("INVITEE")]
+				if ivts_data:
+					template_data['invitee_list']=ivts_data
+				print '-'*80
 				log.info ( 'meta_data, %s', meta_data)
 				log.info ( 'SENDER, %s', sndr_data)
 				log.info ( 'RECIPIENT, %s', rcpt_data)
 				log.info ( 'extraRECIPIENTs, %s', rcpts_data)
+				log.info ( 'extraINVITEEs, %s', ivts_data)
 				log.info ( 'TEMPLATE, %s', template_data)
 				
 				try:
 					notification_method = meta_data.get('notification_method').lower()
 					sender = messengers.get(notification_method, error_sender(notification_method))
-					msg_id = sender(meta_data['file_no'], sndr_data, rcpt_data, template_data, config, rcpts_data)
+					msg_id = sender(meta_data['file_no'], sndr_data, rcpt_data, template_data, config)
 				except InvalidAccessTokenException, e:
-					log.warning( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
+					log.error( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
 				except Exception, e:
 					log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
-					if debug: raise
+					if debug: 
+						save_results(dbpool, messaging_results)
+						messaging_results = {}
+						raise
 				else:
 					messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
 

@@ -24,7 +24,7 @@ class OtherUserData(DBMappedObject):
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'email','email')
-				,GenericAttrib(str,'profile_picture_url','profile_picture_url')
+				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = h.get_default_user_picture_token())
 				,GenericAttrib(unicode,'pwd','pwd')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(unicode,'first_name','first_name')
@@ -226,7 +226,8 @@ class CreateEmailUserProc(DBMappedObject):
 	_keys = [	 GenericAttrib(str,'network','network')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'email','email')
-				,GenericAttrib(unicode,'pwd','pwd')]
+				,GenericAttrib(unicode,'pwd','pwd')
+				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = h.get_default_user_picture_token())]
 	
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"

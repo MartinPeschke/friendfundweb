@@ -44,7 +44,7 @@ def _create_event(query, image_url, pool_url, config):
 	log.info ( res )
 	return event_id
 
-def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config, rcpts_data):
+def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config):
 	data = template_data
 	if not template_data.get('event_id'):
 		template = tmpl_lookup.get_template('fb_event/msg_%s.txt' % file_no)
@@ -60,12 +60,12 @@ def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config, rc
 		query["format"] = "json"
 		query["host"] = "me"
 		
-		image_url = h.get_user_picture(template_data.get("image_url"), "POOL", site_root=template_data["DEFAULT_BASE_URL"])
+		image_url = h.get_product_picture(template_data.get("pool_image"), "FF_POOL", site_root=template_data["DEFAULT_BASE_URL"])
 		event_id = _create_event(query, image_url, template_data['p_url'], config)
 	else:
 		event_id = template_data['event_id']
 	msg = {"eid":str(event_id),
-			"uids" : '[%s]'%','.join(rcpt['network_id'] for rcpt in rcpts_data),
+			"uids" : '[%s]'%','.join(rcpt['network_id'] for rcpt in template_data['recipients']),
 			"personal_message":query['description'], 
 			"format":"json",
 			"access_token":sndr_data['access_token']}
@@ -79,9 +79,6 @@ def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config, rc
 	return str(event_id)
 
 
-
-
-
 def stream_publish(template, sndr_data, rcpt_data, template_data):
 	data = template_data
 	msg = {}
@@ -90,15 +87,17 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	msg['name'] = template.get_def("name").render_unicode(h = h, data = data)
 	msg['caption'] = template.get_def("caption").render_unicode(h = h, data = data)
 	msg['description'] = template.get_def("description").render_unicode(h = h, data = data)
-	msg['actions'] = {}
-	msg['actions']['name'] = template.get_def("action_name").render_unicode(h = h, data = data)
-	msg['actions']['link'] = template.get_def("action_link").render_unicode(h = h, data = data)
-	
-	if 'image_url' in template_data:
-		msg['picture'] = h.get_product_picture(template_data.get('image_url'), 'POOL', site_root=template_data['DEFAULT_BASE_URL'])
+	actions = {}
+	actions['name'] = template.get_def("action_name").render_unicode(h = h, data = data)
+	actions['link'] = template.get_def("action_link").render_unicode(h = h, data = data)
+	msg['actions'] = simplejson.dumps(actions)
+	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOL", site_root=template_data["DEFAULT_BASE_URL"])
 	
 	msg['access_token'] = sndr_data['access_token']
 	query = urllib.urlencode(msg)
+	print 'https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref')
+	print msg
+	print query
 	try:
 		resp = urllib2.urlopen('https://graph.facebook.com/me/feed', query)
 	except urllib2.HTTPError, e:
@@ -111,7 +110,7 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	
 	
 	
-def send_stream_publish(file_no, sndr_data, rcpt_data, template_data, config, rcpts_data = None):
+def send_stream_publish(file_no, sndr_data, rcpt_data, template_data, config):
 	try:
 		template = tmpl_lookup.get_template('fb_wallpost/msg_%s.txt' % file_no)
 	except KeyError, e:

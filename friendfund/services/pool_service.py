@@ -57,6 +57,8 @@ class PoolService(object):
 									description = pool_schema.get("product_description"),
 									tracking_link = pool_schema.get("tracking_link"),
 									picture = pool_schema.get("product_picture") )
+		else:
+			pool.product = Product(picture = h.get_default_product_picture_token())
 		
 		admin = PoolInvitee.fromUser(tmpl_context.user)
 		admin.is_admin = True
