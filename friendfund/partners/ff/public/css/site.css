@@ -25,7 +25,7 @@ div#wrap {
 	width: 100%;
 	height:auto;
 	min-height:100%;
-	background:none repeat scroll 0 0 #F9F9F9
+	background:none repeat scroll 0 0 #F8F8F8
 }
 div.wrapHeader {
 	border-bottom: 1px solid #c7c6c3;
@@ -61,7 +61,6 @@ div.wrapContent {
 }
 div.wrapSubContent {
 	border-top:1px solid white;
-	background:#f9f9f9;
 }
 div.content {
 	max-width: 930px;
@@ -1581,6 +1580,7 @@ div.containerTxtArea textarea {
 	font-family: Arial;
 	font-size: 14px;
 	width: 100%;
+	height: 90px
 }
 div.containerTxtArea input {
 	border: medium none;
@@ -2066,7 +2066,7 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
 }
 .red {
-	background-color:#fa92ad !important;
+	background-color:#FC2752 !important;
 }
 .green {
 	background-color:#6ad647 !important;
@@ -2110,10 +2110,10 @@ div.error input, div.error .containerTxtArea, div.error select {
 	border-color:#FA92AD !important
 }
 div.error div.tip {
-	background-color:#FA92AD !important
+	background-color:#F973AF !important
 }
 div.error div.tip div.arrow {
-	border-right: 10px solid #FA92AD;
+	border-right: 10px solid #F973AF;
 }
 div.error div.tip span {
 	color:#333 !important
@@ -3326,7 +3326,7 @@ div.whitePopupFrameLarge .inputFields p.info {
 	padding-bottom: 0px !important
 }
 .noBtmPad.selected {
-	margin-bottom: -5px !important
+	margin-bottom: -4px !important
 }
 .fourteen {
 	font-size: 14px;
@@ -3409,7 +3409,7 @@ div.footer div.showHide div.widthGiver {
 	display: none;
 	position: absolute;
 	right: 0;
-	top: -55px;
+	top: -32px;
 	width: 100%;
 	z-index: 300;
 }
@@ -3691,10 +3691,16 @@ span.btnDef{
 }
 span.btnDef.active{
 	background: #dddddd;
+	color: #333
 	
 }
+span.btnDefFb{ background:#F4F4F4 url(/static/imgs/fb_icon_bw.png) 5px 4px no-repeat; padding-left: 30px}
+span.btnDefTw{background:#F4F4F4 url(/static/imgs/twitter_icon_bw.png) 5px 4px no-repeat; padding-left: 30px}
+span.btnDefFb.active{background:#F4F4F4 url(/static/imgs/fb-icon.png) 5px 4px no-repeat; padding-left: 30px}
+span.btnDefTw.active{background:#F4F4F4 url(/static/imgs/twitter-icon.png) 6px 4px no-repeat; padding-left: 30px}
+
 span.btnDefMail{ background:#f4f4f4  url(/static/imgs/mailBtn.png) 5px 0 no-repeat !important; padding-left: 35px }
-span.btnDefMail.active{ background:#dddddd  url(/static/imgs/mailBtn.png) 5px -26px no-repeat !important;}
+span.btnDefMail.active{ background:#dddddd  url(/static/imgs/mailBtn.png) 5px -25px no-repeat !important;}
 p.no{ font-size:16px; color: #666; padding-bottom: 20px}
 .noContainer{ padding: 50px 0 50px 0; text-align: center}
 .fixedWidth{max-width: 150px; margin: 0 auto}
@@ -3729,3 +3735,5 @@ div.outerPopupFrame .popupPadder p{color: #999999;
 .simpleeditable span{ display: inline}
 div.verySmall{ color: #999; font-size: 10px; margin-top: -7px ; margin-bottom: 7px}
 .aligner{line-height: 30px;}
+#titleInput{ height: 22px; width: 514px}
+#activityBody .colRightWhite{ margin-left: 160px}
