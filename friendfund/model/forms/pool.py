@@ -6,7 +6,7 @@ _ = lambda x:x
 class PoolHomePageForm(formencode.Schema):
 	allow_extra_fields = True
 	amount = DecimalStringValidator(min=0.01, max=9999999, if_missing="")
-	title = formencode.validators.String(max=1024, if_missing="")
+	title = formencode.validators.String(max=140, if_missing="")
 
 
 class PoolCreateForm(formencode.Schema):

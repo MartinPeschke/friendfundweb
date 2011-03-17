@@ -1,20 +1,19 @@
 <%inherit file="../layout.html"/>
+<%def name="title()">${_("FF_TITLESUCCESS for %s") % c.pool.title}</%def>
 <div class="wrapSubHeader">
 	<div id="messaging_container" class="overlayWrapper">
 		<div class="overlay green hidden">
 			<p id="messaging_messages"></p>
 		</div>
 	</div>
-
+	<% 
+		locals = {"pool_title":c.pool.title} 
+	%>
 	<div class="subHeader">
-
 		<div class="userProfile">
 			<div class="empty">
-				<h2>eCard for Peter and Judy’s Wedding</h2>
-			
-
+				<h2>${_("FF_POOLECARD_eCard for %(pool_title)s")%locals|n}</h2>
 			</div>
-			
 		<div class="clear"></div>
 		</div>
 	</div>
@@ -33,7 +32,6 @@
 		<div class="generalBoxRight">
 			<h2>Share card</h2>
 			<div class="iconContainer">
-
 				<div class="addthis_toolbox addthis_default_style">
 					<a class="addthis_button_facebook"></a>
 					<a class="addthis_button_twitter"></a>
@@ -43,8 +41,7 @@
 					<a class="addthis_button_tumblr"></a>
 					<a class="addthis_button_expanded"></a>
 				</div>
-
-			<div class="clear"></div>
+				<div class="clear"></div>
 			</div>
 		</div>
 		<div class="colRightWhite"></div>
