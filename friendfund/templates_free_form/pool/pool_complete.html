@@ -1,5 +1,13 @@
 <%inherit file="../layout.html"/>
 <%def name="title()">${_("FF_TITLESUCCESS for %s") % c.pool.title}</%def>
+<%def name="scripts()">
+	<script type="text/javascript">
+		var addthis_config = {"data_track_clickback":true};
+	</script>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
+</%def>
+
+
 <div class="wrapSubHeader">
 	<div id="messaging_container" class="overlayWrapper">
 		<div class="overlay green hidden">
@@ -43,7 +51,7 @@
 		</div>
 		<div class="colRightWhite"></div>
 		<div class="generalBoxRight ">
-			<h2>${_("FF_POOLECARD_Share to card")}</h2>
+			<h2>${_("FF_POOLECARD_Share card")}</h2>
 			<input type="text" value="${url.current()}" onfocus="this.select()" />
 		</div>
 		<div class="colRightWhite"></div>
@@ -85,65 +93,16 @@
 				<h4>${_("FF_POOLECARD_Contributor Messages")} <span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span></h4>
 				<ul class="contribMsg">
 				<li>
-					
 					<div class="avt">
 						<div class="arrowAvatar"></div>
 						<img src="https://graph.facebook.com/100001688660434/picture">
 					</div>
 					<p class="bold grey">Adewumi Habib</p>
 					<p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-				
-					
 				</li>
-        <li>
-			
-			<div class="avt">
-            	<div class="arrowAvatar"></div>
-				<img src="https://graph.facebook.com/100001688660434/picture">
-			</div>
-			<p class="bold grey">Adewumi Habib</p>
-            <p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-		
-			
-		</li>
-        <li>
-			
-			<div class="avt">
-            	<div class="arrowAvatar"></div>
-				<img src="https://graph.facebook.com/100001688660434/picture">
-			</div>
-			<p class="bold grey">Adewumi Habib</p>
-            <p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-		
-			
-		</li>
-        <li>
-			
-			<div class="avt">
-            	<div class="arrowAvatar"></div>
-				<img src="https://graph.facebook.com/100001688660434/picture">
-			</div>
-			<p class="bold grey">Adewumi Habib</p>
-            <p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-		
-			
-		</li>
-        <li>
-			
-			<div class="avt">
-            	<div class="arrowAvatar"></div>
-				<img src="https://graph.facebook.com/100001688660434/picture">
-			</div>
-			<p class="bold grey">Adewumi Habib</p>
-            <p class="tx">Oh boy, you're reall y pushing it here. Weren't three weddings enough, Judy? Really?poiuvbvuvgyh gbugo abyuf gebvquohr gveqiub bji kvbuj bew</p>
-		
-			
-		</li>
-		
-
-		</ul>
+				</ul>
         <div class="clear"></div>
-       	  </div>	
+       	  </div>
 	</div>
 <div class="clear"></div>
 
