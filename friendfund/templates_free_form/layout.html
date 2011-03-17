@@ -10,14 +10,16 @@
 			<h1>
 				<a href="${url('home', protocol="http")}"><span>Friendfund</span></a>
 			</h1>
+			%if request.merchant.is_default:
 			<ul>
-				<li><a href="${url('home', protocol="http")}">${_("FF_MENU_Home")}</a></li>
-				<li><a href="#">${_("FF_MENU_Learn")}</a></li>
-				<li><a href="${self.create_pool_link()}">${_("FF_MENU_Create a pool")}</a></li>
-				%if not c.user.is_anon:
-					<li><a href="${url(controller="mypools", action="stream")}">${_("FF_MENU_My_Pools")}</a></li>
-				%endif
+					<li><a href="${url('home', protocol="http")}">${_("FF_MENU_Home")}</a></li>
+					<li><a href="#">${_("FF_MENU_Learn")}</a></li>
+					<li><a href="${self.create_pool_link()}">${_("FF_MENU_Create a pool")}</a></li>
+					%if not c.user.is_anon:
+						<li><a href="${url(controller="mypools", action="stream")}">${_("FF_MENU_My_Pools")}</a></li>
+					%endif
 			</ul>
+			%endif
 			<div class="clear"></div>
 		</div>
 	</div>
@@ -32,20 +34,20 @@
             	<div class="firstFourCol">
                     <div class="footerCol1">
                         <span class="fontWeightBold">${_("FF_FOOTER_About")}</span>
-                        <a href="${url(controller="content", action="aboutus")}">${_("FF_FOOTER_About Friendfund")}</a>
+                        <a href="${url(controller="content", action="aboutus", host=app_globals.default_host)}">${_("FF_FOOTER_About Friendfund")}</a>
                         <a href="http://www.blog.friendfund.com">${_("FF_FOOTER_Our blog")}</a>
-                        <a href="${url(controller="content", action="jobs")}">${_("FF_FOOTER_Jobs")}</a>
-                        <a href="${url(controller="content", action="faq")}">${_("FF_FOOTER_FAQ")}</a>
+                        <a href="${url(controller="content", action="jobs", host=app_globals.default_host)}">${_("FF_FOOTER_Jobs")}</a>
+                        <a href="${url(controller="content", action="faq", host=app_globals.default_host)}">${_("FF_FOOTER_FAQ")}</a>
                     </div>
                     <div class="footerCol2">
                         <span class="fontWeightBold">${_("FF_FOOTER_Contact")}</span>
-                        <a href="${url(controller="content", action="contact")}">${_("FF_FOOTER_Contact Friendfund")}</a>
-                        <a href="${url(controller="content", action="partner")}">${_("FF_FOOTER_Become a partner")}</a>
+                        <a href="${url(controller="content", action="contact", host=app_globals.default_host)}">${_("FF_FOOTER_Contact Friendfund")}</a>
+                        <a href="${url(controller="content", action="partner", host=app_globals.default_host)}">${_("FF_FOOTER_Become a partner")}</a>
                     </div>
                     <div class="footerCol3">
                         <span class="fontWeightBold">${_("FF_FOOTER_Legal")}</span>
-                        <a href="${url(controller="content", action="tos")}">${_("FF_FOOTER_Terms of Service")}</a>
-                        <a href="${url(controller="content", action="privacy")}">${_("FF_FOOTER_Privacy")}</a>
+                        <a href="${url(controller="content", action="tos", host=app_globals.default_host)}">${_("FF_FOOTER_Terms of Service")}</a>
+                        <a href="${url(controller="content", action="privacy", host=app_globals.default_host)}">${_("FF_FOOTER_Privacy")}</a>
                     </div>
                     <div class="footerCol4">
                         <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
@@ -58,7 +60,7 @@
                 <div class="footerCol5">
 					<div style="">
 						<div class="language">
-							<span class="floatLeft"; style="margin:3px 5px 0 0">Language : </span>
+							<span class="floatLeft"; style="margin:3px 5px 0 0">${_("ff_footer_Language:")} </span>
 							<div class="languageSelection">
 								<div class="showHide">
 									<%

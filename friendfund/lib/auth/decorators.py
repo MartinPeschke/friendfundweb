@@ -19,6 +19,14 @@ def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = N
 		return func(self, *args, **kwargs)
 	return decorator(validate)
 
+def default_domain_only(): 
+	def validate(func, self, *args, **kwargs):
+		pylons = get_pylons(args)
+		if not pylons.request.merchant.is_default:
+			return redirect(url.current(host=pylons.app_globals.default_host))
+		return func(self, *args, **kwargs)
+	return decorator(validate)
+
 def is_ssp_admin(ajax = False, redirect_to = url(controller='ssp', action='index'), furl = None): 
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)

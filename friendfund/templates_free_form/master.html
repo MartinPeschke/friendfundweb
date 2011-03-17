@@ -21,6 +21,7 @@ ${self.render_html()}
 		<title>friendfund.com | ${self.title()}</title>
 		${links.css('site.css')}
 		${links.css('staging.css')}
+		${links.css('custom.css',path='/static/')}
 		${links.js('loader.js')}
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}

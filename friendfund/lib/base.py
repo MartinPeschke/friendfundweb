@@ -98,7 +98,7 @@ class BaseController(WSGIController):
 		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
 		if not (host and host in g.merchants.domain_map):
-			return redirect(g.default_host)
+			return url.current(host=g.default_host)
 		else:
 			request.merchant = g.merchants.domain_map[host]
 			request.qualified_host = '%s://%s'%(request.headers.get('X-Forwarded-Proto', 'http'), host)

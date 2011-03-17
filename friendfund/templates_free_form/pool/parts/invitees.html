@@ -1,19 +1,20 @@
 
+pool_currency = c.pool.currency
 %for i, invitee in enumerate(c.participants.list):
-	${self.render(i, invitee, i==0)}
+	${self.render(i, invitee, pool_currency, i==0)}
 %endfor
 %if c.participants.has_more:
 	<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="${c.page+1}" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
 %endif
 
 
-<%def name="render(position, invitee, is_admin = False)">
+<%def name="render(position, invitee, pool_currency, is_admin = False)">
 	<li>
-		<div class="avt" title="${invitee.name}">
+		<div class="avt" title="${invitee.get_invitee_label(pool_currency)}">
 			%if invitee.contributed_amount:
 				<div class="checked"><img src="/static/imgs/checked.png" /></div>
 			%endif
-			<img src="${invitee.get_profile_pic('PROFILE_S')}" alt="${invitee.name}" width="48px" height="48px" />
+			<img src="${invitee.get_profile_pic('PROFILE_S')}" alt="${invitee.get_invitee_label(pool_currency)}" width="48px" height="48px" />
 		</div>
 	</li>
 </%def>

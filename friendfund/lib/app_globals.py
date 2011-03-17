@@ -88,7 +88,7 @@ class Globals(object):
 		top_sellers = self.dbm.get(GetTopSellersProc)
 		
 		self.merchants = self.dbm.get(GetMerchantConfigProc)
-		self.default_host = 'http://%s'%self.merchants.default_domain
+		self.default_host = self.merchants.default_domain
 		log.info("STARTING UP WITH following subdomains: %s", list(self.merchants.domain_map.iterkeys()))
 		
 		##################################### SERVICES SETUP #####################################

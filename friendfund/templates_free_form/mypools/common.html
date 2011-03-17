@@ -77,6 +77,7 @@
 					</div>
 				</div>
 				
+				%if len(pool.friends):
 				<div class="vertSpacer">
 					<span>${_("FF_MYPOOLS_IN THIS POOL")}</span>
 					%for friend in pool.get_random_n_invitees(3):
@@ -85,6 +86,7 @@
 					</div>
 					%endfor
 				</div>
+				%endif
 				%if not pool.is_admin and pool.invitor_name:
 						<div class="vertSpacer">
 							<span>${_("FF_MYPOOLS_INVITED BY")}</span>
@@ -102,10 +104,10 @@
 						</div>
 					</div>
 				%endif
-				%if merchant.is_default:
+				%if not merchant.is_default:
 					<div class="vertSpacer">
 						<span>${_("FF_MYPOOLS_MERCHANT")}</span>
-						<img src="${h.get_merchant_logo(merchant.logo_url)}" class="floatRight"/>
+						<img src="${h.get_merchant_logo(merchant.logo_url)}" width="60px" height="30px" class="floatRight"/>
 					</div>
 				%endif
 			</div>

@@ -1,16 +1,18 @@
 import formencode
 from friendfund.model.forms.common import CurrencyValidator, PWDValidator
 
+_ = lambda x:x
+
 class LoginForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True
-	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=False)
-	pwd = PWDValidator(not_empty=True)
+	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=False, messages={'empty': _('FF_SIGNUP_ERROR_EMAIL_Please enter an email !')})
+	pwd = PWDValidator(not_empty=True, messages={'empty': _('FF_SIGNUP_ERROR_PWD_Please enter a password !')})
 
 class EmailRequestForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True
-	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
+	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True, messages={'empty': _('FF_SIGNUP_ERROR_EMAIL_Please enter an email !')})
 
 class PasswordResetForm(formencode.Schema):
 	allow_extra_fields = True
@@ -31,9 +33,9 @@ class SignupForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True
 	
-	name = formencode.validators.String(not_empty=True)
-	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
-	pwd = PWDValidator(not_empty=True, min=5, max = 255)
+	name = formencode.validators.String(not_empty=True, messages={'empty': _('FF_SIGNUP_ERROR_NAME_Please enter a name!')})
+	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True, messages={'empty': _('FF_SIGNUP_ERROR_EMAIL_Please enter an email !')})
+	pwd = PWDValidator(not_empty=True, min=5, max = 255, messages={'empty': _('FF_SIGNUP_ERROR_PWD_Please enter a password !')})
 
 class MyProfileForm(formencode.Schema):
 	allow_extra_fields = True

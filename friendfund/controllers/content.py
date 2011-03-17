@@ -3,6 +3,7 @@ import logging
 from pylons import request, response, session, tmpl_context as c, url
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
+from friendfund.lib.auth.decorators import default_domain_only
 
 _ = lambda x:x
 FAQ_KEYS = [(_("STATIC_Frequently Asked Questions_Question1" ), _("STATIC_Frequently Asked Questions_Answer1" )),
@@ -58,20 +59,27 @@ class ContentController(BaseController):
 	def invite_info(self):
 		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}	
 	
+	@default_domain_only()
 	def contact(self):
 		return render("/content/contact.html")
+	@default_domain_only()
 	def aboutus(self):
 		return render("/content/aboutus.html")
+	@default_domain_only()
 	def tos(self):
 		return render("/content/tos.html")
+	@default_domain_only()
 	def jobs(self):
 		return render("/content/jobs.html")
+	@default_domain_only()
 	def privacy(self):
 		return render("/content/privacy.html")
+	@default_domain_only()
 	def impressum(self):
 		return render("/content/impressum.html")
 	def merchant_explain(self):
 		return render("/content/merchant_explain.html")
+	@default_domain_only()
 	def faq(self):
 		c.faq_items = FAQ_KEYS
 		return render("/content/faq.html")

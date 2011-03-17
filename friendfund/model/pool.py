@@ -193,14 +193,14 @@ class PoolUser(DBMappedObject):
 		return float(self.contributed_amount)/100
 	contributed_amount_float = property(_get_contributed_amount_float)
 	
-	def get_contribution_amount_text(self, currency):
+	def get_invitee_label(self, currency):
 		if self.contributed_amount:
 			if(self.contribution_secret==False):
-				return '%s' % h.format_currency(self._get_contributed_amount_float(), currency)
+				return _('FF_POOLPAGE_INVITEE_LABEL_%s - Chipped in %s') % (self.name, h.format_currency(self.contributed_amount_float, currency))
 			else:
-				return _("CONTRIBPAGE_LABEL_A pot of gold")
+				return _("FF_POOLPAGE_INVITEE_LABEL_%s - Chipped in") % self.name
 		else:
-			return ''
+			return self.name
 	
 	def get_profile_pic(self, type="PROFILE_M"):
 		img = h.get_user_picture(self.profile_picture_url, type)

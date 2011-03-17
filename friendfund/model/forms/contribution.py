@@ -1,11 +1,12 @@
 import formencode
 from friendfund.model.forms.common import MonetaryValidator, TotalTransactionCostValidator, TOSValidator, PaymentMethodValidator
 
+_ = lambda x:x
 
 class PaymentIndexForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True
-	amount = MonetaryValidator(not_empty=True, min=0.01, max=9999)
+	amount = MonetaryValidator(not_empty=True, min=0.01, max=9999, messages={'empty': _('FF_CHIPIN_ERROR_AMOUNT_Please enter some amount!')})
 	agreedToS = TOSValidator(if_missing=False)
 	is_secret = formencode.validators.StringBool(if_empty=False, if_missing=False)
 	message = formencode.validators.String(max=140)

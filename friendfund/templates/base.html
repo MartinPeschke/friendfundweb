@@ -91,19 +91,19 @@ ${self.render_html()}
 </%def>
 <%def name="render_footer_links()">
 	<a href="http://blog.friendfund.com" class="siteinfo_content">${_(u"SITEINFO_Blog")|n}</a>
-	<a href="http://blog.friendfund.com/?page_id=108" class="siteinfo_content">${_(u"SITEINFO_Jobs")|n}</a>
-	<a href="${url(controller='content', action='tos')}" class="siteinfo_content">${_(u"SITEINFO_Terms")|n}</a>
-	<a href="${url(controller='content', action='privacy')}" class="siteinfo_content">${_(u"SITEINFO_Privacy")|n}</a>
-	<a href="${url(controller='content', action='impressum')}" class="siteinfo_content">${_(u"SITEINFO_Impressum")|n}</a>
-	<a href="${url(controller='content', action='faq')}" class="siteinfo_content">${_(u"SITEINFO_FAQ")|n}</a>
+	<a href="${url(controller='content', action='jobs', host=app_globals.default_host)}" class="siteinfo_content">${_(u"SITEINFO_Jobs")|n}</a>
+	<a href="${url(controller='content', action='tos', host=app_globals.default_host)}" class="siteinfo_content">${_(u"SITEINFO_Terms")|n}</a>
+	<a href="${url(controller='content', action='privacy', host=app_globals.default_host)}" class="siteinfo_content">${_(u"SITEINFO_Privacy")|n}</a>
+	<a href="${url(controller='content', action='impressum', host=app_globals.default_host)}" class="siteinfo_content">${_(u"SITEINFO_Impressum")|n}</a>
+	<a href="${url(controller='content', action='faq', host=app_globals.default_host)}" class="siteinfo_content">${_(u"SITEINFO_FAQ")|n}</a>
 </%def>
 <%def name="render_flag_container()">
-	<div class="flagContainer">
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=de_DE" class="flag_de_DE">&nbsp;</a>
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_GB" class="flag_en_GB">&nbsp;</a>
-		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_US" class="flag_en_US">&nbsp;</a>
-		<!-- <a href="${url(controller='myprofile', action='set_lang')}?lang=es_ES" class="flag_es_ES">&nbsp;</a> -->
-	</div>
+####	<div class="flagContainer">
+####		<a href="${url(controller='myprofile', action='set_lang')}?lang=de_DE" class="flag_de_DE">&nbsp;</a>
+####		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_GB" class="flag_en_GB">&nbsp;</a>
+####		<a href="${url(controller='myprofile', action='set_lang')}?lang=en_US" class="flag_en_US">&nbsp;</a>
+####		<!-- <a href="${url(controller='myprofile', action='set_lang')}?lang=es_ES" class="flag_es_ES">&nbsp;</a> -->
+####	</div>
 </%def>
 
 
