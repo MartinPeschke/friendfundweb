@@ -207,14 +207,12 @@
       </div>
 	<div class="spacerBorder"></div>
 	<div class="borderBottom txtInside noBorder lessPad ${('agreedToS' in c.errors) and "error" or ""}">
-		<div class="tip">
-			<div class="arrow"></div>
 		%if ('agreedToS' in c.errors):
-			<span>${c.errors['agreedToS']}</span> 
-		%else:
-			<span>${_("FF_CONTRIB_PAGE_TERMSOFSERVICE_Tip goes here")}</span> 
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>${c.errors['agreedToS']}</span> 
+			</div>
 		%endif
-		</div>
         <div class="disclaimer">${_("STATIC_TERMS_OF_SERVICE_CONTENT")|n}</div>
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
