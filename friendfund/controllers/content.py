@@ -80,7 +80,7 @@ class ContentController(BaseController):
 	def jobs(self):
 		return render("/content/jobs.html")
 	@default_domain_only()
-	def privacy(self, lang):
+	def privacy(self, lang = None):
 		if lang:
 			try:
 				return render("/content/privacy_%s.html" % lang)
