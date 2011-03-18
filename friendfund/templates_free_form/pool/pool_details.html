@@ -236,29 +236,29 @@
 				</p>
 				
 				%for i, so in enumerate(request.merchant.settlement_options):
+					<% _locals = {"fees":so.fee*100} %>
 					<div class="hiderParent">
 						<input type="radio" name="settlementOption" value="${so.name}" 
 							${widgets.expression_quote(c.values['settlementOption']==so.name or i==0, "checked")|n} id="${so.name}_option" class="chkbox" onclick="toggleSettlement(this);"/>
 						<label for="${so.name}_option">
 							${_(so.name)} 
 							%if so.fee:
-								<% _locals = {"fees":so.fee} %>
 								<span class="free">${_("FF_POOLDETAILS_(costs you %(fees)s%%)")%_locals|n}</span>
 							%else:
 								<span class="free">${_("FF_POOLDETAILS_(FREE)")}</span>
 							%endif 
 						</label>
 						%if so.fee:
-						<div class="verticalTip hideable hidden">
-						<div class="arrow"></div>
-							<span>
-								${_("FF_POOLDETAILS_If choosing this option, you will be charged a %s%% fee. Do you want to add this to your Pool Funding Total?")%(so.fee*100)}
-							</span>
-							<div style="margin-top:5px"><input type="checkbox" name="${so.name}.charge_through" id="${so.name}_charge_through" value="1"  
-										${widgets.expression_quote(c.values.get(so.name, dict()).get("charge_through"), "checked")|n}/>
-								<label for="${so.name}_charge_through" class="bold">${_("FF_POOLDETAILS_Yes, please add the %s%% to my Funding Total")%(so.fee*100)}</label>
+							<div class="verticalTip hideable hidden">
+							<div class="arrow"></div>
+								<span>
+									${_("FF_POOLDETAILS_If choosing this option, you will be charged a %(fees)s%% fee. Do you want to add this to your Pool Funding Total?")%_locals}
+								</span>
+								<div style="margin-top:5px"><input type="checkbox" name="${so.name}.charge_through" id="${so.name}_charge_through" value="1"  
+											${widgets.expression_quote(c.values.get(so.name, dict()).get("charge_through"), "checked")|n}/>
+									<label for="${so.name}_charge_through" class="bold">${_("FF_POOLDETAILS_Yes, please add the %(fees)s%% to my Funding Total")%_locals}</label>
+								</div>
 							</div>
-						</div>
 						%endif
 						%if so.required_fields:
 							<div id="${so.name}_form" class="requiredForm hideable hidden">

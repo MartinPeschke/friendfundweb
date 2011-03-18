@@ -49,7 +49,10 @@ class PoolService(object):
 			else:
 				log.error("POOLCREATE, REQUIRED FIELD has no PERSISTENCE_ATTRIBUTE")
 		
-		pool.set_amount_float(pool_schema.pop("amount"))
+		amount = pool_schema.pop("amount")
+		if so_values and 'charge_through' in so_values:
+			amount = (1+so.fee)*amount
+		pool.set_amount_float(amount)
 		pool.occasion = Occasion(key="EVENT_OTHER", date=pool_schema['date'])
 		
 		if h.contains_one_ne(pool_schema, ["tracking_link", "product_picture"]):
