@@ -2,7 +2,7 @@
 FriendFund Notification Service, the only commandline argument should be the paster config file.
 i.e. invoke as: python friendfund/tasks/notifier.py -f development.ini
 """
-import logging, time, sys, getopt, os
+import logging, time, sys, getopt, os, mako
 from lxml import etree
 from xml.sax.saxutils import quoteattr
 from friendfund.tasks import get_db_pool, get_config, Usage
@@ -20,15 +20,18 @@ logging.basicConfig()
 log = logging.getLogger(__name__)
 
 from mako.lookup import TemplateLookup
+from friendfund.tasks import data_root
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-tmpl_lookup = TemplateLookup(directories=[os.path.join(root, '..', 'templates_free_form','messaging')]
-		, module_directory=os.path.join(data_root, 'templates_free_form','messaging')
+tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_form','messaging', 'messages')]
+		, module_directory=os.path.join(data_root, 'templates_free_form','messaging', 'messages')
 		, output_encoding='utf-8'
 		)
 
+print os.path.join(root, 'templates_free_form','messaging', 'messages')
 
 
-		import gettext
+
+import gettext
 transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de'])
 _ = transl.ugettext
 L10N_KEYS = ['occasion']
@@ -192,9 +195,9 @@ def main(argv=None):
 				try:
 					file_no = meta_data['file_no']
 					try:
-						template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
+						template = tmpl_lookup.get_template('/msg_%s.txt' % file_no)
 					except mako.exceptions.TopLevelLookupException, e:
-						log.warning( "ERROR Template not Found for (%s)" , ('messages/msg_%s.txt' % file_no) )
+						log.warning( "ERROR Template not Found for (%s)" , ('/msg_%s.txt' % file_no) )
 						raise MissingTemplateException(e)
 					else:
 						notification_method = meta_data.get('notification_method').lower()
