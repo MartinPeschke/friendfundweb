@@ -98,7 +98,7 @@ class GenericElement(DBMapping):
 		return '<%s>%s</%s>' % result
 		
 	def fromDB(self, val):
-		if val.text is None:
+		if val is None or val.text is None:
 			if self.default is None:
 				return None
 			else:
