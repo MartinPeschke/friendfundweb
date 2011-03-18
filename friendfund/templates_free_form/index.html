@@ -58,127 +58,35 @@
 	</div>
 	<div class="featuredPoolsBox">
 		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
-		<% locals = {"no_contributors":14, "days_left":14, "admin_name":"Liz Stevens", "product_name":"her Tennis club"} %>
-		<div class="homebox">
-			<img src="/static/imgs/dummy/dummy-pools.jpg" />
-			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")}</span>
-			<div class="timeCounter">
-				<span>7%</span>
-				<div class="timeCounterRight" >
-                	<div class="timeCounterLeft" style="width:10%"> </div>
+		
+		
+		%for i, pool in enumerate(c.featured_pools):
+			<% locals = {"no_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days_tuple()[0], "admin_name":pool.admin.name} %>
+			<div class="homebox ${i==3 and 'lastOne' or ''}">
+				<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
+				<h5>${pool.title}</h5>
+				<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
+				<div class="timeCounter">
+					<span>${int(pool.funding_progress()*100)}%</span>
+					<div class="timeCounterRight" >
+						<div class="timeCounterLeft" style="width:${int(pool.funding_progress()*100)}%"> </div>
+					</div>
+					<div class="clear"></div>
 				</div>
 				
-				
-				
-				<div class="clear"></div>
-			</div>
-			
-			<div class="boxContributors">
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
-            <span class="middot">&middot;</span>
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
-			</div>
-			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<div class="clear"></div>
-			</div>
-		</div>
-		<div class="homebox">
-			<img src="/static/imgs/dummy/dummy-pools.jpg" />
-			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
-			<div class="timeCounter">
-				<span>7%</span>
-				<div class="timeCounterRight" >
-                	<div class="timeCounterLeft" style="width:10%"> </div>
+				<div class="boxContributors">
+					<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+					<span class="middot">&middot;</span>
+					<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
 				</div>
-				
-				
-				
-				<div class="clear"></div>
-			</div>
-			
-			<div class="boxContributors">
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-			<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
-            <span class="middot">&middot;</span>
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
-			</div>
-			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<div class="clear"></div>
-			</div>
-		</div>
-		<div class="homebox">
-			<img src="/static/imgs/dummy/dummy-pools.jpg" />
-			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
-			<div class="timeCounter">
-				<span>7%</span>
-				<div class="timeCounterRight" >
-                	<div class="timeCounterLeft" style="width:10%"> </div>
+				<div class="fbHolder">
+					%for pu in pool.get_random_n_invitees(5):
+						<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
+					%endfor
+					<div class="clear"></div>
 				</div>
-				
-				
-				
-				<div class="clear"></div>
 			</div>
-			
-			<div class="boxContributors">
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
-            <span class="middot">&middot;</span>
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
-			</div>
-			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<div class="clear"></div>
-			</div>
-		</div>
-		<div class="homebox lastOne">
-			<img src="/static/imgs/dummy/dummy-pools.jpg" />
-			<h5>Peter Pan Home Invasion</h5>
-			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
-			<div class="timeCounter">
-				<span>7%</span>
-				<div class="timeCounterRight" >
-                	<div class="timeCounterLeft" style="width:10%"> </div>
-				</div>
-				
-				
-				
-				<div class="clear"></div>
-			</div>
-			
-			<div class="boxContributors">
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-				<!--	<span> ${_("FF_HOMEPAGE_BOXES_and")} </span>-->
-            <span class="middot">&middot;</span>
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
-			</div>
-			<div class="fbHolder">
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<a href="#"><img src="/static/imgs/dummy/dummy-fb.jpg" /></a>
-				<div class="clear"></div>
-			</div>
-		</div>
+		%endfor
 		<div class="clear"></div>
 	</div>
 	<div class="whatElse">
@@ -204,7 +112,7 @@ something amazing.</p>
 					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
 				</div>
 				<span class="name bold">Amanda</span>
-				<span class="desc">${_("FF_HOMEPAGE_BOXES_Created a Pool for %(product_name)s")%locals}</span>
+				<span class="desc">Created a Pool for her Tennis club</span>
 			</div>
 		</div>
 		<div class="boxGray box3 lastOne">
@@ -220,7 +128,7 @@ something amazing.</p>
 					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
 				</div>
 				<span class="name bold">Amanda</span>
-				<span class="desc">${_("FF_HOMEPAGE_BOXES_Created a Pool for %(product_name)s")%locals}</span>
+				<span class="desc">Created a Pool for her Tennis club</span>
 			</div>
 			
 		</div>

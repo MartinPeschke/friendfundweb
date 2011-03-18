@@ -141,9 +141,8 @@ def save_product_image(newfname, tmpfname, type):
 		return newurl
 	finally:
 		os.unlink(tmpfname)
-		
-		
-		
+
+
 @task
 def remote_save_image(email, tmpfname, newfname):
 	dbm = get_dbm(CONNECTION_NAME)

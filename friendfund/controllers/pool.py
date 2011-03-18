@@ -168,7 +168,8 @@ class PoolController(ExtBaseController):
 				return self.render('/pool/pool_details.html')
 		c.pool.merchant_domain = request.merchant.domain
 		g.dbm.set(c.pool, merge = True, cache=False)
-		if c.pool.product:
+		
+		if c.pool.product and c.pool.product.has_picture():
 			remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		

@@ -9,8 +9,7 @@ from friendfund.lib.i18n import friendfund_formencode_gettext
 from friendfund.model.forms.pool import PoolCreateForm
 from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion, JoinPoolProc
 from friendfund.model.product import Product
-from friendfund.tasks.photo_renderer import remote_profile_picture_render, render_product_pictures, save_product_image
-
+from friendfund.tasks.photo_renderer import remote_profile_picture_render, render_product_pictures, save_product_image, remote_product_picture_render
 
 class MissingPermissionsException(Exception):pass
 class MissingPoolException(Exception):pass
@@ -86,7 +85,6 @@ class PoolService(object):
 		if h.users_equal(pool.receiver, admin):
 			admin.profile_picture_url = pool.receiver.profile_picture_url
 		admin.is_admin = True
-		
 		#### Setting up the Pool for initial Persisting
 		pool.participants.append(admin)
 		locals = {"admin_name":admin.name, "receiver_name" : pool.receiver.name, "occasion_name":pool.occasion.get_display_name()}

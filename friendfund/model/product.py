@@ -25,6 +25,8 @@ class Product(DBMappedObject):
 		return h.word_truncate_plain(self.name.title(), 2)
 	def get_display_description(self):
 		return h.word_truncate_by_letters(self.description, 180)
+	def has_picture(self):
+		return self.picture and self.picture!= h.get_default_product_picture_token()
 
 class DisplayProduct(Product):
 	_keys = [	GenericAttrib(unicode  ,'guid'         , 'guid'             , persistable=False)
