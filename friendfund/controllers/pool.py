@@ -40,6 +40,10 @@ class PoolController(ExtBaseController):
 			return redirect(url('home'))
 		if c.pool.is_closed() and not "view" in request.params:
 			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
+		elif c.pool.is_closed():
+			c.messages.append(SuccessMessage(_('FF_POOL_SUCCESS_MSG_This pool has been successfully funded <a href="%s"> View the eCard&raquo;</a>')%url(controller="pool", pool_url=c.pool.p_url, action="complete")))
+		elif c.pool.is_expired():
+			c.messages.append(ErrorMessage(_('FF_POOL_EXPIRED_MSG_This pool expired without reaching its funding goal in time.')))
 		if c.pool.can_i_view(c.user):
 			c.workflow = request.params.get("v") or None
 			return self.render('/pool/pool.html')

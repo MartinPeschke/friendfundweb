@@ -112,7 +112,7 @@
 	%>
 	<div id="messaging_container" class="overlayWrapper" ${(relative and msgs and 'style="position:relative"' or '')|n}>
 		<div class="overlay ${_has_errors and "red" or "green"} ${len(msgs)==0 and 'hidden' or ''}">
-			<p id="messaging_messages">${' - '.join(m.msg for m in msgs)}</p>
+			<p id="messaging_messages">${' - '.join(m.msg for m in msgs)|n}</p>
 		</div>
 		%if pool_url:
 			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url)}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>

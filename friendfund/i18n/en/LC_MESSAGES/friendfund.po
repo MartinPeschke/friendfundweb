@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-18 13:30+0100\n"
+"PO-Revision-Date: 2011-03-18 14:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -366,33 +366,42 @@ msgid "POOL_ACTION_In order to Close the pool, you need to fill out and save Shi
 msgstr "To order the gift, you need to fill in a shipping and billing address first!"
 
 #: friendfund/controllers/pool.py:39
-#: friendfund/controllers/pool.py:51
-#: friendfund/controllers/pool.py:137
-#: friendfund/controllers/pool.py:250
-#: friendfund/controllers/pool.py:262
-#: friendfund/controllers/pool.py:280
-#: friendfund/controllers/pool.py:292
+#: friendfund/controllers/pool.py:55
+#: friendfund/controllers/pool.py:141
+#: friendfund/controllers/pool.py:254
+#: friendfund/controllers/pool.py:266
+#: friendfund/controllers/pool.py:284
+#: friendfund/controllers/pool.py:296
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr "This pool does not exist, sorry."
 
-#: friendfund/controllers/pool.py:125
-#: friendfund/controllers/pool.py:163
+#: friendfund/controllers/pool.py:44
+#, python-format
+msgid "FF_POOL_SUCCESS_MSG_This pool has been successfully funded <a href=\"%s\"> View the eCard&raquo;</a>"
+msgstr "This pool has been successfully funded <a href=\"%s\">View the eCard &raquo;</a>"
+
+#: friendfund/controllers/pool.py:46
+msgid "FF_POOL_EXPIRED_MSG_This pool expired without reaching its funding goal in time."
+msgstr "This pool expired without reaching its funding goal in time."
+
+#: friendfund/controllers/pool.py:129
+#: friendfund/controllers/pool.py:167
 msgid "FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below"
 msgstr "Please fill in the required fields below."
 
-#: friendfund/controllers/pool.py:140
+#: friendfund/controllers/pool.py:144
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr "No event selected. Please try again."
 
-#: friendfund/controllers/pool.py:143
+#: friendfund/controllers/pool.py:147
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr "No friend selected. Please try again."
 
-#: friendfund/controllers/pool.py:232
+#: friendfund/controllers/pool.py:236
 msgid "POOL_SETTINGS_Pool not found"
 msgstr "Pool not found"
 
-#: friendfund/controllers/pool.py:433
+#: friendfund/controllers/pool.py:437
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr "You joined this Pool!"
 
@@ -2244,13 +2253,13 @@ msgstr "Choose how you want to be identified on this site."
 
 #: friendfund/templates_free_form/myprofile/account.html:75
 #: friendfund/templates_free_form/myprofile/account.html:130
-#: friendfund/templates_free_form/myprofile/account.html:169
+#: friendfund/templates_free_form/myprofile/account.html:168
 msgid "FF_ACCOUNT_NAME_Tip goes here"
 msgstr "This will be your username."
 
 #: friendfund/templates_free_form/myprofile/account.html:80
 #: friendfund/templates_free_form/myprofile/account.html:134
-#: friendfund/templates_free_form/myprofile/account.html:173
+#: friendfund/templates_free_form/myprofile/account.html:172
 msgid "FF_ACCOUNT_Your Name"
 msgstr "Your Name"
 
@@ -2276,15 +2285,16 @@ msgid "FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB"
 msgstr "JPEG, PNG or GIF. MAX FILE SIZE: 5 MB"
 
 #: friendfund/templates_free_form/myprofile/account.html:142
-msgid "FF_ACCOUNT_PICTURE_Tip goes here"
-msgstr ""
+#: friendfund/templates_free_form/myprofile/account.html:180
+msgid "FF_ACCOUNT_Picture"
+msgstr "Picture"
 
-#: friendfund/templates_free_form/myprofile/account.html:155
+#: friendfund/templates_free_form/myprofile/account.html:154
 msgid "FF_ACCOUNT_You're not connected with Twitter"
 msgstr "You're not connected with Twitter"
 
+#: friendfund/templates_free_form/myprofile/account.html:155
 #: friendfund/templates_free_form/myprofile/account.html:156
-#: friendfund/templates_free_form/myprofile/account.html:157
 #: friendfund/templates_free_form/myprofile/login_panel.html:27
 #: friendfund/templates_free_form/myprofile/login_panel.html:28
 #: friendfund/templates_free_form/myprofile/login_popup.html:13
@@ -2294,16 +2304,12 @@ msgstr "You're not connected with Twitter"
 msgid "FF_LOGIN_Log in with Twitter"
 msgstr "Log in with Twitter"
 
-#: friendfund/templates_free_form/myprofile/account.html:181
-msgid "FF_ACCOUNT_Picture"
-msgstr "Picture"
-
-#: friendfund/templates_free_form/myprofile/account.html:193
+#: friendfund/templates_free_form/myprofile/account.html:192
 msgid "FF_ACCOUNT_You're not connected with Facebook"
 msgstr "You're not connected with Facebook"
 
+#: friendfund/templates_free_form/myprofile/account.html:193
 #: friendfund/templates_free_form/myprofile/account.html:194
-#: friendfund/templates_free_form/myprofile/account.html:195
 #: friendfund/templates_free_form/myprofile/login_panel.html:23
 #: friendfund/templates_free_form/myprofile/login_panel.html:24
 #: friendfund/templates_free_form/myprofile/login_popup.html:9
@@ -2313,7 +2319,7 @@ msgstr "You're not connected with Facebook"
 msgid "FF_LOGIN_Log in with Facebook"
 msgstr "Log in with Facebook"
 
-#: friendfund/templates_free_form/myprofile/account.html:201
+#: friendfund/templates_free_form/myprofile/account.html:200
 msgid "FF_ACCOUNT_Save Changes"
 msgstr "Save Changes"
 
@@ -2885,5 +2891,3 @@ msgstr "Choose your Recipient"
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your Facebook, Twitter or email friends."
 msgstr "Who's your gift for?"
 
-#~ msgid "FF_POOL_PAGE_CHIPIN_View Pool"
-#~ msgstr "View Pool"
