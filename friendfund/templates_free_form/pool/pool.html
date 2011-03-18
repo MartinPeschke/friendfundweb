@@ -111,14 +111,14 @@
 				%endif
 					<div class="timeCounterRight" style="width:100%">
 					<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
-						<div class="progTooltip" style="position: absolute; top:-23px;left:${int(c.pool.funding_progress()*100)}%;">${locals['chipped_in_amount']} <div class="arrTool"></div></div>
+						<div class="progTooltip" style="position: absolute; top:-23px;left:${int(c.pool.funding_progress()*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
 					</div>
 				</div>
 			</div>
 			<div class="boxPoolDetails">
 				<div class="contributors"><span><strong>${c.pool.get_number_of_contributors()}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
 				<div class="heavyMd"></div>
-				<div class="invitees"><span><strong>2</strong> Invitees</span></div>
+				<div class="invitees"><span><strong>${locals['no_invitees']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Invitees")}</span></div>
 				<div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
 				<div class="heavyMd"></div>
 				<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
