@@ -455,8 +455,9 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 			_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));
 		},
 		parseInput = function(){
-		if(!dojo.hasClass(dn, "default")){
-				var token = dn.value.split(" "), found=false;
+			var found=false
+			if(!dojo.hasClass(dn, "default")){
+				var token = dn.value.split(" ");
 				for(var i=0, len = token.length;i<len;i++){
 					var elt = token[i];
 					if(urlmatch.test(elt)){
@@ -478,8 +479,8 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 							break;
 						};
 				}
-				if(!found){reconnect();}
 			};
+			if(!found&&_linkers.length==0){reconnect();}
 		},
 		parseInputFromEvt = function(evt, ename){
 			if(evt.type==="paste"){
