@@ -1,9 +1,7 @@
 import urllib, urllib2, simplejson, logging, StringIO, os
-from mako.lookup import TemplateLookup
 
 from friendfund.lib import helpers as h
 from friendfund.tasks import data_root, get_db_pool
-from friendfund.tasks.notifiers.common import MissingTemplateException, InvalidAccessTokenException
 from celery.execute import send_task
 from poster.streaminghttp import register_openers
 from poster.encode import multipart_encode
@@ -16,12 +14,6 @@ log = logging.getLogger(__name__)
 SET_EVENT_ID = """exec job.set_pool_event_id '<POOL p_url="%(p_url)s" event_id="%(event_id)s"/>'"""
 
 
-
-root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-tmpl_lookup = TemplateLookup(directories=[os.path.join(root, '..', 'templates_free_form','messaging')]
-		, module_directory=os.path.join(data_root, 'templates_free_form','messaging')
-		, output_encoding='utf-8'
-		)
 
 def _create_event(query, image_url, pool_url, config):
 	log.info('CREATing EVENT WITH: (%s)', query)
@@ -44,10 +36,9 @@ def _create_event(query, image_url, pool_url, config):
 	log.info ( res )
 	return event_id
 
-def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config):
+def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 	data = template_data
 	if not template_data.get('event_id'):
-		template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
 		query = {}
 		query['name'] = template.get_def("name").render_unicode(h = h, data = data)
 		query['description'] = template.get_def("description").render_unicode(h = h, data = data)
@@ -79,7 +70,7 @@ def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config):
 	return str(event_id)
 
 
-def stream_publish(template, sndr_data, rcpt_data, template_data):
+def _stream_publish(template, sndr_data, rcpt_data, template_data):
 	data = template_data
 	scrap = template.get_def("picture").render_unicode(h = h, data = data)
 	msg = {}
@@ -109,13 +100,7 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	else:
 		return post['id']
 	
-	
-	
-def send_stream_publish(file_no, sndr_data, rcpt_data, template_data, config):
-	try:
-		template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
-	except KeyError, e:
-		log.warning( "ERROR Facebook Stream Publish Template not Found for (messages/msg_%s.txt)" , file_no )
-		raise MissingTemplateException(e)
-	else:
-		return stream_publish(template, sndr_data, rcpt_data, template_data)
+def create_event_invite(template, sndr_data, rcpt_data, template_data, config):
+	return _create_event_invite(template, sndr_data, rcpt_data, template_data, config)
+def send_stream_publish(template, sndr_data, rcpt_data, template_data, config):
+	return _stream_publish(template, sndr_data, rcpt_data, template_data)

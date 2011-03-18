@@ -7,21 +7,28 @@ from lxml import etree
 from xml.sax.saxutils import quoteattr
 from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.tasks.notifiers import email, facebook, twitter
-from friendfund.tasks.notifiers.common import InvalidAccessTokenException
+from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException
 from datetime import datetime, date
 from decimal import Decimal
 from friendfund.lib.helpers import format_int_amount
 
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
 from babel.dates import format_date as fdate, format_datetime as fdatetime
-
 import logging
 logging.config.fileConfig("notifier_logging.conf")
 logging.basicConfig()
 log = logging.getLogger(__name__)
 
-import gettext
+from mako.lookup import TemplateLookup
+root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+tmpl_lookup = TemplateLookup(directories=[os.path.join(root, '..', 'templates_free_form','messaging')]
+		, module_directory=os.path.join(data_root, 'templates_free_form','messaging')
+		, output_encoding='utf-8'
+		)
 
+
+
+		import gettext
 transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de'])
 _ = transl.ugettext
 L10N_KEYS = ['occasion']
@@ -30,12 +37,12 @@ L10N_KEYS = ['occasion']
 CONNECTION_NAME = 'job'
 
 def empty_sender(name = None):
-	def es(file_no, sndr_data, rcpt_data, template_data, config):
+	def es(template, sndr_data, rcpt_data, template_data, config):
 		log.warning( "%s_MESSAGING_IS_OFF", name )
 		return "1"
 	return es
 def error_sender(name = None):
-	def es(file_no, sndr_data, rcpt_data, template_data, config):
+	def es(template, sndr_data, rcpt_data, template_data, config):
 		raise Exception( "NOT_IMPLEMENTED_ERROR(%s)" % name)
 	return es
 	
@@ -181,10 +188,20 @@ def main(argv=None):
 				log.info ( 'extraINVITEEs, %s', ivts_data)
 				log.info ( 'TEMPLATE, %s', template_data)
 				
+				
 				try:
-					notification_method = meta_data.get('notification_method').lower()
-					sender = messengers.get(notification_method, error_sender(notification_method))
-					msg_id = sender(meta_data['file_no'], sndr_data, rcpt_data, template_data, config)
+					file_no = meta_data['file_no']
+					try:
+						template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
+					except mako.exceptions.TopLevelLookupException, e:
+						log.warning( "ERROR Template not Found for (%s)" , ('messages/msg_%s.txt' % file_no) )
+						raise MissingTemplateException(e)
+					else:
+						notification_method = meta_data.get('notification_method').lower()
+						sender = messengers.get(notification_method, error_sender(notification_method))
+						msg_id = sender(template, sndr_data, rcpt_data, template_data, config)
+				
+				
 				except InvalidAccessTokenException, e:
 					log.error( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
