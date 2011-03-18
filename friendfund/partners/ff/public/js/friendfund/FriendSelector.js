@@ -181,7 +181,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			var toggler = dojo.byId("toggle_mutuals_"+_t.network);
 			if(toggler){dojo.connect(toggler, "onchange", dojo.hitch(null, _t.toggle_mutuals, _t));}
 
-			if(_t._to_append_nodes){
+			if(_t._to_append_nodes["length"]){
 				_t._to_append_nodes.forEach(function(elt){
 					_t.friendlist.appendChild(elt);
 				});

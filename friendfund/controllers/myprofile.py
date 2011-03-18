@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
-	@default_domain_only()
+	#@default_domain_only()
 	def account(self):
 		c.values = {"name":"",
 					"email":""}

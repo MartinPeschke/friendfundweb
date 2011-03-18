@@ -90,7 +90,7 @@
 			"no_invitees":len(c.pool.participant_map)}
 %>
 
-<div class="wrapSubHeader">${self.renderMessages()|n}
+<div class="wrapSubHeader">${self.renderMessages(relative=True)|n}
 	<div class="subHeader">
 		<div class="poolHead">
 			<img src="${c.pool.admin.get_profile_pic('PROFILE_M')}" width="60px" height="60px"/>

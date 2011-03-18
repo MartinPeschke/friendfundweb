@@ -105,12 +105,12 @@
 
 
 
-<%def name="renderMessages(pool_url = None)">
+<%def name="renderMessages(pool_url = None, relative = False)">
 	<% 
 		msgs = getattr(c, "_msgs", [])
 		_has_errors = getattr(c, "_has_errors", False)
 	%>
-	<div id="messaging_container" class="overlayWrapper">
+	<div id="messaging_container" class="overlayWrapper" ${(relative and msgs and 'style="position:relative"' or '')|n}>
 		<div class="overlay ${_has_errors and "red" or "green"} ${len(msgs)==0 and 'hidden' or ''}">
 			<p id="messaging_messages">${' - '.join(m.msg for m in msgs)}</p>
 		</div>

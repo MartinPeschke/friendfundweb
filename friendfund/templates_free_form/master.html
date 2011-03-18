@@ -36,7 +36,7 @@ ${self.render_html()}
 	<div id="fb-root"></div>
 	<script type="text/javascript"> 
 		login_panel_refresh = function(){loadElement('${url(controller="myprofile", action="loginpanel")}', "accountcontainer")};
-		page_reloader = function(){window.location.reload();};
+		${self.page_reloader()|n}
 		%if c.user.is_anon:
 			protected = function(callback){return function(data){
 				if(data.success){callback()} else {protect()};};
@@ -62,6 +62,7 @@ ${self.render_html()}
 
 
 
+<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="fb_meta_tags()"></%def>

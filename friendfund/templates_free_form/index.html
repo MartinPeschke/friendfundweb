@@ -1,6 +1,6 @@
 <%inherit file="layout.html"/>
 
-
+<%def name="page_reloader()">page_reloader = function(){};</%def>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolProductFinder");
 	parseSelectables("poolProductFinder", "showToolTipHook", "showToolTip");
