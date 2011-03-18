@@ -23,7 +23,7 @@
 			<form method="POST" id="submissionform" onSubmit="return onSubmitCleaner(this)" action="${url("pool_details", protocol="http")}">
 			<div class="exp">
 				<span>${h.display_currency(h.default_currency())}</span>
-				<input type="text" name="amount" class="short tipeIn weNeed" />
+				<span class="showToolTipHook"><input type="text" name="amount" class="short tipeIn weNeed" /></span>
 				<span style="margin-left:30px">for</span>
 				<span class="showToolTipHook"><input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="weNeed default long" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 					<div class="verticalTip hideable">
