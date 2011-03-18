@@ -30,7 +30,7 @@ from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contrib
 
 import logging, logging.config
 logging.config.fileConfig("notifier_logging.conf")
-q = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 CONNECTION_NAME = 'job'
 set_CONNECTION_NAME = 'pool'
