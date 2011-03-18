@@ -65,9 +65,17 @@ class ContentController(BaseController):
 	@default_domain_only()
 	def aboutus(self):
 		return render("/content/aboutus.html")
+	
 	@default_domain_only()
-	def tos(self):
-		return render("/content/tos.html")
+	def tos(self, lang = None):
+		if lang:
+			try:
+				return render("/content/tos_%s.html" % lang)
+			except:
+				return render("/content/tos.html")
+		else:
+			return render("/content/tos.html")
+	
 	@default_domain_only()
 	def jobs(self):
 		return render("/content/jobs.html")
