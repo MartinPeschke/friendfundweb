@@ -48,12 +48,14 @@ div.wrapSubHeader {
 	background: #ececec;
 	border-bottom: 1px solid #d9d9d9;
 	position:relative;
+	
 }
 div.subHeader {
 	max-width: 930px;
 	margin: 0 auto;
 	position: relative;
-	z-index: 5
+	z-index: 5;
+	
 }
 div.wrapContent {
 	background: #f9f9f9;
@@ -62,11 +64,15 @@ div.wrapContent {
 }
 div.wrapSubContent {
 	border-top:1px solid white;
+	
 }
 div.content {
 	max-width: 930px;
 	margin: 0 auto;
-	padding-bottom: 60px
+	padding-bottom: 60px;
+	-moz-box-shadow: 0px 1px #d7d7d7;
+	-webkit-box-shadow: 0px 1px #d7d7d7;
+	box-shadow: 0 1px #d7d7d7;
 }
 div.wrapFooter {
 	height:250px;
@@ -423,7 +429,7 @@ div.subHeader h2 span {
 }
 a.learnMoreBtn {
 	display: block;
-	color: #83ddaa;
+	color: #00E1B5;
 	-moz-border-radius: 5px;
 	background-color: #e2e2e2;
 	border-radius: 5px;
@@ -432,13 +438,14 @@ a.learnMoreBtn {
 	height: 30px;
 	line-height: 30px;
 	margin: 20px 0 0 0px;
+	font-weight: bold;
 	font-size: 12px;
 	line-height: 30px;
 	float: left;
 	margin-left: 20px;
 	text-shadow: none;
-	font-weight: normal
 }
+a.learnMoreBtn:hover{ background-color: #E5E5E5; text-decoration: none}
 /* HOMEPAGE */
 div.contentHome {
 	max-width: 930px;
@@ -645,7 +652,8 @@ div.homebox {
 	float: left;
 	border: 1px solid #d7d7d7;
 	padding: 9px 9px 0;
-	margin-right: 30px
+	margin-right: 30px; 
+	background: white
 }
 div.lastOne {
 	margin-right: 0 !important
@@ -784,7 +792,7 @@ div.box1 {
 	max-width: 436px;
 	padding: 12px 0 0 12px;
 	float: left;
-	min-height: 136px
+    min-height: 186px;
 }
 div.box1 img {
 	display: block;
@@ -934,7 +942,7 @@ div.daysLeft span {
 div.greyBoxTitle {
 	margin: 20px 0 0 0;
 	width: 100%;
-	background: #e2e2e2;
+	background: #eeeeee;
 	height: 50px
 }
 div.greyBoxTitle h3 {
@@ -960,7 +968,7 @@ a.btnShow {
 	-moz-border-radius-bottomright:3px;
 	background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
 	margin: 15px 12px 0 0;
-	min-width: 40px;
+	min-width: 30px;
 	text-decoration: none
 }
 a.btnHide {
@@ -980,7 +988,7 @@ a.btnHide {
 	-moz-border-radius-bottomright:3px;
 	background:#666666 url(../imgs/arrow-hide.png) right 6px no-repeat;
 	margin: 15px 12px 0 0;
-	min-width: 40px;
+	min-width:30px;
 	text-decoration: none
 }
 .colLeft {
@@ -1553,7 +1561,7 @@ div.borderBottom input.small {
 	padding:0 5px
 }
 div.borderBottom select {
-	border: 1px solid #333;
+	border: 1px solid #dadada;
 	height:28px;
 	line-height:28px;
 	width:76%;
@@ -2516,7 +2524,7 @@ div.borderBottom .primaryButton {
 	padding:0 10px;
 	cursor:pointer;
 }
-.secondary:hover{ background: #025191}
+.secondary:hover{ background: #025191; text-decoration: none}
 
 #inviteMessage div.wrapInside {
 	width:100%;
@@ -3752,3 +3760,7 @@ div.verySmall{ color: #999; font-size: 10px; margin-top: -7px ; margin-bottom: 7
 .progTooltip .arrTool{border-right: 4px solid transparent;
     border-top: 4px solid #FAF79B;
     border-left: 4px solid transparent; position: absolute; left: 10px; bottom: -4px}
+    .logoContainerLeft img{ display: block; float: left; margin-left: 20px }
+    .logoContainerLeft { height: 46px}
+.errorScreen{ padding: 50px 20px}
+.errorScreen p{ padding: 0 0 40px 0; font-weight: bold; font-size: 20px; line-height: 30px}
