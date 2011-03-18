@@ -30,7 +30,7 @@ from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contrib
 
 import logging, logging.config
 logging.config.fileConfig("notifier_logging.conf")
-log = logging.getLogger(__name__)
+q = logging.getLogger(__name__)
 
 CONNECTION_NAME = 'job'
 set_CONNECTION_NAME = 'pool'
@@ -150,7 +150,7 @@ def main(argv=None):
 									%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
 								)
 		else:
-			time.sleep(5)
+			time.sleep(30)
 
 if __name__ == "__main__":
     sys.exit(main())
