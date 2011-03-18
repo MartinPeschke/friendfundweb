@@ -96,9 +96,9 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 
 def save_render(fname_src, fname_dest, target_w=190, target_h=150, gravity = "Center"):
 	crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
-					'-resize', '%sx%s' % (target_w, target_h),\
-					'-gravity', gravity, '-filter','Lanczos',
-					'-extent', '%sx%s' % (target_w, target_h), str(fname_dest)]
+					'-resize', '%sx%s>' % (target_w, target_h),\
+					'-gravity', gravity, '-filter','Lanczos', \
+					'-extent', '%sx%s' % (target_w, target_h),str(fname_dest)]
 	retcode = subprocess.call(crop_command)
 	if not os.path.exists(fname_dest) or retcode!= 0:
 		raise UnsupportedFileFormat("IMAGEMAGICK: Could not convert!")

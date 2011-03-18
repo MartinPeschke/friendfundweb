@@ -56,7 +56,7 @@
 					dojo.disconnect(d);
 					xhrPost(dojo.attr(evt.target, "_href"), {page:dojo.attr(cn, "_page")}, function(data){
 						dojo.query(evt.target).orphan();
-						dojo.place(data.html, dojo.byId("inviteeList"), "last");
+						dojo.place(data.html, "inviteeList", "last");
 						connectpool(rootbutton);
 						dojo.removeClass("hideAllBtn", "hidden");
 					});
@@ -262,9 +262,11 @@
 				</div>
 				
 				<p>${c.pool.description}</p>
-				%if c.pool.product:
+				%if c.pool.product.tracking_link:
 					<h5><a href="${c.pool.product.tracking_link}">${c.pool.product.name}</a></h5>
 					<p class="small">${c.pool.product.description}</p>
+				%elif c.pool.product.picture:
+					
 				%endif
 				<div class="clear"></div>
 			</div>

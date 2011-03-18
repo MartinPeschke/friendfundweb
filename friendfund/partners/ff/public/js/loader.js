@@ -176,7 +176,7 @@ onLoadPagelets = function(root_node){
 
 place_element = function(node, callback){
 	return function(data){
-		dojo.place(data, node, "only");
+		if(data){dojo.place(data, node, "only");}
 		dojo.style(node, 'display', 'Block');
 		if(callback){callback.call();}
 	};
@@ -356,7 +356,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 
 /*===========================================*/
 var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i;
-var picCounter = 0, accepted = false, _parser_backups = [], _localhndlrs = [];
+var picCounter, accepted, _parser_backups, _localhndlrs;
 
 var createAppendPicture = function(imgContainer, imgs, preselected){
 	var imgsrc = imgs.shift();
@@ -416,6 +416,7 @@ var urlPEEvents = function(baseRoot, editnode, evt){
 	else if(editnode && dojo.hasClass(evt.target, "parsercloser")){resetParser(baseRoot, editnode);}
 };
 var connectURLP = function(baseRoot, editnode){
+	picCounter = picCounter||0; accepted = accepted||false; _parser_backups = _parser_backups||[]; _localhndlrs = _localhndlrs||[];
 	var home = dojo.byId("homeurlexpander");
 	parseSimpleEditables(home);
 	parseDefaultsInputs(home);
@@ -448,6 +449,7 @@ var loadSuccess = function(baseRoot, editnode, data){
 var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 	var dn = dojo.byId(editnode), _linkers= [],
 		reconnect = function(){
+			picCounter = 0; accepted = false; _parser_backups = []; _localhndlrs = [];
 			_linkers.push(dojo.connect(dn, "onkeyup", parseInputFromEvt));
 			_linkers.push(dojo.connect(dn, "onpaste", parseInputFromEvt));
 			_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));

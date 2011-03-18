@@ -57,7 +57,7 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t._widget_locals = [];
 		_t.receiver_selectors = {};
 
-		invitees = _t.get_invitee_json(_t);
+		var invitees = _t.get_invitee_json(_t, null);
 		dojo.place(dojo.create("textarea", {name:_t.target_form, style:"display:none",value: dojo.toJson(invitees)}), dojo.byId('invitees'), "last");
 		dojo.byId('invitees').submit();
  	}

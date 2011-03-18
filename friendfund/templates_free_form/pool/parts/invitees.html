@@ -1,5 +1,5 @@
 
-pool_currency = c.pool.currency
+<% pool_currency = c.pool.currency %>
 %for i, invitee in enumerate(c.participants.list):
 	${self.render(i, invitee, pool_currency, i==0)}
 %endfor
