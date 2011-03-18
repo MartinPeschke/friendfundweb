@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 from string import Template as Template
-import urllib2, os, logging, mako, markdown
+import urllib2, logging, markdown
 from lxml import etree
-from docutils.core import publish_parts
-
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
 
 from friendfund.lib import helpers as h
-from friendfund.tasks import data_root
 
 register_openers()
 
