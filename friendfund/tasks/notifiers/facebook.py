@@ -47,7 +47,7 @@ def _create_event(query, image_url, pool_url, config):
 def create_event_invite(file_no, sndr_data, rcpt_data, template_data, config):
 	data = template_data
 	if not template_data.get('event_id'):
-		template = tmpl_lookup.get_template('fb_event/msg_%s.txt' % file_no)
+		template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
 		query = {}
 		query['name'] = template.get_def("name").render_unicode(h = h, data = data)
 		query['description'] = template.get_def("description").render_unicode(h = h, data = data)
@@ -113,9 +113,9 @@ def stream_publish(template, sndr_data, rcpt_data, template_data):
 	
 def send_stream_publish(file_no, sndr_data, rcpt_data, template_data, config):
 	try:
-		template = tmpl_lookup.get_template('fb_wallpost/msg_%s.txt' % file_no)
+		template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
 	except KeyError, e:
-		log.warning( "ERROR Facebook Stream Publish Template not Found for (fb_wallpost/msg_%s.txt)" , file_no )
+		log.warning( "ERROR Facebook Stream Publish Template not Found for (messages/msg_%s.txt)" , file_no )
 		raise MissingTemplateException(e)
 	else:
 		return stream_publish(template, sndr_data, rcpt_data, template_data)

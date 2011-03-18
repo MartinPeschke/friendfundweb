@@ -262,11 +262,9 @@
 				</div>
 				
 				<p>${c.pool.description}</p>
-				%if c.pool.product.tracking_link:
+				%if c.pool.product and c.pool.product.tracking_link:
 					<h5><a href="${c.pool.product.tracking_link}">${c.pool.product.name}</a></h5>
 					<p class="small">${c.pool.product.description}</p>
-				%elif c.pool.product.picture:
-					
 				%endif
 				<div class="clear"></div>
 			</div>

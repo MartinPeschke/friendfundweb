@@ -50,9 +50,9 @@ def send_email(template, sndr_data, rcpt_data, template_data):
 	
 def send(file_no, sndr_data, rcpt_data, template_data, config):
 	try:
-		template = tmpl_lookup.get_template('email/msg_%s.txt' % file_no)
+		template = tmpl_lookup.get_template('messages/msg_%s.txt' % file_no)
 	except mako.exceptions.TopLevelLookupException, e:
-		log.warning( "ERROR Template not Found for (%s)" , ('email/msg_%s.txt' % file_no) )
+		log.warning( "ERROR Template not Found for (%s)" , ('messages/msg_%s.txt' % file_no) )
 		# raise MissingTemplateException(e)
 		return "0"
 	else:
