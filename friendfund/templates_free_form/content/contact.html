@@ -11,7 +11,9 @@
 		</div>
 	</div>
 </div>
-
+<%def name="onloadscripts()">
+	parseDefaultsInputs("contactForm");
+</%def>
 
 <div class="wrapSubContent">
 <div class="content">
@@ -20,6 +22,7 @@
 <div class="colLeft">
 		<h4>Send Us a Message</h4>
 		<div class="subHeading"></div>
+		<form action="/content/contact" method="POST" name="contactForm" id="contactForm">
 		<div class="borderBottom">	
 				<div class="greyInsideFullWidth">
 				<div class="first">
@@ -63,6 +66,7 @@
 				<input type="submit" value="Send" class="primaryButton floatLeft" />
 				</div>
 			</div>
+		</form>
 		<h4>Other Ways to Get in Touch</h4>
 		<div class="subHeadingSpecial"></div>
 		<div class="borderBottom special2">	

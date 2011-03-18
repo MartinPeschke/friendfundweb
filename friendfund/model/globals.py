@@ -124,6 +124,12 @@ class MerchantLink(DBMappedObject):
 		setattr(self, 'entry_is_iframe', self.entry_point=="IFRAME")
 		setattr(self, "map", dict([(so.name,so) for so in self.settlement_options]))
 
+
+class FeaturedPoolURL(DBMappedObject):
+	_cachable = False
+	_no_params = True
+	_keys = [GenericAttrib(unicode,'p_url','p_url')]
+
 class GetMerchantConfigProc(DBMappedObject):
 	"""app.[get_merchant]"""
 	_cachable = False
@@ -133,7 +139,8 @@ class GetMerchantConfigProc(DBMappedObject):
 	_get_proc = 'app.get_config'
 	_keys = [
 			DBMapper(PaymentMethod,'payment_methods','PAYMENT_METHOD', is_list = True),
-			DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.domain.lower())
+			DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.domain.lower()),
+			DBMapper(FeaturedPoolURL,'featured_pools','FEATURED_POOL', is_list = True),
 		]
 	
 	def fromDB(self, xml):

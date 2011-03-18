@@ -11,6 +11,7 @@ from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper, helpers as h
 
 from friendfund.model.forms.user import LoginForm, SignupForm
+from friendfund.model.pool import Pool
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER, CreateEmailUserProc
 from friendfund.model.product import Product
@@ -30,6 +31,9 @@ class IndexController(BaseController):
 			return redirect(request.merchant.home_page, code=301)
 		if 'pool' in websession:
 			c.pool = websession['pool']
+		c.featured_pools = []
+		for p in g.merchants.featured_pools:
+			 c.featured_pools.append(g.dbm.get(Pool, p_url = p.p_url))
 		return self.render('/index.html')
 	
 	def sitemap(self):
