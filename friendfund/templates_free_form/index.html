@@ -58,35 +58,7 @@
 	</div>
 	<div class="featuredPoolsBox">
 		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
-		
-		
-		%for i, pool in enumerate(c.featured_pools):
-			<% locals = {"no_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days_tuple()[0], "admin_name":pool.admin.name} %>
-			<div class="homebox ${i==3 and 'lastOne' or ''}">
-				<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
-				<h5>${pool.title}</h5>
-				<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
-				<div class="timeCounter">
-					<span>${int(pool.funding_progress()*100)}%</span>
-					<div class="timeCounterRight" >
-						<div class="timeCounterLeft" style="width:${int(pool.funding_progress()*100)}%"> </div>
-					</div>
-					<div class="clear"></div>
-				</div>
-				
-				<div class="boxContributors">
-					<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
-					<span class="middot">&middot;</span>
-					<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
-				</div>
-				<div class="fbHolder">
-					%for pu in pool.get_random_n_invitees(5):
-						<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
-					%endfor
-					<div class="clear"></div>
-				</div>
-			</div>
-		%endfor
+		${self.render_featured_pools(c.get_featured_pools)|n}
 		<div class="clear"></div>
 	</div>
 	<div class="whatElse">
@@ -137,3 +109,36 @@ something amazing.</p>
 
 </div>
 </div>
+
+
+
+
+<%def name="render_featured_pools(get_featured_pools)" cached="True" cache_key="render_featured_pools" cache_timeout="1800" cache_type="memory">
+	%for i, pool in enumerate(get_featured_pools()):
+		<% locals = {"no_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days_tuple()[0], "admin_name":pool.admin.name} %>
+		<div class="homebox ${i==3 and 'lastOne' or ''}">
+			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
+			<h5 style="min-height:36px;"><a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a></h5>
+			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
+			<div class="timeCounter">
+				<span>${int(pool.funding_progress()*100)}%</span>
+				<div class="timeCounterRight" >
+					<div class="timeCounterLeft" style="width:${int(pool.funding_progress()*100)}%"> </div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="boxContributors">
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span class="middot">&middot;</span>
+				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
+			</div>
+			<div class="fbHolder">
+				%for pu in pool.get_random_n_invitees(5):
+					<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
+				%endfor
+				<div class="clear"></div>
+			</div>
+		</div>
+	%endfor
+</%def>

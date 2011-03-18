@@ -267,8 +267,6 @@ class Pool(DBMappedObject):
 			, DBMapper(PoolUser, 'invitees', None, persistable = False)
 			, DBMapper(PoolUser, 'participant_map', None, persistable = False)
 			]
-	def __init__(self, **kwargs):
-		super(self.__class__, self).__init__(**kwargs)
 	
 	def get_contributors(self):
 		return itertools.ifilter(lambda x:x.is_contributor(),self.participants)
@@ -503,3 +501,9 @@ class GetECardContributorsProc(DBMappedObject):
 	_keys = [ GenericAttrib(str,'p_url','p_url')
 			, DBMapper(ECardContributors, 'contributors', "POOLUSER", is_list = True)
 			]
+			
+			
+			
+			
+class FeaturedPool(Pool):
+	_cacheable = False
