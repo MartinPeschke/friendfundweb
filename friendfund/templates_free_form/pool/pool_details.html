@@ -194,7 +194,7 @@
 			%if c.values.get('tracking_link'):
 				<div class="generalPadding">
 				<div class="first">
-						<span>Pool Image</span>
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
 					</div>
 					<div id="homeurlexpander" class="home_expander">
 						${parser.renderParser(c.parser_values, False)}
@@ -206,13 +206,15 @@
 						<div class="arrow"></div>
 						<span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span></div>
 					<div class="first">
-						<span>Pool Image</span>
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
 					</div>
 					<div id="homeurlexpander" class="home_expander">
 						<div class="imgCntSld" id="URLPimgCntSld">
 						<input type="hidden" value="${c.values.get('product_picture')}" id="URLPproductPicture" name="product_picture">
 						%if c.values.get('product_picture'):
 							<img src="${c.values.get('product_picture')}" class="allowed displayed"/>
+						%else:
+							<img src="${h.get_product_picture(None,"FF_POOLS")}" class="displayed"/>
 						%endif
 						</div>
 						<div class="title">
