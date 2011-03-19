@@ -94,7 +94,12 @@
 						<div class="floatLeft" style="margin:3px 0 0 0">
 							<span>You're safe with us</span>
 						</div>
+						
+						%if request.merchant.is_default
 						<span class="floatRight"  style="margin:3px 0 0 0">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
+						%else:
+							<a href="${url("home", host=app_globals.default_host)}"><img class="floaterRight" style="margin: 30px 0;position:absolute;right:30px;" src="/static/imgs/powered_by_button.png"/></a>
+						%endif
 						<div class="clear"></div>
 					</div>
 					
