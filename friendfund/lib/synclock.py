@@ -41,7 +41,6 @@ def set_contribution(ref, user, contrib_view):
 def get_contribution(ref, user):
 	with app_globals.cache_pool.reserve() as mc:
 		tok = 'ftoken_%s'%str(ref)
-		print ref
 		contrib_view = mc.get(tok)
 	if not contrib_view: raise TokenIncorrectException("Token does not exist, invalid")
 	elif not contrib_view.validate_user(user): raise TokenIncorrectException("Token does not belong to User, invalid")

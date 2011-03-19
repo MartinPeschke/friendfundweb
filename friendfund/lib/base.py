@@ -97,7 +97,6 @@ class BaseController(WSGIController):
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
-		print host, host in g.merchants.domain_map
 		if not (host and host in g.merchants.domain_map):
 			return redirect(url.current(host=g.default_host))
 		else:
