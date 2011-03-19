@@ -152,8 +152,8 @@ if (!FriendFund.JSON) {FriendFund.JSON = {};}
 }());
 
 FriendFund.Util = {
-    sslFrameHost: "https://dev.friendfund.de",
-    frameHost: "http://dev.friendfund.de",
+    sslFrameHost: "https://www.friendfund.com",
+    frameHost: "http://www.friendfund.com",
     getFrameHost: function () {
         return ("https:" == document.location.protocol) ? this.sslFrameHost : this.frameHost;
     },
