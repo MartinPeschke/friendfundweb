@@ -1,10 +1,12 @@
 <%def name="renderPanel()">
-		<form id="login_panel_form" onSubmit="submitLoginPanel(this);return false;" method="POST" action="">
-			<div class="inputline">
+		<% errors = getattr(c, "login_errors", dict()) %>
+		
+		<form id="login_panel_form" onSubmit="submitLoginPanel(this);return false;" method="POST" class="inputFields" action="">
+			<div class="${"email" in errors and ' error' or ''}">
 				<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
 				<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
-				%if "email" in getattr(c, "login_errors", dict()):
-					<p class="error">${getattr(c, "login_errors", dict()).get("email")}</p>
+				%if "email" in errors:
+					<span class="error">${getattr(c, "login_errors", dict()).get("email")}</span>
 				%endif
 			</div>
 			<div class="inputline">
@@ -19,11 +21,11 @@
 		</form>
 		<a onclick="submitLoginPanel(this)" class="primarySmall floatLeft" style="margin-top:7px">${_("FF_LOGINBUTTON_Log In")}</a>
 		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
-		<div class="inputline">
+		<div class="">
 			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="fbLogin()">
 				<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 			</a>
-		</div><div class="inputline">
+		</div><div class="">
 		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="twInit('/')">
 			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 		</a>
