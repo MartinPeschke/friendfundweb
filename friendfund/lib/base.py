@@ -100,8 +100,10 @@ class BaseController(WSGIController):
 		if not (host and host in g.merchants.domain_map):
 			return redirect(url.current(host=g.default_host))
 		else:
+			protocol = request.headers.get('X-Forwarded-Proto', 'http')
 			request.merchant = g.merchants.domain_map[host]
-			request.qualified_host = '%s://%s'%(request.headers.get('X-Forwarded-Proto', 'http'), host)
+			request.qualified_host = '%s://%s'%(protocol, host)
+			request.is_secured = protocol == 'https'
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
 		c.furl = request.params.get("furl") or request.url
