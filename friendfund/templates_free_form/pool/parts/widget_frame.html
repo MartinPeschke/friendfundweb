@@ -168,12 +168,6 @@ div.fbHolder img {
 			${progress}%
 		%endif
 		</span>
-		<!-- <div style="width: 100%" class="timeCounterRight"> 
-			remove 100% widht cos this div has also padding
-			the right code is underneath
-			The div inside "timeCounterLeft" works normally with the %
-		-->
-		
 		<div class="timeCounterRight">
 			<div style="width: ${c.pool.funding_progress()*100}%" class="timeCounterLeft ${c.pool.is_closed() and "green" or ""}"></div>
 		</div>

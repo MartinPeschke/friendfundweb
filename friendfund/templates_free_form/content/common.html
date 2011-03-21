@@ -13,23 +13,23 @@
 
 	<div class="colRight">
        <div class="generalInfo">
-	   <h5>Learn more</h5>
+	   <h5>${_("FF_STATIC_MENU_Learn more")}</h5>
         <ul>
-			<li>${self.entry("How Does It Work", url(controller="content", action="learn_more"), action == "learn_more")}</li>
-			<li>${self.entry("Become a Partner", url(controller="content", action="become_partner"), action == "become_partner")}</li>
-			<li>${self.entry("About Us", url(controller="content", action="aboutus"), action == "aboutus")}</li>
-			<li>${self.entry("Frequently Asked Questions", url(controller="content", action="faq"), action == "faq")}</li>
-			<li>${self.entry("Terms of Service", url(controller="content", action="tos"), action == "tos")}</li>
-			<li>${self.entry("Privacy", url(controller="content", action="privacy"), action == "privacy")}</li>
-			<li>${self.entry("Contact Friendfund", url(controller="content", action="contact"), action == "contact")}</li>
-			<li>${self.entry("Our blog", "http://blog.friendfund.com", False)}</li>
-			<li>${self.entry("Jobs", url(controller="content", action="jobs"), action == "jobs")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_How Does It Work"), url(controller="content", action="learn_more"), action == "learn_more")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Become a Partner"), url(controller="content", action="become_partner"), action == "become_partner")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_About Us"), url(controller="content", action="aboutus"), action == "aboutus")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Frequently Asked Questions"), url(controller="content", action="faq"), action == "faq")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Terms of Service"), url(controller="content", action="tos"), action == "tos")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Privacy"), url(controller="content", action="privacy"), action == "privacy")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Contact Friendfund"), url(controller="content", action="contact"), action == "contact")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Our blog"), "http://blog.friendfund.com", False)}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Jobs"), url(controller="content", action="jobs"), action == "jobs")}</li>
 			<li style="margin-top:20px">${self.entry("Create a Pool", url("pool_details", protocol="http", v=2), False)}</li>
         </ul>
        </div>
        <div class="colRightWhite"></div>
        <div  class="generalInfo lastBox">
-       	<h5>Connect with Us</h5>
+       	<h5>${_("FF_STATIC_MENU_Connect with Us")}</h5>
         	<a href="http://www.facebook.com/friendfund"><img align="left" src="/static/imgs/fb-icon.png"> &nbsp;&nbsp;  Facebook</a>
             <a href="http://twitter.com/#!/friendfund"><img align="left" src="/static/imgs/twitter-icon.png"> &nbsp;&nbsp;  Twitter</a>
        </div>
