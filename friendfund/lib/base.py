@@ -106,7 +106,7 @@ class BaseController(WSGIController):
 			request.is_secured = protocol == 'https'
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
-		c.furl = request.params.get("furl") or request.url
+		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], host, url.current())
 	
 	def __after__(self, action, environ):
