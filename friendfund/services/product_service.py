@@ -158,10 +158,11 @@ class ProductService(object):
 			log.error("Query not found")
 			abort(404)
 		try:
+			socket.setdefaulttimeout(60)
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			product_page = urllib2.urlopen(query)
 		except Exception, e:
-			log.error("Query could not opened or not wellformed: %s", e)
+			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
 			abort(404)
 		
 		### Parse Meta Tags or PartnerPage
