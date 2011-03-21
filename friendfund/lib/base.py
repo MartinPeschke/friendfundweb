@@ -126,6 +126,7 @@ class ExtBaseController(BaseController):
 			except SProcException, e:
 				c.pool = None
 			if not c.pool:
-				return abort(404)
+				c.messages.append(_("FF_SORRY_PAGE_NOT_FOUND_404_STYLE"))
+				return redirect(url("home"))
 			elif c.pool.merchant_domain != request.merchant.domain:
 				return redirect(url.current(host=c.pool.merchant_domain))
