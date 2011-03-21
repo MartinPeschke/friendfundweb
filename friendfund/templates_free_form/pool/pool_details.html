@@ -131,7 +131,7 @@
 						<div class="editorCtn">
 							<div class="simpleeditable active mainValue">${c.values['amount']}
 								<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
-								<span style="margin:0 0 0 5px" class="link ">Edit</span>
+								<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
 							</div>
 						</div>
 					%endif
@@ -164,7 +164,7 @@
 					%else:
 						<div class="simpleeditable active mainValue">${h.word_truncate_by_letters(c.values['title'], 60)}
 							<input _type="INPUT" type="hidden" value="${c.values['title']}" _length="60"  name="title" id="titleInput" />
-							<span style="margin:0 0 0 5px" class="link ">Edit</span>
+							<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
 						</div>
 					%endif
 				
@@ -218,7 +218,7 @@
 						%endif
 						</div>
 						<div class="title">
-							use URL:
+							${_("FF_POOLDETAILS_use URL:")}
 							<input type="text" class="default" _default_text="${_("FF_POOLDETAILS_Examples:www.cnn.com")}" 
 								id="tracking_link_edit" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_POOLDETAILS_Examples:www.cnn.com")}"/>
 							<a class="link" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})" style="margin-top:30px; float:left; display:block; clear:both">${_(u"FF_LINK_or Upload a picture")}</a>
