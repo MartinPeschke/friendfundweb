@@ -30,6 +30,7 @@ class FbController(BaseController):
 			user_data['birthday'] = datetime.datetime.strptime(user_data['birthday'], "%d/%m/%Y")
 		except Exception, e:
 			log.error(e)
+			log.info(user_data)
 			pass
 		user_data['network_id'] = user_data.pop('id')
 		user_data['profile_picture_url'] = fb_helper.get_large_pic_url(user_data['network_id'])

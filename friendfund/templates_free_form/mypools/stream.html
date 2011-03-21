@@ -1,5 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
+
 <%def name="title()">${_("FF_TITLE_News stream")}</%def>
 <%def name="scripts()">
 	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
@@ -44,7 +46,7 @@
 	%if len(c.activity.stream) == 0:
 		<div class="noContainer">
 			<p class="no">${_("FF_MYPOOLS_There has been no activity in your friend network yet.")}</p>
-			<a href="${self.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
+			<a href="${forms.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
 		</div>
 	%else:
 	
