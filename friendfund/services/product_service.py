@@ -200,8 +200,7 @@ class ProductService(object):
 			if not scheme:query='http://%s'%query
 			product_page = urllib2.urlopen(query)
 		except Exception, e:
-			log.error(e)
-			raise QueryMalformedException("Query could not opened or not wellformed: %s" % query)
+			raise QueryMalformedException("Query could not be opened or is not wellformed: %s (%s)" % (query, e))
 		else:
 			name, descr, imgs = url_parser.get_title_descr_imgs(query, product_page)
 			product_image = imgs and imgs[0] or None
