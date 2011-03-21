@@ -6,6 +6,7 @@
 	${links.js('datepicker.packed.js')}
 	${links.css('datepicker.css')}
 </%def>
+<%def name="page_reloader()">page_reloader = function(){};</%def>
 <%def name="scripts()">
 	<script type="text/javascript"> 
 		toggleSettlement = function(option){
@@ -25,6 +26,7 @@
 	parseEditables("poolDetails");
 	var fmtDate = "M-sp-d-cc-sp-Y";
 	var machineFmtDate = "Y-ds-m-ds-d";
+	var intFmtDate = "Y--m-d";
 	var today = new Date();
 	var defaultDateOffset = 14;
 	var defaultDate = new Date(today.getDate() + defaultDateOffset);
@@ -37,19 +39,18 @@
 	datePickerController.createDatePicker({
 	  formElements:{"datepicker":fmtDate},
 	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
-	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
-	  rangeHigh:(today.getFullYear()+5) + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
+	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
+	  rangeHigh:(today.getFullYear()) + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
 	  callbackFunctions:{"dateset":[
 			function(params){
 				if(params.date){
 					dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
-					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, true);
+					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, false);
 					if(dojo.hasClass("date_error_row", "error")&&dojo.query(".tip", "date_error_row").length===0){dojo.removeClass("date_error_row", "error")}
 					
 				} else {
 					var nDate = new Date(dojo.byId("dateValue").value);
-					//dojo.byId("datepicker").value="---"; //datePickerController.printFormattedDate(nDate, fmtDate, true);
-					dojo.byId("daysLeft").innerHTML="---"; //Math.ceil((nDate.getTime()-(today).getTime())/(24*3600*1000));
+					dojo.byId("daysLeft").innerHTML="---";
 					dojo.byId("dateValue").value="";
 					var elem = dojo.byId("date_error_row");
 					if(!dojo.hasClass(elem, "error")){dojo.addClass(elem, "error")}
@@ -70,7 +71,6 @@
 		document.submissionform.submit();
 	};
 	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
-	page_reloader = protect(checkLoginStatus);
 </%def>
 
 

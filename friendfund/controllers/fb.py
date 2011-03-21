@@ -56,8 +56,7 @@ class FbController(BaseController):
 					log.error(str(e))
 				c.user.set_perm('facebook', 'create_event', True)
 			remove_block('create_event')
-
-		return {'html':render('/myprofile/login_panel.html').strip()}
+		return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 	
 	def get_email(self):
 		try:

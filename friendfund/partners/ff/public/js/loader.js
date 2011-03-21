@@ -195,6 +195,7 @@ xhrHandler = function(callback){
 		if (data.clearmessage !== undefined){clear_messages();}
 		//if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
+		if (data.login_panel !== undefined){dojo.place(data.login_panel, dojo.byId("accountcontainer"), "only");}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
