@@ -1,4 +1,4 @@
-import logging, urlparse, uuid, urllib2
+import logging, urlparse, uuid, urllib2, socket
 from ordereddict import OrderedDict
 
 from lxml import etree
@@ -195,6 +195,7 @@ class ProductService(object):
 
 	def set_product_from_open_web(self, query):
 		try:
+			socket.setdefaulttimeout(60)
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			if not scheme:query='http://%s'%query
 			product_page = urllib2.urlopen(query)
