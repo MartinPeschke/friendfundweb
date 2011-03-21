@@ -36,13 +36,7 @@ class ErrorController(BaseController):
 		content = literal(resp.body) or cgi.escape(request.GET.get('message', ''))
 		if resp.status_int == 404:
 			log.error("PAGE_NOT_FOUND:%s", getattr( request.environ.get('pylons.original_request'), 'path_qs', '[N/A]' ) )
-			page = error_document_404 % \
-				dict(prefix=request.environ.get('SCRIPT_NAME', ''),
-					 code=cgi.escape(request.GET.get('code', str(resp.status_int))),
-					 message=content)
+			page = error_document_404
 		else:
-			page = error_document % \
-				dict(prefix=request.environ.get('SCRIPT_NAME', ''),
-					 code=cgi.escape(request.GET.get('code', str(resp.status_int))),
-					 message=content)
+			page = error_document 
 		return page

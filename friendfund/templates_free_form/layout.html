@@ -86,15 +86,23 @@
 							####	####</div>
 							####</div>
 						</div>
+						%if not request.is_secured:
 						<span class="middot floatLeft">&middot;</span>
-						<div class="like floatLeft" style="margin: 3px 0 0 0">
-							<iframe src="http://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
-						</div>
+							<div class="like floatLeft" style="margin: 3px 0 0 0">
+								<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+							</div>
 						<span class="middot floatLeft">&middot;</span>
+						%endif
+						
 						<div class="floatLeft" style="margin:3px 0 0 0">
 							<span>You're safe with us</span>
 						</div>
+						
+						%if request.merchant.is_default:
 						<span class="floatRight"  style="margin:3px 0 0 0">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
+						%else:
+							<a href="${url("home", host=app_globals.default_host)}"><img class="floaterRight" style="margin: 30px 0;position:absolute;right:30px;" src="/static/imgs/powered_by_button.png"/></a>
+						%endif
 						<div class="clear"></div>
 					</div>
 					

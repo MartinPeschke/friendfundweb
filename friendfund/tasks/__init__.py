@@ -29,7 +29,6 @@ def getRecDictKey(d, k):
 		try:
 			tmp = tmp.get(a, None)
 		except AttributeError, e:
-			print e, k.split('.'), tmp
 			return None
 		if not tmp: break
 	return tmp

@@ -150,7 +150,7 @@ def main(argv=None):
 									%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
 								)
 		else:
-			time.sleep(5)
+			time.sleep(120)
 
 if __name__ == "__main__":
     sys.exit(main())

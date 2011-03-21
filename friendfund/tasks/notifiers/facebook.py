@@ -87,9 +87,6 @@ def _stream_publish(template, sndr_data, rcpt_data, template_data):
 	
 	msg['access_token'] = sndr_data['access_token']
 	query = urllib.urlencode(msg)
-	print 'https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref')
-	print msg
-	print query
 	try:
 		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query)
 	except urllib2.HTTPError, e:

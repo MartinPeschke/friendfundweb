@@ -80,7 +80,7 @@ class ContentController(BaseController):
 	def jobs(self):
 		return render("/content/jobs.html")
 	@default_domain_only()
-	def privacy(self, lang):
+	def privacy(self, lang = None):
 		if lang:
 			try:
 				return render("/content/privacy_%s.html" % lang)
@@ -90,7 +90,7 @@ class ContentController(BaseController):
 			return render("/content/privacy.html")
 	@default_domain_only()
 	def impressum(self):
-		return render("/content/impressum.html")
+		return redirect(url(controller="content", action="aboutus"))
 	def merchant_explain(self):
 		return render("/content/merchant_explain.html")
 	@default_domain_only()
@@ -101,5 +101,4 @@ class ContentController(BaseController):
 		return render("/content/become_partner.html")
 	@default_domain_only()
 	def faq(self):
-		c.faq_items = FAQ_KEYS
 		return render("/content/faq.html")

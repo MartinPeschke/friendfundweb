@@ -266,7 +266,7 @@
 							<div id="${so.name}_form" class="requiredForm hideable hidden">
 								<% error_dict = c.errors.get(so.name, dict()) %>
 								%for rf in so.required_fields:
-									<div class="smallLabel ${rf.name in error_dict and "error", ""}">
+									<div class="smallLabel ${rf.name in error_dict and "error" or ""}">
 										<label>${_(so.name)} ${_(rf.name)}</label><input type="text" name="${so.name}.${rf.name}" value="${c.values.get(so.name, dict()).get(rf.name)}" />
 										%if rf.name in error_dict:
 											<p class="error">${error_dict[rf.name]}</p>
@@ -280,6 +280,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+		<div class="clear"></div>
 		<div class="floatRight">
 			<div class="spacerButtons">
 				<span class="forward floatLeft" id="submitter"><span>${_("FF_POOLDETAILS_Invite Friends")}</span> <input type="button" value="&gt;"/></span>
