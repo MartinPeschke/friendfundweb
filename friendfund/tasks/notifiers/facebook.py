@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 SET_EVENT_ID = """exec job.set_pool_event_id '<POOL p_url="%(p_url)s" event_id="%(event_id)s"/>'"""
 
-
+from friendfund.tasks.notifiers.common import InvalidAccessTokenException
 
 def _create_event(query, image_url, pool_url, config):
 	log.info('CREATing EVENT WITH: (%s)', query)
