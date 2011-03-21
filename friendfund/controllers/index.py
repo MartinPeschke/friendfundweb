@@ -50,6 +50,7 @@ class IndexController(BaseController):
 	
 	
 	def logout(self):
+		log.info( websession )
 		c.user = ANONUSER
 		c.settings = {}
 		c.messages = []
