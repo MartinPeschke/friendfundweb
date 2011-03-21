@@ -276,7 +276,7 @@ class FBUserPermissions(DBMappedObject):
 	_keys = [	GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'email','email')
-				,GenericAttrib(str,'has_email','has_email')
+				,GenericAttrib(bool,'has_email','has_email')
 				,GenericAttrib(bool,'stream_publish','stream_publish')
 				,GenericAttrib(bool,'create_event','create_event')
 				,GenericAttrib(bool,'permanent','permanent')

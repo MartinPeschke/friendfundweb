@@ -1,4 +1,7 @@
 <%inherit file="../layout.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
+
+
 <%def name="title()">${_("FF_TITLESUCCESS for %s") % c.pool.title}</%def>
 <%def name="scripts()">
 	<script type="text/javascript">
@@ -30,10 +33,6 @@
 <div class="wrapSubContent">
 <div class="content">
 	<div class="colRight minorMargin">
-    <div class="generalBoxRight">
-			<h2>${_("FF_POOLECARD_Save as pdf")}</h2>
-			<img src="/static/imgs/pdf.png" class="icoPdf link" />
-		</div>
 		<div class="generalBoxRight">
 			<h2>${_("FF_POOLECARD_Share card")}</h2>
 			<div class="iconContainer">
@@ -58,7 +57,7 @@
 		<div class="generalBoxRight noBorder ">
 			<a href="${url('get_pool', pool_url = c.pool.p_url, view=1)}" class="primaryButton clear floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
 			<div class="clear">
-				<a href="${self.create_pool_link()}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
+				<a href="${forms.create_pool_link()}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
 			</div>
 			<div class="clear"></div>
 		</div>

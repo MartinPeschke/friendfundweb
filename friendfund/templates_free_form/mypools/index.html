@@ -1,5 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
+
 <%def name="title()">${_("FF_TITLE_My Pools")}</%def>
 <%def name="scripts()">
 	<script type="text/javascript">
@@ -30,7 +32,7 @@
 	%if len(c.my_pools.pools) == 0:
 		<div class="noContainer">
 			<p class="no">${_("FF_MYPOOLS_You haven't created any Pools yet.")}</p>
-			<a href="${self.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
+			<a href="${forms.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
 		</div>
 	%else:
 	<h4>${_("FF_MYPOOLS_Pools I've Created")}
