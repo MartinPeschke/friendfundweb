@@ -144,9 +144,9 @@ class DBMappedObject(DBMapping):
 				setattr(self, elem.pykey, kwargs.get(elem.pykey, None))
 	
 	def __unicode__(self):
-		return '<%s: %s>' % (self.__class__.__name__, ','.join(['%s:%s'%(k.pykey,getattr(self, k.pykey)) for k in self._keys[:3]]))
+		return '<%r: %r>' % (self.__class__.__name__, ','.join(['%s:%s'%(k.pykey,getattr(self, k.pykey)) for k in self._keys[:3]]))
 	def __repr__(self):
-		return '<%s: %s>' % (self.__class__.__name__, ','.join(['%s:%s'%(k,getattr(self, k)) for k in self._unique_keys[:3]]))
+		return '<%r: %r>' % (self.__class__.__name__, ','.join(['%s:%s'%(k,getattr(self, k)) for k in self._unique_keys[:3]]))
 	def to_map(self):
 		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
 	def mergewDB(self, xml):
