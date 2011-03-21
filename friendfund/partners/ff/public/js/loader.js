@@ -195,7 +195,7 @@ xhrHandler = function(callback){
 		if (data.clearmessage !== undefined){clear_messages();}
 		//if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
-		if (data.login_panel !== undefined){dojo.place(data.login_panel, dojo.byId("accountcontainer"), "only");}
+		if (data.login_panel !== undefined){dojo.place(data.login_panel, "accountcontainer", "only");}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
@@ -290,7 +290,7 @@ timeoutValue=500;
 doFBFFLogin = function(callback){
 	FB.api('/me', function(response) {
 		response.scope=FBSCOPE;
-		loadElement('/fb/login', "accountcontainer", response, callback);
+		xhrPost('/fb/login', response, callback);
 	});
 };
 
@@ -345,7 +345,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 		if(!has_prev_tried_logging_in && FB.getSession()){
 			FB.api("/me", function(response) {
 					response.scope=FBSCOPE;
-					loadElement("/fb/login", "accountcontainer", response, page_reloader);
+					xhrPost("/fb/login", response, page_reloader);
 			});
 		}
 	};
