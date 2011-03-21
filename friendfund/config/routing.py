@@ -26,7 +26,7 @@ def make_map(config):
 	
 	
 	
-	map.connect('content'       , '/content/{lang}/{action}', controller='content', requirements={'lang': lnguagespattern})
+	map.connect('content'       , '/{lang}/content/{action}', controller='content', requirements={'lang': lnguagespattern})
 	
 	
 	map.connect('clean_session'       , '/pool/start', controller='pool', action='reset')

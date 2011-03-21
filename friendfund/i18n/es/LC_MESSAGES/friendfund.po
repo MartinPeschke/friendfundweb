@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-21 19:02+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2011-03-21 19:49+0100\n"
+"Last-Translator: Timothy Blake <timothy.d.blake@gmail.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
@@ -1968,6 +1968,10 @@ msgstr "Averigua más"
 msgid "FF_HOMEPAGE_FORM_We need"
 msgstr "Necesitamos"
 
+#: friendfund/templates_free_form/index.html:28
+msgid "FF_HOMEPAGE_FORM_for"
+msgstr "para"
+
 #: friendfund/templates_free_form/index.html:29
 msgid "FF_HOME_PAGE_Examples: a weekend away, my sports club..."
 msgstr "Ejemplos: un fin de semana fuera, mi club de deporte..."
@@ -2082,7 +2086,7 @@ msgstr "español"
 
 #: friendfund/templates_free_form/layout.html:81
 msgid "FF_FOOTER_You're safe with us"
-msgstr ""
+msgstr "Estas seguro con nosotros"
 
 #: friendfund/templates_free_form/layout.html:85
 msgid "FF_FOOTER_2010 friendfund All Rights Reserved"
@@ -2190,6 +2194,7 @@ msgstr ""
 
 #: friendfund/templates_free_form/content/popups/how_friends_invited_popup.html:13
 #: friendfund/templates_free_form/content/popups/what_is_cvc.html:14
+#: friendfund/templates_free_form/contribution/popups/transaction_fees.html:25
 #: friendfund/templates_free_form/invite/preview/preview_email.html:25
 msgid "FF_Close"
 msgstr "Cerrar"
@@ -2452,6 +2457,24 @@ msgstr "Tu pago se mostrará en unos minutos."
 msgid "FF_CONTRIB_SUCCESS_Create a Pool"
 msgstr "Crear un bote"
 
+#: friendfund/templates_free_form/contribution/popups/transaction_fees.html:5
+msgid "FF_CONTRIBUTION_FEE_POPUP_Why am I being charged for chipping in?"
+msgstr "¿Porque me estan cobrando para contribuir?"
+
+#: friendfund/templates_free_form/contribution/popups/transaction_fees.html:7
+msgid ""
+"FF_CONTRIBUTION_FEE_POPUP_To keep friendfund as cheap to use as possible,"
+" we have to charge transaction fees set by our Paypal and Credit Card "
+"providers."
+msgstr ""
+"Para segurar que friendfund es tan barato para usar como sea posible, "
+"tenemos que cobrar comisiones por transacción fijados por nuestros "
+"proveedores de Paypal y tarjeta de crédito."
+
+#: friendfund/templates_free_form/contribution/popups/transaction_fees.html:9
+msgid "FF_CONTRIBUTION_FEE_POPUP_Paypal and Credit Card Fees"
+msgstr "las tasas de tarjetas de créditoLas tasas de Paypal y Trajetas de Credito"
+
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:17
 #, python-format
 msgid ""
@@ -2528,7 +2551,7 @@ msgstr "¿Cómo se les nofiticará a mis amigos?"
 msgid ""
 "FF_INVITEPAGE_Add a Personal Message to your Invitees "
 "<span>(optional)</span>"
-msgstr "Personaliza Tu Invitación <span>(optional)</span>"
+msgstr "Personaliza Tu Invitación <span>(opcional)</span>"
 
 #: friendfund/templates_free_form/invite/invite.html:97
 msgid "FF_INVITEPAGE_SUBJECT_Tip goes here"
@@ -3405,7 +3428,7 @@ msgstr "Necesitamos"
 #: friendfund/templates_free_form/product/urlparser.html:20
 #: friendfund/templates_free_form/product/urlparser.html:32
 msgid "FF_Edit"
-msgstr ""
+msgstr "Editar"
 
 #: friendfund/templates_free_form/pool/pool_details.html:139
 msgid "FF_POOLDETAILS_by"
@@ -3450,7 +3473,7 @@ msgstr "Pegar un enlace de cuarquier página web"
 
 #: friendfund/templates_free_form/pool/pool_details.html:221
 msgid "FF_POOLDETAILS_use URL:"
-msgstr ""
+msgstr "Utilizar URL"
 
 #: friendfund/templates_free_form/pool/pool_details.html:222
 #: friendfund/templates_free_form/pool/pool_details.html:223
@@ -3596,7 +3619,7 @@ msgstr "Escribe una descripción corta"
 #: friendfund/templates_free_form/product/urlparser.html:47
 #, python-format
 msgid "FF_HOMEPAGE_PRODUCT_Choose a thumbnail (%(counter)s of %(total)s)"
-msgstr ""
+msgstr "Eligir un Thumbnail (%(counter)s de %(total)s)"
 
 #: friendfund/templates_partner/index.html:26
 msgid "MERCHANT_POPUP_SLOGAN_Share the costs with your friends!"
@@ -3629,6 +3652,18 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select the special occasion for which "
 "your gift pool is being created."
 msgstr "Escoge un evento especial para el que se ha creado el bote. "
+
+#: friendfund/templates_partner/occasion/panel.html:13
+msgid "EVENT_PANEL_Choose an occasion:"
+msgstr "Elija una ocasión:"
+
+#: friendfund/templates_partner/occasion/panel.html:27
+msgid "EVENT_PANEL_... Or enter your own occasion:"
+msgstr "...O escribe tu propria ocasión"
+
+#: friendfund/templates_partner/occasion/panel.html:34
+msgid "EVENT_PANEL_Pick a date so your gift arrives on time:"
+msgstr "Escoja una fecha para que su regalo llegue a tiempo:"
 
 #: friendfund/templates_partner/product/button.html:33
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select a Gift"
