@@ -58,6 +58,24 @@ class FbController(BaseController):
 			remove_block('create_event')
 		return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 	
+	@jsonify
+	def failed_login(self):
+		try:
+			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
+		except fb_helper.FBNotLoggedInException, e: 
+			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
+		except fb_helper.FBLoggedInWithIncorrectUser, e: 
+			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
+		user_data = dict([(k,v) for k,v in request.params.iteritems()])
+		user_data.update(fb_data)
+		log.info("MISSINGPERMISSIONS:%s (%s)", request.params.get("missing_scope"), user_data)
+		c.user.set_network('facebook',
+			network_id = user_data.get('id'),
+			access_token = user_data['access_token'],
+			access_token_secret = user_data.get('secret')
+		)
+		return {"data":{"success":False}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+		
 	def get_email(self):
 		try:
 			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
