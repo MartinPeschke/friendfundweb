@@ -24,12 +24,10 @@
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
 	parseEditables("poolDetails");
-	var fmtDate = "M-sp-d-cc-sp-Y";
-	var machineFmtDate = "Y-ds-m-ds-d";
-	var intFmtDate = "Y--m-d";
-	var today = new Date();
-	var defaultDateOffset = 14;
-	var defaultDate = new Date(today.getDate() + defaultDateOffset);
+	
+	var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
+	var today = new Date(), upperEnd = new Date();upperEnd.setDate(upperEnd.getDate() + 45);
+	var defaultDateOffset = 14;var defaultDate = new Date(today.getDate() + defaultDateOffset);
 	if(dojo.byId("dateValue").value){
 		defaultDate = new Date(datePickerController.parseDateString(dojo.byId("dateValue").value, machineFmtDate));
 		var displaydate = Math.ceil((defaultDate.getTime()-today.getTime())/(24*3600*1000));
@@ -40,7 +38,7 @@
 	  formElements:{"datepicker":fmtDate},
 	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
 	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
-	  rangeHigh:(today.getFullYear()) + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
+	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
 	  callbackFunctions:{"dateset":[
 			function(params){
 				if(params.date){

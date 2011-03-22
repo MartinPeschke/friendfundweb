@@ -310,17 +310,29 @@ twInit = function(furl) {
 
 var FBSCOPE="user_birthday,friends_birthday,email,publish_stream,create_event";
 fb_handleLogin = function(response){
-	delete response.session;
-	var scope=response.perms;
+	var scope;
+	if(response.perms.match(/^[,a-zA-Z0-9_-]+$/)){
+		scope=response.perms;
+	}else{
+		var perms = dojo.fromJson(response.perms);
+		var a=[];for(var i in perms){a.push(perms[i].join(","));}
+		scope = a.join(",");
+	};
 	var missing_perms = FBSCOPE.replace(new RegExp(scope.replace(/,/g,"|"), "g"), "").strip(",");
 	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response, page_reloader);return false;};
 	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response, page_reloader);});
+	return true;
 };
-fbLogin = function() {
+fbLogin = function(response) {
+	FB.Event.unsubscribe('auth.login', fbLogin);
 	if(facebook_tried_loggin_in_already === false){
-		facebook_tried_loggin_in_already = true;
-		setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
-		FB.login(fb_handleLogin, {perms:FBSCOPE});
+		if(response&&response['session']){
+			FB.getLoginStatus(fb_handleLogin);
+		} else {
+			facebook_tried_loggin_in_already = true;
+			setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
+			FB.login(fb_handleLogin, {perms:FBSCOPE});
+		};
 	}
 };
 fbLogout = function(){if(FB.getSession()){FB.logout(function(response){});}else{window.location.href = "/logout?furl=/";}};
@@ -329,15 +341,7 @@ fbInit = function(app_id, has_prev_tried_logging_in) {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
 		FB.init({appId:app_id, status:true, cookie:true,xfbml:false, channelUrl:channelUrl});
 		FB.Event.subscribe('auth.logout', fbLogout);
-		if(!has_prev_tried_logging_in){
-			FB.getLoginStatus(function(response) {
-				if (response.session) {
-						fb_handleLogin(response);
-				} else {
-					console.log("FBInit: not logged in");
-				}
-			});
-		}
+		FB.Event.subscribe('auth.login', fbLogin);
 	};
 	var e = document.createElement('script');
 	e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
