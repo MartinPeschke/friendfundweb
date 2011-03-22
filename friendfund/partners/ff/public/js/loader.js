@@ -1,3 +1,10 @@
+String.prototype.strip = function(char) 
+    {
+        var re = new RegExp("^"+char+"+|"+char+"+$", "g");
+        return String(this).replace(re, '');
+    };
+
+
 reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 	var rn=dojo.byId(rootnode);
 	return function(data){
@@ -286,42 +293,6 @@ facebook_tried_loggin_in_already = false;
 twitter_tried_loggin_in_already = false;
 timeoutValue=500;
 
-
-doFBFFLogin = function(callback){
-	FB.api('/me', function(response) {
-		response.scope=FBSCOPE;
-		xhrPost('/fb/login', response, callback);
-	});
-};
-
-fbSessionChange = function() {
-	if (FB.getSession()) {
-		doFBFFLogin(page_reloader);
-	} else {
-		window.location.href = "/logout?furl=/";
-	}
-};
-
-
-fbLogin = function() {
-	if(!FB.getSession()){
-		if(facebook_tried_loggin_in_already === false){
-			facebook_tried_loggin_in_already = true;
-			setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
-			FB.login(function(){}, {perms:FBSCOPE});
-		}
-	}else{fbSessionChange();}
-};
-
-fbLogout = function(evt){
-	if(FB.getSession()){
-		FB.logout(function(response){});
-	}else{
-		fbSessionChange();
-	}
-};
-
-
 twInit = function(furl) {
 	if(twitter_tried_loggin_in_already === false){
 		twitter_tried_loggin_in_already = true;
@@ -336,16 +307,49 @@ twInit = function(furl) {
 	}
 };
 
+
+
 var FBSCOPE="user_birthday,friends_birthday,email,publish_stream,create_event";
+fb_handleLogin = function(response){
+	var scope=response.perms;
+	var missing_perms = FBSCOPE.replace(new RegExp(scope.replace(",","|"), "g"), "").strip(",")
+	if(missing_perms){page_reloader();return false;};
+	FB.api('/me', function(response) {
+			console.log(scope, FBSCOPE);
+			response.scope = scope;
+			xhrPost('/fb/login', response, page_reloader);
+	});
+};
+fbLogin = function() {
+	FB.getLoginStatus(function(response) {
+		if (response.session) {
+			if(facebook_tried_loggin_in_already === false){
+				facebook_tried_loggin_in_already = true;
+				setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
+				FB.login(fb_handleLogin, {perms:FBSCOPE});
+			}
+		}
+	});
+};
+fbLogout = function(){
+	if(FB.getSession()){
+		FB.logout(function(response){});
+	}else{
+		window.location.href = "/logout?furl=/";
+	}
+};
 fbInit = function(app_id, has_prev_tried_logging_in) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
 		FB.init({appId  : app_id,status : true,cookie : true,xfbml  : false, channelUrl:channelUrl});
-		FB.Event.subscribe('auth.sessionChange', fbSessionChange);
-		if(!has_prev_tried_logging_in && FB.getSession()){
-			FB.api("/me", function(response) {
-					response.scope=FBSCOPE;
-					xhrPost("/fb/login", response, page_reloader);
+		FB.Event.subscribe('auth.logout', fbLogout);
+		if(!has_prev_tried_logging_in){
+			FB.getLoginStatus(function(response) {
+				if (response.session) {
+						fb_handleLogin(response);
+				} else {
+					console.log("FBInit: not logged in");
+				}
 			});
 		}
 	};

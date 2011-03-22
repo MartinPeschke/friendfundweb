@@ -1,6 +1,6 @@
 from __future__ import with_statement
+import urlparse
 from decorator import decorator
-
 from pylons import url
 from pylons.i18n import ugettext as _
 from friendfund.lib import helpers as h
@@ -23,7 +23,8 @@ def default_domain_only():
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)
 		if not pylons.request.merchant.is_default:
-			return redirect(url.current(host=pylons.app_globals.default_host))
+			prot, host, path, params, query, fragment = urlparse.urlparse(pylons.request.url)
+			return redirect(urlparse.urlunparse((prot, pylons.app_globals.default_host, path, params, query, fragment)))
 		return func(self, *args, **kwargs)
 	return decorator(validate)
 

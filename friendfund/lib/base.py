@@ -2,7 +2,7 @@
 
 Provides the BaseController class for subclassing.
 """
-import logging, time
+import logging, time, urlparse
 from collections import deque
 from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
 from pylons.controllers.util import abort, redirect
@@ -98,7 +98,8 @@ class BaseController(WSGIController):
 		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
 		if not (host and host in g.merchants.domain_map):
-			return redirect(url.current(host=g.default_host))
+			prot, host, path, params, query, fragment = urlparse.urlparse(request.url)
+			return redirect(urlparse.urlunparse((prot, g.default_host, path, params, query, fragment)))
 		else:
 			protocol = request.headers.get('X-Forwarded-Proto', 'http')
 			request.merchant = g.merchants.domain_map[host]
