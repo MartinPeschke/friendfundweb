@@ -317,15 +317,11 @@ fb_handleLogin = function(response){
 	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response, page_reloader);});
 };
 fbLogin = function() {
-	FB.getLoginStatus(function(response) {
-		if (response.session) {
-			if(facebook_tried_loggin_in_already === false){
-				facebook_tried_loggin_in_already = true;
-				setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
-				FB.login(fb_handleLogin, {perms:FBSCOPE});
-			}
-		}
-	});
+	if(facebook_tried_loggin_in_already === false){
+		facebook_tried_loggin_in_already = true;
+		setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
+		FB.login(fb_handleLogin, {perms:FBSCOPE});
+	}
 };
 fbLogout = function(){if(FB.getSession()){FB.logout(function(response){});}else{window.location.href = "/logout?furl=/";}};
 fbInit = function(app_id, has_prev_tried_logging_in) {
