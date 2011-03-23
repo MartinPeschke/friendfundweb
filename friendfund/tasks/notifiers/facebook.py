@@ -40,14 +40,14 @@ def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 	data = template_data
 	if not template_data.get('event_id'):
 		query = {}
-		query['name'] = template.get_def("name").render_unicode(h = h, data = data)
-		query['description'] = template.get_def("description").render_unicode(h = h, data = data)
-		query['link'] = template.get_def("link").render_unicode(h = h, data = data)
-		query['privacy_type'] = template.get_def("privacy_type").render_unicode(h = h, data = data)
-		query['start_time'] = template.get_def("start_time").render_unicode(h = h, data = data)
-		query['end_time'] = template.get_def("end_time").render_unicode(h = h, data = data)
-		query['location'] = template.get_def("location").render_unicode(h = h, data = data)
-		query["access_token"] = sndr_data["access_token"]
+		query['name'] = template.get_def("name").render_unicode(h = h, data = data).encode("utf-8")
+		query['description'] = template.get_def("description").render_unicode(h = h, data = data).encode("utf-8")
+		query['link'] = template.get_def("link").render_unicode(h = h, data = data).encode("utf-8")
+		query['privacy_type'] = template.get_def("privacy_type").render_unicode(h = h, data = data).encode("utf-8")
+		query['start_time'] = template.get_def("start_time").render_unicode(h = h, data = data).encode("utf-8")
+		query['end_time'] = template.get_def("end_time").render_unicode(h = h, data = data).encode("utf-8")
+		query['location'] = template.get_def("location").render_unicode(h = h, data = data).encode("utf-8")
+		query["access_token"] = sndr_data["access_token"].encode("utf-8")
 		query["format"] = "json"
 		query["host"] = "me"
 		
@@ -57,7 +57,7 @@ def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 		event_id = template_data['event_id']
 	msg = {"eid":str(event_id),
 			"uids" : '[%s]'%','.join(rcpt['network_id'] for rcpt in template_data['recipients']),
-			"personal_message":query['description'], 
+			"personal_message":query['description'].encode("utf-8"), 
 			"format":"json",
 			"access_token":sndr_data['access_token']}
 	msg = dict((k,v.encode("utf-8")) for k,v in msg.iteritems())
@@ -74,18 +74,18 @@ def _stream_publish(template, sndr_data, rcpt_data, template_data):
 	data = template_data
 	scrap = template.get_def("picture").render_unicode(h = h, data = data)
 	msg = {}
-	msg['message'] = template.get_def("message").render_unicode(h = h, data = data)
-	msg['link'] = template.get_def("link").render_unicode(h = h, data = data)
-	msg['name'] = template.get_def("name").render_unicode(h = h, data = data)
-	msg['caption'] = template.get_def("caption").render_unicode(h = h, data = data)
-	msg['description'] = template.get_def("description").render_unicode(h = h, data = data)
+	msg['message'] = template.get_def("message").render_unicode(h = h, data = data).encode("utf-8")
+	msg['link'] = template.get_def("link").render_unicode(h = h, data = data).encode("utf-8")
+	msg['name'] = template.get_def("name").render_unicode(h = h, data = data).encode("utf-8")
+	msg['caption'] = template.get_def("caption").render_unicode(h = h, data = data).encode("utf-8")
+	msg['description'] = template.get_def("description").render_unicode(h = h, data = data).encode("utf-8")
 	actions = {}
 	actions['name'] = template.get_def("action_name").render_unicode(h = h, data = data)
 	actions['link'] = template.get_def("action_link").render_unicode(h = h, data = data)
-	msg['actions'] = simplejson.dumps(actions)
-	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOLS", site_root=template_data["DEFAULT_BASE_URL"])
+	msg['actions'] = simplejson.dumps(actions).encode("utf-8")
+	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOLS", site_root=template_data["DEFAULT_BASE_URL"]).encode("utf-8")
 	
-	msg['access_token'] = sndr_data['access_token']
+	msg['access_token'] = sndr_data['access_token'].encode("utf-8")
 	query = urllib.urlencode(msg)
 	try:
 		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query)
