@@ -4,7 +4,6 @@
 
 <style type="text/css">
 body {
-    color: #333333;
     font: 12px/18px Arial,Helvetica,sans-serif;
     height: 100%;
     margin: 0;
@@ -16,14 +15,19 @@ a{ text-decoration: none}
 div.homebox {
 	width: auto;
 	float: none;
-	border: 1px solid #d7d7d7;
-	padding: 9px 9px 0;
+	border: 1px solid #e5e5e5;
 	margin: 0
 }
 div.homebox h5 {
     display: block;
-    font-size: 13px;
-    margin: 9px auto 0;
+    font-size: 14px;
+    padding: 15px 10px;
+    margin: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    background: #f9f9f9
+}
+div.homebox h5 a{
+	color:#0094cc;
 }
 div.homebox span {
     color: #B3B3B3;
@@ -38,13 +42,13 @@ span.homebox {
 }
 div.timeCounter {
     display: block;
-    margin: 10px auto 0;
-    padding: 0;
+    padding: 10px;
     position: relative;
-    width: 100%;
+    border-top:1px solid #fff;
+    background: #efefef
 }
 .homebox div.timeCounter span {
-    color: #4E4E4E;
+    color: #2c2c2c;
     display: block;
     font-size: 11px;
     font-weight: bold;
@@ -54,12 +58,12 @@ div.timeCounter {
     padding: 0;
     position: absolute;
     text-align: center;
-    top: 0;
+    top: 10px;
     width: 70px;
 }
 div.timeCounterRight {
     -moz-border-radius: 10px 10px 10px 10px;
-    background: none repeat scroll 0 0 #ADADAD;
+    background: none repeat scroll 0 0 #CDCCC9;
     height: 10px;
     padding: 3px;
     border-top-right-radius:10px;
@@ -73,7 +77,7 @@ div.timeCounterLeft {
 	border-bottom-right-radius:10px;
 	border-top-left-radius:10px;
 	border-bottom-left-radius:10px;
-    background: none repeat scroll 0 0 #A3F46C;
+    background: none repeat scroll 0 0 #B6EC46;
     height: 10px;
 }
 div.boxContributors {
@@ -82,7 +86,6 @@ div.boxContributors {
 	box-shadow: 0 1px #d7d7d7;
     background: none repeat scroll 0 0 #F1C8FE;
     clear: both;
-    margin: 10px -9px 0;
     padding: 0 7px;
     text-align: center;
 }
@@ -95,15 +98,35 @@ div.boxContributors span.middot {
     font-weight: bold;
 }
 div.fbHolder {
-    background: none repeat scroll 0 0 #EBEBEB;
-    margin: 1px -9px 0;
+    background: none repeat scroll 0 0 #efefef;
+    margin:0;
     padding: 1px 0 9px 10px;
 }
 .popupBtnCont {
-	border: 1px solid #D7D7D7;
+	border: 1px solid #e5e5e5;
 	border-top:none;
-	padding: 20px 0;
+	padding: 10px ;
 	text-align: center
+}
+.primaryVerySmall:hover {
+	background:#d30165;
+	text-decoration: none
+}
+.primaryVerySmall {
+	height:20px;
+	line-height:20px;
+	font-size:12px;
+	float: left;
+	color:white;
+	background-color: #ff0585;
+	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 1px 1px 1px #960148;
+	display:block;
+	padding:0 10px;
+	cursor:pointer;
 }
 
 .clear {
@@ -139,6 +162,8 @@ div.fbHolder img {
     margin-top: 8px;
     width: 30px;
 }
+div.textHolder{ border-top:1px solid #dadada}
+div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 
 
 </style>
@@ -157,9 +182,8 @@ div.fbHolder img {
 	%>
 
 
-	<h5>${c.pool.title}</h5>
-	<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
-	<div class="timeCounter">
+	<h5><a href="#">${c.pool.title}</a></h5>
+		<div class="timeCounter">
 		<% progress = int(c.pool.funding_progress()*100) %>
 		<span>
 		%if c.pool.is_closed():
@@ -185,11 +209,19 @@ div.fbHolder img {
 		%endfor
 		<div class="clear"></div>
 	</div>
+	<div class="textHolder">
+		<p>We want to raise funds to take 30 
+club members from Brighton to 
+London 2012 to see the Table Tennis 
+played by the world‘s greatest... </p>
+	</div>
 </div>
 <div class="popupBtnCont">
-	<a class="btnChipIn tertiary" target="_blank" href="${url("get_pool", pool_url=c.pool.p_url)}">${_("FF_WIDGET_POPUP_Chip In")}</a>
+
+		<img src="/static/imgs/Widgets_Logo.png" align="right" />
+	<a class="primaryVerySmall">VIEW &raquo;</a>
+	<div class="clear"></div>
 </div>
-<div class="clear"></div>
 </div>
 </body>
 </html>

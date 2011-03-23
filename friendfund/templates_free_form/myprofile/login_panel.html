@@ -12,13 +12,13 @@
 					<span class="error">${getattr(c, "login_errors", dict()).get("email")}</span>
 				%endif
 			</div>
-			<div class="${"email" in errors and ' error' or ''} inputline" >
+			<div class="${"email" in errors and ' error' or ''}" style="margin-top:5px" >
 				<label for="login_pwd">${_("FF_LOGIN_Password")}</label>
 				<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
 				%if "pwd" in getattr(c, "login_errors", dict()):
 					<span class="error">${getattr(c, "login_errors", dict()).get("pwd")}</span>
 				%endif
-			<div>
+			<div style="margin-top:5px">
 				<a onclick="xhrPost('${url(controller='myprofile', action='rppopup')}', {});closeLoginPanel();" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
 			</div>
 		</form>
