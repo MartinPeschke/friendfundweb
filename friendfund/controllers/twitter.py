@@ -45,7 +45,6 @@ class TwitterController(BaseController):
 		if not oauth_token:
 			log.warning("Twitter Oauth_Token not returned by Twitter for Get_Access_token: %s", tw_helper.request_token_url)
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
-			c.reload = False
 			c.refresh_login = True
 			return render('/closepopup.html')
 		url = "%s?oauth_token=%s" % (tw_helper.authenticate_url,websession['request_token']['oauth_token'])
@@ -58,7 +57,7 @@ class TwitterController(BaseController):
 		if not oauth_token:
 			log.warning("No Oauth_Token found in session, why?")
 			c.messages.append(self.UNKNOWN_TWITTER_ERROR)
-			c.reload = True
+			c.refresh_login = True
 			return render('/closepopup.html')
 		try:
 			content = tw_helper.fetch_url(tw_helper.access_token_url,"GET", oauth_token, oauth_token_secret, consumer, 

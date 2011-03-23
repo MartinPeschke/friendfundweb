@@ -213,7 +213,7 @@ xhrHandler = function(callback){
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
-		if (data.reload === true){page_reloader();}
+		if (data.reload === true){window.location.reload();}
 		return data;
 	};
 };

@@ -40,7 +40,7 @@ ${self.render_html()}
 	${self.scripts()}
 	<script type="text/javascript">
 		dojo.addOnLoad( function() {
-			fbInit("${app_globals.FbApiKey}", ${str(c.user.has_tried_logging_in_with("facebook")).lower()});
+			fbInit("${app_globals.FbApiKey}");
 			${self.onloadscripts()}
 		});
 	</script>

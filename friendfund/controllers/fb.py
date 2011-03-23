@@ -73,27 +73,6 @@ class FbController(BaseController):
 		)
 		return {"data":{"success":False}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 	
-	def get_offline(self):
-		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
-		except fb_helper.FBNotLoggedInException, e: 
-			c.reload = True
-			c.messages.append(_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account."))
-			return render('/closepopup.html')
-		if fb_data and not 'error' in request.params:
-			perms = FBUserPermissions(network='facebook', network_id=fb_data['id'], permanent = True)
-			try:
-				g.dbm.set(perms)
-			except db_access.SProcException, e:
-				log.error(str(e))
-			else:
-				c.user.set_perm('facebook', 'permanent', True)
-			c.reload = True
-		else:
-			log.info("FacebookPermissionDenied: %s", request.params)
-			c.reload = False
-		return render('/closepopup.html')
-	
 	def remove(self):
 		try:
 			user_id = fb_helper.get_user_from_signed_request(request.params, g.FbApiSecret.__call__())

@@ -25,6 +25,8 @@ class PaymentController(ExtBaseController):
 
 	@logged_in(ajax=False)
 	def index(self, pool_url):
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
+			return redirect(url('get_pool', pool_url=pool_url))
 		c.values = getattr(c, 'values', {})
 		c.errors = getattr(c, 'errors', {})
 		suggested_amount = request.params.get('amount')
@@ -35,6 +37,8 @@ class PaymentController(ExtBaseController):
 		return self.render('/contribution/contrib_screen.html')
 	@logged_in(ajax=False)
 	def details(self, pool_url):
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
+			return redirect(url('get_pool', pool_url=pool_url))
 		c.payment_methods = g.payment_methods
 		details = formencode.variabledecode.variable_decode(request.params).get('payment', {})
 		details['agreedToS'] = details.get('agreedToS', False)  #if_missing wouldnt evaluate, and if_empty returns MISSING VALUE error message, both suck bad
@@ -73,6 +77,8 @@ class PaymentController(ExtBaseController):
 	
 	@logged_in(ajax=False)
 	def creditcard(self, pool_url):
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
+			return redirect(url('get_pool', pool_url=pool_url))
 		### Establishing correctnes of Flow and getting colateral Info
 		c.form_secret = request.params.get('token')
 		if not c.form_secret:
@@ -145,6 +151,7 @@ class PaymentController(ExtBaseController):
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
+					, "baseUnits" : c.contrib.amount
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}
@@ -159,6 +166,7 @@ class PaymentController(ExtBaseController):
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
+					, "baseUnits" : c.contrib.amount
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}

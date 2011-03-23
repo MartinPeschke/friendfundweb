@@ -28,7 +28,8 @@ class MyprofileController(BaseController):
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
 		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
 		if len(defaults):
-			c.values["is_default"] = defaults[0]
+			default = defaults[0]
+			c.values["is_default"] = default
 		else:
 			c.values["is_default"] = "email"
 		if 'email' in c.myprofiles:
@@ -45,6 +46,13 @@ class MyprofileController(BaseController):
 		c.values = formencode.variabledecode.variable_decode(request.params)
 		schema = MyProfileForm()
 		g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=c.values['is_default']))
+		
+		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
+		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
+		if len(defaults):
+			default = defaults[0]
+			c.user.name = c.myprofiles[default].name
+			c.user.profile_picture_url = c.myprofiles[default].profile_picture_url
 		
 		if h.contains_one_ne(c.values, ['email', 'name']):
 			try:
@@ -67,7 +75,6 @@ class MyprofileController(BaseController):
 			except formencode.validators.Invalid, error:
 				c.values = error.value
 				c.errors = error.error_dict or {}
-				c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
 				return self.render('/myprofile/account.html')
 		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 		return redirect(url(controller='myprofile', action="account"))
@@ -146,7 +153,7 @@ class MyprofileController(BaseController):
 	def signuppopup(self):
 		c.furl = request.params.get('furl', '')
 		if not c.user.is_anon:
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		c.signup_values = {}
 		c.signup_errors = {}
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
