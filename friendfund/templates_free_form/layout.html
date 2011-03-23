@@ -48,29 +48,29 @@
 				</div>
                 <div class="footerCol5">
 					<div style="">
-						<div class="language">
-							<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
-							<div class="languageSelection">
-								<div class="showHide">
-									<%
-										languages = {"en_GB":_("English"), "es_ES":_("Spanish")}
-										selected_lang = session["lang"] == 'es_ES' and 'es_ES' or "en_GB"
-									%>
-									<a>${languages.get(selected_lang)}</a>
-									<div class="widthGiver">
-										<div>
-											%for locale, langname in sorted(languages.iteritems()):
-												%if locale != selected_lang:
-													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${langname}</a>
-												%endif
-											%endfor
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						####<div class="language">
+						####	<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
+						####	<div class="languageSelection">
+						####		<div class="showHide">
+						####			<%
+						####				languages = {"en_GB":_("English"), "es_ES":_("Spanish")}
+						####				selected_lang = session["lang"] == 'es_ES' and 'es_ES' or "en_GB"
+						####			%>
+						####			<a>${languages.get(selected_lang)}</a>
+						####			<div class="widthGiver">
+						####				<div>
+						####					%for locale, langname in sorted(languages.iteritems()):
+						####						%if locale != selected_lang:
+						####							<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${langname}</a>
+						####						%endif
+						####					%endfor
+						####				</div>
+						####			</div>
+						####		</div>
+						####	</div>
+						####</div>
+						####<span class="middot floatLeft">&middot;</span>
 						%if not request.is_secured:
-						<span class="middot floatLeft">&middot;</span>
 							<div class="like floatLeft" style="margin: 3px 0 0 0">
 								<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
 							</div>
