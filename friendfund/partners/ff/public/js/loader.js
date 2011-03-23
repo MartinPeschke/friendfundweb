@@ -45,7 +45,7 @@ remClassFromParent = function(rootnode, className, remClass){
 	var node = findParent(rootnode, className);
 	if(node){dojo.removeClass(node, remClass);}
 }
-
+displayMessage = alert;
 parseSelectables = function(rootnode, parentClass, selectedName){
 	var parentClass = parentClass||"borderBottom";
 	var selectedName = selectedName||"selected";
@@ -207,7 +207,7 @@ xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
 		if (data.close_popup === true){closePopup();}
 		if (data.clearmessage !== undefined){clear_messages();}
-		//if (data.message !== undefined){displayMessage(data.message);}
+		if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
 		if (data.login_panel !== undefined){closePopup();dojo.place(data.login_panel, "accountcontainer", "only");if(data['data'].success){page_reloader()};}
 		if (callback && data.data !== undefined){callback(data.data);}

@@ -37,7 +37,7 @@ class FbController(BaseController):
 		#Save and Persist, render profile
 		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
 		if not success:
-			return self.ajax_messages(msg)
+			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
 		else:
 			if not c.user.has_perm('facebook', 'stream_publish'):
 				perms = FBUserPermissions(network='facebook', network_id=user_data['network_id'], stream_publish = True)
