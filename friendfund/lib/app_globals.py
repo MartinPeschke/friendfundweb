@@ -64,6 +64,7 @@ class Globals(object):
 		
 		
 		self.BASE_DOMAIN = app_conf['BASE_DOMAIN']
+		self.STATIC_HOST = app_conf['STATIC_HOST']
 		self.BASE_DOMAIN_LOOKUP = '.%s'%app_conf['BASE_DOMAIN']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		

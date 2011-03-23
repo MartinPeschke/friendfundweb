@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-21 19:49+0100\n"
-"Last-Translator: Timothy Blake <timothy.d.blake@gmail.com>\n"
+"PO-Revision-Date: 2011-03-23 13:03+0100\n"
+"Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
@@ -263,24 +263,24 @@ msgstr "Ha ocurrido un error. Tu pago no ha sido procesado."
 msgid "CONTRIBUTION_CREDITCARD_DETAILS_Form Already Submitted, please standby!"
 msgstr "Por favor ten paciencia, tus cambios se están guardando."
 
-#: friendfund/controllers/fb.py:23
+#: friendfund/controllers/fb.py:23 friendfund/controllers/fb.py:66
 msgid "FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING"
 msgstr ""
 "Facebook tiene problemas para acceder a tu cuenta. Por favor, inténtalo "
 "de nuevo."
 
-#: friendfund/controllers/fb.py:25 friendfund/controllers/fb.py:66
-#: friendfund/controllers/fb.py:88 friendfund/controllers/fb.py:109
-#: friendfund/controllers/fb.py:130 friendfund/controllers/fb.py:153
+#: friendfund/controllers/fb.py:25 friendfund/controllers/fb.py:68
+#: friendfund/controllers/fb.py:84 friendfund/controllers/fb.py:106
+#: friendfund/controllers/fb.py:127 friendfund/controllers/fb.py:148
+#: friendfund/controllers/fb.py:171
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Este Perfil no puede ser añadido a tu Cuenta."
 
-#: friendfund/controllers/index.py:95 friendfund/controllers/myprofile.py:149
+#: friendfund/controllers/index.py:95 friendfund/controllers/myprofile.py:144
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
-msgstr "EMAIL_DE_USUARIO_YA_REGISTRADO"
+msgstr "correo electronico de usario ya registrado!"
 
-#: friendfund/controllers/index.py:96 friendfund/controllers/myprofile.py:150
-#: friendfund/controllers/myprofile.py:219
+#: friendfund/controllers/index.py:96 friendfund/controllers/myprofile.py:212
 #, python-format
 msgid ""
 "USER_SIGNUP_If this is you, please try logging in with your email address"
@@ -322,30 +322,30 @@ msgstr "Acción o Red desconocida"
 msgid "FF_ACCOUNT_Your changes have been changed."
 msgstr "Los cambios han sido guardados."
 
-#: friendfund/controllers/myprofile.py:119
-#: friendfund/controllers/myprofile.py:183 friendfund/controllers/ssp.py:48
+#: friendfund/controllers/myprofile.py:114
+#: friendfund/controllers/myprofile.py:176 friendfund/controllers/ssp.py:48
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr "Error en correo electrónico o contraseña"
 
-#: friendfund/controllers/myprofile.py:210
+#: friendfund/controllers/myprofile.py:203
 msgid "MYPROFILE_EMAILSEIGNUP_Details saved!"
 msgstr "¡Datos guardados!"
 
-#: friendfund/controllers/myprofile.py:240
+#: friendfund/controllers/myprofile.py:233
 #, python-format
 msgid "FF_An email with your new password has been sent to %(email)s."
 msgstr "Un email con tu nueva contraseña te ha sido enviado a %(email)s."
 
-#: friendfund/controllers/myprofile.py:248
+#: friendfund/controllers/myprofile.py:241
 msgid "FF_RESETPASSWORD_Email does not exist."
 msgstr "El email no existe."
 
-#: friendfund/controllers/myprofile.py:266
-#: friendfund/controllers/myprofile.py:276
+#: friendfund/controllers/myprofile.py:259
+#: friendfund/controllers/myprofile.py:269
 msgid "FF_RESETPASSWORD_Email is already owned by another user."
 msgstr "Este email está siendo usado por otro usuario."
 
-#: friendfund/controllers/myprofile.py:299
+#: friendfund/controllers/myprofile.py:292
 #, python-format
 msgid ""
 "PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your"
@@ -354,38 +354,40 @@ msgstr ""
 "La contraseña de tu Email ha sido enviada a: %s, por favor, comprueba tu "
 "bandeja de entrada."
 
-#: friendfund/controllers/myprofile.py:308
+#: friendfund/controllers/myprofile.py:301
 msgid "PROFILE_PASSWORD_Unknown Email Address"
 msgstr "Dirección de Email desconocida"
 
-#: friendfund/controllers/myprofile.py:311
+#: friendfund/controllers/myprofile.py:304
 msgid "PROFILE_PASSWORD_Token Already Sent"
 msgstr ""
 "Ya has solicitado un cambio de contraseña en las últimas 24 horas. Por "
 "favor, mira tu correo electrónico."
 
-#: friendfund/controllers/myprofile.py:314
+#: friendfund/controllers/myprofile.py:307
 msgid "PROFILE_PASSWORD_Unknown Error Occured"
 msgstr "Error desconocido"
 
-#: friendfund/controllers/myprofile.py:320
-msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
-msgstr "Ya has iniciado sesión"
+#: friendfund/controllers/myprofile.py:311
+#, python-format
+msgid ""
+"PROFILE_RESETPASSWORD_TOKEN_This link is no longer valid, please request "
+"a new password <a %s>here </a>"
+msgstr ""
 
-#: friendfund/controllers/myprofile.py:325
-#: friendfund/controllers/myprofile.py:339
+#: friendfund/controllers/myprofile.py:326
 msgid "PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválidada. Por favor, solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:351
+#: friendfund/controllers/myprofile.py:338
 msgid "PROFILE_RESETPASSWORD_Your password has been reset!"
 msgstr "¡Tu contraseña ha sido restablecida!"
 
-#: friendfund/controllers/myprofile.py:366
+#: friendfund/controllers/myprofile.py:353
 msgid "PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválida. Por favor solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:368
+#: friendfund/controllers/myprofile.py:355
 msgid ""
 "PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank "
 "You!"
@@ -574,11 +576,11 @@ msgstr ""
 "Twitter puede tener un exceso de capacidad.<br/>Por favor, inténtalo de "
 "nuevo más tarde."
 
-#: friendfund/lib/base.py:129
+#: friendfund/lib/base.py:130
 msgid "FF_SORRY_PAGE_NOT_FOUND_404_STYLE"
 msgstr "lo siento, no podemos encontrar el bote"
 
-#: friendfund/lib/auth/decorators.py:49 friendfund/lib/auth/decorators.py:51
+#: friendfund/lib/auth/decorators.py:50 friendfund/lib/auth/decorators.py:52
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr "MENSAJE_NO_AUTORIZADO"
 
@@ -1997,7 +1999,6 @@ msgid "FF_HOMEPAGE_BOXES_Where else can I use friendfund?"
 msgstr "¿En qué otro sitio puedo usar friendfund?"
 
 #: friendfund/templates_free_form/index.html:114
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:161
 #, python-format
 msgid "FF_HOMEPAGE_BOXES_created by %(admin_name)s"
 msgstr "Creado por %(admin_name)s"
@@ -2096,14 +2097,6 @@ msgstr "2011 Friendfund GmbH todos los derechos reservados"
 msgid "FF_MESSAGE_LINK_Back to Pool"
 msgstr "Volver al bote"
 
-#: friendfund/templates_free_form/content/aboutus.html:4
-msgid "FF_About Us"
-msgstr "Acerca de"
-
-#: friendfund/templates_free_form/content/become_partner.html:4
-msgid "FF_Become a Partner"
-msgstr "Asociate con nosotros"
-
 #: friendfund/templates_free_form/content/common.html:16
 msgid "FF_STATIC_MENU_Learn more"
 msgstr "Saber mas"
@@ -2160,17 +2153,29 @@ msgstr "Preguntas frecuentres "
 msgid "FF_Jobs"
 msgstr "Trabajo"
 
-#: friendfund/templates_free_form/content/learnmore.html:3
+#: friendfund/templates_free_form/content/localized/aboutus.html:4
+#: friendfund/templates_free_form/content/localized/aboutus_es_ES.html:4
+msgid "FF_About Us"
+msgstr "Acerca de"
+
+#: friendfund/templates_free_form/content/localized/become_partner.html:4
+#: friendfund/templates_free_form/content/localized/become_partner_es_ES.html:4
+#: friendfund/templates_free_form/content/localized/become_partner_es_ES.html:10
+msgid "FF_Become a Partner"
+msgstr "Asociate con nosotros"
+
+#: friendfund/templates_free_form/content/localized/learnmore.html:3
+#: friendfund/templates_free_form/content/localized/learnmore_es_ES.html:3
 msgid "FF_Learn More"
 msgstr "Saber más"
 
-#: friendfund/templates_free_form/content/privacy.html:2
-#: friendfund/templates_free_form/content/privacy_de_DE.html:2
+#: friendfund/templates_free_form/content/localized/privacy.html:2
+#: friendfund/templates_free_form/content/localized/privacy_de_DE.html:2
 msgid "FF_Privacy"
 msgstr "Privacidad"
 
-#: friendfund/templates_free_form/content/tos.html:2
-#: friendfund/templates_free_form/content/tos_de_DE.html:2
+#: friendfund/templates_free_form/content/localized/tos.html:2
+#: friendfund/templates_free_form/content/localized/tos_de_DE.html:2
 msgid "FF_Terms of Service"
 msgstr "Condiciones del servicio"
 
@@ -2266,7 +2271,7 @@ msgid "FF_CONTRIB_PAGE_MAX. CONTRIBUTION:"
 msgstr "CONTRIBUCION MAXIMA:"
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:129
-#: friendfund/templates_free_form/contribution/payment_details.html:81
+#: friendfund/templates_free_form/contribution/payment_details.html:82
 #, python-format
 msgid ""
 "FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is "
@@ -2358,58 +2363,58 @@ msgstr "Ultimo paso: los detalles del pago"
 msgid "FF_CONTRIB_DETAILS_Confirm Your Contribution"
 msgstr "Confirmar tu contribución"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:54
+#: friendfund/templates_free_form/contribution/payment_details.html:55
 msgid "FF_CONTRIB_DETAILS_Your contribution"
 msgstr "Tu contribución"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:60
+#: friendfund/templates_free_form/contribution/payment_details.html:61
 msgid "FF_CONTRIB_PAGE_MAX. CONTRIBUTION: "
 msgstr "CONTRIBUCION MAXIMA"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:86
+#: friendfund/templates_free_form/contribution/payment_details.html:87
 msgid "FF_CONTRIB_DETAILS_Pay by CreditCard"
 msgstr "Paga con tarjeta de crédito"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:97
+#: friendfund/templates_free_form/contribution/payment_details.html:99
 msgid "FF_CONTRIB_DETAILS_Holder Tip goes here"
 msgstr "Nombre completo como aparezca en la tarjeta"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:102
+#: friendfund/templates_free_form/contribution/payment_details.html:104
 msgid "FF_CONTRIB_DETAILS_Cardholder's Name"
 msgstr "Nombre del titular de la tarjeta"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:113
+#: friendfund/templates_free_form/contribution/payment_details.html:115
 msgid "FF_CONTRIB_DETAILS_ccNumber Tip goes here"
 msgstr "Esto es el número completo que aparece en la parte frontal de tu tarjeta"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:118
+#: friendfund/templates_free_form/contribution/payment_details.html:120
 msgid "FF_CONTRIB_DETAILS_Card Number"
 msgstr "Número de la tarjeta de crédito"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:138
+#: friendfund/templates_free_form/contribution/payment_details.html:140
 msgid "FF_CONTRIB_DETAILS_ccExpiryDate Tip goes here"
 msgstr "¿Cuando caduca tu tarjeta de crédito?"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:143
+#: friendfund/templates_free_form/contribution/payment_details.html:145
 msgid "FF_CONTRIB_DETAILS_Expiry Date"
 msgstr "Fecha de caducidad"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:163
+#: friendfund/templates_free_form/contribution/payment_details.html:165
 msgid "FF_CONTRIB_DETAILS_ccSecurityCode Tip goes here"
 msgstr ""
 "Los tres números que aparecen en la parte de atrás de tu tarjeta. Para "
 "American Express es un número de cuatro dígitos que aparece en la parte "
 "frontal, a la derecha de tu número de tarjeta."
 
-#: friendfund/templates_free_form/contribution/payment_details.html:168
+#: friendfund/templates_free_form/contribution/payment_details.html:170
 msgid "FF_CONTRIB_DETAILS_Card Validation Code"
 msgstr "Código de seguridad"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:171
+#: friendfund/templates_free_form/contribution/payment_details.html:173
 msgid "FF_CONTRIB_DETAILS_what's this?"
 msgstr "¿Qué es esto?"
 
-#: friendfund/templates_free_form/contribution/payment_details.html:175
+#: friendfund/templates_free_form/contribution/payment_details.html:177
 msgid "FF_CONTRIB_DETAILS_Submit"
 msgstr "Contribuir"
 
@@ -2744,7 +2749,7 @@ msgstr "Invitar amigos"
 #: friendfund/templates_free_form/mypools/stream.html:222
 #: friendfund/templates_free_form/mypools/stream.html:279
 #: friendfund/templates_free_form/mypools/stream.html:317
-#: friendfund/templates_free_form/pool/pool.html:189
+#: friendfund/templates_free_form/pool/pool.html:188
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr "Integrar widget"
 
@@ -2783,33 +2788,33 @@ msgid "FF_MYPOOLS_MERCHANT"
 msgstr "VENDEDOR"
 
 #: friendfund/templates_free_form/mypools/common.html:121
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:166
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:190
 msgid "FF_MYPOOLS_SUCCESFUL"
 msgstr "COMPLETADOS"
 
 #: friendfund/templates_free_form/mypools/common.html:131
 #: friendfund/templates_free_form/mypools/stream.html:79
 #: friendfund/templates_free_form/mypools/stream.html:107
-#: friendfund/templates_free_form/pool/pool.html:119
+#: friendfund/templates_free_form/pool/pool.html:118
 #: friendfund/templates_free_form/pool/pool_complete.html:92
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:177
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:201
 msgid "FF_POOL_PAGE_HEADER_contributors"
 msgstr "CONTRIBUYENTES"
 
 #: friendfund/templates_free_form/mypools/common.html:132
-#: friendfund/templates_free_form/pool/pool.html:122
+#: friendfund/templates_free_form/pool/pool.html:121
 msgid "FF_POOL_PAGE_HEADER_Chipped in"
 msgstr "Ya ha contribuido"
 
 #: friendfund/templates_free_form/mypools/common.html:133
-#: friendfund/templates_free_form/pool/pool.html:124
+#: friendfund/templates_free_form/pool/pool.html:123
 msgid "FF_POOL_PAGE_HEADER_Outstanding"
 msgstr "Pendientes"
 
 #: friendfund/templates_free_form/mypools/common.html:135
 #: friendfund/templates_free_form/mypools/stream.html:109
-#: friendfund/templates_free_form/pool/pool.html:125
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:179
+#: friendfund/templates_free_form/pool/pool.html:124
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:203
 msgid "FF_POOL_PAGE_HEADER_Days left"
 msgstr "DIAS RESTANTES"
 
@@ -2887,7 +2892,7 @@ msgid ""
 msgstr "%(pooltitle)s ha sido <span class=\"bold\">financiado con éxito!</span>"
 
 #: friendfund/templates_free_form/mypools/stream.html:73
-#: friendfund/templates_free_form/pool/pool.html:108
+#: friendfund/templates_free_form/pool/pool.html:107
 msgid "FF_NEWSSTREAM_SUCCESSFUL!"
 msgstr "COMPLETADO!"
 
@@ -3237,41 +3242,41 @@ msgstr "Regístrate con Twitter"
 msgid "FF_LOGIN_Login in Here"
 msgstr "Entrar Aquí"
 
-#: friendfund/templates_free_form/pool/pool.html:100
+#: friendfund/templates_free_form/pool/pool.html:99
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s"
 msgstr "El bote se cierra el día %(closing_date)s"
 
-#: friendfund/templates_free_form/pool/pool.html:100
+#: friendfund/templates_free_form/pool/pool.html:99
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_by %(admin_name)s"
 msgstr "por %(admin_name)s"
 
-#: friendfund/templates_free_form/pool/pool.html:121
+#: friendfund/templates_free_form/pool/pool.html:120
 msgid "FF_POOL_PAGE_HEADER_Invitees"
 msgstr "Invitados"
 
-#: friendfund/templates_free_form/pool/pool.html:139
+#: friendfund/templates_free_form/pool/pool.html:138
 msgid "FF_POOL_PAGE_ADMIN_Show"
 msgstr "Mostrar"
 
-#: friendfund/templates_free_form/pool/pool.html:140
+#: friendfund/templates_free_form/pool/pool.html:139
 msgid "FF_POOL_PAGE_ADMIN_Promote your pool"
 msgstr "Anuncia tu bote"
 
-#: friendfund/templates_free_form/pool/pool.html:143
+#: friendfund/templates_free_form/pool/pool.html:142
 msgid "FF_POOL_PAGE_ADMIN_Hide"
 msgstr "Ocultar"
 
-#: friendfund/templates_free_form/pool/pool.html:144
+#: friendfund/templates_free_form/pool/pool.html:143
 msgid "FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:"
 msgstr "Bienvenido a la página de tus botes. Empezamos más abajo:"
 
-#: friendfund/templates_free_form/pool/pool.html:149
+#: friendfund/templates_free_form/pool/pool.html:148
 msgid "FF_POOL_PAGE_ADMIN_Promote on your website"
 msgstr "Promocionar en tu página web"
 
-#: friendfund/templates_free_form/pool/pool.html:150
+#: friendfund/templates_free_form/pool/pool.html:149
 msgid ""
 "FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your "
 "Pool."
@@ -3279,87 +3284,87 @@ msgstr ""
 "Integrar un widget en tu página para que los visitantes puedan encontrar "
 "tu bote."
 
-#: friendfund/templates_free_form/pool/pool.html:151
+#: friendfund/templates_free_form/pool/pool.html:150
 msgid "FF_POOL_PAGE_ADMIN_embed widget"
 msgstr "Integrar widget"
 
-#: friendfund/templates_free_form/pool/pool.html:155
+#: friendfund/templates_free_form/pool/pool.html:154
 msgid "FF_POOL_PAGE_ADMIN_Invite more friends to chip in"
 msgstr "Invitar más amigos a contribuir"
 
-#: friendfund/templates_free_form/pool/pool.html:156
+#: friendfund/templates_free_form/pool/pool.html:155
 msgid "FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?"
 msgstr "¿Has olvidado invitar a alguien?"
 
-#: friendfund/templates_free_form/pool/pool.html:157
+#: friendfund/templates_free_form/pool/pool.html:156
 msgid "FF_POOL_PAGE_ADMIN_invite more friends"
 msgstr "Invitar a más amigos"
 
-#: friendfund/templates_free_form/pool/pool.html:160
+#: friendfund/templates_free_form/pool/pool.html:159
 msgid "FF_POOL_PAGE_ADMIN_Share on Social Networks"
 msgstr "Compartir en redes sociales"
 
-#: friendfund/templates_free_form/pool/pool.html:191
+#: friendfund/templates_free_form/pool/pool.html:190
 msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
 msgstr "Invitar a más amigos"
 
-#: friendfund/templates_free_form/pool/pool.html:196
+#: friendfund/templates_free_form/pool/pool.html:195
 msgid "FF_POOL_PAGE_CHIPIN_Share the pool"
 msgstr "Compartir este bote"
 
-#: friendfund/templates_free_form/pool/pool.html:212
+#: friendfund/templates_free_form/pool/pool.html:211
 #: friendfund/templates_free_form/pool/pool_complete.html:53
 msgid "FF_POOL_PAGE_CHIPIN_Share the link"
 msgstr "Compartir el enlace"
 
-#: friendfund/templates_free_form/pool/pool.html:220
+#: friendfund/templates_free_form/pool/pool.html:219
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(no_invitees)s Invitees"
 msgstr "%(no_invitees)s Invitados"
 
-#: friendfund/templates_free_form/pool/pool.html:222
+#: friendfund/templates_free_form/pool/pool.html:221
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr "Invitados"
 
-#: friendfund/templates_free_form/pool/pool.html:225
+#: friendfund/templates_free_form/pool/pool.html:224
 #: friendfund/templates_free_form/pool/parts/invitees.html:7
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr "Ver todo"
 
-#: friendfund/templates_free_form/pool/pool.html:226
+#: friendfund/templates_free_form/pool/pool.html:225
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr "Mostrar todos"
 
-#: friendfund/templates_free_form/pool/pool.html:227
+#: friendfund/templates_free_form/pool/pool.html:226
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr "Ocultar todos"
 
-#: friendfund/templates_free_form/pool/pool.html:241
+#: friendfund/templates_free_form/pool/pool.html:240
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr "Acerca de"
 
-#: friendfund/templates_free_form/pool/pool.html:249
+#: friendfund/templates_free_form/pool/pool.html:248
 #: friendfund/templates_free_form/product/urlparser.html:12
 msgid "FF_LINK_Edit Image"
 msgstr "Editar imagen"
 
-#: friendfund/templates_free_form/pool/pool.html:257
+#: friendfund/templates_free_form/pool/pool.html:256
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr "RECEPTOR"
 
-#: friendfund/templates_free_form/pool/pool.html:259
+#: friendfund/templates_free_form/pool/pool.html:258
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr "VENDEDOR"
 
-#: friendfund/templates_free_form/pool/pool.html:274
+#: friendfund/templates_free_form/pool/pool.html:273
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr "Comentarios"
 
-#: friendfund/templates_free_form/pool/pool.html:289
+#: friendfund/templates_free_form/pool/pool.html:288
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr "Añade tu comentario aquí..."
 
-#: friendfund/templates_free_form/pool/pool.html:295
+#: friendfund/templates_free_form/pool/pool.html:294
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr "Publicar comentario"
 
@@ -3389,127 +3394,127 @@ msgstr "Crear un nuevo bote"
 msgid "FF_POOLECARD_Contributor Messages"
 msgstr "Mensajes del contribuidor"
 
-#: friendfund/templates_free_form/pool/pool_details.html:82
+#: friendfund/templates_free_form/pool/pool_details.html:84
 msgid "FF_POOLDETAILS_HEADER_Create a Pool"
 msgstr "Crear un bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:84
-#: friendfund/templates_free_form/pool/pool_details.html:101
+#: friendfund/templates_free_form/pool/pool_details.html:86
+#: friendfund/templates_free_form/pool/pool_details.html:103
 msgid "FF_POOLDETAILS_HEADER_Pool Details"
 msgstr "Información sobre el bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:84
-#: friendfund/templates_free_form/pool/pool_details.html:89
+#: friendfund/templates_free_form/pool/pool_details.html:86
+#: friendfund/templates_free_form/pool/pool_details.html:91
 msgid "FF_POOLDETAILS_HEADER_Invite friends to chip in"
 msgstr "Invita a tus amigos"
 
-#: friendfund/templates_free_form/pool/pool_details.html:84
+#: friendfund/templates_free_form/pool/pool_details.html:86
 msgid "FF_POOLDETAILS_HEADER_Done!"
 msgstr "Finalizado!"
 
-#: friendfund/templates_free_form/pool/pool_details.html:87
+#: friendfund/templates_free_form/pool/pool_details.html:89
 msgid "FF_POOLDETAILS_HEADER_Step 2. Enter Your Pool Details"
 msgstr "Paso 2. Introduce los datos del bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:89
+#: friendfund/templates_free_form/pool/pool_details.html:91
 msgid "FF_POOLDETAILS_HEADER_What are you collecting money for?"
 msgstr "¿Para qué estás recaudando el dinero?"
 
-#: friendfund/templates_free_form/pool/pool_details.html:89
+#: friendfund/templates_free_form/pool/pool_details.html:91
 msgid "FF_POOLDETAILS_HEADER_Enter pool details"
 msgstr "Datos del bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:124
+#: friendfund/templates_free_form/pool/pool_details.html:126
 msgid "FF_POOLDETAILS_We Need"
 msgstr "Necesitamos"
 
-#: friendfund/templates_free_form/pool/pool_details.html:134
-#: friendfund/templates_free_form/pool/pool_details.html:167
+#: friendfund/templates_free_form/pool/pool_details.html:136
+#: friendfund/templates_free_form/pool/pool_details.html:169
 #: friendfund/templates_free_form/product/urlparser.html:20
 #: friendfund/templates_free_form/product/urlparser.html:32
 msgid "FF_Edit"
 msgstr "Editar"
 
-#: friendfund/templates_free_form/pool/pool_details.html:139
+#: friendfund/templates_free_form/pool/pool_details.html:141
 msgid "FF_POOLDETAILS_by"
 msgstr "por"
 
-#: friendfund/templates_free_form/pool/pool_details.html:142
+#: friendfund/templates_free_form/pool/pool_details.html:144
 msgid "FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT"
 msgstr "<span class=\"bold\" id=\"daysLeft\">0</span> DIAS RESTANTES"
 
-#: friendfund/templates_free_form/pool/pool_details.html:153
+#: friendfund/templates_free_form/pool/pool_details.html:155
 msgid "FF_POOLDETAILS_TITLE_Tip goes here"
 msgstr "Elige algo que sea importante para el bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:159
+#: friendfund/templates_free_form/pool/pool_details.html:161
 msgid "FF_POOLDETAILS_LABEL_Pool Title"
 msgstr "Título del bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:163
+#: friendfund/templates_free_form/pool/pool_details.html:165
 msgid "FF_POOLDETAILS_Write your title here..."
 msgstr "Escribe el título aquí"
 
-#: friendfund/templates_free_form/pool/pool_details.html:181
+#: friendfund/templates_free_form/pool/pool_details.html:183
 msgid "FF_POOLDETAILS_DESCRIPTION_Tip goes here"
 msgstr "Que sea corto y con chispa."
 
-#: friendfund/templates_free_form/pool/pool_details.html:187
+#: friendfund/templates_free_form/pool/pool_details.html:189
 msgid "FF_POOLDETAILS_LABEL_Pool Description"
 msgstr "Descripción del bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:190
+#: friendfund/templates_free_form/pool/pool_details.html:192
 msgid "FF_POOLDETAILS_Write your description here..."
 msgstr "Escribe la descripción aquí..."
 
-#: friendfund/templates_free_form/pool/pool_details.html:197
-#: friendfund/templates_free_form/pool/pool_details.html:209
+#: friendfund/templates_free_form/pool/pool_details.html:199
+#: friendfund/templates_free_form/pool/pool_details.html:211
 msgid "FF_POOLDETAILS_LABEL_Pool Image"
 msgstr "Imagen del bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:207
+#: friendfund/templates_free_form/pool/pool_details.html:209
 msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
 msgstr "Pegar un enlace de cuarquier página web"
 
-#: friendfund/templates_free_form/pool/pool_details.html:221
+#: friendfund/templates_free_form/pool/pool_details.html:223
 msgid "FF_POOLDETAILS_use URL:"
 msgstr "Utilizar URL"
 
-#: friendfund/templates_free_form/pool/pool_details.html:222
-#: friendfund/templates_free_form/pool/pool_details.html:223
+#: friendfund/templates_free_form/pool/pool_details.html:224
+#: friendfund/templates_free_form/pool/pool_details.html:225
 msgid "FF_POOLDETAILS_Examples:www.cnn.com"
 msgstr "Ejemplos:www.cnn.com"
 
-#: friendfund/templates_free_form/pool/pool_details.html:224
+#: friendfund/templates_free_form/pool/pool_details.html:226
 msgid "FF_LINK_or Upload a picture"
 msgstr "o selecciona un archivo de tu ordenador"
 
-#: friendfund/templates_free_form/pool/pool_details.html:232
+#: friendfund/templates_free_form/pool/pool_details.html:234
 msgid "FF_POOLDETAILS_Receiving Your Money"
 msgstr "Recibiendo tu dinero"
 
-#: friendfund/templates_free_form/pool/pool_details.html:236
+#: friendfund/templates_free_form/pool/pool_details.html:238
 msgid ""
 "FF_POOLDETAILS_How do you want to receive your money once the Pool is "
 "funded?"
 msgstr "¿Cómo quieres recibir los fondos si el bote alcanza el total?"
 
-#: friendfund/templates_free_form/pool/pool_details.html:237
+#: friendfund/templates_free_form/pool/pool_details.html:239
 msgid ""
 "FF_POOLDETAILS_You will only be paid if your Pool is successfully funded."
 " This information will not be shared with anyone else."
 msgstr "Esta información no se revelará a nadie."
 
-#: friendfund/templates_free_form/pool/pool_details.html:248
+#: friendfund/templates_free_form/pool/pool_details.html:250
 #, python-format
 msgid "FF_POOLDETAILS_(costs you %(fees)s%%)"
 msgstr "(%(fees)s%% coste de transacción)"
 
-#: friendfund/templates_free_form/pool/pool_details.html:250
+#: friendfund/templates_free_form/pool/pool_details.html:252
 msgid "FF_POOLDETAILS_(FREE)"
 msgstr "(GRATUITO)"
 
-#: friendfund/templates_free_form/pool/pool_details.html:257
+#: friendfund/templates_free_form/pool/pool_details.html:259
 #, python-format
 msgid ""
 "FF_POOLDETAILS_If choosing this option, you will be charged a %(fees)s%% "
@@ -3518,12 +3523,12 @@ msgstr ""
 "Si eliges esta opción, se te cargará %(fees)s%% en concepto de coste de "
 "transacción. ¿Quieres añadirlo al total del bote?"
 
-#: friendfund/templates_free_form/pool/pool_details.html:261
+#: friendfund/templates_free_form/pool/pool_details.html:263
 #, python-format
 msgid "FF_POOLDETAILS_Yes, please add the %(fees)s%% to my Funding Total"
 msgstr "Si, por favor, añadir %(fees)s%% al total del bote"
 
-#: friendfund/templates_free_form/pool/pool_details.html:286
+#: friendfund/templates_free_form/pool/pool_details.html:288
 msgid "FF_POOLDETAILS_Invite Friends"
 msgstr "Invitar amigos"
 
@@ -3584,10 +3589,6 @@ msgstr "Integrar un widget en tu página web"
 #: friendfund/templates_free_form/pool/parts/widget.html:10
 msgid "FF_WIDGET_POPUP_Grab the code below and paste it into your website"
 msgstr "Coge el código que aparece abajo y pégalo en el sitio web:"
-
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:190
-msgid "FF_WIDGET_POPUP_Chip In"
-msgstr "Contribuir"
 
 #: friendfund/templates_free_form/product/picturepopup.html:9
 #: friendfund/templates_free_form/product/ulpicture_popup.html:7
@@ -3684,4 +3685,7 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Escoge al destinatario del regalo desde Facebook, Twitter o email."
+
+#~ msgid "USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"
+#~ msgstr "Ya has iniciado sesión"
 

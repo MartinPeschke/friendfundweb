@@ -6,7 +6,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.auth.decorators import logged_in, remove_block, enforce_blocks, clear_blocks
+from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper, helpers as h
 
@@ -56,7 +56,6 @@ class IndexController(BaseController):
 			del websession['invitees']
 		if 'pool' in websession:
 			del websession['pool']
-		clear_blocks()
 		return redirect(c.furl)
 	
 	def login(self):
@@ -98,7 +97,6 @@ class IndexController(BaseController):
 			return self.render('/myprofile/login_screen.html')
 	
 	@jsonify
-	@enforce_blocks('email')
 	@logged_in(ajax=True)
 	def set_email(self):
 		if request.method != 'POST':
@@ -111,7 +109,6 @@ class IndexController(BaseController):
 			c.email = valid.to_python(c.email, state = FriendFundFormEncodeState)
 			suep = SetUserEmailProc(u_id = c.user.u_id, name = c.user.name, email = c.email)
 			g.dbm.set(suep)
-			remove_block('email')
 			c.user.default_email = c.user.default_email or c.email
 			c.messages.append(_(u'USER_SETEMAILBLOCK_Email Updated!'))
 			return {'data':{'success':True}}

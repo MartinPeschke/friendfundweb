@@ -6,7 +6,7 @@ from pylons import request, response, tmpl_context as c, url, app_globals as g, 
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, enforce_blocks, checkadd_block, remove_block, post_only
+from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, render_def, _, ExtBaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
@@ -83,7 +83,6 @@ class InviteController(ExtBaseController):
 		return {'success':False}
 	
 	def _return_to_input(self, invitees):
-		c.enforce_blocks = True
 		c.invitees = {}
 		c.messages.append(ErrorMessage(_("FF_INVITE_PAGE_ERRORBAND_Please fill in below values correctly.")))
 		for inv in invitees:
@@ -113,24 +112,6 @@ class InviteController(ExtBaseController):
 				c.values['subject'] = request.params.get('subject')
 				c.values['message'] = request.params.get('message')
 				return self._return_to_input(invitees)
-		
-		
-		#determine state of permissions and require missing ones
-		perms_required = checkadd_block('email') # true if email is required and missing
-		if invitees is not None:
-			has_stream_publish_invitees = False
-			has_create_event_invitees = False
-			has_fb_invites = len(filter(lambda x: x.get('network') == 'facebook', invitees or []))
-			if has_fb_invites:
-				if c.pool.am_i_admin(c.user):
-					has_create_event_invitees = True
-				else:
-					has_stream_publish_invitees = True
-				perms_required = (has_create_event_invitees and checkadd_block('create_event') or remove_block('create_event'))
-				perms_required = (has_stream_publish_invitees and checkadd_block('fb_streampub') or remove_block('fb_streampub')) or perms_required 
-		if perms_required:
-			log.error("PERMS_REQUIRED, ###TODO: deprecated!!!")
-			return self._return_to_input(invitees)
 		
 		if invitees:
 			invittes_proc_result = g.dbm.set(AddInviteesProc(p_url = c.pool.p_url

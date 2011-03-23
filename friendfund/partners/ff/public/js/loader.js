@@ -9,7 +9,7 @@ protected = function(callback){return function(data){
 };
 protect = function(callback){ return function(evt){
 	xhrPost("/myprofile/login", {}, protected(callback));
-	page_reloader = protect(callback);
+	page_reloader = callback;
 	if(evt){evt.stopPropagation();evt.preventDefault();}return false;
 };};
 reloadPicture = function(rootnode, intermediate_imgid, persisterid){
@@ -209,7 +209,7 @@ xhrHandler = function(callback){
 		if (data.clearmessage !== undefined){clear_messages();}
 		//if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
-		if (data.login_panel !== undefined){closePopup();dojo.place(data.login_panel, "accountcontainer", "only");}
+		if (data.login_panel !== undefined){closePopup();dojo.place(data.login_panel, "accountcontainer", "only");if(data['data'].success){page_reloader()};}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
@@ -326,8 +326,8 @@ fb_handleLogin = function(response){
 		scope = a.join("|");
 	};
 	var missing_perms = FBSCOPE.replace(new RegExp(scope, "g"), "").strip(",");
-	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response, page_reloader);return false;};
-	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response, page_reloader);});
+	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response);return false;};
+	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response);});
 	return true;
 };
 fbLogin = function(response) {

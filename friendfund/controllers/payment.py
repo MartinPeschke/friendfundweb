@@ -6,7 +6,7 @@ from pylons.decorators import jsonify
 
 
 from friendfund.lib import helpers as h, synclock
-from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
+from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import ExtBaseController, render, _, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
@@ -53,14 +53,6 @@ class PaymentController(ExtBaseController):
 			c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below")))
 			return self.render('/contribution/contrib_screen.html')
 		else:
-			c.values = form_result
-			if checkadd_block('email'):
-				c.messages.append(ErrorMessage(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!')))
-				c.enforce_blocks = True
-				return self.render('/contribution/contrib_screen.html')
-			elif not c.pool.am_i_member(c.user):
-				g.pool_service.invite_myself(pool_url, c.user)
-			
 			contrib = Contribution(**form_result)
 			contrib.currency = c.pool.currency
 			contrib.set_amount(form_result['amount'])
@@ -80,7 +72,6 @@ class PaymentController(ExtBaseController):
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 	
 	@logged_in(ajax=False)
-	@no_blocks(ajax=False)
 	def creditcard(self, pool_url):
 		### Establishing correctnes of Flow and getting colateral Info
 		c.form_secret = request.params.get('token')
