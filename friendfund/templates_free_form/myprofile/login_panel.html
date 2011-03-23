@@ -47,7 +47,11 @@
 		<script type="text/javascript">
 		var evts = [];
 		submitLoginPanel = function(){
-			xhrFormPost("${url(controller="myprofile", action="loginpanel")}", "login_panel_form");
+			xhrFormPost("${url(controller="myprofile", action="loginpanel")}", "login_panel_form", function(html){
+					dojo.place(html, dojo.byId("loginPanelContent"), "only");
+					var i = dojo.query("input", "loginPanelContent");
+					if(i.length>0){i[0].focus()};
+				});
 			return false;
 		};
 		closeLoginPanel = function(evt){
