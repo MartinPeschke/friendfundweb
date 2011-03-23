@@ -68,7 +68,11 @@
 		onSubmitCleaner(document.submissionform);
 		document.submissionform.submit();
 	};
-	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
+		%if c.user.is_anon:
+			submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
+		%else:
+			submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
+		%endif
 </%def>
 
 

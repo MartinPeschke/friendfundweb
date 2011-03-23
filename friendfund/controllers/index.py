@@ -31,7 +31,7 @@ class IndexController(BaseController):
 		for p in g.merchants.featured_pools:
 			 featured_pools.append(g.dbm.get(FeaturedPool, p_url = p.p_url))
 		return featured_pools
-		
+	
 	def index(self):
 		if request.merchant.home_page:
 			return redirect(request.merchant.home_page, code=301)
@@ -43,11 +43,10 @@ class IndexController(BaseController):
 	def sitemap(self):
 		c.pool_urls = g.dbm.get(SiteMap).entries
 		return render('/sitemap.xml')
-
+	
 	def close(self):
 		c.reload = False
 		return render('/closepopup.html')
-	
 	
 	def logout(self):
 		c.user = ANONUSER
@@ -62,6 +61,7 @@ class IndexController(BaseController):
 	
 	def login(self):
 		return self.signup()
+	
 	def signup(self):
 		c.furl = request.params.get('furl', url("home"))
 		c.signup_values = {}

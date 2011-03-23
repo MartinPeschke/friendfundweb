@@ -71,21 +71,16 @@ class MyprofileController(BaseController):
 				return self.render('/myprofile/account.html')
 		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 		return redirect(url(controller='myprofile', action="account"))
-		
-		
-		
-		
+	
 	@logged_in(ajax=False)
 	@default_domain_only()
 	def notifications(self):
 		return self.render('/myprofile/notifications.html')
 	
-	
 	def login(self):
 		if not c.user.is_anon:
 			response.headers['Content-Type'] = 'application/json'
-			return simplejson.dumps({"data":{"success":True}})
-			
+			return simplejson.dumps({"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()})
 		if c.user.is_anon and bool(c.user.user_data_temp):
 			return self.addemailpopup()
 		else:
@@ -110,7 +105,7 @@ class MyprofileController(BaseController):
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
@@ -140,7 +135,7 @@ class MyprofileController(BaseController):
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
 			c.signup_errors = error.error_dict or {}
@@ -266,7 +261,7 @@ class MyprofileController(BaseController):
 				c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
 				return {'popup':render('/myprofile/addemail_popup.html').strip()}
 			c.user.default_email = form_result['email']
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}

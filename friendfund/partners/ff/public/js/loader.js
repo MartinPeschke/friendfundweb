@@ -4,7 +4,14 @@ String.prototype.strip = function(char)
         return String(this).replace(re, '');
     };
 
-
+protected = function(callback){return function(data){
+	if(data.success){callback(data)} else {protect()};};
+};
+protect = function(callback){ return function(evt){
+	xhrPost("/myprofile/login", {}, protected(callback));
+	page_reloader = protect(callback);
+	if(evt){evt.stopPropagation();evt.preventDefault();}return false;
+};};
 reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 	var rn=dojo.byId(rootnode);
 	return function(data){
@@ -202,7 +209,7 @@ xhrHandler = function(callback){
 		if (data.clearmessage !== undefined){clear_messages();}
 		//if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
-		if (data.login_panel !== undefined){dojo.place(data.login_panel, "accountcontainer", "only");}
+		if (data.login_panel !== undefined){closePopup();dojo.place(data.login_panel, "accountcontainer", "only");}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
@@ -312,13 +319,13 @@ var FBSCOPE="user_birthday,friends_birthday,email,publish_stream,create_event";
 fb_handleLogin = function(response){
 	var scope;
 	if(response.perms.match(/^[,a-zA-Z0-9_-]+$/)){
-		scope=response.perms;
+		scope=response.perms.replace(/,/g,"|");
 	}else{
 		var perms = dojo.fromJson(response.perms);
-		var a=[];for(var i in perms){a.push(perms[i].join(","));}
-		scope = a.join(",");
+		var a=[];for(var i in perms){a.push(perms[i].join("|"));}
+		scope = a.join("|");
 	};
-	var missing_perms = FBSCOPE.replace(new RegExp(scope.replace(/,/g,"|"), "g"), "").strip(",");
+	var missing_perms = FBSCOPE.replace(new RegExp(scope, "g"), "").strip(",");
 	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response, page_reloader);return false;};
 	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response, page_reloader);});
 	return true;
@@ -336,19 +343,18 @@ fbLogin = function(response) {
 	}
 };
 fbLogout = function(){if(FB.getSession()){FB.logout(function(response){});}else{window.location.href = "/logout?furl=/";}};
-fbInit = function(app_id, has_prev_tried_logging_in) {
+fbInit = function(app_id) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
-		FB.init({appId:app_id, status:true, cookie:true,xfbml:false, channelUrl:channelUrl});
-		FB.Event.subscribe('auth.logout', fbLogout);
+		FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
 		FB.Event.subscribe('auth.login', fbLogin);
+		FB.Event.subscribe('auth.logout', fbLogout);
 	};
 	var e = document.createElement('script');
 	e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
 	e.async = true;
 	document.getElementById('fb-root').appendChild(e);
 };
-
 /*===========================================*/
 var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!]*)*(\?[-a-zA-Z0-9%_\+,.~#&=!\/]+)*$/i;
 var picCounter, accepted, _parser_backups, _localhndlrs;

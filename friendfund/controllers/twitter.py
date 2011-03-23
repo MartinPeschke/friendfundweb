@@ -88,5 +88,5 @@ class TwitterController(BaseController):
 		user_data['link'] = user_data['url']
 		#Save and Persist, render profile
 		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
-		c.reload = True
+		c.refresh_login = True
 		return render('/closepopup.html')
