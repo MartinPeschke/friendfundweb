@@ -94,9 +94,8 @@ class MyprofileController(BaseController):
 			return self.loginpopup()
 	@jsonify
 	def loginpanel(self):
-		c.furl = request.params.get('furl', request.referer)
 		if not c.user.is_anon:
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		c.login_values = {}
 		c.login_errors = {}
 		c.expanded = True
@@ -113,17 +112,16 @@ class MyprofileController(BaseController):
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			return {"redirect":c.furl}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
+			return {"data":{"success":False}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except SProcWarningMessage, e:
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
+			return {"data":{"success":False}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 	@jsonify
 	def loginpopup(self):
-		c.furl = request.params.get('furl', request.referer)
 		c.login_values = {}
 		c.login_errors = {}
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
@@ -151,7 +149,6 @@ class MyprofileController(BaseController):
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 	@jsonify
 	def signuppopup(self):
-		c.furl = request.params.get('furl', '')
 		if not c.user.is_anon:
 			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		c.signup_values = {}
@@ -235,7 +232,6 @@ class MyprofileController(BaseController):
 	
 	
 	def password(self):
-		c.furl = request.referer
 		c.pwd_values ={}
 		c.pwd_errors ={}
 		if request.method != 'POST':
@@ -274,7 +270,6 @@ class MyprofileController(BaseController):
 			/myprofile/setpassword/TOKENSTRING
 			app.[web_login_token] '<LOGIN token = "sfgsdfvdfgwefgere"/>' 
 		"""
-		c.furl = request.params.get('furl', url('home'))
 		try:
 			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
 			c.user.set_network('email', network_id = '1', access_token=None, access_token_secret=None) ###TODO: email is not returned by proc, would be needed to prevent fuckups
@@ -285,7 +280,6 @@ class MyprofileController(BaseController):
 	
 	@logged_in(ajax=False)
 	def resetpwd(self):
-		c.furl = request.params.get('furl', url('home'))
 		pwdreset = formencode.variabledecode.variable_decode(request.params).get('pwdreset', None)
 		schema = PasswordResetForm()
 		try:

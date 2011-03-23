@@ -10,7 +10,7 @@ from friendfund.lib.routes_middleware import VersionedMapper as Mapper
 CONNECT_METHODS = 'twitter|facebook|email|yourself'
 VERBS = "e|d"
 purlpattern = '[.0-9a-zA-Z~_-]+'
-lnguagespattern = "de_DE|en_GB|es_ES"
+lnguagespattern = "de_DE|en_GB|es_ES|en_US"
 def make_map(config):
 	"""Create, configure and return the routes Mapper"""
 	map = Mapper(directory=config['pylons.paths']['controllers'],
