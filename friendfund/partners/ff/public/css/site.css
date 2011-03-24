@@ -37,12 +37,22 @@ div.header {
 	height: 60px
 }
 div.wrapSubHeaderHome {
-	background: #ececec;
+	background: #ececec url(/static/imgs/trans_top.png) 0 0 repeat-x;
 	border-bottom: 1px solid #d3d3d3;
-	height: 390px
+	height: 390px;
+	position: relative;
+}
+div.wrapSubHeaderHome div.shadowHome{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 20px;
+	width: 100%;
+	z-index: 20px;
+	background: url(/static/imgs/trans_header_bott.png) left bottom repeat-x;
 }
 div.wrapSubHeader {
-	background: #ececec;
+	background: #ececec url(/static/imgs/trans_top.png) 0 0 repeat-x;
 	border-bottom: 1px solid #d9d9d9;
 	position:relative;
 }
@@ -74,7 +84,8 @@ div.wrapFooter {
 }
 div.subFooterTop {
 	background-color: #edece9;
-	border-top:1px solid #d9d9d9
+	border-top:1px solid #d9d9d9;
+	position: relative;
 }
 div.subFooterBottom {
 	background-color: #ececec;
@@ -488,7 +499,9 @@ a.learnMoreBtn:hover {
 div.contentHome {
 	max-width: 930px;
 	margin: -210px auto 0 auto;
-	padding-bottom: 60px
+	padding-bottom: 60px;
+	position: relative;
+	z-index: 10px
 }
 div.weNeed {
 	border: 1px solid #D3D3D3;
@@ -618,7 +631,7 @@ div.home_expander div.desc {
 }
 div.controller {
 	position: absolute;
-	top: 111px;
+	top: 113px;
 	left: 397px;
 	width: 250px
 }
@@ -689,7 +702,7 @@ div.spPad div.tip {
 div.logoContainer {
 	border-top: 1px solid #e5e5e5;
 	padding: 4px 25px 0 25px;
-	clear: both
+	clear: both;
 }
 div.logoContainer div.logoContainerRight {
 	float:right
@@ -1601,13 +1614,7 @@ div.stepOne.active, div.stepTwo.active, div.stepThree.active {
 	background-color: #F9CCE1 !important;
 	color: #2C2C2C
 }
-div.stepOne.done, div.stepTwo.done, div.stepThree.done {
-	background-color: #E1DDD7 !important;
-	color: #696969
-}
-div.steps div.rightArrow.done {
-	border-left-color: #E1DDD7
-}
+
 div.steps div.rightArrow.active {
 	border-left-color: #F9CCE1
 }
@@ -1773,7 +1780,7 @@ div.borderBottom .home_expander input#tracking_link_edit, div.borderBottom #home
 	font-size: 14px
 }
 div.generalPadding div.controller {
-	bottom:0px;
+	top:111px;
 	left:172px
 }
 .generalPadding .home_expander .parsercloser {
@@ -3009,9 +3016,8 @@ div.special div.tip {
 	font-size: 10px;
 	margin: 0 3px
 }
-.multiTask span:hover {
-	text-decoration: underline
-}
+
+
 .moreActions {
 	border: 1px solid #e2e2e2;
 	padding:0 7px 10px 7px;
@@ -3097,7 +3103,9 @@ span.hider:hover div.moreActions {
 	position: relative;
 }
 .poolRow div.timeCounterLeft {
-	-moz-border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px ;
+	border-bottom-radius:10px;
+	-webkit-border-radius:10px;
 	height: 15px;
 }
 .highlight {
@@ -3216,7 +3224,7 @@ span.hider:hover div.moreActions {
 	height: 10px !important;
 }
 div.timeCounterSmall span {
-	color: #4E4E4E;
+	color: #696969;
 	display: block;
 	font-size: 10px;
 	font-weight: bold;
