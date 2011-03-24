@@ -109,7 +109,7 @@ class PoolController(ExtBaseController):
 			pass
 		c.parser_values = self._determine_product(tracking_link)
 		try:
-			mini_pool_schema = PoolHomePageForm().to_python(request.params)
+			mini_pool_schema = PoolHomePageForm().to_python(request.params, FriendFundFormEncodeState)
 		except formencode.validators.Invalid, error:
 			c.errors = error.error_dict or {}
 			c.values.update(error.value)
