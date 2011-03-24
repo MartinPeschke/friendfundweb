@@ -26,6 +26,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="content fullWidth">
 <h4 style="padding-top:0px">
 	<div class="floatRight selector">
@@ -42,14 +43,12 @@
 </h4>
 <div class="subHeading omega"></div>
 <div class="fullWidthBorder" id="activityBody">
-	<div class="colLeft">
 	%if len(c.activity.stream) == 0:
 		<div class="noContainer">
 			<p class="no">${_("FF_MYPOOLS_There has been no activity in your friend network yet.")}</p>
 			<a href="${forms.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
 		</div>
 	%else:
-	
 		%for streamentry in c.activity.stream:
 			<% 
 				locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),
@@ -337,7 +336,4 @@
 %endif
     </div>
     <div class="clear"></div>
-</div>
-
-<div class="clear"></div>
 </div>

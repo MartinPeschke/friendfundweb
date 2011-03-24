@@ -5,7 +5,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only, checkadd_block
+from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, ExtBaseController, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
@@ -86,11 +86,6 @@ class PoolController(ExtBaseController):
 		else: 
 			parser_values = {}
 		return parser_values
-	
-	#### TODO: setup wizard process again
-	# def setup(self):
-		# tracking_link = request.params.get("tracking_link")
-		# c.parser_values = self._determine_product(tracking_link)
 	
 	def details(self):
 		c.errors = {}

@@ -6,7 +6,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.auth.decorators import logged_in, remove_block, enforce_blocks, clear_blocks
+from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper, helpers as h
 
@@ -31,7 +31,7 @@ class IndexController(BaseController):
 		for p in g.merchants.featured_pools:
 			 featured_pools.append(g.dbm.get(FeaturedPool, p_url = p.p_url))
 		return featured_pools
-		
+	
 	def index(self):
 		if request.merchant.home_page:
 			return redirect(request.merchant.home_page, code=301)
@@ -43,11 +43,10 @@ class IndexController(BaseController):
 	def sitemap(self):
 		c.pool_urls = g.dbm.get(SiteMap).entries
 		return render('/sitemap.xml')
-
+	
 	def close(self):
 		c.reload = False
 		return render('/closepopup.html')
-	
 	
 	def logout(self):
 		c.user = ANONUSER
@@ -57,11 +56,11 @@ class IndexController(BaseController):
 			del websession['invitees']
 		if 'pool' in websession:
 			del websession['pool']
-		clear_blocks()
 		return redirect(c.furl)
 	
 	def login(self):
 		return self.signup()
+	
 	def signup(self):
 		c.furl = request.params.get('furl', url("home"))
 		c.signup_values = {}
@@ -98,7 +97,6 @@ class IndexController(BaseController):
 			return self.render('/myprofile/login_screen.html')
 	
 	@jsonify
-	@enforce_blocks('email')
 	@logged_in(ajax=True)
 	def set_email(self):
 		if request.method != 'POST':
@@ -111,7 +109,6 @@ class IndexController(BaseController):
 			c.email = valid.to_python(c.email, state = FriendFundFormEncodeState)
 			suep = SetUserEmailProc(u_id = c.user.u_id, name = c.user.name, email = c.email)
 			g.dbm.set(suep)
-			remove_block('email')
 			c.user.default_email = c.user.default_email or c.email
 			c.messages.append(_(u'USER_SETEMAILBLOCK_Email Updated!'))
 			return {'data':{'success':True}}

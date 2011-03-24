@@ -22,7 +22,7 @@ ${self.render_html()}
 		${links.css('site.css')}
 		${links.css('staging.css')}
 		${links.css('custom.css',path='/static/')}
-		${links.js('loader.js')}
+		${links.js('loaderv2.js')}
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
 		
@@ -35,24 +35,12 @@ ${self.render_html()}
 	<div id="generic_popup"></div>
 	<div id="fb-root"></div>
 	<script type="text/javascript"> 
-		login_panel_refresh = function(){loadElement('${url(controller="myprofile", action="loginpanel")}', "accountcontainer")};
 		${self.page_reloader()|n}
-		%if c.user.is_anon:
-			protected = function(callback){return function(data){
-				if(data.success){callback()} else {protect()};};
-			};
-			protect = function(callback){ return function(evt){
-				xhrPost("${url(controller="myprofile", action="login")}", {}, protected(callback));
-				if(evt){evt.stopPropagation();evt.preventDefault();}return false;
-			};};
-		%else:
-			protect = function(callback){return callback};
-		%endif
 	</script>
 	${self.scripts()}
 	<script type="text/javascript">
 		dojo.addOnLoad( function() {
-			fbInit("${app_globals.FbApiKey}", ${str(c.user.has_tried_logging_in_with("facebook")).lower()});
+			fbInit("${app_globals.FbApiKey}");
 			${self.onloadscripts()}
 		});
 	</script>
@@ -62,7 +50,7 @@ ${self.render_html()}
 
 
 
-<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
+<%def name="page_reloader()">page_reloader = function(){};</%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="fb_meta_tags()"></%def>

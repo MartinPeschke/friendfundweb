@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 _ = lambda x:x
 
 pyodbc.pooling = False
-SVNREVISION = "SPRINT_2.1.0_rc1"
+SVNREVISION = "SPRINT_2.1.0_RC_2"
 REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 
@@ -64,6 +64,7 @@ class Globals(object):
 		
 		
 		self.BASE_DOMAIN = app_conf['BASE_DOMAIN']
+		# self.STATIC_HOST = app_conf['STATIC_HOST']
 		self.BASE_DOMAIN_LOOKUP = '.%s'%app_conf['BASE_DOMAIN']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		

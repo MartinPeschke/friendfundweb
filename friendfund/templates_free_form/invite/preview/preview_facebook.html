@@ -7,22 +7,23 @@
 	  <div class="colRightFb">
 		<div class="profileHeaderMain"><h1><span class="profileName fsxl fwb">${c.subject}</span></h1>
 		<div class="fsm fwn fcg">
-			<span class="fsl"><span class="linkFb">${c.user.name}</span> invited you</span> &middot; <span class="fsl"><span class="linkFb">Share</span></span> &middot; <span class="fsl">Public event</span>
+			<span class="fsl"><span class="linkFb">${c.user.name}</span> ${_("FF_INVITE_PREVIEW_FACEBOOK_invited you")}</span> &middot; 
+			<span class="fsl"><span class="linkFb">${_("FF_INVITE_PREVIEW_FACEBOOK_Share")}</span></span> &middot; 
+			<span class="fsl">${_("FF_INVITE_PREVIEW_FACEBOOK_Public event")}</span>
 			</div>
 		</div>
 		<table  border="0" cellspacing="0" cellpadding="0">
 		  <tr>
-			<td class="label border">Time</td>
+			<td class="label border">${_("FF_INVITE_PREVIEW_FACEBOOK_Time")}</td>
 			<td class="data border">${h.format_date(c.pool.expiry_date)} &middot; 17:00 - 17:00</td>
 		  </tr>
 		  <tr>
-			<td class="label border">Created by</td>
+			<td class="label border">${_("FF_INVITE_PREVIEW_FACEBOOK_Created by")}</td>
 			<td class="data border">${c.pool.admin.name}, Friendfund</td>
 		  </tr>
 		  <tr>
-			<td class="label">More info</td>
+			<td class="label">${_("FF_INVITE_PREVIEW_FACEBOOK_More info")}</td>
 			<td class="data">${c.message}
-			####<br/><br/><span class="linkFb">${url("get_pool", pool_url = c.pool.p_url, protocol="http")}</span>
 			</td>
 		  </tr>
 		</table>

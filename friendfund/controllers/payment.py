@@ -6,7 +6,7 @@ from pylons.decorators import jsonify
 
 
 from friendfund.lib import helpers as h, synclock
-from friendfund.lib.auth.decorators import logged_in, no_blocks, enforce_blocks, checkadd_block
+from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import ExtBaseController, render, _, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
@@ -25,6 +25,8 @@ class PaymentController(ExtBaseController):
 
 	@logged_in(ajax=False)
 	def index(self, pool_url):
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
+			return redirect(url('get_pool', pool_url=pool_url))
 		c.values = getattr(c, 'values', {})
 		c.errors = getattr(c, 'errors', {})
 		suggested_amount = request.params.get('amount')
@@ -35,6 +37,8 @@ class PaymentController(ExtBaseController):
 		return self.render('/contribution/contrib_screen.html')
 	@logged_in(ajax=False)
 	def details(self, pool_url):
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
+			return redirect(url('get_pool', pool_url=pool_url))
 		c.payment_methods = g.payment_methods
 		details = formencode.variabledecode.variable_decode(request.params).get('payment', {})
 		details['agreedToS'] = details.get('agreedToS', False)  #if_missing wouldnt evaluate, and if_empty returns MISSING VALUE error message, both suck bad
@@ -53,14 +57,6 @@ class PaymentController(ExtBaseController):
 			c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below")))
 			return self.render('/contribution/contrib_screen.html')
 		else:
-			c.values = form_result
-			if checkadd_block('email'):
-				c.messages.append(ErrorMessage(_('CONTRIBUTION_EMAILBLOCK_We do need an Email address when you want to chip in!')))
-				c.enforce_blocks = True
-				return self.render('/contribution/contrib_screen.html')
-			elif not c.pool.am_i_member(c.user):
-				g.pool_service.invite_myself(pool_url, c.user)
-			
 			contrib = Contribution(**form_result)
 			contrib.currency = c.pool.currency
 			contrib.set_amount(form_result['amount'])
@@ -80,8 +76,9 @@ class PaymentController(ExtBaseController):
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 	
 	@logged_in(ajax=False)
-	@no_blocks(ajax=False)
 	def creditcard(self, pool_url):
+		if c.user.is_anon or not c.pool.am_i_member(c.user):
+			return redirect(url('get_pool', pool_url=pool_url))
 		### Establishing correctnes of Flow and getting colateral Info
 		c.form_secret = request.params.get('token')
 		if not c.form_secret:
@@ -154,6 +151,7 @@ class PaymentController(ExtBaseController):
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
+					, "baseUnits" : c.contrib.amount
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}
@@ -168,6 +166,7 @@ class PaymentController(ExtBaseController):
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
+					, "baseUnits" : c.contrib.amount
 					, "is_secret":c.contrib.is_secret
 					, "message":c.contrib.message
 					}

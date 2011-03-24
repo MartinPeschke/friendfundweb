@@ -2,11 +2,11 @@
 <div class="outerPopupFrame">
 	<div class="whitePopupFrameLarge fixed">
 	<span class="panelcloser panelclosing_x">x</span>
-        <h3 class="borderSmall">Why am I being charged for chipping in?</h3>
+        <h3 class="borderSmall">${_("FF_CONTRIBUTION_FEE_POPUP_Why am I being charged for chipping in?")}</h3>
         <div class="popupPadder">
-        	<p style="padding:0">To keep friendfund as cheap to use as possible, we have to charge transaction 
-fees set by our Paypal and Credit Card providers.</p>
-			<h5>Paypal and Credit Card Fees</h5>
+        	<p style="padding:0">${_("FF_CONTRIBUTION_FEE_POPUP_To keep friendfund as cheap to use as possible, we have to charge transaction fees set by our Paypal and Credit Card providers.")}</p>
+			
+			<h5>${_("FF_CONTRIBUTION_FEE_POPUP_Paypal and Credit Card Fees")}</h5>
 			<table width="100%" border="1" cellpadding="0" cellspacing="0" class="fee">
 			%for i, pm in enumerate(app_globals.payment_methods):
 			<%locals = {"fee_relative":'%.2f'%(pm.fee_relative*100), "fee_absolute":h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} %>
@@ -22,8 +22,7 @@ fees set by our Paypal and Credit Card providers.</p>
 			  </tr>
 			%endfor
 			</table>
-			<!--<a href="#" class="floatRight">Learn More &raquo;</a>-->
-			<span class="floatLeft primarySmall clear panelcloser"  style="margin:10px 0 20px 0">Close</span>
+			<span class="floatLeft primarySmall clear panelcloser"  style="margin:10px 0 20px 0">${_("FF_Close")}</span>
 			<div class="clear"></div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-import logging, urlparse, uuid, urllib2
+import logging, urlparse, uuid, urllib2, socket
 from ordereddict import OrderedDict
 
 from lxml import etree
@@ -158,10 +158,11 @@ class ProductService(object):
 			log.error("Query not found")
 			abort(404)
 		try:
+			socket.setdefaulttimeout(60)
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			product_page = urllib2.urlopen(query)
 		except Exception, e:
-			log.error("Query could not opened or not wellformed: %s", e)
+			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
 			abort(404)
 		
 		### Parse Meta Tags or PartnerPage
@@ -195,11 +196,12 @@ class ProductService(object):
 
 	def set_product_from_open_web(self, query):
 		try:
+			socket.setdefaulttimeout(60)
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			if not scheme:query='http://%s'%query
 			product_page = urllib2.urlopen(query)
 		except Exception, e:
-			raise QueryMalformedException("Query could not opened or not wellformed: %s" % query)
+			raise QueryMalformedException("Query could not be opened or is not wellformed: %s (%s)" % (query, e))
 		else:
 			name, descr, imgs = url_parser.get_title_descr_imgs(query, product_page)
 			product_image = imgs and imgs[0] or None

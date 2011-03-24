@@ -17,7 +17,7 @@
 	%if values.get('name'):
 		<div class="title simpleeditable active">
 			${values['display_name']}
-			<span style="margin:0 0 0 5px" class="link ">Edit</span>
+			<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
 			<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit">
 		</div>
 	%else:
@@ -29,7 +29,7 @@
 	%if values.get('description'):
 		<div class="desc simpleeditable active">
 			${values['display_description']}
-			<span style="margin:0 0 0 5px" class="link ">Edit</span>
+			<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
 			<input type="hidden" _type="TEXTAREA" _default_text="default" _length="180" value="${values['description']}" name="product_description" id="product_desc_edit">
 		</div>
 	%else:
@@ -40,7 +40,11 @@
 	
 	<input type="hidden" value="${values['url']}" name="tracking_link">
 	<div class="controller">
-		<span class="counterDescr">Choose a thumbnail (<span id="pictureCounterPos">1</span> of <span id="pictureCounter">0</span>)</span>
+		<% 
+			_locals = {"counter":'<span id="pictureCounterPos">1</span>',
+						"total":'<span id="pictureCounter">0</span>'}
+		%>
+		<span class="counterDescr">${_("FF_HOMEPAGE_PRODUCT_Choose a thumbnail (%(counter)s of %(total)s)")%_locals|n}</span>
 		<span class="smallLeft"><span></span></span><span class="smallRight"><span></span></span>
 	%if with_closer:
 		<a class="parsercloser">X</a>

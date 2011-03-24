@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
-	#@default_domain_only()
+	@default_domain_only()
 	def account(self):
 		c.values = {"name":"",
 					"email":""}
@@ -28,7 +28,8 @@ class MyprofileController(BaseController):
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
 		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
 		if len(defaults):
-			c.values["is_default"] = defaults[0]
+			default = defaults[0]
+			c.values["is_default"] = default
 		else:
 			c.values["is_default"] = "email"
 		if 'email' in c.myprofiles:
@@ -45,6 +46,13 @@ class MyprofileController(BaseController):
 		c.values = formencode.variabledecode.variable_decode(request.params)
 		schema = MyProfileForm()
 		g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=c.values['is_default']))
+		
+		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
+		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
+		if len(defaults):
+			default = defaults[0]
+			c.user.name = c.myprofiles[default].name
+			c.user.profile_picture_url = c.myprofiles[default].profile_picture_url
 		
 		if h.contains_one_ne(c.values, ['email', 'name']):
 			try:
@@ -67,32 +75,53 @@ class MyprofileController(BaseController):
 			except formencode.validators.Invalid, error:
 				c.values = error.value
 				c.errors = error.error_dict or {}
-				c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
 				return self.render('/myprofile/account.html')
 		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 		return redirect(url(controller='myprofile', action="account"))
-		
-		
-		
-		
+	
 	@logged_in(ajax=False)
 	@default_domain_only()
 	def notifications(self):
 		return self.render('/myprofile/notifications.html')
 	
-	
 	def login(self):
 		if not c.user.is_anon:
 			response.headers['Content-Type'] = 'application/json'
-			return simplejson.dumps({"data":{"success":True}})
-			
+			return simplejson.dumps({"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()})
 		if c.user.is_anon and bool(c.user.user_data_temp):
 			return self.addemailpopup()
 		else:
 			return self.loginpopup()
 	@jsonify
+	def loginpanel(self):
+		if not c.user.is_anon:
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+		c.login_values = {}
+		c.login_errors = {}
+		c.expanded = True
+		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
+		schema = LoginForm()
+		try:
+			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
+			c.login_values = form_result
+			c.login_values['network'] = 'email'
+			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
+			c.user.set_network('email', 
+							network_id = c.user.default_email,
+							access_token = None,
+							access_token_secret = None
+						)
+			c.user.network = 'email'
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+		except formencode.validators.Invalid, error:
+			c.login_values = error.value
+			c.login_errors = error.error_dict or {}
+			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
+		except SProcWarningMessage, e:
+			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
+			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
+	@jsonify
 	def loginpopup(self):
-		c.furl = request.params.get('furl', request.referer)
 		c.login_values = {}
 		c.login_errors = {}
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
@@ -110,7 +139,7 @@ class MyprofileController(BaseController):
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
@@ -120,9 +149,8 @@ class MyprofileController(BaseController):
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 	@jsonify
 	def signuppopup(self):
-		c.furl = request.params.get('furl', '')
 		if not c.user.is_anon:
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		c.signup_values = {}
 		c.signup_errors = {}
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
@@ -140,88 +168,14 @@ class MyprofileController(BaseController):
 							access_token_secret = None
 						)
 			c.user.network = 'email'
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
 			c.signup_errors = error.error_dict or {}
 			return {'popup':render('/myprofile/signup_popup.html').strip()}
 		except SProcWarningMessage, e:
 			c.signup_errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
-			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
-							% {'link_open':'<a href="/myprofile/password">', 'link_close':'</a>'})
 			return {'popup':render('/myprofile/signup_popup.html').strip()}
-	
-	
-	
-	@jsonify
-	def loginpanel(self):
-		c.furl = request.params.get('furl', request.referer)
-		if not c.user.is_anon:
-			return {"reload":True}
-		c.login_values = {}
-		c.login_errors = {}
-		c.expanded = True
-		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
-		schema = LoginForm()
-		try:
-			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
-			c.login_values = form_result
-			c.login_values['network'] = 'email'
-			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
-			c.user.set_network('email', 
-							network_id = c.user.default_email,
-							access_token = None,
-							access_token_secret = None
-						)
-			c.user.network = 'email'
-			return {"redirect":c.furl}
-		except formencode.validators.Invalid, error:
-			c.login_values = error.value
-			c.login_errors = error.error_dict or {}
-			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
-		except SProcWarningMessage, e:
-			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
-	
-	@logged_in(ajax=False)
-	def add_email(self):
-		c.signup_values = {}
-		c.signup_errors = {}
-		if request.method != 'POST':
-			return redirect(url('controller', controller='myprofile'))
-		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
-		schema = SignupForm()
-		try:
-			form_result = schema.to_python(signup, state = FriendFundFormEncodeState)
-			c.signup_values = form_result
-			c.signup_values['network'] = 'email'
-			c.signup_values['u_id'] = c.user.u_id
-			if ('profile_pic' in signup and isinstance(signup['profile_pic'], FieldStorage)):
-				g.user_service.save_email_user_picture(c.signup_values, signup['profile_pic'])
-			
-			suppl_user = OtherUserData(**c.signup_values)
-			additional_user_data = g.dbm.call(suppl_user, User)
-				
-			c.user.set_network('email', 
-							network_id = c.user.default_email,
-							access_token = None,
-							access_token_secret = None
-						)
-			c.messages.append(_("MYPROFILE_EMAILSEIGNUP_Details saved!"))
-			return redirect(url('controller', controller='myprofile'))
-		except formencode.validators.Invalid, error:
-			c.signup_values = error.value
-			c.signup_errors = error.error_dict or {}
-			c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-			return self.render('/myprofile/index.html')
-		except SProcWarningMessage, e:
-			c.signup_errors = {'email':e}
-			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
-							% {'link_open':'<a href="/myprofile/password">', 'link_close':'</a>'})
-			c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-			return self.render('/myprofile/index.html')
-		
-		
 	##########################################################################################
 	#Forgot Password Cycle
 	
@@ -266,7 +220,7 @@ class MyprofileController(BaseController):
 				c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
 				return {'popup':render('/myprofile/addemail_popup.html').strip()}
 			c.user.default_email = form_result['email']
-			return {"reload":True}
+			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}
@@ -277,15 +231,7 @@ class MyprofileController(BaseController):
 			return {'popup':render('/myprofile/addemail_popup.html').strip()}
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	def password(self):
-		c.furl = request.referer
 		c.pwd_values ={}
 		c.pwd_errors ={}
 		if request.method != 'POST':
@@ -315,22 +261,15 @@ class MyprofileController(BaseController):
 			return self.render('/myprofile/password_request.html')
 	
 	def tlogin(self, token):
-		furl = request.params.get('furl', url('home'))
-		if not c.user.is_anon:
-			c.messages.append(_(u"USER_LOGIN_ALREADY_LOGGEDIN_WARNING!"))
-			return redirect(furl)
-		try:
-			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
-		except SProcWarningMessage, e:
-			c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"))
-		return redirect(furl)
+		c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_This link is no longer valid, please request a new password <a %s>here </a>") %\
+					('onclick="xhrPost(\'%s\', {});closeLoginPanel();")'%url(controller='myprofile', action='rppopup')))
+		return redirect(url("home"))
 	
 	def setpassword(self, token):
 		"""
 			/myprofile/setpassword/TOKENSTRING
 			app.[web_login_token] '<LOGIN token = "sfgsdfvdfgwefgere"/>' 
 		"""
-		c.furl = request.params.get('furl', url('home'))
 		try:
 			c.user = g.dbm.get(WebLoginUserByTokenProc, token=token)
 			c.user.set_network('email', network_id = '1', access_token=None, access_token_secret=None) ###TODO: email is not returned by proc, would be needed to prevent fuckups
@@ -341,7 +280,6 @@ class MyprofileController(BaseController):
 	
 	@logged_in(ajax=False)
 	def resetpwd(self):
-		c.furl = request.params.get('furl', url('home'))
 		pwdreset = formencode.variabledecode.variable_decode(request.params).get('pwdreset', None)
 		schema = PasswordResetForm()
 		try:
@@ -378,6 +316,3 @@ class MyprofileController(BaseController):
 			websession['lang'] = lang
 			set_lang(lang)
 			return redirect(request.referer)
-
-	def require_email(self):
-		return render("/widgets/require_email_popup.html")

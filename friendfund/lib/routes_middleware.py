@@ -11,7 +11,11 @@ log = logging.getLogger('friendfund.lib.routes_middleware')
 
 class VersionedMapper(Mapper):
 	def generate(self, *args, **kargs):
-		prefix = kargs.get('_environ', self.environ).get('HTTP_X_VERSION')
+		environ = kargs.get('_environ', self.environ)
+		# prefix = environ.get('HTTP_X_VERSION')
+		# if prefix: path = '/%s%s' % (prefix, path)
 		path = super(VersionedMapper, self).generate(*args, **kargs)
-		if prefix: path = '/%s%s' % (prefix, path)
+		if kargs.get("controller") == "content":
+			lang = environ.get("beaker.session", {}).get("lang")
+			if lang: path = str('/%s%s' % (lang, path))
 		return path

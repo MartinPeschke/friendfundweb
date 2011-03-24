@@ -1,5 +1,6 @@
 <%inherit file="../layout.html"/>
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
+<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
 %if c.signup_errors:
 	<div class="overlayWrapper">
 	  <div class="overlay red">

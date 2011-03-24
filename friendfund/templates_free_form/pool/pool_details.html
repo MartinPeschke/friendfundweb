@@ -6,6 +6,7 @@
 	${links.js('datepicker.packed.js')}
 	${links.css('datepicker.css')}
 </%def>
+<%def name="page_reloader()">page_reloader = function(){};</%def>
 <%def name="scripts()">
 	<script type="text/javascript"> 
 		toggleSettlement = function(option){
@@ -23,11 +24,10 @@
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
 	parseEditables("poolDetails");
-	var fmtDate = "M-sp-d-cc-sp-Y";
-	var machineFmtDate = "Y-ds-m-ds-d";
-	var today = new Date();
-	var defaultDateOffset = 14;
-	var defaultDate = new Date(today.getDate() + defaultDateOffset);
+	
+	var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
+	var today = new Date(), upperEnd = new Date();upperEnd.setDate(upperEnd.getDate() + 45);
+	var defaultDateOffset = 14;var defaultDate = new Date(today.getDate() + defaultDateOffset);
 	if(dojo.byId("dateValue").value){
 		defaultDate = new Date(datePickerController.parseDateString(dojo.byId("dateValue").value, machineFmtDate));
 		var displaydate = Math.ceil((defaultDate.getTime()-today.getTime())/(24*3600*1000));
@@ -37,19 +37,18 @@
 	datePickerController.createDatePicker({
 	  formElements:{"datepicker":fmtDate},
 	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
-	  rangeLow:today.getFullYear() + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
-	  rangeHigh:(today.getFullYear()+5) + "" + lpad(today.getMonth()+1) + lpad(today.getDate()), 
+	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
+	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
 	  callbackFunctions:{"dateset":[
 			function(params){
 				if(params.date){
 					dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
-					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, true);
+					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, false);
 					if(dojo.hasClass("date_error_row", "error")&&dojo.query(".tip", "date_error_row").length===0){dojo.removeClass("date_error_row", "error")}
 					
 				} else {
 					var nDate = new Date(dojo.byId("dateValue").value);
-					//dojo.byId("datepicker").value="---"; //datePickerController.printFormattedDate(nDate, fmtDate, true);
-					dojo.byId("daysLeft").innerHTML="---"; //Math.ceil((nDate.getTime()-(today).getTime())/(24*3600*1000));
+					dojo.byId("daysLeft").innerHTML="---";
 					dojo.byId("dateValue").value="";
 					var elem = dojo.byId("date_error_row");
 					if(!dojo.hasClass(elem, "error")){dojo.addClass(elem, "error")}
@@ -69,8 +68,11 @@
 		onSubmitCleaner(document.submissionform);
 		document.submissionform.submit();
 	};
-	submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
-	page_reloader = protect(checkLoginStatus);
+	%if c.user.is_anon:
+		submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
+	%else:
+		submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
+	%endif
 </%def>
 
 
@@ -131,7 +133,7 @@
 						<div class="editorCtn">
 							<div class="simpleeditable active mainValue">${c.values['amount']}
 								<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
-								<span style="margin:0 0 0 5px" class="link ">Edit</span>
+								<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
 							</div>
 						</div>
 					%endif
@@ -164,7 +166,7 @@
 					%else:
 						<div class="simpleeditable active mainValue">${h.word_truncate_by_letters(c.values['title'], 60)}
 							<input _type="INPUT" type="hidden" value="${c.values['title']}" _length="60"  name="title" id="titleInput" />
-							<span style="margin:0 0 0 5px" class="link ">Edit</span>
+							<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
 						</div>
 					%endif
 				
@@ -218,7 +220,7 @@
 						%endif
 						</div>
 						<div class="title">
-							use URL:
+							${_("FF_POOLDETAILS_use URL:")}
 							<input type="text" class="default" _default_text="${_("FF_POOLDETAILS_Examples:www.cnn.com")}" 
 								id="tracking_link_edit" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_POOLDETAILS_Examples:www.cnn.com")}"/>
 							<a class="link" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})" style="margin-top:30px; float:left; display:block; clear:both">${_(u"FF_LINK_or Upload a picture")}</a>

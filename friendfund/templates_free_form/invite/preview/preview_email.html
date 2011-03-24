@@ -8,16 +8,16 @@
 	<div class="emailHead">
 		<img src="/static/imgs/emailBtn.png" class="floatRight" />
 		<div class="emailDetail">
-			<div><span class="bold">To: </span><span>Joe</span></div>
-			<div><span class="bold">Subject: </span><span>${c.subject}</span></div>
-			<div><span class="bold">Date: </span><span>${h.format_date(c.pool.expiry_date)}</span></div>
+			<div><span class="bold">${_("FF_INVITE_PREVIEW_EMAIL_To:")} </span><span>Joe</span></div>
+			<div><span class="bold">${_("FF_INVITE_PREVIEW_EMAIL_Subject:")} </span><span>${c.subject}</span></div>
+			<div><span class="bold">${_("FF_INVITE_PREVIEW_EMAIL_Date:")} </span><span>${h.format_date(c.pool.expiry_date)}</span></div>
 		</div>
 	</div>
 		<div class="emailBody">
-			<p>Hi Joe,
+			<p>${_("FF_INVITE_PREVIEW_EMAIL_Hi Joe,")}
 			${markdown.markdown(c.message)|n}</p>
 			<p>Visit the gift pool at : <a href="#">${url("get_pool", pool_url = c.pool.p_url, protocol="http")}</a></p>
-			<p>Thank you</p>
+			<p>${_("FF_INVITE_PREVIEW_EMAIL_Thank you")}</p>
 			<p class="bold">${c.user.name}</p>
 		</div>
 		

@@ -16,6 +16,7 @@
 	</div>
 </div>
 <div class="wrapSubContent">
+${self.renderMessages()}
 <div class="contentHome">
 	<div class="weNeed">
 		<div class="formWeNeed" id="poolProductFinder">
@@ -24,7 +25,7 @@
 			<div class="exp">
 				<span>${h.display_currency(h.default_currency())}</span>
 				<span class="showToolTipHook"><input type="text" name="amount" class="short tipeIn weNeed" /></span>
-				<span style="margin-left:30px">for</span>
+				<span style="margin-left:30px">${_("FF_HOMEPAGE_FORM_for")}</span>
 				<span class="showToolTipHook"><input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="weNeed default long" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
 					<div class="verticalTip hideable">
 						<div class="arrow"></div>
@@ -68,24 +69,24 @@
 			<a href="http://www.caseable.com/gallery.php"><img src="/static/imgs/caseable_trans.png" /></a>
 			<a href="http://www.donanda.de/pages/affiliate/1090"><img src="/static/imgs/donanda_trans.png" /></a>
 			<a href="https://www.fidor.de/"><img src="/static/imgs/fidorbank_trans.png" /></a>
-			<a href="http://www.greatamericandays.com/adventure.php?adventure_id=2&price=&category=&finder=60"><img src="/static/imgs/GAD_trans.png" /></a>
+			<a href="http://www.greatamericandays.com/adventure.php?adventure_id=11&price=&category=2&finder=52&imageField.x=9&imageField.y=12"><img src="/static/imgs/GAD_trans.png" /></a>
 		</div>
 		<div class="boxGray box2">
 			<div class="grafx">&#8220;</div>
 			<p>"Absolutely brilliant, we would never have been able to do this without friendfund, thanks!"</p>
-			<div style="margin-top:15px">
+			<div style="margin-top:20px">
 				<div class="avt">
 					<div class="arrowAvatar"></div>
 					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
 				</div>
 				<span class="name bold">Amanda</span>
-				<span class="desc"> Organised flying lessons for her friend Megan. </span>
+				<span class="desc">Organised flying lessons for her friend Megan. </span>
 			</div>
 		</div>
 		<div class="boxGray box3">
 			<div class="grafx">“</div>
 			<p>"Your site made it possible for us to collect the money to redecorate our community hall, great job!"</p>
-			<div style="margin-top: 15px;">
+			<div style="margin-top: 20px;">
 				<div class="avt">
 					<div class="arrowAvatar"></div>
 					<img src="/static/imgs/Greg.jpg">
@@ -104,7 +105,7 @@
 
 
 
-<%def name="render_featured_pools(get_featured_pools)" cached="True" cache_key="render_featured_pools" cache_timeout="1800" cache_type="memory">
+<%def name="render_featured_pools(get_featured_pools)" cached="True" cache_key="render_featured_pools" cache_timeout="60" cache_type="memory">
 	%for i, pool in enumerate(get_featured_pools()):
 		<% locals = {"no_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days_tuple()[0], "admin_name":pool.admin.name} %>
 		<div class="homebox ${i==3 and 'lastOne' or ''}">

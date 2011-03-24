@@ -62,43 +62,69 @@ class ContentController(BaseController):
 	@default_domain_only()
 	def contact(self):
 		return render("/content/contact.html")
-	@default_domain_only()
-	def aboutus(self):
-		return render("/content/aboutus.html")
-	
-	@default_domain_only()
-	def tos(self, lang = None):
-		if lang:
-			try:
-				return render("/content/tos_%s.html" % lang)
-			except:
-				return render("/content/tos.html")
-		else:
-			return render("/content/tos.html")
 	
 	@default_domain_only()
 	def jobs(self):
 		return render("/content/jobs.html")
-	@default_domain_only()
-	def privacy(self, lang = None):
-		if lang:
-			try:
-				return render("/content/privacy_%s.html" % lang)
-			except:
-				return render("/content/privacy.html")
-		else:
-			return render("/content/privacy.html")
+
 	@default_domain_only()
 	def impressum(self):
 		return redirect(url(controller="content", action="aboutus"))
 	def merchant_explain(self):
 		return render("/content/merchant_explain.html")
 	@default_domain_only()
-	def learn_more(self):
-		return render("/content/learnmore.html")
-	@default_domain_only()
-	def become_partner(self):
-		return render("/content/become_partner.html")
-	@default_domain_only()
 	def faq(self):
 		return render("/content/faq.html")
+		
+		
+		
+	######LOCALIZED
+	@default_domain_only()
+	def become_partner(self, lang = None):
+		if lang:
+			try:
+				return render("/content/localized/become_partner_%s.html" % lang)
+			except:
+				return render("/content/localized/become_partner.html")
+		else:
+			return render("/content/localized/become_partner.html")
+		
+	@default_domain_only()
+	def aboutus(self, lang = None):
+		if lang:
+			try:
+				return render("/content/localized/aboutus_%s.html" % lang)
+			except:
+				return render("/content/localized/aboutus.html")
+		else:
+			return render("/content/localized/aboutus.html")
+	
+	@default_domain_only()
+	def learn_more(self, lang = None):
+		if lang:
+			try:
+				return render("/content/localized/learnmore_%s.html" % lang)
+			except:
+				return render("/content/localized/learnmore.html")
+		else:
+			return render("/content/localized/learnmore.html")
+		
+	@default_domain_only()
+	def tos(self, lang = None):
+		if lang:
+			try:
+				return render("/content/localized/tos_%s.html" % lang)
+			except:
+				return render("/content/localized/tos.html")
+		else:
+			return render("/content/localized/tos.html")
+	
+	@default_domain_only()
+	def privacy(self, lang = None):
+		if lang:
+			try:
+				return render("/content/localized/privacy_%s.html" % lang)
+			except:
+				return render("/content/localized/privacy.html")
+		else:
+			return render("/content/localized/privacy.html")

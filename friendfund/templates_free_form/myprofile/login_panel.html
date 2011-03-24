@@ -12,13 +12,13 @@
 					<span class="error">${getattr(c, "login_errors", dict()).get("email")}</span>
 				%endif
 			</div>
-			<div class="inputline">
+			<div class="${"email" in errors and ' error' or ''}" style="margin-top:5px" >
 				<label for="login_pwd">${_("FF_LOGIN_Password")}</label>
 				<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
 				%if "pwd" in getattr(c, "login_errors", dict()):
-					<p class="error">${getattr(c, "login_errors", dict()).get("pwd")}</p>
+					<span class="error">${getattr(c, "login_errors", dict()).get("pwd")}</span>
 				%endif
-			<div>
+			<div style="margin-top:5px">
 				<a onclick="xhrPost('${url(controller='myprofile', action='rppopup')}', {});closeLoginPanel();" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a></div>
 			</div>
 		</form>
@@ -29,7 +29,7 @@
 				<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 			</a>
 		</div><div class="inputline">
-		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="twInit('/')">
+		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="twInit()">
 			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 		</a>
 		</div>
@@ -48,9 +48,9 @@
 		var evts = [];
 		submitLoginPanel = function(){
 			xhrFormPost("${url(controller="myprofile", action="loginpanel")}", "login_panel_form", function(html){
-				dojo.place(html, dojo.byId("loginPanelContent"), "only");
-				var i = dojo.query("input", "loginPanelContent");
-				if(i.length>0){i[0].focus()};
+					dojo.place(html, dojo.byId("loginPanelContent"), "only");
+					var i = dojo.query("input", "loginPanelContent");
+					if(i.length>0){i[0].focus()};
 				});
 			return false;
 		};
@@ -80,8 +80,8 @@
 			<a href="#">${c.user.name or c.user.default_email}</a>
 			<div class="widthGiver">
 				<div>
-					<a href="${url(controller="myprofile", action="account", host=app_globals.default_host)}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
-					<a href="${url(controller="mypools", action="stream", host=app_globals.default_host)}">${_("FF_LOGINDROPDOWN_Profile")}</a>
+					<a href="${url(controller="myprofile", action="account", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
+					<a href="${url(controller="mypools", action="stream", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Profile")}</a>
 					<a href="#" onclick="fbLogout();">${_("FF_LOGINDROPDOWN_Logout")}</a>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 <ul>
 		<% route = request.environ["wsgiorg.routing_args"][1] %>
 		<li><a href="${url('home', protocol="http")}" ${forms.expression_quote(route["controller"] == "index", "class", "navselected")} >${_("FF_MENU_Home")}</a></li>
-		<li><a href="${url(controller="content", action="learn_more", host=app_globals.default_host)}"
+		<li><a href="${url(controller="content", action="learn_more", host=app_globals.default_host, protocol="http")}"
 			${forms.expression_quote(route["controller"] == "content", "class", "navselected")}>${_("FF_MENU_Learn")}</a></li>
 		<li><a href="${forms.create_pool_link()}" 
 			${forms.expression_quote(route["controller"] == "pool" and route["action"] in ["details","create"], "class", "navselected")}>${_("FF_MENU_Create a pool")}</a></li>

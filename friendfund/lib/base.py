@@ -2,7 +2,7 @@
 
 Provides the BaseController class for subclassing.
 """
-import logging, time
+import logging, time, urlparse
 from collections import deque
 from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
 from pylons.controllers.util import abort, redirect
@@ -98,7 +98,8 @@ class BaseController(WSGIController):
 		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
 		if not (host and host in g.merchants.domain_map):
-			return redirect(url.current(host=g.default_host))
+			prot, host, path, params, query, fragment = urlparse.urlparse(request.url)
+			return redirect(urlparse.urlunparse((prot, g.default_host, path, params, query, fragment)))
 		else:
 			protocol = request.headers.get('X-Forwarded-Proto', 'http')
 			request.merchant = g.merchants.domain_map[host]
@@ -106,7 +107,7 @@ class BaseController(WSGIController):
 			request.is_secured = protocol == 'https'
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
-		c.furl = request.params.get("furl") or request.url
+		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], host, url.current())
 	
 	def __after__(self, action, environ):
@@ -126,6 +127,7 @@ class ExtBaseController(BaseController):
 			except SProcException, e:
 				c.pool = None
 			if not c.pool:
-				return abort(404)
+				c.messages.append(_("FF_SORRY_PAGE_NOT_FOUND_404_STYLE"))
+				return redirect(url("home"))
 			elif c.pool.merchant_domain != request.merchant.domain:
 				return redirect(url.current(host=c.pool.merchant_domain))

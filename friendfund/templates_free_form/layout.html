@@ -23,20 +23,20 @@
             	<div class="firstFourCol">
                     <div class="footerCol1">
                         <span class="fontWeightBold">${_("FF_FOOTER_About")}</span>
-                        <a href="${url(controller="content", action="aboutus", host=app_globals.default_host)}">${_("FF_FOOTER_About Friendfund")}</a>
+                        <a href="${url(controller="content", action="aboutus", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_About Friendfund")}</a>
                         <a target="_blank" href="http://blog.friendfund.com">${_("FF_FOOTER_Our blog")}</a>
-                        <a href="${url(controller="content", action="jobs", host=app_globals.default_host)}">${_("FF_FOOTER_Jobs")}</a>
-                        <a href="${url(controller="content", action="faq", host=app_globals.default_host)}">${_("FF_FOOTER_FAQ")}</a>
+                        <a href="${url(controller="content", action="jobs", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Jobs")}</a>
+                        <a href="${url(controller="content", action="faq", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_FAQ")}</a>
                     </div>
                     <div class="footerCol2">
                         <span class="fontWeightBold">${_("FF_FOOTER_Contact")}</span>
-                        <a href="${url(controller="content", action="contact", host=app_globals.default_host)}">${_("FF_FOOTER_Contact Friendfund")}</a>
-                        <a href="${url(controller="content", action="become_partner", host=app_globals.default_host)}">${_("FF_FOOTER_Become a partner")}</a>
+                        <a href="${url(controller="content", action="contact", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Contact Friendfund")}</a>
+                        <a href="${url(controller="content", action="become_partner", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Become a partner")}</a>
                     </div>
                     <div class="footerCol3">
                         <span class="fontWeightBold">${_("FF_FOOTER_Legal")}</span>
-                        <a href="${url(controller="content", action="tos", host=app_globals.default_host)}">${_("FF_FOOTER_Terms of Service")}</a>
-                        <a href="${url(controller="content", action="privacy", host=app_globals.default_host)}">${_("FF_FOOTER_Privacy")}</a>
+                        <a href="${url(controller="content", action="tos", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Terms of Service")}</a>
+                        <a href="${url(controller="content", action="privacy", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Privacy")}</a>
                     </div>
                     <div class="footerCol4">
                         <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
@@ -48,30 +48,29 @@
 				</div>
                 <div class="footerCol5">
 					<div style="">
-						<div class="language">
-							####<span class="floatLeft"; style="margin:3px 5px 0 0">
-							####<div class="languageSelection">
-							####	####${_("ff_footer_Language:")} </span>
-							####	####<div class="showHide">
-							####	####	<%
-							####	####		languages = {"en_GB":_("English"), "es_ES":_("Spanish")}
-							####	####		selected_lang = session["lang"] == 'es_ES' and 'es_ES' or "en_GB"
-							####	####	%>
-							####	####	<a>${languages.get(selected_lang)}</a>
-							####	####	<div class="widthGiver">
-							####	####		<div>
-							####	####			%for locale, langname in sorted(languages.iteritems()):
-							####	####				%if locale != selected_lang:
-							####	####					<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${langname}</a>
-							####	####				%endif
-							####	####			%endfor
-							####	####		</div>
-							####	####	</div>
-							####	####</div>
-							####</div>
-						</div>
+						####<div class="language">
+						####	<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
+						####	<div class="languageSelection">
+						####		<div class="showHide">
+						####			<%
+						####				languages = {"en_GB":_("English"), "es_ES":_("Spanish")}
+						####				selected_lang = session["lang"] == 'es_ES' and 'es_ES' or "en_GB"
+						####			%>
+						####			<a>${languages.get(selected_lang)}</a>
+						####			<div class="widthGiver">
+						####				<div>
+						####					%for locale, langname in sorted(languages.iteritems()):
+						####						%if locale != selected_lang:
+						####							<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${langname}</a>
+						####						%endif
+						####					%endfor
+						####				</div>
+						####			</div>
+						####		</div>
+						####	</div>
+						####</div>
+						####<span class="middot floatLeft">&middot;</span>
 						%if not request.is_secured:
-						<span class="middot floatLeft">&middot;</span>
 							<div class="like floatLeft" style="margin: 3px 0 0 0">
 								<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
 							</div>
@@ -79,13 +78,13 @@
 						%endif
 						
 						<div class="floatLeft" style="margin:3px 0 0 0">
-							<span>You're safe with us</span>
+							<span>${_("FF_FOOTER_You're safe with us")}</span>
 						</div>
 						
 						%if request.merchant.is_default:
 							<span class="floatRight"  style="margin:3px 0 0 0">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
 						%else:
-							<a href="${url("home", host=app_globals.default_host)}"><img class="floaterRight" style="margin: 30px 0;position:absolute;right:30px;" src="/static/imgs/powered_by_button.png"/></a>
+							<a class="floatRight" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
 						%endif
 						<div class="clear"></div>
 					</div>
