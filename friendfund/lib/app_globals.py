@@ -49,9 +49,7 @@ class Globals(object):
 		self.TwitterApiKey = app_conf['twitterapikey']
 		self.TwitterApiSecret = app_conf['twitterapisecret']
 		
-		self.locale_codes = app_conf['available_locale_codes'].split(',')
-		self.locales = app_conf['available_locales'].split(',')
-		self.locale_lookup = dict(zip(self.locales, self.locale_codes))
+		self.locales = app_conf['available_locales'].lower().split(',')
 		
 		self.debug = config['debug']
 		self.test = config['test'] == 'true'

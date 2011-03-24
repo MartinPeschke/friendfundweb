@@ -310,7 +310,7 @@ class MyprofileController(BaseController):
 		lang = request.params.get('lang')
 		if websession['lang'] == lang:
 			return redirect(request.referer)
-		if lang not in g.locale_lookup:
+		if lang not in g.locales:
 			abort(404)
 		else:
 			websession['lang'] = lang

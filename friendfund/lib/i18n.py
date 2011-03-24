@@ -70,10 +70,13 @@ def get_format(locale):
 	locale = Locale.parse(locale)
 	format = locale.currency_formats.get(None)
 	return format
-
+def normalize_locale(loc):
+	return unicode(loc).lower().replace('-', '_')
 def negotiate_locale_from_header(accept_langs, available_languages):
+	"""negotiate_locale_from_header(['de-de', 'de', 'en-us', 'en'], ['en_US', 'en_GB', 'es_ES', 'de_DE'] )=='de-de'"""
 	langs = map(lambda x: x.replace('-', '_'), accept_langs)
-	return unicode(negotiate_locale(langs, available_languages, aliases={"gb":"en-GB"}) or available_languages[0])
+	return normalize_locale(negotiate_locale(langs, available_languages, sep="_", aliases={"gb":"en-GB"}) or available_languages[0])
+
 
 def format_int_amount(number):
 	number = float(number)/100
