@@ -429,6 +429,7 @@ var connectURLP = function(baseRoot, editnode){
 
 var resetParser = function(baseRoot, editnode){
 	dojo.empty("homeurlexpander");
+	remClassFromParent("homeurlexpander", "weNeed", "raised");
 	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem)});
 	dojo.forEach(_localhndlrs, dojo.disconnect);
 	picCounter = 0; accepted = false; _parser_backups = [], _localhndlrs = [];
@@ -444,6 +445,7 @@ var loadSuccess = function(baseRoot, editnode, data){
 	} else {
 		var home = dojo.byId("homeurlexpander");
 		dojo.place(data.html, home, "only");
+		addClassToParent(home, "weNeed", "raised");
 		connectURLP(baseRoot, editnode);
 	}
 };
