@@ -176,7 +176,7 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 	<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 		"admin_name":c.pool.admin.name,
 		"total_amount":c.pool.get_display_amount(),
-		"days_left":c.pool.get_remaining_days_tuple()[0],
+		"days_left":c.pool.get_remaining_days(),
 		"no_contributors":c.pool.total_contributors
 		}
 	%>

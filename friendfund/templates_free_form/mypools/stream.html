@@ -1,6 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
+<%namespace name="widgets" file="/widgets/widgets.html"/>
 
 <%def name="title()">${_("FF_TITLE_News stream")}</%def>
 <%def name="scripts()">
@@ -53,10 +54,10 @@
 			<% 
 				locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),
 					"pooltitle":'<a class="bold" href="%s">%s</a>'%(url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),h.word_truncate_by_letters(streamentry.event.title, 100)),
-					"actorname":'<span class="bold">%s</span>'%streamentry.event.name
-					}
+					"actorname":'<span class="bold">%s</span>'%streamentry.event.name}
 			%>
 		%if streamentry.event._get_root == "SUCCESS":
+			<% locals["number_contributors"] = streamentry.event.no_contributors %>
 					<div class="entryStream">
 						<img src="/static/imgs/succesful.png" title="${_("FF_NEWSSTREAMTYPE_Success")}" class="kind" />
 						<div class="avt" title="${streamentry.event.name}">
@@ -75,7 +76,7 @@
 										</div>
 								</div>
 								<span class="bold tenPix middot">&middot;</span>
-								<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
+								<span class="contribSmall tenPix">${widgets.renderPoolInfoContributors(locals)}</span>
 							</div>
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
@@ -85,7 +86,10 @@
 					</div>
                 <div class="colRightWhite"></div>
 		%elif streamentry.event._get_root == "CONTRIBUTION":
-			<% locals["days_left"] = streamentry.event.get_remaining_days_tuple()[0] %>
+			<% 
+				locals["days_left"] = streamentry.event.get_remaining_days()
+				locals["number_contributors"] = streamentry.event.no_contributors
+			%>
 					<div class="entryStream">
 						<img src="/static/imgs/chipped.png" title="${_("FF_NEWSSTREAMTYPE_Chipped in")}" class="kind" />
 						<div class="avt" title="${streamentry.event.name}">
@@ -103,9 +107,9 @@
 										</div>
 								</div>
 								<span class="bold tenPix middot">&middot;</span>
-								<span class="contribSmall tenPix"><strong>${streamentry.event.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
+								<span class="contribSmall tenPix">${widgets.renderPoolInfoContributors(locals)}</span>
 								<span class="bold tenPix middot">&middot;</span>
-								<span class="timeLeft tenPix ${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
+								<span class="timeLeft tenPix ${locals['days_left'] < 7 and "highlight" or ""}">${widgets.renderPoolInfoDaysLeft(locals)}</span>
 							</div>
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
@@ -135,6 +139,7 @@
 					</div>
                 <div class="colRightWhite"></div>
 		%elif streamentry.event._get_root == "CREATE_FREE_FORM_POOL":
+			<% locals["number_invitees"] = streamentry.event.no_invitees %>
 					<div class="entryStream">
 						<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
 						<div class="avt" title="${streamentry.event.name}">
@@ -150,7 +155,7 @@
 								</div>
 								%endfor
 								<span class="bold tenPix middot">&middot;</span>
-								<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> ${_("FF_NEWSSTREAM_INVITEES")}</span>
+								<span class="inviteesSmall tenPix">${widgets.renderPoolInfoInvitees(locals)}</span>
 								<div class="liner">
 									<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
 									<p>${h.word_truncate(streamentry.event.description, 250)}</p>
@@ -178,14 +183,14 @@
 											</div>
 											<div class="atclear"></div>
 										</div>
-									</div></span>
-									
+									</div>
+								</span>
 							</div>
 						</div>
 					</div>
                 <div class="colRightWhite"></div>
 		%elif streamentry.event._get_root == "CREATE_GROUP_GIFT_POOL":
-			
+			<% locals["number_invitees"] = streamentry.event.no_invitees %>
 					<div class="entryStream">
 						<img src="/static/imgs/creategroup.png" title="${_("FF_NEWSSTREAMTYPE_Created Pool")}" class="kind" />
 						<div class="avt" title="${streamentry.event.name}">
@@ -201,7 +206,7 @@
 								</div>
 								%endfor
 								<span class="bold tenPix middot">&middot;</span>
-								<span class="inviteesSmall tenPix"><strong>${streamentry.event.no_invitees}</strong> ${_("FF_NEWSSTREAM_INVITEES")}</span>
+								<span class="inviteesSmall tenPix"><strong>${widgets.renderPoolInfoInvitees(locals)}</span>
 								<div class="liner">
 									<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
 									<p>${h.word_truncate(streamentry.event.description, 250)}</p>

@@ -14,10 +14,10 @@
 	locals = {"closing_date":h.format_date(pool.expiry_date, format="full"), 
 			"creation_date":h.format_date(pool.creation_date, format="full"), 
 			"admin_name":pool.admin_name,
-			"no_contributors":pool.no_contributors, 
+			"number_contributors":pool.no_contributors, 
 			"product_name":"her Tennis club", ####TODO:Implmement
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
-			"days_left" : pool.get_remaining_days_tuple()[0]
+			"days_left" : pool.get_remaining_days()
 		}
 	merchant = app_globals.merchants.domain_map.get(pool.merchant_domain)
 %>
@@ -128,11 +128,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="contributors"><span><strong>${pool.no_contributors}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span></div>
+			<div class="contributors"><span>${widgets.renderPoolInfoContributors(locals)}</span></div>
 			<div class="chippedIn"><span><strong>${h.format_currency(pool.get_total_contribution_float(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
 			<div class="outstanding"><span><strong>${h.format_currency(pool.get_amount_left(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
 			%if not pool._is_closed:
-				<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span></div>
+				<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}">${widgets.renderPoolInfoDaysLeft(locals)}</span></div>
 			%endif
 			<div class="clear"></div>
 		</div>

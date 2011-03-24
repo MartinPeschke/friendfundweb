@@ -87,9 +87,9 @@
 			"suggested_amount":h.format_currency(c.pool.get_suggested_amount_float(), c.pool.currency),
 			"chipped_in_amount":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
 			"total_amount":c.pool.get_display_amount(),
-			"no_invitees":len(c.pool.participant_map),
+			"number_invitees":len(c.pool.participant_map),
 			"number_contributors":c.pool.get_number_of_contributors(),
-			"days_left": c.pool.get_remaining_days_tuple()[0]
+			"days_left": c.pool.get_remaining_days()
 		}
 %>
 
@@ -119,7 +119,14 @@
 				</div>
 			</div>
 			<div class="boxPoolDetails">
-				${widgets.renderPoolInfo(locals)}
+				<div class="contributors"><span>${widgets.renderPoolInfoContributors(locals)}</span></div>
+				<div class="heavyMd"></div>
+				<div class="invitees"><span>${widgets.renderPoolInfoInvitees(locals)}</span></div>
+				<div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+				<div class="heavyMd"></div>
+				<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
+				<div class="daysLeft"><span>${widgets.renderPoolInfoDaysLeft(locals)}</span></div>
+				<div class="clear"></div>
 			</div>
 		<div class="clear"></div>
 		</div>
@@ -212,12 +219,12 @@
 	<div class="colLeft">
 		<div class="invited" id="poolInviteesDisplay">
 			<h4>
-				%if locals['no_invitees']:
-					${_(u"FF_POOL_PAGE_BODY_%(no_invitees)s Invitees") % locals}
+				%if locals['number_invitees']>1:
+					${_(u"FF_POOL_PAGE_BODY_%(number_invitees)s Invitees") % locals}
 				%else:
 					${_(u"FF_POOL_PAGE_BODY_Who's invited")}
 				%endif
-				%if locals['no_invitees'] > len(c.pool.participants):
+				%if locals['number_invitees'] > len(c.pool.participants):
 					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
 					<a class="hidden floatRight btnViewAll" onclick="showInvitees()" _page="1" id="showAllBtn">${_(u"FF_POOL_PAGE_BODY_Show All")}</a>
 					<a class="hidden floatRight btnViewAll" onclick="hideInvitees()" _page="1" id="hideAllBtn">${_(u"FF_POOL_PAGE_BODY_Hide All")}</a>

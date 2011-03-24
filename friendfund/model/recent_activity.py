@@ -71,15 +71,14 @@ class RecentActivityEntry(DBMappedObject):
 		else:
 			log.error("NO PRODUCT NAME FOUND")
 			return "XXX"
-	def get_remaining_days_tuple(self):
+	def get_remaining_days(self):
 		if self.is_closed():
-			return (0, 0)
+			return 0
 		else:
 			diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 			if diff < timedelta(0):
 				diff = timedelta(0)
-			return (diff.days, diff.seconds/3600)
-
+			return diff.days
 class RecentActivityStream(DBMappedObject):
 	_expiretime = 60
 	_cacheable = False

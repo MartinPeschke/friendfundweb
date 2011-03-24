@@ -86,14 +86,14 @@ class MyPoolEntry(DBMappedObject):
 		else:
 			log.error("NO PRODUCT NAME FOUND")
 			return "XXX"
-	def get_remaining_days_tuple(self):
+	def get_remaining_days(self):
 		if self._is_closed:
-			return (0, 0)
+			return 0
 		else:
 			diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 			if diff < timedelta(0):
 				diff = timedelta(0)
-			return (diff.days, diff.seconds/3600)
+			return diff.days
 	def fromDB(self, xml):
 		setattr(self, "_is_closed", self.status in ["CLOSED", "COMPLETE"])
 

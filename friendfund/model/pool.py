@@ -310,11 +310,11 @@ class Pool(DBMappedObject):
 		else:
 			return h.get_product_picture(None, type)
 	
-	def get_remaining_days_tuple(self):
+	def get_remaining_days(self):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 		if diff < timedelta(0):
 			diff = timedelta(0)
-		return diff.days, diff.seconds/3600
+		return diff.days
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.p_url, type)
 	def get_pool_picture_tiles(self, type = "RA"):

@@ -102,11 +102,11 @@ class ContributionEvent(EventType):
 			,GenericAttrib(int, 'target', 'target')
 			,GenericAttrib(str, 'currency', 'currency')
 			]
-	def get_remaining_days_tuple(self):
+	def get_remaining_days(self):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 		if diff < timedelta(0):
 			diff = timedelta(0)
-		return (('%s'%diff.days).rjust(2,'0'),  ('%s'%(diff.seconds/3600)).rjust(2,'0'))
+		return diff.days
 	def funding_progress(self):
 		return int((float(self.total_contribution) / self.target)*100)
 
