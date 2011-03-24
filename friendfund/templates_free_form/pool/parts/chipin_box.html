@@ -36,11 +36,12 @@
 		<a href="${url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">
 			${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}
 		</a>
-		<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
-		<a href="${url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=pool.get_suggested_amount())}" class="suggested">
-			${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} &raquo;
-		</a>
-		
+		%if request.merchant.type_is_group_gift:
+			<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
+			<a href="${url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=pool.get_suggested_amount())}" class="suggested">
+				${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} &raquo;
+			</a>
+		%endif
 		<div class="rose">
 			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
 			${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
