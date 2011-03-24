@@ -1,4 +1,5 @@
 <%namespace name="links" file="/widgets/links.html"/>
+<%namespace name="widgets" file="/widgets/widgets.html"/>
 <html>
 <head>
 
@@ -176,8 +177,8 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 	<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 		"admin_name":c.pool.admin.name,
 		"total_amount":c.pool.get_display_amount(),
-		"days_left":c.pool.get_remaining_days(),
-		"no_contributors":c.pool.total_contributors
+		"days_left": c.pool.get_remaining_days(),
+		"number_contributors":c.pool.get_number_of_contributors(),
 		}
 	%>
 	<h5><a target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">${c.pool.title}</a></h5>
@@ -196,9 +197,9 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 	</div>
 	
 	<div class="boxContributors">
-		<span class="upper"><strong>${locals['no_contributors']}</strong> ${_(u"FF_POOL_PAGE_HEADER_contributors")}</span>
+		<span class="upper">${widgets.renderPoolInfoContributors(locals)}</span>
 		<span class="middot"> &middot; </span>
-		<span class="upper"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
+		<span class="upper">${widgets.renderPoolInfoDaysLeft(locals)}</span>
 	</div>
 	<div class="fbHolder">
 		<div style="margin: 0px auto;width:${38*c.faces}px">
