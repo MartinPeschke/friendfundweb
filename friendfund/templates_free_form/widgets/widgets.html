@@ -18,3 +18,25 @@
 	<div class="stepThree ${active==3 and "active" or ""}"><span>3</span>${step3}</div>
 </div>
 </%def>
+
+
+
+
+<%def name="renderPoolInfo(locals)">
+	<% 
+		contributors_text = ungettext(u"FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor",
+							u"FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributors", locals['number_contributors']) 
+		invitees_text =  ungettext(u"FF_POOL_INFO_<strong>%(no_invitees)d</strong> invitee",
+							u"FF_POOL_INFO_<strong>%(no_invitees)d</strong> invitees", locals['no_invitees'])
+		days_text =  ungettext(u"FF_POOL_INFO_<strong>%(days_left)d</strong> day left",
+							u"FF_POOL_INFO_<strong>%(days_left)d</strong> days left", locals['days_left'])
+	%>
+	<div class="contributors"><span>${contributors_text % locals|n}</span></div>
+	<div class="heavyMd"></div>
+	<div class="invitees"><span>${invitees_text % locals|n}</span></div>
+	<div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+	<div class="heavyMd"></div>
+	<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
+	<div class="daysLeft"><span>${days_text % locals|n}</span></div>
+	<div class="clear"></div>
+</%def>

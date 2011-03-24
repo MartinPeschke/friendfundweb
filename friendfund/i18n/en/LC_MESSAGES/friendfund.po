@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-24 14:00+0100\n"
+"PO-Revision-Date: 2011-03-24 16:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -244,7 +244,7 @@ msgstr "No friend selected. Please try again."
 msgid "POOL_SETTINGS_Pool not found"
 msgstr "Pool not found"
 
-#: friendfund/controllers/pool.py:433
+#: friendfund/controllers/pool.py:437
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr "You joined this Pool!"
 
@@ -1457,7 +1457,6 @@ msgid "FF_CONTACT_Subject"
 msgstr "Subject"
 
 #: friendfund/templates_free_form/content/contact.html:32
-#| msgid "FF_INVITEPAGE_Write your subject here..."
 msgid "FF_CONTACT_Write your subject here..."
 msgstr "Write your subject here..."
 
@@ -1466,7 +1465,6 @@ msgid "FF_CONTACT_Message"
 msgstr "Message"
 
 #: friendfund/templates_free_form/content/contact.html:44
-#| msgid "FF_INVITEPAGE_Write your message here..."
 msgid "FF_CONTACT_Write your message here..."
 msgstr "Write your message here..."
 
@@ -1475,7 +1473,6 @@ msgid "FF_CONTACT_Name"
 msgstr "Name"
 
 #: friendfund/templates_free_form/content/contact.html:57
-#| msgid "FF_ACCOUNT_Write your name here..."
 msgid "FF_CONTACT_Write your name here..."
 msgstr "Write your name here..."
 
@@ -1485,7 +1482,6 @@ msgid "FF_CONTACT_Email"
 msgstr "Email"
 
 #: friendfund/templates_free_form/content/contact.html:68
-#| msgid "FF_ACCOUNT_Write your email here..."
 msgid "FF_CONTACT_Write your email here..."
 msgstr "Write your email here..."
 
@@ -2062,7 +2058,7 @@ msgstr "Invite Friends"
 #: friendfund/templates_free_form/mypools/stream.html:221
 #: friendfund/templates_free_form/mypools/stream.html:278
 #: friendfund/templates_free_form/mypools/stream.html:316
-#: friendfund/templates_free_form/pool/pool.html:188
+#: friendfund/templates_free_form/pool/pool.html:185
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr "Embed Widget"
 
@@ -2101,33 +2097,31 @@ msgid "FF_MYPOOLS_MERCHANT"
 msgstr "MERCHANT"
 
 #: friendfund/templates_free_form/mypools/common.html:121
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:190
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:188
 msgid "FF_MYPOOLS_SUCCESFUL"
 msgstr "SUCCESSFUL"
 
 #: friendfund/templates_free_form/mypools/common.html:131
 #: friendfund/templates_free_form/mypools/stream.html:78
 #: friendfund/templates_free_form/mypools/stream.html:106
-#: friendfund/templates_free_form/pool/pool.html:118
 #: friendfund/templates_free_form/pool/pool_complete.html:92
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:201
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:199
 msgid "FF_POOL_PAGE_HEADER_contributors"
 msgstr "CONTRIBUTORS"
 
 #: friendfund/templates_free_form/mypools/common.html:132
-#: friendfund/templates_free_form/pool/pool.html:121
+#: friendfund/templates_free_form/widgets/widgets.html:37
 msgid "FF_POOL_PAGE_HEADER_Chipped in"
 msgstr "CHIPPED IN"
 
 #: friendfund/templates_free_form/mypools/common.html:133
-#: friendfund/templates_free_form/pool/pool.html:123
+#: friendfund/templates_free_form/widgets/widgets.html:39
 msgid "FF_POOL_PAGE_HEADER_Outstanding"
 msgstr "OUTSTANDING"
 
 #: friendfund/templates_free_form/mypools/common.html:135
 #: friendfund/templates_free_form/mypools/stream.html:108
-#: friendfund/templates_free_form/pool/pool.html:124
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:203
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:201
 msgid "FF_POOL_PAGE_HEADER_Days left"
 msgstr "DAYS LEFT"
 
@@ -2201,7 +2195,7 @@ msgid "FF_NEWSSTREAM_%(pooltitle)s has been <span class=\"bold\">successfully fu
 msgstr "%(pooltitle)s has been <span class=\"bold\">successfully funded!</span>"
 
 #: friendfund/templates_free_form/mypools/stream.html:72
-#: friendfund/templates_free_form/pool/pool.html:107
+#: friendfund/templates_free_form/pool/pool.html:111
 msgid "FF_NEWSSTREAM_SUCCESSFUL!"
 msgstr "SUCCESSFUL!"
 
@@ -2534,125 +2528,121 @@ msgstr "Sign up with Twitter"
 msgid "FF_LOGIN_Login in Here"
 msgstr "Log in Here"
 
-#: friendfund/templates_free_form/pool/pool.html:99
+#: friendfund/templates_free_form/pool/pool.html:103
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s"
 msgstr "Pool closes on %(closing_date)s"
 
-#: friendfund/templates_free_form/pool/pool.html:99
+#: friendfund/templates_free_form/pool/pool.html:103
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_by %(admin_name)s"
 msgstr "by %(admin_name)s"
 
-#: friendfund/templates_free_form/pool/pool.html:120
-msgid "FF_POOL_PAGE_HEADER_Invitees"
-msgstr "Invitees"
-
-#: friendfund/templates_free_form/pool/pool.html:138
+#: friendfund/templates_free_form/pool/pool.html:135
 msgid "FF_POOL_PAGE_ADMIN_Show"
 msgstr "Show"
 
-#: friendfund/templates_free_form/pool/pool.html:139
+#: friendfund/templates_free_form/pool/pool.html:136
 msgid "FF_POOL_PAGE_ADMIN_Promote your pool"
 msgstr "Promote your Pool"
 
-#: friendfund/templates_free_form/pool/pool.html:142
+#: friendfund/templates_free_form/pool/pool.html:139
 msgid "FF_POOL_PAGE_ADMIN_Hide"
 msgstr "Hide"
 
-#: friendfund/templates_free_form/pool/pool.html:143
+#: friendfund/templates_free_form/pool/pool.html:140
 msgid "FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:"
 msgstr "Welcome to your new Pool Page! Get started below:"
 
-#: friendfund/templates_free_form/pool/pool.html:148
+#: friendfund/templates_free_form/pool/pool.html:145
 msgid "FF_POOL_PAGE_ADMIN_Promote on your website"
 msgstr "Promote on your website"
 
-#: friendfund/templates_free_form/pool/pool.html:149
+#: friendfund/templates_free_form/pool/pool.html:146
 msgid "FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool."
 msgstr "Embed a widget on your site so visitors can find your Pool."
 
-#: friendfund/templates_free_form/pool/pool.html:150
+#: friendfund/templates_free_form/pool/pool.html:147
 msgid "FF_POOL_PAGE_ADMIN_embed widget"
 msgstr "Embed Widget"
 
-#: friendfund/templates_free_form/pool/pool.html:154
+#: friendfund/templates_free_form/pool/pool.html:151
 msgid "FF_POOL_PAGE_ADMIN_Invite more friends to chip in"
 msgstr "Invite more friends to chip in"
 
-#: friendfund/templates_free_form/pool/pool.html:155
+#: friendfund/templates_free_form/pool/pool.html:152
 msgid "FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?"
 msgstr "Have you forgotten to invite anyone?"
 
-#: friendfund/templates_free_form/pool/pool.html:156
+#: friendfund/templates_free_form/pool/pool.html:153
 msgid "FF_POOL_PAGE_ADMIN_invite more friends"
 msgstr "Invite More Friends"
 
-#: friendfund/templates_free_form/pool/pool.html:159
+#: friendfund/templates_free_form/pool/pool.html:156
 msgid "FF_POOL_PAGE_ADMIN_Share on Social Networks"
 msgstr "Share on Social Networks"
 
-#: friendfund/templates_free_form/pool/pool.html:190
+#: friendfund/templates_free_form/pool/pool.html:187
 msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
 msgstr "invite more friends"
 
-#: friendfund/templates_free_form/pool/pool.html:195
+#: friendfund/templates_free_form/pool/pool.html:192
 msgid "FF_POOL_PAGE_CHIPIN_Share the pool"
 msgstr "Share this Pool"
 
-#: friendfund/templates_free_form/pool/pool.html:211
+#: friendfund/templates_free_form/pool/pool.html:208
 #: friendfund/templates_free_form/pool/pool_complete.html:53
 msgid "FF_POOL_PAGE_CHIPIN_Share the link"
 msgstr "Share the link"
 
-#: friendfund/templates_free_form/pool/pool.html:219
+#: friendfund/templates_free_form/pool/pool.html:216
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(no_invitees)s Invitees"
 msgstr "%(no_invitees)s Invitees"
 
-#: friendfund/templates_free_form/pool/pool.html:221
+#: friendfund/templates_free_form/pool/pool.html:218
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr "Invitees"
 
-#: friendfund/templates_free_form/pool/pool.html:224
+#: friendfund/templates_free_form/pool/pool.html:221
 #: friendfund/templates_free_form/pool/parts/invitees.html:7
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr "View More"
 
-#: friendfund/templates_free_form/pool/pool.html:225
+#: friendfund/templates_free_form/pool/pool.html:222
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr "Show All"
 
-#: friendfund/templates_free_form/pool/pool.html:226
+#: friendfund/templates_free_form/pool/pool.html:223
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr "Hide All"
 
-#: friendfund/templates_free_form/pool/pool.html:240
+#: friendfund/templates_free_form/pool/pool.html:237
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr "About"
 
-#: friendfund/templates_free_form/pool/pool.html:248
+#: friendfund/templates_free_form/pool/pool.html:245
 #: friendfund/templates_free_form/product/urlparser.html:12
 msgid "FF_LINK_Edit Image"
 msgstr "Edit Image"
 
-#: friendfund/templates_free_form/pool/pool.html:256
+#: friendfund/templates_free_form/pool/pool.html:253
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr "RECIPIENT"
 
-#: friendfund/templates_free_form/pool/pool.html:258
+#: friendfund/templates_free_form/pool/pool.html:255
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr "MERCHANT"
 
-#: friendfund/templates_free_form/pool/pool.html:273
+#: friendfund/templates_free_form/pool/pool.html:270
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr "Comments"
 
-#: friendfund/templates_free_form/pool/pool.html:288
+#: friendfund/templates_free_form/pool/pool.html:285
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr "Add your comment here..."
 
-#: friendfund/templates_free_form/pool/pool.html:294
+#: friendfund/templates_free_form/pool/pool.html:291
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr "Post Comment"
 
@@ -2896,6 +2886,29 @@ msgstr "Please write a short description"
 msgid "FF_HOMEPAGE_PRODUCT_Choose a thumbnail (%(counter)s of %(total)s)"
 msgstr "Choose a thumbnail (%(counter)s of %(total)s)"
 
+#: friendfund/templates_free_form/widgets/widgets.html:27
+#, python-format
+#| msgid "FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors"
+msgid "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor"
+msgid_plural "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributors"
+msgstr[0] "<strong>%(number_contributors)d</strong> CONTRIBUTOR"
+msgstr[1] "<strong>%(number_contributors)d</strong> CONTRIBUTORS"
+
+#: friendfund/templates_free_form/widgets/widgets.html:29
+#, python-format
+msgid "FF_POOL_INFO_<strong>%(no_invitees)d</strong> invitee"
+msgid_plural "FF_POOL_INFO_<strong>%(no_invitees)d</strong> invitees"
+msgstr[0] "<strong>%(no_invitees)d</strong> INVITEE"
+msgstr[1] "<strong>%(no_invitees)d</strong> INVITEES"
+
+#: friendfund/templates_free_form/widgets/widgets.html:31
+#, python-format
+#| msgid "FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left"
+msgid "FF_POOL_INFO_<strong>%(days_left)d</strong> day left"
+msgid_plural "FF_POOL_INFO_<strong>%(days_left)d</strong> days left"
+msgstr[0] "<strong>%(days_left)d</strong> DAY LEFT"
+msgstr[1] "<strong>%(days_left)d</strong> DAYS LEFT"
+
 #: friendfund/templates_partner/index.html:26
 msgid "MERCHANT_POPUP_SLOGAN_Share the costs with your friends!"
 msgstr "Invite your friends to chip in!"
@@ -2950,197 +2963,5 @@ msgstr "Choose your Recipient"
 msgid "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your Facebook, Twitter or email friends."
 msgstr "Who's your gift for?"
 
-#~ msgid "STATIC_Frequently Asked Questions_Question1"
-#~ msgstr "Will my gift receiver find out about the gift?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer1"
-#~ msgstr ""
-#~ "On the invite page there is a "
-#~ "box you can tick to make the "
-#~ "pool secret. This means any "
-#~ "notifications sent to social network "
-#~ "news feeds will not mention the "
-#~ "product or your friend's name."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question2"
-#~ msgstr "What happens if we don’t raise enough money before the pool closes?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer2"
-#~ msgstr ""
-#~ "Don’t worry. The pool admin has "
-#~ "the chance to extend the pool and"
-#~ " send out more invite reminders. He"
-#~ " can even ask the gift recipient "
-#~ "if they would like to make up "
-#~ "the difference themselves. If all else"
-#~ " fails he can select a new "
-#~ "product which there is enough funds "
-#~ "for or if they prefer they can "
-#~ "send the recipient a gift voucher "
-#~ "instead."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question3"
-#~ msgstr "Why do you have transaction costs?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer3"
-#~ msgstr ""
-#~ "We offer our service completely free."
-#~ " All we ask if that contributors "
-#~ "cover the transaction costs we have "
-#~ "to pay to our payment provider."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question4"
-#~ msgstr "Can I get a refund or return the gift?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer4"
-#~ msgstr ""
-#~ "If, for any reason, the recipient "
-#~ "is unhappy with their gift then "
-#~ "the pool admin can return the "
-#~ "product directly to the merchant and "
-#~ "receive refund or an alternative product"
-#~ " directly from them subject to the"
-#~ " merchant's returns and refund policy."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question5"
-#~ msgstr "Can I get something for myself?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer5"
-#~ msgstr ""
-#~ "Yes. When selecting a recipient in "
-#~ "the \"Who\" panel just click “choose "
-#~ "yourself”."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question6"
-#~ msgstr "What happens if I get an ‘experience’?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer6"
-#~ msgstr ""
-#~ "We also sell tickets for experiences "
-#~ "such balloon rides or concerts. Tickets"
-#~ " will be posted to your recipient."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question7"
-#~ msgstr "How do I change my password?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer7"
-#~ msgstr ""
-#~ "Click on the profile tab at the"
-#~ " top. Then in the email section "
-#~ "you can enter a new password."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question8"
-#~ msgstr "Why have  I received a friendfund pool invite?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer8"
-#~ msgstr ""
-#~ "A friend has created a gift pool"
-#~ " and invited you to chip in. "
-#~ "Click on the pools tab and you "
-#~ "should see your friend's pool in "
-#~ "the My Pools section."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question9"
-#~ msgstr "My confirmation email doesn’t arrive."
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer9"
-#~ msgstr "Please check your spam filter or request a new confirmation email."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question10"
-#~ msgstr "Why do I have multiple accounts on the profile page?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer10"
-#~ msgstr ""
-#~ "Friendfund allows you to combine your"
-#~ " friend lists from different social "
-#~ "networks. You can set which network "
-#~ "credentials you would like to use "
-#~ "as your default on the profile "
-#~ "page. "
-
-#~ msgid "STATIC_Frequently Asked Questions_Question11"
-#~ msgstr ""
-#~ "I am connected with Facebook but "
-#~ "see my Twitter profile picture and "
-#~ "name."
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer11"
-#~ msgstr ""
-#~ "This is because you have set "
-#~ "Twitter as your default network on "
-#~ "the Profile Page. You can change "
-#~ "this by clicking on the Profile "
-#~ "tab and setting Facebook to be "
-#~ "your default profile."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question12"
-#~ msgstr ""
-#~ "When connecting with my Facebook or "
-#~ "Twitter account I receive a message "
-#~ "saying that the account is already "
-#~ "taken. Why is this?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer12"
-#~ msgstr ""
-#~ "This is because the particular network"
-#~ " profile is already associated with "
-#~ "another user. If you wish to use"
-#~ " that account you must log out "
-#~ "of friendfund and log in with that"
-#~ " networks connect button and account."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question13"
-#~ msgstr "What are these virtual gifts and how can I get one?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer13"
-#~ msgstr ""
-#~ "Friendfund offers some great virtual "
-#~ "gifts which can be purchased with "
-#~ "our currency, Pots of Gold (<span "
-#~ "class=\"pog_currency_symbol\"><img class=\"currency_symbol\" "
-#~ "src=\"/static/imgs/currencies/pog.png\"/>&nbsp;G<span "
-#~ "class=\"pog_currency_symbol_subtype\">&#x2551;</span></span>).  "
-#~ "Everyone you invite  to your pool "
-#~ "has one Pot of Gold they can "
-#~ "chip in.  For a cupcake you need"
-#~ " only 3 friends to chip in a"
-#~ " <span class=\"pog_currency_symbol\"><img "
-#~ "class=\"currency_symbol\" "
-#~ "src=\"/static/imgs/currencies/pog.png\"/></span> but for"
-#~ " the unicorn you need a lot "
-#~ "more. Good luck!"
-
-#~ msgid "STATIC_Frequently Asked Questions_Question14"
-#~ msgstr ""
-#~ "How much do I have to pay "
-#~ "for a Pot of Gold <span "
-#~ "class=\"pog_currency_symbol\"><img class=\"currency_symbol\" "
-#~ "src=\"/static/imgs/currencies/pog.png\"/>&nbsp;G<span "
-#~ "class=\"pog_currency_symbol_subtype\">&#x2551;</span></span>?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer14"
-#~ msgstr ""
-#~ "Pots of Gold <span "
-#~ "class=\"pog_currency_symbol\"><img class=\"currency_symbol\" "
-#~ "src=\"/static/imgs/currencies/pog.png\"/></span> are a "
-#~ "virtual currency so you get them "
-#~ "completely free. However, you can only"
-#~ " contribute 1 Pot to each pool "
-#~ "you are invited to."
-
-#~ msgid "STATIC_Frequently Asked Questions_Question15"
-#~ msgstr "Do I get a real Unicorn?"
-
-#~ msgid "STATIC_Frequently Asked Questions_Answer15"
-#~ msgstr ""
-#~ "All friendfund virtual gifts are, as "
-#~ "the name says, virtual. You will "
-#~ "not receive a physical representation of"
-#~ " the virtual gift. However, they make"
-#~ " for a fun and social experience "
-#~ "online and you can send them "
-#~ "around and share them much like "
-#~ "greeting cards."
-
-#~ msgid "POOL_PAGE_What happens if we raise less money?"
-#~ msgstr "What happens if we raise less money?"
+#~ msgid "FF_POOL_PAGE_HEADER_Invitees"
+#~ msgstr "Invitees"
