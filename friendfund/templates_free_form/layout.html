@@ -16,6 +16,10 @@
 		${next.body()}
 	</div>
 </div>
+<%
+	languages = {"en_GB":_("English"), "es_ES":_("Spanish"), "de_DE":_("German")}
+	lang = session["lang"]
+%>
 
 <div class="wrapFooter">
 		<div class="subFooterTop">
@@ -23,20 +27,20 @@
             	<div class="firstFourCol">
                     <div class="footerCol1">
                         <span class="fontWeightBold">${_("FF_FOOTER_About")}</span>
-                        <a href="${url(controller="content", action="aboutus", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_About Friendfund")}</a>
+                        <a href="${url(controller="content", action="aboutus", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_About Friendfund")}</a>
                         <a target="_blank" href="http://blog.friendfund.com">${_("FF_FOOTER_Our blog")}</a>
-                        <a href="${url(controller="content", action="jobs", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Jobs")}</a>
-                        <a href="${url(controller="content", action="faq", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_FAQ")}</a>
+                        <a href="${url(controller="content", action="jobs", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Jobs")}</a>
+                        <a href="${url(controller="content", action="faq", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_FAQ")}</a>
                     </div>
                     <div class="footerCol2">
                         <span class="fontWeightBold">${_("FF_FOOTER_Contact")}</span>
-                        <a href="${url(controller="content", action="contact", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Contact Friendfund")}</a>
-                        <a href="${url(controller="content", action="become_partner", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Become a partner")}</a>
+                        <a href="${url(controller="content", action="contact", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Contact Friendfund")}</a>
+                        <a href="${url(controller="content", action="become_partner", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Become a partner")}</a>
                     </div>
                     <div class="footerCol3">
                         <span class="fontWeightBold">${_("FF_FOOTER_Legal")}</span>
-                        <a href="${url(controller="content", action="tos", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Terms of Service")}</a>
-                        <a href="${url(controller="content", action="privacy", host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Privacy")}</a>
+                        <a href="${url(controller="content", action="tos", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Terms of Service")}</a>
+                        <a href="${url(controller="content", action="privacy", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Privacy")}</a>
                     </div>
                     <div class="footerCol4">
                         <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
@@ -52,10 +56,6 @@
 							<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
 							<div class="languageSelection">
 								<div class="showHide">
-									<%
-										languages = {"en_GB":_("English"), "es_ES":_("Spanish"), "de_DE":_("German")}
-										selected_lang = session["lang"] == 'es_ES' and 'es_ES' or "en_GB"
-									%>
 									<a>${languages.get(selected_lang)}</a>
 									<div class="widthGiver">
 										<div>

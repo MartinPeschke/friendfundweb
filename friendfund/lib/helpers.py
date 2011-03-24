@@ -5,13 +5,8 @@ Consists of functions to typically be used within templates, but also
 available to Controllers. This module is available to templates as 'h'.
 """
 import os, md5, base64, uuid
-
-from pylons import config, session as websession, app_globals as g
-from babel import negotiate_locale
-from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
-from babel.dates import format_date as fdate, format_datetime as fdatetime
-from decimal import Decimal
 from xml.sax.saxutils import quoteattr
+from friendfund.lib.i18n import *
 
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
@@ -48,16 +43,6 @@ def get_wizard(mc, pd):
 def set_wizard(mc, pd, wizard):
 	mc.set("wizard_pd_%s"%pd, wizard, 7200)
 
-
-def get_format(locale):
-    locale = Locale.parse(locale)
-    format = locale.currency_formats.get(None)
-    return format
-
-def negotiate_locale_from_header(accept_langs, available_languages):
-	langs = map(lambda x: x.replace('-', '_'), accept_langs)
-	return unicode(negotiate_locale(langs, available_languages, aliases={"gb":"en-GB"}) or available_languages[0])
-
 def get_upload_pic_name(name):
 	return os.path.join(name[0:2], name[2:4],name)
 
@@ -85,49 +70,6 @@ def word_truncate_by_letters(s, length):
 
 def has_ne_prop(c, key):
 	return bool(hasattr(c, key) and getattr(c, key))
-
-def format_int_amount(number):
-	number = float(number)/100
-	if round(number) == number:
-		return '%d' % int(number)
-	else:
-		return '%.2f' % number
-
-def default_currency():
-	return g.country_choices.map.get(websession.get('region'), g.country_choices.fallback).currency
-
-def get_thous_sep():
-	return get_group_symbol(locale=websession['lang'])
-def get_dec_sep():
-	return get_decimal_symbol(locale=websession['lang'])
-def display_currency(currency):
-	return get_currency_symbol(currency, locale=websession['lang'])
-def format_currency(number, currency):
-	fnumber = Decimal('%.2f' % number)
-	return fc(fnumber, currency, locale=websession['lang'])
-
-def parse_number(strNum):
-	return pn(strNum, locale=websession['lang'])
-def format_number(number):
-	if number is None or number=="": return ""
-	fnumber = Decimal('%.2f' % number)
-	return fdec(fnumber, format='#,##0.##;-#', locale=websession['lang'])
-
-def format_date(date, with_time = False, format="medium"):
-	if not date: return ""
-	if with_time:
-		return fdatetime(date, format=format, locale=websession['lang'])
-	else:
-		return fdate(date, format=format, locale=websession['lang'])
-
-def format_date_internal(date):
-	if not date: return ""
-	return date.strftime('%Y-%m-%d')
-
-def format_short_date(date, with_time = False):
-	return fdate(date, "d. MMM", locale=websession['lang'])
-
-
 
 ################## For Product Search Templates #################
 def attrib_keys(keys, updates = {}):

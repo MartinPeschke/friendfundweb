@@ -85,14 +85,6 @@ class BaseController(WSGIController):
 	
 	def __call__(self, environ, start_response):
 		"""Invoke the Controller"""
-		
-		print request.accept_language.best_matches()
-		print g.locales
-		print negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
-		
-		if 'lang' not in websession:
-			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
-		set_lang(websession['lang'])
 		if 'region' not in websession:
 			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
 			region = g.country_choices.map.get(region, g.country_choices.fallback).code
@@ -114,6 +106,10 @@ class BaseController(WSGIController):
 		c.user = websession.get('user', ANONUSER)
 		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], host, url.current())
+		
+		if 'lang' not in websession or websession['lang'] not in g.locales:
+			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
+		set_lang(websession['lang'])
 	
 	def __after__(self, action, environ):
 		"""When everything is said and done, Save Session State"""

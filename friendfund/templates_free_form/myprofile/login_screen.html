@@ -59,7 +59,7 @@
 			</div>
 			 <div class="colRightWhite"></div>
 			<p class="info">
-				${(_("FF_LOGIN_By clicking \"Sign Up\", you confirm that you accept the <a href=\"%s\">FF_LOGIN_Terms and Conditions.</a>")%url(controller="content", action="tos"))|n}
+				${(_("FF_LOGIN_By clicking \"Sign Up\", you confirm that you accept the <a href=\"%s\">FF_LOGIN_Terms and Conditions.</a>")%url(controller="content", lang=session["lang"], action="tos"))|n}
 			</p>
 			<div class="padLeft" style="padding-top:20px"><input type="submit" value="${_("FF_LOGINBUTTON_Sign Up")}"  class="primaryButton"/></div>
 			<div class="clear"></div>
