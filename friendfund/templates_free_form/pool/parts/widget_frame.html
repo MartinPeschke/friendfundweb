@@ -180,9 +180,7 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 		"no_contributors":c.pool.total_contributors
 		}
 	%>
-
-
-	<h5><a href="#">${c.pool.title}</a></h5>
+	<h5><a target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">${c.pool.title}</a></h5>
 		<div class="timeCounter">
 		<% progress = int(c.pool.funding_progress()*100) %>
 		<span>
@@ -203,10 +201,11 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 		<span class="upper"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 	</div>
 	<div class="fbHolder">
-		
-		%for pu in c.pool.get_random_n_invitees(5):
+		<div style="margin: 0px auto;width:${38*c.faces}px">
+		%for pu in c.pool.get_random_n_invitees(c.faces):
 			<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
 		%endfor
+		</div>
 		<div class="clear"></div>
 	</div>
 	<div class="textHolder">
@@ -218,8 +217,8 @@ played by the world‘s greatest... </p>
 </div>
 <div class="popupBtnCont">
 
-		<img src="/static/imgs/Widgets_Logo.png" align="right" />
-	<a class="primaryVerySmall">VIEW &raquo;</a>
+	<a target="_blank" href="${url("home", host=app_globals.default_host, protocol="http")}"><img src="/static/imgs/Widgets_Logo.png" align="right" /></a>
+	<a class="primaryVerySmall" target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">VIEW &raquo;</a>
 	<div class="clear"></div>
 </div>
 </div>
