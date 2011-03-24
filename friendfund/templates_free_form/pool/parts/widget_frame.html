@@ -201,7 +201,7 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 		<span class="upper"><strong>${locals['days_left']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Days left")}</span>
 	</div>
 	<div class="fbHolder">
-		%for pu in c.pool.get_random_n_invitees(5):
+		%for pu in c.pool.get_random_n_invitees(c.faces):
 			<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
 		%endfor
 		<div class="clear"></div>

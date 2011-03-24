@@ -405,6 +405,10 @@ class PoolController(ExtBaseController):
 		return {"popup":render("/pool/parts/widget.html").strip()}
 			
 	def widget(self, pool_url):
+		try:
+			c.faces = int(request.params.get("faces", 5)) or 5
+		except:
+			c.faces = 5
 		return render("/pool/parts/widget_frame.html")
 
 			
