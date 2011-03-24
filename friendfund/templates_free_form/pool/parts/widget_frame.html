@@ -180,7 +180,7 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 		"no_contributors":c.pool.total_contributors
 		}
 	%>
-	<h5><a href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">${c.pool.title}</a></h5>
+	<h5><a target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">${c.pool.title}</a></h5>
 		<div class="timeCounter">
 		<% progress = int(c.pool.funding_progress()*100) %>
 		<span>
@@ -218,7 +218,7 @@ played by the world‘s greatest... </p>
 <div class="popupBtnCont">
 
 		<img src="/static/imgs/Widgets_Logo.png" align="right" />
-	<a class="primaryVerySmall" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">VIEW &raquo;</a>
+	<a class="primaryVerySmall" target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">VIEW &raquo;</a>
 	<div class="clear"></div>
 </div>
 </div>
