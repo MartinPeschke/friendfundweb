@@ -5,7 +5,7 @@
 	<div class="subHeader">
 		<div class="userProfile">
 			<div class="empty">
-				<h2>Contact Us</h2>
+				<h2>${_("FF_CONTACT_Contact Us")}</h2>
 			</div>
 		<div class="clear"></div>
 		</div>
@@ -20,83 +20,97 @@
 	${common.render_right_col()}
 
 <div class="colLeft">
-		<h4>Send Us a Message</h4>
+		<h4>${_("FF_CONTACT_Send Us a Message")}</h4>
 		<div class="subHeading"></div>
-		<form action="/content/contact" method="POST" name="contactForm" id="contactForm">
-		<div class="borderBottom">	
+		
+		<form action="/content/contact" method="POST" name="contactForm" id="contactForm" onsubmit="onSubmitCleaner(this)">
+			<div class="borderBottom ${"subject" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Subject</span>
+					<span>${_("FF_CONTACT_Subject")}</span>
 				</div>
-				<input type="text" value="Write your subject here..." class="default" _default_text="Write your subject here..." _length="60" name="subject">
-
-                </div>
+				<input type="text" value="${c.values.get("subject", _("FF_CONTACT_Write your subject here..."))}" class="default" _default_text="${_("FF_CONTACT_Write your subject here...")}" _length="60" name="subject">
+				%if "subject" in c.errors:
+					<span class="error">${c.errors.get("subject")}</span>
+				%endif
 			</div>
-            <div class="borderBottom">
-            	<div class="greyInsideFullWidth">
+			</div>
+			<div class="borderBottom ${"message" in c.errors and "error" or ""}">
+				<div class="greyInsideFullWidth">
 				<div class="first">
-                      <span>Message</span>
+					  <span>${_("FF_CONTACT_Message")}</span>
 				</div>
 				<div class="containerTxtArea">
-					<textarea class="default" _default_text="Write your message here..." name="message">Write your message here...</textarea>
+					<textarea class="default" _default_text="${_("FF_CONTACT_Write your message here...")}" name="message">${c.values.get("message", _("FF_CONTACT_Write your message here..."))}</textarea>
 				</div>
-                </div>
+				%if "message" in c.errors:
+					<span class="error">${c.errors.get("message")}</span>
+				%endif
+				</div>
+				
 			</div>
-            <div class="borderBottom">	
+			<div class="borderBottom ${"name" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Name</span>
+					<span>${_("FF_CONTACT_Name")}</span>
 				</div>
-				<input type="text" value="Write your name here..." class="default" _default_text="Write your name here..." _length="60" name="name">
+				<input type="text" value="${c.values.get("name", _("FF_CONTACT_Write your name here..."))}" class="default" _default_text="${_("FF_CONTACT_Write your name here...")}" _length="60" name="name">
+				%if "name" in c.errors:
+					<span class="error">${c.errors.get("name")}</span>
+				%endif
 				</div>
 			</div>
-            <div class="borderBottom noBorder">	
+			<div class="borderBottom noBorder ${"email" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Email</span>
+					<span>${_("FF_CONTACT_Email")}</span>
 				</div>
-				<input type="text" value="Write your email here..." class="default" _default_text="Write your email here..." _length="60" name="email">
+				<input type="text" value="${c.values.get("email", _("FF_CONTACT_Write your email here..."))}" class="default" _default_text="${_("FF_CONTACT_Write your email here...")}" _length="60" name="email">
+				%if "email" in c.errors:
+					<span class="error">${c.errors.get("email")}</span>
+				%endif
 				</div>
 			</div>
-            <div class="borderBottom noBorder" style="border-top:none">	
+			<div class="borderBottom noBorder" style="border-top:none">	
 				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>&nbsp;</span>
 				</div>
-				<input type="submit" value="Send" class="primaryButton floatLeft" />
+				<input type="submit" value="${_("FF_CONTACT_Send")}" class="primaryButton floatLeft" />
 				</div>
 			</div>
 		</form>
+		
 		<h4>Other Ways to Get in Touch</h4>
 		<div class="subHeadingSpecial"></div>
 		<div class="borderBottom special2">	
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Email</span>
+					<span>${_("FF_CONTACT_Email")}</span>
 				</div>
 				<p class="second"><a href="mailto:feedback@friendfund.com">feedback@friendfund.com</a></p>
 				</div>
 			</div>
-            <div class="borderBottom special2">	
+			<div class="borderBottom special2">	
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Phone</span>
+					<span>${_("FF_CONTACT_Phone")}</span>
 				</div>
 				<p class="second">+49 (30) 99272540</p>
 				</div>
 			</div>
-            <div class="borderBottom special2">	
+			<div class="borderBottom special2">	
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Mail</span>
+					<span>${_("FF_CONTACT_Mail")}</span>
 				</div>
 				<p class="second">friendfund Gmbh<br />
-Landsberger Allee 117<br />
-10407 Berlin<br /><br />
+					Landsberger Allee 117<br />
+					10407 Berlin<br /><br />
 
-Handelsregisternummer: 127841 B<br />
-Registergericht: Amtsgericht Berlin Charlottenburg<br /> 
-Geschäftsführer: Henry George McCarney </p>
+					Handelsregisternummer: 127841 B<br />
+					Registergericht: Amtsgericht Berlin Charlottenburg<br /> 
+					Geschäftsführer: Henry George McCarney </p>
 				</div>
 			</div>
             <div class="borderBottom special2 noBorder">	
@@ -104,7 +118,7 @@ Geschäftsführer: Henry George McCarney </p>
 				<div class="first ">
 					<span class="megaphon floatRight">Uservoice</span>
 				</div>
-				<p class="second">We'd love to hear how you'd <a onclick="UserVoice.Popin.show(); return false;">improve friendfund.</a> </p>
+				<p class="second">${_("FF_CONTACT_We'd love to hear how you'd <a onclick=\"UserVoice.Popin.show(); return false;\">improve friendfund.</a>")|n} </p>
 				</div>
 			</div>
 	</div>

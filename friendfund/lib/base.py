@@ -85,6 +85,11 @@ class BaseController(WSGIController):
 	
 	def __call__(self, environ, start_response):
 		"""Invoke the Controller"""
+		
+		print request.accept_language.best_matches()
+		print g.locales
+		print negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
+		
 		if 'lang' not in websession:
 			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
 		set_lang(websession['lang'])

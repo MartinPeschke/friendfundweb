@@ -1,46 +1,21 @@
-import logging
-
-from pylons import request, response, session, tmpl_context as c, url
+import logging, formencode, md5
+from pylons import request, response, session, tmpl_context as c, url, app_globals as g
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
+from webhelpers.html import escape
+
 from friendfund.lib.auth.decorators import default_domain_only
+from friendfund.lib.base import BaseController, render, _, SuccessMessage
+from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.model.forms.contact import ContactForm
+from friendfund.tasks.notifiers.email import send_email
 
-_ = lambda x:x
-FAQ_KEYS = [(_("STATIC_Frequently Asked Questions_Question1" ), _("STATIC_Frequently Asked Questions_Answer1" )),
-			(_("STATIC_Frequently Asked Questions_Question2" ), _("STATIC_Frequently Asked Questions_Answer2" )),
-			(_("STATIC_Frequently Asked Questions_Question3" ), _("STATIC_Frequently Asked Questions_Answer3" )),
-			(_("STATIC_Frequently Asked Questions_Question4" ), _("STATIC_Frequently Asked Questions_Answer4" )),
-			(_("STATIC_Frequently Asked Questions_Question5" ), _("STATIC_Frequently Asked Questions_Answer5" )),
-			(_("STATIC_Frequently Asked Questions_Question6" ), _("STATIC_Frequently Asked Questions_Answer6" )),
-			(_("STATIC_Frequently Asked Questions_Question7" ), _("STATIC_Frequently Asked Questions_Answer7" )),
-			(_("STATIC_Frequently Asked Questions_Question8" ), _("STATIC_Frequently Asked Questions_Answer8" )),
-			(_("STATIC_Frequently Asked Questions_Question9" ), _("STATIC_Frequently Asked Questions_Answer9" )),
-			(_("STATIC_Frequently Asked Questions_Question10"), _("STATIC_Frequently Asked Questions_Answer10")),
-			(_("STATIC_Frequently Asked Questions_Question11"), _("STATIC_Frequently Asked Questions_Answer11")),
-			(_("STATIC_Frequently Asked Questions_Question12"), _("STATIC_Frequently Asked Questions_Answer12")),
-			(_("STATIC_Frequently Asked Questions_Question13"), _("STATIC_Frequently Asked Questions_Answer13")),
-			(_("STATIC_Frequently Asked Questions_Question14"), _("STATIC_Frequently Asked Questions_Answer14")),
-			(_("STATIC_Frequently Asked Questions_Question15"), _("STATIC_Frequently Asked Questions_Answer15"))
-		]
-
-
-from friendfund.lib.base import BaseController, render, _
 log = logging.getLogger(__name__)
+
 class ContentController(BaseController):
 	@jsonify
 	def amazonhowto(self):
 		return {"popup":render("/content/popups/amazon.html").strip()}
-	
-	@jsonify
-	def pool_too_little_money(self):
-		c.faq_items = FAQ_KEYS[1:2]
-		c.faq_item_header = _("POOL_PAGE_What happens if we raise less money?")
-		return {"popup":render("/content/popups/faq_popup.html").strip()}
-	@jsonify
-	def why_transaction_costs(self):
-		c.faq_items = FAQ_KEYS[2:3]
-		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":render("/content/popups/faq_popup.html").strip()}
 	
 	@jsonify
 	def what_is_cvc(self):
@@ -50,19 +25,8 @@ class ContentController(BaseController):
 		return {"popup":render("/content/popups/pledging_faq.html").strip()}
 	
 	@jsonify
-	def profile_help(self):
-		c.faq_items = FAQ_KEYS[9:12]
-		c.faq_item_header = c.faq_items[0][0]
-		return {"popup":render("/content/popups/faq_popup.html").strip()}
-	
-	@jsonify
 	def invite_info(self):
 		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}	
-	
-	@default_domain_only()
-	def contact(self):
-		return render("/content/contact.html")
-	
 	@default_domain_only()
 	def jobs(self):
 		return render("/content/jobs.html")
@@ -77,7 +41,29 @@ class ContentController(BaseController):
 		return render("/content/faq.html")
 		
 		
-		
+	@default_domain_only()
+	def contact(self):
+		c.errors = {}
+		c.values = {}
+		if request.method!="POST":
+			return self.render("/content/contact.html")
+		else:
+			schema = ContactForm()
+			c.values = formencode.variabledecode.variable_decode(request.params)
+			try:
+				c.data = schema.to_python(c.values, state = FriendFundFormEncodeState)
+				msg = {}
+				msg['email'] = g.SUPPORT_EMAIL
+				msg['subject'] = "[CONTACT_FORM_REQUEST] %s" % c.data['email']
+				msg['text'] = render("/messaging/internal/contact_form.html")
+				log.info("SENT_CONTACT_REQUEST, %s", send_email(msg))
+			except formencode.validators.Invalid, error:
+				c.values = error.value
+				c.errors = error.error_dict or {}
+				return self.render("/content/contact.html")
+		c.messages.append(SuccessMessage(_("FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your time!")))
+		return redirect(url.current())
+	
 	######LOCALIZED
 	@default_domain_only()
 	def become_partner(self, lang = None):

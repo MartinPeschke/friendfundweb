@@ -16,16 +16,10 @@ log = logging.getLogger(__name__)
 
 class UMSEmailUploadException(Exception):pass
 
-def _send_email(template, sndr_data, rcpt_data, template_data):
-	message_params = ums_standard_params.copy()
-	message_params['email'] = rcpt_data['email']
-	
-	data = template_data
-	
-	message_params['subject'] = template.get_def("subject").render_unicode(h = h, data = data)
-	message_params['text'] = template.render_unicode(h = h, data = data) #'h':h, when locale is available
-	message_params['html'] = markdown.markdown(message_params['text'])
-	datagen, headers = multipart_encode(message_params)
+def send_email(msg):
+	msg.update(ums_standard_params)
+	msg['html'] = markdown.markdown(msg['text'])
+	datagen, headers = multipart_encode(msg)
 	request = urllib2.Request(ums_url, datagen, headers)
 	response = etree.parse(urllib2.urlopen(request))
 	if response.find("emstatus").text=='SUCCESS':
@@ -36,4 +30,8 @@ def _send_email(template, sndr_data, rcpt_data, template_data):
 	
 	
 def send(template, sndr_data, rcpt_data, template_data, config):
-	return _send_email(template, sndr_data, rcpt_data, template_data)
+	message_params = {}
+	message_params['email'] = rcpt_data['email']
+	message_params['subject'] = template.get_def("subject").render_unicode(h = h, data = template_data)
+	message_params['text'] = template.render_unicode(h = h, data = template_data)
+	return send_email(message_params)
