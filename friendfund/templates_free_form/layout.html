@@ -52,7 +52,7 @@
 				</div>
                 <div class="footerCol5">
 					<div style="">
-						<div class="language">
+						<!--<div class="language">
 							<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
 							<div class="languageSelection">
 								<div class="showHide">
@@ -68,9 +68,9 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						%if not request.is_secured:
-							<span class="middot floatLeft">&middot;</span>
+							<!--<span class="middot floatLeft">&middot;</span>-->
 							<div class="like floatLeft" style="margin: 3px 0 0 0">
 								<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
 							</div>
@@ -102,7 +102,7 @@
 			<p id="messaging_messages">${' - '.join(m.msg for m in msgs)|n}</p>
 		</div>
 		%if pool_url:
-			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url)}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>
+			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url, protocol="http")}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>
 		%endif
 	</div>
 </%def>

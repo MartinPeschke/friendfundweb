@@ -99,7 +99,7 @@
 		<li><a href="${forms.create_pool_link()}" 
 			${forms.expression_quote(route["controller"] == "pool" and route["action"] in ["details","create"], "class", "navselected")}>${_("FF_MENU_Create a pool")}</a></li>
 		%if not c.user.is_anon:
-			<li><a href="${url(controller="mypools", action="stream")}" 
+			<li><a href="${url(controller="mypools", action="stream", protocol="http")}" 
 				${forms.expression_quote(route["controller"] in ["myprofile", "mypools"], "class", "navselected")}>${_("FF_MENU_My_Pools")}</a></li>
 		%endif
 </ul>
