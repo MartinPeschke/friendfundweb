@@ -9,9 +9,11 @@
 	parseSelectables("creditcardForm");
 	dojo.query("#creditcardForm").onsubmit(
 		function(evt){
+			evt.target.onsubmit = function(){return false};
 			dojo.query("input[type=submit]", evt.target).forEach(function(elem){
+				elem.type = "button";
 				var parent = elem.parentNode;
-				dojo.empty(parent);
+				dojo.addClass(elem, "transp");
 				parent.appendChild(dojo.create("IMG", {src:"${links.ajax_loading_src()}"}));
 			});
 		

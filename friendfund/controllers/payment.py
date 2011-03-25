@@ -126,8 +126,8 @@ class PaymentController(ExtBaseController):
 				try:
 					synclock.rem_contribution(c.token) # raises TokenIncorrectException
 				except synclock.TokenIncorrectException, e:
-					c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing."))
-					return redirect(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))
+					log.warning("PAYMENT_FORM_TOKEN_COULD_NOT_BE_REMOVED %s", e)
+					pass
 			
 			### Handing control over to the specific creditcard method implementation for processing
 			try:

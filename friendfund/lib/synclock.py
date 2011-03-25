@@ -39,7 +39,7 @@ def set_contribution(ref, user, contrib_view):
 	with app_globals.cache_pool.reserve() as mc:
 		tok = _tokenize(ref)
 		sucs = mc.add(tok, contrib_view, DEFAULT_EXPIRES)
-	if not sucs: raise TokenAlreadyExistsException("Token could not be added, it already exists: %s" % token)
+	if not sucs: raise TokenAlreadyExistsException("Token could not be added, it already exists: %s" % ref)
 	else: return sucs
 
 def get_contribution(ref, user):
@@ -47,8 +47,8 @@ def get_contribution(ref, user):
 	with app_globals.cache_pool.reserve() as mc:
 		tok = _tokenize(ref)
 		contrib_view = mc.get(tok)
-	if not contrib_view: raise TokenIncorrectException("Token does not exist, invalid")
-	elif not contrib_view.validate_user(user): raise TokenIncorrectException("Token does not belong to User, invalid")
+	if not contrib_view: raise TokenIncorrectException("Token does not exist, invalid %s" % ref)
+	elif not contrib_view.validate_user(user): raise TokenIncorrectException("Token does not belong to User, invalid, %s" % ref)
 	else: return contrib_view
 
 def set_contribution_invalidated(ref, contrib_view):
@@ -64,5 +64,5 @@ def rem_contribution(ref):
 	with app_globals.cache_pool.reserve() as mc:
 		tok = _tokenize(ref)
 		sucs = mc.delete(tok)
-	if not sucs: raise TokenIncorrectException("Token could not be removed, as it does not exist: %s" % token)
+	if not sucs: raise TokenIncorrectException("Token could not be removed, as it does not exist: %s" % ref)
 	else: return sucs
