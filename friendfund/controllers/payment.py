@@ -80,13 +80,15 @@ class PaymentController(ExtBaseController):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
 		### Establishing correctnes of Flow and getting colateral Info
-		c.form_secret = request.params.get('token')
-		if not c.form_secret:
+		c.token = request.params.get('token')
+		if not c.token:
+			log.error("PAYMENT_FORM_WITHOUT_TOKEN")
 			c.messages.append(ErrorMessage(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed.")))
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		try:
-			c.contrib_view = synclock.get_contribution(c.form_secret, c.user) # raises TokenIncorrectException
+			c.contrib_view = synclock.get_contribution(c.token, c.user) # raises TokenIncorrectException
 		except synclock.TokenIncorrectException, e:
+			log.error("PAYMENT_FORM_WITH_INCORRECT_TOKEN %s", c.token)
 			c.messages.append(ErrorMessage(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. Your payment has not been processed.")))
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		
@@ -122,7 +124,7 @@ class PaymentController(ExtBaseController):
 			else:
 				ccard = CreditCard(**cc_values)
 				try:
-					synclock.rem_contribution(c.form_secret) # raises TokenIncorrectException
+					synclock.rem_contribution(c.token) # raises TokenIncorrectException
 				except synclock.TokenIncorrectException, e:
 					c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing."))
 					return redirect(url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL))

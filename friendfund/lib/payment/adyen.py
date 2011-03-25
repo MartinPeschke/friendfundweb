@@ -90,9 +90,9 @@ class CreditCardPayment(PaymentMethod):
 		self.paymentGateway = PaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
 
 	def process(self, tmpl_context, contrib_view, pool, renderer, redirecter):
-		tmpl_context.form_secret = str(uuid.uuid4())
-		synclock.set_contribution(tmpl_context.form_secret, tmpl_context.user, contrib_view)
-		return redirecter(url(controller="payment", action="creditcard", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL, token=tmpl_context.form_secret))
+		tmpl_context.token = str(uuid.uuid4())
+		synclock.set_contribution(tmpl_context.token, tmpl_context.user, contrib_view)
+		return redirecter(url(controller="payment", action="creditcard", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL, token=tmpl_context.token))
 	
 	
 	def post_process(self, tmpl_context, ccard, pool, renderer, redirecter):
