@@ -47,9 +47,6 @@ class ContentController(BaseController):
 		return redirect(url(controller="content", action="aboutus"))
 	def merchant_explain(self):
 		return render("/content/merchant_explain.html")
-	@default_domain_only()
-	def faq(self):
-		return render("/content/faq.html")
 		
 		
 	@default_domain_only()
@@ -76,6 +73,16 @@ class ContentController(BaseController):
 		return redirect(url.current())
 	
 	######LOCALIZED
+	@default_domain_only()
+	def faq(self):
+		if lang:
+			try:
+				return render("/content/localized/faq_%s.html" % lang)
+			except:
+				return render("/content/localized/faq.html")
+		else:
+			return render("/content/localized/faq.html")
+	
 	@default_domain_only()
 	def become_partner(self, lang = None):
 		if lang:

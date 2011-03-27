@@ -2,9 +2,9 @@
 
 <%def name="render_tabs(tab)">
 	<div class="tabsBig">
-		<a href="${url(controller="mypools", action="stream")}" ${widgets.expression_quote(tab=="stream", "class", "selected")|n}>Activity <span class="spoiler"></span></a>
-		<a href="${url(controller="mypools", action="index")}" ${widgets.expression_quote(tab=="mypools", "class", "selected")|n}>My Pools <span class="spoiler"></span></a>
-		<a href="${url(controller="mypools", action="friends")}" ${widgets.expression_quote(tab=="friends", "class", "selected")|n}>Friends' Pools <span class="spoiler"></span></a>
+		<a href="${url(controller="mypools", action="stream")}" ${widgets.expression_quote(tab=="stream", "class", "selected")|n}>${_("FF_MYPOOLS_Activity")} <span class="spoiler"></span></a>
+		<a href="${url(controller="mypools", action="index")}" ${widgets.expression_quote(tab=="mypools", "class", "selected")|n}>${_("FF_MYPOOLS_My Pools")} <span class="spoiler"></span></a>
+		<a href="${url(controller="mypools", action="friends")}" ${widgets.expression_quote(tab=="friends", "class", "selected")|n}>${_("FF_MYPOOLS_Friends' Pools")} <span class="spoiler"></span></a>
 	</div>
 </%def>
 

@@ -124,7 +124,7 @@
 				<input type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
 			</div>
 		</div>
-		<div class="borderBottom  ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
+		<div class="borderBottom ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
 			<div class="tip">
 				<div class="arrow"></div>
 			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
@@ -133,7 +133,7 @@
 						%if 'ccExpiresMonth' in c.errors:
 							<li>${c.errors.get("ccExpiresMonth")}</li>
 						%endif
-						%if 'ccExpiresYear' in c.errors:
+						%if 'ccExpiresYear' in c.errors and c.errors.get("ccExpiresYear") != c.errors.get("ccExpiresMonth"):
 							<li>${c.errors.get("ccExpiresYear")}</li>
 						%endif
 					</ul>
