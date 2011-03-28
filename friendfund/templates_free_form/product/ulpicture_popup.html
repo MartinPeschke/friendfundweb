@@ -14,6 +14,8 @@
 				<label for="pool_picture">${_("FF_UPLOADPICTUREPOPUP_Upload Picture")}</label>
 				<input name="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
 			</div>
+			<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
+			<div style="clear:both; padding-bottom:20px">
 			<a class="primarySmall floatLeft" 
 				onclick="ioIframeGetJson('${url(controller="product", action="ulpicture")}', 'picture_popup_form', reloadPicture('URLPimgCntSld', 'URLPproductPictureImdt', 'URLPproductPicture'));">
 				<span>${_("FF_UPLOADPICTUREPOPUP_Save")}</span>
@@ -21,8 +23,10 @@
 			
 			
 			<input type="button" value="${_("FF_UPLOADPICTUREPOPUP_Submit")}" class="transp primarySmall floatLeft" style="margin-left:12px"/>
+			<div class="clear"></div>
+			</div>
 			</form>
-			<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
+			
 			<div class="clear"></div>
 			</div>
 			

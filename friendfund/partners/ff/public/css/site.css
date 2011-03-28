@@ -30,6 +30,8 @@ div.wrapHeader {
 	background-color: #004255;
 	background: -moz-linear-gradient(100% 100% 90deg, #004255, #00617d);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#00617d), to(#004255));
+	position: relative;
+	z-index: 2
 }
 div.header {
 	max-width:930px;
@@ -59,12 +61,12 @@ div.subHeader {
 	max-width: 930px;
 	margin: 0 auto;
 	position: relative;
-	z-index: 5;
 }
 div.wrapContent {
 	background: #f9f9f9;
 	padding: 0 0 250px 0;
-	position:relative
+	position:relative;
+	z-index: 1
 }
 div.wrapSubContent {
 	border-top:1px solid white;
@@ -80,6 +82,7 @@ div.wrapFooter {
 	clear:both;
 	position:relative;
 	border-top: 1px solid white;
+	z-index: 2
 }
 div.subFooterTop {
 	background-color: #edece9;
@@ -221,11 +224,11 @@ div.loginArea {
 	float: right;
 	font-size: 12px;
 	color: black;
-	margin: 18px 0 0 0;
+	margin: 16px 0 0 0;
 	position:relative;
-	font-size:11px
+	font-size:11px;
 }
-div.loginArea a.btn {
+div.loginArea a.btn, div.loginArea div.btn {
 	float:left;
 	display: block;
 	margin-right: 5px;
@@ -237,12 +240,13 @@ div.loginArea a.btn {
 	color:white;
 	cursor: pointer;
 	font-size: 10px;
-	text-decoration: none
+	text-decoration: none;
+	position: relative;
 }
-div.loginArea a.btn:hover {
+div.loginArea a.btn:hover, div.loginArea div.btn:hover {
 	background:#004D64 !important
 }
-div.loginArea a.btn.active {
+div.loginArea a.btn.active, div.loginArea div.btn.active {
 	background:#cacaca !important;
 	color: #2C2C2C !important;
 	border-bottom-left-radius:0px;
@@ -263,7 +267,7 @@ div.loginArea img {
 #loginPanelContent {
 	color: #2C2C2C;
 	position: absolute;
-	right:66px;
+	right:0;
 	top: 25px;
 	background:white;
 	border:4px solid #cacaca;
@@ -272,9 +276,8 @@ div.loginArea img {
 	-webkit-border-radius: 5px;
 	border-top-right-radius:0px;
 	-moz-border-radius-topright:0px;
-	z-index: 301;
 	padding:5px 20px 5px 20px;
-	font-size: 12px
+	font-size: 12px;
 }
 #loginPanelContent p {
 	clear: both;
@@ -396,7 +399,6 @@ div.showHide {
 	background: #003B4B;
 	-moz-border-radius:3px;
 	-webkit-border-radius: 3px;
-	height: 25px;
 	position: relative;
 }
 div.showHide:hover {
@@ -408,45 +410,46 @@ div.showHide:hover {
 	background:#E5E5E5;
 }
 div.showHide:hover div.widthGiver {
-	display: block
+	display: block;
 }
 div.showHide div.widthGiver {
-	width:100%;
-	position: absolute;
-	right: 0;
-	top:24px;
-	display: none;
-	z-index:300
-}
-div.showHide div div {
-	-moz-border-radius-bottomleft: 3px;
-	-moz-border-radius-bottomright: 3px;
-	background: none repeat scroll 0 0 white;
 	border-bottom: 4px solid #E5E5E5;
 	border-left: 4px solid #E5E5E5;
 	border-right: 4px solid #E5E5E5;
+	-moz-border-radius-bottomleft: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius:3px;
+	display: none
+}
+div.showHide div div {
+	background: none repeat scroll 0 0 white;
 	clear: both;
+	width: 100%
 }
 div.showHide a {
-	padding: 3px 25px 3px 10px;
+	padding: 0px 25px 0px 10px;
 	color: white;
-	background: url(/static/imgs/arrow-show-small.png) right center no-repeat;
+	background: url(/static/imgs/arrow-show-small.png) right 10px no-repeat;
 	min-width: 80px;
-	display:block
+	display:block;
+	height: 25px;
+	line-height: 25px;
+	overflow: hidden
 }
 div.showHide a:hover {
 	text-decoration: none
 }
 div.showHide:hover a {
-	color:black;
-	background: url(/static/imgs/arrow-up.png) right center no-repeat;
+	color:#2C2C2C;
+	background: url(/static/imgs/arrow-up.png) right 10px no-repeat;
 }
 div.showHide div a {
 	display: block;
 	clear: both;
 	float: none;
 	padding: 3px 10px;
-	color: black;
+	color:#2C2C2C;
 	margin: 0;
 	background:none !important
 }
@@ -500,7 +503,7 @@ div.contentHome {
 	margin: -210px auto 0 auto;
 	padding-bottom: 60px;
 	position: relative;
-	z-index: 10px
+
 }
 div.weNeed {
 	border: 1px solid #D3D3D3;
@@ -509,7 +512,8 @@ div.weNeed {
 	-moz-border-radius-topright:10px;
 	-moz-border-radius-topleft:10px;
 	background: white;
-	margin: 0 -30px 0 -30px
+	margin: 0 -30px 0 -30px;
+	width: 990px
 }
 div.formWeNeed {
 	padding:30px 30px 30px 30px;
@@ -546,7 +550,13 @@ div.weNeed input.button {
 div.formWeNeed span {
 	font-size: 18px;
 	font-weight: bold;
-	margin-right: 5px
+	margin-right: 5px;
+	line-height: 40px;
+	float: left;
+	display: block;
+}
+div.formWeNeed span.showToolTipHook{
+	margin-top: 0
 }
 div.formWeNeed p.info {
 	font-size: 11px;
@@ -567,6 +577,11 @@ div.weNeed .verticalTip {
 div.weNeed .verticalTip span {
 	font-size: 12px;
 	font-weight: normal;
+}
+.exp {
+	position: relative;
+	height: 40px;
+	line-height: 18px
 }
 div.home_expander {
 	padding: 10px 0 0 225px;
@@ -674,7 +689,7 @@ div.controller .smallRight span {
 	position: absolute;
 	right: -100px;
 	top: -107px;
-	z-index: 200;
+
 }
 div.imgCntSld {
 	border: 1px solid #e5e5e5;
@@ -705,7 +720,8 @@ div.logoContainer {
 	clear: both;
 }
 div.logoContainer div.logoContainerRight {
-	float:right
+	width: 500px;
+	float: right
 }
 div.logoContainer div.logoContainerRight img {
 	float:right
@@ -821,19 +837,26 @@ div.boxContributors {
 	text-align: center;
 	clear: both;
 	margin: 0 -11px 0 -11px;
-	margin-top: 10px
+	margin-top: 10px;
+	z-index: 4;
+	position: relative;
+	width: 198px;
 }
 div.boxContributors span {
 	color: black;
-	font-size:10px
+	font-size:10px;
+	line-height: 10px
 }
 div.boxContributors span.upper {
 	text-transform: uppercase;
 }
 div.fbHolder {
-	padding: 9px 0 9px 8px;
-	margin: 1px -9px 0 -9px;
-	background: #ebebeb
+	padding: 9px 0 9px 13px;
+	margin: 0 -9px 0 -9px;
+	background: #ebebeb;
+	height: 30px;
+	z-index: 3;
+	position: relative
 }
 div.fbHolder img {
 	width: 30px;
@@ -875,7 +898,7 @@ div.whatElse .boxGray {
 	top: 25px;
 }
 div.box1 {
-	max-width: 436px;
+	width: 436px;
 	padding: 12px 0 0 12px;
 	float: left;
 	min-height: 192px;
@@ -892,12 +915,12 @@ div.box1 img {
 	margin: 18px 5px;
 }
 div.box2 {
-	max-width: 172px;
+	width: 172px;
 	padding: 20px 18px;
 	min-height: 158px
 }
 div.box3 {
-	max-width: 172px;
+	width: 172px;
 	padding: 20px 18px;
 	min-height: 164px;
 	margin-right: 0px !important
@@ -973,7 +996,7 @@ div.timeTracker span {
 	font-weight: bold;
 	color: #2C2C2C;
 	position: relative;
-	z-index: 10
+
 }
 div.contributors {
 	float:left;
@@ -1301,7 +1324,7 @@ div.checked {
 	position: absolute;
 	right: -5px;
 	top: -5px;
-	z-index: 99
+
 }
 .checked img {
 	width: 18px;
@@ -1811,6 +1834,7 @@ div.simpleeditable textarea {
 	padding: 5px
 }
 .padLeft {
+	clear: both;
 	margin-left: 164px;
 	float: left;
 }
@@ -1945,10 +1969,8 @@ div.tabs span.selected {
 	background-color: #f4f4f4;
 	border-style: solid;
 	border-width: 1px;
-	z-index: 2;
 	border-bottom: none;
 	position: relative;
-	z-index: 201;
 	color: #2C2C2C !important
 }
 div.subTab {
@@ -1961,7 +1983,6 @@ div.subTab {
 	margin-top: -2px;
 	width: 688px;
 	position: relative;
-	z-index: 200
 }
 div.popupBackground {
 	position: fixed;
@@ -1996,7 +2017,7 @@ div.outerPopupFrame div.whitePopupFrame {
 	margin:150px auto;
 	position:relative;
 	width:205px;
-	z-index:1002;
+	z-index:1001;
 	border: 5px solid #cacaca;
 	padding: 20px;
 	-moz-border-radius:10px;
@@ -2009,7 +2030,7 @@ div.outerPopupFrame div.whitePopupFrameLarge {
 	margin:90px auto 0 auto;
 	position:relative;
 	width:490px;
-	z-index:1002;
+	z-index:1001;
 	border: 5px solid #cacaca;
 	padding: 0px 0px 0px 0px;
 	-moz-border-radius:10px;
@@ -2203,7 +2224,6 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	left:0;
 	overflow:hidden;
 	min-height: 35px;
-	z-index: 6
 }
 .overlay {
 	width:100%;
@@ -2434,7 +2454,6 @@ div.friendsList ul li p {
 	position:absolute;
 	right:2px;
 	top:2px;
-	z-index:99;
 	background:#e1eae8;
 	text-align:center;
 	line-height:15px;
@@ -2591,7 +2610,7 @@ p.inviterTwo {
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
 	padding:0 10px;
-	cursor: pointer
+	cursor: pointer;
 }
 .primaryLarge:hover, .primaryButton:hover, .forward:hover, .primarySmall:hover, div.borderBottom .primaryButton:hover {
 	background:#d30165;
@@ -2763,8 +2782,8 @@ div.logInOnePx {
 	padding: 15px 0;
 	position: relative;
 }
-div.logInOnePx.error {
-	padding: 15px 0
+div.logInOnePx p.info {
+	margin-left: 160px
 }
 div.first {
 	line-height: 14px;
@@ -3071,17 +3090,8 @@ span.hider:hover div.moreActions {
 	position: absolute;
 	left: 0px;
 	top: 14px;
-	padding-top: 12px;
-	cursor: default;
-	z-index: 20
-}
-.moreActionsWrapper {
-	position: absolute;
-	left: 0px;
-	top: 14px;
 	padding-top: 6px;
 	cursor: default;
-	z-index: 20;
 }
 .poolRow .boxPoolDetails div span {
 	position: relative;
@@ -3205,8 +3215,7 @@ span.hider:hover div.moreActions {
 	cursor: pointer;  this dont work on activity stream*/
 	font-weight: normal
 }
-.fullWidthBorder {
-}
+
 .entryStream {
 	float: left;
 	width: 500px;
@@ -3214,6 +3223,10 @@ span.hider:hover div.moreActions {
 	border-bottom: 1px solid #EBEBEB;
 	padding: 20px 30px 10px 0;
 	position: relative
+}
+#activityBody .colRightWhite {
+	margin-left: 160px;
+	margin-right: 240px
 }
 .entryStream img.kind {
 	position: absolute;
@@ -3239,7 +3252,7 @@ div.timeCounterSmall span {
 .timeCounterSmall {
 	width: 124px;
 	position: relative;
-	margin-top: 5px;
+	margin-top: 10px;
 	float: left;
 	margin-right: 6px
 }
@@ -3249,7 +3262,7 @@ div.timeCounterSmall span {
 	padding: 0px;
 }
 .tenPix {
-	font-size: 10px;
+	font-size: 11px;
 	line-height: 10px;
 	display: block;
 	float: left;
@@ -3284,6 +3297,21 @@ span.tenPix a.link {
 	color: #696969;
 	font-size: 11px !important
 }
+.merchantShow{
+	margin-right: -30px;
+	margin-bottom: -5px	
+	
+}
+.merchantShow span{
+	color: #999999 ;
+	display: block;
+	margin-top: 5px;
+    float: left;
+    font-size: 11px;
+    line-height: 10px;
+    padding: 5px 0;
+    position: relative;}
+.merchantShow img{ width: 60px; height: 30px; border: 1px solid #e5e5e5; margin-left: 10px; float: left}
 .mainSpan {
 	color:#333
 }
@@ -3532,12 +3560,12 @@ div.footer div.showHide a {
 	margin: 0
 }
 div.footer div.showHide div.widthGiver {
-	display: none;
-	position: absolute;
-	right: 0;
-	top: -32px;
-	width: 100%;
-	z-index: 300;
+	bottom: 25px;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: auto;
+    width: 100%;
 }
 div.footer div.showHide:hover {
 	border-bottom-left-radius:3px;
@@ -3594,9 +3622,7 @@ input.invisible {
 .counterDescr span {
 	margin-right: 0 !important
 }
-.exp {
-	position: relative
-}
+
 div.boxContributors span.middot {
 	font-weight: bold;
 	font-size: 13px;
@@ -3970,9 +3996,7 @@ div.verySmall {
 #titleInput {
 	width: 514px
 }
-#activityBody .colRightWhite {
-	margin-left: 160px
-}
+
 .progTooltip {
 	background: #FAF79B;
 	padding:2px 5px;

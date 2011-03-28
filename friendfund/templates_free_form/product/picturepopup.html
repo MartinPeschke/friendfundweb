@@ -17,9 +17,13 @@
 			<label for="pool_picture">${_("FF_UPLOADPICTUREPOPUP_Upload Picture")}</label>
 			<input name="pool_picture" id="pool_picture" type="file" size="10" maxlength="100000" accept="image/*">
 			</div>
-			<a class="primarySmall floatLeft"  onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>${_("FF_UPLOADPICTUREPOPUP_Save")}</span></a>
-			</form>
 			<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
+			<div style=" clear:both; padding-bottom:20px">
+			<a class="primarySmall floatLeft"  onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>${_("FF_UPLOADPICTUREPOPUP_Save")}</span></a>
+			<div class="clear"></div>
+			</div>
+			</form>
+			
 			<div class="clear"></div>
 			</div>
         </div>

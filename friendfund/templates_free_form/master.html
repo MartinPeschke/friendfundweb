@@ -9,6 +9,7 @@ ${self.render_html()}
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		${next.render_head()}
 		
+		
 	</head>
 	<body class="${self.bodyclass()}">
 		${next.body()}
@@ -25,6 +26,8 @@ ${self.render_html()}
 		${links.js('loaderv3.js')}
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
+		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
+
 		
 </%def>
 

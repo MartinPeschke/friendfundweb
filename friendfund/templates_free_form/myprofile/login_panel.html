@@ -38,10 +38,13 @@
 
 <div class="loginArea">
 	%if c.user.is_anon:
+		
+		<div class="btn" id="loginlink" onclick="toggleLoginPanel(this)">${_("FF_LOGIN_Login")}
 		<div class="newFormControls loginPanel ${not getattr(c, "expanded", False) and "hidden" or ""}" id="loginPanelContent">
 			${renderPanel()|n}
 		</div>
-		<a class="btn" id="loginlink" onclick="toggleLoginPanel(this)">${_("FF_LOGIN_Login")}</a>
+		
+		</div>
 		<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
 		
 		<script type="text/javascript">
