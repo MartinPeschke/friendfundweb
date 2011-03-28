@@ -248,7 +248,7 @@
 				<div class="imgC">
 					<img src="${c.pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
 				
-					%if c.pool.am_i_admin(c.user):
+					%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
 						<a class="imgEdit" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', pool_url = c.pool.p_url, action='picturepopup')}', {})">${_(u"FF_LINK_Edit Image")}</a>
 					%endif
 				</div>
@@ -278,8 +278,7 @@
 			<div class="subHeadingSpecial"></div>
 			<ul id="fundchat" class="comments pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}"></ul>
 			
-			
-			%if c.pool.am_i_member(c.user):
+			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 			<ul class="comments">
 				<li class="percentage">
 					<div class="avt">
