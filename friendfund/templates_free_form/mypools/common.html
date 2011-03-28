@@ -19,7 +19,7 @@
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=pool.merchant_domain),
 			"days_left" : pool.get_remaining_days()
 		}
-	merchant = app_globals.merchants.domain_map.get(pool.merchant_domain)
+	merchant = pool.get_merchant()
 %>
 <div class="poolRowWrap">
 	<div class="poolRow">

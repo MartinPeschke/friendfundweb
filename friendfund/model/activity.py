@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from operator import attrgetter
 from random import sample, choice
 
+from pylons import app_globals
 from pylons.i18n import _
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
@@ -208,7 +209,10 @@ class ActivityStream(DBMappedObject):
 			return _("FF_RECENCY_%(months)d months ago") %{"months":day_diff/30}
 		return _("FF_RECENCY_%(years)d years ago")%{"years":day_diff/365}
 	
-			
+	def get_merchant(self):
+		if not hasattr(self, "merchant"):
+			setattr(self, "merchant", app_globals.merchants.domain_map.get(self.merchant_domain))
+		return self.merchant
 			
 			
 	def fromDB(self, xml):

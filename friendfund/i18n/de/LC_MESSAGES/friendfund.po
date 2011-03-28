@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-28 15:15+0100\n"
+"PO-Revision-Date: 2011-03-28 18:37+0100\n"
 "Last-Translator: Markus Krebs <marksen23@gmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -190,7 +190,7 @@ msgstr "Der Pool war erfolgreich und das Geschenk ist unterwegs!"
 
 #: friendfund/controllers/pool.py:23
 msgid "POOL_ACTION_This pool has not reached it's target. Please vist the pool admin page to continue fund raising!"
-msgstr "Dieser Pool hat sein Ziel nicht erreicht, bitte prüfe auf der Pool Admin Seite wie wir dir helfen können den Pool doch noch zum Erfolg zu führen."
+msgstr "Dieser Pool hat sein Ziel nicht erreicht, bitte prüfe auf der Pool-Admin Seite wie wir dir helfen können den Pool doch noch zum Erfolg zu führen."
 
 #: friendfund/controllers/pool.py:24
 msgid "POOL_ACTION_Changes saved."
@@ -212,7 +212,7 @@ msgstr "Um das Geschenk zu bestellen, brauchen wir eine Liefer- und Rechnungsadr
 #: friendfund/controllers/pool.py:280
 #: friendfund/controllers/pool.py:292
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
-msgstr "Diesen Pool gibt es leider nicht oder nicht mehr, tschuldigung."
+msgstr "Diesen Pool gibt es leider nicht oder nicht mehr!"
 
 #: friendfund/controllers/pool.py:44
 #, python-format
@@ -221,7 +221,7 @@ msgstr "Dieser Pool wurde erfolgreich beendet. <a href=\"%s\"> Hier zur eCard&ra
 
 #: friendfund/controllers/pool.py:46
 msgid "FF_POOL_EXPIRED_MSG_This pool expired without reaching its funding goal in time."
-msgstr "Dieser Pool ist nicht mehr aktiv. Das Ziel wurde nicht erreicht."
+msgstr "Dieser Pool ist nicht mehr aktiv. "
 
 #: friendfund/controllers/pool.py:124
 #: friendfund/controllers/pool.py:162
@@ -275,7 +275,7 @@ msgstr "Kein bekannter Empfänger gefunden."
 
 #: friendfund/controllers/receiver.py:118
 msgid "Please input a name"
-msgstr "Bitte gebe einen Namen ein"
+msgstr "Bitte gib einen Namen an"
 
 #: friendfund/controllers/twitter.py:21
 msgid "TWITTER_An Error occured during Twitter authentication, please try again later."
@@ -474,7 +474,7 @@ msgstr "Gib bitte eine gültige Währung ein."
 #: friendfund/model/forms/common.py:56
 #: friendfund/model/forms/common.py:76
 msgid "MONETARYVALIDATOR_Please input a valid amount"
-msgstr "Bitte gebe einen gültigen Betrag an!"
+msgstr "Bitte gib einen gültigen Betrag ein!"
 
 #: friendfund/model/forms/common.py:57
 #: friendfund/model/forms/common.py:77
@@ -484,7 +484,7 @@ msgstr "Bitte trage einen Wert ein der %(max_amount)s oder weniger entspricht"
 
 #: friendfund/model/forms/common.py:106
 msgid "SETTLEMENT_PAYPAL_EMAIL_MISSIN_Please enter a valid value"
-msgstr "Bitte gebe einen gültigen Betrag an!"
+msgstr "Bitte gib einen gültigen Betrag ein!"
 
 #: friendfund/model/forms/common.py:107
 msgid "SETTLEMENT_Invalid Settlement Option"
@@ -505,7 +505,7 @@ msgstr "Ungültiger Gesamtwert"
 
 #: friendfund/model/forms/contact.py:10
 msgid "FF_CONTACT_ERROR_SUBJECT_Please enter a subject!"
-msgstr "Bitte einen Betreff angeben!"
+msgstr "Bitte einen Betreff eingeben!"
 
 #: friendfund/model/forms/contact.py:11
 msgid "FF_CONTACT_ERROR_MESSAGE_Please enter a message!"
@@ -513,7 +513,7 @@ msgstr "Bitte eine Nachricht eingeben!"
 
 #: friendfund/model/forms/contact.py:12
 msgid "FF_CONTACT_ERROR_NAME_Please enter a name!"
-msgstr "Bitte einen Namen angeben!"
+msgstr "Bitte einen Namen eingeben!"
 
 #: friendfund/model/forms/contact.py:13
 msgid "FF_CONTACT_ERROR_EMAIL_Please enter an email !"
@@ -521,7 +521,7 @@ msgstr "Bitte eine E-Mail Adresse eingeben!"
 
 #: friendfund/model/forms/contribution.py:9
 msgid "FF_CHIPIN_ERROR_AMOUNT_Please enter some amount!"
-msgstr "Bitte einen Betrag angeben!"
+msgstr "Bitte einen Betrag eingeben!"
 
 #: friendfund/model/forms/creditcard.py:9
 msgid "FF_CONTRIBPAGE_ERROR_ccHolder_Please enter your credit card  holder name!"
@@ -529,11 +529,11 @@ msgstr "Bitte den Karteninhaber angeben!"
 
 #: friendfund/model/forms/creditcard.py:10
 msgid "FF_CONTRIBPAGE_ERROR_ccNumber_Please enter your credit card number!"
-msgstr "Bitte gebe deine Kreditkartennummer ein!"
+msgstr "Gib deine Kreditkartennummer ein!"
 
 #: friendfund/model/forms/creditcard.py:11
 msgid "FF_CONTRIBPAGE_ERROR_ccCVC_Please enter your CVC number!"
-msgstr "Bitte die CVC Nummer eingeben!"
+msgstr "Bitte die CVC Nummer angeben!"
 
 #: friendfund/model/forms/pool.py:15
 msgid "FF_POOLETAILS_ERROR_DATE_Please enter some date value!"
@@ -553,7 +553,7 @@ msgstr "Bitte eine Beschreibung eingeben!"
 
 #: friendfund/model/forms/pool.py:31
 msgid "FF_INVITEE_ERROR_NAME_Please enter a name text!"
-msgstr "Bitte einen Namen angeben!"
+msgstr "Bitte einen Namen eingeben!"
 
 #: friendfund/model/forms/pool.py:32
 msgid "FF_INVITEE_ERROR_EMAIL_Please enter some email!"
@@ -616,11 +616,11 @@ msgstr "Hochzeit"
 
 #: friendfund/resources/db_keys.py:14
 msgid "ADMIN_ACTION_ASK_CONTRIBUTORS"
-msgstr "Frage die Spender nochmal beizutragen"
+msgstr "Frage die Teilnehmer, ob sie nochmal einzahlen wollen"
 
 #: friendfund/resources/db_keys.py:15
 msgid "ADMIN_ACTION_ASK_CONTRIBUTORS_TO_INVITE"
-msgstr "Bitte die Spender mehr Freunde einzuladen"
+msgstr "Bitte die Einzahler mehr Freunde einzuladen"
 
 #: friendfund/resources/db_keys.py:16
 msgid "ADMIN_ACTION_ASK_RECEIVER"
@@ -632,7 +632,7 @@ msgstr "Wähle ein Günstigeres Produkt"
 
 #: friendfund/resources/db_keys.py:18
 msgid "ADMIN_ACTION_CHIP_IN_EXTEND"
-msgstr "Steuere bei und verlängere die Deadline"
+msgstr "Zahle ein und verlängere den Zeitraum"
 
 #: friendfund/resources/db_keys.py:19
 msgid "ADMIN_ACTION_CHIP_IN_REMAINDER"
@@ -963,7 +963,7 @@ msgstr "Deine E-Mail"
 
 #: friendfund/templates/messages/blocks.html:28
 msgid "INVITE_PERMISSIONS_POPUP_To receive notifications of any updates on your pool, please enter your email address or use your facebook email."
-msgstr "Um Updates zu deinem Pool empfangen zu können, gebe bitte deine E-Mail Adresse an oder verwende deinen Facebook E-Mail Account."
+msgstr "Um Updates zu deinem Pool empfangen zu können, gib bitte deine E-Mail Adresse ein oder verwende deinen Facebook E-Mail Account."
 
 #: friendfund/templates/messages/blocks.html:29
 msgid "INVITE_PERMISSIONS_POPUP_Email:"
@@ -991,7 +991,7 @@ msgstr "Weil du Freunde über Facebook einlädst, benötigen wir deine Erlaubnis
 
 #: friendfund/templates/messages/blocks.html:39
 msgid "INVITE_PERMISSIONS_POPUP_...or grant both in one go!"
-msgstr "... oder gebe Beides auf einmal frei!"
+msgstr "... oder gib Beides auf einmal frei!"
 
 #: friendfund/templates/messages/blocks.html:40
 msgid "INVITE_PERMISSIONS_POPUP_Grant Both!"
@@ -1163,7 +1163,7 @@ msgstr "Um deine Facebook Freunde einzuladen musst du dich bei Facebook einlogge
 #: friendfund/templates/receiver/inviter.html:18
 #: friendfund/templates/receiver/invite/inviter.html:19
 msgid "INVITE_PAGE_LABEL_Search friends ..."
-msgstr "Freunde Suchen ..."
+msgstr "Freunde suchen..."
 
 #: friendfund/templates/receiver/inviter.html:23
 msgid "RECEIVER_PANEL_Select"
@@ -1455,7 +1455,7 @@ msgstr "Betreff"
 
 #: friendfund/templates_free_form/content/contact.html:32
 msgid "FF_CONTACT_Write your subject here..."
-msgstr "Gebe deinen Betreff an..."
+msgstr "Gib deinen Betreff ein..."
 
 #: friendfund/templates_free_form/content/contact.html:41
 msgid "FF_CONTACT_Message"
@@ -1542,7 +1542,7 @@ msgstr "Nutzungsbedingungen"
 
 #: friendfund/templates_free_form/content/popups/how_friends_invited_popup.html:6
 msgid "FF_HOWINVITEDPOPUP_How will my friends be notified?"
-msgstr "Wie werden meine Freunde benachrichtigt."
+msgstr "Wie werden meine Freunde benachrichtigt?"
 
 #: friendfund/templates_free_form/content/popups/how_friends_invited_popup.html:10
 msgid "FF_HOWINVITEDPOPUP_Your invitees will be notified of your Pool in three different ways:<br><br>Facebook friends will be invited to a Facebook Event, Email friends will be emailed,and Twitter friends will receive an @message. <br><br> Don’t worry, your privacy is sacred to us so we’ll never spam your friends or abuse your personal details."
@@ -1601,7 +1601,7 @@ msgstr "Fertig!"
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:91
 msgid "FF_CONTRIB_PAGE_How much do you want to contribute?"
-msgstr "Wieviel möchtest du beitragen?"
+msgstr "Wieviel möchtest du einzahlen?"
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:102
 msgid "FF_CONTRIB_PAGE_Your contribution"
@@ -1685,7 +1685,7 @@ msgstr "Geschäftsbedingungen"
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:358
 msgid "FF_CONTRIB_PAGE_BUTTON_Chip In"
-msgstr "Beitragen"
+msgstr "Zahle ein"
 
 #: friendfund/templates_free_form/contribution/payment_details.html:31
 msgid "FF_CONTRIB_DETAILS_HEADER_Last Step: Your Payment Details"
@@ -1795,7 +1795,7 @@ msgstr "Gründe einen Pool"
 
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:5
 msgid "FF_CONTRIBUTION_FEE_POPUP_Why am I being charged for chipping in?"
-msgstr "Warum wurden mir für die Beteiligung Kosten berechn?t."
+msgstr "Warum wurden mir für die Beteiligung Kosten berechnet?"
 
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:7
 msgid "FF_CONTRIBUTION_FEE_POPUP_To keep friendfund as cheap to use as possible, we have to charge transaction fees set by our Paypal and Credit Card providers."
@@ -1853,7 +1853,7 @@ msgstr "Wofür wird Geld gesammelt?"
 
 #: friendfund/templates_free_form/invite/invite.html:49
 msgid "FF_INVITEPAGE_HEADER_Enter pool details"
-msgstr "Gebe Details zu Deinem Pool ein"
+msgstr "Gib Details zu Deinem Pool ein"
 
 #: friendfund/templates_free_form/invite/invite.html:58
 msgid "FF_INVITEPAGE_Remove All"
@@ -1865,15 +1865,15 @@ msgstr "Freunde einladen"
 
 #: friendfund/templates_free_form/invite/invite.html:61
 msgid "FF_INVITER_EMAIL_Invite your friends from<br /> the left panel"
-msgstr "Wähle Deine Freunde in <br /> aus deiner Freundesliste"
+msgstr "Wähle Deine Freunde <br /> aus deiner Freundesliste"
 
 #: friendfund/templates_free_form/invite/invite.html:71
 msgid "FF_INVITEPAGE_HEADER_Invite your friends from Facebook, Twitter or Email"
-msgstr "Lade Deine Freunde auf Facebook und Twiter oder per Email ein."
+msgstr "fLade Deine Freunde auf Facebook und Twitter oder per Email ein. "
 
 #: friendfund/templates_free_form/invite/invite.html:72
 msgid "FF_INVITEPAGE_how will my friends be notified?"
-msgstr "wie werden meine Freunde benachrichtigt?"
+msgstr "Wie werden meine Freunde benachrichtigt?"
 
 #: friendfund/templates_free_form/invite/invite.html:86
 msgid "FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>"
@@ -1889,7 +1889,7 @@ msgstr "Betreff"
 
 #: friendfund/templates_free_form/invite/invite.html:102
 msgid "FF_INVITEPAGE_Write your subject here..."
-msgstr "Gebe Deinen Betreff an..."
+msgstr "Gib deinen Betreff ein..."
 
 #: friendfund/templates_free_form/invite/invite.html:112
 msgid "FF_INVITEPAGE_MESSAGE_Tip goes here"
@@ -1921,7 +1921,7 @@ msgstr "Pool gründen"
 
 #: friendfund/templates_free_form/invite/inviter.html:18
 msgid "FF_INVITER_Search Friends"
-msgstr "Freunde Suchen"
+msgstr "Freunde suchen..."
 
 #: friendfund/templates_free_form/invite/inviter.html:20
 msgid "FF_INVITER_CHECKBOX_Mutual Friends"
@@ -2558,11 +2558,11 @@ msgstr "Hast du jemanden vergessen?"
 
 #: friendfund/templates_free_form/pool/pool.html:160
 msgid "FF_POOL_PAGE_ADMIN_invite more friends"
-msgstr "mehr Freunde einladen"
+msgstr "Mehr Freunde einladen"
 
 #: friendfund/templates_free_form/pool/pool.html:163
 msgid "FF_POOL_PAGE_ADMIN_Share on Social Networks"
-msgstr "Auf Sozialen Netzwerken verteilen"
+msgstr "Auf sozialen Netzwerken verteilen"
 
 #: friendfund/templates_free_form/pool/pool.html:194
 msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
@@ -2678,7 +2678,7 @@ msgstr "Fertig!"
 
 #: friendfund/templates_free_form/pool/pool_details.html:89
 msgid "FF_POOLDETAILS_HEADER_Step 2. Enter Your Pool Details"
-msgstr "Schritt 2. Gebe Informationen zu deinem Pool an."
+msgstr "Schritt 2. Gib Informationen zu deinem Pool ein."
 
 #: friendfund/templates_free_form/pool/pool_details.html:91
 msgid "FF_POOLDETAILS_HEADER_What are you collecting money for?"
@@ -2686,7 +2686,7 @@ msgstr "Wofür sammelst du Geld?"
 
 #: friendfund/templates_free_form/pool/pool_details.html:91
 msgid "FF_POOLDETAILS_HEADER_Enter pool details"
-msgstr "Gebe Informationen zu deinem Pool ein"
+msgstr "Gib Informationen zu deinem Pool ein"
 
 #: friendfund/templates_free_form/pool/pool_details.html:126
 msgid "FF_POOLDETAILS_We Need"
@@ -2709,7 +2709,7 @@ msgstr "noch <span class=\"bold\" id=\"daysLeft\">0</span> Tage"
 
 #: friendfund/templates_free_form/pool/pool_details.html:155
 msgid "FF_POOLDETAILS_TITLE_Tip goes here"
-msgstr "Gebe deinem Pool einen Namen."
+msgstr "Gib deinem Pool einen Namen."
 
 #: friendfund/templates_free_form/pool/pool_details.html:161
 msgid "FF_POOLDETAILS_LABEL_Pool Title"
@@ -2797,7 +2797,7 @@ msgstr "Alles oder Nichts!"
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:47
 #, python-format
 msgid "FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>"
-msgstr "Du zahlst nur, wenn der Gesamtbetrag in Höhe von %(total_amount)s bis zum <strong>%(closing_date)s</strong> in den Pool eingezahlt wird."
+msgstr "Du zahlst nur, wenn der Gesamtbetrag in Höhe von %(total_amount)s bis zum <strong>%(closing_date)s</strong> zustande kommt! Sollte der geforderte Gesamtbetrag nicht zustande kommen, wird dir kein Cent berechnet. Etwaige Paypalgebühren werden dir natürlich auch zurückerstattet!"
 
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:18
 msgid "FF_POOL_PAGE_CHIPIN_Its SUCCESS!"
@@ -2805,7 +2805,7 @@ msgstr "Erfolgreich!"
 
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:19
 msgid "FF_POOL_PAGE_CHIPIN_This pool was successfully funded and is now cloed."
-msgstr "Dieser Pools war erfolgreich und ist nun geschlossen."
+msgstr "Der geforderte Gesamtbetrag dieses Pools ist erreicht worden. "
 
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:20
 msgid "FF_POOL_PAGE_CHIPIN_View Card"
@@ -2817,7 +2817,7 @@ msgstr "Der Pool ist abgelaufen."
 
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:29
 msgid "FF_POOL_PAGE_CHIPIN_The pool has expired without reaching its target in time."
-msgstr "Der Pool hat sein Ziel in der vorgegebenen Zeit nicht erreicht."
+msgstr "Der Pool hat den geforderten Gesamtbetrag in der vorgegebenen Zeit nicht erreicht."
 
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:37
 msgid "FF_POOL_PAGE_CHIPIN_Chip In"
@@ -2929,7 +2929,7 @@ msgstr "Wähle einen Anlass"
 
 #: friendfund/templates_partner/occasion/panel.html:27
 msgid "EVENT_PANEL_... Or enter your own occasion:"
-msgstr "... Oder geben deinen eigenen Anlass an:"
+msgstr "... Oder gib deinen eigenen Anlass ein:"
 
 #: friendfund/templates_partner/occasion/panel.html:34
 msgid "EVENT_PANEL_Pick a date so your gift arrives on time:"

@@ -17,8 +17,7 @@
 	</div>
 </div>
 <%
-	languages = {"en_gb":_("English"), "es_es":_("Spanish"), "de_de":_("German")}
-	lang = session["lang"]
+	lang = h.get_language_locale(session["lang"])
 %>
 
 <div class="wrapFooter">
@@ -51,17 +50,17 @@
                     <div class="clear"></div>
 				</div>
                 <div class="footerCol5">
-					<div style="">${lang}
+					<div>
 						<div class="language">
 							<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
 							<div class="languageSelection">
 								<div class="showHide">
-									<a>${languages.get(lang)}</a>
+									<a>${_(app_globals.LANGUAGES.get(lang))}</a>
 									<div class="widthGiver">
 										<div>
-											%for locale, langname in sorted(languages.iteritems()):
+											%for locale, langname in sorted(app_globals.LANGUAGES.iteritems()):
 												%if locale != lang:
-													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${langname}</a>
+													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${_(langname)}</a>
 												%endif
 											%endfor
 										</div>

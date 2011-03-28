@@ -63,8 +63,10 @@ def set_lang(lang, **kwargs):
 	if 'paste.registry' in environ:
 		environ['paste.registry'].replace(pylons.translator, translator)
 		
-		
-		
+locale_transl = {"en_us":"en_gb"}
+def get_language_locale(locale):
+	return locale_transl.get(locale, locale)
+	
 		
 def get_format(locale):
 	locale = Locale.parse(locale)

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from random import sample
+from pylons import app_globals
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 
@@ -96,7 +97,12 @@ class MyPoolEntry(DBMappedObject):
 			return diff.days
 	def fromDB(self, xml):
 		setattr(self, "_is_closed", self.status in ["CLOSED", "COMPLETE"])
-
+	
+	def get_merchant(self):
+		if not hasattr(self, "merchant"):
+			setattr(self, "merchant", app_globals.merchants.domain_map.get(self.merchant_domain))
+		return self.merchant
+	
 class GetMyPoolsProc(DBMappedObject):
 	"""
 		exec [app].[get_my_pools] '<MY_POOLS u_id="3540"/>'

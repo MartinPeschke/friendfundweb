@@ -55,6 +55,7 @@
 				locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),
 					"pooltitle":'<a class="bold" href="%s">%s</a>'%(url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),h.word_truncate_by_letters(streamentry.event.title, 100)),
 					"actorname":'<span class="bold">%s</span>'%streamentry.event.name}
+				merchant = streamentry.get_merchant()
 			%>
 		%if streamentry.event._get_root == "SUCCESS":
 			<% locals["number_contributors"] = streamentry.event.no_contributors %>
@@ -80,6 +81,12 @@
 							</div>
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
+								%if not merchant.is_default:
+									<div class="merchantShow floatRight">
+										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
+										<img width="60px" height="30px" src="${h.get_merchant_logo(merchant.logo_url)}" />
+									</div>
+								%endif
 							</div>
 						</div>
 					</div>
@@ -132,7 +139,14 @@
 											</div>
 											<div class="atclear"></div>
 										</div>
-									</div></span>
+									</div>
+								</span>
+								%if not merchant.is_default:
+									<div class="merchantShow floatRight">
+										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
+										<img width="60px" height="30px" src="${h.get_merchant_logo(merchant.logo_url)}" />
+									</div>
+								%endif
 							</div>
 						</div>
 					</div>
@@ -185,7 +199,12 @@
 										</div>
 									</div>
 								</span>
-								<div class="merchantShow floatRight"><span>MERCHANT</span> <img src="/static/imgs/merch/amazon.png" /></div>
+								%if not merchant.is_default:
+									<div class="merchantShow floatRight">
+										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
+										<img width="60px" height="30px" src="${h.get_merchant_logo(merchant.logo_url)}" />
+									</div>
+								%endif
 							</div>
 						</div>
 					</div>
@@ -236,7 +255,12 @@
 											<div class="atclear"></div>
 										</div>
 									</div></span>
-									
+								%if not merchant.is_default:
+									<div class="merchantShow floatRight">
+										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
+										<img width="60px" height="30px" src="${h.get_merchant_logo(merchant.logo_url)}" />
+									</div>
+								%endif
 							</div>
 						</div>
 					</div>
@@ -293,7 +317,13 @@
 											<div class="atclear"></div>
 										</div>
 									</div>
-									</span>
+								</span>
+								%if not merchant.is_default:
+									<div class="merchantShow floatRight">
+										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
+										<img width="60px" height="30px" src="${h.get_merchant_logo(merchant.logo_url)}" />
+									</div>
+								%endif
 							</div>
 						</div>
 					</div>
@@ -334,6 +364,12 @@
 							</div>
 						</div>
 					</span>
+					%if not merchant.is_default:
+						<div class="merchantShow floatRight">
+							<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
+							<img width="60px" height="30px" src="${h.get_merchant_logo(merchant.logo_url)}" />
+						</div>
+					%endif
 				</div>
 			</div>
 		</div>
