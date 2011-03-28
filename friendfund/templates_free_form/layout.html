@@ -51,16 +51,16 @@
                     <div class="clear"></div>
 				</div>
                 <div class="footerCol5">
-					<div style="">
+					<div style="">${lang}
 						<div class="language">
 							<span class="floatLeft"; style="margin:3px 5px 0 0">${_("FF_FOOTER_Language:")} </span>
 							<div class="languageSelection">
 								<div class="showHide">
-									<a>${languages.get(selected_lang)}</a>
+									<a>${languages.get(lang)}</a>
 									<div class="widthGiver">
 										<div>
 											%for locale, langname in sorted(languages.iteritems()):
-												%if locale != selected_lang:
+												%if locale != lang:
 													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${langname}</a>
 												%endif
 											%endfor

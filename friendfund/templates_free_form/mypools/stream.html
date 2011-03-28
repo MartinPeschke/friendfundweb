@@ -163,7 +163,8 @@
 							 
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
-								<span class=" tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
+								<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}
+									<div class="moreActionsWrapper">
 										<div class="moreActions hidden">
 											<div class="arrowMoreActions">
 												<img src="/static/imgs/arrowMoreAction.png">
@@ -215,7 +216,7 @@
 							 
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
-								<span class="tenPix link">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
+								<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
 										<div class="moreActions hidden">
 											<div class="arrowMoreActions">
 												<img src="/static/imgs/arrowMoreAction.png">
@@ -310,27 +311,29 @@
 					<p>"${h.word_truncate_by_letters(streamentry.event.comment, 180)}"</p>
 				</div>
 				<div class="liner">
-					<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span><span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}<div class="moreActionsWrapper">
-									<div class="moreActions hidden">
-										<div class="arrowMoreActions">
-											<img src="/static/imgs/arrowMoreAction.png">
-										</div>
-										<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
-										<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
-										<span>|</span>
-										<a class="link popuplink" _href="${url("pool_action", action="get_widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
-										<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
-										<input type="text" onclick="this.select()" value="${locals['full_pool_url']}"/>
-										<div class="addthis_toolbox addthis_default_style">
-										  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
-										  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
-										  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
-										  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
-										</div>
-										<div class="atclear"></div>
-									</div>
+					<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
+					<span class="tenPix link hider">${_("FF_MYPOOLS_PROMOTE")}
+						<div class="moreActionsWrapper">
+							<div class="moreActions hidden">
+								<div class="arrowMoreActions">
+									<img src="/static/imgs/arrowMoreAction.png">
 								</div>
-								</span>
+								<h6>${_("FF_MYPOOLS_PROMOTE THIS POOL")}</h6>
+								<a href="${url("invite_index", pool_url=streamentry.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a>
+								<span>|</span>
+								<a class="link popuplink" _href="${url("pool_action", action="get_widget", pool_url=streamentry.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+								<h6>${_("FF_MYPOOLS_SHARE TOOLS")}</h6>
+								<input type="text" onclick="this.select()" value="${locals['full_pool_url']}"/>
+								<div class="addthis_toolbox addthis_default_style">
+								  <a class="addthis_button_facebook" addthis:url="${locals['full_pool_url']}"></a>
+								  <a class="addthis_button_twitter" addthis:url="${locals['full_pool_url']}"></a>
+								  <a class="addthis_button_email" addthis:url="${locals['full_pool_url']}"></a>
+								  <a class="addthis_button_tumblr" addthis:url="${locals['full_pool_url']}" style="margin:0"></a>
+								</div>
+								<div class="atclear"></div>
+							</div>
+						</div>
+					</span>
 				</div>
 			</div>
 		</div>

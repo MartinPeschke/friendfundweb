@@ -86,12 +86,19 @@ def _stream_publish(template, sndr_data, rcpt_data, template_data):
 	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOLS", site_root=template_data["DEFAULT_BASE_URL"]).encode("utf-8")
 	
 	msg['access_token'] = sndr_data['access_token'].encode("utf-8")
+	
 	query = urllib.urlencode(msg)
 	try:
 		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query)
 	except urllib2.HTTPError, e:
 		resp = e.fp
 	post = simplejson.loads(resp.read())
+	
+	
+	# response.get("error"):
+	# raise GraphAPIError(response["error"]["type"], response["error"]["message"])
+	
+	
 	if 'error' in post and str(post['error']['type']) == 'OAuthException':
 		raise InvalidAccessTokenException(simplejson.dumps(post))
 	else:

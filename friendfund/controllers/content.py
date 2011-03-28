@@ -40,13 +40,13 @@ class ContentController(BaseController):
 		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}	
 	@default_domain_only()
 	def jobs(self):
-		return render("/content/jobs.html")
+		return self.render("/content/jobs.html")
 
 	@default_domain_only()
 	def impressum(self):
 		return redirect(url(controller="content", action="aboutus"))
 	def merchant_explain(self):
-		return render("/content/merchant_explain.html")
+		return self.render("/content/merchant_explain.html")
 		
 		
 	@default_domain_only()
@@ -73,62 +73,63 @@ class ContentController(BaseController):
 		return redirect(url.current())
 	
 	######LOCALIZED
+	
 	@default_domain_only()
-	def faq(self):
+	def faq(self, lang = None):
 		if lang:
 			try:
-				return render("/content/localized/faq_%s.html" % lang)
+				return self.render("/content/localized/faq_%s.html" % lang)
 			except:
-				return render("/content/localized/faq.html")
+				return self.render("/content/localized/faq.html")
 		else:
-			return render("/content/localized/faq.html")
+			return self.render("/content/localized/faq.html")
 	
 	@default_domain_only()
 	def become_partner(self, lang = None):
 		if lang:
 			try:
-				return render("/content/localized/become_partner_%s.html" % lang)
+				return self.render("/content/localized/become_partner_%s.html" % lang)
 			except:
-				return render("/content/localized/become_partner.html")
+				return self.render("/content/localized/become_partner.html")
 		else:
-			return render("/content/localized/become_partner.html")
+			return self.render("/content/localized/become_partner.html")
 		
 	# @default_domain_only()
 	def aboutus(self, lang = None):
 		if lang:
 			try:
-				return render("/content/localized/aboutus_%s.html" % lang)
+				return self.render("/content/localized/aboutus_%s.html" % lang)
 			except:
-				return render("/content/localized/aboutus.html")
+				return self.render("/content/localized/aboutus.html")
 		else:
-			return render("/content/localized/aboutus.html")
+			return self.render("/content/localized/aboutus.html")
 	
 	# @default_domain_only()
 	def learn_more(self, lang = None):
 		if lang:
 			try:
-				return render("/content/localized/learnmore_%s.html" % lang)
+				return self.render("/content/localized/learnmore_%s.html" % lang)
 			except:
-				return render("/content/localized/learnmore.html")
+				return self.render("/content/localized/learnmore.html")
 		else:
-			return render("/content/localized/learnmore.html")
+			return self.render("/content/localized/learnmore.html")
 		
 	@default_domain_only()
 	def tos(self, lang = None):
 		if lang:
 			try:
-				return render("/content/localized/tos_%s.html" % lang)
+				return self.render("/content/localized/tos_%s.html" % lang)
 			except:
-				return render("/content/localized/tos.html")
+				return self.render("/content/localized/tos.html")
 		else:
-			return render("/content/localized/tos.html")
+			return self.render("/content/localized/tos.html")
 	
 	@default_domain_only()
 	def privacy(self, lang = None):
 		if lang:
 			try:
-				return render("/content/localized/privacy_%s.html" % lang)
+				return self.render("/content/localized/privacy_%s.html" % lang)
 			except:
-				return render("/content/localized/privacy.html")
+				return self.render("/content/localized/privacy.html")
 		else:
-			return render("/content/localized/privacy.html")
+			return self.render("/content/localized/privacy.html")

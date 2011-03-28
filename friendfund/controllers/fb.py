@@ -26,10 +26,9 @@ class FbController(BaseController):
 		user_data.update(fb_data)
 		user_data['network'] = 'facebook'
 		try:
-			user_data['birthday'] = datetime.datetime.strptime(user_data['birthday'], "%d/%m/%Y")
+			user_data['birthday'] = datetime.datetime.strptime(user_data['birthday'], "%m/%d/%Y")
 		except Exception, e:
-			log.error(e)
-			log.info(user_data)
+			log.info("%s ----- %s", e, user_data)
 			pass
 		user_data['network_id'] = user_data.pop('id')
 		user_data['profile_picture_url'] = fb_helper.get_large_pic_url(user_data['network_id'])
