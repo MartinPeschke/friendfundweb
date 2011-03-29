@@ -48,16 +48,17 @@
 		<input type="hidden" name="is_default" id="is_default" value="${c.values.get("is_default")}"/>
 		<div class="subHeading"></div>
 		<div class="borderBottom">
-			<div class="greyInsideFullWidth">
-				<div class="subSpacer bold">
+		<div class="subSpacer bold">
 				<div class="first">
 					&nbsp;
 				</div>
 			   ${_("FF_ACCOUNT_ Choose how you want to be identified on this site.")}
 				</div>
+				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_ACCOUNT_Default Account")}</span>
 				</div>
+
 				<span class="btnDef btnDefFb ${c.values.get("is_default") == 'facebook' and 'active' or ''}" _network="facebook" >Facebook</span>
 				<span class="btnDef btnDefTw ${c.values.get("is_default") == 'twitter' and 'active' or ''}" _network="twitter" >Twitter</span>
 				<span class="btnDef btnDefMail ${c.values.get("is_default") == 'email' and 'active' or ''}" _network="email" >Mail</span>

@@ -110,11 +110,7 @@
 		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		<div class="contentDetails">
 			<div class="imgSpacer"> 
-				<div class="verySmall">Accepted Payment Methods:</div>
-				 %for i, pm in enumerate(c.payment_methods):
-					<img src="/static/imgs/${pm.code}_color.png"/>
-				%endfor
-                <div id="verisign_contrib" class="floatRight">
+			<div id="verisign_contrib" class="floatRight">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 					<tr>
 					<td width="135" align="center" valign="top">
@@ -124,6 +120,11 @@
 					</tr>
 					</table>
 				</div>
+				<div class="verySmall">Accepted Payment Methods:</div>
+				 %for i, pm in enumerate(c.payment_methods):
+					<img src="/static/imgs/${pm.code}_color.png"/>
+				%endfor
+                
                 <div class="clear"></div>
 			</div>
 			${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}

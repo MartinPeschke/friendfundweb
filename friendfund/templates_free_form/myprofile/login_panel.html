@@ -80,7 +80,7 @@
 	%else:
 		<img src="${c.user.get_profile_pic()}" width="25px" height="25px" />
 		<div class="showHide">
-			<a href="#">${c.user.name or c.user.default_email}</a>
+			<span>${c.user.name or c.user.default_email}</span>
 			<div class="widthGiver">
 				<div>
 					<a href="${url(controller="myprofile", action="account", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
