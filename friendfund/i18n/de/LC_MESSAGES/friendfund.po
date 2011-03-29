@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-03-29 10:41+0200\n"
+"PO-Revision-Date: 2011-03-29 12:38+0200\n"
 "Last-Translator: Markus Krebs <marksen23@gmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -159,16 +159,16 @@ msgstr "Es wurde kein Event gefunden"
 msgid "INDEX_PAGE_Invalid Format - Occasion"
 msgstr "Event Datum ist ungültig."
 
-#: friendfund/controllers/payment.py:57
+#: friendfund/controllers/payment.py:66
 msgid "FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below"
 msgstr "Bitte alle Fehler korrigieren."
 
-#: friendfund/controllers/payment.py:69 friendfund/controllers/payment.py:136
-#: friendfund/controllers/payment.py:152 friendfund/controllers/payment.py:167
+#: friendfund/controllers/payment.py:79 friendfund/controllers/payment.py:146
+#: friendfund/controllers/payment.py:162 friendfund/controllers/payment.py:177
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr "Unbekannte Zahlart"
 
-#: friendfund/controllers/payment.py:72 friendfund/controllers/payment.py:139
+#: friendfund/controllers/payment.py:82 friendfund/controllers/payment.py:149
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again "
 "later. Your payment has not been processed."
@@ -176,13 +176,13 @@ msgstr ""
 "Es ist ein Fehler passiert, bitte versuche es zu einem späteren Zeitpunkt"
 " noch einmal. Deine Zahlung wurde nicht ausgeführt."
 
-#: friendfund/controllers/payment.py:75 friendfund/controllers/payment.py:142
+#: friendfund/controllers/payment.py:85 friendfund/controllers/payment.py:152
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again"
 " later"
 msgstr "Es ist etwas sehr sehr schief gelaufen."
 
-#: friendfund/controllers/payment.py:86 friendfund/controllers/payment.py:92
+#: friendfund/controllers/payment.py:96 friendfund/controllers/payment.py:102
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token "
 "missing. Your payment has not been processed."
@@ -190,15 +190,15 @@ msgstr ""
 "Fehlerhafte Zahlungsangaben, es fehlen Zeichen. Deine Zahlung wurde nicht"
 " ausgeführt."
 
-#: friendfund/controllers/payment.py:118
+#: friendfund/controllers/payment.py:128
 msgid "FF_CONTRIBUTION_VALIDATION_ERRORBAND_Please fill in all fields correctly!"
 msgstr "Bitte alle Felder korrekt ausfüllen."
 
-#: friendfund/controllers/payment.py:122
+#: friendfund/controllers/payment.py:132
 msgid "Unknown Card Type"
 msgstr "Unbekannter Kartentyp"
 
-#: friendfund/controllers/payment.py:188
+#: friendfund/controllers/payment.py:198
 msgid "Invalid payment data found, possibly some hiccup?"
 msgstr "Ungültige Zahlungsinformationen. Es kann sich um eine Störung handeln."
 
@@ -1957,52 +1957,55 @@ msgstr "2011 friendfund GmbH. Alle Rechte vorbehalten."
 msgid "FF_MESSAGE_LINK_Back to Pool"
 msgstr "zurück zum Pool"
 
-#: friendfund/templates_free_form/content/common.html:18
+#: friendfund/templates_free_form/content/common.html:45
 msgid "FF_STATIC_MENU_Learn more"
 msgstr "Erfahre mehr"
 
-#: friendfund/templates_free_form/content/common.html:20
+#: friendfund/templates_free_form/content/common.html:47
+#: friendfund/templates_free_form/content/localized/learnmore.html:4
+#: friendfund/templates_free_form/content/localized/learnmore_de_de.html:4
+#: friendfund/templates_free_form/content/localized/learnmore_es_es.html:4
 msgid "FF_STATIC_MENU_How Does It Work"
 msgstr "Wie funktionert's"
 
-#: friendfund/templates_free_form/content/common.html:21
+#: friendfund/templates_free_form/content/common.html:48
 msgid "FF_STATIC_MENU_Become a Partner"
 msgstr "Partner werden"
 
-#: friendfund/templates_free_form/content/common.html:22
+#: friendfund/templates_free_form/content/common.html:49
 msgid "FF_STATIC_MENU_About Us"
 msgstr "Über uns"
 
-#: friendfund/templates_free_form/content/common.html:23
+#: friendfund/templates_free_form/content/common.html:50
 msgid "FF_STATIC_MENU_Frequently Asked Questions"
 msgstr "Häufig gestellte Fragen"
 
-#: friendfund/templates_free_form/content/common.html:24
+#: friendfund/templates_free_form/content/common.html:51
 msgid "FF_STATIC_MENU_Terms of Service"
 msgstr "Nutzungsbedingungen"
 
-#: friendfund/templates_free_form/content/common.html:25
+#: friendfund/templates_free_form/content/common.html:52
 msgid "FF_STATIC_MENU_Privacy"
 msgstr "Datenschutz"
 
-#: friendfund/templates_free_form/content/common.html:26
+#: friendfund/templates_free_form/content/common.html:53
 msgid "FF_STATIC_MENU_Contact Friendfund"
 msgstr "Kontaktiere uns"
 
-#: friendfund/templates_free_form/content/common.html:27
+#: friendfund/templates_free_form/content/common.html:54
 msgid "FF_STATIC_MENU_Our blog"
 msgstr "Unser Blog"
 
-#: friendfund/templates_free_form/content/common.html:28
+#: friendfund/templates_free_form/content/common.html:55
 msgid "FF_STATIC_MENU_Jobs"
 msgstr "Jobs"
 
-#: friendfund/templates_free_form/content/common.html:29
+#: friendfund/templates_free_form/content/common.html:56
 #: friendfund/templates_free_form/myprofile/login_panel.html:103
 msgid "FF_MENU_Create a pool"
 msgstr "Gründe einen Pool"
 
-#: friendfund/templates_free_form/content/common.html:34
+#: friendfund/templates_free_form/content/common.html:61
 msgid "FF_STATIC_MENU_Connect with Us"
 msgstr "Verbinde dich mit uns"
 
@@ -2014,60 +2017,60 @@ msgstr "Kontakt"
 msgid "FF_CONTACT_Contact Us"
 msgstr "Kontaktiere uns"
 
-#: friendfund/templates_free_form/content/contact.html:23
+#: friendfund/templates_free_form/content/contact.html:22
 msgid "FF_CONTACT_Send Us a Message"
 msgstr "Sende uns eine Nachricht"
 
-#: friendfund/templates_free_form/content/contact.html:30
+#: friendfund/templates_free_form/content/contact.html:29
 msgid "FF_CONTACT_Subject"
 msgstr "Betreff"
 
-#: friendfund/templates_free_form/content/contact.html:32
+#: friendfund/templates_free_form/content/contact.html:31
 msgid "FF_CONTACT_Write your subject here..."
 msgstr "Gib deinen Betreff ein..."
 
-#: friendfund/templates_free_form/content/contact.html:41
+#: friendfund/templates_free_form/content/contact.html:40
 msgid "FF_CONTACT_Message"
 msgstr "Nachricht"
 
-#: friendfund/templates_free_form/content/contact.html:44
+#: friendfund/templates_free_form/content/contact.html:43
 msgid "FF_CONTACT_Write your message here..."
 msgstr "Hier kommt deine Nachricht..."
 
-#: friendfund/templates_free_form/content/contact.html:55
+#: friendfund/templates_free_form/content/contact.html:54
 msgid "FF_CONTACT_Name"
 msgstr "Name"
 
-#: friendfund/templates_free_form/content/contact.html:57
+#: friendfund/templates_free_form/content/contact.html:56
 msgid "FF_CONTACT_Write your name here..."
 msgstr "Füge deinen Namen hier ein..."
 
-#: friendfund/templates_free_form/content/contact.html:66
-#: friendfund/templates_free_form/content/contact.html:89
+#: friendfund/templates_free_form/content/contact.html:65
+#: friendfund/templates_free_form/content/contact.html:88
 msgid "FF_CONTACT_Email"
 msgstr "Email"
 
-#: friendfund/templates_free_form/content/contact.html:68
+#: friendfund/templates_free_form/content/contact.html:67
 msgid "FF_CONTACT_Write your email here..."
 msgstr "Deine  E-Mail Adresse..."
 
-#: friendfund/templates_free_form/content/contact.html:79
+#: friendfund/templates_free_form/content/contact.html:78
 msgid "FF_CONTACT_Send"
 msgstr "Senden"
 
-#: friendfund/templates_free_form/content/contact.html:84
+#: friendfund/templates_free_form/content/contact.html:83
 msgid "FF_CONTACT_Other Ways to Get in Touch"
 msgstr "Weitere Kontaktmöglichkeiten"
 
-#: friendfund/templates_free_form/content/contact.html:97
+#: friendfund/templates_free_form/content/contact.html:96
 msgid "FF_CONTACT_Phone"
 msgstr "Telefon"
 
-#: friendfund/templates_free_form/content/contact.html:105
+#: friendfund/templates_free_form/content/contact.html:104
 msgid "FF_CONTACT_Mail"
 msgstr "Adresse"
 
-#: friendfund/templates_free_form/content/contact.html:121
+#: friendfund/templates_free_form/content/contact.html:120
 msgid ""
 "FF_CONTACT_We'd love to hear how you'd <a "
 "onclick=\"UserVoice.Popin.show(); return false;\">improve friendfund.</a>"
@@ -2079,21 +2082,28 @@ msgstr ""
 msgid "FF_Jobs"
 msgstr "Jobs"
 
+#: friendfund/templates_free_form/content/localized/aboutus.html:3
 #: friendfund/templates_free_form/content/localized/aboutus.html:4
+#: friendfund/templates_free_form/content/localized/aboutus_de_de.html:3
 #: friendfund/templates_free_form/content/localized/aboutus_de_de.html:4
+#: friendfund/templates_free_form/content/localized/aboutus_es_es.html:3
 #: friendfund/templates_free_form/content/localized/aboutus_es_es.html:4
 msgid "FF_About Us"
 msgstr "Über Uns"
 
+#: friendfund/templates_free_form/content/localized/become_partner.html:3
 #: friendfund/templates_free_form/content/localized/become_partner.html:4
+#: friendfund/templates_free_form/content/localized/become_partner_de_de.html:3
 #: friendfund/templates_free_form/content/localized/become_partner_de_de.html:4
+#: friendfund/templates_free_form/content/localized/become_partner_es_es.html:3
 #: friendfund/templates_free_form/content/localized/become_partner_es_es.html:4
-#: friendfund/templates_free_form/content/localized/become_partner_es_es.html:10
 msgid "FF_Become a Partner"
 msgstr "Werde Partner"
 
 #: friendfund/templates_free_form/content/localized/faq.html:3
+#: friendfund/templates_free_form/content/localized/faq.html:4
 #: friendfund/templates_free_form/content/localized/faq_de_de.html:3
+#: friendfund/templates_free_form/content/localized/faq_de_de.html:4
 msgid "FF_FAQ"
 msgstr "FAQ"
 
@@ -2103,13 +2113,18 @@ msgstr "FAQ"
 msgid "FF_Learn More"
 msgstr "Erfahre mehr"
 
-#: friendfund/templates_free_form/content/localized/privacy.html:2
-#: friendfund/templates_free_form/content/localized/privacy_de_de.html:2
+#: friendfund/templates_free_form/content/localized/privacy.html:3
+#: friendfund/templates_free_form/content/localized/privacy.html:4
+#: friendfund/templates_free_form/content/localized/privacy_de_de.html:3
+#: friendfund/templates_free_form/content/localized/privacy_de_de.html:4
+#: friendfund/templates_free_form/content/localized/privacy_de_de.html:7
 msgid "FF_Privacy"
 msgstr "Datenschutz"
 
-#: friendfund/templates_free_form/content/localized/tos.html:2
-#: friendfund/templates_free_form/content/localized/tos_de_de.html:2
+#: friendfund/templates_free_form/content/localized/tos.html:3
+#: friendfund/templates_free_form/content/localized/tos.html:4
+#: friendfund/templates_free_form/content/localized/tos_de_de.html:3
+#: friendfund/templates_free_form/content/localized/tos_de_de.html:4
 msgid "FF_Terms of Service"
 msgstr "Nutzungsbedingungen"
 
@@ -2275,15 +2290,15 @@ msgstr "kommt hierhin"
 msgid "FF_CONTRIB_PAGE_I don't want anyone to see how much I've chipped in"
 msgstr "Ich möchte nicht zeigen, wieviel ich beigesteuert habe."
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:352
+#: friendfund/templates_free_form/contribution/contrib_screen.html:223
 msgid "FF_CONTRIB_PAGE_I accept the"
 msgstr "Ich akzeptiere die"
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:352
+#: friendfund/templates_free_form/contribution/contrib_screen.html:223
 msgid "FF_CONTRIB_PAGE_Terms of service"
 msgstr "AGB."
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:358
+#: friendfund/templates_free_form/contribution/contrib_screen.html:229
 msgid "FF_CONTRIB_PAGE_BUTTON_Chip In"
 msgstr "Zahle ein"
 

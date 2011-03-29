@@ -7,7 +7,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.auth.decorators import logged_in
-from friendfund.lib.base import ExtBaseController, render, _, ErrorMessage
+from friendfund.lib.base import ExtBaseController, render,render_def, _, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
@@ -22,7 +22,15 @@ class PaymentController(ExtBaseController):
 	@jsonify
 	def transaction_fees(self, pool_url):
 		return {"popup":render("/contribution/popups/transaction_fees.html").strip()}
-
+	
+	def _add_tos(self):
+		tos = None
+		try:
+			tos = render_def("/content/localized/tos_%s.html" % websession.get("lang"), "render_content", with_heading = False)
+		except:
+			tos = render_def("/content/localized/tos.html", "render_content", with_heading = False)
+		return tos
+	
 	@logged_in(ajax=False)
 	def index(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
@@ -34,6 +42,7 @@ class PaymentController(ExtBaseController):
 		except: pass
 		else: c.values['amount'] = h.format_number(suggested_amount)
 		c.payment_methods = g.payment_methods
+		c.tos = self._add_tos()
 		return self.render('/contribution/contrib_screen.html')
 	@logged_in(ajax=False)
 	def details(self, pool_url):
@@ -55,6 +64,7 @@ class PaymentController(ExtBaseController):
 			c.values = error.value
 			c.errors = error.error_dict or {}
 			c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below")))
+			c.tos = self._add_tos()
 			return self.render('/contribution/contrib_screen.html')
 		else:
 			contrib = Contribution(**form_result)

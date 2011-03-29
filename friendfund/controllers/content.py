@@ -37,7 +37,7 @@ class ContentController(BaseController):
 	
 	@jsonify
 	def invite_info(self):
-		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}	
+		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}
 	@default_domain_only()
 	def jobs(self):
 		return self.render("/content/jobs.html")
