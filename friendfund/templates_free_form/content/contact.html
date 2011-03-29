@@ -15,15 +15,14 @@
 	parseDefaultsInputs("contactForm");
 </%def>
 
-<div class="wrapSubContent">
+<div class="wrapSubContent">${self.renderMessages()}
 <div class="content">
 	${common.render_right_col()}
-
 <div class="colLeft">
 		<h4>${_("FF_CONTACT_Send Us a Message")}</h4>
 		<div class="subHeading"></div>
 		
-		<form action="/content/contact" method="POST" name="contactForm" id="contactForm" onsubmit="onSubmitCleaner(this)">
+		<form action="${url(controller="content", action="contact", lang=h.get_language_locale())}" method="POST" name="contactForm" id="contactForm" onsubmit="onSubmitCleaner(this)">
 			<div class="borderBottom ${"subject" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
 				<div class="first">

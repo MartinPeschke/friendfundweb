@@ -8,6 +8,7 @@ from decimal import Decimal
 
 from pylons import session as websession, app_globals
 from pylons.i18n import LanguageError
+from pylons.i18n.translation import get_lang
 
 def _get_formencode_translator(lang, **kwargs):
 	"""Utility method to get a valid translator object from a language
@@ -64,8 +65,19 @@ def set_lang(lang, **kwargs):
 		environ['paste.registry'].replace(pylons.translator, translator)
 		
 locale_transl = {"en_us":"en_gb"}
-def get_language_locale(locale):
-	return locale_transl.get(locale, locale)
+def get_language_locale():
+	lang = get_language()
+	return locale_transl.get(lang, lang)
+
+def get_language():
+	lang = get_lang()
+	if isinstance(lang, basestring):
+		return lang
+	elif len(lang)>0:
+		return lang[0]
+	else:
+		log.warning("GET_LANG_CONTAINED_CRAP:%s" % lang)
+		return websession['lang']
 	
 		
 def get_format(locale):

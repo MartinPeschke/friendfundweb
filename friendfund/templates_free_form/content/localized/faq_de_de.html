@@ -1,26 +1,13 @@
-<%inherit file="../../layout.html"/>
-<%namespace name="common" file="../common.html"/>
+<%inherit file="../common.html"/>
+
 <%def name="title()">${_("FF_FAQ")}</%def>
+<%def name="heading()">${_("FF_FAQ")}</%def>
 
-<div class="wrapSubHeader">
-        <div class="subHeader">
-                <div class="userProfile">
-                        <div class="empty">
-                                <h2>Häufig gestellte Fragen</h2>
-                        </div>
-                <div class="clear"></div>
-                </div>
-        </div>
-</div>
-
-<div class="wrapSubContent">
-<div class="content">
-        ${common.render_right_col()}
-        <div class="colLeft">
-                <h4>Overview</h4>
-                <div class="subHeading"></div>
-                <div class="generalPadding">
-                <ul>
+<%def name="render_content()">
+	<h4>Overview</h4>
+	<div class="subHeading"></div>
+	<div class="generalPadding">
+		<ul>
             <li><a href="#faq01">1. Was ist friendfund?</a></li>
                         <li><a href="#faq02">2. Warum habe ich eine Einladung von friendfund erhalten?</a></li>
                         <li><a href="#faq03">3. Wie kann ich mein Passwort ändern?</a></li>
@@ -37,18 +24,15 @@
                         <li><a href="#faq14">14. Wie wird mein Pool auf der Startseite angezeigt?</a></li>
                         <li><a href="#faq15">15. Ich habe Anregungen für friendfund. An wen kann ich mich wenden?</a></li>
                         <li><a href="#faq16">16. Meine Frage ist immer noch nicht beantwortet worden. Was nun?</a></li>
-            </ul>
-                </div>
-        <div class="faq">
-		
+		</ul>
+	</div>
+	<div class="faq">
         <a name="faq01"><h4>1. Was ist friendfund?</h4></a>
                 <div class="subHeading"></div>
 				<div class="generalPadding">
                 <p>Friendfund ist eine Social-Commerce Plattform, die es dir und deinen Freunden erlaubt, flexibel und unkompliziert Geld für jeden Zweck zu sammeln.</p>
                         <a href="#" class="linkTop">Top</a>
                 </div>
-
-
         <a name="faq02"><h4>2. Warum habe ich eine Einladung von friendfund erhalten?</h4></a>
                 <div class="subHeading"></div>
 				<div class="generalPadding">
@@ -146,8 +130,5 @@
 					<a href="#" class="linkTop">Top</a>
 				</div>
 		
-        </div>
-        </div>
-<div class="clear"></div>
-</div>
-</div>
+	</div>
+</%def>

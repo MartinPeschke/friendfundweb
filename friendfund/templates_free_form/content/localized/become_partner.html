@@ -1,26 +1,11 @@
-<%inherit file="../../layout.html"/>
-<%namespace name="common" file="../common.html"/>
+<%inherit file="../common.html"/>
 
 <%def name="title()">${_("FF_Become a Partner")}</%def>
+<%def name="heading()">${_("FF_Become a Partner")}</%def>
 
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>How to become a partner?</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
-
-
-<div class="wrapSubContent">
-<div class="content">
-${common.render_right_col()}
-<div class="colLeft">
-			<h4>Become a Partner</h4>
-			<div class="subHeading"></div>
+<%def name="render_content()">
+<h4>Become a Partner</h4>
+<div class="subHeading"></div>
 	
 	
 <p class="general">We are looking for partnerships with fun and fresh online retailers.  </p>
@@ -39,8 +24,4 @@ Adding a “friendfund it!” tab to your site, your customers can create a frie
 <br/>
 <p class="general">friendfund it! Connecting merchants with new customers in a fun and social way.</p>
 <p class="general"> If you are interested in becoming a Partner, please email <a href="mailto:partners@friendfund.com">partners@friendfund.com</a>.</p>
-	
-	</div>
-<div class="clear"></div>
-</div>
-</div>
+</%def>

@@ -1,3 +1,30 @@
+<%inherit file="../layout.html"/>
+
+
+<div class="wrapSubHeader">
+	<div class="subHeader">
+		<div class="userProfile">
+			<div class="empty">
+				<h2>${next.heading()}</h2>
+			</div>
+		<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div class="wrapSubContent">${self.renderMessages()}
+	<div class="content">
+		${self.render_right_col()}
+		<div class="colLeft">
+			${next.render_content()}
+			<br/><br/>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
 
 <%def name="entry(content, url, selected)">
 	%if selected:
@@ -8,9 +35,9 @@
 </%def>
 
 <%def name="render_right_col()">
-<% action = request.environ['wsgiorg.routing_args'][1]['action'] %>
-<%
-	lang = h.get_language_locale(session["lang"])
+<% 
+	action = request.environ['wsgiorg.routing_args'][1]['action'] 
+	lang = h.get_language_locale()
 %>
 
 	<div class="colRight">

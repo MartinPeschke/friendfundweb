@@ -1,24 +1,12 @@
-<%inherit file="../../layout.html"/>
-<%namespace name="common" file="../common.html"/>
+<%inherit file="../common.html"/>
+
 <%def name="title()">${_("FF_Learn More")}</%def>
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>How Does It Work</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
+<%def name="heading()">${_("FF_STATIC_MENU_How Does It Work")}</%def>
 
+<%def name="render_content()">
 
-<div class="wrapSubContent">
-	<div class="content">
-		${common.render_right_col()}
-		<div class="colLeft">
-			<h4>friendfund it!</h4>
-			<div class="subHeading"></div>
+	<h4>friendfund it!</h4>
+	<div class="subHeading"></div>
 			
 
 	<p class="general">friendfund is a simple way for a group of friends to collect money for anything they like.</p>
@@ -43,10 +31,4 @@
 	<p class="general">Jamie is part of an artist collective.  They need to collect some money from the members and friends for materials for a new group show.</p>
 
 	<p class="general">Marta and her friends are going on holiday together.  Before they go, they need to collect the money for the villa they want to rent.</p>
-				
-			
-			
-		</div>
-	<div class="clear"></div>
-	</div>
-</div>
+</%def>

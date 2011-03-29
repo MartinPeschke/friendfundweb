@@ -1,60 +1,45 @@
-<%inherit file="../../layout.html"/>
-<%namespace name="common" file="../common.html"/>
+<%inherit file="../common.html"/>
 
 <%def name="title()">${_("FF_About Us")}</%def>
-
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>Acerca de</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
+<%def name="heading()">${_("FF_About Us")}</%def>
 
 
-<div class="wrapSubContent">
-<div class="content">
-	${common.render_right_col()}
+<%def name="render_content()">
+	<h4>Acerca de</h4>
+	<div class="subHeading"></div>
+	<p class="general">Friendfund permite la recaudación de dinero entre grupos de amigos. Ya sea para un regalo en grupo o un club local, friendfund facilita la rapida invitación de amigos de tu Facebook, Twitter o email con el fin de contribuir a un bote de manera divertida y social.</p>
 
-<div class="colLeft">
-		<h4>Acerca de</h4>
-		<div class="subHeading"></div>
-		<p class="general">Friendfund permite la recaudación de dinero entre grupos de amigos. Ya sea para un regalo en grupo o un club local, friendfund facilita la rapida invitación de amigos de tu Facebook, Twitter o email con el fin de contribuir a un bote de manera divertida y social.</p>
+	<p class="general">friendfund it!<br>Nuestra plataforma flexible de comercio social, <a href="${url("home")}">friendfund.com</a>, se puede utilizar para cualquier fin que hace falta una manera simple de recoger dinero entre un grupo de amigos.  Tenemos muchas herriamientas diseñadas para propagar tus botes y llegar al total nunca ha sido tan facil y divertido.</p>  
 
-<p class="general">friendfund it!<br>Nuestra plataforma flexible de comercio social, <a href="${url("home")}">friendfund.com</a>, se puede utilizar para cualquier fin que hace falta una manera simple de recoger dinero entre un grupo de amigos.  Tenemos muchas herriamientas diseñadas para propagar tus botes y llegar al total nunca ha sido tan facil y divertido.</p>  
+	<p class="general">Tambien Friendfund es también una gran manera de organizar un grupo de regalo con nuestra integración comercial.  Con el catálogo extenso de nuestros socios, 
+		<a href="http://amazon.friendfund.com">Amazon</a>, <a href="http://www.greatamericandays.com/adventure.php?adventure_id=2&price=&category=&finder=60">Great American Days</a> y <a href="http://www.caseable.com/gallery.php">Caseable</a>, hay un regalo para todos!  </p>
 
-<p class="general">Tambien Friendfund es también una gran manera de organizar un grupo de regalo con nuestra integración comercial.  Con el catálogo extenso de nuestros socios, 
-	<a href="http://amazon.friendfund.com">Amazon</a>, <a href="http://www.greatamericandays.com/adventure.php?adventure_id=2&price=&category=&finder=60">Great American Days</a> y <a href="http://www.caseable.com/gallery.php">Caseable</a>, hay un regalo para todos!  </p>
+	<p class="general">Friendfund es muy facil utilizar. Crear un bote. Invitar a tus amigos. Contribuir!</p>
 
-<p class="general">Friendfund es muy facil utilizar. Crear un bote. Invitar a tus amigos. Contribuir!</p>
+	<p class="general">Esperamos que disfutais regalando juntos con friendfund. </p>
 
-<p class="general">Esperamos que disfutais regalando juntos con friendfund. </p>
+	<p class="general">friendfund Gmbh<br>
+	Landsberger Allee 117<br>
+	10407 Berlin<br>
+	+49 (30) 99272540<br>
 
-<p class="general">friendfund Gmbh<br>
-Landsberger Allee 117<br>
-10407 Berlin<br>
-+49 (30) 99272540<br>
-
-Handelsregisternummer: 127841 B,<br>
-Registergericht: Amtsgericht Berlin Charlottenburg,<br>
-Geschäftsführer: Henry George McCarney</p>
+	Handelsregisternummer: 127841 B,<br>
+	Registergericht: Amtsgericht Berlin Charlottenburg,<br>
+	Geschäftsführer: Henry George McCarney</p>
 		
 		
 		
-		<h4>Empresa</h4>
-		<div class="subHeading"></div>
-		
-		<p class="general">friendfund fue fundada en julio de 2010 con el objetivo de construir una plataforma que sintetiza los aspectos más progresistas de internet, la web social y de comercio electrónico.</p>
-		<p class="general">Nuestro objetivo es proporcionar a la comunidad en internet las herramientas financieras que aprovechan el poder de la web social en una forma divertida y sencilla.</p>
-		<p class="general">Centrándose inicialmente en regalos en grupos, la beta friendfund fue lanzado en octubre de 2010 y con la retroalimentación muy valiosa de nuestros miembros, nuestro web actualizado fue lanzado en Marzo de 2011. Ahora la plataforma friendfund ha abierto el modelo de regalar en grupo para que los grupos de amigos puedan recaudar dinero para cualquier fin propuesto.</p>
+	<h4>Empresa</h4>
+	<div class="subHeading"></div>
+	
+	<p class="general">friendfund fue fundada en julio de 2010 con el objetivo de construir una plataforma que sintetiza los aspectos más progresistas de internet, la web social y de comercio electrónico.</p>
+	<p class="general">Nuestro objetivo es proporcionar a la comunidad en internet las herramientas financieras que aprovechan el poder de la web social en una forma divertida y sencilla.</p>
+	<p class="general">Centrándose inicialmente en regalos en grupos, la beta friendfund fue lanzado en octubre de 2010 y con la retroalimentación muy valiosa de nuestros miembros, nuestro web actualizado fue lanzado en Marzo de 2011. Ahora la plataforma friendfund ha abierto el modelo de regalar en grupo para que los grupos de amigos puedan recaudar dinero para cualquier fin propuesto.</p>
 
-<p class="general">También se mejora la experiencia de compartir un bote friendfund con widgets que se pueden utilizar en tu web o blog y la creación de la integración comercial “white label” con nuestros empresas asociados <a href="http://amazon.friendfund.com">Amazon</a>, <a href="http://www.greatamericandays.com/adventure.php?adventure_id=2&price=&category=&finder=60">Great American Days</a> y <a href="http://www.caseable.com/gallery.php">Caseable</a>.</p>
-		<h4>Our team</h4>
-		<div class="subHeading"></div>
-		<div class="team">
+	<p class="general">También se mejora la experiencia de compartir un bote friendfund con widgets que se pueden utilizar en tu web o blog y la creación de la integración comercial “white label” con nuestros empresas asociados <a href="http://amazon.friendfund.com">Amazon</a>, <a href="http://www.greatamericandays.com/adventure.php?adventure_id=2&price=&category=&finder=60">Great American Days</a> y <a href="http://www.caseable.com/gallery.php">Caseable</a>.</p>
+	<h4>Our team</h4>
+	<div class="subHeading"></div>
+	<div class="team">
 		<div class="borderBottom">
 			<div class="avt">
 				<div class="arrowAvatar"></div>
@@ -66,11 +51,7 @@ Geschäftsführer: Henry George McCarney</p>
 				<a href="https://www.xing.com/profile/Harry_McCarney" target="_blank"><img src="/static/imgs/xing.png"/></a>
 
 			</div>
-			<p>Harry was the founder and director of several successful social entrepreneurship projects.
-The creation of these enterprises was greatly hindered by the lack of a flexible and convenient way for members to pool their resources.
-He co-founded friendfund to solve this problem by providing tools to clubs, communities and friends which facilitate dynamic financial collaborations.
-He has ten years experience  as an IT Consultant leading projects in a wide variety of organizations including Web start-ups and investment banks.
-Harry received his BA from Middlesex University, London and MA in Philosophy from the University of Sussex.</p>
+			<p>Harry was the founder and director of several successful social entrepreneurship projects. The creation of these enterprises was greatly hindered by the lack of a flexible and convenient way for members to pool their resources. He co-founded friendfund to solve this problem by providing tools to clubs, communities and friends which facilitate dynamic financial collaborations. He has ten years experience  as an IT Consultant leading projects in a wide variety of organizations including Web start-ups and investment banks. Harry received his BA from Middlesex University, London and MA in Philosophy from the University of Sussex.</p>
 		</div>
 		<div class="borderBottom">
 			<div class="avt">
@@ -115,8 +96,7 @@ Harry received his BA from Middlesex University, London and MA in Philosophy fro
 			<h5>Alice Mrongovius <span>Quality Assurance and Community Manager</span></h5>
 			<div class="contactLinksBox">
 				<a href="http://twitter.com/AliceMrongovius" target="_blank"><img src="/static/imgs/twitter-icon.png"/></a>
-
-<a href="http://alicemrongovius.blogspot.com/" target="_blank"><img src="/static/imgs/blogger.png"/></a>
+				<a href="http://alicemrongovius.blogspot.com/" target="_blank"><img src="/static/imgs/blogger.png"/></a>
 				
 			</div>
 			<p>With a broad range of experience in working in community focused organisations and in her own business, Alice brings to friendfund an infectious enthusiasm for creating genuine conversations in social media.  With a BFA from the University of Melbourne (VCA) and a Cert IV in Accounting from RMIT she has the unusual combination of creative and analytical skills, perfect for filling out QA spreadsheets!</p>
@@ -124,9 +104,9 @@ Harry received his BA from Middlesex University, London and MA in Philosophy fro
 		
 		
 		
-        <h4>Advisors</h4>
+		<h4>Advisors</h4>
 		<div class="subHeading"></div>
-        <div class="borderBottom noBorder">
+		<div class="borderBottom noBorder">
 			<div class="avt">
 				<div class="arrowAvatar"></div>
 				<img width="48px" height="48px" src="/static/imgs/jeff.jpg">
@@ -137,12 +117,5 @@ Harry received his BA from Middlesex University, London and MA in Philosophy fro
 			</div>
 			<p>Jeff was responsible for developing and expanding several technology companies including Mercury Mobility LTD and sevenload GmbH into multiple countries and technology sectors. Jeff co-founded Halfahead, a pioneer digital music platform in Europe which was the first legal music platform in Scandinavia featuring record label content. In 2003, Jeff co-founded Mercury Mobility, a mobile entertainment company in Australia which saw a successful stock listing in 2007. Post IPO, Jeff migrated to Europe and began investing in European businesses. Jeff is a regular speaker at ICT and VC events including The Next Web, SIME and SuperNova.</p>
 		</div>
-		</div>
-	</div>
-	
-
-
-
-<div class="clear"></div>
 </div>
-</div>
+</%def>

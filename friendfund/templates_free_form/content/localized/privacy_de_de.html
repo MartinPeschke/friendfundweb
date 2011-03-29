@@ -1,22 +1,11 @@
-<%inherit file="../../layout.html"/>
+<%inherit file="../common.html"/>
+
 <%def name="title()">${_("FF_Privacy")}</%def>
-<%namespace name="common" file="../common.html"/>
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>Datenschutz</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
-<div class="wrapSubContent">
-<div class="content">
-	${common.render_right_col()}
-   	<div class="colLeft">
-		<h4>Datenschutz</h4>
-		<div class="subHeading"></div>
+<%def name="heading()">${_("FF_Privacy")}</%def>
+
+<%def name="render_content()">
+<h4>${_("FF_Privacy")}</h4>
+<div class="subHeading"></div>
 
 <p class="general">Datenschutzerklärung<br/>(Zu den <a href="${url(controller="content", lang='de_DE', action="tos")}">Agb's</a>)</p>
 
@@ -30,7 +19,7 @@
 
 <p class="general">b) Bei jeder Nutzung über die Website wird ebenfalls die IP-Adresse gespeichert.</p>
 
-<p class="general bold>2. Datenverwendung</p>
+<p class="general bold">2. Datenverwendung</p>
 
 <p class="general">Die wie vorstehend erhobenen Daten des Nutzers werden zur Erfüllung der Leistungen aus dem abgeschlossenen Vertrag gegenüber dem Nutzer genutzt und verarbeitet. Insbesondere ist friendfund berechtigt, diejenigen personenbezogenen Daten des Nutzers an Dritte weiterzugeben, die die Daten benötigen, um von friendfund gegenüber dem Nutzer erbrachte Leistungen abzurechnen.</p>
 
@@ -67,9 +56,4 @@
 <p class="general">Die Einwilligung zur Erhebung, Nutzung und Verarbeitung der Daten kann der Nutzer jederzeit für die Zukunft unter der nachfolgenden Anschrift widerrufen. Bei vollständigem Widerruf wird friendfund jedoch das Nutzerkonto deaktivieren. Die vom Nutzer eingestellten Inhalte können aufrechterhalten werden, um die Verständlichkeit der Kommunikation zu gewährleisten, sofern keine personenbezogenen Daten des Nutzers hiervon betroffen sind.</p>
 
 <p class="general">Bei Fragen zur Erhebung, Verarbeitung oder Nutzung seiner personenbezogenen Daten oder sonstigen Fragen zu seinen Daten kann sich der Nutzer jederzeit an privacy@friendfund.com wenden.</p>
-
-
-</div>
-<div class="clear"></div>
-</div>
-</div>
+</%def>

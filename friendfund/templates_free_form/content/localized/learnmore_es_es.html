@@ -1,25 +1,11 @@
-<%inherit file="../../layout.html"/>
-<%namespace name="common" file="../common.html"/>
+<%inherit file="../common.html"/>
+
 <%def name="title()">${_("FF_Learn More")}</%def>
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>How Does It Work</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
+<%def name="heading()">${_("FF_STATIC_MENU_How Does It Work")}</%def>
 
-
-<div class="wrapSubContent">
-	<div class="content">
-		${common.render_right_col()}
-		<div class="colLeft">
-			<h4>friendfund it!</h4>
-			<div class="subHeading"></div>
-			
+<%def name="render_content()">
+	<h4>friendfund it!</h4>
+	<div class="subHeading"></div>
 
 	<p class="general">friendfund es una manera simple para facilitar que un grupo de amigos puedan recaudar dinero para cualquier cosa que les gusta.  Ya sea para un regalo en grupo o ayudando a su club local, friendfund le permite invitar rápidamente un montón de su Facebook, Twitter o email amigos, a contribuir a un bote de forma divertida y social. Tenemos muchas herriamientas diseñadas para propagar tus botes y llegar al total nunca ha sido tan facil y divertido.  </p>
 	<br/>
@@ -40,10 +26,4 @@
 	<p class="general">Jamie es parte de un colectivo de artistas. Tienen que recoger algo de dinero de los miembros y amigos para pagar materiales para un espectáculo nuevo del grupo.</p>
 
 	<p class="general">Marta y sus amigas se van de vacaciones juntos. Antes de ir, tienen que recoger el dinero para la casa rural que desean alquilar.</p>
-				
-			
-			
-		</div>
-	<div class="clear"></div>
-	</div>
-</div>
+</%def>
