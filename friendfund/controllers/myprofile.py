@@ -1,4 +1,4 @@
-import logging, formencode,  simplejson
+import logging, formencode,  simplejson, urlparse
 from cgi import FieldStorage
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, config
@@ -315,4 +315,11 @@ class MyprofileController(BaseController):
 		else:
 			websession['lang'] = lang
 			set_lang(lang)
+			
+			scheme, domain, path, params, query_str, fragment = urlparse.urlparse(request.referer)
+			if domain in request.qualified_host:
+				match = config['routes.map'].match(path)
+				if "lang" in match:
+					match['lang'] = lang
+					return redirect(urlparse.urlunparse((scheme, domain, url(**match), params, query_str, fragment)))
 			return redirect(request.referer)
