@@ -39,10 +39,10 @@
 			<div class="imgWrap">
 				<div class="multiTask">
 					%if pool.is_contributor:
-						<img src="/static/imgs/chipped.png"/>
+						<img src="/static/imgs/chipped.png" title="${_("FF_NEWSSTREAMTYPE_Chipped in")}" />
 					%endif
 					%if pool.is_commenter:
-						<img src="/static/imgs/cloud.png" style="margin:3px 0 0 10px"/>
+						<img src="/static/imgs/cloud.png" title="${_("FF_NEWSSTREAMTYPE_Commented")}" style="margin:3px 0 0 10px"/>
 					%endif
 					<div class="floatRight">
 						%if not friends_pool:
