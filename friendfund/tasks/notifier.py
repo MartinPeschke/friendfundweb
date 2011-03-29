@@ -14,10 +14,15 @@ from friendfund.lib.helpers import format_int_amount
 
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
 from babel.dates import format_date as fdate, format_datetime as fdatetime
-import logging
-logging.config.fileConfig("notifier_logging.conf")
-logging.basicConfig()
+
 log = logging.getLogger(__name__)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+ch.setFormatter(formatter)
+log.addHandler(ch)
+
+
 
 from mako.lookup import TemplateLookup
 from friendfund.tasks import data_root

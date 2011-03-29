@@ -5,7 +5,7 @@ _ = lambda x:x
 
 class PoolHomePageForm(formencode.Schema):
 	allow_extra_fields = True
-	amount = DecimalStringValidator(min=0.01, max=9999999, if_missing="")
+	amount = DecimalStringValidator(min=1, max=9999999, if_missing="")
 	title = formencode.validators.String(max=140, if_missing="")
 
 
@@ -13,7 +13,7 @@ class PoolCreateForm(formencode.Schema):
 	allow_extra_fields = True
 	
 	date = DateValidator(not_empty=True, messages={'empty': _('FF_POOLETAILS_ERROR_DATE_Please enter some date value!')})
-	amount = DecimalValidator(not_empty=True, min=0.01, max=9999999, messages={'empty': _('FF_POOLETAILS_ERROR_AMOUNT_Please enter some amount value!')})
+	amount = DecimalValidator(not_empty=True, min=1, max=9999999, messages={'empty': _('FF_POOLETAILS_ERROR_AMOUNT_Please enter some amount value!')})
 	currency = CurrencyValidator(not_empty=True)
 	title = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_POOLETAILS_ERROR_TITLE_Please enter some title text!')})
 	description = formencode.validators.String(not_empty=True, max=4096, messages={'empty': _('FF_POOLETAILS_ERROR_DESCR_Please enter some descriptive text!')})
