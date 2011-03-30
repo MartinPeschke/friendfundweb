@@ -76,12 +76,12 @@
 ### END INIT INFO
 
 set -e
-export PYTHONPATH=/opt/www/ff_test:/home/www-data/ff_test
+export PYTHONPATH=/opt/www/demo:/home/www-data/ff_demo
 DEFAULT_CELERYD="/server/pylons1.0/bin/celeryd"
 CELERYD="/server/pylons1.0/bin/celeryd"
-CELERYD_LOG_FILE="/opt/www/ff_test/logs/celeryd_test.log"
-CELERYD_PID_FILE="/opt/www/ff_test/run/celeryd_test.pid"
-CELERYD_CHDIR="/opt/www/ff_test"
+CELERYD_LOG_FILE="/opt/www/demo/logs/celeryd_demo.log"
+CELERYD_PID_FILE="/opt/www/demo/run/celeryd_demo.pid"
+CELERYD_CHDIR="/opt/www/demo"
 CELERYD_USER="www-data"
 CELERYD_GROUP="www-data"
 
