@@ -288,3 +288,13 @@ class TwitterUserHasEmailProc(DBMappedObject):
 	_unique_keys = ['email', 'id']
 	_cachable = False
 	_keys = [	GenericAttrib(str,'network_id','id'),GenericAttrib(unicode,'default_email','default_email')]
+
+class SetUserLocaleProc(DBMappedObject):
+	"""app_set_user_locale '<USER u_id ="26990" locale= "en-gb"/>'"""
+	_set_root = _get_root = 'USER'
+	_get_proc = _set_proc = "app.set_user_locale"
+	_unique_keys = ['u_id', 'locale']
+	_cachable = False
+	_keys = [	GenericAttrib(int,'u_id','u_id'),GenericAttrib(unicode,'locale','locale')]
+	
+	

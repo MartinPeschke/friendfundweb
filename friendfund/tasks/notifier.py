@@ -16,8 +16,9 @@ from babel.numbers import format_currency as fc, format_decimal as fdec, get_cur
 from babel.dates import format_date as fdate, format_datetime as fdatetime
 
 log = logging.getLogger(__name__)
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
+log.setLevel(logging.DEBUG)
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 ch.setFormatter(formatter)
 log.addHandler(ch)
@@ -30,9 +31,10 @@ root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_form','messaging', 'messages')]
 		, module_directory=os.path.join(data_root, 'templates_free_form','messaging', 'messages')
 		, output_encoding='utf-8'
+		, input_encoding='utf-8'
 		)
 
-print os.path.join(root, 'templates_free_form','messaging', 'messages')
+log.info( os.path.join(root, 'templates_free_form','messaging', 'messages') )
 
 
 

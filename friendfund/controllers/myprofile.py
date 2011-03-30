@@ -10,7 +10,7 @@ from friendfund.lib.auth.decorators import logged_in, default_domain_only
 from friendfund.lib.base import BaseController, render, _, render_def, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib import helpers as h
-from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, WebLoginUserByEmail, CreateEmailUserProc, SetUserEmailProc
+from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, WebLoginUserByEmail, SetUserEmailProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
@@ -91,6 +91,7 @@ class MyprofileController(BaseController):
 			return self.addemailpopup()
 		else:
 			return self.loginpopup()
+	
 	@jsonify
 	def loginpanel(self):
 		if not c.user.is_anon:
@@ -155,18 +156,8 @@ class MyprofileController(BaseController):
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
 		if not signup:
 			return {'popup':render('/myprofile/signup_popup.html').strip()}
-		schema = SignupForm()
 		try:
-			form_result = schema.to_python(signup, state = FriendFundFormEncodeState)
-			c.signup_values = form_result
-			c.signup_values['network'] = 'EMAIL'
-			c.user = g.dbm.call(CreateEmailUserProc(**c.signup_values), User)
-			c.user.set_network('email', 
-							network_id =  c.user.default_email,
-							access_token = None,
-							access_token_secret = None
-						)
-			c.user.network = 'email'
+			c.user = g.user_service.signup_email_user(signup)
 			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
@@ -190,7 +181,7 @@ class MyprofileController(BaseController):
 			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
 			email = form_result['email']
 			g.dbm.set(DBRequestPWProc(email=email))
-			c.messages.append(SuccessMessage(_("FF_An email with your new password has been sent to %(email)s." % form_result)))
+			c.messages.append(SuccessMessage(_("FF_An email with your new password has been sent to %(email)s.") % form_result))
 			return {"reload":True}
 		except formencode.validators.Invalid, error:
 			c.pwd_values = error.value
@@ -314,6 +305,8 @@ class MyprofileController(BaseController):
 		else:
 			websession['lang'] = lang
 			set_lang(lang)
+			if not c.user.is_anon:
+				g.dbm.set(SetUserLocaleProc(locale=lang, u_id=c.user.u_id))
 			
 			scheme, domain, path, params, query_str, fragment = urlparse.urlparse(request.referer)
 			if domain in request.qualified_host:

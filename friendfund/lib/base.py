@@ -98,8 +98,6 @@ class BaseController(WSGIController):
 	
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""
-		print request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
-		print g.country_choices.map
 		if 'region' not in websession:
 			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
 			region = g.country_choices.map.get(region, g.country_choices.fallback).code
@@ -109,7 +107,7 @@ class BaseController(WSGIController):
 		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], request.headers.get('Host'), url.current())
 		
-		if 'lang' not in websession or websession['lang'] not in g.locales:
+		if 'lang' not in websession:
 			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
 		set_lang(websession['lang'])
 	

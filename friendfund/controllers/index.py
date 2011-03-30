@@ -10,10 +10,10 @@ from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper, helpers as h
 
-from friendfund.model.forms.user import LoginForm, SignupForm
+from friendfund.model.forms.user import LoginForm
 from friendfund.model.pool import FeaturedPool
 from friendfund.model.common import SProcWarningMessage
-from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER, CreateEmailUserProc
+from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER
 from friendfund.model.product import Product
 from friendfund.model.sitemap import SiteMap
 from friendfund.model.recent_activity import RecentActivityStream
@@ -62,7 +62,6 @@ class IndexController(BaseController):
 		return self.signup()
 	
 	def signup(self):
-		c.furl = request.params.get('furl', url("home"))
 		c.signup_values = {}
 		c.signup_errors = {}
 		if not c.user.is_anon:
@@ -70,21 +69,8 @@ class IndexController(BaseController):
 		if request.method != 'POST':
 			return self.render('/myprofile/login_screen.html')
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
-		schema = SignupForm()
 		try:
-			form_result = schema.to_python(signup, state = FriendFundFormEncodeState)
-			c.signup_values = form_result
-			c.signup_values['network'] = 'EMAIL'
-			if ('profile_pic' in signup and isinstance(signup['profile_pic'], FieldStorage)):
-				g.user_service.save_email_user_picture(c.signup_values, signup['profile_pic'])
-
-			c.user = g.dbm.call(CreateEmailUserProc(**c.signup_values), User)
-			c.user.set_network('email', 
-							network_id =  c.user.default_email,
-							access_token = None,
-							access_token_secret = None
-						)
-			c.user.network = 'email'
+			c.user = g.user_service.signup_email_user(signup)
 			return redirect(url('home'))
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
