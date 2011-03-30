@@ -51,7 +51,8 @@ class MemcachedNamespaceManager(NamespaceManager):
         return self.namespace + '_' + key.replace(' ', '\302\267')
 
     def __getitem__(self, key):
-        return self.mc.get(self._format_key(key))
+        value = self.mc.get(self._format_key(key))
+        return value
 
     def __contains__(self, key):
         value = self.mc.get(self._format_key(key))
@@ -61,6 +62,7 @@ class MemcachedNamespaceManager(NamespaceManager):
         return key in self
 
     def set_value(self, key, value, expiretime=None):
+        print "SETMEMCACHE", self._format_key(key), value
         if expiretime:
             self.mc.set(self._format_key(key), value, time=expiretime)
         else:

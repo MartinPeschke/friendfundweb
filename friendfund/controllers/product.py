@@ -86,7 +86,6 @@ class ProductController(BaseController):
 		else:
 			result = {"data":{"success":True, "rendered_picture_url":h.get_product_picture(picture_url, type="TMP", site_root = request.qualified_host)}}
 		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
-		print result
 		return result
 	
 	

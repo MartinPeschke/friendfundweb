@@ -85,14 +85,6 @@ class BaseController(WSGIController):
 	
 	def __call__(self, environ, start_response):
 		"""Invoke the Controller"""
-		if 'region' not in websession:
-			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
-			region = g.country_choices.map.get(region, g.country_choices.fallback).code
-			websession['region'] = region
-		return WSGIController.__call__(self, environ, start_response)
-	
-	def __before__(self, action, environ):
-		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
 		if not (host and host in g.merchants.domain_map):
 			prot, host, path, params, query, fragment = urlparse.urlparse(request.url)
@@ -102,10 +94,20 @@ class BaseController(WSGIController):
 			request.merchant = g.merchants.domain_map[host]
 			request.qualified_host = '%s://%s'%(protocol, host)
 			request.is_secured = protocol == 'https'
+		return WSGIController.__call__(self, environ, start_response)
+	
+	def __before__(self, action, environ):
+		"""Provides HTTP Request Logging before any error should occur"""
+		print request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
+		print g.country_choices.map
+		if 'region' not in websession:
+			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
+			region = g.country_choices.map.get(region, g.country_choices.fallback).code
+			websession['region'] = region
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
 		c.furl = str(request.params.get("furl") or request.url)
-		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], host, url.current())
+		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], request.headers.get('Host'), url.current())
 		
 		if 'lang' not in websession or websession['lang'] not in g.locales:
 			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)

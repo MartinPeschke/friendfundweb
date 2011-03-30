@@ -10,7 +10,6 @@ from friendfund.model import common
 from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantConfigProc, GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
-from friendfund.services.payment_service import PaymentService
 from friendfund.services.product_service import ProductService
 from friendfund.services.user_service import UserService
 from friendfund.services.pool_service import PoolService
@@ -50,7 +49,7 @@ class Globals(object):
 		self.TwitterApiSecret = app_conf['twitterapisecret']
 		
 		self.locales = app_conf['available_locales'].lower().split(',')
-		self.LANGUAGES = {"en_gb":_("English"), "es_es":_("Spanish"), "de_de":_("German")}
+		self.LANGUAGES = {"en_gb":_("English"), "es_es":_("Spanish"), "de_de":_("German"), "it_it":_("Italian")}
 		
 		self.debug = config['debug']
 		self.test = config['test'] == 'true'

@@ -40,6 +40,7 @@ def make_map(config):
 	map.connect('payment_current'     , '/payment/{pool_url}/ret', controller='payment', action="ret", requirements={'pool_url': purlpattern})
 	map.redirect('/chipin/{pool_url:.*}', '/pool/{pool_url}', _redirect_code='301 Moved Permanently')
 	map.connect('data'                , '/d/{verb}/{action}', controller='data_editor', requirements={'verb':VERBS})
+	map.connect('search_tab_extension', '/product/search_tab_extension', controller='product_query', action="search_tab_extension")
 	
 	map.connect('/invite/friends', controller='invite', action='friends')
 	map.connect('invite'         , '/invite/{pool_url}/{method}', controller='invite', action='method', requirements={'pool_url': purlpattern, 'method':CONNECT_METHODS})
