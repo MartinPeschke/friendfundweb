@@ -205,13 +205,14 @@
 				</div>
 			%else:
 				<div class="generalPadding borderBottom spPad noBorder expander">
-					<div class="tip">
-						<div class="arrow"></div>
-						<span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span></div>
 					<div class="first">
 						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
 					</div>
 					<div id="homeurlexpander" class="home_expander">
+						<div class="tip">
+							<div class="arrow"></div>
+							<span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span>
+						</div>
 						<div class="imgCntSld" id="URLPimgCntSld">
 						<input type="hidden" value="${c.values.get('product_picture')}" id="URLPproductPicture" name="product_picture">
 						%if c.values.get('product_picture'):

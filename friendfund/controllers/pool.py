@@ -165,7 +165,7 @@ class PoolController(ExtBaseController):
 		g.dbm.set(c.pool, merge = True, cache=False)
 		
 		if c.pool.product and c.pool.product.has_picture():
-			remote_product_picture_render.delay(c.pool.p_url, c.pool.product.picture)
+			remote_product_picture_render.apply_async(args=[c.pool.p_url, c.pool.product.picture])
 		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		
 		if not c.pool:
