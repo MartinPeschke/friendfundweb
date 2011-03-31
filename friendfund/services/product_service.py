@@ -4,7 +4,6 @@ from ordereddict import OrderedDict
 from lxml import etree
 from datetime import datetime
 
-from BeautifulSoup import BeautifulSoup
 from pylons import app_globals, tmpl_context, session as websession
 from pylons.controllers.util import abort
 from friendfund.lib import helpers as h, url_parser
@@ -145,7 +144,10 @@ class ProductService(object):
 			pool.set_product(product)
 		return pool
 	
-	def set_product_from_open_graph(self, pool, request):
+	
+	
+	
+	def set_product_from_open_graph(self, pool, params, referer):
 		transl = {  "og:description":(["description"], lambda x:x, False),
 					"og:name":(["name"], lambda x:x, False),
 					"og:price":(["price"], lambda x:int(x), False),
@@ -153,25 +155,9 @@ class ProductService(object):
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False),
 					"og:image":(["picture"], lambda x:x, False),
 					"og:currency":(["currency"], lambda x:x, False)}
-		query=request.params.get("referer")
-		if not query:
-			log.error("Query not found")
-			abort(404)
-		try:
-			socket.setdefaulttimeout(60)
-			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
-			product_page = urllib2.urlopen(query)
-		except Exception, e:
-			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
-			abort(404)
-		
-		### Parse Meta Tags or PartnerPage
-		soup = BeautifulSoup(product_page.read())
-		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		if params.get("og:type") != 'product':
 			log.error("Markup not OKAY")
 			abort(404)
-		
 		### Create and fill out Product List Objects for later reference
 		products = {}
 		for k in params:
@@ -182,7 +168,7 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = DisplayProduct(merchant_ref=query, tracking_link = query, guid=uuid.uuid4())
+					products[no] = DisplayProduct(merchant_ref=referer, tracking_link = referer, guid=uuid.uuid4())
 				attr_names, transf, override = transl.get(parts[0])
 				for attr in attr_names:
 					if override or not getattr(products[no], attr, None):

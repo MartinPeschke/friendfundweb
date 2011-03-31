@@ -1,25 +1,21 @@
-from __future__ import with_statement
 import logging, simplejson, formencode, urlparse, urllib2, socket
-from datetime import date, timedelta, datetime
-from xml.sax.saxutils import quoteattr
+from BeautifulSoup import BeautifulSoup
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 from friendfund.lib import helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
 from friendfund.model.pool import Pool, UpdatePoolProc
 from friendfund.model.product import Product, ProductSearch
 from friendfund.tasks.photo_renderer import UnsupportedFileFormat
-from friendfund.services.amazon_service import URLUnacceptableError, AttributeMissingInProductException, WrongRegionAmazonError, NoOffersError, TooManyOffersError, AmazonErrorsOccured
+from friendfund.services.amazon_service import AttributeMissingInProductException, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException, QueryMalformedException
 log = logging.getLogger(__name__)
 
 class ProductController(BaseController):
-	
 	@jsonify
 	def open_bounce(self):
 		c.upload = bool(request.params.get("upload", False))
@@ -44,7 +40,39 @@ class ProductController(BaseController):
 		return {'success':True, 'html':html}
 		
 	def bounce(self):
-		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), request)
+		query=request.params.get("referer")
+		if not query:
+			log.error("Query not found")
+			abort(404)
+		try:
+			socket.setdefaulttimeout(60)
+			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
+			product_page = urllib2.urlopen(query)
+		except Exception, e:
+			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
+			abort(404)
+		
+		soup = BeautifulSoup(product_page.read())
+		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
+		
+		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), params, query)
+		if len(c.product_list)>1:
+			websession['product_list'] = c.product_list
+		else:c.product_list = []
+		c.pool = websession['pool']
+		return self.render('/index.html')
+	
+	def simplebounce(self):
+		query=request.params.get("referer")
+		if not query:
+			log.error("Query not found")
+			abort(404)
+		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
+		if params.get("meta"):
+			websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), params.get("meta"), query)
+		else:
+			log.error("SIMPLEBOUNCE: No META Tags found")
+			abort(404)
 		if len(c.product_list)>1:
 			websession['product_list'] = c.product_list
 		else:c.product_list = []

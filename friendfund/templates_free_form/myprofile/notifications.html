@@ -16,6 +16,7 @@
 	<div class="content">
 		<div class="colRight"></div>
 		<div class="colLeft">
+			<form action="${url.current()}" method="POST">
 			<h4>Please email me when...</h4>
 			<div class="subHeading"  style="margin-bottom:10px"></div>
 			<div class="borderBottom noBorder lessPad">
@@ -52,8 +53,9 @@
 				</div>
 			</div>
 			<div class="terms" style="margin-top:20px">
-				<input type="button" class="primaryButton" value="Save Changes">
+				<input type="submit" class="primaryButton" value="${_("FF_Save")}">
 			</div>
+				</form>
 		</div>
 		<div class="clear"></div>
 	</div>

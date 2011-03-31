@@ -7,6 +7,7 @@ available to Controllers. This module is available to templates as 'h'.
 import os, md5, base64, uuid
 from xml.sax.saxutils import quoteattr
 from friendfund.lib.i18n import *
+import itertools
 
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
@@ -16,6 +17,11 @@ ACTION_PIC_STATIC_ROOT = '/static/imgs'
 
 from babel.core import Locale
 
+def zigzag(map, pred, mod):
+	t1,t2 = itertools.tee(map.iteritems())
+	even = itertools.imap(mod, itertools.ifilter(pred, t1))
+	odd = itertools.ifilterfalse(pred, t2)
+	return even,odd
 
 def contains_one(arr, map):
 	for k in arr:

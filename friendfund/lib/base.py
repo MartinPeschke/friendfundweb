@@ -107,7 +107,7 @@ class BaseController(WSGIController):
 		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], request.headers.get('Host'), url.current())
 		
-		if 'lang' not in websession or 'lang' not in g.locales:
+		if 'lang' not in websession or websession['lang'] not in g.locales:
 			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
 		set_lang(websession['lang'])
 	

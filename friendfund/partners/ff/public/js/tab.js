@@ -196,7 +196,14 @@ FriendFund.Util = {
             styleElement.appendChild(document.createTextNode(css));
         }
         document.getElementsByTagName('head')[0].appendChild(styleElement);
-    }
+    },
+	get_tags: function(){
+		var params = {};
+		var metas = document.getElementsByTagName("META");
+		for (var i=0;i<metas.length; i++){params["meta."+metas[i].name] = metas[i].content;}
+		params.referer = window.location.href;
+		return params;
+	}
 };
 
 FriendFund.Logger = {
@@ -418,7 +425,7 @@ FriendFund.Popup.Overlay = {
 };
 
 FriendFund.Popin = {
-    content_template: '<iframe id="friendfund_dialog_iframe" src="" frameborder="0" scrolling="no" allowtransparency="true" width="${width}" height="${height}" style="height: ${height}; width: ${width};"></iframe>',
+    content_template: '<iframe id="friendfund_dialog_iframe" name="friendfund_dialog_iframe" src="" frameborder="0" scrolling="no" allowtransparency="true" width="${width}" height="${height}" style="height: ${height}; width: ${width};"></iframe>',
     opened_url_template: '${url}?${query}#opened',
     setup: function (options) {
         this.setupOptions(options);
@@ -442,8 +449,30 @@ FriendFund.Popin = {
         this.setupOptions(options);
         FriendFund.Popup.show(FriendFund.Util.render(this.content_template, this.getContext(options)));
         try {
-            var iframeElement = document.getElementById("friendfund_dialog_iframe").contentWindow;
-            iframeElement.location = FriendFund.Util.render(this.opened_url_template, this.getContext(options));
+            var iForm = document.getElementById("friendfund_dialog_iform");
+			if(iForm){document.body.removeChild(iForm);}
+			var post_to_url = function(url, params) {
+				var form = document.createElement("form");
+				form.setAttribute("id", "friendfund_dialog_iform");
+				form.setAttribute("method", "POST");
+				form.setAttribute("action", url);
+				form.setAttribute("target", "friendfund_dialog_iframe");
+				for(var key in params) {
+					var hf = document.createElement("input");
+					hf.setAttribute("type", "hidden");
+					hf.setAttribute("name", key);
+					hf.setAttribute("value", params[key]);
+					form.appendChild(hf);
+				}
+				document.body.appendChild(form);    // Not entirely sure if this is necessary
+				form.submit();
+			};
+			var params = FriendFund.Util.get_tags();
+			params.query = window.location.href;
+			params.key = options.key;
+			params.host = options.host;
+			params.real_host = window.location.host;
+			post_to_url(this.url(options), params);
         } catch (e) {
             FriendFund.Logger.warning("Error sending the 'open' notification");
             FriendFund.Logger.warning(e);
@@ -454,15 +483,10 @@ FriendFund.Popin = {
         for (attr in this.options) {context[attr] = this.options[attr];};
         context.url = this.url(options);
         context.params.lang = this.options.lang;
-        context.params.referer = this.getReferer();
         context.query = FriendFund.Util.toQueryString(context.params);
         return context;
     },
-    getReferer: function () {
-        var referer = encodeURIComponent(window.location.href);
-        return referer;
-    },
-    url: function (options) {return options.protocol+options.host+'/product/bounce';}
+    url: function (options) {return options.protocol+options.host+'/product/simplebounce';}
 };
 
 FriendFund.Button = {
@@ -471,7 +495,7 @@ FriendFund.Button = {
 	css_template: "#${button_id} {margin: 10px 0;width: auto} \
 					#${button_id}:hover {cursor:pointer}\
 					#${button_id} .friendfundButton{pointer:cursor;margin:10px auto;color:white;width:192px;height:71px;\
-					background:url(${protocol}${host}/static/custom_imgs/button_logo.png) no-repeat 0 0 transparent;display:block}",
+					background:url(${protocol}${host}/static/custom_imgs/friendfund_it_button.png) no-repeat 0 0 transparent;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
 					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\

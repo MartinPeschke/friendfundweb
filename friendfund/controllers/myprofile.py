@@ -13,7 +13,7 @@ from friendfund.lib import helpers as h
 from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, WebLoginUserByEmail, SetUserEmailProc, SetUserLocaleProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
-from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc
+from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc
 from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
 
 log = logging.getLogger(__name__)
@@ -81,7 +81,17 @@ class MyprofileController(BaseController):
 	@logged_in(ajax=False)
 	@default_domain_only()
 	def notifications(self):
+		c.values = {}
+		c.errors = {}
+		c.values = g.dbm.get(OptOutNotificationsProc, u_id = c.user.u_id)
+		if request.method != 'POST':
+			return self.render('/myprofile/notifications.html')
+		
+		c.values = formencode.variabledecode.variable_decode(request.params).get("opt_out", {})
+		if c.values:
+			c.values = g.dbm.set(OptOutNotificationsProc(u_id = c.user.u_id, **c.values))
 		return self.render('/myprofile/notifications.html')
+		
 	
 	def login(self):
 		if not c.user.is_anon:

@@ -48,3 +48,16 @@ class SetDefaultProfileProc(DBMappedObject):
 	_keys = [GenericAttrib(int, 'u_id', 'u_id')
 			,GenericAttrib(str, 'network', 'network')
 			]
+
+class OptOutNotificationsProc(DBMappedObject):
+	"""app.set_template_opt_out"""
+	_cachable = False
+	_get_root = _set_root = "USER"
+	_get_proc = "app.get_template_opt_out"
+	_set_proc = "app.set_template_opt_out"
+	_unique_keys = ['u_id']
+	_keys = [GenericAttrib(int, 'u_id', 'u_id')
+			,GenericAttrib(bool, 'newsletter', 'newsletter')
+			,GenericAttrib(bool, 'comments', 'comments')
+			,GenericAttrib(bool, 'chipin', 'chipin')
+			]

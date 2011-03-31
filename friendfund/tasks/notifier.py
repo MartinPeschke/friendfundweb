@@ -100,7 +100,7 @@ def date(key, data_map):
 		return {key: val}
 	
 
-TRANSLATIONS = {"expiry_date": date, "target_amount":amount, "chip_in_amount":currency, "invitee_name": firstname}
+TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "invitee_name": firstname}
 
 def localize(data_map):
 	result = {}
