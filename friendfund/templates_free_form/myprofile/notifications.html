@@ -1,72 +1,60 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 
-<%def name="scripts()">
-	<script type="text/javascript">
-		var addthis_config = {"data_track_clickback":true};
-		
-	</script>
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
-</%def>
-
-
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
 			<div class="subUserProfile">
-				<h2 class="padBtm">Account Settings</h2>
-				
+				<h2 class="padBtm">${_("FF_ACCOUNT_Account Settings")}</h2>
 			</div>
 			${common.render_tabs("notifications")|n}
-			
 		<div class="clear"></div>
 		</div>
 	</div>
 </div>
 <div class="wrapSubContent">
-<div class="content">
-<div class="colRight"></div>
-<div class="colLeft">
-	<h4>Please email me when...</h4>
-	<div class="subHeading"  style="margin-bottom:10px"></div>
-    <div class="borderBottom noBorder lessPad">
-			<div class="tip">
-				<div class="arrow"></div>
-				<span>Tip goes here</span>
+	<div class="content">
+		<div class="colRight"></div>
+		<div class="colLeft">
+			<h4>Please email me when...</h4>
+			<div class="subHeading"  style="margin-bottom:10px"></div>
+			<div class="borderBottom noBorder lessPad">
+				<div class="tip">
+					<div class="arrow"></div>
+					<span>Tip goes here</span>
+				</div>
+				<div class="greyInsideFullWidth">
+					<div class="first"> <span>&nbsp;</span> </div>
+					<input type="checkbox" class="chkbox"  checked="checked" value="yes" name="optout.invite" id="optout_invite"/>
+						<label for="optout_invite">A friend creates a Pool</label>
+				</div>
 			</div>
-			<div class="greyInsideFullWidth">
-				<div class="first"> <span>&nbsp;</span> </div>
-				<input type="checkbox" class="chkbox" checked="checked" value="no" name="payment.is_secret" id="isSecretFalse"><label for="isSecretFalse">Someone chips in to my Pool</label>
+			<div class="borderBottom noBorder lessPad">
+				<div class="tip">
+					<div class="arrow"></div>
+					<span>Tip goes here</span>
+				</div>
+				<div class="greyInsideFullWidth">
+					<div class="first"> <span>&nbsp;</span> </div>
+					<input type="checkbox" class="chkbox" checked="checked" value="yes" name="optout.chipin" id="optout_chipin"/>
+						<label for="optout_chipin">Someone chips in to my Pool</label>
+				</div>
 			</div>
-		</div>
-        <div class="borderBottom noBorder lessPad">
-			<div class="tip">
-				<div class="arrow"></div>
-				<span>Tip goes here</span>
+			<div class="borderBottom noBorder lessPad">
+				<div class="tip">
+					<div class="arrow"></div>
+					<span>Tip goes here</span>
+				</div>
+				<div class="greyInsideFullWidth">
+					<div class="first"> <span>&nbsp;</span> </div>
+					<input type="checkbox" class="chkbox"  checked="checked" value="yes" name="optout.comment" id="optout_comment"/>
+						<label for="optout_comment">Someone comments on a Pool I created</label>
+				</div>
 			</div>
-			<div class="greyInsideFullWidth">
-				<div class="first"> <span>&nbsp;</span> </div>
-				<input type="checkbox" class="chkbox"  checked="checked" value="no" name="payment.is_secret" id="isSecretFalse"><label for="isSecretFalse">Someone comments on a Pool I created</label>
-			</div>
-		</div>
-        <div class="borderBottom noBorder lessPad">
-			<div class="tip">
-				<div class="arrow"></div>
-				<span>Tip goes here</span>
-			</div>
-			<div class="greyInsideFullWidth">
-				<div class="first"> <span>&nbsp;</span> </div>
-				<input type="checkbox" class="chkbox"  checked="checked" value="no" name="payment.is_secret" id="isSecretFalse"><label for="isSecretFalse">A friend creates a Pool</label>
-			</div>
-		</div>
-            
-            
-            
-            <div class="terms" style="margin-top:20px">
+			<div class="terms" style="margin-top:20px">
 				<input type="button" class="primaryButton" value="Save Changes">
 			</div>
-              
-</div>
-<div class="clear"></div>
-</div>
+		</div>
+		<div class="clear"></div>
+	</div>
 </div>
