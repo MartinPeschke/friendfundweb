@@ -19,7 +19,7 @@ def filter_pictures(img_src):
 	return isinstance(img_src, basestring) and img_src[-4:].lower() in ('.jpg','.png','.gif')
 
 def extract_imgs_from_soup(img):
-	attr_map = dict(img.attrs)
+	attr_map = img.attrs
 	width_filter = ('width' not in attr_map) or (int(filter(lambda x: x.isdigit(), attr_map['width']))>49)
 	height_filter = ('height' not in attr_map) or (int(filter(lambda x: x.isdigit(), attr_map['height']))>49)
 	return width_filter and height_filter and img.get('src') or None
@@ -55,7 +55,7 @@ def get_title_descr_imgs(query, product_page):
 					scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 					abs_base = urlparse.urlunparse((scheme, domain, '','','',''))
 					rel_base = urlparse.urlunparse((scheme, domain,'%s/' % path.rsplit('/', 1)[0],'','',''))
-					img_collection = list(imap(absolutize_img_src(rel_base, abs_base), ifilter(filter_pictures, imap(extract_imgs_from_soup, soup.findAll("img")))))
+					img_collection = list(imap(absolutize_img_src(rel_base, abs_base), ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img")))))
 					#### remove duplicates
 					imgs = OrderedDict((a, True) for a in img_collection)
 					img_collection = imgs.keys()

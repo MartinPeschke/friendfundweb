@@ -62,7 +62,6 @@ class MemcachedNamespaceManager(NamespaceManager):
         return key in self
 
     def set_value(self, key, value, expiretime=None):
-        print "SETMEMCACHE", self._format_key(key), value
         if expiretime:
             self.mc.set(self._format_key(key), value, time=expiretime)
         else:

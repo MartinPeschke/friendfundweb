@@ -220,11 +220,16 @@
 		</div>
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
-			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox">
+			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox"/>
 			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" href="${url(controller="content", action="tos")}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
 		</div>
+
+		<div class="greyInsideFullWidth">
+			<div class="first"> <span>&nbsp</span> </div>
+			<input type="checkbox" id="chipin_do_notify" name="payment.do_notify" value="yes" ${widgets.input_checked("do_notify", "yes")|n} class="chkbox"/>
+			<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Notify invitees that I've chipped in")}</label><a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}" >${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
+		</div>
 	</div>
-	
 		<div class="floatRight">
 			<div class="spacerButtons">
 				<span id="submitter" class="forward floatLeft"><span>${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}</span> <input type="button" value="&gt;"></span>

@@ -99,6 +99,7 @@ class CreditCardPayment(PaymentMethod):
 		contrib_model = DBContribution(amount = tmpl_context.contrib_view.amount
 								,total = tmpl_context.contrib_view.total
 								,is_secret = tmpl_context.contrib_view.is_secret
+								,do_notify = tmpl_context.contrib_view.do_notify
 								,message = tmpl_context.contrib_view.message
 								,paymentmethod = ccard.ccType
 								,u_id = tmpl_context.user.u_id
@@ -184,6 +185,7 @@ class RedirectPayment(PaymentMethod):
 		dbcontrib = DBContribution(amount = contribution.amount
 								,total = contribution.total
 								,is_secret = contribution.is_secret
+								,do_notify = contribution.do_notify
 								,message = contribution.message
 								,paymentmethod = self.code
 								,u_id = tmpl_context.user.u_id

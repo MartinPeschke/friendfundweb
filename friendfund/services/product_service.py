@@ -199,7 +199,8 @@ class ProductService(object):
 			socket.setdefaulttimeout(60)
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			if not scheme:query='http://%s'%query
-			product_page = urllib2.urlopen(query)
+			req = urllib2.Request(query, headers={'User-Agent' : "FriendFundIt Browser"})
+			product_page = urllib2.urlopen( req )
 		except Exception, e:
 			raise QueryMalformedException("Query could not be opened or is not wellformed: %s (%s)" % (query, e))
 		else:

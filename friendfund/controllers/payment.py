@@ -11,7 +11,7 @@ from friendfund.lib.base import ExtBaseController, render,render_def, _, ErrorMe
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
-from friendfund.model.forms.contribution import PaymentIndexForm, PaymentConfForm
+from friendfund.model.forms.contribution import PaymentConfForm
 from friendfund.model.forms.creditcard import CreditCardForm
 from friendfund.model.db_access import SProcException
 
@@ -22,6 +22,9 @@ class PaymentController(ExtBaseController):
 	@jsonify
 	def transaction_fees(self, pool_url):
 		return {"popup":render("/contribution/popups/transaction_fees.html").strip()}
+	@jsonify
+	def notify_invitees(self, pool_url):
+		return {"popup":render("/contribution/popups/notify_invitees.html").strip()}
 	
 	def _add_tos(self):
 		tos = None
