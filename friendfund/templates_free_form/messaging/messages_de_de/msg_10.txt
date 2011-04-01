@@ -1,0 +1,20 @@
+<%def name="name()">${data['pool_title']}</%def>
+
+<%def name="description()">${data['pool_description']}  
+
+Besuche den Pool und mach mit!  
+http://${data['merchant_domain']}/pool/${data['p_url']}   
+Sammle Geld mit deinen Freunden. Gründe einen Pool. friendfund it!
+</%def>
+
+
+<%def name="picture()">${data['pool_image']}</%def>
+<%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
+
+
+
+<%def name="privacy_type()">EVERYONE</%def>
+<%def name="start_time()">${data['today']}</%def>
+<%def name="end_time()">${data['expiry_date']}</%def>
+<%def name="location()">${data['DEFAULT_BASE_URL']}</%def>
+

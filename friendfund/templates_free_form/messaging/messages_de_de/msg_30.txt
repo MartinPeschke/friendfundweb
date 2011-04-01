@@ -1,0 +1,19 @@
+Hallo ${data['firstname_invitee_name']},  
+
+${data['contributor_name']} hat gerade in den Pool ${data['pool_title']} eingezahlt!   
+
+"${data['contributor_comment']}"  
+
+Es sind noch ${data['x_days_left']} Tage Zeit, um den festgelegten Gesamtbetrag zu erreichen.   
+
+${data['pool_description']} 
+
+Zahle etwas ein oder wirb für deinen Pool: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Alles Gute,   
+das Team von friendfund
+
+<${data['DEFAULT_BASE_URL']}>  
+Sammle Geld mit deinen Freunden. Mach mit. friendfund it!  
+
+<%def name="subject()">${data['contributor_name']} hat in ${data['pool_title']} eingezahlt</%def>     

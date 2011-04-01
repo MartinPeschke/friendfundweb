@@ -1,0 +1,21 @@
+<%def name="message()">Hallo ${data['firstname_invitee_name']}, du wurdest zu unserem friendfund Pool eingeladen:  
+${data['message']}</%def>
+
+
+<%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
+<%def name="name()">${data['subject']}</%def>
+<%def name="caption()">friendfund it!</%def>
+<%def name="description()">
+${data['pool_description']}
+</%def>
+
+
+<%def name="picture()">${data['pool_image']}</%def>
+
+
+
+<%def name="privacy()">ALLE</%def>
+<%def name="action_name()">Ansehen auf friendfund</%def>
+<%def 
+name="action_link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
+

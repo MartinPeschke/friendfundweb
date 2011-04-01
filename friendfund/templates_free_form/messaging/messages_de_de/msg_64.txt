@@ -1,0 +1,21 @@
+Hallo ${data['admin_name']},  
+
+Du und deine Freunde haben ${data['contribution_amount']} für ${data['pool_title']} gesammelt.  
+
+Leider ist die Zeit für deinen Pool nun abgelaufen ohne den Gesamtbetrag in Höhe von ${data['target_amount']} zu erreichen.  
+
+Da dies ein “Alles oder Nichts”-Pool ist, wurden keine Kreditkartenzahlungen veranlasst und alle Paypalzahlungen zurücküberwiesen.   
+
+Schaue dir alle Nachrichten und Einzahlungen an!   
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Mehr Gück beim nächsten Mal!   
+
+Alles Gute,   
+das Team von friendfund
+
+<${data['DEFAULT_BASE_URL']}>  
+Der einfache Weg Geld mit deinen Freunden zu sammeln. Gründe einen 
+Pool und mach mit. friendfund it!
+
+<%def name="subject()">${data['pool_title']} friendfund Pool abgelaufen</%def>   

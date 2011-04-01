@@ -1,0 +1,21 @@
+<%def name="message()">
+“${data['invitee_comment']}”</%def>  
+
+
+<%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>  
+<%def name="name()">${data['pool_title']}</%def>  
+<%def name="caption()">friendfund it!</%def>  
+<%def name="description()">   
+Nur noch ${data['x_days_left']} Tag(e) um mitzuhelfen: ${data['pool_description']}.  
+</%def>
+
+
+<%def name="picture()">${data['pool_image']}</%def>  
+
+
+
+<%def name="privacy()">EVERYONE</%def>  
+<%def name="action_name()">Auf Friendfund ansehen</%def>  
+<%def name="action_link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>  
+ 
+ 

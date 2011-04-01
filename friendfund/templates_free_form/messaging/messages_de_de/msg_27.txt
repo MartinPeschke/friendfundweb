@@ -1,0 +1,17 @@
+Vielen Dank ${data['contributor_name']} für deine Einzahlung in Höhe 
+von ${data['chip_in_amount']} in den Pool ${data['pool_title']}!   
+
+Dies ist ein “Alles oder Nichts”-Pool, d.h. dass du nur zahlst, wenn der festgelegte Gesamtbetrag des Pools erreicht wird, ansonsten zahlt niemand irgendwas.    
+(Kredikartenzahlungen werden nicht eingezogen, für Paypalzahlungen überweisen wir den geleisteten Beitrag vollständig zurück)
+
+
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Alles Gute,
+das Team von friendfund
+
+
+<${data['DEFAULT_BASE_URL']}>
+Sammle Geld mit deinen Freunden. Mach mit. friendfund it!  
+
+<%def name="subject()">Vielen Dank für die Einzahlung: ${data['pool_title']}</%def>  

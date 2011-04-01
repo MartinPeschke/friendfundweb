@@ -1,0 +1,21 @@
+Hallo ${data['contributor_name']},  
+
+Herzlichen Glückwunsch! Du und deine Freunde haben ${data['contribution_amount']} für ${data['pool_title']} gesammelt.  
+
+Leider ist die Zeit für diesen Pool nun abgelaufen ohne den Gesamtbetrag in Höhe von ${data['target_amount']} zu erreichen.  
+
+Alle Einzahlungen sind an ${data['admin_name']} gesendet worden 
+
+${data['settlement_option_details']}.   
+
+Schaue dir die [Ecard](http://${data['merchant_domain']}/pool/${data['ecard_url']}) an!  
+Es ist Zeit für einen Plan B!  
+
+Alles Gute,   
+das Team von friendfund
+
+<${data['DEFAULT_BASE_URL']}>  
+Der einfache Weg Geld mit deinen Freunden zu sammeln. Gründe einen 
+Pool und mach mit. friendfund it!
+
+<%def name="subject()">${data['pool_title']}: friendfund Pool abgelaufen</%def>   

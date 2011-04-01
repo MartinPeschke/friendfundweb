@@ -100,7 +100,7 @@ def date(key, data_map):
 		return {key: val}
 	
 
-TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "invitee_name": firstname}
+TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname}
 
 def localize(data_map):
 	result = {}
@@ -181,7 +181,6 @@ def main(argv=None):
 				template_data["DEFAULT_BASE_URL"] = ROOT_URL
 				template_data["today"] =datetime.today().strftime("%d.%m.%Y")
 				
-				template_data = localize(template_data)
 				
 				
 				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
@@ -196,11 +195,12 @@ def main(argv=None):
 				log.info ( 'RECIPIENT, %s', rcpt_data)
 				log.info ( 'extraRECIPIENTs, %s', rcpts_data)
 				log.info ( 'extraINVITEEs, %s', ivts_data)
-				log.info ( 'TEMPLATE, %s', template_data)
 				
 				
 				try:
 					file_no = meta_data['file_no']
+					template_data = localize(template_data)
+					log.info ( 'TEMPLATE, %s', template_data)
 					try:
 						template = tmpl_lookup.get_template('/msg_%s.txt' % file_no)
 					except mako.exceptions.TopLevelLookupException, e:

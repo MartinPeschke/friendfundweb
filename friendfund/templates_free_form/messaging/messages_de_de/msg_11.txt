@@ -1,0 +1,22 @@
+Hallo ${data['invitee_name']}, 
+
+Ich habe den Pool ${data['pool_title']} auf friendfund gegründet und möchte dich hiermit einladen mitzumachen!  
+
+${data['pool_description']}  
+
+Wir haben bis zum ${data['expiry_date']} Zeit, den Gesamtbetrag zu 
+sammeln. Zahle soviel ein wie du möchtest (auch der kleinste Betrag 
+hilft)!  
+
+Schaue dir den Pool hier an:  
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Vielen Dank  
+${data['admin_name']}  
+
+<${data['DEFAULT_BASE_URL']}>   
+Der einfache Weg Geld mit deinen Freunden zu sammeln. Gründe einen 
+Pool und mach mit. friendfund it!
+
+<%def name="subject()">${data['pool_title']}: Du wurdest zu einem friendfund eingeladen.</%def>
+

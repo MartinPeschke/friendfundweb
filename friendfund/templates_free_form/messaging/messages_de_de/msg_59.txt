@@ -1,0 +1,18 @@
+Hallo ${data['admin_name']},  
+
+Herzlichen Glückwunsch! Dein Pool auf friendfund für ${data['pool_title']} hat den Gesamtbetrag erreicht!  
+
+Du und deine Freunde haben erfolgreich ${data['target_amount']} für ${data['pool_description']} gesammelt.  
+
+Schaue dir die [eCard](http://${data['merchant_domain']}/pool/${data['ecard_url']}) an!  
+
+${data['settlement_option_details']}  
+
+Alles Gute,    
+das Team von friendfund
+
+<${data['DEFAULT_BASE_URL']}>  
+Der einfache Weg Geld mit deinen Freunden zu sammeln. Gründe einen 
+Pool und mach mit. friendfund it!
+
+<%def name="subject()">${data['pool_title']} friendfund erfüllt!</%def>   

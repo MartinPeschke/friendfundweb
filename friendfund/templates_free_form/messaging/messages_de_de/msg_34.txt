@@ -1,0 +1,22 @@
+Hallo ${data['firstname_invitee_name']},  
+
+${data['commenter_name']} hat folgenden ${data['pool_title']} Komentar hinzugefügt:
+
+${data['invitee_comment']}  
+
+Es sind noch ${data['x_days_left']} Tage übrig, um den Gesamtbetrag in von ${data['target_amount']} für  ${data['pool_description']} zu sammeln.
+
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+[Wirb für diesen Pool](http://${data['merchant_domain']}/pool/${data['p_url']}) oder [lade weitere Freunde ein] mitzumachen. (http://${data['merchant_domain']}/pool/${data['p_url']}).   
+
+Alles Gute,   
+das Team von friendfund
+
+<DEFAULT_BASE_URL>  
+Der einfache Weg Geld mit deinen Freunden zu sammeln. Gründe einen 
+Pool und mach mit. friendfund it!
+
+Hier kannst du Nachrichten von diesem Pool abbestellen:   <http://${data['merchant_domain']}/pool/${data['p_url']}>    
+
+<%def name="subject()">${data['invitee_comment_name']} hat ${data['pool_title']} kommentiert.</%def>   
