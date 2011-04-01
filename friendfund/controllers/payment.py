@@ -54,6 +54,7 @@ class PaymentController(ExtBaseController):
 		c.payment_methods = g.payment_methods
 		details = formencode.variabledecode.variable_decode(request.params).get('payment', {})
 		details['agreedToS'] = details.get('agreedToS', False)  #if_missing wouldnt evaluate, and if_empty returns MISSING VALUE error message, both suck bad
+		details['total'] = details.get('amount')
 		schema = PaymentConfForm()
 		schema.fields['amount'].max = round(c.pool.get_amount_left(), 2)
 		c.values = {}

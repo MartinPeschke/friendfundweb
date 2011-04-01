@@ -28,7 +28,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		dojo.addClass("selectedOccasion", "filled");
 	},
 	updateOccasionDate : function(params){
-		if(params.date){dojo.byId("occasion_date").value = datePickerController.printFormattedDate(params.date,"M-sp-d-cc-sp-Y",false)}
+		if(params.date){dojo.byId("occasion_date").value = datePickerController.printFormattedDate(params.date,"Y-ds-m-ds-d",false)}
 	},
 	swapProduct : function(evt){
 		var selected_product = evt.target.options[evt.target.selectedIndex];

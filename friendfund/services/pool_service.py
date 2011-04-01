@@ -8,7 +8,7 @@ from friendfund.lib import helpers as h
 from friendfund.lib.i18n import friendfund_formencode_gettext
 from friendfund.model.forms.pool import PoolCreateForm
 from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion, JoinPoolProc
-from friendfund.model.product import Product
+from friendfund.model.product import Product, DisplayProduct
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, render_product_pictures, save_product_image, remote_product_picture_render
 
 class MissingPermissionsException(Exception):pass
@@ -72,9 +72,9 @@ class PoolService(object):
 		return pool
 	
 	def create_group_gift_from_iframe(self):
-		product = Product.from_minimal_repr(request.params.get("productMap"))
+		product = DisplayProduct.from_minimal_repr(request.params.get("productMap"))
 		receiver = PoolUser.from_minimal_repr(request.params.get("invitees"))
-		occasion = Occasion(name = request.params.get("invitees"), date = request.params.get("invitees"), key="EVENT_OTHER")
+		occasion = Occasion(name = request.params.get("occasion_name"), date = request.params.get("occasion_date"), key="EVENT_OTHER")
 		
 		pool = Pool(title = product.name,
 				description = product.description,
@@ -85,6 +85,9 @@ class PoolService(object):
 		receiver.is_receiver = True
 		pool.participants.append(receiver)
 		pool.occasion = occasion
+		admin = PoolInvitee.fromUser(tmpl_context.user)
+		admin.is_admin = True
+		pool.participants.append(admin)		
 		return pool
 	
 	def create_group_gift(self):
