@@ -9,7 +9,9 @@ dojo.declare("friendfund._Selector", null, {
 	_listener_locals : [],
 	_loader : "<div style=\"margin: 0px auto;text-align:center;padding:30px;\"><div class=\"loading_animation\"><img src=\"/static/imgs/ajax-loader.gif\"></div></div>",
 	draw: function(){console.log("NOT_IMPLEMENTED");},
-	destoy: function(){console.log("NOT_IMPLEMENTED");}
+	destoy: function(){console.log("NOT_IMPLEMENTED");},
+	uninviteAppendNode : function(_t, elem){},
+	inviteAppendNode : function(_t, elem){}
 });
 
 
@@ -83,13 +85,16 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		}
 		dojo.query("input[type=text]", _t.rootNode)[0].focus();
 	},
-	onSelect : function(_t, params, elem, evt){
-		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
+	inviteAppendNode : function(_t, elem){
 		dojo.place(elem, _t.invited_node, "last");
 		dojo.query("input[type=text]", "emailinviter").attr("value", "");
 		dojo.query("#email_inviter_error", "emailinviter").orphan();
+	},
+	onSelect : function(_t, params, elem, evt){
+		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
 		elem = dojo.byId("invitedCounter");
 		elem.innerHTML = parseInt(elem.innerHTML)+1;
+		_t.inviteAppendNode(_t, elem);
 	},
 	unSelect : function(_t, target){
 		dojo.query('#'+target.id, _t.invited_node).orphan();
@@ -207,14 +212,14 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	/* ================= SELECT inherited ======================== */
 	onSelect : function(_t, params, elem, evt){
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
-		dojo.query('#'+elem.id, _t.friendlist).orphan().forEach(function(elem){
-			_t.inviteAppendNode(_t, elem);
-		});
+		_t.inviteAppendNode(_t, elem);
+		el = dojo.byId("invitedCounter");
+		el.innerHTML = parseInt(el.innerHTML)+1;
 	},
 	inviteAppendNode : function(_t, elem){
-		dojo.place(elem, _t.invited_node, "last");
-		elem = dojo.byId("invitedCounter");
-		elem.innerHTML = parseInt(elem.innerHTML)+1;
+		dojo.query('#'+elem.id, _t.friendlist).orphan().forEach(function(elem){
+			dojo.place(elem, _t.invited_node, "last");
+		});
 	},
 	uninviteAppendNode : function(_t, elem){
 		if(_t.friendlist){
@@ -294,6 +299,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 							mutuals : args.mutuals
 						});
 			if(_t.onSelect){_t.selectors.facebook.onSelect = _t.onSelect;}
+			if(_t.unSelect){_t.selectors.facebook.unSelect = _t.unSelect;}
 		}
 		if(args.avail_selectors.twitter === true){
 			_t.selectors.twitter = new friendfund.NetworkFriendSelector(
@@ -305,6 +311,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 							network : "twitter"
 						});
 			if(_t.onSelect){_t.selectors.twitter.onSelect = _t.onSelect;}
+			if(_t.unSelect){_t.selectors.twitter.unSelect = _t.unSelect;}
 		}
 		if(args.avail_selectors.email === true){
 			_t.selectors.email = new friendfund.EmailFriendSelector(
@@ -315,12 +322,14 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 							network : "email"
 						});
 			if(_t.onSelect){_t.selectors.email.onSelect = _t.onSelect;}
+			if(_t.unSelect){_t.selectors.email.unSelect = _t.unSelect;}
 		}
 		if(args.avail_selectors.yourself === true){
 			_t.selectors.yourself = new friendfund.YourselfSelector(
 						{	base_url : _t.base_url, ref_node: "receiver_selector_container"
 						});
 			if(_t.onSelect){_t.selectors.yourself.onSelect = _t.onSelect;}
+			if(_t.unSelect){_t.selectors.yourself.unSelect = _t.unSelect;}
 		}
 		for(var sel in _t.selectors){
 			_t._widget_locals.push(_t.selectors[sel]);
@@ -334,7 +343,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		}
 
 	},removeAll : function(_t, evt){
-		dojo.query(".invitee_row.selectable", self.invited_node).forEach(function(elem){
+		dojo.query(".invitee_row.selectable", _t.invited_node).forEach(function(elem){
 			var sel = _t.selectors[dojo.attr(elem, "_network")];
 			sel.unSelect(sel, elem);
 		});

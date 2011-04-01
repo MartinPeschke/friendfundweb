@@ -5,21 +5,23 @@
 
 
 %if c.method == 'facebook':
-	${networkinviter("facebook", c.friends, request.merchant.type_is_group_gift)}
+	${networkinviter("facebook", c.friends, c.mutuals, c.all)}
 %elif c.method == 'twitter':
-	${networkinviter("twitter", c.friends, False)}
+	${networkinviter("twitter", c.friends, False, c.all)}
 %elif c.method == 'email':
 	${mailinviter()}
 %endif
 
-<%def name="networkinviter(network_name, friends, mutuals)">
+<%def name="networkinviter(network_name, friends, mutuals, all)">
 	<div class="arrowSubTab"></div>
 	<div class="boxSearchFriend" id="inviteheader">
 		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default floatLeft" />
 		%if mutuals:
 			<span class="mutualToggleContainer"><input id="toggle_mutuals_${network_name}" ${forms.expression_quote(mutuals, "checked")|n} type="checkbox"/><label for="toggle_mutuals">${_("FF_INVITER_CHECKBOX_Mutual Friends")}</label></span>
 		%endif
-		<span class="floatRight inviteAll link" id="inviteall_${network_name}">${_("FF_INVITER_BUTTON_Invite All")}</span>
+		%if all:
+			<span class="floatRight inviteAll link" id="inviteall_${network_name}">${_("FF_INVITER_BUTTON_Invite All")}</span>
+		%endif
 	</div>
 	 <div class="friendsList">
 		<ul id="friend_list_${network_name}" class="${network_name}">
@@ -49,7 +51,7 @@
 			</div>
 			<p class="hideable">${user_data["name"]}</p>
 			<span class="hideable">${_("FF_INVITER_BUTTON_Invite")} &raquo;</span>
-			
+			<input type="hidden" name="invitees" value="${h.encode_minimal_repr(user_data)}"/>
 		</li>
 %endfor
 </%def>
@@ -90,6 +92,7 @@
 		<div class="avt">
 			<img src="${user_data["large_profile_picture_url"]}">
 		</div>
+		<input type="hidden" name="invitees" value="${h.encode_minimal_repr(user_data)}"/>
 	</li>
 	%endfor
 </%def>

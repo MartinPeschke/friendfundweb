@@ -131,7 +131,10 @@ class PoolController(ExtBaseController):
 		c.workflow = request.params.get("v") or "1"
 		if request.merchant.type_is_group_gift:
 			try:
-				c.pool = g.pool_service.create_group_gift()
+				if request.merchant.entry_is_iframe:
+					c.pool = g.pool_service.create_group_gift_from_iframe()
+				else:
+					c.pool = g.pool_service.create_group_gift()
 			except MissingProductException, e:
 				c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
 				return redirect(url('home'))

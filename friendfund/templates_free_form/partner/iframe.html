@@ -1,0 +1,113 @@
+<%inherit file="../master.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="inviter" file="../invite/inviter.html"/>
+
+<%def name="scripts()">
+	${links.js('friendfund/FriendSelector.js')}
+	${links.js('friendfund/PartnerPanel.js')}
+	${links.js('datepicker.packed.js')}
+	${links.css('datepicker.css')}
+</%def>
+<%def name="onloadscripts()">
+	panels = new friendfund.PartnerPanel({
+					container : "receiverSelectorContainer"
+					,ref_node : "button_panel_Form"
+					,method : "${c.method}"
+					,invited_node:"selectedReceiver"
+					,mutuals:false
+					,base_url:"/myfriends"
+			});
+
+	var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
+	var today = new Date(), upperEnd = new Date();upperEnd.setDate(upperEnd.getDate() + 45);
+	var defaultDateOffset = 14;var defaultDate = new Date(today.getDate() + defaultDateOffset);
+	datePickerController.createDatePicker({
+	  formElements:{"datepicker":fmtDate},
+	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
+	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
+	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
+	  callbackFunctions:{"dateset":[panels.updateOccasionDate]}
+	});
+	
+</%def>
+
+
+<div id="wrap">
+	<div class="wrapHeader">
+		<h1>
+			WELCOME
+		</h1>
+	</div>
+	<div class="wrapContent">
+		<form action="${url('pool_create')}" method="POST" target="_parent" id="button_panel_Form">
+			<div class="floatRight">
+			<div id="productArea">
+				%for p in c.product_list:
+					<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
+						<div>Product</div>
+						<div class="prodName">${p.get_display_label(words = 10)}</div>
+						<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
+					</div>
+				%endfor
+				%if len(c.product_list)>1:
+					<br/>
+					<select id="productSelector" name="productMap">
+						%for p in c.product_list:
+						<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
+							${p.get_display_label(words = 10)}
+						</option>
+						%endfor
+					</select>
+				%endif
+			</div>
+			<div id="selectedReceiver" class="floatRight listSelectedFriends">
+				<div id="network_invitees" class="invited_list">
+
+				</div>
+			</div>
+			
+			<div id="selectedOccasion" class="floatRight clear">
+				<div>So you selected:</div>
+				<input type="text" name="occasion_name" id="occasion_name" value="" />
+				<input type="text" name="occasion_date" id="occasion_date" value="" />
+			</div>
+			
+			<input type="submit" value="submit" class="floatRight clear"/>
+			</div>
+		</form>
+		
+		<div id="receiverSelectorContainer" class="floatLeft">
+			<div class="wrapTabs">
+				<div class="tabs"> 
+					<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
+					<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
+					<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
+				</div>
+			</div>
+			<div class="subTab" id="inviter" style="width:600px;clear: left;"></div>
+		</div>
+		
+		
+		
+		<div id="occasionSelectorContainer" class="floatLeft clear">
+			<div class="occasionLabel">${_("EVENT_PANEL_Choose an occasion:")}</div>
+			<select id="occasionSelector"  _target="occasion_name">
+				%for occ in c.olist:
+					<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}">
+						%if occ.custom:
+							${_("EVENT_PANEL_Just because...")}
+						%else:
+							${occ.get_display_name()}
+						%endif
+					</option>
+				%endfor
+			</select>
+			<input type="text" id="occasionTyper" _target="occasion_name" custom="1" key="EVENT_OTHER" />
+			<input class="small" readonly="readonly" type="text" id="datepicker" value=""/>
+		</div>
+
+	</div>
+</div>
+
+<%def name="user_voice()"></%def>

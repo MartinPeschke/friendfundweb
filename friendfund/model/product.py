@@ -1,3 +1,4 @@
+import simplejson
 from babel.numbers import format_currency
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, GenericElement, DBMapping
@@ -27,6 +28,9 @@ class Product(DBMappedObject):
 		return h.word_truncate_by_letters(self.description, 180)
 	def has_picture(self):
 		return self.picture and self.picture!= h.get_default_product_picture_token()
+	def toJsonMap(self):
+		return simplejson.dumps(self.get_map())
+	
 
 class DisplayProduct(Product):
 	_keys = [	GenericAttrib(unicode  ,'guid'         , 'guid'             , persistable=False)
@@ -60,7 +64,10 @@ class DisplayProduct(Product):
 	def get_display_label(self, words = 5, seperator = ' '):
 		return '%s%s%s' % (h.word_truncate_plain(self.name, words), seperator, self.display_price)
 	display_label = property(get_display_label)
-
+	
+	
+	def get_picture(self, type):
+		return h.get_product_picture(self.picture, type)
 
 
 class ProductSearch(DBMappedObject):

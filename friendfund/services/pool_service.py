@@ -71,6 +71,22 @@ class PoolService(object):
 		pool.participants.append(receiver)
 		return pool
 	
+	def create_group_gift_from_iframe(self):
+		product = Product.from_minimal_repr(request.params.get("productMap"))
+		receiver = PoolUser.from_minimal_repr(request.params.get("invitees"))
+		occasion = Occasion(name = request.params.get("invitees"), date = request.params.get("invitees"), key="EVENT_OTHER")
+		
+		pool = Pool(title = product.name,
+				description = product.description,
+				currency = product.currency,
+				settlementOption = request.merchant.settlement_options[0].name
+			)
+		pool.set_product(product)
+		receiver.is_receiver = True
+		pool.participants.append(receiver)
+		pool.occasion = occasion
+		return pool
+	
 	def create_group_gift(self):
 		pool = websession.get('pool')
 		if pool is None:

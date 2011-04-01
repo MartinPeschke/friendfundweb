@@ -25,11 +25,8 @@ def render(template_name, extra_vars=None, cache_key=None,
 	def render_template():
 		globs = extra_vars or {}
 		globs.update(pylons_globals())
-		if request.merchant.type_is_group_gift:
-			if request.merchant.entry_is_landing_page:
-				template = globs['app_globals'].mako_lookup.get_template(template_name)
-			else:
-				template = globs['app_globals'].merchant_mako_lookup.get_template(template_name)
+		if request.merchant.type_is_group_gift and request.merchant.entry_is_landing_page:
+			template = globs['app_globals'].mako_lookup.get_template(template_name)
 		else:
 			template = globs['app_globals'].freeform_mako_lookup.get_template(template_name)
 			
@@ -42,11 +39,8 @@ def render_def(template_name, def_name, cache_key=None,
 	def render_template():
 		globs = kwargs or {}
 		globs.update(pylons_globals())
-		if request.merchant.type_is_group_gift:
-			if request.merchant.entry_is_landing_page:
-				template = globs['app_globals'].mako_lookup.get_template(template_name)
-			else:
-				template = globs['app_globals'].merchant_mako_lookup.get_template(template_name)
+		if request.merchant.type_is_group_gift and request.merchant.entry_is_landing_page:
+			template = globs['app_globals'].mako_lookup.get_template(template_name)
 		else:
 			template = globs['app_globals'].freeform_mako_lookup.get_template(template_name)
 		template = template.get_def(def_name)

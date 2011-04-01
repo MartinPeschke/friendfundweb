@@ -12,7 +12,7 @@ picture_url_matcher = re.compile("https://graph.facebook.com/([0-9]+)/picture(\?
 INPROCESS_TOKEN = 1
 FRIENDS_QUERY = '?'.join([
 			'https://graph.facebook.com/%s/friends',
-			'fields=id,name,birthday,gender,email&access_token=%s'
+			'fields=id,name,birthday,gender,email,locale&access_token=%s'
 		])
 MUTUAL_FRIENDS_QUERY = '?'.join([
 			'https://api.facebook.com/method/friends.getMutualFriends',
@@ -99,10 +99,10 @@ def translate_friend_entry(u_id, friend_data):
 	result = {
 			'name':friend_data['name'], 
 			'network_id':u_id,
+			'locale':friend_data.get('locale', "").lower(),
 			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
 			'profile_picture_url':get_pic_url(friend_data['id']),
 			'notification_method':'CREATE_EVENT',
-			# 'notification_method':'STREAM_PUBLISH',
 			'network':'facebook',
 			'email':friend_data.get('email')
 		}

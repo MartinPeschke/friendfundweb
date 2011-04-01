@@ -21,59 +21,42 @@ class MyfriendsController(BaseController):
 	@jsonify
 	def method(self, method):
 		c.method = str(method)
+		c.mutuals = False
+		c.all = False
 		if method in ['facebook', 'twitter']:
+			pv =  request.params.getall('pv')
 			is_complete = True
 			offset = 0
 			try:
-				c.friends, is_complete, offset = c.user.get_friends(c.method)
+				friends, is_complete, offset = c.user.get_friends(c.method)
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}
-					return result
+					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/fb_login.html').strip()}}
 				else: 
-					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}
-					return result
-			return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/receiver/inviter.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
+			else:
+				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
+				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
-			return {'html':render('/receiver/inviter.html').strip()}
-	
-	@logged_in(ajax=False)
-	@jsonify
-	def get(self, pmethod):
-		c.method = str(pmethod)
-		if c.method in ['facebook', 'twitter']:
-			is_complete = True
-			offset = 0
-			try:
-				c.friends, is_complete, offset = c.user.get_friends(c.method)
-				if c.method in ['facebook']:
-					c.friends = OrderedDict(((k,v) for k,v in itertools.islice(c.friends.iteritems(), 0, 12)))
-				else:
-					c.friends = OrderedDict([(k,c.friends[k]) for k in random.sample(c.friends, len(c.friends)>12 and 12 or len(c.friends))])
-			except UserNotLoggedInWithMethod, e:
-				if c.method == 'facebook':
-					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/fb_login.html').strip()}
-					return result
-				else: 
-					result = self.ajax_messages()
-					result['data'] = {'is_complete': True, 'success':False, 'html':render('/receiver/tw_login.html').strip()}
-					return result
-			return {'data':{'is_complete':True, 'success':True, 'offset':0, 'html':render('/receiver/networkfriends.html').strip()}}
-		else:
-			return {'html':render('/receiver/inviter.html').strip()}
+			c.friends = {}
+			c.email_errors = {}
+			c.email_values = {}
+		return {'html':render('/invite/inviter.html').strip()}
 	
 	@jsonify
 	def get_extension(self, method):
 		if method in ['twitter']:
-			c.method = method
+			c.method = str(method)
+			pv =  request.params.getall('pv')
 			offset = int(request.params['offset'])
-			c.friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
-			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/receiver/networkfriends.html').strip()}}
+			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
+			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
 		return {'success':False}
-
+	
+	
+	
+	
 	@jsonify
 	@post_only(ajax=True)
 	def validate(self):

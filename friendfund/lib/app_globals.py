@@ -68,7 +68,7 @@ class Globals(object):
 		self.SUPPORT_EMAIL = app_conf['support_email']
 		
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
-		dbpool = PooledDB(pyodbc,100,autocommit=True
+		dbpool = PooledDB(pyodbc,mincached=4,maxcached=10,failures = (pyodbc.OperationalError, pyodbc.InternalError, pyodbc.Error), autocommit=True
 			,driver=app_conf['pool.connectstring.driver']
 			,server=app_conf['pool.connectstring.server']
 			,instance=app_conf['pool.connectstring.instance']

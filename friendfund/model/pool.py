@@ -164,6 +164,7 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(datetime,	'dob'                        , None                 , persistable = False)
 			, GenericAttrib(str,		'screen_name'                ,'screen_name'         )
 			, GenericAttrib(str,		'network'                    ,'network'             )
+			, GenericAttrib(str,		'locale'                     ,'locale'             )
 			, GenericAttrib(str,		'network_id'                 ,'id'                  )
 			, GenericAttrib(str,		'email'                      , 'email'              )###TODO: VERY DIRTY!
 			, GenericAttrib(str,		'_sex'                       , 'sex'                )

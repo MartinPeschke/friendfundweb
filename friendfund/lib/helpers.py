@@ -4,41 +4,15 @@
 Consists of functions to typically be used within templates, but also
 available to Controllers. This module is available to templates as 'h'.
 """
-import os, md5, base64, uuid
-from xml.sax.saxutils import quoteattr
+import os, base64, uuid
 from friendfund.lib.i18n import *
+from friendfund.lib.tools import *
 import itertools
 
 POOL_STATIC_ROOT = '/s/pool'
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
 ACTION_PIC_STATIC_ROOT = '/static/imgs'
-
-
-from babel.core import Locale
-
-def zigzag(map, pred, mod):
-	t1,t2 = itertools.tee(map.iteritems())
-	even = itertools.imap(mod, itertools.ifilter(pred, t1))
-	odd = itertools.ifilterfalse(pred, t2)
-	return even,odd
-
-def contains_one(arr, map):
-	for k in arr:
-		if k in map:
-			return True
-	return False
-def contains_one_ne(map, arr):
-	for k in arr:
-		if map.get(k):
-			return True
-	return False
-def contains_all_ne(map, arr):
-	for k in arr:
-		if not map.get(k):
-			return False
-	return True
-
 
 def decode_unique_token(token):
 	return uuid.UUID(bytes=base64.urlsafe_b64decode(token+'=='))
@@ -51,43 +25,8 @@ def set_wizard(mc, pd, wizard):
 
 def get_upload_pic_name(name):
 	return os.path.join(name[0:2], name[2:4],name)
-
 def get_upload_pic_name_ext(name, ext="jpg"):
 	return os.extsep.join([os.path.join(name[0:2], name[2:4],name), ext])
-
-
-def word_truncate_plain(s, length):
-	s = s and s.split() or ['']
-	out = ' '.join((len(s) <= length) and s or s[:length])
-	return out
-
-def word_truncate(s, length):
-	s = s and s.split() or ['']
-	out = ' '.join(((len(s) <= length) and s or (s[:length] + [' ... '])))
-	return out
-
-
-def word_truncate_by_letters(s, length):
-	if not s: return ''
-	if s and len(s) > length:
-		s = s[:length].rsplit(None,1)[0] + '...'
-	return s
-
-
-def has_ne_prop(c, key):
-	return bool(hasattr(c, key) and getattr(c, key))
-
-################## For Product Search Templates #################
-def attrib_keys(keys, updates = {}):
-	if updates:
-		okeys = keys.copy()
-		okeys.update(updates)
-	else:
-		okeys = keys
-	return '_search_keys="%s" %s' % (
-				','.join('_%s'%k for k in okeys.keys() if okeys[k] is not None),
-				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k] is not None)
-			)
 
 
 ################## Picture Helpers #################
@@ -159,22 +98,4 @@ def users_equal(user1, user2):
 	if not user1.network or not user1.network_id or not user2.network or not user2.network_id:
 		return False
 	return str(user1.network).lower() == str(user2.network).lower() and str(user1.network_id).lower() == str(user2.network_id).lower()
-
-
-def generate_random_password():
-	import random, string
-	myrg = random.SystemRandom
-	length = 10
-	alphabet = string.letters + string.digits
-	pw = str().join(myrg(random).sample(alphabet,length))
-	return pw
-
-CHARSET = ('bdfghklmnprstvwz', 'aeiou') # consonants, vowels
-def generate_mnemonic_password(letters=8, digits=4, uppercase=False):
-	"""Generate a random mnemonic password."""
-	chars = ''.join([random.choice(CHARSET[i % 2]) for i in range(letters)])
-	if uppercase:
-		chars = chars.upper()
-	chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
-	return chars
 

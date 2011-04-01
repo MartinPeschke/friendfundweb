@@ -1,4 +1,4 @@
-import logging, simplejson, formencode, urlparse, urllib2, socket
+import logging, simplejson, formencode, urlparse, urllib2, socket, datetime
 from BeautifulSoup import BeautifulSoup
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
@@ -8,7 +8,7 @@ from friendfund.lib import helpers as h
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
-from friendfund.model.pool import Pool, UpdatePoolProc
+from friendfund.model.pool import Pool, UpdatePoolProc, OccasionSearch
 from friendfund.model.product import Product, ProductSearch
 from friendfund.tasks.photo_renderer import UnsupportedFileFormat
 from friendfund.services.amazon_service import AttributeMissingInProductException, NoOffersError, TooManyOffersError, AmazonErrorsOccured
@@ -38,7 +38,7 @@ class ProductController(BaseController):
 						'img_list':img_list}
 			html = render_def("/product/urlparser.html", "renderParser", values = c.parser_values, with_closer = True).strip()
 		return {'success':True, 'html':html}
-		
+	
 	def bounce(self):
 		query=request.params.get("referer")
 		if not query:
@@ -55,29 +55,29 @@ class ProductController(BaseController):
 		soup = BeautifulSoup(product_page.read())
 		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		
-		websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), params, query)
+		c.product_list = g.product_service.get_products_from_open_graph(params, query)
+		if len(c.product_list)<1:
+			abort(404)
+		
+		c.pool = websession.get('pool') or Pool()
+		pool.set_product(c.product_list[0])
 		if len(c.product_list)>1:
 			websession['product_list'] = c.product_list
-		else:c.product_list = []
-		c.pool = websession['pool']
-		return self.render('/index.html')
+		else:
+			c.product_list = []
+		websession['pool'] = c.pool
+		return self.render('/partner/iframe.html')
 	
 	def simplebounce(self):
 		query=request.params.get("referer")
-		if not query:
-			log.error("Query not found")
-			abort(404)
 		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
-		if params.get("meta"):
-			websession['pool'], c.product_list = g.product_service.set_product_from_open_graph(websession.get('pool') or Pool(), params.get("meta"), query)
-		else:
-			log.error("SIMPLEBOUNCE: No META Tags found")
-			abort(404)
-		if len(c.product_list)>1:
-			websession['product_list'] = c.product_list
-		else:c.product_list = []
-		c.pool = websession['pool']
-		return self.render('/index.html')
+		
+		c.product_list = g.product_service.get_products_from_open_graph(params.get("meta", {}), query)
+		c.product = c.product_list[0]
+		
+		c.method = c.user.get_current_network() or 'facebook'
+		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		return self.render('/partner/iframe.html')
 	
 	
 	def picturepopup(self, pool_url):

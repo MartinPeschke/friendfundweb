@@ -6,8 +6,6 @@ from friendfund.model.pool import PoolStub, Pool
 from friendfund.lib import helpers as h, fb_helper, tw_helper
 
 log = logging.getLogger(__name__)
-
-
 class UserSignupException(Exception):
 	pass
 class UserNotLoggedInWithMethod(Exception):
@@ -114,6 +112,7 @@ class User(ProtoUser):
 				,GenericAttrib(str,'default_email','default_email')
 				,GenericAttrib(str,'pwd','pwd')
 				,GenericAttrib(str,'sex','sex')
+				,GenericAttrib(str,'locale','locale')
 				,GenericAttrib(str,'token','token')
 				,GenericAttrib(str,'access_token','access_token')
 				,GenericAttrib(str,'access_token_secret','access_token_secret')
@@ -226,6 +225,7 @@ class CreateEmailUserProc(DBMappedObject):
 	_keys = [	 GenericAttrib(str,'network','network')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'email','email')
+				,GenericAttrib(str,'locale','locale')
 				,GenericAttrib(unicode,'pwd','pwd')
 				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = h.get_default_user_picture_token())]
 	

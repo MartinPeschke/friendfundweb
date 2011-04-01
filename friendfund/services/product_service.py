@@ -145,9 +145,7 @@ class ProductService(object):
 		return pool
 	
 	
-	
-	
-	def set_product_from_open_graph(self, pool, params, referer):
+	def get_products_from_open_graph(self, params, referer):
 		transl = {  "og:description":(["description"], lambda x:x, False),
 					"og:name":(["name"], lambda x:x, False),
 					"og:price":(["price"], lambda x:int(x), False),
@@ -168,18 +166,15 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = DisplayProduct(merchant_ref=referer, tracking_link = referer, guid=uuid.uuid4())
+					products[no] = DisplayProduct(merchant_ref=referer, tracking_link = referer, guid=str(uuid.uuid4()))
 				attr_names, transf, override = transl.get(parts[0])
 				for attr in attr_names:
 					if override or not getattr(products[no], attr, None):
 						setattr(products[no], attr, transf(params.get(k)))
-		
-		
 		### Persist product list for later reference
-		product_list = OrderedDict([(unicode(products[k].guid), products[k]) for k in sorted(products)])
-		pool.set_product(products.get(sorted(products)[0]))
-		return pool, product_list
-
+		product_list = [products[k] for k in sorted(products)]
+		return product_list
+	
 	def set_product_from_open_web(self, query):
 		try:
 			socket.setdefaulttimeout(60)

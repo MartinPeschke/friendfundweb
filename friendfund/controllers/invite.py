@@ -41,6 +41,8 @@ class InviteController(ExtBaseController):
 	@logged_in(ajax=True)
 	def method(self, pool_url, method):
 		c.method = str(method)
+		c.mutuals = request.merchant.type_is_group_gift
+		c.all = True
 		if method in ['facebook', 'twitter']:
 			pv =  request.params.getall('pv')
 			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method)

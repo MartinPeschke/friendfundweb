@@ -1,6 +1,7 @@
 import ordereddict, types, collections
 from xml.sax.saxutils import quoteattr, escape
 from datetime import datetime, date
+from friendfund.lib import tools as t
 import logging
 
 log = logging.getLogger(__name__)
@@ -147,8 +148,6 @@ class DBMappedObject(DBMapping):
 		return '<%r: %r>' % (self.__class__.__name__, ','.join(['%s:%s'%(k.pykey,getattr(self, k.pykey)) for k in self._keys[:3]]))
 	def __repr__(self):
 		return '<%r: %r>' % (self.__class__.__name__, ','.join(['%s:%s'%(k,getattr(self, k)) for k in self._unique_keys[:3]]))
-	def to_map(self):
-		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
 	def mergewDB(self, xml):
 		if xml.tag != self._get_root:
 			raise Exception('XML is not of expected property, expected: %s, found: %s' %(self._get_root, xml.tag))
@@ -169,9 +168,20 @@ class DBMappedObject(DBMapping):
 					setattr(self, k.pykey, val)
 		if hasattr(self, 'fromDB'): self.fromDB(xml)
 		return self
-		
+
+	def to_map(self):
+		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
 	def get_map(self):
+		log.warning("%s.get_map: DEPRECATED", self.__class__.__name__)
 		return dict([(k.pykey,getattr(self, k.pykey, None)) for k in self._keys])
+	
+	def to_minimal_repr(self):
+		return t.encode_minimal_repr(self.to_map())
+	@classmethod
+	def from_minimal_repr(cls, value):
+		return cls(**t.decode_minimal_repr(value))
+	
+	
 	
 	def fromMap(self, map, override = False):
 		keyMap = dict([(k.pykey,k) for k in self._keys])
