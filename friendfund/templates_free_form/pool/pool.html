@@ -227,7 +227,7 @@
 				%if locals['number_invitees'] > len(c.pool.participants):
 					<a class="floatRight btnViewAll" _href="${url("pool_action", pool_url=c.pool.p_url, action="invitees")}" _page="1" id="btnViewAll">${_(u"FF_POOL_PAGE_BODY_View More")}</a>
 					<a class="hidden floatRight btnViewAll" onclick="showInvitees()" _page="1" id="showAllBtn">${_(u"FF_POOL_PAGE_BODY_Show All")}</a>
-					<a class="hidden floatRight btnViewAll" onclick="hideInvitees()" _page="1" id="hideAllBtn">${_(u"FF_POOL_PAGE_BODY_Hide All")}</a>
+					<a class="hidden floatRight btnHide" onclick="hideInvitees()" _page="1" id="hideAllBtn">${_(u"FF_POOL_PAGE_BODY_Hide All")}</a>
 				%endif
 			</h4>
 			<div class="subHeading"></div>

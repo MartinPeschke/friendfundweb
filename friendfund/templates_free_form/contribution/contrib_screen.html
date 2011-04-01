@@ -62,10 +62,8 @@
   <div class="subHeader">
     <div class="userProfile">
     
-        <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOLS")}" height="50px" width="60px"> </div>
-        </div>
-        <div class="subUserProfile">
+       
+        <div class="nonPoolHeader">
         <h2>${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</h2>
       </div>
       <div class="steps">
@@ -84,7 +82,44 @@
 
 <div class="wrapSubContent">
 <div class="content">
-	<div class="colRight"></div>
+	<div class="colRight">
+		<div class="boxWhat">
+			<div class="prod"> <img width="60px" height="50px" src="/s/product/09/0e/090e5d5f-4a92-4053-82d7-cd601bbc8985_FF_POOLS.jpg"> </div>
+			<p class="title">
+				<a href="#">Whiff Whaff for the Riff Raff</a>
+				<span class="creator">by cristo</span>
+			</p>
+			
+			<div class="clear"></div>
+		</div>
+		<div class="security">
+			<div class="headSec">
+				<h4>CHIP IN WITH CONFIDENCE</h4>
+			</div>
+			<div class="lock">
+				<p>Chipping in is safe and secure. 
+Guaranteed!</p>
+			</div>
+			<p>You’ll pay nothing if unauthorized 
+charges are made to your Credit Card 
+as a result of chipping in on friendfund.</p>
+			<h4>YOU ARE SAFE WITH US</h4>
+			<div id="verisign_contrib">
+					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+					<tr>
+					<td width="135" align="center" valign="top">
+						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+					</td>
+					</tr>
+					</table>
+			</div>
+			<p>All information is encrypted and 
+transmitted without risk using a Secure 
+Sockets Layer (SSL) protocol.</p>
+<a href="#" class="learn">Learn more &raquo;</a>
+		</div>
+	</div>
 	<div class="colLeft">
 	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" onSubmit="onSubmitCleaner(this)" method="POST">
 
@@ -99,61 +134,62 @@
 				</div>
 			%endif
 			
-              <div class="first" style="margin-top:7px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
-			<div style="width: 516px;" class="greyInside">
+              <div class="first" style="margin-top:22px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
+			<div style="width: 510px; height:50px; padding:10px" class="greyInside">
             <span class="darkGrey floatRight">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 
-				<input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" style="float:left; width:100px" />
+				<input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" />
+				<p class="errorMsg">Please enter a valid amount</p>
 				
 			</div>
 		</div>
 		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		<div class="contentDetails">
-			<div class="imgSpacer"> 
-			<div id="verisign_contrib" class="floatRight">
-					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-					<tr>
-					<td width="135" align="center" valign="top">
-						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-					</td>
-					</tr>
-					</table>
-				</div>
-				<div class="verySmall">Accepted Payment Methods:</div>
-				 %for i, pm in enumerate(c.payment_methods):
-					<img src="/static/imgs/${pm.code}_color.png"/>
-				%endfor
-                
-                <div class="clear"></div>
-			</div>
-			${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
-			####<a class="popuplink" _href="${url(controller="content", action="pledging_faq")}">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
+			You will only be charged if this Pool reaches its funding goal by Sunday, 1 May, 2011.
 		</div>
 	<h4>${_("FF_CONTRIB_PAGE_Payment Method")}</h4>
 	<div class="subHeading" style="margin-bottom:10px"></div>
+	
 	<div style="position:relative" class="lessPad">
-	%for i, pm in enumerate(c.payment_methods):
-			<div class="greyInsideFullWidth">        
-				<div class="first"> <span>&nbsp</span> </div>
-				<input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
+	<div class="greyInsideFullWidth"> 
+		<div class="first"> <span>&nbsp</span> </div>
+		<div class="imgSpacer">
+			%for i, pm in enumerate(c.payment_methods):
+			  <input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
 					name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
-				<label for="payment_method_${pm.code}" class="fourteen"> ${pm.get_display_name()} <span class="greySmallSpan">${h.format_currency(float(pm.fee_absolute)/100, c.pool.currency)} + ${'%.2f'%(pm.fee_relative*100)}% fee</span> </label>
+				<label for="payment_method_${pm.code}" class="fourteen">
+					<img src="/static/imgs/${pm.code}_color.png" width="38" height="24px"/>
+				 </label> 
+			%endfor
+		</div>	
+	</div>
+	<div class="clear"></div>
+ </div>      
+		<h4>${_("FF_CONTRIB_PAGE_Privacy Settings")}</h4>
+		<div class="subHeading" style="margin-bottom:10px"></div>
+		<div class="borderBottom noBorder lessPad">
+			<div class="tip">
+				<div class="arrow"></div>
+				<span>${_("FF_CONTRIB_PAGE_PRVACY_SETTING_SHOW_Tip goes here")}</span>
 			</div>
-	%endfor
-		<div class="smallTable">
-			<div class="floatLeft">${_("FF_CONTRIB_PAGE_Amount")}</div><input class="floatRight" type="text" disabled="disabled" id="display_amount" value="0"/><div class="clear" style="padding-top:5px"></div>
-				<div class="floatLeft"><span id="payment_method_name"></span>${_("FF_CONTRIB_PAGE_Payment Fees")}</div><input class="floatRight" type="text" disabled="disabled" id="display_transactioncosts" value="0"/>
-				<div class="clear"  style="padding-top:5px; border-bottom: 2px solid #dad9d8;"></div>
-			   <div class="divider">
-					<div class="floatLeft bold effect">${_("FF_CONTRIB_PAGE_Total")}</div><input class="floatRight bold effect" type="text" disabled="disabled" id="display_total" value="0"/>
-					<div class="clear"></div>
-				<input type="hidden" id="payment_total" name="payment.total" /> 
-			   </div>
-			<a class="popuplink link" _href="${url(controller="payment", pool_url = c.pool.p_url, action="transaction_fees")}">${_("FF_CONTRIB_PAGE_What are these payment fees?")} »</a>
+			<div class="greyInsideFullWidth">
+				<div class="first"> <span>&nbsp</span> </div>
+				<input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("is_secret", "no", default=True)|n} class="radio"><label  for="isSecretFalse">
+				${_("FF_CONTRIB_PAGE_I'm happy to show how much I've chipped in")}</label>
+			</div>
+			
 		</div>
-	</div>      
-		<div class="clear"></div>
+
+		<div class="borderBottom noBorder lessPad">
+			<div class="tip">
+				<div class="arrow"></div>
+			<span>${_("FF_CONTRIB_PAGE_PRVACY_SETTING_DONTSHOW_Tip goes here")}</span> </div>
+			<div class="greyInsideFullWidth">
+			<div class="first"> <span>&nbsp</span> </div>
+			<input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("is_secret", "yes")|n} class="radio"><label for="isSecretTrue">
+				${_("FF_CONTRIB_PAGE_I don't want anyone to see how much I've chipped in")}</label>
+			</div>
+		</div>
 		<h4>${_("FF_CONTRIB_PAGE_Add a personal message <span>(optional)</span>")|n}</h4>
 		<div class="subHeading"></div>
 		<div class="borderBottom noBtmPad noBorder">
@@ -174,40 +210,20 @@
 				<input class="number bold" disabled="disabled" readonly="readonly" type="text" 
 					id="chipin_message_remLen" name="remLen" size="3" maxlength="3" value="${140-len(c.values.get("message", c.pool.get_my_message(c.user)) or '')}"/>
 			</div>
-			<p class="info"></p>
+			<p class="info">Your message will go on Ted‘s eCard if this Pool is successfully funded.</p>
 		</div>
 
 	<div class="clear"></div>
 
 
 	<div class="recMoney">
-		<h4>${_("FF_CONTRIB_PAGE_Privacy Settings")}</h4>
-		<div class="subHeading" style="margin-bottom:10px"></div>
+		<h4>Terms of Service</h4>
+		<div class="subHeading" style="margin-bottom:15px" ></div>
 
-		<div class="borderBottom noBorder lessPad">
-			<div class="tip">
-				<div class="arrow"></div>
-				<span>${_("FF_CONTRIB_PAGE_PRVACY_SETTING_SHOW_Tip goes here")}</span>
-			</div>
-			<div class="greyInsideFullWidth">
-				<div class="first"> <span>&nbsp</span> </div>
-				<input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("is_secret", "no", default=True)|n} class="radio"><label  for="isSecretFalse">
-				${_("FF_CONTRIB_PAGE_I'm happy to show how much I've chipped in")}</label>
-			</div>
-		</div>
-
-		<div class="borderBottom noBorder lessPad">
-			<div class="tip">
-				<div class="arrow"></div>
-			<span>${_("FF_CONTRIB_PAGE_PRVACY_SETTING_DONTSHOW_Tip goes here")}</span> </div>
-			<div class="greyInsideFullWidth">
-			<div class="first"> <span>&nbsp</span> </div>
-			<input type="radio" id="isSecretTrue" name="payment.is_secret" value="yes" ${widgets.input_checked("is_secret", "yes")|n} class="radio"><label for="isSecretTrue">
-				${_("FF_CONTRIB_PAGE_I don't want anyone to see how much I've chipped in")}</label>
-			</div>
-		</div>
-		<div class="spacerBorder"></div>
-		<div class="borderBottom txtInside noBorder lessPad ${('agreedToS' in c.errors) and "error" or ""}">
+		
+		
+		<!-- <div class="spacerBorder"></div> -->
+		<div class="borderBottom  noBorder lessPad ${('agreedToS' in c.errors) and "error" or ""}">
 			%if ('agreedToS' in c.errors):
 				<div class="tip">
 					<div class="arrow"></div>

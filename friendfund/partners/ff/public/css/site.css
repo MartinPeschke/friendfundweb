@@ -167,11 +167,14 @@ label, .chkbox {
 }
 .colLeft p.info {
 	font-size: 11px;
-	color: #999;
-	margin: 5px 0 -6px 160px;
+	color: #adadad;
+	margin: 7px 0 -6px 160px;
 	padding:0;
 	line-height: 14px;
 	float: left;
+}
+div.selected p.info {
+	margin-top:2px
 }
 .colRightWhite {
 	border-top: 1px solid white;
@@ -745,7 +748,8 @@ div.generalPadding .home_expander {
 	margin: 0
 }
 div.spPad div.tip {
-    top: 15px !important;
+	right: -232px !important;
+    top: 33px !important;
 }
 div.logoContainer {
 	border-top: 1px solid #e5e5e5;
@@ -1251,6 +1255,9 @@ span.btnHide {
 	font-style: normal;
 	line-height: 22px
 }
+div.fullWidth div.subHeading {
+	width: 930px
+}
 div.subHeading {
 	border-top: 2px solid #eeedec;
 	height: 0px;
@@ -1275,6 +1282,14 @@ div.subHeadingSpecial {
 	font-size: 11px;
 	color: #0094CC;
 	background: url(/static/imgs/arrow-all.gif) right center no-repeat;
+	padding: 0 15px 0 0;
+	font-weight: normal;
+}
+.colLeft .btnHide {
+	display: block;
+	font-size: 11px;
+	color: #0094CC;
+	background: url(/static/imgs/arrow-hide.gif) right center no-repeat;
 	padding: 0 15px 0 0;
 	font-weight: normal;
 }
@@ -1493,7 +1508,8 @@ div.comments input {
 }
 .txtComments {
 	max-width: 620px;
-	position: relative
+	position: relative;
+	float: left
 }
 /*--------COL RIGHT POOL PAGE------*/
 		
@@ -1795,11 +1811,16 @@ div.containerTxtArea input {
 	height:20px;
 	line-height:20px
 }
+
 span.darkGrey {
 	color: #757575;
 	text-shadow: 0px 1px 1px #FFF;
 	margin:7px 10px 0 0;
 	font-size: 11px
+}
+div.special span.darkGrey{
+	margin-top: 16px;
+	margin-right: 0
 }
 div.borderBottom .imgContainer {
 	height: 130px;
@@ -2159,14 +2180,33 @@ div.outerPopupFrame div.fbHolder {
 	margin: 0 auto
 }
 span.value {
-	font-size:18px;
+	font-size:24px;
 	font-weight:bold;
 	color:#333;
-	padding:0 10px;
+	padding:0 10px 0 5px;
 	display:block;
 	float:left;
-	margin:7px 0 0 0;
+	margin:17px 0 0 0;
 	float: left
+}
+input#payment_amount{
+	font-size: 30px;
+	font-weight: bold;
+	float: left;
+	width: 100px;
+	height: 48px;
+	line-height: 48px;
+}
+p.errorMsg{ font-size: 12px; float: left; margin: 16px 0 0 10px}
+div.special div.tip {
+	top:15px !important
+}
+div.imgSpacer label, div.imgSpacer img,  div.imgSpacer input{
+	float: left;
+	display: block;
+}
+div.imgSpacer img{
+	margin-right: 25px
 }
 .colLeft p.alignInput {
 	display:block;
@@ -2179,8 +2219,11 @@ span.value {
 div.contentDetails {
 	float:left;
 	margin-right:10px;
-	padding:0 0 0 160px;
-	color:#999;
+	margin-top: 7px;
+	font-size: 11px;
+	padding:0 0 0 185px;
+	color:#adadad;
+	background: url(/static/imgs/checked.png) 160px 0 no-repeat;
 }
 h6 {
 	font-size:12px;
@@ -2188,20 +2231,7 @@ h6 {
 	margin-top:15px;
 	color:#999
 }
-div.contentDetails {
-	font-size: 11px
-}
-div.contentDetails a {
-	color:#0094CC
-}
-div.imgSpacer {
-	margin:-9px 0 0 0;
-	position: relative;
-	z-index: 3
-}
-div.imgSpacer img {
-	margin-right:20px
-}
+
 div.verySmall {
 	color: #999;
 	font-size: 10px;
@@ -2218,15 +2248,16 @@ div.borderBottom input.number {
 	height: 30px;
 	color:#666;
 	text-align: right;
-	margin-top: 5px;
-	margin-right: 7px;
+	margin-top: 2px;
+	margin-right: 2px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	background: transparent;
 	border: none
 }
 div.selected input.number {
-	margin-top: 0;
+	margin-top: -3px;
 	margin-bottom: 5px
+	
 }
 .lessPad {
 	border:none !important;
@@ -2268,6 +2299,83 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	line-height:0;
 	font-size:0
 }
+div.boxWhat{
+	border: 1px solid #e5e5e5;
+	padding: 3px;
+	margin-top: 12px
+}
+div.boxWhat .prod{
+	border: 1px solid #e5e5e5;
+    float: left;
+    height: 60px;
+    overflow: hidden;
+    width: 70px;
+}
+div.boxWhat .title{
+	float: left;
+	padding: 7px 0 0 10px;
+	width: 120px;
+	font-size: 11px;
+	color: #adadad;
+	line-height: 14px
+}
+div.boxWhat .creator{
+	display: block;
+	font-size: 10px;
+	color: #adadad
+}
+div.boxWhat .prod img{
+	border: 4px solid white;
+}
+div.security{
+	border:1px solid #e5e5e5;
+	margin-top: 20px;
+	background: #F4F4F4
+}
+div.headSec{
+	border-bottom: 1px solid #dadada
+}
+div.lock{
+	border-top:1px solid #fff;
+	background: #e5e5e5;
+	border-bottom: 1px solid #d1d1d1;
+	padding: 5px
+}
+div.security div.lock p{
+	background: url(/static/imgs/lock.png) 5px 2px no-repeat;
+	padding:0 0 0  45px;
+	font-size: 10px;
+	color: #696969;
+	font-weight: bold;
+	line-height: 14px;
+	padding-top: 7px;
+	min-height: 38px
+	
+}
+div.security h4{
+	text-align: center;
+	padding: 10px;
+	display: block;
+	font-size: 10px
+}
+div.security p{
+	font-size:10px;
+	color: #696969; 
+	padding: 10px 15px 5px 15px
+}
+#verisign_contrib{
+	border: 1px solid #e5e5e5;
+	margin:0 auto;
+	width:135px;
+	height: 90px;
+	background: white
+}
+div.security a.learn{
+	font-size: 10px;
+	padding: 0 0 15px 15px;
+	margin-top: -5px;
+	display: block
+}
 .overlayWrapper {
 	position:absolute;
 	width:100%;
@@ -2275,6 +2383,7 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	left:0;
 	overflow:hidden;
 	min-height: 35px;
+	z-index: 3
 }
 .overlay {
 	width:100%;
@@ -2798,7 +2907,7 @@ div.borderBottom .primaryButton {
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d60569), to(#cb0e68));
 }
 .special {
-	padding:15px 0 !important
+	padding:7px 0 0 0 !important
 }
 /*LOGIN PANEL BIG*/
 .loginPanelBig {
@@ -2899,12 +3008,7 @@ div.logInOnePx input {
 div.wrapInside div.tip {
 	top:0
 }
-div.selected p.info {
-	margin-top:5px
-}
-div.special div.tip {
-	top:15px !important
-}
+
 .tabsBig {
 	clear: both;
 	padding-top: 30px
