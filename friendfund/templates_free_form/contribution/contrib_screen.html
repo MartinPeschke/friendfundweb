@@ -100,16 +100,18 @@ Sockets Layer (SSL) protocol.</p>
 		<div class="subHeading"></div>
 		<div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
 			
-			%if ('amount' in c.errors):
+			<!--
+%if ('amount' in c.errors):
 				<div class="tip">
 					<div class="arrow"></div>
 					<span>${c.errors['amount']}</span> 
 				</div>
 			%endif
+-->
 			
               <div class="first" style="margin-top:22px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
-			<div style="width: 510px; height:50px; padding:10px" class="greyInside">
-            <span class="darkGrey floatRight">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
+			<div style="width: 510px; height:48px; padding:10px" class="greyInside">
+            <span class="darkGrey floatRight" style="margin-top:16px">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 
 				<input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" />
 				<p class="errorMsg">Please enter a valid amount</p>

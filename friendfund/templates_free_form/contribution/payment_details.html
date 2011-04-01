@@ -25,9 +25,7 @@
   <div class="subHeader">
     <div class="userProfile">
       <div class="nonPoolHeader">
-        <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
-        </div>
+        
         <h2>${_("FF_CONTRIB_DETAILS_HEADER_Last Step: Your Payment Details")}</h2>
       </div>
       <div class="steps">
@@ -45,32 +43,29 @@
 </div>
 
 <div class="content">
-	<div class="colRight"></div>
-	<div class="colLeft">
-	<form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
-		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
-		<input type="hidden" name="token" value="${c.token}"/>
-		<div class="poolDets">
-			<h4>${_("FF_CONTRIB_DETAILS_Confirm Your Contribution")}</h4>
-			<div class="subHeadingSpecial"></div>
-			<div class="borderBottom noBorder">
-				<div class="first" style="margin-top:8px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
-				<div class="greyInside " style="width:516px">
-				<span class="value">${h.display_currency(c.pool.currency)}</span> 
-					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
-					
-				
-				<span class="darkGrey floatRight">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
-				
-			</div>
-			</div>
-			<!--<a href="#" class="editContrib">Edit</a>-->
-		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
+	<div class="colRight">
+		<div class="boxWhat">
+			<div class="prod"> <img width="60px" height="50px" src="/s/product/09/0e/090e5d5f-4a92-4053-82d7-cd601bbc8985_FF_POOLS.jpg"> </div>
+			<p class="title">
+				<a href="#">Whiff Whaff for the Riff Raff</a>
+				<span class="creator">by cristo</span>
+			</p>
+			
+			<div class="clear"></div>
 		</div>
-		<div class="contentDetails">
-        <div class="imgSpacer"> 
-				
-                <div id="verisign_contrib" class="floatRight" style="margin-left:20px">
+		<div class="security">
+			<div class="headSec">
+				<h4>CHIP IN WITH CONFIDENCE</h4>
+			</div>
+			<div class="lock">
+				<p>Chipping in is safe and secure. 
+Guaranteed!</p>
+			</div>
+			<p>You’ll pay nothing if unauthorized 
+charges are made to your Credit Card 
+as a result of chipping in on friendfund.</p>
+			<h4>YOU ARE SAFE WITH US</h4>
+			<div id="verisign_contrib">
 					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
 					<tr>
 					<td width="135" align="center" valign="top">
@@ -79,11 +74,39 @@
 					</td>
 					</tr>
 					</table>
-				</div>
 			</div>
-		${_("FF_CONTRIB_PAGE_You won&#39;t be charged anything unless this Pool is fully funded by %(expiry_date)s. If it isn't funded in time, no one pays a single penny.")%locals}
-		####<a class="popuplink" _href="${url(controller="content", action="pledging_faq")}">${_("FF_CONTRIB_PAGE_Learn More")} »</a>
+			<p>All information is encrypted and 
+transmitted without risk using a Secure 
+Sockets Layer (SSL) protocol.</p>
+<a href="#" class="learn">Learn more &raquo;</a>
 		</div>
+	</div>
+	<div class="colLeft">
+	<form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
+		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
+		<input type="hidden" name="token" value="${c.token}"/>
+		<div class="poolDets">
+			<h4>${_("FF_CONTRIB_DETAILS_Confirm Your Contribution")}</h4>
+			<div class="subHeadingSpecial"></div>
+			<div class="borderBottom noBorder special">
+				<div class="first" style="margin-top:8px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
+				<div class="greyInside " style="width: 510px; height: 48px; padding: 10px;">
+				<span class="value">${h.display_currency(c.pool.currency)}</span> 
+					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
+					
+				
+				<span class="darkGrey floatRight" style="margin-top:16px">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
+				
+			</div>
+			</div>
+			<!--<a href="#" class="editContrib">Edit</a>-->
+		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
+		</div>
+		
+        <div class="contentDetails">
+			You will only be charged if this Pool reaches its funding goal by Sunday, 1 May, 2011.
+		</div>
+		
         
 		<div class="clear"></div>
 	<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
@@ -93,7 +116,8 @@
      <div class="first">${_("FF_CONTRIB_DETAILS_Card type")}</div><img src="/static/imgs/${c.payment_method.code}_color.png" style="margin-top:3px">
      </div>
 		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
-			<div class="tip">
+			<!--
+<div class="tip">
 				<div class="arrow"></div>
 			%if "ccHolder" in c.errors:
 				<span>${c.errors.get("ccHolder")}</span>
@@ -101,15 +125,18 @@
 				<span>${_("FF_CONTRIB_DETAILS_Holder Tip goes here")}</span>
 			%endif
 			</div>
+-->
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Cardholder's Name")}</span>
 				</div>
-				<input type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
+				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/><p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Your full name as it appears on the card</p>
 			</div>
+			<p class="info unNt">Your full name as it appears on the card</p>
 		</div>
 		<div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
-			<div class="tip">
+			<!--
+<div class="tip">
 				<div class="arrow"></div>
 			%if "ccNumber" in c.errors:
 				<span>${c.errors.get("ccNumber")}</span>
@@ -117,15 +144,17 @@
 				<span>${_("FF_CONTRIB_DETAILS_ccNumber Tip goes here")}</span>
 			%endif
 			</div>
+-->
 			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Number")}</span>
 				</div>
-				<input type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
+				<input class="shrt" type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
 			</div>
 		</div>
 		<div class="borderBottom ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
-			<div class="tip">
+			<!--
+<div class="tip">
 				<div class="arrow"></div>
 			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
 				<span>
@@ -142,6 +171,7 @@
 				<span>${_("FF_CONTRIB_DETAILS_ccExpiryDate Tip goes here")}</span>
 			%endif
 			</div>
+-->
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Expiry Date")}</span>
@@ -159,7 +189,8 @@
 			</div>
 		</div>
 		<div class="borderBottom  ${('ccCode' in c.errors) and "error" or ""}" style="border-bottom:none">
-			<div class="tip">
+			<!--
+<div class="tip">
 				<div class="arrow"></div>
 			%if "ccCode" in c.errors:
 					<span>${c.errors.get("ccCode")}</span>
@@ -167,6 +198,7 @@
 				<span>${_("FF_CONTRIB_DETAILS_ccSecurityCode Tip goes here")}</span>
 			%endif
 			</div>
+-->
 			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
@@ -175,8 +207,15 @@
 					<a class="smallForm popuplink" _href="${url(controller="content", action="what_is_cvc")}">${_("FF_CONTRIB_DETAILS_what's this?")} »</a>
 			</div>
 		</div>
-        <div class=" floatRight spacerButtons">
-		<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatRight"/>
+		<div class="floatLeft">
+			<div  class="first">
+				&nbsp;
+			</div>
+        	<div class=" floatLeft">
+        	<p class="twonine">Your chip in confirmation will be emailed to you. See our 
+<a href="#">Privacy Policy</a> for more about how we use emails.</p>
+			<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatLeft clear"/>
+        	</div>
         </div>
 	</div>
 	</form>
