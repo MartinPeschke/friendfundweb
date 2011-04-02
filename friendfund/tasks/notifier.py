@@ -76,37 +76,33 @@ def save_results(dbpool, messaging_results):
 	conn.close()
 
 
-def identity(key, data_map):
-	return {key: data_map[key]}
-def pool_url(key, data_map):
+def pool_url(key, data_map, locale):
 	return {key: "http://%s/pool/%s" % (data_map["merchant_domain"], data_map[key])}
-def amount(key, data_map):
-	return {key: format_int_amount(data_map[key])}
-def currency(key, data_map):
+def currency(key, data_map, locale):
 	val = float(data_map[key]) / 100
 	fnumber = Decimal('%.2f' % val)
-	return {key: fc(fnumber, data_map['currency'], locale="en_GB")}
-def firstname(key, data_map):
+	return {key: fc(fnumber, data_map['currency'], locale=locale)}
+def firstname(key, data_map, locale):
 	return {"firstname_%s"%key:data_map[key].split()[0], key:data_map[key]}
-def date(key, data_map):
+def date(key, data_map, locale):
 	val = data_map[key]
 	try:
 		val =  datetime.strptime(val.rsplit('.',1)[0], '%Y-%m-%dT%H:%M:%S')
 	except ValueError, e:
 		val = datetime.strptime(val.split('T')[0], '%Y-%m-%d')
 	if isinstance(val, datetime):
-		return {key: fdate(val, format="long", locale="en_GB")}
+		return {key: fdate(val, format="long", locale=locale)}
 	else:
 		return {key: val}
 	
 
 TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname}
 
-def localize(data_map):
+def localize(data_map, locale):
 	result = {}
 	for key in data_map:
 		if key in TRANSLATIONS:
-			updates = TRANSLATIONS[key](key, data_map)
+			updates = TRANSLATIONS[key](key, data_map, locale)
 			result.update(updates)
 		else:
 			result[key] = data_map[key]
@@ -199,7 +195,7 @@ def main(argv=None):
 				
 				try:
 					file_no = meta_data['file_no']
-					template_data = localize(template_data)
+					template_data = localize(template_data, meta_data.get('locale', "en_GB"))
 					log.info ( 'TEMPLATE, %s', template_data)
 					try:
 						template = tmpl_lookup.get_template('/msg_%s.txt' % file_no)

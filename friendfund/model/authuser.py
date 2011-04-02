@@ -237,6 +237,7 @@ class WebLoginUserByEmail(DBMappedObject):
 	_unique_keys = ['email']
 	_keys = [	 GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'email','email')
+				,GenericAttrib(str,'locale','locale')
 				,GenericAttrib(str,'pwd','pwd')]
 	
 class FBWebLogin(User):

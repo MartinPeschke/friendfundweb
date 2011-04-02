@@ -115,6 +115,7 @@ class MyprofileController(BaseController):
 			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
 			c.login_values = form_result
 			c.login_values['network'] = 'email'
+			c.login_values['locale'] = websession['lang']
 			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
 			c.user.set_network('email', 
 							network_id = c.user.default_email,
@@ -142,6 +143,7 @@ class MyprofileController(BaseController):
 			form_result = schema.to_python(login, state = FriendFundFormEncodeState)
 			c.login_values = form_result
 			c.login_values['network'] = 'email'
+			c.login_values['locale'] = websession['lang']
 			c.user = g.dbm.call(WebLoginUserByEmail(**c.login_values), User)
 			c.user.set_network('email', 
 							network_id = c.user.default_email,
