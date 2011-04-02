@@ -103,13 +103,13 @@ class User(ProtoUser):
 	_unique_keys = ['u_id', 'default_email', 'network', 'network_id']
 	_set_proc = _get_proc = "app.web_login"
 	_set_root = _get_root = "USER"
-	_keys = [	 GenericAttrib(int, 'u_id', 'u_id')
-				,GenericAttrib(unicode,'name','name')
+	_keys = [	 GenericAttrib(int, 'u_id', 'u_id', required = True)
+				,GenericAttrib(unicode,'name','name', required = True)
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'profile_picture_url','profile_picture_url')
 				,GenericAttrib(str,'email','email')
-				,GenericAttrib(str,'default_email','default_email')
+				,GenericAttrib(str,'default_email','default_email', required = True)
 				,GenericAttrib(str,'pwd','pwd')
 				,GenericAttrib(str,'sex','sex')
 				,GenericAttrib(str,'locale','locale')

@@ -12,16 +12,19 @@ log = logging.getLogger(__name__)
 
 class TypeNotSupportedException(Exception):
 	pass
+class RequiredAttributeMissing(Exception):
+	pass
 
 class DBMapping(object):
 	pass
 
 class GenericAttrib(DBMapping):
-	def __init__(self, cls, pykey, dbkey, persistable = True, enumeration = None, default = None):
+	def __init__(self, cls, pykey, dbkey, persistable = True, required = False, enumeration = None, default = None):
 		self.dbkey = dbkey
 		self.pykey = pykey
 		self.cls = cls
 		self.persistable = persistable
+		self.required = required
 		self.enumeration = enumeration
 		self.default = default
 	
@@ -47,7 +50,9 @@ class GenericAttrib(DBMapping):
 	
 	def fromDB(self, val):
 		if val is None:
-			if self.default is None:
+			if self.required:
+				raise RequiredAttributeMissing("MISSING: %s(%s)" % ( self.pykey, self.dbkey ))
+			elif self.default is None:
 				return None
 			else:
 				return self.default
@@ -73,11 +78,12 @@ class GenericAttrib(DBMapping):
 		return '<%s: %s,%s>' % (self.__class__.__name__, self.pykey,self.dbkey)
 
 class GenericElement(DBMapping):
-	def __init__(self, cls, pykey, dbkey, persistable = True, default = None):
+	def __init__(self, cls, pykey, dbkey, persistable = True, required = False, default = None):
 		self.dbkey = dbkey
 		self.pykey = pykey
 		self.cls = cls
 		self.persistable = persistable
+		self.required = required
 		self.default = default
 		
 	def toDB(self, val):
@@ -100,7 +106,9 @@ class GenericElement(DBMapping):
 		
 	def fromDB(self, val):
 		if val is None or val.text is None:
-			if self.default is None:
+			if self.required:
+				raise RequiredAttributeMissing("MISSING: %s(%s)" % ( self.pykey, self.dbkey ))
+			elif self.default is None:
 				return None
 			else:
 				return self.default
@@ -115,11 +123,12 @@ class GenericElement(DBMapping):
 		return '<%s: %s,%s>' % (self.__class__.__name__, self.pykey,self.dbkey)
 
 class DBCDATA(DBMapping):
-	def __init__(self, pykey, dbkey, persistable = True):
+	def __init__(self, pykey, dbkey, persistable = True, required = False):
 		self.dbkey = dbkey
 		self.pykey = pykey
 		self.cls = unicode
 		self.persistable = persistable
+		self.required = required
 	@classmethod
 	def _get_template(cls, **kwargs):
 		_get_root = _set_root

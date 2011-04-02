@@ -238,8 +238,8 @@ class Pool(DBMappedObject):
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
 	_expiretime = 2
-	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
-			, GenericAttrib(int,		'p_id',				'p_id'						)
+	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						,required = True)
+			, GenericAttrib(int,		'p_id',				'p_id'						,required = True)
 			, GenericAttrib(int,		'event_id', 		'event_id'					)
 			, GenericAttrib(unicode,	'title',			'title'						)
 			, GenericAttrib(unicode,	'description',		'description'				)

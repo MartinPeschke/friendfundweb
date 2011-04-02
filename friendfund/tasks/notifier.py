@@ -10,7 +10,7 @@ from friendfund.tasks.notifiers import email, facebook, twitter
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException
 from datetime import datetime, date
 from decimal import Decimal
-from friendfund.lib.helpers import format_int_amount
+from friendfund.lib.i18n import negotiate_locale_from_header
 
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
 from babel.dates import format_date as fdate, format_datetime as fdatetime
@@ -28,13 +28,13 @@ log.addHandler(ch)
 from mako.lookup import TemplateLookup
 from friendfund.tasks import data_root
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_form','messaging', 'messages')]
-		, module_directory=os.path.join(data_root, 'templates_free_form','messaging', 'messages')
+tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_form','messaging')]
+		, module_directory=os.path.join(data_root, 'templates_free_form','messaging')
 		, output_encoding='utf-8'
 		, input_encoding='utf-8'
 		)
 
-log.info( os.path.join(root, 'templates_free_form','messaging', 'messages') )
+log.info( os.path.join(root, 'templates_free_form','messaging') )
 
 
 
@@ -130,6 +130,7 @@ def main(argv=None):
 	ROOT_URL = config['site_root_url']
 	
 	debug = config['debug'].lower() == 'true'
+	available_langs = config['available_locales'].lower().split(',')
 	
 	facebook_on = config['notification_fb'].lower() == 'on'
 	twitter_on = config['notification_tw'].lower() == 'on'
@@ -191,21 +192,28 @@ def main(argv=None):
 				log.info ( 'RECIPIENT, %s', rcpt_data)
 				log.info ( 'extraRECIPIENTs, %s', rcpts_data)
 				log.info ( 'extraINVITEEs, %s', ivts_data)
-				
-				
+				locale = negotiate_locale_from_header([meta_data.get('locale', "en_GB")], available_langs)
+				print '-'*80
+				print meta_data.get('locale', "en_GB"), available_langs
+				print locale
+				print '-'*80
 				try:
 					file_no = meta_data['file_no']
-					template_data = localize(template_data, meta_data.get('locale', "en_GB"))
+					template_data = localize(template_data, locale)
 					log.info ( 'TEMPLATE, %s', template_data)
 					try:
-						template = tmpl_lookup.get_template('/msg_%s.txt' % file_no)
+						template = tmpl_lookup.get_template('/messages_%s/msg_%s.txt' % (locale, file_no))
 					except mako.exceptions.TopLevelLookupException, e:
-						log.warning( "ERROR Template not Found for (%s)" , ('/msg_%s.txt' % file_no) )
-						raise MissingTemplateException(e)
-					else:
-						notification_method = meta_data.get('notification_method').lower()
-						sender = messengers.get(notification_method, error_sender(notification_method))
-						msg_id = sender(template, sndr_data, rcpt_data, template_data, config)
+						log.warning( "WARNING Template not Found for (%s)" , ('/messages_%s/msg_%s.txt' % (locale, file_no)) )
+						try:
+							template = tmpl_lookup.get_template('/messages/msg_%s.txt' % (file_no))
+						except mako.exceptions.TopLevelLookupException, e:
+							log.error( "ERROR Template not Found for (%s) or (%s)" , (('/messages_%s/msg_%s.txt' % (locale, file_no)), ('/messages/msg_%s.txt' % file_no)) )
+							raise MissingTemplateException(e)
+					
+					notification_method = meta_data.get('notification_method').lower()
+					sender = messengers.get(notification_method, error_sender(notification_method))
+					msg_id = sender(template, sndr_data, rcpt_data, template_data, config)
 				
 				
 				except InvalidAccessTokenException, e:
