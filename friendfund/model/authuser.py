@@ -104,7 +104,7 @@ class User(ProtoUser):
 	_set_proc = _get_proc = "app.web_login"
 	_set_root = _get_root = "USER"
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id', required = True)
-				,GenericAttrib(unicode,'name','name', required = True)
+				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'profile_picture_url','profile_picture_url')

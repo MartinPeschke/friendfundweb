@@ -64,3 +64,13 @@ class BillingAddressForm(formencode.Schema):
 	line3 = formencode.validators.String(not_empty=True, min=1, max = 255)
 	zipcode = formencode.validators.String(not_empty=True, min=1, max = 10)
 	country = formencode.validators.String(not_empty=True, min=1, max = 255)
+	
+class NotificationsForm(formencode.Schema):
+	allow_extra_fields = True
+	filter_extra_fields = True
+	
+	COMMENT_NOTIFICATION = formencode.validators.StringBool(if_empty=False, if_missing=False)
+	CONTRIBUTION_NOTIFICATION = formencode.validators.StringBool(if_empty=False, if_missing=False)
+	INVITE = formencode.validators.StringBool(if_empty=False, if_missing=False)
+	NEWSLETTER = formencode.validators.StringBool(if_empty=False, if_missing=False)
+	REMINDER = formencode.validators.StringBool(if_empty=False, if_missing=False)

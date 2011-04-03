@@ -12,8 +12,8 @@ from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib import helpers as h
 from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, SetUserEmailProc, SetUserLocaleProc
 from friendfund.model.common import SProcWarningMessage
-from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm
-from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc
+from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm, NotificationsForm
+from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc, OptOutTemplateType
 from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
 
 log = logging.getLogger(__name__)
@@ -83,14 +83,23 @@ class MyprofileController(BaseController):
 	def notifications(self):
 		c.values = {}
 		c.errors = {}
-		c.values = g.dbm.get(OptOutNotificationsProc, u_id = c.user.u_id)
+		c.templatetypes = g.dbm.get(OptOutNotificationsProc, u_id = c.user.u_id).types
 		if request.method != 'POST':
 			return self.render('/myprofile/notifications.html')
 		
-		c.values = formencode.variabledecode.variable_decode(request.params).get("opt_out", {})
-		if c.values:
-			c.values = g.dbm.set(OptOutNotificationsProc(u_id = c.user.u_id, **c.values))
-		return self.render('/myprofile/notifications.html')
+		notifs = formencode.variabledecode.variable_decode(request.params).get("optout", {})
+		try:
+			schema = NotificationsForm()
+			values = schema.to_python(notifs, state = FriendFundFormEncodeState)
+			options = []
+			for k,v in values.items():
+				options.append(OptOutTemplateType(name = k, opt_out = v))
+			c.templatetypes = g.dbm.set(OptOutNotificationsProc(u_id = c.user.u_id, types = options)).types
+		except formencode.validators.Invalid, error:
+			c.values = error.value
+			c.errors = error.error_dict or {}
+			return self.render('/myprofile/notifications.html')
+		return redirect(url(controller='myprofile', action="notifications"))
 		
 	
 	def login(self):
