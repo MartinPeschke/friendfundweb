@@ -395,12 +395,15 @@ div.whitePopupFrameLarge .inputFields p.info {
 .inputline {
 	padding:15px 0 0 0
 }
+
+/*
 .newFormControls input {
 	background-color: white;
 	border: 1px solid #dadada;
 	display: block;
 	padding: 0px 5px ;
 }
+*/
 div.showHide {
 	float:left;
 	background: #003B4B;
@@ -491,7 +494,8 @@ a.learnMoreBtn {
 	background-color: #2dbbff;
 	border-radius: 5px;
 	text-align: center;
-	width: 100px;
+	min-width: 100px;
+	padding: 0 5px;
 	height: 30px;
 	line-height: 30px;
 	margin: 10px 0 0 0px;
@@ -1127,17 +1131,21 @@ div.daysLeft span {
 div.greyBoxTitle {
 	margin: 20px 0 0 0;
 	width: 100%;
-	background: #eeeeee;
-	height: 50px
+	height: 50px;
+	background-color: #dedbd1;
+	background: -moz-linear-gradient(100% 100% 90deg, #d7d4cb, #e6e3d9);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e6e3d9), to(#d7d4cb));
 }
 div.greyBoxTitle h3 {
-	color:#333333;
-	font-size: 18px;
+	color:#2c2c2c;
+	font-size: 14px;
 	line-height: 50px;
-	padding: 0 0 0 12px
+	padding: 0 0 0 30px;
+	text-shadow: 0px 1px 0px white
 }
 span.btnShow {
-	color: white;
+	color: #696969;
+	text-shadow: 0px 1px 0px white;
 	font-size: 11px;
 	display:block;
 	height: 20px;
@@ -1151,14 +1159,15 @@ span.btnShow {
 	border-bottom-right-radius:3px;
 	-moz-border-radius-topright:3px;
 	-moz-border-radius-bottomright:3px;
-	background:#666666 url(../imgs/arrow-show.png) right 6px no-repeat;
+	background:#ceccc1 url(../imgs/arrow-gray-show.png) right 6px no-repeat;
 	margin: 15px 12px 0 0;
 	min-width: 30px;
 	text-decoration: none;
 	cursor: pointer;
 }
 span.btnHide {
-	color: white;
+	color: #696969;
+	text-shadow: 0px 1px 0px white;
 	font-size: 11px;
 	display:block;
 	height: 20px;
@@ -1172,15 +1181,17 @@ span.btnHide {
 	border-bottom-right-radius:3px;
 	-moz-border-radius-topright:3px;
 	-moz-border-radius-bottomright:3px;
-	background:#666666 url(../imgs/arrow-hide.png) right 6px no-repeat;
+	background:#ceccc1 url(../imgs/arrow-gray-hide.png) right 6px no-repeat;
 	margin: 15px 12px 0 0;
 	min-width:30px;
 	text-decoration: none;
 	cursor: pointer;
 }
+
+
 .hided {
 	background: none repeat scroll 0 0 #EEEEEE;
-    border-top: 1px solid #C4C4C4;
+   
 }
 .hided .brd {
 	border-top:1px solid white;
@@ -1209,9 +1220,9 @@ span.btnHide {
 	height: 110px
 }
 .hided h4 {
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: bold;
-	color: #696969;
+	color: #2c2c2c;
 	padding-bottom: 10px
 }
 .hided p {
@@ -1221,10 +1232,11 @@ span.btnHide {
 .hided div {
 	position: relative
 }
-.hided div a.primaryButton, .hided div a.forward {
+.hided div a.learnMoreBtn {
 	position: absolute;
 	left: 30px;
-	bottom: 30px
+	bottom: 30px;
+	margin-left: 0px
 }
 .hided .addthis_toolbox {
 	padding:10px 0 15px 0
@@ -1344,7 +1356,7 @@ ul.faceList {
 	list-style-type: none;
 	margin: 0px 0 -10px 0;
 	float: left;
-	max-width: 700px;
+	width: 700px;
 	overflow:hidden;
 	padding: 20px 0 0 0
 }
@@ -1888,6 +1900,7 @@ div.generalPadding div.controller {
     right: -100px;
     top: -112px;
 }
+div.generalPadding ul li a{ font-size: 14px}
 .expander{ 
 	height: 132px
 }
@@ -3731,9 +3744,9 @@ span.editSmall{
 	display: block;
 	border: 1px solid #E4E4E4 !important;
 	margin-left: 158px;
-	margin-bottom: 10px;
 	background: white
 }
+
 .txtInside .tip {
 	top:112px !important
 }

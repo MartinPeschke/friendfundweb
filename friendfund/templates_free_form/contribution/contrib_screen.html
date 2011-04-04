@@ -140,12 +140,13 @@
 				${c.tos|n}
 			</div>
 		</div>
-		<div class="greyInsideFullWidth">
+		<div class="greyInsideFullWidth" style="margin-top:10px" >
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox"/>
 			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" href="${url(controller="content", action="tos")}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
 		</div>
-
+		<div class="colRightWhite" style="margin-left:160px; border-color:#eeedec"></div>
+		<div class="colRightWhite" style="margin-left:160px"></div>
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_do_notify" name="payment.do_notify" value="yes" ${widgets.input_checked("do_notify", "yes")|n} class="chkbox"/>
