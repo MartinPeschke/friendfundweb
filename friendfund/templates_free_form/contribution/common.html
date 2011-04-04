@@ -1,0 +1,38 @@
+<%def name="renderRightCol(pool)">
+	<div class="colRight">
+		<%
+			locals = {"admin_name":pool.admin.name}
+		%>
+		<div class="boxWhat">
+			<div class="prod"> <img width="60px" height="50px" src="${pool.get_product_display_picture("FF_POOLS")}"> </div>
+			<p class="title">
+				<a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a>
+				<span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="security">
+			<div class="headSec">
+				<h4>${_(u"FF_CONTRIB_BOX_CHIP IN WITH CONFIDENCE")}</h4>
+			</div>
+			<div class="lock">
+				<p>${_(u"FF_CONTRIB_BOX_Chipping in is safe and secure. Guaranteed!")}</p>
+			</div>
+			<p>${_(u"FF_CONTRIB_BOX_You’ll pay nothing if unauthorized charges are made to your Credit Card as a result of chipping in on friendfund.")}</p>
+			<h4>${_(u"FF_CONTRIB_BOX_YOU ARE SAFE WITH US")}</h4>
+			<div id="verisign_contrib">
+					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+					<tr>
+					<td width="135" align="center" valign="top">
+						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
+						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+					</td>
+					</tr>
+					</table>
+			</div>
+			<p>${_(u"FF_CONTRIB_BOX_All information is encrypted and transmitted without risk using a Secure Sockets Layer (SSL) protocol.")}</p>
+<a href="#" class="learn">${_("FF_Learn More")} &raquo;</a>
+		</div>
+	</div>
+</%def>

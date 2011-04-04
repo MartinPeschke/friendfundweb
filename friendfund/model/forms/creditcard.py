@@ -6,7 +6,7 @@ class CreditCardForm(formencode.Schema):
 	allow_extra_fields = True
 	
 	ccType = formencode.validators.String(not_empty=True)
-	ccHolder = formencode.validators.String(not_empty=True, messages={'empty': _('FF_CONTRIBPAGE_ERROR_ccHolder_Please enter your credit card  holder name!')})
+	ccHolder = formencode.validators.String(not_empty=True, messages={'empty': _("FF_CONTRIBPAGE_ERROR_Your full name as it appears on the card")})
 	ccNumber = formencode.validators.String(not_empty=True, messages={'empty': _('FF_CONTRIBPAGE_ERROR_ccNumber_Please enter your credit card number!')})
 	ccCode = formencode.validators.String(not_empty=True, messages={'empty': _('FF_CONTRIBPAGE_ERROR_ccCVC_Please enter your CVC number!')})
 	ccExpiresMonth = formencode.validators.Int(not_empty=True, min=1, max = 12)

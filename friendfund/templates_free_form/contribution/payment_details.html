@@ -1,6 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="common" file="common.html"/>
 
 <%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
 
@@ -20,7 +21,7 @@
 		});
 	dojo.query(".popuplink", "creditcardForm").onclick(dojo.hitch(null, loadPopup));
 </%def>
-
+<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 <div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
   <div class="subHeader">
     <div class="userProfile">
@@ -43,44 +44,7 @@
 </div>
 
 <div class="content">
-	<div class="colRight">
-		<div class="boxWhat">
-			<div class="prod"> <img width="60px" height="50px" src="/s/product/09/0e/090e5d5f-4a92-4053-82d7-cd601bbc8985_FF_POOLS.jpg"> </div>
-			<p class="title">
-				<a href="#">Whiff Whaff for the Riff Raff</a>
-				<span class="creator">by cristo</span>
-			</p>
-			
-			<div class="clear"></div>
-		</div>
-		<div class="security">
-			<div class="headSec">
-				<h4>CHIP IN WITH CONFIDENCE</h4>
-			</div>
-			<div class="lock">
-				<p>Chipping in is safe and secure. 
-Guaranteed!</p>
-			</div>
-			<p>You’ll pay nothing if unauthorized 
-charges are made to your Credit Card 
-as a result of chipping in on friendfund.</p>
-			<h4>YOU ARE SAFE WITH US</h4>
-			<div id="verisign_contrib">
-					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-					<tr>
-					<td width="135" align="center" valign="top">
-						<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br />
-						<a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-					</td>
-					</tr>
-					</table>
-			</div>
-			<p>All information is encrypted and 
-transmitted without risk using a Secure 
-Sockets Layer (SSL) protocol.</p>
-<a href="#" class="learn">Learn more &raquo;</a>
-		</div>
-	</div>
+	${common.renderRightCol(c.pool)}
 	<div class="colLeft">
 	<form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
 		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
@@ -93,21 +57,13 @@ Sockets Layer (SSL) protocol.</p>
 				<div class="greyInside " style="width: 510px; height: 48px; padding: 10px;">
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 
 					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
-					
-				
 				<span class="darkGrey floatRight" style="margin-top:16px">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
 				
 			</div>
 			</div>
-			<!--<a href="#" class="editContrib">Edit</a>-->
-		<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 		</div>
+		<div class="contentDetails">${_(u"FF_CONTRIB_PAGE_You will only be charged if this Pool reaches its funding goal by %(expiry_date)s.") % locals}</div>
 		
-        <div class="contentDetails">
-			You will only be charged if this Pool reaches its funding goal by Sunday, 1 May, 2011.
-		</div>
-		
-        
 		<div class="clear"></div>
 	<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
 	<div class="subHeadingSpecial"></div>
@@ -116,23 +72,16 @@ Sockets Layer (SSL) protocol.</p>
      <div class="first">${_("FF_CONTRIB_DETAILS_Card type")}</div><img src="/static/imgs/${c.payment_method.code}_color.png" style="margin-top:3px">
      </div>
 		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
-			<!--
-<div class="tip">
-				<div class="arrow"></div>
-			%if "ccHolder" in c.errors:
-				<span>${c.errors.get("ccHolder")}</span>
-			%else:
-				<span>${_("FF_CONTRIB_DETAILS_Holder Tip goes here")}</span>
-			%endif
-			</div>
--->
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Cardholder's Name")}</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/><p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Your full name as it appears on the card</p>
+				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
+				%if "ccHolder" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors.get("ccHolder")}</p>
+				%endif
 			</div>
-			<p class="info unNt">Your full name as it appears on the card</p>
+			<p class="info unNt">${_("FF_CREDITCARD_Your full name as it appears on the card")}</p>
 		</div>
 		<div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
 			<!--

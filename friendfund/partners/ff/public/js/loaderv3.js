@@ -5,8 +5,8 @@ String.prototype.strip = function(char)
     };
 
 protected = function(callback){return function(data){
-	if(data.success){callback(data)} else {protect()};};
-};
+	if(data.success){callback(data)} else {};
+};};
 protect = function(callback){ return function(evt){
 	xhrPost("/myprofile/login", {}, protected(callback));
 	page_reloader = callback;
@@ -209,7 +209,13 @@ xhrHandler = function(callback){
 		if (data.clearmessage !== undefined){clear_messages();}
 		if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
-		if (data.login_panel !== undefined){closePopup();dojo.place(data.login_panel, "accountcontainer", "only");if(data['data'].success){page_reloader()};}
+		if (data.login_panel !== undefined){
+				closePopup();
+				if(dojo.byId("accountcontainer")){dojo.place(data.login_panel, "accountcontainer", "only");}
+				if(data['data'].success){
+					page_reloader()
+				};
+			}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}

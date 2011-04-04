@@ -29,7 +29,7 @@
 	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
 	  callbackFunctions:{"dateset":[panels.updateOccasionDate]}
 	});
-	
+	dojo.connect(document.forms.poolCreateForm, "onsubmit", protect(document.forms.poolCreateForm.submit));
 </%def>
 
 
@@ -40,7 +40,7 @@
 		</h1>
 	</div>
 	<div class="wrapContent">
-		<form action="${url('pool_create')}" method="POST" target="_parent" id="button_panel_Form">
+		<form action="${url('pool_create')}" name="poolCreateForm" method="POST" target="_parent" id="button_panel_Form">
 			<div class="floatRight">
 			<div id="productArea">
 				%for p in c.product_list:

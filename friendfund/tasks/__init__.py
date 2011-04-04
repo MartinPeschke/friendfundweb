@@ -1,6 +1,6 @@
 import pyodbc, os, ConfigParser, celery, pylibmc
 
-from DBUtils.PersistentDB import PersistentDB
+from DBUtils.PooledDB import PooledDB
 from celeryconfig import CELERY_ADDITIONAL_CONFIG
 from celery.log import setup_logger
 from mako.lookup import TemplateLookup
@@ -42,8 +42,8 @@ def get_config(configname):
 
 
 def get_db_pool(app_conf, conn_name):
-	return PersistentDB(
-				pyodbc
+	return PooledDB(
+				pyodbc,mincached=2,maxcached=10,failures = (pyodbc.OperationalError, pyodbc.InternalError, pyodbc.Error), autocommit=True
 				,driver=app_conf['%s.connectstring.driver' % conn_name]
 				,server=app_conf['%s.connectstring.server' % conn_name]
 				,instance=app_conf['%s.connectstring.instance' % conn_name]
@@ -53,7 +53,6 @@ def get_db_pool(app_conf, conn_name):
 				,uid=app_conf['%s.connectstring.uid' % conn_name]
 				,pwd=app_conf['%s.connectstring.pwd' % conn_name]
 				,client_charset=app_conf['%s.connectstring.client_charset' % conn_name]
-				,autocommit=True
 			)
 
 
