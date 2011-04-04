@@ -106,6 +106,9 @@ div.lastOne {
 /* GENERAL ELEMENTS - GENERAL RULES */
 .clear {
 	clear: both;
+	line-height: 0;
+	height: 0;
+	font-size: 0
 }
 a {
 	text-decoration: none;
@@ -1010,6 +1013,9 @@ span.poolClose {
 }
 div.boxPoolDetails {
 	clear: both;
+	float: left;
+	width: 910px;
+
 }
 div.timeTracker {
 	width: 210px
@@ -1449,11 +1455,15 @@ ul.comments {
 	list-style-type: none;
 	margin: 0 10px 0 0;
 	position: relative;
+	float: left;
+	width:690px
 }
 ul.comments li {
 	border-bottom: 1px solid #ebebeb;
 	padding:15px 0 ;
-	border-top:1px solid white
+	border-top:1px solid white;
+	float: left;
+	width: 690px
 }
 div.entryStream .avt {
 	margin:0 10px 10px 0
@@ -1561,7 +1571,7 @@ div.rose {
 	background-color: #feccff;
 	color: black;
 	width: 180px;
-	margin:18px 0 0 -25px;
+	margin:0 0 0 -25px;
 	padding: 6px 20px 10px 20px;
 	-moz-box-shadow: 0 2px 2px #999;
 	-webkit-box-shadow: 0px 2px 2px #999; /*Safari 3.0+, Chrome */
@@ -1888,8 +1898,8 @@ div.mainValue input {
 	border: 1px solid #dadada;
 	font-size: 14px;
 	height: 24px;
-	line-height: 28px;
-	height: 28px;
+	line-height: 30px;
+	height: 30px;
 	float: left
 }
 div.simpleeditable textarea {
@@ -2273,7 +2283,7 @@ div.selected input.number {
 div.lessPad div.greyInsideFullWidth {
 	padding:5px 0;
 }
-div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox {
+div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox,div.imgSpacer input.radio{
 	width:15px;
 	height:15px;
 	margin:6px 10px 0 0;
@@ -2760,6 +2770,7 @@ p.inviterTwo {
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
 	text-shadow: 0px 1px 1px #529e0c;
+	margin-bottom: 18px
 }
 .tertiary:hover {
 	background:#5dc53d;
@@ -2974,7 +2985,9 @@ div.logInOnePx input {
 	float:left;
 	padding: 0 5px;
 	width: 61%;
-	;
+}
+div.logInOnePx div.greyInsideFullWidth {
+    width: 450px !important;
 }
 .loginSocialWrap {
 	float:left;
@@ -3139,9 +3152,7 @@ div.wrapInside div.tip {
 	padding: 0;
 	margin-top: 5px
 }
-.poolRow .daysLeft span {
-	padding: 0 0 0 20px !important;
-}
+
 .poolRow .outstanding {
 	text-align: left;
 	height: auto;
@@ -3263,17 +3274,25 @@ span.hider:hover div.moreActions {
 }
 .poolRow .boxPoolDetails div span {
 	position: relative;
-	padding: 0 0 0 0;
+	padding: 12px 0 5px 0;
 	text-align: left;
-	margin-left: 30px
+	margin-left: 30px;
+	line-height: 11px
 }
 .poolRow .boxPoolDetails div.contributors span {
 	position: relative;
-	padding: 0 0 0 20px;
+	padding: 12px 0 12px 20px;
 	text-align: left;
+	line-height: 11px
+	
 }
 .poolRow .boxPoolDetails div.chippedIn span {
-	padding: 0 0 0 20px
+	padding: 12px 0 5px 20px;
+	text-align: left;
+	line-height: 11px
+}
+.poolRow .daysLeft span {
+	padding: 12px 0 12px 20px !important;
 }
 .poolRow .timeCounter {
 	padding: 0 0 0 0;
@@ -3425,7 +3444,7 @@ div.timeCounterSmall span {
 	position: relative;
 	margin-top: 10px;
 	float: left;
-	margin-right: 6px
+	margin-right: 6px;
 }
 .timeCounterSmall div.timeCounterRight {
 	-moz-border-radius: 10px 10px 10px 10px;
@@ -3460,12 +3479,12 @@ span.tenPix a.link {
 .entryStream .txtComments {
 	max-width: auto;
 	width: 430px;
-	float: left
+	float: left;
 }
 .liner {
 	float: left;
 	width: 100%;
-	padding-top: 10px;
+	margin-top: 10px;
 	color: #696969;
 	font-size: 11px !important
 }
@@ -3712,7 +3731,8 @@ span.editSmall{
 	display: block;
 	border: 1px solid #E4E4E4 !important;
 	margin-left: 158px;
-	margin-bottom: 10px
+	margin-bottom: 10px;
+	background: white
 }
 .txtInside .tip {
 	top:112px !important
@@ -3971,7 +3991,8 @@ div.outerPopupFrame .emailBody p {
 .insideEcard {
 	border: 1px solid #e5e5e5;
 	background: white;
-	padding: 10px
+	padding: 10px;
+	width: 650px
 }
 .ecard h3 {
 	font-size: 24px;
@@ -4006,7 +4027,8 @@ div.outerPopupFrame .emailBody p {
 }
 div.stripe .txtComments p {
 	font-size: 12px;
-	color: #2C2C2C
+	color: #2C2C2C;
+	width: 445px
 }
 .colLeft div.ecard h4 {
 	border-bottom: 1px solid #D0D0D0;
@@ -4033,7 +4055,7 @@ div.stripe .txtComments p {
 }
 .contribMsg {
 	float: left;
-	margin: 20px 0 0 10px;
+	margin: 15px 0 0 10px;
 	width: 660px;
 	overflow: hidden
 }

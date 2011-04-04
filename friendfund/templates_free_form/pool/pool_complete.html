@@ -77,11 +77,12 @@
 							</div>
 							<div class="clear"></div>
 						</div>
+						
+						<div class="txtComments" >
 						<div class="avt">
 							<div class="arrowAvatar"></div>
 							<img width="48px" height="48px" src="${c.pool.receiver.get_profile_pic("PROFILE_M")}">
 						</div>
-						<div class="txtComments" style="float:None">
 							<span>${c.pool.receiver.name}</span>
 							<p>${c.pool.description}</p>
 						</div>
@@ -89,7 +90,7 @@
 					</div>
 				</div>
 			  
-				<h4>${_("FF_POOLECARD_Contributor Messages")} <span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span></h4>
+				<h4><span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span>${_("FF_POOLECARD_Contributor Messages")} </h4>
 				<ul class="contribMsg">
 				%for cbtr in c.contributors:
 					<li>
