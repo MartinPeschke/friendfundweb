@@ -6,7 +6,7 @@
 		<div class="boxWhat">
 			<div class="prod"> <img width="60px" height="50px" src="${pool.get_product_display_picture("FF_POOLS")}"> </div>
 			<p class="title">
-				<a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a>
+				<a href="${url("get_pool", pool_url = pool.p_url, protocol="http")}">${pool.title}</a>
 				<span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>
 			</p>
 			<div class="clear"></div>
@@ -32,7 +32,7 @@
 					</table>
 			</div>
 			<p>${_(u"FF_CONTRIB_BOX_All information is encrypted and transmitted without risk using a Secure Sockets Layer (SSL) protocol.")}</p>
-<a href="${url(controller="content", action="confidence", lang=h.get_language_locale())}" class="learn">${_("FF_Learn More")} &raquo;</a>
+<a href="${url(controller="content", action="confidence", lang=h.get_language_locale(), protocol="http")}" class="learn">${_("FF_Learn More")} &raquo;</a>
 		</div>
 	</div>
 </%def>

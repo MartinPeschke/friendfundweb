@@ -19,9 +19,6 @@ log = logging.getLogger(__name__)
 
 class PaymentController(BaseController):
 	@jsonify
-	def transaction_fees(self, pool_url):
-		return {"popup":render("/contribution/popups/transaction_fees.html").strip()}
-	@jsonify
 	def notify_invitees(self, pool_url):
 		return {"popup":render("/contribution/popups/notify_invitees.html").strip()}
 	
@@ -47,6 +44,7 @@ class PaymentController(BaseController):
 		c.payment_methods = g.payment_methods
 		c.tos = self._add_tos()
 		return self.render('/contribution/contrib_screen.html')
+	
 	@logged_in(ajax=False)
 	@pool_available(contributable_only = True)
 	def details(self, pool_url):
