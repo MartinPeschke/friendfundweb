@@ -27,6 +27,7 @@ class PoolComment(DBMappedObject):
 				,GenericAttrib(int,'u_id','u_id')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(unicode,'comment','comment')
+				,GenericAttrib(bool,'is_contrib_message','is_contrib_message')
 				,GenericAttrib(unicode,'profile_picture_url','profile_picture_url')
 				,GenericAttrib(int,'recency','recency')
 			]

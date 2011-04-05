@@ -6,7 +6,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, pool_available
-from friendfund.lib.base import BaseController, render, SuccessMessage, ErrorMessage
+from friendfund.lib.base import BaseController, render, render_def, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
@@ -186,19 +186,19 @@ class PoolController(BaseController):
 			if('comment' in request.params):
 				comment = request.params['comment']
 				if comment:
-					c.comment = PoolComment(u_id = c.user.u_id, p_url = pool_url, comment = comment, recency = 0)
-					g.dbm.set(c.comment)
-					c.comment.name = c.user.name
-					c.comment.profile_picture_url = c.user.profile_picture_url
-					c.comment.created = datetime.datetime.now()
-					return {'data':{'html':self.render("/pool/comment.html").strip()}}
+					pcomment = PoolComment(u_id = c.user.u_id, p_url = pool_url, comment = comment, recency = 0)
+					g.dbm.set(pcomment)
+					pcomment.name = c.user.name
+					pcomment.profile_picture_url = c.user.profile_picture_url
+					pcomment.created = datetime.datetime.now()
+					return {'data':{'html':render_def("/pool/chat.html", "renderComment", comment = pcomment).strip()}}
 				else:
 					return {'data':{'html':''}}
 		else:
 			c.pool_url = pool_url
 			c.chat = g.dbm.get(PoolChat, p_url = pool_url)
 			if len(c.chat.comments) > self.chat_page_size:
-				c.chat.comments = c.chat.comments[:self.chat_page_size]
+				c.chat.comments = c.chat.comments
 				c.offset = self.chat_page_size
 			else:
 				c.offset = 0
@@ -206,23 +206,9 @@ class PoolController(BaseController):
 	
 	@jsonify
 	@pool_available()
-	def chatmore(self, pool_url):
-		c.pool_url = pool_url
-		offset = int(request.params.get('offset', 0))
-		c.chat = g.dbm.get(PoolChat, p_url = pool_url).comments or []
-		if isinstance(c.chat, PoolComment): c.chat = [c.chat]
-		
-		if len(c.chat)-offset > self.chat_page_size:
-			c.offset = offset+self.chat_page_size
-		else:
-			c.offset = 0
-		c.chat = c.chat[offset:offset+self.chat_page_size]
-		return {'data':{'offset':c.offset, 'has_more':bool(c.offset), 'html':render("/pool/chat_content.html").strip()}}
-	
-	@jsonify
-	@pool_available()
 	def get_widget(self, pool_url):
 		return {"popup":render("/pool/parts/widget.html").strip()}
+	@pool_available()
 	def widget(self, pool_url):
 		try:
 			c.faces = int(request.params.get("faces", 5)) or 5
