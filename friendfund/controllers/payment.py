@@ -65,7 +65,6 @@ class PaymentController(BaseController):
 			state.__dict__["_"] = FriendFundFormEncodeState._
 			state.__dict__["payment_methods"] = g.payment_methods_map
 			details['message'] = details.get('message', "").replace("\r", "")
-			print details['message']
 			form_result = schema.to_python(details, state)
 		except formencode.validators.Invalid, error:
 			c.values = error.value

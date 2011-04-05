@@ -49,7 +49,7 @@ class Globals(object):
 		self.TwitterApiSecret = app_conf['twitterapisecret']
 		
 		self.locales = app_conf['available_locales'].lower().split(',')
-		self.LANGUAGES = {"en_gb":_("English"), "es_es":_("Spanish"), "de_de":_("German"), "it_it":_("Italian")}
+		self.LANGUAGES = {"en_gb":_("English"), "es_es":_("Spanish"), "de_de":_("German")} # , "it_it":_("Italian")
 		
 		self.debug = config['debug']
 		self.test = config['test'] == 'true'
