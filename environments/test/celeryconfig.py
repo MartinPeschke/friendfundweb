@@ -16,18 +16,19 @@ CELERY_STORE_ERRORS_EVEN_IF_IGNORED = False
 CELERY_IGNORE_RESULT = True
 CELERY_DISABLE_RATE_LIMITS = True
 
-CELERY_EVENT_EXCHANGE_TYPE = "direct"
-CELERY_EVENT_EXCHANGE = "celeryevent_test"
-CELERY_EVENT_ROUTING_KEY = "celeryevent_test"
-
 CELERY_EVENT_SERIALIZER = "json"
 
 CELERY_ADDITIONAL_CONFIG="test_env.ini"
 
-CELERY_QUEUES = {"default_queue": {"exchange": "celeryevent_test",
+
+CELERY_QUEUES = {"default_test": {"exchange": "celeryevent_test",
                                    "exchange_type": "direct",
-                                   "routing_key": "*"}}
-CELERY_DEFAULT_QUEUE = "default_queue"
+                                   "routing_key": "fftest", "binding_key":"fftest"}}
+CELERY_DEFAULT_QUEUE = "default_test"
+CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
+CELERY_DEFAULT_EXCHANGE = "celeryevent_test"
+CELERY_DEFAULT_ROUTING_KEY = "fftest"
+
 
 
 
