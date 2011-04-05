@@ -10,7 +10,7 @@ for host in hosts:
 		from turbomail.control import interface
 		config = {"mail.on":True,"mail.transport":"smtp","mail.smtp.server":"smtp.strato.de","mail.smtp.username":"cahoots@quotsy.com","mail.smtp.password":"Popov2010","mail.smtp.tls":True}
 		interface.start(config)
-		msg = Message("whitefall_1@dev.friendfund.de", ["martin@friendfund.com", "errors@friendfund.com"], "HTTP_SERVER_STATE: ALARM")
+		msg = Message("whitefall_1@dev.friendfund.de", ["martin.peschke@gmx.net","martin@friendfund.com", "errors@friendfund.com"], "HTTP_SERVER_STATE: ALARM")
 		msg.plain = '%s\n\n\n%s' % (host, e.fp.read())
 		msg.send()
 		interface.stop(force=True)
@@ -20,7 +20,7 @@ for host in hosts:
 		from turbomail.control import interface
 		config = {"mail.on":True,"mail.transport":"smtp","mail.smtp.server":"smtp.strato.de","mail.smtp.username":"cahoots@quotsy.com","mail.smtp.password":"Popov2010","mail.smtp.tls":True}
 		interface.start(config)
-		msg = Message("whitefall_1@dev.friendfund.de", ["martin@friendfund.com", "errors@friendfund.com"], "HTTP_SERVER_STATE: ALARM")
+		msg = Message("whitefall_1@dev.friendfund.de", ["martin.peschke@gmx.net","martin@friendfund.com", "errors@friendfund.com"], "HTTP_SERVER_STATE: ALARM")
 		msg.plain = '%s\n\n\n%s' % (host, 'URL UNREACHABLE')
 		msg.send()
 		interface.stop(force=True)
