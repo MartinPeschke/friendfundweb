@@ -58,11 +58,9 @@ def try_locate_sub_image_url(url):
 def retrieve_tmp_image(source_url, try_locate_sub_url = False):
 	alt_url = try_locate_sub_image_url(source_url)
 	source = try_locate_sub_url and alt_url or source_url
-	try:
-		resp = urllib2.urlopen(urlnormalize(source))
-	except urllib2.HTTPError, e:
-		log.error("Could not load Picture fom this URL: %s" % source)
-		return None
+	
+	resp = urllib2.urlopen(urlnormalize(source))
+	
 	try:
 		extension = resp.url.rsplit('.',1)[1]
 		if not (2<len(extension)<5):
@@ -168,7 +166,6 @@ def remote_save_image(email, tmpfname, newfname):
 
 @task
 def remote_product_picture_render(pool_url, picture_url):
-	dbm = get_dbm(CONNECTION_NAME)
 	newfname = h.get_upload_pic_name(str(uuid.uuid4()))
 	newurl = newfname  # '23/a1/23a1a-wefkj-hqwfok-jqwfr'
 	filepath, filename = os.path.split(newfname)
@@ -185,6 +182,7 @@ def remote_product_picture_render(pool_url, picture_url):
 				sizes.append((tmpfname, newfname, target_w,target_h))
 			crop_resize_original(sizes)
 			try:
+				dbm = get_dbm(CONNECTION_NAME)
 				dbm.set(AddRenderedProductPictureProc(p_url = pool_url, product_picture_url=newurl))
 			except db_access.SProcException, e:
 				log.error(str(e))

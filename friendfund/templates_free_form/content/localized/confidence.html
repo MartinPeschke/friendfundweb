@@ -1,0 +1,25 @@
+<%inherit file="../common.html"/>
+
+<%def name="title()">${_("FF_STATIC_MENU_Chip in with confidence")}</%def>
+<%def name="heading()">${_("FF_STATIC_MENU_Chip in with confidence")}</%def>
+
+<%def name="render_content()">
+	<h4>Secure Socket Layer (SSL Technology)</h4>
+	<div class="subHeading"></div>
+	<p class="general">friendfund uses Secure Sockets Layer (SSL) technology to provide you with the safest, most secure payment experience possible. SSL technology enables encryption of sensitive information during your online transactions.</p>
+
+	<h4>Verisign Inc.</h4>
+	<div class="subHeading"></div>
+	<img style="margin:15px 0" src="/static/imgs/veri-sign.png"/>
+	<p class="general">VeriSign is a technology company that specialises in data encryption and e-commerce. It is one of the most recognised companies for certifying a website’s security.  </p>
+	
+	<p class="general"><img style="margin:15px 0" src="/static/imgs/secure_lock.png"/><br/>
+	For added security, look out for the lock located at the top of your browser window when chipping in.</p>
+	
+
+	<h4>Your Privacy</h4>
+	<div class="subHeading"></div>
+	<p class="general">Your privacy is sacred to us. That’s why friendfund don't rent, sell or share your personal information with anyone. Ever. <br/>
+	Our <a href="${url(controller="content", action="privacy", lang=h.get_language_locale())}">Privacy Policy</a> details how your personal information is collected and may be used. 
+	</p>
+</%def>

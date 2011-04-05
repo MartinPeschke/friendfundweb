@@ -59,6 +59,7 @@ class DateAwareJSONEncoder(simplejson.JSONEncoder):
 def encode_minimal_repr(map):
 	return base64.urlsafe_b64encode(zlib.compress(simplejson.dumps(map, cls=DateAwareJSONEncoder)))
 def decode_minimal_repr(value):
+	if not value: return None
 	return simplejson.loads(zlib.decompress(base64.urlsafe_b64decode(str(value))))
 	
 	

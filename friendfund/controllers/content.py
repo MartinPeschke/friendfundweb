@@ -123,7 +123,15 @@ class ContentController(BaseController):
 				return self.render("/content/localized/tos.html")
 		else:
 			return self.render("/content/localized/tos.html")
-	
+	@default_domain_only()
+	def confidence(self, lang = None):
+		if lang:
+			try:
+				return self.render("/content/localized/confidence_%s.html" % lang)
+			except:
+				return self.render("/content/localized/confidence.html")
+		else:
+			return self.render("/content/localized/confidence.html")
 	@default_domain_only()
 	def privacy(self, lang = None):
 		if lang:

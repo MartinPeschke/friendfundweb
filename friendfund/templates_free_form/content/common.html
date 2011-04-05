@@ -49,12 +49,17 @@
 			<li>${self.entry(_("FF_STATIC_MENU_About Us"), url(controller="content", action="aboutus", lang=lang), action == "aboutus")}</li>
 			<li>${self.entry(_("FF_STATIC_MENU_Frequently Asked Questions"), url(controller="content", action="faq", lang=lang), action == "faq")}</li>
 			<li>${self.entry(_("FF_STATIC_MENU_Terms of Service"), url(controller="content", action="tos", lang=lang), action == "tos")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Privacy"), url(controller="content", action="privacy", lang=lang), action == "privacy")}</li>
 			<li>${self.entry(_("FF_STATIC_MENU_Contact Friendfund"), url(controller="content", action="contact", lang=lang), action == "contact")}</li>
 			<li>${self.entry(_("FF_STATIC_MENU_Our blog"), "http://blog.friendfund.com", False)}</li>
 			<li>${self.entry(_("FF_STATIC_MENU_Jobs"), url(controller="content", action="jobs", lang=lang), action == "jobs")}</li>
 			<li style="margin-top:20px">${self.entry(_("FF_MENU_Create a pool"), url("pool_details", protocol="http", v=2), False)}</li>
         </ul>
+		<h5 style="margin-top:25px;">${_("FF_STATIC_MENU_You're safe with us")}</h5>
+        <ul>
+			<li>${self.entry(_("FF_STATIC_MENU_Chip in with confidence"), url(controller="content", action="confidence", lang=lang), action == "confidence")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Privacy"), url(controller="content", action="privacy", lang=lang), action == "privacy")}</li>
+        </ul>
+		
        </div>
        <div class="colRightWhite"></div>
        <div  class="generalInfo lastBox">

@@ -34,10 +34,10 @@ def _create_event(query, image_url, pool_url, config):
 
 def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 	data = template_data
+	query = {}
+	query['description'] = template.get_def("description").render_unicode(h = h, data = data)
 	if not template_data.get('event_id'):
-		query = {}
 		query['name'] = template.get_def("name").render_unicode(h = h, data = data)
-		query['description'] = template.get_def("description").render_unicode(h = h, data = data)
 		query['link'] = template.get_def("link").render_unicode(h = h, data = data)
 		query['privacy_type'] = template.get_def("privacy_type").render_unicode(h = h, data = data)
 		query['start_time'] = template.get_def("start_time").render_unicode(h = h, data = data)

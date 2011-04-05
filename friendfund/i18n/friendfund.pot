@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-04-04 12:34+0200\n"
+"POT-Creation-Date: 2011-04-04 22:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr ""
 
-#: friendfund/controllers/invite.py:89
+#: friendfund/controllers/invite.py:90
 msgid "FF_INVITE_PAGE_ERRORBAND_Please fill in below values correctly."
 msgstr ""
 
@@ -67,7 +67,7 @@ msgstr ""
 msgid "FF_POOL_PAGE_Welcome to your new Pool!"
 msgstr ""
 
-#: friendfund/controllers/invite.py:176 friendfund/controllers/myfriends.py:97
+#: friendfund/controllers/invite.py:177 friendfund/controllers/myfriends.py:97
 #: friendfund/controllers/receiver.py:143
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr ""
@@ -144,42 +144,42 @@ msgstr ""
 msgid "INDEX_PAGE_Invalid Format - Occasion"
 msgstr ""
 
-#: friendfund/controllers/payment.py:70
+#: friendfund/controllers/payment.py:73
 msgid "FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below"
 msgstr ""
 
-#: friendfund/controllers/payment.py:83 friendfund/controllers/payment.py:150
-#: friendfund/controllers/payment.py:166 friendfund/controllers/payment.py:181
+#: friendfund/controllers/payment.py:86 friendfund/controllers/payment.py:154
+#: friendfund/controllers/payment.py:170 friendfund/controllers/payment.py:185
 msgid "CONTRIBUTION_PAGE_Unknown Payment Method"
 msgstr ""
 
-#: friendfund/controllers/payment.py:86 friendfund/controllers/payment.py:153
+#: friendfund/controllers/payment.py:89 friendfund/controllers/payment.py:157
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_An error has occured, please try again later."
 " Your payment has not been processed."
 msgstr ""
 
-#: friendfund/controllers/payment.py:89 friendfund/controllers/payment.py:156
+#: friendfund/controllers/payment.py:92 friendfund/controllers/payment.py:160
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again "
 "later"
 msgstr ""
 
-#: friendfund/controllers/payment.py:100 friendfund/controllers/payment.py:106
+#: friendfund/controllers/payment.py:104 friendfund/controllers/payment.py:110
 msgid ""
 "CONTRIBUTION_CREDITCARD_DETAILS_Incorrect Payment Form Data, Token missing. "
 "Your payment has not been processed."
 msgstr ""
 
-#: friendfund/controllers/payment.py:132
+#: friendfund/controllers/payment.py:136
 msgid "FF_CONTRIBUTION_VALIDATION_ERRORBAND_Please fill in all fields correctly!"
 msgstr ""
 
-#: friendfund/controllers/payment.py:136
+#: friendfund/controllers/payment.py:140
 msgid "Unknown Card Type"
 msgstr ""
 
-#: friendfund/controllers/payment.py:202
+#: friendfund/controllers/payment.py:206
 msgid "Invalid payment data found, possibly some hiccup?"
 msgstr ""
 
@@ -211,43 +211,37 @@ msgid ""
 "Shipping and Billing Address first!"
 msgstr ""
 
-#: friendfund/controllers/pool.py:39 friendfund/controllers/pool.py:55
-#: friendfund/controllers/pool.py:139 friendfund/controllers/pool.py:253
-#: friendfund/controllers/pool.py:265 friendfund/controllers/pool.py:283
-#: friendfund/controllers/pool.py:295
+#: friendfund/controllers/pool.py:41 friendfund/controllers/pool.py:58
+#: friendfund/controllers/pool.py:142
 msgid "POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST"
 msgstr ""
 
-#: friendfund/controllers/pool.py:44
+#: friendfund/controllers/pool.py:46
 #, python-format
 msgid ""
 "FF_POOL_SUCCESS_MSG_This pool has been successfully funded <a href=\"%s\"> "
 "View the eCard&raquo;</a>"
 msgstr ""
 
-#: friendfund/controllers/pool.py:46
+#: friendfund/controllers/pool.py:48
 msgid ""
 "FF_POOL_EXPIRED_MSG_This pool expired without reaching its funding goal in "
 "time."
 msgstr ""
 
-#: friendfund/controllers/pool.py:124 friendfund/controllers/pool.py:165
+#: friendfund/controllers/pool.py:127 friendfund/controllers/pool.py:168
 msgid "FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below"
 msgstr ""
 
-#: friendfund/controllers/pool.py:142
+#: friendfund/controllers/pool.py:145
 msgid "POOL_CREATE_Occasion was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:145
+#: friendfund/controllers/pool.py:148
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:235
-msgid "POOL_SETTINGS_Pool not found"
-msgstr ""
-
-#: friendfund/controllers/pool.py:440
+#: friendfund/controllers/pool.py:256
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr ""
 
@@ -323,11 +317,15 @@ msgstr ""
 msgid "Italian"
 msgstr ""
 
-#: friendfund/lib/base.py:125
+#: friendfund/lib/auth/decorators.py:38
 msgid "FF_SORRY_PAGE_NOT_FOUND_404_STYLE"
 msgstr ""
 
-#: friendfund/lib/auth/decorators.py:50 friendfund/lib/auth/decorators.py:52
+#: friendfund/lib/auth/decorators.py:43
+msgid "FF_POOL_ERROR_Sorry, this pool is no longer active"
+msgstr ""
+
+#: friendfund/lib/auth/decorators.py:76 friendfund/lib/auth/decorators.py:78
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr ""
 
@@ -548,7 +546,7 @@ msgid "FF_CONTACT_ERROR_EMAIL_Please enter an email !"
 msgstr ""
 
 #: friendfund/model/forms/creditcard.py:9
-msgid "FF_CONTRIBPAGE_ERROR_ccHolder_Please enter your credit card  holder name!"
+msgid "FF_CONTRIBPAGE_ERROR_Your full name as it appears on the card"
 msgstr ""
 
 #: friendfund/model/forms/creditcard.py:10
@@ -744,7 +742,7 @@ msgstr ""
 msgid "AMEX"
 msgstr ""
 
-#: friendfund/services/pool_service.py:110
+#: friendfund/services/pool_service.py:123
 #, python-format
 msgid ""
 "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for "
@@ -890,6 +888,7 @@ msgid "STATIC_PRIVACY_STATEMENT_CONTENT"
 msgstr ""
 
 #: friendfund/templates/content/tos.html:4
+#: friendfund/templates_free_form/contribution/contrib_screen.html:130
 msgid "STATIC_TITLE_Terms of Service"
 msgstr ""
 
@@ -1150,7 +1149,7 @@ msgid "EVENT_PANEL_Select an Event"
 msgstr ""
 
 #: friendfund/templates/occasion/panel.html:22
-#: friendfund/templates_free_form/partner/iframe.html:99
+#: friendfund/templates_free_form/partner/iframe.html:103
 #: friendfund/templates_partner/occasion/panel.html:18
 msgid "EVENT_PANEL_Just because..."
 msgstr ""
@@ -1476,27 +1475,37 @@ msgid "FF_STATIC_MENU_Terms of Service"
 msgstr ""
 
 #: friendfund/templates_free_form/content/common.html:52
-msgid "FF_STATIC_MENU_Privacy"
-msgstr ""
-
-#: friendfund/templates_free_form/content/common.html:53
 msgid "FF_STATIC_MENU_Contact Friendfund"
 msgstr ""
 
-#: friendfund/templates_free_form/content/common.html:54
+#: friendfund/templates_free_form/content/common.html:53
 msgid "FF_STATIC_MENU_Our blog"
 msgstr ""
 
-#: friendfund/templates_free_form/content/common.html:55
+#: friendfund/templates_free_form/content/common.html:54
 msgid "FF_STATIC_MENU_Jobs"
 msgstr ""
 
-#: friendfund/templates_free_form/content/common.html:56
+#: friendfund/templates_free_form/content/common.html:55
 #: friendfund/templates_free_form/myprofile/login_panel.html:107
 msgid "FF_MENU_Create a pool"
 msgstr ""
 
-#: friendfund/templates_free_form/content/common.html:61
+#: friendfund/templates_free_form/content/common.html:57
+msgid "FF_STATIC_MENU_You're safe with us"
+msgstr ""
+
+#: friendfund/templates_free_form/content/common.html:59
+#: friendfund/templates_free_form/content/localized/confidence.html:3
+#: friendfund/templates_free_form/content/localized/confidence.html:4
+msgid "FF_STATIC_MENU_Chip in with confidence"
+msgstr ""
+
+#: friendfund/templates_free_form/content/common.html:60
+msgid "FF_STATIC_MENU_Privacy"
+msgstr ""
+
+#: friendfund/templates_free_form/content/common.html:66
 msgid "FF_STATIC_MENU_Connect with Us"
 msgstr ""
 
@@ -1601,6 +1610,7 @@ msgstr ""
 #: friendfund/templates_free_form/content/localized/learnmore.html:3
 #: friendfund/templates_free_form/content/localized/learnmore_de_de.html:3
 #: friendfund/templates_free_form/content/localized/learnmore_es_es.html:3
+#: friendfund/templates_free_form/contribution/common.html:35
 msgid "FF_Learn More"
 msgstr ""
 
@@ -1661,175 +1671,212 @@ msgid ""
 "number."
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:3
-#: friendfund/templates_free_form/contribution/payment_details.html:5
+#: friendfund/templates_free_form/contribution/common.html:10
+#, python-format
+msgid "FF_CONTRIBUTION_by %(admin_name)s"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/common.html:17
+msgid "FF_CONTRIB_BOX_CHIP IN WITH CONFIDENCE"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/common.html:20
+msgid "FF_CONTRIB_BOX_Chipping in is safe and secure. Guaranteed!"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/common.html:22
+msgid ""
+"FF_CONTRIB_BOX_You’ll pay nothing if unauthorized charges are made to your "
+"Credit Card as a result of chipping in on friendfund."
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/common.html:23
+msgid "FF_CONTRIB_BOX_YOU ARE SAFE WITH US"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/common.html:34
+msgid ""
+"FF_CONTRIB_BOX_All information is encrypted and transmitted without risk "
+"using a Secure Sockets Layer (SSL) protocol."
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/contrib_screen.html:5
+#: friendfund/templates_free_form/contribution/payment_details.html:6
 #, python-format
 msgid "FF_TITLE_Chipin to %s"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:40
+#: friendfund/templates_free_form/contribution/contrib_screen.html:27
 #, python-format
 msgid "FF_CONTRIB_PAGE_HEADER_Chip In for %s"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:43
-#: friendfund/templates_free_form/contribution/payment_details.html:32
+#: friendfund/templates_free_form/contribution/contrib_screen.html:30
+#: friendfund/templates_free_form/contribution/payment_details.html:33
 #: friendfund/templates_free_form/contribution/payment_fail.html:17
 #: friendfund/templates_free_form/contribution/payment_success.html:17
 msgid "FF_CONTRIB_PAGE_HEADER_Chip in"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:46
-#: friendfund/templates_free_form/contribution/payment_details.html:35
+#: friendfund/templates_free_form/contribution/contrib_screen.html:33
+#: friendfund/templates_free_form/contribution/payment_details.html:36
 #: friendfund/templates_free_form/contribution/payment_fail.html:20
 #: friendfund/templates_free_form/contribution/payment_success.html:20
 msgid "FF_CONTRIB_PAGE_HEADER_Payment info"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:49
-#: friendfund/templates_free_form/contribution/payment_details.html:38
+#: friendfund/templates_free_form/contribution/contrib_screen.html:36
+#: friendfund/templates_free_form/contribution/payment_details.html:39
 #: friendfund/templates_free_form/contribution/payment_fail.html:23
 #: friendfund/templates_free_form/contribution/payment_success.html:23
 msgid "FF_CONTRIB_PAGE_HEADER_Done!"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:99
+#: friendfund/templates_free_form/contribution/contrib_screen.html:50
 msgid "FF_CONTRIB_PAGE_How much do you want to contribute?"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:112
+#: friendfund/templates_free_form/contribution/contrib_screen.html:53
 msgid "FF_CONTRIB_PAGE_Your contribution"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:114
+#: friendfund/templates_free_form/contribution/contrib_screen.html:55
 msgid "FF_CONTRIB_PAGE_MAX. CONTRIBUTION:"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:125
+#: friendfund/templates_free_form/contribution/contrib_screen.html:64
+#: friendfund/templates_free_form/contribution/payment_details.html:65
+#, python-format
+msgid ""
+"FF_CONTRIB_PAGE_You will only be charged if this Pool reaches its funding "
+"goal by %(expiry_date)s."
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/contrib_screen.html:66
 msgid "FF_CONTRIB_PAGE_Payment Method"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:143
+#: friendfund/templates_free_form/contribution/contrib_screen.html:82
 msgid "FF_CONTRIB_PAGE_Privacy Settings"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:148
+#: friendfund/templates_free_form/contribution/contrib_screen.html:87
 msgid "FF_CONTRIB_PAGE_PRVACY_SETTING_SHOW_Tip goes here"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:153
+#: friendfund/templates_free_form/contribution/contrib_screen.html:92
 msgid "FF_CONTRIB_PAGE_I'm happy to show how much I've chipped in"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:161
+#: friendfund/templates_free_form/contribution/contrib_screen.html:100
 msgid "FF_CONTRIB_PAGE_PRVACY_SETTING_DONTSHOW_Tip goes here"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:165
+#: friendfund/templates_free_form/contribution/contrib_screen.html:104
 msgid "FF_CONTRIB_PAGE_I don't want anyone to see how much I've chipped in"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:168
+#: friendfund/templates_free_form/contribution/contrib_screen.html:107
 msgid "FF_CONTRIB_PAGE_Add a personal message <span>(optional)</span>"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:173
+#: friendfund/templates_free_form/contribution/contrib_screen.html:111
+msgid "FF_CONTRIB_PAGE_Your message"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/contrib_screen.html:113
+#: friendfund/templates_free_form/contribution/contrib_screen.html:116
+msgid "FF_CONTRIB_PAGE_Write your description here..."
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/contrib_screen.html:123
 #, python-format
 msgid ""
 "FF_CONTRIB_PAGE_This message will appear on (%(admin_name)s's) e-card if the "
 "Pool is successfully funded."
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:176
-msgid "FF_CONTRIB_PAGE_Your message"
-msgstr ""
-
-#: friendfund/templates_free_form/contribution/contrib_screen.html:178
-#: friendfund/templates_free_form/contribution/contrib_screen.html:181
-msgid "FF_CONTRIB_PAGE_Write your description here..."
-msgstr ""
-
-#: friendfund/templates_free_form/contribution/contrib_screen.html:215
+#: friendfund/templates_free_form/contribution/contrib_screen.html:146
 msgid "FF_CONTRIB_PAGE_I accept the"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:215
+#: friendfund/templates_free_form/contribution/contrib_screen.html:146
 msgid "FF_CONTRIB_PAGE_Terms of service"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:221
-msgid "FF_CONTRIB_PAGE_Notify invitees that I've chipped in"
+#: friendfund/templates_free_form/contribution/contrib_screen.html:153
+msgid "FF_CONTRIB_PAGE_Notify invitees that I've chipped in."
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:221
+#: friendfund/templates_free_form/contribution/contrib_screen.html:153
 msgid "FF_CONTRIB_PAGE_NOTIFY_what is this?"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/contrib_screen.html:226
+#: friendfund/templates_free_form/contribution/contrib_screen.html:158
 msgid "FF_CONTRIB_PAGE_BUTTON_Chip In"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:29
+#: friendfund/templates_free_form/contribution/payment_details.html:30
 msgid "FF_CONTRIB_DETAILS_HEADER_Last Step: Your Payment Details"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:89
+#: friendfund/templates_free_form/contribution/payment_details.html:53
 msgid "FF_CONTRIB_DETAILS_Confirm Your Contribution"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:92
+#: friendfund/templates_free_form/contribution/payment_details.html:56
 msgid "FF_CONTRIB_DETAILS_Your contribution"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:98
+#: friendfund/templates_free_form/contribution/payment_details.html:60
 msgid "FF_CONTRIB_PAGE_MAX. CONTRIBUTION: "
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:112
+#: friendfund/templates_free_form/contribution/payment_details.html:68
 msgid "FF_CONTRIB_DETAILS_Pay by CreditCard"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:116
+#: friendfund/templates_free_form/contribution/payment_details.html:72
 msgid "FF_CONTRIB_DETAILS_Card type"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:125
-msgid "FF_CONTRIB_DETAILS_Holder Tip goes here"
-msgstr ""
-
-#: friendfund/templates_free_form/contribution/payment_details.html:131
+#: friendfund/templates_free_form/contribution/payment_details.html:77
 msgid "FF_CONTRIB_DETAILS_Cardholder's Name"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:144
+#: friendfund/templates_free_form/contribution/payment_details.html:84
+msgid "FF_CREDITCARD_Your full name as it appears on the card"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/payment_details.html:93
 msgid "FF_CONTRIB_DETAILS_ccNumber Tip goes here"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:150
+#: friendfund/templates_free_form/contribution/payment_details.html:99
 msgid "FF_CONTRIB_DETAILS_Card Number"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:171
+#: friendfund/templates_free_form/contribution/payment_details.html:120
 msgid "FF_CONTRIB_DETAILS_ccExpiryDate Tip goes here"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:177
+#: friendfund/templates_free_form/contribution/payment_details.html:126
 msgid "FF_CONTRIB_DETAILS_Expiry Date"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:198
+#: friendfund/templates_free_form/contribution/payment_details.html:147
 msgid "FF_CONTRIB_DETAILS_ccSecurityCode Tip goes here"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:204
+#: friendfund/templates_free_form/contribution/payment_details.html:153
 msgid "FF_CONTRIB_DETAILS_Card Validation Code"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:207
+#: friendfund/templates_free_form/contribution/payment_details.html:156
 msgid "FF_CONTRIB_DETAILS_what's this?"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_details.html:217
+#: friendfund/templates_free_form/contribution/payment_details.html:166
 msgid "FF_CONTRIB_DETAILS_Submit"
 msgstr ""
 
@@ -2646,7 +2693,7 @@ msgstr ""
 msgid "FF_LOGIN_Login in Here"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:94
+#: friendfund/templates_free_form/partner/iframe.html:98
 #: friendfund/templates_partner/occasion/panel.html:13
 msgid "EVENT_PANEL_Choose an occasion:"
 msgstr ""
@@ -2792,11 +2839,11 @@ msgid "FF_POOLECARD_Create a new Pool"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/pool_complete.html:92
-msgid "FF_POOLECARD_Contributor Messages"
+msgid "FF_POOL_PAGE_HEADER_contributors"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/pool_complete.html:92
-msgid "FF_POOL_PAGE_HEADER_contributors"
+msgid "FF_POOLECARD_Contributor Messages"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/pool_details.html:84

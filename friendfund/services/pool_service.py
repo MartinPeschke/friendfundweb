@@ -72,9 +72,22 @@ class PoolService(object):
 		return pool
 	
 	def create_group_gift_from_iframe(self):
-		product = DisplayProduct.from_minimal_repr(request.params.get("productMap"))
-		receiver = PoolUser.from_minimal_repr(request.params.get("invitees"))
-		occasion = Occasion(name = request.params.get("occasion_name"), date = request.params.get("occasion_date"), key="EVENT_OTHER")
+		product = request.params.get("productMap")
+		if not product:
+			raise MissingProductException()
+		else:
+			product = DisplayProduct.from_minimal_repr(product)
+		receiver = request.params.get("invitees")
+		if not receiver:
+			raise MissingReceiverException()
+		else:
+			receiver = PoolUser.from_minimal_repr(receiver)
+		occasion_name = request.params.get("occasion_name")
+		occasion_date = request.params.get("occasion_date")
+		if not occasion_date:
+			raise MissingOccasionException()
+		else:
+			occasion = Occasion(name = occasion_name, date = occasion_date, key="EVENT_OTHER")
 		
 		pool = Pool(title = product.name,
 				description = product.description,
@@ -87,7 +100,7 @@ class PoolService(object):
 		pool.occasion = occasion
 		admin = PoolInvitee.fromUser(tmpl_context.user)
 		admin.is_admin = True
-		pool.participants.append(admin)		
+		pool.participants.append(admin)
 		return pool
 	
 	def create_group_gift(self):

@@ -6,19 +6,18 @@ from pylons.decorators import jsonify
 
 
 from friendfund.lib import helpers as h, synclock
-from friendfund.lib.auth.decorators import logged_in
-from friendfund.lib.base import ExtBaseController, render,render_def, _, ErrorMessage
+from friendfund.lib.auth.decorators import logged_in, pool_available
+from friendfund.lib.base import BaseController, render,render_def, _, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
 from friendfund.model.forms.contribution import PaymentConfForm
 from friendfund.model.forms.creditcard import CreditCardForm
-from friendfund.model.db_access import SProcException
 
 paymentlog = logging.getLogger('payment.controller')
 log = logging.getLogger(__name__)
 
-class PaymentController(ExtBaseController):
+class PaymentController(BaseController):
 	@jsonify
 	def transaction_fees(self, pool_url):
 		return {"popup":render("/contribution/popups/transaction_fees.html").strip()}
@@ -35,6 +34,7 @@ class PaymentController(ExtBaseController):
 		return tos
 	
 	@logged_in(ajax=False)
+	@pool_available(contributable_only = True)
 	def index(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
@@ -48,6 +48,7 @@ class PaymentController(ExtBaseController):
 		c.tos = self._add_tos()
 		return self.render('/contribution/contrib_screen.html')
 	@logged_in(ajax=False)
+	@pool_available(contributable_only = True)
 	def details(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
@@ -63,6 +64,8 @@ class PaymentController(ExtBaseController):
 			state = copy(c.pool)
 			state.__dict__["_"] = FriendFundFormEncodeState._
 			state.__dict__["payment_methods"] = g.payment_methods_map
+			details['message'] = details.get('message', "").replace("\r", "")
+			print details['message']
 			form_result = schema.to_python(details, state)
 		except formencode.validators.Invalid, error:
 			c.values = error.value
@@ -90,6 +93,7 @@ class PaymentController(ExtBaseController):
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 	
 	@logged_in(ajax=False)
+	@pool_available(contributable_only = True)
 	def creditcard(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))

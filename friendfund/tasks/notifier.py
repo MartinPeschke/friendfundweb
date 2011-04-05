@@ -178,25 +178,22 @@ def main(argv=None):
 				template_data["DEFAULT_BASE_URL"] = ROOT_URL
 				template_data["today"] =datetime.today().strftime("%d.%m.%Y")
 				
-				
-				
 				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
-				if rcpts_data:
-					template_data['recipients'] = rcpts_data
 				ivts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("INVITEE")]
-				if ivts_data:
-					template_data['invitee_list']=ivts_data
-				print '-'*80
+				
 				log.info ( 'meta_data, %s', meta_data)
 				log.info ( 'SENDER, %s', sndr_data)
 				log.info ( 'RECIPIENT, %s', rcpt_data)
-				log.info ( 'extraRECIPIENTs, %s', rcpts_data)
-				log.info ( 'extraINVITEEs, %s', ivts_data)
+				log.info ( 'extraRECIPIENTs, %s, extraINVITEEs, %s', len(rcpts_data), len(ivts_data))
+				log.info ( 'TEMPLATE, %s', template_data)
+				print '-'*80
+				
+				if rcpts_data:
+					template_data['recipients'] = rcpts_data
+				if ivts_data:
+					template_data['invitee_list']=ivts_data
+				
 				locale = negotiate_locale_from_header([meta_data.get('locale', "en_GB")], available_langs)
-				print '-'*80
-				print meta_data.get('locale', "en_GB"), available_langs
-				print locale
-				print '-'*80
 				try:
 					file_no = meta_data['file_no']
 					template_data = localize(template_data, locale)

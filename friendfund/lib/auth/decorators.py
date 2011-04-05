@@ -3,9 +3,12 @@ import urlparse
 from decorator import decorator
 from pylons import url
 from pylons.i18n import ugettext as _
-from friendfund.lib import helpers as h
 from pylons.controllers.util import abort, redirect
 from pylons.decorators.util import get_pylons
+from friendfund.lib import helpers as h
+from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
+from friendfund.model.db_access import SProcException
+from friendfund.model.pool import Pool
 
 def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = None): 
 	def validate(func, self, *args, **kwargs):
@@ -16,6 +19,29 @@ def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = N
 				return {'redirect':redirect_to}
 			else:
 				return redirect('%s?furl=%s' % (redirect_to, furl or pylons.request.path_info))
+		return func(self, *args, **kwargs)
+	return decorator(validate)
+
+def pool_available(contributable_only = False, contributable_error = None):
+	def validate(func, self, *args, **kwargs):
+		pylons = get_pylons(args)
+		environ = pylons.request.environ
+		c = pylons.tmpl_context
+		dbm = pylons.app_globals.dbm
+		pool_url = environ['wsgiorg.routing_args'][1].get('pool_url')
+		if pool_url is not None:
+			try:
+				c.pool = dbm.get(Pool, p_url = pool_url)
+			except SProcException, e:
+				c.pool = None
+			if not c.pool:
+				c.messages.append(_("FF_SORRY_PAGE_NOT_FOUND_404_STYLE"))
+				return redirect(url("home"))
+			elif c.pool.merchant_domain != pylons.request.merchant.domain:
+				return redirect(url.current(host=c.pool.merchant_domain))
+			elif contributable_only and not c.pool.is_contributable():
+				c.messages.append(ErrorMessage(contributable_error or _("FF_POOL_ERROR_Sorry, this pool is no longer active")))
+				return redirect(url("get_pool", pool_url = pool_url, view="1"))
 		return func(self, *args, **kwargs)
 	return decorator(validate)
 

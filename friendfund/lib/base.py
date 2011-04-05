@@ -110,19 +110,3 @@ class BaseController(WSGIController):
 		websession['user'] = c.user
 		websession['messages'] = c.messages
 		websession.save()
-
-
-class ExtBaseController(BaseController):
-	def __before__(self, action, environ):
-		super(ExtBaseController, self).__before__(action, environ)
-		pool_url = environ['wsgiorg.routing_args'][1].get('pool_url')
-		if pool_url is not None:
-			try:
-				c.pool = g.dbm.get(Pool, p_url = pool_url)
-			except SProcException, e:
-				c.pool = None
-			if not c.pool:
-				c.messages.append(_("FF_SORRY_PAGE_NOT_FOUND_404_STYLE"))
-				return redirect(url("home"))
-			elif c.pool.merchant_domain != request.merchant.domain:
-				return redirect(url.current(host=c.pool.merchant_domain))

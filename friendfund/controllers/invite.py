@@ -6,8 +6,8 @@ from pylons import request, response, tmpl_context as c, url, app_globals as g, 
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only
-from friendfund.lib.base import BaseController, render, render_def, _, ExtBaseController
+from friendfund.lib.auth.decorators import logged_in, post_only, pool_available
+from friendfund.lib.base import BaseController, render, render_def, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
 from friendfund.model.authuser import UserNotLoggedInWithMethod
@@ -21,8 +21,8 @@ strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 from celery.task.sets import TaskSet
 log = logging.getLogger(__name__)
 
-class InviteController(ExtBaseController):
-	
+class InviteController(BaseController):
+	@pool_available(contributable_only = True)
 	def display(self, pool_url):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
@@ -39,6 +39,7 @@ class InviteController(ExtBaseController):
 	
 	@jsonify
 	@logged_in(ajax=True)
+	@pool_available(contributable_only = True)
 	def method(self, pool_url, method):
 		c.method = str(method)
 		c.mutuals = request.merchant.type_is_group_gift
@@ -94,9 +95,8 @@ class InviteController(ExtBaseController):
 			c.invitees[netw] = invs
 		return self._display_invites(c.invitees)
 	
-	
-	
 	@logged_in(ajax=False)
+	@pool_available(contributable_only = True)
 	def friends(self, pool_url):
 		data = simplejson.loads(request.params.get('invitees') or '{}')
 		invitees = data.get("invitees")
@@ -138,6 +138,7 @@ class InviteController(ExtBaseController):
 	
 	
 	@jsonify
+	@pool_available(contributable_only = True)
 	def preview(self, pool_url):
 		c.method = request.params.get("method") or "facebook"
 		c.subject = request.params.get("subject")

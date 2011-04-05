@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, date
 from friendfund.lib import helpers as h, tools
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
 from friendfund.model.product import Product, DisplayProduct
+from friendfund.tasks.photo_renderer import remote_product_picture_render
 from pylons.i18n import _
 
 from pylons import session as websession, app_globals as g, request
@@ -307,7 +308,11 @@ class Pool(DBMappedObject):
 
 	def get_product_display_picture(self, type="POOL"):
 		if self.product:
-			return h.get_product_picture(self.product.picture, type)
+			picture = self.product.picture
+			if isinstance(picture, basestring) and picture.startswith('http'):
+				log.warning("EXTERNAL_PRODUCT_PICTURE <%s:%s>", self.p_url, picture)
+				remote_product_picture_render.delay(self.p_url, self.product.picture)
+			return h.get_product_picture(picture, type)
 		else:
 			return h.get_product_picture(None, type)
 	

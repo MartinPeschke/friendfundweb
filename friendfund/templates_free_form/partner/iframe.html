@@ -29,7 +29,11 @@
 	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
 	  callbackFunctions:{"dateset":[panels.updateOccasionDate]}
 	});
-	dojo.connect(document.forms.poolCreateForm, "onsubmit", protect(document.forms.poolCreateForm.submit));
+	%if c.user.is_anon:
+		dojo.connect(document.forms.poolCreateForm, "onsubmit", protect(document.forms.poolCreateForm.submit));
+	%else:
+		dojo.connect(document.forms.poolCreateForm, "onsubmit", document.forms.poolCreateForm.submit);
+	%endif
 </%def>
 
 
@@ -72,8 +76,8 @@
 				<input type="text" name="occasion_name" id="occasion_name" value="" />
 				<input type="text" name="occasion_date" id="occasion_date" value="" />
 			</div>
-			
-			<input type="submit" value="submit" class="floatRight clear"/>
+			<div class="clear"></div>
+			<input type="submit" value="submit" class="floatRight"/>
 			</div>
 		</form>
 		

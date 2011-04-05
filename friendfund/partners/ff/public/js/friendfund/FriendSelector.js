@@ -97,7 +97,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		_t.inviteAppendNode(_t, elem);
 	},
 	unSelect : function(_t, target){
-		dojo.query('#'+target.id, _t.invited_node).orphan();
+		dojo.query(target).orphan();
 		elem = dojo.byId("invitedCounter");
 		elem.innerHTML = parseInt(elem.innerHTML)-1;
 	}
@@ -217,7 +217,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		el.innerHTML = parseInt(el.innerHTML)+1;
 	},
 	inviteAppendNode : function(_t, elem){
-		dojo.query('#'+elem.id, _t.friendlist).orphan().forEach(function(elem){
+		dojo.query(elem).orphan().forEach(function(elem){
 			dojo.place(elem, _t.invited_node, "last");
 		});
 	},
@@ -233,7 +233,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		} else _t._to_append_nodes.push(elem);
 	},
 	unSelect : function(_t, target){
-		dojo.query('#'+target.id, _t.invited_node).orphan().forEach(function(elem){
+		dojo.query(target).orphan().forEach(function(elem){
 			_t.uninviteAppendNode(_t, elem);
 			var ctr = dojo.byId("invitedCounter");
 			var newctr = parseInt(ctr.innerHTML)-1
@@ -248,7 +248,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
 		var selector = ".selectable.invitee_row";
 		if(_t.mutuals === true){selector = ".selectable.mutual.invitee_row";}
-		dojo.query(selector, _t.friendlist).orphan().forEach(function(elem){
+		dojo.query(selector, _t.friendlist).forEach(function(elem){
 			_t.inviteAppendNode(_t, elem);
 		});
 	},toggle_mutuals: function(_t) {
