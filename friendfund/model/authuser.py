@@ -1,4 +1,4 @@
-import logging
+import logging, md5
 from pylons import app_globals as g, request, config
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 from friendfund.model.pool import PoolStub, Pool
@@ -121,6 +121,7 @@ class User(ProtoUser):
 				,DBMapper(None,'_perms',None, persistable = False)
 				,DBMapper(dict,'networks', None, persistable = False, is_dict = True, dict_key = lambda x:x )
 				,GenericAttrib(dict,'user_data_temp', None, persistable = False)
+				,GenericAttrib(str,"failover_pic", None, persistable = False)
 			]
 	def set_network(self, network, **args):
 		if args:
@@ -210,13 +211,24 @@ class User(ProtoUser):
 			self.permissions = (self.permissions or []) + [new_perm]
 		setattr(self._perms.get(network.lower(), None), perm, val)
 		return None
-
-	def get_profile_pic(self, type="PROFILE_S"):
-		return h.get_user_picture(self.profile_picture_url, type)
 	
 	def get_has_email(self):
 		return bool(self.default_email)
 	has_email = property(get_has_email)
+	
+	def set_profile_picture_url(self, value):
+		if not self.profile_picture_url:
+			self.profile_picture_url = value
+		if isinstance(self.profile_picture_url, basestring) and self.profile_picture_url.startswith("http"):
+			log.warning("EXTERNAL_USER_PICTURE <%s>", self.profile_picture_url)
+			self.failover_pic = self.profile_picture_url
+			self.profile_picture_url = h.get_upload_pic_name(md5.new(self.profile_picture_url).hexdigest())
+	def get_profile_pic(self, type="PROFILE_S"):
+		return h.get_user_picture(self.profile_picture_url, type)
+	def get_failover(self, type="PROFILE_S"):
+		if getattr(self, "failover_pic", False):
+			return 'onerror="this.src=\'%s\';"' % h.get_user_picture(self.failover_pic, type)
+		else: return ''
 
 class CreateEmailUserProc(DBMappedObject):
 	_set_root = _get_root = 'USER'

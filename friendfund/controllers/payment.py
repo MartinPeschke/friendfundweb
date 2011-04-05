@@ -164,6 +164,7 @@ class PaymentController(BaseController):
 	
 	
 	@logged_in(ajax=False)
+	@pool_available()
 	def success(self, pool_url):
 		ref = request.params.get('ref')
 		if not ref:
@@ -179,6 +180,7 @@ class PaymentController(BaseController):
 		return self.render('/contribution/payment_success.html')
 	
 	@logged_in(ajax=False)
+	@pool_available()
 	def fail(self, pool_url):
 		ref = request.params.get('ref')
 		if not ref:
@@ -194,6 +196,7 @@ class PaymentController(BaseController):
 		return self.render('/contribution/payment_fail.html')
 	
 	@logged_in(ajax=False)
+	@pool_available()
 	def ret(self, pool_url):
 		paymentlog.info( 'PAYMENT RETURN from External: %s' , request.params )
 		merchantReference = request.params.get('merchantReference')

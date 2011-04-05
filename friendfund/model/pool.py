@@ -310,7 +310,7 @@ class Pool(DBMappedObject):
 		if self.product:
 			picture = self.product.picture
 			if isinstance(picture, basestring) and picture.startswith('http'):
-				log.warning("EXTERNAL_PRODUCT_PICTURE <%s:%s>", self.p_url, picture)
+				log.warning("EXTERNAL_PRODUCT_PICTURE <%s : %s>", self.p_url, picture)
 				remote_product_picture_render.delay(self.p_url, self.product.picture)
 			return h.get_product_picture(picture, type)
 		else:

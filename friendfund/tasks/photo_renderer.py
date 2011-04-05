@@ -55,12 +55,16 @@ def try_locate_sub_image_url(url):
 	else:
 		return None
 
-def retrieve_tmp_image(source_url, try_locate_sub_url = False):
-	alt_url = try_locate_sub_image_url(source_url)
-	source = try_locate_sub_url and alt_url or source_url
-	
-	resp = urllib2.urlopen(urlnormalize(source))
-	
+def retrieve_tmp_image(source):
+	try:
+		req = urllib2.Request(source, headers={'User-Agent' : "FriendFundIt Browser"})
+		resp = urllib2.urlopen(req)
+	except urllib2.HTTPError, e:
+		log.error("1Could not load Picture fom this URL: %s (%s)" , source, e)
+		return None
+	except urllib2.URLError, e:
+		log.error("2Could not load Picture fom this URL: %s (%s)" , source, e)
+		return None
 	try:
 		extension = resp.url.rsplit('.',1)[1]
 		if not (2<len(extension)<5):
@@ -166,13 +170,13 @@ def remote_save_image(email, tmpfname, newfname):
 
 @task
 def remote_product_picture_render(pool_url, picture_url):
-	newfname = h.get_upload_pic_name(str(uuid.uuid4()))
+	newfname = h.get_upload_pic_name(md5.new("%s-%s" % (pool_url, picture_url)).hexdigest())
 	newurl = newfname  # '23/a1/23a1a-wefkj-hqwfok-jqwfr'
 	filepath, filename = os.path.split(newfname)
 	newpath = os.path.join(upload_prodimg_folder, filepath)
 	if not os.path.exists(newpath):
 		os.makedirs(newpath)
-	tmpfname = retrieve_tmp_image(picture_url, try_locate_sub_url = True)
+	tmpfname = retrieve_tmp_image(picture_url)
 	if tmpfname:
 		try:
 			sizes = deque()
@@ -194,7 +198,6 @@ def remote_product_picture_render(pool_url, picture_url):
 @task
 def remote_profile_picture_render(userlist):
 	start = time.time()
-	dbm = get_dbm(CONNECTION_NAME)
 	dltime = 0
 	rendertime = 0
 	for network, network_id, picture_url in userlist:
@@ -235,6 +238,7 @@ def remote_profile_picture_render(userlist):
 					crop_resize_original(sizes, gravity = 'North')
 					rendertime = time.time() - rendertime
 					try:
+						dbm = get_dbm(CONNECTION_NAME)
 						dbm.set(AddRenderedProfilePictureProc(network = network, network_id = network_id, profile_picture_url=newurl))
 					except db_access.SProcException, e:
 						log.error(str(e))
