@@ -5,6 +5,7 @@ from ordereddict import OrderedDict
 
 def absolutize_img_src(rel_base, abs_base):
 	def inner(url):
+		print url, abs_base, rel_base
 		if url.startswith('http'):
 			return url
 		elif url.startswith('/'):
@@ -44,6 +45,9 @@ def get_title_descr_imgs(query, product_page):
 		if not (name or descr):
 			return None, None, None
 		else:
+			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
+			abs_base = urlparse.urlunparse((scheme, domain, '','','',''))
+			rel_base = urlparse.urlunparse((scheme, domain,'%s/' % path.rsplit('/', 1)[0],'','',''))
 			if params.get("og:image"):
 				img_collection = [params.get("og:image")]
 			else:
@@ -52,11 +56,8 @@ def get_title_descr_imgs(query, product_page):
 				if def_images:
 					img_collection = filter(bool, map(lambda x: x.get('href'),  def_images))
 				else:
-					scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
-					abs_base = urlparse.urlunparse((scheme, domain, '','','',''))
-					rel_base = urlparse.urlunparse((scheme, domain,'%s/' % path.rsplit('/', 1)[0],'','',''))
-					img_collection = list(imap(absolutize_img_src(rel_base, abs_base), ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img")))))
+					img_collection = list(ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img"))))
 					#### remove duplicates
 					imgs = OrderedDict((a, True) for a in img_collection)
 					img_collection = imgs.keys()
-			return name, descr, img_collection
+			return name, descr, map(absolutize_img_src(rel_base, abs_base), img_collection)

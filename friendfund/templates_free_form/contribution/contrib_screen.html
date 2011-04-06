@@ -8,9 +8,9 @@
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 		submitForm = function(){
 			var form = document.forms.contributionForm;
-			onSubmitCleaner(form);
+			onSubmitCleaner(form);var bsubmit = form.action;
 			form.action = "${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}";
-			form.sumit();
+			form.submit();form.action=bsubmit;
 		};
 	</script>
 </%def>
@@ -154,7 +154,7 @@
 	</div>
 		<div class="floatRight">
 			<div class="spacerButtons">
-				<span id="submitter" onclick="document.forms.contributionForm.submit()" class="forward floatLeft"><span>${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}</span> <input type="submit" value="&gt;"></span>
+				<span id="submitter" onclick="submitForm()" class="forward floatLeft"><span>${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}</span> <input type="submit" value="&gt;"></span>
 			</div>
 		</div>
       

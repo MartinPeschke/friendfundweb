@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-04-06 11:44+0200\n"
-"Last-Translator: Timothy Blake <timothy.d.blake@gmail.com>\n"
+"PO-Revision-Date: 2011-04-06 12:39+0200\n"
+"Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
@@ -783,9 +783,8 @@ msgid "VISA"
 msgstr "Visa"
 
 #: friendfund/resources/db_keys.py:40
-#, fuzzy
 msgid "MASTERCARD"
-msgstr "Mastercard"
+msgstr "MASTERCARD"
 
 #: friendfund/resources/db_keys.py:41
 msgid "AMEX"
@@ -793,23 +792,23 @@ msgstr "Amex"
 
 #: friendfund/resources/db_keys.py:42
 msgid "COMMENT_NOTIFICATION"
-msgstr "hay una notificación de un comentario"
+msgstr "haya una notificación de un comentario"
 
 #: friendfund/resources/db_keys.py:43
 msgid "CONTRIBUTION_NOTIFICATION"
-msgstr "hay una notificación de una contribución"
+msgstr "haya una notificación de una contribución"
 
 #: friendfund/resources/db_keys.py:44
 msgid "INVITE"
-msgstr "hay una invitación"
+msgstr "haya una invitación"
 
 #: friendfund/resources/db_keys.py:45
 msgid "NEWSLETTER"
-msgstr "un Newsletter ha sido publicado"
+msgstr "un Newsletter haya sido publicado"
 
 #: friendfund/resources/db_keys.py:46
 msgid "REMINDER"
-msgstr "un recordatorio ha sido enviado"
+msgstr "un recordatorio haya sido enviado"
 
 #: friendfund/services/pool_service.py:123
 #, python-format
@@ -1606,7 +1605,7 @@ msgid "EVENT_PANEL_Select an Event"
 msgstr "Escoge un Evento"
 
 #: friendfund/templates/occasion/panel.html:22
-#: friendfund/templates_free_form/partner/iframe.html:118
+#: friendfund/templates_free_form/partner/iframe.html:119
 #: friendfund/templates_partner/occasion/panel.html:18
 msgid "EVENT_PANEL_Just because..."
 msgstr "El hecho de que..."
@@ -2349,7 +2348,8 @@ msgstr "¿Qué es esto?"
 #, python-format
 msgid ""
 "FF_CONTRIB_DETAILS_Your chip in confirmation will be emailed to you. See "
-"our <a href=\"%s\">Privacy Policy</a> for more about how we use emails."
+"our <a target=\"_blank\" href=\"%s\">Privacy Policy</a> for more about "
+"how we use emails."
 msgstr ""
 
 #: friendfund/templates_free_form/contribution/payment_details.html:138
@@ -2726,7 +2726,7 @@ msgstr "Invitar amigos"
 #: friendfund/templates_free_form/mypools/stream.html:247
 #: friendfund/templates_free_form/mypools/stream.html:305
 #: friendfund/templates_free_form/mypools/stream.html:351
-#: friendfund/templates_free_form/pool/pool.html:197
+#: friendfund/templates_free_form/pool/pool.html:195
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr "Integrar widget"
 
@@ -3190,10 +3190,14 @@ msgstr "Regístrate con Twitter"
 msgid "FF_LOGIN_Login in Here"
 msgstr "Entrar Aquí"
 
-#: friendfund/templates_free_form/partner/iframe.html:113
+#: friendfund/templates_free_form/partner/iframe.html:114
 #: friendfund/templates_partner/occasion/panel.html:13
 msgid "EVENT_PANEL_Choose an occasion:"
 msgstr "Elija una ocasión:"
+
+#: friendfund/templates_free_form/pool/chat.html:14
+msgid "FF_POOLPAGE_CHAT_LABEL_has Chipped in"
+msgstr ""
 
 #: friendfund/templates_free_form/pool/pool.html:103
 #, python-format
@@ -3253,67 +3257,67 @@ msgstr "¿Has olvidado invitar a alguien?"
 msgid "FF_POOL_PAGE_ADMIN_invite more friends"
 msgstr "Invitar a más amigos"
 
-#: friendfund/templates_free_form/pool/pool.html:199
+#: friendfund/templates_free_form/pool/pool.html:197
 msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
 msgstr "Invitar a más amigos"
 
-#: friendfund/templates_free_form/pool/pool.html:204
+#: friendfund/templates_free_form/pool/pool.html:202
 msgid "FF_POOL_PAGE_CHIPIN_Share the pool"
 msgstr "Compartir este bote"
 
-#: friendfund/templates_free_form/pool/pool.html:220
+#: friendfund/templates_free_form/pool/pool.html:218
 #: friendfund/templates_free_form/pool/pool_complete.html:53
 msgid "FF_POOL_PAGE_CHIPIN_Share the link"
 msgstr "Compartir el enlace"
 
-#: friendfund/templates_free_form/pool/pool.html:228
+#: friendfund/templates_free_form/pool/pool.html:226
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(number_invitees)s Invitees"
 msgstr "%(number_invitees)s Invitados"
 
-#: friendfund/templates_free_form/pool/pool.html:230
+#: friendfund/templates_free_form/pool/pool.html:228
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr "Invitados"
 
-#: friendfund/templates_free_form/pool/pool.html:233
+#: friendfund/templates_free_form/pool/pool.html:231
 #: friendfund/templates_free_form/pool/parts/invitees.html:7
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr "Ver todo"
 
-#: friendfund/templates_free_form/pool/pool.html:234
+#: friendfund/templates_free_form/pool/pool.html:232
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr "Mostrar todos"
 
-#: friendfund/templates_free_form/pool/pool.html:235
+#: friendfund/templates_free_form/pool/pool.html:233
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr "Ocultar todos"
 
-#: friendfund/templates_free_form/pool/pool.html:249
+#: friendfund/templates_free_form/pool/pool.html:247
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr "Acerca de"
 
-#: friendfund/templates_free_form/pool/pool.html:257
+#: friendfund/templates_free_form/pool/pool.html:255
 #: friendfund/templates_free_form/product/urlparser.html:12
 msgid "FF_LINK_Edit Image"
 msgstr "Editar imagen"
 
-#: friendfund/templates_free_form/pool/pool.html:265
+#: friendfund/templates_free_form/pool/pool.html:263
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr "RECEPTOR"
 
-#: friendfund/templates_free_form/pool/pool.html:267
+#: friendfund/templates_free_form/pool/pool.html:265
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr "VENDEDOR"
 
-#: friendfund/templates_free_form/pool/pool.html:282
+#: friendfund/templates_free_form/pool/pool.html:280
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr "Comentarios"
 
-#: friendfund/templates_free_form/pool/pool.html:294
+#: friendfund/templates_free_form/pool/pool.html:292
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr "Añade tu comentario aquí..."
 
-#: friendfund/templates_free_form/pool/pool.html:300
+#: friendfund/templates_free_form/pool/pool.html:298
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr "Publicar comentario"
 
@@ -3641,28 +3645,4 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Escoge al destinatario del regalo desde Facebook, Twitter o email."
-
-#~ msgid "FF_CONTRIB_DETAILS_ccExpiryDate Tip goes here"
-#~ msgstr "¿Cuando caduca tu tarjeta de crédito?"
-
-#~ msgid "FF_CONTRIB_DETAILS_ccSecurityCode Tip goes here"
-#~ msgstr ""
-#~ "Los tres números que aparecen en "
-#~ "la parte de atrás de tu tarjeta."
-#~ " Para American Express es un número"
-#~ " de cuatro dígitos que aparece en "
-#~ "la parte frontal, a la derecha de"
-#~ " tu número de tarjeta."
-
-#~ msgid "FF_INVITEPAGE_HEADER_Pool Details"
-#~ msgstr "Detalles del bote"
-
-#~ msgid "FF_INVITEPAGE_HEADER_Done!"
-#~ msgstr "Finalizado!"
-
-#~ msgid "FF_INVITEPAGE_HEADER_What are you collecting money for?"
-#~ msgstr "¿Para qué estás recaudando?"
-
-#~ msgid "FF_INVITEPAGE_HEADER_Enter pool details"
-#~ msgstr "Detalles del bote"
 

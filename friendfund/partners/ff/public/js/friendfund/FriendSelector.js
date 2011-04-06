@@ -92,9 +92,10 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	},
 	onSelect : function(_t, params, elem, evt){
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
-		elem = dojo.byId("invitedCounter");
-		elem.innerHTML = parseInt(elem.innerHTML)+1;
 		_t.inviteAppendNode(_t, elem);
+		var el = dojo.byId("invitedCounter");
+		el.innerHTML = parseInt(el.innerHTML)+1;
+
 	},
 	unSelect : function(_t, target){
 		dojo.query(target).orphan();
@@ -213,7 +214,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	onSelect : function(_t, params, elem, evt){
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
 		_t.inviteAppendNode(_t, elem);
-		el = dojo.byId("invitedCounter");
+		var el = dojo.byId("invitedCounter");
 		el.innerHTML = parseInt(el.innerHTML)+1;
 	},
 	inviteAppendNode : function(_t, elem){

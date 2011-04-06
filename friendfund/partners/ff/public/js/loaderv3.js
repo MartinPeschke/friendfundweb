@@ -26,7 +26,8 @@ reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 		};
 		if(data.success){
 		dojo.byId(intermediate_imgid).src = data.rendered_picture_url;
-		dojo.query("input.transp", intermediate_imgid.parentNode).removeClass("transp").onclick(f);
+		dojo.query("input.transp", intermediate_imgid.parentNode).removeClass("transp");
+		dojo.byId("purlSaveButton").onclick = f;
 		} else {
 			alert("Unsupported file type")
 		}
