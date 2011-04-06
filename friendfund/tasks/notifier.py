@@ -221,7 +221,7 @@ def main(argv=None):
 					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
 				except Exception, e:
 					log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
-					#messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
+					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
 					if debug: 
 						save_results(dbpool, messaging_results)
 						messaging_results = {}
