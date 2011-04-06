@@ -5,7 +5,6 @@ from ordereddict import OrderedDict
 
 def absolutize_img_src(rel_base, abs_base):
 	def inner(url):
-		print url, abs_base, rel_base
 		if url.startswith('http'):
 			return url
 		elif url.startswith('/'):

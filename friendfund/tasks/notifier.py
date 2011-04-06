@@ -91,7 +91,7 @@ def date(key, data_map, locale):
 	except ValueError, e:
 		val = datetime.strptime(val.split('T')[0], '%Y-%m-%d')
 	if isinstance(val, datetime):
-		return {key: fdate(val, format="long", locale=locale)}
+		return {key: fdate(val, format="long", locale=locale), "expiry_date_object":val}
 	else:
 		return {key: val}
 	
@@ -218,7 +218,7 @@ def main(argv=None):
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
 				except Exception, e:
 					log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
-					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
+					#messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
 					if debug: 
 						save_results(dbpool, messaging_results)
 						messaging_results = {}
