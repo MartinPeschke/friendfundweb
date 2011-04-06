@@ -36,7 +36,8 @@ div.wrapHeader {
 div.header {
 	max-width:930px;
 	margin: 0 auto;
-	height: 60px
+	height: 60px;
+	position: relative
 }
 div.wrapSubHeaderHome {
 	background: #ececec url(/static/imgs/trans_top.png) 0 0 repeat-x;
@@ -226,6 +227,12 @@ div.header ul li a {
 div.header ul li a:hover {
 	color:white;
 	text-decoration: none
+}
+div#accountcontainer{
+	position: absolute;
+	right: 0;
+	top:0;
+	z-index: 20
 }
 div.loginArea {
 	float: right;
@@ -1413,7 +1420,8 @@ ul.faceList .tooltip {
 .avt {
 	float:left;
 	border: 1px solid #E5E5E5;
-	position: relative
+	position: relative;
+	z-index: 10
 }
 .avt img {
 	display:block;
@@ -1448,7 +1456,8 @@ div.imgEdit {
 div.imgEdit div.subImgEdit {
 	position: relative;
 	float: left;
-	margin-right:20px
+	margin-right:20px;
+	margin-bottom: 10px
 }
 div.imgEdit div.subImgEdit div.imgC {
 	border: 1px solid #E5E5E5;
@@ -1517,19 +1526,29 @@ ul.comments span {
 	font-size: 12px;
 	font-weight: bold;
 	color: #616161;
+	display: block;
+	line-height: 20px;
+	padding: 0 5px;
+	padding-left: 40px;
+	margin-left: -40px
 }
-ul.comments span.normal{ font-weight: normal}
+ul.comments span.normal{ font-weight: normal; display: inline; padding: 0; margin: 0}
+ul.comments li.contribution_msg span{ background:#faf79b}
+ul.comments li.contribution_msg p{ margin-top: 5px}
 ul.comments span.date {
 	font-size: 10px;
 	text-transform: uppercase;
 	color:#999;
 	font-weight: normal;
+	background: none !important
 }
 .date {
 	font-size: 10px;
-	text-transform: uppercase;
 	color:#999;
 	font-weight: normal;
+	line-height: 10px;
+	margin: 0;
+	padding: 0
 }
 .percentage {
 	border-bottom: none !important;
