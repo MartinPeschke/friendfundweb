@@ -216,6 +216,9 @@ def main(argv=None):
 				except InvalidAccessTokenException, e:
 					log.error( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
 					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
+				except email.UMSEmailUploadException, e:
+					log.error( 'UMS_EMAIL_ERROR while SENDING: %s', str(e) )
+					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
 				except Exception, e:
 					log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
 					#messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}

@@ -6,13 +6,17 @@ from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
 
 from friendfund.lib import helpers as h
-
+log = logging.getLogger(__name__)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+ch.setFormatter(formatter)
+log.addHandler(ch)
 register_openers()
 
 ums_url = "http://sysmail.fagms.net/c/sm"
 ums_standard_params = {'AID':"27220", "ACTION":"SYSTEM"}
 
-log = logging.getLogger(__name__)
 
 class UMSEmailUploadException(Exception):pass
 
@@ -21,7 +25,10 @@ def send_email(msg):
 	msg['html'] = markdown.markdown(msg['text'])
 	datagen, headers = multipart_encode(msg)
 	request = urllib2.Request(ums_url, datagen, headers)
-	response = etree.parse(urllib2.urlopen(request))
+	try:
+		response = etree.parse(urllib2.urlopen(request))
+	except urllib2.HTTPError, e:
+		response = etree.parse( e.fp )
 	if response.find("emstatus").text=='SUCCESS':
 		return response.find("emguid").text
 	else:

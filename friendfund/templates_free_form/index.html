@@ -1,4 +1,6 @@
 <%inherit file="layout.html"/>
+<%namespace name="testimonials" file="widgets/testimonials.html" />
+
 
 <%def name="page_reloader()">page_reloader = function(){};</%def>
 <%def name="onloadscripts()">
@@ -65,6 +67,7 @@ ${self.renderMessages()}
 		${self.render_featured_pools(c.get_featured_pools)|n}
 		<div class="clear"></div>
 	</div>
+
 	<div class="whatElse">
 		<h4>${_("FF_HOMEPAGE_BOXES_Where else can I use friendfund?")}</h4>
 		<div class="boxGray box1">
@@ -74,31 +77,8 @@ ${self.renderMessages()}
 			<a href="https://www.fidor.de/"><img src="/static/imgs/fidorbank_trans.png" /></a>
 			<a href="http://www.greatamericandays.com/adventure.php?adventure_id=11&price=&category=2&finder=52&imageField.x=9&imageField.y=12"><img src="/static/imgs/GAD_trans.png" /></a>
 		</div>
-		<div class="boxGray box2">
-			<div class="grafx">&#8220;</div>
-			<p>"Absolutely brilliant, we would never have been able to do this without friendfund, thanks!"</p>
-			<div style="margin-top:20px">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/dummy/avatar-pool-big.jpg">
-				</div>
-				<span class="name bold">Amanda</span>
-				<span class="desc">Organised flying lessons for her friend Megan. </span>
-			</div>
-		</div>
-		<div class="boxGray box3">
-			<div class="grafx">“</div>
-			<p>"Your site made it possible for us to collect the money to redecorate our community hall, great job!"</p>
-			<div style="margin-top: 20px;">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/Greg.jpg">
-				</div>
-				<span class="name bold">Greg</span>
-				<span class="desc">Scout Dad</span>
-			</div>
-		</div>
 		
+		${testimonials.render(h.get_language_locale())|n}
 		<div class="clear"></div>
 	</div>
 
