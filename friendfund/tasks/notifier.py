@@ -39,7 +39,7 @@ log.info( os.path.join(root, 'templates_free_form','messaging') )
 
 
 import gettext
-transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de'])
+transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de', 'es'])
 _ = transl.ugettext
 L10N_KEYS = ['occasion']
 
@@ -94,9 +94,10 @@ def date(key, data_map, locale):
 		return {key: fdate(val, format="long", locale=locale), "expiry_date_object":val}
 	else:
 		return {key: val}
-	
+def translate(key, data_map, locale):
+	return {key: _(data_map[key])}
 
-TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname}
+TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname, "occasion":translate, "event_name":translate}
 
 def localize(data_map, locale):
 	result = {}
@@ -180,13 +181,13 @@ def main(argv=None):
 				
 				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
 				ivts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("INVITEE")]
-				
+				print '-'*80
 				log.info ( 'meta_data, %s', meta_data)
 				log.info ( 'SENDER, %s', sndr_data)
 				log.info ( 'RECIPIENT, %s', rcpt_data)
 				log.info ( 'extraRECIPIENTs, %s, extraINVITEEs, %s', len(rcpts_data), len(ivts_data))
 				log.info ( 'TEMPLATE, %s', template_data)
-				print '-'*80
+				
 				
 				if rcpts_data:
 					template_data['recipients'] = rcpts_data
