@@ -3,18 +3,33 @@
 
 
 <%def name="renderComment(comment)">
-	<li class = "${comment.is_contrib_message and "contribution_msg" or "comment"}">
-		<div class="avt">
-			<div class="arrowAvatar"></div>
-			<img src="${comment.profile_s_pic}" width="48px" height="48px"/>
-		</div>
-		<div class="txtComments">
-			<span>${comment.name} <span class="normal">has chipped in $104.00.</span></span>
-			<p>${comment.comment}</p>
-			<span class="date">${comment.get_recency()}</span>
-		</div>
-		<div class="clear"></div>
-	</li>
+	%if comment.is_contrib_message:
+		<li class="contribution_msg">
+			<div class="avt">
+				<div class="arrowAvatar"></div>
+				<img src="${comment.profile_s_pic}" width="48px" height="48px"/>
+			</div>
+			<div class="txtComments">
+				<span>${comment.name} <span class="normal">has chipped in $104.00.</span></span>
+				<p>${comment.comment}</p>
+				<span class="date">${comment.get_recency()}</span>
+			</div>
+			<div class="clear"></div>
+		</li>
+	%else:
+		<li class="coment">
+			<div class="avt">
+				<div class="arrowAvatar"></div>
+				<img src="${comment.profile_s_pic}" width="48px" height="48px"/>
+			</div>
+			<div class="txtComments">
+				<span>${comment.name} <span class="normal">has chipped in $104.00.</span></span>
+				<p>${comment.comment}</p>
+				<span class="date">${comment.get_recency()}</span>
+			</div>
+			<div class="clear"></div>
+		</li>
+	%endif
 </%def>
 
 

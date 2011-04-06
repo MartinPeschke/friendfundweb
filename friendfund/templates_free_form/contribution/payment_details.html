@@ -102,25 +102,6 @@
 			</div>
 		</div>
 		<div class="borderBottom ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
-			<!--
-<div class="tip">
-				<div class="arrow"></div>
-			%if h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors):
-				<span>
-					<ul>
-						%if 'ccExpiresMonth' in c.errors:
-							<li>${c.errors.get("ccExpiresMonth")}</li>
-						%endif
-						%if 'ccExpiresYear' in c.errors and c.errors.get("ccExpiresYear") != c.errors.get("ccExpiresMonth"):
-							<li>${c.errors.get("ccExpiresYear")}</li>
-						%endif
-					</ul>
-				</span>
-			%else:
-				<span>${_("FF_CONTRIB_DETAILS_ccExpiryDate Tip goes here")}</span>
-			%endif
-			</div>
--->
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Expiry Date")}</span>
@@ -138,16 +119,6 @@
 			</div>
 		</div>
 		<div class="borderBottom  ${('ccCode' in c.errors) and "error" or ""}" style="border-bottom:none">
-			<!--
-<div class="tip">
-				<div class="arrow"></div>
-			%if "ccCode" in c.errors:
-					<span>${c.errors.get("ccCode")}</span>
-			%else:
-				<span>${_("FF_CONTRIB_DETAILS_ccSecurityCode Tip goes here")}</span>
-			%endif
-			</div>
--->
 			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
@@ -161,8 +132,9 @@
 				&nbsp;
 			</div>
         	<div class=" floatLeft">
-        	<p class="twonine">Your chip in confirmation will be emailed to you. See our 
-<a href="#">Privacy Policy</a> for more about how we use emails.</p>
+        	<p class="twonine">
+				${_('FF_CONTRIB_DETAILS_Your chip in confirmation will be emailed to you. See our <a href="%s">Privacy Policy</a> for more about how we use emails.')%url(controller="content", action="privacy", lang=h.get_language_locale())|n}
+			</p>
 			<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatLeft clear"/>
         	</div>
         </div>

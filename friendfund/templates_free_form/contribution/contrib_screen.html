@@ -6,6 +6,12 @@
 <%def name="scripts()">
 	<script type="text/javascript">
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+		submitForm = function(){
+			var form = document.forms.contributionForm;
+			onSubmitCleaner(form);
+			form.action = "${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}";
+			form.sumit();
+		};
 	</script>
 </%def>
 
@@ -45,7 +51,7 @@
 	${common.renderRightCol(c.pool)}
 	
 	<div class="colLeft">
-	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" onsubmit="onSubmitCleaner(this)" method="POST">
+	<form action="javascript:submitForm()" id="contributionForm" name="contributionForm" method="POST">
 
 		<h4>${_(u"FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
 		<div class="subHeading"></div>
@@ -143,7 +149,7 @@
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_do_notify" name="payment.do_notify" value="yes" ${widgets.input_checked("do_notify", "yes")|n} class="chkbox"/>
-			<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Notify invitees that I've chipped in.")}</label><a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}" > ${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
+			<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Notify invitees that I've chipped in.")}</label> <a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}">${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
 		</div>
 	</div>
 		<div class="floatRight">
