@@ -50,7 +50,7 @@
 		<h4>${_(u"FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
 		<div class="subHeading"></div>
 		<div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
-			<div class="first" style="margin-top:22px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
+			<div class="first" style="margin-top:20px">${_("FF_CONTRIB_PAGE_Your contribution")}</div>
 			<div style="width: 510px; height:48px; padding:10px" class="greyInside">
 				<span class="darkGrey floatRight" style="margin-top:16px">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION:")} <span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 

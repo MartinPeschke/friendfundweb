@@ -1518,6 +1518,7 @@ ul.comments span {
 	font-weight: bold;
 	color: #616161;
 }
+ul.comments span.normal{ font-weight: normal}
 ul.comments span.date {
 	font-size: 10px;
 	text-transform: uppercase;
@@ -2282,7 +2283,6 @@ div.imgSpacer img{
 div.contentDetails {
 	float:left;
 	margin-right:10px;
-	margin-top: 7px;
 	font-size: 11px;
 	padding:0 0 0 185px;
 	color:#adadad;
@@ -2364,16 +2364,16 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 }
 div.boxWhat{
 	border: 1px solid #e5e5e5;
-	padding: 2px;
+	padding: 3px;
 	margin-top: 12px;
 	
 }
 div.boxWhat .prod{
 	border: 1px solid #e5e5e5;
     float: left;
-    height: 60px;
+    height: 58px;
     overflow: hidden;
-    width: 70px;
+    width: 68px;
 }
 div.boxWhat .title{
 	float: left;
@@ -4414,5 +4414,9 @@ div.footerColSx div.floatRight div { margin-right: 0}
 div.footerColSx div.floatLeft div img, div.footerColSx div.floatRight div img{ display: block; width: 58px; margin: 3px auto 0 auto}
 div.footerColSx div.floatRight span{ margin: 10px 10px 0 0; display: block; float: left}
 div.bgDark{ background: #e5e5e5; border-top:1px solid white;  border-left:1px solid white; padding: 20px}
-div.selectedProduct{ background: #f4f4f4; border-top:1px solid #d8d8d8; border-bottom: 1px solid white; padding: 10px 15px}
-div.selectedProduct h5{ font-size: 13px; font-weight: bold; color: #696969}
+div#productArea{ background: #f4f4f4; border-top:1px solid #d8d8d8; border-bottom: 1px solid white; padding: 10px 15px}
+div#productArea h5{ font-size: 13px; font-weight: bold; color: #696969}
+div.bgDark div.boxWhat{ background: white; margin-top: 10px; overflow: hidden}
+div.bgDark div.boxWhat img{ border: none; max-width: 68px; margin-top: 3px}
+div.selectedProduct h6{ font-size: 11px}
+select#productSelector{border: 1px solid #DADADA;}

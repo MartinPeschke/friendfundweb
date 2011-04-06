@@ -59,14 +59,15 @@ the product pages on this site.</p>
 							<h5>Your gift:</h5>
 							<div class="boxWhat">
 								<div class="prod">
-							<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/></div>
-
-							<div class="prodName">${p.get_display_label(words = 10)}</div>
+									<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
+								</div>
+								<p class="title"><a href="#">${p.get_display_label(words = 10)}</a></p>
+								<div class="clear"></div>
 							</div>	
 						</div>
 					%endfor
 					%if len(c.product_list)>1:
-						<br/>
+						<h6>Edit</h6>
 						<select id="productSelector" name="productMap">
 							%for p in c.product_list:
 							<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
