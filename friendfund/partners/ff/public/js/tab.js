@@ -456,7 +456,6 @@ FriendFund.Popin = {
 				form.setAttribute("id", "friendfund_dialog_iform");
 				form.setAttribute("method", "POST");
 				form.setAttribute("action", url);
-				form.setAttribute("target", "friendfund_dialog_iframe");
 				for(var key in params) {
 					var hf = document.createElement("input");
 					hf.setAttribute("type", "hidden");

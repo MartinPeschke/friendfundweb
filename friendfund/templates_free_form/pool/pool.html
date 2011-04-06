@@ -148,19 +148,9 @@
 			</div>
 			<div class="hided hideable ${not first_visit and "hidden" or ""}" >
 				<div class="brd"></div>
-				<div class="floatLeft promote">
-					<h4>${_(u"FF_POOL_PAGE_ADMIN_Promote on your website")}</h4>
-					<p>${_(u"FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool.")}</p>
-					<a class="learnMoreBtn floatLeft popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
-				</div>
-				
-				<div class="floatLeft invite">
-					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
-					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
-					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
-				</div>
-                <div class="floatLeft share">
+				<div class="floatLeft share">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
+					<p>Share your Pool with friends</p>
 					<div class="addthis_toolbox addthis_default_style">
 					  <a class="addthis_button_facebook"></a>
 					  <a class="addthis_button_twitter"></a>
@@ -172,9 +162,24 @@
 					</div>
 					<input type="text" value="${url.current(protocol="http")}" onclick="this.select()" />
 				</div>
+				<div class="floatLeft promote">
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Promote on your website")}</h4>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool.")}</p>
+					<a class="learnMoreBtn floatLeft popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
+				</div>
+				
+				<div class="floatLeft invite">
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
+					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
+				</div>
+                
+				
+				<div class="colRightWhite"></div>
 				<div class="clear"></div>
-			</div>
+			</div>	
 		</div>
+		
 	%endif
 	
 	<div class="colRight" id="chipinBox">

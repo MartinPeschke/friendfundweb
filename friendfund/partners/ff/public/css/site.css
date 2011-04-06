@@ -166,7 +166,8 @@ input.default, textarea.default {
 	background-color:#FAF79B !important
 }
 label, .chkbox {
-	cursor: pointer
+	cursor: pointer;
+	
 }
 .colLeft p.info {
 	font-size: 11px;
@@ -487,26 +488,26 @@ div.subHeader h2 span {
 	margin-top: 10px;
 	float: left
 }
-a.learnMoreBtn {
+.learnMoreBtn {
 	display: block;
 	color: white;
 	-moz-border-radius: 5px;
-	background-color: #2dbbff;
+	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	background-color: #2dbbff;
 	text-align: center;
-	min-width: 100px;
-	padding: 0 5px;
+	padding: 0 10px;
 	height: 30px;
 	line-height: 30px;
 	margin: 10px 0 0 0px;
 	font-weight: bold;
 	font-size: 12px;
-	line-height: 30px;
 	float: left;
 	margin-left: 20px;
+	cursor: pointer;
 	text-shadow: none;
 }
-a.learnMoreBtn:hover {
+.learnMoreBtn:hover {
 	background-color: #009be6;
 	text-decoration: none
 }
@@ -1135,6 +1136,8 @@ div.greyBoxTitle {
 	background-color: #dedbd1;
 	background: -moz-linear-gradient(100% 100% 90deg, #d7d4cb, #e6e3d9);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e6e3d9), to(#d7d4cb));
+	position: relative;
+	z-index: 11
 }
 div.greyBoxTitle h3 {
 	color:#2c2c2c;
@@ -1190,31 +1193,54 @@ span.btnHide {
 
 
 .hided {
-	background: none repeat scroll 0 0 #EEEEEE;
+	background: none repeat scroll 0 0 #f3f2ed;
+	overflow: hidden;
+	background: -moz-linear-gradient(100% 100% 90deg, #f7f6f2, #f3f2ed);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f2ed), to(#f7f6f2));
    
 }
 .hided .brd {
-	border-top:1px solid white;
-	height: 0;
+	height: 1px;
 	font-size: 0;
 	line-height: 0;
-	width: 100%
+	width: 100%;
+	-moz-box-shadow: 0 1px 4px black;
+	-webkit-box-shadow: 0px 1px 4px black; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 1px 4px black; /* Opera 10.5, IE 9.0 */
+	margin-top: -1px;
+	z-index: 10px;
+	position: relative
 }
 .promote {
 	padding:20px 30px 30px 30px;
-	width:249px;
-	border-right:1px solid #C4C4C4;
-	height: 110px
+	width:248px;
+	border-left:1px solid white;
+	height: 110px;
+	border-right: 1px solid #e2e0d3;
+	border-bottom: 1px solid #e2e0d3;
 }
 .share {
 	padding:20px 30px 30px 30px;
 	width:248px;
 	height: 110px;
-	border-left:1px solid white
+	border-left:1px solid #e2e0d3;
+	border-right:1px solid #e2e0d3;
+	border-bottom:1px solid #e2e0d3;
+}
+.share input {
+	border: 1px solid #dadada;
+	color: #adadad;
+	display: block;
+	height: 23px;
+	line-height: 23px;
+	margin: 5px 0 0;
+	padding: 0 5px;
+	width: 198px;
 }
 .invite {
 	padding:20px 30px 30px 30px;
-	border-right: 1px solid #C4C4C4;
+	border-right: 1px solid #e2e0d3;
+	border-bottom: 1px solid #e2e0d3;
 	width:248px;
 	border-left:1px solid white;
 	height: 110px
@@ -1226,8 +1252,9 @@ span.btnHide {
 	padding-bottom: 10px
 }
 .hided p {
-	font-size: 12px;
-	color: #696969
+	font-size: 14px;
+	color: #696969;
+	line-height: 18px
 }
 .hided div {
 	position: relative
@@ -1235,7 +1262,7 @@ span.btnHide {
 .hided div a.learnMoreBtn {
 	position: absolute;
 	left: 30px;
-	bottom: 30px;
+	bottom: 25px;
 	margin-left: 0px
 }
 .hided .addthis_toolbox {
@@ -1770,7 +1797,9 @@ div.borderBottom input {
 	height: 30px;
 	line-height: 30px;
 	font-size: 14px;
-	padding: 0 5px
+	padding: 0 5px;
+	display: block;
+	float: left
 }
 
 div.borderBottom input.ptitleSimpleEdit {
@@ -1783,7 +1812,8 @@ div.borderBottom input.ptitleSimpleEdit {
 }
 div.borderBottom input.small {
 	width:120px;
-	padding:0 5px
+	padding:0 5px;
+
 }
 div.borderBottom select {
 	border: 1px solid #dadada;
@@ -1804,6 +1834,9 @@ div.greyInsideFullWidth {
 	width:100%;
 	float: left;
 	clear: both
+}
+div.greyInsideFullWidth label ,div.greyInsideFullWidth .chkbox{
+	line-height: 30px
 }
 div.greyInsideFullWidth input {
 	padding:0 5px;
@@ -1901,6 +1934,7 @@ div.generalPadding div.controller {
     top: -112px;
 }
 div.generalPadding ul li a{ font-size: 14px}
+div.generalPadding ul li a:hover{ text-decoration: none}
 .expander{ 
 	height: 132px
 }
@@ -1911,7 +1945,7 @@ div.mainValue input {
 	border: 1px solid #dadada;
 	font-size: 14px;
 	height: 24px;
-	line-height: 30px;
+	line-height:30px;
 	height: 30px;
 	float: left
 }
@@ -2109,6 +2143,7 @@ div.outerPopupFrame div.whitePopupFrame {
 	padding: 20px;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	left: 50%;
 	margin-left: -125px;
 	position: fixed;
@@ -2124,6 +2159,7 @@ div.outerPopupFrame div.whitePopupFrameLarge {
 	padding: 0px 0px 0px 0px;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	left: 50%;;
 	top:0;
 	margin-left: -242px
@@ -2329,7 +2365,8 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 div.boxWhat{
 	border: 1px solid #e5e5e5;
 	padding: 2px;
-	margin-top: 12px
+	margin-top: 12px;
+	
 }
 div.boxWhat .prod{
 	border: 1px solid #e5e5e5;
@@ -2935,7 +2972,7 @@ div.borderBottom .primaryButton {
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d60569), to(#cb0e68));
 }
 .special {
-	padding:7px 0 0 0 !important
+	padding:7px 0 7px 0 !important
 }
 /*LOGIN PANEL BIG*/
 .loginPanelBig {
@@ -3645,7 +3682,6 @@ div.empty h2 {
 	height: 32px;
 	color: #2C2C2C;
 	font-weight: bold;
-	height: 30px
 }
 .editorCtn {
 	float: left;
@@ -3653,7 +3689,7 @@ div.empty h2 {
 	margin-right: 5px
 }
 span.bySmall{
-	margin: 7px 4px 0 3px;
+	margin: 7px 4px 0 4px;
 	display: block;
 	float: left
 	
@@ -3762,6 +3798,10 @@ span.editSmall{
 .footerCol5 {
 	text-align: left !important
 }
+div.footer .middot { padding: 5px 15px}
+div.like iframe{ margin-top: -1px}
+div.like iframe, div.like span{ float: left; }
+div.like span{ margin-right: 10px}
 div.footer div.showHide {
 	position: absolute;
 	right: 0;
@@ -3821,16 +3861,7 @@ div.footer div.showHide {
 	
 }
 
-.share input {
-	border: 1px solid #dadada;
-	color: #adadad;
-	display: block;
-	height: 23px;
-	line-height: 23px;
-	margin: 10px 0 0;
-	padding: 0 5px;
-	width: 198px;
-}
+
 input.invisible {
 	background-color:transparent;
 	color:transparent;
@@ -3846,7 +3877,7 @@ div.boxContributors span.middot {
 	font-size: 13px;
 }
 div.outerPopupFrame .link{ font-size: 12px !important}
-div.outerPopupFrame div.whitePopupFrameLarge h3.borderSmall {
+div.outerPopupFrame div.whitePopupFrameLarge h3.borderSmall{
 	border-bottom: 1px solid #CACACA;
 	padding-bottom:20px;
 	padding-top:20px;
@@ -4301,3 +4332,87 @@ div.footer a {
 div.footer a.linkFb{ background: url(/static/imgs/fb-icon.png) 0 0 no-repeat; color: #A59F9A !important; padding-left: 25px}
 div.footer a.linkTw{background: url(/static/imgs/twitter-icon.png) 0 0 no-repeat; color: #A59F9A !important; padding-left: 25px}
 div.footer a.linkRss{background: url(/static/imgs/RSS-icon-new.png) 0 0 no-repeat; color: #A59F9A !important; padding-left: 25px}
+
+/*IFRAME*/
+.borderIframe{border: 5px solid #cacaca;
+	padding: 0px 0px 0px 0px;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+div.wrapHeaderIframe {
+	border-bottom: 1px solid #CACACA;
+	background-color:#f9f9f9;
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+
+}
+div.wrapHeaderIframe h3{
+	font-size: 18px; 
+	color: #2c2c2c;
+	padding-left: 50px;
+	line-height: 60px;
+	float:left
+}
+div.light{
+	background: white;
+	border: 1px solid #f5f5f5;
+	margin: 10px 20px 0 0;
+	position: relative;
+	color: #696969;
+	font-size: 10px;
+	width: 200px;
+	padding: 5px  20px 5px 30px;
+	line-height: 14px
+}
+div.light img{
+	position: absolute;
+	left: -10px;
+	top: 0px;
+	
+}
+div#receiverSelectorContainer, div#occasionSelectorContainer{
+	padding-left: 50px
+}
+div#receiverSelectorContainer h4{ font-size: 14px; line-height: 20px; padding-top: 20px;
+border-bottom: 1px solid #D0D0D0}
+div.contentIframe div.arrowSubTab{ display: none}
+div.contentIframe{ background: #f9f9f9; -moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;}
+div.colLeftIframe{ width: 572px; padding-bottom: 20px}
+div.colRightIframe{ width: 290px; border-left: 1px solid #cacaca}
+div.contentIframe div.first{
+	float: left;
+    font-size: 12px;
+    line-height: 30px;
+    padding: 0 10px 0 0;
+    text-align: right;
+    width: 190px;
+    clear: both
+}
+#occasionSelectorContainer{ margin-top: 20px}
+#yourOccasionSelector{ float: left; margin-top: 10px; padding-left:50px}
+#occasionSelector, #occasionTyper, #datepicker{  border: 1px solid #DADADA;
+    font-size: 14px;
+    height: 28px;
+     width: 322px;display: block;
+     line-height: 28px;
+     float: left; padding: 2px}
+#occasionTyper{ width: 320px; padding: 0}
+#contributionDeadline{ margin-left:50px; float: left; margin-top: 10px; padding-bottom: 20px; border-bottom: 1px solid #cacaca; width: 522px}
+#datepicker{ width: 200px}
+div.footerColSx{clear: both; margin-left: 50px; border-top:1px solid white; padding-top:10px; font-size: 10px}
+div.footerColSx div.floatLeft span{ margin: 10px 10px 0 0; display: block; float: left}
+div.footerColSx div.floatLeft div, div.footerColSx div.floatRight div {  float:left; border: 1px solid #e5e5e5;  text-align: center;  background: white ; width: 68px; height: 38px; text-align: center; margin-right: 10px}
+div.footerColSx div.floatRight div { margin-right: 0}
+div.footerColSx div.floatLeft div img, div.footerColSx div.floatRight div img{ display: block; width: 58px; margin: 3px auto 0 auto}
+div.footerColSx div.floatRight span{ margin: 10px 10px 0 0; display: block; float: left}
+div.bgDark{ background: #e5e5e5; border-top:1px solid white;  border-left:1px solid white; padding: 20px}
+div.selectedProduct{ background: #f4f4f4; border-top:1px solid #d8d8d8; border-bottom: 1px solid white; padding: 10px 15px}
+div.selectedProduct h5{ font-size: 13px; font-weight: bold; color: #696969}
