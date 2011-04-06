@@ -139,10 +139,10 @@ class ProductService(object):
 		return pool
 	
 	def set_product_from_guid(self, pool, product_guid, product_list):
-		product = product_list.get(product_guid)
-		if product:
-			pool.set_product(product)
-		return pool
+		for p in product_list:
+			if p.guid == product_guid:
+				pool.set_product(p)
+				return pool
 	
 	
 	def get_products_from_open_graph(self, params, referer):

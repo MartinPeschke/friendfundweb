@@ -10,7 +10,7 @@
 			<div class="label minified">
 				<div class="minified_title">
 					<select id="product_selector">
-						%for p in c.product_list.values():
+						%for p in c.product_list:
 						<option value="${p.guid}" ${forms.expression_quote(product.guid == p.guid, "selected")|n}>
 							${p.get_display_label(words = 10)}
 						</option>
