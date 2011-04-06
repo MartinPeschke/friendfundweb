@@ -1,0 +1,25 @@
+<%inherit file="../common.html"/>
+
+<%def name="title()">${_("FF_STATIC_MENU_Chip in with confidence")}</%def>
+<%def name="heading()">${_("FF_STATIC_MENU_Chip in with confidence")}</%def>
+
+<%def name="render_content()">
+	<h4>Secure Socket Layer (SSL Technologie)</h4>
+	<div class="subHeading"></div>
+	<p class="general">friendfund benutzt die Secure Sockets Layer (SSL) Technologie bei allen Bezahlvorgängen um bestmögliche Sicherheit zu gewährleisten. SSL Verbindungen verschlüsseln alle übertragenen Daten und schützen damit vor dem Mithören sensibler Daten durch unberechtigte Dritte.</p>
+
+	<h4>Verisign Inc.</h4>
+	<div class="subHeading"></div>
+	<img width="87px" height="41px" style="margin:15px 0" src="/static/imgs/veri-sign.png"/>
+	<p class="general">VeriSign ist der führende Datenverschlüsselungs-Technologieanbieter Online und im eCommerce. Wie friendfund, benutzen alle führenden Webseiten Versign-Zertifikate zur Verschlüsselung und Identifikation ihrer Webseiten.</p>
+	
+	<p class="general"><img width="113px" height="35px" style="margin:15px 0" src="/static/imgs/secure_lock.png"/><br/>
+	Um sicher zu sein, behalte beim Bezahlen immer das Schloss in der Browseradressleiste im Auge. Es symbolisiert sichere Datenübertragung.</p>
+	
+
+	<h4>Schutz Deiner Daten</h4>
+	<div class="subHeading"></div>
+	<p class="general">Deine Daten sind uns heilig. Deswegen wird friendfund deine Daten nicht verkaufen, vermieten, oder anderweitig weitergeben. Niemals.<br/>
+	Unsere <a href="${url(controller="content", action="privacy", lang=h.get_language_locale())}">Datenschutzerklärung</a> erklärt im Detail welche Informationen gesammelt werden und wie sie benutzt werden könnten. 
+	</p>
+</%def>

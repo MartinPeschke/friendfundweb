@@ -37,7 +37,7 @@
 			<h2>${_("FF_INVITEPAGE_HEADER_Invite friends to chip in")}</h2>
 		</div>
 		%if c.workflow=="2":
-			${widgets.renderSteps(_("FF_INVITEPAGE_HEADER_Pool Details"), _("FF_INVITEPAGE_HEADER_Invite friends to chip in"), _("FF_INVITEPAGE_HEADER_Done!"), 2)|n}
+			${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), _("FF_POOLDETAILS_HEADER_Done!"), 2)|n}
 		%endif
 	%else:
 		<div class="nonPoolHeader">
@@ -46,7 +46,7 @@
 			</div>
 			<h2>${_("FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In")}</h2>
 		</div>
-		${widgets.renderSteps(_("FF_INVITEPAGE_HEADER_What are you collecting money for?"), _("FF_INVITEPAGE_HEADER_Enter pool details"), _("FF_INVITEPAGE_HEADER_Invite friends to chip in"), 3)|n}
+		${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_What are you collecting money for?"), _("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), 3)|n}
 	%endif
       <div class="clear"></div>
     </div>

@@ -2,7 +2,7 @@ from __future__ import with_statement
 import urlparse
 from decorator import decorator
 from pylons import url
-from pylons.i18n import ugettext as _
+from pylons.i18n import ugettext as _, set_lang
 from pylons.controllers.util import abort, redirect
 from pylons.decorators.util import get_pylons
 from friendfund.lib import helpers as h
@@ -44,6 +44,26 @@ def pool_available(contributable_only = False, contributable_error = None):
 				return redirect(url("get_pool", pool_url = pool_url, view="1"))
 		return func(self, *args, **kwargs)
 	return decorator(validate)
+
+
+
+
+def provide_lang():
+	def validate(func, self, *args, **kwargs):
+		pylons = get_pylons(args)
+		environ = pylons.request.environ
+		routing = environ['wsgiorg.routing_args'][1]
+		lang = routing.get('lang')
+		locales = pylons.app_globals.locales
+		if not lang or lang not in locales:
+			lang = h.negotiate_locale_from_header(pylons.request.accept_language.best_matches(), locales)
+			return redirect(url(routing['controller'], action = routing['action'], lang = lang))
+		else:
+			set_lang(lang)
+		return func(self, *args, **kwargs)
+	return decorator(validate)
+
+
 
 def default_domain_only(): 
 	def validate(func, self, *args, **kwargs):

@@ -4,7 +4,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 from webhelpers.html import escape
 
-from friendfund.lib.auth.decorators import default_domain_only
+from friendfund.lib.auth.decorators import default_domain_only, provide_lang
 from friendfund.lib.base import BaseController, render, _, SuccessMessage, set_lang
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.helpers import negotiate_locale_from_header
@@ -14,15 +14,15 @@ log = logging.getLogger(__name__)
 
 class ContentController(BaseController):
 	
-	def __before__(self, action, environ):
-		super(ContentController, self).__before__(action, environ)
-		routing = environ['wsgiorg.routing_args'][1]
-		lang = routing.get('lang')
-		if not lang or lang not in g.locales:
-			lang = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
-			return redirect(url(routing['controller'], action = routing['action'], lang = lang))
-		else:
-			set_lang(lang)
+	# def __before__(self, action, environ):
+		# super(ContentController, self).__before__(action, environ)
+		# routing = environ['wsgiorg.routing_args'][1]
+		# lang = routing.get('lang')
+		# if not lang or lang not in g.locales:
+			# lang = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
+			# return redirect(url(routing['controller'], action = routing['action'], lang = lang))
+		# else:
+			# set_lang(lang)
 		
 	@jsonify
 	def amazonhowto(self):
@@ -75,6 +75,7 @@ class ContentController(BaseController):
 	######LOCALIZED
 	
 	@default_domain_only()
+	@provide_lang()
 	def faq(self, lang = None):
 		if lang:
 			try:
@@ -85,6 +86,7 @@ class ContentController(BaseController):
 			return self.render("/content/localized/faq.html")
 	
 	@default_domain_only()
+	@provide_lang()
 	def become_partner(self, lang = None):
 		if lang:
 			try:
@@ -94,7 +96,8 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/become_partner.html")
 		
-	# @default_domain_only()
+	@default_domain_only()
+	@provide_lang()
 	def aboutus(self, lang = None):
 		if lang:
 			try:
@@ -104,7 +107,8 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/aboutus.html")
 	
-	# @default_domain_only()
+	@default_domain_only()
+	@provide_lang()
 	def learn_more(self, lang = None):
 		if lang:
 			try:
@@ -115,6 +119,7 @@ class ContentController(BaseController):
 			return self.render("/content/localized/learnmore.html")
 		
 	@default_domain_only()
+	@provide_lang()
 	def tos(self, lang = None):
 		if lang:
 			try:
@@ -124,6 +129,7 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/tos.html")
 	@default_domain_only()
+	@provide_lang()
 	def confidence(self, lang = None):
 		if lang:
 			try:
@@ -133,6 +139,7 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/confidence.html")
 	@default_domain_only()
+	@provide_lang()
 	def privacy(self, lang = None):
 		if lang:
 			try:
