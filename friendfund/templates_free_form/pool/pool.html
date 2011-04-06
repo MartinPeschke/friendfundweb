@@ -183,10 +183,10 @@
 	<div class="colRight" id="chipinBox">
 		%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 			${chipin_box.render_contributable(c.pool, c.user, locals)|n}
+		%elif c.pool.is_closed():
+			${chipin_box.render_closed(c.pool, c.user, locals)|n}
 		%elif c.pool.is_expired():
 			${chipin_box.render_expired(c.pool, c.user, locals)|n}
-		%elif c.pool.am_i_member(c.user) or not c.pool.is_contributable():
-			${chipin_box.render_closed(c.pool, c.user, locals)|n}
 		%elif c.pool.is_contributable():
 			${chipin_box.render_join(c.pool, c.user, locals)|n}
 		%endif
