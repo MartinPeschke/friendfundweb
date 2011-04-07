@@ -407,7 +407,7 @@ FriendFund.Popup = {
 };
 
 FriendFund.Util.includeCss(FriendFund.Util.render(FriendFund.Popup.css_template, {
-    background_image_url: FriendFund.Util.getFrameHost() + '/static/custom_imgs/inputfield.png'
+    background_image_url: FriendFund.Util.getFrameHost() + '/custom/imgs/inputfield.png'
 }));
 FriendFund.onClose = function () {};
 
@@ -495,11 +495,11 @@ FriendFund.Button = {
 	css_template: "#${button_id} {margin: 10px 0;width: auto} \
 					#${button_id}:hover {cursor:pointer}\
 					#${button_id} .friendfundButton{pointer:cursor;margin:10px auto;color:white;width:192px;height:71px;\
-					background:url(${protocol}${host}/static/custom_imgs/friendfund_it_button.png) no-repeat 0 0 transparent;display:block}",
+					background:url(${protocol}${host}/custom/imgs/friendfund_it_button.png) no-repeat 0 0 transparent;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
 					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
-					background:url(${protocol}${host}/static/custom_imgs/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
+					background:url(${protocol}${host}/custom/imgs/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
 	show: function (options) {
 		FriendFund.Popin.setup(options);
