@@ -299,8 +299,11 @@ class Pool(DBMappedObject):
 	def get_suggested_amount_float(self):
 		return self.get_amount_left()/((len(self.participant_map)-self.get_number_of_contributors()) or 1)
 	
-	def get_product_display_label(self, words = 5, seperator = ' '):
-		return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())
+	def get_product_display_label(self, words = 5, seperator = ' ', include_price = True):
+		if include_price:
+			return '%s%s%s' % (h.word_truncate_plain(self.product.name, words), seperator, self.get_display_amount())
+		else:
+			return h.word_truncate_plain(self.product.name, words)
 	product_display_label = property(get_product_display_label)
 	def get_display_title(self, length = 60):
 		return h.word_truncate_by_letters(self.title, length)
@@ -401,7 +404,7 @@ class Pool(DBMappedObject):
 			)
 		self.amount = dproduct.get_total_price_units()
 		self.currency = dproduct.currency
-		self.title = self.description = self.get_product_display_label()
+		self.title = self.description = self.get_product_display_label(words = 8, include_price = False)
 
 class AddInviteesProc(DBMappedObject):
 	_set_proc = "app.add_pool_invitees"

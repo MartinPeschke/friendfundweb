@@ -456,6 +456,7 @@ FriendFund.Popin = {
 				form.setAttribute("id", "friendfund_dialog_iform");
 				form.setAttribute("method", "POST");
 				form.setAttribute("action", url);
+				form.setAttribute("target", "friendfund_dialog_iframe");
 				for(var key in params) {
 					var hf = document.createElement("input");
 					hf.setAttribute("type", "hidden");
@@ -463,7 +464,7 @@ FriendFund.Popin = {
 					hf.setAttribute("value", params[key]);
 					form.appendChild(hf);
 				}
-				document.body.appendChild(form);    // Not entirely sure if this is necessary
+				document.body.appendChild(form);
 				form.submit();
 			};
 			var params = FriendFund.Util.get_tags();

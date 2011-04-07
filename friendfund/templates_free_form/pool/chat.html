@@ -1,6 +1,10 @@
 <%namespace name="cmt" file="comment.html"/>
 
-
+<%def name="renderSingleComment(comment)">
+	<ul class="comments">
+		${self.renderComment(comment)}
+	</ul>
+</%def>
 
 <%def name="renderComment(comment)">
 	%if comment.is_contrib_message:
@@ -37,7 +41,7 @@
 
 %if c.chat.comments:
 	<%c.chat.comments.reverse()%>
-	<ul id="fundchat" class="comments pagelet">
+	<ul class="comments">
 	%for comment in c.chat.comments:
 		${self.renderComment(comment)}
 	%endfor

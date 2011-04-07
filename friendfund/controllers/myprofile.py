@@ -99,6 +99,7 @@ class MyprofileController(BaseController):
 			c.values = error.value
 			c.errors = error.error_dict or {}
 			return self.render('/myprofile/notifications.html')
+		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 		return redirect(url(controller='myprofile', action="notifications"))
 		
 	

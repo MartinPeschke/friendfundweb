@@ -191,7 +191,7 @@ class PoolController(BaseController):
 					pcomment.name = c.user.name
 					pcomment.profile_picture_url = c.user.profile_picture_url
 					pcomment.created = datetime.datetime.now()
-					return {'data':{'html':render_def("/pool/chat.html", "renderComment", comment = pcomment).strip()}}
+					return {'data':{'html':render_def("/pool/chat.html", "renderSingleComment", comment = pcomment).strip()}}
 				else:
 					return {'data':{'html':''}}
 		else:

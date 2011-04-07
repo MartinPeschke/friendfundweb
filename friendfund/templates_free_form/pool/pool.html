@@ -140,11 +140,19 @@
 			<% first_visit = c.workflow in ['1', '2'] %>
 			<div class="greyBoxTitle hideable ${first_visit and "hidden" or ""}">
 				<span  class="floatRight btnShow btnShowAdminPanel">${_(u"FF_POOL_PAGE_ADMIN_Show")}</span>
-				<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
+				%if first_visit:
+					<h3>${_(u"FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:")}</h3>
+				%else: 
+					<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
+				%endif
 			</div>
 			<div class="greyBoxTitle hideable ${not first_visit and "hidden" or ""} btnShowAdminPanel">
 				<span class="floatRight btnHide">${_(u"FF_POOL_PAGE_ADMIN_Hide")}</span>
-				<h3>${_(u"FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:")}</h3>
+				%if first_visit:
+					<h3>${_(u"FF_POOL_PAGE_ADMIN_Welcome to your Pool Page. Get started below:")}</h3>
+				%else: 
+					<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
+				%endif
 			</div>
 			<div class="hided hideable ${not first_visit and "hidden" or ""}" >
 				<div class="brd"></div>
@@ -279,7 +287,7 @@
 		<div class="comments" id="commentSection">
 			<h4>${_(u"FF_POOL_PAGE_BODY_Comments")}</h4>
 			<div class="subHeadingSpecial"></div>
-			<div class="pagelet" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}"></div>
+			<div class="pagelet" id="fundchat" pagelet_href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}"></div>
 			
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 			<ul class="comments">

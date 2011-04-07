@@ -35,19 +35,21 @@
 			<a href="${forms.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
 		</div>
 	%else:
-	<h4>${_("FF_MYPOOLS_Pools I've Created")}
-	####<!--<div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div>-->
-	</h4><div class="subHeading omega"></div>
-	%for pool in c.my_pools.admin_pools:
-		${common.render_pool_card(pool, False)|n}
-	%endfor
-	
-	<h4>${_("FF_MYPOOLS_Pools I'm In")} 
-		####<!--<div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div>-->
-	</h4><div class="subHeading omega"></div>
-	%for pool in c.my_pools.nonadmin_pools:
-		${common.render_pool_card(pool, False)|n}
-	%endfor
+		%if len(c.my_pools.admin_pools):
+			<h4>${_("FF_MYPOOLS_Pools I've Created")}
+			</h4><div class="subHeading omega"></div>
+			%for pool in c.my_pools.admin_pools:
+				${common.render_pool_card(pool, False)|n}
+			%endfor
+		%endif
+		%if len(c.my_pools.nonadmin_pools):
+			<h4>${_("FF_MYPOOLS_Pools I'm In")} 
+				####<!--<div class="floatRight"><label>${_("FF_MYPOOLS_Sort by:")}</label><select></select></div>-->
+			</h4><div class="subHeading omega"></div>
+			%for pool in c.my_pools.nonadmin_pools:
+				${common.render_pool_card(pool, False)|n}
+			%endfor
+		%endif
 	%endif
 <div class="clear"></div>
 </div>
