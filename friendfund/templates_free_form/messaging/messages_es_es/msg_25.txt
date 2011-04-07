@@ -1,0 +1,11 @@
+Gracias ${data['contributor_name']} por contribuir con ${data['pool_title']}!  
+${data['receipt_number']}  
+${data['chip_in_date']}  
+${data['chip_in_amount']}  
+${data['payment_method']}  
+<http://${data['merchant_domain']}/pool/${data['p_url']}>   
+Un Saludo
+el equipo @friendfund  
+<${data['DEFAULT_BASE_URL']}> 
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+<%def name="subject()">Contribution receipt: ${data['pool_title']}</%def>

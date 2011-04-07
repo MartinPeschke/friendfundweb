@@ -299,10 +299,12 @@ class MyprofileController(BaseController):
 
 	def set_lang(self):
 		lang = request.params.get('lang')
-		if websession['lang'] == lang:
-			return redirect(request.referer)
+		if not request.referer:
+			abort(404)
 		if lang not in g.locales:
 			abort(404)
+		if websession['lang'] == lang:
+			return redirect(request.referer)
 		else:
 			websession['lang'] = lang
 			set_lang(lang)

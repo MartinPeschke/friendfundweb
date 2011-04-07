@@ -1,0 +1,11 @@
+Hola ${data['admin_name']},  
+Enhorabuena, tu bote de friendfund para ${data['pool_title']} ha llegado a su objetivo!  
+Tu y tus amigos habeis recaudado ${data['target_amount']} para ${data['pool_description']}.  
+Echar un visazo a la
+[ecard](http://${data['merchant_domain']}/pool/${data['ecard_url']})!  
+${data['settlement_option_details']}  
+Un saludo 
+el equipo @friendfund  
+<${data['DEFAULT_BASE_URL']}>  
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+<%def name="subject()">${data['pool_title']} El bote de friendfund ha llegado a su objetivo!</%def>

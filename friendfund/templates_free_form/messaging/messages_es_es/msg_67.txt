@@ -1,0 +1,14 @@
+Hola ${data['contributor_name']},  
+Enhorabuena, hemos recuadado ${data['contribution_amount']} para ${data['pool_title']}.
+Desafortunadamente el tiempo se ha acabado, nuestro bote de friendfund ha caducado sin llegar al objetivo de ${data['target_amount']}.
+Como el bote era �Todo o Nada� tu contribucion de paypal ha sido devuelta.  
+${data['refund_date']}   
+${data['chip_in_amount']}   
+${data['PayPal_account']}   
+Echar un vistazo a todos los mensajes y contribuciones: <http://${data['merchant_domain']}/pool/${data['p_url']}>    
+Suerte para la proxima vez!  
+Un saludo   
+${data['admin_name']}  
+${data['DEFAULT_BASE_URL']}  
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+<%def name="subject()">${data['pool_title']} este bote de friendfund  se ha cerrado</%def>

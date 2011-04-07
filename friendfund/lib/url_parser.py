@@ -39,6 +39,9 @@ def get_title_descr_imgs(query, product_page):
 				descr = descr.text
 			else: 
 				descr = None
+		else:
+			descr = BeautifulSoup(descr).text
+
 		name = soup.find('title')
 		name = name and name.text or params.get("og:title")
 		if not (name or descr):

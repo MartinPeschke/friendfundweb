@@ -1,0 +1,12 @@
+Gracias ${data['contributor_name']} para contribuir con ${data['pool_title']}!  
+${data['receipt_number']}   
+${data['chip_in_date']}  
+${data['chip_in_amount']}  
+${data['payment_method']}  
+Este bote es �Todo o Nada� lo que significa que si el objetivo del bote no se alcanza antes del dia ${data['expiry_date']} te devolveremos el total de tu contribución a tu cuenta de PayPal.  
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+Un saludo  
+el equipo @friendfund  
+<${data['DEFAULT_BASE_URL']}>  
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+<%def name="subject()">Contribution receipt: ${data['pool_title']}</%def>

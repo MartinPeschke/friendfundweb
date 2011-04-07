@@ -1,0 +1,11 @@
+Hola ${data['firstname_invitee_name']},  
+${data['contributor_name']} ha contribuido para ${data['pool_title']}!   
+"${data['contributor_comment']}"  
+Aun quedan ${data['x_days_left']} dias para alcanzar el objetivo.   
+${data['pool_description']}  
+Contribuir o promocionar tu bote: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+Un saludo 
+el equipo @friendfund  
+<${data['DEFAULT_BASE_URL']}>  
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!  
+<%def name="subject()">${data['contributor_name']} ha contribuido para ${data['pool_title']}</%def>

@@ -1,0 +1,12 @@
+Hola ${data['invitee_name']} ${data['admin_name']},  
+${data['invitee_comment_name']} ha dejado un comentario para ${data['pool_title']}!   
+${data['invitee_comment']}  
+Aun quedan ${data['x_days_left']} dias restantes para hacer que ${data['pool_description']} alcance su objetivo de ${data['target_amount']}.    
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+[Promocionar este bote](http://${data['merchant_domain']}/pool/${data['p_url']}) o [invitar a más amigos] a unirse (http://${data['merchant_domain']}/pool/${data['p_url']}).   
+Un Saludo   
+el equipo @friendfund  
+<DEFAULT_BASE_URL>  
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+¿No quieres saber nada? Puedes desapuntarte y no recibir más mensajes de este bote aqui: <${data['unsubscribe']}>  
+<%def name="subject()">${data['invitee_comment_name']} ha dejado un comentario para ${data['pool_title']}</%def>

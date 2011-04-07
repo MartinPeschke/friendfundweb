@@ -78,7 +78,8 @@
 										</div>
 								</div>
 								<span class="bold tenPix middot">&middot;</span>
-								<span class="contribSmall tenPix">${widgets.renderPoolInfoContributors(locals)}</span>								<div class="clear"></div>
+								<span class="contribSmall tenPix">${widgets.renderPoolInfoContributors(locals)}</span>
+								<div class="clear"></div>
 							</div>
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>
@@ -171,7 +172,7 @@
 								<span class="bold tenPix middot">&middot;</span>
 								<span class="inviteesSmall tenPix">${widgets.renderPoolInfoInvitees(locals)}</span>
 								<div class="liner">
-									<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
+									${locals['pooltitle']|n}
 									<p>${h.word_truncate(streamentry.event.description, 250)}</p>
 								</div>
 							</div>
@@ -229,7 +230,7 @@
 								<span class="bold tenPix middot">&middot;</span>
 								<span class="inviteesSmall tenPix">${widgets.renderPoolInfoInvitees(locals)}</span>
 								<div class="liner">
-									<a href="#" class="bold">${h.word_truncate_by_letters(streamentry.event.title, 100)}</a>
+									${locals['pooltitle']|n}
 									<p>${h.word_truncate(streamentry.event.description, 250)}</p>
 								</div>
 							</div>

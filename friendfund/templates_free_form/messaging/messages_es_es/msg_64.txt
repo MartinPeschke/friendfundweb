@@ -1,0 +1,12 @@
+Hola ${data['admin_name']},  
+Enhorabuena, tu y tus amigos habeis recaudado ${data['contribution_amount']} para ${data['pool_title']}.  
+Desafortunadamente el tiempo se ha acabado, tu bote de friendfund ha caducado sin alcanzar su objetivo de ${data['target_amount']}.   
+Como tu bote era �Todo o nada� no se ha procesado ningún pago.   
+Comprueba todos los mensajes y contribuciones!   
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+Ojalá tengas más suerte la próxima vez!  
+Nuestros mejores deseos   
+el equipo de @friendfund  
+<${data['DEFAULT_BASE_URL']}>  
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+<%def name="subject()">${data['pool_title']} el bote de friendfund se ha cerrado</%def>

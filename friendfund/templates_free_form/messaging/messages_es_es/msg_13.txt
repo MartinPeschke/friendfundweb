@@ -1,0 +1,10 @@
+Hola ${data['invitee_name']},  
+Hemos encontrado el regalo perfecto para el ${data['event_name']} de ${data['recipient_name']} y hemos creado un bote de regalo de friendfund que ayudará a comprarlo.    
+Contribuye con la cantidad que tu elijas (incluso con una cantidad pequeña nos puedes ayudar)! Tenemos hasta el día ${data['expiry_date']} para hacerlo realidad!  
+Puedes entrar a ver el bote en [página del bote](http://${data['merchant_domain']}/pool/${data['p_url']}) con la contraseña ${data['password']}.  
+Gracias 
+Vamos a hacer que el ${data['event_name']} de ${data['recipient_name']} sea!   
+${data['invitor_name']}  
+<${data['DEFAULT_BASE_URL']}>  
+La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+<%def name="subject()">${data['pool_title']}: Has sido invitado a unirte a un bote de friendfund!</%def>
