@@ -6,7 +6,12 @@ Invitations have been sent out to ${self.show_names(data['invitee_list'])} to ch
 [Promote your pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite more friends](http://${data['merchant_domain']}/pool/${data['p_url']}) to help reach your target of ${data['target_amount']} by ${data['expiry_date']}.  
 
 All the best  
-the team @friendfund   
+%if data['merchant_is_default']:   
+        from your friendfund team  
+%else:  
+        from your ${data['merchant_name']} team in partnership with friendfund   
+        <img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/> 
+%endif   
 
 <${data['DEFAULT_BASE_URL']}> 
 Collect money with friends. Create a pool. Chip in. friendfund it!  

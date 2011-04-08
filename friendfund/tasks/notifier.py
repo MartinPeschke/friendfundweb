@@ -2,31 +2,35 @@
 FriendFund Notification Service, the only commandline argument should be the paster config file.
 i.e. invoke as: python friendfund/tasks/notifier.py -f development.ini
 """
-import logging, time, sys, getopt, os, mako
+import logging, time, sys, getopt, os, mako, gettext
 from lxml import etree
+from itertools import imap
 from xml.sax.saxutils import quoteattr
-from friendfund.tasks import get_db_pool, get_config, Usage
-from friendfund.tasks.notifiers import email, facebook, twitter
-from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException
+from mako.lookup import TemplateLookup
 from datetime import datetime, date
 from decimal import Decimal
-from friendfund.lib.i18n import negotiate_locale_from_header
-
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
 from babel.dates import format_date as fdate, format_datetime as fdatetime
 
+from friendfund.lib import helpers as h
+from friendfund.model import common
+from friendfund.model.db_access import execute_query
+from friendfund.model.globals import GetMerchantConfigProc
+from friendfund.tasks import get_db_pool, get_config, Usage, data_root
+from friendfund.tasks.notifiers import email, facebook, twitter
+from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException
+
+
 log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
 
 
-from mako.lookup import TemplateLookup
-from friendfund.tasks import data_root
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_form','messaging')]
 		, module_directory=os.path.join(data_root, 'templates_free_form','messaging')
@@ -34,18 +38,11 @@ tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_for
 		, input_encoding='utf-8'
 		)
 
-log.info( os.path.join(root, 'templates_free_form','messaging') )
-
-
-
-import gettext
 transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de', 'es'])
 _ = transl.ugettext
-L10N_KEYS = ['occasion']
 
 
-CONNECTION_NAME = 'job'
-
+log.info( os.path.join(root, 'templates_free_form','messaging') )
 def empty_sender(name = None):
 	def es(template, sndr_data, rcpt_data, template_data, config):
 		log.warning( "%s_MESSAGING_IS_OFF", name )
@@ -58,23 +55,18 @@ def error_sender(name = None):
 	
 	
 def save_results(dbpool, messaging_results):
-
-	conn = dbpool.connection()
-	cur = conn.cursor()
-	status_update =  "<MESSAGES>"
-	for mref,values in messaging_results.items():
-		status_update += "<MESSAGE message_ref=%s %s/>" % \
-			(quoteattr(mref), ' '.join(map(lambda x: ('%s=%s' % (x[0], quoteattr(x[1]))),
-							values.iteritems())))
-	status_update +=  "</MESSAGES>"
-	log.info( 'exec job.set_message_status %s;', status_update )
-	res = cur.execute('exec job.set_message_status ?;', status_update)
-	res = res.fetchone()[0]
-	log.info( res )
-	cur.close()
-	conn.commit()
-	conn.close()
-
+	#formatting children
+	def format_child(element):
+		mref, attribs = element
+		def format_attrib(map):
+			def f(key):
+				return '%s=%s' % (key, quoteattr(map[key]))
+			return f
+		f = format_attrib(attribs)
+		return "<MESSAGE message_ref=%s %s/>" % (quoteattr(mref), ' '.join(imap(f, attribs)))
+	#assemble complete parameter xml
+	status_update =  "<MESSAGES>%s</MESSAGES>" % ''.join(imap(format_child, messaging_results.iteritems()))
+	execute_query(dbpool, log, "exec job.set_message_status ?;", status_update)
 
 def pool_url(key, data_map, locale):
 	return {key: "http://%s/pool/%s" % (data_map["merchant_domain"], data_map[key])}
@@ -109,8 +101,79 @@ def localize(data_map, locale):
 			result[key] = data_map[key]
 	return result
 
-def main(argv=None):
+
+def setup_common_parameters(template_data, common_params, merchant_config):
+	params = {}
+	params.update(common_params)
+	params["today"] = datetime.today().strftime("%d.%m.%Y")
+	if "merchant_domain" in template_data:
+		merchant = merchant_config.merchants_map[template_data["merchant_domain"]]
+		params['merchant_logo_url'] = "http://%s%s" % (merchant.domain, h.get_merchant_logo(merchant.logo_url))
+		params['merchant_name'] = merchant.name
+		params['merchant_is_default'] = merchant.is_default
+	return params
+
+
+def poll_message_queue(config, debug, merchant_config, jobpool, available_langs, messengers, common_params):
+	messaging_results = {}
+	messages, cur = execute_query(jobpool, log, "exec job.get_unsent_messages;")
+	msg_set = messages.findall('MESSAGE')
+	if msg_set:
+		log.info( 'RECEIVED %s, %s', len(msg_set), 'Messages' )
+		for msg_data in msg_set:
+			meta_data = msg_data.attrib
+			sndr_data = msg_data.find("SENDER").attrib
+			rcpt_data = msg_data.find("RECIPIENT").attrib
+			template_data = dict( msg_data.find("TEMPLATE").attrib )
+			template_data.update(setup_common_parameters(template_data, common_params, merchant_config))
+			
+			rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
+			ivts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("INVITEE")]
+			print '-'*80
+			if rcpts_data:
+				template_data['recipients'] = rcpts_data
+			if ivts_data:
+				template_data['invitee_list']=ivts_data
+			
+			locale = h.negotiate_locale_from_header([meta_data.get('locale', "en_GB")], available_langs)
+			try:
+				file_no = meta_data['file_no']
+				template_data = localize(template_data, locale)
+				log.info ( 'TEMPLATE(file_no:%s), %s', file_no, template_data )
+				try:
+					template = tmpl_lookup.get_template('/messages_%s/msg_%s.txt' % (locale, file_no))
+				except mako.exceptions.TopLevelLookupException, e:
+					log.warning( "WARNING Template not Found for (%s)" , ('/messages_%s/msg_%s.txt' % (locale, file_no)) )
+					try:
+						template = tmpl_lookup.get_template('/messages/msg_%s.txt' % (file_no))
+					except mako.exceptions.TopLevelLookupException, e:
+						log.error( "ERROR Template not Found for (%s) or (%s)" , (('/messages_%s/msg_%s.txt' % (locale, file_no)), ('/messages/msg_%s.txt' % file_no)) )
+						raise MissingTemplateException(e)
+				
+				notification_method = meta_data.get('notification_method').lower()
+				sender = messengers.get(notification_method, error_sender(notification_method))
+				msg_id = sender(template, sndr_data, rcpt_data, template_data, config)
+			except InvalidAccessTokenException, e:
+				log.error( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
+				messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
+			except email.UMSEmailUploadException, e:
+				log.error( 'UMS_EMAIL_ERROR while SENDING: %s', str(e) )
+				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
+			except Exception, e:
+				log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
+				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
+				if debug: 
+					save_results(jobpool, messaging_results)
+					messaging_results = {}
+					raise
+			else:
+				messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
+		save_results(jobpool, messaging_results)
 	
+	
+	
+	
+def main(argv=None):
 	if argv is None:
 		argv = sys.argv
 	try:
@@ -127,8 +190,11 @@ def main(argv=None):
 	
 	configname = opts['-f']
 	config = get_config(configname)
-	dbpool = get_db_pool(config, CONNECTION_NAME)
-	ROOT_URL = config['site_root_url']
+	jobpool = get_db_pool(config, "job")
+	apppool = common.DBManager(get_db_pool(config, "pool"), None, log)
+	merchant_config = apppool.get(GetMerchantConfigProc)
+	
+	common_params = {"DEFAULT_BASE_URL":config['site_root_url']}
 	
 	debug = config['debug'].lower() == 'true'
 	available_langs = config['available_locales'].lower().split(',')
@@ -155,97 +221,14 @@ def main(argv=None):
 	else:
 		messengers['email'] = empty_sender('email')
 	
-	log.info( 'DEBUG: %s for %s (fb:%s,tw:%s,email:%s)', debug, CONNECTION_NAME,  facebook_on, twitter_on, email_on )
+	INTERVAL = 5
+	if not debug:
+		INTERVAL = INTERVAL*5
+	log.info( 'DEBUG: %s for (fb:%s,tw:%s,email:%s), INTERVAL: %s', debug,  facebook_on, twitter_on, email_on, INTERVAL)
 	
 	while 1:
-		conn = dbpool.connection()
-		cur = conn.cursor()
-		res = cur.execute('exec job.get_unsent_messages;')
-		res = res.fetchone()[0]
-		cur.close()
-		conn.commit()
-		conn.close()
-		messaging_results = {}
-		log.info ( res )
-		messages = etree.fromstring(res)
-		msg_set = messages.findall('MESSAGE')
-		if msg_set:
-			log.info( 'RECEIVED %s, %s', len(msg_set), 'Messages' )
-			for msg_data in msg_set:
-				meta_data = msg_data.attrib
-				sndr_data = msg_data.find("SENDER").attrib
-				rcpt_data = msg_data.find("RECIPIENT").attrib
-				template_data = dict( msg_data.find("TEMPLATE").attrib )
-				template_data["DEFAULT_BASE_URL"] = ROOT_URL
-				template_data["today"] =datetime.today().strftime("%d.%m.%Y")
-				
-				rcpts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("RECIPIENT")]
-				ivts_data = [msg.attrib for msg in msg_data.find("TEMPLATE").findall("INVITEE")]
-				print '-'*80
-				log.info ( 'meta_data, %s', meta_data)
-				log.info ( 'SENDER, %s', sndr_data)
-				log.info ( 'RECIPIENT, %s', rcpt_data)
-				log.info ( 'extraRECIPIENTs, %s, extraINVITEEs, %s', len(rcpts_data), len(ivts_data))
-				log.info ( 'TEMPLATE, %s', template_data)
-				
-				
-				if rcpts_data:
-					template_data['recipients'] = rcpts_data
-				if ivts_data:
-					template_data['invitee_list']=ivts_data
-				
-				locale = negotiate_locale_from_header([meta_data.get('locale', "en_GB")], available_langs)
-				try:
-					file_no = meta_data['file_no']
-					template_data = localize(template_data, locale)
-					log.info ( 'TEMPLATE, %s', template_data)
-					try:
-						template = tmpl_lookup.get_template('/messages_%s/msg_%s.txt' % (locale, file_no))
-					except mako.exceptions.TopLevelLookupException, e:
-						log.warning( "WARNING Template not Found for (%s)" , ('/messages_%s/msg_%s.txt' % (locale, file_no)) )
-						try:
-							template = tmpl_lookup.get_template('/messages/msg_%s.txt' % (file_no))
-						except mako.exceptions.TopLevelLookupException, e:
-							log.error( "ERROR Template not Found for (%s) or (%s)" , (('/messages_%s/msg_%s.txt' % (locale, file_no)), ('/messages/msg_%s.txt' % file_no)) )
-							raise MissingTemplateException(e)
-					
-					notification_method = meta_data.get('notification_method').lower()
-					sender = messengers.get(notification_method, error_sender(notification_method))
-					msg_id = sender(template, sndr_data, rcpt_data, template_data, config)
-				
-				
-				except InvalidAccessTokenException, e:
-					log.error( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
-					messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN'}
-				except email.UMSEmailUploadException, e:
-					log.error( 'UMS_EMAIL_ERROR while SENDING: %s', str(e) )
-					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
-				except Exception, e:
-					log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
-					messaging_results[meta_data.get('message_ref')] = {'status':'FAILED'}
-					if debug: 
-						save_results(dbpool, messaging_results)
-						messaging_results = {}
-						raise
-				else:
-					messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
-
-			conn = dbpool.connection()
-			cur = conn.cursor()
-			status_update =  "<MESSAGES>"
-			for mref,values in messaging_results.items():
-				status_update += "<MESSAGE message_ref=%s %s/>" % \
-					(quoteattr(mref), ' '.join(map(lambda x: ('%s=%s' % (x[0], quoteattr(x[1]))),
-									values.iteritems())))
-			status_update +=  "</MESSAGES>"
-			log.info( 'exec job.set_message_status %s;', status_update )
-			res = cur.execute('exec job.set_message_status ?;', status_update)
-			res = res.fetchone()[0]
-			log.info( res )
-			cur.close()
-			conn.commit()
-			conn.close()
-		time.sleep(10)
+		poll_message_queue(config, debug, merchant_config, jobpool, available_langs, messengers, common_params)
+		time.sleep(INTERVAL)
 
 if __name__ == "__main__":
     sys.exit(main())
