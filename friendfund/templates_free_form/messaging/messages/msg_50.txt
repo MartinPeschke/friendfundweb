@@ -4,10 +4,15 @@ Congratulations your friendfund pool for ${data['recipient_name']}’s ${data['e
 
 <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
-All the best   
-the team @friendfund  
+All the best  
+%if data['merchant_is_default']:      
+the team @friendfund
+%else:  
+the team @${data['merchant_name']} in partnership with friendfund   
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
+%endif     
 
-<${data['DEFAULT_BASE_URL']}>  
-Collect money with friends. Create a pool. Chip in. friendfund it!
+<${data['DEFAULT_BASE_URL']}> 
+Collect money with friends. Create a pool. Chip in. friendfund it!  
 
 <%def name="subject()"> ${data['recipient_name']}’s ${data['event_name']} friendfund gift pool has reached its target! </%def>     

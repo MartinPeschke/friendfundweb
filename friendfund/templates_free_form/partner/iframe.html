@@ -10,7 +10,7 @@
 	${links.css('datepicker.css')}
 </%def>
 <%def name="onloadscripts()">
-	panels = new friendfund.PartnerPanel({
+	ffp_panel = new friendfund.PartnerPanel({
 					container : "receiverSelectorContainer"
 					,ref_node : "button_panel_Form"
 					,method : "${c.method}"
@@ -27,9 +27,9 @@
 	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
 	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
 	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
-	  callbackFunctions:{"dateset":[panels.updateOccasionDate]}
+	  callbackFunctions:{"dateset":[ffp_panel.updateOccasionDate]}
 	});
-	dojo.connect(document.forms.poolCreateForm, "onsubmit", protect(document.forms.poolCreateForm.submit));
+	submitter = function(){ffp_panel.submit('${url('pool_create')}');}
 </%def>
 
 
@@ -50,7 +50,13 @@ the product pages on this site.</p>
 			<div class="clear"></div>
 		</div>
 		<div class="wrapContentIframe">
-			<form action="${url('pool_create')}" name="poolCreateForm" method="POST" target="_parent" id="button_panel_Form">
+			<form action="javascript:window.submitter(this)" name="poolCreateForm" method="POST" target="_parent" id="button_panel_Form">
+			<script type="text/javascript">
+				console.log(window);
+				console.log(window.submitter);
+				console.log(document);
+			</script>
+			
 			<div class="floatRight colRightIframe">
 			  <div class="bgDark">
 				<div id="productArea">

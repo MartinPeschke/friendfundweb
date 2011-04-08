@@ -10,7 +10,15 @@ Thank you
 Let’s make ${data['recipient_name']}’s ${data['occasion']} special!  
 ${data['admin_name']}
 
-<${data['DEFAULT_BASE_URL']}>    
-Collect money with friends. Create a pool. Chip in. friendfund it!
+%if data['merchant_is_default']:   
+<${data['DEFAULT_BASE_URL']}>  
+Collect money with friends. Create a pool. Chip in. friendfund it! 
+
+%else:  
+${data['merchant_name']} in partnership with friendfund     
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
+<${data['DEFAULT_BASE_URL']}>  
+Collect money with friends. Create a pool. Chip in. friendfund it!   
+%endif   
 
 <%def name="subject()">${data['pool_title']}: You have been invited to join a friendfund pool!</%def>

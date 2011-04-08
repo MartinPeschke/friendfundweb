@@ -59,5 +59,10 @@ dojo.declare("friendfund.PartnerPanel", null, {
 								
 							});
 		_t.selector.draw(_t.method);
+	},
+	submit : function(url){
+		console.log(this);
+		// _t.ref_node
+		return false;
 	}
 });

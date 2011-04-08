@@ -71,7 +71,6 @@ class ProductController(BaseController):
 	def simplebounce(self):
 		query=request.params.get("referer")
 		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
-		
 		c.product_list = g.product_service.get_products_from_open_graph(params.get("meta", {}), query)
 		c.product = c.product_list[0]
 		

@@ -10,12 +10,16 @@ There are still ${data['x_days_left']} days left to help out ${data['pool_descri
 
 [Promote this pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite some more friends](http://${data['merchant_domain']}/pool/${data['p_url']}) to join in .   
 
-All the best   
-the team @friendfund  
+All the best  
+%if data['merchant_is_default']:      
+the team @friendfund
+%else:  
+the team @${data['merchant_name']} in partnership with friendfund   
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
+%endif     
 
-<${data['DEFAULT_BASE_URL']}>  
+<${data['DEFAULT_BASE_URL']}> 
 Collect money with friends. Create a pool. Chip in. friendfund it!  
 
-Don’t want to know? You can unsubscribe from messages from this pool here: <http://${data['merchant_domain']}/pool/${data['p_url']}>    
-
+Don’t want to know? You can(unsubscribe)[<http://${data['DEFAULT_BASE_URL']}/myprofile/notifications>] from messages.  
 <%def name="subject()">${data['commenter_name']} has left a comment for ${data['pool_title']}</%def>   
