@@ -8,11 +8,15 @@
 	${links.js('friendfund/PartnerPanel.js')}
 	${links.js('datepicker.packed.js')}
 	${links.css('datepicker.css')}
+	<script type="text/javascript">
+	dojo.query(".helpPopupToggler", "helpPopupContainer").onclick(
+		function(evt){
+			dojo.query(".helpPopupHook","helpPopupContainer").toggleClass("hidden");
+		}
+	);
+	</script>
 </%def>
 <%def name="onloadscripts()">
-	completed = function(){
-		return dojo.byId("occasion_name").value && dojo.byId("occasion_date").value && dojo.query(".invitee_row", "network_invitees").length == 1;
-	}
 	ffp_panel = new friendfund.PartnerPanel({
 					container : "receiverSelectorContainer"
 					,ref_node : "button_panel_Form"
@@ -20,20 +24,8 @@
 					,invited_node:"selectedReceiver"
 					,mutuals:false
 					,base_url:"/myfriends"
-					,checkCompleteness:completed
 			});
-
-	var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
-	var today = new Date(), upperEnd = new Date();upperEnd.setDate(upperEnd.getDate() + 45);
-	var defaultDateOffset = 14;var defaultDate = new Date(today.getDate() + defaultDateOffset);
-	datePickerController.createDatePicker({
-	  formElements:{"datepicker":fmtDate},
-	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
-	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
-	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
-	  callbackFunctions:{"dateset":[ffp_panel.updateOccasionDate]}
-	});
-	document.forms.poolCreateForm.onsubmit =  dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}");
+	document.forms.poolCreateForm.onsubmit = dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}");
 </%def>
 
 
@@ -46,16 +38,16 @@
 				<p>To friendfund a specific product, visit any of 
 the product pages on this site.</p>
 			</div>
-		<div class="colLeftIframe">
+		<div class="colLeftIframe" id="helpPopupContainer">
 			<h3>
 				Organise a Group Gift!
 			</h3>
 			<div class="learnMoreBtn" style="margin-top:15px">
-				<span>Help</span>
-				<div class="arrowPop hidden"></div>
+				<span class="helpPopupToggler">Help</span>
+				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
-			<div class="helpPopup hidden">
-					<a href="#" class="floatRight"> close <span>X</span></a>
+			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}">
+					<a href="#" class="helpPopupToggler floatRight"> close <span>X</span></a>
 					<h4>Quick Guide to Creating a Pool</h4>
 					<div class="subHeading"></div>
 					<p>Here's how you can create a Group GiftPool and give something extra special without breaking the bank</p>
@@ -99,76 +91,72 @@ Pool is not successful, no one pays a single penny.</p>
 			<div class="clear"></div>
 		</div>
 		</div>
+		
+		
 		<div class="wrapContentIframe">
 			<form name="poolCreateForm" method="POST" id="button_panel_Form">
 			<div class="floatRight colRightIframe">
-			  <div class="bgDark">
-				<div id="productArea">
-					%for p in c.product_list:
-						<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
-							<h5>Your gift:</h5>
-							<div class="boxWhat">
-								<div class="prod">
-									<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
-								</div>
-								<p class="title"><a href="#">${p.get_display_label(words = 10)}</a></p>
-								<div class="clear"></div>
-							</div>	
-						</div>
-					%endfor
-					%if len(c.product_list)>1:
-						<h6>Edit</h6>
-						<select id="productSelector" name="productMap">
-							%for p in c.product_list:
-							<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
-								${p.get_display_label(words = 10)}
-							</option>
-							%endfor
-						</select>
-					%else:
-						<input type="hidden" name="productMap" value="${c.product.to_minimal_repr()}"/>
-					%endif
-				</div>
-				<div class="generalBoxIframe" style="height:90px">
-					<h5>Recipient</h5>
-					<div id="selectedReceiver" class="floatLeft listSelectedFriends boxWhat">
-					<ul id="network_invitees" class="invited_list">
-					<% receiver_data = getattr(c, "receiver_data", None) %>
-					%if receiver_data:
-						<% receiver_mockup = {receiver_data.get("network_id"):receiver_data} %>
-						${inviter.render_network_friends(receiver_mockup)|n}
-					%endif
-					</ul>
-		
+				<div class="bgDark">
+					<div id="productArea">
+						%for p in c.product_list:
+							<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
+								<h5>Your gift:</h5>
+								<div class="boxWhat">
+									<div class="prod">
+										<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
+									</div>
+									<p class="title"><a target="_blank" href="${p.tracking_link}">${p.get_display_label(words = 10)}</a></p>
+									<div class="clear"></div>
+								</div>	
+							</div>
+						%endfor
+						%if len(c.product_list)>1:
+							<h6>Edit</h6>
+							<select id="productSelector" name="productMap">
+								%for p in c.product_list:
+								<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
+									${p.get_display_label(words = 10)}
+								</option>
+								%endfor
+							</select>
+						%else:
+							<input type="hidden" name="productMap" value="${c.product.to_minimal_repr()}"/>
+						%endif
 					</div>
-					<div class="errorMsgIframe hidden" style="margin-top:10px">Please choose your recipient from the left panel.</div>
+					<div class="generalBoxIframe" style="height:90px" id="selectedReceiverContainer">
+						<h5>Recipient</h5>
+						
+						<div id="selectedReceiver" class="floatLeft listSelectedFriends boxWhat">
+							<ul id="network_invitees" class="invited_list">
+							<% receiver_data = getattr(c, "receiver_data", None) %>
+							%if receiver_data:
+								<% receiver_mockup = {receiver_data.get("network_id"):receiver_data} %>
+								${inviter.render_network_friends(receiver_mockup)|n}
+							%endif
+							</ul>
+						</div>
+						<div class="errorMsgIframe large hidden" style="margin-top:10px">Please choose your recipient from the left panel.</div>
+						<div class="clear"></div>
+					</div>
+					<div id="selectedOccasion">
+						<div class="generalBoxIframe">
+							<label>Occasion: </label><input type="text" name="occasion_name" id="occasion_name" value="${c.values.get("occasion_name")}" readonly="readonly" />
+							<div class="errorMsgIframe hidden">Please choose an occasion from the left panel.</div>
+						</div>
+						<div class="generalBoxIframe">
+							<label>Contribution Deadline: </label><input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:70px" readonly="readonly" />
+							<div class="errorMsgIframe hidden">Please choose a deadline from the left panel.</div>
+						</div>
+						<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" readonly="readonly" />
+					</div>
+					<input class="forward floatRight" style="margin-top:20px" type="submit" value="Invite Friends"/>
 					<div class="clear"></div>
 				</div>
-				<div id="selectedOccasion">
-					<div class="generalBoxIframe">
-						<label>Occasion: </label><input type="text" name="occasion_name" id="occasion_name" value="${c.values.get("occasion_name")}" />
-						<div class="errorMsgIframe hidden">Please choose your recipient from the left panel.</div>
-					</div>
-					<div class="generalBoxIframe">
-						<label>Contribution Deadline: </label><input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:70px" />
-						<div class="errorMsgIframe hidden">Please choose your recipient from the left panel.</div>
-					</div>
-					<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" />
-				</div>
-				
-				<input type="submit" value="Invite Friends" class="floatRight"/>
-				
-				<span  class="forward floatRight" style="margin-top:20px"><span class="floatRight"><input type="button" value="&gt;">Invite Friends</span> </span>
-				
-				
-				
-				<div class="clear"></div>
-			    </div>
-			  </div>
+			</div>
 			</form>
 		<div class="colLeftIframe floatLeft">
 			<div id="receiverSelectorContainer" class="floatLeft">
-				<h4 class="error">Choose Your recipient</h4>
+				<h4 class="errorHook">Choose Your recipient</h4>
 				<div class="subHeading"></div>
 				<div class="wrapTabs">
 					<div class="tabs"> 
@@ -182,8 +170,7 @@ Pool is not successful, no one pays a single penny.</p>
 			
 			
 		
-			<div id="occasionSelectorContainer" class="error floatLeft">
-			
+			<div id="occasionSelectorContainer" class="errorHook floatLeft">
 				<div class="occasionLabel first">${_("EVENT_PANEL_Choose an occasion:")}</div>
 				<select id="occasionSelector" _name_target="occasion_name" _key_target="occasion_key">
 					%for occ in c.olist:
@@ -198,12 +185,11 @@ Pool is not successful, no one pays a single penny.</p>
 					%endfor
 				</select>
 		</div>
-		<div id="yourOccasionSelector" class="error floatLeft">
+		<div id="yourOccasionSelector" class="errorHook floatLeft">
 				<div class="occasionLabel first">... or enter your own occasion</div>
-
 				<input type="text" id="occasionTyper" _target="occasion_name" custom="1" key="EVENT_OTHER" />
 		</div>
-		<div id="contributionDeadline" class="error floatLeft">
+		<div id="contributionDeadline" class="errorHook floatLeft">
 				<div class="occasionLabel first">Contribution Deadline</div>
 				<input class="small" readonly="readonly" type="text" id="datepicker" value=""/>
 		</div>

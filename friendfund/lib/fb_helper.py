@@ -168,7 +168,7 @@ def get_friends_from_cache(
 				raise
 		elif obj == INPROCESS_TOKEN:
 			while obj == INPROCESS_TOKEN:
-				time.sleep(1)
+				time.sleep(0.2)
 				obj = mc.get(key)
 	if obj is not None and friend_id is not None:
 		mutual_friends = get_mutual_friends(logger, friend_id, access_token)

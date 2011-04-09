@@ -340,7 +340,7 @@ FriendFund.Popup = {
 	html.dialog-open embed {\
 	  visibility: hidden;\
 	}\
-	a#FriendFund_Popup_close {  background: url(\"${background_image_url}\") no-repeat scroll -271px -30px transparent;cursor: pointer;height: 19px;position: absolute;right: 5px;top: 5px;width: 17px;}" + (FriendFund.Util.isIE() ? "\
+	a#FriendFund_Popup_close {color:black;cursor:pointer;font-size:22px;font-weight:bold;line-height:15px;position:absolute;right:7px;top:7px;}" + (FriendFund.Util.isIE() ? "\
     #FriendFund_overlay {\
       filter: alpha(opacity=70);\
     }" : "") + ((FriendFund.Util.isIE() && (FriendFund.Util.isIE(function (v) {
@@ -374,7 +374,7 @@ FriendFund.Popup = {
 		if (!document.getElementById(this.id)) {
 			var popup = document.createElement('div');
 			popup.innerHTML = '<div id="' + this.id + '" style="display:none;">\
-						<a href="#close" onclick="FriendFund.Popup.close(); return false;" id="' + this.id + '_close" title="Close Popup">\
+						<a href="#close" onclick="FriendFund.Popup.close(); return false;" id="' + this.id + '_close" title="Close Popup">&#x2a2f;\
 						<span style="display: none;">Close Popup</span></a>' + '<div id="' + this.id + '-content"></div></div>';
 			document.body.insertBefore(popup.firstChild, document.body.firstChild);
 		}

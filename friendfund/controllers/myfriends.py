@@ -35,7 +35,14 @@ class MyfriendsController(BaseController):
 				else: 
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
 			else:
-				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
+				if c.method == c.user.network:
+					usermap = c.user.to_map()
+					usermap['profile_picture_url'] = c.user.get_profile_pic("PROFILE_M")
+					friendlist = [(c.user.network_id, usermap)]
+				else:
+					friendlist = []
+				friendlist.extend([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
+				c.friends = OrderedDict(friendlist)
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}

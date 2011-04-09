@@ -11,7 +11,6 @@ from friendfund.model.pool import OccasionSearch, PoolUser
 from friendfund.model.product import DisplayProduct
 log = logging.getLogger(__name__)
 
-
 class PartnerController(BaseController):
 	def simplebounce(self):
 		query=request.params.get("referer")

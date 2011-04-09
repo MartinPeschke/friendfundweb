@@ -178,8 +178,8 @@ class DBMappedObject(DBMapping):
 		if hasattr(self, 'fromDB'): self.fromDB(xml)
 		return self
 
-	def to_map(self):
-		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys])
+	def to_map(self, flat = True):
+		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys if not flat or flat and isinstance(k, GenericAttrib)])
 	def get_map(self):
 		log.warning("%s.get_map: DEPRECATED", self.__class__.__name__)
 		return dict([(k.pykey,getattr(self, k.pykey, None)) for k in self._keys])

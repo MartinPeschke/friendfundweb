@@ -148,10 +148,10 @@ def get_friends_from_cache(
 				send_task('friendfund.tasks.twitter.get_friends_async', args = [access_token, access_token_secret])
 			
 			while first_val == INPROCESS_TOKEN and sleeper < timeout:
-				time.sleep(1)
+				time.sleep(0.2)
 				values = mc.get_multi(keys, key_prefix=proto_key)
 				first_val = values.get(keys[0])
-				sleeper += 1
+				sleeper += 0.2
 			if first_val == INPROCESS_TOKEN or first_val is None: 
 				logger.error('GET_FRIENDS_FROM_CACHE, TIMEOUT for %s with INPROCESS_TOKEN', proto_key)
 				return None, None, None

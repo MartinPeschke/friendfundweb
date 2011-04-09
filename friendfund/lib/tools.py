@@ -1,4 +1,4 @@
-import zlib, base64, simplejson, datetime
+import zlib, base64, simplejson, datetime, decimal
 from xml.sax.saxutils import quoteattr
 from decorator import decorator
 import simplejson, logging
