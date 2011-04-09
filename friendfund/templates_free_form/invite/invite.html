@@ -59,11 +59,11 @@
     <h3>${_("FF_INVITEPAGE_HEADER_Invited Friends")} (<span id="invitedCounter">${reduce(add, map(len, c.invitees.values()) or [0])}</span>)</h3>
 		<div class="listSelectedFriends" id="invitedContainer" >
 			<p class="inviterTwo ${bool(c.invitees) and "hidden" or ""}">${_("FF_INVITER_EMAIL_Invite your friends from<br /> the left panel")|n}</p>
-			<div id="network_invitees" class="invited_list">
+			<ul id="network_invitees" class="invited_list">
 				${inviter.render_email_friends(c.invitees.get("email", dict()))}
 				${inviter.render_network_friends(c.invitees.get("twitter", dict()))|n}
 				${inviter.render_network_friends(c.invitees.get("facebook", dict()))|n}
-			</div>
+			</ulv>
 		</div>
   </div>
 	<div class="colLeft">

@@ -10,6 +10,9 @@
 	${links.css('datepicker.css')}
 </%def>
 <%def name="onloadscripts()">
+	completed = function(){
+		return dojo.byId("occasion_name").value && dojo.byId("occasion_date").value && dojo.query(".invitee_row", "network_invitees").length == 1;
+	}
 	ffp_panel = new friendfund.PartnerPanel({
 					container : "receiverSelectorContainer"
 					,ref_node : "button_panel_Form"
@@ -17,6 +20,7 @@
 					,invited_node:"selectedReceiver"
 					,mutuals:false
 					,base_url:"/myfriends"
+					,checkCompleteness:completed
 			});
 
 	var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
@@ -29,7 +33,7 @@
 	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
 	  callbackFunctions:{"dateset":[ffp_panel.updateOccasionDate]}
 	});
-	submitter = function(){ffp_panel.submit('${url('pool_create')}');}
+	document.forms.poolCreateForm.onsubmit =  dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}");
 </%def>
 
 
@@ -96,13 +100,7 @@ Pool is not successful, no one pays a single penny.</p>
 		</div>
 		</div>
 		<div class="wrapContentIframe">
-			<form action="javascript:window.submitter(this)" name="poolCreateForm" method="POST" target="_parent" id="button_panel_Form">
-			<script type="text/javascript">
-				console.log(window);
-				console.log(window.submitter);
-				console.log(document);
-			</script>
-			
+			<form name="poolCreateForm" method="POST" id="button_panel_Form">
 			<div class="floatRight colRightIframe">
 			  <div class="bgDark">
 				<div id="productArea">
@@ -127,26 +125,35 @@ Pool is not successful, no one pays a single penny.</p>
 							</option>
 							%endfor
 						</select>
+					%else:
+						<input type="hidden" name="productMap" value="${c.product.to_minimal_repr()}"/>
 					%endif
 				</div>
 				<div class="generalBoxIframe" style="height:90px">
 					<h5>Recipient</h5>
 					<div id="selectedReceiver" class="floatLeft listSelectedFriends boxWhat">
-						<div id="network_invitees" class="invited_list">
+					<ul id="network_invitees" class="invited_list">
+					<% receiver_data = getattr(c, "receiver_data", None) %>
+					%if receiver_data:
+						<% receiver_mockup = {receiver_data.get("network_id"):receiver_data} %>
+						${inviter.render_network_friends(receiver_mockup)|n}
+					%endif
+					</ul>
 		
-						</div>
-						
 					</div>
 					<div class="errorMsgIframe hidden" style="margin-top:10px">Please choose your recipient from the left panel.</div>
 					<div class="clear"></div>
 				</div>
 				<div id="selectedOccasion">
 					<div class="generalBoxIframe">
-						<label>Occasion: </label><input type="text" name="occasion_name" id="occasion_name" value="" /><div class="errorMsgIframe hidden">Please choose your recipient from the left panel.</div>
+						<label>Occasion: </label><input type="text" name="occasion_name" id="occasion_name" value="${c.values.get("occasion_name")}" />
+						<div class="errorMsgIframe hidden">Please choose your recipient from the left panel.</div>
 					</div>
 					<div class="generalBoxIframe">
-						<label>Contribution Deadline: </label><input type="text" name="occasion_date" id="occasion_date" value="" style="width:70px" /><div class="errorMsgIframe hidden">Please choose your recipient from the left panel.</div>
+						<label>Contribution Deadline: </label><input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:70px" />
+						<div class="errorMsgIframe hidden">Please choose your recipient from the left panel.</div>
 					</div>
+					<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" />
 				</div>
 				
 				<input type="submit" value="Invite Friends" class="floatRight"/>
@@ -178,9 +185,10 @@ Pool is not successful, no one pays a single penny.</p>
 			<div id="occasionSelectorContainer" class="error floatLeft">
 			
 				<div class="occasionLabel first">${_("EVENT_PANEL_Choose an occasion:")}</div>
-				<select id="occasionSelector"  _target="occasion_name">
+				<select id="occasionSelector" _name_target="occasion_name" _key_target="occasion_key">
 					%for occ in c.olist:
-						<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}">
+						<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}" 
+								${forms.expression_quote(c.values.get("occasion_key")== occ.key, "selected")|n}>
 							%if occ.custom:
 								${_("EVENT_PANEL_Just because...")}
 							%else:

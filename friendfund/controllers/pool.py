@@ -5,7 +5,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only, pool_available
+from friendfund.lib.auth.decorators import logged_in, pool_available
 from friendfund.lib.base import BaseController, render, render_def, SuccessMessage, ErrorMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
@@ -133,20 +133,18 @@ class PoolController(BaseController):
 		c.values = {}
 		c.workflow = request.params.get("v") or "1"
 		if request.merchant.type_is_group_gift:
-			try:
-				if request.merchant.entry_is_iframe:
-					c.pool = g.pool_service.create_group_gift_from_iframe()
-				else:
+			if request.merchant.entry_is_iframe:
+				try:
 					c.pool = g.pool_service.create_group_gift()
-			except MissingProductException, e:
-				c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
-				return redirect(url('home'))
-			except MissingOccasionException, e:
-				c.messages.append(ErrorMessage(_("POOL_CREATE_Occasion was unknown, what can I do?")))
-				return redirect(url('home'))
-			except MissingReceiverException, e:
-				c.messages.append(ErrorMessage(_("POOL_CREATE_Receiver was unknown, what can I do?")))
-				return redirect(url('home'))
+				except MissingProductException, e:
+					c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
+					return redirect(url('home'))
+				except MissingOccasionException, e:
+					c.messages.append(ErrorMessage(_("POOL_CREATE_Occasion was unknown, what can I do?")))
+					return redirect(url('home'))
+				except MissingReceiverException, e:
+					c.messages.append(ErrorMessage(_("POOL_CREATE_Receiver was unknown, what can I do?")))
+					return redirect(url('home'))
 		else:
 			try:
 				c.pool = g.pool_service.create_free_form()
@@ -167,12 +165,6 @@ class PoolController(BaseController):
 					pass
 				c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
 				return self.render('/pool/pool_details.html')
-		c.pool.merchant_domain = request.merchant.domain
-		g.dbm.set(c.pool, merge = True, cache=False)
-		
-		if c.pool.product and c.pool.product.has_picture():
-			remote_product_picture_render.apply_async(args=[c.pool.p_url, c.pool.product.picture])
-		remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		
 		if not c.pool:
 			return redirect(request.referer)

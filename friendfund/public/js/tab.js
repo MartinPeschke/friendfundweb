@@ -486,7 +486,7 @@ FriendFund.Popin = {
         context.query = FriendFund.Util.toQueryString(context.params);
         return context;
     },
-    url: function (options) {return options.protocol+options.host+'/product/simplebounce';}
+    url: function (options) {return options.protocol+options.host+'/partner/simplebounce';}
 };
 
 FriendFund.Button = {

@@ -5,6 +5,15 @@ Visita el bote de regalo aquí: <http://${data['merchant_domain']}/pool/${data['
 Gracias  
 Vamos a hacer que el ${data['event_name']} de ${data['recipient_name']} sea especial!  
 ${data['invitor_name']}  
+
+%if data['merchant_is_default']:   
 <${data['DEFAULT_BASE_URL']}>  
-La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it! 
+
+%else:  
+${data['merchant_name']} asociado con friendfund     
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
+<${data['DEFAULT_BASE_URL']}>  
+Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it!  
+%endif
 <%def name="subject()">${data['pool_title']}: Te han invitado a unirte a un bote de friendfund!</%def>

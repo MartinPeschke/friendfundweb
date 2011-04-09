@@ -1,4 +1,4 @@
-import logging, simplejson, formencode, urlparse, urllib2, socket, datetime
+import logging, simplejson, formencode, urlparse, urllib2, socket, datetime, uuid
 from BeautifulSoup import BeautifulSoup
 
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
@@ -6,14 +6,16 @@ from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 from friendfund.lib import helpers as h
 from friendfund.lib.base import BaseController, render, _, render_def
+from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
-from friendfund.model.pool import Pool, UpdatePoolProc, OccasionSearch
+from friendfund.model.pool import Pool, UpdatePoolProc
 from friendfund.model.product import Product, ProductSearch
 from friendfund.tasks.photo_renderer import UnsupportedFileFormat
 from friendfund.services.amazon_service import AttributeMissingInProductException, NoOffersError, TooManyOffersError, AmazonErrorsOccured
 from friendfund.services.product_service import AmazonWrongRegionException, AmazonUnsupportedRegionException, QueryMalformedException
 log = logging.getLogger(__name__)
+
 
 class ProductController(BaseController):
 	@jsonify
@@ -67,17 +69,6 @@ class ProductController(BaseController):
 			c.product_list = []
 		websession['pool'] = c.pool
 		return self.render('/partner/iframe.html')
-	
-	def simplebounce(self):
-		query=request.params.get("referer")
-		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
-		c.product_list = g.product_service.get_products_from_open_graph(params.get("meta", {}), query)
-		c.product = c.product_list[0]
-		
-		c.method = c.user.get_current_network() or 'facebook'
-		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
-		return self.render('/partner/iframe.html')
-	
 	
 	def picturepopup(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)

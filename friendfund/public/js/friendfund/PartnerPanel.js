@@ -4,13 +4,14 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	constructor: function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
+		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
 		_t.connect();
 		_t.load_receiver();
 	},
 	connect : function(){
 		var _t = this;
-		dojo.connect(dojo.byId("productSelector"), "onchange", dojo.hitch(_t, _t.swapProduct));
-		dojo.connect(dojo.byId("occasionSelector"), "onchange", dojo.hitch(_t, _t.swapOccasionName));
+		if(dojo.byId("productSelector")){dojo.connect(dojo.byId("productSelector"), "onchange", dojo.hitch(_t, _t.swapProduct));}
+		if(dojo.byId("occasionSelector")){dojo.connect(dojo.byId("occasionSelector"), "onchange", dojo.hitch(_t, _t.swapOccasionName));}
 		dojo.connect(dojo.byId("occasionTyper"), "onkeyup", dojo.hitch(_t, _t.changeOccasionName));
 	},
 	changeOccasionName : function(evt){
@@ -24,7 +25,8 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	},
 	swapOccasionName : function(evt){
 		var selected_occasion = evt.target.options[evt.target.selectedIndex];
-		dojo.byId(dojo.attr(evt.target, "_target")).value = selected_occasion.value;
+		dojo.byId(dojo.attr(evt.target, "_name_target")).value = selected_occasion.value;
+		dojo.byId(dojo.attr(evt.target, "_key_target")).value = dojo.attr(selected_occasion, "key");
 		dojo.addClass("selectedOccasion", "filled");
 	},
 	updateOccasionDate : function(params){
@@ -61,8 +63,15 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		_t.selector.draw(_t.method);
 	},
 	submit : function(url){
-		console.log(this);
-		// _t.ref_node
+		var _t = this;
+		var complete = _t.checkCompleteness();
+		if(!complete){
+			console.log(this);
+		} else {
+			_t.ref_node.action = url;
+			_t.ref_node.submit();
+			dojo.query("input[type=submit]").attr("disabled","disabled");
+		}
 		return false;
 	}
 });

@@ -9,6 +9,12 @@ class PoolHomePageForm(formencode.Schema):
 	title = formencode.validators.String(max=140, if_missing="")
 
 
+class PoolPartnerIFrameForm(formencode.Schema):
+	allow_extra_fields = True
+	date = DateValidator(not_empty=True, messages={'empty': _('FF_PARTNERIFRAME_ERROR_DATE_Please enter some date value!')})
+	occasion_name = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event name!')})
+	occasion_key = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event key!')})
+	
 class PoolCreateForm(formencode.Schema):
 	allow_extra_fields = True
 	

@@ -1,8 +1,15 @@
 Hola ${data['invitee_name']},  
 Enhorabuena, tu bote de friendfund para el ${data['event_name']} de ${data['recipeint_name']} ha alcanzado su objetivo!  
 <http://${data['merchant_domain']}/pool/${data['ecard_url']}>  
-Un saludo   
+
+Un saludo
+%if data['merchant_is_default']:      
 el equipo @friendfund  
-<${data['DEFAULT_BASE_URL']}>  
-La manera simple y divertida de recaudar dinero con tus amigos. Crea un bote y contribuye!
+%else:   
+el equipo @${data['merchant_name']} asociado con friendfund    
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
+%endif     
+
+<${data['DEFAULT_BASE_URL']}>   
+Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it!  
 <%def name="subject()"> el bote de friendfund para el ${data['event_name']} de ${data['recipeint_name']} ha alcanzado su objetivo! </%def>
