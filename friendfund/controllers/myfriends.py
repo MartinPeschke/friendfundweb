@@ -43,7 +43,8 @@ class MyfriendsController(BaseController):
 					friendlist = []
 				friendlist.extend([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
 				c.friends = OrderedDict(friendlist)
-				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
+				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render_def('/invite/inviter.html', "networkinviter",\
+						network_name=c.method, friends = c.friends,  mutuals=c.mutuals, all=c.all, var_show_name= False).strip()}}
 		else:
 			c.friends = {}
 			c.email_errors = {}

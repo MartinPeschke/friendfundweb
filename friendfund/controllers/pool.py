@@ -133,18 +133,17 @@ class PoolController(BaseController):
 		c.values = {}
 		c.workflow = request.params.get("v") or "1"
 		if request.merchant.type_is_group_gift:
-			if request.merchant.entry_is_iframe:
-				try:
-					c.pool = g.pool_service.create_group_gift()
-				except MissingProductException, e:
-					c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
-					return redirect(url('home'))
-				except MissingOccasionException, e:
-					c.messages.append(ErrorMessage(_("POOL_CREATE_Occasion was unknown, what can I do?")))
-					return redirect(url('home'))
-				except MissingReceiverException, e:
-					c.messages.append(ErrorMessage(_("POOL_CREATE_Receiver was unknown, what can I do?")))
-					return redirect(url('home'))
+			try:
+				c.pool = g.pool_service.create_group_gift()
+			except MissingProductException, e:
+				c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
+				return redirect(url('home'))
+			except MissingOccasionException, e:
+				c.messages.append(ErrorMessage(_("POOL_CREATE_Occasion was unknown, what can I do?")))
+				return redirect(url('home'))
+			except MissingReceiverException, e:
+				c.messages.append(ErrorMessage(_("POOL_CREATE_Receiver was unknown, what can I do?")))
+				return redirect(url('home'))
 		else:
 			try:
 				c.pool = g.pool_service.create_free_form()

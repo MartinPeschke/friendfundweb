@@ -12,7 +12,7 @@
 	${mailinviter()}
 %endif
 
-<%def name="networkinviter(network_name, friends, mutuals, all)">
+<%def name="networkinviter(network_name, friends, mutuals, all, var_show_name = True)">
 	<div class="arrowSubTab"></div>
 	<div class="boxSearchFriend" id="inviteheader">
 		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default floatLeft" />
@@ -25,12 +25,12 @@
 	</div>
 	 <div class="friendsList">
 		<ul id="friend_list_${network_name}"">
-			${render_network_friends(friends, mutuals = mutuals)|n}
+			${render_network_friends(friends, mutuals = mutuals, var_show_name = var_show_name)|n}
 		</ul>
 	</div>
 </%def>
 
-<%def name="render_network_friends(friends, active = True, mutuals = False, show_birthdays = False, add_label = None, rem_label = None)">
+<%def name="render_network_friends(friends, active = True, mutuals = False, var_show_name = True)">
 %for i,(id, user_data) in enumerate(friends.iteritems()):
 	<%
 		if "mutual_with" in user_data:
@@ -49,7 +49,7 @@
 			<div class="avt">
 				<img src="${user_data["profile_picture_url"]}">
 			</div>
-			<p class="hideable">${user_data["name"]}</p>
+			<p class="${var_show_name and "hideable" or ""}">${user_data["name"]}</p>
 			<span class="hideable">${_("FF_INVITER_BUTTON_Invite")} &raquo;</span>
 			<input type="hidden" name="invitees" value="${h.encode_minimal_repr(user_data)}"/>
 		</li>
@@ -81,7 +81,7 @@
 </%def>
 
 
-<%def name="render_email_friends(friends, active = True, class_='selectable', add_label = None, rem_label = None)">
+<%def name="render_email_friends(friends, active = True, class_='selectable')">
 %for i,(id, user_data) in enumerate(friends.items()):
 	<li title="${user_data["name"]}" class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }"
 			%if active:

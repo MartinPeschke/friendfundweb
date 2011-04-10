@@ -7,8 +7,6 @@ from friendfund.lib.tools import remove_chars
 log = logging.getLogger(__name__)
 
 class ProductQueryController(BaseController):
-	def __before__(self, action, environ):
-		pass
 	def __after__(self, action, environ):
 		pass
 	@jsonify

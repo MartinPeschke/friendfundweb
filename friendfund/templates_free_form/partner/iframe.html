@@ -26,6 +26,16 @@
 					,base_url:"/myfriends"
 			});
 	document.forms.poolCreateForm.onsubmit = dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}");
+	fbLogout = function(){
+	FB.getLoginStatus(function(response){
+		if(response.session){
+			FB.logout(function(response){xhrPost("/logout?furl=/");window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);});
+		} else {
+			xhrPost("/logout?furl=/");
+			window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);
+		}
+	});
+	};
 </%def>
 
 
@@ -35,8 +45,7 @@
 		<div class="wrapHeaderIframe">
 			<div class="light floatRight">
 				<img src="/static/imgs/lightbulb_icon_sml.png" />
-				<p>To friendfund a specific product, visit any of 
-the product pages on this site.</p>
+				<p><b>To friendfund a specific product, visit any of the product pages on this site.</b></p>
 			</div>
 		<div class="colLeftIframe" id="helpPopupContainer">
 			<h3>
@@ -131,7 +140,7 @@ Pool is not successful, no one pays a single penny.</p>
 							<% receiver_data = getattr(c, "receiver_data", None) %>
 							%if receiver_data:
 								<% receiver_mockup = {receiver_data.get("network_id"):receiver_data} %>
-								${inviter.render_network_friends(receiver_mockup)|n}
+								${inviter.render_network_friends(receiver_mockup, var_show_name= False)|n}
 							%endif
 							</ul>
 						</div>

@@ -102,8 +102,7 @@ class PoolService(object):
 		elif pool.receiver is None:
 			raise MissingReceiverException()
 		#### Setting up the Pool for initial Persisting
-		pool.participants.append(admin)
-		locals = {"admin_name":admin.name, "receiver_name" : pool.receiver.name, "occasion_name":pool.occasion.get_display_name()}
+		locals = {"admin_name":tmpl_context.user.name, "receiver_name" : pool.receiver.name, "occasion_name":pool.occasion.get_display_name()}
 		pool.description = (_("INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!")%locals)
 		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in pool.participants])
 		pool.settlementOption = request.merchant.settlement_options[0].name
