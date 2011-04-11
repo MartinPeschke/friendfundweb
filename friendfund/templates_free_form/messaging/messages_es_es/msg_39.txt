@@ -1,0 +1,20 @@
+Hola ${data['admin_name']},
+
+Solo quedan ${data['x_hours_left']} horas hasta que expira tu bote de friendfund, ${data['pool_title']}.
+
+Hasta hora tu y tus amigos han contribuido ${data['total_funded']} del los ${data['target_amount']} de objetivo.
+
+Como se trata de "Todo o Nada", es la hora de enviar recordatorios <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Un Saludo 
+%if data['merchant_is_default']:      
+El equipo @friendfund
+%else:  
+El equipo @${data['merchant_name']} asociado con friendfund   
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
+%endif     
+
+<${data['DEFAULT_BASE_URL']}> 
+Recauda dinero con amigos. Crea un bote. Contribuir. friendfund it!  
+
+<%def name="subject()">${data['pool_title']} esta a punto de caducar!</%def>   

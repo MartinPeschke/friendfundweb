@@ -45,56 +45,52 @@
 		<div class="wrapHeaderIframe">
 			<div class="light floatRight">
 				<img src="/static/imgs/lightbulb_icon_sml.png" />
-				<p><b>To friendfund a specific product, visit any of the product pages on this site.</b></p>
+				<p><b>${_("FF_IFRAME_To friendfund a specific product, visit any of the product pages on this site.")}</b></p>
 			</div>
 		<div class="colLeftIframe" id="helpPopupContainer">
-			<h3>
-				Organise a Group Gift!
-			</h3>
+			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
 			<div class="learnMoreBtn" style="margin-top:15px">
-				<span class="helpPopupToggler">Help</span>
+				<span class="helpPopupToggler">${_("FF_IFRAME_BUTTON_Help")}</span>
 				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
 			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}">
 					<a href="#" class="helpPopupToggler floatRight"> close <span>X</span></a>
-					<h4>Quick Guide to Creating a Pool</h4>
+					<h4>${_("FF_IFRAME_Quick Guide to Creating a Pool")}</h4>
 					<div class="subHeading"></div>
 					<p>Here's how you can create a Group GiftPool and give something extra special without breaking the bank</p>
 					<ul>
 						<li>
 							<span>1.</span>
-							<h5>Find a gift</h5>
-							<p>What does your recipient really, really want?</p>
+							<h5>${_("FF_IFRAME_Find a gift")}</h5>
+							<p>${_("FF_IFRAME_What does your recipient really, really want?")}</p>
 						</li>
 						<li>
 							<span>2.</span>
-							<h5>Click the "friendfund it!" button</h5>
-							<p>The blue button located on every product page.</p>
+							<h5>${_('FF_IFRAME_Click the "friendfund it!" button')}</h5>
+							<p>${_("FF_IFRAME_The blue button located on every product page.")}</p>
 						</li>
 						<li class="omega">
 							<span>3.</span>
-							<h5>Choose your recipient</h5>
-							<p>from Facebook, Twitter and email friends.</p>
+							<h5>${_("FF_IFRAME_Choose your recipient")}</h5>
+							<p>${_("FF_IFRAME_from Facebook, Twitter and email friends.")}</p>
 						</li>
 						<li>
 							<span>4.</span>
-							<h5>Choose an occasion..</h5>
-							<p>Are you celebrating something special, like a birthday?</p>
+							<h5>${_("FF_IFRAME_Choose an occasion...")}</h5>
+							<p>${_("FF_IFRAME_Are you celebrating something special, like a birthday?")}</p>
 						</li>
 						<li>
 							<span>5.</span>
-							<h5>...and contribution deadline</h5>
-							<p>Make sure you leave aside plenty of time to purchase your gift</p>
+							<h5>${_("FF_IFRAME_...and contribution deadline")}</h5>
+							<p>${_("FF_IFRAME_Make sure you leave aside plenty of time to purchase your gift")}</p>
 						</li>
 						<li class="omega">
 							<span>6.</span>
-							<h5>Share the cost with friends</h5>
-							<p>Invite your friends to chip in as much or as little as they want!</p>
+							<h5>${_("FF_IFRAME_Share the cost with friends")}</h5>
+							<p>${_("FF_IFRAME_Invite your friends to chip in as much or as little as they want!")}</p>
 						</li>
 					</ul>
-					<p class="small">For the Pool to be successful, it needs to reach its target before the expiry date. So tell your friends what the 
-Pool is for, they like the idea and contribute. They are only then charged if the Pool gets enough support. If the 
-Pool is not successful, no one pays a single penny.</p>
+					<p class="small">${_("FF_IFRAME_For the Pool to be successful, it needs to reach its target before the expiry date. So tell your friends what the Pool is for, they like the idea and contribute. They are only then charged if the Pool gets enough support. If the Pool is not successful, no one pays a single penny.")}</p>
 				</div>
 			<a class="floatRight" style="margin-top:20px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
 			<div class="clear"></div>
@@ -109,7 +105,7 @@ Pool is not successful, no one pays a single penny.</p>
 					<div id="productArea">
 						%for p in c.product_list:
 							<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
-								<h5>Your gift:</h5>
+								<h5>${_("FF_IFRAME_Your gift:")}</h5>
 								<div class="boxWhat">
 									<div class="prod">
 										<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
@@ -120,7 +116,7 @@ Pool is not successful, no one pays a single penny.</p>
 							</div>
 						%endfor
 						%if len(c.product_list)>1:
-							<h6>Edit</h6>
+							<h6>${_("FF_IFRAME_Edit")}</h6>
 							<select id="productSelector" name="productMap">
 								%for p in c.product_list:
 								<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
@@ -133,7 +129,7 @@ Pool is not successful, no one pays a single penny.</p>
 						%endif
 					</div>
 					<div class="generalBoxIframe" style="height:90px" id="selectedReceiverContainer">
-						<h5>Recipient</h5>
+						<h5>${_("FF_IFRAME_Recipient")}</h5>
 						
 						<div id="selectedReceiver" class="floatLeft listSelectedFriends boxWhat">
 							<ul id="network_invitees" class="invited_list">
@@ -144,28 +140,28 @@ Pool is not successful, no one pays a single penny.</p>
 							%endif
 							</ul>
 						</div>
-						<div class="errorMsgIframe large hidden" style="margin-top:10px">Please choose your recipient from the left panel.</div>
+						<div class="errorMsgIframe large hidden" style="margin-top:10px">${_("FF_IFRAME_Please choose your recipient from the left panel.")}</div>
 						<div class="clear"></div>
 					</div>
 					<div id="selectedOccasion">
 						<div class="generalBoxIframe">
-							<label>Occasion: </label><input type="text" name="occasion_name" id="occasion_name" value="${c.values.get("occasion_name")}" readonly="readonly" />
-							<div class="errorMsgIframe hidden">Please choose an occasion from the left panel.</div>
+							<label>${_("FF_IFRAME_Occasion:")}</label> <input type="text" name="occasion_name" id="occasion_name" value="${c.values.get("occasion_name")}" readonly="readonly" />
+							<div class="errorMsgIframe hidden">${_("FF_IFRAME_Please choose an occasion from the left panel.")}</div>
 						</div>
 						<div class="generalBoxIframe">
-							<label>Contribution Deadline: </label><input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:70px" readonly="readonly" />
-							<div class="errorMsgIframe hidden">Please choose a deadline from the left panel.</div>
+							<label>${_("FF_IFRAME_Contribution Deadline:")}</label> <input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:70px" readonly="readonly" />
+							<div class="errorMsgIframe hidden">${_("FF_IFRAME_Please choose a deadline from the left panel.")}</div>
 						</div>
 						<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" readonly="readonly" />
 					</div>
-					<input class="forward floatRight" style="margin-top:20px" type="submit" value="Invite Friends"/>
+					<input class="forward floatRight" style="margin-top:20px" type="submit" value="${_("FF_IFRAME_Invite Friends")}"/>
 					<div class="clear"></div>
 				</div>
 			</div>
 			</form>
 		<div class="colLeftIframe floatLeft">
 			<div id="receiverSelectorContainer" class="floatLeft">
-				<h4 class="errorHook">Choose Your recipient</h4>
+				<h4 class="errorHook">${_("FF_IFRAME_Choose Your recipient")}</h4>
 				<div class="subHeading"></div>
 				<div class="wrapTabs">
 					<div class="tabs"> 
@@ -180,13 +176,13 @@ Pool is not successful, no one pays a single penny.</p>
 			
 		
 			<div id="occasionSelectorContainer" class="errorHook floatLeft">
-				<div class="occasionLabel first">${_("EVENT_PANEL_Choose an occasion:")}</div>
+				<div class="occasionLabel first">${_("FF_IFRAME_Choose an occasion:")}</div>
 				<select id="occasionSelector" _name_target="occasion_name" _key_target="occasion_key">
 					%for occ in c.olist:
 						<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}" 
 								${forms.expression_quote(c.values.get("occasion_key")== occ.key, "selected")|n}>
 							%if occ.custom:
-								${_("EVENT_PANEL_Just because...")}
+								${_("FF_IFRAME_Just because...")}
 							%else:
 								${occ.get_display_name()}
 							%endif
@@ -195,23 +191,23 @@ Pool is not successful, no one pays a single penny.</p>
 				</select>
 		</div>
 		<div id="yourOccasionSelector" class="errorHook floatLeft">
-				<div class="occasionLabel first">... or enter your own occasion</div>
+				<div class="occasionLabel first"></option>${_("FF_IFRAME_... or enter your own occasion")}</div>
 				<input type="text" id="occasionTyper" _target="occasion_name" custom="1" key="EVENT_OTHER" />
 		</div>
 		<div id="contributionDeadline" class="errorHook floatLeft">
-				<div class="occasionLabel first">Contribution Deadline</div>
+				<div class="occasionLabel first">${_("FF_IFRAME_Contribution Deadline")}</div>
 				<input class="small" readonly="readonly" type="text" id="datepicker" value=""/>
 		</div>
 			<div class="footerColSx">
 			<div class="colRightWhite"></div>
 				<div class="floatLeft">
-					<span class="floatLeft">As seen in:</span>
+					<span class="floatLeft">${_("FF_IFRAME_As seen in:")}</span>
 					<div><img src="/static/imgs/Deutsche_Startups_sml.png" /></div>
 					<div><img src="/static/imgs/Zanox_sml.png" /></div>
 					<div><img src="/static/imgs/IWB_sml.png" /></div>
 				</div>
 				<div class="floatRight">
-					<span>You are safe with us</span>
+					<span>${_("FF_IFRAME_You are safe with us")}</span>
 					<div class="floatRight" style="margin-top:0"><img src="/static/imgs/veri-sign.png" /></div>
 				</div>
 				<div class="clear"></div>

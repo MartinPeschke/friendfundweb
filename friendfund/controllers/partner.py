@@ -21,7 +21,7 @@ class PartnerController(BaseController):
 		c.method = c.user.get_current_network() or 'facebook'
 		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		
-		c.values = {}
+		c.values = {"occasion_name":c.olist[0].get_display_name()}
 		c.errors = {}
 		return self.render('/partner/iframe.html')
 	
