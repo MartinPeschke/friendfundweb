@@ -136,6 +136,7 @@
 <div class="wrapSubContent">
 <div class="content">
 	%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
+		<a class="forward" href="${url(controller="pool", action="address", pool_url = c.pool.p_url)}">Edit Shipping Address</a>
 		<div id="adminBox">
 			<% first_visit = c.workflow in ['1', '2'] %>
 			<div class="greyBoxTitle hideable ${first_visit and "hidden" or ""}">
@@ -158,7 +159,7 @@
 				<div class="brd"></div>
 				<div class="floatLeft share">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
-					<p>Share your Pool with friends</p>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Share your Pool with friends")}</p>
 					<div class="addthis_toolbox addthis_default_style">
 					  <a class="addthis_button_facebook"></a>
 					  <a class="addthis_button_twitter"></a>

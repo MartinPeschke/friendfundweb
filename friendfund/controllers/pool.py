@@ -232,3 +232,10 @@ class PoolController(BaseController):
 			g.pool_service.invite_myself(pool_url, c.user)
 			c.messages.append(SuccessMessage(_("FF_POOL_PAGE_You Joined the Pool!")))
 		return redirect(url("get_pool", pool_url=pool_url))
+	@logged_in(ajax=False)
+	@pool_available()
+	def address(self):
+		if not c.pool.am_i_admin(c.user):
+			log.error("POOL_DELETE_NOT_IMPLEMENTED")
+			return redirect(request.referer)
+		return self.render("/pool/address.html")

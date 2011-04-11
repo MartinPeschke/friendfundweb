@@ -41,8 +41,8 @@
 			</a>
 		%endif
 		<div class="rose">
-			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
-			${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
+			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
+			<a class="popuplink" _href="${url(controller="content", action="all_or_nothing", lang=h.get_language_locale())}">${_("FF_Learn More")}</a>
 		</div>
 	</div>
 </%def>

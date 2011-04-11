@@ -1,0 +1,26 @@
+<%inherit file="../layout.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
+
+<%def name="title()">${_("FF_TITLE_Address | %s") % c.pool.title}</%def>
+
+<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
+<div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
+  <div class="subHeader">
+    <div class="userProfile">
+        <div class="nonPoolHeader">
+        <h2>Edit Address</h2>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapSubContent">
+<div class="content">
+	<div class="colLeft">
+		FREAKY!
+	  <div class="clear"></div>
+  </div>
+
+</div>
+</div>
