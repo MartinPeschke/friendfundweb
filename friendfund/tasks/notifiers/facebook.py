@@ -8,7 +8,6 @@ from poster.encode import multipart_encode
 from friendfund.lib import helpers as h
 from friendfund.model.db_access import execute_query
 from friendfund.tasks import data_root, get_db_pool
-from friendfund.tasks.notifiers.facebook_templates import TEMPLATES, STANDARD_PARAMS
 log = logging.getLogger(__name__)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)

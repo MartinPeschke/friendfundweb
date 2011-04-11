@@ -9,7 +9,7 @@ from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains, remove_chars
 from friendfund.model.db_access import SProcException, SProcWarningMessage
-from friendfund.model.pool import Pool, UpdatePoolProc
+from friendfund.model.pool import Pool, UpdatePoolProc, OccasionSearch
 from friendfund.model.product import Product, ProductSearch
 from friendfund.tasks.photo_renderer import UnsupportedFileFormat
 from friendfund.services.amazon_service import AttributeMissingInProductException, NoOffersError, TooManyOffersError, AmazonErrorsOccured
@@ -41,6 +41,9 @@ class ProductController(BaseController):
 			html = render_def("/product/urlparser.html", "renderParser", values = c.parser_values, with_closer = True).strip()
 		return {'success':True, 'html':html}
 	
+	def bouncev2(self):
+		return self.bounce()
+	
 	def bounce(self):
 		query=request.params.get("referer")
 		if not query:
@@ -58,18 +61,15 @@ class ProductController(BaseController):
 		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		
 		c.product_list = g.product_service.get_products_from_open_graph(params, query)
-		if len(c.product_list)<1:
-			abort(404)
+		c.product = c.product_list[0]
 		
-		c.pool = websession.get('pool') or Pool()
-		pool.set_product(c.product_list[0])
-		if len(c.product_list)>1:
-			websession['product_list'] = c.product_list
-		else:
-			c.product_list = []
-		websession['pool'] = c.pool
+		c.method = c.user.get_current_network() or 'facebook'
+		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		
+		c.values = {"occasion_name":c.olist[0].get_display_name()}
+		c.errors = {}
 		return self.render('/partner/iframe.html')
-	
+		
 	def picturepopup(self, pool_url):
 		c.pool = g.dbm.get(Pool, p_url = pool_url)
 		if not c.pool:

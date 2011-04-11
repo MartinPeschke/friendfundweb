@@ -44,11 +44,12 @@ class MyfriendsController(BaseController):
 				friendlist.extend([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
 				c.friends = OrderedDict(friendlist)
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render_def('/invite/inviter.html', "networkinviter",\
-						network_name=c.method, friends = c.friends,  mutuals=c.mutuals, all=c.all, var_show_name= False).strip()}}
+						network_name=c.method, friends = c.friends,  mutuals=c.mutuals, all=c.all, var_show_name = False).strip()}}
 		else:
 			c.friends = {}
 			c.email_errors = {}
 			c.email_values = {}
+			c.submit_name = _("FF_IFRAME_INVITE_EMAIL_BUTTON")
 		return {'html':render('/invite/inviter.html').strip()}
 	
 	@jsonify
@@ -84,8 +85,8 @@ class MyfriendsController(BaseController):
 				invitee['success'] = True
 				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
 				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
-				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable').strip()
-				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter').strip()
+				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable', var_show_name = False).strip()
+				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter', submit_name=_("FF_IFRAME_INVITE_EMAIL_BUTTON")).strip()
 				return {'clearmessage':True, 'data':invitee}
 		elif network == 'yourself' and not c.user.is_anon:
 			data = invitee

@@ -49,15 +49,16 @@
 			</div>
 		<div class="colLeftIframe" id="helpPopupContainer">
 			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
-			<div class="learnMoreBtn" style="margin-top:15px">
+			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1000;"></div>
+			<div class="learnMoreBtn" style="margin-top:15px;z-index:1002;">
 				<span class="helpPopupToggler">${_("FF_IFRAME_BUTTON_Help")}</span>
 				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
-			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}">
+			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1001;">
 					<a href="#" class="helpPopupToggler floatRight"> close <span>X</span></a>
 					<h4>${_("FF_IFRAME_Quick Guide to Creating a Pool")}</h4>
 					<div class="subHeading"></div>
-					<p>Here's how you can create a Group GiftPool and give something extra special without breaking the bank</p>
+					<p>${_("FF_IFRAME_Here's how you can create a Group Gift Pool and give something extra special without breaking the bank")}</p>
 					<ul>
 						<li>
 							<span>1.</span>

@@ -9,7 +9,7 @@
 %elif c.method == 'twitter':
 	${networkinviter("twitter", c.friends, False, c.all)}
 %elif c.method == 'email':
-	${mailinviter()}
+	${mailinviter(getattr(c, "submit_name", None))}
 %endif
 
 <%def name="networkinviter(network_name, friends, mutuals, all, var_show_name = True)">
@@ -57,7 +57,11 @@
 </%def>
 
 
-<%def name="mailinviter()">
+<%def name="mailinviter(submit_name = None)">
+	<% 
+		if submit_name is None:
+			submit_name = _("FF_INVITER_EMAIL_Add to Invitees")
+	%>
 	<form action="" method="POST" id="emailinviter">
 	<div class="arrowSubTab"></div>
 	<div class="firstSpacer floatLeft ${"name" in c.email_errors and "error" or ""}"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label>
@@ -73,7 +77,7 @@
 		%endif
 	</div>
 	<div class="btnContainer">
-		<input type="button" id="emailsubmitter" value="${_("FF_INVITER_EMAIL_Add to Invitees")}" class="primaryButton" />
+		<input type="button" id="emailsubmitter" value="${submit_name}" class="primaryButton" />
 	</div>
 	<input type="hidden" name="invitee.network" value="email"/>
 	<input type="hidden" name="invitee.notification_method" value="email"/>
@@ -81,7 +85,7 @@
 </%def>
 
 
-<%def name="render_email_friends(friends, active = True, class_='selectable')">
+<%def name="render_email_friends(friends, active = True, class_='selectable', var_show_name = True)">
 %for i,(id, user_data) in enumerate(friends.items()):
 	<li title="${user_data["name"]}" class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }"
 			%if active:
@@ -92,6 +96,9 @@
 		<div class="avt">
 			<img src="${user_data["large_profile_picture_url"]}">
 		</div>
+		%if not var_show_name:
+			<p>${user_data["name"]}</p>
+		%endif
 		<input type="hidden" name="invitees" value="${h.encode_minimal_repr(user_data)}"/>
 	</li>
 	%endfor
