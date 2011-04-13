@@ -18,10 +18,10 @@ CELERY_STORE_ERRORS_EVEN_IF_IGNORED = False
 CELERY_IGNORE_RESULT = True
 CELERY_DISABLE_RATE_LIMITS = True
 
-CELERY_QUEUES = {"default_dev": {"exchange": "celeryevent_dev",
+CELERY_QUEUES = {"default_demo": {"exchange": "celeryevent_dev",
 				"binding_key": "celeryevent_dev_demo",
 				"routing_key": "celeryevent_dev_demo"}}
-CELERY_DEFAULT_QUEUE = "default_dev"
+CELERY_DEFAULT_QUEUE = "default_demo"
 
 
 CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
