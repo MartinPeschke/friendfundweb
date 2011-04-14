@@ -161,7 +161,7 @@ FriendFund.Util = {
         return template.replace(/\${([^{}]*)}/g, function (a, b) {
             var r = params[b];
             return typeof r === 'string' || typeof r === 'number' ? r : a;
-        })
+        });
     },
     toQueryString: function (params) {
         var pairs = [];

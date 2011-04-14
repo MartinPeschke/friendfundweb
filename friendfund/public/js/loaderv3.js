@@ -5,7 +5,7 @@ String.prototype.strip = function(char)
     };
 
 protected = function(callback){return function(data){
-	if(data.success){callback(data)} else {};
+	if(data.success){callback(data);} else {}
 };};
 protect = function(callback){ return function(evt){
 	xhrPost("/myprofile/login", {}, protected(callback));
@@ -29,32 +29,32 @@ reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 		dojo.query("input.transp", intermediate_imgid.parentNode).removeClass("transp");
 		dojo.byId("purlSaveButton").onclick = f;
 		} else {
-			alert("Unsupported file type")
+			alert("Unsupported file type");
 		}
 	};
 };
 findParent = function(rootnode, className){
 	if(dojo.hasClass(rootnode, className)){return rootnode;}
 	else if(!dojo.hasClass(rootnode, className)&&rootnode.parentNode){return findParent(rootnode.parentNode, className);}
-	else {return null}
-}
+	else {return null;}
+};
 addClassToParent = function(rootnode, className, addClass){
 	var node = findParent(rootnode, className);
 	if(node){dojo.addClass(node, addClass);}
-}
+};
 remClassFromParent = function(rootnode, className, remClass){
 	var node = findParent(rootnode, className);
 	if(node){dojo.removeClass(node, remClass);}
-}
+};
 displayMessage = alert;
 parseSelectables = function(rootnode, parentClass, selectedName){
-	var parentClass = parentClass||"borderBottom";
-	var selectedName = selectedName||"selected";
+	parentClass = parentClass||"borderBottom";
+	selectedName = selectedName||"selected";
 	var a = function(evt){
-			evt&&addClassToParent(evt.target, parentClass, selectedName);
+			if(evt){addClassToParent(evt.target, parentClass, selectedName);}
 		},
 		r = function(evt){
-			evt&&remClassFromParent(evt.target, parentClass, selectedName);
+			if(evt){remClassFromParent(evt.target, parentClass, selectedName);}
 		};
 	if(dojo.isIE===undefined){
 		dojo.byId(rootnode).addEventListener('focus',a,true);
@@ -86,7 +86,7 @@ parseSimpleEditables = function(rootnode){
 					var evts = [],  _backups = [];
 					var f = function(editevt){
 							var newval=editevt.target.value;
-							if(newval.length==0){return;}
+							if(newval.length===0){return;}
 							dojo.forEach(evts, dojo.disconnect);
 							dojo.addClass(root,'active');
 							field.value = newval;
@@ -153,7 +153,7 @@ displayPopup = function(html){
 	dojo.query(".panelcloser,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
 	popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
 	var i = dojo.query("input", "generic_popup");
-	if(i.length>0){i[0].focus()};
+	if(i.length>0){i[0].focus();}
 };
 loadPopup = function(evt, params){closePopup(evt);xhrPost(dojo.attr(evt.target, "_href"), params || {});};
 clear_messages = function(){destroyPopup("message_container");};
@@ -197,12 +197,12 @@ place_element = function(node, callback){
 	};
 };
 
-ioFrameHandler = function(callback){;
+ioFrameHandler = function(callback){
 	return function(data,xhrobj,evt) {
 		//dojo.query("#dojoIoIframe").orphan();
 		xhrHandler(callback)(data,xhrobj,evt);
-	}
-}
+	};
+};
 
 xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
@@ -213,9 +213,9 @@ xhrHandler = function(callback){
 		if (data.login_panel !== undefined){
 				closePopup();
 				if(dojo.byId("accountcontainer")){dojo.place(data.login_panel, "accountcontainer", "only");}
-				if(data['data'].success){
-					page_reloader()
-				};
+				if(data.data.success){
+					page_reloader();
+				}
 			}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
@@ -325,28 +325,28 @@ twInit = function(furl) {
 var FBSCOPE="user_birthday,friends_birthday,email,publish_stream,create_event";
 fb_handleLogin = function(response){
 	var scope;
-	if(response.perms.match(/^[,a-zA-Z0-9_-]+$/)){
+	if(response.perms.match(/^[,a-zA-Z0-9_\-]+$/)){
 		scope=response.perms.replace(/,/g,"|");
 	}else{
 		var perms = dojo.fromJson(response.perms);
 		var a=[];for(var i in perms){a.push(perms[i].join("|"));}
 		scope = a.join("|");
-	};
+	}
 	var missing_perms = FBSCOPE.replace(new RegExp(scope, "g"), "").strip(",");
-	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response);return false;};
+	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response);return false;}
 	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response);});
 	return true;
 };
 fbLogin = function(response) {
 	FB.Event.unsubscribe('auth.login', fbLogin);
 	if(facebook_tried_loggin_in_already === false){
-		if(response&&response['session']){
+		if(response&&response.session){
 			FB.getLoginStatus(fb_handleLogin);
 		} else {
 			facebook_tried_loggin_in_already = true;
 			setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
 			FB.login(fb_handleLogin, {perms:FBSCOPE});
-		};
+		}
 	}
 };
 fbLogout = function(){
@@ -371,7 +371,7 @@ fbInit = function(app_id) {
 	document.getElementById('fb-root').appendChild(e);
 };
 /*===========================================*/
-var urlmatch = /^(www\.|https?:\/\/)([-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[-a-zA-Z0-9%_\+.,~#&=!;:]*)*(\?[-a-zA-Z0-9%_;:\+,.~#&=!\/]+)*$/i;
+var urlmatch = /^(www\.|https?:\/\/)([\-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[\-a-zA-Z0-9%_\+.,~#&=!;:]*)*(\?[\-a-zA-Z0-9%_;:\+,.~#&=!\/]+)*$/i;
 var picCounter, accepted, _parser_backups, _localhndlrs;
 
 var createAppendPicture = function(imgContainer, imgs, preselected){
@@ -382,7 +382,7 @@ var createAppendPicture = function(imgContainer, imgs, preselected){
 		img.onload = dojo.hitch(null, pic_judger, imgContainer, imgs, preselected);
 		img.src = imgsrc;
 	} else {
-		var imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
+		imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
 		if(imgs.length>1){
 			console.log("DONE!!!!!");
 		}else{
@@ -438,7 +438,7 @@ var slide = function(step, evt){
 };
 
 var urlPEEvents = function(baseRoot, editnode, evt){
-	if(findParent(evt.target, "smallLeft")){slide(-1)}
+	if(findParent(evt.target, "smallLeft")){slide(-1);}
 	else if(findParent(evt.target, "smallRight")){slide(1);}
 	else if(editnode && dojo.hasClass(evt.target, "parsercloser")){resetParser(baseRoot, editnode);}
 };
@@ -455,13 +455,13 @@ var connectURLP = function(baseRoot, editnode){
 
 var resetParser = function(baseRoot, editnode){
 	dojo.empty("homeurlexpander");
-	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem)});
+	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem);});
 	dojo.forEach(_localhndlrs, dojo.disconnect);
-	picCounter = 0; accepted = false; _parser_backups = [], _localhndlrs = [];
+	picCounter = 0; accepted = false; _parser_backups = []; _localhndlrs = [];
 	dojo.query(".hideable", baseRoot).removeClass("hidden");
 	dojo.query("#homeurlexpander").removeClass("home_expander");
 	connectURLParser(baseRoot, editnode);
-}
+};
 
 var loadSuccess = function(baseRoot, editnode, data){
 	dojo.empty("homeurlexpander");
@@ -482,7 +482,7 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 			_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));
 		},
 		parseInput = function(){
-			var found=false
+			var found=false;
 			if(!dojo.hasClass(dn, "default")){
 				var token = dn.value.split(" ");
 				for(var i=0, len = token.length;i<len;i++){
@@ -501,13 +501,13 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 							dojo.xhrPost({url:url, content:extra_params,
 											handleAs: 'json',
 											load:dojo.hitch(null, loadSuccess, baseRoot, editnode),
-											error: function(){resetParser(baseRoot, editnode)}});
+											error: function(){resetParser(baseRoot, editnode);}});
 							found = true;
 							break;
-						};
+						}
 				}
-			};
-			if(!found&&_linkers.length==0){reconnect();}
+			}
+			if(!found&&_linkers.length===0){reconnect();}
 		},
 		parseInputFromEvt = function(evt, ename){
 			if(evt.type==="paste"){
@@ -516,9 +516,23 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 			} else if(!evt.keyCode||(evt.keyCode==32)){
 				dojo.forEach(_linkers, dojo.disconnect);_linkers=[];
 				parseInput();
-			};
+			}
 			return evt;
 		};
 	reconnect();
 	if(parseNow){parseInput(dn);}
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+

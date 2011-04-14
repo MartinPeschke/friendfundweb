@@ -4,7 +4,7 @@ Provides the BaseController class for subclassing.
 """
 import logging, time, urlparse
 from collections import deque
-from pylons import request, session as websession, tmpl_context as c, config, app_globals as g, url
+from pylons import request, response, session as websession, tmpl_context as c, config, app_globals as g, url
 from pylons.controllers.util import abort, redirect
 from pylons.controllers import WSGIController
 from pylons.i18n.translation import get_lang, set_lang, _
@@ -107,6 +107,7 @@ class BaseController(WSGIController):
 	
 	def __after__(self, action, environ):
 		"""When everything is said and done, Save Session State"""
+		response.headers["P3P"] = "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'"
 		websession['user'] = c.user
 		websession['messages'] = c.messages
 		websession.save()
