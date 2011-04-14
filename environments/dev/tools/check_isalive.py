@@ -1,6 +1,6 @@
 import urllib2, urllib, datetime
 
-hosts = ["http://www.friendfund.com", "http://friendfund.com", "https://www.friendfund.com"]
+hosts = ["http://www.friendfund.com", "https://www.friendfund.com"]
 
 for host in hosts:
 	try:

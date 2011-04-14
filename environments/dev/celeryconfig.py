@@ -37,6 +37,6 @@ CELERY_ADDITIONAL_CONFIG="development.ini"
 # but if mostly spending CPU, try to keep it close to the
 # number of CPUs on your machine. If not set, the number of CPUs/cores
 # available will be used.
-CELERYD_CONCURRENCY = 8
+CELERYD_CONCURRENCY = 4
 
 CELERYD_LOG_LEVEL = "DEBUG"
