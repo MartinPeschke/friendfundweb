@@ -42,8 +42,9 @@ def _create_event_oldstyle(access_token, query, image_url, pool_url, config):
 	try:
 		event_id = urllib2.urlopen(req).read()
 	except urllib2.HTTPError, e:
-		log.error( e.fp.read() )
-		raise e
+		error = e.fp.read()
+		log.error( error )
+		raise Exception(error)
 	else:
 		log.info( event_id )
 	send_task('friendfund.tasks.fb.upload_picture_to_event', args = [event_id, access_token, image_url])
@@ -74,9 +75,11 @@ def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 	try:
 		resp = urllib2.urlopen('https://api.facebook.com/method/events.invite', urllib.urlencode(msg)).read()
 	except urllib2.HTTPError, e:
-		resp = e.fp
+		error = e.fp.read()
+		log.error( error )
+		raise Exception(error)
 	if resp not in ['true','false']:
-		raise InvalidAccessTokenException(resp)
+		raise InvalidAccessTokenException("FACEBOOK_REPLY_NOT_EXPECTED, expected (true|false) got:(%s)"%resp)
 	return str(event_id)
 
 

@@ -11,8 +11,17 @@ Schaue dir den Geschenkpool hier an: <http://${data['merchant_domain']}/pool/${d
 Vielen Dank,   
 ${data['invitor_name']}  
 
+%if data['merchant_is_default']:   
 <${data['DEFAULT_BASE_URL']}>  
+Collect money with friends. Create a pool. Chip in. friendfund it! 
+
+%else:  
+@${data['merchant_name']} in Kooperation mit friendfund   
+<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>  
+<${data['DEFAULT_BASE_URL']}>    
 Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+%endif   
+
 
 <%def name="subject()">${data['pool_title']}: friendfund Einladung.</%def>  
 

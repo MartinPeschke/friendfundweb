@@ -92,6 +92,7 @@ class PoolService(object):
 		
 		receiver.is_receiver = True
 		pool.participants.append(receiver)
+		remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in pool.participants])
 		return self._post_process(pool)
 	
 	def create_group_gift(self):

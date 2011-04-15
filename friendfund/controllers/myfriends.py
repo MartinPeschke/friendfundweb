@@ -31,9 +31,9 @@ class MyfriendsController(BaseController):
 				friends, is_complete, offset = c.user.get_friends(c.method)
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/fb_login.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render_def('/invite/fb_login.html', 'renderLogin', label=_("FF_Choose your recipient from Facebook")).strip()}}
 				else: 
-					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render_def('/invite/tw_login.html', 'renderLogin', label=_("FF_Choose your recipient from Twitter")).strip()}}
 			else:
 				if c.method == c.user.network:
 					usermap = c.user.to_map()
