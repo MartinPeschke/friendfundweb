@@ -1,4 +1,7 @@
 <%inherit file="master.html"/>
+<%! 
+	from babel import Locale
+%>
 
 <div id="wrap">
 	<div class="wrapHeader">
@@ -18,6 +21,7 @@
 </div>
 <%
 	lang = h.get_language_locale()
+	locale = Locale.parse(lang)
 %>
 
 <div class="wrapFooter">
@@ -57,14 +61,14 @@
 								<div class="showHide">
 									<div class="widthGiver">
 										<div>
-											%for locale, langname in sorted(app_globals.LANGUAGES.iteritems()):
-												%if locale != lang:
-													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale}">${_(langname)}</a>
+											%for locale_code in app_globals.LANGUAGES:
+												%if locale_code != lang:
+													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale_code}">${locale.languages.get(locale_code)}</a>
 												%endif
 											%endfor
 										</div>
 									</div>
-									<span>${_(app_globals.LANGUAGES.get(lang))}</span>
+									<span>${locale.languages.get(lang)}</span>
 									
 								</div>
 							</div>

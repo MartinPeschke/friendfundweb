@@ -1,7 +1,9 @@
 import logging, md5
-from pylons import app_globals as g, request, config
+from pylons import app_globals, request, config
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
 from friendfund.model.pool import PoolStub, Pool
+
+from friendfund.services.static_service import StaticService
 
 from friendfund.lib import helpers as h, fb_helper, tw_helper
 
@@ -22,7 +24,7 @@ class OtherUserData(DBMappedObject):
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'email','email')
-				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = h.get_default_user_picture_token())
+				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = StaticService.DEFAULT_USER_PICTURE_TOKEN)
 				,GenericAttrib(unicode,'pwd','pwd')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(unicode,'first_name','first_name')
@@ -149,8 +151,8 @@ class User(ProtoUser):
 			try:
 				fb_data = fb_helper.get_user_from_cookie(
 							request.cookies, 
-							g.FbApiKey, 
-							g.FbApiSecret.__call__()
+							app_globals.FbApiKey, 
+							app_globals.FbApiSecret.__call__()
 						)
 			except fb_helper.FBNotLoggedInException, e:
 				raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
@@ -159,7 +161,7 @@ class User(ProtoUser):
 				self.networks['facebook'].access_token_secret = fb_data['session_key']
 				friends = fb_helper.get_friends_from_cache(
 								log, 
-								g.cache_pool, 
+								app_globals.cache_pool, 
 								self.networks['facebook'].network_id, 
 								self.networks['facebook'].access_token, 
 								friend_id=friend_id
@@ -167,7 +169,7 @@ class User(ProtoUser):
 		elif network == 'twitter':
 			friends, is_complete, offset = tw_helper.get_friends_from_cache(
 								log, 
-								g.cache_pool, 
+								app_globals.cache_pool, 
 								self.networks['twitter'].access_token, 
 								self.networks['twitter'].access_token_secret, 
 								config,
@@ -223,11 +225,11 @@ class User(ProtoUser):
 			log.warning("EXTERNAL_USER_PICTURE <%s>", self.profile_picture_url)
 			self.failover_pic = self.profile_picture_url
 			self.profile_picture_url = h.get_upload_pic_name(md5.new(self.profile_picture_url).hexdigest())
-	def get_profile_pic(self, type="PROFILE_S"):
-		return h.get_user_picture(self.profile_picture_url, type)
-	def get_failover(self, type="PROFILE_S"):
+	def get_profile_pic(self, type="PROFILE_S", secured = False):
+		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+	def get_failover(self, type="PROFILE_S", secured = False):
 		if getattr(self, "failover_pic", False):
-			return 'onerror="this.src=\'%s\';"' % h.get_user_picture(self.failover_pic, type)
+			return 'onerror="this.src=\'%s\';"' % app_globals.statics.get_user_picture(self.failover_pic, type, secured = secured)
 		else: return ''
 
 class CreateEmailUserProc(DBMappedObject):
@@ -239,7 +241,7 @@ class CreateEmailUserProc(DBMappedObject):
 				,GenericAttrib(str,'email','email')
 				,GenericAttrib(str,'locale','locale')
 				,GenericAttrib(unicode,'pwd','pwd')
-				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = h.get_default_user_picture_token())]
+				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = StaticService.DEFAULT_USER_PICTURE_TOKEN)]
 	
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"

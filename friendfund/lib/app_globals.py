@@ -13,6 +13,7 @@ from friendfund.services.amazon_service import AmazonService
 from friendfund.services.product_service import ProductService
 from friendfund.services.user_service import UserService
 from friendfund.services.pool_service import PoolService
+from friendfund.services.static_service import StaticService
 
 from friendfund.lib.payment import PaymentFactory
 
@@ -47,8 +48,7 @@ class Globals(object):
 		self.TwitterApiKey = app_conf['twitterapikey']
 		self.TwitterApiSecret = app_conf['twitterapisecret']
 		
-		self.locales = app_conf['available_locales'].lower().split(',')
-		self.LANGUAGES = {"en_gb":_("English"), "es_es":_("Spanish"), "de_de":_("German")} # , "it_it":_("Italian")
+		self.LANGUAGES = app_conf['available_locales'].split(",")
 		
 		self.debug = config['debug']
 		self.test = config['test'] == 'true'
@@ -128,3 +128,7 @@ class Globals(object):
 		
 		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices)
 		log.info("ProductService set up")
+		
+		
+		self.statics = StaticService(app_conf['static.servers'],app_conf['static.ssl.servers'])
+		

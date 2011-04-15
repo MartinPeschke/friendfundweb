@@ -8,6 +8,7 @@ from friendfund.model import db_access
 from friendfund.model.async.profile_picture_render import AddRenderedProfilePictureProc
 from friendfund.model.async.product_picture_render import AddRenderedProductPictureProc
 from friendfund.model.async.pool_picture_render import PoolPictureUsersProc, AddRenderedPoolPictureProc
+from friendfund.services.static_service import StaticService
 from friendfund.tasks import config, get_dbm\
 		, upload_uimg_folder\
 		, upload_pimg_folder\
@@ -30,6 +31,11 @@ PROFILE_PIC_FORMATS = [('RA', (120,120))
 
 PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (140,140)), ('MYPOOLS', (153,114)), ('FF_POOLS', (190,150)), ('FF_POOL_PIC_S', (60,50))]
 POOL_PIC_FORMATS = [('RA', (161,120), (4, 12)), ('MYPOOLS', (120,79), (3, 6))]
+
+
+STATIC_SERVICE = StaticService(config['static.servers'],config['static.servers'])
+
+
 
 class UnexpectedFileNameFormat(Exception):
 	pass
@@ -269,7 +275,7 @@ def remote_pool_picture_render(pool_url):
 						,'panels_no' :panels_no}
 		
 		for i, user in enumerate(pool_users.users):
-			profile_pic_url = h.get_user_picture(user.profile_picture_url, "PROFILE_S", site_root = config['site_root_url'])
+			profile_pic_url = STATIC_SERVICE.get_user_picture(user.profile_picture_url, "PROFILE_S")
 			try:
 				tmpfile = StringIO.StringIO(urllib2.urlopen(profile_pic_url).read())
 			except urllib2.HTTPError, e:

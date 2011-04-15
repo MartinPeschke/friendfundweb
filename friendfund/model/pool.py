@@ -2,13 +2,13 @@ import simplejson, logging, itertools, formencode, md5, random, operator, markdo
 
 from datetime import datetime, timedelta, date
 
+from pylons import session as websession, app_globals, request
+from pylons.i18n import _
 from friendfund.lib import helpers as h, tools
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
 from friendfund.model.product import Product, DisplayProduct
 from friendfund.tasks.photo_renderer import remote_product_picture_render
-from pylons.i18n import _
 
-from pylons import session as websession, app_globals as g, request
 strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 
 log = logging.getLogger(__name__)
@@ -31,8 +31,8 @@ class PoolComment(DBMappedObject):
 				,GenericAttrib(unicode,'profile_picture_url','profile_picture_url')
 				,GenericAttrib(int,'recency','recency')
 			]
-	def get_profile_pic(self, type="PROFILE_M"):
-		return h.get_user_picture(self.profile_picture_url, type)
+	def get_profile_pic(self, type="PROFILE_M", secured = False):
+		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 	def get_profile_s_pic(self):
 		return self.get_profile_pic(type="PROFILE_S")
 	profile_s_pic = property(get_profile_s_pic)
@@ -205,8 +205,8 @@ class PoolUser(DBMappedObject):
 		else:
 			return self.name
 	
-	def get_profile_pic(self, type="PROFILE_M"):
-		img = h.get_user_picture(self.profile_picture_url, type)
+	def get_profile_pic(self, type="PROFILE_M", secured = False):
+		img = app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 		return img
 	def get_profile_s_pic(self):
 		return self.get_profile_pic(type="PROFILE_S")
@@ -493,8 +493,8 @@ class ECardContributors(DBMappedObject):
 			, GenericAttrib(unicode,'picture','picture')
 			, GenericAttrib(unicode,'co_message','co_message')
 			, GenericAttrib(int,'amount','amount')]
-	def get_profile_pic(self, type="PROFILE_M"):
-		return h.get_user_picture(self.picture, type)
+	def get_profile_pic(self, type="PROFILE_M", secured = False):
+		return app_globals.statics.get_user_picture(self.picture, type, secured = secured)
 	def get_amount_float(self):
 		try:
 			return float(self.amount)/100

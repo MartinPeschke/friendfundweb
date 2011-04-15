@@ -11,6 +11,16 @@ CONNECT_METHODS = 'twitter|facebook|email|yourself'
 VERBS = "e|d"
 purlpattern = '[.0-9a-zA-Z~_-]+'
 languagespattern = "[a-zA-Z]{2}[_-][a-zA-Z]{2}"
+from babel import parse_locale
+
+def language_acceptor(environ, result):
+	print environ
+	try:
+		parse_locale(result.get("lang"))
+		return True
+	except:
+		return False
+
 
 def make_map(config):
 	"""Create, configure and return the routes Mapper"""
@@ -24,10 +34,6 @@ def make_map(config):
 	map.connect('/error/{action}/{id}', controller='error')
 
 	# CUSTOM ROUTES HERE
-	
-	
-	
-	map.connect('content'       , '/{lang}/content/{action}', controller='content', requirements={'lang': languagespattern})
 	
 	
 	map.connect('clean_session'       , '/pool/start', controller='pool', action='reset')
@@ -60,10 +66,14 @@ def make_map(config):
 	map.connect('/{controller}/{action}')
 	map.connect('/{controller}/{action}/{id}')
 	
+	
 	map.connect('sitemap', '/sitemap.xml', controller='index', action="sitemap")
 	
 	map.connect('ctrlpoolindex', '/{controller}/{pool_url}', action='index')
 	map.connect('controller', '/{controller}', action='index')
 	map.connect('index', '/{action}', controller='index')
 	map.connect('home', '/', controller='index', action='index')
+	
+	map.connect('content', '/{lang}/content/{action}', controller='content', conditions={'function': language_acceptor})
+	
 	return map

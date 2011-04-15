@@ -135,7 +135,7 @@ def poll_message_queue(config, debug, merchant_config, jobpool, available_langs,
 			if ivts_data:
 				template_data['invitee_list']=ivts_data
 			
-			locale = h.negotiate_locale_from_header([meta_data.get('locale', "en_GB")], available_langs)
+			locale = h.negotiate_locale([meta_data.get('locale', "en_GB")], available_langs)
 			try:
 				file_no = meta_data['file_no']
 				template_data = localize(template_data, locale)

@@ -53,10 +53,9 @@ def provide_lang():
 		pylons = get_pylons(args)
 		environ = pylons.request.environ
 		routing = environ['wsgiorg.routing_args'][1]
-		lang = routing.get('lang')
-		locales = pylons.app_globals.locales
-		if not lang or lang not in locales:
-			lang = h.negotiate_locale_from_header(pylons.request.accept_language.best_matches(), locales)
+		locales = pylons.app_globals.LANGUAGES
+		lang = h.negotiate_locale([routing.get('lang')], locales)
+		if lang != routing.get('lang'):
 			return redirect(url(routing['controller'], action = routing['action'], lang = lang))
 		else:
 			set_lang(lang)

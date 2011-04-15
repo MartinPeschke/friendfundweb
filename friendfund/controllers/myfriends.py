@@ -3,7 +3,7 @@ from cgi import FieldStorage
 from formencode.variabledecode import variable_decode
 from ordereddict import OrderedDict
 
-from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals as g, cache
+from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals, cache
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 
@@ -83,8 +83,8 @@ class MyfriendsController(BaseController):
 			else:
 				c.method = 'email'
 				invitee['success'] = True
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics.get_default_user_picture("PROFILE_S"))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics.get_default_user_picture("POOL"))
 				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable', var_show_name = False).strip()
 				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter', submit_name=_("FF_IFRAME_INVITE_EMAIL_BUTTON")).strip()
 				return {'clearmessage':True, 'data':invitee}

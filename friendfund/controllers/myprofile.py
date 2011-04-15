@@ -301,9 +301,7 @@ class MyprofileController(BaseController):
 	def set_lang(self):
 		if not isinstance(request.referer, basestring):
 			abort(404)
-		lang = h.normalize_locale(request.params.get('lang', ''))
-		if lang not in g.locales:
-			abort(404)
+		lang = h.negotiate_locale([request.params.get('lang', '')], g.LANGUAGES)
 		if websession['lang'] == lang:
 			return redirect(request.referer)
 		else:

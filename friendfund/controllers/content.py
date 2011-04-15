@@ -7,23 +7,11 @@ from webhelpers.html import escape
 from friendfund.lib.auth.decorators import default_domain_only, provide_lang
 from friendfund.lib.base import BaseController, render, _, SuccessMessage, set_lang
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.helpers import negotiate_locale_from_header
 from friendfund.model.forms.contact import ContactForm
 from friendfund.tasks.notifiers.email import send_email
 log = logging.getLogger(__name__)
 
 class ContentController(BaseController):
-	
-	# def __before__(self, action, environ):
-		# super(ContentController, self).__before__(action, environ)
-		# routing = environ['wsgiorg.routing_args'][1]
-		# lang = routing.get('lang')
-		# if not lang or lang not in g.locales:
-			# lang = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
-			# return redirect(url(routing['controller'], action = routing['action'], lang = lang))
-		# else:
-			# set_lang(lang)
-		
 	@jsonify
 	def amazonhowto(self):
 		return {"popup":render("/content/popups/amazon.html").strip()}

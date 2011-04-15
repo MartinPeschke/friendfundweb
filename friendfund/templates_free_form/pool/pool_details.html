@@ -124,9 +124,10 @@
 			
 			
 				<div class="first" style="margin-top:7px;"><span>${_("FF_POOLDETAILS_We Need")}</span>
-					<span class="editable active" _elem="currency" _value="${c.values['currency']}">${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/></span>
-					
-					<span class="link editSmall editCurr">Edit Currency</span>
+					<span class="editable active" _elem="currency" _value="${c.values['currency']}">
+						${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/>
+						<span class="link editSmall editCurr">${_("FF_POOLDETAILS_Edit Currency")}</span>
+					</span>
 				</div>
 				<div class="greyInside" style="width:516px">
 					<span class="darkGrey floatRight">${_("FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT")|n}</span>
@@ -136,7 +137,7 @@
 						<div class="editorCtn">
 							<div class="simpleeditable active mainValue">${c.values['amount']}
 								<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
-								<span  class="link editSmall">${_("FF_Edit")}</span>
+								<span class="link editSmall">${_("FF_Edit")}</span>
 							</div>
 						</div>
 					%endif
@@ -168,7 +169,7 @@
 						<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
 					%else:
 						<div class="simpleeditable active mainValue">${h.word_truncate_by_letters(c.values['title'], 60)}
-							<input _type="INPUT" type="hidden" class="default" value="${c.values['title']}" _length="60"  name="title" id="titleInput" />
+							<input _type="INPUT" type="hidden" class="default" value="${c.values['title']}" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" _length="60"  name="title" id="titleInput" />
 							<span  class="link editSmall">${_("FF_Edit")}</span>
 						</div>
 					%endif
@@ -210,7 +211,7 @@
 					<div class="first">
 						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
 					</div>
-					<div id="homeurlexpander" class="home_expander">
+					<div id="homeurlexpander">
 						<div class="tip">
 							<div class="arrow"></div>
 							<span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span>

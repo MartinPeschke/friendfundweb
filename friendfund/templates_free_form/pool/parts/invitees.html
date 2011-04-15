@@ -14,7 +14,7 @@
 			%if invitee.contributed_amount:
 				<div class="checked"><img src="/static/imgs/checked.png" /></div>
 			%endif
-			<img src="${invitee.get_profile_pic('PROFILE_S')}" alt="${invitee.get_invitee_label(pool_currency)}" width="48px" height="48px" />
+			<img src="${invitee.get_profile_pic('PROFILE_S', secured = request.is_secured)}" alt="${invitee.get_invitee_label(pool_currency)}" width="48px" height="48px" />
 		</div>
 	</li>
 </%def>

@@ -10,7 +10,6 @@ from friendfund.lib.tools import *
 import itertools
 
 POOL_STATIC_ROOT = '/s/pool'
-PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
 ACTION_PIC_STATIC_ROOT = '/static/imgs'
 
@@ -45,24 +44,6 @@ def get_pool_picture(pool_pic_url, type, ext="png"):
 
 def url_is_local(url):
 	return not url.startswith('http')
-
-def get_default_user_picture_token():
-	return "DEFAULT_USER_PICTURE"
-
-def get_user_picture(profile_picture_url, type, ext="jpg", site_root = ''):
-	static_root = PROFILE_STATIC_ROOT
-	if not isinstance(profile_picture_url, basestring) or not profile_picture_url or profile_picture_url == "DEFAULT_USER_PICTURE": 
-		return '%(site_root)s/static/imgs/default_user_PROFILE_M.png'%locals()
-	elif isinstance(profile_picture_url, basestring):
-		if profile_picture_url.startswith('/'):
-			return '%(site_root)s%(profile_picture_url)s'%locals()
-		elif profile_picture_url.startswith('http'):
-			return profile_picture_url
-		else:
-			return ('%(site_root)s%(static_root)s/%(profile_picture_url)s_%(type)s.%(ext)s'%locals())
-	else:
-		return None
-
 
 def get_default_product_picture_token():
 	return "DEFAULT_PRODUCT_PICTURE"

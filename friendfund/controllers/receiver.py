@@ -1,6 +1,6 @@
 import logging, formencode, datetime
 
-from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals as g, cache
+from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals, cache
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 from cgi import FieldStorage
@@ -44,7 +44,7 @@ class ReceiverController(BaseController):
 			except formencode.validators.Invalid, error:
 				log.warning("Set Birthday failed, unrecognized format: %s", dob)
 			else:
-				olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+				olist = app_globals.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 				bday = filter(lambda x:x.key == 'EVENT_BIRTHDAY', olist)
 				if dob and len(bday):
 					bday = bday[0]
@@ -117,8 +117,8 @@ class ReceiverController(BaseController):
 				if not invitee.get('name'):
 					return {'data':{'success':False, 'message':'<span>%s</span>' % _("Please input a name")}}
 				c.method = 'email'
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_user_picture(None, "PROFILE_S", ext="png", site_root=request.qualified_host))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url', h.get_user_picture(None, "POOL", ext="png", site_root=request.qualified_host))
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics.get_default_user_picture("PROFILE_S"))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics.get_default_user_picture("POOL"))
 				c.invitees = {network_id:invitee}
 				data = invitee
 				data['success'] = True

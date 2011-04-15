@@ -7,6 +7,7 @@
 	%endfor
 	</select>
 %else:
-	${h.display_currency(c.currency)}
-	<input type="hidden" name="currency" value="${c.currency}"/>
+		${h.display_currency(c.currency)}
+		<input type="hidden" name="currency" value="${c.currency}"/>
+		<span class="link editSmall editCurr">${_("FF_POOLDETAILS_Edit Currency")}</span>
 %endif

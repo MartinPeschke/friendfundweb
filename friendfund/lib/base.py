@@ -15,7 +15,7 @@ from friendfund.model.authuser import ANONUSER
 from friendfund.model.db_access import SProcException
 from friendfund.model.pool import Pool
 
-from friendfund.lib.helpers import negotiate_locale_from_header
+from friendfund.lib.helpers import negotiate_locale, normalize_locale
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
 
 log = logging.getLogger(__name__)
@@ -101,8 +101,8 @@ class BaseController(WSGIController):
 		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], request.headers.get('Host'), url.current())
 		
-		if 'lang' not in websession or websession['lang'] not in g.locales:
-			websession['lang'] = negotiate_locale_from_header(request.accept_language.best_matches(), g.locales)
+		if 'lang' not in websession or websession['lang'] not in g.LANGUAGES:
+			websession['lang'] = negotiate_locale(request.accept_language.best_matches(), g.LANGUAGES)
 		set_lang(websession['lang'])
 	
 	def __after__(self, action, environ):

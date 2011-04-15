@@ -1,7 +1,7 @@
 import os
 from gettext import NullTranslations, translation
 import pylons
-from babel import negotiate_locale
+from babel import negotiate_locale as nl
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
 from babel.dates import format_date as fdate, format_datetime as fdatetime
 from decimal import Decimal
@@ -63,13 +63,9 @@ def set_lang(lang, **kwargs):
 	environ['pylons.pylons'].translator = translator
 	if 'paste.registry' in environ:
 		environ['paste.registry'].replace(pylons.translator, translator)
-		
-locale_transl = {"en_us":"en_gb"}
+	
+	
 def get_language_locale():
-	lang = get_language()
-	return locale_transl.get(lang, lang)
-
-def get_language():
 	lang = get_lang()
 	if isinstance(lang, basestring):
 		return lang
@@ -85,11 +81,10 @@ def get_format(locale):
 	format = locale.currency_formats.get(None)
 	return format
 def normalize_locale(loc):
-	return unicode(loc).lower().replace('-', '_')
-def negotiate_locale_from_header(accept_langs, available_languages):
-	"""negotiate_locale_from_header(['de-de', 'de', 'en-us', 'en'], ['en_US', 'en_GB', 'es_ES', 'de_DE'] )=='de-de'"""
-	langs = map(lambda x: x.replace('-', '_'), accept_langs)
-	return normalize_locale(negotiate_locale(langs, available_languages, sep="_", aliases={"gb":"en-GB"}) or available_languages[0])
+	return unicode(loc).replace('-', '_')
+def negotiate_locale(accept_langs, available_languages):
+	langs = map(normalize_locale, accept_langs)
+	return nl(langs, available_languages, sep="_")
 
 
 def format_int_amount(number):

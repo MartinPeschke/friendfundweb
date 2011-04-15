@@ -2,7 +2,7 @@ import logging, urllib, urllib2, simplejson, formencode, datetime, types
 from collections import deque
 from ordereddict import OrderedDict
 
-from pylons import request, response, tmpl_context as c, url, app_globals as g, cache, session as websession
+from pylons import request, response, tmpl_context as c, url, app_globals, cache, session as websession
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify, PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper, helpers as h
@@ -46,7 +46,7 @@ class InviteController(BaseController):
 		c.all = True
 		if method in ['facebook', 'twitter']:
 			pv =  request.params.getall('pv')
-			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method)
+			already_invited = app_globals.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method)
 			already_invited.idset = already_invited.idset.union(pv)
 			
 			try:
@@ -77,7 +77,7 @@ class InviteController(BaseController):
 		if method in ['twitter']:
 			c.method = str(method)
 			pv =  request.params.getall('pv')
-			already_invited = g.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
+			already_invited = app_globals.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
 			already_invited = already_invited.union(pv)
 			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
@@ -116,14 +116,14 @@ class InviteController(BaseController):
 				return self._return_to_input(invitees)
 		
 		if invitees:
-			invittes_proc_result = g.dbm.set(AddInviteesProc(p_url = c.pool.p_url
+			invittes_proc_result = app_globals.dbm.set(AddInviteesProc(p_url = c.pool.p_url
 							, event_id = c.pool.event_id
 							, inviter_user_id = c.user.u_id
 							, users=[PoolInvitee.fromMap(el) for el in invitees]
 							, subject = request.params.get('subject')
 							, message = request.params.get('message')
 							, is_secret = c.pool.is_secret))
-			g.dbm.expire(Pool(p_url = c.pool.p_url))
+			app_globals.dbm.expire(Pool(p_url = c.pool.p_url))
 			tasks = deque()
 			for i in invitees:
 				if i['network'] != 'email':
@@ -168,8 +168,8 @@ class InviteController(BaseController):
 			else:
 				c.method = 'email'
 				invitee['success'] = True
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', h.get_default_user_picture_token())
-				invitee['large_profile_picture_url'] = h.get_user_picture(invitee['profile_picture_url'], "PROFILE_S", ext="png", site_root=request.qualified_host)
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics.get_default_user_picture_token())
+				invitee['large_profile_picture_url'] = app_globals.statics.get_user_picture(invitee['profile_picture_url'], "PROFILE_S")
 				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable').strip()
 				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter').strip()
 				return {'clearmessage':True, 'data':invitee}

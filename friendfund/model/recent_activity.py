@@ -1,6 +1,7 @@
 import uuid, random, logging
 from pylons.i18n import ugettext as _
 
+from pylons import app_globals
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
 
@@ -47,13 +48,13 @@ class RecentActivityEntry(DBMappedObject):
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.pool_picture_url, type)
 	
-	def get_profile_pic(self, type="RA"):
-		return h.get_user_picture(self.profile_picture_url, type)
+	def get_profile_pic(self, type="RA", secured = False):
+		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 	get_receiver_profile_pic = get_profile_pic
-	def get_friend_profile_pic(self, type="RA"):
-		return h.get_user_picture(self.friend_profile_picture, type)
-	def get_product_pic(self, type="RA"):
-		return h.get_product_picture(self.product_picture_url, type)
+	def get_friend_profile_pic(self, type="RA", secured = False):
+		return app_globals.statics.get_user_picture(self.friend_profile_picture, type, secured = secured)
+	def get_product_pic(self, type="RA", secured = False):
+		return h.get_product_picture(self.product_picture_url, type, secured = secured)
 	
 	def get_amount_float(self):
 		return float(self.amount + (self.shipping_cost or 0))/100

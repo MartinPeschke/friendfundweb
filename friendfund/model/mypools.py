@@ -12,8 +12,8 @@ class PoolFriend(DBMappedObject):
 	_set_proc = _get_proc = None
 	_set_root = _get_root = "FRIEND"
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id'), GenericAttrib(unicode, 'name', 'name'), GenericAttrib(unicode, 'picture', 'picture') ]
-	def get_profile_pic(self, type="PROFILE_M"):
-		return h.get_user_picture(self.picture, type)
+	def get_profile_pic(self, type="PROFILE_M", secured = False):
+		return app_globals.statics.get_user_picture(self.picture, type, secured = secured)
 
 
 class MyPoolEntry(DBMappedObject):
@@ -58,10 +58,10 @@ class MyPoolEntry(DBMappedObject):
 	def get_pool_picture(self, type = "RA"):
 		return h.get_pool_picture(self.pool_picture_url, type)
 	
-	def get_receiver_profile_pic(self, type="RA"):
-		return h.get_user_picture(self.profile_picture_url, type)
-	def get_invitor_profile_pic(self, type="RA"):
-		return h.get_user_picture(self.invitor_picture, type)
+	def get_receiver_profile_pic(self, type="RA", secured = False):
+		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+	def get_invitor_profile_pic(self, type="RA", secured = False):
+		return app_globals.statics.get_user_picture(self.invitor_picture, type, secured = secured)
 	def get_product_pic(self, type="RA"):
 		return h.get_product_picture(self.product_picture_url, type)
 	

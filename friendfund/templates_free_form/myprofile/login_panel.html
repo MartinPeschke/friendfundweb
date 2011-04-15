@@ -83,7 +83,7 @@
 		document.getElementById("loginlink").onclick = toggleLoginPanel;
 		</script>
 	%else:
-		<img src="${c.user.get_profile_pic()}" ${c.user.get_failover()|n} width="25px" height="25px" />
+		<img src="${c.user.get_profile_pic(secured = request.is_secured)}" ${c.user.get_failover(secured = request.is_secured)|n} width="25px" height="25px" />
 		<div class="showHide">
 			<span>${c.user.name or c.user.default_email}</span>
 			<div class="widthGiver">
