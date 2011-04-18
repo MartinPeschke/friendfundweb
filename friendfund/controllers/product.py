@@ -82,14 +82,17 @@ class ProductController(BaseController):
 		if pool_picture is None:
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({'popup':render('/product/picturepopup.html').strip()})
-		
-		picture_url = g.pool_service.save_pool_picture(pool_picture)
-		updater = UpdatePoolProc(p_url = c.pool.p_url)
-		updater.product = c.pool.product or Product()
-		updater.product.picture = picture_url
-		g.dbm.set(updater)
-		g.dbm.expire(Pool(p_url = c.pool.p_url))
-		c.pool = updater
+		try:
+			picture_url = g.pool_service.save_pool_picture(pool_picture)
+			updater = UpdatePoolProc(p_url = c.pool.p_url)
+			updater.product = c.pool.product or Product()
+			updater.product.picture = picture_url
+			g.dbm.set(updater)
+			g.dbm.expire(Pool(p_url = c.pool.p_url))
+			c.pool = updater
+		except Exception, e:
+			log.error(e)
+			return '<html><body><textarea>{"message":%s}</textarea></body></html>' % _("FF_PICTUREUPLOAD_Some Error occured, please try again")
 		return '<html><body><textarea>{"reload":true}</textarea></body></html>'
 	
 	def ulpicture(self):

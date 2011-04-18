@@ -19,7 +19,8 @@ class GetCountryProc(DBMappedObject):
 	_no_params = True
 	_get_root = None
 	_get_proc = _set_proc = 'app.get_country'
-	_keys = [	 DBMapper(DBCountry ,'list', 'COUNTRY', is_list = True)
+	_keys = [
+				DBMapper(DBCountry ,'list', 'COUNTRY', is_list = True)
 			]
 	def fromDB(self, xml):
 		self.list = [c.name for c in self.list]
@@ -117,6 +118,15 @@ class MerchantLink(DBMappedObject):
 				,GenericAttrib(str,'home_page','home_page')
 				,DBMapper(MerchantSettlement,'settlement_options','SETTLEMENT', is_list = True)
 			]
+	def get_logo_url(self, secured = False):
+		host = self.domain
+		if secured:
+			protocol = "http://"
+		else:
+			protocol = "https://"
+		return "%(protocol)s%(host)s/custom/imgs/logo.png" % locals()
+		
+		
 	def fromDB(self, xml):
 		setattr(self, 'type_is_free_form', self.pool_type=="FREE_FORM")
 		setattr(self, 'type_is_group_gift', self.pool_type=="GROUP_GIFT")

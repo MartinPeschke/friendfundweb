@@ -1,4 +1,5 @@
 <%namespace name="links" file="/widgets/links.html"/>
+<%namespace name="tracking" file="/widgets/tracking.html"/>
 ${self.render_html()}
 
 <%def name="render_html()">
@@ -26,8 +27,6 @@ ${self.render_html()}
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
 		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
-
-		
 </%def>
 
 <%def name="render_foot_scripts()">
@@ -38,6 +37,7 @@ ${self.render_html()}
 	<div id="fb-root"></div>
 	<script type="text/javascript"> 
 		${self.page_reloader()|n}
+		${self.go_to_activity_stream()|n}
 	</script>
 	${self.scripts()}
 	<script type="text/javascript">
@@ -47,22 +47,20 @@ ${self.render_html()}
 		});
 	</script>
 	${self.user_voice()|n}
-	${self.google_analytics()|n}
-<script type="text/javascript">var _sf_async_config={uid:22344,domain:"friendfund.com"};(function(){  function loadChartbeat() {window._sf_endpt=(new Date()).getTime();var e = document.createElement('script');e.setAttribute('language', 'javascript');e.setAttribute('type', 'text/javascript');e.setAttribute('src',(("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") + "js/chartbeat.js");document.body.appendChild(e);}; var oldonload = window.onload; window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };})();</script>
+	${tracking.renderAll(app_globals.debug)|n}
 </%def>
 
 
 
 <%def name="page_reloader()">page_reloader = function(){};</%def>
+<%def name="go_to_activity_stream()">go_to_activity_stream = function(){};</%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="fb_meta_tags()"></%def>
 <%def name="scripts_styles()"></%def>
 <%def name="scripts()"></%def>
 <%def name="onloadscripts()"></%def>
-<%def name="google_analytics()">
-	<%include file="widgets/ganalytics.html"/>
-</%def>
+
 <%def name="user_voice()">
 <script type="text/javascript">
 		var uservoiceOptions = {

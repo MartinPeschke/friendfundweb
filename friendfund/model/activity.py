@@ -23,11 +23,11 @@ class PoolEventUser(DBMappedObject):
 	_set_root = _get_root = "INVITEE"
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id'), GenericAttrib(unicode, 'name', 'name'), GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url') ]
 	def get_profile_pic(self, type="PROFILE_M", secured = False):
-		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 
 class EventType(DBMappedObject):
 	def get_actor_profile_pic(self, type="PROFILE_M", secured = False):
-		return app_globals.statics.get_user_picture(self.picture, type, secured = secured)
+		return self._statics.get_user_picture(self.picture, type, secured = secured)
 
 class EventWithInviteesType(EventType):
 	def get_random_invitee_profile_pic(self, type):

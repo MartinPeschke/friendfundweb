@@ -83,8 +83,8 @@ class MyfriendsController(BaseController):
 			else:
 				c.method = 'email'
 				invitee['success'] = True
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics.get_default_user_picture("PROFILE_S"))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics.get_default_user_picture("POOL"))
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics_service.get_default_user_picture("PROFILE_S"))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics_service.get_default_user_picture("POOL"))
 				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable', var_show_name = False).strip()
 				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter', submit_name=_("FF_IFRAME_INVITE_EMAIL_BUTTON")).strip()
 				return {'clearmessage':True, 'data':invitee}

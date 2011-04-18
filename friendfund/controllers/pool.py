@@ -15,7 +15,6 @@ from friendfund.model.forms.pool import PoolHomePageForm
 from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion, GetMoreInviteesProc, GetECardContributorsProc
 from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
-from friendfund.tasks.photo_renderer import remote_product_picture_render, remote_pool_picture_render
 
 _ = lambda x:x
 NOT_AUTHORIZED_MESSAGE = _("POOL_Your not authorized for this operation.")

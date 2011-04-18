@@ -108,7 +108,8 @@ class CreditCardPayment(PaymentMethod):
 								,shopper_email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
-			contrib_model = app_globals.dbm.set(contrib_model, merge = True)
+			dbcontrib_data = app_globals.dbm.call(contrib_model, DBContribution)
+			contrib_model.update(dbcontrib_data)
 		except SProcException, e:
 			log.error(e)
 			tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured. Your payment has not been processed. Please try again."))

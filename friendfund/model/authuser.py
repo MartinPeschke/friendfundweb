@@ -1,10 +1,8 @@
 import logging, md5
 from pylons import app_globals, request, config
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
-from friendfund.model.pool import PoolStub, Pool
 
-from friendfund.services.static_service import StaticService
-
+from friendfund.services import static_service as statics
 from friendfund.lib import helpers as h, fb_helper, tw_helper
 
 log = logging.getLogger(__name__)
@@ -24,7 +22,7 @@ class OtherUserData(DBMappedObject):
 				,GenericAttrib(str,'network','network')
 				,GenericAttrib(str,'network_id','id')
 				,GenericAttrib(str,'email','email')
-				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = StaticService.DEFAULT_USER_PICTURE_TOKEN)
+				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = statics.DEFAULT_USER_PICTURE_TOKEN)
 				,GenericAttrib(unicode,'pwd','pwd')
 				,GenericAttrib(unicode,'name','name')
 				,GenericAttrib(unicode,'first_name','first_name')
@@ -112,6 +110,7 @@ class User(ProtoUser):
 				,GenericAttrib(str,'profile_picture_url','profile_picture_url')
 				,GenericAttrib(str,'email','email')
 				,GenericAttrib(str,'default_email','default_email', required = True)
+				,GenericAttrib(bool,'has_activity','has_activity', default = False)
 				,GenericAttrib(str,'pwd','pwd')
 				,GenericAttrib(str,'sex','sex')
 				,GenericAttrib(str,'locale','locale')
@@ -119,7 +118,6 @@ class User(ProtoUser):
 				,GenericAttrib(str,'access_token','access_token')
 				,GenericAttrib(str,'access_token_secret','access_token_secret')
 				,DBMapper(UserPermissions, 'permissions', 'PERMISSIONS', is_list = True)
-				,DBMapper(PoolStub, 'pools', 'POOL', persistable = False, is_list = True)
 				,DBMapper(None,'_perms',None, persistable = False)
 				,DBMapper(dict,'networks', None, persistable = False, is_dict = True, dict_key = lambda x:x )
 				,GenericAttrib(dict,'user_data_temp', None, persistable = False)
@@ -187,21 +185,8 @@ class User(ProtoUser):
 		return not (self.default_email and self.u_id)
 	is_anon = property(_get_is_anon)
 	
-	def am_i_admin(self, pool_url):
-		try: 
-			return self.pools[pool_url].im_admin or False
-		except:
-			return False
-	
-	def set_am_i_admin(self, pool_url, value):
-		try: 
-			self.pools[pool_url].im_admin = value
-		except:
-			pass
-	
 	def fromDB(self, xml):
 		self.networks = self.networks or {}
-		self.pools = dict([(p.p_url, p) for p in self.pools])
 		self._perms = dict([(p.network.lower(), p) for p in self.permissions])
 	
 	def has_perm(self, network, perm):
@@ -224,12 +209,13 @@ class User(ProtoUser):
 		if isinstance(self.profile_picture_url, basestring) and self.profile_picture_url.startswith("http"):
 			log.warning("EXTERNAL_USER_PICTURE <%s>", self.profile_picture_url)
 			self.failover_pic = self.profile_picture_url
-			self.profile_picture_url = h.get_upload_pic_name(md5.new(self.profile_picture_url).hexdigest())
+			self.profile_picture_url = self._statics.tokenize_url(self.profile_picture_url)
+	
 	def get_profile_pic(self, type="PROFILE_S", secured = False):
-		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 	def get_failover(self, type="PROFILE_S", secured = False):
 		if getattr(self, "failover_pic", False):
-			return 'onerror="this.src=\'%s\';"' % app_globals.statics.get_user_picture(self.failover_pic, type, secured = secured)
+			return 'onerror="this.src=\'%s\';"' % self._statics.get_user_picture(self.failover_pic, type, secured = secured)
 		else: return ''
 
 class CreateEmailUserProc(DBMappedObject):
@@ -241,7 +227,7 @@ class CreateEmailUserProc(DBMappedObject):
 				,GenericAttrib(str,'email','email')
 				,GenericAttrib(str,'locale','locale')
 				,GenericAttrib(unicode,'pwd','pwd')
-				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = StaticService.DEFAULT_USER_PICTURE_TOKEN)]
+				,GenericAttrib(str,'profile_picture_url','profile_picture_url', default = statics.DEFAULT_USER_PICTURE_TOKEN)]
 	
 class WebLoginUserByTokenProc(User):
 	_get_proc = "app.web_login_token"

@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
-from pylons import app_globals, request
 _ = lambda x: x
 POOLACTIONS = {
 		"ADMIN_ACTION_INVITE":{"title":_("POOLACTIONS_INVITE_TITLE_Invite more friends to help out!"),
@@ -35,7 +34,7 @@ class PoolAction(DBMappedObject):
 			,GenericAttrib(int, 'remaining', 'remaining')
 			]
 	def get_profile_pic(self, type="RA", secured = False):
-		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 		
 	def contains_message(self):
 		return self.name in [ 'ADMIN_ACTION_REMIND_INVITEES'

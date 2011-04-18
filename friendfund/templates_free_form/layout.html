@@ -19,11 +19,8 @@
 		${next.body()}
 	</div>
 </div>
-<%
-	lang = h.get_language_locale()
-	locale = Locale.parse(lang)
-%>
 
+<%lang = h.get_language_locale()%>
 <div class="wrapFooter">
 		<div class="subFooterTop">
 			<div class="footer">
@@ -55,24 +52,7 @@
 				</div>
                 <div class="footerCol5">
 					<div>
-						<div class="language">
-							<span class="floatLeft" style="margin:3px 0 0 0">${_("FF_FOOTER_Language:")} </span>
-							<div class="languageSelection">
-								<div class="showHide">
-									<div class="widthGiver">
-										<div>
-											%for locale_code in app_globals.LANGUAGES:
-												%if locale_code != lang:
-													<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale_code}">${locale.languages.get(locale_code)}</a>
-												%endif
-											%endfor
-										</div>
-									</div>
-									<span>${locale.languages.get(lang)}</span>
-									
-								</div>
-							</div>
-						</div>
+						${self.languageSelector(lang)|n}
 						%if not request.is_secured:
 							<span class="middot floatLeft">&middot;</span>
 							<div class="like floatLeft" style="margin: 3px 0 0 0">
@@ -126,3 +106,25 @@
 		</table>
 	</div>
 </%def>
+
+<%def name="languageSelector(lang)" cached="True" cache_key="language_seelctor_${lang}" cache_timeout="86400" cache_type="memory">
+<div class="language">
+	<span class="floatLeft" style="margin:3px 0 0 0">${_("FF_FOOTER_Language:")} </span>
+	<div class="languageSelection">
+		<div class="showHide">
+			<div class="widthGiver">
+				<div>
+					%for locale_code in app_globals.LANGUAGES:
+						%if locale_code != lang:
+							<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale_code}">${Locale.parse(locale_code).languages.get(locale_code)}</a>
+						%endif
+					%endfor
+				</div>
+			</div>
+			<span>${Locale.parse(lang).languages.get(lang)}</span>
+			
+		</div>
+	</div>
+</div>
+</%def>
+

@@ -3,7 +3,7 @@ ${self.renderLogin(_("FF_Invite your Twitter friends."))}
 <%def name="renderLogin(label)">
 <div class="arrowSubTab"></div>
 	<p class="inviter">${label}</p>
-	<a title="${_("FF_Log in with Twitter")}" class="twitterBtn" onclick="twInit()">
+	<a title="${_("FF_Log in with Twitter")}" href="#" class="twitterBtn" onclick="twInit()">
 		<span>${_("FF_Log in with Twitter")}</span>
 	</a>
 	%if getattr(c, "error", False):

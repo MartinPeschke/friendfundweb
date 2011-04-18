@@ -16,7 +16,7 @@ from friendfund.lib import helpers as h
 from friendfund.model import common
 from friendfund.model.db_access import execute_query
 from friendfund.model.globals import GetMerchantConfigProc
-from friendfund.tasks import get_db_pool, get_config, Usage, data_root
+from friendfund.tasks import get_db_pool, get_config, Usage, data_root, STATICS_SERVICE
 from friendfund.tasks.notifiers import email, facebook, twitter
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException
 
@@ -108,7 +108,7 @@ def setup_common_parameters(template_data, common_params, merchant_config):
 	params["today"] = datetime.today().strftime("%d.%m.%Y")
 	if "merchant_domain" in template_data:
 		merchant = merchant_config.merchants_map[template_data["merchant_domain"]]
-		params['merchant_logo_url'] = "http://%s%s" % (merchant.domain, h.get_merchant_logo(merchant.logo_url))
+		params['merchant_logo_url'] = "http://%s%s" % (merchant.domain, merchant.get_logo_url())
 		params['merchant_name'] = merchant.name
 		params['merchant_is_default'] = merchant.is_default
 	return params
@@ -191,7 +191,7 @@ def main(argv=None):
 	configname = opts['-f']
 	config = get_config(configname)
 	jobpool = get_db_pool(config, "job")
-	apppool = common.DBManager(get_db_pool(config, "pool"), None, log)
+	apppool = common.DBManager(get_db_pool(config, "pool"), None, log, STATICS_SERVICE)
 	merchant_config = apppool.get(GetMerchantConfigProc)
 	
 	common_params = {"DEFAULT_BASE_URL":config['site_root_url']}

@@ -34,7 +34,7 @@ class PartnerController(BaseController):
 		c.product_list = [c.product]
 		receiver = request.params.get("invitees")
 		c.receiver_data = h.decode_minimal_repr(receiver)
-		receiver = PoolUser.fromMap(c.receiver_data)
+		receiver = PoolUser.from_map(c.receiver_data)
 		
 		try:
 			c.pool = g.pool_service.create_group_gift_from_iframe(c.product, receiver)

@@ -8,13 +8,14 @@ from friendfund.model import db_access
 from friendfund.model.async.profile_picture_render import AddRenderedProfilePictureProc
 from friendfund.model.async.product_picture_render import AddRenderedProductPictureProc
 from friendfund.model.async.pool_picture_render import PoolPictureUsersProc, AddRenderedPoolPictureProc
-from friendfund.services.static_service import StaticService
+from friendfund.services import static_service as statics
 from friendfund.tasks import config, get_dbm\
 		, upload_uimg_folder\
 		, upload_pimg_folder\
 		, upload_prodimg_folder\
 		, upload_tmp\
-		, IMAGEMAGICKROOT
+		, IMAGEMAGICKROOT\
+		, STATICS_SERVICE
 
 CONNECTION_NAME = 'async'
 from celery.log import setup_logger
@@ -22,18 +23,6 @@ log = setup_logger(loglevel=0)
 
 
 
-PROFILE_PIC_FORMATS = [('RA', (120,120))
-					,('POOL', (140,140))
-					,('PROFILE_S', (50,50))
-					,('PROFILE_M', (75,75))
-					,('MYPROFILE', (90,90))
-					,('RESULT', (205,205))]
-
-PRODUCT_PIC_FORMATS = [('RA', (161,120)), ('POOL', (140,140)), ('MYPOOLS', (153,114)), ('FF_POOLS', (190,150)), ('FF_POOL_PIC_S', (60,50))]
-POOL_PIC_FORMATS = [('RA', (161,120), (4, 12)), ('MYPOOLS', (120,79), (3, 6))]
-
-
-STATIC_SERVICE = StaticService(config['static.servers'],config['static.servers'])
 
 
 
@@ -126,7 +115,7 @@ def render_product_pictures(newfname, tmpfname):
 		os.makedirs(newpath)
 	try:
 		sizes = deque()
-		for name_ext, (target_w,target_h) in PRODUCT_PIC_FORMATS:
+		for name_ext, (target_w,target_h) in statics.PRODUCT_PIC_FORMATS.items():
 			newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 			newfname = os.path.join(newpath, newfname)
 			sizes.append((tmpfname, newfname, target_w,target_h))
@@ -161,7 +150,7 @@ def remote_save_image(email, tmpfname, newfname):
 		os.makedirs(newpath)
 	try:
 		sizes = deque()
-		for name_ext, (target_w,target_h) in PROFILE_PIC_FORMATS:
+		for name_ext, (target_w,target_h) in statics.PROFILE_PIC_FORMATS.items():
 			newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 			newfname = os.path.join(newpath, newfname)
 			sizes.append((tmpfname, newfname, target_w,target_h))
@@ -176,7 +165,7 @@ def remote_save_image(email, tmpfname, newfname):
 
 @task
 def remote_product_picture_render(pool_url, picture_url):
-	newfname = h.get_upload_pic_name(md5.new("%s-%s" % (pool_url, picture_url)).hexdigest())
+	newfname = statics.tokenize_url("%s-%s" % (pool_url, picture_url))
 	newurl = newfname  # '23/a1/23a1a-wefkj-hqwfok-jqwfr'
 	filepath, filename = os.path.split(newfname)
 	newpath = os.path.join(upload_prodimg_folder, filepath)
@@ -186,7 +175,7 @@ def remote_product_picture_render(pool_url, picture_url):
 	if tmpfname:
 		try:
 			sizes = deque()
-			for name_ext, (target_w,target_h) in PRODUCT_PIC_FORMATS:
+			for name_ext, (target_w,target_h) in statics.PRODUCT_PIC_FORMATS.items():
 				newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 				newfname = os.path.join(newpath, newfname)
 				sizes.append((tmpfname, newfname, target_w,target_h))
@@ -210,18 +199,16 @@ def remote_profile_picture_render(userlist):
 		if not network_id:
 			log.error("RECEIVED NO NETWORK_ID (%s,%s,%s)", network, network_id, picture_url)
 			continue
-		if h.url_is_local(picture_url):
+		if statics.url_is_local(picture_url):
 			log.warning("Tried rendering local picture %s:%s:%s" % (network, network_id, picture_url))
 		else:
-			newfname = h.get_upload_pic_name(md5.new(picture_url).hexdigest())
+			newfname = statics.tokenize_url(picture_url)
 			newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr'
 			filepath, filename = os.path.split(newfname)
 			newpath = os.path.join(upload_uimg_folder, filepath)
 			
-			# overload preventer, but cant be used now, as add pool invitees overwrites picture urls with remote
 			try:
-				name_ext = PROFILE_PIC_FORMATS[0][0]
-				newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
+				newfname = STATICS_SERVICE.get_default_profile_pic_file_name(newfname)
 				newfname = os.path.join(newpath, newfname)
 				if ((time.time() - os.stat(newfname).st_ctime)/3600) < 24:
 					log.info("aborting rendering of %s, it was rendered within last 24hrs", newfname)
@@ -236,7 +223,9 @@ def remote_profile_picture_render(userlist):
 			if tmpfname:
 				try:
 					sizes = deque()
-					for name_ext, (target_w,target_h) in PROFILE_PIC_FORMATS:
+					for name_ext in statics.PROFILE_PIC_FORMATS.items():
+						target_w,target_h = statics.PROFILE_PIC_FORMATS[name_ext]
+						
 						newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 						newfname = os.path.join(newpath, newfname)
 						sizes.append((tmpfname, newfname, target_w,target_h))
@@ -255,7 +244,7 @@ def remote_profile_picture_render(userlist):
 @task
 def remote_pool_picture_render(pool_url):
 	dbm = get_dbm(CONNECTION_NAME)
-	newfname = h.get_upload_pic_name(md5.new(pool_url).hexdigest())
+	newfname = statics.tokenize_url(pool_url)
 	newurl = newfname
 	basepath,fname = os.path.split(newfname)
 	newfpath = os.path.join(upload_pimg_folder, basepath)
@@ -267,7 +256,9 @@ def remote_pool_picture_render(pool_url):
 		log.error(str(e))
 	else:
 		ppic = {}
-		for name, (target_w, target_h), (panels_w, panels_no) in POOL_PIC_FORMATS:
+		for name in statics.POOL_PIC_FORMATS:
+			(target_w, target_h), (panels_w, panels_no) = statics.POOL_PIC_FORMATS[name]
+			
 			ppic[name] = {'image':Image.new("RGBA", (target_w, target_h), (255,255,255,0))\
 						,'target_w':target_w\
 						,'target_h':target_h\
@@ -275,7 +266,7 @@ def remote_pool_picture_render(pool_url):
 						,'panels_no' :panels_no}
 		
 		for i, user in enumerate(pool_users.users):
-			profile_pic_url = STATIC_SERVICE.get_user_picture(user.profile_picture_url, "PROFILE_S")
+			profile_pic_url = STATICS_SERVICE.get_user_picture(user.profile_picture_url, "PROFILE_S")
 			try:
 				tmpfile = StringIO.StringIO(urllib2.urlopen(profile_pic_url).read())
 			except urllib2.HTTPError, e:
@@ -290,7 +281,9 @@ def remote_pool_picture_render(pool_url):
 			for name, pic in ppic.iteritems():
 				if pic['panels_no'] > i:
 					pic['image'].paste(tmp, ((i%pic['panels_w'])*41, (i/pic['panels_w'])*41))
-		for name, (target_w, target_h), (panels_w, no_panels) in POOL_PIC_FORMATS:
+		for name in statics.POOL_PIC_FORMATS:
+			(target_w, target_h), (panels_w, panels_no) = statics.POOL_PIC_FORMATS[name]
+			
 			newfname = os.extsep.join([('%s_%s' % (fname, name)), 'png'])
 			ppic[name]['image'].save(os.path.join(newfpath, newfname))
 			del ppic[name]

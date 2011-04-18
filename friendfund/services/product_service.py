@@ -4,7 +4,7 @@ from ordereddict import OrderedDict
 from lxml import etree
 from datetime import datetime
 
-from pylons import app_globals, tmpl_context, session as websession
+from pylons import tmpl_context, session as websession
 from pylons.controllers.util import abort
 from friendfund.lib import helpers as h, url_parser
 from friendfund.model.mapper import DBMapper
@@ -33,7 +33,7 @@ class ProductService(object):
 	"""
 	SCROLLER_PAGE_SIZE = 5
 	
-	def __init__(self, amazon_services, top_sellers, country_choices):
+	def __init__(self, amazon_services, top_sellers, country_choices, dbm, statics_service):
 		if not isinstance(amazon_services, dict) or len(amazon_services) < 3:
 			raise Exception("Insufficient Amazon Services")
 		
@@ -59,7 +59,7 @@ class ProductService(object):
 		if tmpl_context.region not in self.amazon_region_map:
 			tmpl_context.region = self.default_region.code
 		tmpl_context.amazon_region_map = self.amazon_region_map
-		tmpl_context.merchant_logo_url = h.get_merchant_logo_url(request)
+		tmpl_context.merchant_logo_url = request.merchant.get_logo_url()
 		return tmpl_context
 	
 	def request_setup(self, request, minimal = False):

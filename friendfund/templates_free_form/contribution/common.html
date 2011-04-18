@@ -4,7 +4,7 @@
 			locals = {"admin_name":pool.admin.name}
 		%>
 		<div class="boxWhat">
-			<div class="prod"> <img width="60px" height="50px" src="${pool.get_product_display_picture("FF_POOLS")}"> </div>
+			<div class="prod"> <img width="60px" height="50px" src="${pool.get_product_display_picture("FF_POOLS", secured = True)}"> </div>
 			<p class="title" style="overflow: hidden;">
 				<a href="${url("get_pool", pool_url = pool.p_url, protocol="http")}">${pool.title}</a>
 				<span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>

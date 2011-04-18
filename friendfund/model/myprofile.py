@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from pylons import app_globals
 from pylons.i18n import ugettext as _
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
@@ -15,7 +14,7 @@ class Profile(DBMappedObject):
 			,GenericAttrib(bool, 'is_default', 'is_default')
 			]
 	def get_profile_pic(self, type="RA", secured = False):
-		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 	
 	def fromDB(self, xml):
 		self.network = self.network.lower()

@@ -221,7 +221,7 @@
 						%if c.values.get('product_picture'):
 							<img src="${c.values.get('product_picture')}" class="allowed displayed"/>
 						%else:
-							<img src="${h.get_product_picture(None,"FF_POOLS")}" class="displayed"/>
+							<img src="${app_globals.statics_service.get_default_product_picture("FF_POOLS")}" class="displayed"/>
 						%endif
 						</div>
 						<div class="title">

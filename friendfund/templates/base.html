@@ -1,6 +1,7 @@
 <%namespace name="links" file="links.html"/>
 <%namespace name="html" file="legacy/widgets/html_elems.html"/>
 <%namespace name="forms" file="legacy/widgets/forms.html"/>
+<%namespace name="tracking" file="/widgets/tracking.html"/>
 ${self.render_html()}
 
 <%def name="render_html()">
@@ -62,7 +63,7 @@ ${self.render_html()}
 		});
 	</script>
 	${self.user_voice()|n}
-	${self.google_analytics()|n}
+	${tracking.renderAll(app_globals.debug)|n}
 <script type="text/javascript">var _sf_async_config={uid:22344,domain:"friendfund.com"};(function(){  function loadChartbeat() {window._sf_endpt=(new Date()).getTime();var e = document.createElement('script');e.setAttribute('language', 'javascript');e.setAttribute('type', 'text/javascript');e.setAttribute('src',(("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") + "js/chartbeat.js");document.body.appendChild(e);}; var oldonload = window.onload; window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };})();</script>
 </%def>
 
@@ -130,9 +131,6 @@ ${self.render_html()}
 			/* optional */alignment: 'left',background_color:'#333', text_color: 'white',hover_color: '#06C',lang: 'en'};
 			function _loadUserVoice() {var s = document.createElement('script');s.setAttribute('type', 'text/javascript');s.setAttribute('src', ("https:" == document.location.protocol ? "https://" : "http://") + "cdn.uservoice.com/javascripts/widgets/tab.js");document.getElementsByTagName('head')[0].appendChild(s);}_loadSuper = window.onload;window.onload = (typeof window.onload != 'function') ? _loadUserVoice : function() { _loadSuper(); _loadUserVoice(); };
 	</script>
-</%def>
-<%def name="google_analytics()">
-	<%include file="legacy/widgets/ganalytics.html"/>
 </%def>
 
 <%def name="header()">

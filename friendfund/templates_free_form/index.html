@@ -1,8 +1,6 @@
 <%inherit file="layout.html"/>
 <%namespace name="testimonials" file="widgets/testimonials.html" />
-
-
-<%def name="page_reloader()">page_reloader = function(){};</%def>
+<%def name="go_to_activity_stream()">go_to_activity_stream = function(){window.location.href="${url(controller="mypools", action="stream")}"};</%def>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolProductFinder");
 	parseSelectables("poolProductFinder", "showToolTipHook", "showToolTip");

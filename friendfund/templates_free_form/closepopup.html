@@ -5,7 +5,9 @@
 	%if getattr(c, 'reload', False):
 		opener.page_reloader();
 	%endif
-	%if getattr(c, 'refresh_login', False):
+	%if c.user.has_activity:
+		opener.go_to_activity_stream();
+	%elif getattr(c, 'refresh_login', False):
 		opener.xhrPost("${url(controller="myprofile", action="login")}", {});
 	%endif
 	window.close(); 

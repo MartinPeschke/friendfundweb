@@ -6,6 +6,7 @@ from celery.log import setup_logger
 from mako.lookup import TemplateLookup
 
 from friendfund.model import common
+from friendfund.services import static_service as statics
 
 IMAGEMAGICKROOT ='/usr/local/bin'
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,6 +61,8 @@ _dbmanagers = {}
 _caches = {}
 config = get_config(CELERY_ADDITIONAL_CONFIG)
 
+STATICS_SERVICE = statics.StaticService(config['static.servers'],config['static.servers'])
+
 def _create_cm(connection_name):
 	cache = pylibmc.Client(config['memcached.cache.url'].split(';'), binary=True)
 	cache.behaviors = {"tcp_nodelay": True, "ketama": True}
@@ -71,7 +74,7 @@ def get_cm(connection_name):
 def _create_dbm(connection_name):
 	dbpool = get_db_pool(config, connection_name)
 	cm = get_cm(connection_name)
-	return common.DBManager(dbpool, cm, log)
+	return common.DBManager(dbpool, cm, log, STATICS_SERVICE)
 
 def get_dbm(connection_name):
 	dbm = _dbmanagers.get(connection_name, None)

@@ -1,4 +1,5 @@
 <%namespace name="master" file="/master.html"/>
+<%namespace name="tracking" file="/widgets/tracking.html"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head><title>friendfund.com | Welcome</title>
@@ -8,6 +9,6 @@
 </head>
 <body>
 	<img src="/custom/imgs/merchant_explain.png"/>
-${master.google_analytics()|n}
+	${tracking.renderAll(app_globals.debug)|n}
 </body>
 </html>

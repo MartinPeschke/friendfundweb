@@ -124,7 +124,7 @@ class MyprofileController(BaseController):
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 		try:
 			c.user = g.user_service.login_email_user(login)
-			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+			return {"data":{"success":True, "has_activity":c.user.has_activity}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
@@ -141,7 +141,7 @@ class MyprofileController(BaseController):
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 		try:
 			c.user = g.user_service.login_email_user(login)
-			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+			return {"data":{"success":True, "has_activity":c.user.has_activity}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
@@ -152,7 +152,7 @@ class MyprofileController(BaseController):
 	@jsonify
 	def signuppopup(self):
 		if not c.user.is_anon:
-			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+			return {"data":{"success":True, "has_activity":c.user.has_activity}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		c.signup_values = {}
 		c.signup_errors = {}
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
@@ -160,12 +160,13 @@ class MyprofileController(BaseController):
 			return {'popup':render('/myprofile/signup_popup.html').strip()}
 		try:
 			c.user = g.user_service.signup_email_user(signup)
-			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+			return {"data":{"success":True, "has_activity":c.user.has_activity}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
 			c.signup_errors = error.error_dict or {}
 			return {'popup':render('/myprofile/signup_popup.html').strip()}
 		except SProcWarningMessage, e:
+			c.signup_values = signup
 			c.signup_errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
 			return {'popup':render('/myprofile/signup_popup.html').strip()}
 	##########################################################################################
@@ -212,7 +213,7 @@ class MyprofileController(BaseController):
 				c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
 				return {'popup':render('/myprofile/addemail_popup.html').strip()}
 			c.user.default_email = form_result['email']
-			return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+			return {"data":{"success":True, "has_activity":c.user.has_activity}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}

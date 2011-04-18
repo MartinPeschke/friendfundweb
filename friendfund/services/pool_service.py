@@ -1,13 +1,14 @@
 import md5, uuid, os, formencode, logging
 log = logging.getLogger(__name__)
 
-from pylons import app_globals, tmpl_context, request, session as websession
+from pylons import tmpl_context, request, session as websession
 from pylons.i18n import _
 from friendfund.lib import helpers as h
 from friendfund.lib.i18n import friendfund_formencode_gettext
 from friendfund.model.forms.pool import PoolCreateForm, PoolPartnerIFrameForm
-from friendfund.model.pool import Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion, JoinPoolProc
+from friendfund.model.pool import PoolStub, Pool, AddInviteesProc, PoolInvitee, PoolUser, Occasion, JoinPoolProc
 from friendfund.model.product import Product, DisplayProduct
+from friendfund.services import static_service as statics
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, render_product_pictures, save_product_image, remote_product_picture_render, remote_pool_picture_render
 
 class MissingPermissionsException(Exception):pass
@@ -21,8 +22,9 @@ class PoolService(object):
 	"""
 		This is shared between all threads, do not stick state in here!
 	"""
-	def __init__(self, config):
-		self.config = config
+	def __init__(self, config, dbm, static_service):
+		self.dbm = dbm
+		self.static_service = static_service
 		self.ulpath = config['pylons.paths']['uploads']
 		if not os.path.exists(self.ulpath):
 			os.makedirs(self.ulpath)
@@ -32,7 +34,11 @@ class PoolService(object):
 		admin.is_admin = True
 		pool.participants.append(admin)
 		pool.merchant_domain = request.merchant.domain
-		app_globals.dbm.set(pool, merge = True, cache=False)
+		
+		pool_url = self.dbm.call(pool, PoolStub)
+		pool.p_url = pool_url.p_url
+		pool.p_id = pool_url.p_id
+		
 		if pool.product and pool.product.has_picture():
 			remote_product_picture_render.apply_async(args=[pool.p_url, pool.product.picture])
 		remote_pool_picture_render.apply_async(args=[pool.p_url])
@@ -70,7 +76,7 @@ class PoolService(object):
 									tracking_link = pool_schema.get("tracking_link"),
 									picture = pool_schema.get("product_picture") )
 		else:
-			pool.product = Product(picture = h.get_default_product_picture_token())
+			pool.product = Product(picture = statics.DEFAULT_PRODUCT_PICTURE_TOKEN)
 		
 		
 		receiver = PoolInvitee.fromUser(tmpl_context.user)
@@ -115,11 +121,11 @@ class PoolService(object):
 	
 	
 	def invite_myself(self, pool_url, user):
-		app_globals.dbm.get(JoinPoolProc, u_id = user.u_id, p_url = pool_url)
-		app_globals.dbm.expire(Pool(p_url = pool_url))
+		self.dbm.get(JoinPoolProc, u_id = user.u_id, p_url = pool_url)
+		self.dbm.expire(Pool(p_url = pool_url))
 
 	def save_pool_picture(self, picture):
-		picture_url = h.get_upload_pic_name(str(uuid.uuid4()))
+		picture_url = statics.new_tokenized_name()
 		tmpname, ext = os.path.splitext(picture.filename)
 		tmpname = os.path.join(self.ulpath \
 			, '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
@@ -130,7 +136,7 @@ class PoolService(object):
 		return picture_url
 	
 	def save_pool_picture_sync(self, picture, type):
-		picture_url = h.get_upload_pic_name(str(uuid.uuid4()))
+		picture_url = statics.new_tokenized_name()
 		tmpname, ext = os.path.splitext(picture.filename)
 		tmpname = os.path.join(self.ulpath \
 			, '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))

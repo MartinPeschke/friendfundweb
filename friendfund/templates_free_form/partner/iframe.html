@@ -3,6 +3,7 @@
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="../invite/inviter.html"/>
 
+<%def name="page_reloader()">page_reloader = function(){window.open("http://gadtest.friendfund.de/fb/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');};</%def>
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/PartnerPanel.js')}
@@ -15,6 +16,7 @@
 		}
 	);
 	</script>
+	
 </%def>
 <%def name="onloadscripts()">
 	ffp_panel = new friendfund.PartnerPanel({
@@ -55,7 +57,7 @@
 				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
 			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1001;">
-					<a href="#" class="helpPopupToggler floatRight close"> close <span>X</span></a>
+					<a href="#" class="helpPopupToggler floatRight close"> ${_("FF_close")} <span>X</span></a>
 					<h4>${_("FF_IFRAME_Quick Guide to Creating a Pool")}</h4>
 					<div class="subHeading"></div>
 					<p>${_("FF_IFRAME_Create a Group Gift Pool and give something extra special without breaking the bank.")}</p>
@@ -98,10 +100,10 @@
 						</li>
 					
 					</ul>
-					<a class="forward floatRight" style="margin-top:13px" href="#">Get started</a>
+					<a class="forward floatRight helpPopupToggler" style="margin-top:13px" href="#">${_("FF_IFRAME_HELPPOPUP_Get started")}</a>
 					
 				</div>
-			<a class="floatRight" style="margin-top:20px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
+			<a class="floatRight" style="margin-top:20px" target="_blank" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
 			<div class="clear"></div>
 		</div>
 		</div>

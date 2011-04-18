@@ -5,6 +5,7 @@ from collections import deque
 from friendfund.lib import helpers as h
 from friendfund.lib.urlnormalize import normalize as urlnormalize
 from friendfund.model.async.ecard_render import ECard, ECardUser, SetPoolECardsProc, GetPoolECardsProc
+from friendfund.services import static_service as statics
 from friendfund.tasks import config, get_dbm\
 		, upload_uimg_folder\
 		, upload_pimg_folder\
@@ -23,7 +24,7 @@ SINGLE_ENTRY_MESSAGE = (150,150)
 
 CONNECTION_NAME = 'async'
 
-
+STATIC_SERVICE = statics.StaticService(config['static.servers'],config['static.servers'])
 
 """
 	echo "123xyzHere I use caption to wordwrap and then some with this text for oodles.\nTwo separate lines. and more text and more text. and more text and more text. and more text and more text. and more text and more text. and more text and more text. and more text and more text. and more text and more text" |\
@@ -49,14 +50,14 @@ def remote_ecard_render(pool_url):
 	for ecard in ecardresult.ecards:
 		partial_montages = deque()
 		for user in ecard.users:
-			picture_url = h.get_user_picture(user.profile_picture_url, "MYPOOLS", site_root = config['site_root_url'])
+			picture_url = STATIC_SERVICE.get_user_picture(user.profile_picture_url, "MYPOOLS")
 			log.info(picture_url)
 			tmpfname = retrieve_tmp_image(picture_url)
 			log.info(tmpfname)
 			partial_montages.append( render_tile(tmpfname, user.u_name or '', user.message or 'hahahahaha no message') )
 			
 			
-		final_collage_name = h.get_upload_pic_name(md5.new(pool_url).hexdigest())
+		final_collage_name =  statics.tokenize_url(pool_url)
 		newurl = final_collage_name
 		basepath,fname = os.path.split(final_collage_name)
 		newfpath = os.path.join(upload_pimg_folder, basepath)

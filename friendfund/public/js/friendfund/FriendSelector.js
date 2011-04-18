@@ -151,7 +151,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
 	},draw : function(_t){
 		_t.backup_reloader = page_reloader;
-		page_reloader = dojo.hitch(_t, _t.draw, _t);
+		page_reloader = _t.page_reloader||dojo.hitch(_t, _t.draw, _t);
 		if(_t.rootNode){
 			dojo.removeClass(_t.rootNode, "hidden");
 		} else {
@@ -299,7 +299,8 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 							global_invited_node : _t.global_invited_node,
 							base_url : _t.base_url,
 							network : "facebook",
-							mutuals : args.mutuals
+							mutuals : args.mutuals,
+							page_reloader:_t.page_reloader
 						});
 			if(_t.onSelect){_t.selectors.facebook.onSelect = _t.onSelect;}
 			if(_t.unSelect){_t.selectors.facebook.unSelect = _t.unSelect;}
@@ -311,7 +312,8 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 							invited_node : "network"+_t.invited_node_suffix,
 							global_invited_node : _t.global_invited_node,
 							base_url : _t.base_url,
-							network : "twitter"
+							network : "twitter",
+							page_reloader:_t.page_reloader
 						});
 			if(_t.onSelect){_t.selectors.twitter.onSelect = _t.onSelect;}
 			if(_t.unSelect){_t.selectors.twitter.unSelect = _t.unSelect;}
@@ -322,7 +324,8 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 							invited_node : "network"+_t.invited_node_suffix,
 							global_invited_node : _t.global_invited_node,
 							base_url : _t.base_url,
-							network : "email"
+							network : "email",
+							page_reloader:_t.page_reloader
 						});
 			if(_t.onSelect){_t.selectors.email.onSelect = _t.onSelect;}
 			if(_t.unSelect){_t.selectors.email.unSelect = _t.unSelect;}

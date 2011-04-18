@@ -107,7 +107,7 @@
 				%if not merchant.is_default:
 					<div class="vertSpacer">
 						<span>${_("FF_MYPOOLS_MERCHANT")}</span>
-						<img src="${h.get_merchant_logo(merchant.logo_url)}" width="60px" height="30px" class="floatRight"/>
+						<img src="${merchant.get_logo_url()}" width="60px" height="30px" class="floatRight"/>
 					</div>
 				%endif
 			</div>

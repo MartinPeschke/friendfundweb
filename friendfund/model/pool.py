@@ -7,6 +7,7 @@ from pylons.i18n import _
 from friendfund.lib import helpers as h, tools
 from friendfund.model.mapper import DBMappedObject, DBCDATA, GenericAttrib, DBMapper, DBMapping
 from friendfund.model.product import Product, DisplayProduct
+from friendfund.services import static_service as statics
 from friendfund.tasks.photo_renderer import remote_product_picture_render
 
 strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
@@ -23,6 +24,7 @@ class PoolComment(DBMappedObject):
 	_get_root = _set_root = 'COMMENT'
 	_set_proc = _get_proc = "app.add_pool_comment"
 	_unique_keys = ['p_url', 'u_id']
+	
 	_keys = [	GenericAttrib(str,'p_url','p_url')
 				,GenericAttrib(int,'u_id','u_id')
 				,GenericAttrib(unicode,'name','name')
@@ -31,11 +33,9 @@ class PoolComment(DBMappedObject):
 				,GenericAttrib(unicode,'profile_picture_url','profile_picture_url')
 				,GenericAttrib(int,'recency','recency')
 			]
-	def get_profile_pic(self, type="PROFILE_M", secured = False):
-		return app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
-	def get_profile_s_pic(self):
-		return self.get_profile_pic(type="PROFILE_S")
-	profile_s_pic = property(get_profile_s_pic)
+	def get_profile_pic(self, type):
+		return self._statics.get_user_picture(self.profile_picture_url, type)
+
 	def get_recency(self):
 		diff = timedelta(0, self.recency)
 		second_diff = diff.seconds
@@ -64,6 +64,8 @@ class PoolComment(DBMappedObject):
 		if day_diff < 365:
 			return _("FF_RECENCY_%(months)d months ago") %{"months":day_diff/30}
 		return _("FF_RECENCY_%(years)d years ago")%{"years":day_diff/365}
+	
+	
 class PoolThankYouMessage(DBMappedObject):
 	"""
 		exec app.add_thank_you_message'<POOL p_url ="UC0xMjUyNA~~" message = "thanks so much"/>'
@@ -96,19 +98,6 @@ class PoolChat(DBMappedObject):
 				,GenericAttrib(bool,'is_secret','is_secret')
 				,DBMapper(PoolComment,'comments','COMMENT', is_list = True)
 			]
-
-
-class PoolStub(DBMappedObject):
-	"""<POOL p_id="10733" p_url="UC0xMDczMw~~"/>"""
-	_get_root = _set_root = 'POOL'
-	_unique_keys = ['p_id', 'p_url']
-	_keys = [	GenericAttrib(int,'p_id','p_id')
-				,GenericAttrib(str,'p_url','p_url')
-				,GenericAttrib(bool,'im_admin',None)
-				,GenericAttrib(bool,'im_receiver',None)
-			]
-	def get_pool_picture(self):
-		return h.get_pool_picture(self.p_url)
 
 class Occasion(DBMappedObject):
 	_get_root = _set_root = 'OCCASION'
@@ -176,6 +165,9 @@ class PoolUser(DBMappedObject):
 			, GenericAttrib(bool,		'contribution_secret'        , 'secret'             )
 			, DBMapper(PoolUserNetwork,	'networks', 'POOLUSERNETWORK', is_dict=True, dict_key = lambda x: x.network.lower())
 			]
+	def get_profile_pic(self, type):
+		return self._statics.get_user_picture(self.profile_picture_url, type)
+	
 	def _set_sex(self, sex):
 		if sex and len(sex)>1:
 			self._sex 		= sex[0]
@@ -205,15 +197,8 @@ class PoolUser(DBMappedObject):
 		else:
 			return self.name
 	
-	def get_profile_pic(self, type="PROFILE_M", secured = False):
-		img = app_globals.statics.get_user_picture(self.profile_picture_url, type, secured = secured)
-		return img
-	def get_profile_s_pic(self):
-		return self.get_profile_pic(type="PROFILE_S")
-	profile_s_pic = property(get_profile_s_pic)
-	
 	@classmethod
-	def fromMap(cls, params):
+	def from_map(cls, params):
 		if not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		else:
@@ -232,6 +217,17 @@ class PoolInvitee(PoolUser):
 			if hasattr(obj, nkey):
 				setattr(obj, nkey, getattr(user, k.pykey))
 		return obj
+	
+	
+	
+class PoolStub(DBMappedObject):
+	_get_proc   = _set_proc   = None
+	_get_root = _set_root = 'POOL'
+	_unique_keys = ['p_url']
+	_cacheable = False = ['p_url']
+	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						,required = True)
+			, GenericAttrib(int,		'p_id',				'p_id'						,required = True)
+			]
 	
 	
 class Pool(DBMappedObject):
@@ -279,6 +275,7 @@ class Pool(DBMappedObject):
 			return float(self.amount)/100
 		except:
 			return None
+	
 	def set_amount_float(self, value):
 		if value is None: return
 		self.amount = int(value*100)
@@ -310,26 +307,27 @@ class Pool(DBMappedObject):
 	def get_display_description(self):
 		return markdown.markdown(self.description)
 
-	def get_product_display_picture(self, type="POOL"):
+	def get_product_display_picture(self, type="POOL", secured = False):
 		if self.product:
 			picture = self.product.picture
-			if isinstance(picture, basestring) and picture.startswith('http'):
+			if not statics.url_is_local(picture):
 				log.warning("EXTERNAL_PRODUCT_PICTURE <%s : %s>", self.p_url, picture)
 				remote_product_picture_render.delay(self.p_url, self.product.picture)
-			return h.get_product_picture(picture, type)
+			return self._statics.get_product_picture(picture, type, secured = secured)
 		else:
-			return h.get_product_picture(None, type)
+			return self._statics.get_product_picture(None, type, secured = secured)
 	
 	def get_remaining_days(self):
 		diff = ((self.expiry_date + timedelta(1)) - datetime.today())
 		if diff < timedelta(0):
 			diff = timedelta(0)
 		return diff.days
+	
 	def get_pool_picture(self, type = "RA"):
-		return h.get_pool_picture(self.p_url, type)
+		return self._statics.get_pool_picture(self.p_url, type)
 	def get_pool_picture_tiles(self, type = "RA"):
-		pool_picture_url = h.get_upload_pic_name(md5.new(self.p_url).hexdigest())
-		return h.get_pool_picture(pool_picture_url, type)
+		pool_picture_url = statics.tokenize_url(self.p_url)
+		return self._statics.get_pool_picture(pool_picture_url, type)
 	def funding_progress(self):
 		return float(self.get_total_contribution()) / self.amount
 	
@@ -382,9 +380,6 @@ class Pool(DBMappedObject):
 	def is_contributable(self):
 		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
 	
-	def mergewDB(self, xml):
-		super(self.__class__, self).mergewDB(xml)
-		self.determine_roles()
 	def fromDB(self, xml):
 		self.invitees = []
 		self.determine_roles()
@@ -442,11 +437,11 @@ class UpdatePoolProc(DBMappedObject):
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			]
 	
-	def get_product_display_picture(self, type="POOL"):
+	def get_product_display_picture(self, type="POOL", secured = False):
 		if self.product:
-			return h.get_product_picture(self.product.picture, type)
+			return self._statics.get_product_picture(self.product.picture, type, secured = secured)
 		else:
-			return h.get_product_picture(None, type)
+			return self._statics.get_product_picture(None, type, secured = secured)
 			
 class SimpleUserNetwork(DBMappedObject):
 	_cacheable = False
@@ -494,7 +489,7 @@ class ECardContributors(DBMappedObject):
 			, GenericAttrib(unicode,'co_message','co_message')
 			, GenericAttrib(int,'amount','amount')]
 	def get_profile_pic(self, type="PROFILE_M", secured = False):
-		return app_globals.statics.get_user_picture(self.picture, type, secured = secured)
+		return self._statics.get_user_picture(self.picture, type, secured = secured)
 	def get_amount_float(self):
 		try:
 			return float(self.amount)/100

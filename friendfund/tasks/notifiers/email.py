@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from string import Template as Template
 import urllib2, logging, markdown
 from lxml import etree
@@ -14,8 +13,8 @@ ch.setFormatter(formatter)
 log.addHandler(ch)
 register_openers()
 
-ums_url = "http://sysmail.fagms.net/c/sm"
-ums_standard_params = {'AID':"27220", "ACTION":"SYSTEM"}
+ums_url = "http://sysmail.fagms.net/cgi-bin/systemmail-utf8"
+ums_standard_params = {'AID':"33715", "ACTION":"SYSTEM"}
 
 
 class UMSEmailUploadException(Exception):pass

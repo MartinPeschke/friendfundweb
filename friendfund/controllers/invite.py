@@ -13,6 +13,7 @@ from friendfund.lib.notifications.messages import Message, ErrorMessage, Success
 from friendfund.model.authuser import UserNotLoggedInWithMethod
 from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
+from friendfund.services import static_service as statics
 from friendfund.tasks import fb as fbservice, twitter as twservice
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
 
@@ -119,7 +120,7 @@ class InviteController(BaseController):
 			invittes_proc_result = app_globals.dbm.set(AddInviteesProc(p_url = c.pool.p_url
 							, event_id = c.pool.event_id
 							, inviter_user_id = c.user.u_id
-							, users=[PoolInvitee.fromMap(el) for el in invitees]
+							, users=[PoolInvitee.from_map(el) for el in invitees]
 							, subject = request.params.get('subject')
 							, message = request.params.get('message')
 							, is_secret = c.pool.is_secret))
@@ -168,8 +169,8 @@ class InviteController(BaseController):
 			else:
 				c.method = 'email'
 				invitee['success'] = True
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics.get_default_user_picture_token())
-				invitee['large_profile_picture_url'] = app_globals.statics.get_user_picture(invitee['profile_picture_url'], "PROFILE_S")
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', statics.DEFAULT_USER_PICTURE_TOKEN)
+				invitee['large_profile_picture_url'] = app_globals.statics_service.get_user_picture(invitee['profile_picture_url'], "PROFILE_S")
 				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable').strip()
 				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter').strip()
 				return {'clearmessage':True, 'data':invitee}

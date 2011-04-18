@@ -9,7 +9,6 @@ from formencode.variabledecode import variable_decode
 from friendfund.lib import fb_helper, tw_helper, helpers as h
 from friendfund.lib.auth.decorators import post_only, logged_in
 from friendfund.lib.base import BaseController, render, _
-from friendfund.lib.helpers import get_upload_pic_name
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.forms import user, common
 from friendfund.model.pool import PoolUser, Pool, InsufficientParamsException, Occasion, OccasionSearch
@@ -57,7 +56,7 @@ class ReceiverController(BaseController):
 	def set(self):
 		receiver = formencode.variabledecode.variable_decode(request.params)
 		try:
-			receiver = PoolUser.fromMap(receiver)
+			receiver = PoolUser.from_map(receiver)
 		except InsufficientParamsException, e:
 			log.warning(str(e))
 			return self.ajax_messages(_("POOL_CREATE_No Known ReceiverFound"))
@@ -117,8 +116,8 @@ class ReceiverController(BaseController):
 				if not invitee.get('name'):
 					return {'data':{'success':False, 'message':'<span>%s</span>' % _("Please input a name")}}
 				c.method = 'email'
-				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics.get_default_user_picture("PROFILE_S"))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics.get_default_user_picture("POOL"))
+				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics_service.get_default_user_picture("PROFILE_S"))
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics_service.get_default_user_picture("POOL"))
 				c.invitees = {network_id:invitee}
 				data = invitee
 				data['success'] = True

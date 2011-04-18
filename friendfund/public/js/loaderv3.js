@@ -214,13 +214,13 @@ xhrHandler = function(callback){
 				closePopup();
 				if(dojo.byId("accountcontainer")){dojo.place(data.login_panel, "accountcontainer", "only");}
 				if(data.data.success){
-					page_reloader();
+					if(data.data.has_activity){go_to_activity_stream();}else{page_reloader();}
 				}
 			}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
-		if (data.reload === true){window.location.reload();}
+		if (data.reload === true){window.location.reload(true);}
 		return data;
 	};
 };

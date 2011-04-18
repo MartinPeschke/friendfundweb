@@ -19,6 +19,7 @@ class FbController(BaseController):
 		try:
 			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
 		except fb_helper.FBNotLoggedInException, e: 
+			return {'reload':True}
 			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
 		except fb_helper.FBLoggedInWithIncorrectUser, e: 
 			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
@@ -52,7 +53,7 @@ class FbController(BaseController):
 				except db_access.SProcException, e:
 					log.error(str(e))
 				c.user.set_perm('facebook', 'create_event', True)
-		return {"data":{"success":True}, 'login_panel':render('/myprofile/login_panel.html').strip()}
+		return {"data":{"success":True, "has_activity":c.user.has_activity}, 'login_panel':render('/myprofile/login_panel.html').strip()}
 	
 	@jsonify
 	def failed_login(self):

@@ -157,55 +157,32 @@ class DBMappedObject(DBMapping):
 		return '<%r: %r>' % (self.__class__.__name__, ','.join(['%s:%s'%(k.pykey,getattr(self, k.pykey)) for k in self._keys[:3]]))
 	def __repr__(self):
 		return '<%r: %r>' % (self.__class__.__name__, ','.join(['%s:%s'%(k,getattr(self, k)) for k in self._unique_keys[:3]]))
-	def mergewDB(self, xml):
-		if xml.tag != self._get_root:
-			raise Exception('XML is not of expected property, expected: %s, found: %s' %(self._get_root, xml.tag))
-		for k in self._keys:
-			if k.dbkey:
-				if isinstance(k, DBMapper):
-					if k.is_list:
-						val = [k.fromDB(k.cls, v) for v in xml.findall(k.dbkey)]
-					else :
-						val = k.fromDB(k.cls, xml.find(k.dbkey))
-				elif isinstance(k, GenericElement):
-					val = k.fromDB(xml.find(k.dbkey))
-				elif isinstance(k, DBMapping):
-					val = k.fromDB(xml.get(k.dbkey))
-				else:
-					raise TypeNotSupportedException("Type %s not supported" % type(k))
-				if val:
-					setattr(self, k.pykey, val)
-		if hasattr(self, 'fromDB'): self.fromDB(xml)
-		return self
-
+	
 	def to_map(self, flat = True):
 		return dict([(k.pykey,getattr(self, k.pykey)) for k in self._keys if not flat or flat and isinstance(k, (GenericAttrib, GenericElement))])
-	def get_map(self):
-		log.warning("%s.get_map: DEPRECATED", self.__class__.__name__)
-		return dict([(k.pykey,getattr(self, k.pykey, None)) for k in self._keys])
-	
-	def to_minimal_repr(self):
-		return t.encode_minimal_repr(self.to_map())
-	@classmethod
-	def from_minimal_repr(cls, value):
-		return cls(**t.decode_minimal_repr(value))
-	
-	
-	
-	def fromMap(self, map, override = False):
+	def from_map(self, map, override = False):
 		keyMap = dict([(k.pykey,k) for k in self._keys])
 		for k,v in map.iteritems():
 			if k in keyMap:
 				if issubclass(keyMap[k].cls, DBMappedObject):
 					obj = getattr(self, k) or keyMap[k].cls()
-					obj = obj.fromMap(v, override)
+					obj = obj.from_map(v, override)
 					setattr(self, k, obj)
 				else:
 					if not override:
 						v = getattr(self, k) or v
 					setattr(self, k, v)
 		return self
+	def to_minimal_repr(self):
+		return t.encode_minimal_repr(self.to_map())
+	@classmethod
+	def from_minimal_repr(cls, value):
+		return cls(**t.decode_minimal_repr(value))
 
+	def update(self, obj):
+		for elem in self._keys:
+			if getattr(obj, elem.pykey, None):
+				setattr(self, elem.pykey, getattr(obj, elem.pykey))
 
 
 #############################################################################################
@@ -270,7 +247,7 @@ class DBMapper(object):
 		return "<%s %s />" % (cls._set_root,' '.join(attribs))
 	
 	@classmethod
-	def fromDB(thiscls, cls, xml):
+	def fromDB(thiscls, cls, xml, statics_service):
 		if xml is None:
 			return None
 		if not( cls._get_root is None or xml.tag == cls._get_root ):
@@ -281,17 +258,17 @@ class DBMapper(object):
 				if isinstance(k, DBMapper):
 					if k.is_list:
 						val = xml.findall(k.dbkey)
-						vals[k.pykey] = [k.fromDB(k.cls, v) for v in val]
+						vals[k.pykey] = [k.fromDB(k.cls, v, statics_service) for v in val]
 					elif k.is_dict:
 						tmpdict = {}
 						val = xml.findall(k.dbkey)
 						for v in val:
-							obj = k.fromDB(k.cls, v)
+							obj = k.fromDB(k.cls, v, statics_service)
 							tmpdict[k.dict_key(obj)] = obj
 						vals[k.pykey] = tmpdict
 					else:
 						val = xml.find(k.dbkey)
-						vals[k.pykey] = k.fromDB(k.cls, val)
+						vals[k.pykey] = k.fromDB(k.cls, val, statics_service)
 				elif isinstance(k, GenericElement):
 					val = xml.find(k.dbkey)
 					vals[k.pykey] = k.fromDB(val)
@@ -301,5 +278,6 @@ class DBMapper(object):
 				else:
 					raise TypeNotSupportedException("Type %s not supported" % type(k))
 		obj = cls(**vals)
+		obj._statics = statics_service
 		if hasattr(obj, 'fromDB'): obj.fromDB(xml)
 		return obj

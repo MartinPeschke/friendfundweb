@@ -77,7 +77,8 @@ class Globals(object):
 			,uid=app_conf['pool.connectstring.uid']
 			,pwd=app_conf['pool.connectstring.pwd']
 			,client_charset=app_conf['pool.connectstring.client_charset'])
-		self.dbm = common.DBManager(dbpool, self.cache_pool, logging.getLogger('DBM'))
+		self.statics_service = StaticService(app_conf['static.servers'],app_conf['static.ssl.servers'])
+		self.dbm = common.DBManager(dbpool, self.cache_pool, logging.getLogger('DBM'), self.statics_service)
 		
 		##################################### DB GLOBALS SETUP #####################################
 		
@@ -91,9 +92,6 @@ class Globals(object):
 		log.info("STARTING UP WITH following subdomains: %s", list(self.merchants.domain_map.iterkeys()))
 		
 		##################################### SERVICES SETUP #####################################
-		self.user_service = UserService(config)
-		self.pool_service = PoolService(config)
-		log.info("UserService set up")
 		
 		pfactory = PaymentFactory(
 				 gtw_location = app_conf['adyen.location']
@@ -126,9 +124,8 @@ class Globals(object):
 			else:
 				log.warning("AmazonService NOT AVAILABLE for %s", country_code)
 		
-		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices)
+		self.product_service = ProductService(amazon_services, top_sellers, self.country_choices, self.dbm, self.statics_service)
 		log.info("ProductService set up")
-		
-		
-		self.statics = StaticService(app_conf['static.servers'],app_conf['static.ssl.servers'])
-		
+		self.user_service = UserService(config, self.dbm, self.statics_service)
+		self.pool_service = PoolService(config, self.dbm, self.statics_service)
+		log.info("UserService set up")

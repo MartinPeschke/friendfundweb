@@ -5,11 +5,12 @@ from friendfund.model.db_access import execute_query, SProcException, SProcWarni
 
 class DBManager(object):
 	_expiretime = 1
-	def __init__(self, dbpool, cache_pool, logger):
+	def __init__(self, dbpool, cache_pool, logger, statics_service):
 		self.dbpool = dbpool
 		self.cache_pool = cache_pool
 		self.logger = logger
 		self.logger.info('DB Settings Connection Pool set up')
+		self._statics = statics_service
 	
 	def _fetch_from_db(self, cls, **kwargs):
 		if cls._no_params:
@@ -18,10 +19,10 @@ class DBManager(object):
 			result, cur = execute_query(self.dbpool, self.logger, 'exec %s ?;' % 
 						cls._get_proc, DBMapper._get_template(cls, **kwargs))
 		if cls._get_root is None:
-			p = DBMapper.fromDB(cls, result)
+			p = DBMapper.fromDB(cls, result, self._statics)
 		else:
 			root = result.find(cls._get_root)
-			p = DBMapper.fromDB(cls, root)
+			p = DBMapper.fromDB(cls, root, self._statics)
 		return p
 	
 	def get(self, cls, **kwargs):
@@ -34,14 +35,22 @@ class DBManager(object):
 				if obj is None:
 					obj = self._fetch_from_db(cls, **kwargs)
 					mc.set(key, obj, cls._expiretime or self._expiretime)
-			return obj
 		else:
-			return self._fetch_from_db(cls, **kwargs)
+			obj = self._fetch_from_db(cls, **kwargs)
+		return obj
 	
-	def set(self, obj, merge = False, cache = True):
+	def call(self, obj, cls, cache = False):
 		result, cur = execute_query(self.dbpool, self.logger, 'exec %s ?;' % obj._set_proc, DBMapper.toDB(obj))
+		
+		if cls._get_root is None:
+			p = DBMapper.fromDB(cls, result, self._statics)
+		else:
+			p = DBMapper.fromDB(cls, result.find(cls._get_root), self._statics)
+		if cache and p._cachable:self.push_to_cache(p)
+		return p
 	
-		if merge: obj.mergewDB(result.find(obj._get_root))
+	def set(self, obj, cache = True):
+		result, cur = execute_query(self.dbpool, self.logger, 'exec %s ?;' % obj._set_proc, DBMapper.toDB(obj))
 		if cache and obj._cachable:self.push_to_cache(obj)
 		return obj
 	
@@ -58,12 +67,3 @@ class DBManager(object):
 			key = '<%s>%s' % (obj.__class__.__name__.lower(), key)
 			key = key.encode("latin-1", "xmlcharrefreplace")
 			mc.delete(key)
-	
-	def call(self, obj, cls):
-		result, cur = execute_query(self.dbpool, self.logger, 'exec %s ?;' % obj._set_proc, DBMapper.toDB(obj))
-		
-		if cls._get_root is None:
-			p = DBMapper.fromDB(cls, result)
-		else:
-			p = DBMapper.fromDB(cls, result.find(cls._get_root))
-		return p
