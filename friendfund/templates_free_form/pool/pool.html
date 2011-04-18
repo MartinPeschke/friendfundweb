@@ -136,7 +136,11 @@
 <div class="wrapSubContent">
 <div class="content">
 	%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
-		<a class="forward" href="${url(controller="pool", action="address", pool_url = c.pool.p_url)}">Edit Shipping Address</a>
+		<div class="adminLinks">
+			<a href="#">Edit pool page</a>
+			<span>&nbsp;|&nbsp;</span>
+			<a href="${url(controller="pool", action="address", pool_url = c.pool.p_url)}">Edit Shipping Address</a>
+		</div>
 		<div id="adminBox">
 			<% first_visit = c.workflow in ['1', '2'] %>
 			<div class="greyBoxTitle hideable ${first_visit and "hidden" or ""}">

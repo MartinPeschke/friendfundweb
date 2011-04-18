@@ -55,7 +55,7 @@
 		</div>
 		<div class="colRightWhite"></div>
 		<div class="generalBoxRight noBorder ">
-			<a href="${url('get_pool', pool_url = c.pool.p_url, view=1)}" class="primaryButton clear floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
+			<a href="${url('get_pool', pool_url = c.pool.p_url, view=1)}" class="primaryButton  floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
 			<div class="clear"></div>
 				<a href="${forms.create_pool_link()}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
 			<div class="clear"></div>
@@ -85,28 +85,41 @@
 							<div class="arrowAvatar"></div>
 							<img width="48px" height="48px" src="${c.pool.receiver.get_profile_pic("PROFILE_M")}">
 						</div>
+							<div class="floatLeft" style="width:370px">
 							<span>${c.pool.receiver.name}</span>
 							<p>${c.pool.description}</p>
+							</div>
 						</div>
 						<div class="clear"></div>
 					</div>
 				</div>
 			  
-				<h4><span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span>${_("FF_POOLECARD_Contributor Messages")} </h4>
+				<h4>${_("FF_POOLECARD_Messages")} </h4>
 				<ul class="contribMsg">
 				%for cbtr in c.contributors:
 					<li>
 						<div class="avt">
-							<div class="arrowAvatar"></div>
 							<img src="${cbtr.get_profile_pic("PROFILE_M")}">
 						</div>
-						<p class="bold grey">${cbtr.name}</p>
-						<p class="tx">${cbtr.co_message}</p>
+						<div class="floatLeft msgContainer">
+							<p class="tx">${cbtr.co_message}</p>
+							<p class="bold grey">${cbtr.name}</p>
+							
+						</div>
 					</li>
 				%endfor
 				</ul>
-        <div class="clear"></div>
-       	  </div>
+        
+        <h4><span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span>${_("FF_POOLECARD_All_Contributors")} </h4>
+	        <ul class="contribMsg">
+				<li>
+					<div title="Henrietta Regina Goldmine" class="avt">
+						<img width="48px" height="48px" alt="Henrietta Regina Goldmine" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+					</div>
+				</li>
+			</ul>
+			<div class="clear"></div>
+       	 </div>
 	</div>
 <div class="clear"></div>
 

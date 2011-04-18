@@ -84,16 +84,6 @@
 			<p class="info unNt">${_("FF_CREDITCARD_Your full name as it appears on the card")}</p>
 		</div>
 		<div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
-			<!--
-<div class="tip">
-				<div class="arrow"></div>
-			%if "ccNumber" in c.errors:
-				<span>${c.errors.get("ccNumber")}</span>
-			%else:
-				<span>${_("FF_CONTRIB_DETAILS_ccNumber Tip goes here")}</span>
-			%endif
-			</div>
--->
 			<div class="greyInsideFullWidth">
 				<div  class="first">
 					<span>${_("FF_CONTRIB_DETAILS_Card Number")}</span>
@@ -135,7 +125,7 @@
         	<p class="twonine">
 				${_('FF_CONTRIB_DETAILS_Your chip in confirmation will be emailed to you. See our <a target="_blank" href="%s">Privacy Policy</a> for more about how we use emails.')%url(controller="content", action="privacy", lang=h.get_language_locale())|n}
 			</p>
-			<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatLeft clear"/>
+			<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatLeft"/>
         	</div>
         </div>
 	</div>

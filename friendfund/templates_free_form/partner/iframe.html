@@ -55,43 +55,51 @@
 				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
 			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1001;">
-					<a href="#" class="helpPopupToggler floatRight"> close <span>X</span></a>
+					<a href="#" class="helpPopupToggler floatRight close"> close <span>X</span></a>
 					<h4>${_("FF_IFRAME_Quick Guide to Creating a Pool")}</h4>
 					<div class="subHeading"></div>
-					<p>${_("FF_IFRAME_Here's how you can create a Group Gift Pool and give something extra special without breaking the bank")}</p>
+					<p>${_("FF_IFRAME_Create a Group Gift Pool and give something extra special without breaking the bank.")}</p>
 					<ul>
 						<li>
-							<span>1.</span>
-							<h5>${_("FF_IFRAME_Find a gift")}</h5>
-							<p>${_("FF_IFRAME_What does your recipient really, really want?")}</p>
+							<div class="arrowSubTab"></div>
+							<div>
+								<div>
+									<img src="/static/imgs/iframe-partner/gift_icon.png" />
+								</div>
+							
+							</div>
+							<div class="colRightWhite"></div>
+							<h5>${_("FF_IFRAME_Find a gift and click the friendfund it! button ")}</h5>
+							<p>${_("FF_IFRAME_Find the perfect gift from our huge selection. ?")}</p>
+							
 						</li>
 						<li>
-							<span>2.</span>
-							<h5>${_('FF_IFRAME_Click the "friendfund it!" button')}</h5>
-							<p>${_("FF_IFRAME_The blue button located on every product page.")}</p>
+							<div class="arrowSubTab"></div>
+							<div>
+								<div>
+									<img src="/static/imgs/iframe-partner/recipient_icon.png" />
+								</div>
+							</div>
+							<div class="colRightWhite"></div>
+							<h5>${_("FF_IFRAME_Choose your recipient, occasion and contribution deadline")}</h5>
+							<p>${_("FF_IFRAME_Select your friend and special occasion. Make sure to leave aside plenty of time when selecting a deadline.")}</p>
+							
 						</li>
 						<li class="omega">
-							<span>3.</span>
-							<h5>${_("FF_IFRAME_Choose your recipient")}</h5>
-							<p>${_("FF_IFRAME_from Facebook, Twitter and email friends.")}</p>
-						</li>
-						<li>
-							<span>4.</span>
-							<h5>${_("FF_IFRAME_Choose an occasion...")}</h5>
-							<p>${_("FF_IFRAME_Are you celebrating something special, like a birthday?")}</p>
-						</li>
-						<li>
-							<span>5.</span>
-							<h5>${_("FF_IFRAME_...and contribution deadline")}</h5>
-							<p>${_("FF_IFRAME_Make sure you leave aside plenty of time to purchase your gift")}</p>
-						</li>
-						<li class="omega">
-							<span>6.</span>
-							<h5>${_("FF_IFRAME_Share the cost with friends")}</h5>
+							<div>
+								<div>
+									<img src="/static/imgs/iframe-partner/friends_icon.png" />
+								</div>
+							</div>
+							<div class="colRightWhite"></div>
+							<h5>${_("FF_IFRAME_Share the costs with  friends!")}</h5>
 							<p>${_("FF_IFRAME_Invite your friends to chip in as much or as little as they want!")}</p>
+							
 						</li>
+					
 					</ul>
-					<p class="small">${_("FF_IFRAME_For the Pool to be successful, it needs to reach its target before the expiry date. So tell your friends what the Pool is for, they like the idea and contribute. They are only then charged if the Pool gets enough support. If the Pool is not successful, no one pays a single penny.")}</p>
+					<a class="forward floatRight" style="margin-top:13px" href="#">Get started</a>
+					
 				</div>
 			<a class="floatRight" style="margin-top:20px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
 			<div class="clear"></div>

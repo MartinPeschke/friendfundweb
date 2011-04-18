@@ -5,7 +5,6 @@
 	border:none;
 	list-style-type:none
 }
-
 html {
 	height:100%
 }
@@ -36,7 +35,7 @@ div.wrapHeader {
 div.header {
 	max-width:930px;
 	margin: 0 auto;
-	height: 60px;
+	min-height: 60px;
 	position: relative
 }
 div.wrapSubHeaderHome {
@@ -45,7 +44,7 @@ div.wrapSubHeaderHome {
 	height: 390px;
 	position: relative;
 }
-div.wrapSubHeaderHome div.shadowHome{
+div.wrapSubHeaderHome div.shadowHome {
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -144,7 +143,6 @@ span.white {
 .bold {
 	font-weight: bold
 }
-
 input, textarea {
 	color: #2C2C2C;
 	font-family:Arial, Helvetica, sans-serif
@@ -152,23 +150,29 @@ input, textarea {
 input.default, textarea.default {
 	color: #ADADAD !important
 }
+textarea {
+	resize: none;
+	border-style: none;
+	border-color: Transparent;
+	overflow: auto;
+}
+/*
 .borderGrey input {
 	width:120px;
 	float:left
 }
+*/
 .noBorder {
 	border-bottom:none !important
 }
 .hidden {
 	display:none !important
 }
-
 .simpleeditable:hover, .editable:hover {
 	background-color:#FAF79B !important
 }
 label, .chkbox {
 	cursor: pointer;
-	
 }
 .colLeft p.info {
 	font-size: 11px;
@@ -181,12 +185,16 @@ label, .chkbox {
 div.selected p.info {
 	margin-top:2px
 }
-.colRightWhite {
+.colRightWhite, .helpPopup ul li div.colRightWhite {
+	border: none;
 	border-top: 1px solid white;
 	clear:both;
 	height: 0px;
 	line-height: 0;
-	font-size: 0
+	font-size: 0;
+	padding: 0;
+	min-height: 1px;
+	background: none;
 }
 /*-----END GENERAL ELEMENTS------*/
 
@@ -194,8 +202,6 @@ div.selected p.info {
 div.header h1 {
 	display: block;
 	width: 150px;
-	height: 30px;
-	background: url(/custom/imgs/logo.png) 0 0 no-repeat;
 	margin: 13px 0 0 0;
 	float:left
 }
@@ -228,17 +234,16 @@ div.header ul li a:hover {
 	color:white;
 	text-decoration: none
 }
-
 div.loginArea {
 	float: right;
 	font-size: 12px;
 	color: black;
-	margin: 16px 0 0 0;
+	margin: -13px 0 0 0;
 	position:relative;
 	font-size:11px;
 	position: absolute;
 	right: 0;
-	top:0;
+	top:50%;
 	z-index: 20
 }
 div.loginArea a.btn, div.loginArea div.btn {
@@ -295,11 +300,11 @@ div.loginArea img {
 }
 #loginPanelContent p {
 	clear: both;
-    display: block;
-    margin: 15px 0 0;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    border-top: 1px solid #E4E4E4;
+	display: block;
+	margin: 15px 0 0;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border-top: 1px solid #E4E4E4;
 }
 #loginPanelContent label {
 	font-size:12px;
@@ -315,6 +320,7 @@ div.loginArea img {
 	padding-top:15px;
 	clear:both
 }
+#loginPanelContent .error{ padding: 0 !important}
 .inputFields {
 	margin-top: 10px
 }
@@ -402,7 +408,6 @@ div.whitePopupFrameLarge .inputFields p.info {
 .inputline {
 	padding:15px 0 0 0
 }
-
 /*
 .newFormControls input {
 	background-color: white;
@@ -494,39 +499,12 @@ div.subHeader h2 span {
 	margin-top: 10px;
 	float: left
 }
-.learnMoreBtn {
-	display: block;
-	color: white;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	background-color: #2dbbff;
-	text-align: center;
-	padding: 0 10px;
-	height: 30px;
-	line-height: 30px;
-	margin: 10px 0 0 0px;
-	font-weight: bold;
-	font-size: 12px;
-	float: left;
-	margin-left: 20px;
-	cursor: pointer;
-	text-shadow: none;
-	position: relative;
-	z-index:1002;
-	
-}
-.learnMoreBtn:hover {
-	background-color: #009be6;
-	text-decoration: none
-}
 /* HOMEPAGE */
 div.contentHome {
 	max-width: 930px;
 	margin: -210px auto 0 auto;
 	padding-bottom: 60px;
 	position: relative;
-
 }
 div.weNeed {
 	border: 1px solid #D3D3D3;
@@ -551,9 +529,9 @@ div.weNeed h3 {
 div.weNeed input.weNeed {
 	border: 1px solid #DADADA;
 	font-size: 18px;
-	line-height:38px;
-	height: 38px;
-	padding: 0 10px;
+	line-height:28px;
+	height: 28px;
+	padding: 5px 10px 5px 10px;
 	display: block;
 	float: left
 }
@@ -580,16 +558,15 @@ div.formWeNeed span {
 	float: left;
 	display: block;
 }
-div.formWeNeed span.link{
+div.formWeNeed span.link {
 	line-height: 12px;
 	display: inline;
 	float: none;
 }
-div.formWeNeed span.showToolTipHook{
+div.formWeNeed span.showToolTipHook {
 	margin-top: 0;
 	position: relative
 }
-
 div.formWeNeed p.info {
 	font-size: 11px;
 	color: #999;
@@ -721,14 +698,13 @@ div.controller .smallLeft, div.controller .smallRight {
 	cursor:pointer;
 	margin-right: 5px
 }
-
 div.controller .smallLeft span {
 	display: block;
 	border-top:5px solid transparent;
 	border-right:5px solid black;
 	border-bottom: 5px solid transparent;
 	margin: 4px 0 0 6px;
-	height: 0  ;
+	height: 0;
 	float: left
 }
 div.controller .smallRight span {
@@ -744,7 +720,6 @@ div.controller .smallRight span {
 	position: absolute;
 	right: -95px;
 	top: -107px;
-
 }
 div.imgCntSld {
 	border: 1px solid #e5e5e5;
@@ -766,7 +741,8 @@ div.generalPadding .home_expander {
 	margin: 0
 }
 div.spPad div.tip {
-    top: 30px !important;
+	right: -240px !important;
+	top: 17px !important;
 }
 div.logoContainer {
 	border-top: 1px solid #e5e5e5;
@@ -805,7 +781,6 @@ div.homebox {
 	margin-right: 30px;
 	background: white
 }
-
 div.homebox img {
 	display: block;
 	width: 190px;
@@ -1028,7 +1003,6 @@ div.boxPoolDetails {
 	clear: both;
 	float: left;
 	width: 910px;
-
 }
 div.timeTracker {
 	width: 210px
@@ -1053,7 +1027,6 @@ div.timeTracker span {
 	font-weight: bold;
 	color: #2C2C2C;
 	position: relative;
-
 }
 div.contributors {
 	float:left;
@@ -1137,8 +1110,12 @@ div.daysLeft span {
 	background: url(/static/imgs/calendarSmall.png) 0 10px no-repeat;
 	padding-left: 20px
 }
+div.adminLinks {
+	margin: 10px 0 0 0;
+	color: #7f7f7f
+}
 div.greyBoxTitle {
-	margin: 20px 0 0 0;
+	margin: 10px 0 0 0;
 	width: 100%;
 	height: 50px;
 	background-color: #dedbd1;
@@ -1198,23 +1175,20 @@ span.btnHide {
 	text-decoration: none;
 	cursor: pointer;
 }
-
-
 .hided {
 	background: none repeat scroll 0 0 #f3f2ed;
 	overflow: hidden;
 	background: -moz-linear-gradient(100% 100% 90deg, #f7f6f2, #f3f2ed);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f2ed), to(#f7f6f2));
-   
 }
 .hided .brd {
 	height: 1px;
 	font-size: 0;
 	line-height: 0;
 	width: 100%;
-	-moz-box-shadow: 0 1px 4px black;
-	-webkit-box-shadow: 0px 1px 4px black; /*Safari 3.0+, Chrome */
-	box-shadow: 0px 1px 4px black; /* Opera 10.5, IE 9.0 */
+	-moz-box-shadow: 0 1px 4px #999;
+	-webkit-box-shadow: 0px 1px 4px #999; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 1px 4px #999; /* Opera 10.5, IE 9.0 */
 	margin-top: -1px;
 	z-index: 10px;
 	position: relative
@@ -1312,9 +1286,17 @@ span.btnHide {
 div.fullWidth div.subHeading {
 	width: 930px
 }
-div.colLeft{ width: 690px}
-p.unNt{ margin-top: 7px !important; margin-bottom: -11px !important;}
-div.selected p.unNt{ margin-bottom: -6px !important; margin-top: 2px !important}
+div.colLeft {
+	width: 690px
+}
+p.unNt {
+	margin-top: 7px !important;
+	margin-bottom: -11px !important;
+}
+div.selected p.unNt {
+	margin-bottom: -6px !important;
+	margin-top: 2px !important
+}
 div.subHeading {
 	border-top: 2px solid #eeedec;
 	height: 0px;
@@ -1435,12 +1417,11 @@ div.checked {
 	position: absolute;
 	right: -5px;
 	top: -5px;
-
 }
-.checked img {
+.checked img, .avt .checked img {
 	width: 18px;
 	height: 17px;
-	border: none
+	border: none !important
 }
 div.arrowAvatar {
 	background: url(/static/imgs/arrow-avatar-box.png) 0 0 no-repeat;
@@ -1449,7 +1430,6 @@ div.arrowAvatar {
 	position: absolute;
 	right: -6px;
 	top: 3px;
-
 }
 div.imgEdit {
 	margin: 10px 0 0 0;
@@ -1510,7 +1490,7 @@ ul.comments {
 }
 ul.comments li {
 	border-bottom: 1px solid #ebebeb;
-	padding:15px 0 ;
+	padding:15px 0;
 	border-top:1px solid white;
 	float: left;
 	width: 690px
@@ -1532,11 +1512,22 @@ ul.comments span {
 	line-height: 20px;
 	padding: 0 5px;
 	padding-left: 40px;
-	margin-left: -40px
+	margin-left: -40px;
+	float: left
 }
-ul.comments span.normal{ font-weight: normal; display: inline; padding: 0; margin: 0}
-ul.comments li.contribution_msg span{ background:#faf79b}
-ul.comments li.contribution_msg p{ margin-top: 5px}
+ul.comments span.normal {
+	font-weight: normal;
+	display: inline;
+	padding: 0;
+	margin: 0;
+	float:none
+}
+ul.comments li.contribution_msg span {
+	background:#faf79b
+}
+ul.comments li.contribution_msg p {
+	margin-top: 5px
+}
 ul.comments span.date {
 	font-size: 10px;
 	text-transform: uppercase;
@@ -1574,7 +1565,9 @@ ul.comments .txtArea {
 	height: 100%
 }
 ul.comments p {
-	color: #4e4e4e
+	color: #4e4e4e;
+	clear: both;
+	padding-top: 3px
 }
 div.comments input {
 	display: block;
@@ -1593,7 +1586,6 @@ div.comments input {
 	float: right;
 	margin-top: 59px
 }
-
 .colRightWhiteMargin {
 	border-top: 1px solid white;
 	clear:both;
@@ -1637,6 +1629,7 @@ div.rose {
 	-moz-box-shadow: 0 2px 2px #999;
 	-webkit-box-shadow: 0px 2px 2px #999; /*Safari 3.0+, Chrome */
 	box-shadow: 0px 2px 2px #999; /* Opera 10.5, IE 9.0 */
+	text-align: left
 }
 div.rose p {
 	text-align: left;
@@ -1700,7 +1693,7 @@ div.iconContainer a {
 /* POOL DETAILS */
 div.nonPoolHeader {
 	float:left;
-	max-width: 800px;
+	max-width: 930px;
 	padding-bottom: 10px
 }
 div.nonPoolHeader h2 {
@@ -1709,6 +1702,7 @@ div.nonPoolHeader h2 {
 	line-height: 36px;
 	margin: 55px 0 0;
 	padding: 0;
+	max-width: 840px
 }
 /*progress tracker*/
 div.steps {
@@ -1769,26 +1763,18 @@ div.stepOne.active, div.stepTwo.active, div.stepThree.active {
 	background-color: #F9CCE1 !important;
 	color: #2C2C2C
 }
-
 div.steps div.rightArrow.active {
 	border-left-color: #F9CCE1
 }
 div.steps div span {
 	display: block;
 	float: left;
-	/* 	background: #ededed; */
 	height: 20px;
 	width: 20px;
 	text-align: center;
 	margin-top: 5px;
-	line-height: 20px;/*
--moz-border-radius: 15px;
-	border-radius: 15px;
-	margin-right: 10px;
-	text-indent: 1px
-*/
+	line-height: 20px;
 }
-
 div.borderBottom {
 	float: left;
 	border-bottom: 1px solid #E2E0DE;
@@ -1823,7 +1809,6 @@ div.borderBottom input {
 	display: block;
 	float: left
 }
-
 div.borderBottom input.ptitleSimpleEdit {
 	border: 1px solid #999;
 	height:18px;
@@ -1835,7 +1820,6 @@ div.borderBottom input.ptitleSimpleEdit {
 div.borderBottom input.small {
 	width:120px;
 	padding:0 5px;
-
 }
 div.borderBottom select {
 	border: 1px solid #dadada;
@@ -1857,7 +1841,7 @@ div.greyInsideFullWidth {
 	float: left;
 	clear: both
 }
-div.greyInsideFullWidth label ,div.greyInsideFullWidth .chkbox{
+div.greyInsideFullWidth label, div.greyInsideFullWidth .chkbox {
 	line-height: 30px
 }
 div.greyInsideFullWidth input {
@@ -1871,9 +1855,9 @@ div.containerTxtArea {
 	width:74%;
 	border: 1px solid #dadada;
 	padding:5px;
-	background:white;/* 	margin-left:3px */
+	background:white;
 }
-div.containerTxtArea input{ 
+div.containerTxtArea input {
 	padding: 0
 }
 div.containerTxtArea textarea {
@@ -1892,14 +1876,13 @@ div.containerTxtArea input {
 	height:20px;
 	line-height:20px
 }
-
 span.darkGrey {
 	color: #757575;
 	text-shadow: 0px 1px 1px #FFF;
 	margin:7px 10px 0 0;
 	font-size: 11px
 }
-div.special span.darkGrey{
+div.special span.darkGrey {
 	margin-right: 0
 }
 div.borderBottom .imgContainer {
@@ -1952,15 +1935,19 @@ div.generalPadding div.controller {
 }
 .generalPadding .home_expander .parsercloser {
 	font-size: 12px;
-    right: -100px;
-    top: -112px;
+	right: -100px;
+	top: -112px;
 }
-div.generalPadding ul li a{ font-size: 14px}
-div.generalPadding ul li a:hover{ text-decoration: none}
-.expander{ 
+div.generalPadding ul li a {
+	font-size: 14px
+}
+div.generalPadding ul li a:hover {
+	text-decoration: none
+}
+.expander {
 	height: 132px
 }
-.expander.selected{ 
+.expander.selected {
 	padding: 15px 0 !important
 }
 div.mainValue input {
@@ -1982,7 +1969,6 @@ div.simpleeditable textarea {
 .padLeft {
 	clear: both;
 	margin-left: 164px;
-
 }
 .colLeft .receiveMoney p {
 	font-weight: bold;
@@ -2182,7 +2168,8 @@ div.outerPopupFrame div.whitePopupFrameLarge {
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	left: 50%;;
+	left: 50%;
+	;
 	top:0;
 	margin-left: -242px
 }
@@ -2274,7 +2261,7 @@ span.value {
 	margin:9px 0 0 0;
 	float: left
 }
-input#payment_amount{
+input#payment_amount {
 	font-size: 30px;
 	font-weight: bold;
 	float: left;
@@ -2282,15 +2269,20 @@ input#payment_amount{
 	height: 46px;
 	line-height: 48px;
 }
-p.errorMsg{ font-size: 12px; float: left; margin: 16px 0 0 10px; padding: 0}
-div.special div.tip {
-	top:15px !important
+p.errorMsg {
+	font-size: 12px;
+	float: left;
+	margin: 16px 0 0 10px;
+	padding: 0
 }
-div.imgSpacer label, div.imgSpacer img,  div.imgSpacer input{
+div.special div.tip {
+	top:10px !important
+}
+div.imgSpacer label, div.imgSpacer img, div.imgSpacer input {
 	float: left;
 	display: block;
 }
-div.imgSpacer img{
+div.imgSpacer img {
 	margin-right: 25px
 }
 .colLeft p.alignInput {
@@ -2315,7 +2307,6 @@ h6 {
 	margin-top:15px;
 	color:#999
 }
-
 div.verySmall {
 	color: #999;
 	font-size: 10px;
@@ -2341,19 +2332,18 @@ div.borderBottom input.number {
 div.selected input.number {
 	margin-top: -3px;
 	margin-bottom: 5px
-	
 }
 .lessPad {
 	border:none !important;
 	padding:0 0 0 0 !important
 }
 .lessPad .tip {
-	top:0px !important
+	top:10px !important
 }
 div.lessPad div.greyInsideFullWidth {
 	padding:5px 0;
 }
-div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox,div.imgSpacer input.radio{
+div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.terms input.chkbox, div.imgSpacer input.radio {
 	width:15px;
 	height:15px;
 	margin:6px 10px 0 0;
@@ -2383,20 +2373,19 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	line-height:0;
 	font-size:0
 }
-div.boxWhat{
+div.boxWhat {
 	border: 1px solid #e5e5e5;
 	padding: 3px;
 	margin-top: 12px;
-	
 }
-div.boxWhat .prod{
+div.boxWhat .prod {
 	border: 1px solid #e5e5e5;
-    float: left;
-    height: 58px;
-    overflow: hidden;
-    width: 68px;
+	float: left;
+	height: 58px;
+	overflow: hidden;
+	width: 68px;
 }
-div.boxWhat .title{
+div.boxWhat .title {
 	float: left;
 	padding: 7px 0 0 10px;
 	width: 120px;
@@ -2404,58 +2393,57 @@ div.boxWhat .title{
 	color: #adadad;
 	line-height: 14px
 }
-div.boxWhat .creator{
+div.boxWhat .creator {
 	display: block;
 	font-size: 10px;
 	color: #adadad
 }
-div.boxWhat .prod img{
+div.boxWhat .prod img {
 	border: 4px solid white;
 }
-div.security{
+div.security {
 	border:1px solid #e5e5e5;
 	margin-top: 20px;
 	background: #F4F4F4
 }
-div.headSec{
+div.headSec {
 	border-bottom: 1px solid #dadada
 }
-div.lock{
+div.lock {
 	border-top:1px solid #fff;
 	background: #e5e5e5;
 	border-bottom: 1px solid #d1d1d1;
 	padding: 5px
 }
-div.security div.lock p{
+div.security div.lock p {
 	background: url(/static/imgs/lock.png) 5px 2px no-repeat;
-	padding:0 0 0  45px;
+	padding:0 0 0 45px;
 	font-size: 10px;
 	color: #696969;
 	font-weight: bold;
 	line-height: 14px;
 	padding-top: 7px;
 	min-height: 38px
-	
 }
-div.security h4{
+div.security h4 {
 	text-align: center;
 	padding: 10px;
 	display: block;
 	font-size: 10px
 }
-div.security p{
+div.security p {
 	font-size:10px;
-	color: #696969; 
+	color: #696969;
 	padding: 10px 15px 5px 15px
 }
-#verisign_contrib{
+#verisign_contrib {
 	border: 1px solid #e5e5e5;
 	margin:0 auto;
 	width:135px;
 	height: 90px;
 	background: white
 }
-div.security a.learn{
+div.security a.learn {
 	font-size: 10px;
 	padding: 0 0 15px 15px;
 	margin-top: -5px;
@@ -2481,7 +2469,6 @@ div.security a.learn{
 	-webkit-box-shadow: 0px 2px 2px #888; /*Safari 3.0+, Chrome */
 	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
 }
-
 .green {
 	background-color:#A3F46C !important;
 }
@@ -2510,7 +2497,7 @@ div.security a.learn{
 	background-color:#F46587 !important;
 }
 div.error {
-	padding: 10px 0 !important 
+	padding: 10px 0 !important
 }
 .colLeft p.error {
 	margin: 3px 0 0 0;
@@ -2518,7 +2505,7 @@ div.error {
 	font-size: 11px !important;
 	font-weight: normal !important
 }
-div.error span, div.error div, div.error p, div.error label, span.error, h4.error{
+div.error span, div.error div, div.error p, div.error label, span.error, h4.error {
 	color:#D80A66 !important
 }
 div.error div#termsofservice p, div.error div#termsofservice p span {
@@ -2586,10 +2573,17 @@ div.inviteBottom {
 }
 div.friendsList {
 	height:247px;
-	overflow:auto;
+	overflow:hidden;
 	background:white;
 	float: left;
 	width: 100%
+}
+div.friendsList ul {
+	display: block;
+	float: left;
+	width: 100%;
+	overflow: auto;
+	height: 247px
 }
 div.friendsList ul li {
 	width:148px;
@@ -2601,7 +2595,13 @@ div.friendsList ul li {
 	margin-bottom:5px;
 	position:relative
 }
-div.friendsList ul li p{ padding: 0; font-size: 11px}
+div.friendsList ul li p {
+	padding: 0;
+	font-size: 11px;
+	height: 55px;
+	overflow: hidden;
+	line-height: 14px
+}
 ul.facebook, ul.twitter {
 	float:left;
 	padding:8px 0 8px 10px
@@ -2625,12 +2625,12 @@ div.friendsList ul li span {
 	left:75px;
 	bottom:3px
 }
-div.friendsList ul li p,  {
-	padding:0;
-	height: 50px;
-	line-height: 14px;
-	overflow: hidden;
-	font-size: 11px
+div.friendsList ul li p, {
+ padding:0;
+ height: 50px;
+ line-height: 14px;
+ overflow: hidden;
+ font-size: 11px
 }
 .boxSearchFriend {
 	height:50px;
@@ -2662,8 +2662,12 @@ div.friendsList ul li p,  {
 }
 .mutualToggleContainer {
 	float:left;
-	margin: 15px 0 0 0;
+	margin: 12px 0 0 0;
 } /*added for properly style mutualToggler, martin*/
+.mutualToggleContainer input{
+	margin-top: 5px;
+	float: left
+}
 .inviteAll {
 	display:block;
 	margin:15px 10px 0 0
@@ -2728,7 +2732,7 @@ div.friendsList ul li p,  {
 	display:block;
 	float:left;
 	font-size: 14px;
-    line-height: 26px;
+	line-height: 26px;
 }
 .subTab label.fixedWidth {
 	width: 140px;
@@ -2750,6 +2754,7 @@ div.friendsList ul li p,  {
 	clear:both;
 	padding-top:30px;
 	margin-left:160px
+	
 }
 .firstSpacer {
 	padding-top:75px;
@@ -2826,31 +2831,38 @@ p.inviterTwo {
 	color: #696969;
 	margin: 10px 0 0 18px
 }
-.tertiary {
-	width: 170px;
-	height: 60px;
-	display: block;
-	font-size: 24px;
-	border:1px solid #77ad47;
-	text-align: center;
-	line-height: 60px;
+/* BUTTONS */
+.primaryButton, div.borderBottom .primaryButton {
+	font-size:16px;
 	color:white;
-	margin: 0;
-	background-color: #65da44;
-	background: -moz-linear-gradient(100% 100% 90deg, #5dc63e, #6eec4a);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6eec4a), to(#5dc63e));
+	border:1px solid #cb3e7e;
+	background-color: #ff0585;
+	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
-	text-shadow: 0px 1px 1px #529e0c;
-	margin-bottom: 18px
+	text-shadow: 1px 1px 1px #960148;
+	display:block;
+	padding:7px 10px ;
+	cursor:pointer;
+	line-height: 19px;
 }
-.tertiary:hover {
-	background:#5dc53d;
-	text-decoration: none
+.secondary {
+	font-size:16px;
+	color:white;
+	border:1px solid #4180b0;
+	background-color: #018ecc;
+	background: -moz-linear-gradient(100% 100% 90deg, #025393, #018ecc);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#018ecc), to(#025393));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 1px 1px 1px #023153;
+	display:block;
+	padding:7px 10px;
+	line-height: 19px;
+	cursor:pointer;
 }
-.primaryLarge {
-	height:40px;
-	line-height:40px;
+.primaryLarge{
 	font-size:18px;
 	color:white;
 	border:1px solid #cb3e7e;
@@ -2862,49 +2874,10 @@ p.inviterTwo {
 	border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:0 10px;
+	padding:8px 10px;
 	cursor: pointer;
 }
-.primaryLarge:hover, .primaryButton:hover, .forward:hover, .primarySmall:hover, div.borderBottom .primaryButton:hover {
-	background:#d30165;
-	text-decoration: none
-}
-.primaryButton {
-	height:35px;
-	line-height:35px;
-	font-size:16px;
-	color:white;
-	border:1px solid #cb3e7e;
-	background-color: #ff0585;
-	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
-	-moz-border-radius:5px;
-	-webkit-border-radius: 5px;
-	text-shadow: 1px 1px 1px #960148;
-	display:block;
-	padding:0 10px;
-	cursor:pointer;
-}
-div.borderBottom .primaryButton {
-	height:35px;
-	line-height:35px;
-	font-size:16px;
-	color:white;
-	border:1px solid #cb3e7e;
-	background-color: #ff0585;
-	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0585), to(#d80065));
-	-moz-border-radius:5px;
-	-webkit-border-radius: 5px;
-	text-shadow: 1px 1px 1px #960148;
-	display:block;
-	padding:0 10px;
-	width: auto;
-	cursor:pointer;
-}
-.primarySmall {
-	height:25px;
-	line-height:25px;
+.primarySmall, .inputFields .primarySmall {
 	font-size:12px;
 	color:white;
 	background-color: #ff0585;
@@ -2914,24 +2887,80 @@ div.borderBottom .primaryButton {
 	-webkit-border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:0 10px;
+	padding:3px 10px;
 	cursor:pointer;
+	border: none
 }
-.secondary {
-	height:35px;
-	line-height:35px;
+
+.forward {
 	font-size:16px;
 	color:white;
-	border:1px solid #4180b0;
-	background-color: #025393;
-	background: -moz-linear-gradient(100% 100% 90deg, #025393, #018ecc);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#018ecc), to(#025393));
+	border:1px solid #cb3e7e;
+	background: #fd1d88 url(/static/imgs/primary_forward_arrow.png) right center no-repeat;
+	background:url(/static/imgs/primary_forward_arrow.png) right center no-repeat, -moz-linear-gradient(100% 100% 90deg, #d40166, #fd1d88);
+	background:url(/static/imgs/primary_forward_arrow.png) right center no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fd1d88), to(#d40166));
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
-	text-shadow: 1px 1px 1px #023153;
+	border-radius:5px;
+	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:0 10px;
-	cursor:pointer;
+	padding:7px 20px 7px 10px;
+	cursor: pointer
+}
+.tertiary {
+	width: 170px;
+	height: 60px;
+	display: block;
+	font-size: 24px;
+	border:1px solid #77ad47;
+	text-align: center;
+	line-height: 58px;
+	color:white;
+	margin: 0;
+	background-color: #65da44;
+	background: -moz-linear-gradient(100% 100% 90deg, #5dc63e, #6eec4a);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6eec4a), to(#5dc63e));
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 0px 1px 1px #529e0c;
+	margin-bottom: 18px
+}
+.learnMoreBtn {
+	display: block;
+	color: white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #2dbbff;
+	text-align: center;
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+	margin: 10px 0 0 0px;
+	font-weight: bold;
+	font-size: 12px;
+	float: left;
+	margin-left: 20px;
+	cursor: pointer;
+	text-shadow: none;
+	position: relative;
+	z-index:1002;
+}
+.learnMoreBtn:hover {
+	background-color: #009be6;
+	text-decoration: none
+}
+.tertiary:hover {
+	background:#5dc53d;
+	text-decoration: none
+}
+.primaryLarge:hover, .primaryButton:hover, .primarySmall:hover, div.borderBottom .primaryButton:hover {
+	background:#d30165;
+	text-decoration: none
+}
+.forward:hover {
+	background:url(/static/imgs/primary_forward_arrow.png) right center no-repeat #d30165;
+	text-decoration: none
 }
 .secondary:hover {
 	background: #025191;
@@ -2951,47 +2980,6 @@ div.borderBottom .primaryButton {
 	padding-top:20px;
 	margin-left:25px;
 	margin-right: 10px
-}
-.forward {
-	height:35px;
-	line-height:35px;
-	font-size:16px;
-	color:white;
-	border:1px solid #cb3e7e;
-	background-color: #fd1d88;
-	background: -moz-linear-gradient(100% 100% 90deg, #d40166, #fd1d88);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fd1d88), to(#d40166));
-	-moz-border-radius:5px;
-	-webkit-border-radius: 5px;
-	border-radius:5px; 
-	text-shadow: 1px 1px 1px #960148;
-	display:block;
-	padding:0 10px;
-	cursor: pointer
-}
-.forward input {
-	cursor: pointer;
-	line-height: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	display:block;
-	width:15px;
-	height:15px;
-	float:right;
-	margin:10px 0 0 5px;
-	color:white;
-	font-weight:bold;
-	background-color: #f3167f;
-	background: -moz-linear-gradient(100% 100% 90deg, #d70469, #cb0e68);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cb0e68), to(#d70469));
-}
-.forward span {
-	float:left
-}
-.forward:hover input {
-	background-color: #f3167f;
-	background: -moz-linear-gradient(100% 100% 90deg, #d70469, #cb0e68);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d60569), to(#cb0e68));
 }
 .special {
 	padding:7px 0 7px 0 !important
@@ -3052,7 +3040,7 @@ div.first {
 	line-height: 30px;
 	position: relative
 }
-div.first .editCurr{
+div.first .editCurr {
 	position: absolute;
 	right: 10px;
 	bottom: -7px;
@@ -3068,7 +3056,7 @@ div.logInOnePx input {
 	width: 61%;
 }
 div.logInOnePx div.greyInsideFullWidth {
-    width: 450px !important;
+	width: 450px !important;
 }
 .loginSocialWrap {
 	float:left;
@@ -3107,7 +3095,6 @@ div.logInOnePx div.greyInsideFullWidth {
 div.wrapInside div.tip {
 	top:0
 }
-
 .tabsBig {
 	clear: both;
 	padding-top: 30px
@@ -3233,7 +3220,6 @@ div.wrapInside div.tip {
 	padding: 0;
 	margin-top: 5px
 }
-
 .poolRow .outstanding {
 	text-align: left;
 	height: auto;
@@ -3294,8 +3280,6 @@ div.wrapInside div.tip {
 	font-size: 10px;
 	margin: 0 3px
 }
-
-
 .moreActions {
 	border: 1px solid #e2e2e2;
 	padding:0 7px 10px 7px;
@@ -3365,7 +3349,6 @@ span.hider:hover div.moreActions {
 	padding: 12px 0 12px 20px;
 	text-align: left;
 	line-height: 11px
-	
 }
 .poolRow .boxPoolDetails div.chippedIn span {
 	padding: 12px 0 5px 20px;
@@ -3381,7 +3364,7 @@ span.hider:hover div.moreActions {
 	position: relative;
 }
 .poolRow div.timeCounterLeft {
-	-moz-border-radius: 10px ;
+	-moz-border-radius: 10px;
 	border-bottom-radius:10px;
 	-webkit-border-radius:10px;
 	height: 15px;
@@ -3483,10 +3466,9 @@ span.hider:hover div.moreActions {
 	cursor: pointer;  this dont work on activity stream*/
 	font-weight: normal
 }
-#activityBody{
+#activityBody {
 	padding-bottom: 55px
 }
-
 .entryStream {
 	float: left;
 	width: 500px;
@@ -3569,21 +3551,27 @@ span.tenPix a.link {
 	color: #696969;
 	font-size: 11px !important
 }
-.merchantShow{
+.merchantShow {
 	margin-right: -30px;
-	margin-bottom: -5px	
-	
+	margin-bottom: -5px
 }
-.merchantShow span{
-	color: #999999 ;
+.merchantShow span {
+	color: #999999;
 	display: block;
 	margin-top: 5px;
-    float: left;
-    font-size: 11px;
-    line-height: 10px;
-    padding: 5px 0;
-    position: relative;}
-.merchantShow img{ width: 60px; height: 30px; border: 1px solid #e5e5e5; margin-left: 10px; float: left}
+	float: left;
+	font-size: 11px;
+	line-height: 10px;
+	padding: 5px 0;
+	position: relative;
+}
+.merchantShow img {
+	width: 60px;
+	height: 30px;
+	border: 1px solid #e5e5e5;
+	margin-left: 10px;
+	float: left
+}
 .mainSpan {
 	color:#333
 }
@@ -3697,7 +3685,7 @@ div.empty h2 {
 	padding-bottom: 20px;
 	padding-right: 0
 }
-.colLeft .faq a:hover{
+.colLeft .faq a:hover {
 	text-decoration: none !important
 }
 .linkTop {
@@ -3719,13 +3707,12 @@ div.empty h2 {
 	width: 132px;
 	margin-right: 5px
 }
-span.bySmall{
+span.bySmall {
 	margin: 7px 4px 0 4px;
 	display: block;
 	float: left
-	
 }
-span.editSmall{
+span.editSmall {
 	margin: -1px 0 0 5px;
 }
 .verticalTip span {
@@ -3753,7 +3740,6 @@ span.editSmall{
 	width: 215px;
 	margin-right: 0
 }
-
 .noBtmPad {
 	padding-bottom: 0px !important
 }
@@ -3813,14 +3799,13 @@ span.editSmall{
 	margin-left: 158px;
 	background: white
 }
-
 .txtInside .tip {
 	top:112px !important
 }
-
 .language {
 	float: left;
-	padding-right: 125px;position: relative
+	padding-right: 125px;
+	position: relative
 }
 .footer .language span {
 	float: left;
@@ -3829,10 +3814,18 @@ span.editSmall{
 .footerCol5 {
 	text-align: left !important
 }
-div.footer .middot { padding: 5px 15px}
-div.like iframe{ margin-top: -1px}
-div.like iframe, div.like span{ float: left; }
-div.like span{ margin-right: 10px}
+div.footer .middot {
+	padding: 5px 15px
+}
+div.like iframe {
+	margin-top: -1px
+}
+div.like iframe, div.like span {
+	float: left;
+}
+div.like span {
+	margin-right: 10px
+}
 div.footer div.showHide {
 	position: absolute;
 	right: 0;
@@ -3844,11 +3837,9 @@ div.footer div.showHide span {
 }
 div.footer div.showHide div.widthGiver {
 	border: none;
-    width: 100%;
-    height: 0px;
-    overflow: hidden
-
-
+	width: 100%;
+	height: 0px;
+	overflow: hidden
 }
 div.footer div.showHide:hover {
 	background:#e5e5e5;
@@ -3861,12 +3852,15 @@ div.footer div.showHide:hover {
 	border-top-right-radius:0px;
 	-moz-border-radius-topright:0px;
 }
-div.footer div.showHide:hover div.widthGiver { height: auto}
-div.footer div.showHide:hover div div{border-top: 4px solid #E5E5E5;
+div.footer div.showHide:hover div.widthGiver {
+	height: auto
+}
+div.footer div.showHide:hover div div {
+	border-top: 4px solid #E5E5E5;
 	border-left: 4px solid #E5E5E5;
 	border-right: 4px solid #E5E5E5;
-	border-bottom: 4px solid #E5E5E5;}
-
+	border-bottom: 4px solid #E5E5E5;
+}
 div.footer div.showHide div div {
 	background: none repeat scroll 0 0 white;
 	clear: both;
@@ -3883,16 +3877,15 @@ div.footer div.showHide div div {
 div.footer div.footerCol5 span, div.footer div.footerCol5 a, div.footer div.footerCol5 div {
 	font-size: 12px
 }
-div.languageSelection{  height: 25px; position: absolute;
+div.languageSelection {
+	height: 25px;
+	position: absolute;
 	bottom: -4px;
-	right: 0;}
+	right: 0;
+}
 div.footer div.showHide {
 	background-color: #D5D4D1;
-	
-	
 }
-
-
 input.invisible {
 	background-color:transparent;
 	color:transparent;
@@ -3901,14 +3894,14 @@ input.invisible {
 	width:1px;
 	position:absolute;
 }
-
-
 div.boxContributors span.middot {
 	font-weight: bold;
 	font-size: 13px;
 }
-div.outerPopupFrame .link{ font-size: 12px !important}
-div.outerPopupFrame div.whitePopupFrameLarge h3.borderSmall{
+div.outerPopupFrame .link {
+	font-size: 12px !important
+}
+div.outerPopupFrame div.whitePopupFrameLarge h3.borderSmall {
 	border-bottom: 1px solid #CACACA;
 	padding-bottom:20px;
 	padding-top:20px;
@@ -4069,7 +4062,7 @@ div.outerPopupFrame .emailBody p {
 	padding: 10px;
 	width: 650px
 }
-.insideEcard .borderLeft{
+.insideEcard .borderLeft {
 	margin: -3px 5px 0 0;
 	border-right: 1px solid #e5e5e5;
 	padding-right: 10px
@@ -4087,6 +4080,7 @@ div.outerPopupFrame .emailBody p {
 	margin: 0px -25px;
 	width: auto;
 	padding: 0px;
+	width: 700px
 }
 .stripe div.imgEdit {
 	padding: 10px;
@@ -4103,12 +4097,14 @@ div.outerPopupFrame .emailBody p {
 .stripe .txtComments span {
 	font-size: 14px;
 	font-weight: bold;
-	color: #616161
+	color: #616161;
+	float: left
 }
 div.stripe .txtComments p {
 	font-size: 12px;
 	color: #2C2C2C;
-	width: 445px
+	float: left;
+	clear: both
 }
 .colLeft div.ecard h4 {
 	border-bottom: 1px solid #D0D0D0;
@@ -4127,7 +4123,7 @@ div.stripe .txtComments p {
 	padding-left: 35px;
 }
 .contribMsg li {
-	width: 190px;
+	width: 300px;
 	float: left;
 	margin-right: 30px;
 	height: 160px;
@@ -4138,6 +4134,12 @@ div.stripe .txtComments p {
 	margin: 15px 0 0 10px;
 	width: 660px;
 	overflow: hidden
+}
+.msgContainer{
+	 border: 1px solid #e5e5e5;
+	 padding: 10px;
+	 width: 198px;
+	 margin-left: 10px
 }
 .tx {
 	float: left;
@@ -4253,10 +4255,34 @@ p.no {
 	opacity: 0.7;
 	filter: alpha(opacity = 70);
 }
-div.greyInsideFullWidth input.shrt{ width: 288px; display: block; float: left}
-.colLeft p.twonine, p.twonine{ width: 290px; font-size: 11px; color: #adadad; padding: 5px 0 20px 0}
+div.greyInsideFullWidth input.shrt, div.greyInsideFullWidth select.shrt {
+	width: 288px;
+	display: block;
+	float: left
+}
+div.greyInsideFullWidth select.shrt {
+	width: 300px !important
+}
+div.greyInsideFullWidth .containerTxtAreaShrt {
+	width: 288px;
+	background: none repeat scroll 0 0 white;
+	border: 1px solid #DADADA;
+	padding: 5px;
+	height: 90px
+}
+div.greyInsideFullWidth .containerTxtAreaShrt textarea {
+	width: 100%;
+	height: 85px;
+	display: block
+}
+.colLeft p.twonine, p.twonine {
+	width: 290px;
+	font-size: 11px;
+	color: #adadad;
+	padding: 5px 0 20px 0
+}
 /* POPUP*/
-div.outerPopupFrame  p {
+div.outerPopupFrame p {
 	color: #999999;
 	font-size: 12px;
 	line-height: 18px;
@@ -4271,15 +4297,12 @@ div.outerPopupFrame p.big {
 .omega {
 	margin-right: 0px !important
 }
-
-
 .aligner {
 	line-height: 30px;
 }
 #titleInput {
 	width: 514px
 }
-
 .progTooltip {
 	background: #FAF79B;
 	padding:2px 5px;
@@ -4365,12 +4388,24 @@ div.footer a {
 	margin: 5px 0 0 0;
 	font-size: 12px
 }
-div.footer a.linkFb{ background: url(/static/imgs/fb-icon.png) 0 0 no-repeat; color: #A59F9A !important; padding-left: 25px}
-div.footer a.linkTw{background: url(/static/imgs/twitter-icon.png) 0 0 no-repeat; color: #A59F9A !important; padding-left: 25px}
-div.footer a.linkRss{background: url(/static/imgs/RSS-icon-new.png) 0 0 no-repeat; color: #A59F9A !important; padding-left: 25px}
-
+div.footer a.linkFb {
+	background: url(/static/imgs/fb-icon.png) 0 0 no-repeat;
+	color: #A59F9A !important;
+	padding-left: 25px
+}
+div.footer a.linkTw {
+	background: url(/static/imgs/twitter-icon.png) 0 0 no-repeat;
+	color: #A59F9A !important;
+	padding-left: 25px
+}
+div.footer a.linkRss {
+	background: url(/static/imgs/RSS-icon-new.png) 0 0 no-repeat;
+	color: #A59F9A !important;
+	padding-left: 25px
+}
 /*IFRAME*/
-.borderIframe{border: 5px solid #cacaca;
+.borderIframe {
+	border: 5px solid #cacaca;
 	padding: 0px 0px 0px 0px;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
@@ -4386,16 +4421,15 @@ div.wrapHeaderIframe {
 	-moz-border-radius-bottomleft:0px;
 	border-bottom-right-radius:0px;
 	-moz-border-radius-bottomright:0px;
-
 }
-div.wrapHeaderIframe h3{
-	font-size: 18px; 
+div.wrapHeaderIframe h3 {
+	font-size: 18px;
 	color: #2c2c2c;
 	padding-left: 50px;
 	line-height: 60px;
 	float:left
 }
-div.light{
+div.light {
 	background: white;
 	border: 1px solid #f5f5f5;
 	margin: 10px 20px 0 0;
@@ -4403,87 +4437,323 @@ div.light{
 	color: #696969;
 	font-size: 10px;
 	width: 200px;
-	padding: 5px  20px 5px 30px;
+	padding: 5px 20px 5px 30px;
 	line-height: 14px
 }
-div.light img{
+div.light img {
 	position: absolute;
 	left: -10px;
 	top: 0px;
-	
 }
-div#receiverSelectorContainer, div#occasionSelectorContainer{
+div#receiverSelectorContainer, div#occasionSelectorContainer {
 	margin-left: 50px;
 	width: 522px;
+}
+div#receiverSelectorContainer h4, .helpPopup h4 {
+	font-size: 14px;
+	line-height: 20px;
+	padding-top: 25px;
+	border-bottom: 1px solid #D0D0D0;
+	padding-bottom: 5px;
+	text-align: left
+}
+div.contentIframe div.arrowSubTab {
+	display: none
+}
+div.contentIframe {
+	background: #f9f9f9;
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+div.colLeftIframe {
+	width: 572px;
+	margin-left: 5px
+}
+div.colRightIframe {
+	width: 290px;
+	border-left: 1px solid #cacaca
+}
+div.contentIframe div.first {
+	float: left;
+	font-size: 12px;
+	line-height: 24px;
+	padding: 0 10px 0 0;
+	text-align: right;
+	width: 190px;
+	clear: both
+}
+#occasionSelectorContainer {
+	margin-top: 15px;
+	padding: 5px 0
+}
+#yourOccasionSelector {
+	margin-top: 2px;
+	margin-left:50px;
+	width: 522px;
+	padding: 5px 0
+}
+div.colLeftIframe #occasionSelector, div.colLeftIframe #occasionTyper, div.colLeftIframe #datepicker {
+	border: 1px solid #DADADA;
+	font-size: 14px;
+	height: 24px;
+	width: 316px;
+	display: block;
+	float: left
+}
+#occasionTyper {
+	width: 320px;
+	padding: 0
+}
+#contributionDeadline {
+	margin-left:50px;
+	float: left;
+	margin-top: 2px;
+	margin-bottom: 15px;
+	width: 522px;
+	padding: 5px 0
+}
+div.colLeftIframe #datepicker {
+	width: 285px
+}
+div.footerColSx {
+	clear: both;
+	margin-left: 50px;
+	font-size: 10px;
+	border-top: 1px solid #cacaca;
+}
+div.footerColSx div.floatLeft, div.footerColSx div.floatRight {
+	margin-top: 7px
+}
+div.footerColSx div.floatLeft span {
+	margin: 10px 10px 0 0;
+	display: block;
+	color: #666
+}
+div.footerColSx div.floatLeft div, div.footerColSx div.floatRight div {
+	float:left;
+	border: 1px solid #e5e5e5;
+	text-align: center;
+	background: white;
+	width: 68px;
+	height: 38px;
+	text-align: center;
+	margin-right: 10px
+}
+div.footerColSx div.floatRight div {
+	margin-right: 0
+}
+div.footerColSx div.floatLeft div img, div.footerColSx div.floatRight div img {
+	display: block;
+	width: 58px;
+	margin: 4px auto 0 auto
+}
+div.footerColSx div.floatRight span {
+	margin: 10px 10px 0 0;
+	display: block;
+	float: left;
+	color: #666
+}
+div.bgDark {
+	background: #e5e5e5;
+	border-top:1px solid white;
+	border-left:1px solid white;
+	padding:5px 20px 20px 20px;
+	height: 483px;
+	border-bottom-right-radius:10px;
+	-moz-border-radius-bottomright:10px;
+	border-bottom-right-radius: 10px;
+}
+div#productArea, div.generalBoxIframe {
+	background: #f4f4f4;
+	border-top:1px solid #d8d8d8;
+	border-bottom: 1px solid white;
+	padding: 10px 15px;
+	margin: 15px 0 0 0;
+	width: 218px;
+	position: relative
+}
+div#productArea h5, div.generalBoxIframe h5, div.generalBoxIframe label {
+	font-size: 12px;
+	font-weight: bold;
+	color: #696969
+}
+div.generalBoxIframe input {
+	color: #666;
+	font-size: 12px;
+	background-color: #f4f4f4;
+	width: 150px
+}
+div.bgDark div.boxWhat {
+	background: white;
+	margin-top: 5px;
+	overflow: hidden;
+	width: 210px
+}
+div.bgDark div.boxWhat img {
+	border: none;
+	max-width: 68px;
+}
+div#productArea h6 {
+	font-size: 11px;
+	color: #696969
+}
+select#productSelector {
+	border: 1px solid #DADADA;
+	margin-top: 5px;
+	display: block;
+	height: 20px;
+	line-height: 20px;
+	width: 220px;
+}
+div.colLeftIframe div.friendsList {
+	height: 168px
+}
+div.colLeftIframe .subTab {
+	width: 520px;
+	height: 219px
+}
+div.colLeftIframe div.tabs {
+	margin-top: 10px
+}
+div.colRightIframe div.listSelectedFriends .avt {
+	margin: 0
+}
+div.colLeftIframe p.inviter {
+	padding-top: 80px
+}
+div.colLeftIframe .firstSpacer {
+	padding-top: 40px
+}
+div.colLeftIframe div.error {
+	background-color: #e6e6e6;
+	padding: 5px 0 !important;
+	margin-top: 5px
+}
+#selectedReceiver {
+	display: none
+}
+.filled {
+	display: block !important
+}
+div.errorMsgIframe {
+	margin:0 -15px;
+	padding: 1px 17px;
+	background-color:#F46587;
+	font-size: 10px;
+}
+div.errorMsgIframe.large {
+	padding: 12px 17px;
+}
+#selectedOccasion .generalBoxIframe div.errorMsgIframe {
+	position: absolute;
+	left: 0;
+	top:0;
+	margin: 0
+}
+.helpPopup {
+	position: absolute;
+	background: url(/static/imgs/bgpop.png) 0 0 no-repeat transparent;
+	width: 550px;
+	z-index: 1001;
+	top: 60px;
+	color: #2c2c2c;
+	padding:0 25px 10px 25px;
+	height: 498px;
+	left: 19px;
+	padding-top: 5px
+}
+.helpPopup ul {
+	float: left;
+	border-bottom: 1px solid #d9d9d9;
+	padding-bottom: 25px
+}
+.helpPopup ul li {
+	float: left;
+	width: 163px;
+	border-top:1px solid #c5c5c5;
+	margin-right: 30px;
+	position: relative;
+	margin-top: 20px;
+	line-height: 20px;
+	min-height: 160px;
+	display: block;
+	position: relative
+}
+.helpPopup ul li div{
+	padding: 10px ;
+	border: 1px solid #e5e5e5;
+	background: #f3f2ed;
 	
 }
-div#receiverSelectorContainer h4, .helpPopup h4{ font-size: 14px; line-height: 20px; padding-top: 20px;
-border-bottom: 1px solid #D0D0D0; padding-bottom: 5px; text-align: left}
-div.contentIframe div.arrowSubTab{ display: none}
-div.contentIframe{ background: #f9f9f9; -moz-border-radius:5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;}
-div.colLeftIframe{ width: 572px;margin-left: 5px}
-div.colRightIframe{ width: 290px; border-left: 1px solid #cacaca}
-div.contentIframe div.first{
-	float: left;
-    font-size: 12px;
-    line-height: 24px;
-    padding: 0 10px 0 0;
-    text-align: right;
-    width: 190px;
-    clear: both
+div.contentIframe div.helpPopup div.arrowSubTab{
+	display: block;
+	height: 0px;
+	width: 0;
+	padding: 0;
+	background: none;
+	border-bottom: 15px solid transparent;
+    border-left: 15px solid #DDDDDD;
+    border-top: 15px solid transparent;
+    top:70px;
+    border-right: none
 }
-#occasionSelectorContainer{ margin-top: 15px; padding: 5px 0}
-#yourOccasionSelector{ margin-top: 2px; margin-left:50px; width: 522px; padding: 5px 0}
-div.colLeftIframe #occasionSelector,div.colLeftIframe #occasionTyper,div.colLeftIframe #datepicker{  border: 1px solid #DADADA;
-    font-size: 14px;
-    height: 24px;
-     width: 316px;display: block;
-     
-     float: left}
-#occasionTyper{ width: 320px; padding: 0}
-#contributionDeadline{ margin-left:50px; float: left; margin-top: 2px; margin-bottom: 15px;  width: 522px; padding: 5px 0}
-div.colLeftIframe #datepicker{ width: 285px}
-div.footerColSx{clear: both; margin-left: 50px;  font-size: 10px; border-top: 1px solid #cacaca;}
-div.footerColSx div.floatLeft, div.footerColSx div.floatRight{ margin-top: 10px}
-div.footerColSx div.floatLeft span{ margin: 10px 10px 0 0; display: block; color: #666}
-div.footerColSx div.floatLeft div, div.footerColSx div.floatRight div {  float:left; border: 1px solid #e5e5e5;  text-align: center;  background: white ; width: 68px; height: 38px; text-align: center; margin-right: 10px}
-div.footerColSx div.floatRight div { margin-right: 0}
-div.footerColSx div.floatLeft div img, div.footerColSx div.floatRight div img{ display: block; width: 58px; margin: 4px auto 0 auto}
-div.footerColSx div.floatRight span{ margin: 10px 10px 0 0; display: block; float: left; color: #666}
-div.bgDark{ background: #e5e5e5; border-top:1px solid white;  border-left:1px solid white; padding:5px 20px 20px 20px; height: 483px}
-div#productArea, div.generalBoxIframe{ background: #f4f4f4; border-top:1px solid #d8d8d8; border-bottom: 1px solid white; padding: 10px 15px; margin: 15px 0 0 0; width: 218px; position: relative}
-div#productArea h5, div.generalBoxIframe h5, div.generalBoxIframe label{ font-size: 12px; font-weight: bold; color: #696969}
-div.generalBoxIframe input{ color: #666; font-size: 12px; background-color: #f4f4f4; width: 150px}
-div.bgDark div.boxWhat{ background: white; margin-top: 5px; overflow: hidden; width: 210px}
-div.bgDark div.boxWhat img{ border: none; max-width: 68px;}
-div#productArea h6{ font-size: 11px; color: #696969}
-select#productSelector{border: 1px solid #DADADA; margin-top: 5px;display: block;
-    height: 20px;
-    line-height: 20px;
-    width: 220px;}
-div.colLeftIframe div.friendsList { height: 168px}
-div.colLeftIframe .subTab{ width: 520px; height: 219px}
-div.colLeftIframe div.tabs{ margin-top: 10px}
-div.colRightIframe div.listSelectedFriends .avt{margin: 0}
-div.colLeftIframe p.inviter{ padding-top: 80px}
-div.colLeftIframe .firstSpacer{ padding-top: 40px}
-div.colLeftIframe div.error{ background-color: #e6e6e6; padding: 5px 0 !important; margin-top: 5px}
-#selectedReceiver{display: none}
-.filled{ display: block !important}
-div.errorMsgIframe{ margin:0 -15px ; padding: 1px 17px; background-color:#F46587; font-size: 10px; }
-div.errorMsgIframe.large{padding: 12px 17px;}
-#selectedOccasion .generalBoxIframe div.errorMsgIframe{ position: absolute; left: 0; top:0; margin: 0}
-.helpPopup{ position: absolute; background: url(/static/imgs/bgpop.png) 0 0 no-repeat transparent; width: 563px; z-index: 1001; top: 60px; color: #2c2c2c; padding:0 25px 10px 25px; height: 498px; left: 13px; padding-top: 5px}
-.helpPopup ul{ float: left; border-bottom: 1px solid #d9d9d9; padding-bottom: 25px}
-.helpPopup ul li{ float: left; width: 120px; background: #f3f2ed; border-top:1px solid #e2e0d3; margin-right: 35px; position: relative; margin-top: 25px; padding: 15px 20px; line-height: 20px; min-height: 110px}
-.helpPopup a{ position: absolute; right: 8px; top: 8px; color: #333; font-size: 11px; font-weight: bold}
-.helpPopup p{ font-size: 12px; color: #696969; font-weight: normal; line-height: 16px; padding-top: 10px; clear: both}
-.helpPopup ul li span{ position: absolute; left: -8px; top: -12px; font-size: 28px; font-weight: bold; color: #2dbbff}
-.helpPopup ul li h5{ font-size: 12px}
-.helpPopup p.small{ color: #adadad; font-size: 11px; line-height: 14px; text-align: left}
-.arrowPop{ position: absolute; background: url(/static/imgs/arrowPop.png) 0 0 no-repeat; width: 19px; height: 13px; top: 32px; left: 50%; margin-left: -10px; z-index: 21}
+.helpPopup ul li div div{
+	padding: 0;
+	border: none;
+	min-height: auto;
+	background: white;
+	-moz-box-shadow: 0px 0px 4px #999;
+	-webkit-box-shadow: 0px 0px 4px #999;
+	box-shadow: 0px 0px 4px #999;
+	min-height: 100px;
+	padding-top: 15px
+}
+.helpPopup ul li div div img{
+	display: block;
+	margin: 0 auto;
+}
+.helpPopup a.close {
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	color: #333;
+	font-size: 11px;
+	font-weight: bold
+}
+.helpPopup p {
+	font-size: 12px;
+	color: #696969;
+	font-weight: normal;
+	line-height: 20px;
+	padding-top: 15px;
+	clear: both;
+	line-height: 18px
+}
+.helpPopup ul li span {
+	position: absolute;
+	left: -8px;
+	top: -12px;
+	font-size: 28px;
+	font-weight: bold;
+	color: #2dbbff
+}
+.helpPopup ul li h5 {
+	font-size: 12px;
+	padding-top: 10px;
+	line-height: 18px
+}text-align: left
+}
+.arrowPop {
+	position: absolute;
+	background: url(/static/imgs/arrowPop.png) 0 0 no-repeat;
+	width: 19px;
+	height: 13px;
+	top: 32px;
+	left: 50%;
+	margin-left: -10px;
+	z-index: 21
+}
 #selectedReceiverContainer p {
 	padding:0;
 	height: 50px;
@@ -4492,4 +4762,8 @@ div.errorMsgIframe.large{padding: 12px 17px;}
 	font-size: 11px;
 	float: left;
 	margin: 5px 5px 0 10px
+}
+input::-moz-focus-inner /*Remove button padding in FF*/ {
+ border: 0;
+ padding: 0;
 }

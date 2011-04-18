@@ -21,13 +21,19 @@ div.homebox {
 	border: 1px solid #e5e5e5;
 	margin: 0
 }
-div.homebox h5 {
+div.homebox h5  {
     display: block;
     font-size: 14px;
     padding: 15px 10px;
     margin: 0px;
     border-bottom: 1px solid #e5e5e5;
-    background: #f9f9f9
+    background: #f9f9f9;
+    overflow: hidden
+    
+}
+div.homebox h5 span{
+	overflow:hidden;
+	font-size: 14px;
 }
 div.homebox h5 a{
 	color:#0094cc;
@@ -186,7 +192,7 @@ div.textHolder p{ margin: 0; padding: 10px; font-size: 11px; color: #696969}
 		"number_contributors":c.pool.get_number_of_contributors(),
 		}
 	%>
-	<h5><a target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">${c.pool.title}</a></h5>
+	<h5><span><a target="_blank" href="${url("get_pool", pool_url = c.pool.p_url, host=request.merchant.domain, protocol="http")}">${c.pool.title}</a></span></h5>
 		<div class="timeCounter">
 		<% progress = int(c.pool.funding_progress()*100) %>
 		<span>
