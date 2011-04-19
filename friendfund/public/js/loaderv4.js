@@ -358,6 +358,13 @@ fbLogout = function(){
 		}
 	});
 };
+fbDisconnect = function(){
+	xhrPost("/fb/disconnect", {}, 
+		function(data){
+			window.location.reload();
+		});
+}
+		
 fbInit = function(app_id) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";

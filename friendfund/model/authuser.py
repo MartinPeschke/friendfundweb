@@ -298,4 +298,13 @@ class SetUserLocaleProc(DBMappedObject):
 	_cachable = False
 	_keys = [	GenericAttrib(int,'u_id','u_id'),GenericAttrib(unicode,'locale','locale')]
 	
-	
+class DisconnectAccountProc(DBMappedObject):
+	"""exec app.disconnect_account '<USER u_id ="124944" network ="email" id ="1707117978" email = "asdf@gmial.com" />'"""
+	_set_root = _get_root = 'USER'
+	_get_proc = _set_proc = "app.disconnect_account"
+	_unique_keys = ['u_id', 'network', 'network_id']
+	_cachable = False
+	_keys = [GenericAttrib(int,'u_id','u_id')
+			, GenericAttrib(unicode,'network','network')
+			, GenericAttrib(unicode,'network_id','id')
+			, GenericAttrib(unicode,'email','email')]

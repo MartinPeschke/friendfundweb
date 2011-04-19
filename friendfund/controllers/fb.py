@@ -85,4 +85,14 @@ class FbController(BaseController):
 		except db_access.SProcException, e:
 			log.error(str(e))
 		return '1'
+	def disconnect(self):
+		self.remove()
+		fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
+		try:
+			g.user_service.disconnect(c.user, 'facebook', fb_data['uid'])
+		except:
+			pass
+		print urllib2.urlopen("https://api.facebook.com/method/auth.revokeAuthorization?access_token=%s&format=json"%fb_data['access_token']).read()
+		
+		return {"data":{"success":True}}
 		

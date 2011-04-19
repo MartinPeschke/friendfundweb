@@ -21,28 +21,19 @@
 			<div class="subHeading"></div>
 			<div class="networkDefaultAccountfacebook">
 			%if 'facebook' in c.myprofiles:
-				<div class="borderBottom">
-					<div class="tip">
-						<div class="arrow"></div>
-							<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
-					</div>
-					<div class="greyInsideFullWidth">
-					<div class="first">
-						<span>${_("FF_ACCOUNT_Your Name")}</span>
-					</div>
-						<div class="aligner bold"> ${c.myprofiles['facebook'].name} </div>
-					</div>
-				</div>
-				<div class="borderBottom">
+				<div class="">
 					<div class="greyInsideFullWidth">
 					<div class="first">
 						<span>${_("FF_ACCOUNT_Picture")}</span>
 					</div>
 						<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
+						<% locals = {"name":c.myprofiles['facebook'].name} %>
+						<span>${_("FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>")%locals|n}</span>
+						<a onclick="fbDisconnect()">${_("FF_ACCOUNT_Disconnect")}</a>
 					</div>
 				</div>
 			%else:
-				<div class="borderBottom ">
+				<div class="">
 					<div class="first">
 						<span>&nbsp;</span>
 					</div>
@@ -52,37 +43,23 @@
 							<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 						</a>
 					</div>
-					
-					
-					
 				</div>
-				
 			%endif
 			</div>
 			
 			<div class="networkDefaultAccounttwitter">
 			%if 'twitter' in c.myprofiles:
-				<div class="borderBottom">
-					<div class="tip">
-						<div class="arrow"></div>
-							<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
-					</div>
-					<div class="greyInsideFullWidth">
-					<div class="first">
-						<span>${_("FF_ACCOUNT_Your Name")}</span>
-					</div>
-						<div class="aligner bold"> ${c.myprofiles['twitter'].name}</div>
-					</div>
-				</div>
-				<div class="borderBottom">
+				<div class="">
 					<div class="greyInsideFullWidth">
 					<div class="first">
 						<span>${_("FF_ACCOUNT_Picture")}</span>
 					</div>
 						<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
+						<% locals = {"name":c.myprofiles['twitter'].name} %>
+						<span>${_("FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>")%locals|n}</span>
+						<a href="#">${_("FF_ACCOUNT_Disconnect")}</a>
 					</div>
 				</div>
-			
 			%else:
 				<div class="borderBottom noBorder">
 					 <div class="first">
@@ -96,12 +73,6 @@
 					</div>
 				</div>
 			%endif
-				<div class="floatLeft" style="margin-top:20px">
-					<div class="first">&nbsp;</div>
-					<div class="floatLeft">
-						<input type="submit" class="floatLeft primaryButton" value="Save Changes" />
-					</div>
-				</div>
 			</div>
 			
 		</div>

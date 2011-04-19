@@ -8,7 +8,8 @@ class Profile(DBMappedObject):
 	_get_root = _set_root = "USER_NETWORK"
 	_unique_keys = ['network', 'name', 'email']
 	_keys = [GenericAttrib(str, 'network', 'network')
-			,GenericAttrib(unicode, 'name', 'un_name')
+			,GenericAttrib(str, 'network_id', 'id')
+			,GenericAttrib(unicode, 'name', 'name')
 			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
 			,GenericAttrib(unicode, 'email', 'email')
 			,GenericAttrib(bool, 'is_default', 'is_default')
@@ -43,7 +44,11 @@ class GetMyProfileProc(DBMappedObject):
 			]
 	def fromDB(self, xml):
 		defaults = filter(lambda x: x.is_default, self.profiles.values())
-		setattr(self, "default", len(defaults) and defaults[0] or self.profiles.values()[0])
+		if len(defaults) == 0:
+			default = self.profiles.values()[0]
+		else:
+			default = defaults[0]
+		setattr(self, "default", default)
 
 class SetDefaultProfileProc(DBMappedObject):
 	"""
