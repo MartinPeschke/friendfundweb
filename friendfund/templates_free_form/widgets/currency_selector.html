@@ -1,6 +1,6 @@
 <%namespace name="forms" file="/widgets/forms.html"/>
 
-%if c.verb=='e':
+%if request.method=="GET":
 	<select name="currency">
 	%for curr in c.currencies:
 		<option ${forms.expression_quote(curr == c.currency, "selected")} value="${curr}">${h.display_currency(curr)}</option>

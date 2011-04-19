@@ -124,7 +124,7 @@
 			
 			
 				<div class="first" style="margin-top:7px;"><span>${_("FF_POOLDETAILS_We Need")}</span>
-					<span class="editable active" _elem="currency" _value="${c.values['currency']}">
+					<span class="editable active" _href="${url("edit", action="currency")}" _value="${c.values['currency']}">
 						${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/>
 						<span class="link editSmall editCurr">${_("FF_POOLDETAILS_Edit Currency")}</span>
 					</span>

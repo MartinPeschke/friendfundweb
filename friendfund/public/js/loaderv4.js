@@ -111,7 +111,7 @@ parseEditables = function(rootnode){
 			dojo.removeClass(root,'active');
 			var d = dojo.connect(root, "onclick", 
 				function(evt){
-					xhrPost('/d/e/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+					xhrPost(dojo.attr(root, '_href'), {value:dojo.attr(root, '_value')}, 
 						function(data){
 							dojo.place(data,root,"only");
 							dojo.disconnect(d);
@@ -127,16 +127,16 @@ parseEditables = function(rootnode){
 											} else {
 												dojo.attr(root, '_value', editevt.target.value);
 											}
-											xhrPost('/d/d/'+dojo.attr(root, '_elem'), {value:dojo.attr(root, '_value')}, 
+											xhrPost(dojo.attr(root, '_href'), {value:dojo.attr(root, '_value')}, 
 												function(data){
 													root.innerHTML = data;
 													parseEditables(rootnode);
-												});
+												}, "Post");
 											};
 									evts.push(dojo.connect(editor, "onchange", f));
 									evts.push(dojo.connect(editor, "onblur", f));
 								});
-						});
+						}, "Get");
 				});
 		});
 };

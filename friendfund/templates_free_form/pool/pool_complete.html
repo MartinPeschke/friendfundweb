@@ -10,6 +10,9 @@
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
 
+<%def name="onloadscripts()">
+	parseEditables("thankYouMessage");
+</%def>
 
 <div class="wrapSubHeader">
 	<div id="messaging_container" class="overlayWrapper">
@@ -83,14 +86,18 @@
 							<div class="clear"></div>
 						</div>
 						
-						<div class="txtComments" >
+						<div class="txtComments" id="thankYouMessage">
 						<div class="avt">
 							<div class="arrowAvatar"></div>
 							<img width="48px" height="48px" src="${c.pool.receiver.get_profile_pic("PROFILE_M")}">
 						</div>
 							<div class="floatLeft" style="width:370px">
 							<span>${c.pool.receiver.name}</span>
-							<p>${c.pool.description}</p>
+							%if c.pool.am_i_admin(c.user):
+								<p class="editable active" _href="${url("pool_action", pool_url = c.pool.p_url, action="editThankYouMessage")}" _value="${c.values['message']}">
+								${c.values['message']}<span class="link">${_("FF_Edit")}</span>
+								</p>
+							%endif
 							</div>
 						</div>
 						<div class="clear"></div>

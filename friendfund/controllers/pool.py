@@ -61,8 +61,8 @@ class PoolController(BaseController):
 		
 		c.contributors = g.dbm.get(GetECardContributorsProc, p_url = pool_url).contributors
 		c.contributors_w_msg = filter(attrgetter("co_message"), c.contributors)
-		
-		
+		c.values = {}
+		c.values['message'] = c.pool.thank_you_message or c.pool.description
 		return self.render('/pool/pool_complete.html')
 	
 	def _clean_session(self):
@@ -242,3 +242,17 @@ class PoolController(BaseController):
 			log.error("POOL_DELETE_NOT_IMPLEMENTED")
 			return redirect(request.referer)
 		return self.render("/pool/address.html")
+
+	@jsonify
+	@logged_in(ajax=True)
+	@pool_available()
+	def editThankYouMessage(self, pool_url):
+		if request.method == "GET":
+			c.message = request.params.get('value')
+			return {'html':render('/widgets/thankyoumessage_editor.html').strip()}
+		else:
+			c.message = request.params.get('value')
+			if c.message:
+				g.dbm.set(PoolThankYouMessage(p_url = pool_url, message=c.message))
+				g.dbm.expire(Pool(p_url = c.pool.p_url))
+			return {'html':render('/widgets/thankyoumessage_editor.html').strip()}
