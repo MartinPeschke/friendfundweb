@@ -1,0 +1,15 @@
+<%def name="merchantStyles(merchant)" cached="True" cache_key="merchant_styles_${merchant.domain}" cache_timeout="86400" cache_type="memory">
+%if merchant.styles:
+<%
+	styles = merchant.styles
+%>
+<style type="text/css">
+div.wrapHeader {background:none repeat scroll 0 0 ${styles.get("head_color_background", "#fff")} !important}
+div.header{padding: 0 25px 0 25px; background-color:${styles.get("head_color_content", "#fff")};}
+div.header h1 {margin: 0; width: auto}
+div.wrapSubContent{background-color:${styles.get("body_color_background", "#fff")} }
+div.content{padding: 0 25px 60px 25px; background-color: ${styles.get("body_color_content", "#fff")}; }
+div.loginArea{right: 25px;}
+</style>
+%endif
+</%def>
