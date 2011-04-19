@@ -17,7 +17,8 @@
 	<div class="content">
 		<div class="colRight"></div>
 		<div class="colLeft">
-			
+			<h4>Log In Connections</h4>
+			<div class="subHeading"></div>
 			<div class="networkDefaultAccountfacebook">
 			%if 'facebook' in c.myprofiles:
 				<div class="borderBottom">
@@ -41,7 +42,7 @@
 					</div>
 				</div>
 			%else:
-				<div class="borderBottom noBorder">
+				<div class="borderBottom ">
 					<div class="first">
 						<span>&nbsp;</span>
 					</div>
@@ -51,7 +52,11 @@
 							<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 						</a>
 					</div>
+					
+					
+					
 				</div>
+				
 			%endif
 			</div>
 			
@@ -91,6 +96,12 @@
 					</div>
 				</div>
 			%endif
+				<div class="floatLeft" style="margin-top:20px">
+					<div class="first">&nbsp;</div>
+					<div class="floatLeft">
+						<input type="submit" class="floatLeft primaryButton" value="Save Changes" />
+					</div>
+				</div>
 			</div>
 			
 		</div>
