@@ -137,9 +137,10 @@
 <div class="content">
 	%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
 		<div class="adminLinks">
-			<a href="#">Edit pool page</a>
-			<span>&nbsp;|&nbsp;</span>
-			<a href="${url(controller="pool", action="address", pool_url = c.pool.p_url)}">Edit Shipping Address</a>
+			<!--<a href="#">${_(u"FF_POOL_PAGE_ADMIN_Edit pool page")}</a><span>&nbsp;|&nbsp;</span>-->
+			%if request.merchant.require_address:
+				<a href="${url(controller="pool", action="address", pool_url = c.pool.p_url)}">${_(u"FF_POOL_PAGE_ADMIN_Edit Shipping Address")}</a>
+			%endif
 		</div>
 		<div id="adminBox">
 			<% first_visit = c.workflow in ['1', '2'] %>
@@ -274,7 +275,7 @@
 							<img width="48px" height="48px" alt="${c.pool.receiver.name}" src="${c.pool.receiver.get_profile_pic("PROFILE_S")}">
 						</div>
 						<span class="recipient">${_(u"FF_POOL_PAGE_RECIPIENT")}</span>
-						<img src="/static/imgs/merch/${request.merchant.logo_url}" class="merchant" width="64px"/>
+						<img src="${request.merchant.get_logo_url()}" class="merchant" width="64px"/>
 						<span>${_(u"FF_POOL_PAGE_MERCHANT")}</span>
 					</div>
 				%endif

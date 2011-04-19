@@ -1,6 +1,7 @@
 from __future__ import with_statement
 import logging, formencode, datetime, itertools
 from operator import attrgetter
+from babel import Locale
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
@@ -11,10 +12,9 @@ from friendfund.lib.base import BaseController, render, render_def, SuccessMessa
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
-from friendfund.model.forms.user import ShippingAddressForm, BillingAddressForm
-from friendfund.model.forms.pool import PoolHomePageForm
-from friendfund.model.pool import Pool, PoolUser, PoolChat, PoolComment, PoolDescription, PoolThankYouMessage, Occasion, GetMoreInviteesProc, GetECardContributorsProc
-from friendfund.model.poolsettings import PoolSettings, ShippingAddress, ClosePoolProc, ExtendActionPoolProc, POOLACTIONS
+from friendfund.model.forms.pool import PoolHomePageForm, PoolAddressForm
+from friendfund.model.pool import Pool, PoolChat, PoolComment, PoolThankYouMessage, GetMoreInviteesProc, GetECardContributorsProc
+from friendfund.model.poolsettings import PoolAddress
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
 
 _ = lambda x:x
@@ -237,11 +237,36 @@ class PoolController(BaseController):
 		return redirect(url("get_pool", pool_url=pool_url))
 	@logged_in(ajax=False)
 	@pool_available()
-	def address(self):
-		if not c.pool.am_i_admin(c.user):
-			log.error("POOL_DELETE_NOT_IMPLEMENTED")
-			return redirect(request.referer)
-		return self.render("/pool/address.html")
+	
+	@logged_in(ajax=False)
+	@pool_available()
+	def address(self, pool_url):
+		if not c.pool.am_i_admin(c.user) or not request.merchant.require_address:
+			log.error(NOT_AUTHORIZED_MESSAGE)
+			return redirect(url("get_pool", pool_url = pool_url))
+		c.values = {}
+		c.errors = {}
+		address = g.dbm.get(PoolAddress, p_url = pool_url)
+		if address:
+			c.values = address.to_map()
+		territories = Locale.parse(h.get_language_locale()).territories
+		c.countries = []
+		for country in request.merchant.shippping_countries:
+			c.countries.append((country.iso2, territories.get(country.iso2, country.iso2)))
+		
+		if request.method == 'GET':
+			return self.render("/pool/address.html")
+		else:
+			try:
+				schema=PoolAddressForm()
+				c.values = schema.to_python(request.params)
+			except formencode.validators.Invalid, error:
+				c.errors = error.error_dict or {}
+				c.values = error.value
+				c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
+				return self.render("/pool/address.html")
+			else:
+				return redirect(url.current())
 
 	@jsonify
 	@logged_in(ajax=True)

@@ -45,26 +45,6 @@ class MyProfileForm(formencode.Schema):
 	name = formencode.validators.String(not_empty=True)
 	email =  formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
 	
-class ShippingAddressForm(formencode.Schema):
-	allow_extra_fields = True
-	filter_extra_fields = True
-	
-	line1 = formencode.validators.String(not_empty=True, min=1, max = 255)
-	line2 = formencode.validators.String(not_empty=True, min=1, max = 255)
-	line3 = formencode.validators.String(not_empty=True, min=1, max = 255)
-	zipcode = formencode.validators.String(not_empty=True, min=1, max = 10)
-	country = formencode.validators.String(not_empty=True, min=1, max = 255)
-
-class BillingAddressForm(formencode.Schema):
-	allow_extra_fields = True
-	filter_extra_fields = True
-	
-	line1 = formencode.validators.String(not_empty=True, min=1, max = 255)
-	line2 = formencode.validators.String(not_empty=True, min=1, max = 255)
-	line3 = formencode.validators.String(not_empty=True, min=1, max = 255)
-	zipcode = formencode.validators.String(not_empty=True, min=1, max = 10)
-	country = formencode.validators.String(not_empty=True, min=1, max = 255)
-	
 class NotificationsForm(formencode.Schema):
 	allow_extra_fields = True
 	filter_extra_fields = True

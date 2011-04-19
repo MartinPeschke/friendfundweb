@@ -248,7 +248,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
-			, GenericAttrib(bool, 		'require_address', 	'require_address'			)
+			, GenericAttrib(bool, 		'has_address', 		'has_address'				)
 			, GenericAttrib(str,	 	'merchant_domain', 	'merchant_domain'			)
 			, GenericAttrib(str,	 	'settlementOption', 'settlement'				)
 			, GenericAttrib(str,	 	'paypal_email', 	'paypal_email'				)

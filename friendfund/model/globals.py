@@ -7,24 +7,6 @@ from friendfund.model.product import DisplayProduct
 
 log = logging.getLogger(__name__)
 
-class DBCountry(DBMappedObject):
-	_cachable = False
-	_get_root = 'COUNTRY'
-	_unique_keys = ['iso2', 'name']
-	_keys = [	 GenericAttrib(str ,'iso2'   ,'c_two_letter_name')
-				,GenericAttrib(str ,'name','c_name')
-			]
-class GetCountryProc(DBMappedObject):
-	_cachable = False
-	_no_params = True
-	_get_root = None
-	_get_proc = _set_proc = 'app.get_country'
-	_keys = [
-				DBMapper(DBCountry ,'list', 'COUNTRY', is_list = True)
-			]
-	def fromDB(self, xml):
-		self.list = [c.name for c in self.list]
-
 class CountryRegion(DBMappedObject):
 	_cachable = False
 	_get_root = 'COUNTRY'
@@ -104,7 +86,12 @@ class MerchantSettlement(DBMappedObject):
 	def fromDB(self, xml):
 		if self.name=="PAYPAL_TRANSFER":
 			self.required_fields.append(FormField("email", "email"))
-
+			
+class MerchantCountry(DBMappedObject):
+	_get_root = _set_root = 'SHIPPING_COUNTRY'
+	_cachable = False
+	_unique_keys = ['iso2']
+	_keys = [GenericAttrib(unicode,'iso2','country')]
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
@@ -113,10 +100,13 @@ class MerchantLink(DBMappedObject):
 				,GenericAttrib(str,'domain','merchant_domain')
 				,GenericAttrib(str,'pool_type','pool_type', enumeration=set(['FREE_FORM', 'GROUP_GIFT']))
 				,GenericAttrib(str,'entry_point','entry_point', enumeration=set(['LANDING_PAGE', 'IFRAME']))
+				,GenericAttrib(bool,'require_address','require_address')
 				,GenericAttrib(bool,'is_default','is_default')
 				,GenericAttrib(str,'logo_url','logo_url')
 				,GenericAttrib(str,'home_page','home_page')
 				,DBMapper(MerchantSettlement,'settlement_options','SETTLEMENT', is_list = True)
+				,DBMapper(MerchantCountry,'shippping_countries','SHIPPING_COUNTRY', is_list = True)
+				
 			]
 	def get_logo_url(self, secured = False):
 		host = self.domain
@@ -133,6 +123,9 @@ class MerchantLink(DBMappedObject):
 		setattr(self, 'entry_is_landing_page', self.entry_point=="LANDING_PAGE")
 		setattr(self, 'entry_is_iframe', self.entry_point=="IFRAME")
 		setattr(self, "map", dict([(so.name,so) for so in self.settlement_options]))
+		
+		if self.require_address and len(self.shippping_countries)==0:
+			raise Exception("GET_CONFIG (%s): MERCHANT.require_address==True and NO_SHIPPING_COUNTRY provided" % self.domain)
 
 
 class FeaturedPoolURL(DBMappedObject):

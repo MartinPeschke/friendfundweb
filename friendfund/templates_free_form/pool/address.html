@@ -1,126 +1,128 @@
 <%inherit file="../layout.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
-
+<%namespace name="forms" file="/widgets/forms.html"/>
 <%def name="title()">${_("FF_TITLE_Address | %s") % c.pool.title}</%def>
 
-<% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
+<% 
+	locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name, "merchant_name":request.merchant.name} 
+%>
 <div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
   <div class="subHeader">
     <div class="userProfile">
         <div class="nonPoolHeader">
-        <h2>Shipping Address</h2>
+        <h2>${_("FF_ADDRESS_Shipping Address")}</h2>
       </div>
       <div class="clear"></div>
     </div>
   </div>
 </div>
-
 <div class="wrapSubContent">
 <div class="content">
 	<div class="colLeft">
-		<h4>Where is your gift going to?</h4>
+		<h4>${_("FF_ADDRESS_Where is your gift going to?")}</h4>
 		<div class="subHeading"></div>
-		<div class="borderBottom error">
+		<div class="borderBottom ${"first_name" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>First Name*</span>
+					<span>${_("FF_ADDRESS_First Name")}</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="First Name"/>
-				
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Please enter a first name</p>
-				
+				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("first_name")}"/>
+				%if "first_name" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["first_name"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom error">
+		<div class="borderBottom ${"last_name" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Last name*</span>
+					<span>${_("FF_ADDRESS_Last name")}*</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="Last Name"/>
-				
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Please enter a last name</p>
-				
+				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("last_name")}"/>
+				%if "last_name" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["last_name"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom error">
+		<div class="borderBottom ${"line1" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Address*</span>
+					<span>${_("FF_ADDRESS_Address")}*</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="Address"/>
-				
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Please enter an address</p>
-				
+				<input class="shrt" type="text" name="line1" value="${c.values.get("line1")}"/>
+				%if "line1" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["line1"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom error">
+		<div class="borderBottom ${"line2" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>City*</span>
+					<span>${_("FF_ADDRESS_City")}*</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="City"/>
-				
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Please enter a city</p>
-				
+				<input class="shrt" type="text" name="line2" value="${c.values.get("line2")}"/>
+				%if "line2" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["line2"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom error">
+		<div class="borderBottom ${"line3" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>State*</span>
+					<span>${_("FF_ADDRESS_State")}*</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="State"/>
-				
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Please enter a state</p>
-				
+				<input class="shrt" type="text" name="line3" value="${c.values.get("line3")}"/>
+				%if "line3" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["line3"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom error">
+		<div class="borderBottom ${"country" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Country*</span>
+					<span>${_("FF_ADDRESS_Country")}*</span>
 				</div>
-				<select class="shrt">
-					<option>Germany</option>
+				<select class="shrt" name="country">
+					%for iso2,name in sorted(c.countries):
+						<option ${forms.expression_quote(iso2 == c.values.get("country"), "selected")} value="${iso2}" >${name}</option>
+					%endfor
 				</select>
-				
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">Please enter a country</p>
-				
+				%if "country" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["country"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom selected">
+		<div class="borderBottom ${"zipcode" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Postal Code*</span>
+					<span>${_("FF_ADDRESS_Postal Code")}*</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="Postal Code"/>
-			
+				<input class="shrt" type="text" name="zipcode" value="${c.values.get("zipcode")}"/>
+				%if "zipcode" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["zipcode"]}</p>
+				%endif
 			</div>
 		</div>
-		<div class="borderBottom noBtmPad noBorder selected">
+		<div class="borderBottom noBtmPad noBorder ${"shipping_note" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Order
-					 Comments*</span>
+					<span>${_("FF_ADDRESS_Order Comments")}*</span>
 				</div>
 				<div class="containerTxtAreaShrt">
-					<textarea>wrq</textarea>
-				</div>					
+					<textarea name="shipping_note">${c.values.get("shipping_note")}</textarea>
+				</div>
 			</div>
-			<p class="info ">Send a note to the merchant with your order. </p>
+			<p class="info ">${_("FF_ADDRESS_Send a note to %(merchant_name)s with your order.")%locals} </p>
 		</div>
 		<div class="floatLeft" style="margin-top:40px">
 				<div class="first">&nbsp;</div>
 				<div class="floatLeft">
-					<input type="button" class="primaryButton floatLeft" value="Save Settings" style="margin-right:30px" />
-					<a href="#" class="secondary floatLeft">Back to pool</a>
+					<input type="button" class="primaryButton floatLeft" value="${_("FF_ADDRESS_Save Settings")}" style="margin-right:30px" />
+					<a href="#" class="secondary floatLeft">${_("FF_Back to pool")}</a>
 				</div>
 				<div class="clear"></div>
 			</div>
 	  <div class="clear"></div>
   </div>
-  			
-			
 <div class="clear"></div>
 </div>
 </div>

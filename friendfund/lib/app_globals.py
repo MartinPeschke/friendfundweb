@@ -7,7 +7,7 @@ from pylons import url
 from datetime import datetime
 from friendfund.lib import minifb, helpers as h
 from friendfund.model import common
-from friendfund.model.globals import GetCountryRegionProc, GetCountryProc, GetMerchantConfigProc, GetTopSellersProc
+from friendfund.model.globals import GetCountryRegionProc, GetMerchantConfigProc, GetTopSellersProc
 
 from friendfund.services.amazon_service import AmazonService
 from friendfund.services.product_service import ProductService
@@ -83,7 +83,6 @@ class Globals(object):
 		##################################### DB GLOBALS SETUP #####################################
 		
 		self._db_globals={}
-		self.countries = self._db_globals.setdefault('countries', self.dbm.get(GetCountryProc))
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbm.get(GetCountryRegionProc))
 		top_sellers = self.dbm.get(GetTopSellersProc)
 		
