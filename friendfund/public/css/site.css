@@ -1111,7 +1111,7 @@ div.daysLeft span {
 	padding-left: 20px
 }
 div.adminLinks {
-	margin: 10px 0 0 0;
+	padding: 10px 0 0 0;
 	color: #7f7f7f
 }
 div.greyBoxTitle {
@@ -1604,7 +1604,7 @@ div.comments input {
 	font-size: 11px;
 	line-height: 11px;
 	display: block;
-	margin: 15px 0 0 0
+	margin: 15px 0 15px 0
 }
 .boxChipIn span {
 	display: block;
@@ -4077,7 +4077,7 @@ div.outerPopupFrame .emailBody p {
 	-moz-box-shadow: 0 2px 2px #999999;
 	background-color: #FECCFF;
 	color: black;
-	margin: 0px -25px;
+	margin: 30px -25px 0;
 	width: auto;
 	padding: 0px;
 	width: 700px
@@ -4098,13 +4098,32 @@ div.outerPopupFrame .emailBody p {
 	font-size: 14px;
 	font-weight: bold;
 	color: #616161;
-	float: left
+	float: left;
+	display: block;
+	padding-bottom: 5px
+}
+.stripe .txtComments p span{
+	float: none !important;
+	margin-left: 5px;
+	display: inline;
+	padding: 0
 }
 div.stripe .txtComments p {
 	font-size: 12px;
 	color: #2C2C2C;
 	float: left;
-	clear: both
+	clear: both;
+	padding: 0;
+	width: 100%
+}
+div.stripe .txtComments p textarea{
+	float: left;
+	width: 360px;
+	padding: 5px;
+	height: 100%;
+	font-size: 12px;
+	height: 90px;
+	line-height: 16px
 }
 .colLeft div.ecard h4 {
 	border-bottom: 1px solid #D0D0D0;
@@ -4126,8 +4145,7 @@ div.stripe .txtComments p {
 	width: 300px;
 	float: left;
 	margin-right: 30px;
-	height: 160px;
-	padding-bottom: 40px
+	padding-bottom: 10px
 }
 .contribMsg {
 	float: left;
@@ -4135,16 +4153,67 @@ div.stripe .txtComments p {
 	width: 660px;
 	overflow: hidden
 }
+div.contribMsgArrow{
+    background: url("/static/imgs/arrow-small-left.png") no-repeat scroll 0 0 transparent;
+    height: 9px;
+    position: absolute;
+    left: -6px;
+    top: 15px;
+    width: 6px;
+    z-index: 20
+}
 .msgContainer{
 	 border: 1px solid #e5e5e5;
 	 padding: 10px;
 	 width: 198px;
-	 margin-left: 10px
+	 margin-left: 10px;
+	 height: 105px;
+	 position: relative;
+	 background-color: #fbfbfb;
+	 background: -moz-linear-gradient(100% 100% 90deg, #f8f8f8, #ffffff);
+	 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#f8f8f8));
 }
 .tx {
+	padding-right: 0px !important;
+	height: 80px;
+	overflow: hidden;
+}
+.colLeft .msgContainer p{
+	color: #696969;
+	font-size: 11px;
+	padding: 0;
+	line-height: 16px
+}
+.colLeft .msgContainer p.nameC{
+	bottom: 8px;
+    display: block;
+    max-height: 40px;
+    left: 10px;
+    overflow: hidden;
+    position: absolute;
+    padding-right: 10px
+}
+.allContrib {
+    float: left;
+    margin: 15px 0 0 10px;
+    overflow: hidden;
+    width: 660px;
+}
+.allContrib li{
 	float: left;
-	width: 120px;
-	padding: 0px !important
+	margin-right: 11px; 
+	width: 60px;
+	height: 80px;
+	padding: 0 0 10px 0
+}
+.allContrib li span{
+	display: block;
+	text-align: center;
+	font-size: 10px !important;
+	color: #696969;
+	height: 20px;
+	width: 100%; 
+	overflow: hidden;
 }
 p.second {
 	padding: 7px 0 0 0;

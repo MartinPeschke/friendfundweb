@@ -113,8 +113,9 @@
 							<img src="${cbtr.get_profile_pic("PROFILE_M")}">
 						</div>
 						<div class="floatLeft msgContainer">
+							<div class="contribMsgArrow"></div>
 							<p class="tx">${cbtr.co_message}</p>
-							<p class="bold grey">${cbtr.name}</p>
+							<p class="bold nameC">${cbtr.name}</p>
 							
 						</div>
 					</li>
@@ -123,12 +124,13 @@
 				%endif
         
         <h4><span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span>${_("FF_POOLECARD_All_Contributors")} </h4>
-	        <ul class="contribMsg">
+	        <ul class="allContrib">
 				%for cbtr in c.contributors:
 					<li>
 					<div title="${cbtr.name}" class="avt">
 						<img width="48px" height="48px" alt="${cbtr.name}" src="${cbtr.get_profile_pic("PROFILE_M")}">
 					</div>
+					<span>Daddy</span>
 					</li>
 				%endfor
 			</ul>
