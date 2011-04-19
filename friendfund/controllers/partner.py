@@ -1,7 +1,9 @@
-import logging, formencode, datetime, uuid
+import logging, formencode, datetime, uuid, socket, urllib2, urlparse
+from BeautifulSoup import BeautifulSoup
 from ordereddict import OrderedDict
 
 from pylons import request, response, tmpl_context as c, url, app_globals as g, session as websession
+from pylons.controllers.util import abort, redirect
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, _, render_def
@@ -15,7 +17,14 @@ class PartnerController(BaseController):
 	def simplebounce(self):
 		query=request.params.get("referer")
 		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
-		c.product_list = g.product_service.get_products_from_open_graph(params.get("meta", {}), query)
+		if params.get("meta",{}).get("og:type") != 'product':
+			query=request.merchant.default_product_url
+			c.product_list = g.product_service.get_products_from_url(query)
+			c.is_default = True
+		else:
+			c.is_default = False
+			c.product_list = g.product_service.get_products_from_open_graph(params.get("meta", {}), query)
+		
 		c.product = c.product_list[0]
 		
 		c.method = c.user.get_current_network() or 'facebook'

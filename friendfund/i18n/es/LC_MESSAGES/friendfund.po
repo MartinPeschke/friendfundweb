@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-04-19 17:11+0200\n"
+"PO-Revision-Date: 2011-04-19 18:06+0200\n"
 "Last-Translator: Timothy Blake <timothy.d.blake@gmail.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Este Perfil no puede ser añadido a tu Cuenta."
 
-#: friendfund/controllers/index.py:81 friendfund/controllers/myprofile.py:170
+#: friendfund/controllers/index.py:81 friendfund/controllers/myprofile.py:174
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr "correo electronico de usario ya registrado!"
 
@@ -96,26 +96,26 @@ msgstr ""
 msgid "FF_ACCOUNT_Your changes have been changed."
 msgstr "Los cambios han sido guardados."
 
-#: friendfund/controllers/myprofile.py:133
-#: friendfund/controllers/myprofile.py:150 friendfund/controllers/ssp.py:48
+#: friendfund/controllers/myprofile.py:137
+#: friendfund/controllers/myprofile.py:154 friendfund/controllers/ssp.py:48
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr "Error en correo electrónico o contraseña"
 
-#: friendfund/controllers/myprofile.py:187
+#: friendfund/controllers/myprofile.py:191
 #, python-format
 msgid "FF_An email with your new password has been sent to %(email)s."
 msgstr "Un email con tu nueva contraseña te ha sido enviado a %(email)s."
 
-#: friendfund/controllers/myprofile.py:195
+#: friendfund/controllers/myprofile.py:199
 msgid "FF_RESETPASSWORD_Email does not exist."
 msgstr "El email no existe."
 
-#: friendfund/controllers/myprofile.py:213
-#: friendfund/controllers/myprofile.py:223
+#: friendfund/controllers/myprofile.py:217
+#: friendfund/controllers/myprofile.py:227
 msgid "FF_RESETPASSWORD_Email is already owned by another user."
 msgstr "Este email está siendo usado por otro usuario."
 
-#: friendfund/controllers/myprofile.py:238
+#: friendfund/controllers/myprofile.py:242
 #, python-format
 msgid ""
 "PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your"
@@ -124,21 +124,21 @@ msgstr ""
 "La contraseña de tu Email ha sido enviada a: %s, por favor, comprueba tu "
 "bandeja de entrada."
 
-#: friendfund/controllers/myprofile.py:247
+#: friendfund/controllers/myprofile.py:251
 msgid "PROFILE_PASSWORD_Unknown Email Address"
 msgstr "Dirección de Email desconocida"
 
-#: friendfund/controllers/myprofile.py:250
+#: friendfund/controllers/myprofile.py:254
 msgid "PROFILE_PASSWORD_Token Already Sent"
 msgstr ""
 "Ya has solicitado un cambio de contraseña en las últimas 24 horas. Por "
 "favor, mira tu correo electrónico."
 
-#: friendfund/controllers/myprofile.py:253
+#: friendfund/controllers/myprofile.py:257
 msgid "PROFILE_PASSWORD_Unknown Error Occured"
 msgstr "Error desconocido"
 
-#: friendfund/controllers/myprofile.py:257
+#: friendfund/controllers/myprofile.py:261
 #, python-format
 msgid ""
 "PROFILE_RESETPASSWORD_TOKEN_This link is no longer valid, please request "
@@ -147,19 +147,19 @@ msgstr ""
 "Este enlace ya no es válido, por favor, solicita una nueva contraseña <a "
 "%s>here </a>"
 
-#: friendfund/controllers/myprofile.py:271
+#: friendfund/controllers/myprofile.py:275
 msgid "PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválidada. Por favor, solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:282
+#: friendfund/controllers/myprofile.py:286
 msgid "PROFILE_RESETPASSWORD_Your password has been reset!"
 msgstr "¡Tu contraseña ha sido restablecida!"
 
-#: friendfund/controllers/myprofile.py:297
+#: friendfund/controllers/myprofile.py:301
 msgid "PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"
 msgstr "Contraseña caducada o inválida. Por favor solicita una nueva."
 
-#: friendfund/controllers/myprofile.py:299
+#: friendfund/controllers/myprofile.py:303
 msgid ""
 "PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank "
 "You!"
@@ -2874,12 +2874,16 @@ msgstr "Elige como quieres identificarte en esta página."
 #: friendfund/templates_free_form/myprofile/account.html:76
 #: friendfund/templates_free_form/myprofile/account.html:131
 #: friendfund/templates_free_form/myprofile/account.html:169
+#: friendfund/templates_free_form/myprofile/connections.html:26
+#: friendfund/templates_free_form/myprofile/connections.html:63
 msgid "FF_ACCOUNT_NAME_Tip goes here"
 msgstr "Este será tu nombre de usuario."
 
 #: friendfund/templates_free_form/myprofile/account.html:81
 #: friendfund/templates_free_form/myprofile/account.html:135
 #: friendfund/templates_free_form/myprofile/account.html:173
+#: friendfund/templates_free_form/myprofile/connections.html:30
+#: friendfund/templates_free_form/myprofile/connections.html:67
 msgid "FF_ACCOUNT_Your Name"
 msgstr "Tu nombre"
 
@@ -2907,15 +2911,20 @@ msgstr "JPEG, PNG or GIF. TAMAÑO MAXIMO DEL ARCHIVO: 5 MB"
 
 #: friendfund/templates_free_form/myprofile/account.html:143
 #: friendfund/templates_free_form/myprofile/account.html:181
+#: friendfund/templates_free_form/myprofile/connections.html:38
+#: friendfund/templates_free_form/myprofile/connections.html:75
 msgid "FF_ACCOUNT_Picture"
 msgstr "Foto"
 
 #: friendfund/templates_free_form/myprofile/account.html:155
+#: friendfund/templates_free_form/myprofile/connections.html:87
 msgid "FF_ACCOUNT_You're not connected with Twitter"
 msgstr "No estás conectado con Twitter"
 
 #: friendfund/templates_free_form/myprofile/account.html:156
 #: friendfund/templates_free_form/myprofile/account.html:157
+#: friendfund/templates_free_form/myprofile/connections.html:88
+#: friendfund/templates_free_form/myprofile/connections.html:89
 #: friendfund/templates_free_form/myprofile/login_panel.html:33
 #: friendfund/templates_free_form/myprofile/login_panel.html:34
 #: friendfund/templates_free_form/myprofile/login_popup.html:13
@@ -2926,11 +2935,14 @@ msgid "FF_LOGIN_Log in with Twitter"
 msgstr "Entra con Twitter"
 
 #: friendfund/templates_free_form/myprofile/account.html:193
+#: friendfund/templates_free_form/myprofile/connections.html:49
 msgid "FF_ACCOUNT_You're not connected with Facebook"
 msgstr "No estás conectado con Facebook"
 
 #: friendfund/templates_free_form/myprofile/account.html:194
 #: friendfund/templates_free_form/myprofile/account.html:195
+#: friendfund/templates_free_form/myprofile/connections.html:50
+#: friendfund/templates_free_form/myprofile/connections.html:51
 #: friendfund/templates_free_form/myprofile/login_panel.html:29
 #: friendfund/templates_free_form/myprofile/login_panel.html:30
 #: friendfund/templates_free_form/myprofile/login_popup.html:9
@@ -2941,7 +2953,7 @@ msgid "FF_LOGIN_Log in with Facebook"
 msgstr "Entra con Facebook"
 
 #: friendfund/templates_free_form/myprofile/account.html:201
-#: friendfund/templates_free_form/myprofile/notifications.html:59
+#: friendfund/templates_free_form/myprofile/notifications.html:33
 msgid "FF_ACCOUNT_Save Changes"
 msgstr "Guardar cambios"
 
@@ -2971,9 +2983,17 @@ msgstr "Guardar"
 msgid "FF_MYPROFILE_MENU_Basic Info"
 msgstr "Información Básica"
 
-#: friendfund/templates_free_form/myprofile/common.html:7
+#: friendfund/templates_free_form/myprofile/common.html:6
 msgid "FF_MYPROFILE_MENU_Notifications"
 msgstr "Notificaciones"
+
+#: friendfund/templates_free_form/myprofile/common.html:7
+msgid "FF_MYPROFILE_MENU_Connections"
+msgstr ""
+
+#: friendfund/templates_free_form/myprofile/connections.html:9
+msgid "FF_ACCOUNT_Connections"
+msgstr ""
 
 #: friendfund/templates_free_form/myprofile/forgotpassword_popup.html:6
 msgid "FF_LOGINPOPUP_Forgot your password?"
@@ -3316,31 +3336,31 @@ msgid "FF_ADDRESS_City"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/address.html:72
-msgid "FF_ADDRESS_State"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/address.html:83
-msgid "FF_ADDRESS_Country"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/address.html:98
 msgid "FF_ADDRESS_Postal Code"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/address.html:109
+#: friendfund/templates_free_form/pool/address.html:84
+msgid "FF_ADDRESS_State"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/address.html:95
+msgid "FF_ADDRESS_Country"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/address.html:110
 msgid "FF_ADDRESS_Order Comments"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/address.html:115
+#: friendfund/templates_free_form/pool/address.html:116
 #, python-format
 msgid "FF_ADDRESS_Send a note to %(merchant_name)s with your order."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/address.html:120
+#: friendfund/templates_free_form/pool/address.html:121
 msgid "FF_ADDRESS_Save Settings"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/address.html:121
+#: friendfund/templates_free_form/pool/address.html:122
 msgid "FF_Back to pool"
 msgstr ""
 
@@ -3824,72 +3844,4 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Escoge al destinatario del regalo desde Facebook, Twitter o email."
-
-#~ msgid "POOLACTIONS_INVITE_TITLE_Invite more friends to help out!"
-#~ msgstr "¡Invita más amigos para ayudar!"
-
-#~ msgid ""
-#~ "POOLACTIONS_INVITE_SUBTITLE_Extending the pool's "
-#~ "runtime and inviting more friends with"
-#~ " a fresh message might help you "
-#~ "get this pool completed, try it "
-#~ "now!"
-#~ msgstr ""
-#~ "Si amplías el día de cierre del"
-#~ " Bote e invitas a más amigos, "
-#~ "podrías completar el bote. ¡Pruébalo "
-#~ "ahora!"
-
-#~ msgid "POOLACTIONS_REMIND_INVITEES_TITLE_"
-#~ msgstr "Recuérdale a los invitados que contribuyan al bote."
-
-#~ msgid "POOLACTIONS_REMIND_INVITEES_SUBTITLE_"
-#~ msgstr ""
-#~ "Mándale un mensaje recordatorio a tus"
-#~ " amigos para que contribuyan al bote."
-
-#~ msgid "POOLACTIONS_ASK_RECEIVER_TITLE_"
-#~ msgstr "Sugiérele al destinatario del regalo que pague el resto."
-
-#~ msgid "POOLACTIONS_ASK_RECEIVER_SUBTITLE_"
-#~ msgstr ""
-#~ "Informa a tu amigo de cuánto "
-#~ "habeis alcanzado para su regalo y "
-#~ "pregúntale si quiere pagar el resto."
-
-#~ msgid "POOLACTIONS_ASK_CONTRIBUTORS_TITLE_"
-#~ msgstr "Comprueba si tus amigos pondrán algo más de bote."
-
-#~ msgid "POOLACTIONS_ASK_CONTRIBUTORS_SUBTITLE_"
-#~ msgstr ""
-#~ "Está algo difícil pero puede que "
-#~ "tus amigos aporten un poco más "
-#~ "para poder adquirir el regalo."
-
-#~ msgid "POOLACTIONS_ASK_CONTRIBUTORS_TO_INVITE_TITLE_"
-#~ msgstr "Sugiérele a los miembros del bote que envíen más invitaciones."
-
-#~ msgid "POOLACTIONS_ASK_CONTRIBUTORS_TO_INVITE_SUBTITLE_"
-#~ msgstr ""
-#~ "Habla con los amigos que ya han"
-#~ " contribuído para que extiendan la "
-#~ "palabra y poder adquirir el regalo."
-
-#~ msgid "POOLACTIONS_CHEAPER_PRODUCT_TITLE_"
-#~ msgstr "Escoge un producto más barato"
-
-#~ msgid "POOLACTIONS_CHEAPER_PRODUCT_SUBTITLE_"
-#~ msgstr "Escoge un regalo para el que tengamos suficientes fondos."
-
-#~ msgid "POOLACTIONS_CHIP_IN_REMAINDER_TITLE_"
-#~ msgstr "Pon el en bote la cantidad restante."
-
-#~ msgid "POOLACTIONS_CHIP_IN_REMAINDER_SUBTITLE_"
-#~ msgstr "Pon el resto del bote para que el regalo llegue a tiempo."
-
-#~ msgid "POOLACTIONS_ISSUE_GIFT_VOUCHERS_TITLE_"
-#~ msgstr "Cambiar el producto por Vales Regalo."
-
-#~ msgid "POOLACTIONS_ISSUE_GIFT_VOUCHERS_SUBTITLE_"
-#~ msgstr "Mándale a tu amigo un Vale Regalo de Amazon con la cantidad alcanzada."
 

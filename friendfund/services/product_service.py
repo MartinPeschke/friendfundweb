@@ -1,4 +1,5 @@
 import logging, urlparse, uuid, urllib2, socket
+from BeautifulSoup import BeautifulSoup
 from ordereddict import OrderedDict
 
 from lxml import etree
@@ -143,6 +144,21 @@ class ProductService(object):
 			if p.guid == product_guid:
 				pool.set_product(p)
 				return pool
+	
+	def get_products_from_url(self, query):
+		if not query:
+			log.error("DEFAULT PRODUCT NOT FOUND")
+			abort(404)
+		try:
+			socket.setdefaulttimeout(60)
+			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
+			product_page = urllib2.urlopen(query)
+		except Exception, e:
+			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
+			abort(404)
+		soup = BeautifulSoup(product_page.read())
+		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
+		return self.get_products_from_open_graph(params, query)
 	
 	
 	def get_products_from_open_graph(self, params, referer):

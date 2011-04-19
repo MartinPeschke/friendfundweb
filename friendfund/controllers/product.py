@@ -46,21 +46,7 @@ class ProductController(BaseController):
 	
 	def bounce(self):
 		query=request.params.get("referer")
-		if not query:
-			log.error("Query not found")
-			abort(404)
-		try:
-			socket.setdefaulttimeout(60)
-			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
-			product_page = urllib2.urlopen(query)
-		except Exception, e:
-			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
-			abort(404)
-		
-		soup = BeautifulSoup(product_page.read())
-		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
-		
-		c.product_list = g.product_service.get_products_from_open_graph(params, query)
+		c.product_list = g.product_service.get_products_from_url(query)
 		c.product = c.product_list[0]
 		
 		c.method = c.user.get_current_network() or 'facebook'

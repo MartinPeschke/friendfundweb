@@ -45,10 +45,12 @@
 <div class="borderIframe">
 	<div class="contentIframe">
 		<div class="wrapHeaderIframe">
+			%if getattr(c,"is_default", False):
 			<div class="light floatRight">
 				<img src="/static/imgs/lightbulb_icon_sml.png" />
 				<p><b>${_("FF_IFRAME_To friendfund a specific product, visit any of the product pages on this site.")}</b></p>
 			</div>
+			%endif
 		<div class="colLeftIframe" id="helpPopupContainer">
 			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
 			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1000;"></div>

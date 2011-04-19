@@ -111,6 +111,7 @@ class MerchantLink(DBMappedObject):
 				,GenericAttrib(bool,'is_default','is_default')
 				,GenericAttrib(str,'logo_url','logo_url')
 				,GenericAttrib(str,'home_page','home_page')
+				,GenericAttrib(str,'default_product_url','default_product_url')
 				,DBMapper(MerchantSettlement,'settlement_options','SETTLEMENT', is_list = True)
 				,DBMapper(MerchantCountry,'shippping_countries','SHIPPING_COUNTRY', is_list = True)
 				,DBMapper(MerchantStyle,'_styles','CSS_STYLE', is_list = True)

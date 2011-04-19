@@ -21,20 +21,26 @@ log = logging.getLogger(__name__)
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
 	def account(self):
-		c.values = {"name":"",
-					"email":""}
 		c.errors = {}
-		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
-		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
-		if len(defaults):
-			default = defaults[0]
-			c.values["is_default"] = default
+		myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
+		c.myprofiles = myprofiles.profiles
+		if request.method != 'POST':
+			c.values = myprofiles.to_map()
+			return self.render('/myprofile/account.html')
 		else:
-			c.values["is_default"] = "email"
-		if 'email' in c.myprofiles:
-			c.values['name'] = c.myprofiles['email'].name
-			c.values['email'] = c.myprofiles['email'].email
-		return self.render('/myprofile/account.html')
+			try:
+				form_result = MyProfileForm().to_python(request.params, state = FriendFundFormEncodeState)
+				c.values = form_result
+				c.values['u_id'] = c.user.u_id
+				if ('profile_pic' in c.values and isinstance(c.values['profile_pic'], FieldStorage)):
+					c.values['profile_picture_url'] = g.user_service.save_email_user_picture(c.values, c.values['profile_pic'])
+				
+				g.dbm.set(GetMyProfileProc(**c.values))
+				return redirect(url.current())
+			except formencode.validators.Invalid, error:
+				c.values = error.value
+				c.errors = error.error_dict or {}
+				return self.render('/myprofile/account.html')
 		
 	@logged_in(ajax=False)
 	@default_domain_only()
@@ -43,7 +49,7 @@ class MyprofileController(BaseController):
 		if request.method != 'POST':
 			return redirect(url(controller='myprofile', action="account"))
 		c.values = formencode.variabledecode.variable_decode(request.params)
-		schema = MyProfileForm()
+		schema = 1
 		g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=c.values['is_default']))
 		
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
@@ -54,27 +60,7 @@ class MyprofileController(BaseController):
 			c.user.profile_picture_url = c.myprofiles[default].profile_picture_url
 		
 		if h.contains_one_ne(c.values, ['email', 'name']):
-			try:
-				form_result = schema.to_python(c.values, state = FriendFundFormEncodeState)
-				c.values = form_result
-				c.values['network'] = 'email'
-				c.values['u_id'] = c.user.u_id
-				
-				if ('profile_pic' in c.values and isinstance(c.values['profile_pic'], FieldStorage)):
-					g.user_service.save_email_user_picture(c.values, c.values['profile_pic'])
-				
-				suppl_user = OtherUserData(**c.values)
-				additional_user_data = g.dbm.call(suppl_user, User)
-				
-				c.user.set_network('email', 
-								network_id =  c.user.default_email,
-								access_token = None,
-								access_token_secret = None
-							)
-			except formencode.validators.Invalid, error:
-				c.values = error.value
-				c.errors = error.error_dict or {}
-				return self.render('/myprofile/account.html')
+			pass
 		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 		return redirect(url(controller='myprofile', action="account"))
 	
@@ -101,7 +87,11 @@ class MyprofileController(BaseController):
 			return self.render('/myprofile/notifications.html')
 		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 		return redirect(url(controller='myprofile', action="notifications"))
-		
+	
+	@logged_in(ajax=False)
+	def connections(self):
+		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
+		return self.render('/myprofile/connections.html')
 	
 	def login(self):
 		if not c.user.is_anon:

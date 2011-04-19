@@ -30,10 +30,15 @@ class GetMyProfileProc(DBMappedObject):
 	"""
 	_cachable = False
 	_set_root = "USER"
-	_get_root = None
-	_get_proc = _set_proc = "app.get_my_profile"
+	_get_root = "USER"
+	_set_proc = "app.set_user_profile"
+	_get_proc = "app.get_my_profile"
 	_unique_keys = ['u_id']
 	_keys = [GenericAttrib(int, 'u_id', 'u_id')
+			,GenericAttrib(unicode, 'name', 'name')
+			,GenericAttrib(unicode, 'email', 'email')
+			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
+			,GenericAttrib(bool, 'is_rendered', 'is_rendered', default=False)
 			,DBMapper(Profile, 'profiles', 'PROFILE', is_dict = True, dict_key = lambda x: x.network)
 			]
 

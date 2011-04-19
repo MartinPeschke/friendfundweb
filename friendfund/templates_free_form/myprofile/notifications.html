@@ -22,10 +22,6 @@
 			<div class="subHeading" style="margin-bottom:10px"></div>
 			%for tpltype in c.templatetypes:
 			<div class="borderBottom noBorder lessPad">
-				###<div class="tip">
-				###	<div class="arrow"></div>
-				###	<span>Tip goes here</span>
-				###</div>
 				<div class="greyInsideFullWidth">
 					<div class="first"> <span>&nbsp;</span> </div>
 					<input type="checkbox" class="chkbox" ${forms.expression_quote(not tpltype.opt_out, "checked")} value="no" name="optout.${tpltype.name}" id="optout_${tpltype.name}"/>
@@ -33,28 +29,6 @@
 				</div>
 			</div>
 			%endfor
-			####<div class="borderBottom noBorder lessPad">
-			####	<div class="tip">
-			####		<div class="arrow"></div>
-			####		<span>Tip goes here</span>
-			####	</div>
-			####	<div class="greyInsideFullWidth">
-			####		<div class="first"> <span>&nbsp;</span> </div>
-			####		<input type="checkbox" class="chkbox" checked="checked" value="yes" name="optout.chipin" id="optout_chipin"/>
-			####			<label for="optout_chipin">Someone chips in to my Pool</label>
-			####	</div>
-			####</div>
-			####<div class="borderBottom noBorder lessPad">
-			####	<div class="tip">
-			####		<div class="arrow"></div>
-			####		<span>Tip goes here</span>
-			####	</div>
-			####	<div class="greyInsideFullWidth">
-			####		<div class="first"> <span>&nbsp;</span> </div>
-			####		<input type="checkbox" class="chkbox"  checked="checked" value="yes" name="optout.comment" id="optout_comment"/>
-			####			<label for="optout_comment">Someone comments on a Pool I created</label>
-			####	</div>
-			####</div>
 			<div class="terms" style="margin-top:20px">
 				<input type="submit" class="primaryButton" value="${_("FF_ACCOUNT_Save Changes")}">
 			</div>
