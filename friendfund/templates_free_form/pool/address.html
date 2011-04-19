@@ -21,12 +21,13 @@
 	<div class="colLeft">
 		<h4>${_("FF_ADDRESS_Where is your gift going to?")}</h4>
 		<div class="subHeading"></div>
+		<form action="${url("pool_action", pool_url = c.pool.p_url, action="address")}" method="POST" name="submissionForm">
 		<div class="borderBottom ${"first_name" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_ADDRESS_First Name")}</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("first_name")}"/>
+				<input class="shrt" type="text" name="first_name" value="${c.values.get("first_name")}"/>
 				%if "first_name" in c.errors:
 					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["first_name"]}</p>
 				%endif
@@ -37,7 +38,7 @@
 				<div class="first">
 					<span>${_("FF_ADDRESS_Last name")}*</span>
 				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("last_name")}"/>
+				<input class="shrt" type="text" name="last_name" value="${c.values.get("last_name")}"/>
 				%if "last_name" in c.errors:
 					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["last_name"]}</p>
 				%endif
@@ -65,6 +66,18 @@
 				%endif
 			</div>
 		</div>
+		<div class="borderBottom ${"zipcode" in c.errors and "error" or ""}">
+			<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_ADDRESS_Postal Code")}*</span>
+				</div>
+				<input class="shrt" type="text" name="zipcode" value="${c.values.get("zipcode")}"/>
+				%if "zipcode" in c.errors:
+					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["zipcode"]}</p>
+				%endif
+			</div>
+		</div>
+
 		<div class="borderBottom ${"line3" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
@@ -91,21 +104,10 @@
 				%endif
 			</div>
 		</div>
-		<div class="borderBottom ${"zipcode" in c.errors and "error" or ""}">
-			<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>${_("FF_ADDRESS_Postal Code")}*</span>
-				</div>
-				<input class="shrt" type="text" name="zipcode" value="${c.values.get("zipcode")}"/>
-				%if "zipcode" in c.errors:
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors["zipcode"]}</p>
-				%endif
-			</div>
-		</div>
 		<div class="borderBottom noBtmPad noBorder ${"shipping_note" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>${_("FF_ADDRESS_Order Comments")}*</span>
+					<span>${_("FF_ADDRESS_Order Comments")}</span>
 				</div>
 				<div class="containerTxtAreaShrt">
 					<textarea name="shipping_note">${c.values.get("shipping_note")}</textarea>
@@ -116,12 +118,13 @@
 		<div class="floatLeft" style="margin-top:40px">
 				<div class="first">&nbsp;</div>
 				<div class="floatLeft">
-					<input type="button" class="primaryButton floatLeft" value="${_("FF_ADDRESS_Save Settings")}" style="margin-right:30px" />
-					<a href="#" class="secondary floatLeft">${_("FF_Back to pool")}</a>
+					<input type="submit" class="primaryButton floatLeft" value="${_("FF_ADDRESS_Save Settings")}" style="margin-right:30px" />
+					<a href="${url("get_pool", pool_url = c.pool.p_url)}" class="secondary floatLeft">${_("FF_Back to pool")}</a>
 				</div>
 				<div class="clear"></div>
 			</div>
 	  <div class="clear"></div>
+	  </form>
   </div>
 <div class="clear"></div>
 </div>

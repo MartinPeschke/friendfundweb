@@ -111,7 +111,7 @@
 					%if 'email' in c.myprofiles:
 						<img width="60px" height="60px" src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
 					%else:
-						<img width="60px" height="60px" src="${app_globals.statics.get_default_user_picture("PROFILE_M")}"/>
+						<img width="60px" height="60px" src="${app_globals.statics_service.get_default_user_picture("PROFILE_M")}"/>
 					%endif
 					</div>
 					<div class="choose">

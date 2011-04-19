@@ -260,6 +260,8 @@ class PoolController(BaseController):
 			try:
 				schema=PoolAddressForm()
 				c.values = schema.to_python(request.params)
+				address = g.dbm.set(PoolAddress(p_url = pool_url, **c.values))
+				c.messages.append(SuccessMessage(_("FF_ADDRESS_Changes saved!")))
 			except formencode.validators.Invalid, error:
 				c.errors = error.error_dict or {}
 				c.values = error.value
