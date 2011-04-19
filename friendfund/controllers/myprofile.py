@@ -15,54 +15,43 @@ from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm, NotificationsForm
 from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc, OptOutTemplateType
 from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
-
+from friendfund.services import static_service as statics
 log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
 	def account(self):
 		c.errors = {}
-		myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-		c.myprofiles = myprofiles.profiles
+		c.myprofiles_result = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
+		c.myprofiles = c.myprofiles_result.profiles
 		if request.method != 'POST':
-			c.values = myprofiles.to_map()
+			c.values = c.myprofiles_result.to_map()
 			return self.render('/myprofile/account.html')
 		else:
 			try:
 				form_result = MyProfileForm().to_python(request.params, state = FriendFundFormEncodeState)
 				c.values = form_result
 				c.values['u_id'] = c.user.u_id
+				c.values['network'] = 'email'
 				if ('profile_pic' in c.values and isinstance(c.values['profile_pic'], FieldStorage)):
 					c.values['profile_picture_url'] = g.user_service.save_email_user_picture(c.values, c.values['profile_pic'])
-				
+				if "email" not in c.myprofiles:
+					suppl_user = OtherUserData(**c.values)
+					additional_user_data = g.dbm.call(suppl_user, User)
+					c.user.set_network('email', 
+									network_id =  c.user.default_email,
+									access_token = None,
+									access_token_secret = None
+								)
+				c.values['is_rendered'] = statics.url_is_local(c.values['profile_picture_url'])
 				g.dbm.set(GetMyProfileProc(**c.values))
+				c.user.profile_picture_url = c.values['profile_picture_url']
+				c.user.name = c.values['name']
 				return redirect(url.current())
 			except formencode.validators.Invalid, error:
 				c.values = error.value
 				c.errors = error.error_dict or {}
 				return self.render('/myprofile/account.html')
-		
-	@logged_in(ajax=False)
-	@default_domain_only()
-	def save(self):
-		c.errors = {}
-		if request.method != 'POST':
-			return redirect(url(controller='myprofile', action="account"))
-		c.values = formencode.variabledecode.variable_decode(request.params)
-		schema = 1
-		g.dbm.set(SetDefaultProfileProc(u_id=c.user.u_id, network=c.values['is_default']))
-		
-		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
-		defaults = map(lambda x: x.network, filter(lambda x: x.is_default, c.myprofiles.values()))
-		if len(defaults):
-			default = defaults[0]
-			c.user.name = c.myprofiles[default].name
-			c.user.profile_picture_url = c.myprofiles[default].profile_picture_url
-		
-		if h.contains_one_ne(c.values, ['email', 'name']):
-			pass
-		c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
-		return redirect(url(controller='myprofile', action="account"))
 	
 	@logged_in(ajax=False)
 	@default_domain_only()

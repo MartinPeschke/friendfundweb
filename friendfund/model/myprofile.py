@@ -5,7 +5,7 @@ from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBM
 
 class Profile(DBMappedObject):
 	_cachable = False
-	_get_root = _set_root = "PROFILE"
+	_get_root = _set_root = "USER_NETWORK"
 	_unique_keys = ['network', 'name', 'email']
 	_keys = [GenericAttrib(str, 'network', 'network')
 			,GenericAttrib(unicode, 'name', 'un_name')
@@ -39,8 +39,11 @@ class GetMyProfileProc(DBMappedObject):
 			,GenericAttrib(unicode, 'email', 'email')
 			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
 			,GenericAttrib(bool, 'is_rendered', 'is_rendered', default=False)
-			,DBMapper(Profile, 'profiles', 'PROFILE', is_dict = True, dict_key = lambda x: x.network)
+			,DBMapper(Profile, 'profiles', 'USER_NETWORK', is_dict = True, dict_key = lambda x: x.network)
 			]
+	def fromDB(self, xml):
+		defaults = filter(lambda x: x.is_default, self.profiles.values())
+		setattr(self, "default", len(defaults) and defaults[0] or self.profiles.values()[0])
 
 class SetDefaultProfileProc(DBMappedObject):
 	"""

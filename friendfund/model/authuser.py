@@ -209,7 +209,7 @@ class User(ProtoUser):
 		if isinstance(self.profile_picture_url, basestring) and self.profile_picture_url.startswith("http"):
 			log.warning("EXTERNAL_USER_PICTURE <%s>", self.profile_picture_url)
 			self.failover_pic = self.profile_picture_url
-			self.profile_picture_url = self._statics.tokenize_url(self.profile_picture_url)
+			self.profile_picture_url = statics.tokenize_url(self.profile_picture_url)
 	
 	def get_profile_pic(self, type="PROFILE_S", secured = False):
 		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
