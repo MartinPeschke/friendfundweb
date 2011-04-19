@@ -1,0 +1,5 @@
+%if request.method=="GET":
+	<textarea name="thankyoumessage">${c.message}</textarea>
+%else:
+	${c.message}<span class="link">${_("FF_Edit")}</span>
+%endif
