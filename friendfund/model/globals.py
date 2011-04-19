@@ -121,9 +121,9 @@ class MerchantLink(DBMappedObject):
 	def get_logo_url(self, secured = False):
 		host = self.domain
 		if secured:
-			protocol = "http://"
-		else:
 			protocol = "https://"
+		else:
+			protocol = "http://"
 		return "%(protocol)s%(host)s/custom/imgs/logo.png" % locals()
 		
 		

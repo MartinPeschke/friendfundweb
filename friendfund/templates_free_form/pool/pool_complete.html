@@ -66,11 +66,14 @@
 	<div class="colLeft">
 		<div class="ecard">
 			<div class="insideEcard">
+				%if not request.merchant.is_default:
 				<img src="/static/imgs/powered_by_button.png" class="floatRight">
 				<div class="floatRight borderLeft">
-					<img width="60px" height="30px" class="floatRight" src="/static/imgs/merch/great_american_days.png">
+					<img width="60px" height="30px" class="floatRight" src="${request.merchant.get_logo_url()}">
 				</div>
-				<h3>${c.pool.title}</h3>
+				%endif
+				
+				<div class="clear"></div>
 				<div class="stripe rose">
 					<div class="imgEdit">
 						<div class="subImgEdit">
@@ -94,9 +97,10 @@
 					</div>
 				</div>
 			  
+				%if len(c.contributors_w_msg):
 				<h4>${_("FF_POOLECARD_Messages")} </h4>
 				<ul class="contribMsg">
-				%for cbtr in c.contributors:
+				%for cbtr in c.contributors_w_msg:
 					<li>
 						<div class="avt">
 							<img src="${cbtr.get_profile_pic("PROFILE_M")}">
@@ -109,14 +113,17 @@
 					</li>
 				%endfor
 				</ul>
+				%endif
         
         <h4><span class="contribNum floatRight"><strong>${c.pool.total_contributors}</strong> ${_("FF_POOL_PAGE_HEADER_contributors")}</span>${_("FF_POOLECARD_All_Contributors")} </h4>
 	        <ul class="contribMsg">
-				<li>
-					<div title="Henrietta Regina Goldmine" class="avt">
-						<img width="48px" height="48px" alt="Henrietta Regina Goldmine" src="/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+				%for cbtr in c.contributors:
+					<li>
+					<div title="${cbtr.name}" class="avt">
+						<img width="48px" height="48px" alt="${cbtr.name}" src="${cbtr.get_profile_pic("PROFILE_M")}">
 					</div>
-				</li>
+					</li>
+				%endfor
 			</ul>
 			<div class="clear"></div>
        	 </div>

@@ -1,5 +1,6 @@
 from __future__ import with_statement
-import logging, formencode, datetime
+import logging, formencode, datetime, itertools
+from operator import attrgetter
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, cache
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
@@ -59,6 +60,9 @@ class PoolController(BaseController):
 			 redirect(url('get_pool', pool_url=pool_url))
 		
 		c.contributors = g.dbm.get(GetECardContributorsProc, p_url = pool_url).contributors
+		c.contributors_w_msg = filter(attrgetter("co_message"), c.contributors)
+		
+		
 		return self.render('/pool/pool_complete.html')
 	
 	def _clean_session(self):

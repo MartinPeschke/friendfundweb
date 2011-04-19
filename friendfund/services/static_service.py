@@ -70,14 +70,14 @@ class StaticService(object):
 		if type not in PROFILE_PIC_FORMATS:
 			raise IncorrectPictureTypeException("UnknownPictureType:%s"%type)
 		if not url:
-			return self.get_default_user_picture(type)
+			return self.get_default_user_picture(type, secured)
 		elif not isinstance(url, basestring) or url.startswith('http'):
 			return url
 		else:
 			static_root = PROFILE_STATIC_ROOT
 			site_root = self.get_site_root(url, secured)
 			if url == DEFAULT_USER_PICTURE_TOKEN: 
-				return self.get_default_user_picture(type)
+				return self.get_default_user_picture(type, secured)
 			elif url.startswith('/'):
 				return '%(site_root)s%(url)s'%locals()
 			else:
@@ -90,14 +90,14 @@ class StaticService(object):
 		if type not in PRODUCT_PIC_FORMATS:
 			raise IncorrectPictureTypeException("UnknownPictureType:%s"%type)
 		elif not url:
-			return self.get_default_product_picture(type)
+			return self.get_default_product_picture(type, secured)
 		elif not isinstance(url, basestring) or url.startswith('http'):
 			return url
 		else:
 			static_root = PRODUCT_STATIC_ROOT
 			site_root = self.get_site_root(url, secured)
 			if url == DEFAULT_PRODUCT_PICTURE_TOKEN:
-				return self.get_default_product_picture(type)
+				return self.get_default_product_picture(type, secured)
 			elif url.startswith('/'):
 					return '%(site_root)s%(url)s'%locals()
 			else:

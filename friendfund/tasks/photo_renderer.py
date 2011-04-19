@@ -223,7 +223,7 @@ def remote_profile_picture_render(userlist):
 			if tmpfname:
 				try:
 					sizes = deque()
-					for name_ext in statics.PROFILE_PIC_FORMATS.items():
+					for name_ext in statics.PROFILE_PIC_FORMATS:
 						target_w,target_h = statics.PROFILE_PIC_FORMATS[name_ext]
 						
 						newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])

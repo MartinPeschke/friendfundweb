@@ -1,4 +1,4 @@
-import zlib, base64, simplejson, datetime, decimal
+import zlib, base64, simplejson, datetime, decimal, itertools
 from xml.sax.saxutils import quoteattr
 from decorator import decorator
 import simplejson, logging
@@ -34,8 +34,9 @@ def zigzag(map, pred, mod):
 	even = itertools.imap(mod, itertools.ifilter(pred, t1))
 	odd = itertools.ifilterfalse(pred, t2)
 	return even,odd
-
-
+def split_list(list, pred):
+	t1,t2 = itertools.tee(list)
+	return itertools.ifilter(pred, t1), itertools.ifilterfalse(pred, t2)
 	
 
 class DateAwareJSONEncoder(simplejson.JSONEncoder):

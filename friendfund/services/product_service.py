@@ -150,6 +150,7 @@ class ProductService(object):
 					"og:name":(["name"], lambda x:x, False),
 					"og:price":(["price"], lambda x:int(x), False),
 					"og:tracking_link":(["tracking_link"], lambda x:x, True),
+					"og:product_id":(["merchant_ref"], lambda x:x, True),
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False),
 					"og:image":(["picture"], lambda x:x, False),
 					"og:currency":(["currency"], lambda x:x, False)}
@@ -166,7 +167,7 @@ class ProductService(object):
 				else:
 					no = unicode(parts[1])
 				if no not in products:
-					products[no] = DisplayProduct(merchant_ref=referer, tracking_link = referer, guid=str(uuid.uuid4()))
+					products[no] = DisplayProduct(tracking_link = referer, guid=str(uuid.uuid4()))
 				attr_names, transf, override = transl.get(parts[0])
 				for attr in attr_names:
 					if override or not getattr(products[no], attr, None):
