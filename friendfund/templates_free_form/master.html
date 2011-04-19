@@ -1,5 +1,6 @@
 <%namespace name="links" file="/widgets/links.html"/>
 <%namespace name="tracking" file="/widgets/tracking.html"/>
+<%namespace name="styles" file="/widgets/merchant_css_styles.css"/>
 ${self.render_html()}
 
 <%def name="render_html()">
@@ -24,6 +25,9 @@ ${self.render_html()}
 		${links.css('staging.css')}
 		${links.css('styles.css',path='/custom/')}
 		${links.js('loaderv4.js')}
+		
+		${styles.merchantStyles(request.merchant)|n}
+		
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
 		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
