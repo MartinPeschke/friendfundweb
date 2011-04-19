@@ -1,4 +1,4 @@
-<%inherit file="../layout.html"/>
+get_<%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
 <%namespace name="widgets" file="/widgets/widgets.html"/>
@@ -86,7 +86,7 @@
 								%if not merchant.is_default:
 									<div class="merchantShow floatRight">
 										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
-										<img width="60px" height="30px" src="${merchant.get_logo_url()}" />
+										<img width="60px" height="30px" src="${merchant.get_logo_url("sml")}" />
 									</div>
 								%endif
 							</div>
@@ -146,7 +146,7 @@
 								%if not merchant.is_default:
 									<div class="merchantShow floatRight">
 										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
-										<img width="60px" height="30px" src="${merchant.get_logo_url()}" />
+										<img width="60px" height="30px" src="${merchant.get_logo_url("sml")}" />
 									</div>
 								%endif
 							</div>
@@ -204,7 +204,7 @@
 								%if not merchant.is_default:
 									<div class="merchantShow floatRight">
 										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
-										<img width="60px" height="30px" src="${merchant.get_logo_url()}" />
+										<img width="60px" height="30px" src="${merchant.get_logo_url("sml")}" />
 									</div>
 								%endif
 							</div>
@@ -260,7 +260,7 @@
 								%if not merchant.is_default:
 									<div class="merchantShow floatRight">
 										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
-										<img width="60px" height="30px" src="${merchant.get_logo_url()}" />
+										<img width="60px" height="30px" src="${merchant.get_logo_url("sml")}" />
 									</div>
 								%endif
 							</div>
@@ -319,7 +319,7 @@
 								%if not merchant.is_default:
 									<div class="merchantShow floatRight">
 										<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
-										<img width="60px" height="30px" src="${merchant.get_logo_url()}" />
+										<img width="60px" height="30px" src="${merchant.get_logo_url("sml")}" />
 									</div>
 								%endif
 							</div>
@@ -365,7 +365,7 @@
 					%if not merchant.is_default:
 						<div class="merchantShow floatRight">
 							<span>${_("FF_MYPOOLS_MERCHANT")}</span> 
-							<img width="60px" height="30px" src="${merchant.get_logo_url()}" />
+							<img width="60px" height="30px" src="${merchant.get_logo_url("sml")}" />
 						</div>
 					%endif
 				</div>

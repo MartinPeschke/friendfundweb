@@ -98,6 +98,7 @@ class MerchantStyle(DBMappedObject):
 	_unique_keys = ['property', 'value']
 	_keys = [GenericAttrib(unicode,'property','property')
 			, GenericAttrib(unicode,'value','value')]
+	
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
@@ -115,14 +116,15 @@ class MerchantLink(DBMappedObject):
 				,DBMapper(MerchantStyle,'_styles','CSS_STYLE', is_list = True)
 				
 			]
-	def get_logo_url(self, secured = False):
+	def get_logo_url(self, type = None, secured = False):
 		host = self.domain
 		if secured:
 			protocol = "https://"
 		else:
 			protocol = "http://"
+		if type:
+			return "%(protocol)s%(host)s/custom/imgs/logo_%(type)s.png" % locals()
 		return "%(protocol)s%(host)s/custom/imgs/logo.png" % locals()
-		
 		
 	def fromDB(self, xml):
 		setattr(self, 'type_is_free_form', self.pool_type=="FREE_FORM")
