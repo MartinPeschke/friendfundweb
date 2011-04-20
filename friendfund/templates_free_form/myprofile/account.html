@@ -25,28 +25,17 @@
 <div class="content">
 <div class="colRight"></div>
 <div class="colLeft" id="myProfile">
-	<h4>${_("FF_ACCOUNT_Default Account")}
+	<h4>${_("FF_ACCOUNT_Edit your profile")}
 		####<span class="link floatRight">${_("FF_ACCOUNT_Edit")}</span>
 	</h4>
 	<form action="${url(controller="myprofile", action="account")}" method="POST" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="onSubmitCleaner(this);">
 		<input type="hidden" name="is_default" id="is_default" value="${c.values.get("is_default")}"/>
-		<div class="subHeading"></div>
-
-		<div class="bold">
-			<div class="first">&nbsp;</div>
-			${_("FF_ACCOUNT_ Choose how you want to be identified on this site.")}
-		</div>
-			
-			
+		<div class="subHeading"></div>	
 		<div class="borderBottom showToolTipHook ${'name' in c.errors and 'error' or ''}">
-			<div class="tip">
-				<div class="arrow"></div>
-				%if 'name' in c.errors:
-					<span>${c.errors['name']}</span>
-				%else:
-					<span>${_("FF_ACCOUNT_NAME_Tip goes here")}</span>
-				%endif
-			</div>
+			<div class="bold" style="padding-bottom:10px">
+			<div class="first">&nbsp;</div>
+			<div class="floatLeft"><p>${_("FF_ACCOUNT_ Choose how you want to be identified on friendfund.")}</p></div>
+		</div>
 			<div class="greyInsideFullWidth">
 			<div class="first">
 				<span>${_("FF_ACCOUNT_Your Name")}</span>
@@ -56,23 +45,15 @@
 		</div>
 			
 		<div class="borderBottom showToolTipHook ${'email' in c.errors and 'error' or ''}">
-			<div class="tip">
-				<div class="arrow"></div>
-				%if 'email' in c.errors:
-					<span>${c.errors['email']}</span>
-				%else:
-					<span>${_("FF_ACCOUNT_EMAIL_Tip goes here")}</span>
-				%endif
-			</div>
 			<div class="greyInsideFullWidth">
 			<div class="first">
 				<span>${_("FF_ACCOUNT_Email Address")}</span>
 			</div>
 				<input type="text" value="${c.values.get('email')}" class="" name="email"/>
 			</div>
+			<p class="info">This is the email address we'll use to contact you.</p>
 		</div>
 			
-			<div class="colRightWhite"></div>
 	   
 			  <div class="borderBottom noBorder">
 					<div class="first">
@@ -86,72 +67,66 @@
 						<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
 					</div>
 			  </div>
-		</div>
+		
 			  
 			  
-			  
-		<div class="">
+	<div class="profilePhotoCont floatLeft" >	 
+		<div class="first"> &nbsp;</div>
+		<div class="floatLeft" style="width:530px">
+		<div class="square floatLeft">
 		%if 'email' in c.myprofiles:
-			<div class="borderBottom">
-				<div class="greyInsideFullWidth">
-					<img src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
-					<input type="radio" ${forms.expression_quote(c.myprofiles["email"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['email'].profile_picture_url}"/>
+				<div class="brd">
+				<img src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
 				</div>
-				<span>${_("FF_ACCOUNT_friendfund Picture")}</span>
-			</div>
-		%else:
-			<div class="borderBottom">
-				 <div class="first">
-					<span>${_("FF_ACCOUNT_You have not uploaded a picture yet")}</span>
-				 </div>
-			</div>
+				<div class="floatLeft">
+				<input type="radio" ${forms.expression_quote(c.myprofiles["email"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['email'].profile_picture_url}"/>
+				<span class="small">${_("FF_ACCOUNT_friendfund Picture")}</span>	
+				</div>
+		%else:		
+				<span class="small">${_("FF_ACCOUNT_You have not uploaded a picture yet")}</span>
 		%endif
 		</div>
-		
-		<div class="">
+		<div class="square floatLeft">
 		%if 'twitter' in c.myprofiles:
-			<div class="borderBottom">
-				<div class="greyInsideFullWidth">
-					<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
-					<input type="radio" ${forms.expression_quote(c.myprofiles["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['twitter'].profile_picture_url}"/>
+				<div class="brd">
+				<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
 				</div>
-				<span>${_("FF_ACCOUNT_Twitter Picture")}</span>
-			</div>
+				<div class="floatLeft">
+				<input type="radio" ${forms.expression_quote(c.myprofiles["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['twitter'].profile_picture_url}"/>
+				<span class="small">${_("FF_ACCOUNT_Twitter Picture")}</span>
+				</div>
 		%else:
-			<div class="borderBottom">
-				 <div class="floatLeft" style="padding:20px 0">
-					 <p>${_("FF_ACCOUNT_You're not connected with Twitter")}</p>
-					 <a onclick="twInit()" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}">
-						<span>${_("FF_LOGIN_Log in with Twitter")}</span>
-					</a>
-				</div>
-			</div>
+				<span class="small">${_("FF_ACCOUNT_You're not connected with Twitter")}</span>
+				<a onclick="twInit()" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}" style="margin-top:20px">
+					<span>${_("FF_LOGIN_Twitter_Log_In")}</span>
+				</a>
 		%endif
 		</div>
-		
-		<div class="">
+		<div class="square floatLeft omega">
 		%if 'facebook' in c.myprofiles:
-			<div class="borderBottom">
-				<div class="greyInsideFullWidth">
-					<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
-					<input type="radio" ${forms.expression_quote(c.myprofiles["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['facebook'].profile_picture_url}"/>
+				<div class="brd">
+				<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
 				</div>
-				<span>${_("FF_ACCOUNT_Facebook Picture")}</span>
-			</div>
+				<div class="floatLeft">
+				<input type="radio" ${forms.expression_quote(c.myprofiles["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['facebook'].profile_picture_url}"/>
+				<span class="small">${_("FF_ACCOUNT_Facebook Picture")}</span>
+				</div>
 		%else:
-			<div class="borderBottom">
-				<div class="floatLeft" style="padding:20px 0">
-					<p>${_("FF_ACCOUNT_You're not connected with Facebook")}</p>
-					<a onclick="fbLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}">
-						<span>${_("FF_LOGIN_Log in with Facebook")}</span>
-					</a>
-				</div>
-			</div>
+				<span class="small">${_("FF_ACCOUNT_You're not connected with Facebook")}</span>
+				<a onclick="fbLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
+					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
+				</a>
 		%endif
 		</div>
-		<span class="primaryButton floatLeft" onclick="onSubmitCleaner(document.accountForm);document.accountForm.submit()" style="margin:10px 0 0 160px">${_("FF_ACCOUNT_Save Changes")}</span>
+		</div>
+	</div>
+		<span class="primaryButton floatLeft" onclick="onSubmitCleaner(document.accountForm);document.accountForm.submit()" style="margin:30px 0 0 160px">${_("FF_ACCOUNT_Save Changes")}</span>
 	</form>
-</div>
-<div class="clear"></div>
-</div>
+	<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+  </div>
+  <div class="clear"></div>
 </div>

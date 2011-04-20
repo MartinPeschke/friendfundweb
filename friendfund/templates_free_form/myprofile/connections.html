@@ -18,18 +18,25 @@
 		<div class="colRight"></div>
 		<div class="colLeft">
 			<h4>Log In Connections</h4>
-			<div class="subHeading"></div>
-			<div class="networkDefaultAccountfacebook">
+			<div class="subHeadingSpecial"></div>
+			<div class="networkDefaultAccountfacebook borderBottom">
 			%if 'facebook' in c.myprofiles:
 				<div class="">
 					<div class="greyInsideFullWidth">
 					<div class="first">
-						<span>${_("FF_ACCOUNT_Picture")}</span>
+						<span>&nbsp;</span>
 					</div>
-						<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
-						<% locals = {"name":c.myprofiles['facebook'].name} %>
-						<span>${_("FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>")%locals|n}</span>
-						<a onclick="fbDisconnect()">${_("FF_ACCOUNT_Disconnect")}</a>
+					<div class="floatLeft" style="width:530px">
+						<p class="fbIco bold floatLeft">Facebook</p>
+						<div class="floatLeft" style="clear:both">
+							<div class="avt">
+								<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
+							</div>
+							<% locals = {"name":c.myprofiles['facebook'].name} %>
+							<p>${_("FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>")%locals|n}</p>
+							<a onclick="fbDisconnect()" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
+						</div>
+					</div>
 					</div>
 				</div>
 			%else:
@@ -47,21 +54,28 @@
 			%endif
 			</div>
 			
-			<div class="networkDefaultAccounttwitter">
+			<div class="networkDefaultAccounttwitter borderBottom noBorder">
 			%if 'twitter' in c.myprofiles:
 				<div class="">
 					<div class="greyInsideFullWidth">
 					<div class="first">
-						<span>${_("FF_ACCOUNT_Picture")}</span>
+						<span>&nbsp;</span>
 					</div>
-						<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
-						<% locals = {"name":c.myprofiles['twitter'].name} %>
-						<span>${_("FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>")%locals|n}</span>
-						<a href="#">${_("FF_ACCOUNT_Disconnect")}</a>
+					<div class="floatLeft" style="width:530px">
+						<p class="twIco bold floatLeft">Twitter</p>
+						<div class="floatLeft" style="clear:both">
+							<div class="avt">
+								<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
+							</div>
+							<% locals = {"name":c.myprofiles['twitter'].name} %>
+							<p>${_("FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>")%locals|n}</p>
+							<a href="#" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
+						</div>
+					</div>
 					</div>
 				</div>
 			%else:
-				<div class="borderBottom noBorder">
+				<div class="">
 					 <div class="first">
 						<span>&nbsp;</span>
 					 </div>
