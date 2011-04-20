@@ -104,7 +104,7 @@ def save_render(fname_src, fname_dest, target_w=190, target_h=150, gravity = "Ce
 
 @task
 def remote_save_product_image(newfname, tmpfname):
-	_render_product_pictures(newfname, tmpfname)
+	render_product_pictures(newfname, tmpfname)
 	return 'ack'
 
 def render_product_pictures(newfname, tmpfname):

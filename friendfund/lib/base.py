@@ -92,7 +92,7 @@ class BaseController(WSGIController):
 	
 	def __before__(self, action, environ):
 		"""Provides HTTP Request Logging before any error should occur"""
-		if 'region' not in websession:
+		if not websession.get('region'):
 			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
 			region = g.country_choices.map.get(region, g.country_choices.fallback).code
 			websession['region'] = region

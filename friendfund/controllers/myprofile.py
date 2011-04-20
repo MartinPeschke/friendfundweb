@@ -35,14 +35,8 @@ class MyprofileController(BaseController):
 				c.values['network'] = 'email'
 				if ('profile_pic' in c.values and isinstance(c.values['profile_pic'], FieldStorage)):
 					c.values['profile_picture_url'] = g.user_service.save_email_user_picture(c.values, c.values['profile_pic'])
-				if "email" not in c.myprofiles:
-					suppl_user = OtherUserData(**c.values)
-					additional_user_data = g.dbm.call(suppl_user, User)
-					c.user.set_network('email', 
-									network_id =  c.user.default_email,
-									access_token = None,
-									access_token_secret = None
-								)
+					c.values['is_uploaded'] = True
+				
 				c.values['is_rendered'] = statics.url_is_local(c.values['profile_picture_url'])
 				g.dbm.set(GetMyProfileProc(**c.values))
 				c.user.profile_picture_url = c.values['profile_picture_url']

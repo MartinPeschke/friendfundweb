@@ -338,7 +338,6 @@ fb_handleLogin = function(response){
 	return true;
 };
 fbLogin = function(response) {
-	FB.Event.unsubscribe('auth.login', fbLogin);
 	if(facebook_tried_loggin_in_already === false){
 		if(response&&response.session){
 			FB.getLoginStatus(fb_handleLogin);
@@ -369,7 +368,6 @@ fbInit = function(app_id) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
 		FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
-		FB.Event.subscribe('auth.login', fbLogin);
 		FB.Event.subscribe('auth.logout', fbLogout);
 	};
 	var e = document.createElement('script');

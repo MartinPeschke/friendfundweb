@@ -40,6 +40,7 @@ class GetMyProfileProc(DBMappedObject):
 			,GenericAttrib(unicode, 'email', 'email')
 			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
 			,GenericAttrib(bool, 'is_rendered', 'is_rendered', default=False)
+			,GenericAttrib(bool, 'is_uploaded', 'is_uploaded', default=False)
 			,DBMapper(Profile, 'profiles', 'USER_NETWORK', is_dict = True, dict_key = lambda x: x.network)
 			]
 	def fromDB(self, xml):

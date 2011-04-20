@@ -1,20 +1,20 @@
 import logging, simplejson, cgi, urllib2
 from friendfund.lib import oauth
 
-from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
+from pylons import request, response, session as websession, tmpl_context as c, url, app_globals
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import tw_helper
-
+from friendfund.lib.auth.decorators import logged_in
 from friendfund.model.authuser import User, ANONUSER, OtherUserData
 from friendfund.model.recent_activity import RecentActivityStream
 from friendfund.tasks.twitter import remote_persist_user
 from friendfund.model.common import SProcWarningMessage
 log = logging.getLogger(__name__)
 
-consumer = oauth.Consumer(g.TwitterApiKey, g.TwitterApiSecret)
+consumer = oauth.Consumer(app_globals.TwitterApiKey, app_globals.TwitterApiSecret)
 # consumer = oauth.Consumer("GDdmIQH6jhtmLUypg82g", "MCD8BKwGdgPHvAuvgvz4EQpqDAtx89grbuNMRd7Eh98")
 
 class TwitterController(BaseController):
@@ -86,6 +86,19 @@ class TwitterController(BaseController):
 		user_data['locale'] = user_data['lang']
 		user_data['link'] = user_data['url']
 		#Save and Persist, render profile
-		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
+		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		c.refresh_login = True
 		return render('/closepopup.html')
+	
+	@logged_in()
+	def disconnect(self):
+		try:
+			network = c.user.networks.get("twitter")
+			if str(network.network_id) != str(request.params.get("network_id")):
+				print network.network_id , request.params.get("network_id")
+				return abort(404)
+			else:
+				app_globals.user_service.disconnect(c.user, 'twitter', network.network_id)
+		except Exception, e:
+			log.error(e)
+		return redirect(url(controller="myprofile", action="connections"))

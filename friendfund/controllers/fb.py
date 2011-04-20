@@ -1,8 +1,9 @@
 import logging, cgi, simplejson, urllib, urllib2, datetime
 
-from pylons import request, tmpl_context as c, app_globals as g
+from pylons import request, tmpl_context as c, app_globals, url
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
+from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import fb_helper
 from friendfund.model import db_access
@@ -17,7 +18,7 @@ class FbController(BaseController):
 	@jsonify
 	def login(self):
 		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
+			fb_data = fb_helper.get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user)
 		except fb_helper.FBNotLoggedInException, e: 
 			return {'reload':True}
 			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
@@ -35,21 +36,21 @@ class FbController(BaseController):
 		user_data['profile_picture_url'] = fb_helper.get_large_pic_url(user_data['network_id'])
 		user_data['access_token_secret'] = user_data.pop('secret')
 		#Save and Persist, render profile
-		success, msg = g.user_service.login_or_consolidate(user_data, remote_persist_user)
+		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		if not success:
 			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
 		else:
 			if not c.user.has_perm('facebook', 'stream_publish'):
 				perms = FBUserPermissions(network='facebook', network_id=user_data['network_id'], stream_publish = True)
 				try:
-					g.dbm.set(perms)
+					app_globals.dbm.set(perms)
 				except db_access.SProcException, e:
 					log.error(str(e))
 				c.user.set_perm('facebook', 'stream_publish', True)
 			if not c.user.has_perm('facebook', 'create_event'):
 				perms = FBUserPermissions(network='facebook', network_id=user_data['network_id'], create_event = True)
 				try:
-					g.dbm.set(perms)
+					app_globals.dbm.set(perms)
 				except db_access.SProcException, e:
 					log.error(str(e))
 				c.user.set_perm('facebook', 'create_event', True)
@@ -58,7 +59,7 @@ class FbController(BaseController):
 	@jsonify
 	def failed_login(self):
 		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
+			fb_data = fb_helper.get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user)
 		except fb_helper.FBNotLoggedInException, e: 
 			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
 		except fb_helper.FBLoggedInWithIncorrectUser, e: 
@@ -75,24 +76,27 @@ class FbController(BaseController):
 	
 	def remove(self):
 		try:
-			user_id = fb_helper.get_user_from_signed_request(request.params, g.FbApiSecret.__call__())
+			user_id = fb_helper.get_user_from_signed_request(request.params, app_globals.FbApiSecret.__call__())
 		except fb_helper.FBIncorrectlySignedRequest, e: 
 			log.error("DEAUTHORIZE with %s, %s", request.params, request.cookies)
 			return '1'
 		perms = FBUserPermissions(network='facebook', network_id=user_id, stream_publish = False, has_email = False, permanent = False, create_event = False)
 		try:
-			g.dbm.set(perms)
+			app_globals.dbm.set(perms)
 		except db_access.SProcException, e:
 			log.error(str(e))
 		return '1'
+	
+	@logged_in()
 	def disconnect(self):
-		self.remove()
-		fb_data = fb_helper.get_user_from_cookie(request.cookies, g.FbApiKey, g.FbApiSecret.__call__(), c.user)
 		try:
-			g.user_service.disconnect(c.user, 'facebook', fb_data['uid'])
-		except:
-			pass
-		print urllib2.urlopen("https://api.facebook.com/method/auth.revokeAuthorization?access_token=%s&format=json"%fb_data['access_token']).read()
-		
-		return {"data":{"success":True}}
+			fb_data = fb_helper.get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user)
+			uid = fb_data['uid']
+			if uid != request.params.get("network_id"):
+				return abort(404)
+			else:
+				app_globals.user_service.disconnect(c.user, 'facebook', uid)
+		except Exception, e:
+			log.error(e)
+		return redirect(url(controller="myprofile", action="connections"))
 		

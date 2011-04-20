@@ -11,15 +11,7 @@
 
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="subUserProfile">
-				<h2 class="padBtm">${_("FF_ACCOUNT_Account Settings")}</h2>
-			</div>
-			${common.render_tabs("account")|n}
-		<div class="clear"></div>
-		</div>
-	</div>
+	${common.render_tabs("account")|n}
 </div>
 <div class="wrapSubContent">
 <div class="content">
@@ -68,44 +60,42 @@
 					</div>
 			  </div>
 		
-			  
-			  
-	<div class="profilePhotoCont floatLeft" >	 
+	<div class="profilePhotoCont floatLeft" >
 		<div class="first"> &nbsp;</div>
 		<div class="floatLeft" style="width:530px">
 		<div class="square floatLeft">
-		%if 'email' in c.myprofiles:
+			%if 'email' in c.myprofiles:
 				<div class="brd">
-				<img src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
+				<img width="50px" height="50px" src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
 				<input type="radio" ${forms.expression_quote(c.myprofiles["email"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['email'].profile_picture_url}"/>
-				<span class="small">${_("FF_ACCOUNT_friendfund Picture")}</span>	
+				<span class="small">${_("FF_ACCOUNT_friendfund Picture")}</span>
 				</div>
-		%else:		
+			%else:		
 				<span class="small">${_("FF_ACCOUNT_You have not uploaded a picture yet")}</span>
-		%endif
+			%endif
 		</div>
 		<div class="square floatLeft">
-		%if 'twitter' in c.myprofiles:
+			%if 'twitter' in c.myprofiles:
 				<div class="brd">
-				<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
+				<img width="50px" height="50px" src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
 				<input type="radio" ${forms.expression_quote(c.myprofiles["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['twitter'].profile_picture_url}"/>
 				<span class="small">${_("FF_ACCOUNT_Twitter Picture")}</span>
 				</div>
-		%else:
+			%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Twitter")}</span>
 				<a onclick="twInit()" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}" style="margin-top:20px">
 					<span>${_("FF_LOGIN_Twitter_Log_In")}</span>
 				</a>
-		%endif
+			%endif
 		</div>
 		<div class="square floatLeft omega">
 		%if 'facebook' in c.myprofiles:
 				<div class="brd">
-				<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
+				<img width="50px" height="50px" src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
 				<input type="radio" ${forms.expression_quote(c.myprofiles["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['facebook'].profile_picture_url}"/>
@@ -114,7 +104,7 @@
 		%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Facebook")}</span>
 				<a onclick="fbLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
-					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
+					<span>${_("FF_LOGIN_Facebook_Log_In")}</span>
 				</a>
 		%endif
 		</div>

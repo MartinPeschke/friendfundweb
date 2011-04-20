@@ -84,7 +84,7 @@ def normalize_locale(loc):
 	return unicode(loc).replace('-', '_')
 def negotiate_locale(accept_langs, available_languages):
 	langs = map(normalize_locale, accept_langs)
-	return nl(langs, available_languages, sep="_")
+	return nl(langs, available_languages, sep="_") or available_languages[0]
 
 
 def format_int_amount(number):

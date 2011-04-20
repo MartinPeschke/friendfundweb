@@ -3,15 +3,7 @@
 <%namespace name="forms" file="/widgets/forms.html"/>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="subUserProfile">
-				<h2 class="padBtm">${_("FF_ACCOUNT_Account Settings")}</h2>
-			</div>
-			${common.render_tabs("notifications")|n}
-		<div class="clear"></div>
-		</div>
-	</div>
+	${common.render_tabs("notifications")|n}
 </div>
 <div class="wrapSubContent">
 	<div class="content">

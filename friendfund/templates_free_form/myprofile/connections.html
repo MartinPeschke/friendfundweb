@@ -1,17 +1,9 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
-
+<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
 <div class="wrapSubHeader">${self.renderMessages()|n}
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="subUserProfile">
-				<h2 class="padBtm">${_("FF_ACCOUNT_Connections")}</h2>
-			</div>
-			${common.render_tabs("connections")|n}
-		<div class="clear"></div>
-		</div>
-	</div>
+	${common.render_tabs("connections")|n}
 </div>
 <div class="wrapSubContent">
 	<div class="content">
@@ -30,11 +22,11 @@
 						<p class="fbIco bold floatLeft">Facebook</p>
 						<div class="floatLeft" style="clear:both">
 							<div class="avt">
-								<img src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
+								<img width="50px" height="50px" src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
 							</div>
 							<% locals = {"name":c.myprofiles['facebook'].name} %>
 							<p>${_("FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>")%locals|n}</p>
-							<a onclick="fbDisconnect()" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
+							<a href="${url(controller="fb",action="disconnect", network_id = c.myprofiles['facebook'].network_id)}" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
 						</div>
 					</div>
 					</div>
@@ -54,7 +46,7 @@
 			%endif
 			</div>
 			
-			<div class="networkDefaultAccounttwitter borderBottom noBorder">
+			<div class="networkDefaultAccountfacebook borderBottom noBorder">
 			%if 'twitter' in c.myprofiles:
 				<div class="">
 					<div class="greyInsideFullWidth">
@@ -65,11 +57,11 @@
 						<p class="twIco bold floatLeft">Twitter</p>
 						<div class="floatLeft" style="clear:both">
 							<div class="avt">
-								<img src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
+								<img width="50px" height="50px" src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
 							</div>
 							<% locals = {"name":c.myprofiles['twitter'].name} %>
 							<p>${_("FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>")%locals|n}</p>
-							<a href="#" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
+							<a href="${url(controller="twitter",action="disconnect", network_id = c.myprofiles['twitter'].network_id )}" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
 						</div>
 					</div>
 					</div>

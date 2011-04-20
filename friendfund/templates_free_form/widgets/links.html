@@ -1,6 +1,4 @@
 <%def name="css(file, media='', path = '/static/css/', ext = None)"><link rel="stylesheet" type="text/css" href="${path|h}${file|h}?${ext or app_globals.revision_identifier()}" media="${media}"/></%def>
-<%def name="js(file, path = '/static/js/', ext=None)">
-	<script type="text/javascript" src="${path|h}${file|h}?${ext or app_globals.revision_identifier()}"></script>
-</%def>
+<%def name="js(file, path = '/static/js/', ext=None)"><script type="text/javascript" src="${path|h}${file|h}?${ext or app_globals.revision_identifier()}"></script></%def>
 
 <%def name="ajax_loading_src()">/static/imgs/ajax-loader.gif</%def>

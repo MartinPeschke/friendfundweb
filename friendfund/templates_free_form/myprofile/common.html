@@ -1,9 +1,17 @@
 <%namespace name="widgets" file="/widgets/widgets.html"/>
 
 <%def name="render_tabs(tab)">
-	<div class="tabsBig">
-		<a href="${url(controller="myprofile", action="account")}" ${widgets.expression_quote(tab=="account", "class", "selected")|n}>${_("FF_MYPROFILE_MENU_Basic Info")}<span class="spoiler"></span></a>
-		<a href="${url(controller="myprofile", action="notifications")}" ${widgets.expression_quote(tab=="notifications", "class", "selected")|n}>${_("FF_MYPROFILE_MENU_Notifications")}<span class="spoiler"></span></a>
-		<a href="${url(controller="myprofile", action="connections")}" ${widgets.expression_quote(tab=="connections", "class", "selected")|n}>${_("FF_MYPROFILE_MENU_Connections")}<span class="spoiler"></span></a>
+	<div class="subHeader">
+		<div class="userProfile">
+			<div class="subUserProfile">
+				<h2 class="padBtm">${_("FF_ACCOUNT_Account Settings")}</h2>
+			</div>
+			<div class="tabsBig">
+				<a href="${url(controller="myprofile", action="account")}" ${widgets.expression_quote(tab=="account", "class", "selected")|n}>${_("FF_MYPROFILE_MENU_Basic Info")}<span class="spoiler"></span></a>
+				<a href="${url(controller="myprofile", action="notifications")}" ${widgets.expression_quote(tab=="notifications", "class", "selected")|n}>${_("FF_MYPROFILE_MENU_Notifications")}<span class="spoiler"></span></a>
+				<a href="${url(controller="myprofile", action="connections")}" ${widgets.expression_quote(tab=="connections", "class", "selected")|n}>${_("FF_MYPROFILE_MENU_Connections")}<span class="spoiler"></span></a>
+			</div>
+			<div class="clear"></div>
+		</div>
 	</div>
 </%def>
