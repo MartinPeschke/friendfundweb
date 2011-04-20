@@ -33,7 +33,9 @@ class Picture(DBMappedObject):
 		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
 	def fromDB(self, xml):
 		self.source = self.source.lower()
-class GetMyProfileProc(DBMappedObject):
+
+
+class GetMyPictureProc(DBMappedObject):
 	"""
 		[app].[get_my_profile] '<USER u_id="3540"/>'
 		<RESULT status="0" proc_name="get_my_profile">
@@ -53,7 +55,6 @@ class GetMyProfileProc(DBMappedObject):
 			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
 			,GenericAttrib(bool, 'is_rendered', 'is_rendered', default=False)
 			,GenericAttrib(bool, 'is_uploaded', 'is_uploaded', default=False)
-			,DBMapper(Profile, 'profiles', 'USER_NETWORK', is_dict = True, dict_key = lambda x: x.network)
 			,DBMapper(Picture, 'pictures', 'PICTURE', is_dict = True, dict_key = lambda x: x.source)
 			]
 	def fromDB(self, xml):
@@ -63,6 +64,17 @@ class GetMyProfileProc(DBMappedObject):
 		else:
 			default = defaults[0]
 		setattr(self, "default", default)
+		if "uploaded" not in self.pictures and "email" in self.pictures:
+			self.pictures["uploaded"] = self.pictures["email"]
+
+
+class GetMyProfileProc(DBMappedObject):
+	_cachable = False
+	_set_root = "USER"
+	_get_root = None
+	_get_proc = _set_proc = "app.get_network_for_disconnect"
+	_unique_keys = ['u_id']
+	_keys = [GenericAttrib(int, 'u_id', 'u_id') ,DBMapper(Profile, 'profiles', 'USER_NETWORK', is_dict = True, dict_key = lambda x: x.network)]
 
 class SetDefaultProfileProc(DBMappedObject):
 	"""

@@ -348,9 +348,9 @@ fbLogin = function(response) {
 		}
 	}
 };
-fbLogout = function(){
+fbLogout = function(logoutFB){
 	FB.getLoginStatus(function(response){
-		if(response.session){
+		if(logoutFB && response.session){
 			FB.logout(function(response){window.location.href = "/logout?furl=/";});
 		} else {
 			window.location.href = "/logout?furl=/";

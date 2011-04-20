@@ -43,7 +43,11 @@
 			</div>
 				<input type="text" value="${c.values.get('email')}" class="" name="email"/>
 			</div>
-			<p class="info">This is the email address we'll use to contact you.</p>
+			%if "email" in c.errors:
+				<p class="info">${c.errors["email"]}</p>
+			%else:
+				<p class="info">This is the email address we'll use to contact you.</p>
+			%endif
 		</div>
 			
 	   
@@ -69,8 +73,8 @@
 				<img width="50px" height="50px" src="${c.mypictures['uploaded'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
-				<input type="radio" ${forms.expression_quote(c.mypictures["uploaded"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['uploaded'].profile_picture_url}"/>
-				<span class="small">${_("FF_ACCOUNT_friendfund Picture")}</span>
+				<input id="radio_friendfund_picture" type="radio" ${forms.expression_quote(c.mypictures["uploaded"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['uploaded'].profile_picture_url}"/>
+				<label for="radio_friendfund_picture" class="small">${_("FF_ACCOUNT_friendfund Picture")}</label>
 				</div>
 			%else:
 				<span class="small">${_("FF_ACCOUNT_You have not uploaded a picture yet")}</span>
@@ -82,8 +86,8 @@
 				<img width="50px" height="50px" src="${c.mypictures['twitter'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
-				<input type="radio" ${forms.expression_quote(c.mypictures["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['twitter'].profile_picture_url}"/>
-				<span class="small">${_("FF_ACCOUNT_Twitter Picture")}</span>
+				<input id="radio_twitter_picture" type="radio" ${forms.expression_quote(c.mypictures["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['twitter'].profile_picture_url}"/>
+				<label for="radio_twitter_picture" class="small">${_("FF_ACCOUNT_Twitter Picture")}</span>
 				</div>
 			%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Twitter")}</span>
@@ -98,8 +102,8 @@
 				<img width="50px" height="50px" src="${c.mypictures['facebook'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
-				<input type="radio" ${forms.expression_quote(c.mypictures["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['facebook'].profile_picture_url}"/>
-				<span class="small">${_("FF_ACCOUNT_Facebook Picture")}</span>
+				<input id="radio_facebook_picture" type="radio" ${forms.expression_quote(c.mypictures["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['facebook'].profile_picture_url}"/>
+				<label for="radio_facebook_picture" class="small">${_("FF_ACCOUNT_Facebook Picture")}</span>
 				</div>
 		%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Facebook")}</span>

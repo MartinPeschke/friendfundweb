@@ -90,7 +90,7 @@
 				<div>
 					<a href="${url(controller="myprofile", action="account", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
 					<a href="${url(controller="mypools", action="stream", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Profile")}</a>
-					<a href="#" onclick="fbLogout();">${_("FF_LOGINDROPDOWN_Logout")}</a>
+					<a href="#" onclick="fbLogout(${int(c.user.is_logged_in_with("facebook"))});">${_("FF_LOGINDROPDOWN_Logout")}</a>
 				</div>
 			</div>
 		</div>

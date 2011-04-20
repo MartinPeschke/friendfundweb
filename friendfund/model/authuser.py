@@ -135,7 +135,7 @@ class User(ProtoUser):
 		return getattr(self, 'current_network', self.network)
 	
 	def is_logged_in_with(self, network):
-		return isinstance(self.networks.get(network, None), SocialNetworkInformation)
+		return bool(isinstance(self.networks.get(network, None), SocialNetworkInformation))
 	
 	def has_tried_logging_in_with(self, network):
 		return network in self.networks

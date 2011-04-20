@@ -13,7 +13,7 @@ from friendfund.lib import helpers as h
 from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, SetUserEmailProc, SetUserLocaleProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm, NotificationsForm
-from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc, OptOutTemplateType
+from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc, OptOutTemplateType, GetMyPictureProc
 from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
 from friendfund.services import static_service as statics
 log = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ class MyprofileController(BaseController):
 	@logged_in(ajax=False)
 	def account(self):
 		c.errors = {}
-		c.myprofiles_result = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
+		c.myprofiles_result = g.dbm.get(GetMyPictureProc, u_id = c.user.u_id)
 		c.mypictures = c.myprofiles_result.pictures
 		if request.method != 'POST':
 			c.values = c.myprofiles_result.to_map()
@@ -37,13 +37,17 @@ class MyprofileController(BaseController):
 					c.values['is_uploaded'] = True
 				
 				c.values['is_rendered'] = statics.url_is_local(c.values['profile_picture_url'])
-				g.dbm.set(GetMyProfileProc(**c.values))
+				g.dbm.set(GetMyPictureProc(**c.values))
 				c.user.profile_picture_url = c.values['profile_picture_url']
 				c.user.name = c.values['name']
 				return redirect(url.current())
 			except formencode.validators.Invalid, error:
 				c.values = error.value
 				c.errors = error.error_dict or {}
+				return self.render('/myprofile/account.html')
+			except SProcWarningMessage, e:
+				c.values = request.params
+				c.errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
 				return self.render('/myprofile/account.html')
 	
 	@logged_in(ajax=False)
