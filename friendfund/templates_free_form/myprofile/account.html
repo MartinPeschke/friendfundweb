@@ -64,25 +64,25 @@
 		<div class="first"> &nbsp;</div>
 		<div class="floatLeft" style="width:530px">
 		<div class="square floatLeft">
-			%if 'email' in c.myprofiles:
+			%if 'uploaded' in c.mypictures:
 				<div class="brd">
-				<img width="50px" height="50px" src="${c.myprofiles['email'].get_profile_pic("PROFILE_S")}"/>
+				<img width="50px" height="50px" src="${c.mypictures['uploaded'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
-				<input type="radio" ${forms.expression_quote(c.myprofiles["email"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['email'].profile_picture_url}"/>
+				<input type="radio" ${forms.expression_quote(c.mypictures["uploaded"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['uploaded'].profile_picture_url}"/>
 				<span class="small">${_("FF_ACCOUNT_friendfund Picture")}</span>
 				</div>
-			%else:		
+			%else:
 				<span class="small">${_("FF_ACCOUNT_You have not uploaded a picture yet")}</span>
 			%endif
 		</div>
 		<div class="square floatLeft">
-			%if 'twitter' in c.myprofiles:
+			%if 'twitter' in c.mypictures:
 				<div class="brd">
-				<img width="50px" height="50px" src="${c.myprofiles['twitter'].get_profile_pic("PROFILE_S")}"/>
+				<img width="50px" height="50px" src="${c.mypictures['twitter'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
-				<input type="radio" ${forms.expression_quote(c.myprofiles["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['twitter'].profile_picture_url}"/>
+				<input type="radio" ${forms.expression_quote(c.mypictures["twitter"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['twitter'].profile_picture_url}"/>
 				<span class="small">${_("FF_ACCOUNT_Twitter Picture")}</span>
 				</div>
 			%else:
@@ -93,12 +93,12 @@
 			%endif
 		</div>
 		<div class="square floatLeft omega">
-		%if 'facebook' in c.myprofiles:
+		%if 'facebook' in c.mypictures:
 				<div class="brd">
-				<img width="50px" height="50px" src="${c.myprofiles['facebook'].get_profile_pic("PROFILE_S")}"/>
+				<img width="50px" height="50px" src="${c.mypictures['facebook'].get_profile_pic("PROFILE_S")}"/>
 				</div>
 				<div class="floatLeft">
-				<input type="radio" ${forms.expression_quote(c.myprofiles["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.myprofiles['facebook'].profile_picture_url}"/>
+				<input type="radio" ${forms.expression_quote(c.mypictures["facebook"].is_default, "checked")|n} name="profile_picture_url" value="${c.mypictures['facebook'].profile_picture_url}"/>
 				<span class="small">${_("FF_ACCOUNT_Facebook Picture")}</span>
 				</div>
 		%else:

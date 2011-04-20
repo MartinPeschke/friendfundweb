@@ -23,7 +23,7 @@ class MyprofileController(BaseController):
 	def account(self):
 		c.errors = {}
 		c.myprofiles_result = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-		c.myprofiles = c.myprofiles_result.profiles
+		c.mypictures = c.myprofiles_result.pictures
 		if request.method != 'POST':
 			c.values = c.myprofiles_result.to_map()
 			return self.render('/myprofile/account.html')
@@ -32,7 +32,6 @@ class MyprofileController(BaseController):
 				form_result = MyProfileForm().to_python(request.params, state = FriendFundFormEncodeState)
 				c.values = form_result
 				c.values['u_id'] = c.user.u_id
-				c.values['network'] = 'email'
 				if ('profile_pic' in c.values and isinstance(c.values['profile_pic'], FieldStorage)):
 					c.values['profile_picture_url'] = g.user_service.save_email_user_picture(c.values, c.values['profile_pic'])
 					c.values['is_uploaded'] = True

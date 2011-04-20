@@ -20,7 +20,19 @@ class Profile(DBMappedObject):
 	def fromDB(self, xml):
 		self.network = self.network.lower()
 	
-	
+
+class Picture(DBMappedObject):
+	_cachable = False
+	_get_root = _set_root = "PICTURE"
+	_unique_keys = ['source', 'profile_picture_url']
+	_keys = [GenericAttrib(str, 'source', 'source')
+			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
+			,GenericAttrib(bool, 'is_default', 'is_default')
+			]
+	def get_profile_pic(self, type="RA", secured = False):
+		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+	def fromDB(self, xml):
+		self.source = self.source.lower()
 class GetMyProfileProc(DBMappedObject):
 	"""
 		[app].[get_my_profile] '<USER u_id="3540"/>'
@@ -42,11 +54,12 @@ class GetMyProfileProc(DBMappedObject):
 			,GenericAttrib(bool, 'is_rendered', 'is_rendered', default=False)
 			,GenericAttrib(bool, 'is_uploaded', 'is_uploaded', default=False)
 			,DBMapper(Profile, 'profiles', 'USER_NETWORK', is_dict = True, dict_key = lambda x: x.network)
+			,DBMapper(Picture, 'pictures', 'PICTURE', is_dict = True, dict_key = lambda x: x.source)
 			]
 	def fromDB(self, xml):
-		defaults = filter(lambda x: x.is_default, self.profiles.values())
+		defaults = filter(lambda x: x.is_default, self.pictures.values())
 		if len(defaults) == 0:
-			default = self.profiles.values()[0]
+			default = self.pictures.values()[0]
 		else:
 			default = defaults[0]
 		setattr(self, "default", default)
