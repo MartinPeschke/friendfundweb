@@ -43,7 +43,7 @@ class ContentController(BaseController):
 		return self.render("/content/merchant_explain.html")
 		
 		
-	@default_domain_only()
+
 	def contact(self):
 		c.errors = {}
 		c.values = {}

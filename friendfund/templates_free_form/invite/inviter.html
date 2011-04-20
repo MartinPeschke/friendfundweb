@@ -65,13 +65,13 @@
 	<form action="" method="POST" id="emailinviter">
 	<div class="arrowSubTab"></div>
 	<div class="firstSpacer floatLeft ${"name" in c.email_errors and "error" or ""}"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label>
-		<input value="${c.email_values.get("name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail" />
+		<input value="${c.email_values.get("name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
 		%if "name" in c.email_errors:
 			<p>${c.email_errors['name']}</p>
 		%endif
 	</div>
 	<div class="secondSpacer floatLeft ${"network_id" in c.email_errors and "error" or ""}"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label>
-		<input value="${c.email_values.get("network_id")}" id="email_email" name="invitee.network_id" type="text" class="txtMail" />
+		<input value="${c.email_values.get("network_id")}" id="email_email" name="invitee.network_id" type="text" class="txtMail default" />
 		%if "network_id" in c.email_errors:
 			<p>${c.email_errors['network_id']}</p>
 		%endif

@@ -147,9 +147,14 @@ input, textarea {
 	color: #2C2C2C;
 	font-family:Arial, Helvetica, sans-serif
 }
-input.default, textarea.default {
-	color: #ADADAD !important
+input.default {
+	color: #ADADAD !important;
+	border: 1px solid #d1d1d1 !important;
 }
+textarea.default{
+ 	color: #ADADAD !important;
+	border: none !important;
+ }
 textarea {
 	resize: none;
 	border-style: none;
@@ -181,6 +186,9 @@ label, .chkbox {
 	padding:0;
 	line-height: 14px;
 	float: left;
+}
+.colLeft p.info.error{
+	 margin: 5px 0 -5px 160px 
 }
 div.selected p.info {
 	margin-top:2px
@@ -325,7 +333,7 @@ div.loginArea img {
 	margin-top: 10px
 }
 .inputFields input {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	font-size: 14px;
 	height: 28px;
 	line-height: 28px;
@@ -527,7 +535,7 @@ div.weNeed h3 {
 	padding-bottom: 20px
 }
 div.weNeed input.weNeed {
-	border: 1px solid #DADADA;
+	border: 1px solid #d1d1d1;
 	font-size: 18px;
 	line-height:28px;
 	height: 28px;
@@ -628,7 +636,7 @@ div.home_expander {
 	height: 20px;
 }
 #homeurlexpander .title input {
-	border: 1px solid #DADADA;
+	border: 1px solid #d1d1d1;
 	font-size: 11px;
 	padding:0 5px;
 	width: 338px;
@@ -691,7 +699,7 @@ div.controller span.counterDescr span {
 div.controller .smallLeft, div.controller .smallRight {
 	width: 18px;
 	height: 18px;
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	float: left;
 	margin-left: 4px;
 	display: block;
@@ -800,7 +808,7 @@ div.homebox span {
 span.homebox {
 	display: block;
 	margin: 0 auto;
-	border-bottom:1px solid #dadada;
+	border-bottom:1px solid #d1d1d1;
 }
 div.homebox span a {
 	text-decoration: underline;
@@ -858,7 +866,7 @@ div.timeTrackerBig span.floatRight {
 	font-size: 11px
 }
 div.boxContributors {
-	background: #f1c8fe;
+	background: #ffd2e8;
 	-moz-box-shadow: 0px 1px #d7d7d7;
 	-webkit-box-shadow: 0px 1px #d7d7d7;
 	box-shadow: 0 1px #d7d7d7;
@@ -903,7 +911,7 @@ div.whatElse h4 {
 }
 div.whatElse .boxGray {
 	background: #e5e5e5;
-	border:1px solid #dadada;
+	border:1px solid #d1d1d1;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	float: left;
@@ -976,11 +984,11 @@ div.box3 {
 	display: block;
 	border: 4px solid white;
 }
-.square input, .square span{
+.square input, .square label, .square span{
 	display: block;
 	float: left
 }
-.square span.small{
+.square label.small, .square span.small{
 	width:120px;
 	margin-left: 5px;
 	font-size: 10px;
@@ -1256,7 +1264,7 @@ span.btnHide {
 	border-bottom:1px solid #e2e0d3;
 }
 .share input {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	color: #adadad;
 	display: block;
 	height: 23px;
@@ -1596,7 +1604,7 @@ ul.comments span.date {
 	width: 91.6% !important
 }
 ul.comments .txtArea {
-	border: 1px solid #DADADA;
+	border: 1px solid #d1d1d1;
 	max-width: 618px;
 	height: 48px;
 	padding: 5px;
@@ -1667,7 +1675,7 @@ div.comments input {
 	margin: 5px 0 0 0
 }
 div.rose {
-	background-color: #feccff;
+	background-color: #ffd2e8;
 	color: black;
 	width: 180px;
 	margin:0 0 0 -25px;
@@ -1695,7 +1703,7 @@ div.generalBoxRight {
 	border-bottom:1px solid #EBEBEB
 }
 div.generalBoxRight input {
-	border:1px solid #dadada;
+	border:1px solid #d1d1d1;
 	display: block;
 	margin: 13px 0 0 0;
 	color:#adadad;
@@ -1806,11 +1814,11 @@ div.stepThree, div.stepTwo, div.stepOne {
 	font-weight: normal
 }
 div.stepOne.active, div.stepTwo.active, div.stepThree.active {
-	background-color: #F9CCE1 !important;
+	background-color: #F7BBD8 !important;
 	color: #2C2C2C
 }
 div.steps div.rightArrow.active {
-	border-left-color: #F9CCE1
+	border-left-color: #F7BBD8
 }
 div.steps div span {
 	display: block;
@@ -1833,6 +1841,9 @@ div.borderBottom {
 div.selected {
 	padding: 10px 0;
 }
+div.selected input, div.selected div.containerTxtArea, div.txtArea.selected , div.selected select{
+	border: 1px solid #B9B9B9 !important
+}
 div.selected div.greyInsideFullWidth, div.error div.greyInsideFullWidth {
 	padding:5px 0;
 	background-color: #efefef;
@@ -1847,13 +1858,14 @@ div.greyInside {
 	padding: 7px;
 }
 div.borderBottom input {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	height: 30px;
 	line-height: 30px;
 	font-size: 14px;
 	padding: 0 5px;
 	display: block;
-	float: left
+	float: left;
+	width: 74%
 }
 div.borderBottom input.ptitleSimpleEdit {
 	border: 1px solid #999;
@@ -1868,7 +1880,7 @@ div.borderBottom input.small {
 	padding:0 5px;
 }
 div.borderBottom select {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	height:28px;
 	line-height:28px;
 	width:76%;
@@ -1899,7 +1911,7 @@ div.greyInsideFullWidth select {
 }
 div.containerTxtArea {
 	width:74%;
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	padding:5px;
 	background:white;
 }
@@ -1997,7 +2009,7 @@ div.generalPadding ul li a:hover {
 	padding: 15px 0 !important
 }
 div.mainValue input {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	font-size: 14px;
 	height: 24px;
 	line-height:30px;
@@ -2009,7 +2021,7 @@ div.simpleeditable textarea {
 	width:338px;
 	height:53px;
 	font-size:11px;
-	border:1px solid #dadada;
+	border:1px solid #d1d1d1;
 	padding: 5px
 }
 .padLeft {
@@ -2054,7 +2066,7 @@ div#paypalForm {
 }
 .receiveMoney .smallLabel input {
 	margin-top: 3px;
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	font-size: 13px;
 	height: 28px;
 	line-height: 28px;
@@ -2373,7 +2385,7 @@ div.borderBottom input.number {
 	margin-right: 2px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	background: transparent;
-	border: none
+	border: none !important
 }
 div.selected input.number {
 	margin-top: -3px;
@@ -2453,7 +2465,7 @@ div.security {
 	background: #F4F4F4
 }
 div.headSec {
-	border-bottom: 1px solid #dadada
+	border-bottom: 1px solid #d1d1d1
 }
 div.lock {
 	border-top:1px solid #fff;
@@ -2697,15 +2709,13 @@ div.friendsList ul li p, {
 	margin-bottom:15px
 }
 .searchFriends {
-	border:1px solid #c9c9c9;
+	border:1px solid #b9b9b9;
 	width:278px;
 	height:28px;
 	line-height:28px;
 	font-size:12px;
 	margin:10px 5px 0 10px;
-	padding:0 5px
-}
-.boxSearchFriend input {
+	padding:0 5px;
 	margin-right:5px
 }
 .mutualToggleContainer {
@@ -2787,7 +2797,6 @@ div.friendsList ul li p, {
 	text-align: right;
 } /*moved here from top for email inviter */
 .subTab input.txtMail {
-	border: medium none;
 	color: #2C2C2C;
 	font-family: Arial;
 	font-size: 12px;
@@ -2795,8 +2804,8 @@ div.friendsList ul li p, {
 	line-height: 28px;
 	width: 288px;
 	float:left;
-	border: 1px solid #dadada;
 	padding:0 5px;
+	border: 1px solid #b9b9b9
 }
 .btnContainer {
 	clear:both;
@@ -2862,7 +2871,7 @@ p.inviterTwo {
 	color: #696969
 }
 .inviteBottom input.copy {
-	border:1px solid #dadada;
+	border:1px solid #d1d1d1;
 	display: block;
 	margin: 0;
 	color:#adadad;
@@ -2880,7 +2889,7 @@ p.inviterTwo {
 	margin: 10px 0 0 18px
 }
 /* BUTTONS */
-.primaryButton, div.borderBottom .primaryButton {
+.primaryButton, div.borderBottom .primaryButton{
 	font-size:16px;
 	color:white;
 	border:1px solid #cb3e7e;
@@ -2894,6 +2903,8 @@ p.inviterTwo {
 	padding:7px 10px ;
 	cursor:pointer;
 	line-height: 19px;
+	width: auto !important;
+	height: auto !important
 }
 .secondary {
 	font-size:16px;
@@ -3095,7 +3106,7 @@ div.first .editCurr {
 	line-height: 11px
 }
 div.logInOnePx input {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	font-size: 14px;
 	height: 28px;
 	line-height: 28px;
@@ -3347,7 +3358,7 @@ div.wrapInside div.tip {
 	line-height: 10px
 }
 .moreActions input {
-	border: 1px solid #dadada;
+	border: 1px solid #d1d1d1;
 	color: #adadad;
 	display: block;
 	padding:  3px;
@@ -4123,7 +4134,7 @@ div.outerPopupFrame .emailBody p {
 }
 .stripe.rose {
 	-moz-box-shadow: 0 2px 2px #999999;
-	background-color: #FECCFF;
+	background-color: #ffd2e8;
 	color: black;
 	margin: 30px -25px 0;
 	width: auto;
@@ -4383,7 +4394,7 @@ div.greyInsideFullWidth select.shrt {
 div.greyInsideFullWidth .containerTxtAreaShrt {
 	width: 288px;
 	background: none repeat scroll 0 0 white;
-	border: 1px solid #DADADA;
+	border: 1px solid #d1d1d1;
 	padding: 5px;
 	height: 90px
 }
@@ -4505,20 +4516,23 @@ div.footer a {
 	margin: 5px 0 0 0;
 	font-size: 12px
 }
-div.footer a.linkFb {
+div.footer a.linkFb, a.linkFb {
 	background: url(/static/imgs/fb-icon.png) 0 0 no-repeat;
 	color: #A59F9A !important;
-	padding-left: 25px
+	padding-left: 25px;
 }
-div.footer a.linkTw {
+div.footer a.linkTw, a.linkTw  {
 	background: url(/static/imgs/twitter-icon.png) 0 0 no-repeat;
 	color: #A59F9A !important;
-	padding-left: 25px
+	padding-left: 25px;
 }
 div.footer a.linkRss {
 	background: url(/static/imgs/RSS-icon-new.png) 0 0 no-repeat;
 	color: #A59F9A !important;
-	padding-left: 25px
+	padding-left: 25px;
+}
+a.linkTw, a.linkFb{
+	color: #0094CC !important
 }
 /*IFRAME*/
 .borderIframe {
@@ -4611,7 +4625,7 @@ div.contentIframe div.first {
 	padding: 5px 0
 }
 div.colLeftIframe #occasionSelector, div.colLeftIframe #occasionTyper, div.colLeftIframe #datepicker {
-	border: 1px solid #DADADA;
+	border: 1px solid #d1d1d1;
 	font-size: 14px;
 	height: 24px;
 	width: 316px;
@@ -4716,7 +4730,7 @@ div#productArea h6 {
 	color: #696969
 }
 select#productSelector {
-	border: 1px solid #DADADA;
+	border: 1px solid #d1d1d1;
 	margin-top: 5px;
 	display: block;
 	height: 20px;
@@ -4820,9 +4834,9 @@ div.contentIframe div.helpPopup div.arrowSubTab{
 	border: none;
 	min-height: auto;
 	background: white;
-	-moz-box-shadow: 0px 0px 4px #999;
-	-webkit-box-shadow: 0px 0px 4px #999;
-	box-shadow: 0px 0px 4px #999;
+	-moz-box-shadow: 0px 0px 4px #ccc;
+	-webkit-box-shadow: 0px 0px 4px #ccc;
+	box-shadow: 0px 0px 4px #ccc;
 	min-height: 100px;
 	padding-top: 15px
 }
@@ -4858,8 +4872,8 @@ div.contentIframe div.helpPopup div.arrowSubTab{
 .helpPopup ul li h5 {
 	font-size: 12px;
 	padding-top: 10px;
-	line-height: 18px
-}text-align: left
+	line-height: 18px;
+	text-align: left
 }
 .arrowPop {
 	position: absolute;
