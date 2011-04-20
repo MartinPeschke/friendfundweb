@@ -29,10 +29,11 @@
 					<span>${_("FF_CONTACT_Subject")}</span>
 				</div>
 				<input type="text" value="${c.values.get("subject", _("FF_CONTACT_Write your subject here..."))}" class="default" _default_text="${_("FF_CONTACT_Write your subject here...")}" _length="60" name="subject">
-				%if "subject" in c.errors:
-					<span class="error">${c.errors.get("subject")}</span>
-				%endif
+				
 			</div>
+			%if "subject" in c.errors:
+					<p class="info error">${c.errors.get("subject")}</p>
+				%endif
 			</div>
 			<div class="borderBottom ${"message" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
@@ -42,11 +43,11 @@
 				<div class="containerTxtArea">
 					<textarea class="default" _default_text="${_("FF_CONTACT_Write your message here...")}" name="message">${c.values.get("message", _("FF_CONTACT_Write your message here..."))}</textarea>
 				</div>
-				%if "message" in c.errors:
-					<span class="error">${c.errors.get("message")}</span>
-				%endif
-				</div>
 				
+				</div>
+				%if "message" in c.errors:
+					<p class="info error">${c.errors.get("message")}</p>
+				%endif
 			</div>
 			<div class="borderBottom ${"name" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
@@ -54,10 +55,11 @@
 					<span>${_("FF_CONTACT_Name")}</span>
 				</div>
 				<input type="text" value="${c.values.get("name", _("FF_CONTACT_Write your name here..."))}" class="default" _default_text="${_("FF_CONTACT_Write your name here...")}" _length="60" name="name">
-				%if "name" in c.errors:
-					<span class="error">${c.errors.get("name")}</span>
-				%endif
+				
 				</div>
+				%if "name" in c.errors:
+					<p class="info error">${c.errors.get("name")}</p>
+				%endif
 			</div>
 			<div class="borderBottom noBorder ${"email" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
@@ -65,10 +67,11 @@
 					<span>${_("FF_CONTACT_Email")}</span>
 				</div>
 				<input type="text" value="${c.values.get("email", _("FF_CONTACT_Write your email here..."))}" class="default" _default_text="${_("FF_CONTACT_Write your email here...")}" _length="60" name="email">
-				%if "email" in c.errors:
-					<span class="error">${c.errors.get("email")}</span>
-				%endif
+				
 				</div>
+				%if "email" in c.errors:
+					<p class="error info">${c.errors.get("email")}</p>
+				%endif
 			</div>
 			<div class="borderBottom noBorder" style="border-top:none">	
 				<div class="greyInsideFullWidth">
