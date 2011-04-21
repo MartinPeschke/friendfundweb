@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <script type="text/javascript">
-	%if getattr(c, 'reload', False):
-		opener.page_reloader();
-	%endif
-	%if c.user.has_activity:
-		opener.go_to_activity_stream();
-	%elif getattr(c, 'refresh_login', False):
-		opener.xhrPost("${url(controller="myprofile", action="login")}", {});
+	%if getattr(c, "message", None):
+		opener.displayMessage("${c.message}");
+	%else:
+		%if c.user.has_activity:
+			opener.go_to_activity_stream();
+		%elif getattr(c, 'reload', False):
+			opener.page_reloader();
+		%elif getattr(c, 'refresh_login', False):
+			opener.xhrPost("${url(controller="myprofile", action="login")}", {});
+		%endif
 	%endif
 	window.close(); 
 </script>

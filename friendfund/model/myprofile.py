@@ -61,6 +61,7 @@ class GetMyPictureProc(DBMappedObject):
 		defaults = filter(lambda x: x.is_default, self.pictures.values())
 		if len(defaults) == 0:
 			default = self.pictures.values()[0]
+			default.is_default = True
 		else:
 			default = defaults[0]
 		setattr(self, "default", default)

@@ -24,6 +24,7 @@
 	page_reloader = dojo.hitch(null, page.prepareSubmit, page);
 	parseSelectables("invitees", "wrapInside");
 	dojo.query(".popuplink", "inviteMessage").onclick(dojo.hitch(null, loadPopup));
+	page.selector.draw("${c.method}");
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}

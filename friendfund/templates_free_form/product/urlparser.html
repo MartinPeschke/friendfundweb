@@ -1,7 +1,7 @@
 <%def name="renderParser(values, with_closer)">
 	<div class="imgCntSld" id="URLPimgCntSld">
 		%if len(values['img_list'])==0:
-			<img src="${h.get_product_picture(None,"FF_POOLS")}" class="displayed"/>
+			<img src="${app_globals.statics_service.get_default_product_picture("FF_POOLS")}" class="displayed"/>
 		%else:
 			%for imgsrc in values['img_list']:
 			<input type="hidden" class="PURLImgListElem" value="${imgsrc}" name="img_list">

@@ -89,14 +89,6 @@ class FbController(BaseController):
 	
 	@logged_in()
 	def disconnect(self):
-		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user)
-			uid = fb_data['uid']
-			if uid != request.params.get("network_id"):
-				return abort(404)
-			else:
-				app_globals.user_service.disconnect(c.user, 'facebook', uid)
-		except Exception, e:
-			log.error(e)
+		app_globals.user_service.disconnect(c.user, 'facebook', request.params.get("network_id"))
 		return redirect(url(controller="myprofile", action="connections"))
 		

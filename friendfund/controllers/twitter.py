@@ -86,19 +86,11 @@ class TwitterController(BaseController):
 		user_data['locale'] = user_data['lang']
 		user_data['link'] = user_data['url']
 		#Save and Persist, render profile
-		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
+		c.has_activity, c.message = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		c.refresh_login = True
 		return render('/closepopup.html')
 	
 	@logged_in()
 	def disconnect(self):
-		try:
-			network = c.user.networks.get("twitter")
-			if str(network.network_id) != str(request.params.get("network_id")):
-				print network.network_id , request.params.get("network_id")
-				return abort(404)
-			else:
-				app_globals.user_service.disconnect(c.user, 'twitter', network.network_id)
-		except Exception, e:
-			log.error(e)
+		app_globals.user_service.disconnect(c.user, 'twitter', request.params.get("network_id"))
 		return redirect(url(controller="myprofile", action="connections"))

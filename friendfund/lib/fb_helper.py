@@ -50,7 +50,7 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 		args['id'] = args.get("uid", args.get("id"))
 		if user is not None and not user.is_anon:
 			nets = getattr(user, 'networks', {})
-			if "facebook" in nets and getattr(nets.get('facebook'), "network_id", None) != str(args['id']):
+			if nets.get('facebook') and getattr(nets.get('facebook'), "network_id", None) != str(args['id']):
 				log.warning("FBLoggedInWithIncorrectUser, %s" % args)
 				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found")
 		return args

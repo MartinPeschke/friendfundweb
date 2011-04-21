@@ -46,7 +46,10 @@ class StaticService(object):
 		
 		self.secure_sites = secure_sites.split(";")
 		self.secure_sites_length = len(self.secure_sites)
-	
+		
+		self.allowed_product_types = PRODUCT_PIC_FORMATS.copy()
+		self.allowed_product_types.update({"TMP":(1,1)})
+		
 	def get_site_root(self, url, secured = False):
 		if secured:
 			site_root = self.secure_sites[ord(url[0])%self.secure_sites_length]
@@ -87,7 +90,7 @@ class StaticService(object):
 		site_root = self.get_site_root("2", secured)
 		return '%(site_root)s/static/imgs/default_product_FF_POOL.png'%locals()
 	def get_product_picture(self, url, type, ext="jpg", secured = False):
-		if type not in PRODUCT_PIC_FORMATS:
+		if type not in self.allowed_product_types:
 			raise IncorrectPictureTypeException("UnknownPictureType:%s"%type)
 		elif not url:
 			return self.get_default_product_picture(type, secured)

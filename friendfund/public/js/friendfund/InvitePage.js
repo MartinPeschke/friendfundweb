@@ -21,7 +21,6 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t._widget_locals.push(_t.selector);
 		dojo.connect(dojo.byId("invite_submitter"), "onclick", dojo.hitch(null, _t.prepareSubmit, _t));
 		dojo.connect(document, "onclick", dojo.hitch(null, _t.loadPreviewPopup, _t, _t.method));
-		_t.selector.draw(_t.method);
 	},
 	loadPreviewPopup : function(_t, method, evt){
 		if(dojo.hasClass(evt.target, "message_preview")){

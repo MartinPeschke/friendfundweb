@@ -135,7 +135,7 @@ class User(ProtoUser):
 		return getattr(self, 'current_network', self.network)
 	
 	def is_logged_in_with(self, network):
-		return bool(isinstance(self.networks.get(network, None), SocialNetworkInformation))
+		return bool(isinstance(self.networks.get(network, None), SocialNetworkInformation) and self.networks.get(network).network_id)
 	
 	def has_tried_logging_in_with(self, network):
 		return network in self.networks
@@ -307,4 +307,8 @@ class DisconnectAccountProc(DBMappedObject):
 	_keys = [GenericAttrib(int,'u_id','u_id')
 			, GenericAttrib(unicode,'network','network')
 			, GenericAttrib(unicode,'network_id','id')
-			, GenericAttrib(unicode,'email','email')]
+			, GenericAttrib(unicode,'email','email')
+			, GenericAttrib(unicode,'default_email','email')]
+	def fromDB(self, xml):
+		if self.network:
+			self.network = self.network.lower()

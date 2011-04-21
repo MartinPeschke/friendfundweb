@@ -57,7 +57,7 @@ ${self.render_html()}
 
 
 <%def name="page_reloader()">page_reloader = function(){};</%def>
-<%def name="go_to_activity_stream()">go_to_activity_stream = function(){};</%def>
+<%def name="go_to_activity_stream()">go_to_activity_stream = function(){page_reloader()};</%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="fb_meta_tags()"></%def>

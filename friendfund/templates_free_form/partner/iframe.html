@@ -2,8 +2,6 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="../invite/inviter.html"/>
-
-<%def name="page_reloader()">page_reloader = function(){window.open("http://gadtest.friendfund.de/fb/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');};</%def>
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/PartnerPanel.js')}
@@ -28,6 +26,7 @@
 					,base_url:"/myfriends"
 			});
 	document.forms.poolCreateForm.onsubmit = dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}");
+	//page_reloader = function(){window.open("http://gadtest.friendfund.de/fb/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');};
 	fbLogout = function(){
 	FB.getLoginStatus(function(response){
 		if(response.session){
@@ -121,7 +120,7 @@
 								<h5>${_("FF_IFRAME_Your gift:")}</h5>
 								<div class="boxWhat">
 									<div class="prod">
-										<img width="250px" class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
+										<img class="prodPicture" src="${p.get_picture("FF_POOLS")}"/>
 									</div>
 									<p class="title"><a target="_blank" href="${p.tracking_link}">${p.get_display_label(words = 10)}</a></p>
 									<div class="clear"></div>

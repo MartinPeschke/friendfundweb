@@ -106,6 +106,7 @@ class MyprofileController(BaseController):
 			c.login_errors = error.error_dict or {}
 			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
 		except SProcWarningMessage, e:
+			c.login_values = login
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
 			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
 	@jsonify
@@ -123,6 +124,7 @@ class MyprofileController(BaseController):
 			c.login_errors = error.error_dict or {}
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 		except SProcWarningMessage, e:
+			c.login_values = login
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
 			return {'popup':render('/myprofile/login_popup.html').strip()}
 	@jsonify

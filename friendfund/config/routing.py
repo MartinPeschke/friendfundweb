@@ -13,7 +13,6 @@ languagespattern = "[a-zA-Z]{2}[_-][a-zA-Z]{2}"
 from babel import parse_locale
 
 def language_acceptor(environ, result):
-	print environ
 	try:
 		parse_locale(result.get("lang"))
 		return True

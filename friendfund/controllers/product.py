@@ -1,7 +1,7 @@
 import logging, simplejson, formencode, urlparse, urllib2, socket, datetime, uuid
 from BeautifulSoup import BeautifulSoup
 
-from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
+from pylons import request, response, session as websession, tmpl_context as c, url, app_globals
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 from friendfund.lib import helpers as h
@@ -22,7 +22,7 @@ class ProductController(BaseController):
 	def open_bounce(self):
 		c.upload = bool(request.params.get("upload", False))
 		try:
-			query, product, img_list = g.product_service.set_product_from_open_web(request.params.get('query'))
+			query, product, img_list = app_globals.product_service.set_product_from_open_web(request.params.get('query'))
 		except QueryMalformedException, e:
 			log.warning(e)
 			return {'success':False}
@@ -46,18 +46,18 @@ class ProductController(BaseController):
 	
 	def bounce(self):
 		query=request.params.get("referer")
-		c.product_list = g.product_service.get_products_from_url(query)
+		c.product_list = app_globals.product_service.get_products_from_url(query)
 		c.product = c.product_list[0]
 		
 		c.method = c.user.get_current_network() or 'facebook'
-		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.olist = app_globals.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		
 		c.values = {"occasion_name":c.olist[0].get_display_name()}
 		c.errors = {}
 		return self.render('/partner/iframe.html')
 		
 	def picturepopup(self, pool_url):
-		c.pool = g.dbm.get(Pool, p_url = pool_url)
+		c.pool = app_globals.dbm.get(Pool, p_url = pool_url)
 		if not c.pool:
 			return abort(404)
 		elif not c.pool.am_i_admin(c.user):
@@ -69,12 +69,12 @@ class ProductController(BaseController):
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({'popup':render('/product/picturepopup.html').strip()})
 		try:
-			picture_url = g.pool_service.save_pool_picture(pool_picture)
+			picture_url = app_globals.pool_service.save_pool_picture(pool_picture)
 			updater = UpdatePoolProc(p_url = c.pool.p_url)
 			updater.product = c.pool.product or Product()
 			updater.product.picture = picture_url
-			g.dbm.set(updater)
-			g.dbm.expire(Pool(p_url = c.pool.p_url))
+			app_globals.dbm.set(updater)
+			app_globals.dbm.expire(Pool(p_url = c.pool.p_url))
 			c.pool = updater
 		except Exception, e:
 			log.error(e)
@@ -87,11 +87,11 @@ class ProductController(BaseController):
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
 		try:
-			picture_url = g.pool_service.save_pool_picture_sync(pool_picture, type="TMP")
+			picture_url = app_globals.pool_service.save_pool_picture_sync(pool_picture, type="TMP")
 		except UnsupportedFileFormat, e:
 			result = {"data":{"success":False}}
 		else:
-			result = {"data":{"success":True, "rendered_picture_url":h.get_product_picture(picture_url, type="TMP", site_root = request.qualified_host)}}
+			result = {"data":{"success":True, "rendered_picture_url":app_globals.statics_service.get_product_picture(picture_url, type="TMP")}}
 		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
 		return result
 	
@@ -109,21 +109,21 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def search_tab(self):
-		c = g.product_service.search_tab(request)
+		c = app_globals.product_service.search_tab(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
 	@jsonify
 	def search_tab_search(self):
 		c.product_messages = []
 		try:
-			g.product_service.search_tab_search(request)
+			app_globals.product_service.search_tab_search(request)
 		except AmazonUnsupportedRegionException, e:
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_URL not recognized"))
 		except AmazonWrongRegionException, e:
 			c.searchresult = ProductSearch()
 			c.product_messages.append(_("AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links from %(amazondomain)s or switch your shipping region.")\
-										% {"amazondomain":g.product_service.amazon_services[c.region].domain})
+										% {"amazondomain":app_globals.product_service.amazon_services[c.region].domain})
 		except AmazonErrorsOccured, e:
 			log.warning(e)
 			c.searchresult = ProductSearch()
@@ -140,7 +140,7 @@ class ProductController(BaseController):
 	@jsonify
 	def search_tab_extension(self):
 		c.products = []
-		g.product_service.search_tab_extension(request)
+		app_globals.product_service.search_tab_extension(request)
 		return {'clearmessage':True, 'data':{
 					'page_no':c.searchresult.page_no, 
 					'has_more':c.searchresult.page_no < c.searchresult.pages,
@@ -150,13 +150,13 @@ class ProductController(BaseController):
 	
 	@jsonify
 	def remote_search(self):
-		g.product_service.search_tab(request)
-		g.product_service.search_tab_search(request)
+		app_globals.product_service.search_tab(request)
+		app_globals.product_service.search_tab_search(request)
 		return {'clearmessage':True, 'html':remove_chars(render('/product/search_tab.html').strip(), '\n\r\t')}
 	
 	def set_region(self):
 		region = request.params.get('region')
-		if region not in g.country_choices.map:
+		if region not in app_globals.country_choices.map:
 			abort(404)
 		websession['region'] = region
 		return getattr(self, request.params.get('action'), self.search_tab)()
@@ -174,7 +174,7 @@ class ProductController(BaseController):
 		product = params.get('product', None)
 		if not product or 'merchant_ref' not in product:
 			return self.ajax_messages(_("INDEX_PAGE_No Product"))
-		websession['pool'] = g.product_service.set_product_from_amazon(websession.get('pool') or Pool(), product['merchant_ref'], request)
+		websession['pool'] = app_globals.product_service.set_product_from_amazon(websession.get('pool') or Pool(), product['merchant_ref'], request)
 		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}
 	
@@ -184,6 +184,6 @@ class ProductController(BaseController):
 		c.product_list = websession.get('product_list')
 		if not product_guid or not c.product_list:
 			return {'clearmessage':True, 'html':render('/product/button.html').strip()} 
-		websession['pool'] = g.product_service.set_product_from_guid(websession.get('pool') or Pool(), product_guid, c.product_list)
+		websession['pool'] = app_globals.product_service.set_product_from_guid(websession.get('pool') or Pool(), product_guid, c.product_list)
 		c.pool = websession['pool']
 		return {'clearmessage':True, 'html':render('/product/button.html').strip()}

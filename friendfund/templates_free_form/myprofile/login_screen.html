@@ -1,6 +1,7 @@
 <%inherit file="../layout.html"/>
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
-<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
+<%def name="page_reloader()">page_reloader = function(){window.location.href="${url(controller="mypools", action="stream")}"};</%def>
+<%def name="go_to_activity_stream()">go_to_activity_stream = function(){window.location.href="${url(controller="mypools", action="stream")}"};</%def>
 %if c.signup_errors:
 	<div class="overlayWrapper">
 	  <div class="overlay red">
