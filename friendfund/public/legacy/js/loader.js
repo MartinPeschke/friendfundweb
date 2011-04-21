@@ -20,7 +20,7 @@ accessability = function(callbackRet, callbackEsc, evt){
 	if(evt.keyCode == 13){dojo.hitch(this, callbackRet(this, evt));}
 	else if(evt.keyCode == 27){dojo.hitch(this, callbackEsc(this, evt));}
 };
-
+var esc_handler;
 closePopup = function(evt){
 	dojo.query("#generic_popup *").orphan();
 	dojo.disconnect(esc_handler);
@@ -124,6 +124,13 @@ xhrHandler = function(callback){
 				if ('clearmessage' in data){clear_messages();}
 				if ('message' in data){displayMessage(data.message);}
 				if (callback && 'html' in data){callback(data.html);}
+				if (data.login_panel !== undefined){
+						closePopup();
+						if(dojo.byId("accountcontainer")){dojo.place(data.login_panel, "accountcontainer", "only");}
+						if(data.data.success){
+							if(data.data.has_activity){go_to_activity_stream();}else{page_reloader();}
+						}
+					}
 				if (callback && 'data' in data){callback(data.data);}
 				if ('redirect' in data){window.location.href = data.redirect;}
 				if ('popup' in data){displayPopup(data.popup);}
@@ -267,12 +274,14 @@ fbLogin = function() {
 	}else{fbSessionChange();}
 };
 
-fbLogout = function(evt){
-	if(FB.getSession()){
-		FB.logout(function(response){});
-	}else{
-		fbSessionChange();
-	}
+fbLogout = function(logoutFB){
+	FB.getLoginStatus(function(response){
+		if(logoutFB && response.session){
+			FB.logout(function(response){window.location.href = "/logout?furl=/";});
+		} else {
+			window.location.href = "/logout?furl=/";
+		}
+	});
 };
 
 forward = function(furl){

@@ -2,6 +2,7 @@
 <%namespace name="html" file="legacy/widgets/html_elems.html"/>
 <%namespace name="forms" file="legacy/widgets/forms.html"/>
 <%namespace name="tracking" file="/widgets/tracking.html"/>
+<%namespace name="styles" file="/widgets/merchant_css_styles.css"/>
 ${self.render_html()}
 
 <%def name="render_html()">
@@ -29,8 +30,10 @@ ${self.render_html()}
 		${links.css('site.css')}
 		${links.css('message_block.css')}
 		${links.css('legacy_custom.css',path='/custom/')}
+		${styles.merchantStyles(request.merchant)|n}
 		<script type="text/javascript"> 
 			page_reloader = function(){window.location.reload();};
+			go_to_activity_stream = function(){page_reloader()};
 			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
 			locale_picked=function(elem){document.getElementById("set_lang").submit()}
 		</script>
@@ -135,7 +138,7 @@ ${self.render_html()}
 
 <%def name="header()">
 	<div id="headercontainer">
-		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/custom/imgs/logo_banner.png"/></a>
+		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/custom/imgs/logo.png"/></a>
 		${self.render_account_panel()}
 	</div>
 </%def>
