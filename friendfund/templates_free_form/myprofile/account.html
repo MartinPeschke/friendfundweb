@@ -20,7 +20,7 @@
 	<h4>${_("FF_ACCOUNT_Edit your profile")}
 		####<span class="link floatRight">${_("FF_ACCOUNT_Edit")}</span>
 	</h4>
-	<form action="${url(controller="myprofile", action="account")}" method="POST" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="onSubmitCleaner(this);">
+	<form action="${url(controller="myprofile", action="account")}" method="POST" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="showLoadingInfo(this);onSubmitCleaner(this);">
 		<input type="hidden" name="is_default" id="is_default" value="${c.values.get("is_default")}"/>
 		<div class="subHeading"></div>	
 		<div class="borderBottom showToolTipHook ${'name' in c.errors and 'error' or ''}">
@@ -114,7 +114,8 @@
 		</div>
 		</div>
 	</div>
-		<span class="primaryButton floatLeft" onclick="onSubmitCleaner(document.accountForm);document.accountForm.submit()" style="margin:30px 0 0 160px">${_("FF_ACCOUNT_Save Changes")}</span>
+		<input type="submit" style="margin:30px 0 0 160px;" class="floatLeft primaryButton" value="${_("FF_ACCOUNT_Save Changes")}">
+		<img src="/static/imgs/ajax-loader.gif" style="margin:40px 0 0 30px;"  class="loading_animation hidden floatLeft"/>
 	</form>
 	<div class="clear"></div>
 	</div>

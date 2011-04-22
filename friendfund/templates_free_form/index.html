@@ -1,5 +1,6 @@
 <%inherit file="layout.html"/>
 <%namespace name="testimonials" file="widgets/testimonials.html" />
+<%namespace name="widgets" file="widgets/widgets.html" />
 <%def name="go_to_activity_stream()">go_to_activity_stream = function(){window.location.href="${url(controller="mypools", action="stream")}"};</%def>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolProductFinder");
@@ -42,7 +43,7 @@ ${self.renderMessages()}
 		</div>
 		<div class="logoContainer">
 			<div class="logoContainerRight">
-				<img src="/static/imgs/veri-sign.png" />
+				<a target="_blank" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.friendfund.com&lang=en"><img src="/static/imgs/veri-sign.png" /></a>
 				<img src="/static/imgs/fidor_bank_bw.png" style="margin-left:20px; margin-top:5px ;margin-right:10px" />
 				<img src="/static/imgs/mastercard.png" style="margin-left:20px; margin-top:10px ;margin-right:10px" />
 				<img src="/static/imgs/visa.png" style="margin-left:20px; margin-top:10px" />
@@ -62,7 +63,7 @@ ${self.renderMessages()}
 	</div>
 	<div class="featuredPoolsBox">
 		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
-		${self.render_featured_pools(c.get_featured_pools)|n}
+		${self.render_featured_pools(c.get_featured_pools, h.get_language_locale())|n}
 		<div class="clear"></div>
 	</div>
 
@@ -87,9 +88,9 @@ ${self.renderMessages()}
 
 
 
-<%def name="render_featured_pools(get_featured_pools)" cached="True" cache_key="render_featured_pools" cache_timeout="60" cache_type="memory">
+<%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="60" cache_type="memory">
 	%for i, pool in enumerate(get_featured_pools()):
-		<% locals = {"no_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
+		<% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
 		<div class="homebox ${i==3 and 'lastOne' or ''}">
 			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
 			<h5 style="min-height:36px;"><a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a></h5>
@@ -103,9 +104,9 @@ ${self.renderMessages()}
 			</div>
 			
 			<div class="boxContributors">
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors")%locals|n}</span>
+				<span class="upper">${widgets.renderPoolInfoContributors(locals)|n}</span>
 				<span class="middot">&middot;</span>
-				<span class="upper">${_("FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left")%locals|n}</span>
+				<span class="upper">${widgets.renderPoolInfoDaysLeft(locals)|n}</span>
 			</div>
 			<div class="fbHolder">
 				%for pu in pool.get_random_n_invitees(5):

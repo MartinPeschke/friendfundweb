@@ -162,10 +162,6 @@ def poll_message_queue(config, debug, merchant_config, jobpool, available_langs,
 			except Exception, e:
 				log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
 				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED', "note":str(e)}
-				if debug: 
-					save_results(jobpool, messaging_results)
-					messaging_results = {}
-					raise
 			else:
 				messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
 		save_results(jobpool, messaging_results)
@@ -225,6 +221,7 @@ def main(argv=None):
 	if not debug:
 		INTERVAL = INTERVAL*5
 	log.info( 'DEBUG: %s for (fb:%s,tw:%s,email:%s), INTERVAL: %s', debug,  facebook_on, twitter_on, email_on, INTERVAL)
+	log.info( "STARTING WITH %s", STATICS_SERVICE)
 	
 	while 1:
 		poll_message_queue(config, debug, merchant_config, jobpool, available_langs, messengers, common_params)

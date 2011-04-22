@@ -154,7 +154,7 @@ def remote_save_image(email, tmpfname, newfname):
 			newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 			newfname = os.path.join(newpath, newfname)
 			sizes.append((tmpfname, newfname, target_w,target_h))
-		crop_resize_original(sizes)
+		crop_resize_original(sizes, True)
 		try:
 			dbm.set(AddRenderedProfilePictureProc(network = 'EMAIL', email = email, profile_picture_url=newurl))
 		except db_access.SProcException, e:
@@ -179,7 +179,7 @@ def remote_product_picture_render(pool_url, picture_url):
 				newfname = os.extsep.join(['_'.join([filename, name_ext]), 'jpg'])
 				newfname = os.path.join(newpath, newfname)
 				sizes.append((tmpfname, newfname, target_w,target_h))
-			crop_resize_original(sizes)
+			crop_resize_original(sizes, True)
 			try:
 				dbm = get_dbm(CONNECTION_NAME)
 				dbm.set(AddRenderedProductPictureProc(p_url = pool_url, product_picture_url=newurl))

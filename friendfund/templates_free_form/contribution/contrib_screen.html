@@ -6,12 +6,6 @@
 <%def name="scripts()">
 	<script type="text/javascript">
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
-		submitForm = function(){
-			var form = document.forms.contributionForm;
-			onSubmitCleaner(form);var bsubmit = form.action;
-			form.action = "${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}";
-			form.submit();form.action=bsubmit;
-		};
 	</script>
 </%def>
 
@@ -51,8 +45,8 @@
 	${common.renderRightCol(c.pool)}
 	
 	<div class="colLeft">
-	<form action="javascript:submitForm()" id="contributionForm" name="contributionForm" method="POST">
-
+	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" method="POST"
+		onsubmit="onSubmitCleaner(this)">
 		<h4>${_(u"FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
 		<div class="subHeading"></div>
 		<div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
@@ -142,7 +136,7 @@
 		<div class="greyInsideFullWidth" style="margin-top:10px" >
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox"/>
-			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" href="${url(controller="content", action="tos", lang = h.get_language_locale())}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
+			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" target="_blank" href="${url(controller="content", action="tos", lang = h.get_language_locale())}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
 		</div>
 		<div class="colRightWhite" style="margin-left:160px; border-color:#eeedec"></div>
 		<div class="colRightWhite" style="margin-left:160px"></div>

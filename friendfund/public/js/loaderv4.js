@@ -25,9 +25,9 @@ reloadPicture = function(rootnode, intermediate_imgid, persisterid){
 			closePopup();
 		};
 		if(data.success){
-		dojo.byId(intermediate_imgid).src = data.rendered_picture_url;
-		dojo.query("input.transp", intermediate_imgid.parentNode).removeClass("transp");
-		dojo.byId("purlSaveButton").onclick = f;
+			dojo.byId(intermediate_imgid).src = data.rendered_picture_url;
+			dojo.query("input.transp", intermediate_imgid.parentNode).removeClass("transp");
+			dojo.byId("purlSaveButton").onclick = f;
 		} else {
 			alert("Unsupported file type");
 		}
@@ -64,7 +64,11 @@ parseSelectables = function(rootnode, parentClass, selectedName){
 		dojo.connect(dojo.byId(rootnode), "onfocusout", r);
 	}
 };
-
+showLoadingInfo = function(rootnode){
+	dojo.query(".loading_animation", rootnode).removeClass("hidden");
+	dojo.query("input[type=submit]", rootnode).forEach(function(elem){elem.disabled = "disabled";});
+	
+};
 onSubmitCleaner = function(rootnode){
 	dojo.query("input[_default_text],textarea[_default_text]", rootnode).forEach(
 		function(element){

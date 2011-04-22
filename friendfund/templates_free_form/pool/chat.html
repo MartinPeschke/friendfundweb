@@ -12,7 +12,7 @@
 			<div class="avt">
 				<div class="arrowAvatar"></div>
 				<div class="checked"><img src="/static/imgs/checked.png"></div>
-				<img src="${app_globals.statics.get_user_picture(comment.profile_picture_url, "PROFILE_S")}" width="48px" height="48px"/>
+				<img src="${comment.get_profile_pic("PROFILE_S")}" width="48px" height="48px"/>
 			</div>
 			<div class="txtComments">
 				<span>${comment.name} <span class="normal">${_("FF_POOLPAGE_CHAT_LABEL_has Chipped in")}</span></span>
@@ -25,7 +25,7 @@
 		<li class="coment">
 			<div class="avt">
 				<div class="arrowAvatar"></div>
-				<img src="${comment.profile_s_pic}" width="48px" height="48px"/>
+				<img src="${comment.get_profile_pic("PROFILE_S")}" width="48px" height="48px"/>
 			</div>
 			<div class="txtComments">
 				<span>${comment.name} </span>

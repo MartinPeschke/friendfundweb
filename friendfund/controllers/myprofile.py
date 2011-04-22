@@ -40,6 +40,7 @@ class MyprofileController(BaseController):
 				g.dbm.set(GetMyPictureProc(**c.values))
 				c.user.profile_picture_url = c.values['profile_picture_url']
 				c.user.name = c.values['name']
+				c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
 				return redirect(url.current())
 			except formencode.validators.Invalid, error:
 				c.values = error.value

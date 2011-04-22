@@ -50,9 +50,10 @@
 			</div>
 			%endif
 		<div class="colLeftIframe" id="helpPopupContainer">
+			<img class="floatLeft merchantLogo" width="60px" height="30px" src="/custom/imgs/logo_sml.png"/>
 			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
 			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1000;"></div>
-			<div class="learnMoreBtn" style="margin-top:15px;z-index:1002;">
+			<div class="learnMoreBtn">
 				<span class="helpPopupToggler">${_("FF_IFRAME_BUTTON_Help")}</span>
 				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
@@ -103,7 +104,7 @@
 					<a class="forward floatRight helpPopupToggler" style="margin-top:13px" href="#">${_("FF_IFRAME_HELPPOPUP_Get started")}</a>
 					
 				</div>
-			<a class="floatRight" style="margin-top:20px" target="_blank" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
+			<a class="floatRight" style="margin-top:15px" target="_blank" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button_long.png"/></a>
 			<div class="clear"></div>
 		</div>
 		</div>

@@ -14,7 +14,7 @@ log.addHandler(ch)
 register_openers()
 
 ums_url = "http://sysmail.fagms.net/cgi-bin/systemmail-utf8"
-ums_standard_params = {'AID':"33715", "ACTION":"SYSTEM"}
+ums_standard_params = {'AID':"33716", "ACTION":"SYSTEM"}
 
 
 class UMSEmailUploadException(Exception):pass

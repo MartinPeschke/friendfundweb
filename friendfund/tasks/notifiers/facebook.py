@@ -7,7 +7,7 @@ from poster.encode import multipart_encode
 
 from friendfund.lib import helpers as h
 from friendfund.model.db_access import execute_query
-from friendfund.tasks import data_root, get_db_pool
+from friendfund.tasks import data_root, get_db_pool, STATICS_SERVICE
 log = logging.getLogger(__name__)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
@@ -63,7 +63,7 @@ def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 		query['end_time'] = template_data["expiry_date_object"].strftime("%Y-%m-%d")
 		query['location'] = template.get_def("location").render_unicode(h = h, data = data).encode("utf-8")
 		query["host"] = "me"
-		image_url = h.get_product_picture(template_data.get("pool_image"), "FF_POOLS", site_root=template_data["DEFAULT_BASE_URL"])
+		image_url = STATICS_SERVICE.get_product_picture(template_data.get("pool_image"), "FF_POOLS").encode("utf-8")
 		event_id = _create_event(sndr_data["access_token"], query, image_url, template_data['p_url'], config)
 	else:
 		event_id = template_data['event_id']
@@ -96,7 +96,7 @@ def _stream_publish(template, sndr_data, rcpt_data, template_data):
 	actions['name'] = template.get_def("action_name").render_unicode(h = h, data = data)
 	actions['link'] = template.get_def("action_link").render_unicode(h = h, data = data)
 	msg['actions'] = simplejson.dumps(actions).encode("utf-8")
-	msg['picture'] = h.get_product_picture(template_data.get("pool_image"), "FF_POOLS", site_root=template_data["DEFAULT_BASE_URL"]).encode("utf-8")
+	msg['picture'] = STATICS_SERVICE.get_product_picture(template_data.get("pool_image"), "FF_POOLS").encode("utf-8")
 	
 	msg['access_token'] = sndr_data['access_token']
 	

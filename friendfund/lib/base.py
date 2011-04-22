@@ -79,6 +79,10 @@ class BaseController(WSGIController):
 	
 	def __call__(self, environ, start_response):
 		"""Invoke the Controller"""
+		return WSGIController.__call__(self, environ, start_response)
+	
+	def __before__(self, action, environ):
+		"""Provides HTTP Request Logging before any error should occur"""
 		host = request.headers.get('Host')
 		if not (host and host in g.merchants.domain_map):
 			prot, host, path, params, query, fragment = urlparse.urlparse(request.url)
@@ -88,10 +92,6 @@ class BaseController(WSGIController):
 			request.merchant = g.merchants.domain_map[host]
 			request.qualified_host = '%s://%s'%(protocol, host)
 			request.is_secured = protocol == 'https'
-		return WSGIController.__call__(self, environ, start_response)
-	
-	def __before__(self, action, environ):
-		"""Provides HTTP Request Logging before any error should occur"""
 		if not websession.get('region'):
 			region = request.headers.get("X-COUNTRY", g.country_choices.fallback.code).lower()
 			region = g.country_choices.map.get(region, g.country_choices.fallback).code

@@ -45,8 +45,8 @@
 				pos="${i}" ${h.attrib_keys(user_data)|n}
 			%endif
 		>
-			<span class="displayable close" href="#">X</span>
 			<div class="avt">
+				<span class="displayable close" href="#">X</span>
 				<img src="${user_data["profile_picture_url"]}">
 			</div>
 			<p class="${var_show_name and "hideable" or ""}">${user_data["name"]}</p>
@@ -65,15 +65,15 @@
 	<form action="" method="POST" id="emailinviter">
 	<div class="arrowSubTab"></div>
 	<div class="firstSpacer floatLeft ${"name" in c.email_errors and "error" or ""}"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label>
-		<input value="${c.email_values.get("name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
+		<input _default_text="${_("FF_INVITER_EMAIL_Friend's Name")}" value="${c.email_values.get("name") or _("FF_INVITER_EMAIL_Friend's Name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
 		%if "name" in c.email_errors:
 			<p>${c.email_errors['name']}</p>
 		%endif
 	</div>
 	<div class="secondSpacer floatLeft ${"network_id" in c.email_errors and "error" or ""}"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label>
-		<input value="${c.email_values.get("network_id")}" id="email_email" name="invitee.network_id" type="text" class="txtMail default" />
+		<input _default_text="${_("FF_INVITER_EMAIL_Email")}" value="${c.email_values.get("network_id") or _("FF_INVITER_EMAIL_Email")}" id="email_email" name="invitee.network_id" type="text" class="txtMail default" />
 		%if "network_id" in c.email_errors:
-			<p>${c.email_errors['network_id']}</p>
+			<p class="floatLeft">${c.email_errors['network_id']}</p>
 		%endif
 	</div>
 	<div class="btnContainer">
@@ -92,8 +92,8 @@
 				pos="i" ${h.attrib_keys(user_data)|n}
 			%endif
 	>
-		<span class="displayable close" href="#">X</span>
 		<div class="avt">
+			<span class="displayable close" href="#">X</span>
 			<img src="${user_data["large_profile_picture_url"]}">
 		</div>
 		%if not var_show_name:

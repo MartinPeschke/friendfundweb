@@ -47,6 +47,8 @@ class PoolController(BaseController):
 		elif c.pool.is_expired():
 			c.messages.append(ErrorMessage(_('FF_POOL_EXPIRED_MSG_This pool expired without reaching its funding goal in time.')))
 		if c.pool.can_i_view(c.user):
+			if c.pool.am_i_admin(c.user) and request.merchant.require_address and not len(c.messages) and not c.pool.has_address:
+				c.messages.append(SuccessMessage(_("FF_POOL_PAGE_Don't forget to <a href=\"%s\">add a Shipping Address</a>")%url(controller="pool", pool_url=c.pool.p_url, action="address")))
 			c.workflow = request.params.get("v") or None
 			return self.render('/pool/pool.html')
 		else:
@@ -185,6 +187,7 @@ class PoolController(BaseController):
 					pcomment.name = c.user.name
 					pcomment.profile_picture_url = c.user.profile_picture_url
 					pcomment.created = datetime.datetime.now()
+					pcomment._statics = g.statics_service
 					return {'data':{'html':render_def("/pool/chat.html", "renderSingleComment", comment = pcomment).strip()}}
 				else:
 					return {'data':{'html':''}}

@@ -49,7 +49,9 @@ class StaticService(object):
 		
 		self.allowed_product_types = PRODUCT_PIC_FORMATS.copy()
 		self.allowed_product_types.update({"TMP":(1,1)})
-		
+	def __repr__(self):
+		return "<%s:%s/%s>" % (self.__class__.__name__, self.sites, self.secure_sites)
+	
 	def get_site_root(self, url, secured = False):
 		if secured:
 			site_root = self.secure_sites[ord(url[0])%self.secure_sites_length]

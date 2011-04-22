@@ -183,7 +183,7 @@ class RedirectPayment(PaymentMethod):
 		return base64.encodestring(hm.digest()).strip()
 	
 	def process(self, tmpl_context, contribution, pool, renderer, redirecter):
-		dbcontrib = DBContribution(amount = contribution.amount
+		contrib_model = DBContribution(amount = contribution.amount
 								,total = contribution.total
 								,is_secret = contribution.is_secret
 								,do_notify = contribution.do_notify
@@ -195,7 +195,8 @@ class RedirectPayment(PaymentMethod):
 								,shopper_email = tmpl_context.user.default_email
 								,p_url = pool.p_url)
 		try:
-			dbcontrib = app_globals.dbm.set(dbcontrib, merge = True)
+			dbcontrib_data = app_globals.dbm.call(contrib_model, DBContribution)
+			contrib_model.update(dbcontrib_data)
 		except SProcException, e:
 			log.error(e)
 			raise DBErrorDuringSetup(e)
@@ -204,7 +205,7 @@ class RedirectPayment(PaymentMethod):
 				"paymentAmount":'%s'%contribution.total,
 				"currencyCode":contribution.currency,
 				"shopperLocale":websession['lang'],
-				"merchantReference" : dbcontrib.ref,
+				"merchantReference" : contrib_model.ref,
 				"merchantReturnData" : request.merchant.domain,
 				"resURL":"%s"%(url("payment_current", pool_url = ''.join(pool.p_url.rpartition(".")[:2]), protocol="http"))
 				}

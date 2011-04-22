@@ -133,8 +133,13 @@ class InviteController(BaseController):
 			job.apply_async()
 			
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
-			if c.workflow != "3":
-				c.messages.append(SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool!")))
+		print c.workflow
+		if c.workflow != "3":
+			if request.merchant.require_address:
+				msg = SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool! Don't forget to <a href=\"%s\">add a Shipping Address</a>")%url(controller="pool", pool_url=c.pool.p_url, action="address"))
+			else:
+				msg = SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool!"))
+			c.messages.append(msg)
 		return redirect(url('ctrlpoolindex', controller='pool', pool_url = c.pool.p_url, v=c.workflow))
 	
 	

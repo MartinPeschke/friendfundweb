@@ -135,13 +135,13 @@
 
 <div class="wrapSubContent">
 <div class="content">
-	%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
-		<div class="adminLinks">
-			<!--<a href="#">${_(u"FF_POOL_PAGE_ADMIN_Edit pool page")}</a><span>&nbsp;|&nbsp;</span>-->
-			%if request.merchant.require_address:
+	%if c.pool.am_i_admin(c.user):
+		%if not c.pool.is_closed() and request.merchant.require_address:
+			<div class="adminLinks">
 				<a href="${url(controller="pool", action="address", pool_url = c.pool.p_url)}">${_(u"FF_POOL_PAGE_ADMIN_Edit Shipping Address")}</a>
-			%endif
-		</div>
+			</div>
+		%endif
+		%if c.pool.is_contributable():
 		<div id="adminBox">
 			<% first_visit = c.workflow in ['1', '2'] %>
 			<div class="greyBoxTitle hideable ${first_visit and "hidden" or ""}">
@@ -191,7 +191,7 @@
 				<div class="clear"></div>
 			</div>
 		</div>
-		
+		%endif
 	%endif
 	
 	<div class="colRight" id="chipinBox">

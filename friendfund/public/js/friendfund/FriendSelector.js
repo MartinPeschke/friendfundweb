@@ -58,6 +58,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		dojo.place(html, _t.rootNode, "only");
 		_t._listener_locals.push(dojo.connect(_t.ref_node, "onclick", dojo.hitch(null, _t.selectClick, _t)));
 		_t._listener_locals.push(dojo.connect(_t.ref_node, "onkeydown", dojo.hitch(_t, accessability, _t.select, function(){})));
+		parseDefaultsInputs(_t.rootNode);
 		dojo.query("input[type=text]", _t.rootNode)[0].focus();
 	},
 	undraw : function(_t){
