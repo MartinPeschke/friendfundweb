@@ -35,7 +35,7 @@ CELERY_ADDITIONAL_CONFIG="/opt/www/ff_live/ariel_101_paste.ini"
 # but if mostly spending CPU, try to keep it close to the
 # number of CPUs on your machine. If not set, the number of CPUs/cores
 # available will be used.
-CELERYD_CONCURRENCY = 4
+CELERYD_CONCURRENCY = 8
 
 CELERYD_LOG_FILE = "logs/celeryd_live.log"
 CELERYD_LOG_LEVEL = "INFO"
