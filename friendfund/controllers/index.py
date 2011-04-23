@@ -16,7 +16,6 @@ from friendfund.model.common import SProcWarningMessage
 from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER
 from friendfund.model.product import Product
 from friendfund.model.sitemap import SiteMap
-from friendfund.model.recent_activity import RecentActivityStream
 
 
 log = logging.getLogger(__name__)

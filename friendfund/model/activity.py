@@ -153,7 +153,7 @@ class ActivityStreamEvent(DBMappedObject):
 	_keys = [GenericAttrib(int, 'p_id', 'p_id')
 			,GenericAttrib(int, 'u_id', 'u_id')
 			,GenericAttrib(str, 'p_url', 'p_url')
-			,GenericAttrib(str, 'merchant_domain', 'merchant_domain')
+			,GenericAttrib(str, 'merchant_key', 'merchant_key')
 			,DBMapper(CreateGroupGiftEvent, '_cggp', 'CREATE_GROUP_GIFT_POOL')
 			,DBMapper(CreateFreeFormEvent, '_cffp', 'CREATE_FREE_FORM_POOL')
 			,DBMapper(InviteEvent, '_ivt', 'INVITE')
@@ -211,14 +211,14 @@ class ActivityStream(DBMappedObject):
 	
 	def get_merchant(self):
 		if not hasattr(self, "merchant"):
-			setattr(self, "merchant", app_globals.merchants.domain_map.get(self.merchant_domain))
+			setattr(self, "merchant", app_globals.merchants.key_map[self.merchant_key])
 		return self.merchant
 			
 			
 	def fromDB(self, xml):
 		setattr(self, "is_my_event", self.type=="MY")
 		setattr(self, "p_url", self._event.p_url)
-		setattr(self, "merchant_domain", self._event.merchant_domain)
+		setattr(self, "merchant_key", self._event.merchant_key)
 		setattr(self, "event", self._event.obj)
 
 class GetActivityStreamProc(DBMappedObject):

@@ -37,8 +37,9 @@ def pool_available(contributable_only = False, contributable_error = None):
 			if not c.pool:
 				c.messages.append(_("FF_SORRY_PAGE_NOT_FOUND_404_STYLE"))
 				return redirect(url("home"))
-			elif c.pool.merchant_domain != pylons.request.merchant.domain:
-				return redirect(url.current(host=c.pool.merchant_domain))
+			elif c.pool.merchant_key != pylons.request.merchant.key:
+				domain = pylons.app_globals.merchants.key_map[c.pool.merchant_key].domain
+				return redirect(url.current(host=domain))
 			elif contributable_only and not c.pool.is_contributable():
 				c.messages.append(ErrorMessage(contributable_error or _("FF_POOL_ERROR_Sorry, this pool is no longer active")))
 				return redirect(url("get_pool", pool_url = pool_url, view="1"))

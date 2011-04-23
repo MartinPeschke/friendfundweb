@@ -106,8 +106,9 @@ def setup_common_parameters(template_data, common_params, merchant_config):
 	params = {}
 	params.update(common_params)
 	params["today"] = datetime.today().strftime("%d.%m.%Y")
-	if "merchant_domain" in template_data:
-		merchant = merchant_config.merchants_map[template_data["merchant_domain"]]
+	if "merchant_key" in template_data:
+		merchant = merchant_config.key_map[template_data["merchant_key"]]
+		params['merchant_domain'] = merchant.domain
 		params['merchant_logo_url'] = "http://%s%s" % (merchant.domain, merchant.get_logo_url())
 		params['merchant_name'] = merchant.name
 		params['merchant_is_default'] = merchant.is_default

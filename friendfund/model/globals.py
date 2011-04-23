@@ -102,9 +102,10 @@ class MerchantStyle(DBMappedObject):
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
-	_unique_keys = ['name', 'domain']
+	_unique_keys = ['name', 'key', 'domain']
 	_keys = [	 GenericAttrib(unicode,'name','name')
 				,GenericAttrib(str,'domain','merchant_domain')
+				,GenericAttrib(str,'key','merchant_key')
 				,GenericAttrib(str,'pool_type','pool_type', enumeration=set(['FREE_FORM', 'GROUP_GIFT']))
 				,GenericAttrib(str,'entry_point','entry_point', enumeration=set(['LANDING_PAGE', 'IFRAME']))
 				,GenericAttrib(bool,'require_address','require_address')
@@ -153,15 +154,15 @@ class GetMerchantConfigProc(DBMappedObject):
 	_get_proc = 'app.get_config'
 	_keys = [
 			DBMapper(PaymentMethod,'payment_methods','PAYMENT_METHOD', is_list = True),
-			DBMapper(MerchantLink,'merchants_map','MERCHANT', is_dict = True, dict_key = lambda x:x.domain.lower()),
+			DBMapper(MerchantLink,'key_map','MERCHANT', is_dict = True, dict_key = lambda x:x.key),
 			DBMapper(FeaturedPoolURL,'featured_pools','FEATURED_POOL', is_list = True),
 		]
 	
 	def fromDB(self, xml):
-		setattr(self, 'domain_map', dict([(m.domain.lower(), m) for m in self.merchants_map.itervalues()]))
+		setattr(self, 'domain_map', dict([(m.domain.lower(), m) for m in self.key_map.itervalues()]))
 		try:
-			setattr(self, 'default', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0])
-			setattr(self, 'default_domain', filter(lambda m: m.is_default, self.merchants_map.itervalues())[0].domain)
+			setattr(self, 'default', filter(lambda m: m.is_default, self.key_map.itervalues())[0])
+			setattr(self, 'default_domain', filter(lambda m: m.is_default, self.key_map.itervalues())[0].domain)
 		except IndexError, e:
 			raise Exception("GetMerchantLinksProc:No Default Merchant set, %s" % e)
 

@@ -9,7 +9,6 @@ from friendfund.lib.base import BaseController, render, _
 from friendfund.lib import tw_helper
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.model.authuser import User, ANONUSER, OtherUserData
-from friendfund.model.recent_activity import RecentActivityStream
 from friendfund.tasks.twitter import remote_persist_user
 from friendfund.model.common import SProcWarningMessage
 log = logging.getLogger(__name__)
@@ -23,9 +22,6 @@ class TwitterController(BaseController):
 	ERROR = """<html><head><title>Twitter Connect Error</title></head><body style="margin:0px">
 				<div style="position:absolute;top:50px;left:200px;font-size:20px;font-family:Arial,MS Trebuchet,sans-serif;">%s</div>
 				<img style="margin:0px" src="/static/imgs/error_page_twitter.png"/></body></html>""" % _("Twitter may be over capacity.<br/>Please try again later.")
-	def index(self):
-		c.ra = RecentActivityStream(entries = [])
-		return self.render('/index.html')
 	
 	def login(self):
 		furl = request.params.get('furl')

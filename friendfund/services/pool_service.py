@@ -33,7 +33,7 @@ class PoolService(object):
 		admin = PoolInvitee.fromUser(tmpl_context.user)
 		admin.is_admin = True
 		pool.participants.append(admin)
-		pool.merchant_domain = request.merchant.domain
+		pool.merchant_key = request.merchant.key
 		
 		pool_url = self.dbm.call(pool, PoolStub)
 		pool.p_url = pool_url.p_url

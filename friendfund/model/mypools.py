@@ -46,7 +46,7 @@ class MyPoolEntry(DBMappedObject):
 			, GenericAttrib(int,'amount','amount')
 			, GenericAttrib(int,'shipping_cost','shipping_cost')
 			, GenericAttrib(str,'currency','currency')
-			, GenericAttrib(str, "merchant_domain", "merchant_domain")
+			, GenericAttrib(str, "merchant_key", "merchant_key")
 			, GenericAttrib(bool, "is_secret", "is_secret")
 			, DBMapper(PoolFriend, 'friends', 'FRIEND', is_list = True)
 			]
@@ -100,7 +100,7 @@ class MyPoolEntry(DBMappedObject):
 	
 	def get_merchant(self):
 		if not hasattr(self, "merchant"):
-			setattr(self, "merchant", app_globals.merchants.domain_map.get(self.merchant_domain))
+			setattr(self, "merchant", app_globals.merchants.key_map[self.merchant_key])
 		return self.merchant
 	
 class GetMyPoolsProc(DBMappedObject):

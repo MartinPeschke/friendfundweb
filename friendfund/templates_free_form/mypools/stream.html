@@ -52,10 +52,10 @@
 	%else:
 		%for streamentry in c.activity.stream:
 			<% 
-				locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),
-					"pooltitle":'<a class="bold" href="%s">%s</a>'%(url('get_pool', pool_url=streamentry.p_url, host=streamentry.merchant_domain),h.word_truncate_by_letters(streamentry.event.title, 100)),
-					"actorname":'<span class="bold">%s</span>'%streamentry.event.name}
 				merchant = streamentry.get_merchant()
+				locals = {"full_pool_url":url('get_pool', pool_url=streamentry.p_url, host=merchant.domain),
+					"pooltitle":'<a class="bold" href="%s">%s</a>'%(url('get_pool', pool_url=streamentry.p_url, host=merchant.domain),h.word_truncate_by_letters(streamentry.event.title, 100)),
+					"actorname":'<span class="bold">%s</span>'%streamentry.event.name}
 			%>
 		%if streamentry.event._get_root == "SUCCESS":
 			<% locals["number_contributors"] = streamentry.event.no_contributors %>
