@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-04-21 18:42+0200\n"
+"PO-Revision-Date: 2011-04-23 22:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -34,12 +34,12 @@ msgstr ""
 msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Este Perfil no puede ser añadido a tu Cuenta."
 
-#: friendfund/controllers/index.py:81 friendfund/controllers/myprofile.py:51
+#: friendfund/controllers/index.py:80 friendfund/controllers/myprofile.py:51
 #: friendfund/controllers/myprofile.py:149
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr "correo electronico de usario ya registrado!"
 
-#: friendfund/controllers/index.py:82
+#: friendfund/controllers/index.py:81
 #, python-format
 msgid ""
 "USER_SIGNUP_If this is you, please try logging in with your email address"
@@ -48,11 +48,11 @@ msgstr ""
 "¡Si eres tú, por favor intenta acceder con tu dirección de email y "
 "contraseña o %(link_open)ssolicita un cambio de contraseña!%(link_close)s"
 
-#: friendfund/controllers/index.py:100
+#: friendfund/controllers/index.py:99
 msgid "USER_SETEMAILBLOCK_Email Updated!"
 msgstr "¡Email actualizado!"
 
-#: friendfund/controllers/index.py:106
+#: friendfund/controllers/index.py:105
 msgid "USER_SETEMAILBLOCK_Email_Email Address already taken!"
 msgstr "¡La dirección de Email ya ha sido registrada!"
 
@@ -68,18 +68,18 @@ msgstr "introducir un mensaje de invitación "
 msgid "Please input an Invite Subject"
 msgstr "introducir "
 
-#: friendfund/controllers/invite.py:139
+#: friendfund/controllers/invite.py:138
 #, python-format
 msgid ""
 "FF_POOL_PAGE_Welcome to your new Pool! Don't forget to <a href=\"%s\">add"
 " a Shipping Address</a>"
 msgstr ""
 
-#: friendfund/controllers/invite.py:141
+#: friendfund/controllers/invite.py:140
 msgid "FF_POOL_PAGE_Welcome to your new Pool!"
 msgstr "Bienvenido a tu nuevo bote!"
 
-#: friendfund/controllers/invite.py:183 friendfund/controllers/myfriends.py:106
+#: friendfund/controllers/invite.py:182 friendfund/controllers/myfriends.py:106
 #: friendfund/controllers/receiver.py:142
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr "Acción o Red desconocida"
@@ -356,7 +356,7 @@ msgstr "No has escogido a ningún amigo."
 msgid "Please input a name"
 msgstr "introducir "
 
-#: friendfund/controllers/twitter.py:21
+#: friendfund/controllers/twitter.py:20
 msgid ""
 "TWITTER_An Error occured during Twitter authentication, please try again "
 "later."
@@ -364,7 +364,7 @@ msgstr ""
 "Ha ocurrido un error durante la autentificación de Twitter, por favor, "
 "inténtelo de nuevo más tarde."
 
-#: friendfund/controllers/twitter.py:22
+#: friendfund/controllers/twitter.py:21
 msgid ""
 "TWITTER_Twitter seems to be overloaded again, please try again at a later"
 " time."
@@ -372,7 +372,7 @@ msgstr ""
 "Twitter parece estar sobrecargado de nuevo, por favor, inténtalo de nuevo"
 " más tarde."
 
-#: friendfund/controllers/twitter.py:25
+#: friendfund/controllers/twitter.py:24
 msgid "Twitter may be over capacity.<br/>Please try again later."
 msgstr ""
 "Twitter puede tener un exceso de capacidad.<br/>Por favor, inténtalo de "
@@ -382,11 +382,11 @@ msgstr ""
 msgid "FF_SORRY_PAGE_NOT_FOUND_404_STYLE"
 msgstr "lo siento, no podemos encontrar el bote"
 
-#: friendfund/lib/auth/decorators.py:43
+#: friendfund/lib/auth/decorators.py:44
 msgid "FF_POOL_ERROR_Sorry, this pool is no longer active"
 msgstr "Lo siento, este bote ya no esta activo"
 
-#: friendfund/lib/auth/decorators.py:95 friendfund/lib/auth/decorators.py:97
+#: friendfund/lib/auth/decorators.py:96 friendfund/lib/auth/decorators.py:98
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr "MENSAJE_NO_AUTORIZADO"
 
@@ -450,17 +450,29 @@ msgstr "Ayer"
 msgid "FF_RECENCY_%(days)d days ago"
 msgstr "hace %(days)d dias"
 
-#: friendfund/model/activity.py:207 friendfund/model/pool.py:63
+#: friendfund/model/activity.py:207
+msgid "FF_RECENCY_a week ago"
+msgstr ""
+
+#: friendfund/model/activity.py:209 friendfund/model/pool.py:63
 #, python-format
 msgid "FF_RECENCY_%(weeks)d weeks ago"
 msgstr "hace %(weeks)d semanas"
 
-#: friendfund/model/activity.py:209 friendfund/model/pool.py:65
+#: friendfund/model/activity.py:211
+msgid "FF_RECENCY_a month ago"
+msgstr ""
+
+#: friendfund/model/activity.py:213 friendfund/model/pool.py:65
 #, python-format
 msgid "FF_RECENCY_%(months)d months ago"
 msgstr "hace %(months)d meses"
 
-#: friendfund/model/activity.py:210 friendfund/model/pool.py:66
+#: friendfund/model/activity.py:215
+msgid "FF_RECENCY_a year ago"
+msgstr ""
+
+#: friendfund/model/activity.py:216 friendfund/model/pool.py:66
 #, python-format
 msgid "FF_RECENCY_%(years)d years ago"
 msgstr "hace %(years)d años"
@@ -2073,7 +2085,24 @@ msgstr "Privacidad"
 msgid "FF_Terms of Service"
 msgstr "Condiciones del servicio"
 
-#: friendfund/templates_free_form/content/popups/all_or_nothing.html:15
+#: friendfund/templates_free_form/content/popups/all_or_nothing.html:6
+msgid "FF_ALL_OR_NOTHING_POPUP_What is “All or Nothing”?"
+msgstr ""
+
+#: friendfund/templates_free_form/content/popups/all_or_nothing.html:9
+msgid ""
+"FF_ALL_OR_NOTHING_POPUP_For a Pool to be successful, it needs to reach "
+"its Funding Goal before the expiry date. If not, the Admin walks away "
+"with nothing and contributors are not charged."
+msgstr ""
+
+#: friendfund/templates_free_form/content/popups/all_or_nothing.html:12
+msgid ""
+"FF_ALL_OR_NOTHING_POPUP_If you want to see this Pool come to life, spread"
+" the word and help get it funded!"
+msgstr ""
+
+#: friendfund/templates_free_form/content/popups/all_or_nothing.html:13
 #: friendfund/templates_free_form/content/popups/how_friends_invited_popup.html:13
 #: friendfund/templates_free_form/content/popups/what_is_cvc.html:14
 #: friendfund/templates_free_form/contribution/popups/notify_invitees.html:9
@@ -3198,23 +3227,23 @@ msgid ""
 "pages on this site."
 msgstr "Si quieres algo especifico, visita cualquier producto en esta pagina web."
 
-#: friendfund/templates_free_form/partner/iframe.html:53
+#: friendfund/templates_free_form/partner/iframe.html:54
 msgid "FF_IFRAME_Organise a Group Gift!"
 msgstr "Organizar un regalo en grupo"
 
-#: friendfund/templates_free_form/partner/iframe.html:56
+#: friendfund/templates_free_form/partner/iframe.html:57
 msgid "FF_IFRAME_BUTTON_Help"
 msgstr "Ayuda"
 
-#: friendfund/templates_free_form/partner/iframe.html:60
+#: friendfund/templates_free_form/partner/iframe.html:61
 msgid "FF_close"
 msgstr "Cerrar"
 
-#: friendfund/templates_free_form/partner/iframe.html:61
+#: friendfund/templates_free_form/partner/iframe.html:62
 msgid "FF_IFRAME_Quick Guide to Creating a Pool"
 msgstr "Guia rapida para crear un bote"
 
-#: friendfund/templates_free_form/partner/iframe.html:63
+#: friendfund/templates_free_form/partner/iframe.html:64
 msgid ""
 "FF_IFRAME_Create a Group Gift Pool and give something extra special "
 "without breaking the bank."
@@ -3223,19 +3252,19 @@ msgstr ""
 " experiencia de La Vida es Bella y comparte el precio con el resto de tus"
 " amigos de facebook"
 
-#: friendfund/templates_free_form/partner/iframe.html:74
+#: friendfund/templates_free_form/partner/iframe.html:75
 msgid "FF_IFRAME_Find a gift and click the friendfund it! button "
 msgstr "Busca un regalo y pincha el boton \"friendfund it!\" "
 
-#: friendfund/templates_free_form/partner/iframe.html:75
+#: friendfund/templates_free_form/partner/iframe.html:76
 msgid "FF_IFRAME_Find the perfect gift from our huge selection. ?"
 msgstr "Descubre el regalo perfecto entre una selección de miles."
 
-#: friendfund/templates_free_form/partner/iframe.html:86
+#: friendfund/templates_free_form/partner/iframe.html:87
 msgid "FF_IFRAME_Choose your recipient, occasion and contribution deadline"
 msgstr "Elija el receptor, la ocasión y la fecha"
 
-#: friendfund/templates_free_form/partner/iframe.html:87
+#: friendfund/templates_free_form/partner/iframe.html:88
 msgid ""
 "FF_IFRAME_Select your friend and special occasion. Make sure to leave "
 "aside plenty of time when selecting a deadline."
@@ -3243,81 +3272,81 @@ msgstr ""
 "Selecionar tu amigo y la ocasión.  Asegurar que dejes el tiempo "
 "suficiente cuando elijas la fecha."
 
-#: friendfund/templates_free_form/partner/iframe.html:97
+#: friendfund/templates_free_form/partner/iframe.html:98
 msgid "FF_IFRAME_Share the costs with  friends!"
 msgstr "¡Compartir los costes con amigos!"
 
-#: friendfund/templates_free_form/partner/iframe.html:98
+#: friendfund/templates_free_form/partner/iframe.html:99
 msgid ""
 "FF_IFRAME_Invite your friends to chip in as much or as little as they "
 "want!"
 msgstr "Invita a tus amigos para que contribuyan con la cantidad que ellos elijan"
 
-#: friendfund/templates_free_form/partner/iframe.html:103
+#: friendfund/templates_free_form/partner/iframe.html:104
 msgid "FF_IFRAME_HELPPOPUP_Get started"
 msgstr "Comenzar"
 
-#: friendfund/templates_free_form/partner/iframe.html:119
+#: friendfund/templates_free_form/partner/iframe.html:120
 msgid "FF_IFRAME_Your gift:"
 msgstr "Tu regalo"
 
-#: friendfund/templates_free_form/partner/iframe.html:130
+#: friendfund/templates_free_form/partner/iframe.html:131
 msgid "FF_IFRAME_Edit"
 msgstr "Editar"
 
-#: friendfund/templates_free_form/partner/iframe.html:143
+#: friendfund/templates_free_form/partner/iframe.html:144
 msgid "FF_IFRAME_Recipient"
 msgstr "Receptor"
 
-#: friendfund/templates_free_form/partner/iframe.html:154
+#: friendfund/templates_free_form/partner/iframe.html:155
 msgid "FF_IFRAME_Please choose your recipient from the left panel."
 msgstr "Elija el receptor"
 
-#: friendfund/templates_free_form/partner/iframe.html:159
+#: friendfund/templates_free_form/partner/iframe.html:160
 msgid "FF_IFRAME_Occasion:"
 msgstr "Ocasión"
 
-#: friendfund/templates_free_form/partner/iframe.html:160
+#: friendfund/templates_free_form/partner/iframe.html:161
 msgid "FF_IFRAME_Please choose an occasion from the left panel."
 msgstr "Elija una ocasión:"
 
-#: friendfund/templates_free_form/partner/iframe.html:163
+#: friendfund/templates_free_form/partner/iframe.html:164
 msgid "FF_IFRAME_Contribution Deadline:"
 msgstr "Fin de plazo para contribuciones"
 
-#: friendfund/templates_free_form/partner/iframe.html:164
+#: friendfund/templates_free_form/partner/iframe.html:165
 msgid "FF_IFRAME_Please choose a deadline from the left panel."
 msgstr "Elija un plazo"
 
-#: friendfund/templates_free_form/partner/iframe.html:168
+#: friendfund/templates_free_form/partner/iframe.html:169
 msgid "FF_IFRAME_Invite Friends"
 msgstr "Invitar amigos"
 
-#: friendfund/templates_free_form/partner/iframe.html:175
+#: friendfund/templates_free_form/partner/iframe.html:176
 msgid "FF_IFRAME_Choose Your recipient"
 msgstr "Elija el receptor"
 
-#: friendfund/templates_free_form/partner/iframe.html:190
+#: friendfund/templates_free_form/partner/iframe.html:191
 msgid "FF_IFRAME_Choose an occasion:"
 msgstr "Elija una ocasión:"
 
-#: friendfund/templates_free_form/partner/iframe.html:196
+#: friendfund/templates_free_form/partner/iframe.html:197
 msgid "FF_IFRAME_Just because..."
 msgstr "El hecho de que..."
 
-#: friendfund/templates_free_form/partner/iframe.html:205
+#: friendfund/templates_free_form/partner/iframe.html:206
 msgid "FF_IFRAME_... or enter your own occasion"
 msgstr "...O escribe tu propria ocasión"
 
-#: friendfund/templates_free_form/partner/iframe.html:209
+#: friendfund/templates_free_form/partner/iframe.html:210
 msgid "FF_IFRAME_Contribution Deadline"
 msgstr "Fin de plazo para contribuciones"
 
-#: friendfund/templates_free_form/partner/iframe.html:215
+#: friendfund/templates_free_form/partner/iframe.html:216
 msgid "FF_IFRAME_As seen in:"
 msgstr "Visto en:"
 
-#: friendfund/templates_free_form/partner/iframe.html:221
+#: friendfund/templates_free_form/partner/iframe.html:222
 msgid "FF_IFRAME_You are safe with us"
 msgstr "Estas seguro con nosotros"
 
@@ -3855,13 +3884,4 @@ msgid ""
 "JOCHEN_SCHWEIZER_PAGE_INDEX_BUTTON_Select your gift receiver from your "
 "Facebook, Twitter or email friends."
 msgstr "Escoge al destinatario del regalo desde Facebook, Twitter o email."
-
-#~ msgid "FF_HOMEPAGE_BOXES_<strong>%(no_contributors)s</strong> contributors"
-#~ msgstr "<strong>%(no_contributors)s</strong> participantes"
-
-#~ msgid "FF_HOMEPAGE_BOXES_<strong>%(days_left)s</strong> days left"
-#~ msgstr "<strong>%(days_left)s</strong> dias restantes"
-
-#~ msgid "FF_POOL_PAGE_ADMIN_Edit pool page"
-#~ msgstr "Editar la página "
 

@@ -3,7 +3,6 @@ String.prototype.strip = function(char)
         var re = new RegExp("^"+char+"+|"+char+"+$", "g");
         return String(this).replace(re, '');
     };
-
 protected = function(callback){return function(data){
 	if(data.success){callback(data);} else {}
 };};
@@ -64,12 +63,6 @@ parseSelectables = function(rootnode, parentClass, selectedName){
 		dojo.connect(dojo.byId(rootnode), "onfocusout", r);
 	}
 };
-// parseSelectables = function(rootnode, parentClass, selectedName){
-	// parentClass = parentClass||"borderBottom";
-	// selectedName = selectedName||"selected";
-	// dojo.query("input,textarea,select").onfocus(function(evt){addClassToParent(evt.target, parentClass, selectedName);});
-	// dojo.query("input,textarea,select").onblur(function(evt){remClassFromParent(evt.target, parentClass, selectedName);});
-// };
 showLoadingInfo = function(rootnode){
 	dojo.query(".loading_animation", rootnode).removeClass("hidden");
 	dojo.query("input[type=submit]", rootnode).forEach(function(elem){elem.disabled = "disabled";});
@@ -105,8 +98,8 @@ parseSimpleEditables = function(rootnode){
 							if(length&&newval.length>length){root.innerHTML=root.innerHTML+"...";}
 							dojo.forEach(_backups, function(elem){root.appendChild(elem);});
 							parseSimpleEditables(rootnode);
+							return editevt;
 						};
-					evts.push(dojo.connect(editor, "onchange", f));
 					evts.push(dojo.connect(editor, "onblur", f));
 					_backups  = dojo.query('> *', root).orphan();
 					dojo.empty(root);
@@ -142,9 +135,10 @@ parseEditables = function(rootnode){
 													root.innerHTML = data;
 													parseEditables(rootnode);
 												}, "Post");
+											return editevt;
 											};
-									evts.push(dojo.connect(editor, "onchange", f));
-									evts.push(dojo.connect(editor, "onblur", f));
+									evts.push(dojo.connect(editor, "onchange", f, null, f, true));
+									evts.push(dojo.connect(editor, "onblur", f, null, f, true));
 								});
 						}, "Get");
 				});
@@ -401,9 +395,7 @@ var createAppendPicture = function(imgContainer, imgs, preselected){
 		img.src = imgsrc;
 	} else {
 		imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
-		if(imgs.length>1){
-			console.log("DONE!!!!!");
-		}else{
+		if(imgs.length<=1){
 			dojo.query(".imgCntSld img.forbidden", "homeurlexpander").forEach(dojo.hitch(null, judger, 25, 20, preselected));
 		}
 	}
@@ -475,7 +467,7 @@ var connectURLP = function(baseRoot, editnode){
 
 var resetParser = function(baseRoot, editnode){
 	dojo.empty("homeurlexpander");
-	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem);dojo.removeClass(elem,"hidden")});
+	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem);});
 	dojo.forEach(_localhndlrs, dojo.disconnect);
 	picCounter = 0; accepted = false; _parser_backups = []; _localhndlrs = [];
 	dojo.query(".hideable", baseRoot).removeClass("hidden");
@@ -513,7 +505,7 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 							
 							var div = dojo.create("DIV", {"class":"loading"});
 							div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-							dojo.query("> *", "homeurlexpander").forEach(function(elem){_parser_backups.push(elem);dojo.addClass(elem, "hidden");dojo.byId("homeurlexpander").removeChild(elem);})
+							_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
 							dojo.place(div, "homeurlexpander", "last");
 							dojo.query("#homeurlexpander").addClass("home_expander").removeClass("hidden");
 							extra_params = extra_params||{};
