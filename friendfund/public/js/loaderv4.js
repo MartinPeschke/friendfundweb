@@ -64,6 +64,12 @@ parseSelectables = function(rootnode, parentClass, selectedName){
 		dojo.connect(dojo.byId(rootnode), "onfocusout", r);
 	}
 };
+// parseSelectables = function(rootnode, parentClass, selectedName){
+	// parentClass = parentClass||"borderBottom";
+	// selectedName = selectedName||"selected";
+	// dojo.query("input,textarea,select").onfocus(function(evt){addClassToParent(evt.target, parentClass, selectedName);});
+	// dojo.query("input,textarea,select").onblur(function(evt){remClassFromParent(evt.target, parentClass, selectedName);});
+// };
 showLoadingInfo = function(rootnode){
 	dojo.query(".loading_animation", rootnode).removeClass("hidden");
 	dojo.query("input[type=submit]", rootnode).forEach(function(elem){elem.disabled = "disabled";});
@@ -391,6 +397,7 @@ var createAppendPicture = function(imgContainer, imgs, preselected){
 		var img = dojo.create("IMG", {"class":'hiddenSpec forbidden'});
 		imgContainer.appendChild(img);
 		img.onload = dojo.hitch(null, pic_judger, imgContainer, imgs, preselected);
+		img.onerror = dojo.hitch(null, createAppendPicture, imgContainer, imgs, preselected);
 		img.src = imgsrc;
 	} else {
 		imgs=dojo.query(".imgCntSld img.allowed", "homeurlexpander");
@@ -425,6 +432,8 @@ var judger = function(minw, minh, preselected, img){
 		}
 	}
 };
+
+
 var pic_judger = function(imgContainer, imgs, preselected, evt){
 	if(dojo.byId("pictureCounter")){
 		judger(100, 75, preselected, this);
@@ -466,7 +475,7 @@ var connectURLP = function(baseRoot, editnode){
 
 var resetParser = function(baseRoot, editnode){
 	dojo.empty("homeurlexpander");
-	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem);});
+	dojo.forEach(_parser_backups, function(elem){dojo.byId("homeurlexpander").appendChild(elem);dojo.removeClass(elem,"hidden")});
 	dojo.forEach(_localhndlrs, dojo.disconnect);
 	picCounter = 0; accepted = false; _parser_backups = []; _localhndlrs = [];
 	dojo.query(".hideable", baseRoot).removeClass("hidden");
@@ -501,12 +510,12 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 					if(urlmatch.test(elt)){
 						var query = elt, url = dojo.attr(dn, "_url");
 							dojo.query(".hideable", baseRoot).addClass("hidden");
-							dojo.query("#homeurlexpander").addClass("home_expander").removeClass("hidden");
 							
 							var div = dojo.create("DIV", {"class":"loading"});
 							div.appendChild(dojo.create("IMG", {src:"/static/imgs/ajax-loader.gif"}));
-							_parser_backups = dojo.query("> *", "homeurlexpander").orphan();
+							dojo.query("> *", "homeurlexpander").forEach(function(elem){_parser_backups.push(elem);dojo.addClass(elem, "hidden");dojo.byId("homeurlexpander").removeChild(elem);})
 							dojo.place(div, "homeurlexpander", "last");
+							dojo.query("#homeurlexpander").addClass("home_expander").removeClass("hidden");
 							extra_params = extra_params||{};
 							extra_params.query = query;
 							dojo.xhrPost({url:url, content:extra_params,

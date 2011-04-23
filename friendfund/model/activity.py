@@ -203,10 +203,16 @@ class ActivityStream(DBMappedObject):
 			return _("FF_RECENCY_Yesterday")
 		if day_diff < 7:
 			return _("FF_RECENCY_%(days)d days ago") % {"days":day_diff}
+		if day_diff == 7:
+			return _("FF_RECENCY_a week ago")
 		if day_diff < 31:
 			return _("FF_RECENCY_%(weeks)d weeks ago") % {"weeks":day_diff/7}
+		if day_diff < 60:
+			return _("FF_RECENCY_a month ago")
 		if day_diff < 365:
 			return _("FF_RECENCY_%(months)d months ago") %{"months":day_diff/30}
+		if day_diff < 2*365:
+			return _("FF_RECENCY_a year ago")
 		return _("FF_RECENCY_%(years)d years ago")%{"years":day_diff/365}
 	
 	def get_merchant(self):
