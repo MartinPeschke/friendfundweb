@@ -21,7 +21,7 @@
 	<div class="colLeft">
 		<h4>${_("FF_ADDRESS_Where is your gift going to?")}</h4>
 		<div class="subHeading"></div>
-		<form action="${url("pool_action", pool_url = c.pool.p_url, action="address")}" method="POST" name="submissionForm">
+		<form action="${url("pool_edit", pool_url = c.pool.p_url, action="address")}" method="POST" name="submissionForm">
 		<div class="borderBottom ${"first_name" in c.errors and "error" or ""}">
 			<div class="greyInsideFullWidth">
 				<div class="first">

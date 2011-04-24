@@ -22,7 +22,7 @@ def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = N
 		return func(self, *args, **kwargs)
 	return decorator(validate)
 
-def pool_available(contributable_only = False, contributable_error = None):
+def pool_available(contributable_only = False, contributable_error = None, admin_only = False):
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)
 		environ = pylons.request.environ
@@ -40,6 +40,9 @@ def pool_available(contributable_only = False, contributable_error = None):
 			elif c.pool.merchant_key != pylons.request.merchant.key:
 				domain = pylons.app_globals.merchants.key_map[c.pool.merchant_key].domain
 				return redirect(url.current(host=domain))
+			elif admin_only and not c.pool.am_i_admin(c.user):
+				c.messages.append(ErrorMessage(_("POOL_Your not authorized for this operation.")))
+				return redirect(url("get_pool", pool_url = pool_url, view="1"))
 			elif contributable_only and not c.pool.is_contributable():
 				c.messages.append(ErrorMessage(contributable_error or _("FF_POOL_ERROR_Sorry, this pool is no longer active")))
 				return redirect(url("get_pool", pool_url = pool_url, view="1"))

@@ -94,7 +94,7 @@
 							<div class="floatLeft" style="width:370px">
 							<span>${c.pool.receiver.name}</span>
 							%if c.pool.am_i_admin(c.user):
-								<p class="editable active" _href="${url("pool_action", pool_url = c.pool.p_url, action="editThankYouMessage")}" _value=${quoteattr(c.values['message'])|n}>
+								<p class="editable active" _href="${url("pool_edit", pool_url = c.pool.p_url, action="editThankYouMessage")}" _value=${quoteattr(c.values['message'])|n}>
 								${c.values['message']}<span class="link">${_("FF_Edit")}</span>
 								</p>
 							%endif
