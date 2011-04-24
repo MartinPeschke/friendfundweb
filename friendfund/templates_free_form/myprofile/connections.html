@@ -1,6 +1,7 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
+<%def name="title()">${_("FF_TITLE_Connections")}</%def>
 <%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	${common.render_tabs("connections")|n}
@@ -26,7 +27,9 @@
 							</div>
 							<% locals = {"name":c.myprofiles['facebook'].name} %>
 							<p>${_("FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>")%locals|n}</p>
+							%if c.myprofiles['facebook'].can_disconnect:
 							<a href="${url(controller="fb",action="disconnect", network_id = c.myprofiles['facebook'].network_id)}" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
+							%endif
 						</div>
 					</div>
 					</div>
@@ -61,7 +64,9 @@
 							</div>
 							<% locals = {"name":c.myprofiles['twitter'].name} %>
 							<p>${_("FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>")%locals|n}</p>
+							%if c.myprofiles['twitter'].can_disconnect:
 							<a href="${url(controller="twitter",action="disconnect", network_id = c.myprofiles['twitter'].network_id )}" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
+							%endif
 						</div>
 					</div>
 					</div>

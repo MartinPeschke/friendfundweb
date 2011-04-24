@@ -13,13 +13,14 @@ from friendfund.lib import helpers as h
 from friendfund.model.authuser import User, WebLoginUserByTokenProc, DBRequestPWProc, SetNewPasswordForUser, VerifyAdminEmailProc, OtherUserData, SetUserEmailProc, SetUserLocaleProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, SignupForm, LoginForm, MyProfileForm, NotificationsForm
-from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc, OptOutTemplateType, GetMyPictureProc
+from friendfund.model.myprofile import GetMyProfileProc, SetDefaultProfileProc, OptOutNotificationsProc, OptOutTemplateType, GetMyPictureProc, ResetPasswordProc
 from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
 from friendfund.services import static_service as statics
 log = logging.getLogger(__name__)
 
 class MyprofileController(BaseController):
 	@logged_in(ajax=False)
+	@default_domain_only()
 	def account(self):
 		c.errors = {}
 		c.myprofiles_result = g.dbm.get(GetMyPictureProc, u_id = c.user.u_id)
@@ -45,10 +46,12 @@ class MyprofileController(BaseController):
 			except formencode.validators.Invalid, error:
 				c.values = error.value
 				c.errors = error.error_dict or {}
+				c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
 				return self.render('/myprofile/account.html')
 			except SProcWarningMessage, e:
 				c.values = request.params
 				c.errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
+				c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
 				return self.render('/myprofile/account.html')
 	
 	@logged_in(ajax=False)
@@ -76,9 +79,36 @@ class MyprofileController(BaseController):
 		return redirect(url(controller='myprofile', action="notifications"))
 	
 	@logged_in(ajax=False)
+	@default_domain_only()
 	def connections(self):
 		c.myprofiles = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id).profiles
 		return self.render('/myprofile/connections.html')
+	
+	@logged_in(ajax=False)
+	@default_domain_only()
+	def password(self):
+		c.accounts = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
+		c.is_pwd_create = "email" in c.accounts.profiles
+		c.values ={}
+		c.errors ={}
+		if request.method != 'POST':
+			return self.render('/myprofile/account_password.html')
+		pwd_data = formencode.variabledecode.variable_decode(request.params)
+		try:
+			form_result = PasswordResetForm().to_python(pwd_data, state = FriendFundFormEncodeState)
+			g.dbm.set(ResetPasswordProc(u_id=c.user.u_id, **form_result))
+			c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
+			return self.render('/myprofile/account_password.html')
+		except formencode.validators.Invalid, error:
+			c.values = error.value
+			c.errors = error.error_dict or {}
+			c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
+			return self.render('/myprofile/account_password.html')
+		except SProcWarningMessage, e:
+			c.values = form_result
+			c.errors = {'email':_(u"FF_PWD_PAGE_Current password incorrect!")}
+			c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
+			return self.render('/myprofile/account_password.html')
 	
 	def login(self):
 		if not c.user.is_anon:
@@ -201,36 +231,6 @@ class MyprofileController(BaseController):
 			c.values = form_result
 			c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
 			return {'popup':render('/myprofile/addemail_popup.html').strip()}
-	
-	
-	def password(self):
-		c.pwd_values ={}
-		c.pwd_errors ={}
-		if request.method != 'POST':
-			return self.render('/myprofile/password_request.html')
-		pwd = formencode.variabledecode.variable_decode(request.params).get('pwd', None)
-		schema = EmailRequestForm()
-		try:
-			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
-			email = form_result['email']
-			g.dbm.set(DBRequestPWProc(email=email))
-			c.messages.append(_(u"PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!") % email)
-			return self.render('/myprofile/password_request.html')
-		except formencode.validators.Invalid, error:
-			c.pwd_values = error.value
-			c.pwd_errors = error.error_dict or {}
-			return self.render('/myprofile/password_request.html')
-		except SProcWarningMessage, e:
-			if str(e) == 'USER_DOESNT_EXIST':
-				c.pwd_values = form_result
-				c.pwd_errors = {'email':_(u"PROFILE_PASSWORD_Unknown Email Address")}
-			elif str(e) == 'TOKEN_ALREADY_SENT_IN_LAST_24_HOURS':
-				c.pwd_values = form_result
-				c.pwd_errors = {'email':_(u"PROFILE_PASSWORD_Token Already Sent")}
-			else:
-				c.pwd_values = form_result
-				c.pwd_errors = {'email':_(u"PROFILE_PASSWORD_Unknown Error Occured")}
-			return self.render('/myprofile/password_request.html')
 	
 	def tlogin(self, token):
 		c.messages.append(_("PROFILE_RESETPASSWORD_TOKEN_This link is no longer valid, please request a new password <a %s>here </a>") %\

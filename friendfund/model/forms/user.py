@@ -14,13 +14,6 @@ class EmailRequestForm(formencode.Schema):
 	filter_extra_fields = True
 	email = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True, messages={'empty': _('FF_SIGNUP_ERROR_EMAIL_Please enter an email !')})
 
-class PasswordResetForm(formencode.Schema):
-	allow_extra_fields = True
-	filter_extra_fields = True
-	pwd = PWDValidator(not_empty=True, min=5, max = 255)
-	pwd_confirm = PWDValidator(not_empty=True, min=5, max = 255)
-	chained_validators = [formencode.validators.FieldsMatch('pwd','pwd_confirm')]
-
 
 class ReceiverForm(formencode.Schema):
 	allow_extra_fields = True
@@ -54,3 +47,14 @@ class NotificationsForm(formencode.Schema):
 	INVITE = formencode.validators.StringBool(if_empty=True, if_missing=True)
 	NEWSLETTER = formencode.validators.StringBool(if_empty=True, if_missing=True)
 	REMINDER = formencode.validators.StringBool(if_empty=True, if_missing=True)
+
+
+class PasswordResetForm(formencode.Schema):
+	allow_extra_fields = True
+	filter_extra_fields = True
+	
+	is_create = formencode.validators.StringBool(if_empty=False, if_missing=False)
+	current_pwd = PWDValidator(not_empty=False, if_empty=None, if_missing=None, min=5, max = 255)
+	new_pwd = PWDValidator(not_empty=True, min=5, max = 255, messages={'empty': _('FF_PWD_PAGE_ERROR_Please enter your new password !')})
+	new_pwd_confirm = PWDValidator(not_empty=True, min=5, max = 255, messages={'empty': _('FF_PWD_PAGE_ERROR_Please re-enter your new password !')})
+	chained_validators = [formencode.validators.FieldsMatch('new_pwd','new_pwd_confirm')]

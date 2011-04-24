@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-04-23 22:19+0100\n"
+"PO-Revision-Date: 2011-04-24 21:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -33,8 +33,8 @@ msgid "FB_LOGIN_TRY_This User cannot be consolidated with your current Account."
 msgstr "Dieser Benutzer konnte nicht mit deinem Konto zusammengeführt werden."
 
 #: friendfund/controllers/index.py:80
-#: friendfund/controllers/myprofile.py:51
-#: friendfund/controllers/myprofile.py:149
+#: friendfund/controllers/myprofile.py:52
+#: friendfund/controllers/myprofile.py:175
 msgid "USER_SIGNUP_EMAIL_ALREADY_EXISTS"
 msgstr " E-Mail Adresse bereits vergeben"
 
@@ -91,66 +91,54 @@ msgstr "Bitte wähle deinen Empfänger von Twitter"
 msgid "FF_IFRAME_INVITE_EMAIL_BUTTON"
 msgstr "Auswählen"
 
-#: friendfund/controllers/myprofile.py:43
-#: friendfund/controllers/myprofile.py:75
+#: friendfund/controllers/myprofile.py:44
+#: friendfund/controllers/myprofile.py:76
+#: friendfund/controllers/myprofile.py:98
 msgid "FF_ACCOUNT_Your changes have been changed."
 msgstr "Die Änderung wurde gespeichert."
 
-#: friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/myprofile.py:129
+#: friendfund/controllers/myprofile.py:106
+msgid "FF_PWD_PAGE_Current password incorrect!"
+msgstr "Passwort inkorrekt!"
+
+#: friendfund/controllers/myprofile.py:137
+#: friendfund/controllers/myprofile.py:155
 #: friendfund/controllers/ssp.py:48
 msgid "USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD"
 msgstr " E-Mail oder Passwort unbekannt!"
 
-#: friendfund/controllers/myprofile.py:166
+#: friendfund/controllers/myprofile.py:192
 #, python-format
 msgid "FF_An email with your new password has been sent to %(email)s."
 msgstr "Eine Email mit dem neuen Passwort, wurde an %(email)s verschickt."
 
-#: friendfund/controllers/myprofile.py:174
+#: friendfund/controllers/myprofile.py:200
 msgid "FF_RESETPASSWORD_Email does not exist."
 msgstr "Diese  E-Mail Adresse existiert nicht."
 
-#: friendfund/controllers/myprofile.py:192
-#: friendfund/controllers/myprofile.py:202
+#: friendfund/controllers/myprofile.py:218
+#: friendfund/controllers/myprofile.py:228
 msgid "FF_RESETPASSWORD_Email is already owned by another user."
 msgstr "Diese  E-Mail Adresse ist schon vergeben."
 
-#: friendfund/controllers/myprofile.py:217
-#, python-format
-msgid "PROFILE_PASSWORD_A Password Email has been sent to: %s, please check Your Mailbox!"
-msgstr "Ein Passwort wurde an deine E-Mail Adresse (%s) versendet, bitte schau in deinem Postfach nach!"
-
-#: friendfund/controllers/myprofile.py:226
-msgid "PROFILE_PASSWORD_Unknown Email Address"
-msgstr "Unbekannte  E-Mail Adresse"
-
-#: friendfund/controllers/myprofile.py:229
-msgid "PROFILE_PASSWORD_Token Already Sent"
-msgstr "Du hast in den letzten 24 Stunden schon einmal dein Passwort zurücksetzen lassen</br>, schau doch nochmal in deinem Posteingang nach."
-
 #: friendfund/controllers/myprofile.py:232
-msgid "PROFILE_PASSWORD_Unknown Error Occured"
-msgstr "Ein Fehler ist aufgetreten, bitte versuch es nocheinmal."
-
-#: friendfund/controllers/myprofile.py:236
 #, python-format
 msgid "PROFILE_RESETPASSWORD_TOKEN_This link is no longer valid, please request a new password <a %s>here </a>"
 msgstr "Dieser Link ist nicht mehr gültig! Bitte fordere <a %s>hier</a> ein neues Passwort an."
 
-#: friendfund/controllers/myprofile.py:250
+#: friendfund/controllers/myprofile.py:246
 msgid "PROFILE_RESETPASSWORD_TOKEN_Token expired or invalid"
 msgstr "Link ungültig oder abgelaufen. Bitte beantrage in der Box unten einen neuen Link."
 
-#: friendfund/controllers/myprofile.py:261
+#: friendfund/controllers/myprofile.py:257
 msgid "PROFILE_RESETPASSWORD_Your password has been reset!"
 msgstr "Dein Passwort wurde aktualisiert!"
 
-#: friendfund/controllers/myprofile.py:276
+#: friendfund/controllers/myprofile.py:272
 msgid "PROFILE_VERIFY_EMAIL_TOKEN_Token expired or invalid"
 msgstr "Link ungültig. Deine E-Mail Adresse konnte nicht bestätigt werden."
 
-#: friendfund/controllers/myprofile.py:278
+#: friendfund/controllers/myprofile.py:274
 msgid "PROFILE_VERIFY_EMAIL_TOKEN_Your Email Address has been verified. Thank You!"
 msgstr "Deine E-Mail Adresse wurde bestätigt und dein Konto aktiviert. Viel Spaß!"
 
@@ -555,18 +543,26 @@ msgstr "Bitte eine  E-Mail Adresse eingeben!"
 
 #: friendfund/model/forms/user.py:9
 #: friendfund/model/forms/user.py:15
-#: friendfund/model/forms/user.py:37
+#: friendfund/model/forms/user.py:30
 msgid "FF_SIGNUP_ERROR_EMAIL_Please enter an email !"
 msgstr "Bitte eine  E-Mail Adresse eingeben!"
 
 #: friendfund/model/forms/user.py:10
-#: friendfund/model/forms/user.py:38
+#: friendfund/model/forms/user.py:31
 msgid "FF_SIGNUP_ERROR_PWD_Please enter a password !"
 msgstr "Bitte ein Passwort eingeben!"
 
-#: friendfund/model/forms/user.py:36
+#: friendfund/model/forms/user.py:29
 msgid "FF_SIGNUP_ERROR_NAME_Please enter a name!"
 msgstr "Bitte einen Namen eingeben!"
+
+#: friendfund/model/forms/user.py:58
+msgid "FF_PWD_PAGE_ERROR_Please enter your new password !"
+msgstr "Bitte gib ein neues Passwort ein!"
+
+#: friendfund/model/forms/user.py:59
+msgid "FF_PWD_PAGE_ERROR_Please re-enter your new password !"
+msgstr "Bitte das neue Passwort nocheinmal zur Bestätigung eingeben!"
 
 #: friendfund/resources/db_keys.py:4
 msgid "EVENT_BIRTHDAY"
@@ -1443,7 +1439,7 @@ msgid "FF_STATIC_MENU_Jobs"
 msgstr "Jobs"
 
 #: friendfund/templates_free_form/content/common.html:55
-#: friendfund/templates_free_form/myprofile/login_panel.html:108
+#: friendfund/templates_free_form/myprofile/login_panel.html:67
 msgid "FF_MENU_Create a pool"
 msgstr "Gründe einen Pool"
 
@@ -2329,50 +2325,54 @@ msgstr "%(actorname)s hat %(invitee_names)s zu %(pooltitle)s eingeladen."
 msgid "FF_NEWSSTREAM_%(actorname)s commented on %(pooltitle)s."
 msgstr "%(actorname)s hat  %(pooltitle)s kommentiert ."
 
-#: friendfund/templates_free_form/myprofile/account.html:20
+#: friendfund/templates_free_form/myprofile/account.html:5
+msgid "FF_TITLE_Account Settings"
+msgstr "Kontoeinstellungen"
+
+#: friendfund/templates_free_form/myprofile/account.html:14
 msgid "FF_ACCOUNT_Edit your profile"
 msgstr "Profil bearbeiten"
 
-#: friendfund/templates_free_form/myprofile/account.html:29
+#: friendfund/templates_free_form/myprofile/account.html:23
 msgid "FF_ACCOUNT_ Choose how you want to be identified on friendfund."
-msgstr "Wähle wie du auf friendfund dargestellt werden möchtest."
+msgstr "Ändere hier, wie du auf friendfund dargestellt wirst."
 
-#: friendfund/templates_free_form/myprofile/account.html:33
+#: friendfund/templates_free_form/myprofile/account.html:27
 msgid "FF_ACCOUNT_Your Name"
 msgstr "Deine Name"
 
-#: friendfund/templates_free_form/myprofile/account.html:42
+#: friendfund/templates_free_form/myprofile/account.html:36
 msgid "FF_ACCOUNT_Email Address"
 msgstr "Email"
 
-#: friendfund/templates_free_form/myprofile/account.html:63
+#: friendfund/templates_free_form/myprofile/account.html:57
 #: friendfund/templates_free_form/product/picturepopup.html:20
 #: friendfund/templates_free_form/product/ulpicture_popup.html:17
 msgid "FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB"
 msgstr "JPEG, PNG oder GIF. MAX Dateigröße : 5 MB "
 
-#: friendfund/templates_free_form/myprofile/account.html:77
+#: friendfund/templates_free_form/myprofile/account.html:71
 msgid "FF_ACCOUNT_friendfund Picture"
 msgstr "friendfund Bild"
 
-#: friendfund/templates_free_form/myprofile/account.html:80
+#: friendfund/templates_free_form/myprofile/account.html:74
 msgid "FF_ACCOUNT_You have not uploaded a picture yet"
 msgstr "Du hast noch kein Bild hochgeladen"
 
-#: friendfund/templates_free_form/myprofile/account.html:90
+#: friendfund/templates_free_form/myprofile/account.html:84
 msgid "FF_ACCOUNT_Twitter Picture"
 msgstr "Twitter Bild"
 
-#: friendfund/templates_free_form/myprofile/account.html:93
-#: friendfund/templates_free_form/myprofile/connections.html:75
+#: friendfund/templates_free_form/myprofile/account.html:87
+#: friendfund/templates_free_form/myprofile/connections.html:80
 msgid "FF_ACCOUNT_You're not connected with Twitter"
 msgstr "Du bist nicht mit Twitter verbunden"
 
-#: friendfund/templates_free_form/myprofile/account.html:94
-#: friendfund/templates_free_form/myprofile/connections.html:76
-#: friendfund/templates_free_form/myprofile/connections.html:77
-#: friendfund/templates_free_form/myprofile/login_panel.html:33
-#: friendfund/templates_free_form/myprofile/login_panel.html:34
+#: friendfund/templates_free_form/myprofile/account.html:88
+#: friendfund/templates_free_form/myprofile/connections.html:81
+#: friendfund/templates_free_form/myprofile/connections.html:82
+#: friendfund/templates_free_form/myprofile/login_panel.html:31
+#: friendfund/templates_free_form/myprofile/login_panel.html:32
 #: friendfund/templates_free_form/myprofile/login_popup.html:13
 #: friendfund/templates_free_form/myprofile/login_popup.html:14
 #: friendfund/templates_free_form/myprofile/login_screen.html:26
@@ -2380,24 +2380,24 @@ msgstr "Du bist nicht mit Twitter verbunden"
 msgid "FF_LOGIN_Log in with Twitter"
 msgstr "Twitter Anmeldung"
 
-#: friendfund/templates_free_form/myprofile/account.html:95
+#: friendfund/templates_free_form/myprofile/account.html:89
 msgid "FF_LOGIN_Twitter_Log_In"
 msgstr "Verbinden"
 
-#: friendfund/templates_free_form/myprofile/account.html:106
+#: friendfund/templates_free_form/myprofile/account.html:100
 msgid "FF_ACCOUNT_Facebook Picture"
 msgstr "Facebook Bild"
 
-#: friendfund/templates_free_form/myprofile/account.html:109
-#: friendfund/templates_free_form/myprofile/connections.html:40
+#: friendfund/templates_free_form/myprofile/account.html:103
+#: friendfund/templates_free_form/myprofile/connections.html:43
 msgid "FF_ACCOUNT_You're not connected with Facebook"
 msgstr "Du bist nicht mit Facebook verbunden"
 
-#: friendfund/templates_free_form/myprofile/account.html:110
-#: friendfund/templates_free_form/myprofile/connections.html:41
-#: friendfund/templates_free_form/myprofile/connections.html:42
-#: friendfund/templates_free_form/myprofile/login_panel.html:29
-#: friendfund/templates_free_form/myprofile/login_panel.html:30
+#: friendfund/templates_free_form/myprofile/account.html:104
+#: friendfund/templates_free_form/myprofile/connections.html:44
+#: friendfund/templates_free_form/myprofile/connections.html:45
+#: friendfund/templates_free_form/myprofile/login_panel.html:27
+#: friendfund/templates_free_form/myprofile/login_panel.html:28
 #: friendfund/templates_free_form/myprofile/login_popup.html:9
 #: friendfund/templates_free_form/myprofile/login_popup.html:10
 #: friendfund/templates_free_form/myprofile/login_screen.html:22
@@ -2405,14 +2405,57 @@ msgstr "Du bist nicht mit Facebook verbunden"
 msgid "FF_LOGIN_Log in with Facebook"
 msgstr "Facebook Anmeldung"
 
-#: friendfund/templates_free_form/myprofile/account.html:111
+#: friendfund/templates_free_form/myprofile/account.html:105
 msgid "FF_LOGIN_Facebook_Log_In"
 msgstr "Verbinden"
 
-#: friendfund/templates_free_form/myprofile/account.html:117
+#: friendfund/templates_free_form/myprofile/account.html:111
+#: friendfund/templates_free_form/myprofile/account_password.html:80
 #: friendfund/templates_free_form/myprofile/notifications.html:25
 msgid "FF_ACCOUNT_Save Changes"
 msgstr "Änderungen speichern"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:3
+msgid "FF_TITLE_Account Password"
+msgstr "Passwort"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:18
+msgid "FF_PWD_PAGE_Create a Password fopr your account"
+msgstr "Ein neues Passwort für dein Profil erstellen"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:20
+msgid "FF_PWD_PAGE_Change Your Password"
+msgstr "Passwort ändern"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:38
+msgid "FF_PWD_PAGE_Current Password"
+msgstr "Passwort"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:40
+msgid "FF_PWD_PAGE_Your current login password"
+msgstr "Dein gegenwärtiges Passwort"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:56
+msgid "FF_PWD_PAGE_New Password"
+msgstr "Neues Passwort"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:58
+msgid "FF_PWD_PAGE_Type your new password here"
+msgstr "Hier das neue Passwort eintragen"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:60
+#: friendfund/templates_free_form/myprofile/login_screen.html:59
+#: friendfund/templates_free_form/myprofile/signup_popup.html:42
+msgid "FF_LOGIN_Min 6 characters. Letters and numbers only please."
+msgstr "Min. 6 Zeichen. Bitte nur Buchstaben oder Zahlen."
+
+#: friendfund/templates_free_form/myprofile/account_password.html:73
+msgid "FF_PWD_PAGE_Confirm New Password"
+msgstr "Bitte nocheinmal eingeben"
+
+#: friendfund/templates_free_form/myprofile/account_password.html:75
+msgid "FF_PWD_PAGE_Retype your new password"
+msgstr "Neues Passwort hier nochmal eingeben"
 
 #: friendfund/templates_free_form/myprofile/addemail_popup.html:6
 #, python-format
@@ -2425,7 +2468,7 @@ msgstr "Bitte für deine  E-Mail Adresse hinzu"
 
 #: friendfund/templates_free_form/myprofile/addemail_popup.html:14
 #: friendfund/templates_free_form/myprofile/forgotpassword_popup.html:14
-#: friendfund/templates_free_form/myprofile/login_panel.html:9
+#: friendfund/templates_free_form/myprofile/login_panel.html:7
 #: friendfund/templates_free_form/myprofile/login_popup.html:23
 #: friendfund/templates_free_form/myprofile/login_screen.html:45
 #: friendfund/templates_free_form/myprofile/signup_popup.html:29
@@ -2442,31 +2485,39 @@ msgstr "Kontoeinstellungen"
 
 #: friendfund/templates_free_form/myprofile/common.html:10
 msgid "FF_MYPROFILE_MENU_Basic Info"
-msgstr "Wichtige Informationen"
+msgstr "Mein Konto"
 
 #: friendfund/templates_free_form/myprofile/common.html:11
+msgid "FF_MYPROFILE_MENU_Password"
+msgstr "Passwort"
+
+#: friendfund/templates_free_form/myprofile/common.html:12
 msgid "FF_MYPROFILE_MENU_Notifications"
 msgstr "Benachrichtigungen"
 
-#: friendfund/templates_free_form/myprofile/common.html:12
+#: friendfund/templates_free_form/myprofile/common.html:13
 msgid "FF_MYPROFILE_MENU_Connections"
 msgstr "Verbindungen"
 
-#: friendfund/templates_free_form/myprofile/connections.html:12
+#: friendfund/templates_free_form/myprofile/connections.html:4
+msgid "FF_TITLE_Connections"
+msgstr "Verbindungen"
+
+#: friendfund/templates_free_form/myprofile/connections.html:13
 msgid "FF_ACCOUNT_Log In Connections"
 msgstr "Netzwerkverbindungen"
 
-#: friendfund/templates_free_form/myprofile/connections.html:28
+#: friendfund/templates_free_form/myprofile/connections.html:29
 #, python-format
 msgid "FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>"
 msgstr "Du bist mit Facebook als <b>%(name)s</b> verbunden"
 
-#: friendfund/templates_free_form/myprofile/connections.html:29
-#: friendfund/templates_free_form/myprofile/connections.html:64
+#: friendfund/templates_free_form/myprofile/connections.html:31
+#: friendfund/templates_free_form/myprofile/connections.html:68
 msgid "FF_ACCOUNT_Disconnect"
 msgstr "Trennen"
 
-#: friendfund/templates_free_form/myprofile/connections.html:63
+#: friendfund/templates_free_form/myprofile/connections.html:66
 #, python-format
 msgid "FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>"
 msgstr "Du bist mit Twitter als <b>%(name)s</b> verbunden"
@@ -2483,74 +2534,74 @@ msgstr "Wir schicken dir ein neues Passwort an deine E-Mail Adresse."
 msgid "FF_LOGINBUTTON_Submit"
 msgstr "Abschicken"
 
-#: friendfund/templates_free_form/myprofile/forgotpassword_popup.html:25
+#: friendfund/templates_free_form/myprofile/forgotpassword_popup.html:26
 msgid "FF_LOGIN_Login Here"
 msgstr "Einloggen"
 
-#: friendfund/templates_free_form/myprofile/forgotpassword_popup.html:26
+#: friendfund/templates_free_form/myprofile/forgotpassword_popup.html:27
 msgid "FF_LOGIN_Sign up Here"
 msgstr "Registrieren"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:16
+#: friendfund/templates_free_form/myprofile/login_panel.html:14
 #: friendfund/templates_free_form/myprofile/login_popup.html:30
 #: friendfund/templates_free_form/myprofile/login_screen.html:54
 #: friendfund/templates_free_form/myprofile/signup_popup.html:37
 msgid "FF_LOGIN_Password"
 msgstr "Password"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:22
+#: friendfund/templates_free_form/myprofile/login_panel.html:20
 #: friendfund/templates_free_form/myprofile/login_popup.html:36
 msgid "FF_LOGIN_Forgot Password?"
 msgstr "Passwort vergessen?"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:25
+#: friendfund/templates_free_form/myprofile/login_panel.html:23
 #: friendfund/templates_free_form/myprofile/login_popup.html:42
 msgid "FF_LOGINBUTTON_Log In"
 msgstr "Einloggen"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:27
+#: friendfund/templates_free_form/myprofile/login_panel.html:25
 msgid "FF_LOGIN_Login with facebook or twitter"
 msgstr "Mit Facebook oder Twitter einloggen"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:37
+#: friendfund/templates_free_form/myprofile/login_panel.html:35
 #: friendfund/templates_free_form/myprofile/login_popup.html:43
 msgid "FF_LOGIN_Dont have an account yet?"
 msgstr "Du hast noch kein Konto?"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:37
+#: friendfund/templates_free_form/myprofile/login_panel.html:35
 msgid "FF_LOGIN_Sign up here"
 msgstr "Registrieren"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:43
+#: friendfund/templates_free_form/myprofile/login_panel.html:40
 msgid "FF_LOGIN_Login"
 msgstr "Login"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:49
+#: friendfund/templates_free_form/myprofile/login_panel.html:43
 #: friendfund/templates_free_form/myprofile/signup_popup.html:49
 msgid "FF_LOGIN_Sign Up"
 msgstr "Registrieren"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:91
+#: friendfund/templates_free_form/myprofile/login_panel.html:50
 msgid "FF_LOGINDROPDOWN_Account Settings"
 msgstr "Kontoeinstellungen"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:92
+#: friendfund/templates_free_form/myprofile/login_panel.html:51
 msgid "FF_LOGINDROPDOWN_Profile"
 msgstr "Profil"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:93
+#: friendfund/templates_free_form/myprofile/login_panel.html:52
 msgid "FF_LOGINDROPDOWN_Logout"
 msgstr "Logout"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:104
+#: friendfund/templates_free_form/myprofile/login_panel.html:63
 msgid "FF_MENU_Home"
 msgstr "Home"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:106
+#: friendfund/templates_free_form/myprofile/login_panel.html:65
 msgid "FF_MENU_Learn"
 msgstr "Erfahre mehr"
 
-#: friendfund/templates_free_form/myprofile/login_panel.html:111
+#: friendfund/templates_free_form/myprofile/login_panel.html:70
 msgid "FF_MENU_My_Pools"
 msgstr "Pools"
 
@@ -2587,11 +2638,6 @@ msgstr "Oder registriere dich hier"
 #: friendfund/templates_free_form/myprofile/signup_popup.html:22
 msgid "FF_LOGIN_Your Name"
 msgstr "Dein Name"
-
-#: friendfund/templates_free_form/myprofile/login_screen.html:59
-#: friendfund/templates_free_form/myprofile/signup_popup.html:42
-msgid "FF_LOGIN_Min 6 characters. Letters and numbers only please."
-msgstr "Min. 6 Zeichen. Bitte nur Buchstaben oder Zahlen."
 
 #: friendfund/templates_free_form/myprofile/login_screen.html:63
 #, python-format
@@ -3075,7 +3121,7 @@ msgstr "Wie möchtest du dein Geld erhalten?"
 
 #: friendfund/templates_free_form/pool/pool_details.html:244
 msgid "FF_POOLDETAILS_You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else."
-msgstr "Der gesammelte Geldbetrag wird nur ausgezahlt, wenn der festgelegte Gesamtbetrag des Pools erreicht wurde."
+msgstr "Diese Information wird mit Niemandem geteilt!"
 
 #: friendfund/templates_free_form/pool/pool_details.html:255
 #, python-format

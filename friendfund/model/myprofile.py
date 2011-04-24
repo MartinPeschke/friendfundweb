@@ -2,25 +2,6 @@ from datetime import datetime, timedelta
 from pylons.i18n import ugettext as _
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper, DBMapping
-
-class Profile(DBMappedObject):
-	_cachable = False
-	_get_root = _set_root = "USER_NETWORK"
-	_unique_keys = ['network', 'name', 'email']
-	_keys = [GenericAttrib(str, 'network', 'network')
-			,GenericAttrib(str, 'network_id', 'id')
-			,GenericAttrib(unicode, 'name', 'name')
-			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
-			,GenericAttrib(unicode, 'email', 'email')
-			,GenericAttrib(bool, 'is_default', 'is_default')
-			]
-	def get_profile_pic(self, type="RA", secured = False):
-		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
-	
-	def fromDB(self, xml):
-		self.network = self.network.lower()
-	
-
 class Picture(DBMappedObject):
 	_cachable = False
 	_get_root = _set_root = "PICTURE"
@@ -69,6 +50,23 @@ class GetMyPictureProc(DBMappedObject):
 			self.pictures["uploaded"] = self.pictures["email"]
 
 
+class Profile(DBMappedObject):
+	_cachable = False
+	_get_root = _set_root = "USER_NETWORK"
+	_unique_keys = ['network', 'name', 'email']
+	_keys = [GenericAttrib(str, 'network', 'network')
+			,GenericAttrib(str, 'network_id', 'id')
+			,GenericAttrib(unicode, 'name', 'name')
+			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
+			,GenericAttrib(unicode, 'email', 'email')
+			,GenericAttrib(bool, 'is_default', 'is_default')
+			,GenericAttrib(bool, 'can_disconnect', 'can_disconnect')
+			]
+	def get_profile_pic(self, type="RA", secured = False):
+		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
+	
+	def fromDB(self, xml):
+		self.network = self.network.lower()
 class GetMyProfileProc(DBMappedObject):
 	_cachable = False
 	_set_root = "USER"
@@ -109,4 +107,16 @@ class OptOutNotificationsProc(DBMappedObject):
 	_unique_keys = ['u_id']
 	_keys = [GenericAttrib(int, 'u_id', 'u_id')
 			,DBMapper(OptOutTemplateType, 'types', 'TEMPLATE_TYPE', is_list = True)
+			]
+
+class ResetPasswordProc(DBMappedObject):
+	"""exec app.create_update_email_password '<USER u_id = "127590" new_pwd = "harry1" />'"""
+	_cachable = False
+	_get_root = None
+	_set_root = "USER"
+	_get_proc = _set_proc = "app.create_update_email_password"
+	_unique_keys = ['u_id']
+	_keys = [GenericAttrib(int, 'u_id', 'u_id')
+			,GenericAttrib(str, 'new_pwd', 'new_pwd')
+			,GenericAttrib(str, 'current_pwd', 'current_pwd')
 			]
