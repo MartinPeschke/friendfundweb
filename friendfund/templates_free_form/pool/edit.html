@@ -1,0 +1,93 @@
+<%inherit file="../layout.html"/>
+<%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
+<%namespace name="parser" file="../product/urlparser.html"/>
+<%def name="scripts_styles()">
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
+</%def>
+<%def name="page_reloader()">
+	page_reloader = function(){};
+	dojo.require("dojo.parser");
+	dojo.require("dijit.Editor");
+    dojo.require("dijit._editor.plugins.FontChoice"); // 'fontName','fontSize','formatBlock'
+    dojo.require("dijit._editor.plugins.TextColor");
+</%def>
+
+
+
+
+<%def name="onloadscripts()">
+	parseDefaultsInputs("poolDetails");
+	parseSelectables("poolDetails");
+	dojo.parser.parse("poolDetails");
+</%def>
+
+<% 
+	locals = {"pool_title":c.pool.title}
+%>
+<div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
+  <div class="subHeader">
+    <div class="userProfile">
+        <div class="nonPoolHeader">
+        <h2>${_("FF_POOL_EDIT_Edit %(pool_title)s")%locals}</h2>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<div class="wrapSubContent">
+<div class="content">
+	<div class="colLeft">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}">
+		<div class="poolDets" id="poolDetails">
+			<h4>${_("FF_POOLDETAILS_HEADER_Edit your Pool below")}</h4>
+			<div class="subHeadingSpecial"></div>
+
+			<div class="borderBottom ${('title' in c.errors) and "error" or ""}">
+				<div class="tip">
+					<div class="arrow"></div>
+					%if 'title' in c.errors:
+						<span>${c.errors['title']}</span>
+					%else:
+						<span>${_("FF_POOLEDIT_TITLE_Change the title of your pool here")}</span>
+					%endif
+				</div>
+				<div class="greyInsideFullWidth">
+					<div class="first">
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
+					</div>
+					<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title']}" />
+				</div>
+			</div>
+			
+			<div class="borderBottom ${('description' in c.errors) and "error" or ""}">
+				<div class="tip">
+					<div class="arrow"></div>
+					%if 'description' in c.errors:
+						<span>${c.errors['description']}</span>
+					%else:
+						<span>${_("FF_EDIT_DESCRIPTION_Change your pool description here and raise more awareness by gripping storytelling!")}</span>
+					%endif
+				</div>
+
+            	<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
+				</div>
+				<div class="containerTxtArea claro">
+					<div dojoType="dijit.Editor" id="descriptionEditor" extraPlugins="['foreColor','hiliteColor',{name:'dijit._editor.plugins.FontChoice', command:'fontName', generic:true}]"
+					onChange="console.log('descriptionEditor onChange handler: ' + arguments[0])"><p>${c.values['description']}</p></div>
+				</div>
+                </div>
+			</div>
+			
+			
+			<div class="spacerButtons floatRight">
+				<input id="submitter" class="floatRight forward" type="button" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
+			</div>
+		</div>
+		</form>
+	</div>
+<div class="clear"></div>
+</div>
+</div>

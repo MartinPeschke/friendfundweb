@@ -492,10 +492,11 @@ FriendFund.Popin = {
 FriendFund.Button = {
 	button_id: "friendfund_fund_button",
 	button_text: "Friendfund this",
-	css_template: "#${button_id} {margin: 10px 0;width: auto} \
+	css_template: "#${button_id} {margin: 10px 0;width: auto;background:#f4f4f4;} \
 					#${button_id}:hover {cursor:pointer}\
-					#${button_id} .friendfundButton{pointer:cursor;margin:10px auto;color:white;width:192px;height:71px;\
-					background:url(${protocol}${host}/custom/imgs/friendfund_it_button.png) no-repeat 0 0 transparent;display:block}",
+					#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:center;padding: 7px 0 5px;}\
+					#${button_id} .friendfundButton img{margin:0px auto;}\
+					#${button_id} .friendfundButton span{padding:0 5px;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
 					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
@@ -504,27 +505,34 @@ FriendFund.Button = {
 	show: function (options) {
 		FriendFund.Popin.setup(options);
 		this.button_id = options.button_id || this.button_id;
-		if(!document.getElementById(this.button_id)){
-			var bc = document.createElement('div');bc.id=this.button_id;
-			document.body.insertBefore(bc, document.body.firstChild);
-			
-			var pageDimensions = FriendFund.Page.getDimensions();
-			var computedTop = ((pageDimensions.height - 143) / 2);
-			options.css_template = FriendFund.Util.render(this.fixed_css_template, {top:Math.max(computedTop, 55) + "px"});
-		}else{
-			options.css_template = this.css_template;
-		}
-		options.alignment = options.alignment||"left";
+		
 		var button = document.createElement('A');
 		button.id = "friendfund_button";
 		button.className="friendfundButton";
 		button.onclick=function(){FriendFund.Popin.show(options); return false;};
-		button.innerHTML = "&nbsp;";
+		if(!document.getElementById(this.button_id)){
+			var bc = document.createElement('div');bc.id=this.button_id;
+			document.body.insertBefore(bc, document.body.firstChild);
+			var pageDimensions = FriendFund.Page.getDimensions();
+			var computedTop = ((pageDimensions.height - 143) / 2);
+			options.css_template = FriendFund.Util.render(this.fixed_css_template, {top:Math.max(computedTop, 55) + "px"});
+			button.innerHTML = "&nbsp;";
+		}else{
+			options.css_template = this.css_template;
+			var img = document.createElement("IMG");
+			img.src=FriendFund.Util.render("${protocol}${host}/custom/imgs/friendfund_it_button_sml.png", options);
+			var buttonSubscript = document.createElement("SPAN");
+			buttonSubscript.innerHTML = options.button_text[options.lang]||options.button_text[en];
+			button.appendChild(img);
+			button.appendChild(buttonSubscript);
+		}
 		document.getElementById(this.button_id).appendChild(button);
 		FriendFund.Util.includeCss(FriendFund.Util.render(options.css_template || this.css_template, options));
 	 }
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
+	defaultOptions = {alignment:"left", button_text:{es:"Comparte los gatos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}};
+	for(var option in defaultOptions){friendfundOptions[option] = friendfundOptions[option]||defaultOptions[option];}
 	FriendFund.Button.show(friendfundOptions);
 }
 

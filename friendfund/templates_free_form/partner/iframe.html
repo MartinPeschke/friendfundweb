@@ -14,7 +14,6 @@
 		}
 	);
 	</script>
-	
 </%def>
 <%def name="onloadscripts()">
 	ffp_panel = new friendfund.PartnerPanel({
@@ -50,7 +49,7 @@
 			</div>
 			%endif
 		<div class="colLeftIframe" id="helpPopupContainer">
-			<img class="floatLeft merchantLogo" width="60px" height="30px" src="/custom/imgs/logo_sml.png"/>
+			<img class="floatLeft merchantLogo" style="margin:7px 0 0 50px" width="90px" height="45px" src="/custom/imgs/logo_med.png"/>
 			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
 			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1000;"></div>
 			<div class="learnMoreBtn">
@@ -104,7 +103,6 @@
 					<a class="forward floatRight helpPopupToggler" style="margin-top:13px" href="#">${_("FF_IFRAME_HELPPOPUP_Get started")}</a>
 					
 				</div>
-			<a class="floatRight" style="margin-top:15px" target="_blank" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button_long.png"/></a>
 			<div class="clear"></div>
 		</div>
 		</div>
@@ -213,14 +211,11 @@
 			<div class="footerColSx">
 			<div class="colRightWhite"></div>
 				<div class="floatLeft">
-					<span class="floatLeft">${_("FF_IFRAME_As seen in:")}</span>
-					<div><img src="/static/imgs/ds-bw.png" /></div>
-					<div><img src="/static/imgs/zanox-bw.png" /></div>
-					<div><img src="/static/imgs/iw-bw.png" /></div>
+					<div><a target="_blank" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button_long.png"/></a></div>
 				</div>
 				<div class="floatRight">
 					<span>${_("FF_IFRAME_You are safe with us")}</span>
-					<div class="floatRight" style="margin-top:0"><img src="/static/imgs/veri-sign.png" /></div>
+					<div class="floatRight" style="margin-top:0"><img width="58px;" src="/static/imgs/veri-sign.png" /></div>
 				</div>
 				<div class="clear"></div>
 			</div>

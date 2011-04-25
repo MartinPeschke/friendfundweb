@@ -27,9 +27,7 @@
 							</div>
 							<% locals = {"name":c.myprofiles['facebook'].name} %>
 							<p>${_("FF_ACCOUNT_You are connected to Facebook as <b>%(name)s</b>")%locals|n}</p>
-							%if c.myprofiles['facebook'].can_disconnect:
 							<a href="${url(controller="fb",action="disconnect", network_id = c.myprofiles['facebook'].network_id)}" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
-							%endif
 						</div>
 					</div>
 					</div>
@@ -64,9 +62,7 @@
 							</div>
 							<% locals = {"name":c.myprofiles['twitter'].name} %>
 							<p>${_("FF_ACCOUNT_You are connected to Twitter as <b>%(name)s</b>")%locals|n}</p>
-							%if c.myprofiles['twitter'].can_disconnect:
 							<a href="${url(controller="twitter",action="disconnect", network_id = c.myprofiles['twitter'].network_id )}" class="link">${_("FF_ACCOUNT_Disconnect")}</a>
-							%endif
 						</div>
 					</div>
 					</div>

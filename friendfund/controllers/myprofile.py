@@ -88,7 +88,7 @@ class MyprofileController(BaseController):
 	@default_domain_only()
 	def password(self):
 		c.accounts = g.dbm.get(GetMyProfileProc, u_id = c.user.u_id)
-		c.is_pwd_create = "email" in c.accounts.profiles
+		c.is_pwd_create = "email" not in c.accounts.profiles
 		c.values ={}
 		c.errors ={}
 		if request.method != 'POST':
@@ -98,16 +98,21 @@ class MyprofileController(BaseController):
 			form_result = PasswordResetForm().to_python(pwd_data, state = FriendFundFormEncodeState)
 			g.dbm.set(ResetPasswordProc(u_id=c.user.u_id, **form_result))
 			c.messages.append(SuccessMessage(_("FF_ACCOUNT_Your changes have been changed.")))
-			return self.render('/myprofile/account_password.html')
+			return redirect(url(controller='myprofile', action="password"))
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}
 			c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
 			return self.render('/myprofile/account_password.html')
 		except SProcWarningMessage, e:
+			if "CONSOLIDATION_FAILED_USERS_SHARE_OTHER_NETWORK_TYPE" == str(e):
+				c.messages.append(ErrorMessage(_("FF_ADDRESS_Your email address has already been claimed by another user, please choose a new one in your profile settings!")))
+			elif "CURRENT_PASSWORD_WRONG" == str(e):
+				c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
+				c.errors = {'current_pwd':_(u"FF_PWD_PAGE_Current password incorrect!")}
+			else:
+				raise e
 			c.values = form_result
-			c.errors = {'email':_(u"FF_PWD_PAGE_Current password incorrect!")}
-			c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
 			return self.render('/myprofile/account_password.html')
 	
 	def login(self):

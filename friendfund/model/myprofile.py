@@ -60,7 +60,6 @@ class Profile(DBMappedObject):
 			,GenericAttrib(unicode, 'profile_picture_url', 'profile_picture_url')
 			,GenericAttrib(unicode, 'email', 'email')
 			,GenericAttrib(bool, 'is_default', 'is_default')
-			,GenericAttrib(bool, 'can_disconnect', 'can_disconnect')
 			]
 	def get_profile_pic(self, type="RA", secured = False):
 		return self._statics.get_user_picture(self.profile_picture_url, type, secured = secured)
