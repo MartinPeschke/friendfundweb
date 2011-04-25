@@ -42,7 +42,7 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 	cookie = cookies.get("fbs_" + app_id, "")
 	if not cookie: raise FBNotLoggedInException("No Facebook Cookies Found")
 	args = dict((str(k), v[-1]) for k, v in cgi.parse_qs(cookie.strip('"')).items())
-	payload = "".join(k + "=" + args[k] for k in sorted(args.keys())
+	payload = "".join("%s=%s"%(k, args[k]) for k in sorted(args.keys())
 					  if k != "sig")
 	sig = hashlib.md5(payload + app_secret).hexdigest()
 	expires = int(args["expires"])
@@ -56,6 +56,31 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 		return args
 	else:
 		raise FBNotLoggedInException("No Facebook Cookies Found")
+
+def get_user_from_request(request, app_id, app_secret, user = None, set_cookie = False, response = None):
+	try:
+		args = simplejson.loads(request.params.get('fbsession'))
+		if not args: raise FBNotLoggedInException("No Facebook Cookies Found")
+		args = dict((str(k),v) for k,v in args.items())
+	except:
+		raise FBNotLoggedInException("No Facebook Request Params Found")
+	payload = "".join("%s=%s"%(k, args[k]) for k in sorted(args.keys())
+					  if k not in ["sig"])
+	sig = hashlib.md5(payload + app_secret).hexdigest()
+	expires = int(args["expires"])
+	if sig == args.get("sig") and (expires == 0 or time.time() < expires):
+		if user is not None and not user.is_anon:
+			nets = getattr(user, 'networks', {})
+			if nets.get('facebook') and getattr(nets.get('facebook'), "network_id", None) != str(args['uid']):
+				log.warning("FBLoggedInWithIncorrectUser, %s" % args)
+				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found")
+		if set_cookie and response and not request.cookies.get("fbs_" + app_id, None):
+			response.set_cookie("fbs_" + app_id, urllib.urlencode(args), 1800)
+		args['id'] = args.get("uid", args.get("id"))
+		return args
+	else:
+		raise FBNotLoggedInException("No Facebook Cookies Found")
+
 
 def get_user_from_signed_request(params, app_secret):
 	request = params.get('signed_request')

@@ -338,7 +338,12 @@ fb_handleLogin = function(response){
 	}
 	var missing_perms = FBSCOPE.replace(new RegExp(scope, "g"), "").strip(",");
 	if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response);return false;}
-	FB.api('/me', function(response) {response.scope = scope;xhrPost('/fb/login', response);});
+	var session = response.session;
+	FB.api('/me', function(response) {
+		response.scope = scope;
+		response.fbsession = dojo.toJson(session);
+		xhrPost('/fb/login', response);
+		});
 	return true;
 };
 fbLogin = function(response) {

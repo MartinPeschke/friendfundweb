@@ -1,6 +1,6 @@
 import logging, cgi, simplejson, urllib, urllib2, datetime
 
-from pylons import request, tmpl_context as c, app_globals, url
+from pylons import request, response, tmpl_context as c, app_globals, url
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 from friendfund.lib.auth.decorators import logged_in
@@ -17,12 +17,15 @@ class FbController(BaseController):
 	
 	@jsonify
 	def login(self):
+		print request.params
 		try:
-			fb_data = fb_helper.get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user)
+			fb_data = fb_helper.get_user_from_request(request, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user, True, response)
 		except fb_helper.FBNotLoggedInException, e: 
+			log.error(e)
 			return {'reload':True}
 			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
 		except fb_helper.FBLoggedInWithIncorrectUser, e: 
+			log.error(e)
 			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
 		user_data = dict([(k,v) for k,v in request.params.iteritems()])
 		user_data.update(fb_data)

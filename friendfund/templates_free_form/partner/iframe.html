@@ -11,6 +11,8 @@
 	dojo.query(".helpPopupToggler", "helpPopupContainer").onclick(
 		function(evt){
 			dojo.query(".helpPopupHook","helpPopupContainer").toggleClass("hidden");
+				setCookie("wheeeeee", "hallo", "1");
+				console.log(getCookie("wheeeeee"));
 		}
 	);
 	</script>
@@ -201,7 +203,7 @@
 				</select>
 		</div>
 		<div id="yourOccasionSelector" class="errorHook floatLeft">
-				<div class="occasionLabel first"></option>${_("FF_IFRAME_... or enter your own occasion")}</div>
+				<div class="occasionLabel first">${_("FF_IFRAME_... or enter your own occasion")}</div>
 				<input type="text" id="occasionTyper" _target="occasion_name" custom="1" key="EVENT_OTHER" />
 		</div>
 		<div id="contributionDeadline" class="errorHook floatLeft">
@@ -226,6 +228,5 @@
 		<div class="clear"></div>
 		</div>
 	</div>
-</div>
 </div>
 <%def name="user_voice()"></%def>
