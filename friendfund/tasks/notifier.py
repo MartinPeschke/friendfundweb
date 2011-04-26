@@ -109,7 +109,7 @@ def setup_common_parameters(template_data, common_params, merchant_config):
 	if "merchant_key" in template_data:
 		merchant = merchant_config.key_map[template_data["merchant_key"]]
 		params['merchant_domain'] = merchant.domain
-		params['merchant_logo_url'] = "http://%s%s" % (merchant.domain, merchant.get_logo_url())
+		params['merchant_logo_url'] = merchant.get_logo_url()
 		params['merchant_name'] = merchant.name
 		params['merchant_is_default'] = merchant.is_default
 	return params
