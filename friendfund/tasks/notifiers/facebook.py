@@ -102,10 +102,11 @@ def _stream_publish(template, sndr_data, rcpt_data, template_data):
 	
 	query = urllib.urlencode(msg)
 	try:
-		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query)
+		resp = urllib2.urlopen('https://graph.facebook.com/%s/feed' % rcpt_data.get('network_ref'), query).read()
 	except urllib2.HTTPError, e:
-		resp = e.fp
-	post = simplejson.loads(resp.read())
+		resp = e.fp.read()
+		log.error(resp)
+	post = simplejson.loads(resp)
 	
 	
 	# response.get("error"):

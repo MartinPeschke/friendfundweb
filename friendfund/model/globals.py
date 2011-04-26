@@ -103,7 +103,7 @@ class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
 	_unique_keys = ['name', 'key', 'domain']
-	_keys = [	 GenericAttrib(unicode,'name','name')
+	_keys = [	 GenericAttrib(unicode,'name','merchant_name')
 				,GenericAttrib(str,'domain','merchant_domain')
 				,GenericAttrib(str,'key','merchant_key')
 				,GenericAttrib(str,'pool_type','pool_type', enumeration=set(['FREE_FORM', 'GROUP_GIFT']))
