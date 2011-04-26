@@ -105,9 +105,9 @@ class MyprofileController(BaseController):
 			c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
 			return self.render('/myprofile/account_password.html')
 		except SProcWarningMessage, e:
-			if "CONSOLIDATION_FAILED_USERS_SHARE_OTHER_NETWORK_TYPE" == str(e):
+			if "CONSOLIDATION_FAILED_USERS_SHARE_OTHER_NETWORK_TYPE" in str(e):
 				c.messages.append(ErrorMessage(_("FF_ADDRESS_Your email address has already been claimed by another user, please choose a new one in your profile settings!")))
-			elif "CURRENT_PASSWORD_WRONG" == str(e):
+			elif "CURRENT_PASSWORD_WRONG" in str(e):
 				c.messages.append(ErrorMessage(_("FF_ADDRESS_Please correct the Errors below")))
 				c.errors = {'current_pwd':_(u"FF_PWD_PAGE_Current password incorrect!")}
 			else:

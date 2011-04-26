@@ -17,13 +17,16 @@ class FbController(BaseController):
 	
 	@jsonify
 	def login(self):
-		print request.params
 		try:
-			fb_data = fb_helper.get_user_from_request(request, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user, True, response)
+			fb_data = fb_helper.get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user)
 		except fb_helper.FBNotLoggedInException, e: 
-			log.error(e)
-			return {'reload':True}
-			return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
+			try:
+				log.warning("COULDNT_FIND_FB_COOKIES_%s(%s)", e, request.headers.get("User-Agent"))
+				fb_data = fb_helper.get_user_from_request(request, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), c.user, True, response)
+			except fb_helper.FBNotLoggedInException, e: 
+				log.error(e)
+				return {'reload':True}
+				return {'message':_(u'FB_LOGIN_NOT_LOGGED_INTO_FACEBOOK_WARNING')}
 		except fb_helper.FBLoggedInWithIncorrectUser, e: 
 			log.error(e)
 			return {'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
