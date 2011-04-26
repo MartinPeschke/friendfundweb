@@ -1,4 +1,5 @@
 <%inherit file="../layout.html"/>
+<%namespace name="forms" file="/widgets/forms.html"/>
 <div class="wrapSubHeader">
 <div class="overlayWrapper">
   <div class="overlay green">
@@ -22,7 +23,7 @@
         <div class="leftArrow active"></div>
         <div class="stepThree active"><span>3.</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
       </div>
-      <div class="clear"></div>
+      <div class="clear"></div>	
     </div>
   </div>
 </div>
@@ -36,7 +37,7 @@
 	%endif
 	<div style="margin-top:30px">
 		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="primaryButton floatLeft" style="margin-right:20px">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
-		<a href="${url("pool_details", protocol="http", v=2)}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
+		<a href="${forms.create_pool_link()}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
 		<div class="clear"></div>
 	</div>
   </div>
