@@ -492,8 +492,9 @@ FriendFund.Popin = {
 FriendFund.Button = {
 	button_id: "friendfund_fund_button",
 	button_text: "Friendfund this",
-	css_template: "#${button_id} {margin: 10px 0;width: auto;background:#f4f4f4;} \
+	css_template: "#${button_id} {margin: 10px 0;width: auto;background:${button_background};} \
 					#${button_id}:hover {cursor:pointer}\
+					#${button_id} *:hover {text-decoration:none !important}\
 					#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:center;padding: 7px 0 5px;}\
 					#${button_id} .friendfundButton img{margin:0px auto;}\
 					#${button_id} .friendfundButton span{padding:0 5px;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
@@ -531,7 +532,7 @@ FriendFund.Button = {
 	 }
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
-	defaultOptions = {alignment:"left", button_text:{es:"Comparte los gatos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}};
+	defaultOptions = {alignment:"left", button_text:{es:"Comparte los gatos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}, "button_background":"#f4f4f4"};
 	for(var option in defaultOptions){friendfundOptions[option] = friendfundOptions[option]||defaultOptions[option];}
 	FriendFund.Button.show(friendfundOptions);
 }
