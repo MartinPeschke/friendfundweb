@@ -40,3 +40,5 @@ def users_equal(user1, user2):
 		return False
 	return str(user1.network).lower() == str(user2.network).lower() and str(user1.network_id).lower() == str(user2.network_id).lower()
 
+def create_pool_link(request, url):
+	return request.merchant.type_is_group_gift and url("home", protocol="http") or url("pool_details", protocol="http", v=2)

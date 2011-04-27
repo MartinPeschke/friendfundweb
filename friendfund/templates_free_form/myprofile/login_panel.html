@@ -63,7 +63,7 @@
 		<li><a href="${url('home', protocol="http")}" ${forms.expression_quote(route["controller"] == "index", "class", "navselected")} >${_("FF_MENU_Home")}</a></li>
 		<li><a href="${url(controller="content", lang=session["lang"], action="learn_more", host=app_globals.default_host, protocol="http")}"
 			${forms.expression_quote(route["controller"] == "content", "class", "navselected")}>${_("FF_MENU_Learn")}</a></li>
-		<li><a href="${forms.create_pool_link()}" 
+		<li><a href="${h.create_pool_link(request, url)}" 
 			${forms.expression_quote(route["controller"] == "pool" and route["action"] in ["details","create"], "class", "navselected")}>${_("FF_MENU_Create a pool")}</a></li>
 		%if not c.user.is_anon:
 			<li><a href="${url(controller="mypools", action="stream", protocol="http")}" 

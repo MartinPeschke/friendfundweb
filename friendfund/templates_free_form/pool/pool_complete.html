@@ -1,5 +1,4 @@
 <%inherit file="../layout.html"/>
-<%namespace name="forms" file="/widgets/forms.html"/>
 
 
 <%def name="title()">${_("FF_TITLESUCCESS for %s") % c.pool.title}</%def>
@@ -60,7 +59,7 @@
 		<div class="generalBoxRight noBorder ">
 			<a href="${url('get_pool', pool_url = c.pool.p_url, view=1)}" class="primaryButton  floatLeft" style="margin-top:9px; margin-bottom:5px">${_("FF_POOLECARD_View Pool")}</a>
 			<div class="clear"></div>
-				<a href="${forms.create_pool_link()}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
+				<a href="${h.create_pool_link(request, url)}">${_("FF_POOLECARD_Create a new Pool")}&raquo;</a>
 			<div class="clear"></div>
 		</div>
 	</div>

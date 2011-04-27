@@ -1,5 +1,4 @@
 <%inherit file="../layout.html"/>
-<%namespace name="forms" file="/widgets/forms.html"/>
 <div class="wrapSubHeader">
 <div class="overlayWrapper">
   <div class="overlay green">
@@ -37,7 +36,7 @@
 	%endif
 	<div style="margin-top:30px">
 		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="primaryButton floatLeft" style="margin-right:20px">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
-		<a href="${forms.create_pool_link()}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
+		<a href="${h.create_pool_link(request, url)}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
 		<div class="clear"></div>
 	</div>
   </div>
