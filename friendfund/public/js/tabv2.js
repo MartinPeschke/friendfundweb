@@ -501,7 +501,7 @@ FriendFund.Button = {
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
 					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
-					background:url(${protocol}${host}/custom/imgs/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
+					background:url(${protocol}${host}/partner/buttons/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
 	show: function (options) {
 		FriendFund.Popin.setup(options);
@@ -521,9 +521,9 @@ FriendFund.Button = {
 		}else{
 			options.css_template = this.css_template;
 			var img = document.createElement("IMG");
-			img.src=FriendFund.Util.render("${protocol}${host}/custom/imgs/friendfund_it_button_sml.png", options);
+			img.src=FriendFund.Util.render("${protocol}${host}/static/partner/buttons/friendfund_it_button_${button_size}_${button_color}.png", options);
 			var buttonSubscript = document.createElement("SPAN");
-			buttonSubscript.innerHTML = options.button_text[options.lang]||options.button_text[en];
+			buttonSubscript.innerHTML = options.button_text[options.lang]||options.button_text["en"];
 			button.appendChild(img);
 			button.appendChild(buttonSubscript);
 		}
@@ -532,7 +532,9 @@ FriendFund.Button = {
 	 }
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
-	defaultOptions = {alignment:"left", button_text:{es:"Comparte los gatos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}, "button_background":"#f4f4f4"};
+	defaultOptions = {alignment:"left"
+					, button_text:{es:"Comparte los gatos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}
+					, button_background:"#f4f4f4", button_size:"large", button_color:"blue"};
 	for(var option in defaultOptions){friendfundOptions[option] = friendfundOptions[option]||defaultOptions[option];}
 	FriendFund.Button.show(friendfundOptions);
 }
