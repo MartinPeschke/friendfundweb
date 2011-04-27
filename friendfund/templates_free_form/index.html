@@ -66,22 +66,32 @@ ${self.renderMessages()}
 		${self.render_featured_pools(c.get_featured_pools, h.get_language_locale())|n}
 		<div class="clear"></div>
 	</div>
-
+	<div class="colRightWhite"></div>
 	<div class="whatElse">
 		<h4>${_("FF_HOMEPAGE_BOXES_Where else can I use friendfund?")}</h4>
-		<div class="boxGray box1">
-			<a href="http://amazon.friendfund.com"><img src="/static/imgs/integrations/amazon_trans.png" /></a>
-			<a href="http://www.caseable.com/gallery.php"><img src="/static/imgs/integrations/caseable_trans.png" /></a>
-			<a href="http://www.donanda.de/pages/affiliate/1090"><img src="/static/imgs/integrations/donanda_trans.png" /></a>
-			<a href="https://www.fidor.de/"><img src="/static/imgs/integrations/fidorbank_trans.png" /></a>
-			<a href="http://www.greatamericandays.com/adventure.php?adventure_id=11&price=&category=2&finder=52&imageField.x=9&imageField.y=12"><img src="/static/imgs/integrations/GAD_trans.png" /></a>
-			<a href="http://www.shopperella.de/kinderzimmer-zwei-tuerig/pinolino-kinderzimmer-laura-629/"><img src="/static/imgs/integrations/shopperella_trans.png" /></a>
+		<div class="boxGrayWrap box1">
+			<div class="boxGray">
+			<span class="controller controllerRight"> &laquo; </span>
+			<span class="controller controllerLeft"> &raquo; </span>
+			<ul class="slider">
+				<li><a href="http://amazon.friendfund.com"><img src="/static/imgs/integrations/amazon_trans.png" /></a></li>
+				<li><a href="http://www.caseable.com/gallery.php"><img src="/static/imgs/integrations/caseable_trans.png" /></a></li>
+				<li><a href="http://www.donanda.de/pages/affiliate/1090"><img src="/static/imgs/integrations/donanda_trans.png" /></a></li>
+				<li><a href="https://www.fidor.de/"><img src="/static/imgs/integrations/fidorbank_trans.png" /></a></li>
+				<li><a href="http://www.greatamericandays.com/adventure.php?adventure_id=11&price=&category=2&finder=52&imageField.x=9&imageField.y=12"><img src="/static/imgs/integrations/GAD_trans.png" /></a></li>
+				<li><a href="http://www.shopperella.de/kinderzimmer-zwei-tuerig/pinolino-kinderzimmer-laura-629/"><img src="/static/imgs/integrations/shopperella_trans.png" /></a></li>
+			</ul>
+				<div class="clear"></div>
+			</div>
 		</div>
-		
-		${testimonials.render(h.get_language_locale())|n}
 		<div class="clear"></div>
 	</div>
-
+	<div class="whatElse">
+			<h4>What our users are saying</h4>
+			${testimonials.render(h.get_language_locale())|n}
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
 </div>
 </div>
 
@@ -91,7 +101,8 @@ ${self.renderMessages()}
 <%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="60" cache_type="memory">
 	%for i, pool in enumerate(get_featured_pools()):
 		<% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
-		<div class="homebox ${i==3 and 'lastOne' or ''}">
+	<div class="homeboxWrap ${i==3 and 'omega' or ''}">
+		<div class="homebox">
 			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
 			<h5 style="min-height:36px;"><a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a></h5>
 			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
@@ -115,5 +126,7 @@ ${self.renderMessages()}
 				<div class="clear"></div>
 			</div>
 		</div>
+	</div>
+	
 	%endfor
 </%def>

@@ -58,6 +58,7 @@
 					</div>
 					<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title']}" />
 				</div>
+				<p class="info" style="width:75%; text-align:right">100</p>
 			</div>
 			
 			<div class="borderBottom ${('description' in c.errors) and "error" or ""}">
@@ -74,16 +75,25 @@
 				<div class="first">
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
-				<div class="containerTxtArea claro">
+				<div class="containerTxtArea claro noFloat">
 					<div dojoType="dijit.Editor" id="descriptionEditor" extraPlugins="['foreColor','hiliteColor',{name:'dijit._editor.plugins.FontChoice', command:'fontName', generic:true}]"
 					onChange="console.log('descriptionEditor onChange handler: ' + arguments[0])"><p>${c.values['description']}</p></div>
 				</div>
                 </div>
 			</div>
 			
+			<div class="generalPadding borderBottom spPad noBorder expander">
+					<div class="first">
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
+					</div>
+					<!--put the url expander plus the edit5 image link, this link will be removed from pool details page -->
+				</div>
 			
-			<div class="spacerButtons floatRight">
-				<input id="submitter" class="floatRight forward" type="button" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
+			
+			<div class="spacerButtons floatLeft" style="margin-left:164px">
+				<input id="submitter" class="primaryButton floatLeft" type="button" value="${_("FF_POOLDETAILS_Update Pool")}" /> 
+				<span class="floatLeft or">or</span> 
+				<input type="button" class="secondary floatRight" value="Cancel">
 			</div>
 		</div>
 		</form>

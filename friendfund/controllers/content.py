@@ -35,6 +35,9 @@ class ContentController(BaseController):
 	@default_domain_only()
 	def jobs(self):
 		return self.render("/content/jobs.html")
+	
+	def tips(self):
+		return self.render("/content/pool_tips.html")
 
 	@default_domain_only()
 	def impressum(self):
