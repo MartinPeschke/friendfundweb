@@ -1,0 +1,3659 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de"> 
+	<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="Content-Style-Type" content="text/css" /> 
+<meta http-equiv="Content-Script-Type" content="text/javascript" /> 
+<meta http-equiv="Content-Language" content="de" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=8" /> 
+ 
+<meta name="google-site-verification" content="vRkz0ZhVH2fSgmwLnIzkxJClyaE3JW4y0hMA-SDk11Y" /> 
+ 
+<link rel="shortcut icon" href="http://static.shopperella.de/images/favicon.ico" type="image/x-icon" /> 
+<link rel="search" type="application/opensearchdescription+xml" href="http://static.shopperella.de/opensearch.xml" title="Shopperella" /> 
+ 
+<title>Cybex Autokindersitz PALLAS-fix kaufen - Shopperella</title> 
+<meta name="title" content="Cybex Autokindersitz PALLAS-fix kaufen - Shopperella" /> 
+<meta name="robots" content="index,follow" /> 
+<meta http-equiv="Expires" content="0" /> 
+<meta http-equiv="Pragma" content="no-cache" /> 
+<meta name="description" content="Cybex Autokindersitz PALLAS-fix Mit dem Autokindersitz PALLAS-fix von Cybex erhalten Sie 2 Sitze in einem, der Ihr Kind von ca. 9 Monaten bis 12 Jahren..." /> 
+
+ 			<meta name="og:type" content="product" />
+			<meta name="og:name" content="Cybex Autokindersitz PALLAS-fix" />
+			<meta name="og:price" content="24995" />
+			<meta name="og:shipping_handling" content="0" />
+			<meta name="og:currency" content="EUR" />
+
+			<meta name="og:image" content="http://static.shopperella.de/media/item/13/87/65/item_XL_138765_2023331.jpg" />
+			<meta name="og:description" content="Cybex Autokindersitz PALLAS-fix Mit dem Autokindersitz PALLAS-fix von Cybex erhalten Sie 2 Sitze in einem, der Ihr Kind von ca. 9 Monaten bis 12 Jahren..." />
+			
+	<link rel="canonical" href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155137/" /> 
+	<link rel="image_src" href="http://static.shopperella.de/media/item/15/51/37/item_L_155137_2064845.jpg" /> 
+ 
+				    <link href="http://static.shopperella.de/css/shr_item_all.css?refresh=2011-03-26" rel="stylesheet" type="text/css" /> 
+	
+ 
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="http://static.shopperella.de/css/ie7.css?refresh=2011-03-26" /><![endif]--> 
+ 
+<script type="text/javascript">var HOSTSSL = 'https://ssl.shopperella.de'; var HOST = 'http://www.shopperella.de'; var STATICHOST = 'http://static.shopperella.de';</script> 
+ 
+			<script type="text/javascript" src="http://static.shopperella.de/javascript/libs/jQuery-1.4.2/jquery-1.4.2.min.js"></script> 
+    							<script type="text/javascript">/**
+
+ * COMMON JQUERY SCRIPTS
+
+ */
+
+
+
+/**
+
+* prepend MessageHandler
+
+*/
+
+function prepend() {
+
+	if($('#messages-container').length < 1) {
+
+		$('#body').prepend('<div id="messages-container"><a id="close_msgbox">x</a><ul id="messagebox"></ul></div>'); //<ul id="messageBox"></ul>
+
+		$('#messages-container').hide();
+
+ 	}
+
+}
+
+
+
+/**
+
+* MessageHandler Custom ErrorHandling
+
+*/
+
+function hmErrorHandling($validator) {
+
+	if ($validator.errorList.length !== 0){
+
+		$('#messages-container').show();
+
+	}
+
+	$validator.defaultShowErrors();
+
+	if ($('#messages-container li:visible').length === 0){
+
+		$('#messages-container').hide();
+
+	}
+
+}
+
+
+
+/**
+
+* Init CheckAll
+
+*/
+
+function initCheckAll() {
+
+	$('#checkall').click(function() {
+
+		if ($(this).is(':checked')) {
+
+			$('.chk').attr('checked','checked');
+
+		}
+
+		else {
+
+			$('.chk').attr('checked','');
+
+		}
+
+	});
+
+}
+
+
+
+/**
+
+* Navigation and cart dropdown fx
+
+*/
+
+
+
+
+
+function resize(element, width) {
+
+	//-reset
+
+	$(element).removeAttr('width');
+
+	$(element).removeAttr('height');
+
+	
+
+	var $maximum = width;
+
+	
+
+	var $thewidth = $(element).width();
+
+	var $theheight = $(element).height();
+
+	
+
+	if ($thewidth >= $theheight) {
+
+		if ($thewidth >= $maximum) {
+
+			$(element).attr({
+
+				width: $maximum
+
+			});
+
+		}
+
+	}
+
+	
+
+	if ($theheight >= $thewidth) {
+
+		if ($theheight >= $maximum) {
+
+			$(element).attr({
+
+				height: $maximum
+
+			});
+
+		}
+
+	}
+
+}
+
+
+
+function inputInfotext(element, infoText, handleSubmit) {
+
+	if ($(element).val() == '') 
+
+	{
+
+		$(element).val(infoText);
+
+		$(element).css('color', '#aaa');
+
+	}
+
+	
+
+	$(element).focus(function() {
+
+		if ($(this).val() == infoText) {
+
+			$(this).val('');
+
+			$(this).css('color', '#000');
+
+		}
+
+	});
+
+	
+
+	$(element).blur(function() {
+
+		if ($(this).val() == '') {
+
+			$(element).val(infoText);
+
+			$(element).css('color', '#aaa');
+
+		}
+
+	});
+
+	
+
+	if (handleSubmit != 'false')
+
+	{
+
+		$(element).parents('form').submit(function() {
+
+			$(element).val($(element).val().replace(infoText, ''));
+
+		});
+
+	}
+
+}
+
+
+
+$().ready(function() {
+
+	//-- messageHandler 
+
+	$('#close_msgbox').live('click', function() {
+
+		//$('#messageBox').remove();
+
+		$('.messagebox:first').remove();
+
+		$(this).remove();	
+
+	});
+
+	
+
+	/*if($('#js_cartEmpty').val() == "false"){
+
+		$("a#logout").click(function() {
+
+			tb_show(null, '/keep_cart.php?height=200&width=400&ajax=1', false);
+
+			return false;
+
+		});
+
+	}*/
+
+	
+
+	/*$('a[href^="#listprice_disclaimer"]').tooltip({ 
+
+	    bodyHandler: function() { 
+
+	        return $($(this).attr("href")).html(); 
+
+	    }, 
+
+	    showURL: false 
+
+	});*/
+
+	
+
+	/*$('a[href^="#shipping_charges"]').tooltip({
+
+	    bodyHandler: function() {
+
+	        return $($(this).attr("href")).html(); 
+
+	    }, 
+
+	    showURL: false 
+
+	});*/
+
+});
+
+
+
+function opacity(element, enabled) 
+
+{
+
+	if (enabled) {
+
+		$(element).css({'opacity': '.5'});
+
+		$(element).children('td').css({'filter' : 'alpha(opacity=50)'});
+
+		$(element).children('th').css({'filter' : 'alpha(opacity=50)'});
+
+	}
+
+	else {
+
+		$(element).css({'opacity': '1'});
+
+		$(element).children('td').css({'filter' : ''});
+
+		$(element).children('th').css({'filter' : ''});
+
+	}
+
+}
+
+</script> 
+							<script type="text/javascript">//function trackAddToCart(form) {_gaq.push(['_trackEvent', 'Cart', 'Add', 'Unit '+form.id_unit.value]);}
+
+function trackAddToCart(form) {
+
+	// for deprecated uses of this function
+
+}
+
+
+
+function trackLPClick(lpCat) {_gaq.push(['_trackEvent', 'LandingPage', 'Click', 'LandingPage '+lpCat]);}</script> 
+						<script type="text/javascript" src="http://static.shopperella.de/javascript/factfinder/ffsuggest.js?2011-03-26"></script> 
+    				<script type="text/javascript">	var aRegisterForm;
+
+	$(document).ready(function(){
+
+		var sParams 	= "";
+
+		var sUrl		= "";
+
+		var bRefresh 	= false;
+
+		
+
+		$('#js_brands_form').live('submit',function(){
+
+			sParams = $(this).serialize();
+
+			
+
+			if(sParams){
+
+				sUrl = $(this).attr('action');
+
+				contentRefresh(sParams, sUrl);
+
+			}else{
+
+				$('.formOne').addClass('js_error');
+
+				$('.error').html('Bitte wähle mindestens ein Feld aus einer Kategorie aus.');
+
+				$('.error').show();
+
+			}
+
+			return false;
+
+		});	
+
+		
+
+		$('.close_brandalarm').live('click', function(){
+
+			close();
+
+			return false;
+
+		});
+
+		
+
+		$('.js_close_info').live('click', function(){
+
+			close();		
+
+			return false;
+
+		});
+
+		
+
+		$('#forward').live('click',function(){
+
+			$('#js_brands_form').submit();
+
+			return false;
+
+		});
+
+		
+
+		$('#deleteConfirm').live('click',function(){
+
+			sUrl = $(this).attr('href');
+
+			contentRefresh(sParams, sUrl);
+
+			return false;
+
+		});
+
+		
+
+		$('#deleteAccount').live('click',function(){
+
+			sUrl = $(this).attr('href');
+
+			contentRefresh(sParams, sUrl);
+
+			return false;
+
+		});
+
+
+
+		$('.form_content span').live('click',function(){
+
+			if($(this).prev().attr('checked')){
+
+				$(this).prev().attr('checked', false)
+
+			}else{
+
+				$(this).prev().attr('checked', true)
+
+			}
+
+		});
+
+
+
+		$('#hide_info').live('click',function(){
+
+			register();
+
+			return false;
+
+		});
+
+		
+
+		$('#show_terms').live('click', function(){
+
+			//-- save form data for later!
+
+			aRegisterForm = $('form[name="js_register"]').serializeArray();
+
+			
+
+			sUrl = $(this).attr('href');
+
+			contentRefresh(sParams, sUrl);
+
+			return false;
+
+		});
+
+		
+
+		$('#js_click').live('click', function(){
+
+			sUrl = $(this).attr('href');
+
+			sParams = "";
+
+			contentRefresh(sParams, sUrl);
+
+			return false;
+
+		});
+
+		
+
+		$('#show_brand_info').live('click', function(){
+
+			showMore();
+
+		});
+
+	});
+
+	
+
+	function showMore(){
+
+		$('.js_content').slideUp('slow');
+
+		$('.more_info').show();
+
+		return false;
+
+	}
+
+
+
+	function register(){
+
+		$('.more_info').hide();
+
+		$('.js_content').slideDown('slow');
+
+		return false;
+
+	}
+
+	
+
+	function contentRefresh(sParams, requestUrl){
+
+		var requestUrl = requestUrl;
+
+		
+
+		if(sParams != ""){
+
+			requestUrl += '&'+sParams;
+
+		}
+
+		
+
+		$.ajax({
+
+			type: "GET",
+
+			url: requestUrl,
+
+			beforeSend: function(){
+
+				$('.pricealarm-loading-layer').fadeIn('slow');
+
+			},
+
+			success: function(data){
+
+					$('.brandalarm_layer').html(data);
+
+					$('.brandalarm_bg').show();
+
+					$('.brandalarm_content').show();
+
+					$('.brandalarm_layer').show();
+
+			} 
+
+		});
+
+	}
+
+	
+
+	function showInfo(data){
+
+		$('.brandalarm_bg').show();
+
+		$('.infoContainer').html(data);
+
+		$('.infoContainer').show();
+
+		return false;
+
+	}
+
+	
+
+	function close(){
+
+		var bRefreshPage = $('#js_bRefreshPage').val();
+
+		
+
+		$('.brandalarm_content').fadeOut('slow', function(){
+
+			$('.infoContainer').delay(500).hide();
+
+			$('.brandalarm_bg').delay(500).fadeOut();
+
+			
+
+			if(bRefreshPage){
+
+				window.location.reload();
+
+			}
+
+		});
+
+		return false;
+
+	}</script> 
+						<script type="text/javascript">/*
+
+JQuery Auto-Rezise
+
+ */
+
+
+
+(function($){
+
+    
+
+    $.fn.autoResize = function(options) {
+
+        
+
+        // Just some abstracted details,
+
+        // to make plugin users happy:
+
+        var settings = $.extend({
+
+            onResize : function(){},
+
+            animate : true,
+
+            animateDuration : 150,
+
+            animateCallback : function(){},
+
+            extraSpace : 20,
+
+            limit: 1000
+
+        }, options);
+
+        
+
+        // Only textarea's auto-resize:
+
+        this.filter('textarea').each(function(){
+
+            
+
+                // Get rid of scrollbars and disable WebKit resizing:
+
+            var textarea = $(this).css({resize:'none','overflow-y':'hidden'}),
+
+            
+
+                // Cache original height, for use later:
+
+                origHeight = textarea.height(),
+
+                
+
+                // Need clone of textarea, hidden off screen:
+
+                clone = (function(){
+
+                    
+
+                    // Properties which may effect space taken up by chracters:
+
+                    var props = ['height','width','lineHeight','textDecoration','letterSpacing'],
+
+                        propOb = {};
+
+                        
+
+                    // Create object of styles to apply:
+
+                    $.each(props, function(i, prop){
+
+                        propOb[prop] = textarea.css(prop);
+
+                    });
+
+                    
+
+                    // Clone the actual textarea removing unique properties
+
+                    // and insert before original textarea:
+
+                    return textarea.clone().removeAttr('id').removeAttr('name').css({
+
+                        position: 'absolute',
+
+                        top: 0,
+
+                        left: -9999
+
+                    }).css(propOb).attr('tabIndex','-1').insertBefore(textarea);
+
+					
+
+                })(),
+
+                lastScrollTop = null,
+
+                updateSize = function() {
+
+					
+
+                    // Prepare the clone:
+
+                    clone.height(0).val($(this).val()).scrollTop(10000);
+
+					
+
+                    // Find the height of text:
+
+                    var scrollTop = Math.max(clone.scrollTop(), origHeight) + settings.extraSpace,
+
+                        toChange = $(this).add(clone);
+
+						
+
+                    // Don't do anything if scrollTip hasen't changed:
+
+                    if (lastScrollTop === scrollTop) { return; }
+
+                    lastScrollTop = scrollTop;
+
+					
+
+                    // Check for limit:
+
+                    if ( scrollTop >= settings.limit ) {
+
+                        $(this).css('overflow-y','');
+
+                        return;
+
+                    }
+
+                    // Fire off callback:
+
+                    settings.onResize.call(this);
+
+					
+
+                    // Either animate or directly apply height:
+
+                    settings.animate && textarea.css('display') === 'block' ?
+
+                        toChange.stop().animate({height:scrollTop}, settings.animateDuration, settings.animateCallback)
+
+                        : toChange.height(scrollTop);
+
+                };
+
+            
+
+            // Bind namespaced handlers to appropriate events:
+
+            textarea
+
+                .unbind('.dynSiz')
+
+                .bind('keyup.dynSiz', updateSize)
+
+                .bind('keydown.dynSiz', updateSize)
+
+                .bind('change.dynSiz', updateSize);
+
+            
+
+        });
+
+        
+
+        // Chain:
+
+        return this;
+
+        
+
+    };
+
+    
+
+    
+
+    
+
+})(jQuery);</script> 
+						<script type="text/javascript" src="http://static.shopperella.de/javascript/libs/jQuery/plugins/jquery-validate/jquery.validate.min.js"></script> 
+    				<script type="text/javascript">/* Shopperella specific: */
+
+jQuery.validator.addMethod("extention", function(value, element, param) {
+
+  return value.match(new RegExp("." + param + "$"));
+
+}, jQuery.format("Dateiformat ungültig."));
+
+
+
+jQuery.validator.addMethod("ean", function(value, element, params) { 
+
+	value = value.replace(/^\s+/, '').replace(/\s+$/, ''); // Trim all whitespaces
+
+	return  this.optional(element) || (/^\d+$/.test(value) && (value.length == 13)); 
+
+}, jQuery.format("Der EAN-Code sollte aus 13-Ziffern bestehen."));
+
+
+
+
+
+/* JQuery : */
+
+
+
+jQuery.validator.addMethod("maxWords", function(value, element, params) { 
+
+    return this.optional(element) || value.match(/\b\w+\b/g).length < params; 
+
+}, "Please enter {0} words or less."); 
+
+ 
+
+jQuery.validator.addMethod("minWords", function(value, element, params) { 
+
+    return this.optional(element) || value.match(/\b\w+\b/g).length >= params; 
+
+}, "Please enter at least {0} words."); 
+
+ 
+
+jQuery.validator.addMethod("rangeWords", function(value, element, params) { 
+
+    return this.optional(element) || value.match(/\b\w+\b/g).length >= params[0] && value.match(/bw+b/g).length < params[1]; 
+
+}, "Please enter between {0} and {1} words.");
+
+
+
+
+
+jQuery.validator.addMethod("letterswithbasicpunc", function(value, element) {
+
+	return this.optional(element) || /^[a-z-.,()'\"\s]+$/i.test(value);
+
+}, "Letters or punctuation only please");  
+
+
+
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
+
+	return this.optional(element) || /^\w+$/i.test(value);
+
+}, "Letters, numbers, spaces or underscores only please");  
+
+
+
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+
+	return this.optional(element) || /^[a-z]+$/i.test(value);
+
+}, "Letters only please"); 
+
+
+
+jQuery.validator.addMethod("nowhitespace", function(value, element) {
+
+	return this.optional(element) || /^\S+$/i.test(value);
+
+}, "No white space please"); 
+
+
+
+jQuery.validator.addMethod("ziprange", function(value, element) {
+
+	return this.optional(element) || /^90[2-5]\d\{2}-\d{4}$/.test(value);
+
+}, "Your ZIP-code must be in the range 902xx-xxxx to 905-xx-xxxx");
+
+
+
+/**
+
+* Return true, if the value is a valid vehicle identification number (VIN).
+
+*
+
+* Works with all kind of text inputs.
+
+*
+
+* @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
+
+* @desc Declares a required input element whose value must be a valid vehicle identification number.
+
+*
+
+* @name jQuery.validator.methods.vinUS
+
+* @type Boolean
+
+* @cat Plugins/Validate/Methods
+
+*/ 
+
+jQuery.validator.addMethod(
+
+	"vinUS",
+
+	function(v){
+
+		if (v.length != 17)
+
+			return false;
+
+		var i, n, d, f, cd, cdv;
+
+		var LL    = ["A","B","C","D","E","F","G","H","J","K","L","M","N","P","R","S","T","U","V","W","X","Y","Z"];
+
+		var VL    = [1,2,3,4,5,6,7,8,1,2,3,4,5,7,9,2,3,4,5,6,7,8,9];
+
+		var FL    = [8,7,6,5,4,3,2,10,0,9,8,7,6,5,4,3,2];
+
+		var rs    = 0;
+
+		for(i = 0; i < 17; i++){
+
+		    f = FL[i];
+
+		    d = v.slice(i,i+1);
+
+		    if(i == 8){
+
+		        cdv = d;
+
+		    }
+
+		    if(!isNaN(d)){
+
+		        d *= f;
+
+		    }
+
+		    else{
+
+		        for(n = 0; n < LL.length; n++){
+
+		            if(d.toUpperCase() === LL[n]){
+
+		                d = VL[n];
+
+		                d *= f;
+
+		                if(isNaN(cdv) && n == 8){
+
+		                    cdv = LL[n];
+
+		                }
+
+		                break;
+
+		            }
+
+		        }
+
+		    }
+
+		    rs += d;
+
+		}
+
+		cd = rs % 11;
+
+		if(cd == 10){cd = "X";}
+
+		if(cd == cdv){return true;}
+
+		return false; 
+
+	},
+
+	"The specified vehicle identification number (VIN) is invalid."
+
+);
+
+
+
+/**
+
+  * Return true, if the value is a valid date, also making this formal check dd/mm/yyyy.
+
+  *
+
+  * @example jQuery.validator.methods.date("01/01/1900")
+
+  * @result true
+
+  *
+
+  * @example jQuery.validator.methods.date("01/13/1990")
+
+  * @result false
+
+  *
+
+  * @example jQuery.validator.methods.date("01.01.1900")
+
+  * @result false
+
+  *
+
+  * @example <input name="pippo" class="{dateITA:true}" />
+
+  * @desc Declares an optional input element whose value must be a valid date.
+
+  *
+
+  * @name jQuery.validator.methods.dateITA
+
+  * @type Boolean
+
+  * @cat Plugins/Validate/Methods
+
+  */
+
+jQuery.validator.addMethod(
+
+	"dateITA",
+
+	function(value, element) {
+
+		var check = false;
+
+		var re = /^\d{1,2}\/\d{1,2}\/\d{4}$/
+
+		if( re.test(value)){
+
+			var adata = value.split('/');
+
+			var gg = parseInt(adata[0],10);
+
+			var mm = parseInt(adata[1],10);
+
+			var aaaa = parseInt(adata[2],10);
+
+			var xdata = new Date(aaaa,mm-1,gg);
+
+			if ( ( xdata.getFullYear() == aaaa ) && ( xdata.getMonth () == mm - 1 ) && ( xdata.getDate() == gg ) )
+
+				check = true;
+
+			else
+
+				check = false;
+
+		} else
+
+			check = false;
+
+		return this.optional(element) || check;
+
+	}, 
+
+	"Please enter a correct date"
+
+);
+
+
+
+/**
+
+ * matches US phone number format 
+
+ * 
+
+ * where the area code may not start with 1 and the prefix may not start with 1 
+
+ * allows '-' or ' ' as a separator and allows parens around area code 
+
+ * some people may want to put a '1' in front of their number 
+
+ * 
+
+ * 1(212)-999-2345
+
+ * or
+
+ * 212 999 2344
+
+ * or
+
+ * 212-999-0983
+
+ * 
+
+ * but not
+
+ * 111-123-5434
+
+ * and not
+
+ * 212 123 4567
+
+ */
+
+jQuery.validator.addMethod("phone", function(phone_number, element) {
+
+    phone_number = phone_number.replace(/\s+/g, ""); 
+
+	return this.optional(element) || phone_number.length > 9 &&
+
+		phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+
+}, "Please specify a valid phone number");
+
+
+
+// TODO check if value starts with <, otherwise don't try stripping anything
+
+jQuery.validator.addMethod("strippedminlength", function(value, element, param) {
+
+	return jQuery(value).text().length >= param;
+
+}, jQuery.format("Please enter at least {0} characters"));
+
+
+
+// same as email, but TLD is optional
+
+jQuery.validator.addMethod("email2", function(value, element, param) {
+
+	return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)*(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value); 
+
+}, jQuery.validator.messages.email);
+
+
+
+// same as url, but TLD is optional
+
+jQuery.validator.addMethod("url2", function(value, element, param) {
+
+	return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)*(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value); 
+
+}, jQuery.validator.messages.url);
+
+
+
+// hitmeister custom validation
+
+jQuery.validator.addMethod("hmname", function(value, element) {
+
+	// Checking Unicode chars: ßäöüÄÖÜàáèéìíòóùúÀÁÈÉÌÍÒÓÙÚ
+	return this.optional(element) || /^[a-z \-\u00df\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00e0\u00e1\u00e8\u00e9\u00ec\u00ed\u00f2\u00f3\u00f9\u00fa\u00c0\u00c1\u00c8\u00c9\u00cc\u00cd\u00d2\u00d3\u00d9\u00da]+$/i.test(value);
+}, jQuery.validator.messages.hmname)
+
+
+
+jQuery.validator.addMethod("hmcompany", function(value, element) {
+
+	return this.optional(element) || /^[\&0-9a-z \-\u00fc\u00f6\u00e4\u00dc\u00d6\u00c4\u00df]+$/i.test(value);
+
+}, jQuery.validator.messages.hmcompany)
+
+
+
+jQuery.validator.addMethod("hmemail", function(value, element) {
+
+	return this.optional(element) || /^[\w-\.&]+@([\w-]+\.)+[\w-]{2,4}$/i.test(value);
+
+}, jQuery.validator.messages.email);
+
+
+
+jQuery.validator.addMethod("money", function(value, element) {
+
+	return this.optional(element) || /^[0-9]{1}[0-9]*[,|.]{0,1}[0-9]{0,2}$/.test(value);
+
+}, jQuery.validator.messages.money);
+
+
+
+jQuery.validator.addMethod("minMoneyValue", function(value, element, params) {
+
+	var theval = value.replace(/,/,'.' );
+
+	var minVal = params.replace(/,/,'.' );
+
+	return this.optional(element) || (theval >= minVal);
+
+}, jQuery.validator.messages.minMoneyValue);
+
+
+
+jQuery.validator.addMethod("maxMoneyValue", function(value, element, params) {
+
+	var theval = value.replace(/,/,'.' );
+
+	return this.optional(element) || (theval <= params);
+
+}, jQuery.validator.messages.maxMoneyValue);
+
+
+
+jQuery.validator.addMethod("validDate", function(value, element) {
+
+ var aDate = value.split(".");
+
+ return this.optional(element) || (Number(aDate[0]) <= 31 && Number(aDate[0]) > 0 && Number(aDate[1]) <= 12 && Number(aDate[1]) > 0 && Number(aDate[2]) > 1900 && Number(aDate[2]) < 2007)
+
+}, jQuery.validator.messages.dateValid);</script> 
+						<script type="text/javascript">/*
+
+ * Translated default messages for the jQuery validation plugin.
+
+ * Language: DE
+
+ * Skipped date/dateISO/number.
+
+ */
+
+jQuery.extend(jQuery.validator.messages, {
+
+	required: "Dieses Feld ist ein Pflichtfeld.",
+
+	maxlength: jQuery.format("Geben Sie bitte maximal {0} Zeichen ein."),
+
+	minlength: jQuery.format("Bitte mindestens {0} Zeichen eingeben."),
+
+	rangelength: jQuery.format("Geben Sie bitte mindestens {0} und maximal {1} Zeichen ein."),
+
+	email: "Geben Sie bitte eine gültige E-Mail Adresse ein.",
+
+	url: "Geben Sie bitte eine gültige URL ein.",
+
+	dateDE: "Bitte geben Sie ein gültiges Datum ein.",
+
+	numberDE: "Geben Sie bitte eine Nummer ein.",
+
+	digits: "Bitte nur Ziffern eingeben.<br />",
+
+	equalTo: "Bitte denselben Wert wiederholen.",
+
+	range: jQuery.format("Geben Sie bitten einen Wert zwischen {0} und {1}."),
+
+	max: jQuery.format("Geben Sie bitte einen Wert kleiner oder gleich {0} ein."),
+
+	min: jQuery.format("Geben Sie bitte einen Wert größer oder gleich {0} ein."),
+
+	creditcard: "Geben Sie bitte ein gültige Kreditkarten-Nummer ein.",
+
+	hmname: "Der Name enthält ungültige Zeichen.",
+
+	hmemail: "Die eingegebene Email-Adresse ist ungültig.<br />",
+
+	validDate: "Das eingegebene Datum ist nicht gültig.",
+
+	money: "Der eingegebene Betrag ist kein gültiges Währungsformat. <br />Beispiel: 32,56",
+
+	minMoneyValue: jQuery.format("Der Mindestwert des Betrages beträgt {0} &euro;.")
+
+});
+
+</script> 
+						<script type="text/javascript" src="http://static.shopperella.de/javascript/libs/jQuery-1.4.2/jquery-ui-1.8.6.custom.min.js"></script> 
+    				<script type="text/javascript">$(document).ready(function () {
+	/*Submit form.*/
+	$('.js_submit').live('click',function(){
+		$(this).parents('form').submit();
+		return false;
+	});
+	
+	/* simulate click on a-tag for ie 7*/
+	$('js_clickout').click(function(){
+		//-- get url from hidden field on line 171
+		var sUrl = $(this).attr('href');
+ 
+		//-- get item url and redirect user
+		window.location.href = sUrl;
+		return false;
+	});
+	
+	//-- item_one with forward
+	$('.js-fwd').live('click',function(){
+		window.location.href = $(this).attr('href') + "?fwd=1";
+		return false;
+	});
+	
+	/*set the active class to the category	*/
+	$('#service span:first').removeClass("button filter_188_32").addClass("button active filter_188_32");
+	
+	/*show only the first category from service*/
+	$('#service span:first').find("~ .filter_content").show();
+	
+	/*hide the subcategories onlaod*/
+	$('#service span').find("~ .filter_content").find(".sub_list").hide();
+ 
+	/*show the subcategories from service*/
+	$('#service span').find("~ .filter_content").find('a').click(function(){
+			$(this).find("~ .sub_list").toggle();
+			return false;
+	});
+	
+	$('.sub').find('a').click(function(){
+		window.location=$(this).attr("href"); return false;
+	});
+	
+	$('.menu-category').click(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}else{
+			$(this).addClass('active');
+		}
+		
+		$(this).next().slideToggle();
+ 
+	});
+	
+	/* Händlernavi **/
+	
+ 
+	
+ 
+	
+/***********************Infobox for Categories***************************/	
+	$('.infobox').hover(function(){
+		$('.infobox').show();
+	});
+	
+	$('.infobox').mouseout(function(){
+		$('.infobox').hide();
+	});
+	
+	$('.header_image').hover(function(){
+		$('.infobox').show();
+	})
+	
+	$('.header_image').mouseout(function(){
+		
+		$('.infobox').hide();
+	})	
+	
+ 
+/****************Submiting for Claims**************/
+	$('.custerserviceHasToActForm a').click(function(){
+		$('#custerserviceHasToAct' + $(this).attr('shp:formnr')).submit();
+		return false;
+	});
+	
+	$('#reopen a').click(function(){
+		$('#reopen').submit();
+		return false;
+	});	
+	
+	$('#save_claimmassage a').click(function(){
+		$('#save_claimmassage').submit();
+		return false;
+	});	
+	
+	$('#load_file a').click(function(){
+		$('#load_file').submit();
+		return false;
+	});	
+	
+	$('#close_claim a').click(function(){
+		$('#close_claim').submit();
+		return false;
+	});	
+	
+/**************************************************************/
+	
+	$('.refinement').click(function(){
+		$('.filter_container .box').show();
+		
+	});
+ 
+/********************************************************************/
+	
+	$('.showComment').click(function(){
+		$('#reviewComment').show(function(){
+			$('html, body').animate({scrollTop:$("#reviewComment").offset().top}, 'slow');
+			$('#comment_form').find('#title').focus();
+		});
+	});
+	/****************Browser address with id starts function??**************/
+ 
+	// -ah Shorter and more flexible than before... Ok but without this fancy scroll effect :)
+	
+	if(location.href.search(/#/) != -1) {
+		var url_parts = location.href.split('#');
+		
+		if(url_parts[url_parts.length - 1] == "reviewComment") {
+			$('#reviewComment').show(function() {
+				$('#comment_form').find('#title').focus();
+			});
+		}
+	}
+ 
+	/********************************************************************/
+	
+	$('#go_to_details').click(function(){
+		$('html, body').animate({scrollTop:$("#box-descriptions").offset().top}, 'slow');
+		return false;
+	});
+ 
+	$('#go_to_descriptions').click(function(){
+		$('html, body').animate({scrollTop:$(".shp_product_description").offset().top}, 'slow');
+		return false;
+	});
+	
+	$('#go_to_allUnits').click(function(){
+		$('html, body').animate({scrollTop:$("#box-item-unitsList").offset().top}, 'slow');
+		return false;
+	});
+	
+/***********************************************************************************************/
+	
+	$('#submit_newsletter').click(function(){
+		$('#account_prefs').submit();
+		return false;
+	});
+	
+	
+/***********************************************************************************************/
+/* SPECIAL JS FEATURES */
+	$('.js_clickable').click(function(){
+		window.location.href = $(this).find('a:first').attr('href'); 
+	});
+	
+	// track cart clicks in GA
+	$('.js-cartform').submit(function(){
+		if (!cartClicktracked)
+		{
+			cartClicktracked = true;
+			sPath = window.location.pathname;
+			sPath = sPath.replace(/\/[^\/]+\//,"/cart/");
+			_gaq.push(['_trackPageview', sPath]);
+			var theForm = this;
+		    setTimeout(function(){
+		    	$(theForm).submit();
+		    }, 100)
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	});
+	
+	//-- track CPC clicks
+	$('.js-cpcclick').click(function(){
+		sPath = window.location.pathname;
+		sPath = sPath.replace(/\/[^\/]+\//,"/clickout/");
+		_gaq.push(['_trackPageview', sPath]);
+	});
+	
+	//-- submit newsletter form after adding GA event
+	$('.js-newsletter').submit(function(){
+		var mail = $(this).find('#frm_email').val();
+		
+		if(checkEmail(mail)){
+			if (!nlClicktracked)
+			{
+				nlClicktracked = true;
+				_gaq.push(['_trackEvent', 'Signups', 'Newsletter']);
+				var theForm = this;
+			    setTimeout(function(){
+			    	$(theForm).submit();
+			    }, 100)
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}else{
+			return false;
+		}
+	});
+	
+	function checkCheckbox(){
+		var count = 0;
+		var error = "";
+		$("input[name*='newsletter']").each(function(){
+			if($(this).attr('checked')){
+				count++;
+			}
+		});
+		
+		if(count == 0){
+			error = "Bitte mindestens einen Newsletter auswählen.";
+			showError(error);
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function checkEmail(mail){
+		var rx = /^([^\s@,:"<>]+)@([^\s@,:"<>]+\.[^\s@,:"<>.\d]{2,}|(\d{1,3}\.){3}\d{1,3})$/;
+		var error = "";
+		
+		if(checkCheckbox()){
+			if(!mail.match(rx) && mail != ""){
+				error = "Bitte gib eine gültige E-Mail-Adresse ein."
+				showError(error);
+				return false;
+			}else if(mail == ""){
+				error = "Bitte gib eine E-Mail-Adresse ein."
+				showError(error);
+				return false;
+			}else{
+				return true;
+			}
+		}
+	}
+	
+	function showError(error){
+		$('#errorPlacement').html('');
+		$('#errorPlacement').html(error);
+		$('#errorPlacement').show();
+	}
+	
+	
+	/** Increase / Decrease Amount **/
+	
+	$('div[id ^= increaseAmount]').click(function(){
+		var unit_id = $(this).attr('id').split("_");
+		var timeout_time = 1000;
+		var amount;
+		var max_amount;
+		var timer;
+		
+		//set current unit id
+		unit_id = unit_id[1];
+		
+		if(unit_id){
+			var id = "#to_cart_amount_" + unit_id;
+			
+			amount = parseInt($(id).val());
+			max_amount = parseInt($(id).attr('shr:maxval'));
+			
+			$(id).val(increaseAmount(amount, max_amount, unit_id));
+			
+		}else{
+			amount = parseInt($('input[id *= "to_cart_amount"]').val());
+			max_amount = parseInt($('input[id *= "to_cart_amount"]').attr('shr:maxval'));
+			$('input[id *= "to_cart_amount"]').val(increaseAmount(amount, max_amount));
+		}
+	});
+ 
+	$('div[id ^= decreaseAmount]').click(function(){
+		var unit_id = $(this).attr('id').split("_");
+		var amount = parseInt($('input[id *= "to_cart_amount"]').val());
+		var max_amount;
+		var bItemOne = false;
+		
+		// check if is item one
+		if($(this).hasClass('js_amount_itemOne')){
+			bItemOne = true;
+		}
+		
+		unit_id = unit_id[1];
+		
+		if(unit_id){
+			var id = "#to_cart_amount_" + unit_id;
+			amount = parseInt($(id).val());
+			max_amount = parseInt($(id).attr('shr:maxval'));
+			$(id).val(decreaseAmount(amount,unit_id));
+			
+		}else{
+			var amount = parseInt($('input[id *= "to_cart_amount"]').val());
+			$('#to_cart_amount').val(decreaseAmount(amount, unit_id, bItemOne));
+		}
+	});
+ 
+	$('.chk_gift_packaging').click(function() {
+		$('#refresh_count_form').submit();
+	});
+ 
+	$('.js_custom_item_texts').keyup(function() {
+		refreshCart(2000);
+	});
+	
+	
+	function increaseAmount(cur_amount, max_amount, unit_id){
+		var new_amount;
+		
+		if(cur_amount < max_amount){	
+			new_amount = cur_amount + 1;
+			refreshCart();
+		}else if(unit_id){
+			var id = '#id_unit_' + unit_id;
+	    	$(id).html('max. Stückzahl erreicht.');
+			$(id).fadeIn('slow');
+	    }else{
+	    	$('div[class ^= "errorInfo"]').html('max. Stückzahl erreicht.');
+			$('div[class ^= "errorInfo"]').fadeIn('slow');
+	    }
+ 
+		return new_amount;
+	}
+ 
+	function decreaseAmount(cur_amount, unit_id, bItemOne){
+		$('#'+unit_id).fadeOut('slow');
+		$('div[class ^= "errorInfo"]').fadeOut('slow');
+		var new_amount;
+ 
+		if(cur_amount > 1){
+			new_amount = cur_amount - 1;
+			refreshCart();
+		}else if (cur_amount == 1 && !bItemOne){
+			// leads to removing, so ask
+			if (confirm('Möchtest Du diesen Artikel wirklich aus Deinem Warenkorb entfernen?')){
+				new_amount = 0;
+				refreshCart();
+		}
+		}else{
+			new_amount = cur_amount;
+		}
+ 
+		return new_amount;	
+	}
+	
+	/*BrandsAlarm-JS*/
+	
+	$('#brandsalarm').live('click',function(){
+		$.get('/preisalarm_services.php', function(data) {
+			$('.brandalarm_layer').html(data);
+			$('.brandalarm_bg').fadeTo('slow', 0.5);
+				$('.brandalarm_content').delay(1000).fadeIn('slow');
+			});
+ 
+		return false;
+	});
+	
+	$('.save_brands').live('click', function(){
+		return false;
+	});
+ 
+	 /* Auto-Resize for Textareas */
+	$('textarea.js_resizeable').autoResize({
+	    // On resize:
+	    onResize : function() {
+	        $(this).css({opacity:0.8});
+	    },
+	    // After resize:
+	    animateCallback : function() {
+	        $(this).css({opacity:1});
+	    },
+	    // Quite slow animation:
+	    animateDuration : 300,
+	    // More extra space:
+	    extraSpace : 0
+	});
+ 
+	/*onchane refresh cart*/
+	$('textarea.js_resizeable').change(function(){
+		refreshCart();
+	});
+	
+	//-- animate Scroll Effect
+	$('.js_scroll').click(function(){
+		//-- position need to be the target element id
+		var toPosition = $(this).attr('shr:scrollto');
+		scrollTo(toPosition);
+		
+		return false
+	});
+	
+	
+	//-- sliding list e.x. faq
+	$('.sliding-list .head').click(function(){
+		// and open only the current
+		$(this).next().slideToggle(function(){
+			if(!$(this).prev('.head').hasClass('active')){
+				$(this).prev('.head').addClass('active');
+			}else{
+				$(this).prev('.head').removeClass('active');
+			}
+		});
+		
+		return false;
+	});
+	
+	//-- mouse-click effekt
+	$('.button').mousedown(function(){
+		$(this).addClass('hover');
+	}).mouseup(function(){
+		$(this).removeClass('hover');
+	});
+	
+	/**** main-menu dropdown ****/
+	$('.sub-menu').show();
+	$('.main-menu .title').each(function(){
+		$(this).addClass('active');
+	});
+	
+	//-- show/hide
+	$('.main-menu .title').click(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+			$(this).next('.sub-menu').slideUp();
+		}else{
+			$(this).addClass('active');
+			$(this).next('.sub-menu').slideDown();
+		}
+ 
+	});
+	/**** end main-menu dropdown*****/
+ 
+ 
+});
+ 
+ 
+$(window).unload(function() {
+	// set last visited cookie
+	storeVisit();
+});
+ 
+ 
+function storeVisit() {
+	var a = new Date();
+	a = new Date(a.getTime() + 1000*60*60*24*365);
+	document.cookie = "shrlv=" +escape( a.getTime() ) + ";expires=" + a.toGMTString() + ";path=/;domain="+getCookieHost()+";";
+}
+ 
+function refreshCart(timeout_time) {
+	if(typeof timeout_time == 'undefined') {
+		var timeout_time = 1000;
+	}
+	
+	//first unset timer if timer exists and start again
+	if(typeof refreshCart.timer != 'undefined') {
+		clearTimeout(refreshCart.timer);
+	}
+	
+	refreshCart.timer = setTimeout(function(){
+		$('#refresh_count_form').submit();
+	},timeout_time);
+ 
+}
+ 
+var cartClicktracked = false;
+var nlClicktracked = false;
+ 
+var formSubmits = new Array();
+ 
+function submitOnce(form_id){
+	if (! formSubmits[form_id]){
+		$('#'+form_id).submit();
+	}
+	
+	formSubmits[form_id] = 1;
+	return false;
+}
+ 
+ 
+function closeTab(tab){
+	
+	if(tab == 'ajax'){
+		$('.brandalarm.main_layer').fadeOut('slow');
+		$('.brandalarm.ajax_layer').fadeOut('slow');
+	}else{
+		$('.brandalarm_small_wrapper').animate({
+			width: '-340px',
+			display: 'none'
+			}, 2000);
+		
+		
+		$('.brandalarm_small_wrapper').fadeOut('slow');
+	}
+	return false;
+}
+ 
+ 
+function clearDefaultValue(id){
+	if(!$('#'+id).hasClass('customized')){
+		$('#'+id).val('');
+	}
+}
+ 
+function setNpcFlag(flag, bReload) {
+	var a = new Date();
+	a = new Date(a.getTime() + 1000*60*60*24*30);
+	
+	document.cookie = "shrnpcv2=" + flag + ";expires=" + a.toGMTString() + ";path=/;domain="+getCookieHost()+";";
+	
+	if(bReload){
+		location.reload();
+	}
+}
+ 
+function scrollTo(position){
+	var defaultPosition = 'js_scroll_to';
+	if(position != null && position != 'undefined'){
+		defaultPosition = position;
+	}
+	//-- 30px are from top fixed shopnavigation
+    var elementOffset = $('#'+defaultPosition).offset().top - 30;
+    $('html, body').animate({scrollTop: elementOffset}, 1000);
+}
+ 
+/*
+ * Get the system-wide cookie host
+ */
+function getCookieHost() {
+	return window.location.hostname.replace(/([^\.]*)\./,"");	// remove first www. (or ssl.)
+}
+ 
+ 
+/**** trim string ****/
+function js_trim(str){
+	var trimmed = str.replace(/^\s+|\s+$/g, '') ;
+	
+	return trimmed;
+}</script> 
+						<script type="text/javascript" src="http://static.shopperella.de/javascript/libs/jQuery/plugins/carousel/jquery.jcarousel.js"></script> 
+    				<script type="text/javascript" src="http://static.shopperella.de/javascript/item_one/item_one_main.js"></script> 
+    				<script type="text/javascript">/*
+
+ * Translated default messages for the jQuery validation plugin.
+
+ * Language: DE
+
+ * Skipped date/dateISO/number.
+
+ */
+
+jQuery.extend(jQuery.validator.messages, {
+
+	required: "Dieses Feld ist ein Pflichtfeld.",
+
+	maxlength: jQuery.format("Geben Sie bitte maximal {0} Zeichen ein."),
+
+	minlength: jQuery.format("Bitte mindestens {0} Zeichen eingeben."),
+
+	rangelength: jQuery.format("Geben Sie bitte mindestens {0} und maximal {1} Zeichen ein."),
+
+	email: "Geben Sie bitte eine gültige E-Mail Adresse ein.",
+
+	url: "Geben Sie bitte eine gültige URL ein.",
+
+	dateDE: "Bitte geben Sie ein gültiges Datum ein.",
+
+	numberDE: "Geben Sie bitte eine Nummer ein.",
+
+	digits: "Bitte nur Ziffern eingeben.<br />",
+
+	equalTo: "Bitte denselben Wert wiederholen.",
+
+	range: jQuery.format("Geben Sie bitten einen Wert zwischen {0} und {1}."),
+
+	max: jQuery.format("Geben Sie bitte einen Wert kleiner oder gleich {0} ein."),
+
+	min: jQuery.format("Geben Sie bitte einen Wert größer oder gleich {0} ein."),
+
+	creditcard: "Geben Sie bitte ein gültige Kreditkarten-Nummer ein.",
+
+	hmname: "Der Name enthält ungültige Zeichen.",
+
+	hmemail: "Die eingegebene Email-Adresse ist ungültig.<br />",
+
+	validDate: "Das eingegebene Datum ist nicht gültig.",
+
+	money: "Der eingegebene Betrag ist kein gültiges Währungsformat. <br />Beispiel: 32,56",
+
+	minMoneyValue: jQuery.format("Der Mindestwert des Betrages beträgt {0} &euro;.")
+
+});
+
+</script> 
+						<script type="text/javascript" src="http://static.shopperella.de/javascript/zoom/jquery.jqzoom1.0.1.js"></script> 
+    				<script type="text/javascript" src="http://static.shopperella.de/javascript/jquery.carouFredSel-3.2.0.js"></script> 
+    				<script type="text/javascript">$().ready(function() {
+	$('.gallery').click(function() {
+		var pic_id = $(this).attr('id').substr(9, $(this).attr('id').indexOf('-')-9);
+		var id_item = $(this).attr('id').substr($(this).attr('id').indexOf('-')+1);
+		tb_show('Gallerie', '/thickbox_pictures.php?id_item=' + id_item + '&pic_id=' + pic_id + '&height=' + ($(window).height()-100) + '&width=' + ($(window).width()-100));
+		return false;
+	});
+	
+	$('.ajaxroc').each(function() {
+		$(this).attr('href', '/seller_roc.php?id_customer='+$(this).attr('id').substr(4)+'&ajax=1');
+	});
+	
+	$('.ajaxdelivery').each(function() {
+		$(this).attr('href', '/seller_delivery_regions.php?id_customer='+$(this).attr('id').substr(17)+'&ajax=1');
+	});
+	
+	$('.ajaxprofile').each(function() {
+		$(this).attr('href', '/seller_profile.php?id_customer='+$(this).attr('id').substr(8)+'&action=ajax&width=555&height=440');
+	});
+	
+	$('.comment_me').click(function() {
+		$('#comment').show();
+	});
+	$('#hideComment').click(function() {
+		$('#comment').hide();
+		return false;
+	});
+	
+	$('#submitComment').click(function(){
+		$('#comment_form').submit();
+		return false;
+		
+	});
+	
+	$('#comment_form').validate({	
+		rules: {
+			title: 			{ required: true },
+			text:  			{ required: true },
+			item_rating: 	{ required: true},
+			author_name: 	{ required: true},
+			author_lastname:{ required: true},
+			author_email: 	{ email: true}
+		},
+		messages:{
+			title:  	 	{ required: 'Bitte gib noch einen Titel an' },
+			text:   		{ required: 'Bitte gib noch Deinen Tesbericht ein'},
+			item_rating: 	{ required: 'Bitte vergib noch ein paar Sterne'},
+			author_name: 	{ required: 'Bitte gib Deinen Vornamen an' },
+			author_lastname:{ required: 'Bitte gib Deinen Nachnamen an'}, 	
+			author_email: 	{ email: 'Bitte gib eine gültige Email-Adresse an' }
+		},
+		errorClass: "error",
+		validClass: "valid",
+		errorLabelContainer: "#errorPlacement"
+		/*
+		errorPlacement: function(error, element) {
+			if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+				error.insertBefore( element );
+			}
+			else {
+				error.insertAfter( element );
+			}
+		}*/		
+	});
+	
+	if (location.hash != '#comment')
+	{
+		$('#comment').hide();
+	}
+    $('a.to_reviews_page').click(function() {
+        var targetPage = $(this).attr('href').substr(1);
+        $('.page').hide('slow');
+        $('.page_' + targetPage).show('slow');
+ 
+        if (targetPage == '1')
+        {
+        	$('a.prev').addClass('disabled').attr('href', '#');    
+        }
+        else
+        {
+            $('a.prev').attr('href', '#' + parseInt(targetPage-1)).removeClass('disabled');
+        }
+ 
+        if ('max_'+targetPage == $('div[id^=max_]').attr('id'))
+        {
+        	$('a.next').addClass('disabled').attr('href', '#');    
+        }
+        else
+        {    
+            $('a.next').attr('href', '#' + parseInt((targetPage*1)+1)).removeClass('disabled');
+        }
+ 
+        $('a.to_reviews_page').removeClass('active');
+        $('a[href="#' + targetPage + '"]').addClass('active');
+        
+        return false;
+    });
+	
+	$('.Translation').hide();
+	$('.showTranslation').click(function() {
+		$('.Translation').show();
+		$(this).hide();
+		return false;
+	});
+	
+	$('.moreTests').hide();
+	$('.showMoreTests').click(function() {
+		$('.moreTests').show();
+		$(this).hide();
+		return false;
+	});
+	
+	$('#item_rating_stars img').click(
+		function() {
+			var currentStar = $(this).attr('id').substr(12);
+			$('#item_rating_stars img:gt(' + currentStar + ')').attr('src', '/static/pics/icons/stern_lila_15_15_50.png');
+			$('#item_rating_stars img:eq(' + currentStar + ')').attr('src', '/static/pics/icons/stern_lila_15_15_50.png');	
+			$('#item_rating_stars img:lt(' + currentStar + ')').attr('src', '/static/pics/icons/stern_lila_15_15.png');
+			$('#item_rating').val(currentStar);
+		}
+	);
+	
+	$('#item_information_tabs').tabs();
+ 
+});</script> 
+				</head> 
+	<body> 
+		<script type="text/javascript" src="http://attributiontrackingga.googlecode.com/svn/trunk/distilled.FirstTouch.js"></script> 
+ 
+<script type="text/javascript"> 
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-13071481-1']);
+    _gaq.push(['_setDomainName', '.shopperella.de']);
+    asyncDistilledFirstTouch(_gaq);
+    _gaq.push(['_trackPageview']);
+</script> 
+        
+        <div class="bg_container"></div> 
+        <div class="brandalarm_layer"></div> 
+                        
+                	 
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+			$('.js_login').click(function(){
+
+				$('.user-info').animate({
+
+					bottom: "-20px",
+
+					opacity: 0.1
+
+				}).hide();
+
+				$('.js-login-form').fadeIn('slow')
+
+				$('.js-login-form').animate({
+
+					top: "5px"
+
+				});
+
+				return false;
+
+			});
+
+
+
+			$('.js-login-form input[type="text"]').focus(function(){
+
+				if($(this).attr('name') == 'password-text')
+
+				{
+
+					$(this).hide();
+
+					$(this).next().show().focus();
+
+				}
+
+				else
+
+				{
+
+					$(this).val('');
+
+				}
+
+			});
+
+
+
+			$('#js-login-form').validate({
+
+				rules: {
+
+					email: {required: true, email: true},
+
+					password: {required: true, minlength: 5}
+
+				},
+
+				messages:{
+
+					email: {
+
+						required : 'Bitte eine E-Mail-Adresse angeben.',
+
+						email: 'Bitte eine korrekte E-Mail-Adresse angeben.'
+
+					}
+
+				},
+
+				errorLabelContainer: ".js-messages",
+
+				errorClass: "js-error",
+
+				wrapper: "li",
+
+				onclick: false
+
+			});
+
+
+
+			$('.do-js-login').click(function(){
+
+				var params = $(this).parents('form').serialize();
+
+				
+
+				$.ajax({
+
+					url: '/login.php',
+
+					type: 'POST',
+
+					data: params,
+
+					beforeSend: function(){
+
+						$('.js_loading').show();
+
+					},
+
+					success: function(data, textStatus, jqXHR){
+
+						$('.js_loading').hide();
+
+						if(data != "true")
+
+						{
+
+							$('.js-messages').html('Anmeldung war nicht erfolgreich!');
+
+							$('.js-messages').show();
+
+						}else
+
+						{
+
+							$('.js-login-form').animate({
+
+								top: "-47px"
+
+							});
+
+							$('.user-info').animate({
+
+								bottom: "5px"
+
+							});
+
+							window.location.href = '/account.php';
+
+						}
+
+					}
+
+					
+
+				});
+
+				return false;
+
+			});
+
+
+
+			//-- set ncp flag and redirect!
+
+			$('.js_npc').click(function(){
+
+				var aSetNpc = $(this).attr('setNpc').split(",");
+
+				setNpcFlag(Number(aSetNpc[0]), Number(js_trim(aSetNpc[1])));
+
+
+
+				//-- redirect
+
+				window.location = $(this).attr('href');
+
+			});
+
+		});
+
+	</script>
+
+
+
+
+
+<div class="top-nav-wrapper">
+
+	<div class="top-nav-content">
+
+	   	<ul class="top-nav-list">
+
+	   			   			<li><a class="js_npc active" href="http://www.shopperella.de" setnpc="0,  1">Alle Shops<br /><span>(auch Weiterleitung)</span></a></li>
+
+	   			<li><a class="js_npc" href="" setnpc="1, 0">Nur Kauf bei Shopperella</a> </li>
+
+	   			   		<li><a  href="http://www.shopperella.de/c/magazin.html" title="Das Shopperella-Magazin">Magazin</a></li>
+
+	   	</ul>
+
+	   	<div class="user-wrapper">
+
+	   		<div class="user-info">
+
+		   				   			<a class="js_login text-white" href="http://www.shopperella.de/account.php" title="Mein Shopperella">Login</a> | 
+
+		   			<a class="text-white" href="http://www.shopperella.de/register.php" title="Mein Shopperella">Registrierung</a>
+
+		   			   		</div>
+
+	   		<div class="js-login-form">
+
+	   			<form action="" id="js-login-form">
+
+	   				<input type="hidden" name="bAjax" value="1" />
+
+	   				<input type="hidden" name="register_state" value="1" />
+
+	   				<input type="hidden" name="action" value="login" />
+
+	   				<img src="http://static.shopperella.de/pics/icons/ajax/header_loading.gif" alt="loading" class="js_loading" />
+
+		   			<input type="text" class="field w150" name="email" value="Deine E-Mail-Adresse" style="margin-right: 5;" />
+
+		   			<input type="text" class="field w150" name="password-text" value="Dein Passwort" style="margin-right: 5;" />
+
+		   			<input style="display: none;" type="password" class="field w150" name="password" value="" />
+
+		   			<a   class="button do-js-login small default none"    href=""><span>OK</span></a>
+
+		   			<a class="text-white thickbox" href="http://www.shopperella.de/forgot_password.php?action=showform&height=300" title="Passwort vergessen?">Passwort vergessen?</a>
+
+	   			</form>
+
+	   		</div>
+
+	   		<div class="js-messages text-red"></div>
+
+	   	</div>
+
+   	</div>
+
+</div>
+
+<div class="clear"></div>        	                <div class="main-container selection"> 
+				
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	loadNavigation();
+
+	
+
+	$(".shr-main-navi > li").live('mouseover mouseout', function(event){
+
+		if(event.type == 'mouseover'){
+
+			$(this).find('.sub-layer').show();
+
+		}else{
+
+			$(this).find('.sub-layer').hide();
+
+		}
+
+	});
+
+	
+
+	$('ul li.js_unterwegs').addClass('active');
+
+});
+
+
+
+function loadNavigation(){
+
+	$('.js_navigation_content').html(decodeLink("\t\t<ul class=\"shr-main-navi\">\r\n\t\t\t<li class=\"js_babymode\">\r\n\t\t\t\t__ls\/babymode\/angebote\/\" class=\"shp_link_title\"><span>Babymode<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content col-2\">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baby-jungen\/angebote\/\">Baby Boys (Gr. 56-98)__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baby-maedchen\/angebote\/\">Baby Girls (Gr. 56-98)__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/accessoires-baby\/angebote\/\">Accessoires__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n\t<div class=\"shr-manufacturer-list\">\n\t\t<span class=\"text-lila\">Themen<\/span>\n<ul class=\"arrow-list deep\">\n  <li>__ls\/c\/mykidsshoe.html\">Individuelle Babyschuhe__le<\/li>\n  <li>__ls\/c\/selbst_gestalten_babymode.html\">Individuelle Babymode__le<\/li>\n<\/ul>\r\n\n\t<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_kindermode\">\r\n\t\t\t\t__ls\/kindermode\/angebote\/\" class=\"shp_link_title\"><span>Kindermode<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content col-2\">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kids-jungen\/angebote\/\">Kids Boys (Gr. 92-140)__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kids-maedchen\/angebote\/\">Kids Girls (Gr. 92-140)__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/teen-jungen\/angebote\/\">Teen Boys (Gr. 128-176)__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/teen-maedchen\/angebote\/\">Teen Girls (Gr. 128-176)__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/accessoires\/angebote\/\">Accessoires__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n\t<div class=\"shr-manufacturer-list\">\n\t\t<span class=\"text-lila\">Themen<\/span>\n<ul class=\"arrow-list deep\">\n  <li>__ls\/c\/mykidsshoe.html\">Individuelle Schuhe__le<\/li>\n  <li>__ls\/c\/pearlfection.html\">Individueller Schmuck__le<\/li>\n  <li>__ls\/c\/selbst_gestalten_kindermode.html\">Individuelle Kindermode__le<\/li>\n<\/ul>\r\n\n\t<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_unterwegs\">\r\n\t\t\t\t__ls\/unterwegs\/angebote\/\" class=\"shp_link_title\"><span>Unterwegs<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/autokindersitze\/angebote\/\">Autokindersitze & Zubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/fahrradfahren-mit-kind\/angebote\/\">Fahrradfahren mit Kind__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/fusssaecke-kinderwagenzubehoer\/angebote\/\">Fu\u00dfs\u00e4cke & Kinderwagenzubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/im-urlaub\/angebote\/\">Im Urlaub__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kinderwagen-buggys\/angebote\/\">Kinderwagen & Buggys__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kinderfahrzeuge\/angebote\/\">Rutscher, R\u00e4der & Co.__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/sonstiges-unterwegs\/angebote\/\">Sonstiges f\u00fcr Unterwegs__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/tragen-wickeltaschen\/angebote\/\">Tragen & Wickeltaschen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/unterwegs-essen-trinken\/angebote\/\">Unterwegs Essen & Trinken__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_spielzeug\">\r\n\t\t\t\t__ls\/spielzeug\/angebote\/\" class=\"shp_link_title\"><span>Spielzeug<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/spielfahrzeuge-autos\/angebote\/\">Autos & Fahrzeuge__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/autorennbahnen-autos\/angebote\/\">Autorennbahnen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baby-kleinkindspielzeug\/angebote\/\">Baby- & Kleinkindspielzeug__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baukaesten-baukloetze\/angebote\/\">Bauk\u00e4sten & -kl\u00f6tze__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/holzspielzeug-waren\/angebote\/\">Holzspielzeug__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/wasser-kinder\/angebote\/\">Im Wasser__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/musikinstrumente\/angebote\/\">Instrumente__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/karneval-rollenspiele\/angebote\/\">Karneval & Rollenspiele__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kugelbahnen-murmeln-mehr\/angebote\/\">Kugelbahnen & Murmeln__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/lego\/angebote\/\">Lego__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/modellbau\/angebote\/\">Modellbau__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/playmobil\/angebote\/\">PLAYMOBIL\u00ae__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/puppen\/angebote\/\">Puppen & Zubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/spielen-bollerwagen-rutschautos\/angebote\/\">Rutscher, R\u00e4der & Co.__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/spielfiguren\/angebote\/\">Spielfiguren__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/spielen-im-freien\/angebote\/\">Spielen im Freien__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/spielkuechen-kauflaeden\/angebote\/\">Spielk\u00fcchen & Kaufl\u00e4den__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/spielzeugeisenbahn\/angebote\/\">Spielzeugeisenbahn__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/stoffspielzeug\/angebote\/\">Stoffspielzeug__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_spiele\">\r\n\t\t\t\t__ls\/spiele\/angebote\/\" class=\"shp_link_title\"><span>Spiele<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/gesellschaftsspiele\/angebote\/\">Gesellschaftsspiele__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/lernspiele-wissensspiele\/angebote\/\">Lernspiele & Wissen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kartenspiele-puzzle\/angebote\/\">Kartenspiele & Puzzle__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_kinderzimmer\">\r\n\t\t\t\t__ls\/kinderzimmer\/angebote\/\" class=\"shp_link_title\"><span>Kinderzimmer<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/betten-schlafen-kinder-babys\/angebote\/\">Betten f\u00fcr Kinder und Babys__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/betten-zubehoer-schlafen-kinder-babys\/angebote\/\">Bettzubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/garten-kinder\/angebote\/\">Im Garten__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/hochstuehle\/angebote\/\">Hochst\u00fchle & Co.__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kinderzimmermoebel\/angebote\/\">Kinderzimmerm\u00f6bel__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/komplettzimmer\/angebote\/\">Komplettzimmer__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/krabbeldecken-kuscheldecken-einschlagdecken\/angebote\/\">Krabbeldecken\/ Kuscheldecken__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/lampen\/angebote\/\">Lampen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/teppiche-rund-rechteckig\/angebote\/\">Teppiche__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/wohnen-accessoires\/angebote\/\">Wohnzubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_essen-trinken\">\r\n\t\t\t\t__ls\/essen-trinken\/angebote\/\" class=\"shp_link_title\"><span>Essen & Trinken<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/elektrogeraete-waermen\/angebote\/\">Elektroger\u00e4te zum W\u00e4rmen & Sterilisieren__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/flaeschchen-zubehoer\/angebote\/\">Fl\u00e4schchen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kueche-gedeckter-tisch\/angebote\/\">K\u00fcche & gedeckter Tisch__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/babynahrung-kindernahrung\/angebote\/\">Nahrung__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/stillen\/angebote\/\">Stillen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/essen-trinken-unterwegs\/angebote\/\">Unterwegs Essen & Trinken__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_multimedia\">\r\n\t\t\t\t__ls\/multimedia\/angebote\/\" class=\"shp_link_title\">\r\n\t\t\t\t\t<span>Multimedia<\/span>\r\n\t\t\t\t__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/cds-dvds-hoerbuecher\/angebote\/\">CDs\/MCs\/DVDs & Player__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/konsolen-zubehoer\/angebote\/\">Konsolen & Zubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/konsolenspiele-games\/angebote\/\">Konsolenspiele & Games__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/pc-spiele-zubehoer\/angebote\/\">PC-Spiele & PC-Zubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_pflege-bad\">\r\n\t\t\t\t__ls\/pflege-bad\/angebote\/\" class=\"shp_link_title\"><span>Pflege &amp; Bad<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baby-kinderpflege\/angebote\/\">Baby- und Kinderpflege__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baden-waschen-zubehoer\/angebote\/\">Bad- & Waschzubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/gesundheit\/angebote\/\">Gesundheit__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kosmetik-mama\/angebote\/\">Kosmetik f\u00fcr Mama__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/pflege-mama\/angebote\/\">Pflege f\u00fcr Mama__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/schnuller\/angebote\/\">Schnuller__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/wickeln-windeln\/angebote\/\">Wickeln & Windeln__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_sicherheit last\">\r\n\t\t\t\t__ls\/sicherheit\/angebote\/\" class=\"shp_link_title\"><span>Sicherheit<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/babyueberwachung\/angebote\/\">Baby\u00fcberwachung & Schlaf__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/gitter\/angebote\/\">Gitter__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/hochstuehle-kinder\/angebote\/\">Hochst\u00fchle & Co.__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/sonstige-sicherungen\/angebote\/\">Sonstige Sicherheitsprodukte__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t\r\n\t\t<\/ul>\r\n\t\t<div class=\"clear\"><\/div>\r\n\t\t<ul class=\"shr-main-navi second\">\r\n\t\t\t<li class=\"js_buecher\">\r\n\t\t\t\t__ls\/buecher\/angebote\/\" class=\"shp_link_title\">\r\n\t\t\t\t\t<span>B\u00fccher<\/span>\r\n\t\t\t\t__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/kinderbuecher-buecher-kinder\/angebote\/\">Kinder- & Jugendb\u00fccher__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/sachbuecher-eltern\/angebote\/\">Sachb\u00fccher f\u00fcr Eltern__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_schreibwaren\">\r\n\t\t\t\t__ls\/schreibwaren\/angebote\/\" class=\"shp_link_title\"><span>Schreibwaren<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/foto-kalender-baby-kinder\/angebote\/\">Fotoalben, Kalender  & Kameras__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/lernen\/angebote\/\">Lernen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/schreibtischzubehoer\/angebote\/\">Schreibtischzubeh\u00f6r__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/schule\/angebote\/\">Schule__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/stifte-papier-karten\/angebote\/\">Stifte, Papier & Karten__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_feiern\">\r\n\t\t\t\t__ls\/feiern\/angebote\/\" class=\"shp_link_title\"><span>Feiern<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/geburt-taufe\/angebote\/\">Geburt\/Taufe__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/ostern\/angebote\/\">Ostern__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/partyzubehoer\/angebote\/\">Partys & Geburtstage__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/weihnachten-silvester\/angebote\/\">Weihnachten & Silvester__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_basteln\">\r\n\t\t\t\t__ls\/basteln\/angebote\/\" class=\"shp_link_title\"><span>Basteln<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/bastelmaterialien\/angebote\/\">Bastelmaterialien__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/malen\/angebote\/\">Malen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_kindersport\">\r\n\t\t\t\t__ls\/kindersport\/angebote\/\" class=\"shp_link_title\"><span>Kindersport<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content \">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/baden-schwimmen-tauchen\/angebote\/\">Baden, Schwimmen & Tauchen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/fussball-kinder\/angebote\/\">Fu\u00dfball__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/jogging-laufen-kinder\/angebote\/\">Grundausstattung Sport__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/gymnastik-turnen-kinder\/angebote\/\">Gymnastik & Turnen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/handball-volleyball-basketball\/angebote\/\">Handball, Volleyball, Basketball__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/inlineskaten-skateboard-rollschuh\/angebote\/\">Inlineskaten, Skateboard, Rollschuh fahren__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/fahrradfahren-kinder\/angebote\/\">Kinderfahrr\u00e4der & Co.__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/rodeln-eislaufen\/angebote\/\">Rodeln & Eislaufen__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/skifahren-kinder\/angebote\/\">Skifahren__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/snowboarden-kinder\/angebote\/\">Snowboarden__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/sonstiges-sport-zubehoer-kinder\/angebote\/\">Sonstiger Sportbedarf__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"js_umstandsmode\">\r\n\t\t\t\t__ls\/umstandsmode\/angebote\/\" class=\"shp_link_title\"><span>F\u00fcr Mama<\/span>__le\r\n\t\t\t\t<div class=\"sub-layer right\">\r\n\t\t\t\t\t\n\n<div class=\"content col-2\">\n\n<div class=\"shr-category-list\">\n\t<span class=\"text-lila\">Produktkategorien<\/span>\n\t<ul class=\"arrow-list deep\" style=\"width:141px;\">\n\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/mode-fuer-mama\/angebote\/\">Mode f\u00fcr Mama__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/alles-an-umstandsmode\/angebote\/\">Umstandsmode__le\n\t\t\t<\/li>\n\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t__ls\/accessoires-fitness\/angebote\/\">Accessoires & Fitness__le\n\t\t\t<\/li>\n\t\t\t\t\t\t<\/ul>\n<\/div>\n\t<div class=\"shr-manufacturer-list\">\n\t\t<span class=\"text-lila\">Themen<\/span>\n<ul class=\"arrow-list deep\">\n  <li>__ls\/c\/pearlfection.html\">Individueller Schmuck__le<\/li>\n  <li>__ls\/c\/selbst_gestalten_mamamode.html\">Individuelle Mode__le<\/li>\n<\/ul>\r\n\n\t<\/div>\n<div class=\"clear\"><\/div>\n<\/div>\t\t\t\t<\/div>\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"sale \">\r\n\t\t\t\t__ls\/sale\/\" class=\"shp_link_title\"><span>SALE<\/span>__le\r\n\t\t\t<\/li>\r\n\t\t\t<li class=\"premium last \">\r\n\t\t\t\t__ls\/premium\/\" class=\"shp_link_title\"><span>PREMIUM<\/span>__le\r\n\t\t\t<\/li>\t\t\t\r\n\t\t<\/ul>"));
+
+}
+
+
+
+function decodeLink(l) {
+
+	return l.replace(/__ls/g,'<a href="http://www.shopperella.de').replace(/__le/g,'</a>');
+
+}
+
+</script>
+
+
+
+
+
+    
+
+	
+
+	<noscript>
+
+		<div id="shp_noscript">
+
+			Javascript ist in Deinem Browser deaktiviert. Bitte aktiviere Javascript oder wechsel zu einem Browser, der Javascript unterstützt. 
+
+		</div>
+
+	</noscript>
+
+<div class="header"><!--Anfang: Header mit Warenkorb-->
+
+	<div class="logo">
+
+		<a title="Shopperella" href="http://www.shopperella.de/">
+
+			<img alt="Shopperella Logo" src="http://static.shopperella.de/pics/logos/logo_zweizeilig_150_53.jpg" />
+
+		</a>
+
+	</div>	
+
+	
+
+	<div class="main-bar">
+
+		<div class="descriptions">
+
+			Alles fürs Kind: > 50.000 Produkte, > 80 Shops
+
+		</div>
+
+		<div class="search-bar">
+
+			<form action="http://www.shopperella.de/search_results.php" method="get" id="search_form" class="search_form" name="search_form">
+
+	     		<input type="text" id="search_value" name="search_value" autocomplete="off" value="Suchbegriff eingeben..."/>
+
+	     		<a class="shp_button search_violet_69_20" href="#" onclick="submitSearch(); return false;">suchen</a>
+
+	     		<script language="JavaScript" type="text/javascript">
+
+	     		var delOnFocus = true;
+
+	     		
+
+	     		$('#search_value').focus(function(){
+
+	         		if (delOnFocus)
+
+	          		$('#search_value').val('');
+
+	         		delOnFocus = false;
+
+	     		});
+
+	
+
+	     		
+
+				
+
+				var suggest = new FFSuggest();
+
+				//var searchURL = "http://dev1.fact-finder.de/Shoperella/Suggest.ff";
+
+				var searchURL = "/search_suggest.php";
+
+				var formname = "search_form";
+
+				var queryParamName = "search_value";
+
+				var channelParamName = "channel";
+
+				var channel = "de";
+
+				var divLayername = "suggestLayer";
+
+				var instanceName = "suggest";
+
+				var debugMode = false;
+
+				var showImages = false;
+
+
+
+				suggest.init(searchURL, formname, queryParamName, divLayername, instanceName, debugMode, channelParamName, channel, showImages);
+
+				
+
+				//document.onmousedown = suggest.hideLayerOutsideCall;
+
+				/*document.forms["search_form"]["search_value"].focus();
+
+				document.forms["search_form"]["search_value"].select();*/
+
+				
+
+				$('#search_form').submit(function(e){
+
+					
+
+				   	if ($('#search_value').val() == ""){
+
+						alert("Bitte gib einen Suchbegriff ein.");
+
+						e.preventDefault();
+
+					}
+
+					return true;
+
+				});
+
+				       		
+
+				function submitSearch(){
+
+					$('#search_form').submit();
+
+				    return false;
+
+				}
+
+	       		
+
+	
+
+			</script>
+
+	       		<div id="suggestLayer" class="suggestLayer"></div>
+
+			</form>
+
+		</div>	
+
+	</div>
+
+	<div class="links-bar"> 
+		<div class="partners">
+
+			<a href="http://www.shopperella.de/c/tv-spot.html"><img alt="Shopperella Logo" src="http://static.shopperella.de/pics/logos/sat1-pro7-logo.jpg" /></a>
+
+		</div>
+
+		<div class="shoppingcart">
+
+			<a href="http://www.shopperella.de/shopping_cart.php">
+
+			<span class="shoppingcart-data">
+
+				Dein Warenkorb | Merkzettel<br /> 
+
+				 
+
+					0 Artikel | 0,00 €
+
+							</span>
+
+			</a>
+
+			<div class="spacer5"></div>
+
+			<a id="brandsalarm" href="http://www.shopperella.de/preisalarm_services.php">
+
+				<span class="pricealarm-data">
+
+					<span class="text-light-gray">Zum Shopper-Alarm</span>
+
+				</span>
+
+			</a>
+
+		</div> 
+	</div> 
+</div><!--Ende: Header mit Warenkorb--> 
+<div class="spacer10"></div> 
+<div class="clear"></div>
+
+<div class="shr-main-navi-container"> 
+	<div class="js_navigation_content">
+
+		<ul class="shr-main-navi">
+
+			<li class="js_babymode">
+
+									<span class="shp_link_title"><span>Babymode</span></span>
+
+							</li>
+
+			<li class="js_kindermode">
+
+									<span class="shp_link_title"><span>Kindermode</span></span>
+
+							</li>
+
+			<li class="js_unterwegs">
+
+									<a href="http://www.shopperella.de/unterwegs/angebote/" class="shp_link_title"><span>Unterwegs</span></a>
+
+							</li>
+
+			<li class="js_spielzeug">
+
+									<span class="shp_link_title"><span>Spielzeug</span></span>
+
+							</li>
+
+			<li class="js_spiele">
+
+									<span class="shp_link_title"><span>Spiele</span></span>
+
+							</li>
+
+			<li class="js_kinderzimmer">
+
+									<span class="shp_link_title"><span>Kinderzimmer</span></span>
+
+							</li>
+
+			<li class="js_essen-trinken">
+
+									<span class="shp_link_title"><span>Essen & Trinken</span></span>
+
+							</li>
+
+			<li class="js_multimedia">
+
+									<span class="shp_link_title"><span>Multimedia</span></span>
+
+							</li>
+
+			<li class="js_pflege-bad">
+
+									<span class="shp_link_title"><span>Pflege &amp; Bad</span></span>
+
+							</li>
+
+			<li class="js_sicherheit last">
+
+									<span class="shp_link_title"><span>Sicherheit</span></span>
+
+							</li>
+
+			
+
+		</ul>
+
+		<div class="clear"></div>
+
+		<ul class="shr-main-navi second">
+
+			<li class="js_buecher">
+
+									<span class="shp_link_title"><span>Bücher</span></span>
+
+							</li>
+
+			<li class="js_schreibwaren">
+
+									<span class="shp_link_title"><span>Schreibwaren</span></span>
+
+							</li>
+
+			<li class="js_feiern">
+
+									<span class="shp_link_title"><span>Feiern</span></span>
+
+							</li>
+
+			<li class="js_basteln">
+
+									<span class="shp_link_title"><span>Basteln</span></span>
+
+							</li>
+
+			<li class="js_kindersport">
+
+									<span class="shp_link_title"><span>Kindersport</span></span>
+
+							</li>
+
+			<li class="js_umstandsmode">
+
+									<span class="shp_link_title"><span>Für Mama</span></span>
+
+							</li>
+
+			<li class="sale ">
+
+				<a href="http://www.shopperella.de/sale/" class="shp_link_title"><span>SALE</span></a>
+
+			</li>			
+
+			<li class="premium last ">
+
+				<a href="http://www.shopperella.de/premium/" class="shp_link_title"><span>PREMIUM</span></a>
+
+			</li>
+
+		</ul>
+
+	</div> 
+	<div class="shr-short-navi"> 
+		<span class="left-corner"></span> 
+		<ul> 
+			<li><a href="http://www.shopperella.de/marken/angebote.html" >Marken</a>&middot;</li> 
+			<li><a href="http://www.shopperella.de/geschenke/" class="gift ">Geschenke</a>&middot;</li> 
+			<li><a href="http://www.shopperella.de/themenwelten/angebote.html" >Themenwelten</a>&middot;</li>
+
+			<li><a href="http://www.shopperella.de/bio-produkte/angebote.html" class="bio ">Bio</a></li> 
+		</ul> 
+		<span class="right-corner"></span> 
+	</div> 
+</div> 
+ 
+<div class="clear"></div>			
+				 
+ 
+		<div class="breadcrump_navigation"> 
+
+		
+
+									<a href="http://www.shopperella.de/">Home</a>
+
+				&gt;
+
+												<a href="http://www.shopperella.de/">Shop</a>
+
+				&gt;
+
+												<a href="http://www.shopperella.de/unterwegs/angebote/">Unterwegs</a>
+
+				&gt;
+
+												<a href="http://www.shopperella.de/autokindersitze/angebote/">Autokindersitze & Zubehör</a>
+
+				&gt;
+
+												<a href="http://www.shopperella.de/autokindersitze-babyschalen/angebote/">Autokindersitze & Babyschalen</a>
+
+				&gt;
+
+												<strong>Autokindersitz PALLAS-fix</strong>
+
+						</div>
+
+ 
+ 
+<div class="content-wrapper"> 
+ 
+ 
+ 
+	<div id="body-column-main3" class="body-main3 "> 
+	
+		
+		
+			<div id="box-itemDetail" class="box-container"> 
+	<div class="box-style-none" > 
+					
+			
+					<div class="box-body default"> 
+					  
+<script type="text/javascript"> 
+	$(document).ready(function(){
+		var hash = window.location.hash;
+		$("#tabs").tabs();
+ 
+		$('.customize-box').click(function(){
+			return false;
+		});
+		
+		$('.customize-box').mouseover(function(){
+			$(this).next().slideDown('slow');
+		});
+		
+		$('.js_close').click(function(){
+			$(this).parents('div.customize').slideUp('slow');
+			return false;
+		});
+ 
+		$('.tooltip').tooltip({
+	        bodyHandler: function() { 
+	            return $($(this).next("span")).html(); 
+	        },
+	        showURL: false 
+	    });
+ 
+		if(hash == '#show_recension')
+		{
+			var targetOffeset = $('.shp_item_information').offset().top - 100;
+			//-- scroll to
+			$('#js-item_reviews').click();	
+			$('.showComment').click();
+			$('html,body').animate({scrollTop: targetOffeset}, 500);
+		}
+	});
+</script> 
+ 
+ 
+<input type="hidden" value="155137" name="id_item" id="id_item" /> 
+<input type="hidden" value="10" name="unit_amount" id="unit_amount" /> 
+                
+ 
+<div class="shp_item_one headline"> 
+	<h1>Cybex Autokindersitz PALLAS-fix</h1> 
+	<div class="product_navigation"> 
+		<a class="backButton" href="http://www.shopperella.de/autokindersitze-babyschalen/angebote/">Zurück zur Kategorie <strong>"Autokindersitze & Babyschalen"</strong></a> 
+				<div style="width: 340px; float: right;"> 
+			<strong style="float: left; height: 30px; line-height: 30px;">Nächstes Produkt:</strong> 
+						<div style="display: block; float: left; width: 20px; height: 20px; margin-top: 5px;"> 
+				<a id="prevItem" href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-solution-x-155275/"> 
+					<img src="http://static.shopperella.de/pics/imgs/arrow_left_violet.png" /> 
+				</a> 
+			</div> 
+						<ul class="thumb" > 
+														<li > 
+						<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-solution-x-155271/" id="155271" > 
+							<img src="http://static.shopperella.de/media/item/15/52/71/item_S_155271_2065109.jpg" class="image small" alt="Autokindersitz Solution X" title="Autokindersitz Solution X" /> 
+						</a> 
+					</li> 
+														<li > 
+						<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-solution-x-155275/" id="155275" > 
+							<img src="http://static.shopperella.de/media/item/15/52/75/item_S_155275_2065115.jpg" class="image small" alt="Autokindersitz Solution X" title="Autokindersitz Solution X" /> 
+						</a> 
+					</li> 
+														<li > 
+						<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155137/" id="155137" class="active"> 
+							<img src="http://static.shopperella.de/media/item/15/51/37/item_S_155137_2064845.jpg" class="image small" alt="Autokindersitz PALLAS-fix" title="Autokindersitz PALLAS-fix" /> 
+						</a> 
+					</li> 
+														<li > 
+						<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155139/" id="155139" > 
+							<img src="http://static.shopperella.de/media/item/15/51/39/item_S_155139_2064847.jpg" class="image small" alt="Autokindersitz PALLAS-fix" title="Autokindersitz PALLAS-fix" /> 
+						</a> 
+					</li> 
+														<li > 
+						<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155131/" id="155131" > 
+							<img src="http://static.shopperella.de/media/item/15/51/31/item_S_155131_2064833.jpg" class="image small" alt="Autokindersitz PALLAS-fix" title="Autokindersitz PALLAS-fix" /> 
+						</a> 
+					</li> 
+							</ul> 
+						<div style="display: block; float: left; width: 20px; height: 20px; margin-top: 5px;"> 
+				<a id="nextItem" href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155139/"> 
+					<img src="http://static.shopperella.de/pics/imgs/arrow_right_violet.png" style="display: block; float: right;" /> 
+				</a> 
+			</div> 
+					</div> 
+			</div> 
+</div> 
+ 
+<div class="shp_item_one detail_main"> 
+	<div style="float: left; width: 322px;"> 
+	<div class="shp_picture_layer"> 
+		<div class="shp_picture"> 
+			<div class="shp_picture_body" style="relative"> 
+	          		          		<a href="http://static.shopperella.de/media/item/15/51/37/item_XL_155137_2064845.jpg" class="item_one_zoom_image"  title="Vorschau"> 
+	     	     			<img src="http://static.shopperella.de/media/item/15/51/37/item_L_155137_2064845.jpg" class="image large" alt="Autokindersitz PALLAS-fix" title="Autokindersitz PALLAS-fix" /> 
+	          		</a> 
+	          			          										<br /> 
+						   	</div> 
+			<div class="shp_picture_footer"> 
+				<span class="square-button zoom-icon" title="vergrößern">Zum Vergrößern über das Bild fahren</span> 
+				<div class="pic-count"> 
+					<span class="site_nr current_nr text-light-gray">Bild 1</span><span class="site_nr text-light-gray">/1</span> 
+				</div> 
+			</div> 
+		</div> 
+	</div> 
+	<div class="clear"></div> 
+	<ul class="picture_bar"> 
+																    		<li class="picture_board"> 
+    			<img src="http://static.shopperella.de/pics/layout/product_layer_arrow_down.png" class="product_arrow_down active" /> 
+    			<img id="thumb1" class="picture_thumb" src="http://static.shopperella.de/media/item/15/51/37/item_S_155137_2064845.jpg"/> 
+    		</li> 
+			</ul> 
+			<div class="clear"></div> 
+	<div class="spacer20"></div> 
+    <div class="more_items_from_producttype"> 
+    	        <h3 class="text-lila">Mehr Autokindersitze & Zubehör von Cybex</h3> 
+        		<div class="item_image"> 
+        	<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-solution-x-fix-berry-19874/"> 
+            	<img src="http://static.shopperella.de/media/item/19/87/4/item_S_19874_57655.jpg" class="image small" alt="Solution X-fix  Berry" title="Solution X-fix  Berry" /> 
+			</a> 
+		</div> 
+        		<div class="item_image"> 
+        	<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-kinder-autositz-solution-x-sc-90775/"> 
+            	<img src="http://static.shopperella.de/media/item/90/77/5/item_S_90775_1910831.jpg" class="image small" alt="Kinder-Autositz Solution X" title="Kinder-Autositz Solution X" /> 
+			</a> 
+		</div> 
+        		<div class="item_image"> 
+        	<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-kinder-autositz-solution-x-sc-90777/"> 
+            	<img src="http://static.shopperella.de/media/item/90/77/7/item_S_90777_1910833.jpg" class="image small" alt="Kinder-Autositz Solution X" title="Kinder-Autositz Solution X" /> 
+			</a> 
+		</div> 
+        		<div class="item_image"> 
+        	<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-kinder-autositz-solution-x-sc-90781/"> 
+            	<img src="http://static.shopperella.de/media/item/90/78/1/item_S_90781_1910837.jpg" class="image small" alt="Kinder-Autositz Solution X" title="Kinder-Autositz Solution X" /> 
+			</a> 
+		</div> 
+        	</div> 
+		</div> 
+	<div class="shp_item_one_rightcol"> 
+		<div class="shp_item_one item_details"> 
+			
+<script> 
+var variant_structure = jQuery.parseJSON('{"braun":[],"rot":[],"lila":[],"blau":[],"gr\u00fcn":[],"grau":[],"t\u00fcrkis":[],"schwarz":[]}');
+var item_links = jQuery.parseJSON('{"blau":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155137\/","lila":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-kinderautositz-pallas-fix-155101\/","gr\u00fcn":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155113\/","t\u00fcrkis":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155121\/","rot":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155125\/","grau":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155131\/","braun":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155135\/","schwarz":"http:\/\/www.shopperella.de\/autokindersitze-babyschalen\/cybex-autokindersitz-pallas-fix-155139\/"}');
+ 
+	$().ready(function() {
+		$('.variants-dimension-trigger').change(function() {
+			var variant_ident = '';
+			var aVariants = new Array();
+			$('.variants-dimension-selectors').each(function() {
+				aVariants[aVariants.length] = this.value;
+			});
+ 
+ 
+			if (!item_links[aVariants.join('')])
+			{
+				values = variant_structure[aVariants[0]];
+				for(var t in values)
+				{
+					aVariants[1] = t;
+				}
+			}
+			document.location.href = item_links[aVariants.join('')];
+		});
+	});
+ 
+</script> 
+	<div class="shp_item_details"> 
+		<div class="item_details_box text-light-gray"> 
+								<div class="manufacturer_image"><img class="itemList-browse-manufacturer" src="http://static.shopperella.de/manufacturers/20/7/manufacturer_M_207.jpg" alt="Logo"/></div> 
+				von Cybex				
+										    	<div class="spacer20"></div> 
+				<div class="clear"></div> 
+		</div> 
+				<div class="item_details_box"> 
+			<div style="line-height: 24px;"> 
+																	
+					<strong style="float: left; width: 120px; height: 26px; line-height: 26px;" class="text-lila bold">Farbe:</strong> 
+ 
+					<select style="height: 26px;" name="variants-dimension-color" class="field w150 variants-dimension-selectors variants-dimension-trigger"> 
+ 
+																		<option value="braun" >braun</option> 
+																				<option value="rot" >rot</option> 
+																				<option value="lila" >lila</option> 
+																				<option value="blau" selected="selected">blau</option> 
+																																			<option value="grün" >grün</option> 
+																				<option value="grau" >grau</option> 
+																				<option value="türkis" >türkis</option> 
+																				<option value="schwarz" >schwarz</option> 
+																		
+										</select><br /> 
+							</div>	
+		</div> 
+						<div class="item_details_box item_alternatives"> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-kinderautositz-pallas-fix-155101/"><img src="http://static.shopperella.de/media/item/15/51/01/item_XS_155101_2064807.jpg" class=""/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155113/"><img src="http://static.shopperella.de/media/item/15/51/13/item_XS_155113_2064819.jpg" class=""/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155121/"><img src="http://static.shopperella.de/media/item/15/51/21/item_XS_155121_2064825.jpg" class=""/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155125/"><img src="http://static.shopperella.de/media/item/15/51/25/item_XS_155125_2064829.jpg" class=""/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155131/"><img src="http://static.shopperella.de/media/item/15/51/31/item_XS_155131_2064833.jpg" class=""/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155135/"><img src="http://static.shopperella.de/media/item/15/51/35/item_XS_155135_2064843.jpg" class=""/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155137/"><img src="http://static.shopperella.de/media/item/15/51/37/item_XS_155137_2064845.jpg" class="active"/></a> 
+							<a href="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155139/"><img src="http://static.shopperella.de/media/item/15/51/39/item_XS_155139_2064847.jpg" class=""/></a> 
+					</div> 
+							<div class="item_details_box"> 
+				<div style="width:310px;"> 
+										<div class="manufacturer_image"> 
+													<a href="http://shop.shopperella.de/shopperella/"><img style="display: block; margin: auto 0;" alt="Händlerlogo" src="http://static.shopperella.de/seller/12071_cust_image.jpg" /></a><br /> 
+											</div> 
+ 
+					
+											
+							
+							<span class="text-green">Lieferbar: </span> 
+												Versandbereit
+						
+													
+							<span title="Dieser Artikel wird vorraussichtlich zwischen 02.04.2011 und 04.04.2011 bei Ihnen eintreffen."> 
+													innerhalb von 1-3 Werktagen
+						</span> 
+										
+										<span class="clear"></span > 
+				</div> 
+				<div class="clear"></div> 
+				<div class="spacer20"></div> 
+								<div> 
+					<strong>Verkauf durch shopperella</strong> 
+										<ul class="check-list lila"> 
+						<li>Geprüfter Shopperella-Händler</li> 
+						<li>100% positive Bewertungen (<a href="http://shop.shopperella.de/shopperella/profile.html" id="profile_12071" class="ajaxprofile thickbox" rel="nofollow" title="Bewertungsübersicht von shopperella">2</a>)</li> 
+											</ul> 
+									</div> 
+				<div class="clear"></div> 
+				<div class="spacer20"></div> 
+				<div> 
+					<a style="margin-right: 10px; line-height: 1.33em;" href="http://shop.shopperella.de/shopperella/roc.html" id="roc_12071" class="ajaxroc thickbox arrow-lila" rel="nofollow" > 
+						Widerrufsbelehrung
+					</a> 
+										<br /> 
+					<a style="line-height: 1.33em;" href="http://shop.shopperella.de/shopperella/delivery_regions.html" class="ajaxdelivery thickbox arrow-lila" rel="nofollow"  id="delivery_regions_12071"> 
+						Versandregionen
+					</a> 
+					<br /> 
+					<a style="line-height: 1.33em;" href="http://shop.shopperella.de/shopperella/" class="arrow-lila" rel="nofollow"  id="delivery_regions_12071"> 
+						Alle Artikel des Händlers
+					</a> 
+									</div> 
+				<div class="spacer20"></div> 
+								<div id="shp_facebook"> 
+					<iframe
+						src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.shopperella.de%2Fautokindersitze-babyschalen%2Fcybex-autokindersitz-pallas-fix-155137%2F&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=verdana&amp;colorscheme=light&amp;height=40" scrolling="no"
+						frameborder="0"
+						style="border:none;overflow:hidden;width: 415px;height:40px;"
+						allowTransparency="true"> 
+					</iframe> 
+				</div> 
+			</div> 
+				<div class="clear"></div> 
+	</div>		</div> 
+		<div class="shp_item_one price_col"> 
+			<div class="shp_item_one price_box"> 
+														<span style="font-size: 20px;">249,95 € </span> 
+								        	<span class="text-green" style="font-size:11px">versandkostenfrei!</span> 
+			        	
+					<br /> 
+					<span style="font-size:10px" class="text-gray">(inkl. MwSt.)</span> 
+					
+										
+					<div class="spacer10"></div> 
+					
+																																																																																																																																																																																																																																																																																																																																																		<div class="clear"></div> 
+					<div class="spacer10"></div> 
+										<div class="clear"></div> 
+					<div class="spacer10"></div> 
+					<div> 
+						<form class="addToCart js-cartform" action="http://www.shopperella.de/Action.php" method="post" id="addToCart-submit"> 
+							<input type="hidden" name="action" value="addtocart" /> 
+							<input type="hidden" name="id_item" value="155137" /> 
+							<input type="hidden" name="redirect_to" value="http://www.shopperella.de/autokindersitze-babyschalen/cybex-autokindersitz-pallas-fix-155137/" /> 
+							<input type="hidden" name="id_seller" value="12071" /> 
+							<input type="hidden" name="id_unit" value="1111901048" /> 
+														<div style="margin: 10px 0px; position: relative;"> 
+								<div style="float: left; width: 40px; height: 24px; line-height: 24px; margin-right: 10px;"><span style="height: 24px; line-height: 24px;" class="text-lila">Anzahl: </span></div> 
+								<div class="item_amount_main" style="float: left; margin-right: 10px;"> 
+									<div class="item_amount"> 
+										<input type="text" name="count" value="1" id="to_cart_amount" shr:maxval="10" /> 
+									</div> 
+									<div class="increaseAmount" id="increaseAmount" style="float: left; width: 15px; height: 12px;"></div> 
+									<div class="decreaseAmount js_amount_itemOne" id="decreaseAmount" style="float: left; width: 15px; height: 12px;"></div> 
+								</div> 
+								<div class="errorInfo itemOne"></div> 
+								<div class="clear"></div> 
+							</div> 
+														<script type="text/javascript"> 
+							
+								function addToWishlist(id_item)
+								{
+									$.get("http://www.shopperella.de/Action.php?action=add_to_shoppinglist&mode=ajax&id_item=" + id_item, function(text){
+		
+									   	if(text == 'success')
+									   	{
+									   		tb_show('Merkzettel', 'http://www.shopperella.de/item_one.php?thickbox=form&width=370&height=120&success=true', null);
+									   	}
+								   		else
+								   		{
+									   		tb_show('Hinzufügen fehlgeschlagen', 'http://www.shopperella.de/item_one.php?thickbox=form&width=370&height=120&success=false', null);
+								   		}
+									});
+								}
+							
+							</script> 
+							 									                        		                        <a   class="button  small default cart"  style='width: 140px; text-align: center'   onclick='return submitOnce("addToCart-submit")' href=""><span>In den Warenkorb</span></a> 
+		                        <div class="clear"></div> 
+		                        <div class="spacer10"></div> 
+		                        <a class="arrow-lila" onClick="addToWishlist(155137);">auf den Merkzettel</a> 
+														<div class="clear"></div> 
+						</form> 
+					</div> 
+							</div> 
+		</div> 
+		<div id="friendfund_fund_button" style="margin-left: 10px;float: left;width: 190px;position: relative;"></div>
+		<div class="clear"></div> 
+		
+		
+		
+		
+ 
+		
+ 
+		<div class="spacer10"></div> 
+		<div class="shp_item_information"> 
+			<div id="tabs"> 
+			    <ul> 
+			        <li><a href="#item_description"><span>Artikelinformationen</span></a></li> 
+			        <li><a id="js-item_reviews" href="#item_reviews"><span>Artikelbewertung </span></a></li> 
+			    </ul> 
+			    <div id="item_description"> 
+			       <div class="shp_product_description text-gray" id="product_descriptions">
+
+	<h2 class="text-lila">Artikelinformationen</h2>
+
+	<div class="spacer10"></div>
+
+			Mit dem Autokindersitz PALLAS-fix von Cybex erhalten Sie 2 Sitze in einem, der Ihr Kind von ca. 9 Monaten bis 12 Jahren begleitet (Gr. I-III). Der Pallas (Gr. I) bietet dank eines Sicherheitskissens besonders hohen Schutz für Ihr Kleinkind. Im Falle eines Unfalls wird die Aufprallenergie über die große Fläche des Sicherheitskissens verteilt und durch die energieabsorbierenden Materialien abgebaut. Sobald Ihr Kind groß genug ist, wird der Gruppe I Sitz ab einem Alter von ca. 3 Jahren (15 Kilo) mit nur wenigen Handgriffen zum mehrfach ausgezeichneten Gruppe II/III Sitz Solution X-fix umgebaut.<br />
+
+<br />
+
+In Gruppe I lässt sich der PALLAS-fix mit einem Griff von vorne in die Liegeposition verstellen. Der PALLAS-fix bietet außerdem auch die zahlreichen Sicherheits- und Komfortmerkmale des Solution X. Dazu gehört eine neigungs- und höhenverstellbare Kopfstütze, große Seitenprotektoren für Kopf- und Schulterbereich. <br />
+
+<br />
+
+Der PALLAS-fix wird mit der ISOFIX-Vorrichtung im Fahrzeug befestigt und verstärkt dadurch die Stabilität und Sicherheit über die gesamte Nutzungsdauer. Die Rastarme werden durch ein Klicksystem mit den ISOFIX Punkten des Fahrzeugs verbunden. Der PALLAS-fix kann natürlich auch ohne ISOFIX-Vorrichtung verwendet werden.<br />
+
+<br />
+
+<b>Besondere Produkteigenschaften:</b><ul class='standard_list item_description'>
+
+<li> 2 Sitze in einem
+
+<li> 3-fach neigungsverstellbare Kopfstütze
+
+<li> Linearer Seitenaufprallschutz (L.S.P. System)
+
+<li> 11-fach höhenverstellbare Kopfstütze
+
+<li> Neigungsverstellbare Rückenlehne
+
+<li> Sitzeinlage für optimale Größenanpassung (Gr.I)
+
+<li> Sicherheitskissen in der Tiefe verstellbar 
+
+<li> Leichtgewicht zum einfachen Fahrzeugwechseln
+
+<li> Bezüge atmungsaktiv und waschbar bei 30 Grad
+
+<li> Gewicht: 11,0 kg</li></ul>
+
+		
+
+				</div>
+
+<div class="ekomi-reviews">
+
+	<script type="text/javascript"> 
+
+		var eKomiWGProt = (("https:" == document.location.protocol) ? "https://" : "http://"); 
+
+		document.write(unescape("%3Cscript src='" + eKomiWGProt + "connect.ekomi.de/widget/PZUY1SW327HVB92.js' type='text/javascript'%3E%3C/script%3E"));
+
+	</script>
+
+</div>
+
+<div class="clear"></div>
+
+<div class="spacer20"></div>
+
+<div class="shp_product_information text-gray">
+
+	<h2 class="text-lila">Produktdaten</h2>
+
+	<div class="spacer10"></div>
+
+			
+
+							
+
+												
+
+							
+
+												<label class="text-black bold">Gewicht: </label>
+
+															11,0 kg
+
+									 <br />
+
+							
+
+												<label class="text-black bold">Farbe: </label>
+
+															blau
+
+									 <br />
+
+							
+
+							
+
+												
+
+												<label class="text-black bold">Autositz-Klasse: </label>
+
+															                    9-36 kg
+
+	                    									 <br />
+
+							
+
+												
+
+												<label class="text-black bold">Maße: </label>
+
+															LxBxH: 45,5 cm x 47,0 cm x 72,0 – 89,0 cm
+
+									 <br />
+
+							
+
+												
+
+							
+
+												
+
+							
+
+							
+
+												
+
+												<label class="text-black bold">Befestigung des Sitzes: </label>
+
+															                    Isofix
+
+	                    , 						                    3-Punkt-Gurt
+
+	                    									 <br />
+
+							
+
+												
+
+												
+
+		 
+
+	<div class="clear"></div>
+
+</div>
+
+
+
+
+
+
+			    </div> 
+			    <div id="item_reviews"> 
+			    	 <div class="review-text"> 
+	<p class="shp_info_box"> 
+		Es wurde noch keine Bewertung zu diesem Artikel geschrieben.<br /> 
+		<a href="#comment" class="arrow-lila deep showComment bold">Gib jetzt die erste Bewertung ab.</a> 
+	</p> 
+</div> 
+ 
+	<div id="reviewComment" style="display:none"> 
+		<div class="spacer10"></div> 
+		<div id="errorPlacement" style="display: none"></div> 
+		<div id="reviewComment"> 
+			<div> 
+				<h2 class="lila"> 
+											Eigene Bewertung zu &bdquo;Autokindersitz PALLAS-fix&ldquo; schreiben
+									
+				</h2> 
+				<div class="spacer20"></div> 
+				<div> 
+															<form id="comment_form" name="comment-form" action="http://www.shopperella.de/item_one.php?action=comment" method="post"> 
+						<div style="border-bottom: 1px solid #D9CFC3; padding-bottom: 10px; float: left; width: 100%;"> 
+							<div style="float: left;"><strong>Wie bewertest Du den Artikel?</strong></div> 
+		    				<div id="item_rating_stars" style="cursor: pointer; float: left; margin-left: 75px;"> 
+		    							    						<input type="hidden" name="reviewsStar" id="reviewsStar" value="false" /> 
+		    						<img id="item_rating_1" src="http://static.shopperella.de/pics/icons/stern_lila_15_15_50.png" alt="+" height="15" width="15" /> 
+		    						<img id="item_rating_2" src="http://static.shopperella.de/pics/icons/stern_lila_15_15_50.png" alt="+" height="15" width="15" /> 
+		    						<img id="item_rating_3" src="http://static.shopperella.de/pics/icons/stern_lila_15_15_50.png" alt="+" height="15" width="15" /> 
+		    						<img id="item_rating_4" src="http://static.shopperella.de/pics/icons/stern_lila_15_15_50.png" alt="+" height="15" width="15" /> 
+		    						<img id="item_rating_5" src="http://static.shopperella.de/pics/icons/stern_lila_15_15_50.png" alt="+" height="15" width="15" /> 
+		    							    				</div> 
+	    				</div> 
+	    				<div class="clear"></div> 
+	    				<div class="spacer20"></div> 
+						
+	    				<label for="title">Bitte gib den Titel für Deine Bewertung ein:</label> 
+	    				<div class="spacer10"></div> 
+	    				<input class="form-main-textinput field w300" type="text" id="title" name="title" /> 
+	    				<div class="spacer20"></div> 
+	
+					 
+	    				<label for="text">Gib bitte Deine Meinung zum Artikel ein.</label> 
+	    				<div class="spacer10"></div> 
+	    				<textarea style="width: 450px; height: 150px;" id="text" name="text"></textarea> 
+	    				<div class="spacer10"></div> 
+						
+							    				<div style="float: left; width: 250px; margin-right: 10px;"> 
+		                    <label for="author_name">Dein Vorname </label><span style="font-size:11px;" class="text-gray">(wird angezeigt)</span> 
+		                    <div class="spacer5"></div> 
+		    				<input tabindex="1" class="form-main-textinput field w200" type="text" id="author_name" name="author_name" /> 
+		    				<div class="spacer10"></div> 
+		    				<div class="clear"></div>	
+		    				<label for="author_email">Deine Email </label><span style="font-size:11px;" class="text-gray">(optional; wird nicht angezeigt)</span> 
+		                    <div class="spacer5"></div> 
+		    				<input tabindex="3" class="form-main-textinput field w200" type="text" id="author_email" name="author_email" /> 
+	    				</div> 
+	    				
+	    				<div style="float: left; width: 250px;"> 
+		                    <label for="author_lastname">Dein Nachname </label><span style="font-size:11px;" class="text-gray">(wird nicht angezeigt)</span> 
+		                    <div class="spacer5"></div> 
+		    				<input tabindex="2" class="form-main-textinput field w200" type="text" id="author_lastname" name="author_lastname" /> 
+		    				<div class="spacer10"></div> 
+		    				<div class="clear"></div> 
+		    				<label for="author_city">Deine Stadt </label><span style="font-size:11px;" class="text-gray">(optional)</span> 
+		                    <div class="spacer5"></div> 
+		    				<input tabindex="4" class="form-main-textinput field w200" type="text" id="author_city" name="author_city" /> 
+	    				</div> 
+	    				
+	    				<div class="clear"></div> 
+	    				<div class="spacer20"></div> 
+	    				
+	    				<div class="clear"></div> 
+												<div class="spacer20"></div> 
+						<div> 
+							<div style="float:left;"> 
+		    				<input type="checkbox" name="send_email_flag" id="send_email_flag" value="1" /> 
+		    				</div> 
+	    					<div style="float:left; padding-top:4px; padding-left:4px;"> 
+		    					<span class="text-small"> 
+		    						Sollen wir Dir eine E-Mail schicken, wenn jemand Deinen Kommentar bewertet?
+								</span> 
+							</div> 
+							<div class="clear"></div> 
+						</div>    					
+						<div class="spacer20"></div>		
+																		<input type="hidden" name="id_item" value="155137" /> 
+						<input id="item_rating" type="hidden" name="item_rating" /> 
+						<div style="float:right; width:160px;"> 
+							<a   class="button  small default next"  id=submitComment  href=""><span>Bewertung abgeben</span></a> 
+						</div> 
+						
+						<div class="clear"></div> 
+			
+					</form>	
+	
+				<div class="clear"></div>				
+			</div> 
+		</div> 
+	</div> 
+</div> 
+ 
+ 
+<div class="clear"></div> 
+<div class="spacer10"></div> 
+ 
+<div class="clear"></div> 
+ 
+			    </div> 
+			</div> 
+		</div> 
+	</div> 
+	<div class="clear"></div> 
+</div> 
+<div class="clear"></div> 
+ 
+		</div> 
+	</div> 
+</div> 
+ 
+ 
+		</div> 
+ 
+ 
+	<div id="body-column-bottom" > 
+	
+		
+				<div id="box-lastseenitems" class="box-container"> 
+	<div class="box-style-none" > 
+					
+			
+					<div class="box-body "> 
+					<div class="box-style-gradient-with-line" style="width:960px;"><!--Anfang:box-style-gradient-with-line --> 
+    <div class="head"><h2 class="text-lila">Zuletzt angesehene Produkte</h2></div> 
+    <shr:nocache id="lastseenitems"> 
+        
+<script type="text/javascript"> 
+$(document).ready(function(){
+ 
+	
+	$('.shop_image').tooltip({
+	    bodyHandler: function() {
+	    	return $($(this).next()).html(); 
+	    }, 
+	    showURL: false 
+	});
+ 
+	
+		
+});
+</script> 
+ 
+ 
+ 
+<div class="last-seen-box" >    
+     	 <a href="http://www.shopperella.de/fussball-sonstige-zubehoer-kinder/hudora-fussballtor-mega-goal-140757/"> 
+       <span class="image-box"><img src="http://static.shopperella.de/media/item/14/07/57/item_S_140757_2029135.jpg" class="image small" alt="Fussballtor Mega Goal" title="Fussballtor Mega Goal" /></span> 
+	</a> 
+     	 <a href="http://www.shopperella.de/playmobil-polizei-feuerwehr/playmobil-feuerwehr-hauptquartier-138403/"> 
+       <span class="image-box"><img src="http://static.shopperella.de/media/item/13/84/03/item_S_138403_2033099.jpg" class="image small" alt="Feuerwehr-Hauptquartier" title="Feuerwehr-Hauptquartier" /></span> 
+	</a> 
+     	 <a href="http://www.shopperella.de/hemden-kinder/burberry-hemd-gr-152-139885/"> 
+       <span class="image-box"><img src="http://static.shopperella.de/media/item/13/98/85/item_S_139885_2027353.jpg" class="image small" alt="Hemd, Gr. 152" title="Hemd, Gr. 152" /></span> 
+	</a> 
+     	 <a href="http://www.shopperella.de/buggys/cybex-callisto-city-buggy-caribbean-19891/"> 
+       <span class="image-box"><img src="http://static.shopperella.de/media/item/19/89/1/item_S_19891_57706.jpg" class="image small" alt="Callisto City Buggy Caribbean" title="Callisto City Buggy Caribbean" /></span> 
+	</a> 
+      <div class="clear"></div> 
+</div> 
+<div class="clear"></div>    </shr:nocache> 
+</div><!--Ende: box-style-gradient-with-line --> 
+		</div> 
+	</div> 
+</div> 
+ 
+ 
+				<div id="box-Tracking/item_one_tracking" class="box-container"> 
+	<div class="box-style-none" > 
+					
+			
+					<div class="box-body default"> 
+					
+
+<script type="text/javascript">
+
+	var product = {
+
+		identifier: 155137
+
+	};
+
+</script>
+
+ 
+		</div> 
+	</div> 
+</div> 
+ 
+ 
+		</div> 
+<div class="clear"></div> 
+</div>			<div class="clear"></div> 
+		</div> 
+		<div class="footer">
+
+	<ul class="footer_menu">
+
+		<li class="text-lila bold">Kundenservice:</li>
+
+		<li>
+
+			<ul class="footer_sub_menu">
+
+				<li><a href="http://www.shopperella.de/c/kontakt.html">Kontakt</a></li>
+
+				<li><a href="http://www.shopperella.de/account_purchases.php" rel="nofollow">Meine Bestellungen</a></li>
+
+	     		<li><a href="http://www.shopperella.de/faqs.php?id_faq_category=7">Lieferzeiten/Rücksendungen</a></li>			
+
+				<li><a href="http://www.shopperella.de/faqs.php">FAQ</a></li>
+
+				<li><a href="http://www.shopperella.de/c/shopper-alarm.html">Shopper-Alarm</a></li>
+
+									        </ul>
+
+        </li>
+
+	</ul>
+
+	<ul class="footer_menu">
+
+		<li class="text-lila bold">Händlerservice:</li>
+
+		<li>
+
+			<ul class="footer_sub_menu">
+
+				<li><a title="Händlerbereich" href="http://www.shopperella.de/account.php"  rel="nofollow">Händlerbereich</a></li>
+
+				<li><a title="Bei Shopperella verkaufen" href="http://www.shopperella.de/bei-shopperella-verkaufen.html" rel="nofollow">Bei Shopperella verkaufen</a></li>
+
+				<li><a title="Verkäufergrundsätze" href="http://www.shopperella.de/c/verkaeufergrundsaetze.html" rel="nofollow">Verkäufergrundsätze</a></li>
+
+				<li><a title="Händlerservice" href="http://www.shopperella.de/c/broschuere.html">Händlerservice</a></li>
+
+	        </ul>
+
+        </li>
+
+	</ul>
+
+	<ul class="footer_menu">
+
+		<li class="text-lila bold">Shopperella:</li>
+
+		<li>
+
+			<ul class="footer_sub_menu">
+
+				<li><a title="Über uns" href="http://www.shopperella.de/c/ueberuns.html">Über uns</a></li>
+
+				<li><a title="Karriere" href="http://www.shopperella.de/c/karriere.html" rel="nofollow">Karriere</a></li>
+
+				<li><a title="Impressum" href="http://www.shopperella.de/c/impressum.html" rel="nofollow">Impressum</a></li>
+
+				<li><a title="AGB" href="http://www.shopperella.de/c/agb.html" rel="nofollow">AGB</a></li>
+
+				<li><a title="Datenschutz" href="http://www.shopperella.de/c/datenschutz.html" rel="nofollow">Datenschutz</a></li>
+
+	        </ul>
+
+        </li>
+
+	</ul>
+
+	<ul class="footer_menu">
+
+		<li class="text-lila bold">Du findest uns auch bei:</li>
+
+		<li>
+
+			<ul class="footer_sub_menu">
+
+      			<li><a class="square-button facebook_button" rel="nofollow" target="_blank"  href="http://www.facebook.com/pages/Shopperella/256236089613/" title="Besuche uns auf Facebook">Facebook</a></li>
+
+        		<li><a class="square-button twitter_button" rel="nofollow" target="_blank"  href="http://twitter.com/ShopperellaDe" title="Folge uns auf Twitter">Twitter</a></li>
+
+        		<li><a class="square-button shopperella_blog" rel="nofollow" target="_blank"  href="http://blog.shopperella.de/" title="Schau bei unseren Blog vorbei">Shopperella Blog</a></li>
+
+	        </ul>
+
+        </li>
+
+	</ul>
+
+	<ul class="footer_menu">
+
+		<li class="text-lila bold">Zahlungsmöglichkeiten:</li>
+
+		<li>
+
+			<div class="paymentmethods">
+
+				<img src="http://static.shopperella.de/images/payment/payment_methods_footer.png" alt="Payment Methods" title="Payment Methods"/>
+
+			</div> 
+
+        </li>
+
+	</ul>
+
+	
+
+	<div class="clear"></div>
+
+	<div class="spacer10"></div>
+
+	<div style="font-size:11px">
+
+		Alle Preise inkl. der jeweils geltenden gesetzlichen Mehrwertsteuer. Alle Angaben ohne Gewähr. Shopperella hat keinen Einfluss auf die Preise, die von Händlern jederzeit eigenständig angepasst werden können, so dass Shopperella keine Preisstabilität garantieren kann. Angaben zu absoluten und prozentualen Ersparnissen beziehen sich entweder auf die Differenz zur unverbindlichen Preisempfehlung (UVP) des Herstellers oder auf die Differenz zwischen dem aktuellen und dem höchsten Preis, für den das Produkt innerhalb der letzten 3 Monate auf Shopperella angeboten wurde.
+
+	</div> 
+
+</div>
+
+
+
+<div class="clear"></div>
+
+<div class="spacer20" style="height:20px;"></div>
+
+<!--  Ende Marken -->			
+		
+
+ 
+		
+
+
+
+	
+
+	<script type="text/javascript">
+
+	(function() {
+
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+	  })();
+
+	</script>
+
+	
+
+ 
+				
+				                            <script type="text/javascript"> 
+            //<![CDATA[
+            	(function($){$.fn.hoverIntent=function(f,g){var cfg={sensitivity:7,interval:100,timeout:0};cfg=$.extend(cfg,g?{over:f,out:g}:f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY;};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev]);}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev]);};var handleHover=function(e){var p=(e.type=="mouseover"?e.fromElement:e.toElement)||e.relatedTarget;while(p&&p!=this){try{p=p.parentNode;}catch(e){p=this;}}
+if(p==this){return false;}
+var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);}
+if(e.type=="mouseover"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob);},cfg.timeout);}}};return this.mouseover(handleHover).mouseout(handleHover);};})(jQuery);
+            //]]>
+            </script> 
+                                    <script type="text/javascript"> 
+            //<![CDATA[
+            	/*
+ * jQuery Tooltip plugin 1.3
+ *
+ * http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/
+ * http://docs.jquery.com/Plugins/Tooltip
+ *
+ * Copyright (c) 2006 - 2008 Jörn Zaefferer
+ *
+ * $Id: jquery.tooltip.js 5741 2008-06-21 15:22:16Z joern.zaefferer $
+ * 
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ */;(function($){var helper={},current,title,tID,IE=$.browser.msie&&/MSIE\s(5\.5|6\.)/.test(navigator.userAgent),track=false;$.tooltip={blocked:false,defaults:{delay:200,fade:false,showURL:true,extraClass:"",top:15,left:15,id:"tooltip"},block:function(){$.tooltip.blocked=!$.tooltip.blocked;}};$.fn.extend({tooltip:function(settings){settings=$.extend({},$.tooltip.defaults,settings);createHelper(settings);return this.each(function(){$.data(this,"tooltip",settings);this.tOpacity=helper.parent.css("opacity");this.tooltipText=this.title;$(this).removeAttr("title");this.alt="";}).mouseover(save).mouseout(hide).click(hide);},fixPNG:IE?function(){return this.each(function(){var image=$(this).css('backgroundImage');if(image.match(/^url\(["']?(.*\.png)["']?\)$/i)){image=RegExp.$1;$(this).css({'backgroundImage':'none','filter':"progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='"+image+"')"}).each(function(){var position=$(this).css('position');if(position!='absolute'&&position!='relative')$(this).css('position','relative');});}});}:function(){return this;},unfixPNG:IE?function(){return this.each(function(){$(this).css({'filter':'',backgroundImage:''});});}:function(){return this;},hideWhenEmpty:function(){return this.each(function(){$(this)[$(this).html()?"show":"hide"]();});},url:function(){return this.attr('href')||this.attr('src');}});function createHelper(settings){if(helper.parent)return;helper.parent=$('<div id="'+settings.id+'"><h3></h3><div class="body"></div><div class="url"></div></div>').appendTo(document.body).hide();if($.fn.bgiframe)helper.parent.bgiframe();helper.title=$('h3',helper.parent);helper.body=$('div.body',helper.parent);helper.url=$('div.url',helper.parent);}function settings(element){return $.data(element,"tooltip");}function handle(event){if(settings(this).delay)tID=setTimeout(show,settings(this).delay);else
+show();track=!!settings(this).track;$(document.body).bind('mousemove',update);update(event);}function save(){if($.tooltip.blocked||this==current||(!this.tooltipText&&!settings(this).bodyHandler))return;current=this;title=this.tooltipText;if(settings(this).bodyHandler){helper.title.hide();var bodyContent=settings(this).bodyHandler.call(this);if(bodyContent.nodeType||bodyContent.jquery){helper.body.empty().append(bodyContent)}else{helper.body.html(bodyContent);}helper.body.show();}else if(settings(this).showBody){var parts=title.split(settings(this).showBody);helper.title.html(parts.shift()).show();helper.body.empty();for(var i=0,part;(part=parts[i]);i++){if(i>0)helper.body.append("<br/>");helper.body.append(part);}helper.body.hideWhenEmpty();}else{helper.title.html(title).show();helper.body.hide();}if(settings(this).showURL&&$(this).url())helper.url.html($(this).url().replace('http://','')).show();else
+helper.url.hide();helper.parent.addClass(settings(this).extraClass);if(settings(this).fixPNG)helper.parent.fixPNG();handle.apply(this,arguments);}function show(){tID=null;if((!IE||!$.fn.bgiframe)&&settings(current).fade){if(helper.parent.is(":animated"))helper.parent.stop().show().fadeTo(settings(current).fade,current.tOpacity);else
+helper.parent.is(':visible')?helper.parent.fadeTo(settings(current).fade,current.tOpacity):helper.parent.fadeIn(settings(current).fade);}else{helper.parent.show();}update();}function update(event){if($.tooltip.blocked)return;if(event&&event.target.tagName=="OPTION"){return;}if(!track&&helper.parent.is(":visible")){$(document.body).unbind('mousemove',update)}if(current==null){$(document.body).unbind('mousemove',update);return;}helper.parent.removeClass("viewport-right").removeClass("viewport-bottom");var left=helper.parent[0].offsetLeft;var top=helper.parent[0].offsetTop;if(event){left=event.pageX+settings(current).left;top=event.pageY+settings(current).top;var right='auto';if(settings(current).positionLeft){right=$(window).width()-left;left='auto';}helper.parent.css({left:left,right:right,top:top});}var v=viewport(),h=helper.parent[0];if(v.x+v.cx<h.offsetLeft+h.offsetWidth){left-=h.offsetWidth+20+settings(current).left;helper.parent.css({left:left+'px'}).addClass("viewport-right");}if(v.y+v.cy<h.offsetTop+h.offsetHeight){top-=h.offsetHeight+20+settings(current).top;helper.parent.css({top:top+'px'}).addClass("viewport-bottom");}}function viewport(){return{x:$(window).scrollLeft(),y:$(window).scrollTop(),cx:$(window).width(),cy:$(window).height()};}function hide(event){if($.tooltip.blocked)return;if(tID)clearTimeout(tID);current=null;var tsettings=settings(this);function complete(){helper.parent.removeClass(tsettings.extraClass).hide().css("opacity","");}if((!IE||!$.fn.bgiframe)&&tsettings.fade){if(helper.parent.is(':animated'))helper.parent.stop().fadeTo(tsettings.fade,0,complete);else
+helper.parent.stop().fadeOut(tsettings.fade,complete);}else
+complete();if(settings(this).fixPNG)helper.parent.unfixPNG();}})(jQuery);
+            //]]>
+            </script> 
+                                    <script type="text/javascript"> 
+            //<![CDATA[
+            	jQuery.fn.maxSide = function(settings) {
+		// if no paramaters supplied...
+		settings = jQuery.extend({
+			maxSide: 120
+		}, settings);
+		return this.each(function(){
+				var maximum = settings.maxSide;
+				var thing = jQuery(this);
+				var thewidth = thing.width();
+	            var theheight = thing.height();
+				
+				if (thewidth >= theheight) {
+	                if (thewidth >= maximum) {
+	                    thing.attr({
+	                        width: maximum
+	                    });
+	                }
+	            }
+ 
+	            if (theheight >= thewidth) {
+	                if (theheight >= maximum) {
+	                    thing.attr({
+	                        height: maximum
+	                    });
+	                }
+	            }
+		});
+};
+            //]]>
+            </script> 
+                                    	<script type="text/javascript" src="http://static.shopperella.de/javascript/libs/jQuery/plugins/thickbox/thickbox-compressed.js"></script> 
+                                                                        
+ 
+		
+	
+	<script language="JavaScript" type="text/javascript"> 
+		var werbemittelid='1e29f180f6e5c093c130c5e56873cb07';
+		var dealunited_popunder_conf=0;//0=off/1=on
+	
+		var num = parseInt( Math.random() * 7 );
+		if (num == 0) {
+			dealunited_popunder_conf = 1;
+		}
+	</script> 
+	
+	<script language="JavaScript" type="text/javascript" src= "https://www.dealunited.com/public/js/campaign/117d970898356d85eebfb80a8e6ddddf.js?1282218919"></script> 
+	
+	
+ 
+	<!-- Google Code for Alle Besucher Remarketing List --> 
+	<script type="text/javascript"> 
+		/* <![CDATA[ */
+		var google_conversion_id = 985145685;
+		var google_conversion_language = "en";
+		var google_conversion_format = "3";
+		var google_conversion_color = "666666";
+		var google_conversion_label = "0o69CLuRtgIQ1cLg1QM";
+		var google_conversion_value = 0;
+		/* ]]> */
+	</script> 
+	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> 
+	<noscript> 
+		<div style="display:inline;">
+			<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/985145685/?label=0o69CLuRtgIQ1cLg1QM&amp;guid=ON&amp;script=0"/>
+		</div>
+	</noscript> 
+ 
+ 
+	 
+	
+	
+		<script id="sonar" type="text/javascript"> 
+			(function(){
+				var s = document.createElement( 'script' );
+				s.id = 'sonar-adpan';
+				s.type= 'text/javascript';
+				s.async;
+				s.src = ( 'https:' == document.location.protocol? 'https://' : 'http://' )
+					+ 'sonar.sociomantic.com/js/2010-07-01/adpan/shopperella';
+				var x = document.getElementById( 'sonar' );
+				x.parentNode.insertBefore( s, x );
+			})();
+	</script> 
+	
+	
+<script type="text/javascript">
+var friendfundOptions = {
+/* required */key:"shoperella",host:"ffshopperella.friendfund.de",
+lang: 'en', showButton: true,button_id:'friendfund_fund_button',
+/* optional */protocol :"https:"== document.location.protocol ? "https://" : "http://"};
+function _loadFriendFundButton() {var s =
+document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('src'
+, ("https:" ==document.location.protocol ? "https://" : "http://")
++"fftest.friendfund.de/static/js/tabv2.js?20110414");document.getElementsByTagName('head')[0].appendChild(s
+);}_loadSuper= window.onload;window.onload = (typeof window.onload != 'function')
+?_loadFriendFundButton : function() { _loadSuper();_loadFriendFundButton(); };
+</script>
+	
+		</body> 
+</html>
