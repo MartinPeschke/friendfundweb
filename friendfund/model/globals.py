@@ -116,19 +116,12 @@ class MerchantLink(DBMappedObject):
 				,DBMapper(MerchantSettlement,'settlement_options','SETTLEMENT', is_list = True)
 				,DBMapper(MerchantCountry,'shippping_countries','SHIPPING_COUNTRY', is_list = True)
 				,DBMapper(MerchantStyle,'_styles','CSS_STYLE', is_list = True)
-				
 			]
-	def get_logo_url(self, type = None, secured = False):
-		host = self.domain
-		if secured:
-			protocol = "https://"
-		else:
-			protocol = "http://"
-		if type:
-			return "%(protocol)s%(host)s/custom/imgs/logo_%(type)s.png" % locals()
-		return "%(protocol)s%(host)s/custom/imgs/logo.png" % locals()
+	def get_logo_url(self, type = "lrg", secured = False):
+		return self._statics.get_merchant_picture(self.key, type, secured)
 		
 	def fromDB(self, xml):
+		self.logo_url = self.domain.split(".")[0]
 		setattr(self, 'type_is_free_form', self.pool_type=="FREE_FORM")
 		setattr(self, 'type_is_group_gift', self.pool_type=="GROUP_GIFT")
 		setattr(self, 'entry_is_landing_page', self.entry_point=="LANDING_PAGE")

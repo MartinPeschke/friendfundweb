@@ -6,6 +6,7 @@ class IncorrectPictureTypeException(Exception):
 PROFILE_STATIC_ROOT = '/s/user'
 PRODUCT_STATIC_ROOT = '/s/product'
 POOL_STATIC_ROOT = '/s/pool'
+MERCHANT_STATIC_ROOT = '/static/partner/logos'
 DEFAULT_USER_PICTURE_TOKEN = "DEFAULT_USER_PICTURE"
 DEFAULT_PRODUCT_PICTURE_TOKEN = "DEFAULT_PRODUCT_PICTURE"
 
@@ -28,6 +29,11 @@ PRODUCT_PIC_FORMATS = {'RA' : (161,120)
 POOL_PIC_FORMATS = {
 					 'RA': ((161,120), (4, 12))
 					,'MYPOOLS': ((120,79), (3, 6))
+					}
+MERCHANT_PIC_FORMATS = {
+					 'sml': (60,30)
+					,'med': (90,45)
+					,'lrg': (0,0)
 					}
 
 def tokenize_name(name):
@@ -87,6 +93,18 @@ class StaticService(object):
 				return '%(site_root)s%(url)s'%locals()
 			else:
 				return ('%(site_root)s%(static_root)s/%(url)s_%(type)s.%(ext)s'%locals())
+
+	def get_merchant_picture(self, url, type, secured = False, ext="png"):
+		if type not in MERCHANT_PIC_FORMATS:
+			raise IncorrectPictureTypeException("UnknownPictureType:%s"%type)
+		if not url:
+			raise Exception("NO_URL_PROVIDED(get_merchant_picture)")
+		elif not isinstance(url, basestring) or url.startswith('http'):
+			return url
+		else:
+			static_root = MERCHANT_STATIC_ROOT
+			site_root = self.get_site_root(url, secured)
+			return ('%(site_root)s%(static_root)s/%(url)s_%(type)s.%(ext)s'%locals())
 	
 	def get_default_product_picture(self, type, secured = False):
 		site_root = self.get_site_root("2", secured)

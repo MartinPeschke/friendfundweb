@@ -11,8 +11,6 @@
 	dojo.query(".helpPopupToggler", "helpPopupContainer").onclick(
 		function(evt){
 			dojo.query(".helpPopupHook","helpPopupContainer").toggleClass("hidden");
-				setCookie("wheeeeee", "hallo", "1");
-				console.log(getCookie("wheeeeee"));
 		}
 	);
 	</script>
@@ -51,7 +49,7 @@
 			</div>
 			%endif
 		<div class="colLeftIframe" id="helpPopupContainer">
-			<img class="floatLeft merchantLogo" style="margin:7px 0 0 50px" width="90px" height="45px" src="/custom/imgs/logo_med.png"/>
+			<img class="floatLeft merchantLogo" style="margin:7px 0 0 50px" width="90px" height="45px" src="${request.merchant.get_logo_url("med")}"/>
 			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
 			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1000;"></div>
 			<div class="learnMoreBtn">

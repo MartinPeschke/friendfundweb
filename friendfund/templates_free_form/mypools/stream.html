@@ -1,6 +1,5 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
-<%namespace name="forms" file="/widgets/forms.html"/>
 <%namespace name="widgets" file="/widgets/widgets.html"/>
 
 <%def name="title()">${_("FF_TITLE_News stream")}</%def>
@@ -47,7 +46,7 @@
 	%if len(c.activity.stream) == 0:
 		<div class="noContainer">
 			<p class="no">${_("FF_MYPOOLS_There has been no activity in your friend network yet.")}</p>
-			<a href="${forms.create_pool_link()}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
+			<a href="${h.create_pool_link(request, url)}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
 		</div>
 	%else:
 		%for streamentry in c.activity.stream:
