@@ -434,6 +434,8 @@ class UpdatePoolProc(DBMappedObject):
 	_unique_keys = ['p_url']
 	_cacheable = False
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						)
+			, GenericAttrib(unicode,	'title',			'title'						)
+			, GenericAttrib(unicode,	'description',		'description'				)
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			]
 	

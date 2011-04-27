@@ -38,7 +38,7 @@
 <div class="wrapSubContent">
 <div class="content">
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_edit_index", pool_url=c.pool.p_url)}">
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Edit your Pool below")}</h4>
 			<div class="subHeadingSpecial"></div>
@@ -76,7 +76,7 @@
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
 				<div class="containerTxtArea claro noFloat">
-					<div dojoType="dijit.Editor" id="descriptionEditor" extraPlugins="['foreColor','hiliteColor',{name:'dijit._editor.plugins.FontChoice', command:'fontName', generic:true}]"
+					<div dojoType="dijit.Editor" id="descriptionEditor" name="description" extraPlugins="['foreColor','hiliteColor',{name:'dijit._editor.plugins.FontChoice', command:'fontName', generic:true}]"
 					onChange="console.log('descriptionEditor onChange handler: ' + arguments[0])"><p>${c.values['description']}</p></div>
 				</div>
                 </div>
@@ -91,9 +91,9 @@
 			
 			
 			<div class="spacerButtons floatLeft" style="margin-left:164px">
-				<input id="submitter" class="primaryButton floatLeft" type="button" value="${_("FF_POOLDETAILS_Update Pool")}" /> 
-				<span class="floatLeft or">or</span> 
-				<input type="button" class="secondary floatRight" value="Cancel">
+				<input id="submitter" class="primaryButton floatLeft" type="submit" value="${_("FF_POOLEDIT_Update Pool")}" /> 
+				<span class="floatLeft or">${_("FF_POOLEDIT_or")}</span> 
+				<input type="button" class="secondary floatRight" value="${_("FF_POOLEDIT_Cancel")}">
 			</div>
 		</div>
 		</form>

@@ -28,7 +28,13 @@ class PoolEditController(BaseController):
 	def index(self, pool_url):
 		c.values = {"title":c.pool.title, "description":c.pool.description}
 		c.errors = {}
-		return self.render("/pool/edit.html")
+		if request.method != "POST":
+			return self.render("/pool/edit.html")
+			
+		else:
+			print request.params
+			
+			return self.render("/pool/edit.html")
 	
 	@logged_in(ajax=False)
 	@pool_available(admin_only=True)

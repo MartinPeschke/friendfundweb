@@ -138,9 +138,9 @@
 	%if c.pool.am_i_admin(c.user):
 		<div class="adminLinks">
 		%if not c.pool.is_closed():
-				###<a href="${url("pool_edit", action="index", pool_url = c.pool.p_url)}">${_(u"FF_POOL_PAGE_ADMIN_Edit Pool")}</a>| 
+				<a href="${url("pool_edit_index", pool_url = c.pool.p_url)}">${_(u"FF_POOL_PAGE_ADMIN_Edit Pool")}</a>
 			%if request.merchant.require_address:
-				<a href="${url("pool_edit", action="address", pool_url = c.pool.p_url)}">${_(u"FF_POOL_PAGE_ADMIN_Edit Shipping Address")}</a>
+				| <a href="${url("pool_edit", action="address", pool_url = c.pool.p_url)}">${_(u"FF_POOL_PAGE_ADMIN_Edit Shipping Address")}</a>
 			%endif
 			</div>
 		%endif
