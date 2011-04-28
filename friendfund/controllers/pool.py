@@ -130,7 +130,7 @@ class PoolController(BaseController):
 		
 		if c.errors:
 			c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
-		return self.render('/pool/pool_details.html')
+		return self.render('/pool/create.html')
 	
 	@logged_in()
 	def create(self):
@@ -168,7 +168,7 @@ class PoolController(BaseController):
 				except:
 					pass
 				c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
-				return self.render('/pool/pool_details.html')
+				return self.render('/pool/create.html')
 		
 		if not c.pool:
 			return redirect(request.referer)

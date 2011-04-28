@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-04-27 11:11+0200\n"
+"POT-Creation-Date: 2011-04-28 10:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgstr ""
 
 #: friendfund/controllers/myprofile.py:49 friendfund/controllers/myprofile.py:54
 #: friendfund/controllers/myprofile.py:105 friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/pool_edit.py:76
+#: friendfund/controllers/pool_edit.py:82
 msgid "FF_ADDRESS_Please correct the Errors below"
 msgstr ""
 
@@ -264,11 +264,11 @@ msgstr ""
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool_edit.py:44
+#: friendfund/controllers/pool_edit.py:50
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr ""
 
-#: friendfund/controllers/pool_edit.py:72
+#: friendfund/controllers/pool_edit.py:78
 msgid "FF_ADDRESS_Changes saved!"
 msgstr ""
 
@@ -1593,9 +1593,10 @@ msgid "FF_CONTACT_Mail"
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:123
+#, python-format
 msgid ""
-"FF_CONTACT_We'd love to hear how you'd <a onclick=\"UserVoice.Popin.show(); "
-"return false;\">improve friendfund.</a>"
+"FF_CONTACT_We'd love to hear how you'd <a target=\"_blank\" "
+"href=\"%s\">improve friendfund.</a>"
 msgstr ""
 
 #: friendfund/templates_free_form/content/jobs.html:3
@@ -2013,20 +2014,20 @@ msgstr ""
 
 #: friendfund/templates_free_form/invite/invite.html:41
 #: friendfund/templates_free_form/invite/invite.html:50
-#: friendfund/templates_free_form/pool/pool_details.html:86
-#: friendfund/templates_free_form/pool/pool_details.html:103
+#: friendfund/templates_free_form/pool/create.html:86
+#: friendfund/templates_free_form/pool/create.html:103
 msgid "FF_POOLDETAILS_HEADER_Pool Details"
 msgstr ""
 
 #: friendfund/templates_free_form/invite/invite.html:41
 #: friendfund/templates_free_form/invite/invite.html:50
-#: friendfund/templates_free_form/pool/pool_details.html:86
-#: friendfund/templates_free_form/pool/pool_details.html:91
+#: friendfund/templates_free_form/pool/create.html:86
+#: friendfund/templates_free_form/pool/create.html:91
 msgid "FF_POOLDETAILS_HEADER_Invite friends to chip in"
 msgstr ""
 
 #: friendfund/templates_free_form/invite/invite.html:41
-#: friendfund/templates_free_form/pool/pool_details.html:86
+#: friendfund/templates_free_form/pool/create.html:86
 msgid "FF_POOLDETAILS_HEADER_Done!"
 msgstr ""
 
@@ -2035,7 +2036,7 @@ msgid "FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In"
 msgstr ""
 
 #: friendfund/templates_free_form/invite/invite.html:50
-#: friendfund/templates_free_form/pool/pool_details.html:91
+#: friendfund/templates_free_form/pool/create.html:91
 msgid "FF_POOLDETAILS_HEADER_What are you collecting money for?"
 msgstr ""
 
@@ -2235,58 +2236,58 @@ msgid "FF_MYPOOLS_Created by %(admin_name)s on %(creation_date)s"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:42
-#: friendfund/templates_free_form/mypools/stream.html:102
+#: friendfund/templates_free_form/mypools/stream.html:101
 msgid "FF_NEWSSTREAMTYPE_Chipped in"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:45
-#: friendfund/templates_free_form/mypools/stream.html:331
+#: friendfund/templates_free_form/mypools/stream.html:330
 msgid "FF_NEWSSTREAMTYPE_Commented"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:49
-#: friendfund/templates_free_form/mypools/stream.html:124
-#: friendfund/templates_free_form/mypools/stream.html:182
-#: friendfund/templates_free_form/mypools/stream.html:240
-#: friendfund/templates_free_form/mypools/stream.html:298
-#: friendfund/templates_free_form/mypools/stream.html:343
+#: friendfund/templates_free_form/mypools/stream.html:123
+#: friendfund/templates_free_form/mypools/stream.html:181
+#: friendfund/templates_free_form/mypools/stream.html:239
+#: friendfund/templates_free_form/mypools/stream.html:297
+#: friendfund/templates_free_form/mypools/stream.html:342
 msgid "FF_MYPOOLS_PROMOTE"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:55
+#: friendfund/templates_free_form/mypools/stream.html:129
+#: friendfund/templates_free_form/mypools/stream.html:187
+#: friendfund/templates_free_form/mypools/stream.html:244
+#: friendfund/templates_free_form/mypools/stream.html:302
+#: friendfund/templates_free_form/mypools/stream.html:348
+msgid "FF_MYPOOLS_PROMOTE THIS POOL"
+msgstr ""
+
+#: friendfund/templates_free_form/mypools/common.html:56
 #: friendfund/templates_free_form/mypools/stream.html:130
 #: friendfund/templates_free_form/mypools/stream.html:188
 #: friendfund/templates_free_form/mypools/stream.html:245
 #: friendfund/templates_free_form/mypools/stream.html:303
 #: friendfund/templates_free_form/mypools/stream.html:349
-msgid "FF_MYPOOLS_PROMOTE THIS POOL"
-msgstr ""
-
-#: friendfund/templates_free_form/mypools/common.html:56
-#: friendfund/templates_free_form/mypools/stream.html:131
-#: friendfund/templates_free_form/mypools/stream.html:189
-#: friendfund/templates_free_form/mypools/stream.html:246
-#: friendfund/templates_free_form/mypools/stream.html:304
-#: friendfund/templates_free_form/mypools/stream.html:350
 msgid "FF_MYPOOLS_Invite Friends"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:58
-#: friendfund/templates_free_form/mypools/stream.html:133
-#: friendfund/templates_free_form/mypools/stream.html:191
-#: friendfund/templates_free_form/mypools/stream.html:248
-#: friendfund/templates_free_form/mypools/stream.html:306
-#: friendfund/templates_free_form/mypools/stream.html:352
+#: friendfund/templates_free_form/mypools/stream.html:132
+#: friendfund/templates_free_form/mypools/stream.html:190
+#: friendfund/templates_free_form/mypools/stream.html:247
+#: friendfund/templates_free_form/mypools/stream.html:305
+#: friendfund/templates_free_form/mypools/stream.html:351
 #: friendfund/templates_free_form/pool/pool.html:212
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:59
-#: friendfund/templates_free_form/mypools/stream.html:134
-#: friendfund/templates_free_form/mypools/stream.html:192
-#: friendfund/templates_free_form/mypools/stream.html:249
-#: friendfund/templates_free_form/mypools/stream.html:307
-#: friendfund/templates_free_form/mypools/stream.html:353
+#: friendfund/templates_free_form/mypools/stream.html:133
+#: friendfund/templates_free_form/mypools/stream.html:191
+#: friendfund/templates_free_form/mypools/stream.html:248
+#: friendfund/templates_free_form/mypools/stream.html:306
+#: friendfund/templates_free_form/mypools/stream.html:352
 msgid "FF_MYPOOLS_SHARE TOOLS"
 msgstr ""
 
@@ -2312,12 +2313,12 @@ msgid "FF_MYPOOLS_RECIPIENT"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:109
-#: friendfund/templates_free_form/mypools/stream.html:88
-#: friendfund/templates_free_form/mypools/stream.html:148
-#: friendfund/templates_free_form/mypools/stream.html:206
-#: friendfund/templates_free_form/mypools/stream.html:262
-#: friendfund/templates_free_form/mypools/stream.html:321
-#: friendfund/templates_free_form/mypools/stream.html:367
+#: friendfund/templates_free_form/mypools/stream.html:87
+#: friendfund/templates_free_form/mypools/stream.html:147
+#: friendfund/templates_free_form/mypools/stream.html:205
+#: friendfund/templates_free_form/mypools/stream.html:261
+#: friendfund/templates_free_form/mypools/stream.html:320
+#: friendfund/templates_free_form/mypools/stream.html:366
 msgid "FF_MYPOOLS_MERCHANT"
 msgstr ""
 
@@ -2348,7 +2349,7 @@ msgstr ""
 
 #: friendfund/templates_free_form/mypools/friends_pools.html:35
 #: friendfund/templates_free_form/mypools/index.html:34
-#: friendfund/templates_free_form/mypools/stream.html:50
+#: friendfund/templates_free_form/mypools/stream.html:49
 msgid "FF_MYPOOLS_Create a Pool"
 msgstr ""
 
@@ -2368,73 +2369,73 @@ msgstr ""
 msgid "FF_MYPOOLS_Pools I'm In"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:6
+#: friendfund/templates_free_form/mypools/stream.html:5
 msgid "FF_TITLE_News stream"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:35
-#: friendfund/templates_free_form/mypools/stream.html:39
+#: friendfund/templates_free_form/mypools/stream.html:34
+#: friendfund/templates_free_form/mypools/stream.html:38
 msgid "FF_NEWSSTREAM_Only Mine"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:37
-#: friendfund/templates_free_form/mypools/stream.html:41
+#: friendfund/templates_free_form/mypools/stream.html:36
+#: friendfund/templates_free_form/mypools/stream.html:40
 msgid "FF_NEWSSTREAM_All"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:49
+#: friendfund/templates_free_form/mypools/stream.html:48
 msgid "FF_MYPOOLS_There has been no activity in your friend network yet."
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:63
+#: friendfund/templates_free_form/mypools/stream.html:62
 msgid "FF_NEWSSTREAMTYPE_Success"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:71
+#: friendfund/templates_free_form/mypools/stream.html:70
 #, python-format
 msgid ""
 "FF_NEWSSTREAM_%(pooltitle)s has been <span class=\"bold\">successfully "
 "funded!</span>"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:75
+#: friendfund/templates_free_form/mypools/stream.html:74
 #: friendfund/templates_free_form/pool/pool.html:111
 msgid "FF_NEWSSTREAM_SUCCESSFUL!"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:109
+#: friendfund/templates_free_form/mypools/stream.html:108
 #, python-format
 msgid "FF_NEWSSTREAM_%(actorname)s chipped in to %(pooltitle)s."
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:159
-#: friendfund/templates_free_form/mypools/stream.html:217
+#: friendfund/templates_free_form/mypools/stream.html:158
+#: friendfund/templates_free_form/mypools/stream.html:216
 msgid "FF_NEWSSTREAMTYPE_Created Pool"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:165
-#: friendfund/templates_free_form/mypools/stream.html:223
+#: friendfund/templates_free_form/mypools/stream.html:164
+#: friendfund/templates_free_form/mypools/stream.html:222
 #, python-format
 msgid "FF_NEWSSTREAM_%(actorname)s created %(pooltitle)s."
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:272
+#: friendfund/templates_free_form/mypools/stream.html:271
 msgid "FF_NEWSSTREAMTYPE_Invited"
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:283
+#: friendfund/templates_free_form/mypools/stream.html:282
 #, python-format
 msgid ""
 "FF_NEWSSTREAM_%(actorname)s invited %(invitee_names)s and %(no_others)s "
 "others to %(pooltitle)s."
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:288
+#: friendfund/templates_free_form/mypools/stream.html:287
 #, python-format
 msgid "FF_NEWSSTREAM_%(actorname)s invited %(invitee_names)s to %(pooltitle)s."
 msgstr ""
 
-#: friendfund/templates_free_form/mypools/stream.html:337
+#: friendfund/templates_free_form/mypools/stream.html:336
 #, python-format
 msgid "FF_NEWSSTREAM_%(actorname)s commented on %(pooltitle)s."
 msgstr ""
@@ -2793,121 +2794,121 @@ msgstr ""
 msgid "FF_LOGIN_Login in Here"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:50
+#: friendfund/templates_free_form/partner/iframe.html:48
 msgid ""
 "FF_IFRAME_To friendfund a specific product, visit any of the product pages on"
 " this site."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:55
+#: friendfund/templates_free_form/partner/iframe.html:53
 msgid "FF_IFRAME_Organise a Group Gift!"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:58
+#: friendfund/templates_free_form/partner/iframe.html:56
 msgid "FF_IFRAME_BUTTON_Help"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:62
+#: friendfund/templates_free_form/partner/iframe.html:60
 msgid "FF_close"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:63
+#: friendfund/templates_free_form/partner/iframe.html:61
 msgid "FF_IFRAME_Quick Guide to Creating a Pool"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:65
+#: friendfund/templates_free_form/partner/iframe.html:63
 msgid ""
 "FF_IFRAME_Create a Group Gift Pool and give something extra special without "
 "breaking the bank."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:76
+#: friendfund/templates_free_form/partner/iframe.html:74
 msgid "FF_IFRAME_Find a gift and click the friendfund it! button "
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:77
+#: friendfund/templates_free_form/partner/iframe.html:75
 msgid "FF_IFRAME_Find the perfect gift from our huge selection. ?"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:88
+#: friendfund/templates_free_form/partner/iframe.html:86
 msgid "FF_IFRAME_Choose your recipient, occasion and contribution deadline"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:89
+#: friendfund/templates_free_form/partner/iframe.html:87
 msgid ""
 "FF_IFRAME_Select your friend and special occasion. Make sure to leave aside "
 "plenty of time when selecting a deadline."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:99
+#: friendfund/templates_free_form/partner/iframe.html:97
 msgid "FF_IFRAME_Share the costs with  friends!"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:100
+#: friendfund/templates_free_form/partner/iframe.html:98
 msgid "FF_IFRAME_Invite your friends to chip in as much or as little as they want!"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:105
+#: friendfund/templates_free_form/partner/iframe.html:103
 msgid "FF_IFRAME_HELPPOPUP_Get started"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:120
+#: friendfund/templates_free_form/partner/iframe.html:118
 msgid "FF_IFRAME_Your gift:"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:131
+#: friendfund/templates_free_form/partner/iframe.html:129
 msgid "FF_IFRAME_Edit"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:144
+#: friendfund/templates_free_form/partner/iframe.html:142
 msgid "FF_IFRAME_Recipient"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:155
+#: friendfund/templates_free_form/partner/iframe.html:153
 msgid "FF_IFRAME_Please choose your recipient from the left panel."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:160
+#: friendfund/templates_free_form/partner/iframe.html:158
 msgid "FF_IFRAME_Occasion:"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:161
+#: friendfund/templates_free_form/partner/iframe.html:159
 msgid "FF_IFRAME_Please choose an occasion from the left panel."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:164
+#: friendfund/templates_free_form/partner/iframe.html:162
 msgid "FF_IFRAME_Contribution Deadline:"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:165
+#: friendfund/templates_free_form/partner/iframe.html:163
 msgid "FF_IFRAME_Please choose a deadline from the left panel."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:169
+#: friendfund/templates_free_form/partner/iframe.html:167
 msgid "FF_IFRAME_Invite Friends"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:176
+#: friendfund/templates_free_form/partner/iframe.html:174
 msgid "FF_IFRAME_Choose Your recipient"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:191
+#: friendfund/templates_free_form/partner/iframe.html:189
 msgid "FF_IFRAME_Choose an occasion:"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:197
+#: friendfund/templates_free_form/partner/iframe.html:195
 msgid "FF_IFRAME_Just because..."
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:206
+#: friendfund/templates_free_form/partner/iframe.html:204
 msgid "FF_IFRAME_... or enter your own occasion"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:210
+#: friendfund/templates_free_form/partner/iframe.html:208
 msgid "FF_IFRAME_Contribution Deadline"
 msgstr ""
 
-#: friendfund/templates_free_form/partner/iframe.html:219
+#: friendfund/templates_free_form/partner/iframe.html:217
 msgid "FF_IFRAME_You are safe with us"
 msgstr ""
 
@@ -2973,6 +2974,134 @@ msgstr ""
 msgid "FF_POOLPAGE_CHAT_LABEL_has Chipped in"
 msgstr ""
 
+#: friendfund/templates_free_form/pool/create.html:84
+msgid "FF_POOLDETAILS_HEADER_Create a Pool"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:89
+msgid "FF_POOLDETAILS_HEADER_Step 2. Enter Your Pool Details"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:91
+msgid "FF_POOLDETAILS_HEADER_Enter pool details"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:126
+msgid "FF_POOLDETAILS_We Need"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:129
+#: friendfund/templates_free_form/widgets/currency_selector.html:12
+msgid "FF_POOLDETAILS_Edit Currency"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:133
+msgid "FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:140
+#: friendfund/templates_free_form/pool/create.html:173
+#: friendfund/templates_free_form/pool/pool_complete.html:97
+#: friendfund/templates_free_form/product/urlparser.html:20
+#: friendfund/templates_free_form/product/urlparser.html:32
+#: friendfund/templates_free_form/widgets/thankyoumessage_editor.html:4
+msgid "FF_Edit"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:145
+msgid "FF_POOLDETAILS_by"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:159
+msgid "FF_POOLDETAILS_TITLE_Tip goes here"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:165
+#: friendfund/templates_free_form/pool/edit.html:57
+msgid "FF_POOLDETAILS_LABEL_Pool Title"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:169
+#: friendfund/templates_free_form/pool/create.html:172
+#: friendfund/templates_free_form/pool/edit.html:59
+msgid "FF_POOLDETAILS_Write your title here..."
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:187
+msgid "FF_POOLDETAILS_DESCRIPTION_Tip goes here"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:193
+#: friendfund/templates_free_form/pool/edit.html:76
+msgid "FF_POOLDETAILS_LABEL_Pool Description"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:196
+msgid "FF_POOLDETAILS_Write your description here..."
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:203
+#: friendfund/templates_free_form/pool/create.html:212
+#: friendfund/templates_free_form/pool/edit.html:87
+msgid "FF_POOLDETAILS_LABEL_Pool Image"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:217
+msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:228
+msgid "FF_POOLDETAILS_use URL:"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:229
+#: friendfund/templates_free_form/pool/create.html:230
+msgid "FF_POOLDETAILS_Examples:www.cnn.com"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:231
+msgid "FF_LINK_or Upload a picture"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:239
+msgid "FF_POOLDETAILS_Receiving Your Money"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:243
+msgid "FF_POOLDETAILS_How do you want to receive your money once the Pool is funded?"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:244
+msgid ""
+"FF_POOLDETAILS_You will only be paid if your Pool is successfully funded. "
+"This information will not be shared with anyone else."
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:255
+#, python-format
+msgid "FF_POOLDETAILS_(costs you %(fees)s%%)"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:257
+msgid "FF_POOLDETAILS_(FREE)"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:264
+#, python-format
+msgid ""
+"FF_POOLDETAILS_If choosing this option, you will be charged a %(fees)s%% fee."
+" Do you want to add this to your Pool Funding Total?"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:268
+#, python-format
+msgid "FF_POOLDETAILS_Yes, please add the %(fees)s%% to my Funding Total"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/create.html:293
+msgid "FF_POOLDETAILS_Invite Friends"
+msgstr ""
+
 #: friendfund/templates_free_form/pool/edit.html:32
 #, python-format
 msgid "FF_POOL_EDIT_Edit %(pool_title)s"
@@ -2986,36 +3115,22 @@ msgstr ""
 msgid "FF_POOLEDIT_TITLE_Change the title of your pool here"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:57
-#: friendfund/templates_free_form/pool/pool_details.html:165
-msgid "FF_POOLDETAILS_LABEL_Pool Title"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/edit.html:59
-#: friendfund/templates_free_form/pool/pool_details.html:169
-#: friendfund/templates_free_form/pool/pool_details.html:172
-msgid "FF_POOLDETAILS_Write your title here..."
-msgstr ""
-
 #: friendfund/templates_free_form/pool/edit.html:70
 msgid ""
 "FF_EDIT_DESCRIPTION_Change your pool description here and raise more "
 "awareness by gripping storytelling!"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:76
-#: friendfund/templates_free_form/pool/pool_details.html:193
-msgid "FF_POOLDETAILS_LABEL_Pool Description"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/edit.html:87
-#: friendfund/templates_free_form/pool/pool_details.html:203
-#: friendfund/templates_free_form/pool/pool_details.html:212
-msgid "FF_POOLDETAILS_LABEL_Pool Image"
-msgstr ""
-
 #: friendfund/templates_free_form/pool/edit.html:94
-msgid "FF_POOLDETAILS_Update Pool"
+msgid "FF_POOLEDIT_Update Pool"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/edit.html:95
+msgid "FF_POOLEDIT_or"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/edit.html:96
+msgid "FF_POOLEDIT_Cancel"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/pool.html:103
@@ -3026,6 +3141,10 @@ msgstr ""
 #: friendfund/templates_free_form/pool/pool.html:103
 #, python-format
 msgid "FF_POOL_PAGE_HEADER_by %(admin_name)s"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/pool.html:141
+msgid "FF_POOL_PAGE_ADMIN_Edit Pool"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/pool.html:143
@@ -3168,15 +3287,6 @@ msgstr ""
 msgid "FF_POOLECARD_Create a new Pool"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool_complete.html:97
-#: friendfund/templates_free_form/pool/pool_details.html:140
-#: friendfund/templates_free_form/pool/pool_details.html:173
-#: friendfund/templates_free_form/product/urlparser.html:20
-#: friendfund/templates_free_form/product/urlparser.html:32
-#: friendfund/templates_free_form/widgets/thankyoumessage_editor.html:4
-msgid "FF_Edit"
-msgstr ""
-
 #: friendfund/templates_free_form/pool/pool_complete.html:107
 msgid "FF_POOLECARD_Messages"
 msgstr ""
@@ -3187,103 +3297,6 @@ msgstr ""
 
 #: friendfund/templates_free_form/pool/pool_complete.html:125
 msgid "FF_POOLECARD_All_Contributors"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:84
-msgid "FF_POOLDETAILS_HEADER_Create a Pool"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:89
-msgid "FF_POOLDETAILS_HEADER_Step 2. Enter Your Pool Details"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:91
-msgid "FF_POOLDETAILS_HEADER_Enter pool details"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:126
-msgid "FF_POOLDETAILS_We Need"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:129
-#: friendfund/templates_free_form/widgets/currency_selector.html:12
-msgid "FF_POOLDETAILS_Edit Currency"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:133
-msgid "FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:145
-msgid "FF_POOLDETAILS_by"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:159
-msgid "FF_POOLDETAILS_TITLE_Tip goes here"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:187
-msgid "FF_POOLDETAILS_DESCRIPTION_Tip goes here"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:196
-msgid "FF_POOLDETAILS_Write your description here..."
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:217
-msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:228
-msgid "FF_POOLDETAILS_use URL:"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:229
-#: friendfund/templates_free_form/pool/pool_details.html:230
-msgid "FF_POOLDETAILS_Examples:www.cnn.com"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:231
-msgid "FF_LINK_or Upload a picture"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:239
-msgid "FF_POOLDETAILS_Receiving Your Money"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:243
-msgid "FF_POOLDETAILS_How do you want to receive your money once the Pool is funded?"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:244
-msgid ""
-"FF_POOLDETAILS_You will only be paid if your Pool is successfully funded. "
-"This information will not be shared with anyone else."
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:255
-#, python-format
-msgid "FF_POOLDETAILS_(costs you %(fees)s%%)"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:257
-msgid "FF_POOLDETAILS_(FREE)"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:264
-#, python-format
-msgid ""
-"FF_POOLDETAILS_If choosing this option, you will be charged a %(fees)s%% fee."
-" Do you want to add this to your Pool Funding Total?"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:268
-#, python-format
-msgid "FF_POOLDETAILS_Yes, please add the %(fees)s%% to my Funding Total"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool_details.html:293
-msgid "FF_POOLDETAILS_Invite Friends"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/parts/chipin_box.html:9
