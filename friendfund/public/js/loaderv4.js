@@ -424,7 +424,7 @@ var judger = function(minw, minh, preselected, img){
 				ctrInput = dojo.create("INPUT", {type:"hidden", value:img.src, id:"URLPproductPicture", name:'product_picture'});
 				dojo.byId("homeurlexpander").appendChild(ctrInput);
 			} else {
-				ctrInput.value = img.src;
+				if(dojo.attr(ctrInput, "_set_default")){ctrInput.value = img.src;}
 			}
 		}
 	}
@@ -539,6 +539,9 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 	reconnect();
 	if(parseNow){parseInput(dn);}
 };
+
+
+
 
 
 

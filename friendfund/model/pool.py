@@ -302,7 +302,7 @@ class Pool(DBMappedObject):
 		else:
 			return h.word_truncate_plain(self.product.name, words)
 	product_display_label = property(get_product_display_label)
-	def get_display_title(self, length = 60):
+	def get_display_title(self, length = 100):
 		return h.word_truncate_by_letters(self.title, length)
 	def get_display_description(self):
 		return markdown.markdown(self.description)
@@ -438,12 +438,6 @@ class UpdatePoolProc(DBMappedObject):
 			, GenericAttrib(unicode,	'description',		'description'				)
 			, DBMapper(Product, 		'product', 			'PRODUCT'					)
 			]
-	
-	def get_product_display_picture(self, type="POOL", secured = False):
-		if self.product:
-			return self._statics.get_product_picture(self.product.picture, type, secured = secured)
-		else:
-			return self._statics.get_product_picture(None, type, secured = secured)
 			
 class SimpleUserNetwork(DBMappedObject):
 	_cacheable = False

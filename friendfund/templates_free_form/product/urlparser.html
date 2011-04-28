@@ -1,4 +1,4 @@
-<%def name="renderParser(values, with_closer)">
+<%def name="renderParser(values, with_closer, set_default_picture = True)">
 	<div class="imgCntSld" id="URLPimgCntSld">
 		%if len(values['img_list'])==0:
 			<img src="${app_globals.statics_service.get_default_product_picture("FF_POOLS")}" class="displayed"/>
@@ -7,7 +7,7 @@
 			<input type="hidden" class="PURLImgListElem" value="${imgsrc}" name="img_list">
 			%endfor
 		%endif
-		<input type="hidden" value="${values.get('product_picture')}" id="URLPproductPicture" name="product_picture">
+		<input type="hidden" value="${values.get('product_picture')}" id="URLPproductPicture" name="product_picture" _set_default="${set_default_picture and "1" or ""}"/>
 		%if getattr(c, 'upload', True):
 			<a class="imgEdit" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})">${_(u"FF_LINK_Edit Image")}</a>
 		%endif

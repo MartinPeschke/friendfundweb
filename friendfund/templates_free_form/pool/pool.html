@@ -260,17 +260,13 @@
 			<div class="clear"></div>
 		</div>
 		
-		<div class="about ${c.pool.am_i_admin(c.user) and "canedit" or " "}">
+		<div class="about">
 			<h4>${_(u"FF_POOL_PAGE_BODY_About")}</h4>
 			<div class="subHeading"></div>
 			<div class="imgEdit">
 				<div class="subImgEdit">
 				<div class="imgC">
 					<img src="${c.pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
-				
-					%if c.pool.am_i_admin(c.user) and c.pool.is_contributable():
-						<a class="imgEdit" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', pool_url = c.pool.p_url, action='picturepopup')}', {})">${_(u"FF_LINK_Edit Image")}</a>
-					%endif
 				</div>
 				%if request.merchant.type_is_group_gift:
 					<div class="recMerch">
@@ -284,7 +280,7 @@
 				%endif
 				</div>
 				
-				<p>${c.pool.description}</p>
+				<p>${c.pool.description|n}</p>
 				%if c.pool.product and c.pool.product.tracking_link:
 					<h5><a target="_blank" href="${c.pool.product.tracking_link}">${c.pool.product.name}</a></h5>
 					<p class="small">${c.pool.product.description}</p>

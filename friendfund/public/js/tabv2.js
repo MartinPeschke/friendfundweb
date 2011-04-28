@@ -497,7 +497,7 @@ FriendFund.Button = {
 					#${button_id} *:hover {text-decoration:none !important}\
 					#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:center;padding: 7px 0 5px;}\
 					#${button_id} .friendfundButton img{margin:0px auto;}\
-					#${button_id} .friendfundButton span{padding:0 5px;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
+					#${button_id} .friendfundButton span{text-transform: none;padding:0 5px;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
 	fixed_css_template: "#${button_id} {position:fixed;${alignment}:-150px;top:${top};width:196px;height:122px;} \
 					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
 					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\

@@ -145,3 +145,4 @@ class PoolService(object):
 		outf.close()
 		newurl = save_product_image(picture_url, tmpname, type)
 		return newurl
+		

@@ -7,19 +7,32 @@
 </%def>
 <%def name="page_reloader()">
 	page_reloader = function(){};
-	dojo.require("dojo.parser");
-	dojo.require("dijit.Editor");
-    dojo.require("dijit._editor.plugins.FontChoice"); // 'fontName','fontSize','formatBlock'
-    dojo.require("dijit._editor.plugins.TextColor");
 </%def>
-
+<%def name="scripts()">
+	<script type="text/javascript">
+		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+		dojo.require("dojo.parser");
+		dojo.require("dijit.Editor");
+		dojo.require("dijit._editor.plugins.FontChoice"); // 'fontName','fontSize','formatBlock'
+		dojo.require("dijit._editor.plugins.TextColor");
+		dojo.require("dijit._editor.plugins.LinkDialog");
+		dojo.require("dijit._editor.plugins.ViewSource");
+	</script>
+</%def>
 
 
 
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolDetails");
 	parseSelectables("poolDetails");
+	parseSimpleEditables("poolDetails");
 	dojo.parser.parse("poolDetails");
+	%if c.parser_values:
+		connectURLP("homeurlexpander");
+	%else:
+		connectURLParser("homeurlexpander", "tracking_link_edit", false, {upload:'1'});
+	%endif
+
 </%def>
 
 <% 
@@ -56,9 +69,12 @@
 					<div class="first">
 						<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
 					</div>
-					<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title']}" />
+					<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title']}"
+									onKeyDown="textCounter(this,this.form.remLen,100);" 
+									onKeyUp="textCounter(this,this.form.remLen,100);" 
+					/>
 				</div>
-				<p class="info" style="width:75%; text-align:right">100</p>
+				<input type="text" disabled="disabled" class="floatRight info" name="remLen" value="${100-len(c.values.get("title") or '')}"/>
 			</div>
 			
 			<div class="borderBottom ${('description' in c.errors) and "error" or ""}">
@@ -76,24 +92,51 @@
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
 				<div class="containerTxtArea claro noFloat">
-					<div dojoType="dijit.Editor" id="descriptionEditor" name="description" extraPlugins="['foreColor','hiliteColor',{name:'dijit._editor.plugins.FontChoice', command:'fontName', generic:true}]"
-					onChange="console.log('descriptionEditor onChange handler: ' + arguments[0])"><p>${c.values['description']}</p></div>
+					<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
+					plugins="[ 'undo', 'redo','|', 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', '|', 'dijit._editor.plugins.EnterKeyHandling','fontSize','fontName', '|','createLink','viewsource']">${c.values['description']}</textarea >
 				</div>
                 </div>
 			</div>
 			
-			<div class="generalPadding borderBottom spPad noBorder expander">
+			%if c.parser_values:
+				<div class="generalPadding">
+				<div class="first">
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
+					</div>
+					<div id="homeurlexpander" class="home_expander">
+						${parser.renderParser(c.parser_values, False, False)}
+					</div>
+				</div>
+			%else:
+				<div class="generalPadding borderBottom spPad noBorder expander">
 					<div class="first">
 						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
 					</div>
-					<!--put the url expander plus the edit5 image link, this link will be removed from pool details page -->
+					<div id="homeurlexpander">
+						<div class="tip" style="top:32px !important">
+							<div class="arrow"></div>
+							<span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span>
+						</div>
+						<div class="imgCntSld" id="URLPimgCntSld">
+						<input type="hidden" value="" id="URLPproductPicture" name="product_picture">
+						%if c.values.get('product_picture'):
+							<img src="${c.values.get('product_picture')}" class="allowed displayed"/>
+						%else:
+							<img src="${c.pool.get_product_display_picture("FF_POOLS")}" class="displayed"/>
+						%endif
+						</div>
+						<div class="title">
+							<a class="link" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})" style=" width:100%;line-height: 30px; float:left; display:block; clear:both">${_(u"FF_POOL_EDIT_Upload a picture")}</a>
+						</div>
+					</div>
 				</div>
+			%endif
 			
 			
 			<div class="spacerButtons floatLeft" style="margin-left:164px">
 				<input id="submitter" class="primaryButton floatLeft" type="submit" value="${_("FF_POOLEDIT_Update Pool")}" /> 
 				<span class="floatLeft or">${_("FF_POOLEDIT_or")}</span> 
-				<input type="button" class="secondary floatRight" value="${_("FF_POOLEDIT_Cancel")}">
+				<a href="${url("get_pool", pool_url = c.pool.p_url)}" class="secondary floatRight">${_("FF_POOLEDIT_Cancel")}</a>
 			</div>
 		</div>
 		</form>

@@ -207,34 +207,36 @@ class DBMapper(object):
 		attribs = collections.deque()
 		children = collections.deque()
 		if not hasattr(obj, "_keys"):
-			return None
-		for k in obj._keys:
-			value = getattr(obj, k.pykey, None)
-			if k.persistable:
-				if isinstance(k, GenericAttrib):
-					attribs.append(k.toDB(value))
-				elif (isinstance(k, GenericElement) or isinstance(k, DBCDATA)):
-					children.append(k.toDB(value))
-				elif isinstance(value, (types.ListType, collections.deque, types.GeneratorType)):
-					children.extend(map(lambda x: k.toDB(x), filter(lambda x: isinstance(x,DBMappedObject), value)))
-				elif isinstance(value, (types.DictType, ordereddict.OrderedDict)):
-					children.extend(map(lambda x: k.toDB(value[x]), filter(lambda x: isinstance(value[x],DBMappedObject), value)))
-				elif isinstance(k, DBMapper):
-					children.append(k.toDB(value))
-				else:
-					raise TypeNotSupportedException("Type %s not supported" % type(k))
-		
-		attribs = filter(bool, attribs)
-		children = filter(bool, children)
-		if len(attribs) and len(children):
-			return "<%s %s>%s</%s>" % (obj._set_root \
-											,' '.join(filter(bool, attribs))\
-											,''.join(filter(None, children))\
-											,obj._set_root)
-		elif len(attribs):
-			return "<%s %s />" % (obj._set_root,   ' '.join(attribs))
+			xml = None
 		else:
-			None
+			for k in obj._keys:
+				value = getattr(obj, k.pykey, None)
+				if k.persistable:
+					if isinstance(k, GenericAttrib):
+						attribs.append(k.toDB(value))
+					elif (isinstance(k, GenericElement) or isinstance(k, DBCDATA)):
+						children.append(k.toDB(value))
+					elif isinstance(value, (types.ListType, collections.deque, types.GeneratorType)):
+						children.extend(map(lambda x: k.toDB(x), filter(lambda x: isinstance(x,DBMappedObject), value)))
+					elif isinstance(value, (types.DictType, ordereddict.OrderedDict)):
+						children.extend(map(lambda x: k.toDB(value[x]), filter(lambda x: isinstance(value[x],DBMappedObject), value)))
+					elif isinstance(k, DBMapper):
+						children.append(k.toDB(value))
+					else:
+						raise TypeNotSupportedException("Type %s not supported" % type(k))
+			
+			attribs = filter(bool, attribs)
+			children = filter(bool, children)
+			if len(children):
+				xml = "<%s %s>%s</%s>" % (obj._set_root \
+												,' '.join(filter(bool, attribs))\
+												,''.join(filter(None, children))\
+												,obj._set_root)
+			elif len(attribs):
+				xml = "<%s %s />" % (obj._set_root,   ' '.join(attribs))
+			else:
+				xml = None
+		return xml
 	
 	@classmethod
 	def _get_template(thiscls, cls, **kwargs):

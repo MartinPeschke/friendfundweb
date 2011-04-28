@@ -4,6 +4,7 @@ import dns.resolver, socket, re
 from pylons import app_globals as g
 from friendfund.model.mapper import DBMappedObject
 from friendfund.lib.payment.adyen import PaymentMethod
+from friendfund.lib.tools import sanitize_html
 from pylons import session as websession
 
 from babel.numbers import parse_decimal, NumberFormatError, format_currency, format_decimal
@@ -74,6 +75,17 @@ class DecimalStringValidator(DecimalValidator):
 	def _to_python(self, value, state):
 		value = super(self.__class__, self)._to_python(value, state)
 		return format_decimal(value, locale=websession['lang'])
+
+class SanitizedHTMLString(formencode.validators.String):
+	messages = {"invalid_format":_('There was some error in your HTML!')}
+	def _to_python(self, value, state):
+		value = super(self.__class__, self)._to_python(value, state)
+		try:
+			return sanitize_html(value)
+		except Exception, e:
+			log.error("HTML_SANITIZING_ERROR %s", value)
+			raise formencode.Invalid(self.message("invalid_format", state, value = value), value, state)
+			
 
 class MonetaryValidator(formencode.validators.Number):
 	messages = {"invalid_amount":_('MONETARYVALIDATOR_Please input a valid amount'),

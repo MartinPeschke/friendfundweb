@@ -1,6 +1,7 @@
 import zlib, base64, simplejson, datetime, decimal, itertools
 from xml.sax.saxutils import quoteattr
 from decorator import decorator
+from BeautifulSoup import BeautifulSoup
 import simplejson, logging
 
 log = logging.getLogger(__name__)
@@ -129,3 +130,18 @@ def generate_mnemonic_password(letters=8, digits=4, uppercase=False):
 		chars = chars.upper()
 	chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
 	return chars
+
+def sanitize_html(html, valid_tags = ['a','strong', 'em', 'p', 'ul', 'ol', 'li', 'br', 'b', 'i', 'u', 's', 'strike', 'font', 'pre', 'blockquote']
+	, strip_tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+	, valid_attrs = ['size', 'color', 'face', 'title']):
+	soup = BeautifulSoup(html)
+	for tag in soup.findAll(True):
+		if tag.name.lower() not in valid_tags:
+			tag.extract()
+		elif tag.name.lower() != "a":
+			tag.attrs = [attr for attr in tag.attrs if attr[0].lower() in valid_attrs]
+		else:
+			attrs = dict(tag.attrs)
+			tag.attrs = [('href', attrs.get('href')), ('target', '_blank')]
+	val = soup.renderContents()
+	return val

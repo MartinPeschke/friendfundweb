@@ -210,3 +210,19 @@ class ProductService(object):
 								picture = product_image
 							)
 			return query, product, imgs
+	
+	def get_parser_values_from_product(self, product):
+		if not isinstance(product, Product) or not product.tracking_link:
+			parser_values = None
+		else:
+			parser_values = {
+				"url":product.tracking_link,
+				"product_picture":None,
+				"name":product.name,
+				"description":product.description,
+				"img_list":[product.get_product_pic("FF_POOLS")]
+			}
+			parser_values['display_url'] = parser_values['url'] and h.word_truncate_by_letters(parser_values['url'], 40) or None
+			parser_values['display_name'] = parser_values['name'] and h.word_truncate_by_letters(parser_values['name'], 40) or None
+			parser_values['display_description'] = parser_values['description'] and h.word_truncate_by_letters(parser_values['description'], 180) or None
+		return parser_values
