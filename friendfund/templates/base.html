@@ -138,7 +138,7 @@ ${self.render_html()}
 
 <%def name="header()">
 	<div id="headercontainer">
-		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="/custom/imgs/logo.png"/></a>
+		<a href="${url('home', protocol='http')}" class="logoHeader"><img src="${request.merchant.get_logo_url("lrg")}"/></a>
 		${self.render_account_panel()}
 	</div>
 </%def>

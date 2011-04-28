@@ -23,12 +23,12 @@ ${self.render_html()}
 		<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
 		${links.css('site.css')}
 		${links.js('loaderv4.js')}
+		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
 		
 		${styles.merchantStyles(request.merchant)|n}
 		
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
-		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
 </%def>
 
 <%def name="render_foot_scripts()">
