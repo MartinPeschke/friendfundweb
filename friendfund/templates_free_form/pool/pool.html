@@ -102,33 +102,54 @@
 				<div class="subTitleUserProfile">
 					<span class="poolClose">${_(u"FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s")%locals}&nbsp; &nbsp; &middot; &nbsp; &nbsp;</span><span class="admin">${_(u"FF_POOL_PAGE_HEADER_by %(admin_name)s")%locals}</span></div>
 			</div>
-			<div class="timeTracker floatLeft timeTrackerBig">
-				
-				<div class="timeCounter">
-				<span class="floatRight">${c.pool.get_display_amount()}</span>
-				<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
-				%if c.pool.is_closed():
-					<span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
-				%else:
-					<span class="percent">${int(c.pool.funding_progress()*100)}%</span>
-				%endif
-					<div class="timeCounterRight" style="width:100%">
-					<div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
-						<div class="progTooltip" style="position: absolute; top:-23px;left:${int(c.pool.funding_progress()*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
-					</div>
-				</div>
-			</div>
-			<div class="boxPoolDetails">
-				<div class="contributors"><span>${widgets.renderPoolInfoContributors(locals)}</span></div>
-				<div class="heavyMd"></div>
-				<div class="invitees"><span>${widgets.renderPoolInfoInvitees(locals)}</span></div>
-				<div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
-				<div class="heavyMd"></div>
-				<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
-				<div class="daysLeft"><span>${widgets.renderPoolInfoDaysLeft(locals)}</span></div>
-				<div class="clear"></div>
-			</div>
-		<div class="clear"></div>
+            <div class="headerDivider">
+            	<div class="colRightWhite"></div>
+                <div class="timeTracker floatLeft timeTrackerBig">
+                    
+                    <div class="timeCounter">
+                    <span class="floatRight">${c.pool.get_display_amount()}</span>
+                    <span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
+                    %if c.pool.is_closed():
+                        <span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
+                    %else:
+                        <span class="percent">${int(c.pool.funding_progress()*100)}%</span>
+                    %endif
+                        <div class="timeCounterRight" style="width:100%">
+                        <div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
+                            <div class="progTooltip" style="position: absolute; top:-23px;left:${int(c.pool.funding_progress()*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
+                        </div>
+                    </div>
+                    <div class="boxPoolDetails">
+                        <div class="contributors"><span>${widgets.renderPoolInfoContributors(locals)}</span></div>
+                        <div class="heavyMd"></div>
+                        <div class="invitees"><span>${widgets.renderPoolInfoInvitees(locals)}</span></div>
+                        <div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+                        <div class="heavyMd"></div>
+                        <div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
+                        
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                
+                <div class="timerCont">
+                	<div>Pool closes in</div>
+                	<div class="timer">
+                    	<div class="rndL">4</div>
+                        <div class="brdW">12</div>
+                        <div class="brdW">36</div>
+                        <div class="brdW rndR" style="border-right:0">10</div>
+               
+                    </div>
+                    	<div class="timeSpec">days</div>
+                        <div class="timeSpec">hrs</div>
+                        <div class="timeSpec">min</div>
+                        <div class="timeSpec">sec</div>
+                </div>
+            
+                    
+                <div class="clear"></div>
+        	</div>
+            <div class="clear"></div>
 		</div>
 	</div>
 </div>

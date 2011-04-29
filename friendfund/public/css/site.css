@@ -923,14 +923,16 @@ span.controller{
 	z-index: 7
 }
 span.controller:hover{
-	background: #f5f5f1;
+	background-color: #f5f5f1;
 	border: 1px solid #ebeae5
 }
 span.controllerRight{
-	right: 4px
+	right: 4px;
+	background: url(/static/imgs/slider/slider-dx.png) 5px 25px no-repeat
 }
 span.controllerLeft{
-	left: 4px
+	left: 4px;
+	background: url(/static/imgs/slider/slider-sx.png) 5px 25px no-repeat
 }
 ul.slider{
 	height: 86px;
@@ -979,13 +981,54 @@ ul.slider li a img{
 	margin: 13px auto 0
 }
 div.whatElse {
-	padding-top: 30px
+	padding-top: 30px;
+	
 }
 div.whatElse h4 {
 	padding-bottom: 20px;
 	font-size: 18px;
-	color: #2C2C2C
+	color: #2C2C2C;
+	position: relative
+} 
+div.whatElse h4 span{
+	font-size: 12px;
+	color: #adadad;
+	font-weight: normal;
+	margin-left: 15px;
+	position: relative
 }
+div.whatElse h4 span.questionPop{
+	display: block;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: #51b9ff;
+	position: absolute;
+	top: -5px;
+	right:-25px;
+	color: white;
+	height:20px;
+	width: 20px;
+	text-align: center;
+	line-height: 20px;
+	text-shadow: 0px -1px 0 black;
+	z-index: 11;
+	cursor: pointer
+}
+div.whatElse h4 span div{
+	background: none repeat scroll 0 0 #E5E5E5;
+    border: 1px solid white;
+    padding: 5px 10px;
+    position: absolute;
+    right: -245px;
+    top: 3px;
+    width: 210px;
+    z-index: 10;
+    -moz-box-shadow: 0px 0px 4px #ccc;
+	-webkit-box-shadow: 0px 0px 4px #ccc;
+	box-shadow: 0px 0px 4px #ccc;
+}
+
 div.whatElse .boxGrayWrap{
 	border-top: 1px solid #C5C5C5;
 	border-bottom: 1px solid white;
@@ -1007,11 +1050,13 @@ div.whatElse .boxGray {
 	text-shadow: 0px 1px 0px white
 }
 .grafx {
-	color: #D6D6D6;
-	font-size: 140px;
-	left: -13px;
+	left: -8px;
 	position: absolute;
-	top: 28px;
+	top: -15px;
+	background: url(/static/imgs/quotation_marks.png) 0 0 no-repeat;
+	width: 54px;
+	height: 36px;
+	text-indent: -9999px
 }
 div.box1 .boxGray{
 	padding: 5px 0;
@@ -1104,12 +1149,13 @@ div.subUserProfile h2 {
 div.subUserProfile span {
 	display: block;
 	float: left;
-	font-size: 11px
+	font-size: 12px;
+	text-shadow: 0px 1px 0px white
 }
 div.subUserProfile span.admin {
 	display: block;
 	float: left;
-	color: #999999
+	color: #adadad
 }
 div.subTitleUserProfile {
 	float:left;
@@ -1119,12 +1165,15 @@ div.subTitleUserProfile {
 }
 span.poolClose {
 	font-weight: bold;
-	color:#666666
+	color:#696969
 }
 div.boxPoolDetails {
-	clear: both;
 	float: left;
-	width: 910px;
+	width: 650px;
+	margin-top: 3px
+}
+div.boxPoolDetails span{
+	font-weight: normal !important
 }
 div.timeTracker {
 	width: 210px
@@ -1139,6 +1188,12 @@ div.timeTracker span.percent {
 	line-height: 16px;
 	margin-left: -30px
 }
+div.headerDivider{
+	float:left;
+	border-top: 1px solid #c1c1c1;
+	margin-top: 20px;
+	padding-bottom: 5px
+}
 div.timeTrackerBig {
 	width: 684px;
 	position: relative;
@@ -1149,6 +1204,64 @@ div.timeTracker span {
 	font-weight: bold;
 	color: #2C2C2C;
 	position: relative;
+}
+div.timerCont{
+	float: left;
+	width: 200px;
+	padding-left: 40px;
+	font-size: 11px;
+	color: #adadad;
+	text-shadow: 0 1px 0 white;
+	padding-top: 3px
+}
+div.timer{
+	font-size: 18px;
+	font-weight: bold;
+	color: #696969;
+	float: left;
+	width: 198px;
+	margin-top: 2px;
+	border: 1px solid #e2e2ec;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: #f4f4f2;
+}
+div.timer div{
+	 border-right: 1px solid #e2e2ec;
+	 float: left;
+	 width: 48px;
+	 text-align: center;
+	 height: 38px;
+	 line-height: 38px
+}
+div.timer div.rndL{
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-topright: 0px;
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 0px;
+	
+}
+div.timer div.rndR{
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-border-radius-bottomleft: 0px;
+	-moz-border-radius-topleft: 0px;
+	border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+div.timer div.brdW{
+	border-left: 1px solid white
+}
+div.timeSpec{
+	float: left;
+	width: 48px;
+	text-align: center;
+	padding: 0 1px
 }
 div.contributors {
 	float:left;
@@ -1196,7 +1309,8 @@ div.contributors span {
 	font-size: 11px;
 	line-height: 35px;
 	padding: 0 0 0 25px;
-	color: #8f8f8f
+	color: #8f8f8f;
+	
 }
 div.invitees span {
 	display: block;
@@ -1717,7 +1831,7 @@ div.comments input {
 	margin-right: 10px
 }
 .boxChipIn {
-	background:#ebebeb;
+	background:#e7e7de;
 	padding: 20px;
 	text-align: center
 }
@@ -4082,7 +4196,9 @@ table.fee td {
 	float:right;
 	width:421px;
 	border-left: 1px solid #B3B3B3;
-	padding:0
+	padding:0;
+	min-height:282px
+	
 }
 .colRightFb h1 {
 	font-size: 14px;
@@ -4091,7 +4207,13 @@ table.fee td {
 .colLeftFb {
 	float: left;
 	width: 158px;
+	position: relative;
 	text-align: right
+}
+.colLeftFb  img.prod{
+	position: absolute;
+	left: 41px;
+	top: 13px
 }
 .colRightFb table {
 	margin: 20px 20px 0 20px
@@ -4362,13 +4484,13 @@ div.second p, div.second a {
 	border: 5px solid white;
 	display: block;
 	float: left;
-	margin: 15px 20px 0 0;
+	margin: 30px 20px 0 0;
 }
 .poolHead div.subUserProfile h2 {
 	float: left;
 	font-size: 36px;
 	line-height: 36px;
-	margin: 20px 0 0;
+	margin: 30px 0 0;
 	padding: 0;
 }
 .subSpacer {
