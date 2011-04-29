@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-04-28 10:06+0200\n"
+"POT-Creation-Date: 2011-04-29 10:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
-#: friendfund/controllers/content.py:65
+#: friendfund/controllers/content.py:66
 msgid ""
 "FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your "
 "time!"
@@ -99,7 +99,7 @@ msgstr ""
 
 #: friendfund/controllers/myprofile.py:49 friendfund/controllers/myprofile.py:54
 #: friendfund/controllers/myprofile.py:105 friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/pool_edit.py:82
+#: friendfund/controllers/pool_edit.py:98
 msgid "FF_ADDRESS_Please correct the Errors below"
 msgstr ""
 
@@ -253,6 +253,7 @@ msgid "FF_POOL_PAGE_Don't forget to <a href=\"%s\">add a Shipping Address</a>"
 msgstr ""
 
 #: friendfund/controllers/pool.py:132 friendfund/controllers/pool.py:170
+#: friendfund/controllers/pool_edit.py:51
 msgid "FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below"
 msgstr ""
 
@@ -264,47 +265,47 @@ msgstr ""
 msgid "POOL_CREATE_Receiver was unknown, what can I do?"
 msgstr ""
 
-#: friendfund/controllers/pool_edit.py:50
+#: friendfund/controllers/pool_edit.py:66
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr ""
 
-#: friendfund/controllers/pool_edit.py:78
+#: friendfund/controllers/pool_edit.py:94
 msgid "FF_ADDRESS_Changes saved!"
 msgstr ""
 
-#: friendfund/controllers/product.py:81
+#: friendfund/controllers/product.py:82
 msgid "FF_PICTUREUPLOAD_Some Error occured, please try again"
 msgstr ""
 
-#: friendfund/controllers/product.py:122
+#: friendfund/controllers/product.py:141
 msgid "AMAZON_PRODUCT_SEARCH_URL not recognized"
 msgstr ""
 
-#: friendfund/controllers/product.py:125
+#: friendfund/controllers/product.py:144
 #, python-format
 msgid ""
 "AMAZON_PRODUCT_SEARCH_URL is not from %(amazondomain)s, please use only links"
 " from %(amazondomain)s or switch your shipping region."
 msgstr ""
 
-#: friendfund/controllers/product.py:130
+#: friendfund/controllers/product.py:149
 msgid "AMAZON_PRODUCT_SEARCH_Some error occured at Amazons."
 msgstr ""
 
-#: friendfund/controllers/product.py:134
+#: friendfund/controllers/product.py:153
 msgid ""
 "AMAZON_PRODUCT_SEARCH_This article seems to be an Amazon Marketplace article "
 "and is not sold by Amazon itself. Currently we do not support Amazon "
 "Marketplace articles."
 msgstr ""
 
-#: friendfund/controllers/product.py:137
+#: friendfund/controllers/product.py:156
 msgid ""
 "AMAZON_PRODUCT_SEARCH_Amazon does not provide sufficient information to "
 "purchase this article."
 msgstr ""
 
-#: friendfund/controllers/product.py:176
+#: friendfund/controllers/product.py:195
 msgid "INDEX_PAGE_No Product"
 msgstr ""
 
@@ -439,53 +440,57 @@ msgstr ""
 msgid "FF_POOLPAGE_INVITEE_LABEL_%s - Chipped in"
 msgstr ""
 
-#: friendfund/model/forms/common.py:21
+#: friendfund/model/forms/common.py:22
 msgid "TOSVALIDATOR_You have to agree to our terms and conditions."
 msgstr ""
 
-#: friendfund/model/forms/common.py:30
+#: friendfund/model/forms/common.py:31
 msgid "PWDVALIDATOR_Please dont input any special characters."
 msgstr ""
 
-#: friendfund/model/forms/common.py:40
+#: friendfund/model/forms/common.py:41
 msgid "DATEVALIDATOR_Please input Date in Valid Format YYYY-MM-DD"
 msgstr ""
 
-#: friendfund/model/forms/common.py:49
+#: friendfund/model/forms/common.py:50
 msgid "CURRENCYVALIDATOR_Please input a valid Currency"
 msgstr ""
 
-#: friendfund/model/forms/common.py:56 friendfund/model/forms/common.py:79
+#: friendfund/model/forms/common.py:57 friendfund/model/forms/common.py:91
 msgid "MONETARYVALIDATOR_Please input a valid amount"
 msgstr ""
 
-#: friendfund/model/forms/common.py:57 friendfund/model/forms/common.py:80
+#: friendfund/model/forms/common.py:58 friendfund/model/forms/common.py:92
 #, python-format
 msgid "Please enter a number that is %(max_amount)s or smaller"
 msgstr ""
 
-#: friendfund/model/forms/common.py:58
+#: friendfund/model/forms/common.py:59
 #, python-format
 msgid "Please enter a number that is %(min_amount)s or higher"
 msgstr ""
 
-#: friendfund/model/forms/common.py:109
+#: friendfund/model/forms/common.py:80
+msgid "There was some error in your HTML!"
+msgstr ""
+
+#: friendfund/model/forms/common.py:121
 msgid "SETTLEMENT_PAYPAL_EMAIL_MISSIN_Please enter a valid value"
 msgstr ""
 
-#: friendfund/model/forms/common.py:110
+#: friendfund/model/forms/common.py:122
 msgid "SETTLEMENT_Invalid Settlement Option"
 msgstr ""
 
-#: friendfund/model/forms/common.py:144 friendfund/model/forms/common.py:162
+#: friendfund/model/forms/common.py:156 friendfund/model/forms/common.py:174
 msgid "unsupported payment method"
 msgstr ""
 
-#: friendfund/model/forms/common.py:160
+#: friendfund/model/forms/common.py:172
 msgid "Please enter a valid amount"
 msgstr ""
 
-#: friendfund/model/forms/common.py:161
+#: friendfund/model/forms/common.py:173
 msgid "Invalid Totals"
 msgstr ""
 
@@ -517,39 +522,39 @@ msgstr ""
 msgid "FF_CONTRIBPAGE_ERROR_ccCVC_Please enter your CVC number!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:14
+#: friendfund/model/forms/pool.py:13
 msgid "FF_PARTNERIFRAME_ERROR_DATE_Please enter some date value!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:15
+#: friendfund/model/forms/pool.py:14
 msgid "FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event name!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:16
+#: friendfund/model/forms/pool.py:15
 msgid "FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event key!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:21
+#: friendfund/model/forms/pool.py:20
 msgid "FF_POOLETAILS_ERROR_DATE_Please enter some date value!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:22
+#: friendfund/model/forms/pool.py:21
 msgid "FF_POOLETAILS_ERROR_AMOUNT_Please enter some amount value!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:24
+#: friendfund/model/forms/pool.py:23 friendfund/model/forms/pool.py:36
 msgid "FF_POOLETAILS_ERROR_TITLE_Please enter some title text!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:25
+#: friendfund/model/forms/pool.py:24 friendfund/model/forms/pool.py:37
 msgid "FF_POOLETAILS_ERROR_DESCR_Please enter some descriptive text!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:37
+#: friendfund/model/forms/pool.py:44
 msgid "FF_INVITEE_ERROR_NAME_Please enter a name text!"
 msgstr ""
 
-#: friendfund/model/forms/pool.py:38
+#: friendfund/model/forms/pool.py:45
 msgid "FF_INVITEE_ERROR_EMAIL_Please enter some email!"
 msgstr ""
 
@@ -3017,13 +3022,13 @@ msgid "FF_POOLDETAILS_TITLE_Tip goes here"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/create.html:165
-#: friendfund/templates_free_form/pool/edit.html:57
+#: friendfund/templates_free_form/pool/edit.html:70
 msgid "FF_POOLDETAILS_LABEL_Pool Title"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/create.html:169
 #: friendfund/templates_free_form/pool/create.html:172
-#: friendfund/templates_free_form/pool/edit.html:59
+#: friendfund/templates_free_form/pool/edit.html:72
 msgid "FF_POOLDETAILS_Write your title here..."
 msgstr ""
 
@@ -3032,7 +3037,7 @@ msgid "FF_POOLDETAILS_DESCRIPTION_Tip goes here"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/create.html:193
-#: friendfund/templates_free_form/pool/edit.html:76
+#: friendfund/templates_free_form/pool/edit.html:92
 msgid "FF_POOLDETAILS_LABEL_Pool Description"
 msgstr ""
 
@@ -3042,11 +3047,13 @@ msgstr ""
 
 #: friendfund/templates_free_form/pool/create.html:203
 #: friendfund/templates_free_form/pool/create.html:212
-#: friendfund/templates_free_form/pool/edit.html:87
+#: friendfund/templates_free_form/pool/edit.html:104
+#: friendfund/templates_free_form/pool/edit.html:113
 msgid "FF_POOLDETAILS_LABEL_Pool Image"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/create.html:217
+#: friendfund/templates_free_form/pool/edit.html:118
 msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
 msgstr ""
 
@@ -3102,34 +3109,38 @@ msgstr ""
 msgid "FF_POOLDETAILS_Invite Friends"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:32
+#: friendfund/templates_free_form/pool/edit.html:45
 #, python-format
 msgid "FF_POOL_EDIT_Edit %(pool_title)s"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:43
+#: friendfund/templates_free_form/pool/edit.html:56
 msgid "FF_POOLDETAILS_HEADER_Edit your Pool below"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:52
+#: friendfund/templates_free_form/pool/edit.html:65
 msgid "FF_POOLEDIT_TITLE_Change the title of your pool here"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:70
+#: friendfund/templates_free_form/pool/edit.html:86
 msgid ""
 "FF_EDIT_DESCRIPTION_Change your pool description here and raise more "
 "awareness by gripping storytelling!"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:94
+#: friendfund/templates_free_form/pool/edit.html:129
+msgid "FF_POOL_EDIT_Upload a picture"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/edit.html:137
 msgid "FF_POOLEDIT_Update Pool"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:95
+#: friendfund/templates_free_form/pool/edit.html:138
 msgid "FF_POOLEDIT_or"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/edit.html:96
+#: friendfund/templates_free_form/pool/edit.html:139
 msgid "FF_POOLEDIT_Cancel"
 msgstr ""
 
@@ -3240,28 +3251,23 @@ msgstr ""
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:272
-#: friendfund/templates_free_form/product/urlparser.html:12
-msgid "FF_LINK_Edit Image"
-msgstr ""
-
-#: friendfund/templates_free_form/pool/pool.html:280
+#: friendfund/templates_free_form/pool/pool.html:276
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:282
+#: friendfund/templates_free_form/pool/pool.html:278
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:297
+#: friendfund/templates_free_form/pool/pool.html:293
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:309
+#: friendfund/templates_free_form/pool/pool.html:305
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:315
+#: friendfund/templates_free_form/pool/pool.html:311
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr ""
 
@@ -3374,6 +3380,10 @@ msgstr ""
 
 #: friendfund/templates_free_form/product/ulpicture_popup.html:25
 msgid "FF_UPLOADPICTUREPOPUP_Submit"
+msgstr ""
+
+#: friendfund/templates_free_form/product/urlparser.html:12
+msgid "FF_LINK_Edit Image"
 msgstr ""
 
 #: friendfund/templates_free_form/product/urlparser.html:25
