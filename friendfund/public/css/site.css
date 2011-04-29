@@ -997,37 +997,37 @@ div.whatElse h4 span{
 	margin-left: 15px;
 	position: relative
 }
+div.whatElse h4 .hiddenToggler {position: absolute;top: -5px;right:-40px;height:35px;width:35px;}
 div.whatElse h4 span.questionPop{
 	display: block;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	background: #51b9ff;
-	position: absolute;
-	top: -5px;
-	right:-25px;
 	color: white;
 	height:20px;
 	width: 20px;
+	margin:0px;
 	text-align: center;
 	line-height: 20px;
 	text-shadow: 0px -1px 0 black;
 	z-index: 11;
 	cursor: pointer
 }
-div.whatElse h4 span div{
+div.whatElse h4 span div.TTip{display:None;
 	background: none repeat scroll 0 0 #E5E5E5;
     border: 1px solid white;
     padding: 5px 10px;
     position: absolute;
-    right: -245px;
-    top: 3px;
+    left: 14px;
+    top: 10px;
     width: 210px;
     z-index: 10;
     -moz-box-shadow: 0px 0px 4px #ccc;
 	-webkit-box-shadow: 0px 0px 4px #ccc;
 	box-shadow: 0px 0px 4px #ccc;
 }
+div.whatElse h4 .hiddenToggler:hover div.TTip{display:block;}
 
 div.whatElse .boxGrayWrap{
 	border-top: 1px solid #C5C5C5;

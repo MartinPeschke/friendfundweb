@@ -68,10 +68,12 @@ ${self.renderMessages()}
 	</div>
 	<div class="colRightWhite"></div>
 	<div class="whatElse">
-		<h4>${_("FF_HOMEPAGE_BOXES_Where else can I use friendfund?")}<span>Visit our Partner site to buy stuff toghether.<span class="questionPop">? </span><div>friendfund has teamed up with 
-some amazing merchants to give 
-you the best possible group gifting 
-experience.</div></span></h4>
+		<h4>${_("FF_HOMEPAGE_BOXES_Where else can I use friendfund?")}<span>${_("FF_HOMEPAGE_Visit our Partner site to buy stuff toghether.")}
+		<div class="hiddenToggler">
+			<span class="questionPop">?</span>
+			<div class="TTip">${_("FF_HOMEPAGE_friendfund has teamed up with some amazing merchants to give you the best possible group gifting experience.")}</div>
+		</div>
+		</span></h4>
 		<div class="boxGrayWrap box1">
 			<div class="boxGray">
 			<span class="controller controllerRight"> &laquo; </span>
@@ -90,7 +92,7 @@ experience.</div></span></h4>
 		<div class="clear"></div>
 	</div>
 	<div class="whatElse">
-			<h4>What our users are saying</h4>
+			<h4>${_("FF_HOMEPAGE_What our users are saying")}</h4>
 			${testimonials.render(h.get_language_locale())|n}
 		<div class="clear"></div>
 	</div>
