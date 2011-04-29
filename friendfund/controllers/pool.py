@@ -13,7 +13,7 @@ from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.pool import PoolHomePageForm, PoolAddressForm
-from friendfund.model.pool import Pool, PoolChat, PoolComment, PoolThankYouMessage, GetMoreInviteesProc, GetECardContributorsProc
+from friendfund.model.pool import Pool, PoolChat, PoolComment, GetMoreInviteesProc, GetECardContributorsProc
 from friendfund.model.poolsettings import PoolAddress
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
 

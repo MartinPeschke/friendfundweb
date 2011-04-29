@@ -5,6 +5,7 @@ from pylons import request, response, session as websession, tmpl_context as c, 
 from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 from friendfund.lib import helpers as h
+from friendfund.lib.auth.decorators import logged_in, pool_available
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.tools import dict_contains, remove_chars
@@ -82,12 +83,30 @@ class ProductController(BaseController):
 		return '<html><body><textarea>{"reload":true}</textarea></body></html>'
 	
 	def ulpicture(self):
-		pool_picture = request.params.get('pool_picture')
-		if pool_picture is None:
+		c.pool_picture = request.params.get('pool_picture')
+		if c.pool_picture is None:
 			response.headers['Content-Type'] = 'application/json'
 			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
 		try:
-			picture_url = app_globals.pool_service.save_pool_picture_sync(pool_picture, type="TMP")
+			picture_url = app_globals.pool_service.save_pool_picture_sync(c.pool_picture, type="TMP")
+		except UnsupportedFileFormat, e:
+			result = {"data":{"success":False}}
+		else:
+			result = {"data":{"success":True, "rendered_picture_url":app_globals.statics_service.get_product_picture(picture_url, type="TMP")}}
+		result = '<html><body><textarea>%s</textarea></body></html>'%simplejson.dumps(result)
+		return result
+	
+	@logged_in()
+	@pool_available(admin_only=True)
+	def ulpoolpicture(self, pool_url):
+		c.pool_picture = request.params.get('pool_picture')
+		if c.pool_picture is None:
+			response.headers['Content-Type'] = 'application/json'
+			if c.pool.product:
+				c.pool_picture = c.pool.product.picture
+			return simplejson.dumps({'popup':render('/product/ulpicture_popup.html').strip()})
+		try:
+			picture_url = app_globals.pool_service.save_pool_picture_sync(c.pool_picture, type="TMP")
 		except UnsupportedFileFormat, e:
 			result = {"data":{"success":False}}
 		else:

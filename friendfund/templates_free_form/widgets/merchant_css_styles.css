@@ -1,8 +1,6 @@
 <%def name="merchantStyles(merchant)" cached="True" cache_key="merchant_styles_${merchant.domain}" cache_timeout="86400" cache_type="memory">
 %if merchant.styles:
-<%
-	styles = merchant.styles
-%>
+<% styles = merchant.styles %>
 <style type="text/css">
 div.wrapHeader {background:none repeat scroll 0 0 ${styles.get("head_color_background", "#fff")} !important}
 div.wrapContent {background:none repeat scroll 0 0 ${styles.get("body_color_background", "#fff")} !important}

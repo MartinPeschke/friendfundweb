@@ -286,7 +286,7 @@ class Pool(DBMappedObject):
 	def get_total_contrib_float(self):
 		return float(self.get_total_contribution())/100
 	def get_amount_left(self):
-		return self.get_amount_float() - self.get_total_contrib_float()
+		return float(self.amount - self.total_contribution)/100
 	get_fixed_chipin_amount = get_amount_left
 	
 	def get_number_of_contributors(self):

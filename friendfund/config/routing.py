@@ -74,5 +74,6 @@ def make_map(config):
 	map.connect('home', '/', controller='index', action='index')
 	
 	map.connect('content', '/{lang}/content/{action}', controller='content', conditions={'function': language_acceptor})
+	map.connect('short_content', '/{lang}/{action}', controller='content', conditions={'function': language_acceptor})
 	
 	return map

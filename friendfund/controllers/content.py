@@ -35,6 +35,7 @@ class ContentController(BaseController):
 	@default_domain_only()
 	def jobs(self):
 		return self.render("/content/jobs.html")
+
 	@default_domain_only()
 	def impressum(self):
 		return redirect(url(controller="content", action="aboutus"))
@@ -42,7 +43,7 @@ class ContentController(BaseController):
 		return self.render("/content/merchant_explain.html")
 		
 		
-
+	@provide_lang()
 	def contact(self):
 		c.errors = {}
 		c.values = {}
@@ -99,17 +100,6 @@ class ContentController(BaseController):
 				return self.render("/content/localized/aboutus.html")
 		else:
 			return self.render("/content/localized/aboutus.html")
-	
-	@default_domain_only()
-	@provide_lang()
-	def tips(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/pool_tips_%s.html" % lang)
-			except:
-				return self.render("/content/localized/pool_tips.html")
-		else:
-			return self.render("/content/localized/pool_tips.html")
 	
 	@default_domain_only()
 	@provide_lang()

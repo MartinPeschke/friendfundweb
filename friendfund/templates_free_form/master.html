@@ -21,13 +21,10 @@ ${self.render_html()}
 <%def name="render_head()">
 		<title>friendfund.com ${self.title()}</title>
 		<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
-		${links.css('site.css')}
-		${links.js('loaderv4.js')}
+		${links.css('site.css')}${links.js('loaderv4.js')}
 		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
-		
 		${styles.merchantStyles(request.merchant)|n}
-		
-		${self.fb_meta_tags()}
+		${self.meta_tags()}
 		${self.scripts_styles()}
 </%def>
 
@@ -57,7 +54,9 @@ ${self.render_html()}
 <%def name="go_to_activity_stream()">go_to_activity_stream = function(){page_reloader()};</%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
-<%def name="fb_meta_tags()"></%def>
+<%def name="meta_tags()"><meta content="friendfund.com - Collect money with friends!" name="generator">
+<meta content="social commerce, e-commerce, group gifts, group gifting, social community, gifts, gemeinsam schenken" name="keywords">
+<meta content="Collect money with friends. Create a Pool. Chip in. friendfund it!" name="description"></%def>
 <%def name="scripts_styles()"></%def>
 <%def name="scripts()"></%def>
 <%def name="onloadscripts()"></%def>

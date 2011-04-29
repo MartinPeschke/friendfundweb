@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<url>
-<loc>${request.qualified_host}</loc> 
-</url>
+<url><loc>${request.qualified_host}</loc> <changefreq>daily</changefreq><priority>0.9</priority></url>
 %for entry in c.pool_urls:
-	<url>
-	<loc>${request.qualified_host}/pool/${entry.p_url}</loc> 
-	</url>
+<url><loc>${request.qualified_host}/pool/${entry.p_url}</loc> <changefreq>daily</changefreq><priority>0.5</priority></url>
 %endfor
-<url>
-<loc>${request.qualified_host}/content/faq</loc> 
-</url>
-<url>
-<loc>${request.qualified_host}/content/tos</loc> 
-</url>
-<url>
-<loc>${request.qualified_host}/content/privacy</loc> 
-</url>
-<url>
-<loc>${request.qualified_host}/content/impressum</loc> 
-</url>
+${self.renderLocalized("aboutus", 0.7, "monthly")|n}
+${self.renderLocalized("become_partner", 0.9, "weekly")|n}
+${self.renderLocalized("faq", 0.8, "weekly")|n}
+${self.renderLocalized("learn_more", 0.9, "weekly")|n}
+${self.renderLocalized("tos")|n}
+${self.renderLocalized("privacy")|n}
+${self.renderLocalized("confidence")|n}
+${self.renderLocalized("contact")|n}
 </urlset>
+
+
+
+<%def name="renderLocalized(relpath,priority=0.7,freq='monthly')">
+%for lang in app_globals.LANGUAGES:
+<url><loc>${request.qualified_host}/${lang}/${relpath}</loc> <changefreq>${freq}</changefreq><priority>${priority}</priority></url>
+%endfor
+</%def>
