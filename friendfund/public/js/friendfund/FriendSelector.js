@@ -148,11 +148,13 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		
 		/* since selector is outside of refnode, and does not get rerendered, this can get out of sync */
 		_t._is_selected_decider = ".methodselector.ajaxlink.selected[_type="+_t.network+"]";
+		_t.search_index = {};
+		_t.last_filter = "";
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
 	},draw : function(_t){
-		_t.backup_reloader = page_reloader;
-		page_reloader = _t.page_reloader||dojo.hitch(_t, _t.draw, _t);
+		_t.backup_reloader = window.pageState.rld;
+		window.pageState.rld = _t.page_reloader||dojo.hitch(_t, _t.draw, _t);
 		if(_t.rootNode){
 			dojo.removeClass(_t.rootNode, "hidden");
 		} else {
@@ -172,7 +174,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		else {dojo.query("#networkinviter_"+_t.network).orphan();}
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
-		page_reloader = _t.backup_reloader;
+		window.pageState.rld = _t.backup_reloader;
 	},onLoad : function(_t, data){
 		_t.is_loading = false;
 		dojo.place(data.html, _t.rootNode, "only");
@@ -264,23 +266,61 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			dojo.query(".nonmutual.invitee_row[_search_keys]", _t.friendlist).addClass("hidden");
 		}
 	},filter : function(_t, refnode, evt){
+		var start = new Date().getTime();
 		var filter = dojo.byId("filter_"+_t.network);
-		if(evt.keyCode==27){filter.value="";}
-		var st = filter.value.toLowerCase();
-		var selector = ".invitee_row[_search_keys]";
-		if(_t.mutuals === true){selector = ".mutual.invitee_row[_search_keys]";}
-		dojo.query(selector, refnode).forEach(
-			function(elem){
-				var tokens = dojo.attr(elem, "_name").split(" ");
-				if(dojo.some(tokens, function(token){return token.substring(0, st.length).toLowerCase() == st;})){
-					dojo.addClass(elem, "selectable");
-					dojo.removeClass(elem, "nonselectable");
-				} else {
-					dojo.removeClass(elem, "selectable");
-					dojo.addClass(elem, "nonselectable");
+		if(evt.keyCode==27){
+			filter.value="";
+		}else if(evt.keyCode<45&&evt.keyCode!=8){
+			return false
+		}else if(filter.value===""){
+			_t.last_filter = "";
+			var pn = refnode.parentNode;pn.removeChild(refnode);
+			dojo.query("li.invitee_row", refnode).removeClass("hidden");
+			pn.appendChild(refnode);
+			console.log("FILTER:", (new Date().getTime() - start)/1000);
+			return true;
+		}else{
+			var st = filter.value.toLowerCase();
+			var selector = "li.invitee_row > p";
+			if(_t.mutuals === true){selector = "li.mutual.invitee_row > p";}
+			var index_is_empty = true;
+			for(var prop in _t.search_index) {if (_t.search_index.hasOwnProperty(prop)){index_is_empty = false;break;}}
+			if(index_is_empty){
+				dojo.query(selector, refnode).forEach(function(elem){
+					var s = elem.innerHTML.split(' ').concat([elem.innerHTML]), pn = elem.parentNode,entry;
+					for(var i=0;i<s.length;i++){
+						entry=s[i];
+						for(var j=0;j<=entry.length;j++){
+							var k=entry.substr(0,j).toLowerCase(), tmp = _t.search_index[k]||{},ctr = tmp.__ctrtrckr__||1;
+							tmp[pn.id] = pn;
+							tmp.__ctrtrckr__=ctr+1;
+							_t.search_index[k] = tmp;
+						}
+					}
+				});
+			};
+			
+			
+			var lasthits = _t.search_index[_t.last_filter], hits=_t.search_index[st];
+			if(!hits){dojo.query("li.invitee_row:not(.hidden)", refnode).addClass("hidden");}
+			else{
+				var pn = refnode.parentNode;pn.removeChild(refnode);
+				for(var hit in lasthits){
+					if(!hits[hit]){
+						dojo.addClass(lasthits[hit], "hidden");
+					}
 				}
+				for(var hit in hits){
+					if(dojo.hasClass(hits[hit], "hidden")){
+						dojo.removeClass(hits[hit], "hidden");
+					}
+				}
+				pn.appendChild(refnode);
 			}
-		);
+			console.log("FILTER:", (new Date().getTime() - start)/1000);
+			_t.last_filter = st;
+		}
+		return true;
 	}
 });
 
