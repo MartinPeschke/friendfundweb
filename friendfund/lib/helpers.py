@@ -25,7 +25,7 @@ def set_wizard(mc, pd, wizard):
 ################## Picture Helpers #################
 
 def pool_users_equal(user1, user2):
-	### find at least one coresponding user network overlap
+	### find at least one corresponding user network overlap
 	if not (user1.networks and user2.networks):
 		return False
 	else:

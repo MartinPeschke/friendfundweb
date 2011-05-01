@@ -6,7 +6,6 @@
 	${links.js('datepicker.packed.js')}
 	${links.css('datepicker.css')}
 </%def>
-<%def name="page_reloader()">page_reloader = function(){};</%def>
 <%def name="scripts()">
 	<script type="text/javascript"> 
 		toggleSettlement = function(option){
@@ -18,7 +17,12 @@
 		};
 	</script>
 </%def>
-
+<%def name="render_page_state()">window.pageState.sbmt = function(){
+		onSubmitCleaner(document.submissionform);
+		document.submissionform.onsubmit = function(){return true};
+		document.submissionform.submit();return true;
+	};
+</%def>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolDetails");
 	parseSelectables("poolDetails");
@@ -63,18 +67,7 @@
 	%endif
 	#### check settlementOptions
 	dojo.forEach(document.submissionform.settlementOption, function(elem){if(elem.checked){toggleSettlement(elem);}});
-	var submitters = [];
-	checkLoginStatus = function(){
-		onSubmitCleaner(document.submissionform);
-		document.submissionform.submit();
-	};
-	%if c.user.is_anon:
-		submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", protect(checkLoginStatus)));
-	%else:
-		submitters.push(dojo.connect(dojo.byId("submitter"), "onclick", checkLoginStatus));
-	%endif
 </%def>
-
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
@@ -97,7 +90,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return protected(9, window.pageState.sbmt);">
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
@@ -290,7 +283,7 @@
 		<div class="clear"></div>
 		
 			<div class="spacerButtons floatRight">
-				<input id="submitter" class="floatRight forward" type="button" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
+				<input id="submitter" class="floatRight forward" type="submit" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
 			</div>
 		
 		</form>

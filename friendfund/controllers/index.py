@@ -57,9 +57,6 @@ class IndexController(BaseController):
 			del websession['pool']
 		return redirect(c.furl)
 	
-	def login(self):
-		return self.signup()
-	
 	def signup(self):
 		c.signup_values = {}
 		c.signup_errors = {}
@@ -81,25 +78,3 @@ class IndexController(BaseController):
 			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
 							% {'link_open':'<a href="/myprofile/password">', 'link_close':'</a>'})
 			return self.render('/myprofile/login_screen.html')
-	
-	@jsonify
-	@logged_in(ajax=True)
-	def set_email(self):
-		if request.method != 'POST':
-			return {'message':'Not allowed!'}
-		elif not c.user.u_id:
-			return {'message':'Not authorized!'}
-		valid = formencode.validators.Email(not_empty=True, min=5, max = 255, resolve_domain=True)
-		c.email = request.params.get('email', None)
-		try:
-			c.email = valid.to_python(c.email, state = FriendFundFormEncodeState)
-			suep = SetUserEmailProc(u_id = c.user.u_id, name = c.user.name, email = c.email)
-			g.dbm.set(suep)
-			c.user.default_email = c.user.default_email or c.email
-			c.messages.append(_(u'USER_SETEMAILBLOCK_Email Updated!'))
-			return {'data':{'success':True}}
-		except formencode.validators.Invalid, error:
-			return {'data':{'success':False, 'message':'<span>%s</span>' % error}}
-		except SProcWarningMessage, e:
-			log.warning(str(e))
-			return {'data':{'success':False, 'message':'<span>%s</span>' % _(u'USER_SETEMAILBLOCK_Email_Email Address already taken!')}}	

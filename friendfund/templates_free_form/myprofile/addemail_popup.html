@@ -23,7 +23,7 @@
 			<input type="submit" class="invisible" value="Go"/>
 			</form>
 			<a onclick="xhrFormPost('${url(controller='myprofile', action='addemailpopup')}', 'login_popup_form')" class="primarySmall floatLeft" style="margin:30px 0 0 0">${_("FF_LOGINBUTTON_Add Emailauith")}</a>
-            <p>Log in with <a onclick="fbLogin()" class="link">Facebook</a> instead.</p>
+            <p>${_("FF_LOGINBUTTON_Log in with <a %s>Facebook</a> instead.")%'onclick="baseFBLogin()" class="link"'}</p>
             <div class="clear"></div>
             </div>
         </div>

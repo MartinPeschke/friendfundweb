@@ -5,9 +5,6 @@
 <%def name="scripts_styles()">
 	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
 </%def>
-<%def name="page_reloader()">
-	page_reloader = function(){};
-</%def>
 <%def name="scripts()">
 	<script type="text/javascript">
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};

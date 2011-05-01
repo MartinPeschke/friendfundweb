@@ -31,11 +31,9 @@ ${self.render_html()}
 		${links.css('message_block.css')}
 		${links.css('legacy_custom.css',path='/custom/')}
 		${styles.merchantStyles(request.merchant)|n}
-		<script type="text/javascript"> 
-			page_reloader = function(){window.location.reload();};
-			go_to_activity_stream = function(){page_reloader()};
-			login_panel_refresh = function(){loadElement('/index/login_panel', "accountcontainer")};
-			locale_picked=function(elem){document.getElementById("set_lang").submit()}
+		<script type="text/javascript">
+			window.pageState = {respectFB:${str("facebook" in c.user.permissions or c.user.is_anon).lower()}};
+			${self.render_page_state()|n}
 		</script>
 		${self.fb_meta_tags()}
 		${self.scripts_styles()}
@@ -118,7 +116,7 @@ ${self.render_html()}
 <div id="messaging_container"><div id="message_container" class="${not h.has_ne_prop(c, '_msgs') and 'hidden' or ''}"><%include file="/messages/standard.html"/></div></div>
 </%def>
 
-
+<%def name="render_page_state()"></%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="scripts_styles()"></%def>

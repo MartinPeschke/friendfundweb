@@ -3,7 +3,8 @@
 <%namespace name="forms" file="/widgets/forms.html"/>
 
 <%def name="title()">${_("FF_TITLE_Account Settings")}</%def>
-<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
+<%def name="render_page_state()">window.pageState.rld = function(login){window.location.reload();};</%def>
+
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	${common.render_tabs("account")|n}
 </div>
@@ -101,7 +102,7 @@
 				</div>
 		%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Facebook")}</span>
-				<a onclick="fbLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
+				<a onclick="baseFBLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
 					<span>${_("FF_LOGIN_Facebook_Log_In")}</span>
 				</a>
 		%endif

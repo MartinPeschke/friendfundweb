@@ -70,6 +70,7 @@ def make_map(config):
 	
 	map.connect('ctrlpoolindex', '/{controller}/{pool_url}', action='index')
 	map.connect('controller', '/{controller}', action='index')
+	map.connect('signup', '/login', controller='index', action="signup")
 	map.connect('index', '/{action}', controller='index')
 	map.connect('home', '/', controller='index', action='index')
 	

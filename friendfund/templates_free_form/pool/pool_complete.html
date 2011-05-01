@@ -96,6 +96,8 @@
 								<p class="editable active" _href="${url("pool_edit", pool_url = c.pool.p_url, action="editThankYouMessage")}" _value=${quoteattr(c.values['message'])|n}>
 								${c.values['message']}<span class="link">${_("FF_Edit")}</span>
 								</p>
+							%else:
+								<p>${c.values['message']}</p>
 							%endif
 							</div>
 						</div>

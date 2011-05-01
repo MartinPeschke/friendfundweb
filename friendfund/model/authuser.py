@@ -13,6 +13,10 @@ class UserNotLoggedInWithMethod(Exception):
 class GetFriendsNotSupported(Exception):
 	pass
 
+CLEARANCES = {"ANON":0, "BASE" : 1, "CONTRIBUTE":3, "INVITE":6, "FULL":9}
+
+
+
 class OtherUserData(DBMappedObject):
 	_set_root = _get_root = "USER"
 	_get_proc = _set_proc = "app.add_other_account"
@@ -63,9 +67,9 @@ class SetNewPasswordForUser(DBMappedObject):
 	_keys = [	 GenericAttrib(int, 'u_id', 'u_id'),GenericAttrib(str,'pwd','pwd')]
 
 
-class UserPermissions(DBMappedObject):
-	"""<PERMISSIONS network="FACEBOOK" id="100000924808399" stream_publish="0" permanent="0" birthdays="0" has_email="0"/>"""
+class NetworkUserPermissions(DBMappedObject):
 	_set_root = _get_root = 'PERMISSIONS'
+	_get_proc = _set_proc = "app.set_permissions"
 	_unique_keys = ['network', 'network_id']
 	_cachable = False
 	_keys = [	GenericAttrib(str,'network','network')
@@ -77,7 +81,28 @@ class UserPermissions(DBMappedObject):
 				,GenericAttrib(bool,'permanent','permanent')
 				,GenericAttrib(bool,'birthdays','birthdays')
 			]
-
+	def has_some_changes(self):
+		return bool(len(filter(lambda x:x is not None, [self.has_email, self.email, self.stream_publish, self.create_event, self.permanent, self.birthdays])))
+	def add_perms_from_scope(self, scope, email):
+		if not isinstance(scope, basestring):
+			raise Exception("set_perms_from_scope scope is not string, it is %s", type(scope))
+		had_changes = False
+		if not self.stream_publish:
+			self.stream_publish = "publish_stream" in scope
+			had_changes = True
+		if not self.create_event:
+			self.create_event = "create_event" in scope
+			had_changes = True
+		if not self.email:
+			self.email = email
+			self.has_email = True
+			had_changes = True
+		if not self.birthdays:
+			self.birthdays = ("user_birthday" in scope) and ("friends_birthday" in scope)
+			had_changes = True
+		return had_changes
+		
+		
 class SocialNetworkInformation(object):
 	def __init__(self, network, network_id, access_token, access_token_secret):
 		self.network = network
@@ -91,14 +116,6 @@ class ProtoUser(DBMappedObject):
 
 
 class User(ProtoUser):
-	"""
-		<RESULT status="0" proc_name="web_login">
-			<USER u_id="6102" name="Mapa Technorac" profile_picture_url="14/b8/14b87c7561441af56b1c9c26f7cd4aee" has_email="1">
-				<POOL p_id="11375" p_url="UC0xMTM3NQ~~"/><POOL p_id="11377" p_url="UC0xMTM3Nw~~"/>
-				<PERMISSIONS network="FACEBOOK" id="100000924808399" stream_publish="1" permanent="0" birthdays="0" email="martin.peschke@gmx.net"/>
-			</USER>
-		</RESULT>
-	"""
 	_cachable = False
 	_unique_keys = ['u_id', 'default_email', 'network', 'network_id']
 	_set_proc = _get_proc = "app.web_login"
@@ -114,12 +131,8 @@ class User(ProtoUser):
 				,GenericAttrib(str,'pwd','pwd')
 				,GenericAttrib(str,'sex','sex')
 				,GenericAttrib(str,'locale','locale')
-				,GenericAttrib(str,'token','token')
-				,GenericAttrib(str,'access_token','access_token')
-				,GenericAttrib(str,'access_token_secret','access_token_secret')
-				,DBMapper(UserPermissions, 'permissions', 'PERMISSIONS', is_list = True)
-				,DBMapper(None,'_perms',None, persistable = False)
-				,DBMapper(dict,'networks', None, persistable = False, is_dict = True, dict_key = lambda x:x )
+				,DBMapper(NetworkUserPermissions, 'permissions', 'PERMISSIONS', is_dict = True, dict_key = lambda x:x.network.lower() )
+				,DBMapper(dict,'networks', None, persistable = False, is_dict = True, dict_key = lambda x:x)
 				,GenericAttrib(dict,'user_data_temp', None, persistable = False)
 				,GenericAttrib(str,"failover_pic", None, persistable = False)
 			]
@@ -130,18 +143,61 @@ class User(ProtoUser):
 			self.__dict__['current_network'] = network
 		else:
 			self.networks[str(network)]=None
-	
 	def get_current_network(self):
 		return getattr(self, 'current_network', self.network)
 	
 	def is_logged_in_with(self, network):
 		return bool(isinstance(self.networks.get(network, None), SocialNetworkInformation) and self.networks.get(network).network_id)
-	
 	def has_tried_logging_in_with(self, network):
 		return network in self.networks
 	
-	def get_friends(self, network, friend_id = None, offset = None):
-		if not self.is_logged_in_with(network):
+	def get_clearance(self):
+		if self.is_anon:
+			return CLEARANCES['ANON']
+		if "facebook" in self.permissions:
+			perm = self.permissions['facebook']
+			if perm.stream_publish and perm.create_event:
+				return CLEARANCES['FULL']
+			elif perm.stream_publish:
+				return CLEARANCES['INVITE']
+			elif perm.email:
+				return CLEARANCES['CONTRIBUTE']
+			else:
+				log.error("USER_WITH_NOFACEBOOK_PERMISSIONS_LOGGED_IN %s", self.u_id)
+				return CLEARANCES['ANON']
+		else:
+			return CLEARANCES['FULL'] 
+	def _get_is_anon(self):
+		return not (self.default_email and self.u_id)
+	is_anon = property(_get_is_anon)
+	
+	
+	def rem_perm_network(self, network):
+		network = network.lower()
+		if network in self.permissions:
+			del self.permissions[network]
+		return None
+	def get_perm_network(self, network, network_id):
+		network = network.lower()
+		perms = self.permissions.setdefault(network, NetworkUserPermissions(network=network, network_id = network_id))
+		if perms.network_id is not None and perms.network_id != network_id:
+			log.error("FOUND_MISTAKEN_NETWORK_ID:expected (%s) found (%s)", perms.network_id, network_id)
+		return perms
+	def has_perm(self, network, perm):
+		network = network.lower()
+		return getattr(self.permissions.get(network.lower(), None), perm, False)
+	def set_perm(self, network, perm, val):
+		network = network.lower()
+		perm_obj = self.permissions.setdefault(network, NetworkUserPermissions(network=network))
+		setattr(perm_obj, perm, val)
+		return None
+	
+	def get_has_email(self):
+		return bool(self.default_email)
+	has_email = property(get_has_email)
+	
+	def get_friends(self, network, friend_id = None, offset = None, level = CLEARANCES['INVITE']):
+		if not self.is_logged_in_with(network) or self.get_clearance() < level:
 			raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 		elif network == 'facebook':
 			is_complete = True
@@ -180,28 +236,6 @@ class User(ProtoUser):
 					"Get Friends Method not supported for %s" % network
 				)
 		return friends, is_complete, offset
-	
-	def _get_is_anon(self):
-		return not (self.default_email and self.u_id)
-	is_anon = property(_get_is_anon)
-	
-	def fromDB(self, xml):
-		self.networks = self.networks or {}
-		self._perms = dict([(p.network.lower(), p) for p in self.permissions])
-	
-	def has_perm(self, network, perm):
-		return getattr(self._perms.get(network.lower(), None), perm, False)
-	def set_perm(self, network, perm, val):
-		if not self._perms.get(network.lower(), None):
-			new_perm = UserPermissions(network=network)
-			self._perms[network] = new_perm
-			self.permissions = (self.permissions or []) + [new_perm]
-		setattr(self._perms.get(network.lower(), None), perm, val)
-		return None
-	
-	def get_has_email(self):
-		return bool(self.default_email)
-	has_email = property(get_has_email)
 	
 	def set_profile_picture_url(self, value):
 		if not self.profile_picture_url:
@@ -253,35 +287,6 @@ class DBRequestPWProc(DBMappedObject):
 
 ANONUSER = User(networks={})
 
-
-
-
-class FBUserPermissions(DBMappedObject):
-	"""
-			<PERMISSIONS network = "FACEBOOK" id = "${fb_user_id}"
-			%if email:
-				email=${email|quoteattr}
-			%endif
-			%if not (stream_publish is None):
-				stream_publish=${(stream_publish and 1 or 0)|quoteattr}
-			%endif
-			%if not (permanent is None):
-				permanent=${(permanent and 1 or 0)|quoteattr}
-			%endif
-			 />
-	"""
-	_set_root = _get_root = 'PERMISSIONS'
-	_get_proc = _set_proc = "app.set_permissions"
-	_unique_keys = ['network', 'network_id']
-	_cachable = False
-	_keys = [	GenericAttrib(str,'network','network')
-				,GenericAttrib(str,'network_id','id')
-				,GenericAttrib(str,'email','email')
-				,GenericAttrib(bool,'has_email','has_email')
-				,GenericAttrib(bool,'stream_publish','stream_publish')
-				,GenericAttrib(bool,'create_event','create_event')
-				,GenericAttrib(bool,'permanent','permanent')
-			]
 class TwitterUserHasEmailProc(DBMappedObject):
 	"""app.has_twitter_default_email"""
 	_set_root = _get_root = 'USER'

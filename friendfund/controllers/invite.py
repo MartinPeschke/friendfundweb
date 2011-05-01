@@ -10,7 +10,7 @@ from friendfund.lib.auth.decorators import logged_in, post_only, pool_available
 from friendfund.lib.base import BaseController, render, render_def, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
-from friendfund.model.authuser import UserNotLoggedInWithMethod
+from friendfund.model.authuser import CLEARANCES, UserNotLoggedInWithMethod
 from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
 from friendfund.services import static_service as statics
@@ -24,7 +24,7 @@ log = logging.getLogger(__name__)
 
 class InviteController(BaseController):
 	@pool_available(contributable_only = True)
-	def display(self, pool_url):
+	def display(self, pool_url, level = CLEARANCES["INVITE"]):
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
 		locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"), "pool_url":url("get_pool", pool_url=pool_url, protocol="http"), "title":c.pool.title}
@@ -57,8 +57,9 @@ class InviteController(BaseController):
 			
 			is_complete = True
 			offset = 0
+			c.clearance_level = c.pool.am_i_admin(c.user) and CLEARANCES["FULL"] or CLEARANCES["INVITE"]
 			try:
-				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', receiver_id))
+				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', receiver_id), level = c.clearance_level)
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/fb_login.html').strip()}}
@@ -96,11 +97,10 @@ class InviteController(BaseController):
 			c.invitees[netw] = invs
 		return self._display_invites(c.invitees)
 	
-	@logged_in(ajax=False)
+	@logged_in(ajax=False, level = CLEARANCES["INVITE"])
 	@pool_available(contributable_only = True)
 	def friends(self, pool_url):
-		data = simplejson.loads(request.params.get('invitees') or '{}')
-		invitees = data.get("invitees")
+		invitees = request.params.getall('invitees')
 		c.workflow = request.params.get("v") or "1"
 		c.errors = {}
 		c.values = {}
@@ -115,8 +115,8 @@ class InviteController(BaseController):
 				c.values['subject'] = request.params.get('subject')
 				c.values['message'] = request.params.get('message')
 				return self._return_to_input(invitees)
-		
-		if invitees:
+			
+			invitees = map(h.decode_minimal_repr, invitees)
 			invittes_proc_result = app_globals.dbm.set(AddInviteesProc(p_url = c.pool.p_url
 							, event_id = c.pool.event_id
 							, inviter_user_id = c.user.u_id
@@ -135,7 +135,7 @@ class InviteController(BaseController):
 			remote_pool_picture_render.apply_async(args=[c.pool.p_url])
 		if c.workflow != "3":
 			if request.merchant.require_address:
-				msg = SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool! Don't forget to <a href=\"%s\">add a Shipping Address</a>")%url(controller="pool", pool_url=c.pool.p_url, action="address"))
+				msg = SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool! Don't forget to <a href=\"%s\">add a Shipping Address</a>")%url(controller="pedit", pool_url=c.pool.p_url, action="address"))
 			else:
 				msg = SuccessMessage(_("FF_POOL_PAGE_Welcome to your new Pool!"))
 			c.messages.append(msg)

@@ -5,13 +5,7 @@
 	%if getattr(c, "message", None):
 		opener.displayMessage("${c.message}");
 	%else:
-		%if c.user.has_activity:
-			opener.go_to_activity_stream();
-		%elif getattr(c, 'reload', False):
-			opener.page_reloader();
-		%elif getattr(c, 'refresh_login', False):
-			opener.xhrPost("${url(controller="myprofile", action="login")}", {});
-		%endif
+		opener.xhrPost("${url(controller="myprofile", action="login")}", {});
 	%endif
 	window.close(); 
 </script>

@@ -536,7 +536,7 @@ FriendFund.Button = {
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
 	defaultOptions = {alignment:"left"
-					, button_text:{es:"Comparte los gatos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}
+					, button_text:{es:"Comparte los gastos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}
 					, button_background:"#f4f4f4", button_size:"large", button_color:"blue",with_strap_line:true};
 	for(var option in defaultOptions){friendfundOptions[option] = (friendfundOptions[option]===undefined)?defaultOptions[option]:friendfundOptions[option];}
 	FriendFund.Button.show(friendfundOptions);

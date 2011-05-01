@@ -34,9 +34,9 @@ ${self.render_html()}
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" type="text/javascript"></script>
 	<div id="generic_popup"></div>
 	<div id="fb-root"></div>
-	<script type="text/javascript"> 
-		${self.page_reloader()|n}
-		${self.go_to_activity_stream()|n}
+	<script type="text/javascript">
+		window.pageState = {respectFB:${str("facebook" in c.user.permissions or c.user.is_anon).lower()}};
+		${self.render_page_state()|n}
 	</script>
 	${self.scripts()}
 	<script type="text/javascript">
@@ -48,10 +48,7 @@ ${self.render_html()}
 	${tracking.renderAll(app_globals.debug)|n}
 </%def>
 
-
-
-<%def name="page_reloader()">page_reloader = function(){};</%def>
-<%def name="go_to_activity_stream()">go_to_activity_stream = function(){page_reloader()};</%def>
+<%def name="render_page_state()"></%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="meta_tags()"><meta content="friendfund.com - Collect money with friends!" name="generator">

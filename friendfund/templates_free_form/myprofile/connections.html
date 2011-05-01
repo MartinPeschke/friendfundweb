@@ -2,7 +2,7 @@
 <%namespace name="common" file="common.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
 <%def name="title()">${_("FF_TITLE_Connections")}</%def>
-<%def name="page_reloader()">page_reloader = function(){window.location.reload();};</%def>
+<%def name="render_page_state()">window.pageState.rld = function(login){window.location.reload();};</%def>
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	${common.render_tabs("connections")|n}
 </div>
@@ -39,7 +39,7 @@
 					</div>
 					<div class="floatLeft" style="padding:20px 0">
 						<p>${_("FF_ACCOUNT_You're not connected with Facebook")}</p>
-						<a onclick="fbLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}">
+						<a onclick="baseFBLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}">
 							<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 						</a>
 					</div>

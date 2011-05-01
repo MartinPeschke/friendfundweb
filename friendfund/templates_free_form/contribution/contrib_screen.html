@@ -3,14 +3,16 @@
 <%namespace name="common" file="common.html"/>
 
 <%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
-<%def name="scripts()">
-	<script type="text/javascript">
-		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
-	</script>
+<%def name="render_page_state()">
+	submitForm = function(form){ return protected(form["payment.do_notify"].checked?6:3, function(){
+		onSubmitCleaner(document.contributionForm);
+		document.contributionForm.onsubmit = function(){return true};
+		document.contributionForm.submit();return true;});
+		};
+var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 </%def>
 
 <%def name="onloadscripts()">
-	page_reloader = function(){document.contributionForm.submit()};
 	parseDefaultsInputs("contributionForm");
 	parseSelectables("contributionForm");
 	dojo.query(".popuplink", "contributionForm").onclick(dojo.hitch(null, loadPopup));
@@ -46,7 +48,7 @@
 	
 	<div class="colLeft">
 	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" method="POST"
-		onsubmit="onSubmitCleaner(this)">
+		onsubmit="return submitForm(this);">
 		<h4>${_(u"FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
 		<div class="subHeading"></div>
 		<div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">

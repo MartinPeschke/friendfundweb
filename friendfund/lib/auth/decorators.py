@@ -10,17 +10,18 @@ from friendfund.lib.notifications.messages import Message, ErrorMessage, Success
 from friendfund.model.db_access import SProcException
 from friendfund.model.pool import Pool
 
-def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = None): 
+def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = None, level = 3): 
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)
 		c = pylons.tmpl_context
-		if c.user.is_anon:
+		if c.user.is_anon or c.user.get_clearance()<level:
 			if ajax:
 				return {'redirect':redirect_to}
 			else:
 				return redirect('%s?furl=%s' % (redirect_to, furl or pylons.request.path_info))
 		return func(self, *args, **kwargs)
 	return decorator(validate)
+
 
 def pool_available(contributable_only = False, contributable_error = None, admin_only = False):
 	def validate(func, self, *args, **kwargs):

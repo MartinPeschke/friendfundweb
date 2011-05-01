@@ -20,6 +20,8 @@ MUTUAL_FRIENDS_QUERY = '?'.join([
 		])
 				
 				
+class FBNoCookiesFoundException(Exception):
+	pass
 class FBNotLoggedInException(Exception):
 	pass
 class FBIncorrectlySignedRequest(Exception):
@@ -40,7 +42,7 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 	authentication at http://developers.facebook.com/docs/authentication/.
 	"""
 	cookie = cookies.get("fbs_" + app_id, "")
-	if not cookie: raise FBNotLoggedInException("No Facebook Cookies Found")
+	if not cookie: raise FBNoCookiesFoundException("No Facebook Cookies Found")
 	args = dict((str(k), v[-1]) for k, v in cgi.parse_qs(cookie.strip('"')).items())
 	payload = "".join("%s=%s"%(k, args[k]) for k in sorted(args.keys())
 					  if k != "sig")
@@ -51,7 +53,6 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 		if user is not None and not user.is_anon:
 			nets = getattr(user, 'networks', {})
 			if nets.get('facebook') and getattr(nets.get('facebook'), "network_id", None) != str(args['id']):
-				log.warning("FBLoggedInWithIncorrectUser, %s" % args)
 				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found")
 		return args
 	else:
@@ -60,10 +61,10 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 def get_user_from_request(request, app_id, app_secret, user = None, set_cookie = False, response = None):
 	try:
 		args = simplejson.loads(request.params.get('fbsession'))
-		if not args: raise FBNotLoggedInException("No Facebook Cookies Found")
-		args = dict((str(k),v) for k,v in args.items())
 	except:
 		raise FBNotLoggedInException("No Facebook Request Params Found")
+	if not args: raise FBNotLoggedInException("No Facebook Cookies Found")
+	args = dict((str(k),v) for k,v in args.items())
 	payload = "".join("%s=%s"%(k, args[k]) for k in sorted(args.keys())
 					  if k not in ["sig"])
 	sig = hashlib.md5(payload + app_secret).hexdigest()
@@ -72,8 +73,7 @@ def get_user_from_request(request, app_id, app_secret, user = None, set_cookie =
 		if user is not None and not user.is_anon:
 			nets = getattr(user, 'networks', {})
 			if nets.get('facebook') and getattr(nets.get('facebook'), "network_id", None) != str(args['uid']):
-				log.warning("FBLoggedInWithIncorrectUser, %s" % args)
-				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found")
+				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found, %s" % args)
 		if set_cookie and response and not request.cookies.get("fbs_" + app_id, None):
 			response.set_cookie("fbs_" + app_id, urllib.urlencode(args), 1800)
 		args['id'] = args.get("uid", args.get("id"))
@@ -96,6 +96,35 @@ def get_user_from_signed_request(params, app_secret):
 	else:
 		return data["user_id"]
 
+def extract_user_data(request, app_globals, tmpl_context, response):
+	try:
+		fb_data = get_user_from_cookie(request.cookies, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), tmpl_context.user)
+	except FBNoCookiesFoundException, e: 
+		log.warning("COULDNT_FIND_FB_COOKIES_%s(%s)", e, request.headers.get("User-Agent"))
+		fb_data = get_user_from_request(request, app_globals.FbApiKey, app_globals.FbApiSecret.__call__(), tmpl_context.user, True, response)
+	user_data = dict([(k,v) for k,v in request.params.iteritems()])
+	user_data.update(fb_data)
+	user_data['network'] = 'facebook'
+	user_data['network_id'] = user_data.pop('id')
+	user_data['profile_picture_url'] = get_large_pic_url(user_data['network_id'])
+	user_data['access_token_secret'] = user_data.pop('secret')
+	return user_data
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 def get_pic_url(network_id):
 	return "https://graph.facebook.com/%s/picture" % network_id
 def get_large_pic_url(network_id):

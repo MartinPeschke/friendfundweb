@@ -64,7 +64,7 @@ class PoolController(BaseController):
 		c.contributors = g.dbm.get(GetECardContributorsProc, p_url = pool_url).contributors
 		c.contributors_w_msg = filter(attrgetter("co_message"), c.contributors)
 		c.values = {}
-		c.values['message'] = c.pool.thank_you_message or c.pool.description
+		c.values['message'] = c.pool.thank_you_message or _("FF_DEFAULT_THANK_MESSAGE!")
 		return self.render('/pool/pool_complete.html')
 	
 	def _clean_session(self):
