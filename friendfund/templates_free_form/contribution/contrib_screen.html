@@ -4,10 +4,11 @@
 
 <%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
 <%def name="render_page_state()">
-	submitForm = function(form){ return protected(form["payment.do_notify"].checked?6:3, function(){
+	window.pageState.getFBPerms = true;
+	submitForm = function(form){ return doLogin({level:form["payment.do_notify"].checked?6:3, cb:function(){
 		onSubmitCleaner(document.contributionForm);
 		document.contributionForm.onsubmit = function(){return true};
-		document.contributionForm.submit();return true;});
+		document.contributionForm.submit();return true;}});
 		};
 var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 </%def>
@@ -47,8 +48,7 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 	${common.renderRightCol(c.pool)}
 	
 	<div class="colLeft">
-	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" method="POST"
-		onsubmit="return submitForm(this);">
+	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" method="POST">
 		<h4>${_(u"FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
 		<div class="subHeading"></div>
 		<div class="borderBottom noBorder special ${('amount' in c.errors) and "error" or ""}">
@@ -150,7 +150,7 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 	</div>
 		<div class="floatRight">
 			<div class="spacerButtons">
-				<input id="submitter" class="forward" type="submit" value="${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}" />
+				<input id="submitter" class="forward" type="button" onclick="submitForm(document.contributionForm)" value="${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}" />
 			</div>
 		</div>
       

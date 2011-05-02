@@ -4,7 +4,10 @@
 <%namespace name="widgets" file="/widgets/widgets.html"/>
 
 <%def name="title()">${c.pool.title}</%def>
-<%def name="render_page_state()">window.pageState.rld = function(login){window.location.reload();};</%def>
+<%def name="render_page_state()">
+	window.pageState.rld = function(login){window.location.reload();};
+	window.pageState.getFBPerms = true;
+</%def>
 <%def name="meta_tags()">
 	<link rel="image_src" href="${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 	<link rel="image_src" href="${c.pool.get_pool_picture_tiles("RA")}" />
@@ -85,7 +88,8 @@
 			"total_amount":c.pool.get_display_amount(),
 			"number_invitees":len(c.pool.participant_map),
 			"number_contributors":c.pool.get_number_of_contributors(),
-			"days_left": c.pool.get_remaining_days()
+			"days_left": c.pool.get_remaining_days(),
+			"invite_lvl":c.pool.am_i_admin(c.user) and 9 or 6
 		}
 %>
 
@@ -205,7 +209,7 @@
 				<div class="floatLeft invite">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
-					<a _href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" onclick="protected(${c.pool.am_i_admin(c.user) and 9 or 6}, goto_url(this))" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
+					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
 				</div>
 				<div class="colRightWhite"></div>
 				<div class="clear"></div>
@@ -228,7 +232,7 @@
 		<div class="plus generalBoxRight">
 			<a class="popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
-				<a _href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" onclick="protected(${c.pool.am_i_admin(c.user) and 9 or 6}, goto_url(this))"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+				<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
 			%endif
 		</div>
 		<div class="colRightWhite"></div>

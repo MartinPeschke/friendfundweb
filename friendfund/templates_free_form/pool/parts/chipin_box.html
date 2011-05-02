@@ -1,7 +1,7 @@
 
 <%def name="render_join(pool, user, locals)">
 	<div class="boxChipIn">
-		<a _href="${url("pool_edit", pool_url = c.pool.p_url, action="join")}" onclick="protected(3, goto_url(this))" class="btnChipIn tertiary">
+		<a _href="${url("pool_edit", pool_url = c.pool.p_url, action="join")}" onclick="doLogin({level:3, cb:goto_url(this)})" class="btnChipIn tertiary">
 			${_(u"FF_POOL_PAGE_CHIPIN_Join")}
 		</a>
 		

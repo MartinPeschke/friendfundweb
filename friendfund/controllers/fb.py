@@ -18,7 +18,7 @@ class FbController(BaseController):
 	def login(self):
 		try:
 			user_data = fb_helper.extract_user_data(request, app_globals, c, response)
-		except fb_helper.FBNotLoggedInException, e: 
+		except (fb_helper.FBNoCookiesFoundException, fb_helper.FBNotLoggedInException), e: 
 			log.error(e)
 			return {'login':{'success': False}}
 		except fb_helper.FBLoggedInWithIncorrectUser, e: 
@@ -57,7 +57,7 @@ class FbController(BaseController):
 			access_token = user_data['access_token'],
 			access_token_secret = user_data.get('secret')
 		)
-		return {"login":{"success":False, 'panel':render('/myprofile/login_panel.html').strip()}}
+		return {"login":{"success":False}}
 	
 	def remove(self):
 		try:

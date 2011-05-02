@@ -90,10 +90,9 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		onSubmitCleaner(_t.target_form); 
 		if(_t.submitting){return false;}
 		_t.submitting = true;
-		return protected(level, dojo.hitch(null, _t._submit, _t, url), function(){
-			_t.submitting = false
-		});
- 	},_submit:function(_t, url){
+		return doLogin({level:level, cb:dojo.hitch(null, _t._submit, _t, url), failcb:function(){_t.submitting = false}});
+ 	},_submit:function(url){
+		var _t = this;
 		dojo.query("input[type=submit]").attr("disabled","disabled");
 		_t.target_form.action = url;
 		_t.target_form.onsubmit = function(){};

@@ -89,7 +89,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		dojo.query("input[type=text]", "emailinviter").attr("value", "");
 		dojo.query("#email_inviter_error", "emailinviter").orphan();
 	},
-	onSelect : function(_t, params, elem, evt){
+	onSelect : function(_t, elem, evt){
 		dojo.query("p.inviterTwo", _t.global_invited_node).addClass("hidden");
 		_t.inviteAppendNode(_t, elem);
 		var el = dojo.byId("invitedCounter");
@@ -129,7 +129,6 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	is_loading : false,
 	_backup_node : null,
 	_to_append_nodes : [],
-	_backup_reloader : null,
 	constructor : function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
@@ -144,8 +143,6 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
 	},draw : function(_t){
-		_t.backup_reloader = window.pageState.rld;
-		window.pageState.rld = _t.page_reloader||dojo.hitch(_t, _t.draw, _t);
 		if(_t.rootNode){
 			dojo.removeClass(_t.rootNode, "hidden");
 		} else {
@@ -165,7 +162,6 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		else {dojo.query("#networkinviter_"+_t.network).orphan();}
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
-		window.pageState.rld = _t.backup_reloader;
 	},onLoad : function(_t, data){
 		_t.is_loading = false;
 		dojo.place(data.html, _t.rootNode, "only");
@@ -194,6 +190,14 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset,pv:pv}, dojo.hitch(null, _t.addLoad, _t));
 			}
 		} else {
+			dojo.query("a.facebookBtn", _t.rootNode).forEach(function(elem){
+				level = parseInt(dojo.attr(elem, "_level"), 10);
+				dojo.connect(elem, "onclick", dojo.hitch(null, doLogin, {isFB:true,level:level,cb:dojo.hitch(_t, _t.draw, _t)}));
+			});
+			dojo.query("a.twitterBtn", _t.rootNode).forEach(function(elem){
+				level = parseInt(dojo.attr(elem, "_level"), 10);
+				dojo.connect(elem, "onclick", dojo.hitch(null, doLogin, {isTW:true,level:level,cb:dojo.hitch(_t, _t.draw, _t)}));
+			});
 			 _t.rootNode = null;
 		}
 	},addLoad : function(_t, data){

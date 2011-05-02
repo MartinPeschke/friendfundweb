@@ -10,6 +10,10 @@
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/InvitePage.js')}
 </%def>
+<%def name="render_page_state()">
+	window.pageState.getFBPerms = true;
+</%def>
+	
 <%def name="onloadscripts()">
 	parseDefaultsInputs("inviteMessage");
 	page = new friendfund.InvitePage({

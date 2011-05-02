@@ -12,18 +12,18 @@
 
 <div class="subHeader">
 	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
-	<input type="hidden" name="furl" value="${getattr(c, 'furl', '')}"/>
+	<input type="hidden" name="furl" value="${getattr(c, 'furl', '/')}"/>
 	<div class="colLeftLogin floatLeft">
 		<div class="loginPanelBig">
 			<h3>${_("FF_LOGIN_You're just seconds away from your new account!")}</h3>
 			<h4>${_("FF_LOGIN_Sign in with Facebook or Twitter")}</h4>
 			<div class="subHeading lastOne"></div>
 			<div class="loginSocialWrap">
-				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="baseFBLogin()">
+				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="doLogin({isFB:true,cb:reload(this)})">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
 
-				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="twInit()">
+				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" _href="${getattr(c, 'furl', '/')}" onclick="doLogin({isTW:true,cb:goto_url(this)})">
 					<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 				</a>
 				

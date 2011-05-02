@@ -196,23 +196,13 @@ place_element = function(node, callback){
 	};
 };
 
-xhrHandler = function(callback, failcb){
+xhrHandler = function(callback){
 	return function(data,xhrobj,evt) {
 		if (data.close_popup === true){closePopup();}
 		if (data.clearmessage !== undefined){clear_messages();}
 		if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
-		if (data.login !== undefined){
-				closePopup();
-				if(dojo.byId("accountcontainer")&&data.login.panel!==undefined){dojo.place(data.login.panel, "accountcontainer", "only");}
-				if(data.login.has_activity&&window.pageState.fwd){window.pageState.fwd(data.login);}
-				else if(data.login.success&&callback){callback(data.login);}
-				else if(data.login.success===false&&failcb){failcb(data.login);}
-				else if(data.login.success&&window.pageState.rld){window.pageState.rld(data.login);}
-				else if(data.login.success&&window.pageState.sbmt){window.pageState.sbmt(data.login);}
-				else if(data.login.success&&window.pageState.fwd){window.pageState.fwd(data.login);}
-				else if(data.login.require_facebook_perms!==undefined){fbLogin(data.login.require_facebook_perms)};
-			}
+		if (data.login !== undefined){callback(data.login)}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
@@ -222,6 +212,7 @@ xhrHandler = function(callback, failcb){
 };
 
 var goto_url = function(link){return function(){window.location.href=dojo.attr(link, "_href");}};
+var reload = function(link){window.location.reload(true);};
 protected = function(level, cb, failcb){
 	var required_scope=FBSCOPE[""+level];
 	FB.getLoginStatus(function(response){
@@ -266,27 +257,27 @@ loadElement = function(url, node, args, callback, method){
 	}
 };
 
-xhrFormPost = function(url, form, callback, failcb) {
+xhrFormPost = function(url, form, callback) {
 	dojo.xhrPost({
 		url:url,
 		form:form,
 		handleAs: 'json',
-		load:xhrHandler(callback, failcb),
+		load:xhrHandler(callback),
 		error:xhrErrorHandler
 	});
 };
 
-xhrPost = function(url, args, callback, method, failcb) {
+xhrPost = function(url, args, callback, method) {
 	var _method = method || 'Post';
 	dojo['xhr'+_method]({
 		url:url,
 		content:args,
 		handleAs: 'json',
-		load:xhrHandler(callback, failcb),
+		load:xhrHandler(callback),
 		error:xhrErrorHandler
 	});
 };
-ioIframeGetJson = function(url, formid, callback, failcb){
+ioIframeGetJson = function(url, formid, callback){
 	var td = dojo.io.iframe.send({
 		url: url,
 		form: formid,
@@ -295,7 +286,7 @@ ioIframeGetJson = function(url, formid, callback, failcb){
 		timeoutSeconds: 15,
 		preventCache: true,
 		handleAs: "json",
-		load: xhrHandler(callback, failcb),
+		load: xhrHandler(callback),
 		error: xhrErrorHandler
 	});
 };
@@ -321,24 +312,20 @@ facebook_tried_loggin_in_already = false;
 twitter_tried_loggin_in_already = false;
 timeoutValue=500;
 
-twInit = function(furl) {
+twInit = function(cb) {
 	if(twitter_tried_loggin_in_already === false){
 		twitter_tried_loggin_in_already = true;
 		setTimeout(function(){twitter_tried_loggin_in_already=false;},timeoutValue);
-		var localhost = window.location.protocol + '//' + window.location.host;
-		if(furl){
-			window.pageState.fwd=function(){window.location.href=furl;};
-			window.open(localhost+"/twitter/login?furl="+furl, '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
-		} else {
-			window.open(localhost+"/twitter/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
-		}
+		var host = window.location.protocol + '//' + window.location.host;
+		window.pageState.__twitterAction__ = cb;
+		window.open(host+"/twitter/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=no,scrollbars=no');
 	}
 };
 
-fb_handleLogin = function(required_scope, callback, failcb){
+fb_handleLogin = function(required_scope, callback){
 	var fbhl = function(response){
 		var scope;
-		if(response.perms!==undefined){
+		if(response.perms){
 			if(response.perms.match(/^[,a-zA-Z0-9_\-]+$/)){
 				scope=response.perms.replace(/,/g,"|");
 			}else{
@@ -346,42 +333,33 @@ fb_handleLogin = function(required_scope, callback, failcb){
 				var a=[];for(var i in perms){a.push(perms[i].join("|"));}
 				scope = a.join("|");
 			}
-		}
-		var missing_perms = required_scope.replace(new RegExp(scope, "g"), "").strip(",");
-		if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response);failcb();return false;}
-		var session = response.session;
-		FB.api('/me', function(response) {
-			response.scope = scope;
-			response.fbsession = dojo.toJson(session);
-			xhrPost('/fb/login', response, callback, null, failcb);
+			var missing_perms = required_scope.replace(new RegExp(scope, "g"), "").strip(",");	
+			if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response, callback);return false;}
+			var session = response.session;
+			FB.api('/me', function(response) {
+				response.scope = scope;
+				response.fbsession = dojo.toJson(session);
+				xhrPost('/fb/login', response, callback);
 			});
-		return true;
+			return true;
+		}
+		return false;
 	};
 	return fbhl;
 };
-fbgetPerms = function(scope, callback, failcb){
-	return dojo.hitch(FB, FB.getLoginStatus, fb_handleLogin(scope, callback, failcb), true);
-};
 
-fbLogin = function(scope, partial, callback, failcb){
+fbLogin = function(scope, partial, callback){
 	if(typeof(scope)!="string"){scope=FBSCOPE[""+scope];}
 	var fbl = function(response) {
 		FB.Event.unsubscribe('auth.login', baseFBLogin);
 		if(facebook_tried_loggin_in_already === false){
-			if(response&&response.session){
-				FB.getLoginStatus(fb_handleLogin(scope, callback, failcb), true);
-			} else {
-				facebook_tried_loggin_in_already = true;
-				setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
-				FB.login(fbgetPerms(scope, callback, failcb), {perms:scope});
-			}
+			facebook_tried_loggin_in_already = true;
+			setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
+			FB.login(function(response){FB.getLoginStatus(fb_handleLogin(scope, callback), true)}, {perms:scope});
 		}};
 	if(partial){return fbl;}else{return fbl();}
 };
 baseFBLogin = fbLogin(FBSCOPE['3'], true);
-inviteFBLogin = fbLogin(FBSCOPE['6'], true);
-fullFBLogin = fbLogin(FBSCOPE['9'], true);
-
 fbLogout = function(logoutFB){
 	FB.getLoginStatus(function(response){
 		if(logoutFB && response.session){
@@ -399,6 +377,10 @@ fbInit = function(app_id) {
 		if(window.pageState.respectFB){
 			FB.Event.subscribe('auth.login', baseFBLogin);
 			FB.Event.subscribe('auth.logout', fbLogout);
+			if(window.pageState.getFBPerms){
+				FB.getLoginStatus(function(response){
+					if(response.status==="connected"){FB.api("/me/permissions", function(perms){window.pageState.__fbperms__ = perms.data[0];});}
+			});}
 		}
 	};
 	var e = document.createElement('script');
@@ -406,6 +388,85 @@ fbInit = function(app_id) {
 	e.async = true;
 	document.getElementById('fb-root').appendChild(e);
 };
+
+
+doLogin = function(args){
+	var cb = args.cb, 
+		failcb = args.failcb, 
+		level = args.level||3, 
+		url = args.url||"/myprofile/login", 
+		link = args.link, 
+		form = args.form, 
+		popupHandler,
+		required_scope=FBSCOPE[""+level];
+	var logincb = function(result){
+		var loginFormArbiter = function(){
+			xhrFormPost(this.action, this, logincb);
+			return false;
+		}, loginLinkArbiter = function(evt){
+			var href = dojo.attr(evt.target, "_href");
+			xhrPost(href, {}, logincb);
+			return false;
+		}, closeLoginPopup = function(){
+			dojo.forEach(popupHandler, dojo.disconnect);popupHandler=[];
+			dojo.query("#generic_popup").empty();
+		};
+		if(result.panel!==undefined&&dojo.byId("accountcontainer")){dojo.place(result.panel, "accountcontainer", "only");}
+		closeLoginPopup();
+		if(result.popup !== undefined){
+			dojo.place(result.popup, dojo.byId("generic_popup"), "only" );
+			dojo.query(".panelcloser,.popupBackground", "generic_popup").forEach(function(elt){popupHandler.push(dojo.connect(elt, "onclick", closeLoginPopup));});
+			popupHandler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closeLoginPopup)));
+			var i = dojo.query("input", "generic_popup");
+			if(i.length>0){i[0].focus();}
+			dojo.query("form.loginAction", "generic_popup").forEach(function(form){form.onsubmit = loginFormArbiter})
+			dojo.query("a.loginAction", "generic_popup").forEach(function(form){popupHandler.push(dojo.connect(form, "onclick", loginLinkArbiter));});
+			dojo.query("a.loginFBAction", "generic_popup").forEach(function(form){popupHandler.push(dojo.connect(form, "onclick", fbLogin(required_scope, true, logincb)));});
+			dojo.query("a.loginTWAction", "generic_popup").forEach(function(form){popupHandler.push(dojo.connect(form, "onclick", dojo.hitch(null, twInit, logincb)));});
+		}
+		if(result.has_activity===true&&window.pageState.fwd){window.pageState.fwd(result);}
+		else if(result.success===true&&cb){cb(result);}
+		else if(result.success===false&&failcb){failcb(result);}
+		else if(result.require_facebook_perms!==undefined){fbLogin(result.require_facebook_perms, false, logincb)}
+		else if(result.reload === true){window.location.reload(true);}
+		else if(result.form&&dojo.byId("loginPanelContent")){
+			dojo.place(result.form, dojo.byId("loginPanelContent"), "only");
+			var i = dojo.query("input", "loginPanelContent");
+			if(i.length>0){i[0].focus()};
+		};
+	};
+	if(args.isFB){
+		FB.login(function(response){FB.getLoginStatus(fb_handleLogin(required_scope, logincb), true)}, {perms:required_scope});
+	} else if(args.isTW){
+		twInit(logincb);
+	} else {
+		FB.getLoginStatus(function(response){
+			if(!args.ignoreFB&&window.pageState.respectFB&&response.status==='connected'){
+				var perms = window.pageState.__fbperms__||{};
+				var missing_perms=[], req_perms = required_scope.split(',');
+				for(var i=0;i<req_perms.length;i++){
+					if(!perms[req_perms[i]]){missing_perms.push(req_perms[i])};
+				}
+				if(missing_perms.length>0){
+					FB.login(function(response){FB.getLoginStatus(fb_handleLogin(required_scope, logincb), true)}, {perms:required_scope});
+				} else {
+					if(cb){cb()};
+				}
+			} else {
+				if(form){
+					xhrFormPost(form.action, form, logincb); 
+				} else if(link){
+					xhrPost(dojo.attr(link, "_href"), {}, logincb); 
+				} else {
+					xhrPost(url, {level:level}, logincb);
+				}
+			};
+		});
+	}
+	return false;
+};
+
+
 
 /*======================================================================================*/
 var urlmatch = /^(www\.|https?:\/\/)([\-a-zA-Z0-9_]{2,256}\.)+[a-z]{2,4}(\/[\-a-zA-Z0-9%_\+.,~#&=!;:]*)*(\?[\-a-zA-Z0-9%_;:\+,.~#&=!\/]+)*$/i;

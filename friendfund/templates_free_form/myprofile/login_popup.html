@@ -6,18 +6,18 @@
 			<h3 class="borderSmall">${_("FF_LOGINPOPUP_Log in to invite your friends.")}</h3>
             <div class="colRightWhite"></div>
 			<div class="loginSocialWrap">
-				<a onclick="fbLogin(${c.clearance_level})" class="facebookBtn" title="${_("FF_LOGIN_Log in with Facebook")}">
+				<a class="facebookBtn loginFBAction" title="${_("FF_LOGIN_Log in with Facebook")}">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
 
-				<a onclick="twInit()" class="twitterBtn" title="${_("FF_LOGIN_Log in with Twitter")}">
+				<a class="twitterBtn loginTWAction" title="${_("FF_LOGIN_Log in with Twitter")}">
 					<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 				</a>
 				<div class="clear"></div>
 			</div>
             <div class="popupPadder">
 			<h4>${_("FF_LOGINPOPUP_Log in with a password instead")}</h4>
-			<form id="login_popup_form" onSubmit="xhrFormPost('${url(controller='myprofile', action='login')}', 'login_popup_form');return false;">
+			<form id="login_popup_form" action="${url(controller='myprofile', action='login')}" class="loginAction">
 			<div class="inputFields">
 				<div class="inputName floatLeft ${"email" in c.login_errors and "error" or ""}">
 					<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
@@ -33,14 +33,13 @@
 					%if "pwd" in c.login_errors:
 						<p class="error">${c.login_errors.get("pwd")}</p>
 					%endif
-                    <a class="link" onclick="xhrPost('${url(controller='myprofile', action='rppopup')}', {});">${_("FF_LOGIN_Forgot Password?")}</a>
+                    <a class="link loginAction" _href="${url(controller='myprofile', action='rppopup')}">${_("FF_LOGIN_Forgot Password?")}</a>
 				</div>
 				<div class="clear"></div>
 			</div>
-			<input type="submit" class="invisible" value="Go"/>
+			<input type="submit" class="primarySmall floatLeft" value="${_("FF_LOGINBUTTON_Log In")}"/>
 			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='login')}', 'login_popup_form')" class="primarySmall floatLeft">${_("FF_LOGINBUTTON_Log In")}</a>
-			<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass" onclick="xhrPost('${url(controller='myprofile', action='signuppopup')}', {})">${_("FF_LOGIN_Sign up now")}</a></p>
+			<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass loginAction" _href="${url(controller='myprofile', action='signuppopup')}">${_("FF_LOGIN_Sign up now")}</a></p>
             </div>
         </div>
 	</div>

@@ -35,7 +35,8 @@ ${self.render_html()}
 	<div id="generic_popup"></div>
 	<div id="fb-root"></div>
 	<script type="text/javascript">
-		window.pageState = {respectFB:${str("facebook" in c.user.permissions or c.user.is_anon).lower()}};
+		<% fb = str("facebook" in c.user.permissions or c.user.is_anon).lower() %>
+		window.pageState = {respectFB:${fb},getFBPerms:false};
 		${self.render_page_state()|n}
 	</script>
 	${self.scripts()}

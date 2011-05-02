@@ -2,7 +2,7 @@
 
 
 <%def name="renderPanel()"><% errors = getattr(c, "login_errors", dict()) %>
-		<form id="login_panel_form" method="POST" action="/" class="inputFields" onsubmit="return submitLoginPanel(this);">
+		<form id="login_panel_form" method="POST" action="${url(controller="myprofile", action="loginpanel")}" class="inputFields" onsubmit="return doLogin({level:3,form:this});">
 			<div class="${"email" in errors and ' error' or ''}">
 				<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
 				<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
@@ -17,18 +17,18 @@
 					<span class="error">${getattr(c, "login_errors", dict()).get("pwd")}</span>
 				%endif
 				<div style="margin-top:5px">
-					<a onclick="xhrPost('${url(controller='myprofile', action='rppopup')}', {});closeLoginPanel();" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a>
+					<a onclick="doLogin({level:3, link:this});closeLoginPanel();" _href="${url(controller='myprofile', action='rppopup')}" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a>
 				</div>
 			</div>
 			<input type="submit" class="primarySmall floatLeft" style="width:auto;margin-top:7px" value="${_("FF_LOGINBUTTON_Log In")}"/>
 		</form>
 		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
 		<div class="inputline">
-			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="baseFBLogin()">
+			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="doLogin({isFB:true})">
 				<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 			</a>
 		</div><div class="inputline">
-		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="twInit()">
+		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="doLogin({isTW:true})">
 			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 		</a>
 		</div>
@@ -77,14 +77,6 @@
 %if c.user.is_anon:
 		<script type="text/javascript">
 		var evts = [];
-		var submitLoginPanel = function(){
-			xhrFormPost("${url(controller="myprofile", action="loginpanel")}", "login_panel_form", function(html){
-					dojo.place(html, dojo.byId("loginPanelContent"), "only");
-					var i = dojo.query("input", "loginPanelContent");
-					if(i.length>0){i[0].focus()};
-				});
-			return false;
-		};
 		var closeLoginPanel = function(evt){
 			if(dojo.hasClass("loginlink", "active")){
 				dojo.removeClass("loginlink", "active");

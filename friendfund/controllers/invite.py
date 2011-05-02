@@ -59,7 +59,7 @@ class InviteController(BaseController):
 			offset = 0
 			c.clearance_level = c.pool.am_i_admin(c.user) and CLEARANCES["FULL"] or CLEARANCES["INVITE"]
 			try:
-				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', receiver_id), level = c.clearance_level)
+				friends, is_complete, offset = c.user.get_friends(c.method, getattr(c.pool.receiver.networks.get(method), 'network_id', receiver_id))
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/fb_login.html').strip()}}

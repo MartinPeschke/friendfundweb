@@ -17,7 +17,8 @@
 		};
 	</script>
 </%def>
-<%def name="render_page_state()">window.pageState.sbmt = function(){
+<%def name="render_page_state()">window.pageState.getFBPerms = true;
+	sbmt = function(){
 		onSubmitCleaner(document.submissionform);
 		document.submissionform.onsubmit = function(){return true};
 		document.submissionform.submit();return true;
@@ -90,7 +91,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return protected(9, window.pageState.sbmt);">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return doLogin({level:9, cb:sbmt});">
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>

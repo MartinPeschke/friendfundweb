@@ -86,7 +86,7 @@
 				</div>
 			%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Twitter")}</span>
-				<a onclick="twInit()" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}" style="margin-top:20px">
+				<a onclick="doLogin({isTW:true,cb:reload})" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}" style="margin-top:20px">
 					<span>${_("FF_LOGIN_Twitter_Log_In")}</span>
 				</a>
 			%endif
@@ -102,7 +102,7 @@
 				</div>
 		%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Facebook")}</span>
-				<a onclick="baseFBLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
+				<a onclick="doLogin({isFB:true,cb:reload})" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
 					<span>${_("FF_LOGIN_Facebook_Log_In")}</span>
 				</a>
 		%endif

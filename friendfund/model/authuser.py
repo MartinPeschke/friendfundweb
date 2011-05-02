@@ -196,7 +196,7 @@ class User(ProtoUser):
 		return bool(self.default_email)
 	has_email = property(get_has_email)
 	
-	def get_friends(self, network, friend_id = None, offset = None, level = CLEARANCES['INVITE']):
+	def get_friends(self, network, friend_id = None, offset = None, level = CLEARANCES['CONTRIBUTE']):
 		if not self.is_logged_in_with(network) or self.get_clearance() < level:
 			raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 		elif network == 'facebook':
@@ -208,7 +208,7 @@ class User(ProtoUser):
 							app_globals.FbApiKey, 
 							app_globals.FbApiSecret.__call__()
 						)
-			except fb_helper.FBNotLoggedInException, e:
+			except (fb_helper.FBNoCookiesFoundException, fb_helper.FBNotLoggedInException), e:
 				raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 			else:
 				self.networks['facebook'].access_token = fb_data['access_token']

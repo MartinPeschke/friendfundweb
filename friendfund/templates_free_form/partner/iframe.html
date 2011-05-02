@@ -2,6 +2,9 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="../invite/inviter.html"/>
+<%def name="render_page_state()">
+	window.pageState.getFBPerms = true;
+</%def>
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/PartnerPanel.js')}
@@ -24,8 +27,9 @@
 					,mutuals:false
 					,base_url:"/myfriends"
 			});
-	window.pageState.sbmt = dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 9);
-	document.forms.poolCreateForm.onsubmit = function(){return window.pageState.sbmt()};
+	dojo.connect(dojo.byId("createSubmitter"), "onclick", function(evt){ return doLogin({level:9,cb:dojo.hitch(ffp_panel, ffp_panel._submit, "${url(controller="partner", action="validate")}")});});
+	//document.forms.poolCreateForm.onsubmit = ;
+	
 	fbLogout = function(){
 	FB.getLoginStatus(function(response){
 		if(response.session){
@@ -165,7 +169,7 @@
 						</div>
 						<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" readonly="readonly" />
 					</div>
-					<input class="forward floatRight" style="margin-top:20px" type="submit" value="${_("FF_IFRAME_Invite Friends")}"/>
+					<a class="forward floatRight" style="margin-top:20px" type="button" id="createSubmitter">${_("FF_IFRAME_Invite Friends")}</a>
 					<div class="clear"></div>
 				</div>
 			</div>

@@ -144,7 +144,7 @@ class MyprofileController(BaseController):
 		c.expanded = True
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
 		if not login:
-			return {'popup':render('/myprofile/login_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/login_popup.html').strip()}}
 		try:
 			c.user = g.user_service.login_email_user(login)
 			return {"login":{"success":True, "has_activity":c.user.has_activity, "panel":render("/myprofile/login_panel.html").strip()}}
@@ -155,7 +155,7 @@ class MyprofileController(BaseController):
 		except SProcWarningMessage, e:
 			c.login_values = login
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
+			return {'login':{'form':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}}
 	
 	@jsonify
 	def loginpopup(self, clearance_level = CLEARANCES["BASE"]):
@@ -164,18 +164,18 @@ class MyprofileController(BaseController):
 		c.clearance_level = clearance_level
 		login = formencode.variabledecode.variable_decode(request.params).get('login', None)
 		if not login:
-			return {'popup':render('/myprofile/login_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/login_popup.html').strip()}}
 		try:
 			c.user = g.user_service.login_email_user(login)
 			return {"login":{"success":True, "has_activity":c.user.has_activity, 'panel':render('/myprofile/login_panel.html').strip()}}
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			return {'popup':render('/myprofile/login_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/login_popup.html').strip()}}
 		except SProcWarningMessage, e:
 			c.login_values = login
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'popup':render('/myprofile/login_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/login_popup.html').strip()}}
 	@jsonify
 	def signuppopup(self):
 		if not c.user.is_anon:
@@ -184,18 +184,18 @@ class MyprofileController(BaseController):
 		c.signup_errors = {}
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
 		if not signup:
-			return {'popup':render('/myprofile/signup_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/signup_popup.html').strip()}}
 		try:
 			c.user = g.user_service.signup_email_user(signup)
 			return {"login":{"success":True, "has_activity":c.user.has_activity, 'panel':render('/myprofile/login_panel.html').strip()}}
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value
 			c.signup_errors = error.error_dict or {}
-			return {'popup':render('/myprofile/signup_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/signup_popup.html').strip()}}
 		except SProcWarningMessage, e:
 			c.signup_values = signup
 			c.signup_errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
-			return {'popup':render('/myprofile/signup_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/signup_popup.html').strip()}}
 	
 	@jsonify
 	def rppopup(self):
@@ -203,22 +203,22 @@ class MyprofileController(BaseController):
 		c.pwd_errors ={}
 		pwd = formencode.variabledecode.variable_decode(request.params).get('pwd', None)
 		if not pwd:
-			return {'popup':render('/myprofile/forgotpassword_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/forgotpassword_popup.html').strip()}}
 		schema = EmailRequestForm()
 		try:
 			form_result = schema.to_python(pwd, state = FriendFundFormEncodeState)
 			email = form_result['email']
 			g.dbm.set(DBRequestPWProc(email=email))
 			c.messages.append(SuccessMessage(_("FF_An email with your new password has been sent to %(email)s.") % form_result))
-			return {"reload":True}
+			return {'login':{"reload":True}}
 		except formencode.validators.Invalid, error:
 			c.pwd_values = error.value
 			c.pwd_errors = error.error_dict or {}
-			return {'popup':render('/myprofile/forgotpassword_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/forgotpassword_popup.html').strip()}}
 		except SProcWarningMessage, e:
 			c.pwd_values = pwd
 			c.pwd_errors = {"email":_("FF_RESETPASSWORD_Email does not exist.")}
-			return {'popup':render('/myprofile/forgotpassword_popup.html').strip()}	
+			return {'login':{'popup':render('/myprofile/forgotpassword_popup.html').strip()}}
 	
 	@jsonify
 	def addemailpopup(self, clearance_level = CLEARANCES["BASE"]):
@@ -227,7 +227,7 @@ class MyprofileController(BaseController):
 		c.clearance_level = clearance_level
 		form = formencode.variabledecode.variable_decode(request.params).get('form', None)
 		if not form:
-			return {'popup':render('/myprofile/addemail_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/addemail_popup.html').strip()}}
 		schema = EmailRequestForm()
 		try:
 			form_result = schema.to_python(form, state = FriendFundFormEncodeState)
@@ -237,17 +237,17 @@ class MyprofileController(BaseController):
 			if not success:
 				c.values = form_result
 				c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
-				return {'popup':render('/myprofile/addemail_popup.html').strip()}
+				return {'login':{'popup':render('/myprofile/addemail_popup.html').strip()}}
 			c.user.default_email = form_result['email']
 			return {"login":{"success":True, "has_activity":c.user.has_activity, 'panel':render('/myprofile/login_panel.html').strip()}}
 		except formencode.validators.Invalid, error:
 			c.values = error.value
 			c.errors = error.error_dict or {}
-			return {'popup':render('/myprofile/addemail_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/addemail_popup.html').strip()}}
 		except SProcWarningMessage, e:
 			c.values = form_result
 			c.errors = {"email":_("FF_RESETPASSWORD_Email is already owned by another user.")}
-			return {'popup':render('/myprofile/addemail_popup.html').strip()}
+			return {'login':{'popup':render('/myprofile/addemail_popup.html').strip()}}
 	
 	def set_lang(self):
 		if not isinstance(request.referer, basestring):

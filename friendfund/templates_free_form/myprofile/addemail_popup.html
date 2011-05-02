@@ -8,7 +8,7 @@
 			
             <div class="popupPadder">
 			<h4>${_("FF_LOGINPOPUP_Please add an email address")}</h4>
-			<form id="login_popup_form" onSubmit="xhrFormPost('${url(controller='myprofile', action='addemailpopup')}', 'login_popup_form');return false;">
+			<form id="login_popup_form" action="${url(controller='myprofile', action='addemailpopup')}" class="loginAction">
 			<div class="inputFields Fw">
 				<div class="inputName  floatLeft ${"email" in c.errors and "error" or ""}">
 					<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
@@ -20,10 +20,9 @@
 				
 				<div class="clear"></div>
 			</div>
-			<input type="submit" class="invisible" value="Go"/>
+			<input style="margin:30px 0 0 0" type="submit" class="primarySmall floatLeft" value="${_("FF_LOGINBUTTON_Add Emailauith")}"/>
 			</form>
-			<a onclick="xhrFormPost('${url(controller='myprofile', action='addemailpopup')}', 'login_popup_form')" class="primarySmall floatLeft" style="margin:30px 0 0 0">${_("FF_LOGINBUTTON_Add Emailauith")}</a>
-            <p>${_("FF_LOGINBUTTON_Log in with <a %s>Facebook</a> instead.")%'onclick="baseFBLogin()" class="link"'}</p>
+            <p>${_("FF_LOGINBUTTON_Log in with <a %s>Facebook</a> instead.")%'class="loginFBAction"'|n}</p>
             <div class="clear"></div>
             </div>
         </div>

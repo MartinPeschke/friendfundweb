@@ -4,8 +4,9 @@
 <script type="text/javascript">
 	%if getattr(c, "message", None):
 		opener.displayMessage("${c.message}");
+		if(opener.pageState.__twitterAction__){delete opener.pageState.__twitterAction__;}
 	%else:
-		opener.xhrPost("${url(controller="myprofile", action="login")}", {});
+		opener.doLogin({level:9,ignoreFB:true, cb:opener.pageState.__twitterAction__});
 	%endif
 	window.close(); 
 </script>

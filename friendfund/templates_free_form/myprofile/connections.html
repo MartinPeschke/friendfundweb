@@ -39,7 +39,7 @@
 					</div>
 					<div class="floatLeft" style="padding:20px 0">
 						<p>${_("FF_ACCOUNT_You're not connected with Facebook")}</p>
-						<a onclick="baseFBLogin()" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}">
+						<a onclick="doLogin({isFB:true,cb:reload})" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}">
 							<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 						</a>
 					</div>
@@ -74,7 +74,7 @@
 					 </div>
 					 <div class="floatLeft" style="padding:20px 0">
 						 <p>${_("FF_ACCOUNT_You're not connected with Twitter")}</p>
-						 <a onclick="twInit()" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}">
+						 <a onclick="doLogin({isTW:true,cb:reload})" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}">
 							<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 						</a>
 					</div>
