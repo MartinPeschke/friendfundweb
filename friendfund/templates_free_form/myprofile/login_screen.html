@@ -1,6 +1,6 @@
 <%inherit file="../layout.html"/>
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
-<%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}"};</%def>
+<%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}";};</%def>
 
 %if c.signup_errors:
 	<div class="overlayWrapper">
@@ -19,7 +19,7 @@
 			<h4>${_("FF_LOGIN_Sign in with Facebook or Twitter")}</h4>
 			<div class="subHeading lastOne"></div>
 			<div class="loginSocialWrap">
-				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="doLogin({isFB:true,cb:reload(this)})">
+				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" _href="${getattr(c, 'furl', '/')}" onclick="doLogin({isFB:true,cb:goto_url(this)})">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
 

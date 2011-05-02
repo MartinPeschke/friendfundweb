@@ -82,8 +82,9 @@ class TwitterController(BaseController):
 		user_data['locale'] = user_data['lang']
 		user_data['link'] = user_data['url']
 		#Save and Persist, render profile
-		c.has_activity, c.message = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
+		success, c.message = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		c.refresh_login = True
+		c.has_activity = c.user.has_activity
 		return render('/closepopup.html')
 	
 	@logged_in()

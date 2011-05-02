@@ -6,7 +6,15 @@
 		opener.displayMessage("${c.message}");
 		if(opener.pageState.__twitterAction__){delete opener.pageState.__twitterAction__;}
 	%else:
-		opener.doLogin({level:9,ignoreFB:true, cb:opener.pageState.__twitterAction__});
+		%if getattr(c, "has_activity", False):
+			if(opener.pageState.fwd){
+				opener.pageState.fwd();
+			} else {
+				opener.doLogin({level:9,ignoreFB:true, cb:opener.pageState.__twitterAction__});
+			}
+		%else:
+			opener.doLogin({level:9,ignoreFB:true, cb:opener.pageState.__twitterAction__});
+		%endif
 	%endif
 	window.close(); 
 </script>

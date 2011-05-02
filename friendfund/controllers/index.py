@@ -48,6 +48,8 @@ class IndexController(BaseController):
 		return render('/closepopup.html')
 	
 	def logout(self):
+		if not request.referer or request.referer == c.furl:
+			c.furl = "/"
 		c.user = ANONUSER
 		c.settings = {}
 		c.messages = []

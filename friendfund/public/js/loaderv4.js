@@ -436,7 +436,7 @@ doLogin = function(args){
 		};
 	};
 	if(args.isFB){
-		FB.login(function(response){FB.getLoginStatus(fb_handleLogin(required_scope, logincb), true)}, {perms:required_scope});
+		fbLogin(required_scope, false, logincb);
 	} else if(args.isTW){
 		twInit(logincb);
 	} else {
@@ -448,7 +448,7 @@ doLogin = function(args){
 					if(!perms[req_perms[i]]){missing_perms.push(req_perms[i])};
 				}
 				if(missing_perms.length>0){
-					FB.login(function(response){FB.getLoginStatus(fb_handleLogin(required_scope, logincb), true)}, {perms:required_scope});
+					fbLogin(required_scope, false, logincb);
 				} else {
 					if(cb){cb()};
 				}

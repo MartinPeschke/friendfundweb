@@ -24,6 +24,8 @@ class FbController(BaseController):
 		except fb_helper.FBLoggedInWithIncorrectUser, e: 
 			log.error(e)
 			return {'login':{'success': False},'message':_("FB_LOGIN_TRY_This User cannot be consolidated with your current Account.")}
+		#Save and Persist, render profile
+		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		scope = request.params.get("scope")
 		if not scope:
 			raise Exception("FB_LOGIN_SCOPE_NOT_FOUND:%s", request.params)
@@ -33,9 +35,6 @@ class FbController(BaseController):
 				app_globals.dbm.set(perms)
 			except (db_access.SProcWarningMessage,db_access.SProcException), e:
 				pass
-		
-		#Save and Persist, render profile
-		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		if success:
 			return {"login":{"success": True, "has_activity":c.user.has_activity,'panel':render('/myprofile/login_panel.html').strip()}}
 		else:
