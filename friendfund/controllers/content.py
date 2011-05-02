@@ -103,6 +103,17 @@ class ContentController(BaseController):
 	
 	@default_domain_only()
 	@provide_lang()
+	def tips(self, lang = None):
+		if lang:
+			try:
+				return self.render("/content/localized/pool_tips_%s.html" % lang)
+			except:
+				return self.render("/content/localized/pool_tips.html")
+		else:
+			return self.render("/content/localized/pool_tips.html")
+	
+	@default_domain_only()
+	@provide_lang()
 	def learn_more(self, lang = None):
 		if lang:
 			try:

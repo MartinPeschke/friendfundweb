@@ -32,7 +32,7 @@ dojo.declare("friendfund.InvitePage", null, {
 		onSubmitCleaner(_t.target_form); 
 		if(_t.submitting){return false;}
 		_t.submitting = true;
-		protected(level, dojo.hitch(null, _t._submit, _t), function(){_t.submitting = false});
+		return protected(level, dojo.hitch(null, _t._submit, _t), function(){_t.submitting = false});
  	},_submit:function(_t){
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 		_t._widget_locals = [];

@@ -18,13 +18,14 @@
 <%def name="onloadscripts()">
 	ffp_panel = new friendfund.PartnerPanel({
 					container : "receiverSelectorContainer"
-					,ref_node : "button_panel_Form"
+					,target_form : "button_panel_Form"
 					,method : "${c.method}"
 					,invited_node:"selectedReceiver"
 					,mutuals:false
 					,base_url:"/myfriends"
 			});
-	document.forms.poolCreateForm.onsubmit = dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}");
+	window.pageState.sbmt = dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 9);
+	document.forms.poolCreateForm.onsubmit = function(){return window.pageState.sbmt()};
 	fbLogout = function(){
 	FB.getLoginStatus(function(response){
 		if(response.session){

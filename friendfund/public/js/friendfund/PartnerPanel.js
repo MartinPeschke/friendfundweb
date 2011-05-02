@@ -5,7 +5,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		var _t = this;
 		dojo.mixin(_t, args);
 		_t.triedSubmitting = false;
-		_t.ref_node = dojo.isString(_t.ref_node) && dojo.byId(_t.ref_node) || _t.ref_node;
+		_t.target_form = dojo.isString(_t.target_form) && dojo.byId(_t.target_form) || _t.target_form;
 		_t.connect();
 		_t.load_receiver();
 		
@@ -70,7 +70,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 								mutuals : _t.mutuals,
 								global_invited_node : _t.invited_node,
 								avail_selectors : {'facebook':true, 'twitter':true, 'email':true},
-								onSelect : function(ctx, params, elem, evt){
+								onSelect : function(ctx, elem, evt){
 									_t.selector.removeAll(_t.selector);
 									ctx.inviteAppendNode(ctx, elem);
 									dojo.addClass(_t.invited_node, "filled");
@@ -85,21 +85,24 @@ dojo.declare("friendfund.PartnerPanel", null, {
 							});
 		_t.selector.draw(_t.method);
 	},
-	submit : function(url){
+	submit : function(url, level, evt){
 		var _t = this;
-		var complete = _t.checkCompleteness();
-		if(!complete){
-			_t.triedSubmitting = true;
-		} else {
-			protect(
-				function(data){
-					dojo.query("input[type=submit]").attr("disabled","disabled");
-					_t.ref_node.action = url;
-					_t.ref_node.submit();
-				})();
-		}
-		return false;
+		onSubmitCleaner(_t.target_form); 
+		if(_t.submitting){return false;}
+		_t.submitting = true;
+		return protected(level, dojo.hitch(null, _t._submit, _t, url), function(){
+			_t.submitting = false
+		});
+ 	},_submit:function(_t, url){
+		dojo.query("input[type=submit]").attr("disabled","disabled");
+		_t.target_form.action = url;
+		_t.target_form.onsubmit = function(){};
+		_t.target_form.submit();
 	},
+	
+	
+	
+	
 	checkCompleteness : function(){
 		var _t = this;
 		var a = _t.check_receiver(), b = _t.check_occasion_name(), c = _t.check_occasion_date();

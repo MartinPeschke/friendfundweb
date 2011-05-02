@@ -76,7 +76,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	},
 	_onSelect : function(_t, data){
 		if(data.success===true){
-			_t.onSelect(_t, data, data.html, null);
+			_t.onSelect(_t, data.html, null);
 			dojo.place(data.input_html, _t.rootNode, "only");
 		} else {
 			dojo.place(data.html, _t.rootNode, "only");
