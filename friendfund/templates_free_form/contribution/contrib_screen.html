@@ -5,7 +5,7 @@
 <%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
 <%def name="render_page_state()">
 	window.pageState.getFBPerms = true;
-	submitForm = function(form){ return doLogin({level:form["payment.do_notify"].checked?6:3, cb:function(){
+	submitForm = function(form){ return doLogin({level:form["payment.do_notify"]?form["payment.do_notify"].checked?6:3:3, cb:function(){
 		onSubmitCleaner(document.contributionForm);
 		document.contributionForm.onsubmit = function(){return true};
 		document.contributionForm.submit();return true;}});
@@ -142,12 +142,14 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 		</div>
 		<div class="colRightWhite" style="margin-left:160px; border-color:#eeedec"></div>
 		<div class="colRightWhite" style="margin-left:160px"></div>
+		%if c.user.networks.get("twitter") or c.user.networks.get("facebook"):
 		<div class="greyInsideFullWidth">
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_do_notify" name="payment.do_notify" value="yes" ${widgets.input_checked("do_notify", "yes")|n} class="chkbox"/>
-			<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Notify invitees that I've chipped in.")}</label> <a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}">${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
+				<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Post contribution notice to my wall ortwitter stream.")}</label> <a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}">${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
 		</div>
 	</div>
+		%endif
 		<div class="floatRight">
 			<div class="spacerButtons">
 				<input id="submitter" class="forward" type="button" onclick="submitForm(document.contributionForm)" value="${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}" />
