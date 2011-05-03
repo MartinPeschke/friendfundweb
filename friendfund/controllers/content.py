@@ -138,6 +138,16 @@ class ContentController(BaseController):
 				return self.render("/content/localized/aboutus.html")
 		else:
 			return self.render("/content/localized/aboutus.html")
+	@default_domain_only()
+	@provide_lang()
+	def imprint(self, lang = None):
+		if lang:
+			try:
+				return self.render("/content/localized/imprint_%s.html" % lang)
+			except:
+				return self.render("/content/localized/imprint.html")
+		else:
+			return self.render("/content/localized/imprint.html")
 	
 
 	@provide_lang()

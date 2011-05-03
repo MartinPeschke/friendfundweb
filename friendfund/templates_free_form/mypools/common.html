@@ -18,7 +18,7 @@
 			"number_contributors":pool.no_contributors, 
 			"product_name":"her Tennis club", ####TODO:Implmement
 			"full_pool_url":url('get_pool', pool_url=pool.p_url, host=merchant.domain),
-			"days_left" : pool.get_remaining_days()
+			"time_left" : pool.get_remaining_time_tuple()
 		}
 %>
 <div class="poolRowWrap">
@@ -132,7 +132,7 @@
 			<div class="chippedIn"><span><strong>${h.format_currency(pool.get_total_contribution_float(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
 			<div class="outstanding"><span><strong>${h.format_currency(pool.get_amount_left(), pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
 			%if not pool._is_closed:
-				<div class="daysLeft"><span class="${locals['days_left'] < 7 and "highlight" or ""}">${widgets.renderPoolInfoDaysLeft(locals)}</span></div>
+				<div class="daysLeft"><span class="${locals['time_left'][0] < 3 and "highlight" or ""}">${widgets.renderPoolInfoTimeLeft(locals['time_left'])}</span></div>
 			%endif
 			<div class="clear"></div>
 		</div>

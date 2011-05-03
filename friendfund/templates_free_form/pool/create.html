@@ -2,10 +2,7 @@
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="parser" file="../product/urlparser.html"/>
-<%def name="scripts_styles()">
-	${links.js('datepicker.packed.js')}
-	${links.css('datepicker.css')}
-</%def>
+
 <%def name="scripts()">
 	<script type="text/javascript"> 
 		toggleSettlement = function(option){
@@ -29,38 +26,6 @@
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
 	parseEditables("poolDetails");
-	
-	var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
-	var today = new Date(), upperEnd = new Date();upperEnd.setDate(upperEnd.getDate() + 45);
-	var defaultDateOffset = 14;var defaultDate = new Date(today.getDate() + defaultDateOffset);
-	if(dojo.byId("dateValue").value){
-		defaultDate = new Date(datePickerController.parseDateString(dojo.byId("dateValue").value, machineFmtDate));
-		var displaydate = Math.ceil((defaultDate.getTime()-today.getTime())/(24*3600*1000));
-		if(isNaN(displaydate))displaydate=0;
-		dojo.byId("daysLeft").innerHTML = displaydate;
-	}
-	datePickerController.createDatePicker({
-	  formElements:{"datepicker":fmtDate},
-	  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
-	  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
-	  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
-	  callbackFunctions:{"dateset":[
-			function(params){
-				if(params.date){
-					dojo.byId("daysLeft").innerHTML = Math.ceil((params.date.getTime()-(today).getTime())/(24*3600*1000));
-					dojo.byId("dateValue").value=datePickerController.printFormattedDate(params.date, machineFmtDate, false);
-					if(dojo.hasClass("date_error_row", "error")&&dojo.query(".tip", "date_error_row").length===0){dojo.removeClass("date_error_row", "error")}
-					
-				} else {
-					var nDate = new Date(dojo.byId("dateValue").value);
-					dojo.byId("daysLeft").innerHTML="---";
-					dojo.byId("dateValue").value="";
-					var elem = dojo.byId("date_error_row");
-					if(!dojo.hasClass(elem, "error")){dojo.addClass(elem, "error")}
-				}
-			}
-		]}
-	});
 	%if c.values.get('tracking_link'):
 		connectURLP("homeurlexpander");
 	%else:
@@ -96,8 +61,8 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
 			<div class="subHeadingSpecial"></div>
-			<div class=" borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}" id="date_error_row">
-				%if h.contains_one(["currency", "amount", "date"], c.errors):
+			<div class=" borderBottom ${h.contains_one(["currency", "amount"], c.errors) and "error" or ""}" id="date_error_row">
+				%if h.contains_one(["currency", "amount"], c.errors):
 					<div class="tip">
 						<div class="arrow"></div>
 						<span>
@@ -107,9 +72,6 @@
 								%endif
 								%if 'amount' in c.errors:
 									<li>${c.errors.get("amount")}</li>
-								%endif
-								%if 'date' in c.errors:
-									<li>${c.errors.get("date")}</li>
 								%endif
 							</ul>
 						</span>
@@ -136,9 +98,8 @@
 								</div>
 							</div>
 						%endif
-						<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
 						<div class="limit">
-								<p>You have <strong>10 days</strong> to reach the target.</p>
+								<p>${_("FF_POOLDETAILS_You have <strong>10 days</strong> to reach the target.")|n}</p>
 								<div class="shadCorn"></div>
 							</div>
 						
@@ -288,7 +249,7 @@
 		<div class="enbi">
 			<div class="light"></div>
 			<div class="arrow"></div>
-			<p>You can edit everything, except the target, later. </p>
+			<p>${_("FF_POOLDETAILS_You can edit everything, except the target, later.")}</p>
 			<div class="shadCorn"></div>
 		</div>
 			<div class="spacerButtons floatRight">

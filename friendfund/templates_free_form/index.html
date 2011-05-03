@@ -103,7 +103,7 @@ ${self.renderMessages()}
 
 
 
-<%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="60" cache_type="memory">
+<%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="30" cache_type="memory">
 	%for i, pool in enumerate(get_featured_pools()):
 		<% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
 	<div class="homeboxWrap ${i==3 and 'omega' or ''}">

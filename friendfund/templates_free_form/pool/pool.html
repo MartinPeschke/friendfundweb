@@ -89,7 +89,8 @@
 	${c.popup|n}
 %endif
 </%def>
-<% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
+<% 
+	locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 			"admin_name":c.pool.admin.name,
 			"suggested_amount":h.format_currency(c.pool.get_suggested_amount_float(), c.pool.currency),
 			"chipped_in_amount":h.format_currency(c.pool.get_total_contrib_float(), c.pool.currency),
@@ -97,7 +98,6 @@
 			"number_invitees":len(c.pool.participant_map),
 			"number_contributors":c.pool.get_number_of_contributors(),
 			"days_left": c.pool.get_remaining_days(),
-			"invite_lvl":c.pool.am_i_admin(c.user) and 9 or 6,
 			"funding_process":c.pool.funding_progress()
 		}
 %>
@@ -142,22 +142,21 @@
                     </div>
                 </div>
                 
+				<% d,hrs,m,s = c.pool.get_remaining_time_tuple() %>
                 <div class="timerCont">
-                	<div>Pool closes in</div>
+                	<div>${_("FF_POOL_PAGE_Pool closes in")}</div>
                 	<div class="timer">
-                    	<div class="rndL">4</div>
-                        <div class="brdW">12</div>
-                        <div class="brdW">36</div>
-                        <div class="brdW rndR" style="border-right:0">10</div>
+                    	<div class="rndL">${d}</div>
+                        <div class="brdW">${hrs}</div>
+                        <div class="brdW">${m}</div>
+                        <div class="brdW rndR" style="border-right:0">${s}</div>
                
                     </div>
-                    	<div class="timeSpec">days</div>
-                        <div class="timeSpec">hrs</div>
-                        <div class="timeSpec">min</div>
-                        <div class="timeSpec">sec</div>
+                    	<div class="timeSpec">${_("FF_POOL_PAGE_days")}</div>
+                        <div class="timeSpec">${_("FF_POOL_PAGE_hrs")}</div>
+                        <div class="timeSpec">${_("FF_POOL_PAGE_min")}</div>
+                        <div class="timeSpec">${_("FF_POOL_PAGE_sec")}</div>
                 </div>
-            
-                    
                 <div class="clear"></div>
         	</div>
             <div class="clear"></div>

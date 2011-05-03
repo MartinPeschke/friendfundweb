@@ -383,6 +383,13 @@ class Pool(DBMappedObject):
 	def is_contributable(self):
 		return self.status == "OPEN" and (self.phase in ["INITIAL", "EXTENDED"])
 	
+	def get_remaining_time_tuple(self):
+		d = self.remaining_time.days
+		h = self.remaining_time.seconds / 3600
+		m = (self.remaining_time.seconds % 3600)/60
+		s = self.remaining_time.seconds % 60
+		return d,h,m,s
+	
 	def fromDB(self, xml):
 		self.invitees = []
 		self.determine_roles()

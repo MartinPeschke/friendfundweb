@@ -34,3 +34,29 @@
 	days_text =  ungettext(u"FF_POOL_INFO_<strong>%(days_left)d</strong> day left",
 							u"FF_POOL_INFO_<strong>%(days_left)d</strong> days left", locals['days_left'])
 	%>${days_text % locals|n}</%def>
+
+<%def name="renderPoolInfoTimeLeft(time_left)">
+<%
+	d,hrs,m,s = time_left
+	hrs = d*24+hrs
+	m = hrs*60+m
+	s = m*60+s
+	if d>3:
+		text = _("FF_POOL_INFO_<strong>%d</strong> days left") % d
+		unit = d
+	elif hrs>0:
+		text = ungettext(u"FF_POOL_INFO_<strong>%d</strong> hour left",
+							u"FF_POOL_INFO_<strong>%d</strong> hours left", hrs)
+		unit = hrs
+	elif m>0:
+		text =  ungettext(u"FF_POOL_INFO_<strong>%d</strong> minute left",
+							u"FF_POOL_INFO_<strong>%d</strong> minutes left", m)
+		unit = m
+	elif s>0:
+		text = ungettext(u"FF_POOL_INFO_<strong>%d</strong> second left",
+							u"FF_POOL_INFO_<strong>%d</strong> seconds left", a)
+		unit = s
+	else:
+		text = _("FF_POOL_INFO_expired%s")
+		unit = ""
+	%>${text % unit|n}</%def>

@@ -1,5 +1,5 @@
 import formencode
-from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, DateValidator, SettlementValidator, DecimalStringValidator, SanitizedHTMLString
+from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, SettlementValidator, DecimalStringValidator, SanitizedHTMLString
 
 _ = lambda x:x
 
@@ -10,14 +10,12 @@ class PoolHomePageForm(formencode.Schema):
 
 class PoolPartnerIFrameForm(formencode.Schema):
 	allow_extra_fields = True
-	date = DateValidator(not_empty=True, messages={'empty': _('FF_PARTNERIFRAME_ERROR_DATE_Please enter some date value!')})
 	occasion_name = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event name!')})
 	occasion_key = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event key!')})
 	
 class PoolCreateForm(formencode.Schema):
 	allow_extra_fields = True
 	
-	date = DateValidator(not_empty=True, messages={'empty': _('FF_POOLETAILS_ERROR_DATE_Please enter some date value!')})
 	amount = DecimalValidator(not_empty=True, min=1, max=9999999, messages={'empty': _('FF_POOLETAILS_ERROR_AMOUNT_Please enter some amount value!')})
 	currency = CurrencyValidator(not_empty=True)
 	title = formencode.validators.String(not_empty=True, max=100, messages={'empty': _('FF_POOLETAILS_ERROR_TITLE_Please enter some title text!')})

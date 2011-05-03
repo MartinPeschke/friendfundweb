@@ -8,8 +8,6 @@
 <%def name="scripts()">
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/PartnerPanel.js')}
-	${links.js('datepicker.packed.js')}
-	${links.css('datepicker.css')}
 	<script type="text/javascript">
 	dojo.query(".helpPopupToggler", "helpPopupContainer").onclick(
 		function(evt){
@@ -28,7 +26,6 @@
 					,base_url:"/myfriends"
 			});
 	dojo.connect(dojo.byId("createSubmitter"), "onclick", function(evt){ return doLogin({level:9,cb:dojo.hitch(ffp_panel, ffp_panel._submit, "${url(controller="partner", action="validate")}")});});
-	//document.forms.poolCreateForm.onsubmit = ;
 	
 	fbLogout = function(){
 	FB.getLoginStatus(function(response){
@@ -163,12 +160,11 @@
 							<label>${_("FF_IFRAME_Occasion:")}</label> <input type="text" name="occasion_name" id="occasion_name" value="${c.values.get("occasion_name")}" readonly="readonly" />
 							<div class="errorMsgIframe hidden">${_("FF_IFRAME_Please choose an occasion from the left panel.")}</div>
 						</div>
-						<div class="generalBoxIframe">
-							<label>${_("FF_IFRAME_Contribution Deadline:")}</label> <input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:70px" readonly="readonly" />
-							<div class="errorMsgIframe hidden">${_("FF_IFRAME_Please choose a deadline from the left panel.")}</div>
-						</div>
 						<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" readonly="readonly" />
 					</div>
+						<div class="generalBoxIframe">
+						<label>${_("FF_IFRAME_Contribution Deadline:")}</label> <input type="text" name="date" id="occasion_date" value="${c.values.get("date")}" style="width:115px" readonly="readonly" />
+						</div>
 					<a class="forward floatRight" style="margin-top:20px" type="button" id="createSubmitter">${_("FF_IFRAME_Invite Friends")}</a>
 					<div class="clear"></div>
 				</div>
@@ -194,7 +190,7 @@
 				<div class="occasionLabel first">${_("FF_IFRAME_Choose an occasion:")}</div>
 				<select id="occasionSelector" _name_target="occasion_name" _key_target="occasion_key">
 					%for occ in c.olist:
-						<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}" date="${occ.internal_date_format}" 
+						<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}"
 								${forms.expression_quote(c.values.get("occasion_key")== occ.key, "selected")|n}>
 							%if occ.custom:
 								${_("FF_IFRAME_Just because...")}
@@ -211,7 +207,7 @@
 		</div>
 		<div id="contributionDeadline" class="errorHook floatLeft">
 				<div class="limit" style="width:502px">
-								<p style="text-align:center">You have <strong>10 days</strong> to reach the target.</p>
+								<p style="text-align:center">${_("FF_POOLDETAILS_You have <strong>10 days</strong> to reach the target.")|n}</p>
 								<div class="shadCorn"></div>
 							</div>
 		</div>

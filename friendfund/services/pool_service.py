@@ -1,5 +1,6 @@
 import md5, uuid, os, formencode, logging
 log = logging.getLogger(__name__)
+from datetime import datetime, timedelta
 
 from pylons import tmpl_context, request, session as websession
 from pylons.i18n import _
@@ -68,7 +69,7 @@ class PoolService(object):
 		if so_values and 'charge_through' in so_values:
 			amount = (1+so.fee)*amount
 		pool.set_amount_float(amount)
-		pool.occasion = Occasion(key="EVENT_OTHER", date=pool_schema['date'])
+		pool.occasion = Occasion(key="EVENT_OTHER", date = (datetime.now() + timedelta(10)))
 		
 		if h.contains_one_ne(pool_schema, ["tracking_link", "product_picture"]):
 			pool.product = Product(name = pool_schema.get("product_name"), 
@@ -94,7 +95,7 @@ class PoolService(object):
 		locals = {"product_name":pool.get_product_display_label(words = 20, include_price = False), "recipient_name":receiver.name, "event_name":pool_schema['occasion_name']}
 		pool.title = _("FF_GG_POOL_TITLE_I have found the perfect %(event_name)s gift for %(recipient_name)s") % locals
 		pool.description = _("FF_GG_POOL_TITLE_%(product_name)s")%locals
-		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=pool_schema['date'], name = pool_schema['occasion_name'])
+		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=(datetime.now() + timedelta(10)), name = pool_schema['occasion_name'])
 		
 		receiver.is_receiver = True
 		pool.participants.append(receiver)

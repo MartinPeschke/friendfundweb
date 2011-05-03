@@ -1,3 +1,4 @@
+from __future__ import with_statement
 import logging, formencode, uuid, md5, os
 from cgi import FieldStorage
 
@@ -16,7 +17,7 @@ from friendfund.model.common import SProcWarningMessage
 from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER
 from friendfund.model.product import Product
 from friendfund.model.sitemap import SiteMap
-
+from friendfund.tasks.cache_refresher import FEATURED_POOLS_CACHEKEY
 
 log = logging.getLogger(__name__)
 ulpath = config['pylons.paths']['uploads']
@@ -26,9 +27,13 @@ class IndexController(BaseController):
 	ra_page_size = 5
 	
 	def _get_featured_pools(self):
-		featured_pools = []
-		for p in g.merchants.featured_pools:
-			 featured_pools.append(g.dbm.get(FeaturedPool, p_url = p.p_url))
+		with g.cache_pool.reserve() as mc:
+			featured_pools = mc.get(FEATURED_POOLS_CACHEKEY)
+		if featured_pools is None:
+			log.warning("NO_FEATURED_POOLS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
+			featured_pools = []
+			for p in g.merchants.featured_pools:
+				 featured_pools.append(g.dbm.get(FeaturedPool, p_url = p.p_url))
 		return featured_pools
 	
 	def index(self):

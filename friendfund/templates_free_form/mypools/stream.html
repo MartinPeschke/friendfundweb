@@ -94,7 +94,6 @@
                 <div class="colRightWhite"></div>
 		%elif streamentry.event._get_root == "CONTRIBUTION":
 			<% 
-				locals["days_left"] = streamentry.event.get_remaining_days()
 				locals["number_contributors"] = streamentry.event.no_contributors
 			%>
 					<div class="entryStream">
@@ -115,8 +114,6 @@
 								</div>
 								<span class="bold tenPix middot">&middot;</span>
 								<span class="contribSmall tenPix">${widgets.renderPoolInfoContributors(locals)}</span>
-								<span class="bold tenPix middot">&middot;</span>
-								<span class="timeLeft tenPix ${locals['days_left'] < 7 and "highlight" or ""}">${widgets.renderPoolInfoDaysLeft(locals)}</span>
 							</div>
 							<div class="liner">
 								<span class="date tenPix">${streamentry.get_recency()}</span><span class="bold tenPix middot">&middot;</span>

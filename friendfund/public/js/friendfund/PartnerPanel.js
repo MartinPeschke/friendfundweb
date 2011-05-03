@@ -8,28 +8,11 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		_t.target_form = dojo.isString(_t.target_form) && dojo.byId(_t.target_form) || _t.target_form;
 		_t.connect();
 		_t.load_receiver();
-		
-		var fmtDate = "M-sp-d-cc-sp-Y", machineFmtDate = "Y-ds-m-ds-d", intFmtDate = "Y-m-d";
-		var today = new Date(), upperEnd = new Date();upperEnd.setDate(upperEnd.getDate() + 45);
-		var defaultDateOffset = 14;var defaultDate = new Date(today.getDate() + defaultDateOffset);
-		datePickerController.createDatePicker({
-		  formElements:{"datepicker":fmtDate},
-		  dateFormats:{"datepicker":["Y-sl-m-sl-d", "d-dt-m-dt-Y", "Y-ds-m-ds-d"]},
-		  rangeLow:datePickerController.printFormattedDate(today, intFmtDate, false), 
-		  rangeHigh:datePickerController.printFormattedDate(upperEnd, intFmtDate, false), 
-		  callbackFunctions:{"dateset":[dojo.hitch(_t, _t.updateOccasionDate)]},
-		  noFadeEffect:true
-		});
-		
-		
 	},
 	connect : function(){
 		var _t = this;
 		if(dojo.byId("productSelector")){dojo.connect(dojo.byId("productSelector"), "onchange", dojo.hitch(_t, _t.swapProduct));}
 		if(dojo.byId("occasionSelector")){dojo.connect(dojo.byId("occasionSelector"), "onchange", dojo.hitch(_t, _t.swapOccasionName));}
-		if(dojo.byId("datepicker")){
-			dojo.connect(dojo.byId("datepicker"), "onfocus", dojo.hitch(datePickerController, datePickerController.show, "datepicker"));
-		}
 		dojo.connect(dojo.byId("occasionTyper"), "onkeyup", dojo.hitch(_t, _t.changeOccasionName));
 	},
 	changeOccasionName : function(evt){
@@ -48,11 +31,6 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		dojo.byId(dojo.attr(evt.target, "_name_target")).value = selected_occasion.value;
 		dojo.byId(dojo.attr(evt.target, "_key_target")).value = dojo.attr(selected_occasion, "key");
 		_t.check_occasion_name();
-	},
-	updateOccasionDate : function(params){
-		var _t = this;
-		if(params.date){dojo.byId("occasion_date").value = datePickerController.printFormattedDate(params.date,"Y-ds-m-ds-d",false)}
-		_t.check_occasion_date();
 	},
 	swapProduct : function(evt){
 		var selected_product = evt.target.options[evt.target.selectedIndex];
@@ -104,7 +82,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	
 	checkCompleteness : function(){
 		var _t = this;
-		var a = _t.check_receiver(), b = _t.check_occasion_name(), c = _t.check_occasion_date();
+		var a = _t.check_receiver(), b = _t.check_occasion_name();
 		return a&&b&&c;
 	},
 	check_receiver : function(clean_only){
@@ -128,19 +106,6 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		} else {
 			dojo.query(".errorMsgIframe", parental).addClass("hidden");
 			dojo.query("#yourOccasionSelector,#occasionSelectorContainer").removeClass("error");
-			return true;
-		}
-	},
-	check_occasion_date : function(clean_only){
-		var odate = dojo.byId("occasion_date");
-		var parental = findParent(odate, "generalBoxIframe");
-		if(!odate.value){
-			dojo.query(".errorMsgIframe", parental).removeClass("hidden");
-			dojo.addClass("contributionDeadline", "error");
-			return false;
-		} else {
-			dojo.query(".errorMsgIframe", parental).addClass("hidden");
-			dojo.removeClass("contributionDeadline", "error");
 			return true;
 		}
 	}
