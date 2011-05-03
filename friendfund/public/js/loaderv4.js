@@ -622,12 +622,58 @@ var connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 	reconnect();
 	if(parseNow){parseInput(dn);}
 };
-
-
-
-
-
-
+/**** SLIDER ****/
+var sliderF=function(root, noElems){
+	dojo.require("dojo.fx.easing");
+	var root = dojo.byId(root), slider = dojo.query("ul.slider", root)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10)
+		, position=0, child, transitioning = false, hover=false
+		, countElems = dojo.query("ul.slider li", root).length;
+	var setHoverOn = function(evt){hover=true;};
+	var setHoverOff = function(evt){hover=false;};
+	var slide = function(step, force){ return function(evt){
+		var reset = function(){transitioning=false;};
+		if(!transitioning&&(!hover||force)){
+			transitioning = true;
+			if(position===0&&step>0){
+				child = slider.getElementsByTagName("li");
+				child = slider.removeChild(child[child.length-1]);
+				dojo.style(slider, "marginLeft", (leftAmount*(position-step))+"px");
+				slider.insertBefore(child, slider.firstChild);
+				dojo.animateProperty({node:slider,duration: 900,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
+			} else if (position===noElems-countElems&&step<0){
+				child = slider.removeChild(slider.getElementsByTagName("li")[0]);
+				dojo.style(slider, "marginLeft", (leftAmount*(position-step))+"px");
+				slider.appendChild(child);
+				dojo.animateProperty({node:slider,duration: 900,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
+			} else {
+				
+				dojo.animateProperty({node:slider,duration: 900,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position)), end:(leftAmount*(position+step)), units:"px" }}, onEnd:reset}).play();
+				position = position + step;
+			}
+		}
+	}};
+	dojo.query(".controllerLeft", root).onclick(slide(1, true));
+	dojo.query(".controllerRight", root).onclick(slide(-1, true));
+	dojo.connect(root, "onmouseover", setHoverOn);
+	dojo.connect(root, "onmouseout", setHoverOff);
+	window.setInterval(slide(-1, false), 3500);
+};
+var showTime = function(root, unit){
+	var root = dojo.byId(root), delay = unit*1000
+		, d=dojo.query(".timerDays", root)[0], days=parseInt(d.innerHTML, 10)
+		, h=dojo.query(".timerHours", root)[0], hrs=parseInt(h.innerHTML, 10)
+		, m=dojo.query(".timerMinutes", root)[0], mins=parseInt(m.innerHTML, 10)
+		, s=dojo.query(".timerSeconds", root)[0], secs=parseInt(s.innerHTML, 10)
+		, tick = function(step){return function(){
+			if(secs>0){s.innerHTML=secs=secs+step;}
+			else if(mins>0){s.innerHTML=secs=59;m.innerHTML=mins=mins-1;}
+			else if(hrs>0){s.innerHTML=secs=59;m.innerHTML=mins=59;h.innerHTML=hrs=hrs-1;}
+			else if(days>0){s.innerHTML=secs=59;m.innerHTML=mins=59;h.innerHTML=hrs=23;d.innerHTML=days=days-1;}
+			else{return};
+			window.setTimeout(tick(-unit), delay);
+		}};
+		window.setTimeout(tick(-unit), delay);
+};
 
 
 

@@ -83,6 +83,7 @@
 	%if getattr(c, "popup", None):
 		rigPopup("generic_popup");
 	%endif
+	showTime("timer", 1);
 </%def>
 <%def name="renderBlockingPopup()">
 %if getattr(c, "popup", None):
@@ -145,17 +146,16 @@
 				<% d,hrs,m,s = c.pool.get_remaining_time_tuple() %>
                 <div class="timerCont">
                 	<div>${_("FF_POOL_PAGE_Pool closes in")}</div>
-                	<div class="timer">
-                    	<div class="rndL">${d}</div>
-                        <div class="brdW">${hrs}</div>
-                        <div class="brdW">${m}</div>
-                        <div class="brdW rndR" style="border-right:0">${s}</div>
-               
+                	<div class="timer" id="timer">
+                    	<div class="rndL timerDays">${d}</div>
+                        <div class="brdW timerHours">${hrs}</div>
+                        <div class="brdW timerMinutes">${m}</div>
+                        <div class="brdW rndR timerSeconds" style="border-right:0">${s}</div>
                     </div>
-                    	<div class="timeSpec">${_("FF_POOL_PAGE_days")}</div>
-                        <div class="timeSpec">${_("FF_POOL_PAGE_hrs")}</div>
-                        <div class="timeSpec">${_("FF_POOL_PAGE_min")}</div>
-                        <div class="timeSpec">${_("FF_POOL_PAGE_sec")}</div>
+                    	<div class="timeSpec">${ungettext(u"FF_POOL_PAGE_day", u"FF_POOL_PAGE_days", d)}</div>
+                        <div class="timeSpec">${ungettext(u"FF_POOL_PAGE_hr", u"FF_POOL_PAGE_hrs", hrs)}</div>
+                        <div class="timeSpec">${ungettext(u"FF_POOL_PAGE_min", u"FF_POOL_PAGE_mins", m)}</div>
+                        <div class="timeSpec">${ungettext(u"FF_POOL_PAGE_sec", u"FF_POOL_PAGE_secs", s)}</div>
                 </div>
                 <div class="clear"></div>
         	</div>

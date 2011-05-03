@@ -1,10 +1,12 @@
 <%inherit file="layout.html"/>
 <%namespace name="testimonials" file="widgets/testimonials.html" />
 <%namespace name="widgets" file="widgets/widgets.html" />
+<%namespace name="links" file="/widgets/links.html"/>
 <%def name="onloadscripts()">
 	parseDefaultsInputs("poolProductFinder");
 	parseSelectables("poolProductFinder", "showToolTipHook", "showToolTip");
 	connectURLParser("submissionform", "home_title", true);
+	sliderF("merchantslider", 4);
 </%def>
 <%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}";};</%def>
 
@@ -78,21 +80,7 @@ ${self.renderMessages()}
 			<div class="TTip">${_("FF_HOMEPAGE_friendfund has teamed up with some amazing merchants to give you the best possible group gifting experience.")}</div>
 		</div>
 		</span></h4>
-		<div class="boxGrayWrap box1">
-			<div class="boxGray">
-			<span class="controller controllerRight"> &laquo; </span>
-			<span class="controller controllerLeft"> &raquo; </span>
-			<ul class="slider">
-				<li><a target="_blank" href="http://amazon.friendfund.com"><img src="/static/imgs/integrations/amazon_trans.png" /></a></li>
-				<li><a target="_blank" href="http://www.caseable.com/gallery.php"><img src="/static/imgs/integrations/caseable_trans.png" /></a></li>
-				<li><a target="_blank" href="http://www.donanda.de/pages/affiliate/1090"><img src="/static/imgs/integrations/donanda_trans.png" /></a></li>
-				<li><a target="_blank" href="https://www.fidor.de/"><img src="/static/imgs/integrations/fidorbank_trans.png" /></a></li>
-				<li><a target="_blank" href="http://www.greatamericandays.com/adventure.php?adventure_id=11&price=&category=2&finder=52&imageField.x=9&imageField.y=12"><img src="/static/imgs/integrations/GAD_trans.png" /></a></li>
-				<li><a target="_blank" href="http://www.shopperella.de/kinderzimmer-zwei-tuerig/pinolino-kinderzimmer-laura-629/"><img src="/static/imgs/integrations/shopperella_trans.png" /></a></li>
-			</ul>
-				<div class="clear"></div>
-			</div>
-		</div>
+		${self.renderScroller()|n}
 		<div class="clear"></div>
 	</div>
 	<div class="whatElse">
@@ -105,6 +93,34 @@ ${self.renderMessages()}
 </div>
 
 
+
+
+<%def name="renderScroller()" cached="False" cache_key="renderScroller_templ" cache_timeout="86400" cache_type="memory">
+	
+<%
+	list = [("/static/imgs/integrations/amazon_trans.png", "http://amazon.friendfund.com"),
+			("/static/imgs/integrations/caseable_trans.png", "http://www.caseable.com/gallery.php"),
+			("/static/imgs/integrations/donanda_trans.png", "http://www.donanda.de/pages/affiliate/1090"),
+			("/static/imgs/integrations/fidorbank_trans.png", "https://www.fidor.de/"),
+			("/static/imgs/integrations/GAD_trans.png", "http://www.greatamericandays.com/adventure.php?adventure_id=11&price=&category=2&finder=52&imageField.x=9&imageField.y=12"),
+			("/static/imgs/integrations/shopperella_trans.png", "http://www.shopperella.de/kinderzimmer-zwei-tuerig/pinolino-kinderzimmer-laura-629/")
+		]
+%>
+	<div class="boxGrayWrap box1" id="merchantslider">
+		<div class="boxGray">
+		<span class="controller controllerRight"> &laquo; </span>
+		<span class="controller controllerLeft"> &raquo; </span>
+		<div class="slider">
+		<ul class="slider" id="sliderCnt" style="width:${len(list)*219}px" _elem_width="219">
+			%for img, href in list:
+				<li><a target="_blank" href="${href}"><img src="${img}" /></a></li>
+			%endfor
+		</ul>
+		</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</%def>
 
 
 <%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="60" cache_type="memory">
