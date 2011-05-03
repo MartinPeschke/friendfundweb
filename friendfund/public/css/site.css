@@ -1610,9 +1610,68 @@ div.subHeadingSpecial {
 	font-size: 12px;
 	color: #2C2C2C;
 }
-.colLeft p.general {
-	padding-top: 10px;
-	padding-bottom: 0
+
+.colLeft h6{
+	font-size: 13px;
+	color: #2c2c2c;
+	padding-left:25px;
+	background: url(/static/imgs/checked.png) 0 0 no-repeat
+}
+.colLeft h6.light{
+	color: #696969;
+	font-weight: normal;
+}
+.colLeft p.general, .colLeft ul.general {
+	padding-top: 15px;
+	padding-bottom: 0;
+	font-size: 13px;
+	color: #696969;
+}
+.colLeft p.margSpec{
+	margin: 0px 0 0px 25px;
+	padding-top: 5px;
+	padding-bottom: 10px
+}
+div.table{
+	border: 1px solid #d8d8d8;
+	background: #f5f5f5;
+	margin-top: 15px
+}
+div.table div.tbLeft{
+	 width: 343px;
+	 border-right:1px solid #fff;
+	 min-height: 350px
+
+}
+div.table div.tbRight{
+	width: 343px;
+	border-left: 1px solid #d8d8d8;
+	min-height: 350px
+
+}
+div.pagerBig{
+	border-top:1px solid #d8d8d8;
+	margin-top: 20px;
+	padding-top: 15px;
+	font-size: 13px;
+	float: left;
+	width: 690px
+	
+}
+.colLeft div.table ul{ padding: 0 25px 20px 25px  }
+.colLeft div.table p{ padding: 15px 25px 0 25px}
+.colLeft div.table h6{
+ background: transparent;
+ background-color: #eaeaea;
+ margin: 0;
+ line-height: 40px;
+ border-bottom:1px solid #d8d8d8
+}
+ul.general{
+ margin-top: -10px
+}
+ul.general li{
+ margin-top: 25px;
 }
 .colLeft h5 {
 	font-size: 11px;
@@ -3956,12 +4015,15 @@ div.empty h2 {
 .colRight .generalInfo h5 {
 	font-size: 14px;
 	font-weight: bold;
-	color: #2C2C2C;
+	color: #696969;
 	line-height: 14px;
 	padding-bottom: 12px
 }
+.colRight .generalInfo ul{
+	padding-bottom: 20px
+}
 .colRight .generalInfo ul li {
-	margin: 0 0 8px 0
+	margin: 0 0 2px 0
 }
 .colRight .generalInfo {
 	border-bottom: 1px solid #E4E4E4;
@@ -4248,7 +4310,7 @@ table.fee td {
 }
 .colRightFb {
 	float:right;
-	width:421px;
+	width:453px;
 	border-left: 1px solid #B3B3B3;
 	padding:0;
 	min-height:282px
@@ -4260,13 +4322,13 @@ table.fee td {
 }
 .colLeftFb {
 	float: left;
-	width: 158px;
+	width: 126px;
 	position: relative;
 	text-align: right
 }
 .colLeftFb  img.prod{
 	position: absolute;
-	left: 41px;
+	left: 9px;
 	top: 13px
 }
 .colRightFb table {
@@ -5091,6 +5153,17 @@ div.contentIframe div.helpPopup div.arrowSubTab{
 	display: block;
 	margin: 0 auto;
 }
+.colTips div div h2{
+	font-size: 24px;
+	color: #33ccff;
+	padding: 10px 15px 0
+}
+.colTips div div span{
+	 color: #696969; font-size: 12px;
+	 padding: 0px 15px;
+	 margin-top: 5px;
+	 display: block
+}
 .helpPopup a.close {
 	position: absolute;
 	right: 8px;
@@ -5171,17 +5244,40 @@ input::-moz-focus-inner /*Remove button padding in FF*/ {
 	color: #696969
 }
 .colTips div div{
-	min-height: 135px
+	min-height: 135px;
+	position: relative
 }
+.colTips div div div{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	min-height: 0px;
+	padding: 20px 15px;
+	background: #fcfcfc;
+	border-top:1px solid #d7d7d7;
+	-moz-box-shadow: 0px 0px 0px #000;
+	-webkit-box-shadow:  0px 0px 0px #000;
+	box-shadow: 0px 0px 0px #000;
+	width: 154px
+
+}
+.colTips div div div div.arrowBigUp{
+	position: absolute;
+	padding: 0;
+	width:19px;
+	height: 11px; 
+	left: 20px;
+	top: -11px;
+	background: url(/static/imgs/arrow-big-up.png) 0 0 no-repeat;
+	border: none
+}
+.colTips div div div span{ padding: 0; display: inline}
 .videoDesc p{ 
 	width: 460px; 
 	margin: 5px 20px 0 0;
 	float: left; 
 	color: #696969
 }
-
-
-
 
 /*================STAGING=============================*/
 
@@ -5214,3 +5310,5 @@ div.containerTxtArea.claro .dijitTextBox {width:10em !important;}
 .dijitTooltipContainer {background: none repeat scroll 0 0 #F8F8F8 !important;border: 2px solid #777;border-radius: 5px 5px 5px 5px;}
 div.borderBottom input.info {background: none repeat scroll 0 0 transparent;border: medium none !important;color: #ADADAD;font-size: 11px !important;height: 11px !important;margin-right: 2px;text-align: right;width: 30px;  line-height: 11px; margin: 7px 0 -6px 0}
 div.selected input.info{ margin: 2px 0 -1px 0 !important}
+
+.imgSider{ width: 450px; margin-top: 15px}

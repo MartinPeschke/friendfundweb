@@ -36,7 +36,7 @@ class ContentController(BaseController):
 	def jobs(self):
 		return self.render("/content/jobs.html")
 
-	@default_domain_only()
+
 	def impressum(self):
 		return redirect(url(controller="content", action="aboutus"))
 	def merchant_explain(self):
@@ -68,7 +68,7 @@ class ContentController(BaseController):
 	
 	######LOCALIZED
 		
-	@default_domain_only()
+
 	@provide_lang()
 	def faq(self, lang = None):
 		if lang:
@@ -82,7 +82,7 @@ class ContentController(BaseController):
 	@provide_lang()
 	def become_partner(self, lang = None):
 		return self.what_you_get(lang)
-	@default_domain_only()
+	
 	@provide_lang()
 	def what_you_get(self, lang = None):
 		if lang:
@@ -92,7 +92,7 @@ class ContentController(BaseController):
 				return self.render("/content/localized/partner/what_you_get.html")
 		else:
 			return self.render("/content/localized/partner/what_you_get.html")
-	@default_domain_only()
+	
 	@provide_lang()
 	def how_it_works(self, lang = None):
 		if lang:
@@ -102,7 +102,7 @@ class ContentController(BaseController):
 				return self.render("/content/localized/partner/how_it_works.html")
 		else:
 			return self.render("/content/localized/partner/how_it_works.html")
-	@default_domain_only()
+	
 	@provide_lang()
 	def pricing(self, lang = None):
 		if lang:
@@ -112,7 +112,7 @@ class ContentController(BaseController):
 				return self.render("/content/localized/partner/pricing.html")
 		else:
 			return self.render("/content/localized/partner/pricing.html")
-	@default_domain_only()
+	
 	@provide_lang()
 	def set_it_up(self, lang = None):
 		if lang:
@@ -129,7 +129,6 @@ class ContentController(BaseController):
 
 
 	
-	@default_domain_only()
 	@provide_lang()
 	def aboutus(self, lang = None):
 		if lang:
@@ -140,7 +139,7 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/aboutus.html")
 	
-	@default_domain_only()
+
 	@provide_lang()
 	def tips(self, lang = None):
 		if lang:
@@ -150,8 +149,7 @@ class ContentController(BaseController):
 				return self.render("/content/localized/pool_tips.html")
 		else:
 			return self.render("/content/localized/pool_tips.html")
-	
-	@default_domain_only()
+
 	@provide_lang()
 	def learn_more(self, lang = None):
 		if lang:
@@ -162,7 +160,7 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/learnmore.html")
 		
-	@default_domain_only()
+
 	@provide_lang()
 	def tos(self, lang = None):
 		if lang:
@@ -172,7 +170,7 @@ class ContentController(BaseController):
 				return self.render("/content/localized/tos.html")
 		else:
 			return self.render("/content/localized/tos.html")
-	@default_domain_only()
+
 	@provide_lang()
 	def confidence(self, lang = None):
 		if lang:
@@ -182,7 +180,7 @@ class ContentController(BaseController):
 				return self.render("/content/localized/confidence.html")
 		else:
 			return self.render("/content/localized/confidence.html")
-	@default_domain_only()
+
 	@provide_lang()
 	def privacy(self, lang = None):
 		if lang:

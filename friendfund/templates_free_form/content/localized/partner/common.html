@@ -10,8 +10,8 @@
 <div class="wrapSubHeader">
 	<div class="subHeader">
 		<div class="userProfile">
-			<div class="empty">
-				<h2>${_("FF_ACCOUNT_Account Settings")}</>
+			<div class="subUserProfile">
+				<h2 class="padBtm">Become a partner</>
 			</div>
 			<div class="tabsBig">
 				<a href="${url("short_content", action="what_you_get", lang=lang)}" ${widgets.expression_quote(action=="what_you_get", "class", "selected")|n}>
@@ -32,9 +32,9 @@
 		${common.render_right_col()}
 		<div class="colLeft">
 			${next.render_content()}
-			<br/><br/>
 			<div class="clear"></div>
 		</div>
+		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
 </div>

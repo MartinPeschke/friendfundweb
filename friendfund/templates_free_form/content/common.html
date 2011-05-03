@@ -15,9 +15,10 @@
 		${self.render_right_col()}
 		<div class="colLeft">
 			${next.render_content()}
-			<br/><br/>
+			
 			<div class="clear"></div>
 		</div>
+		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
 </div>
@@ -41,25 +42,32 @@
 
 	<div class="colRight">
        <div class="generalInfo">
-	   <h5>${_("FF_STATIC_MENU_Learn more")}</h5>
+	   <h5>${_("FF_STATIC_MENU_About")}</h5>
         <ul>
-			<li>${self.entry(_("FF_STATIC_MENU_How Does It Work"), url("short_content", action="learn_more", lang=lang), action == "learn_more")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Become a Partner"), url("short_content", action="become_partner", lang=lang), action == "become_partner")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_About Us"), url("short_content", action="aboutus", lang=lang), action == "aboutus")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Frequently Asked Questions"), url("short_content", action="faq", lang=lang), action == "faq")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Terms of Service"), url("short_content", action="tos", lang=lang), action == "tos")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Contact Friendfund"), url("short_content", action="contact", lang=lang), action == "contact")}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Our blog"), "http://blog.friendfund.com", False)}</li>
-			<li>${self.entry(_("FF_STATIC_MENU_Jobs"), url("short_content", action="jobs", lang=lang), action == "jobs")}</li>
+        	<li>${self.entry(_("FF_STATIC_MENU_About Friendfund"), url("short_content", action="aboutus", lang=lang), action == "aboutus")}</li>
+        	<li>${self.entry(_("FF_STATIC_MENU_Our blog"), "http://blog.friendfund.com", False)}</li>
+        	<li>${self.entry(_("FF_STATIC_MENU_Jobs"), url("short_content", action="jobs", lang=lang), action == "jobs")}</li>
+        	<li>${self.entry(_("FF_STATIC_MENU_Frequently Asked Questions"), url("short_content", action="faq", lang=lang), action == "faq")}</li>
+        </ul>
+        <h5>Getting started</h5>
+        <ul>
+        	<li>${self.entry(_("FF_STATIC_MENU_How Does It Work"), url("short_content", action="learn_more", lang=lang), action == "learn_more")}</li>
 			<li>${self.entry(_("FF_STATIC_PAGE_Pool_Tips"), url("short_content", action="tips", lang=lang), action == "tips")}</li>
-			<li style="margin-top:20px">${self.entry(_("FF_MENU_Create a pool"), h.create_pool_link(request, url), False)|n}</li>
-        </ul>
-		<h5 style="margin-top:25px;">${_("FF_STATIC_MENU_You're safe with us")}</h5>
-        <ul>
-			<li>${self.entry(_("FF_STATIC_MENU_Chip in with confidence"), url("short_content", action="confidence", lang=lang), action == "confidence")}</li>
+		</ul>
+		<h5>Contact</h5>
+		<ul>
+			<li>${self.entry(_("FF_STATIC_MENU_Contact Friendfund"), url("short_content", action="contact", lang=lang), action == "contact")}</li>
+			<li>${self.entry(_("FF_STATIC_MENU_Become a Partner"), url("short_content", action="become_partner", lang=lang), action == "become_partner")}</li>
+		</ul>
+		<h5>Legal</h5>
+		<ul>
+			<li>${self.entry(_("FF_STATIC_MENU_Terms of Service"), url("short_content", action="tos", lang=lang), action == "tos")}</li>
 			<li>${self.entry(_("FF_STATIC_MENU_Privacy"), url("short_content", action="privacy", lang=lang), action == "privacy")}</li>
-        </ul>
-		
+			<li>${self.entry(_("FF_STATIC_MENU_Chip in with confidence"), url("short_content", action="confidence", lang=lang), action == "confidence")}</li>
+	    </ul>
+        <ul>
+			<li>${self.entry(_("FF_MENU_Create a pool"), h.create_pool_link(request, url), False)|n}</li>
+       	</ul>
        </div>
        <div class="colRightWhite"></div>
        <div  class="generalInfo lastBox">
