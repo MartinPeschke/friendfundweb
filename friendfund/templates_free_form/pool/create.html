@@ -96,7 +96,7 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
 			<div class="subHeadingSpecial"></div>
-			<div class="special borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}" id="date_error_row">
+			<div class=" borderBottom ${h.contains_one(["currency", "amount", "date"], c.errors) and "error" or ""}" id="date_error_row">
 				%if h.contains_one(["currency", "amount", "date"], c.errors):
 					<div class="tip">
 						<div class="arrow"></div>
@@ -116,30 +116,33 @@
 					</div>
 				%endif
 			
-			
-				<div class="first" style="margin-top:7px;"><span>${_("FF_POOLDETAILS_We Need")}</span>
+			<div class="greyInsideFullWidth">
+				<div class="first"><span>${_("FF_POOLDETAILS_We Need")}</span>
 					<span class="editable active" _href="${url("edit", action="currency")}" _value="${c.values['currency']}">
 						${h.display_currency(c.values['currency'])}<input type="hidden" name="currency" value="${c.values['currency']}"/>
 						<span class="link editSmall editCurr">${_("FF_POOLDETAILS_Edit Currency")}</span>
 					</span>
 				</div>
-				<div class="greyInside" style="width:516px">
-					<span class="darkGrey floatRight">${_("FF_POOLDETAILS_<span class=\"bold\" id=\"daysLeft\">0</span> DAYS LEFT")|n}</span>
-					%if "amount" in c.errors or c.workflow != "1" or not c.values['amount']:
-						<input type="text" value="${c.values['amount']}" name="amount" class="small" />
-					%else:
-						<div class="editorCtn">
-							<div class="simpleeditable active mainValue">${c.values['amount']}
-								<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
-								<span class="link editSmall">${_("FF_Edit")}</span>
+				
+					<div  style="width:523px">
+											%if "amount" in c.errors or c.workflow != "1" or not c.values['amount']:
+							<input type="text" value="${c.values['amount']}" name="amount" class="small" />
+							
+						%else:
+							<div class="editorCtn">
+								<div class="simpleeditable active mainValue">${c.values['amount']}
+									<input _type="INPUT" type="hidden" value="${c.values['amount']}" name="amount" class="small" id="amountInput" />
+									<span class="link editSmall">${_("FF_Edit")}</span>
+								</div>
 							</div>
-						</div>
-					%endif
-					
-					<span class="bySmall">${_("FF_POOLDETAILS_by")}</span>
-					<input class="small" readonly="readonly" type="text" id="datepicker" value="${h.format_date(c.values.get('date'))}"/>
-					<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
-					
+						%endif
+						<input type="hidden" name="date" id="dateValue" value="${h.format_date_internal(c.values.get('date'))}"/>
+						<div class="limit">
+								<p>You have <strong>10 days</strong> to reach the target.</p>
+								<div class="shadCorn"></div>
+							</div>
+						
+					</div>
 				</div>
 			</div>
 			
@@ -282,7 +285,12 @@
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>
-		
+		<div class="enbi">
+			<div class="light"></div>
+			<div class="arrow"></div>
+			<p>You can edit everything, except the target, later. </p>
+			<div class="shadCorn"></div>
+		</div>
 			<div class="spacerButtons floatRight">
 				<input id="submitter" class="floatRight forward" type="submit" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
 			</div>

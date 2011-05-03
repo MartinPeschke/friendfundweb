@@ -79,7 +79,6 @@ class ContentController(BaseController):
 		else:
 			return self.render("/content/localized/faq.html")
 	
-	@default_domain_only()
 	@provide_lang()
 	def become_partner(self, lang = None):
 		if lang:

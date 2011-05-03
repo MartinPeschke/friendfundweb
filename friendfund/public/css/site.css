@@ -121,7 +121,7 @@ a:hover {
 .white {
 	color: white !important
 }
-.link {
+.link, div.error .link{
 	cursor:pointer !important;
 	color: #0094CC !important;
 	font-size: 11px !important;
@@ -194,7 +194,7 @@ label, .chkbox {
 	 margin: 5px 0 -5px 160px 
 }
 div.selected p.info {
-	margin-top:2px
+	margin-top:2px 
 }
 .colRightWhite, .helpPopup ul li div.colRightWhite, .colTips div.colRightWhite{
 	border: none;
@@ -782,7 +782,7 @@ div.featuredPoolsBox {
 }
 div.featuredPoolsBox h4 {
 	padding-bottom: 9px;
-	font-size: 16px
+	font-size: 18px
 }
 div.homeboxWrap{
 	float: left;
@@ -1174,6 +1174,35 @@ div.boxPoolDetails {
 }
 div.boxPoolDetails span{
 	font-weight: normal !important
+}
+div.enbi{
+	border: 1px solid #f0a6c9;
+	background: #fcedf3;
+	height: 30px;
+	line-height: 30px;
+	padding:0 10px;
+	margin: 20px 10px 10px 40px;
+	position: relative
+	
+}
+div.enbi div.arrow{
+	background: url(/static/imgs/pink-arrow.png) 0 0 no-repeat;
+	height: 9px;
+	width: 6px;
+	position: absolute;
+	left: -6px;
+	top:10px;
+}
+div.enbi div.light{
+ background: url(/static/imgs/lightbulb_icon_sml.png) 0 0 no-repeat;
+ position: absolute;
+ left: -35px;
+ top: -4px;
+ width: 26px;
+ height: 40px;
+ padding: 0;
+ margin: 0;
+ border: none
 }
 div.timeTracker {
 	width: 210px
@@ -2061,6 +2090,28 @@ div.borderBottom input.small {
 	width:120px;
 	padding:0 5px;
 }
+div.limit{
+	background: #f3f2ed;
+	border: 1px solid #dfdfdf;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px ;
+	width: 369px;
+	position: relative
+}
+div.shadCorn{
+	background: url(/static/imgs/shadow-corner.png) right top no-repeat;
+	height: 7px;
+	width: 157px;
+	position: absolute;
+	right: -1px;
+	bottom:-7px
+}
+div.limit p, div.enbi p{
+	padding: 0 !important;
+	font-size: 14px;
+	color: #696969;
+}
 div.borderBottom select {
 	border: 1px solid #d1d1d1;
 	height:28px;
@@ -2753,14 +2804,15 @@ div.error input, div.error .containerTxtArea, div.error select {
 	border-color:#D80A66 !important
 }
 div.error div.tip {
-	background-color:#F46587 !important
+	background-color:transparent !important
 }
 div.error div.tip div.arrow {
-	border-right: 10px solid #F46587;
+	border-right: 10px solid transparent;
 }
 div.error div.tip span {
-	color:#333 !important
+	padding-top: 11px
 }
+div.error div.limit p{ color: #696969 !important}
 .smallForm {
 	width:128px !important;
 	float:left !important;
@@ -3130,6 +3182,9 @@ p.inviterTwo {
 	cursor:pointer;
 	border: none
 }
+input.primarySmall{
+	height: 25px
+}
 
 .forward {
 	font-size:16px;
@@ -3283,7 +3338,7 @@ div.first {
 div.first .editCurr {
 	position: absolute;
 	right: 10px;
-	bottom: -7px;
+	bottom: -5px;
 	line-height: 11px
 }
 div.logInOnePx input {
@@ -3937,7 +3992,7 @@ div.empty h2 {
 	margin-bottom: 8px
 }
 .mainValue {
-	line-height: 32px;
+	line-height: 30px;
 	height: 32px;
 	color: #2C2C2C;
 	font-weight: bold;
@@ -3945,7 +4000,6 @@ div.empty h2 {
 .editorCtn {
 	float: left;
 	width: 132px;
-	margin-right: 5px
 }
 span.bySmall {
 	margin: 7px 4px 0 4px;
@@ -4805,7 +4859,7 @@ div.contentIframe div.first {
 	clear: both
 }
 #occasionSelectorContainer {
-	margin-top: 15px;
+	margin-top: 12px;
 	padding: 5px 0
 }
 #yourOccasionSelector {
@@ -4830,9 +4884,9 @@ div.colLeftIframe #occasionSelector, div.colLeftIframe #occasionTyper, div.colLe
 	margin-left:50px;
 	float: left;
 	margin-top: 2px;
-	margin-bottom: 15px;
+	margin-bottom: 12px;
 	width: 522px;
-	padding: 5px 0
+	padding: 5px 0 0 0 
 }
 div.colLeftIframe #datepicker {
 	width: 285px
@@ -5024,14 +5078,14 @@ div.contentIframe div.helpPopup div.arrowSubTab{
 }
 .helpPopup ul li div div, .colTips div div{
 	padding: 0;
-	border: none;
 	min-height: auto;
-	background: white;
+	background: #f9f9f9;
 	-moz-box-shadow: 0px 0px 4px #ccc;
 	-webkit-box-shadow: 0px 0px 4px #ccc;
 	box-shadow: 0px 0px 4px #ccc;
 	min-height: 100px;
-	padding-top: 15px
+	padding-top: 15px;
+    border: 1px solid white;
 }
 .helpPopup ul li div div img, .colTips div div img{
 	display: block;
@@ -5158,4 +5212,5 @@ div.containerTxtArea.claro input {height:14px;line-height:14px;}
 div.containerTxtArea.claro textarea {height: 220px;}
 div.containerTxtArea.claro .dijitTextBox {width:10em !important;}
 .dijitTooltipContainer {background: none repeat scroll 0 0 #F8F8F8 !important;border: 2px solid #777;border-radius: 5px 5px 5px 5px;}
-input.info {background: none repeat scroll 0 0 transparent;border: medium none !important;color: #ADADAD;font-size: 11px !important;height: 20px !important;margin-right: 2px;text-align: right;width: 30px;}
+div.borderBottom input.info {background: none repeat scroll 0 0 transparent;border: medium none !important;color: #ADADAD;font-size: 11px !important;height: 11px !important;margin-right: 2px;text-align: right;width: 30px;  line-height: 11px; margin: 7px 0 -6px 0}
+div.selected input.info{ margin: 2px 0 -1px 0 !important}
