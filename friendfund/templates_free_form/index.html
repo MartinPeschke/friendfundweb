@@ -52,11 +52,15 @@ ${self.renderMessages()}
 			</div>
 			<div class="logoContainerLeft">
 				<span>${_("FF_HOMEPAGE_BOXES_SEEN IN")}</span>
-				<img src="/static/imgs/Deutsche_Startups_sml.png" />
-				<img src="/static/imgs/Zanox_sml.png" />
-				
-				<img src="/static/imgs/IWB_sml.png" />
-			
+				<a href="http://eu.techcrunch.com/2011/05/03/angels-club-together-to-invest-in-friendfund/ ">
+					<img src="/static/imgs/techcrunch_sml.png" />
+				</a>	
+				<a href="http://blog.zanox.com/en/zanox/2010/12/10/interview-with-our-publisher-friendfund/ ">	
+					<img src="/static/imgs/Zanox_sml.png" />
+				</a>
+				<a href="http://www.internetworld.de/business-idee/ansicht/7/Madvertise">
+					<img src="/static/imgs/IWB_sml.png" />
+				</a>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -103,7 +107,7 @@ ${self.renderMessages()}
 
 
 
-<%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="30" cache_type="memory">
+<%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="60" cache_type="memory">
 	%for i, pool in enumerate(get_featured_pools()):
 		<% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
 	<div class="homeboxWrap ${i==3 and 'omega' or ''}">
