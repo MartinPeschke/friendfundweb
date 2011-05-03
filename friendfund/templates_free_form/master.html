@@ -32,7 +32,7 @@ ${self.render_html()}
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
 	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/js/friendfund"},dojoBlankHtmlUrl : "/static/blank.html",xdWaitSeconds: 5};</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" type="text/javascript"></script>
-	<div id="generic_popup"></div>
+	<div id="generic_popup">${self.renderBlockingPopup()}</div>
 	<div id="fb-root"></div>
 	<script type="text/javascript">
 		<% fb = str("facebook" in c.user.permissions or c.user.is_anon).lower() %>
@@ -50,6 +50,7 @@ ${self.render_html()}
 </%def>
 
 <%def name="render_page_state()"></%def>
+<%def name="renderBlockingPopup()"></%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
 <%def name="meta_tags()"><meta content="friendfund.com - Collect money with friends!" name="generator">

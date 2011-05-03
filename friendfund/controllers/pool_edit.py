@@ -74,6 +74,8 @@ class PoolEditController(BaseController):
 		if not request.merchant.require_address:
 			log.error(NOT_AUTHORIZED_MESSAGE)
 			return redirect(url("get_pool", pool_url = pool_url))
+		elif c.pool.is_closed():
+			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
 		c.values = {}
 		c.errors = {}
 		address = app_globals.dbm.get(PoolAddress, p_url = pool_url)

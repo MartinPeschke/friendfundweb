@@ -247,9 +247,10 @@ class Pool(DBMappedObject):
 			, GenericAttrib(str,		'status', 			'status'					)
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
+			, GenericAttrib(int,		'remaining_seconds','remaining_seconds'			)
 			, GenericAttrib(bool, 		'is_secret', 		'is_secret'					)
 			, GenericAttrib(bool, 		'has_address', 		'has_address'				)
-			, GenericAttrib(str,	 	'merchant_key', 	'merchant_key'			)
+			, GenericAttrib(str,	 	'merchant_key', 	'merchant_key'				)
 			, GenericAttrib(str,	 	'settlementOption', 'settlement'				)
 			, GenericAttrib(str,	 	'paypal_email', 	'paypal_email'				)
 			, GenericAttrib(int,	 	'total_contribution', 'total_contribution'		)
@@ -373,6 +374,8 @@ class Pool(DBMappedObject):
 			raise NoPoolReceiverException('Pool has no Receiver: %s' % self)
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
+	def is_closed_or_funded(self):
+		return self.status in ["CLOSED", "FUNDED", "COMPLETE"]
 	def is_expired(self):
 		return self.phase in ["EXPIRED", "EXTENSION_EXPIRED"]
 	def is_funded(self):
@@ -383,6 +386,7 @@ class Pool(DBMappedObject):
 	def fromDB(self, xml):
 		self.invitees = []
 		self.determine_roles()
+		setattr(self, "remaining_time", timedelta(0, self.remaining_seconds))
 		return self
 	def set_product(self, dproduct):
 		if not isinstance(dproduct, DisplayProduct):

@@ -35,32 +35,32 @@ class PoolController(BaseController):
 	
 	@pool_available()
 	def index(self, pool_url = None):
-		if pool_url is None:
-			return abort(404)
-		if c.pool is None:
-			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
-			return redirect(url('home'))
-		if c.pool.is_closed() and not "view" in request.params:
+		if c.pool.is_closed_or_funded() and not "view" in request.params:
 			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
-		elif c.pool.is_closed():
+		elif c.pool.is_closed_or_funded():
 			c.messages.append(SuccessMessage(_('FF_POOL_SUCCESS_MSG_This pool has been successfully funded <a href="%s"> View the eCard&raquo;</a>')%url(controller="pool", pool_url=c.pool.p_url, action="complete")))
 		elif c.pool.is_expired():
 			c.messages.append(ErrorMessage(_('FF_POOL_EXPIRED_MSG_This pool expired without reaching its funding goal in time.')))
 		if c.pool.can_i_view(c.user):
-			if c.pool.am_i_admin(c.user) and request.merchant.require_address and not len(c.messages) and not c.pool.has_address:
-				c.messages.append(SuccessMessage(_("FF_POOL_PAGE_Don't forget to <a href=\"%s\">add a Shipping Address</a>")%url("pool_edit", pool_url=c.pool.p_url, action="address")))
+			if c.pool.am_i_admin(c.user) and request.merchant.require_address and not c.pool.has_address:
+				c.messages = []
+				if c.pool.is_closed_or_funded():
+					c.popup = render("/content/popups/require_shipping_address.html")
+					c.messages.append(ErrorMessage(_("FF_POOL_PAGE_Don't forget to <a href=\"%s\">add a Shipping Address&raquo;</a>")%url("pool_edit", pool_url=c.pool.p_url, action="address")))
+				else:
+					c.messages.append(SuccessMessage(_("FF_POOL_PAGE_Don't forget to <a href=\"%s\">add a Shipping Address&raquo;</a>")%url("pool_edit", pool_url=c.pool.p_url, action="address")))
 			c.workflow = request.params.get("v") or None
 			return self.render('/pool/pool.html')
 		else:
 			return self.render('/pool/pool_secret.html')
 		
 	@pool_available()
-	def complete(self, pool_url):
-		if c.pool is None:
-			c.messages.append(ErrorMessage(_("POOL_PAGE_ERROR_POOL_DOES_NOT_EXIST")))
-		if not c.pool.is_closed():
-			 redirect(url('get_pool', pool_url=pool_url))
-		
+	def complete(self, pool_url = None):
+		if not c.pool.is_closed_or_funded():
+			redirect(url('get_pool', pool_url=pool_url))
+		if c.pool.am_i_admin(c.user) and request.merchant.require_address and not c.pool.has_address:
+			c.popup = render("/content/popups/require_shipping_address.html")
+			c.messages.append(ErrorMessage(_("FF_POOL_PAGE_Don't forget to <a href=\"%s\">add a Shipping Address&raquo;</a>")%url("pool_edit", pool_url=c.pool.p_url, action="address")))
 		c.contributors = g.dbm.get(GetECardContributorsProc, p_url = pool_url).contributors
 		c.contributors_w_msg = filter(attrgetter("co_message"), c.contributors)
 		c.values = {}

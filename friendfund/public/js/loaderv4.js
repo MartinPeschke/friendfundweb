@@ -147,13 +147,14 @@ accessability = function(callbackRet, callbackEsc, evt){
 	else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
 };
 closePopup = function(){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
-displayPopup = function(html){
-	dojo.place(html, dojo.byId("generic_popup"), "only" );
-	dojo.query(".panelcloser,.popupBackground", "generic_popup").forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
+displayPopup = function(html){dojo.place(html, dojo.byId("generic_popup"), "only" );rigPopup("generic_popup");};
+rigPopup = function(id){
+	dojo.query(".panelcloser,.popupBackground", id).forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
 	popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
-	var i = dojo.query("input", "generic_popup");
+	var i = dojo.query("input", id);
 	if(i.length>0){i[0].focus();}
 };
+
 loadPopup = function(evt, params){closePopup(evt);xhrPost(dojo.attr(evt.target, "_href"), params || {});};
 clear_messages = function(){destroyPopup("message_container");};
 destroyPopup = function(nodeid) {

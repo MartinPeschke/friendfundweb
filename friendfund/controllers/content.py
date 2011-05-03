@@ -81,14 +81,54 @@ class ContentController(BaseController):
 	
 	@provide_lang()
 	def become_partner(self, lang = None):
+		return self.what_you_get(lang)
+	@default_domain_only()
+	@provide_lang()
+	def what_you_get(self, lang = None):
 		if lang:
 			try:
-				return self.render("/content/localized/become_partner_%s.html" % lang)
+				return self.render("/content/localized/partner/what_you_get_%s.html" % lang)
 			except:
-				return self.render("/content/localized/become_partner.html")
+				return self.render("/content/localized/partner/what_you_get.html")
 		else:
-			return self.render("/content/localized/become_partner.html")
-		
+			return self.render("/content/localized/partner/what_you_get.html")
+	@default_domain_only()
+	@provide_lang()
+	def how_it_works(self, lang = None):
+		if lang:
+			try:
+				return self.render("/content/localized/partner/how_it_works_%s.html" % lang)
+			except:
+				return self.render("/content/localized/partner/how_it_works.html")
+		else:
+			return self.render("/content/localized/partner/how_it_works.html")
+	@default_domain_only()
+	@provide_lang()
+	def pricing(self, lang = None):
+		if lang:
+			try:
+				return self.render("/content/localized/partner/pricing_%s.html" % lang)
+			except:
+				return self.render("/content/localized/partner/pricing.html")
+		else:
+			return self.render("/content/localized/partner/pricing.html")
+	@default_domain_only()
+	@provide_lang()
+	def set_it_up(self, lang = None):
+		if lang:
+			try:
+				return self.render("/content/localized/partner/set_it_up_%s.html" % lang)
+			except:
+				return self.render("/content/localized/partner/set_it_up.html")
+		else:
+			return self.render("/content/localized/partner/set_it_up.html")
+	
+
+
+
+
+
+	
 	@default_domain_only()
 	@provide_lang()
 	def aboutus(self, lang = None):

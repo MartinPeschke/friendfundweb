@@ -1,0 +1,40 @@
+<%inherit file="/layout.html"/>
+<%namespace name="common" file="../../common.html"/>
+<%namespace name="widgets" file="/widgets/widgets.html"/>
+
+<% 
+	action = request.environ['wsgiorg.routing_args'][1]['action'] 
+	lang = h.get_language_locale()
+%>
+
+<div class="wrapSubHeader">
+	<div class="subHeader">
+		<div class="userProfile">
+			<div class="empty">
+				<h2>${_("FF_ACCOUNT_Account Settings")}</>
+			</div>
+			<div class="tabsBig">
+				<a href="${url("short_content", action="what_you_get", lang=lang)}" ${widgets.expression_quote(action=="what_you_get", "class", "selected")|n}>
+					${_("FF_PARTNER_MENU_what you get")}<span class="spoiler"></span></a>
+				<a href="${url("short_content", action="how_it_works", lang=lang)}" ${widgets.expression_quote(action=="how_it_works", "class", "selected")|n}>
+					${_("FF_PARTNER_MENU_how it works")}<span class="spoiler"></span></a>
+				<a href="${url("short_content", action="pricing", lang=lang)}" ${widgets.expression_quote(action=="pricing", "class", "selected")|n}>
+					${_("FF_PARTNER_MENU_pricing")}<span class="spoiler"></span></a>
+				<a href="${url("short_content", action="set_it_up", lang=lang)}" ${widgets.expression_quote(action=="set_it_up", "class", "selected")|n}>
+					${_("FF_PARTNER_MENU_set it up")}<span class="spoiler"></span></a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div class="wrapSubContent">${self.renderMessages()}
+	<div class="content">
+		${common.render_right_col()}
+		<div class="colLeft">
+			${next.render_content()}
+			<br/><br/>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

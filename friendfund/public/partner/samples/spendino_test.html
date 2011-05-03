@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="de" />
+	<title>Toolbar Tester</title>
+	<meta name="title" content="Toolbar Tester" />
+	<meta name="description" content="spendino ist ein innovatives Fundraising Werkzeug"/>
+<meta name="keywords" content="spendino, Fundraising"/>
+	
+	<meta name="author" content="spendino GmbH, Berlin, Germany" />
+
+	<meta name="copyright" content="spendino GmbH, Berlin, Germany" />
+	<meta name='robots' content='index,follow' />
+<meta name='verify-v1' content='0iYLPE8yJPG1XJBKlda/KlqbEn5uZFMZwCwzp2UKDT0=' />
+<meta name='y_key' content='0ac3f38dfd0950ac' />
+<link href="/cakephp/favicon.ico" type="image/x-icon" rel="icon" /><link href="/cakephp/favicon.ico" type="image/x-icon" rel="shortcut icon" /></head>
+<body>
+<style type="text/css">
+	html, body
+	{
+		height: 100%;
+	}
+	*
+	{
+		margin: 0;
+	    padding: 0;
+	}
+	
+	#organizationIframe
+	{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+</style>
+<iframe id="organizationIframe" frameborder="0" src="http://www.bbc.co.uk" name="spendinoWidget"> 
+</iframe>
+
+
+
+<script type="text/javascript">
+	var errorInvalidAmount = "<span>Bitte füllen Sie das Feld korrekt aus. Der eingegebene Wert darf nur aus Ziffern (0-9) bestehen.</span>";        
+	var minimumAmount = "10";        
+	var errorMinimumAmount = "<span>Der Mindestbetrag beträgt 10 Euro</span>";
+	var currencySymbol = "€";
+	var iframeUrl = "http://api.spendino.de/admanager/ogones/view/272";
+	var standByUrl = "http://api.spendino.de/admanager/ogones/standBy/272";     
+	var spendinoTooltipContent = "%3Ctable%20cellpadding%3D%220%22%20cellspacing%3D%220%22%3E%3Ctr%3E%3Ctd%20class%3D%22upperLeftTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22upperTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22upperRightTooltip%22%3E%3C%2Ftd%3E%3C%2Ftr%3E%3Ctr%3E%3Ctd%20class%3D%22leftTooltip%22%3E%3C%2Ftd%3E%3Ctd%3E%3Cdiv%20class%3D%22centerTooltip%22%3E%3Cp%3EDiese%20Organisation%20nutzt%20%3Cem%3Espendino%3C%2Fem%3E%20f%C3%BCr%20die%20Online%20%20Spendensammlung.%3Cbr%2F%3E%3Cbr%2F%3ESammeln%20auch%20Sie%20jetzt%20ganz%20einfach%20Online%20Spenden%20mit%20den%20Werkzeugen%20von%20%3Cem%3Espendino%3C%2Fem%3E.%3C%2Fp%3E%3Cbr%2F%3E%3Cp%3E%3Ca%20href%3D%22http%3A%2F%2Fwww.spendino.de%2Floesungen%2Fonlinespenden.html%3Freferrer%3Dwidget%22%20target%3D%22_blank%22%3EJetzt%20anschauen%20%C2%BB%3C%2Fa%3E%3C%2Fp%3E%3C%2Fdiv%3E%3C%2Ftd%3E%3Ctd%20class%3D%22rightTooltip%22%3E%3C%2Ftd%3E%3C%2Ftr%3E%3Ctr%3E%3Ctd%20class%3D%22lowerLeftTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22lowerTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22lowerRightTooltip%22%3E%3C%2Ftd%3E%3C%2Ftr%3E%3C%2Ftable%3E%3Cdiv%20class%3D%22arrowTooltip%22%3E%3C%2Fdiv%3E";
+	var spendinoFactsDescription = new Array();
+	var spendinoFactsTitle = new Array();
+	var spendinoFactsTotal = 3;spendinoFactsDescription["fact_1"] = "Die Gemeinnützigkeit wurde bestätigt.";spendinoFactsTitle["fact_1"] = "Gemeinnützig";spendinoFactsDescription["fact_2"] = "Eine TÜV Zertifizierung liegt vor.";spendinoFactsTitle["fact_2"] = "TÜV zertifiziert";spendinoFactsDescription["fact_3"] = "Das DZI Spendensiegel wurde verliehen und bestätigt die erfolgreiche Überprüfung durch das Deutsche Zentralinstitut für Soziale Fragen.";spendinoFactsTitle["fact_3"] = "DZI Siegel";
+	var tooltipPreamble = "%3Ctable%20cellpadding%3D%220%22%20cellspacing%3D%220%22%3E%3Ctr%3E%3Ctd%20class%3D%22upperLeftTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22upperTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22upperRightTooltip%22%3E%3C%2Ftd%3E%3C%2Ftr%3E%3Ctr%3E%3Ctd%20class%3D%22leftTooltip%22%3E%3C%2Ftd%3E%3Ctd%3E%3Cdiv%20class%3D%22centerTooltip%22%3E";
+	var tooltipPostamble = "%3C%2Fdiv%3E%3C%2Ftd%3E%3Ctd%20class%3D%22rightTooltip%22%3E%3C%2Ftd%3E%3C%2Ftr%3E%3Ctr%3E%3Ctd%20class%3D%22lowerLeftTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22lowerTooltip%22%3E%3C%2Ftd%3E%3Ctd%20class%3D%22lowerRightTooltip%22%3E%3C%2Ftd%3E%3C%2Ftr%3E%3C%2Ftable%3E%3Cdiv%20class%3D%22arrowTooltip%22%3E%3C%2Fdiv%3E";
+</script>
+<script type="text/javascript" src="http://api.spendino.de/admanager/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.spendino.de/admanager/js/spendino_tooltip.js"></script>
+<script type="text/javascript" src="http://api.spendino.de/admanager/js/spenden_toolbar.js"></script>
+<style type="text/css">@import url("http://api.spendino.de/admanager/css/spenden_toolbar_lightsilver.css");</style>
+
+<div id="spendinoToolbar">
+	<img src="http://api.spendino.de/admanager/img/toolbar/lightsilver/button_over.png" style="display: none;" alt="" />    
+	<form action="#" method="post">    
+		<div id="spendinoToolbarOpener">        
+			<div id="spendinoToolbarOpenerRight">&nbsp;</div>        
+			<div id="spendinoToolbarOpenerCenter">            
+				<div id="spendinoToolbarOpenerText">        Jetzt Helfen!            </div>
+			</div>
+			<div id="spendinoToolbarOpenerLeft">&nbsp;</div>            
+		</div>    
+		<div id="spendinoToolbarBackground">            
+			<div id="spendinoContainerStep1">            
+				<div id="spendinoWrapperStep1" style="width: 1005px;">                                
+					<div id="spendinoToolbarDonate" class="spendinoToolbarModule" style="margin-top:0px;">                
+						<div id="spendinoAmountContainer">                
+							<select name="userAmount" id="userAmount">
+								<option value="10">10 &euro;</option>
+								<option value="25">25 &euro;</option>
+								<option value="50">50 &euro;</option>
+								<option value="75">75 &euro;</option>
+								<option value="100"selected="selected">100 &euro;</option>
+								<option value="250">250 &euro;</option>
+								<option value="500">500 &euro;</option>
+								<option value="other">Anderer Betrag</option>
+							</select>                
+						<div id="spendinoAmountError"></div>                
+						</div>                
+						<input type="button" value="Jetzt spenden" id="spendinoSpendenButton"  style="margin-top:0px;"/>    
+						<div id="friendfund_fund_button"  style="margin-top:0px;"></div>
+					</div>                    
+					<div class="spendinoToolbarModuleSeparator">&nbsp;</div>                        
+					<div id="spendinoToolbarStamps" class="spendinoToolbarModule">                
+						<div id="spendinoToolbarStampsContainer" style="width: 198px;">                
+							<img src="http://www.spendino.de/img/facts/64x64/gemeinnuetzig.png" alt="Gemeinnützig" id="fact_1" />
+							<img src="http://www.spendino.de/img/facts/64x64/tuev.png" alt="TÜV zertifiziert" id="fact_2" />
+							<img src="http://www.spendino.de/img/facts/64x64/dzi.png" alt="DZI Siegel" id="fact_3" />                
+						</div>            
+					</div>                    
+					<div class="spendinoToolbarModuleSeparator">&nbsp;</div>                                                
+					<div id="spendinoToolbarShareButtons" class="spendinoToolbarModule">                
+						<div class="spendinoToolbarModuleTitle">                Weitersagen!                </div>
+						<!-- AddThis Button BEGIN -->                 
+						<script type="text/javascript">var addthis_share ={};</script>
+						<div class="addthis_toolbox addthis_default_style addthis_32x32_style" id="spendinoAddThis">
+							<a class="addthis_button_facebook" title="auf Facebook teilen">    
+								<img src="http://api.spendino.de/admanager/img/toolbar/facebook_32.png" alt="Facebook" />
+							</a><a class="addthis_button_twitter" title="auf Twitter teilen">
+								<img src="http://api.spendino.de/admanager/img/toolbar/twitter_32.png" alt="Twitter" />
+							</a><a class="addthis_button_studivz" title="auf studiVZ teilen">
+								<img src="http://api.spendino.de/admanager/img/toolbar/vz_32.png" alt="studiVZ" />
+							</a><a class="addthis_button_xing" title="auf Xing teilen">
+								<img src="http://api.spendino.de/admanager/img/toolbar/xing_32.png" alt="XING" />
+							</a>
+						</div>
+						<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4d3f08e978455290"></script>
+						<!-- AddThis Button END -->            
+					</div>                    
+					<div class="spendinoToolbarModuleSeparator">&nbsp;</div>                                                
+					<div id="spendinoToolbarSocialMedia" class="spendinoToolbarModule">                
+						<div class="spendinoToolbarModuleTitle">                Besuchen Sie uns!                </div>                                
+						<a href="http://www.facebook.com/spendino" target="_blank" title="Folgen Sie uns auf facebook">                    
+							<img src="http://api.spendino.de/admanager/img/toolbar/facebook.png" alt="Facebook" />                
+						</a>                                
+						<a href="http://twitter.com/spendino" target="_blank" title="Folgen Sie uns auf twitter">                    
+							<img src="http://api.spendino.de/admanager/img/toolbar/twitter.png" alt="Twitter" />                
+						</a>                            
+					</div>                    
+					<div class="spendinoToolbarModuleSeparator">&nbsp;</div>                    
+					<div id="spendinoToolbarSpendinoLogo" class="spendinoToolbarModule">                
+						<div class="spendinoToolbarModuleTitle">                ein Service von                </div>
+						<img src="http://api.spendino.de/admanager/img/toolbar/spendino_logo.png" alt="spendino GmbH" width="109" height="33" id="spendinoLogo" />
+					</div>                                
+				</div>        
+			</div>                
+			<div id="spendinoContainerStep2">                    
+				<div id="spendinoToolbarIframeWrapper">                
+					<div id="spendinoToolbarIframeTopFrame">&nbsp;</div>                
+					<div id="spendinoToolbarIframeLeftFrame">&nbsp;</div>            
+					<iframe id="spendinoToolbarIframe" scrolling="no" height="514px" frameborder="0" width="520px" src="http://api.spendino.de/admanager/ogones/standBy/272" name="spendinoWidget">
+					</iframe>            
+					<div id="spendinoToolbarIframeRightFrame">&nbsp;</div>            
+					<div id="spendinoToolbarIframeBottomFrame">&nbsp;</div>            
+				</div>            
+				<div id="spendinoToolbarSecurityColumn">                
+					<div class="spendinoToolbarLogoRightColumn">                
+						<img src="http://www.spendino.de/img/gfx/country_sign.png" alt="Country Sign" />                    
+						<span>Serverstandort Deutschland</span>                    
+					</div>                
+					<div class="spendinoToolbarLogoRightColumn">                
+						<img src="http://www.spendino.de/img/gfx/dino_lock.png" alt="Dino Lock" />                     
+						<span>Ihre Daten geh&ouml;ren Ihnen</span>                               
+					</div>            
+				</div>            
+			</div>    
+		</div>    
+	</form>
+</div> 
+
+<script type="text/javascript">
+		var friendfundOptions = {
+			/* required */key: 'spendino',host: 'spendino.friendfund.de', showButton: true,button_id:'friendfund_fund_button',protocol :"https:" == document.location.protocol ? "https://" : "http://", alignment: 'left', button_size:"small", button_color:"green",with_strap_line:false};
+			function _loadFriendFundButton() {var s = document.createElement('script');s.setAttribute('type', 'text/javascript');s.setAttribute('src', ("https:" == document.location.protocol ? "https://" : "http://") + "ff.friendfund.de/static/js/tabv2.js?20110331");document.getElementsByTagName('head')[0].appendChild(s);}_loadSuper = window.onload;window.onload = (typeof window.onload != 'function') ? _loadFriendFundButton : function() { _loadSuper(); _loadFriendFundButton(); };
+</script>
+
+</body>
+</html>
+

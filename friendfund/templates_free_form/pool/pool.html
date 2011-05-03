@@ -8,6 +8,7 @@
 	window.pageState.rld = function(login){window.location.reload();};
 	window.pageState.getFBPerms = true;
 </%def>
+
 <%def name="meta_tags()">
 	<link rel="image_src" href="${c.pool.get_pool_picture_tiles("MYPOOLS")}" />
 	<link rel="image_src" href="${c.pool.get_pool_picture_tiles("RA")}" />
@@ -79,8 +80,15 @@
 		dojo.query(".btnShowAdminPanel", "adminBox").onclick(function(evt){dojo.query(".hideable", "adminBox").toggleClass("hidden");});
 	%endif
 	connectpool("btnViewAll");
+	%if getattr(c, "popup", None):
+		rigPopup("generic_popup");
+	%endif
 </%def>
-
+<%def name="renderBlockingPopup()">
+%if getattr(c, "popup", None):
+	${c.popup|n}
+%endif
+</%def>
 <% locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
 			"admin_name":c.pool.admin.name,
 			"suggested_amount":h.format_currency(c.pool.get_suggested_amount_float(), c.pool.currency),
@@ -89,7 +97,8 @@
 			"number_invitees":len(c.pool.participant_map),
 			"number_contributors":c.pool.get_number_of_contributors(),
 			"days_left": c.pool.get_remaining_days(),
-			"invite_lvl":c.pool.am_i_admin(c.user) and 9 or 6
+			"invite_lvl":c.pool.am_i_admin(c.user) and 9 or 6,
+			"funding_process":c.pool.funding_progress()
 		}
 %>
 
@@ -112,11 +121,13 @@
                     %if c.pool.is_closed():
                         <span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
                     %else:
-                        <span class="percent">${int(c.pool.funding_progress()*100)}%</span>
+                        <span class="percent">${int()}%</span>
                     %endif
                         <div class="timeCounterRight" style="width:100%">
-                        <div class="timeCounterLeft" style="width:${int(c.pool.funding_progress()*100)}%"></div>
-                            <div class="progTooltip" style="position: absolute; top:-23px;left:${int(c.pool.funding_progress()*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
+                        <div class="timeCounterLeft" style="width:${int(locals['funding_process']*100)}%"></div>
+                            %if locals['funding_process'] < 1:
+							<div class="progTooltip" style="position: absolute; top:-23px;left:${int(locals['funding_process']*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
+							%endif
                         </div>
                     </div>
                     <div class="boxPoolDetails">
@@ -221,7 +232,7 @@
 	<div class="colRight" id="chipinBox">
 		%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 			${chipin_box.render_contributable(c.pool, c.user, locals)|n}
-		%elif c.pool.is_closed():
+		%elif c.pool.is_closed_or_funded():
 			${chipin_box.render_closed(c.pool, c.user, locals)|n}
 		%elif c.pool.is_expired():
 			${chipin_box.render_expired(c.pool, c.user, locals)|n}

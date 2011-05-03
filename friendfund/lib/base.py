@@ -98,7 +98,6 @@ class BaseController(WSGIController):
 			websession['region'] = region
 		c.messages = websession.get('messages', [])
 		c.user = websession.get('user', ANONUSER)
-		print "-----++++++++=========== ", c.user.get_clearance()
 		c.user._statics = app_globals.statics_service
 		c.furl = str(request.params.get("furl") or request.url)
 		log.info('[%s] [%s] [%s] Incoming Request at %s', c.user.u_id, websession['region'], request.headers.get('Host'), url.current())

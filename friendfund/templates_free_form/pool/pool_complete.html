@@ -11,14 +11,16 @@
 
 <%def name="onloadscripts()">
 	parseEditables("thankYouMessage");
+	%if getattr(c, "popup", None):
+		rigPopup("generic_popup");
+	%endif
 </%def>
-
-<div class="wrapSubHeader">
-	<div id="messaging_container" class="overlayWrapper">
-		<div class="overlay green hidden">
-			<p id="messaging_messages"></p>
-		</div>
-	</div>
+<%def name="renderBlockingPopup()">
+%if getattr(c, "popup", None):
+	${c.popup|n}
+%endif
+</%def>
+<div class="wrapSubHeader">${self.renderMessages(relative=True)|n}
 	<% 
 		locals = {"pool_title":c.pool.title} 
 	%>
