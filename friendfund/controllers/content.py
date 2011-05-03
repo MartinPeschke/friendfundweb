@@ -81,7 +81,7 @@ class ContentController(BaseController):
 	
 	@provide_lang()
 	def become_partner(self, lang = None):
-		return self.what_you_get(lang)
+		return redirect(url("short_content", action="what_you_get", lang=lang))
 	
 	@provide_lang()
 	def what_you_get(self, lang = None):

@@ -39,6 +39,7 @@
                     </div>
                     <div class="footerCol3">
                         <span class="fontWeightBold">${_("FF_FOOTER_Legal")}</span>
+                        <a href="${url("short_content", action="imprint", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Imprint")}</a>
                         <a href="${url("short_content", action="tos", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Terms of Service")}</a>
                         <a href="${url("short_content", action="privacy", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Privacy")}</a>
                     </div>
@@ -63,9 +64,10 @@
 								
 							</div>
 						%endif
-						<span class="floatLeft" style="margin-top:-13px"><a target="_blank" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.friendfund.com&lang=en"><img src="/static/imgs/veri-sign_trans.png"/></a></span>
+						<span class="floatLeft" style="margin-top:-13px"><a target="_blank" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.friendfund.com&lang=en">
+							<img src="/static/imgs/veri-sign_trans.png"/></a></span>
 						%if request.merchant.is_default:
-							<span class="floatRight">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
+							<span class="floatRight" style="margin-top:3px">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
 						%else:
 							<a class="floatRight" style="margin-top:0px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
 						%endif

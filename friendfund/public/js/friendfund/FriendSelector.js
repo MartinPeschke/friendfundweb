@@ -81,7 +81,8 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		} else {
 			dojo.place(data.html, _t.rootNode, "only");
 		}
-		dojo.query("input[type=text]", _t.rootNode)[0].focus();
+		var input = dojo.query("input[type=text]", _t.rootNode)[0];
+		if(input){input.focus();if(dojo.hasClass(input, "default")){dojo.removeClass(input, "default");input.value="";}}
 		parseDefaultsInputs(_t.rootNode);
 	},
 	inviteAppendNode : function(_t, elem){
