@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-05-04 00:00+0200\n"
+"POT-Creation-Date: 2011-05-04 11:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
-#: friendfund/controllers/content.py:66
+#: friendfund/controllers/content.py:66 friendfund/controllers/content.py:139
 msgid ""
 "FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your "
 "time!"
@@ -470,15 +470,16 @@ msgstr ""
 msgid "FF_CONTACT_ERROR_SUBJECT_Please enter a subject!"
 msgstr ""
 
-#: friendfund/model/forms/contact.py:11
+#: friendfund/model/forms/contact.py:11 friendfund/model/forms/contact.py:18
 msgid "FF_CONTACT_ERROR_MESSAGE_Please enter a message!"
 msgstr ""
 
-#: friendfund/model/forms/contact.py:12
+#: friendfund/model/forms/contact.py:12 friendfund/model/forms/contact.py:19
+#: friendfund/model/forms/contact.py:20
 msgid "FF_CONTACT_ERROR_NAME_Please enter a name!"
 msgstr ""
 
-#: friendfund/model/forms/contact.py:13
+#: friendfund/model/forms/contact.py:13 friendfund/model/forms/contact.py:21
 msgid "FF_CONTACT_ERROR_EMAIL_Please enter an email !"
 msgstr ""
 
@@ -1548,31 +1549,38 @@ msgid "FF_CONTACT_Write your subject here..."
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:41
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:54
 msgid "FF_CONTACT_Message"
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:44
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:57
 msgid "FF_CONTACT_Write your message here..."
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:55
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:19
 msgid "FF_CONTACT_Name"
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:57
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:21
 msgid "FF_CONTACT_Write your name here..."
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:67
 #: friendfund/templates_free_form/content/contact.html:91
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:41
 msgid "FF_CONTACT_Email"
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:69
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:43
 msgid "FF_CONTACT_Write your email here..."
 msgstr ""
 
 #: friendfund/templates_free_form/content/contact.html:81
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:71
 msgid "FF_CONTACT_Send"
 msgstr ""
 
@@ -1682,6 +1690,33 @@ msgstr ""
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:24
 msgid "FF_PARTNER_MENU_set it up"
+msgstr ""
+
+#: friendfund/templates_free_form/content/localized/partner/common.html:43
+#, python-format
+msgid ""
+"FF_PARTNER_CONTACT_To start generating your first group payment today, please"
+" contact <a %s>sales@friendfund.com</a>"
+msgstr ""
+
+#: friendfund/templates_free_form/content/localized/partner/how_it_works.html:72
+#: friendfund/templates_free_form/content/localized/partner/pricing.html:64
+#: friendfund/templates_free_form/content/localized/partner/what_you_get.html:86
+msgid "FF_PARTNER_CONTACT_Next:"
+msgstr ""
+
+#: friendfund/templates_free_form/content/localized/partner/how_it_works.html:73
+#: friendfund/templates_free_form/content/localized/partner/pricing.html:65
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:77
+msgid "FF_PARTNER_CONTACT_Previous:"
+msgstr ""
+
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:30
+msgid "FF_CONTACT_Company"
+msgstr ""
+
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:32
+msgid "FF_CONTACT_Write your company name here..."
 msgstr ""
 
 #: friendfund/templates_free_form/content/popups/all_or_nothing.html:6

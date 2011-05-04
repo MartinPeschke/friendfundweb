@@ -65,6 +65,7 @@ class Globals(object):
 		self.BASE_DOMAIN_LOOKUP = '.%s'%app_conf['BASE_DOMAIN']
 		self.SSL_PROTOCOL = app_conf['SSL_PROTOCOL']
 		self.SUPPORT_EMAIL = app_conf['support_email']
+		self.SALES_EMAIL = app_conf['sales_email']
 		
 		self.UPLOAD_FOLDER = app_conf['cache_dir']
 		dbpool = PooledDB(pyodbc,mincached=4,maxcached=10,failures = (pyodbc.OperationalError, pyodbc.InternalError, pyodbc.Error), autocommit=True

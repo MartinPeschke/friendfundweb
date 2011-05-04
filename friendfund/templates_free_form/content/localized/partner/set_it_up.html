@@ -2,52 +2,78 @@
 
 <%def name="title()">${_("FF_Become a Partner")}</%def>
 <%def name="heading()">${_("FF_Become a Partner")}</%def>
+<%def name="onloadscripts()">
+	parseDefaultsInputs("contactForm");
+</%def>
+
 
 <%def name="render_content()">
 <h4>Get involved </h4>
 <div class="subHeading"></div>
+	${self.renderContactLink()|n}
 
-<p class="general">To start generating your first group payment today, please contact <a href="mailto:sales@friendfund.com">sales@friendfund.com</a>.</p>
+		<form action="${url.current()}" method="POST" name="contactForm" id="contactForm" onsubmit="onSubmitCleaner(this)">
+		<div class="borderBottom ${"name" in c.errors and "error" or ""}" style="margin-top:20px">
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_CONTACT_Name")}</span>
+				</div>
+				<input type="text" value="${c.values.get("name") or _("FF_CONTACT_Write your name here...")}" class="default" _default_text="${_("FF_CONTACT_Write your name here...")}" _length="60" name="name"/>
+				</div>
+				%if "name" in c.errors:
+					<p class="info error">${c.errors.get("name")}</p>
+				%endif
+			</div>
+		<div class="borderBottom ${"company" in c.errors and "error" or ""}">
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_CONTACT_Company")}</span>
+				</div>
+				<input type="text" value="${c.values.get("company") or _("FF_CONTACT_Write your company name here...")}" class="default" _default_text="${_("FF_CONTACT_Write your company name here...")}" _length="60" name="company"/>
+				</div>
+				%if "company" in c.errors:
+					<p class="info error">${c.errors.get("company")}</p>
+				%endif
+			</div>
+		<div class="borderBottom ${"email" in c.errors and "error" or ""}">
+				<div class="greyInsideFullWidth">
+				<div class="first">
+					<span>${_("FF_CONTACT_Email")}</span>
+				</div>
+				<input type="text" value="${c.values.get("email") or _("FF_CONTACT_Write your email here...")}" class="default" _default_text="${_("FF_CONTACT_Write your email here...")}" _length="60" name="email"/>
+				</div>
+				%if "email" in c.errors:
+					<p class="info error">${c.errors.get("email")}</p>
+				%endif
+			</div>
 
-		<div class="borderBottom " style="margin-top:20px">
+		
+			<div class="borderBottom noBorder ${"message" in c.errors and "error" or ""}">
 				<div class="greyInsideFullWidth">
 				<div class="first">
-					<span>Full name</span>
+					  <span>${_("FF_CONTACT_Message")}</span>
 				</div>
-				<input type="text" name="name" _length="60" _default_text="Write your full name here..." class="default" value="Write your name here...">
+				<div class="containerTxtArea">
+					<textarea class="default" _default_text="${_("FF_CONTACT_Write your message here...")}" name="message">${c.values.get("message") or _("FF_CONTACT_Write your message here...")}</textarea>
+				</div>
 				
 				</div>
+				%if "message" in c.errors:
+					<p class="info error">${c.errors.get("message")}</p>
+				%endif
 			</div>
-		<div class="borderBottom ">
-				<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>Company</span>
-				</div>
-				<input type="text" name="name" _length="60" _default_text="Write your Company here..." class="default" value="Write your name here...">
-				
-				</div>
-			</div>
-		<div class="borderBottom noBorder ">
-				<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>Email</span>
-				</div>
-				<input type="text" name="name" _length="60" _default_text="Write your Email here..." class="default" value="Write your name here...">
-				
-				</div>
-			</div>
-		<div style="border-top: medium none;" class="borderBottom noBorder">	
+			
+		<div style="border-top: medium none;" class="borderBottom noBorder">
 				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>&nbsp;</span>
 				</div>
-				<input type="submit" class="primaryButton floatLeft" value="Send">
+				<input type="submit" class="primaryButton floatLeft" value="${_("FF_CONTACT_Send")}">
 				</div>
 			</div>
-
-
+		</form>
 <div class="pagerBig">
 <div class="colRightWhite"></div>
-<a href="${url("short_content", action="pricing", lang=h.get_language_locale())}" class="floatLeft">&laquo; Previous: Pricing </a>
+<a href="${url("short_content", action="pricing", lang=h.get_language_locale())}" class="floatLeft">&laquo; ${_("FF_PARTNER_CONTACT_Previous:")} Pricing </a>
 </div>
 </%def>

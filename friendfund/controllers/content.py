@@ -7,7 +7,7 @@ from webhelpers.html import escape
 from friendfund.lib.auth.decorators import default_domain_only, provide_lang
 from friendfund.lib.base import BaseController, render, _, SuccessMessage, set_lang
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.model.forms.contact import ContactForm
+from friendfund.model.forms.contact import ContactForm, PartnerForm
 from friendfund.tasks.notifiers.email import send_email
 log = logging.getLogger(__name__)
 
@@ -115,14 +115,27 @@ class ContentController(BaseController):
 	
 	@provide_lang()
 	def set_it_up(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/partner/set_it_up_%s.html" % lang)
-			except:
-				return self.render("/content/localized/partner/set_it_up.html")
-		else:
+		c.errors = {}
+		c.values = {}
+		if request.method!="POST":
 			return self.render("/content/localized/partner/set_it_up.html")
-	
+		else:
+			schema = PartnerForm()
+			c.values.update(request.params)
+			c.values = formencode.variabledecode.variable_decode(c.values)
+			try:
+				c.data = schema.to_python(c.values, state = FriendFundFormEncodeState)
+				msg = {}
+				msg['email'] = g.SALES_EMAIL
+				msg['subject'] = "[PARTNER_REQUEST] %s" % c.data['company']
+				msg['text'] = render("/messaging/internal/partner_form.html")
+				log.info("SENT_PARTNER_REQUEST, %s", send_email(msg))
+			except formencode.validators.Invalid, error:
+				c.values = error.value
+				c.errors = error.error_dict or {}
+				return self.render("/content/localized/partner/set_it_up.html")
+		c.messages.append(SuccessMessage(_("FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your time!")))
+		return redirect(url.current())
 
 
 

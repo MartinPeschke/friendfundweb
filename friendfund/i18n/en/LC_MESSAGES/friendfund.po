@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-04 00:01+0100\n"
+"PO-Revision-Date: 2011-05-04 11:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Generated-By: Babel 0.9.5\n"
 
 #: friendfund/controllers/content.py:66
+#: friendfund/controllers/content.py:139
 msgid "FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your time!"
 msgstr "Your message has been sent to us, thank you for your time!"
 
@@ -469,14 +470,18 @@ msgid "FF_CONTACT_ERROR_SUBJECT_Please enter a subject!"
 msgstr "Please enter a subject!"
 
 #: friendfund/model/forms/contact.py:11
+#: friendfund/model/forms/contact.py:18
 msgid "FF_CONTACT_ERROR_MESSAGE_Please enter a message!"
 msgstr "Please enter a message!"
 
 #: friendfund/model/forms/contact.py:12
+#: friendfund/model/forms/contact.py:19
+#: friendfund/model/forms/contact.py:20
 msgid "FF_CONTACT_ERROR_NAME_Please enter a name!"
 msgstr "Please enter a name!"
 
 #: friendfund/model/forms/contact.py:13
+#: friendfund/model/forms/contact.py:21
 msgid "FF_CONTACT_ERROR_EMAIL_Please enter an email !"
 msgstr "Please enter an email!"
 
@@ -1494,31 +1499,38 @@ msgid "FF_CONTACT_Write your subject here..."
 msgstr "Write your subject here..."
 
 #: friendfund/templates_free_form/content/contact.html:41
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:54
 msgid "FF_CONTACT_Message"
 msgstr "Message"
 
 #: friendfund/templates_free_form/content/contact.html:44
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:57
 msgid "FF_CONTACT_Write your message here..."
 msgstr "Write your message here..."
 
 #: friendfund/templates_free_form/content/contact.html:55
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:19
 msgid "FF_CONTACT_Name"
 msgstr "Name"
 
 #: friendfund/templates_free_form/content/contact.html:57
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:21
 msgid "FF_CONTACT_Write your name here..."
 msgstr "Write your name here..."
 
 #: friendfund/templates_free_form/content/contact.html:67
 #: friendfund/templates_free_form/content/contact.html:91
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:41
 msgid "FF_CONTACT_Email"
 msgstr "Email"
 
 #: friendfund/templates_free_form/content/contact.html:69
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:43
 msgid "FF_CONTACT_Write your email here..."
 msgstr "Write your email here..."
 
 #: friendfund/templates_free_form/content/contact.html:81
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:71
 msgid "FF_CONTACT_Send"
 msgstr "Send"
 
@@ -1627,6 +1639,32 @@ msgstr "Pricing"
 #: friendfund/templates_free_form/content/localized/partner/common.html:24
 msgid "FF_PARTNER_MENU_set it up"
 msgstr "Set It Up"
+
+#: friendfund/templates_free_form/content/localized/partner/common.html:43
+#, python-format
+msgid "FF_PARTNER_CONTACT_To start generating your first group payment today, please contact <a %s>sales@friendfund.com</a>"
+msgstr "To start generating your first group payment today, please contact <a %s>sales@friendfund.com</a>"
+
+#: friendfund/templates_free_form/content/localized/partner/how_it_works.html:72
+#: friendfund/templates_free_form/content/localized/partner/pricing.html:64
+#: friendfund/templates_free_form/content/localized/partner/what_you_get.html:86
+msgid "FF_PARTNER_CONTACT_Next:"
+msgstr "Next:"
+
+#: friendfund/templates_free_form/content/localized/partner/how_it_works.html:73
+#: friendfund/templates_free_form/content/localized/partner/pricing.html:65
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:77
+msgid "FF_PARTNER_CONTACT_Previous:"
+msgstr "Previous:"
+
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:30
+msgid "FF_CONTACT_Company"
+msgstr "Company"
+
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:32
+#| msgid "FF_CONTACT_Write your name here..."
+msgid "FF_CONTACT_Write your company name here..."
+msgstr "Write your company name here..."
 
 #: friendfund/templates_free_form/content/popups/all_or_nothing.html:6
 msgid "FF_ALL_OR_NOTHING_POPUP_What is “All or Nothing”?"
@@ -3395,5 +3433,3 @@ msgstr[1] "<strong>%d</strong> seconds left"
 msgid "FF_POOL_INFO_expired%s"
 msgstr "expired%s"
 
-#~ msgid "FF_POOL_PAGE_hrs"
-#~ msgstr "hrs"

@@ -66,10 +66,10 @@ When each Pool reaches its funding target, friendfund does the rest.  </p>
 </div>
 <h4>Get Involved</h4>
 <div class="subHeading"></div>
-<p class="general">To start generating your first group payment today, please contact <a href="mailto:sales@friendfund.com">sales@friendfund.com</a>.</p>
+${self.renderContactLink()|n}
 <div class="pagerBig">
 <div class="colRightWhite"></div>
-<a href="${url("short_content", action="pricing", lang=h.get_language_locale())}" class="floatRight">Next: How it works &raquo;</a>
-<a href="${url("short_content", action="what_you_get", lang=h.get_language_locale())}" class="floatLeft">&laquo; Previous: Overview </a>
+<a href="${url("short_content", action="pricing", lang=h.get_language_locale())}" class="floatRight">${_("FF_PARTNER_CONTACT_Next:")} How it works &raquo;</a>
+<a href="${url("short_content", action="what_you_get", lang=h.get_language_locale())}" class="floatLeft">&laquo; ${_("FF_PARTNER_CONTACT_Previous:")} Overview </a>
 </div>
 </%def>
