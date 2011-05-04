@@ -23,7 +23,7 @@ class MyfriendsController(BaseController):
 		c.method = str(method)
 		c.mutuals = False
 		c.all = False
-		c.clearance_level = 9
+		c.clearance_level = 3
 		if method in ['facebook', 'twitter']:
 			pv =  request.params.getall('pv')
 			is_complete = True
