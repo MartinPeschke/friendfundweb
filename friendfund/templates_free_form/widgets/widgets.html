@@ -43,11 +43,12 @@
 	s = m*60+s
 	map = {}
 	if d>3:
-		text = _("FF_POOL_INFO_<strong>%(days)d</strong> days left") % d
-		map['days'] = d
+		text = ungettext(u"FF_POOL_INFO_<strong>%(days_left)d</strong> day left",
+							u"FF_POOL_INFO_<strong>%(days_left)d</strong> days left", d)
+		map['days_left'] = d
 	elif hrs>0:
 		text = ungettext(u"FF_POOL_INFO_<strong>%(hours)d</strong> hour left",
-							u"FF_POOL_INFO_<strong>%(hours)</strong> hours left", hrs)
+							u"FF_POOL_INFO_<strong>%(hours)d</strong> hours left", hrs)
 		map['hours'] = hrs
 	elif m>0:
 		text =  ungettext(u"FF_POOL_INFO_<strong>%(mins)d</strong> minute left",
