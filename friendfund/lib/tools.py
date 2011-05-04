@@ -16,6 +16,8 @@ class AutoVivification(dict):
 			return value
 
 def dict_contains(d, keys):
+	if not d or not keys:
+		return False
 	return len(keys) == len(filter(lambda x: bool(x), [d.get(k, None) for k in keys]))
 
 
