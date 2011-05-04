@@ -393,8 +393,13 @@ class Pool(DBMappedObject):
 	def fromDB(self, xml):
 		self.invitees = []
 		self.determine_roles()
-		setattr(self, "remaining_time", timedelta(0, self.remaining_seconds))
+		if self.remaining_seconds<0:
+			remainder = 0
+		else: 
+			remainder = self.remaining_seconds
+		setattr(self, "remaining_time", timedelta(0, remainder))
 		return self
+	
 	def set_product(self, dproduct):
 		if not isinstance(dproduct, DisplayProduct):
 			raise TypeError("Product not of correct type: DisplayProduct, found: %s" % type(dproduct))

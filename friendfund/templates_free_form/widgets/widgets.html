@@ -41,22 +41,22 @@
 	hrs = d*24+hrs
 	m = hrs*60+m
 	s = m*60+s
+	map = {}
 	if d>3:
-		text = _("FF_POOL_INFO_<strong>%d</strong> days left") % d
-		unit = d
+		text = _("FF_POOL_INFO_<strong>%(days)d</strong> days left") % d
+		map['days'] = d
 	elif hrs>0:
-		text = ungettext(u"FF_POOL_INFO_<strong>%d</strong> hour left",
-							u"FF_POOL_INFO_<strong>%d</strong> hours left", hrs)
-		unit = hrs
+		text = ungettext(u"FF_POOL_INFO_<strong>%(hours)d</strong> hour left",
+							u"FF_POOL_INFO_<strong>%(hours)</strong> hours left", hrs)
+		map['hours'] = hrs
 	elif m>0:
-		text =  ungettext(u"FF_POOL_INFO_<strong>%d</strong> minute left",
-							u"FF_POOL_INFO_<strong>%d</strong> minutes left", m)
-		unit = m
+		text =  ungettext(u"FF_POOL_INFO_<strong>%(mins)d</strong> minute left",
+							u"FF_POOL_INFO_<strong>%(mins)d</strong> minutes left", m)
+		map['mins'] = m
 	elif s>0:
-		text = ungettext(u"FF_POOL_INFO_<strong>%d</strong> second left",
-							u"FF_POOL_INFO_<strong>%d</strong> seconds left", a)
-		unit = s
+		text = ungettext(u"FF_POOL_INFO_<strong>%(secs)d</strong> second left",
+							u"FF_POOL_INFO_<strong>%(secs)d</strong> seconds left", s)
+		map['secs'] = s
 	else:
-		text = _("FF_POOL_INFO_expired%s")
-		unit = ""
-	%>${text % unit|n}</%def>
+		text = _("FF_POOL_INFO_expired")
+	%>${text % map|n}</%def>

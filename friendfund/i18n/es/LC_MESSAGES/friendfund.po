@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-04 11:28+0200\n"
+"PO-Revision-Date: 2011-05-04 17:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
-#: friendfund/controllers/content.py:66 friendfund/controllers/content.py:139
+#: friendfund/controllers/content.py:66 friendfund/controllers/content.py:137
 msgid ""
 "FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for "
 "your time!"
@@ -2056,8 +2056,7 @@ msgstr "Acerca de"
 #: friendfund/templates_free_form/content/localized/become_partner_de.html:4
 #: friendfund/templates_free_form/content/localized/become_partner_es.html:3
 #: friendfund/templates_free_form/content/localized/become_partner_es.html:4
-#: friendfund/templates_free_form/content/localized/partner/become_partner.html:3
-#: friendfund/templates_free_form/content/localized/partner/become_partner.html:4
+#: friendfund/templates_free_form/content/localized/partner/common.html:14
 #: friendfund/templates_free_form/content/localized/partner/how_it_works.html:3
 #: friendfund/templates_free_form/content/localized/partner/how_it_works.html:4
 #: friendfund/templates_free_form/content/localized/partner/pricing.html:3
@@ -2111,18 +2110,24 @@ msgid "FF_Terms of Service"
 msgstr "Condiciones del servicio"
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:18
+#: friendfund/templates_free_form/content/localized/partner/how_it_works.html:73
 msgid "FF_PARTNER_MENU_what you get"
 msgstr ""
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:20
+#: friendfund/templates_free_form/content/localized/partner/pricing.html:65
+#: friendfund/templates_free_form/content/localized/partner/what_you_get.html:86
 msgid "FF_PARTNER_MENU_how it works"
 msgstr ""
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:22
+#: friendfund/templates_free_form/content/localized/partner/how_it_works.html:72
+#: friendfund/templates_free_form/content/localized/partner/set_it_up.html:77
 msgid "FF_PARTNER_MENU_pricing"
 msgstr ""
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:24
+#: friendfund/templates_free_form/content/localized/partner/pricing.html:64
 msgid "FF_PARTNER_MENU_set it up"
 msgstr ""
 
@@ -2151,7 +2156,6 @@ msgstr ""
 
 #: friendfund/templates_free_form/content/localized/partner/set_it_up.html:32
 #, fuzzy
-#| msgid "FF_CONTACT_Write your name here..."
 msgid "FF_CONTACT_Write your company name here..."
 msgstr "Escribe tu nombre aquí..."
 
@@ -2180,7 +2184,7 @@ msgstr ""
 #: friendfund/templates_free_form/content/popups/all_or_nothing.html:13
 #: friendfund/templates_free_form/content/popups/how_friends_invited_popup.html:13
 #: friendfund/templates_free_form/content/popups/what_is_cvc.html:14
-#: friendfund/templates_free_form/contribution/popups/notify_invitees.html:9
+#: friendfund/templates_free_form/contribution/popups/notify_invitees.html:8
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:25
 #: friendfund/templates_free_form/invite/preview/preview_email.html:25
 msgid "FF_Close"
@@ -2505,12 +2509,6 @@ msgstr "¿Qué es Notificar Invitados?"
 #: friendfund/templates_free_form/contribution/popups/notify_invitees.html:7
 msgid "FF_CONTRIBUTION_NOTIFYINVITEES_POPUP_1st paragraph explaining things."
 msgstr "El primer párrafo explicando las cosas."
-
-#: friendfund/templates_free_form/contribution/popups/notify_invitees.html:8
-msgid "FF_CONTRIBUTION_NOTIFYINVITEES_POPUP_body paragraph explaining things."
-msgstr ""
-"Invitados de Facebook recibirán un mensaje en su muro, invitados de "
-"Twitter recibirán un @message e inviados de email recibirán un email."
 
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:5
 msgid "FF_CONTRIBUTION_FEE_POPUP_Why am I being charged for chipping in?"
@@ -4024,34 +4022,33 @@ msgid_plural "FF_POOL_INFO_<strong>%(days_left)d</strong> days left"
 msgstr[0] "<strong>%(days_left)d</strong> dia restantes"
 msgstr[1] "<strong>%(days_left)d</strong> dias restantes"
 
-#: friendfund/templates_free_form/widgets/widgets.html:45
+#: friendfund/templates_free_form/widgets/widgets.html:46
 #, python-format
-msgid "FF_POOL_INFO_<strong>%d</strong> days left"
-msgstr "<strong>%d</strong> dias restantes"
+msgid "FF_POOL_INFO_<strong>%(days)d</strong> days left"
+msgstr "<strong>%(days)d</strong> dias restantes"
 
-#: friendfund/templates_free_form/widgets/widgets.html:48
-#, python-format
-msgid "FF_POOL_INFO_<strong>%d</strong> hour left"
-msgid_plural "FF_POOL_INFO_<strong>%d</strong> hours left"
+#: friendfund/templates_free_form/widgets/widgets.html:49
+#, fuzzy, python-format
+msgid "FF_POOL_INFO_<strong>%(hours)d</strong> hour left"
+msgid_plural "FF_POOL_INFO_<strong>%(hours)</strong> hours left"
 msgstr[0] ""
 msgstr[1] ""
 
-#: friendfund/templates_free_form/widgets/widgets.html:52
-#, python-format
-msgid "FF_POOL_INFO_<strong>%d</strong> minute left"
-msgid_plural "FF_POOL_INFO_<strong>%d</strong> minutes left"
+#: friendfund/templates_free_form/widgets/widgets.html:53
+#, fuzzy, python-format
+msgid "FF_POOL_INFO_<strong>%(mins)d</strong> minute left"
+msgid_plural "FF_POOL_INFO_<strong>%(mins)d</strong> minutes left"
 msgstr[0] ""
 msgstr[1] ""
 
-#: friendfund/templates_free_form/widgets/widgets.html:56
-#, python-format
-msgid "FF_POOL_INFO_<strong>%d</strong> second left"
-msgid_plural "FF_POOL_INFO_<strong>%d</strong> seconds left"
+#: friendfund/templates_free_form/widgets/widgets.html:57
+#, fuzzy, python-format
+msgid "FF_POOL_INFO_<strong>%(secs)d</strong> second left"
+msgid_plural "FF_POOL_INFO_<strong>%(secs)d</strong> seconds left"
 msgstr[0] ""
 msgstr[1] ""
 
-#: friendfund/templates_free_form/widgets/widgets.html:60
-#, python-format
-msgid "FF_POOL_INFO_expired%s"
+#: friendfund/templates_free_form/widgets/widgets.html:61
+msgid "FF_POOL_INFO_expired"
 msgstr ""
 

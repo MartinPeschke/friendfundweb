@@ -48,7 +48,7 @@ class MyPoolEntry(DBMappedObject):
 			, GenericAttrib(str,'currency','currency')
 			, GenericAttrib(str, "merchant_key", "merchant_key")
 			, GenericAttrib(bool, "is_secret", "is_secret")
-			, GenericAttrib(int,		'remaining_seconds','remaining_seconds'			)			
+			, GenericAttrib(int,		'remaining_seconds','remaining_seconds')
 			, DBMapper(PoolFriend, 'friends', 'FRIEND', is_list = True)
 			]
 	def get_remaining_time_tuple(self):
