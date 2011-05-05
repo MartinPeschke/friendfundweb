@@ -1,0 +1,45 @@
+<%inherit file="../common.html"/>
+
+<%def name="title()">${_("FF_STATIC_PAGE_Pool_Tips")}</%def>
+<%def name="heading()">Crea un bote impresionante (que se completa).</%def>
+
+<%def name="render_content()">
+	<div class="floatLeft colTips">
+		<div>
+			<div>
+				<img src="/static/imgs/chemistry.png" style="width:auto" />
+			</div>
+		</div>
+		<div class="colRightWhite"></div>
+		<h5>Crea un bote para algo tangible.</h5>
+		<p>friendfund significa la colaboración financiera entre amigos para un proyecto específico, sea lo que sea. Tus amigos les encantará involucrarse cuando el bote es para algo “real”.</p>
+	</div>
+	<div class="floatLeft colTips">
+		<div>
+			<div>
+				<img src="/static/imgs/ants.png" style="width:auto" />
+			</div>
+		</div>
+		<h5>Menos es más.</h5>
+		<p>Puedes empezar invitando a los amigos que participan directamente en el bote. Menos amigos con una conexión genuina, tienen una mayor probabilidad de alcanzar la financiación del bote.</p>
+	</div>
+	<div class="floatLeft colTips omega">
+		<div>
+			<div>
+				<img src="/static/imgs/microphone.png" style="width:auto" />
+			</div>
+		</div>
+		<h5>Comparte!</h5>
+		<p>friendfund tiene un montón de excelentes herramientas para compartir tu bote, así como un widget para tu sitio o blog
+		</p>
+	</div>
+		<div class="subHeading" style="margin:40px 0 -15px 0"></div>
+		<h4 class="noBorder">Crea un bote con friendfund</h4>
+		<div class="videoWrap"></div>
+		<div class="videoDesc floatLeft" style="margin-bottom:60px;">
+			<p>Friendfund permite la recaudación de dinero entre grupos de amigos. Ya sea para un regalo en grupo, vacaciones con amigos o para un club local.
+			<br>
+			Tu imaginación es el único limite.</p>
+			<a class="primaryButton floatLeft" href="${h.create_pool_link(request, url)}">${_("FF_MYPOOLS_Create a Pool")}</a>
+		</div>
+</%def>

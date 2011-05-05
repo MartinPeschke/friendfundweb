@@ -15,20 +15,15 @@ class ContentController(BaseController):
 	@jsonify
 	def amazonhowto(self):
 		return {"popup":render("/content/popups/amazon.html").strip()}
-	
 	@jsonify
 	def what_is_cvc(self):
 		return {"popup":render("/content/popups/what_is_cvc.html").strip()}
-		
 	@jsonify
 	def all_or_nothing(self, lang = None):
 		return {"popup":render("/content/popups/all_or_nothing.html").strip()}
-		
-		
 	@jsonify
 	def pledging_faq(self):
 		return {"popup":render("/content/popups/pledging_faq.html").strip()}
-	
 	@jsonify
 	def invite_info(self):
 		return {"popup":render("/content/popups/how_friends_invited_popup.html").strip()}
@@ -58,54 +53,10 @@ class ContentController(BaseController):
 				return self.render("/content/contact.html")
 		c.messages.append(SuccessMessage(_("FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your time!")))
 		return redirect(url.current())
-	
-	######LOCALIZED
-		
 
-	@provide_lang()
-	def faq(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/faq_%s.html" % lang)
-			except:
-				return self.render("/content/localized/faq.html")
-		else:
-			return self.render("/content/localized/faq.html")
-	
 	@provide_lang()
 	def become_partner(self, lang = None):
 		return redirect(url("short_content", action="what_you_get", lang=lang))
-	
-	@provide_lang()
-	def what_you_get(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/partner/what_you_get_%s.html" % lang)
-			except:
-				return self.render("/content/localized/partner/what_you_get.html")
-		else:
-			return self.render("/content/localized/partner/what_you_get.html")
-	
-	@provide_lang()
-	def how_it_works(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/partner/how_it_works_%s.html" % lang)
-			except:
-				return self.render("/content/localized/partner/how_it_works.html")
-		else:
-			return self.render("/content/localized/partner/how_it_works.html")
-	
-	@provide_lang()
-	def pricing(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/partner/pricing_%s.html" % lang)
-			except:
-				return self.render("/content/localized/partner/pricing.html")
-		else:
-			return self.render("/content/localized/partner/pricing.html")
-	
 	@provide_lang()
 	def set_it_up(self, lang = None):
 		c.errors = {}
@@ -131,78 +82,44 @@ class ContentController(BaseController):
 		return redirect(url.current())
 
 
-
-
-
-	
+	def _localized_content(self, template, lang):
+		if lang:
+			try:
+				return self.render("/content/localized/%s_%s.html" % (template, lang))
+			except:
+				return self.render("/content/localized/%s.html" % template)
+		else:
+			return self.render("/content/localized/%s.html" % template)
 	@provide_lang()
 	def aboutus(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/aboutus_%s.html" % lang)
-			except:
-				return self.render("/content/localized/aboutus.html")
-		else:
-			return self.render("/content/localized/aboutus.html")
-	
+		return self._localized_content("aboutus", lang)
 	@provide_lang()
 	def imprint(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/imprint_%s.html" % lang)
-			except:
-				return self.render("/content/localized/imprint.html")
-		else:
-			return self.render("/content/localized/imprint.html")
-	
-
+		return self._localized_content("imprint", lang)
 	@provide_lang()
 	def tips(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/pool_tips_%s.html" % lang)
-			except:
-				return self.render("/content/localized/pool_tips.html")
-		else:
-			return self.render("/content/localized/pool_tips.html")
-
+		return self._localized_content("pool_tips", lang)
 	@provide_lang()
 	def learn_more(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/learnmore_%s.html" % lang)
-			except:
-				return self.render("/content/localized/learnmore.html")
-		else:
-			return self.render("/content/localized/learnmore.html")
-		
-
+		return self._localized_content("learnmore", lang)
 	@provide_lang()
 	def tos(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/tos_%s.html" % lang)
-			except:
-				return self.render("/content/localized/tos.html")
-		else:
-			return self.render("/content/localized/tos.html")
-
+		return self._localized_content("tos", lang)
 	@provide_lang()
 	def confidence(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/confidence_%s.html" % lang)
-			except:
-				return self.render("/content/localized/confidence.html")
-		else:
-			return self.render("/content/localized/confidence.html")
-
+		return self._localized_content("confidence", lang)
 	@provide_lang()
 	def privacy(self, lang = None):
-		if lang:
-			try:
-				return self.render("/content/localized/privacy_%s.html" % lang)
-			except:
-				return self.render("/content/localized/privacy.html")
-		else:
-			return self.render("/content/localized/privacy.html")
+		return self._localized_content("privacy", lang)
+	@provide_lang()
+	def what_you_get(self, lang = None):
+		return self._localized_content("partner/what_you_get", lang)
+	@provide_lang()
+	def how_it_works(self, lang = None):
+		return self._localized_content("partner/how_it_works", lang)
+	@provide_lang()
+	def pricing(self, lang = None):
+		return self._localized_content("partner/pricing", lang)
+	@provide_lang()
+	def faq(self, lang = None):
+		return self._localized_content("faq", lang)

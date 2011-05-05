@@ -1,0 +1,44 @@
+<%inherit file="../common.html"/>
+
+<%def name="title()">${_("FF_STATIC_PAGE_Pool_Tips")}</%def>
+<%def name="heading()">Gründe einen Pool (mit Erfolg).</%def>
+
+<%def name="render_content()">
+	<div class="floatLeft colTips">
+		<div>
+			<div>
+				<img src="/static/imgs/chemistry.png" style="width:auto" />
+			</div>
+		</div>
+		<div class="colRightWhite"></div>
+		<h5>Erstelle deinen Pool für etwas Greifbares.</h5>
+		<p>Bei friendfund geht es immer um die Erreichung eines konkreten Ziels durch finanzielle Zusammensarbeit. Deine Freunde werden begeistert mitmachen, wenn am Ende ein echtes Ergebnis steht!</p>
+	</div>
+	<div class="floatLeft colTips">
+		<div>
+			<div>
+				<img src="/static/imgs/ants.png" style="width:auto" />
+			</div>
+		</div>
+		<h5>Manchmal ist weniger mehr.</h5>
+		<p>Lade zuerst die Freunde ein, die direkt mit dem Pool zu tun haben. Weniger Freunde, die dafür aber mit echter Verbindung zum Poolziel, werden wesentlich motivierter mithelfen. Zuviele "Zuschauer" führen nur zur Herdeneinstellung von "Wer anders werds schon richten".</p>
+	</div>
+	<div class="floatLeft colTips omega">
+		<div>
+			<div>
+				<img src="/static/imgs/microphone.png" style="width:auto" />
+			</div>
+		</div>
+		<h5>Teile!</h5>
+		<p> friendfund hat zahlreiche Wekzeuge um dir bei der Verbreitung zu helfen. Dabei ist sogar ein Widget für deine eigene Homepage doer dein Blog!</p>
+	</div>
+		<div class="subHeading" style="margin:40px 0 -15px 0"></div>
+		<h4 class="noBorder">Gründe einen friendfund Pool</h4>
+		<div class="videoWrap"></div>
+		<div class="videoDesc floatLeft" style="margin-bottom:60px;">
+			<p>friendfunde ein Gruppengeschenk, Neuanschaffungen für deinen Verein, einen Gruppenurlaub or sonst alles was die einfällt. friendfund unterstützt jede Art von Gruppenzahlung.
+			<br>
+			Deiner Phantasie sind keine Grenzen gesetzt!</p>
+			<a class="primaryButton floatLeft" href="${h.create_pool_link(request, url)}">${_("FF_MYPOOLS_Create a Pool")}</a>
+		</div>
+</%def>
