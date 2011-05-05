@@ -1226,7 +1226,8 @@ div.headerDivider{
 	float:left;
 	border-top: 1px solid #c1c1c1;
 	margin-top: 20px;
-	padding-bottom: 5px
+	padding-bottom: 5px;
+	width: 930px
 }
 div.timeTrackerBig {
 	width: 684px;
@@ -1622,6 +1623,11 @@ div.subHeadingSpecial {
 	padding-left:25px;
 	background: url(/static/imgs/checked.png) 0 0 no-repeat
 }
+.colLeft h6.noBg{
+	background: none;
+	padding-left: 0
+}
+
 .colLeft h6.light{
 	color: #696969;
 	font-weight: normal;
@@ -1631,6 +1637,9 @@ div.subHeadingSpecial {
 	padding-bottom: 0;
 	font-size: 13px;
 	color: #696969;
+}
+.colLeft p.general.noPad{
+	padding-top: 3px
 }
 .colLeft p.margSpec{
 	margin: 0px 0 0px 25px;
@@ -3239,7 +3248,7 @@ p.inviterTwo {
 	cursor: pointer;
 }
 .primarySmall, .inputFields .primarySmall {
-	font-size:12px;line-height: 19px;
+	font-size:12px;line-height: 12px;
 	color:white;
 	background-color: #ff0585;
 	background: -moz-linear-gradient(100% 100% 90deg, #d80065, #ff0585);
@@ -4022,6 +4031,8 @@ div.empty h2 {
 .colLeft .team p {
 	clear: both;
 	padding-bottom: 0px;
+	font-size: 13px;
+	color: #696969
 }
 .colRight .generalInfo h5 {
 	font-size: 14px;
@@ -4615,7 +4626,9 @@ p.second {
 	padding: 7px 0 0 0;
 	font-size: 12px;
 	float: left;
-	max-width: 600px
+	max-width: 600px;
+	font-size: 13px;
+	color: #696969;
 }
 div.second p, div.second a {
 	font-size: 12px
@@ -5126,19 +5139,20 @@ div.errorMsgIframe.large {
 .helpPopup {
 	position: absolute;
 	background: url(/static/imgs/bgpop.png) 0 0 no-repeat transparent;
-	width: 550px;
+	width: 563px;
 	z-index: 1001;
 	top: 60px;
 	color: #2c2c2c;
 	padding:0 25px 10px 25px;
 	height: 498px;
-	left: 19px;
+	left: 14px;
 	padding-top: 5px
 }
 .helpPopup ul {
 	float: left;
 	border-bottom: 1px solid #d9d9d9;
-	padding-bottom: 25px
+	padding-bottom: 25px;
+	width: 563px;
 }
 .helpPopup ul li {
 	float: left;
@@ -5359,10 +5373,3 @@ div.error p.unNt {
 	margin-bottom: -6px !important;
 	color: #adadad !important
 }
-
-ul.listing {list-style-type:disc;font-size:12px !important;list-style-position:inside;}
-ul.listing li {font-size:12px !important;}
-ul.listing li a {font-size:12px !important}
-
-ol.listing {list-style-type:decimal;font-size:12px !important;list-style-position:outside;padding-left:20px;}
-ol.listing li {padding: 1px;}
