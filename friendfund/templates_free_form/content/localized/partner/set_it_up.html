@@ -13,7 +13,7 @@
 	${self.renderContactLink()|n}
 
 		<form action="${url.current()}" method="POST" name="contactForm" id="contactForm" onsubmit="onSubmitCleaner(this)">
-		<div class="borderBottom ${"name" in c.errors and "error" or ""}" style="margin-top:20px">
+		<div class="borderBottom ${"name" in c.errors and "error" or ""}" style="margin-top:20px; border-top:none">
 				<div class="greyInsideFullWidth">
 				<div class="first">
 					<span>${_("FF_CONTACT_Name")}</span>
