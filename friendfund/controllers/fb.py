@@ -67,8 +67,8 @@ class FbController(BaseController):
 		perms = NetworkUserPermissions(network='facebook', network_id=user_id, stream_publish = False, has_email = False, permanent = False, create_event = False)
 		try:
 			app_globals.dbm.set(perms)
-			user =  app_globals.dbm.get(User, network = "facebook",network_id = user_id)
-			app_globals.user_service.disconnect(user, 'facebook', user_id)
+			# user =  app_globals.dbm.get(User, network = "facebook",network_id = user_id)
+			# app_globals.user_service.disconnect(user, 'facebook', user_id)
 		except (db_access.SProcException, db_access.SProcWarningMessage), e:
 			pass
 		return '1'

@@ -122,7 +122,7 @@
                     %if c.pool.is_closed():
                         <span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
                     %else:
-                        <span class="percent">${int()}%</span>
+                        <span class="percent">${int(locals['funding_process']*100)}%</span>
                     %endif
                         <div class="timeCounterRight" style="width:100%">
                         <div class="timeCounterLeft" style="width:${int(locals['funding_process']*100)}%"></div>
