@@ -127,6 +127,7 @@ class CreditCardPayment(PaymentMethod):
 					log.info("AUTHORIZING_NORMAL %s", tmpl_context.contrib_view.ref)
 					paymentresult = self.paymentGateway.authorize(contrib_model, tmpl_context.contrib_view)
 			except (socket.sslerror, socket.error), e:
+				log.error("PAYMENT_CONNECTION_ERROR, %s", e)
 				tmpl_context.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_An error has occured. Your payment has not been processed. Please try again."))
 				return redirecter(url("payment", pool_url=pool.p_url, protocol="http", amount = tmpl_context.contrib_view.amount))
 			
