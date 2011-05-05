@@ -35,13 +35,6 @@ class ContentController(BaseController):
 	@default_domain_only()
 	def jobs(self):
 		return self.render("/content/jobs.html")
-
-
-	def impressum(self):
-		return redirect(url(controller="content", action="aboutus"))
-	def merchant_explain(self):
-		return self.render("/content/merchant_explain.html")
-		
 		
 	@provide_lang()
 	def contact(self):
