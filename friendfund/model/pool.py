@@ -393,7 +393,7 @@ class Pool(DBMappedObject):
 	def fromDB(self, xml):
 		self.invitees = []
 		self.determine_roles()
-		if self.remaining_seconds<0:
+		if self.remaining_seconds<0 or self.is_closed_or_funded():
 			remainder = 0
 		else: 
 			remainder = self.remaining_seconds

@@ -65,10 +65,14 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	},
 	submit : function(url, level, evt){
 		var _t = this;
-		onSubmitCleaner(_t.target_form); 
-		if(_t.submitting){return false;}
-		_t.submitting = true;
-		return doLogin({level:level, cb:dojo.hitch(null, _t._submit, _t, url), failcb:function(){_t.submitting = false}});
+		var complete = _t.checkCompleteness();
+		if(!complete||_t.submitting){
+			return false;
+		} else {
+			onSubmitCleaner(_t.target_form);
+			_t.submitting = true;
+			return doLogin({level:level, cb:dojo.hitch(_t, _t._submit, url), failcb:function(){_t.submitting = false}});
+		};
  	},_submit:function(url){
 		var _t = this;
 		dojo.query("input[type=submit]").attr("disabled","disabled");
@@ -82,8 +86,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	
 	checkCompleteness : function(){
 		var _t = this;
-		var a = _t.check_receiver(), b = _t.check_occasion_name();
-		return a&&b&&c;
+		return _t.check_receiver()&&_t.check_occasion_name();
 	},
 	check_receiver : function(clean_only){
 		if(dojo.query(".invitee_row", "network_invitees").length != 1){

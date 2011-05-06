@@ -146,4 +146,4 @@ def sanitize_html(html, valid_tags = ['a','strong', 'em', 'p', 'ul', 'ol', 'li',
 			attrs = dict(tag.attrs)
 			tag.attrs = [('href', attrs.get('href')), ('target', '_blank')]
 	val = soup.renderContents()
-	return val
+	return val.decode("utf-8")
