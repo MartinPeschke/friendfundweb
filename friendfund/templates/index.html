@@ -1,4 +1,4 @@
-<%inherit file="layout_layer.html"/>
+<%inherit file="layout.html"/>
 <%namespace name="links" file="links.html"/>
 <%namespace name="html" file="legacy/widgets/html_elems.html"/>
 <%namespace name="forms" file="legacy/widgets/forms.html"/>
@@ -7,13 +7,14 @@
 
 <%def name="scripts()">
 	<script type="text/javascript">dojo.query(".frontpagebutton.enabled", "pool_configurator").forEach(function(elem, pos, array){dojo.connect(elem, "onmouseenter", function(evt){dojo.addClass(this, "frontpagebuttonhover")});dojo.connect(elem, "onmouseleave", function(evt){dojo.removeClass(this, "frontpagebuttonhover")});});</script>
+	${links.css('message_block.css')}
+	${links.css('legacy_custom.css',path='/custom/')}
 	${links.js('friendfund/HomePagePanel.js')}
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/AutoRotator.js')}
 	${links.js('friendfund/ProductSearch.js')}
 </%def>
 
-<%def name="bodyclass()">base index</%def>
 <%def name="onloadscripts()">
 		<% 
 			pool = getattr(c, "pool", None) 
@@ -29,12 +30,7 @@
 		setTimeout(dojo.hitch(null, "show_delay",1),Math.round(Math.random()*2000));
 </%def>
 
-<%def name="create_pool_button()"></%def>
-
-<%def name="page_slogan()">
 	<div id="page_slogan"><span class="emphasis">${_(u'PAGE_INDEX_SLOGAN_MOTTO_EMPHASIS')|n}</span> ${_(u'PAGE_INDEX_SLOGAN')|n} <span class="emphasis">${_(u'PAGE_INDEX_SLOGAN_CLOSING')|n}</span></div>
-</%def>
-
 
 	<div id="pool_configurator">
 		<form action="${url(controller='pool', action='create')}" method="POST" id="pool_configurator_form" onsubmit="panels.verify()">

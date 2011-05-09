@@ -1,0 +1,73 @@
+<%inherit file="common.html"/>
+
+<%def name="title()">${_("FF_Become a Partner")}</%def>
+<%def name="heading()">${_("FF_Become a Partner")}</%def>
+
+<%def name="render_content()">
+<h4>Maximiza tu capital social. Empieza a aceptar pagos en grupo hoy mismo!</h4>
+<div class="subHeading"></div>
+
+<p class="general">La integración de nuestro "botón" de pago en las páginas de productos de tu sitio web, permite a los clientes crear un "Bote" para cualquier producto o servicio, e invitar a sus amigos a través de Facebook Connect, Twitter y correo electrónico para contribuir. </p>
+<p class="general">La solución "white-label” combina a la perfección con tu sitio web y crea un ambiente social “on-line” donde los amigos pueden disfrutar pagando juntos.</p>
+
+<div>
+	<div class="floatLeft colTips" style="margin-top:30px">
+		<div>
+			<div style="padding:0">
+				<img src="/static/imgs/how_it_works_screenshot.png">
+			</div>
+		</div>
+	</div>
+	<div class="floatLeft imgSider">
+		<p class="general">Como comerciante,  tendrás acceso a nuestra plataforma de autoservicio para supervisar cómo friendfund está trabajando para generar más negocio.</p>
+		<ul class="general">
+			<li>•&nbsp;&nbsp;&nbsp;Inicia sesión para ver todos los botes actuales y completados</li>
+			<li>•&nbsp;&nbsp;&nbsp;Comprueba como tu visibilidad en redes sociales que crece exponencialmente</li>
+			<li>•&nbsp;&nbsp;&nbsp;Comprueba como los invitados a un bote, posteriormente abren ellos mismos algunos botes nuevos</li>
+		</ul>
+	</div>
+</div>
+
+
+<h4>Ventajas principales</h4>
+<div class="subHeading"></div>
+
+<h6>Impulsar las ventas con los pagos sociales.</h6>
+<p class="general margSpec">Aumentar la visibilidad de tu marca y productos en Facebook y Twitter. Cada bote se extiende en las redes sociales, con eventos, publicaciones en el muro y tweets acerca de ti y tus productos.</p>
+
+<h6>Compartir los costes “on-line”,  produce ventas de mayor valor.</h6>
+<p class="general margSpec">friendfund ofrece el concepto de “contribuir a un bote” como una revolución de las compras por Internet, permitiendo la compra de regalos que los receptores realmente quieren.</p>
+
+<h6>Estudios del mercado impulsados por redes sociales.</h6>
+<p class="general margSpec">Una vez friendfund se haya integrado en tu sitio web, le enviaremos la demografía y análisis regulares de que tus productos se están vendiendo.</p>
+
+
+<h4>Elija la solución del pedido que se adapte a tus necesidades</h4>
+<div class="subHeading"></div>
+<div class="table floatLeft">
+	<div class="tbLeft floatLeft">
+		<h6>Utilización de los códigos de cúpon </h6>
+		<p class="general">Al proporcionarnos los códigos de cúpon para cada bote completado, el cliente finaliza la compra en su sitio web, pasando por el proceso de compra habitual.</p>
+		<ul class="general">
+			<li>•&nbsp;&nbsp;&nbsp;Sólo tienes que introducir los códigos de cúpon para cada bote completado en la Plataforma autoservicio para comerciantes.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Esto inicia las transferencias automatizadas por los totales recaudados directamente a tu cuenta de comerciante designada.</li>
+			<li>•&nbsp;&nbsp;&nbsp;El cliente recibe una tarjeta electrónica personalizada con el código de cupón que se adjunta.</li>
+		</ul>
+	</div>
+	<div class="tbRight floatLeft">
+		<h6>Finalización del pedido por el Comerciante</h6>
+		<p class="general">Recibir y procesar los pedidos con tu sistema actual. Te enviamos toda la información que necesitas para enviar el producto rápidamente al cliente.</p>
+		<ul class="general">
+			<li>•&nbsp;&nbsp;&nbsp;Email automático de notificación de los botes completados.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Proporcionamos el nombre del cliente, datos de contacto, detalles del producto y la dirección de entrega.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Facturación semanal o mensual, lo que mejor se adapte a tus necesidades empresariales.</li>
+		</ul>
+	</div>
+</div>
+
+${self.renderContactLink()|n}
+<div class="pagerBig">
+<div class="colRightWhite"></div>
+<a href="${url("short_content", action="how_it_works", lang=h.get_language_locale())}" class="floatRight">${_("FF_PARTNER_CONTACT_Next:")} ${_("FF_PARTNER_MENU_how it works")} &raquo;</a>
+</div>
+</%def>

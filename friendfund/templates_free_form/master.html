@@ -5,7 +5,8 @@ ${self.render_html()}
 
 <%def name="render_html()">
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-	<html xmlns="https://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
+	<% lang = h.get_language_locale() %>
+	<html xmlns="https://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xml:lang="${lang}" lang="${lang}">
 	<head>
 		<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
