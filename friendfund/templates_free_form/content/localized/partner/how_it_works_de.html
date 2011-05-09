@@ -1,0 +1,66 @@
+<%inherit file="common.html"/>
+
+<%def name="title()">${_("FF_Become a Partner")}</%def>
+<%def name="heading()">${_("FF_Become a Partner")}</%def>
+
+<%def name="render_content()">
+<h4>Wie Funktioniert's?</h4>
+<div class="subHeading"></div>
+
+<div>
+	<div class="floatLeft colTips" style="margin-top:30px">
+		<div>
+			<div style="padding:0">
+				<img src="/static/imgs/screenshot_1.png" width="186">
+			</div>
+		</div>
+	</div>
+	<div class="floatLeft imgSider">
+		<p class="general">1. Auf den Produktseiten entscheidet sich ein Kunde, der sich das Geschenk nicht allein leisten möchte oder kann, das Produkt als Gruppengeschenk zu kaufen. Der <b>friendfund-it</b>-Knopf öffnet ein <b>white-label</b> iFrame/Popup in Ihrer Seite, der Kunde wird nicht weggeleitet.</p>
+		
+	</div>
+</div>
+<div style="clear:both">
+	<div class="floatLeft colTips" style="margin-top:30px">
+		<div>
+			<div style="padding:0">
+				<img src="/static/imgs/screenshot_2.png" width="186">
+			</div>
+		</div>
+	</div>
+	<div class="floatLeft imgSider">
+		<p class="general">2. In dem geöffneten Popup wählt der Nutzer einen Geschenkempfänger und Anlass.</p>
+	</div>
+</div>
+<div style="clear:both">
+	<div class="floatLeft colTips" style="margin-top:30px">
+		<div>
+			<div style="padding:0">
+				<img src="/static/imgs/screenshot_3.png" width="186">
+			</div>
+		</div>
+	</div>
+	<div class="floatLeft imgSider">
+		<p class="general">3. Anschließend wählt der Nutzer seine Freunde auf Facebook, Twitter oder per eMail aus und lädt sie ein mitzumachen.</p>
+	</div>
+</div>
+<div style="clear:both">
+	<div class="floatLeft colTips" style="margin-top:30px">
+		<div>
+			<div style="padding:0">
+				<img src="/static/imgs/screenshot_4.png" width="186">
+			</div>
+		</div>
+	</div>
+	<div class="floatLeft imgSider">
+		<p class="general">4. Eingeladene Freunde besuchen die Poolseite, wo sie das Produkt, alle Eingeladenen sehen und selbst einzahlen können.</p>
+	</div>
+</div>
+
+${self.renderContactLink()|n}
+<div class="pagerBig">
+<div class="colRightWhite"></div>
+<a href="${url("short_content", action="pricing", lang=h.get_language_locale())}" class="floatRight">${_("FF_PARTNER_CONTACT_Next:")} ${_("FF_PARTNER_MENU_pricing")} &raquo;</a>
+<a href="${url("short_content", action="what_you_get", lang=h.get_language_locale())}" class="floatLeft">&laquo; ${_("FF_PARTNER_CONTACT_Previous:")} ${_("FF_PARTNER_MENU_what you get")} </a>
+</div>
+</%def>

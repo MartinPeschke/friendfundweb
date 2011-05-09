@@ -1,0 +1,74 @@
+<%inherit file="common.html"/>
+
+<%def name="title()">${_("FF_Become a Partner")}</%def>
+<%def name="heading()">${_("FF_Become a Partner")}</%def>
+
+<%def name="render_content()">
+<h4>Maximieren Sie Ihr Soziales Kapital!<br/>Akzeptieren Sie noch heute Gruppenzahlungen!</h4>
+<div class="subHeading"></div>
+
+<p class="general">Durch Integration unseres Zahlungsbuttons in den Produktseiten Ihres Onlineshops, erlauben Sie es Ihren Kunden einen "Pool" f&uuml;r jedes Produkt oder jede Dienstleistung zu erstellen. Ihre Kunden k&ouml;nnen dann sofort Ihren Freunden auf Facebook, Twitter und via Email Bescheid geben und sie zum Mitmachen einladen.</p>
+
+<p class="general">Unsere Branded-White-Label-Lösung bettet sich l&uuml;ckenlos in Ihre Onlinepr&auml;senz ein und schafft eine Umgebung in der Freunde gemeinsam mit Spaß bezahlen k&ouml;nnen.</p>
+
+<div>
+	<div class="floatLeft colTips" style="margin-top:30px">
+		<div>
+			<div style="padding:0">
+				<img src="/static/imgs/how_it_works_screenshot.png">
+			</div>
+		</div>
+	</div>
+	<div class="floatLeft imgSider">
+		<p class="general">Als Onlineh&auml;ndler haben Sie Zugriff auf unsere Self-Service-Plattform, damit Sie immer den &Uuml;berblick haben, wie friendfund Ihr Gesch&auml;ft unterst&uuml;tzt.</p>
+		<ul class="general">
+			<li>•&nbsp;&nbsp;&nbsp;Einfach einloggen um alle aktuellen und historischen Pools zu sehen.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Sehen Sie Ihre Pr&auml;senz in den sozialen Netzwerken viral zunehmen</li>
+			<li>•&nbsp;&nbsp;&nbsp;Sehen Sie, wie Einzahler zu Pooladmins und damit zu Markenbotschaftern werden.</li>
+		</ul>
+	</div>
+</div>
+
+
+<h4>Vorteile der “friendfund it!” white-label L&ouml;sung:</h4>
+<div class="subHeading"></div>
+
+<h6>Mit Gruppenzahlungen Verk&auml;ufe steigern.</h6>
+<p class="general margSpec">Erweitern Sie die Sichtbarkeit Ihrer Produkte und Marken auf Twitter und Facebook. Jeder Pool verbreitet über Facebook Events, Nachrichten und Tweets Ihre Marke und Ihr Produkt in die soziale Onlinewelt.</p>
+
+<h6>Durch Teilen der Kosten den Absatz größerer Posten ermöglichen.</h6>
+<p class="general margSpec">friendfund erlaubt das Aufteilen großer Rechnungen auf viele Freunde, wodurch hochpreisige Artikel öfter erschwinglich werden.</p>
+
+<h6>Marktanalyse auf Basis sozialer Netzwerke.</h6>
+<p class="general margSpec">Sobald friendfund in Ihrer Plattform integriert ist, haben Sie jederzeit Zugriff auf wertvolle Informationen über Ihre Präsenz in den Netzwerken und an wen genau Sie ihre Produkte verkaufen.</p>
+
+
+<h4>Wählen Sie die Auftragsabwicklung, die Sie wollen:</h4>
+<div class="subHeading"></div>
+<div class="table floatLeft">
+	<div class="tbLeft floatLeft">
+		<h6>Mit Geschenkgutscheinen</h6>
+		<p class="general">Indem Sie uns Gutscheincodes für erfüllte Pools bereitstellen, schließt jeder Kunde seinen Kauf bei ihnen direkt in Ihrem Onlineshop ab. Alle Daten des Auftrags sind somit automatisch in Ihrem Backoffice vorhanden, wie bei jedem anderen Kauf auch.</p>
+		<ul class="general">
+			<li>•&nbsp;&nbsp;&nbsp;Einfach den Gutscheincode pro erfülltem Pool im friendfund Selbstbedienungssystem eingeben.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Dies löst automatisch den Geldtransfer in Ihr registriertes Händlerkonto aus.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Der Pooladmin/Kunde erhält umgehend eine personalisierte eKarte mit dem Gutscheincode übersendet.</li>
+		</ul>
+	</div>
+	<div class="tbRight floatLeft">
+		<h6>Bestellabwicklung direkt durch Sie</h6>
+		<p class="general">Empfangen und verarbeiten Sie die Bestellungen direkt in Ihrer gegenwärtigen Softwarelösung. Wir übersenden Ihnen alle notwendigen Informationen, sobald der Pool erfüllt ist.</p>
+		<ul class="general">
+			<li>•&nbsp;&nbsp;&nbsp;Automatische eMail Benachrichtigung über abgeschlossene Pools.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Wir stellen Kundenname, Kontaktdetails, Produktdetails und Versandadresse bereit.</li>
+			<li>•&nbsp;&nbsp;&nbsp;Rechnungen werden wöchentlich oder monatlich beglichen, wie es sich am Besten in Ihre Prozesse integrieren lässt.</li>
+		</ul>
+	</div>
+</div>
+
+${self.renderContactLink()|n}
+<div class="pagerBig">
+<div class="colRightWhite"></div>
+<a href="${url("short_content", action="how_it_works", lang=h.get_language_locale())}" class="floatRight">${_("FF_PARTNER_CONTACT_Next:")} ${_("FF_PARTNER_MENU_how it works")} &raquo;</a>
+</div>
+</%def>

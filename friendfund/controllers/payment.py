@@ -37,6 +37,7 @@ class PaymentController(BaseController):
 			return redirect(url('get_pool', pool_url=pool_url))
 		c.values = getattr(c, 'values', {})
 		c.errors = getattr(c, 'errors', {})
+		c.values["do_notify"] = "yes"
 		suggested_amount = request.params.get('amount')
 		try:suggested_amount = (float(suggested_amount)/100)
 		except: pass

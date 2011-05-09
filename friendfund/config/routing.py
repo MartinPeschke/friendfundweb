@@ -74,7 +74,7 @@ def make_map(config):
 	map.connect('index', '/{action}', controller='index')
 	map.connect('home', '/', controller='index', action='index')
 	
-	map.connect('content', '/{lang}/content/{action}', controller='content', conditions={'function': language_acceptor})
 	map.connect('short_content', '/{lang}/{action}', controller='content', conditions={'function': language_acceptor})
+	map.redirect('/{lang}/content/{action}', '/{lang}/{action}', _redirect_code='301 Moved Permanently', conditions={'function': language_acceptor})
 	
 	return map

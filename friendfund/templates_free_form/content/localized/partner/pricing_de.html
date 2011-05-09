@@ -1,0 +1,67 @@
+<%inherit file="common.html"/>
+
+<%def name="title()">${_("FF_Become a Partner")}</%def>
+<%def name="heading()">${_("FF_Become a Partner")}</%def>
+
+<%def name="render_content()">
+<h4>Kosten</h4>
+<div class="subHeading"></div>
+
+<p class="general">Unsere Raten beziehen sich immer das gesamte, direkt durch friendfund generierte Verkaufsvolumen und wird auf monatlicher Basis in US Dollar ($), Britschen Pfund (£) oder Euro (€) abgerechnet:</p>
+<div class="colTipsPrice">
+<div class="floatLeft colTips">
+		<div>
+			<div>
+				<h2>0 - 4,000</h2>
+					<span>in friendfund Verkäufen</span>
+				<div>
+					<div class="arrowBigUp"></div>
+					<span><span class="bold">9%</span> pro Transaktion<br/><br/></span>
+				</div>
+			</div>
+		</div>
+		<div class="colRightWhite"></div>
+		
+	</div>
+	<div class="floatLeft colTips">
+		<div>
+			<div>
+				<h2>4,001 - 10,000</h2>
+				<span>in friendfund Verkäufen</span>
+				<div>
+					<div class="arrowBigUp"></div>
+					<span>Bitte kontaktieren Sie unser <a href="mailto:sales@friendfund.com">Team</a>.</span>
+				</div>
+			</div>
+		</div>
+		<div class="colRightWhite"></div>
+			</div>
+	<div class="floatLeft colTips omega">
+		<div>
+			<div>
+				<h2>10,000 +</h2>
+				<span>in friendfund Verkäufen</span>
+				<div>
+					<div class="arrowBigUp"></div>
+					<span>Bitte kontaktieren Sie unser <a href="mailto:sales@friendfund.com">Team</a>.</span>
+				</div>
+			</div>
+		</div>
+		<div class="colRightWhite"></div>
+		
+	</div>
+</div>
+<h4>Keine versteckten Kosten</h4>
+<div class="subHeading"></div>
+<h6 class="light">Keine Einrichtungsgebühr</h6>
+<h6 class="light">Keine monatlichen Gebühren</h6>
+<h6 class="light">Keine Mindestbeträge</h6>
+<h6 class="light">Keine Kündigungsgebühr</h6>
+
+${self.renderContactLink()|n}
+<div class="pagerBig">
+<div class="colRightWhite"></div>
+<a href="${url("short_content", action="set_it_up", lang=h.get_language_locale())}" class="floatRight">${_("FF_PARTNER_CONTACT_Next:")} ${_("FF_PARTNER_MENU_set it up")} &raquo;</a>
+<a href="${url("short_content", action="how_it_works", lang=h.get_language_locale())}" class="floatLeft">&laquo; ${_("FF_PARTNER_CONTACT_Previous:")} ${_("FF_PARTNER_MENU_how it works")} </a>
+</div>
+</%def>
