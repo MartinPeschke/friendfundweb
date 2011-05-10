@@ -243,7 +243,7 @@
 			<a class="popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
 				<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
-				<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="leave_popup")}" class="popuplink">${_(u"FF_POOL_PAGE_Leave Link")}</a>
+				
 			%endif
 		</div>
 		<div class="colRightWhite"></div>
@@ -263,10 +263,12 @@
 			</div>
 		</div>
 		<div class="colRightWhite"></div>
-		<div class="generalBoxRight noBorder">
+		<div class="generalBoxRight ">
 			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
 			<input type="text" value="${url.current(protocol="http")}" onclick="this.select()"/>
 		</div>
+		<div class="colRightWhite"></div>
+		<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="leave_popup")}" class="popuplink removeMe">${_(u"FF_POOL_PAGE_Remove me from this Pool")}</a>
 	</div>
 	<div class="colLeft">
 		<div class="invited" id="poolInviteesDisplay">

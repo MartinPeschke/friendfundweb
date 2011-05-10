@@ -997,32 +997,27 @@ div.whatElse h4 span{
 	color: #adadad;
 	font-weight: normal;
 	margin-left: 15px;
-	position: relative
+	position: relative;
 }
-div.whatElse h4 .hiddenToggler {position: absolute;top: -5px;right:-40px;height:35px;width:35px;}
+div.whatElse h4 .hiddenToggler {
+	margin: 0 0 0 10px;
+	
+}
 div.whatElse h4 span.questionPop{
-	display: block;
-	-moz-border-radius:10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	background: #51b9ff;
-	color: white;
-	height:20px;
-	width: 20px;
-	margin:0px;
-	text-align: center;
-	line-height: 20px;
-	text-shadow: 0px -1px 0 black;
-	z-index: 11;
-	cursor: pointer
+	margin: 0;
+	font-size: 11px;
+	cursor: pointer;
+	color: #0094CC
 }
-div.whatElse h4 span div.TTip{display:None;
+div.whatElse h4 span div.TTip{
+	display:None;
 	background: none repeat scroll 0 0 #E5E5E5;
     border: 1px solid white;
     padding: 5px 10px;
     position: absolute;
-    left: 14px;
-    top: 10px;
+    left: 0px;
+    top: 17px;
+    color: #696969;
     width: 210px;
     z-index: 10;
     -moz-box-shadow: 0px 0px 4px #ccc;
@@ -1988,6 +1983,12 @@ div.generalBoxRight {
 	padding:11px 0 20px 0;
 	border-bottom:1px solid #EBEBEB
 }
+a.removeMe{
+	background: url(/static/imgs/cross.png) 0 2px no-repeat;
+	padding-left: 20px;
+	margin-top: 16px;
+	display: block 
+}
 div.generalBoxRight input {
 	border:1px solid #d1d1d1;
 	display: block;
@@ -2741,6 +2742,7 @@ div.greyInsideFullWidth input.radio, div.greyInsideFullWidth input.chkbox, div.t
 	line-height:0;
 	font-size:0
 }
+
 div.boxWhat {
 	border: 1px solid #e5e5e5;
 	padding: 3px;
@@ -3256,9 +3258,10 @@ p.inviterTwo {
 	-webkit-border-radius: 5px;
 	text-shadow: 1px 1px 1px #960148;
 	display:block;
-	padding:3px 10px;
+	padding:6px 10px;
 	cursor:pointer;
-	border: none
+	border: none;
+	line-height: 12px
 }
 input.primarySmall{
 	height: 25px
@@ -4116,6 +4119,7 @@ span.editSmall {
 .verticalTip span {
 	font-size: 11px
 }
+.verticalTip span.note{ font-size: 11px; color: #696969}
 .verticalTip {
 	background: none repeat scroll 0 0 #9CEFFE !important;
 	position: relative;
@@ -4123,6 +4127,7 @@ span.editSmall {
 	width: 260px;
 	padding:10px !important;
 }
+.verticalTip a{ font-size: 11px}
 .receiveMoney div div {
 	padding: 0
 }
@@ -5220,7 +5225,7 @@ div.contentIframe div.helpPopup div.arrowSubTab{
 }
 .colTips div div span{
 	 color: #adadad; font-size: 12px;
-	 padding: 0px 15px 15px;
+	 padding: 0px 15px;
 	 margin-top: 5px;
 	 display: block;
 	 text-shadow: 0px 1px 0px white;
@@ -5309,7 +5314,7 @@ input::-moz-focus-inner /*Remove button padding in FF*/ {
 	position: relative
 }
 .colTips div div div{
-	position: relative;
+	position: absolute;
 	left: 0;
 	bottom: 0;
 	min-height: 0px;
