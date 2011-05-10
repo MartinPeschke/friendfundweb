@@ -33,6 +33,7 @@
 	%endif
 	#### check settlementOptions
 	dojo.forEach(document.submissionform.settlementOption, function(elem){if(elem.checked){toggleSettlement(elem);}});
+	dojo.query(".popuplink", "submissionform").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
@@ -220,6 +221,7 @@
 							<div class="arrow"></div>
 								<span>
 									${_("FF_POOLDETAILS_If choosing this option, you will be charged a %(fees)s%% fee. Do you want to add this to your Pool Funding Total?")%_locals}
+									<a _href="${url(controller="payment", action="settlement_fees", so=so.name)}" class="popuplink">${_("FF_POOLDETAILS_Whats this? (additional fees)")}</a>
 								</span>
 								<div style="margin-top:5px"><input type="checkbox" name="${so.name}.charge_through" id="${so.name}_charge_through" value="1"  
 											${widgets.expression_quote(c.values.get(so.name, dict()).get("charge_through"), "checked")|n}/>

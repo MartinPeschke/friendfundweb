@@ -65,8 +65,16 @@ class PoolEditController(BaseController):
 			app_globals.pool_service.invite_myself(pool_url, c.user)
 			c.messages.append(SuccessMessage(_("FF_POOL_PAGE_You Joined the Pool!")))
 		return redirect(url("get_pool", pool_url=pool_url))
+
+	@jsonify
 	@logged_in(ajax=False)
-	@pool_available()
+	@pool_available(contributable_only = True)
+	def leave_popup(self, pool_url):
+		if c.pool.am_i_member(c.user):
+			return {"popup":render("/pool/parts/leave_popup.html").strip()}
+		else:
+			return {"success":False}
+
 	
 	@logged_in(ajax=False)
 	@pool_available(admin_only=True)

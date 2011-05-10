@@ -78,10 +78,10 @@
 		<script type="text/javascript">
 		var evts = [];
 		var closeLoginPanel = function(evt){
+			dojo.forEach(evts, dojo.disconnect);
 			if(dojo.hasClass("loginlink", "active")){
 				dojo.removeClass("loginlink", "active");
-				dojo.addClass("loginPanelContent", "hidden");
-				dojo.forEach(evts, dojo.disconnect);
+				if(dojo.byId("loginPanelContent")){dojo.addClass("loginPanelContent", "hidden");}
 			}   
 		};
 		var toggleLoginPanel = function(evt){

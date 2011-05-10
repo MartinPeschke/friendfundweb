@@ -22,6 +22,11 @@ class PaymentController(BaseController):
 	def notify_invitees(self, pool_url):
 		return {"popup":render("/contribution/popups/notify_invitees.html").strip()}
 	
+	@jsonify
+	def settlement_fees(self):
+		method = request.params.get("method")
+		return {"popup":render("/contribution/popups/settlement_fees.html").strip()}
+	
 	def _add_tos(self):
 		tos = None
 		try:

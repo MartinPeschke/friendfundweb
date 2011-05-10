@@ -318,9 +318,10 @@ fb_handleLogin = function(required_scope, callback){
 				var a=[];for(var i in perms){a.push(perms[i].join("|"));}
 				scope = a.join("|");
 			}
-			var missing_perms = required_scope.replace(new RegExp(scope, "g"), "").strip(",");	
+			var missing_perms = required_scope.replace(new RegExp(scope, "g"), "").strip(",").replace(/,,+/g, ',');
 			if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response, callback);return false;}
 			var session = response.session;
+			console.log(scope.split('|'));
 			FB.api('/me', function(response) {
 				response.scope = scope;
 				response.fbsession = dojo.toJson(session);
@@ -347,19 +348,19 @@ fbLogin = function(scope, partial, callback){
 };
 baseFBLogin = fbLogin(FBSCOPE['3'], true);
 fbLogout = function(logoutFB){
-	FB.getLoginStatus(function(response){
-		if(logoutFB && response.session){
-			FB.logout(function(response){window.location.href = "/logout?furl=/";});
-		} else {
-			window.location.href = "/logout?furl=/";
-		}
-	});
+	var response = FB.getSession();
+	if(logoutFB && response.session){
+		FB.logout(function(response){window.location.href = "/logout?furl=/";});
+	} else {
+		window.location.href = "/logout?furl=/";
+	}
 };
 fbDisconnect = function(){xhrPost("/fb/disconnect", {}, function(data){window.location.reload();});};
 fbInit = function(app_id) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
-		FB.init({appId:app_id, status:window.pageState.respectFB, cookie:true, xfbml:false, channelUrl:channelUrl});
+		FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
+		console.log(FB.Auth._loadState);
 		if(window.pageState.respectFB){
 			FB.Event.subscribe('auth.login', baseFBLogin);
 			FB.Event.subscribe('auth.logout', fbLogout);

@@ -219,7 +219,7 @@
 				<div class="floatLeft invite">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
-					<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
+					<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
 				</div>
 				<div class="colRightWhite"></div>
 				<div class="clear"></div>
@@ -242,7 +242,8 @@
 		<div class="plus generalBoxRight">
 			<a class="popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
-				<a href="${url('invite_index', controller='invite', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+				<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+				<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="leave_popup")}" class="popuplink">${_(u"FF_POOL_PAGE_Leave Link")}</a>
 			%endif
 		</div>
 		<div class="colRightWhite"></div>

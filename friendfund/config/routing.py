@@ -41,7 +41,9 @@ def make_map(config):
 	map.connect('get_pool'            , '/pool/{pool_url}', controller='pool', action='index', requirements={'pool_url': purlpattern})
 	map.connect('pool_action'         , '/pool/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})
 	map.connect('pool_edit'           , '/pedit/{pool_url}/{action}', controller='pool_edit', requirements={'pool_url': purlpattern})
-	map.connect('pool_edit_index'           , '/pedit/{pool_url}', controller='pool_edit', action="index", requirements={'pool_url': purlpattern})
+	map.connect('pool_edit_index'     , '/pedit/{pool_url}', controller='pool_edit', action="index", requirements={'pool_url': purlpattern})
+	
+	map.connect('settlement_fees'     , '/payment/settlement_fees', controller='payment', action="settlement_fees")
 	map.connect('payment'             , '/payment/{pool_url}', controller='payment', action="index", requirements={'pool_url': purlpattern})
 	map.connect('payment_current'     , '/payment/{pool_url}/ret', controller='payment', action="ret", requirements={'pool_url': purlpattern})
 	map.redirect('/chipin/{pool_url:.*}', '/pool/{pool_url}', _redirect_code='301 Moved Permanently')
