@@ -1,0 +1,37 @@
+<%inherit file="preview.html"/>
+<%def name="popupclass()">Big</%def>
+<div class="popupPadder">
+<p style="padding:0">${_("FF_INVITE_PREVIEW_Your Facebook friends will be notified with a Facebook Wall Post.")} </p>
+<div class="fbPreview">
+	<img src="/static/imgs/fbHeader.jpg" style="float:left; " />
+	  <div class="colRightFb">
+		<div class="profileHeaderMain"><h1><span class="profileName fsxl fwb">${c.subject}</span></h1>
+		<div class="fsm fwn fcg">
+			<span class="fsl"><span class="linkFb">${c.user.name}</span> ${_("FF_INVITE_PREVIEW_FACEBOOK_invited you")}</span> &middot; 
+			<span class="fsl"><span class="linkFb">${_("FF_INVITE_PREVIEW_FACEBOOK_Share")}</span></span> &middot; 
+			<span class="fsl">${_("FF_INVITE_PREVIEW_FACEBOOK_Public event")}</span>
+			</div>
+		</div>
+		<table  border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+			<td class="label border">${_("FF_INVITE_PREVIEW_FACEBOOK_Time")}</td>
+			<td class="data border">${h.format_date(c.pool.expiry_date)} &middot; 17:00 - 17:00</td>
+		  </tr>
+		  <tr>
+			<td class="label border">${_("FF_INVITE_PREVIEW_FACEBOOK_Created by")}</td>
+			<td class="data border">${c.pool.admin.name}, Friendfund</td>
+		  </tr>
+		  <tr>
+			<td class="label">${_("FF_INVITE_PREVIEW_FACEBOOK_More info")}</td>
+			<td class="data">${c.message}
+			</td>
+		  </tr>
+		</table>
+		<img src="/static/imgs/fbFooter.jpg" />
+	  </div>
+	<div class="colLeftFb"> 
+		<img src="${c.pool.get_product_display_picture("FF_POOLS")}" height="117px" width="117px" class="prod"><img src="/static/imgs/fbLeftCol.jpg"  />
+	<span style="margin: 30px 0pt 20px; clear:both" class="panelcloser floatLeft primarySmall">${_("FF_INVITE_PREVIEW_Close")}</span>
+	<div class="clear"></div>
+	</div>
+</div>

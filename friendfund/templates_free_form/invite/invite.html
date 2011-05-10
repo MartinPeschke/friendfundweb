@@ -127,7 +127,12 @@
 				  <textarea id="ref_message" class="default" rows="6" _default_text="${_("FF_INVITEPAGE_Write your message here...")}">${c.values.get("message", _("FF_INVITEPAGE_Write your message here..."))}</textarea>
 				</div>
 			</div>
-			<p class="info"><a class="message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="${c.method}">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
+			<% 
+				invitemethod = c.method
+				if invitemethod == 'facebook' and not c.pool.am_i_admin(c.user):
+					invitemethod = "stream_publish"
+			%>
+			<p class="info"><a class="message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="invitemethod">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
 		  </div>
 			<div class="inviteBottom">
 			   <div class="spacerPadLeft floatLeft">

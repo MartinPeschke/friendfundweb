@@ -152,6 +152,8 @@ class InviteController(BaseController):
 			return  {"popup":self.render("/invite/preview/preview_email.html").strip()}
 		elif c.method=="twitter":
 			return  {"popup":self.render("/invite/preview/preview_twitter.html").strip()}
+		elif c.method=="stream_publish":
+			return  {"popup":self.render("/invite/preview/preview_facebook_streampublish.html").strip()}
 		else:
 			return  {"popup":self.render("/invite/preview/preview_facebook.html").strip()}
 	
