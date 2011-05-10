@@ -25,7 +25,7 @@
 					,mutuals:false
 					,base_url:"/myfriends"
 			});
-	dojo.connect(dojo.byId("createSubmitter"), "onclick", function(evt){ return doLogin({level:3,cb:dojo.hitch(ffp_panel, ffp_panel._submit, "${url(controller="partner", action="validate")}")});});
+	dojo.connect(dojo.byId("createSubmitter"), "onclick", dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 3));
 	
 	fbLogout = function(){
 	FB.getLoginStatus(function(response){

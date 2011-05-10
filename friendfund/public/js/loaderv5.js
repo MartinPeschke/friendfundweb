@@ -203,7 +203,7 @@ xhrHandler = function(callback){
 		if (data.clearmessage !== undefined){clear_messages();}
 		if (data.message !== undefined){displayMessage(data.message);}
 		if (callback && data.html !== undefined){callback(data.html);}
-		if (data.login !== undefined){callback(data.login)}
+		if (data.login !== undefined&&callback){callback(data.login)}
 		if (callback && data.data !== undefined){callback(data.data);}
 		if (data.redirect !== undefined){window.location.href = data.redirect;}
 		if (data.popup !== undefined){displayPopup(data.popup);}
@@ -321,11 +321,14 @@ fb_handleLogin = function(required_scope, callback){
 			var missing_perms = required_scope.replace(new RegExp(scope, "g"), "").strip(",").replace(/,,+/g, ',');
 			if(missing_perms){response.scope = scope;response.missing_scope = missing_perms;xhrPost('/fb/failed_login', response, callback);return false;}
 			var session = response.session;
-			console.log(scope.split('|'));
+			
+			var perms = scope.split('|');
+			window.pageState.__fbperms__ = window.pageState.__fbperms__||{};
+			for(var i=0;i<perms.length;i++){if(perms[i]){window.pageState.__fbperms__[perms[i]] = 1;}}
 			FB.api('/me', function(response) {
 				response.scope = scope;
 				response.fbsession = dojo.toJson(session);
-				xhrPost('/fb/login', response, callback);
+				xhrPost('/fb/login', response, function(login){if(login.success){window.pageState.isA=false;};if(callback){return callback(login);}});
 			});
 			return true;
 		}
@@ -349,21 +352,21 @@ fbLogin = function(scope, partial, callback){
 baseFBLogin = fbLogin(FBSCOPE['3'], true);
 fbLogout = function(logoutFB){
 	var response = FB.getSession();
-	if(logoutFB && response.session){
+	if(logoutFB && response && response.status=='connected'){
 		FB.logout(function(response){window.location.href = "/logout?furl=/";});
 	} else {
 		window.location.href = "/logout?furl=/";
 	}
 };
-fbDisconnect = function(){xhrPost("/fb/disconnect", {}, function(data){window.location.reload();});};
+
 fbInit = function(app_id) {
 	window.fbAsyncInit = function() {
 		var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
 		FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
-		console.log(FB.Auth._loadState);
 		if(window.pageState.respectFB){
-			FB.Event.subscribe('auth.login', baseFBLogin);
-			FB.Event.subscribe('auth.logout', fbLogout);
+			FB.Event.subscribe('auth.sessionChange', function(response){
+					if(response.status == 'connected'){fb_handleLogin(FBSCOPE['3'], false)(response);}else {fbLogout(true);}
+				});
 			if(window.pageState.getFBPerms){
 				FB.getLoginStatus(function(response){
 					if(response.status==="connected"){FB.api("/me/permissions", function(perms){window.pageState.__fbperms__ = perms.data[0];});}
@@ -428,28 +431,28 @@ doLogin = function(args){
 	} else if(args.isTW){
 		twInit(logincb);
 	} else {
-		FB.getLoginStatus(function(response){
-			if(!args.ignoreFB&&window.pageState.respectFB&&response.status==='connected'){
-				var perms = window.pageState.__fbperms__||{};
-				var missing_perms=[], req_perms = required_scope.split(',');
-				for(var i=0;i<req_perms.length;i++){
-					if(!perms[req_perms[i]]){missing_perms.push(req_perms[i])};
-				}
-				if(missing_perms.length>0||window.pageState.isA){
-					fbLogin(required_scope, false, logincb);
-				} else {
-					if(cb){cb()};
-				}
-			} else {
-				if(form){
-					xhrFormPost(form.action, form, logincb); 
-				} else if(link){
-					xhrPost(dojo.attr(link, "_href"), {}, logincb); 
+		if(form){
+			xhrFormPost(form.action, form, logincb); 
+		} else if(link){
+			xhrPost(dojo.attr(link, "_href"), {}, logincb);
+		} else {
+			FB.getLoginStatus(function(response){
+				if(!args.ignoreFB&&window.pageState.respectFB&&response.status==='connected'){
+					var perms = window.pageState.__fbperms__||{};
+					var missing_perms=[], req_perms = required_scope.split(',');
+					for(var i=0;i<req_perms.length;i++){
+						if(!perms[req_perms[i]]){missing_perms.push(req_perms[i])};
+					}
+					if(missing_perms.length>0||window.pageState.isA){
+						fbLogin(required_scope, false, logincb);
+					} else {
+						if(cb){cb()};
+					}
 				} else {
 					xhrPost(url, {level:level}, logincb);
 				}
-			};
-		});
+			});
+		};
 	}
 	return false;
 };
