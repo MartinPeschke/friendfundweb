@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from random import sample
+from BeautifulSoup import BeautifulSoup
 from pylons import app_globals
 from friendfund.lib import helpers as h
 from friendfund.model.mapper import DBMappedObject, GenericAttrib, DBMapper
@@ -104,6 +105,7 @@ class MyPoolEntry(DBMappedObject):
 	def fromDB(self, xml):
 		setattr(self, "_is_closed", self.status in ["CLOSED", "COMPLETE"])
 		setattr(self, "remaining_time", timedelta(0, self.remaining_seconds))
+		if self.description: self.description = ''.join(BeautifulSoup(self.description).findAll(text=True))
 		return self
 	
 	def get_merchant(self):

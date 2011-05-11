@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from operator import attrgetter
 from random import sample, choice
-
+from BeautifulSoup import BeautifulSoup
 from pylons import app_globals
 from pylons.i18n import _
 from friendfund.lib import helpers as h
@@ -56,7 +56,9 @@ class CreateGroupGiftEvent(EventWithInviteesType):
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
-	
+	def fromDB(self, xml):
+		if self.description: self.description = ''.join(BeautifulSoup(self.description).findAll(text=True))
+
 class CreateFreeFormEvent(EventWithInviteesType):
 	_set_proc = _get_proc = _set_root = None
 	_get_root = "CREATE_FREE_FORM_POOL"
@@ -71,6 +73,8 @@ class CreateFreeFormEvent(EventWithInviteesType):
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
+	def fromDB(self, xml):
+		if self.description: self.description = ''.join(BeautifulSoup(self.description).findAll(text=True))
 
 class InviteEvent(EventWithInviteesType):
 	_set_proc = _get_proc = _set_root = None
@@ -86,6 +90,8 @@ class InviteEvent(EventWithInviteesType):
 			,GenericAttrib(int, 'no_invitees', 'no_invitees')
 			,DBMapper(PoolEventUser, 'invitees', 'INVITEE', is_list = True)
 			]
+	def fromDB(self, xml):
+		if self.description: self.description = ''.join(BeautifulSoup(self.description).findAll(text=True))
 
 class ContributionEvent(EventType):
 	_set_proc = _get_proc = _set_root = None
