@@ -8,7 +8,11 @@
 
 
 <%def name="render_content()">
-${self.renderContactLink()|n}
+<h4>${_("FF_PARTNER_CONTACT_Get Involved")}</h4>
+<div class="subHeading"></div>
+<p class="general">${_("FF_PARTNER_CONTACT_No setup or monthly fees, performance based, discover new customers whilst making sales.")}</p>
+<p class="general">${_("FF_PARTNER_CONTACT_To start accepting your first group payment today, please contact <b><a %s>sales@friendfund.com</a></b> or fill in the form below.")%'href="mailto:sales@friendfund.com?subject=[PARTNER_REQUEST]"'|n}</p>
+<p class="general" style="font-weight:bold">${_("FF_PARTNER_CONTACT_friendfund makes it simple for friends to pay together online!")}</p>
 
 		<form action="${url.current()}" method="POST" name="contactForm" id="contactForm" onsubmit="onSubmitCleaner(this)">
 		<div class="borderBottom ${"name" in c.errors and "error" or ""}" style="margin-top:20px; border-top:none">
