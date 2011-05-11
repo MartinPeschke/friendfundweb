@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-11 11:31+0100\n"
+"PO-Revision-Date: 2011-05-11 13:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -92,7 +92,7 @@ msgstr "Your changes have been saved."
 #: friendfund/controllers/myprofile.py:54
 #: friendfund/controllers/myprofile.py:105
 #: friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/pool_edit.py:108
+#: friendfund/controllers/pool_edit.py:118
 msgid "FF_ADDRESS_Please correct the Errors below"
 msgstr "Please correct the Errors below"
 
@@ -237,7 +237,15 @@ msgstr "No friend selected. Please try again."
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr "You joined this Pool!"
 
-#: friendfund/controllers/pool_edit.py:104
+#: friendfund/controllers/pool_edit.py:84
+msgid "FF_POOL_PAGE_You have left the Pool!"
+msgstr "You have left the Pool!"
+
+#: friendfund/controllers/pool_edit.py:86
+msgid "FF_POOL_PAGE_You cannot leave the Pool!"
+msgstr "You cannot leave the Pool!"
+
+#: friendfund/controllers/pool_edit.py:114
 msgid "FF_ADDRESS_Changes saved!"
 msgstr "Changes saved!"
 
@@ -1525,6 +1533,7 @@ msgstr "If you want to see this Pool come to life, spread the word and help get 
 #: friendfund/templates_free_form/contribution/popups/settlement_fees.html:8
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:25
 #: friendfund/templates_free_form/invite/preview/preview_email.html:25
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:10
 msgid "FF_Close"
 msgstr "Close"
 
@@ -1805,13 +1814,6 @@ msgid "FF_SETTLEMENTFEE_POPUP_Why am I being charged?"
 msgstr "Why am I being charged?"
 
 #: friendfund/templates_free_form/contribution/popups/settlement_fees.html:7
-#| msgid "" "FF_LEAVE_POPUP_Unlike many other group payment sites, our service
-#| is " "completely FREE. The only fees you'll be charged are those set by our
-#| " "payment providers to cover the transaction costs of your contributors. "
-#| "Once your Pool is successfuly funded, PayPal may also charge you a "
-#| "receiving fee. This amount varies depending on the type of PayPal account"
-#| " you have and where you are located. Please check with PayPal in your "
-#| "region for more details."
 msgid "FF_SETTLEMENTFEE_POPUP_Unlike many other group payment sites, our service is completely FREE. The only fees you'll be charged are those set by our payment providers to cover the transaction costs of your contributors. Once your Pool is successfuly funded, PayPal may also charge you a receiving fee. This amount varies depending on the type of PayPal account you have and where you are located. Please check with PayPal in your region for more details."
 msgstr "Unlike many other group payment sites, our service is completely FREE. The only fees you'll be charged are those set by our payment providers to cover the transaction costs of your contributors. Once your Pool is successfuly funded, PayPal may also charge you a receiving fee. This amount varies depending on the type of PayPal account you have and where you are located. Please check with PayPal in your region for more details."
 
@@ -3074,49 +3076,49 @@ msgstr "Share the link"
 msgid "FF_POOL_PAGE_Remove me from this Pool"
 msgstr "Remove me from this Pool"
 
-#: friendfund/templates_free_form/pool/pool.html:277
+#: friendfund/templates_free_form/pool/pool.html:278
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(number_invitees)s Invitees"
 msgstr "%(number_invitees)s Invitees"
 
-#: friendfund/templates_free_form/pool/pool.html:279
+#: friendfund/templates_free_form/pool/pool.html:280
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr "Invitees"
 
-#: friendfund/templates_free_form/pool/pool.html:282
+#: friendfund/templates_free_form/pool/pool.html:283
 #: friendfund/templates_free_form/pool/parts/invitees.html:7
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr "View More"
 
-#: friendfund/templates_free_form/pool/pool.html:283
+#: friendfund/templates_free_form/pool/pool.html:284
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr "Show All"
 
-#: friendfund/templates_free_form/pool/pool.html:284
+#: friendfund/templates_free_form/pool/pool.html:285
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr "Hide All"
 
-#: friendfund/templates_free_form/pool/pool.html:298
+#: friendfund/templates_free_form/pool/pool.html:299
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr "About"
 
-#: friendfund/templates_free_form/pool/pool.html:310
+#: friendfund/templates_free_form/pool/pool.html:311
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr "RECIPIENT"
 
-#: friendfund/templates_free_form/pool/pool.html:312
+#: friendfund/templates_free_form/pool/pool.html:313
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr "MERCHANT"
 
-#: friendfund/templates_free_form/pool/pool.html:327
+#: friendfund/templates_free_form/pool/pool.html:328
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr "Comments"
 
-#: friendfund/templates_free_form/pool/pool.html:339
+#: friendfund/templates_free_form/pool/pool.html:340
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr "Add your comment here..."
 
-#: friendfund/templates_free_form/pool/pool.html:345
+#: friendfund/templates_free_form/pool/pool.html:346
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr "Post Comment"
 
@@ -3198,6 +3200,18 @@ msgstr "Suggested amount <span>%(suggested_amount)s</span>"
 msgid "FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >"
 msgstr "Chip in Suggested Amount "
 
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:6
+msgid "FF_LEAVENOT_POPUP_Sorry, you cannot leave"
+msgstr "Sorry, you cannot leave"
+
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:8
+msgid "FF_LEAVENOT_POPUP_You have already contributed to this pool and are thus an integral part. Sorry, but it is not possible for you to leave this pool"
+msgstr "You have already contributed to this pool and are thus an integral part. Sorry, but it is not possible for you to leave this pool."
+
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:9
+msgid "FF_LEAVENOT_POPUP_If you want to receive less updates on this Pool's progress, check out notification settings in your account settings area!"
+msgstr "If you want to receive less updates on this Pool's progress, check out notification settings in your account settings area!"
+
 #: friendfund/templates_free_form/pool/parts/leave_popup.html:6
 msgid "FF_LEAVE_POPUP_We're sorry to see you go"
 msgstr "We're sorry to see you go"
@@ -3205,6 +3219,14 @@ msgstr "We're sorry to see you go"
 #: friendfund/templates_free_form/pool/parts/leave_popup.html:8
 msgid "FF_LEAVE_POPUP_Are you sure you want to remove yourself from this Pool?"
 msgstr "Are you sure you want to remove yourself from this Pool?"
+
+#: friendfund/templates_free_form/pool/parts/leave_popup.html:10
+msgid "FF_BUTTON_Leave Pool"
+msgstr "Leave Pool"
+
+#: friendfund/templates_free_form/pool/parts/leave_popup.html:11
+msgid "FF_BUTTON_Cancel"
+msgstr "Cancel"
 
 #: friendfund/templates_free_form/pool/parts/widget.html:9
 msgid "FF_WIDGET_POPUP_Embed a widget in your site"
@@ -3301,5 +3323,3 @@ msgstr[1] "<strong>%(secs)d</strong> seconds left"
 msgid "FF_POOL_INFO_expired"
 msgstr "expired"
 
-#~ msgid "FF_LEAVE_POPUP_Why am I being charged?"
-#~ msgstr "Why am I being charged?"

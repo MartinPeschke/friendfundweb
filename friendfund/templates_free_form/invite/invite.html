@@ -132,7 +132,7 @@
 				if invitemethod == 'facebook' and not c.pool.am_i_admin(c.user):
 					invitemethod = "stream_publish"
 			%>
-			<p class="info"><a class="message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="invitemethod">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
+			<p class="info"><a class="message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="${invitemethod}">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
 		  </div>
 			<div class="inviteBottom">
 			   <div class="spacerPadLeft floatLeft">

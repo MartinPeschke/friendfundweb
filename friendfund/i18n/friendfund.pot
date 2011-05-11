@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-05-11 11:30+0200\n"
+"POT-Creation-Date: 2011-05-11 13:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: friendfund/controllers/myprofile.py:49 friendfund/controllers/myprofile.py:54
 #: friendfund/controllers/myprofile.py:105 friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/pool_edit.py:108
+#: friendfund/controllers/pool_edit.py:118
 msgid "FF_ADDRESS_Please correct the Errors below"
 msgstr ""
 
@@ -241,7 +241,15 @@ msgstr ""
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr ""
 
-#: friendfund/controllers/pool_edit.py:104
+#: friendfund/controllers/pool_edit.py:84
+msgid "FF_POOL_PAGE_You have left the Pool!"
+msgstr ""
+
+#: friendfund/controllers/pool_edit.py:86
+msgid "FF_POOL_PAGE_You cannot leave the Pool!"
+msgstr ""
+
+#: friendfund/controllers/pool_edit.py:114
 msgid "FF_ADDRESS_Changes saved!"
 msgstr ""
 
@@ -1553,6 +1561,7 @@ msgstr ""
 #: friendfund/templates_free_form/contribution/popups/settlement_fees.html:8
 #: friendfund/templates_free_form/contribution/popups/transaction_fees.html:25
 #: friendfund/templates_free_form/invite/preview/preview_email.html:25
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:10
 msgid "FF_Close"
 msgstr ""
 
@@ -3158,49 +3167,49 @@ msgstr ""
 msgid "FF_POOL_PAGE_Remove me from this Pool"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:277
+#: friendfund/templates_free_form/pool/pool.html:278
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(number_invitees)s Invitees"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:279
+#: friendfund/templates_free_form/pool/pool.html:280
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:282
+#: friendfund/templates_free_form/pool/pool.html:283
 #: friendfund/templates_free_form/pool/parts/invitees.html:7
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:283
+#: friendfund/templates_free_form/pool/pool.html:284
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:284
+#: friendfund/templates_free_form/pool/pool.html:285
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:298
+#: friendfund/templates_free_form/pool/pool.html:299
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:310
+#: friendfund/templates_free_form/pool/pool.html:311
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:312
+#: friendfund/templates_free_form/pool/pool.html:313
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:327
+#: friendfund/templates_free_form/pool/pool.html:328
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:339
+#: friendfund/templates_free_form/pool/pool.html:340
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr ""
 
-#: friendfund/templates_free_form/pool/pool.html:345
+#: friendfund/templates_free_form/pool/pool.html:346
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr ""
 
@@ -3284,12 +3293,36 @@ msgstr ""
 msgid "FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >"
 msgstr ""
 
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:6
+msgid "FF_LEAVENOT_POPUP_Sorry, you cannot leave"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:8
+msgid ""
+"FF_LEAVENOT_POPUP_You have already contributed to this pool and are thus an "
+"integral part. Sorry, but it is not possible for you to leave this pool"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/leave_not_popup.html:9
+msgid ""
+"FF_LEAVENOT_POPUP_If you want to receive less updates on this Pool's "
+"progress, check out notification settings in your account settings area!"
+msgstr ""
+
 #: friendfund/templates_free_form/pool/parts/leave_popup.html:6
 msgid "FF_LEAVE_POPUP_We're sorry to see you go"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/parts/leave_popup.html:8
 msgid "FF_LEAVE_POPUP_Are you sure you want to remove yourself from this Pool?"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/leave_popup.html:10
+msgid "FF_BUTTON_Leave Pool"
+msgstr ""
+
+#: friendfund/templates_free_form/pool/parts/leave_popup.html:11
+msgid "FF_BUTTON_Cancel"
 msgstr ""
 
 #: friendfund/templates_free_form/pool/parts/widget.html:9

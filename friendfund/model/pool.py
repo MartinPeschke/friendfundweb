@@ -345,8 +345,12 @@ class Pool(DBMappedObject):
 	def am_i_contributor(self, user):
 		log.warning("DEPRECATED - Pool.am_i_contributor()")
 		return False
+	def am_i_possibly_contributor(self, user):
+		return user.u_id in self.partial_contributor_map
 	def can_i_view(self, user):
 		return self.am_i_member(user) or not self.is_secret
+	def can_i_leave(self, user):
+		return self.am_i_member(user) and not user.u_id in [self.admin.u_id, self.receiver.u_id] and not self.am_i_possibly_contributor(user)
 	
 	def get_random_n_invitees(self, n):
 		try:
@@ -360,6 +364,7 @@ class Pool(DBMappedObject):
 	
 	def determine_roles(self):
 		self.participant_map = self.u_id_csv and set(map(int, self.u_id_csv.split(","))) or set()
+		self.partial_contributor_map = set()
 		for pu in self.participants:
 			if not (pu.is_admin or pu.is_receiver):
 				self.invitees.append(pu)
@@ -368,6 +373,9 @@ class Pool(DBMappedObject):
 					self.admin = pu
 				if pu.is_receiver == True:
 					self.receiver = pu
+			if pu.is_contributor() == True:
+				self.partial_contributor_map.add(pu.u_id)
+
 		if not self.admin:
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:
@@ -489,6 +497,29 @@ class JoinPoolProc(DBMappedObject):
 	_get_root = _set_root = 'POOL_INVITEES'
 	_unique_keys = ['p_url', 'u_id']
 	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
+class CanLeavePoolProc(DBMappedObject):
+	"""	
+		'EXEC app.get_is_contributor '<POOL p_url = "P3zu.2314" u_id = "142294"/>'
+		<RESULT status="0" proc_name="get_is_contributor"><USER is_contributor="0" /></RESULT>
+	"""
+	_cacheable = False
+	_get_proc = _set_proc   = 'app.get_is_contributor'
+	_set_root = "POOL"
+	_get_root = "USER"
+	_unique_keys = ['p_url', 'u_id']
+	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id'), GenericAttrib(bool,'is_contributor','is_contributor')]
+class LeavePoolProc(DBMappedObject):
+	"""	[app].[join_pool]  '<POOL_INVITEES p_url = "123" u_id = "123"/>'"""
+	_cacheable = False
+	_get_proc = _set_proc   = 'app.leave_pool'
+	_get_root = _set_root = 'POOL'
+	_unique_keys = ['p_url', 'u_id']
+	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
+
+	
+	
+	
+	
 	
 class ECardContributors(DBMappedObject):
 	"""<RESULT status="0" proc_name="get_ecard"><POOLUSER name="Henrietta Regina Goldmine" picture="8c/00/8c004e53261405b228a1f0f00c642c90" amount="800" co_message="chip in please !" /></RESULT>"""

@@ -7,8 +7,8 @@
 			<div class="popupPadder">
 			<p>${_("FF_LEAVE_POPUP_Are you sure you want to remove yourself from this Pool?")}</p>
 			<div style="margin-top: 30px; margin-bottom:20px">
-				<a style="margin-right: 20px;" class="primaryButton floatLeft" href="">Leave Pool</a>
-				<a class="secondary floatLeft" href="">Cancel</a>
+				<a style="margin-right: 20px;" class="primaryButton floatLeft" href="${url("pool_edit", pool_url = c.pool.p_url, action="leave")}">${_("FF_BUTTON_Leave Pool")}</a>
+				<a class="secondary floatLeft panelcloser">${_("FF_BUTTON_Cancel")}</a>
 				<div class="clear"></div>
 			</div>
 			</div>

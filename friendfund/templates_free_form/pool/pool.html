@@ -266,9 +266,10 @@
 		<div class="generalBoxRight ">
 			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
 			<input type="text" value="${url.current(protocol="http")}" onclick="this.select()"/>
-		</div>
-		<div class="colRightWhite"></div>
+		</div><div class="colRightWhite"></div>
+		%if c.pool.can_i_leave(c.user):
 		<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="leave_popup")}" class="popuplink removeMe">${_(u"FF_POOL_PAGE_Remove me from this Pool")}</a>
+		%endif
 	</div>
 	<div class="colLeft">
 		<div class="invited" id="poolInviteesDisplay">
