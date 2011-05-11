@@ -151,11 +151,11 @@ class MyprofileController(BaseController):
 		except formencode.validators.Invalid, error:
 			c.login_values = error.value
 			c.login_errors = error.error_dict or {}
-			return {'html':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}
+			return {'login':{"success":False, 'form':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}}
 		except SProcWarningMessage, e:
 			c.login_values = login
 			c.login_errors = {'email':_("USER_LOGIN_UNKNOWN_EMAIL_OR_PASSWORD")}
-			return {'login':{'form':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}}
+			return {'login':{"success":False, 'form':render_def('/myprofile/login_panel.html', 'renderPanel').strip()}}
 	
 	@jsonify
 	def loginpopup(self, clearance_level = CLEARANCES["BASE"]):

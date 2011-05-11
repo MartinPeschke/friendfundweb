@@ -1,12 +1,10 @@
 String.prototype.strip = function(ch){var re = new RegExp("^"+ch+"+|"+ch+"+$", "g");return String(this).replace(re, '');};
-FBSCOPE = {  '3':"email"
-				,'6':"email,publish_stream"
-				,'9':"user_birthday,friends_birthday,email,publish_stream,create_event"};
+FBSCOPE = {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_birthday,email,publish_stream,create_event"};
 	facebook_tried_getting_permissions = false;
 	facebook_tried_loggin_in_already = false;
 	twitter_tried_loggin_in_already = false;
 	timeoutValue=500;
-	goto_url = function(link){return function(){window.location.href=dojo.attr(link, "_href");}};
+	goto_url = function(link){return function(){window.location.href=dojo.attr(link, "_href");};};
 	reload = function(link){window.location.reload(true);};
 	displayMessage = alert;
 	popup_esc_handler = [];
@@ -15,8 +13,8 @@ FBSCOPE = {  '3':"email"
 		if(evt.keyCode === 13){dojo.hitch(this, callbackRet(this, evt));}
 		else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
 	};
-	closePopup = function(){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];},
-	displayPopup = function(html){dojo.place(html, dojo.byId("generic_popup"), "only" );rigPopup("generic_popup");},
+	closePopup = function(){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
+	displayPopup = function(html){dojo.place(html, dojo.byId("generic_popup"), "only" );rigPopup("generic_popup");};
 	rigPopup = function(id){
 		dojo.query(".panelcloser,.popupBackground", id).forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
 		popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
@@ -206,7 +204,7 @@ FBSCOPE = {  '3':"email"
 			if (data.clearmessage !== undefined){clear_messages();}
 			if (data.message !== undefined){displayMessage(data.message);}
 			if (callback && data.html !== undefined){callback(data.html);}
-			if (data.login !== undefined&&callback){callback(data.login)}
+			if (data.login !== undefined&&callback){callback(data.login);}
 			if (callback && data.data !== undefined){callback(data.data);}
 			if (data.redirect !== undefined){window.location.href = data.redirect;}
 			if (data.popup !== undefined){displayPopup(data.popup);}
@@ -303,12 +301,12 @@ FBSCOPE = {  '3':"email"
 
 	fb_handleLogin = function(required_scope, callback){
 		var fbhl = function(response){
-			var scope, perms, session = response.session,i, missing_perms;
+			var scope, perms, session = response.session,i, missing_perms, a;
 			if(response.perms){
 				if(response.perms.match(/^[,a-zA-Z0-9_\-]+$/)){
 					scope=response.perms.replace(/,/g,"|");
 				}else{
-					perms = dojo.fromJson(response.perms), a=[];
+					perms = dojo.fromJson(response.perms); a=[];
 					for(i in perms){a.push(perms[i].join("|"));}
 					scope = a.join("|");
 				}
@@ -321,7 +319,7 @@ FBSCOPE = {  '3':"email"
 				FB.api('/me', function(response) {
 					response.scope = scope;
 					response.fbsession = dojo.toJson(session);
-					xhrPost('/fb/login', response, function(login){if(login.success){window.pageState.isA=false;};if(callback){return callback(login);}});
+					xhrPost('/fb/login', response, function(login){if(login.success){window.pageState.isA=false;}if(callback){return callback(login);}});
 				});
 				return true;
 			}
@@ -338,11 +336,11 @@ FBSCOPE = {  '3':"email"
 				facebook_tried_loggin_in_already = true;
 				setTimeout(function(){facebook_tried_loggin_in_already=false;},timeoutValue);
 				if(response&&response.session&&response.status==="connected"){fb_handleLogin(scope, callback)(response);}
-				else {FB.login(function(response){FB.getLoginStatus(fb_handleLogin(scope, callback), true)}, {perms:scope});}
+				else {FB.login(function(response){FB.getLoginStatus(fb_handleLogin(scope, callback), true);}, {perms:scope});}
 			}};
 		if(partial){return fbl;}else{return fbl();}
 	};
-	baseFBLogin = fbLogin(FBSCOPE['3'], true),
+	baseFBLogin = fbLogin(FBSCOPE['3'], true);
 	fbLogout = function(logoutFB){window.location.href = "/logout?furl=/";};
 
 	fbInit = function(app_id) {
@@ -374,7 +372,7 @@ FBSCOPE = {  '3':"email"
 			link = args.link, 
 			form = args.form, 
 			popupHandler,
-			required_scope=FBSCOPE[""+level]
+			required_scope=FBSCOPE[""+level],
 			logincb = function(result){
 				var loginFormArbiter = function(){
 					xhrFormPost(this.action, this, logincb);
@@ -395,7 +393,7 @@ FBSCOPE = {  '3':"email"
 					popupHandler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closeLoginPopup)));
 					i = dojo.query("input", "generic_popup");
 					if(i.length>0){i[0].focus();}
-					dojo.query("form.loginAction", "generic_popup").forEach(function(form){form.onsubmit = loginFormArbiter})
+					dojo.query("form.loginAction", "generic_popup").forEach(function(form){form.onsubmit = loginFormArbiter;});
 					dojo.query("a.loginAction", "generic_popup").forEach(function(form){popupHandler.push(dojo.connect(form, "onclick", loginLinkArbiter));});
 					dojo.query("a.loginFBAction", "generic_popup").forEach(function(form){popupHandler.push(dojo.connect(form, "onclick", fbLogin(required_scope, true, logincb)));});
 					dojo.query("a.loginTWAction", "generic_popup").forEach(function(form){popupHandler.push(dojo.connect(form, "onclick", dojo.hitch(null, twInit, logincb)));});
@@ -403,13 +401,13 @@ FBSCOPE = {  '3':"email"
 				if(result.has_activity===true&&window.pageState.fwd){window.pageState.fwd(result);}
 				else if(result.success===true&&cb){cb(result);}
 				else if(result.success===false&&failcb){failcb(result);}
-				else if(result.require_facebook_perms!==undefined){fbLogin(result.require_facebook_perms, false, logincb)}
+				else if(result.require_facebook_perms!==undefined){fbLogin(result.require_facebook_perms, false, logincb);}
 				else if(result.reload === true){window.location.reload(true);}
 				else if(result.form&&dojo.byId("loginPanelContent")){
 					dojo.place(result.form, dojo.byId("loginPanelContent"), "only");
 					i = dojo.query("input", "loginPanelContent");
-					if(i.length>0){i[0].focus()};
-				};
+					if(i.length>0){i[0].focus();}
+				}
 			};
 		if(args.isFB){
 			fbLogin(required_scope, false, logincb);
@@ -426,18 +424,18 @@ FBSCOPE = {  '3':"email"
 						var perms = window.pageState.__fbperms__||{},i,
 							missing_perms=[], req_perms = required_scope.split(',');
 						for(i=0;i<req_perms.length;i++){
-							if(!perms[req_perms[i]]){missing_perms.push(req_perms[i])};
+							if(!perms[req_perms[i]]){missing_perms.push(req_perms[i]);}
 						}
 						if(missing_perms.length>0||window.pageState.isA){
 							fbLogin(required_scope, false, logincb);
 						} else {
-							if(cb){cb()};
+							if(cb){cb();}
 						}
 					} else {
 						xhrPost(url, {level:level}, logincb);
 					}
 				});
-			};
+			}
 		}
 		return false;
 	};
@@ -563,13 +561,14 @@ connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 			_linkers.push(dojo.connect(dn, "onblur", parseInputFromEvt));
 		},
 		parseInput = function(){
-			var found=false, token, i, elt, query, div;
+			var found=false, token, i, elt, query, div, url;
 			if(!dojo.hasClass(dn, "default")){
 				token = dn.value.split(" ");
 				for(i=0, len = token.length;i<len;i++){
 					elt = token[i];
 					if(__parserState__.urlmatch.test(elt)){
-							query = elt, url = dojo.attr(dn, "_url");
+							query = elt;
+							url = dojo.attr(dn, "_url");
 							dojo.query(".hideable", baseRoot).addClass("hidden");
 							
 							div = dojo.create("DIV", {"class":"loading"});
@@ -606,12 +605,12 @@ connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 /**** SLIDER ****/
 sliderF=function(root, noElems){
 	dojo.require("dojo.fx.easing");
-	var slider = dojo.query("ul.slider", root)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10)
-		, position=0, child, transitioning = false, hover=false
-		, countElems = dojo.query("ul.slider li", root).length
-		, setHoverOn = function(evt){hover=true;}
-		, setHoverOff = function(evt){hover=false;}
-		, slide = function(step, force){ return function(evt){
+	var slider = dojo.query("ul.slider", root)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10),
+		position=0, child, transitioning = false, hover=false,
+		countElems = dojo.query("ul.slider li", root).length,
+		setHoverOn = function(evt){hover=true;},
+		setHoverOff = function(evt){hover=false;},
+		slide = function(step, force){ return function(evt){
 			var reset = function(){transitioning=false;};
 			if(!transitioning&&(!hover||force)){
 				transitioning = true;
@@ -632,7 +631,7 @@ sliderF=function(root, noElems){
 					position = position + step;
 				}
 			}
-		}};
+		};};
 	dojo.query(".controllerLeft", root).onclick(slide(1, true));
 	dojo.query(".controllerRight", root).onclick(slide(-1, true));
 	dojo.connect(root, "onmouseover", setHoverOn);
@@ -640,19 +639,19 @@ sliderF=function(root, noElems){
 	window.setInterval(slide(-1, false), 3500);
 };
 showTime = function(root, unit){
-	var delay = unit*1000
-	, d=dojo.query(".timerDays", root)[0], days=parseInt(d.innerHTML, 10)
-	, h=dojo.query(".timerHours", root)[0], hrs=parseInt(h.innerHTML, 10)
-	, m=dojo.query(".timerMinutes", root)[0], mins=parseInt(m.innerHTML, 10)
-	, s=dojo.query(".timerSeconds", root)[0], secs=parseInt(s.innerHTML, 10)
-	, tick = function(step){return function(){
+	var delay = unit*1000,
+	d=dojo.query(".timerDays", root)[0], days=parseInt(d.innerHTML, 10),
+	h=dojo.query(".timerHours", root)[0], hrs=parseInt(h.innerHTML, 10),
+	m=dojo.query(".timerMinutes", root)[0], mins=parseInt(m.innerHTML, 10),
+	s=dojo.query(".timerSeconds", root)[0], secs=parseInt(s.innerHTML, 10),
+	tick = function(step){return function(){
 		if(secs>0){s.innerHTML=secs=secs+step;}
 		else if(mins>0){s.innerHTML=secs=59;m.innerHTML=mins=mins-1;}
 		else if(hrs>0){s.innerHTML=secs=59;m.innerHTML=mins=59;h.innerHTML=hrs=hrs-1;}
 		else if(days>0){s.innerHTML=secs=59;m.innerHTML=mins=59;h.innerHTML=hrs=23;d.innerHTML=days=days-1;}
-		else{return};
+		else{return;}
 		window.setTimeout(tick(-unit), delay);
-	}};
+	};};
 	window.setTimeout(tick(-unit), delay);
 };
 

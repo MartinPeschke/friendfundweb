@@ -83,7 +83,7 @@
 
 <%def name="render_email_friends(friends, active = True, class_='selectable', var_show_name = True)">
 %for i,(id, user_data) in enumerate(friends.items()):
-	<li title="${user_data["name"]}" class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }" pos="i">
+	<li title="${user_data["name"]}" class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }" _network="email" pos="i">
 		<div class="avt">
 			<span class="displayable close" href="#">X</span>
 			<img src="${user_data["large_profile_picture_url"]}">
