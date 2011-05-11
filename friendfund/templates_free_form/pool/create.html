@@ -2,7 +2,9 @@
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="parser" file="../product/urlparser.html"/>
-
+<%def name="scripts_styles()">
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
+</%def>
 <%def name="scripts()">
 	<script type="text/javascript"> 
 		toggleSettlement = function(option){
@@ -12,8 +14,16 @@
 			});
 			if(parent){dojo.query(".hideable.hidden", parent).forEach(function(elem){dojo.removeClass(elem, "hidden");});}
 		};
+		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+		dojo.require("dojo.parser");
+		dojo.require("dijit.Editor");
+		dojo.require("dijit._editor.plugins.FontChoice"); // 'fontName','fontSize','formatBlock'
+		dojo.require("dijit._editor.plugins.TextColor");
+		dojo.require("dijit._editor.plugins.LinkDialog");
+		dojo.require("dijit._editor.plugins.ViewSource");
 	</script>
 </%def>
+
 <%def name="render_page_state()">window.pageState.getFBPerms = true;
 	sbmt = function(){
 		onSubmitCleaner(document.submissionform);
@@ -26,6 +36,7 @@
 	parseSelectables("poolDetails");
 	parseSimpleEditables("poolDetails");
 	parseEditables("poolDetails");
+	dojo.parser.parse("poolDetails");
 	%if c.values.get('tracking_link'):
 		connectURLP("homeurlexpander");
 	%else:
@@ -151,8 +162,9 @@
 				<div class="first">
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
-				<div class="containerTxtArea">
-					<textarea name="description" _default_text="${_("FF_POOLDETAILS_Write your description here...")}" class="default">${c.values['description'] or _("FF_POOLDETAILS_Write your description here...")}</textarea>
+				<div class="containerTxtArea claro noFloat">
+					<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
+					plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
 				</div>
                 </div>
 			</div>

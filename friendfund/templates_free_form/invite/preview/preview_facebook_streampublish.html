@@ -1,21 +1,21 @@
 <%inherit file="preview.html"/>
 <%def name="popupclass()">Big</%def>
 <div class="popupPadder">
-<p style="padding:0">${_("FF_INVITE_PREVIEW_Your Facebook friends will be notified with a Facebook Wall Post.")} </p>
+<p style="padding:0">${_("FF_INVITE_PREVIEW_Your Facebook friends will be notified with a Facebook Wall Post.")} </p><br/>
 <div class="fbStPreview">
 	<div class="floatLeft">
-		<img width="60px" height="60px" src="http://devstatic01.friendfund.net/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+		<img width="60px" height="60px" src="${c.user.get_profile_pic("PROFILE_M")}">
 	</div>
 	<div class="floatLeft colRightSt">
-		<p class="linkFb bold">Harry McCarney</p>
-		<p class="noPad">Hi Irene, you've been invited Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed est enim, porttitor quis interdum ac, rutrum ac diam. Etiam nibh libero, pellentesque quis consequat id, fermentum non augue. </p>
+		<p class="linkFb bold">${c.user.name}</p>
+		<p class="noPad">${_("Hi John, you have been invited to our friendfund pool for:")} ${c.message}</p>
 	
 	<div class="floatLeft" style="margin-top:5px">
-		<div class="floatLeft"><img width="60px;" height="60px" src="http://devstatic01.friendfund.net/s/product/fe/ac/feace12b3ecbc0a47f30331d4245476d_FF_POOL_PIC_S.jpg"></div>
+		<div class="floatLeft"><img style="max-width:70px;max-height:70px;" src="${c.pool.get_product_display_picture("FF_POOLS")}"></div>
 		<div class="floatLeft colRightStInfo">
-			<p class="linkFb bold" style="padding-bottom:0">It's Martin birthday</p>
-			<p>Friendfund it!</p>
-			<p>Hi Irene, you've been invited Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed est enim, porttitor quis interdum ac, rutrum ac diam. Etiam nibh libero, pellentesque quis consequat id, fermentum non augue.</p>
+			<p class="linkFb bold" style="padding-bottom:0">${c.subject}</p>
+			<p style="font-size:11px;margin-top:-3px;">Friendfund it!</p>
+			<p>${c.message}</p>
 		</div>
 		<div class="clear"></div>
 		<div style="margin-top:10px; ">

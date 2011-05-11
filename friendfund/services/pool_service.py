@@ -46,9 +46,11 @@ class PoolService(object):
 		return pool
 	
 	def create_free_form(self):
+		print request.params
 		tmpl_context._ = friendfund_formencode_gettext
 		tmpl_context.request = request
 		pool_map = formencode.variabledecode.variable_decode(request.params)
+		print pool_map
 		pool_schema = PoolCreateForm().to_python(pool_map, state = tmpl_context)
 		
 		pool = Pool(title = pool_schema['title'],

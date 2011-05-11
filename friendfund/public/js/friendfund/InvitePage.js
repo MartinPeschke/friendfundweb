@@ -23,6 +23,7 @@ dojo.declare("friendfund.InvitePage", null, {
 	},
 	loadPreviewPopup : function(_t, method, evt){
 		if(dojo.hasClass(evt.target, "message_preview")){
+			dojo.query("input.addRefContent", _t.target_form).forEach(function(elem){elem.value = dojo.byId(dojo.attr(elem, "_source")).value;});
 			params = dojo.formToObject(_t.target_form);
 			params.method = dojo.attr(evt.target, "_method");
 			xhrPost(dojo.attr(evt.target, "_href"), params);
