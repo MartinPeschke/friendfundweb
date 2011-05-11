@@ -343,14 +343,7 @@ FBSCOPE = {  '3':"email"
 		if(partial){return fbl;}else{return fbl();}
 	};
 	baseFBLogin = fbLogin(FBSCOPE['3'], true),
-	fbLogout = function(logoutFB){
-		var response = FB.getSession();
-		if(logoutFB && response && response.status=='connected'){
-			FB.logout(function(response){window.location.href = "/logout?furl=/";});
-		} else {
-			window.location.href = "/logout?furl=/";
-		}
-	};
+	fbLogout = function(logoutFB){window.location.href = "/logout?furl=/";};
 
 	fbInit = function(app_id) {
 		window.fbAsyncInit = function() {

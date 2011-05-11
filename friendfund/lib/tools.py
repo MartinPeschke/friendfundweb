@@ -133,9 +133,9 @@ def generate_mnemonic_password(letters=8, digits=4, uppercase=False):
 	chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
 	return chars
 
-def sanitize_html(html, valid_tags = ['a','strong', 'em', 'p', 'ul', 'ol', 'li', 'br', 'b', 'i', 'u', 's', 'strike', 'font', 'pre', 'blockquote']
+def sanitize_html(html, valid_tags = ['a','strong', 'em', 'p', 'ul', 'ol', 'li', 'br', 'b', 'i', 'u', 's', 'strike', 'font', 'pre', 'blockquote', 'div']
 	, strip_tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-	, valid_attrs = ['size', 'color', 'face', 'title']):
+	, valid_attrs = ['size', 'color', 'face', 'title', 'align']):
 	soup = BeautifulSoup(html)
 	for tag in soup.findAll(True):
 		if tag.name.lower() not in valid_tags:

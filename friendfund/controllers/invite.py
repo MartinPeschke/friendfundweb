@@ -29,7 +29,7 @@ class InviteController(BaseController):
 			return redirect(url('get_pool', pool_url=pool_url))
 		locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"), "pool_url":url("get_pool", pool_url=pool_url, protocol="http"), "title":c.pool.title}
 		c.errors = {}
-		c.values = {"subject":c.pool.title, "message":c.pool.description}
+		c.values = {"subject":c.pool.title, "message":c.pool.get_text_description()}
 		return self._display_invites()
 	
 	def _display_invites(self, invitees = {}):

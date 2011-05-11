@@ -1,4 +1,5 @@
 import simplejson, logging, itertools, formencode, md5, random, operator
+from BeautifulSoup import BeautifulSoup
 
 from datetime import datetime, timedelta, date
 
@@ -307,6 +308,9 @@ class Pool(DBMappedObject):
 		return h.word_truncate_by_letters(self.title, length)
 	def get_display_description(self):
 		return self.description
+	def get_text_description(self):
+		return ''.join(BeautifulSoup(self.description).findAll(text=True))
+
 
 	def get_product_display_picture(self, type="POOL", secured = False):
 		if self.product:
