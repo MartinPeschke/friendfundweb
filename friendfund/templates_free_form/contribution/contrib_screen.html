@@ -138,7 +138,7 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 		<div class="greyInsideFullWidth" style="margin-top:10px" >
 			<div class="first"> <span>&nbsp</span> </div>
 			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox"/>
-			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" target="_blank" href="${url(controller="content", action="tos", lang = h.get_language_locale())}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
+			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" target="_blank" href="${url(controller="content", action="tos", protocol="http", lang = h.get_language_locale())}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
 		</div>
 		%if c.user.networks.get("twitter") or c.user.networks.get("facebook"):
 			<div class="colRightWhite" style="margin-left:160px; border-color:#eeedec"></div>

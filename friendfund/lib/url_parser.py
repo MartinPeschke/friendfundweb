@@ -30,7 +30,8 @@ def get_title_descr_imgs(query, product_page):
 	if content_type and 'image' in content_type.lower():
 		return None, None, [query]
 	if not content_type or 'html' in content_type.lower():
-		soup = BeautifulSoup(product_page.read())
+		page = product_page.read().replace("<![endif]-->", "")
+		soup = BeautifulSoup(page)
 		params = dict((t.get('name').lower(), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		descr = params.get("description", params.get("og:description"))
 		if not descr:
