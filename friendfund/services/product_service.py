@@ -158,38 +158,46 @@ class ProductService(object):
 			abort(404)
 		soup = BeautifulSoup(product_page.read())
 		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
+		params.update( dict((t.get('property'), t.get('content')) for t in soup.findAll('meta') if t.get('property')) )
 		return self.get_products_from_open_graph(params, query)
 	
 	
 	def get_products_from_open_graph(self, params, referer):
-		transl = {  "og:description":(["description"], lambda x:x, False),
-					"og:name":(["name"], lambda x:x, False),
-					"og:price":(["price"], lambda x:int(x), False),
-					"og:tracking_link":(["tracking_link"], lambda x:x, True),
-					"og:product_id":(["merchant_ref"], lambda x:x, True),
-					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False),
-					"og:image":(["picture"], lambda x:x, False),
-					"og:currency":(["currency"], lambda x:x, False)}
-		if params.get("og:type") != 'product':
-			log.error("Markup not OKAY")
-			abort(404)
-		### Create and fill out Product List Objects for later reference
-		products = {}
+		transl = {  "og:description":(["description"], lambda x:x, False, True),
+					"og:name":(["name"], lambda x:x, False, False),
+					"og:title":(["name"], lambda x:x, False, False),
+					"og:price":(["price"], lambda x:int(x), False, True),
+					"og:tracking_link":(["tracking_link"], lambda x:x, True, False),
+					"og:product_id":(["merchant_ref"], lambda x:x, True, False),
+					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False, False),
+					"og:image":(["picture"], lambda x:x, False, True),
+					"og:currency":(["currency"], lambda x:x, False, True)}
+		product_map = {}
 		for k in params:
-			parts = k.rsplit('-',1)
-			if parts[0] in transl:
-				if len(parts) == 1:
-					no = u'0'
+			key_parts = k.rsplit("-", 1)
+			if len(key_parts)==2:
+				elem_no = h.atoi(key_parts[1]) or 0
+			else:
+				elem_no = 0
+			product_map[elem_no] = product_map.get(elem_no, {})
+			product_map[elem_no][key_parts[0]] = params[k]
+		product_map_list = [product_map[k] for k in sorted(product_map)]
+		
+		product_list = []
+		for p_map in product_map_list:
+			product = DisplayProduct(tracking_link = referer, guid=str(uuid.uuid4()))
+			for ogkey in transl:
+				attr_names, transf, override, required = transl[ogkey]
+				if required and ogkey not in p_map:
+					log.error("PartnerBounceWithInsufficientParameters, missing: %s (%s)", ogkey, p_map)
+					product = None
+					break
 				else:
-					no = unicode(parts[1])
-				if no not in products:
-					products[no] = DisplayProduct(tracking_link = referer, guid=str(uuid.uuid4()))
-				attr_names, transf, override = transl.get(parts[0])
-				for attr in attr_names:
-					if override or not getattr(products[no], attr, None):
-						setattr(products[no], attr, transf(params.get(k)))
-		### Persist product list for later reference
-		product_list = [products[k] for k in sorted(products)]
+					for attr in attr_names:
+						if override or getattr(product, attr, None) is None:
+							setattr(product, attr, transf(p_map.get(ogkey)))
+			if product and product.name:   # catching title/name schisma
+				product_list.append(product)
 		return product_list
 	
 	def set_product_from_open_web(self, query):

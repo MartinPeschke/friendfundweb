@@ -14,6 +14,30 @@ from friendfund.model.product import DisplayProduct
 log = logging.getLogger(__name__)
 
 class PartnerController(BaseController):
+	def bounce(self):
+		query=request.params.get("referer")
+		key=request.params.get("key")
+		host=request.params.get("host")
+		real_host=request.params.get("real_host")
+		
+		total_param_set = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
+		params = total_param_set.get("ff", {}).get("names", {})
+		params.update(total_param_set.get("ff", {}).get("props", {}))
+		
+		c.is_default = False
+		c.product_list = g.product_service.get_products_from_open_graph(params, query)
+		if not len(c.product_list):
+			query=request.merchant.default_product_url
+			c.product_list = g.product_service.get_products_from_url(query)
+			c.is_default = True
+		
+		c.product = c.product_list[0]
+		c.method = c.user.get_current_network() or 'facebook'
+		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
+		c.errors = {}
+		return self.render('/partner/iframe.html')
+	
 	def simplebounce(self):
 		query=request.params.get("referer")
 		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')

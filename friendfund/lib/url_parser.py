@@ -30,7 +30,7 @@ def get_title_descr_imgs(query, product_page):
 	if content_type and 'image' in content_type.lower():
 		return None, None, [query]
 	if not content_type or 'html' in content_type.lower():
-		page = product_page.read().replace("<![endif]-->", "")
+		page = product_page.read().replace("<![endif]-->", "").replace("<!--[if ", "")
 		soup = BeautifulSoup(page)
 		params = dict((t.get('name').lower(), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
 		descr = params.get("description", params.get("og:description"))
@@ -51,16 +51,16 @@ def get_title_descr_imgs(query, product_page):
 			scheme, domain, path, query_str, fragment = urlparse.urlsplit(query)
 			abs_base = urlparse.urlunparse((scheme, domain, '','','',''))
 			rel_base = urlparse.urlunparse((scheme, domain,'%s/' % path.rsplit('/', 1)[0],'','',''))
+			img_collection = []
 			if params.get("og:image"):
-				img_collection = [params.get("og:image")]
-			else:
-				img_collection = list(ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img"))))
-				#### remove duplicates
-				imgs = OrderedDict((a, True) for a in img_collection)
-				img_collection = imgs.keys()
-				if not len(img_collection):
-					img_rels = soup.findAll('link')
-					def_images = filter(lambda x: x.get('rel') == "image_src", img_rels)
-					if def_images:
-						img_collection = filter(bool, map(lambda x: x.get('href'),  def_images))
+				img_collection.append(params.get("og:image"))
+			img_rels = soup.findAll('link')
+			def_images = filter(lambda x: x.get('rel') == "image_src", img_rels)
+			if def_images:
+				img_collection.extend(filter(bool, map(lambda x: x.get('href'),  def_images)))
+			
+			img_collection.extend(list(ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img")))))
+			#### remove duplicates
+			imgs = OrderedDict((a, True) for a in img_collection)
+			img_collection = imgs.keys()
 			return name, descr, map(absolutize_img_src(rel_base, abs_base), img_collection)

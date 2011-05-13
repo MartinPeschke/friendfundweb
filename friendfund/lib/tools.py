@@ -20,7 +20,12 @@ def dict_contains(d, keys):
 		return False
 	return len(keys) == len(filter(lambda x: bool(x), [d.get(k, None) for k in keys]))
 
-
+def atoi(num):
+	try:
+		return int(num)
+	except:
+		return None
+	
 @decorator
 def iframe_jsonify(func, *args, **kwargs):
 	"""Action decorator that formats output for JSON for iFrame transport
