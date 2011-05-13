@@ -14,7 +14,7 @@ ${self.render_html()}
 	</head>
 	<body class="${self.bodyclass()}">
 		${next.body()}
-		${next.render_foot_scripts()}
+		${next.render_foot_scripts(lang)}
 	</body>
 	</html>
 </%def>
@@ -29,9 +29,9 @@ ${self.render_html()}
 		${self.scripts_styles()}
 </%def>
 
-<%def name="render_foot_scripts()">
+<%def name="render_foot_scripts(lang)">
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
-	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/js/friendfund"},dojoBlankHtmlUrl : "/static/blank.html",xdWaitSeconds: 5};</script>
+	<script type="text/javascript">djConfig={baseUrl: "./", modulePaths: {"friendfund": "/static/js/friendfund"},dojoBlankHtmlUrl : "/static/blank.html",xdWaitSeconds: 5,locale : '${lang}'};</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" type="text/javascript"></script>
 	<div id="generic_popup">${self.renderBlockingPopup()}</div>
 	<div id="fb-root"></div>
