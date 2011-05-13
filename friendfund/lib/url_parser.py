@@ -54,13 +54,13 @@ def get_title_descr_imgs(query, product_page):
 			if params.get("og:image"):
 				img_collection = [params.get("og:image")]
 			else:
-				img_rels = soup.findAll('link')
-				def_images = filter(lambda x: x.get('rel') == "image_src", img_rels)
-				if def_images:
-					img_collection = filter(bool, map(lambda x: x.get('href'),  def_images))
-				else:
-					img_collection = list(ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img"))))
-					#### remove duplicates
-					imgs = OrderedDict((a, True) for a in img_collection)
-					img_collection = imgs.keys()
+				img_collection = list(ifilter(None, imap(extract_imgs_from_soup, soup.findAll("img"))))
+				#### remove duplicates
+				imgs = OrderedDict((a, True) for a in img_collection)
+				img_collection = imgs.keys()
+				if not len(img_collection):
+					img_rels = soup.findAll('link')
+					def_images = filter(lambda x: x.get('rel') == "image_src", img_rels)
+					if def_images:
+						img_collection = filter(bool, map(lambda x: x.get('href'),  def_images))
 			return name, descr, map(absolutize_img_src(rel_base, abs_base), img_collection)
