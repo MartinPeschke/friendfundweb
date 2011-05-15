@@ -1,22 +1,9 @@
-<%inherit file="../layout.html"/>
-<%namespace name="common" file="common.html"/>
+<%inherit file="common.html"/>
+
 <%def name="title()">${_("FF_Jobs")}</%def>
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>Jobs</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
+<%def name="heading()">${_("FF_Jobs")}</%def>
 
-
-<div class="wrapSubContent">${self.renderMessages()}
-<div class="content">
-	${common.render_right_col()}
-	<div class="colLeft">
+<%def name="render_content()">
 		<h4>Frontend Developer/ JavaScript - AJAX – CSS(Berlin)</h4>
 		<div class="subHeading"></div>
 		
@@ -51,7 +38,4 @@
 		<h4></h4>
 		<div class="subHeading"></div>
 		<p class="general">We are always on the look out for new talent.  Don't see a job listing that fits your skills? Send us your CV to <a href="mailto:jobs@friendfund.com">jobs@friendfund.com</a>.</p>
-	</div>
-<div class="clear"></div>
-</div>
-</div>
+</%def>

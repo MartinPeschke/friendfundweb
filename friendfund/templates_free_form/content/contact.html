@@ -1,24 +1,9 @@
-<%inherit file="../layout.html"/>
-<%namespace name="common" file="common.html"/>
-<%def name="title()">${_("FF_Contact")}</%def>
-<div class="wrapSubHeader">
-	<div class="subHeader">
-		<div class="userProfile">
-			<div class="empty">
-				<h2>${_("FF_CONTACT_Contact Us")}</h2>
-			</div>
-		<div class="clear"></div>
-		</div>
-	</div>
-</div>
-<%def name="onloadscripts()">
-	parseDefaultsInputs("contactForm");
-</%def>
+<%inherit file="common.html"/>
 
-<div class="wrapSubContent">${self.renderMessages()}
-<div class="content">
-	${common.render_right_col()}
-<div class="colLeft">
+<%def name="title()">${_("FF_Contact")}</%def>
+<%def name="heading()">${_("FF_Contact")}</%def>
+
+<%def name="render_content()">
 		<h4>${_("FF_CONTACT_Send Us a Message")}</h4>
 		<div class="subHeading"></div>
 		
@@ -123,11 +108,4 @@
 				<p class="second">${_("FF_CONTACT_We'd love to hear how you'd <a target=\"_blank\" href=\"%s\">improve friendfund.</a>")%"http://friendfund.uservoice.com/forums/81919-general"|n} </p>
 				</div>
 			</div>
-	</div>
-	
-
-
-
-<div class="clear"></div>
-</div>
-</div>
+</%def>
