@@ -156,13 +156,13 @@ def poll_message_queue(config, debug, merchant_config, jobpool, available_langs,
 				msg_id = sender(template, sndr_data, rcpt_data, template_data, config)
 			except InvalidAccessTokenException, e:
 				log.error( 'INVALID_ACCESS_TOKEN before SENDING: %s', str(e) )
-				messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN', "note":str(e)}
+				messaging_results[meta_data.get('message_ref')] = {'status':'INVALID_ACCESS_TOKEN', "note":str(e)[:254]}
 			except email.UMSEmailUploadException, e:
 				log.error( 'UMS_EMAIL_ERROR while SENDING: %s', str(e) )
-				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED', "note":str(e)}
+				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED', "note":str(e)[:254]}
 			except Exception, e:
 				log.error( 'ERROR while SENDING: %s (%s)', meta_data, str(e) )
-				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED', "note":str(e)}
+				messaging_results[meta_data.get('message_ref')] = {'status':'FAILED', "note":str(e)[:254]}
 			else:
 				messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
 		save_results(jobpool, messaging_results)
