@@ -68,7 +68,9 @@ class PoolService(object):
 		amount = pool_schema.pop("amount")
 		if so_values and 'charge_through' in so_values:
 			amount = (1+so.fee)*amount
-			pool.includes_fee = True
+		if so.has_fee():
+			pool.includes_fee = 'charge_through' in so_values
+		
 		pool.set_amount_float(amount)
 		pool.occasion = Occasion(key="EVENT_OTHER", date = (datetime.now() + timedelta(10)))
 		

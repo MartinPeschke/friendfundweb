@@ -83,6 +83,8 @@ class MerchantSettlement(DBMappedObject):
 		for k in self.required_fields:
 			if not k.validate(fields.get(k.name)): return False
 		return True
+	def has_fee(self):
+		return bool(self.fee)
 	def fromDB(self, xml):
 		if self.name=="PAYPAL_TRANSFER":
 			self.required_fields.append(FormField("email", "email"))
