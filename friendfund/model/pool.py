@@ -245,6 +245,7 @@ class Pool(DBMappedObject):
 			, GenericAttrib(unicode,	'thank_you_message','thank_you_message'			)
 			, GenericAttrib(int,		'amount',			'amount'					)
 			, GenericAttrib(str,		'currency', 		'currency'					)
+			, GenericAttrib(bool,		'includes_fee',		'includes_fee'				)
 			, GenericAttrib(str,		'status', 			'status'					)
 			, GenericAttrib(str,		'phase',  			'phase'						)
 			, GenericAttrib(datetime,	'expiry_date', 		'expiry_date'				)
