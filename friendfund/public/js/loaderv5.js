@@ -605,9 +605,9 @@ connectURLParser = function(baseRoot, editnode, parseNow, extra_params){
 /**** SLIDER ****/
 sliderF=function(root, noElems){
 	dojo.require("dojo.fx.easing");
-	var slider = dojo.query("ul.slider", root)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10),
+	var rootNode = dojo.byId(root), slider = dojo.query("ul.slider", rootNode)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10),
 		position=0, child, transitioning = false, hover=false,
-		countElems = dojo.query("ul.slider li", root).length,
+		countElems = dojo.query("ul.slider li", rootNode).length,
 		setHoverOn = function(evt){hover=true;},
 		setHoverOff = function(evt){hover=false;},
 		slide = function(step, force){ return function(evt){
@@ -632,10 +632,10 @@ sliderF=function(root, noElems){
 				}
 			}
 		};};
-	dojo.query(".controllerLeft", root).onclick(slide(1, true));
-	dojo.query(".controllerRight", root).onclick(slide(-1, true));
-	dojo.connect(root, "onmouseover", setHoverOn);
-	dojo.connect(root, "onmouseout", setHoverOff);
+	dojo.query(".controllerLeft", rootNode).onclick(slide(1, true));
+	dojo.query(".controllerRight", rootNode).onclick(slide(-1, true));
+	dojo.connect(rootNode, "onmouseover", setHoverOn);
+	dojo.connect(rootNode, "onmouseout", setHoverOff);
 	window.setInterval(slide(-1, false), 3500);
 };
 showTime = function(root, unit){

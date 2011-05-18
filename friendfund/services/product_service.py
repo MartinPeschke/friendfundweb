@@ -146,6 +146,12 @@ class ProductService(object):
 				return pool
 	
 	def get_products_from_url(self, query):
+		def transcode(buffer):
+			try:
+				return buffer.encode("latin-1").decode("utf-8")
+			except:
+				return buffer
+
 		if not query:
 			log.error("DEFAULT PRODUCT NOT FOUND")
 			abort(404)
@@ -157,21 +163,21 @@ class ProductService(object):
 			log.error("Query could not be opened or not is wellformed: %s (%s)", query, e)
 			abort(404)
 		soup = BeautifulSoup(product_page.read())
-		params = dict((t.get('name'), t.get('content')) for t in soup.findAll('meta') if t.get('name'))
-		params.update( dict((t.get('property'), t.get('content')) for t in soup.findAll('meta') if t.get('property')) )
+		params  = {}
+		params = dict((t['name'], transcode(t['content'])) for t in soup.findAll('meta') if t.get('name') and t.get('content'))
+		params.update( dict((t['property'], transcode(t['content'])) for t in soup.findAll('meta') if t.get('property') and t.get('content')) )
 		return self.get_products_from_open_graph(params, query)
-	
 	
 	def get_products_from_open_graph(self, params, referer):
 		transl = {  "og:description":(["description"], lambda x:x, False, True),
 					"og:title":(["name"], lambda x:x, False, True),
 					"og:price":(["price"], lambda x:int(x), False, True),
-					"og:tracking_link":(["tracking_link"], lambda x:x, True, False),
+					"og:url":(["tracking_link"], lambda x:x, True, False),
 					"og:product_id":(["merchant_ref"], lambda x:x, True, False),
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False, False),
 					"og:image":(["picture"], lambda x:x, False, True),
 					"og:currency":(["currency"], lambda x:x, False, True)}
-		fallBacks = {"og:name":"og:title", "description":"og:description"}
+		fallBacks = {"og:name":"og:title", "description":"og:description", "og:tracking_link":"og:url"}
 		product_map = {}
 		for k in params:
 			key_parts = k.rsplit("-", 1)
@@ -193,7 +199,7 @@ class ProductService(object):
 		
 		product_list = []
 		for p_map in product_map_list:
-			product = DisplayProduct(tracking_link = referer, guid=str(uuid.uuid4()))
+			product = DisplayProduct(guid=str(uuid.uuid4()))
 			for ogkey in transl:
 				attr_names, transf, override, required = transl[ogkey]
 				if required and ogkey not in p_map:
@@ -205,6 +211,8 @@ class ProductService(object):
 						if override or getattr(product, attr, None) is None:
 							setattr(product, attr, transf(p_map.get(ogkey)))
 			if product and product.name:   # catching title/name schisma
+				if not product.tracking_link:
+					product.tracking_link = referer
 				product_list.append(product)
 		return product_list
 	

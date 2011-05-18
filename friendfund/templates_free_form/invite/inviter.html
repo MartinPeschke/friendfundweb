@@ -19,9 +19,6 @@
 		%if mutuals:
 			<span class="mutualToggleContainer"><label for="toggle_mutuals_${network_name}">${_("FF_INVITER_CHECKBOX_Mutual Friends")}</label><input id="toggle_mutuals_${network_name}" ${forms.expression_quote(mutuals, "checked")|n} type="checkbox"/></span>
 		%endif
-		%if all:
-			<span class="floatRight inviteAll link" id="inviteall_${network_name}">${_("FF_INVITER_BUTTON_Invite All")}</span>
-		%endif
 	</div>
 	 <div class="friendsList">
 		<ul id="friend_list_${network_name}">
