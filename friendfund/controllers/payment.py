@@ -54,7 +54,6 @@ class PaymentController(BaseController):
 	@logged_in(ajax=False)
 	@pool_available(contributable_only = True)
 	def details(self, pool_url):
-		print request.params
 		if c.user.is_anon or not c.pool.am_i_member(c.user):
 			return redirect(url('get_pool', pool_url=pool_url))
 		c.payment_methods = g.payment_methods
