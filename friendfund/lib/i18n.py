@@ -86,33 +86,42 @@ def negotiate_locale(accept_langs, available_languages):
 	langs = map(normalize_locale, accept_langs)
 	return nl(langs, available_languages, sep="_") or available_languages[0]
 
+def default_currency():
+	return app_globals.country_choices.map.get(websession.get('region'), app_globals.country_choices.fallback).currency
+
+def get_locale():
+	locale=websession['lang']
+	if locale == 'es':
+		locale = 'de'
+	return locale
+	
 
 def format_int_amount(number):
+	if number is None:
+		return ''
 	number = float(number)/100
 	if round(number) == number:
 		return '%d' % int(number)
 	else:
-		return '%.2f' % number
-
-def default_currency():
-	return app_globals.country_choices.map.get(websession.get('region'), app_globals.country_choices.fallback).currency
-
+		fnumber = Decimal('%.2f' % number)
+		return fdec(fnumber, format='#,##0.00', locale=get_locale())
+	
 def get_thous_sep():
-	return get_group_symbol(locale=websession['lang'])
+	return get_group_symbol(locale=get_locale())
 def get_dec_sep():
-	return get_decimal_symbol(locale=websession['lang'])
+	return get_decimal_symbol(locale=get_locale())
 def display_currency(currency):
-	return get_currency_symbol(currency, locale=websession['lang'])
+	return get_currency_symbol(currency, locale=get_locale())
 def format_currency(number, currency):
 	fnumber = Decimal('%.2f' % number)
-	return fc(fnumber, currency, locale=websession['lang'])
+	return fc(fnumber, currency, locale = get_locale())
 
 def parse_number(strNum):
-	return pn(strNum, locale=websession['lang'])
+	return pn(strNum, locale=get_locale())
 def format_number(number):
 	if number is None or number=="": return ""
 	fnumber = Decimal('%.2f' % number)
-	return fdec(fnumber, format='#,##0.##;-#', locale=websession['lang'])
+	return fdec(fnumber, format='#,##0.##;-#', locale=get_locale())
 
 def format_date(date, with_time = False, format="medium"):
 	if not date: return ""

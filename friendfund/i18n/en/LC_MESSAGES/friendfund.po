@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-19 11:54+0200\n"
+"PO-Revision-Date: 2011-05-19 17:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -446,6 +446,11 @@ msgstr "%s has chipped in %s."
 #, python-format
 msgid "FF_POOLPAGE_INVITEE_LABEL_%s - Chipped in"
 msgstr "%s has chipped in."
+
+#: friendfund/model/product.py:71
+#, python-format
+msgid "FF_IFRAME_PRICE_(%(price)s + %(shipping)spp) %(total)s"
+msgstr "%(total)s (%(price)s + %(shipping)s pp)"
 
 #: friendfund/model/forms/common.py:22
 msgid "TOSVALIDATOR_You have to agree to our terms and conditions."
@@ -3817,7 +3822,7 @@ msgstr "Embed a Widget in your Site"
 msgid "FF_WIDGET_POPUP_Grab the code below and paste it into your website"
 msgstr "Grab the code below and paste it into your website:"
 
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:230
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:229
 msgid "FF_WIDGET_VIEW"
 msgstr "VIEW"
 
@@ -3903,7 +3908,4 @@ msgstr[1] "<strong>%(secs)d</strong> seconds left"
 #: friendfund/templates_free_form/widgets/widgets.html:62
 msgid "FF_POOL_INFO_expired"
 msgstr "expired"
-
-#~ msgid "FF_INVITER_BUTTON_Invite All"
-#~ msgstr "Invite All"
 

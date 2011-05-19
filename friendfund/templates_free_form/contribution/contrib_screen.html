@@ -58,7 +58,7 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 				<span class="value">${h.display_currency(c.pool.currency)}</span> 
 				<input type="text" value="${c.values.get('amount')}" name="payment.amount" id="payment_amount" />
 				%if 'amount' in c.errors:
-					<p class="errorMsg" style="width:230px">${c.errors['amount']}</p>
+					<p class="errorMsg" style="width:180px">${c.errors['amount']}</p>
 				%endif
 			</div>
 		</div>

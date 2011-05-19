@@ -65,6 +65,14 @@ class DisplayProduct(Product):
 	
 	def get_display_label(self, words = 5, seperator = ' '):
 		return '%s%s%s' % (h.word_truncate_plain(self.name, words), seperator, self.display_price)
+	def get_iframe_display_label(self, words = 5, seperator = ' '):
+		if(self.shipping_cost):
+			locals = {"price":h.format_int_amount(self.price), "shipping":h.format_int_amount(self.shipping_cost), "total":self.display_price}
+			price_display = _("FF_IFRAME_PRICE_(%(price)s + %(shipping)spp) %(total)s") % locals
+		else:
+			price_display = self.display_price
+		return '%s%s%s' % (h.word_truncate_plain(self.name, words), seperator, price_display)
+	
 	display_label = property(get_display_label)
 	def get_product_pic(self, type="POOL"):
 		return self.picture

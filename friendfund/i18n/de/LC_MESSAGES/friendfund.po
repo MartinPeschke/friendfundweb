@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-19 11:54+0200\n"
+"PO-Revision-Date: 2011-05-19 17:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -466,6 +466,11 @@ msgstr "%s hat %s eingezahlt"
 #, python-format
 msgid "FF_POOLPAGE_INVITEE_LABEL_%s - Chipped in"
 msgstr "%s - Hat eingezahlt"
+
+#: friendfund/model/product.py:71
+#, python-format
+msgid "FF_IFRAME_PRICE_(%(price)s + %(shipping)spp) %(total)s"
+msgstr "%(total)s (%(price)s + %(shipping)s V&V)"
 
 #: friendfund/model/forms/common.py:22
 msgid "TOSVALIDATOR_You have to agree to our terms and conditions."
@@ -1916,7 +1921,7 @@ msgstr "Was Wir Bieten"
 #: friendfund/templates_free_form/content/localized/partner/what_you_get_de.html:72
 #: friendfund/templates_free_form/content/localized/partner/what_you_get_es.html:71
 msgid "FF_PARTNER_MENU_how it works"
-msgstr "Wie Funktioniert's?"
+msgstr "Wie es Funktioniert"
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:22
 #: friendfund/templates_free_form/content/localized/partner/how_it_works.html:63
@@ -1931,12 +1936,12 @@ msgstr "Kosten"
 #: friendfund/templates_free_form/content/localized/partner/pricing_de.html:64
 #: friendfund/templates_free_form/content/localized/partner/pricing_es.html:64
 msgid "FF_PARTNER_MENU_set it up"
-msgstr "Wie geht's los?"
+msgstr "Machen Sie Mit"
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:43
 #: friendfund/templates_free_form/content/localized/partner/set_it_up.html:11
 msgid "FF_PARTNER_CONTACT_Get Involved"
-msgstr "Wie geht's los?"
+msgstr "Machen Sie Mit"
 
 #: friendfund/templates_free_form/content/localized/partner/common.html:45
 #: friendfund/templates_free_form/content/localized/partner/set_it_up.html:13
@@ -1955,7 +1960,7 @@ msgid ""
 "find out more about our competitive pricing structure, please contact "
 "<b><a %s>sales@friendfund.com</a></b>"
 msgstr ""
-"Um noch heute die erste Gruppenzahlung annehmen zu können und mehr über "
+"Um noch heute Ihre erste Gruppenzahlung annehmen zu können und mehr über "
 "unsere Tarifstruktur zu erfahren, wenden Sie sich jetzt an <b><a "
 "%s>sales@friendfund.com</a></b>."
 
@@ -3886,7 +3891,7 @@ msgstr "Platziere ein Widget auf deiner Webseite"
 msgid "FF_WIDGET_POPUP_Grab the code below and paste it into your website"
 msgstr "Kopiere den folgenden Code und füge diesen in deiner Webseite ein"
 
-#: friendfund/templates_free_form/pool/parts/widget_frame.html:230
+#: friendfund/templates_free_form/pool/parts/widget_frame.html:229
 msgid "FF_WIDGET_VIEW"
 msgstr "Anschauen"
 
@@ -3972,7 +3977,4 @@ msgstr[1] "noch <strong>%(secs)d</strong> Sekunden"
 #: friendfund/templates_free_form/widgets/widgets.html:62
 msgid "FF_POOL_INFO_expired"
 msgstr "abgelaufen"
-
-#~ msgid "FF_INVITER_BUTTON_Invite All"
-#~ msgstr "Alle einladen"
 
