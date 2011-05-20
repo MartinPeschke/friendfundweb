@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-05-19 17:47+0200\n"
+"POT-Creation-Date: 2011-05-20 13:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1269,6 +1269,7 @@ msgid "FF_STATIC_MENU_Chip in with confidence"
 msgstr ""
 
 #: friendfund/templates_free_form/content/common.html:69
+#: friendfund/templates_free_form/contribution/payment_success.html:78
 #: friendfund/templates_free_form/myprofile/login_panel.html:67
 msgid "FF_MENU_Create a pool"
 msgstr ""
@@ -1607,6 +1608,7 @@ msgid ""
 msgstr ""
 
 #: friendfund/templates_free_form/contribution/common.html:10
+#: friendfund/templates_free_form/contribution/payment_success.html:49
 #, python-format
 msgid "FF_CONTRIBUTION_by %(admin_name)s"
 msgstr ""
@@ -1649,21 +1651,21 @@ msgstr ""
 #: friendfund/templates_free_form/contribution/contrib_screen.html:33
 #: friendfund/templates_free_form/contribution/payment_details.html:33
 #: friendfund/templates_free_form/contribution/payment_fail.html:17
-#: friendfund/templates_free_form/contribution/payment_success.html:17
+#: friendfund/templates_free_form/contribution/payment_success.html:27
 msgid "FF_CONTRIB_PAGE_HEADER_Chip in"
 msgstr ""
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:36
 #: friendfund/templates_free_form/contribution/payment_details.html:36
 #: friendfund/templates_free_form/contribution/payment_fail.html:20
-#: friendfund/templates_free_form/contribution/payment_success.html:20
+#: friendfund/templates_free_form/contribution/payment_success.html:30
 msgid "FF_CONTRIB_PAGE_HEADER_Payment info"
 msgstr ""
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:39
 #: friendfund/templates_free_form/contribution/payment_details.html:39
 #: friendfund/templates_free_form/contribution/payment_fail.html:23
-#: friendfund/templates_free_form/contribution/payment_success.html:23
+#: friendfund/templates_free_form/contribution/payment_success.html:33
 msgid "FF_CONTRIB_PAGE_HEADER_Done!"
 msgstr ""
 
@@ -1820,33 +1822,45 @@ msgid "FF_CONTRIB_Try again"
 msgstr ""
 
 #: friendfund/templates_free_form/contribution/payment_fail.html:36
-#: friendfund/templates_free_form/contribution/payment_success.html:38
 msgid "FF_CONTRIB_SUCCESS_Back to Pool"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:5
+#: friendfund/templates_free_form/contribution/payment_success.html:17
 msgid "FF_CONTRIB_SUCCESS_Payment Successful!"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:14
+#: friendfund/templates_free_form/contribution/payment_success.html:24
 msgid "FF_CONTRIB_SUCCESS_Thanks for Chipping In!"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:32
+#: friendfund/templates_free_form/contribution/payment_success.html:53
 #, python-format
-msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s to %(pool_title)s."
+msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:33
+#: friendfund/templates_free_form/contribution/payment_success.html:54
 msgid "FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive shortly."
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:35
-msgid "FF_PAYMENT_SUCCESS_The payment will show up in a few minutes."
+#: friendfund/templates_free_form/contribution/payment_success.html:70
+#: friendfund/templates_free_form/mypools/common.html:58
+#: friendfund/templates_free_form/mypools/stream.html:129
+#: friendfund/templates_free_form/mypools/stream.html:187
+#: friendfund/templates_free_form/mypools/stream.html:244
+#: friendfund/templates_free_form/mypools/stream.html:302
+#: friendfund/templates_free_form/mypools/stream.html:348
+#: friendfund/templates_free_form/pool/pool.html:243
+msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:39
-msgid "FF_CONTRIB_SUCCESS_Create a Pool"
+#: friendfund/templates_free_form/contribution/payment_success.html:72
+#: friendfund/templates_free_form/mypools/common.html:56
+#: friendfund/templates_free_form/mypools/stream.html:127
+#: friendfund/templates_free_form/mypools/stream.html:185
+#: friendfund/templates_free_form/mypools/stream.html:242
+#: friendfund/templates_free_form/mypools/stream.html:300
+#: friendfund/templates_free_form/mypools/stream.html:346
+msgid "FF_MYPOOLS_Invite Friends"
 msgstr ""
 
 #: friendfund/templates_free_form/contribution/popups/notify_invitees.html:5
@@ -2170,25 +2184,6 @@ msgstr ""
 #: friendfund/templates_free_form/mypools/stream.html:299
 #: friendfund/templates_free_form/mypools/stream.html:345
 msgid "FF_MYPOOLS_PROMOTE THIS POOL"
-msgstr ""
-
-#: friendfund/templates_free_form/mypools/common.html:56
-#: friendfund/templates_free_form/mypools/stream.html:127
-#: friendfund/templates_free_form/mypools/stream.html:185
-#: friendfund/templates_free_form/mypools/stream.html:242
-#: friendfund/templates_free_form/mypools/stream.html:300
-#: friendfund/templates_free_form/mypools/stream.html:346
-msgid "FF_MYPOOLS_Invite Friends"
-msgstr ""
-
-#: friendfund/templates_free_form/mypools/common.html:58
-#: friendfund/templates_free_form/mypools/stream.html:129
-#: friendfund/templates_free_form/mypools/stream.html:187
-#: friendfund/templates_free_form/mypools/stream.html:244
-#: friendfund/templates_free_form/mypools/stream.html:302
-#: friendfund/templates_free_form/mypools/stream.html:348
-#: friendfund/templates_free_form/pool/pool.html:243
-msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr ""
 
 #: friendfund/templates_free_form/mypools/common.html:59
