@@ -1,4 +1,6 @@
 <%inherit file="../layout.html"/>
+<%namespace name="widgets" file="/widgets/widgets.html"/>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 <div class="wrapSubHeader">
 <div class="overlayWrapper">
   <div class="overlay green">
@@ -8,9 +10,7 @@
   <div class="subHeader">
     <div class="userProfile">
       <div class="nonPoolHeader">
-        <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
-        </div>
+    
         <h2>${_("FF_CONTRIB_SUCCESS_Thanks for Chipping In!")}</h2>
       </div>
       <div class="steps">
@@ -28,18 +28,49 @@
 </div>
 <div class="content">
 <% locals = {"amount":c.values["amount"], "pool_title":c.pool.title} %>
-  <div class="success">
- 	<p><img src="/static/imgs/checked.png" style="margin-right:5px" />${_("FF_CONTRIB_SUCCESS_You've contributed %(amount)s to %(pool_title)s.")%locals|n}</p> 
- 	<p class="small">${_("FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive shortly.")}</p>
-	%if c.show_delay:
-		<p class="small">${_("FF_PAYMENT_SUCCESS_The payment will show up in a few minutes.")}</p>
-	%endif
-	<div style="margin-top:30px">
-		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="primaryButton floatLeft" style="margin-right:20px">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
-		<a href="${h.create_pool_link(request, url)}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Create a Pool")}</a>
-		<div class="clear"></div>
-	</div>
-  </div>
+	<div class="colRight"></div>
+    <div class="colLeft">
+    <div class="successBox">
+    	<div class="greyInside" style="padding:10px; margin:20px 0 0 0">
+        	<div class="boxWhat floatLeft">
+			<div class="prod"> <img width="60px" height="50px" src="/static/imgs/default_product_FF_POOL.png"> </div>
+			<p style="overflow: hidden;" class="title">
+				<a href="http://cristiano.friendfund.de/pool/P3AX.wniu">wniu</a>
+				<span class="creator">by Henrietta Regina Goldmine</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+        	<h4>You've contributed $29.03.</h4>
+            <p class="suc">You should receive a confirmation email shortly.</p>
+            <div class="clear"></div>
+        </div>
+        <div class="colRightWhite"></div>
+        <p class="suc2">Help JudyFace spread the word by sharing this Pool with your friends:</p>
+        <div class="addthis_toolbox addthis_default_style">
+					  <a class="addthis_button_facebook"></a>
+					  <a class="addthis_button_twitter"></a>
+					  <a class="addthis_button_email"></a>
+					  <a class="addthis_button_linkedin"></a>
+					  <a class="addthis_button_stumbleupon"></a>
+					  <a class="addthis_button_tumblr"></a>
+					  <a class="addthis_button_expanded"></a>
+		</div>
+        <input type="text" onclick="this.select()" value="http://cristiano.friendfund.de/pool/P3AX.wniu">
+        &nbsp; &nbsp;&nbsp;<span>|</span> &nbsp;&nbsp;
+        <a href="#">Embed Widget</a> &nbsp;&nbsp;
+        <span>|</span> &nbsp;&nbsp;
+        <a href="#">Invite more friends </a> &nbsp;&nbsp;
+        <h4>What Next?</h4>
+        <div class="subHeading"></div> 
+        <div style="padding-bottom:20px">
+        <p class="suc2">Why not <a href="#">create your own Pool</a> and invite JudyFace, Harry and Alice to chip in?</p>
+        </div>
+        <a href="#" class="primaryButton floatLeft">Create a pool</a>
+        <a href="#" style="margin:7px 0 0 15px; display:block; float:left">Back to pool</a>
+    </div>
+
   
+  <div class="clear"></div>
+  </div>
   <div class="clear"></div>
 </div>
