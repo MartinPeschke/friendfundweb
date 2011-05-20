@@ -178,3 +178,17 @@ class GetTopSellersProc(DBMappedObject):
 		setattr(self, 'map', {})
 		for region in self.list:
 			self.map[region.name.lower()] = region.list
+	
+	
+	
+	
+class CreateMerchantProc(DBMappedObject):
+	_get_root = _set_root = 'MERCHANT'
+	_get_proc = _set_proc = 'ssp.create_merchant'
+	_cachable = False
+	_unique_keys = []
+	_keys = [	 GenericAttrib(unicode,'name','merchant_name')
+				,GenericAttrib(bool,'require_address','require_address')
+				,GenericAttrib(str,'home_page','home_page')
+				,DBMapper(MerchantCountry,'shippping_countries','SHIPPING_COUNTRY', is_list = True)
+			]
