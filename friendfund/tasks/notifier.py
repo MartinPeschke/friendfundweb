@@ -191,7 +191,7 @@ def main(argv=None):
 	apppool = common.DBManager(get_db_pool(config, "pool"), None, log, STATICS_SERVICE)
 	merchant_config = apppool.get(GetMerchantConfigProc)
 	
-	common_params = {"DEFAULT_BASE_URL":config['site_root_url']}
+	common_params = {"DEFAULT_BASE_URL":config['site_root_url'], "contact_url":"%s/content/contact"%config['site_root_url']}
 	
 	debug = config['debug'].lower() == 'true'
 	available_langs = config['available_locales'].lower().split(',')

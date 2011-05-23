@@ -23,7 +23,7 @@ from friendfund.tasks.notifiers.common import InvalidAccessTokenException
 
 def _create_event(access_token, session_key, query, image_url, pool_url, config):
 	query['access_token'] = access_token
-	query['session_key'] = session_key
+	# query['session_key'] = session_key
 	query['format'] = "json"
 	log.info('CREATing EVENT WITH: (%s)', query)
 	register_openers()
@@ -37,7 +37,7 @@ def _create_event(access_token, session_key, query, image_url, pool_url, config)
 
 
 def _create_event_oldstyle(access_token, session_key, query, image_url, pool_url, config):
-	params = {"event_info":simplejson.dumps(query), "access_token":access_token,"session_key":session_key, "format":"json"}
+	params = {"event_info":simplejson.dumps(query), "access_token":access_token,"format":"json"}
 	log.info('CREATING EVENT WITH: (%s)', urllib.urlencode(params))
 	req = urllib2.Request('https://api.facebook.com/method/events.create', urllib.urlencode(params))
 	try:
