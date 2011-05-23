@@ -77,7 +77,7 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
 			<div class="subHeadingSpecial"></div>
-			<div class=" borderBottom ${h.contains_one(["currency", "amount"], c.errors) and "error" or ""}" id="date_error_row">
+			<div class=" borderBottom ${h.contains_one(["currency", "amount"], c.errors) and "error" or ""}">
 				%if h.contains_one(["currency", "amount"], c.errors):
 					<div class="tip">
 						<div class="arrow"></div>

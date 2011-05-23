@@ -21,7 +21,7 @@ div#wrap {
 	width: 100%;
 	height:auto;
 	min-height:100%;
-	background:none repeat scroll 0 0 #F8F8F8
+	background:none repeat scroll 0 0 #FCFCFC
 }
 div.wrapHeader {
 	border-bottom: 1px solid #c7c6c3;
@@ -39,17 +39,16 @@ div.header {
 }
 div.wrapSubHeaderHome {
 	background: url(/static/imgs/trans_top.png) repeat-x scroll 0 0 #FBFAF3;
-	border-bottom: 1px solid #d3d3d3;
-	height: 390px;
+	border-bottom: 1px solid #cecece;
 	position: relative;
 }
 div.wrapSubHeaderHome div.shadowHome {
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	height: 20px;
+	height: 15px;
 	width: 100%;
-	background: url(/static/imgs/trans_header_bott.png) left bottom repeat-x;
+	background: url(/static/imgs/trans_top.png) repeat-x 0 -585px;
 }
 div.wrapSubHeader {
 	background: url(/static/imgs/trans_top.png) repeat-x scroll 0 0 #FBFAF3;
@@ -109,6 +108,7 @@ div.firstFourCol {
 }
 
 /* GENERAL ELEMENTS - GENERAL RULES */
+.clearer {clear:both}
 .clear {
 	clear: both;
 	line-height: 0;
@@ -126,9 +126,8 @@ a {
 a:hover {
 	text-decoration: underline
 }
-.white {
-	color: white !important
-}
+a.nolink:hover{text-decoration: none}
+.white {color: white !important}
 .link, div.error .link{
 	cursor:pointer !important;
 	color: #0094CC !important;
@@ -172,12 +171,6 @@ textarea {
 	border-color: Transparent;
 	overflow: auto;
 }
-/*
-.borderGrey input {
-	width:120px;
-	float:left
-}
-*/
 .noBorder {
 	border-bottom:none !important
 }
@@ -215,6 +208,8 @@ div.selected p.info {
 	min-height: 1px;
 	background: none;
 }
+
+.fullLRPadding {padding: 0 30px !important}
 /*-----END GENERAL ELEMENTS------*/
 
 /*-----------HEADER--------------*/
@@ -507,7 +502,8 @@ div.subHeader h2 {
 	font-size: 44px;
 	line-height: 50px;
 	padding: 50px 30px 0 0;
-	text-shadow: 0px 1px 0px white
+	text-shadow: 0px 1px 0px white;
+	float:left;
 }
 div.subHeader h2 span {
 	display:block;
@@ -519,105 +515,65 @@ div.subHeader h2 span {
 	float: left
 }
 /* HOMEPAGE */
-div.contentHome {
-	max-width: 930px;
-	margin: -210px auto 0 auto;
-	padding-bottom: 60px;
-	position: relative;
+
+.imageFrame{
+	border:1px solid #eeede7;
+	padding:9px;
+	background-color: #fcfbf6;
+	background: -moz-linear-gradient(100% 100% 90deg, #fcfbf6, #f9f8f3);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f8f3), to(#fcfbf6));
 }
-div.weNeed {
-	border: 1px solid #D3D3D3;
-	border-top-left-radius:10px;
-	border-top-right-radius:10px;
-	-moz-border-radius-topright:10px;
-	-moz-border-radius-topleft:10px;
-	background: white;
-	margin: 0 -30px 0 -30px;
-	width: 990px
+.homeFrame {float:left;margin-top:60px;max-width:450px}
+.homeFrame h2 {padding: 0px !important;}
+.homeFrame div.shadCorner{width:450px;background: url(/static/imgs/shadow-corner.png) left top no-repeat;height: 7px;position:absolute;}
+div.getStarted {margin: 40px 0;
+	border:1px solid #8cb14e;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background-color: #a0cd58;
+	background: -moz-linear-gradient(100% 100% 90deg, #a0cd58, #c7df82);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c7df82), to(#a0cd58));
+	-moz-box-shadow: 0px 0px 3px #aaa;
+	-webkit-box-shadow: 0px 0px 3px #aaa;
+	box-shadow: 0px 0px 3px #aaa;
 }
-div.formWeNeed {
-	padding:30px 30px 30px 30px;
-	min-height: 96px
+div.getStarted a{font-size:24px;font-weight:bold;color:#fff;padding:15px 20px;display:block;
+	background: -moz-radial-gradient(50% 50%, closest-side,rgba(217, 224, 129, 0.6), rgba(255, 255, 255, 0) 75%);
+	background: -webkit-gradient(radial, center center, 0, center center, 50, from(rgba(217, 224, 129, 0.5)), to(rgba(255,255,255,0)));
+	border-top:1px solid #fff;
+	border-left:1px solid #fff;
+	border-bottom:1px solid transparent;
+	border-right:1px solid transparent;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
-div.weNeed h3 {
-	font-size: 25px;
-	line-height: 25px;
-	font-weight: normal;
-	padding-bottom: 20px
+div.getStarted a > span {position:relative;text-shadow: #859659 0px 1px 0px;}
+div.getStarted a span span {position:absolute;left:0px;top:0;line-height:128%;}
+div.getStarted a span span.lowerText{text-shadow: rgba(0, 0, 0, 0.2) 1px 1px 2px;}
+div.getStarted a span span.lowestText{text-shadow: rgba(0, 0, 0, 0.2) -1px -1px 2px;}
+div.getStarted a:hover{
+	border-top:1px solid transparent;
+	border-left:1px solid transparent;
+	border-bottom:1px solid #fff;
+	border-right:1px solid #fff;
 }
-div.weNeed input.weNeed {
-	border: 1px solid #d1d1d1;
-	font-size: 18px;
-	line-height:28px;
-	height: 28px;
-	padding: 5px 10px 5px 10px;
-	display: block;
-	float: left
+div.getStarted a:hover > span {text-shadow: #859659 0px -1px 0px;}
+.learnMoreBtnNew {
+	color: #0094cc;display:block;font-size:12px;
+	background-color: #d4ebef;padding: 0 10px;margin:20px 0;height: 20px;line-height: 20px;
+	text-shadow: 0px 1px 0px rgba(255, 255, 255, 1)
 }
-div.weNeed input.tipeIn {
-	color: black
-}
-div.weNeed input.short {
-	width: 120px
-}
-div.weNeed input.long {
-	width: 500px;
-}
-div.weNeed input.button {
-	width: 130px;
-	color: black;
-	font-weight: bold;
-	margin-left: 30px;
-}
-div.formWeNeed span {
-	font-size: 18px;
-	font-weight: bold;
-	margin-right: 5px;
-	line-height: 40px;
-	float: left;
-	display: block;
-}
-div.formWeNeed span.link {
-	line-height: 12px;
-	display: inline;
-	float: none;
-}
-div.formWeNeed span.showToolTipHook {
-	margin-top: 0;
-	position: relative
-}
-div.formWeNeed p.info {
-	font-size: 11px;
-	color: #999;
-	margin: 5px 0 0 230px;
-	line-height: 11px;
-	float: left
-}
-div.weNeed .verticalTip {
-	margin-left: 0px;
-	margin-top: 10px;
-	width: 502px;
-	padding: 5px 10px !important;
-	position:absolute;
-	top: 40px;
-	left: 0
-}
-div.verticalTip div.arrow {
-	border-bottom: 10px solid #9CEFFE;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	left: 10px;
-	margin-top: 0;
-	padding: 0 !important;
-	position: absolute;
-	top: -10px;
-	height: 0px
-}
-div.weNeed .verticalTip span {
-	font-size: 12px;
-	font-weight: normal;
-	line-height: 21px
-}
+.homeListing * {padding:0 10px;font-size:14px;color:#adadad;text-shadow: 0px 1px 0px rgba(255, 255, 255, 1);}
+.homeListing b {color:#e74d97;}
+.learnMoreBtnNew:hover {background-color: #cde4e8;text-decoration:None}
+.homeDivider {height:0px;width:100%;border-top:#e5e5e5 solid 1px;border-bottom:#fff solid 1px;}
+.referers {width: 215px;height:120px;margin-right:22px;}
+.referers.last {margin-right:0px;}
+.referers img {padding:16px 0}
+.referers em {display:block;font-style:normal;font-size:12px;color:#adadad;text-shadow: 0px 1px 0px rgba(255, 255, 255, 1);}
+
 .exp {
 	position: relative;
 	height: 40px;
@@ -855,7 +811,7 @@ div.timeCounterRight {
 	-moz-border-radius-topleft:10px;
 	-moz-border-radius-bottomleft:10px;
 	height: 10px;
-	background:  #CDCCC9;
+	background:  #e7e7de;
 	padding: 3px
 }
 div.timeCounterLeft {

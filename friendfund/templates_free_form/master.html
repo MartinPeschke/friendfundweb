@@ -23,6 +23,7 @@ ${self.render_html()}
 		<title>friendfund.com ${self.title()}</title>
 		<script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
 		${links.css('site.css')}${links.js('loaderv5.js')}
+		<!--[if IE]>${links.css('allie.css')}<![endif]-->
 		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
 		${styles.merchantStyles(request.merchant)|n}
 		${self.meta_tags()}

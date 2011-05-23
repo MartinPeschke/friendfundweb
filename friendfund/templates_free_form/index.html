@@ -13,60 +13,56 @@
 
 <div class="wrapSubHeaderHome">
 	<div class="subHeader">
-		<h2><p>${_("FF_HOMEPAGE_SLOGAN_friendfund it.")}</p><span>${_("FF_HOMEPAGE_SLOGAN_Collect money by creating a pool and inviting friends to chip in.")}</span>
-			<a href="${url("short_content", lang=session["lang"], action="tips", host=app_globals.default_host)}" class="learnMoreBtn">${_("FF_HOMEPAGE_SLOGAN_Learn more")}</a>
-		</h2>
+		<div class="homeFrame">
+			<div class="imageFrame"><img src="/static/imgs/dummy/vimeo.png"/></div>
+			<div class="shadCorner"></div>
+		</div>
+		<div class="homeFrame">
+			<div class="fullLRPadding">
+				<h2><p>${_("FF_HOMEPAGE_SLOGAN_friendfund it.")}</p><span>${_("FF_HOMEPAGE_SLOGAN_Collect money by creating a pool and inviting friends to chip in.")}</span></h2>
+				<div class="getStarted clearer floatLeft">
+				<a class="nolink" href="${h.create_pool_link(request, url)}">
+					<span class="upperText">${_("Get Started")}
+						<span class="lowerText">${_("Get Started")}</span>
+						<span class="lowestText">${_("Get Started")}</span>
+					</span>
+				</a>
+				</div>
+			</div>
+		</div>
+		<div class="clearer" style="width:100%;height:60px;">
+			<a href="${url("short_content", lang=session["lang"], action="tips", host=app_globals.default_host)}" class="learnMoreBtnNew floatLeft">${_("FF_HOMEPAGE_SLOGAN_Learn more")}</a>
+			<div class="floatRight" style="padding:18px 0 0">
+			<a href="http://twitter.com/share" class="twitter-share-button floatLeft" data-url="http://www.friendfund.com" data-count="horizontal">Tweet</a>
+			<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+			</div>
+			<div class="floatRight homeListing" style="padding:20px 10px 0 0">
+				<div class="floatLeft"><b>253</b>Pools</div>
+				<div class="floatLeft"><b>1,206</b>Contributors</div>
+			</div>
+		</div>
+		<div class="homeDivider"></div>
+		<div class="clearer">
+			<div class="referers floatLeft"><img src="/static/imgs/TechCrunch_logo_bw.png" alt="TechCrunch"/>
+				<em>“All of sudden, so-called social commerce seems a tad more viable.”</em>
+			</div>
+			<div class="referers floatLeft"><img src="/static/imgs/gigaom_bw.png" alt="GigaOm"/>
+				<em>“Retailers are now waking up to the opportunity.”</em>
+			</div>
+			<div class="referers floatLeft"><img src="/static/imgs/zanox-bw.png" alt="Zanox"/>
+				<em>“Conference and exhibition in San Diego next month.”</em>
+			</div>
+			<div class="referers last floatLeft"><img src="/static/imgs/iw-bw.png" alt="Internet Business World"/>
+				<em>“Ich erwarte ein enormes virales Wachstum in 2011”</em>
+			</div>
+			<div class="clear"></div>
+		</div>
 	</div>
 	<div class="shadowHome"></div>
 </div>
 <div class="wrapSubContent">
 ${self.renderMessages()}
-<div class="contentHome">
-	<div class="weNeed">
-		<div class="formWeNeed" id="poolProductFinder">
-			<h3>${_("FF_HOMEPAGE_FORM_We need")}</h3>
-			<form method="POST" id="submissionform" onSubmit="return onSubmitCleaner(this)" action="${url("pool_details", protocol="http")}">
-			<div class="floatLeft">
-				<span>${h.display_currency(h.default_currency())}</span>
-				<span class="showToolTipHook"><input type="text" name="amount" class="short tipeIn weNeed" /></span>
-				<span style="margin-left:30px">${_("FF_HOMEPAGE_FORM_for")}</span>
-			</div>
-			<div class="floatLeft" style="width:522px">
-				<span class="showToolTipHook"><input type="text" name="title"_default_text="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}" id="home_title" class="weNeed default long" _url="${url(controller="product", action="open_bounce")}" value="${_("FF_HOME_PAGE_Examples: a weekend away, my sports club...")}">
-					<div class="verticalTip hideable">
-						<div class="arrow"></div>
-						<span>${_("FF_HOMEPAGE_FORM_You can also paste a link from any website here.")}</span>
-					</div>
-				</span>
-			<div id="homeurlexpander"></div>
-			</div>
-			<input type="submit" class="primaryLarge floatRight" value="${_("FF_HOME_PAGE_Get Started")}" />
-			</form>
-		</div>
-		<div class="logoContainer">
-			<div class="logoContainerRight">
-				<a target="_blank" href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.friendfund.com&lang=en"><img src="/static/imgs/veri-sign.png" /></a>
-				<img src="/static/imgs/fidor_bank_bw.png" style="margin-left:20px; margin-top:5px ;margin-right:10px" />
-				<img src="/static/imgs/mastercard.png" style="margin-left:20px; margin-top:10px ;margin-right:10px" />
-				<img src="/static/imgs/visa.png" style="margin-left:20px; margin-top:10px" />
-				<img src="/static/imgs/amex.png" style="margin-left:20px; margin-top:10px" />
-				<img src="/static/imgs/paypal.png" style="margin-top:10px; margin-left:20px; "  />
-			</div>
-			<div class="logoContainerLeft">
-				<span>${_("FF_HOMEPAGE_BOXES_SEEN IN")}</span>
-				<a target="_blank" href="http://eu.techcrunch.com/2011/05/03/angels-club-together-to-invest-in-friendfund/ ">
-					<img src="/static/imgs/techcrunch_sml.png" />
-				</a>	
-				<a target="_blank" href="http://blog.zanox.com/en/zanox/2010/12/10/interview-with-our-publisher-friendfund/ ">	
-					<img src="/static/imgs/Zanox_sml.png" />
-				</a>
-				<a target="_blank" href="http://www.internetworld.de/business-idee/ansicht/7/Madvertise">
-					<img src="/static/imgs/IWB_sml.png" />
-				</a>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+<div class="content">
 	<div class="featuredPoolsBox">
 		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
 		${self.render_featured_pools(c.get_featured_pools, h.get_language_locale())|n}
