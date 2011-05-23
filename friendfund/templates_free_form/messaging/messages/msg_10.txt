@@ -1,9 +1,13 @@
 <%def name="name()">${data['pool_title']}</%def>
 
 <%def name="description()">${data['pool_description']}
-Visit the pool page below and chip in!  
-http://${data['merchant_domain']}/pool/${data['p_url']}   
-Collect money with friends.  Create a pool. Chip in. friendfund it!
+${data['message']}   
+
+We have until ${data['expiry_date']} to meet the target. Chip in as little or a much as you like (even the smallest contribution helps)!  
+Visit our friendfund Pool page: http://${data['merchant_domain']}/pool/${data['p_url']}   
+Collect money with friends.  Create a pool. Chip in. friendfund it!   
+
+What is friendfund anayway? Learn more here: http://${data['learn_more_url']}  
 </%def>
 
 

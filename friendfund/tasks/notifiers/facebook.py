@@ -1,5 +1,5 @@
 import urllib, urllib2, simplejson, logging, StringIO, os
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from celery.execute import send_task
 from poster.streaminghttp import register_openers
@@ -21,8 +21,9 @@ SET_EVENT_ID_PARAM = '<POOL p_url="%(p_url)s" event_id="%(event_id)s"/>'
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException
 
 
-def _create_event(access_token, query, image_url, pool_url, config):
+def _create_event(access_token, session_key, query, image_url, pool_url, config):
 	query['access_token'] = access_token
+	query['session_key'] = session_key
 	query['format'] = "json"
 	log.info('CREATing EVENT WITH: (%s)', query)
 	register_openers()
@@ -35,8 +36,8 @@ def _create_event(access_token, query, image_url, pool_url, config):
 	return event_id
 
 
-def _create_event_oldstyle(access_token, query, image_url, pool_url, config):
-	params = {"event_info":simplejson.dumps(query), "access_token":access_token, "format":"json"}
+def _create_event_oldstyle(access_token, session_key, query, image_url, pool_url, config):
+	params = {"event_info":simplejson.dumps(query), "access_token":access_token,"session_key":session_key, "format":"json"}
 	log.info('CREATING EVENT WITH: (%s)', urllib.urlencode(params))
 	req = urllib2.Request('https://api.facebook.com/method/events.create', urllib.urlencode(params))
 	try:
@@ -58,13 +59,16 @@ def _create_event_invite(template, sndr_data, rcpt_data, template_data, config):
 	query['description'] = template.get_def("description").render_unicode(h = h, data = data).encode("utf-8")
 	if not template_data.get('event_id'):
 		query['name'] = template.get_def("name").render_unicode(h = h, data = data).encode("utf-8")
-		query['privacy_type'] = "OPEN"
+		query['privacy_type'] = "SECRET"
 		query['start_time'] = datetime.today().strftime("%Y-%m-%d")
 		query['end_time'] = template_data["expiry_date_object"].strftime("%Y-%m-%d")
 		query['location'] = template.get_def("location").render_unicode(h = h, data = data).encode("utf-8")
+		query['category'] = 1
+		query['sub_category'] = 1
+		query['City'] = "Berlin"
 		query["host"] = "me"
 		image_url = STATICS_SERVICE.get_product_picture(template_data.get("pool_image"), "FF_POOLS").encode("utf-8")
-		event_id = _create_event(sndr_data["access_token"], query, image_url, template_data['p_url'], config)
+		event_id = _create_event(sndr_data["access_token"], sndr_data.get("session_key"), query, image_url, template_data['p_url'], config)
 	else:
 		event_id = template_data['event_id']
 	msg = {"eid":str(event_id),

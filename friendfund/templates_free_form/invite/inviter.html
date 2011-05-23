@@ -58,7 +58,7 @@
 	<form action="" method="POST" id="emailinviter">
 	<div class="arrowSubTab"></div>
 	<div class="firstSpacer floatLeft ${"name" in c.email_errors and "error" or ""}"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label>
-		<input _default_text="${_("FF_INVITER_EMAIL_Friend's Name")}" value="${c.email_values.get("name") or _("FF_INVITER_EMAIL_Friend's Name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
+		<input value="${c.email_values.get("name") or _("FF_INVITER_EMAIL_Friend's Name")}" _default_text="${_("FF_INVITER_EMAIL_Friend's Name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
 		%if "name" in c.email_errors:
 			<p>${c.email_errors['name']}</p>
 		%endif

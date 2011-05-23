@@ -1,14 +1,15 @@
 Hi ${data['invitee_name']},  
 
-${data['admin_name']} has found the perfect ${data['occasion']} gift for ${data['recipient_name']} and I would like to invite you to the friendfund gift Pool that will help purchase it.  
+${data['admin_name']} has found the perfect ${data['occasion']} gift for ${data['recipient_name']} and I would like to invite you to the secret friendfund gift Pool that will help purchase it.   
 
-${data['message']}   
+${data['message']}  
 
-We have until the ${data['expiry_date']} to make this happen!  Chip in as little or a much as you like (even the smallest contribution helps)!  
+We have until the ${data['expiry_date']} to make this happen!  Chip in as little or a much as you like (even the smallest contribution helps)!   
 Visit the gift pool here: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+Sshhhh! Remember this is a suprise, so be careful how you share.  
 
 Thank you  
-Letâ€™s make ${data['recipient_name']}â€™s ${data['occasion']} special!  
+Let’s make ${data['recipient_name']}’s ${data['occasion']} special!  
 ${data['invitor_name']}  
 
 %if data['merchant_is_default']:   
@@ -22,6 +23,5 @@ ${data['merchant_name']} in partnership with friendfund
 Collect money with friends. Create a pool. Chip in. friendfund it!   
 %endif   
 
-What is friendfund anayway? Learn more here: http://${data['learn_more_url']}    
-
+What is friendfund anyway? Learn more here: http://${data['learn_more_url']}   
 <%def name="subject()">${data['pool_title']}: You have been invited to join a friendfund pool!</%def> 

@@ -110,19 +110,38 @@ class GlobalDBPaymentNotice(DBMappedObject):
 				,GenericAttrib(bool,'success'  ,'success')
 				,GenericAttrib(str, 'reason'   ,'reason')
 			]
-	
+			
+class SuggestedInvitee(DBMappedObject):
+	"""<SUGGESTED_POOL u_id="129448" name="Jannis Choulidis" />"""
+	_cachable = False
+	_get_root = _set_root = 'SUGGESTED_POOL'
+	_unique_keys = ['u_id', 'name']
+	_keys = [	GenericAttrib(int, 'u_id'    ,'u_id')
+				,GenericAttrib(unicode, 'name'   ,'name')
+			]
+
 class GetDetailsFromContributionRefProc(DBMappedObject):
 	"""
 		[app].[get_details_from_contribution_ref]
 		<CONTRIBUTION  contribution_ref="30DBFB7B-4DD2-4C70-9470-FA4B0F5AF10F"/>
 	"""
 	_cachable = False
-	_get_root = _set_root = 'CONTRIBUTION'
-	_unique_keys = ['msg_id']
 	_set_proc =_get_proc = 'app.get_details_from_contribution_ref'
-	_keys = [	GenericAttrib(unicode, 'contribution_ref','contribution_ref')
-				,GenericAttrib(int, 'amount'      ,'amount')
+	_get_root = _set_root = 'CONTRIBUTION'
+	_keys = [	GenericAttrib(int, 'amount'      ,'amount')
 				,GenericAttrib(bool, 'is_secret'  ,'is_secret')
-				,GenericAttrib(unicode, 'message' ,'message')]
+				,GenericAttrib(unicode, 'message' ,'message')
+				,GenericAttrib(unicode, 'contribution_ref','contribution_ref')
+				,DBMapper(SuggestedInvitee, 'suggested_invitees'  ,'SUGGESTED_POOL', is_list = True)]
 	def get_amount(self):
 		return float(self.amount)/100
+	def number_suggestions(self):
+		return len(self.suggested_invitees)
+	def get_suggested_names(self, seperator = ', '):
+		number = self.number_suggestions()
+		if not number:
+			return None, None
+		elif number == 1:
+			return None, self.suggested_invitees[-1].name
+		else:
+			return seperator.join(x.name for x in self.suggested_invitees[:-1]), self.suggested_invitees[-1].name

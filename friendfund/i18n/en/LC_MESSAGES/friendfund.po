@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-20 18:57+0200\n"
+"PO-Revision-Date: 2011-05-23 15:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -1634,7 +1634,7 @@ msgid "FF_FOOTER_2010 friendfund All Rights Reserved"
 msgstr "2011 friendfund GmbH. All Rights Reserved."
 
 #: friendfund/templates_free_form/layout.html:96
-#: friendfund/templates_free_form/contribution/payment_success.html:80
+#: friendfund/templates_free_form/contribution/payment_success.html:91
 msgid "FF_MESSAGE_LINK_Back to Pool"
 msgstr "Back to Pool"
 
@@ -1675,7 +1675,7 @@ msgid "FF_STATIC_MENU_Chip in with confidence"
 msgstr "Chip in with confidence"
 
 #: friendfund/templates_free_form/content/common.html:69
-#: friendfund/templates_free_form/contribution/payment_success.html:79
+#: friendfund/templates_free_form/contribution/payment_success.html:90
 #: friendfund/templates_free_form/myprofile/login_panel.html:67
 msgid "FF_MENU_Create a pool"
 msgstr "CREATE A POOL"
@@ -2042,7 +2042,7 @@ msgstr ""
 "number."
 
 #: friendfund/templates_free_form/contribution/common.html:10
-#: friendfund/templates_free_form/contribution/payment_success.html:50
+#: friendfund/templates_free_form/contribution/payment_success.html:54
 #, python-format
 msgid "FF_CONTRIBUTION_by %(admin_name)s"
 msgstr "by %(admin_name)s"
@@ -2279,25 +2279,27 @@ msgstr "Payment Successful!"
 msgid "FF_CONTRIB_SUCCESS_Thanks for Chipping In!"
 msgstr "Thanks for Chipping In!"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:54
+#: friendfund/templates_free_form/contribution/payment_success.html:58
 #, python-format
 msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s"
-msgstr ""
+msgstr "You've contributed %(amount)s"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:55
+#: friendfund/templates_free_form/contribution/payment_success.html:59
 msgid ""
 "FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive "
 "shortly."
 msgstr "You should receive a confirmation email shortly."
 
-#: friendfund/templates_free_form/contribution/payment_success.html:59
+#: friendfund/templates_free_form/contribution/payment_success.html:63
 #, python-format
 msgid ""
 "FF_CONTRIB_SUCCESS_Help %(admin_name)s spread the word by sharing this "
 "Pool with your friends:"
 msgstr ""
+"Help %(admin_name)s spread the word by sharing this Pool with your "
+"friends:"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:71
+#: friendfund/templates_free_form/contribution/payment_success.html:75
 #: friendfund/templates_free_form/mypools/common.html:58
 #: friendfund/templates_free_form/mypools/stream.html:129
 #: friendfund/templates_free_form/mypools/stream.html:187
@@ -2308,7 +2310,7 @@ msgstr ""
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr "Embed Widget"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:73
+#: friendfund/templates_free_form/contribution/payment_success.html:77
 #: friendfund/templates_free_form/mypools/common.html:56
 #: friendfund/templates_free_form/mypools/stream.html:127
 #: friendfund/templates_free_form/mypools/stream.html:185
@@ -2318,17 +2320,37 @@ msgstr "Embed Widget"
 msgid "FF_MYPOOLS_Invite Friends"
 msgstr "Invite Friends"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:74
+#: friendfund/templates_free_form/contribution/payment_success.html:79
 msgid "FF_CONTRIB_SUCCESS_What Next?"
-msgstr ""
+msgstr "What Next?"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:77
+#: friendfund/templates_free_form/contribution/payment_success.html:83
+#, python-format
+msgid ""
+"FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> "
+"and invite some friends to chip in?"
+msgstr ""
+"Why not <a %(create_link)s>create your own Pool</a> and invite some "
+"friends to chip in?"
+
+#: friendfund/templates_free_form/contribution/payment_success.html:85
+#, python-format
+msgid ""
+"FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> "
+"and invite %(one_more_name)s to chip in?"
+msgstr ""
+"Why not <a %(create_link)s>create your own Pool</a> and invite "
+"%(one_more_name)s to chip in?"
+
+#: friendfund/templates_free_form/contribution/payment_success.html:87
 #, python-format
 msgid ""
 "FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> "
 "and invite %(comma_seperated_name_list)s and %(one_more_name)s to chip "
 "in?"
 msgstr ""
+"Why not <a %(create_link)s>create your own Pool</a> and invite "
+"%(comma_seperated_name_list)s and %(one_more_name)s to chip in?"
 
 #: friendfund/templates_free_form/contribution/popups/notify_invitees.html:5
 msgid "FF_CONTRIBUTION_NOTIFYINVITEES_POPUP_heading, What is Notify Invitees?"
@@ -3191,6 +3213,82 @@ msgstr "Sign up with Twitter"
 msgid "FF_LOGIN_Login in Here"
 msgstr "Log in Here"
 
+#: friendfund/templates_free_form/partner/howto.html:10
+msgid "FF_IFRAME_HOWTO_What is friendfund?"
+msgstr "What is friendfund?"
+
+#: friendfund/templates_free_form/partner/howto.html:11
+msgid ""
+"FF_IFRAME_HOWTO_friendfund is the simple way to organise a Group Gift and"
+" give something extra special without breaking the bank."
+msgstr ""
+"friendfund is the simple way to organise a Group Gift and give something "
+"extra special without breaking the bank."
+
+#: friendfund/templates_free_form/partner/howto.html:12
+msgid ""
+"FF_IFRAME_HOWTO_Find the perfect gift, click the friendfund it! button, "
+"and share the costs with friends!"
+msgstr ""
+"Find the perfect gift, click the friendfund it! button, and share the "
+"costs with friends!"
+
+#: friendfund/templates_free_form/partner/howto.html:13
+msgid "FF_IFRAME_HOWTO_See how it works in the righthand panel"
+msgstr "See how it works in the righthand panel"
+
+#: friendfund/templates_free_form/partner/howto.html:16
+msgid "FF_IFRAME_HOWTO_As seen in"
+msgstr "As seen in"
+
+#: friendfund/templates_free_form/partner/howto.html:23
+msgid "FF_IFRAME_HOWTO_You are safe with us"
+msgstr "You are safe with us"
+
+#: friendfund/templates_free_form/partner/howto.html:28
+msgid "FF_IFRAME_HOWTO_Powered by"
+msgstr "Powered by"
+
+#: friendfund/templates_free_form/partner/howto.html:38
+msgid ""
+"FF_IFRAME_HOWTO_<span>Getting started:</span> Browse the product pages on"
+" this website to find the perfect gift."
+msgstr ""
+"<span>Getting started:</span> Browse the product pages on this website to"
+" find the perfect gift."
+
+#: friendfund/templates_free_form/partner/howto.html:43
+msgid ""
+"FF_IFRAME_HOWTO_<span>Once you've found your gift,</span> click the "
+"friendfund it! button."
+msgstr "<span>Once you've found your gift,</span> click the friendfund it! button."
+
+#: friendfund/templates_free_form/partner/howto.html:48
+msgid ""
+"FF_IFRAME_HOWTO_<span>In the popup,</span> choose your recipient and "
+"occasion..."
+msgstr "<span>In the popup,</span> choose your recipient and occasion..."
+
+#: friendfund/templates_free_form/partner/howto.html:53
+msgid "FF_IFRAME_HOWTO_<span>... and invite friends</span> to share the costs."
+msgstr "<span>... and invite friends</span> to share the costs."
+
+#: friendfund/templates_free_form/partner/howto.html:58
+msgid ""
+"FF_IFRAME_HOWTO_<span>Congratulations!</span> Your Group Gift Pool is "
+"live! You have 10 days to reach the target."
+msgstr ""
+"<span>Congratulations!</span> Your Group Gift Pool is live! You have 10 "
+"days to reach the target."
+
+#: friendfund/templates_free_form/partner/howto.html:63
+msgid ""
+"FF_IFRAME_HOWTO_<span>Once the Pool is funded,</span> your gift will be "
+"shipped directly to your chosen destination."
+msgstr ""
+"<span>Once the Pool is funded,</span> your gift will be shipped directly "
+"to your chosen destination."
+
 #: friendfund/templates_free_form/partner/iframe.html:50
 msgid ""
 "FF_IFRAME_To friendfund a specific product, visit any of the product "
@@ -3923,13 +4021,4 @@ msgstr[1] "<strong>%(secs)d</strong> seconds left"
 #: friendfund/templates_free_form/widgets/widgets.html:62
 msgid "FF_POOL_INFO_expired"
 msgstr "expired"
-
-#~ msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s to %(pool_title)s."
-#~ msgstr "You've contributed %(amount)s to %(pool_title)s."
-
-#~ msgid "FF_PAYMENT_SUCCESS_The payment will show up in a few minutes."
-#~ msgstr "Your payment will show up in a few minutes."
-
-#~ msgid "FF_CONTRIB_SUCCESS_Create a Pool"
-#~ msgstr "Create a Pool"
 

@@ -37,8 +37,12 @@
   </div>
 </div>
 <div class="content">
-		<% locals = {"amount":c.values["amount"], "pool_title":c.pool.title, "admin_name":c.pool.admin.name, "p_url":url("get_pool", pool_url = c.pool.p_url, protocol="http"),
-			"one_more_name":"User3","comma_seperated_name_list":", ".join(["User1","User2"]), "create_link":'href="%s"'%h.create_pool_link(request, url)} %>
+		<% 
+			comma_seperated_name_list, one_more_name = c.contrib.get_suggested_names(", ")
+			locals = {"amount":c.values["amount"], "pool_title":c.pool.title, "admin_name":c.pool.admin.name, "p_url":url("get_pool", pool_url = c.pool.p_url, protocol="http"),
+				"one_more_name":one_more_name,"comma_seperated_name_list":comma_seperated_name_list, "create_link":'href="%s"'%h.create_pool_link(request, url),
+				"number_suggestions" : c.contrib.number_suggestions()} 
+		%>
 	<div class="colRight"></div>
     <div class="colLeft">
     <div class="successBox" id="successPageBody">
@@ -71,11 +75,18 @@
         <a class="link popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a> &nbsp;&nbsp;
         <span>|</span> &nbsp;&nbsp;
         <a href="${url("invite_index", pool_url=c.pool.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a> &nbsp;&nbsp;
-        <h4>${_("FF_CONTRIB_SUCCESS_What Next?")}</h4>
-        <div class="subHeading"></div> 
-        <div style="padding-bottom:20px">
-        <p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(comma_seperated_name_list)s and %(one_more_name)s to chip in?")%locals|n}</p>
-        </div>
+		
+		<h4>${_("FF_CONTRIB_SUCCESS_What Next?")}</h4>
+		<div class="subHeading"></div> 
+		<div style="padding-bottom:20px">
+		%if not locals['number_suggestions']:
+			<p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite some friends to chip in?")%locals|n}</p>
+		%elif locals['number_suggestions'] == 1:
+			<p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(one_more_name)s to chip in?")%locals|n}</p>
+		%else:
+			<p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(comma_seperated_name_list)s and %(one_more_name)s to chip in?")%locals|n}</p>
+		%endif
+		</div>
         <a ${locals['create_link']} class="primaryButton floatLeft">${_("FF_MENU_Create a pool")}</a>
         <a href="${locals['p_url']}" style="margin:7px 0 0 15px; display:block; float:left">${_("FF_MESSAGE_LINK_Back to Pool")}</a>
     </div>

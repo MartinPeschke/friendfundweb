@@ -82,8 +82,8 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 			dojo.place(data.html, _t.rootNode, "only");
 		}
 		var input = dojo.query("input[type=text]", _t.rootNode)[0];
-		if(input){input.focus();if(dojo.hasClass(input, "default")){dojo.removeClass(input, "default");input.value="";}}
 		parseDefaultsInputs(_t.rootNode);
+		if(input){input.focus();}
 	},
 	inviteAppendNode : function(_t, elem){
 		dojo.place(elem, _t.invited_node, "last");
