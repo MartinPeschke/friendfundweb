@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-19 17:48+0200\n"
+"PO-Revision-Date: 2011-05-20 18:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -1695,6 +1695,7 @@ msgid "FF_FOOTER_2010 friendfund All Rights Reserved"
 msgstr "2011 friendfund GmbH. Alle Rechte vorbehalten."
 
 #: friendfund/templates_free_form/layout.html:96
+#: friendfund/templates_free_form/contribution/payment_success.html:80
 msgid "FF_MESSAGE_LINK_Back to Pool"
 msgstr "zurück zum Pool"
 
@@ -1735,6 +1736,7 @@ msgid "FF_STATIC_MENU_Chip in with confidence"
 msgstr "Zahlen mit Sicherheit"
 
 #: friendfund/templates_free_form/content/common.html:69
+#: friendfund/templates_free_form/contribution/payment_success.html:79
 #: friendfund/templates_free_form/myprofile/login_panel.html:67
 msgid "FF_MENU_Create a pool"
 msgstr "Gründe einen Pool"
@@ -2105,6 +2107,7 @@ msgstr ""
 "Vorderseite."
 
 #: friendfund/templates_free_form/contribution/common.html:10
+#: friendfund/templates_free_form/contribution/payment_success.html:50
 #, python-format
 msgid "FF_CONTRIBUTION_by %(admin_name)s"
 msgstr "von %(admin_name)s"
@@ -2151,21 +2154,21 @@ msgstr "Nimm teil an %s"
 #: friendfund/templates_free_form/contribution/contrib_screen.html:33
 #: friendfund/templates_free_form/contribution/payment_details.html:33
 #: friendfund/templates_free_form/contribution/payment_fail.html:17
-#: friendfund/templates_free_form/contribution/payment_success.html:17
+#: friendfund/templates_free_form/contribution/payment_success.html:27
 msgid "FF_CONTRIB_PAGE_HEADER_Chip in"
 msgstr "Zahle ein"
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:36
 #: friendfund/templates_free_form/contribution/payment_details.html:36
 #: friendfund/templates_free_form/contribution/payment_fail.html:20
-#: friendfund/templates_free_form/contribution/payment_success.html:20
+#: friendfund/templates_free_form/contribution/payment_success.html:30
 msgid "FF_CONTRIB_PAGE_HEADER_Payment info"
 msgstr "Zahlungsinformationen"
 
 #: friendfund/templates_free_form/contribution/contrib_screen.html:39
 #: friendfund/templates_free_form/contribution/payment_details.html:39
 #: friendfund/templates_free_form/contribution/payment_fail.html:23
-#: friendfund/templates_free_form/contribution/payment_success.html:23
+#: friendfund/templates_free_form/contribution/payment_success.html:33
 msgid "FF_CONTRIB_PAGE_HEADER_Done!"
 msgstr "Fertig!"
 
@@ -2325,36 +2328,67 @@ msgid "FF_CONTRIB_Try again"
 msgstr "Versuch's nochmal"
 
 #: friendfund/templates_free_form/contribution/payment_fail.html:36
-#: friendfund/templates_free_form/contribution/payment_success.html:38
 msgid "FF_CONTRIB_SUCCESS_Back to Pool"
 msgstr "Zurück zum Pool"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:5
+#: friendfund/templates_free_form/contribution/payment_success.html:17
 msgid "FF_CONTRIB_SUCCESS_Payment Successful!"
 msgstr "Zahlung erfolgreich!"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:14
+#: friendfund/templates_free_form/contribution/payment_success.html:24
 msgid "FF_CONTRIB_SUCCESS_Thanks for Chipping In!"
 msgstr "Vielen Dank für deine Einzahlung!"
 
-#: friendfund/templates_free_form/contribution/payment_success.html:32
+#: friendfund/templates_free_form/contribution/payment_success.html:54
 #, python-format
-msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s to %(pool_title)s."
-msgstr "Du hast %(amount)s in den Pool %(pool_title)s eingezahlt."
+msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s"
+msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:33
+#: friendfund/templates_free_form/contribution/payment_success.html:55
 msgid ""
 "FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive "
 "shortly."
 msgstr "Wir haben Dir eine Bestätigung per Email geschickt."
 
-#: friendfund/templates_free_form/contribution/payment_success.html:35
-msgid "FF_PAYMENT_SUCCESS_The payment will show up in a few minutes."
-msgstr "Deine Einzahlung wird in ein paar Minuten angezeigt."
+#: friendfund/templates_free_form/contribution/payment_success.html:59
+#, python-format
+msgid ""
+"FF_CONTRIB_SUCCESS_Help %(admin_name)s spread the word by sharing this "
+"Pool with your friends:"
+msgstr ""
 
-#: friendfund/templates_free_form/contribution/payment_success.html:39
-msgid "FF_CONTRIB_SUCCESS_Create a Pool"
-msgstr "Gründe einen Pool"
+#: friendfund/templates_free_form/contribution/payment_success.html:71
+#: friendfund/templates_free_form/mypools/common.html:58
+#: friendfund/templates_free_form/mypools/stream.html:129
+#: friendfund/templates_free_form/mypools/stream.html:187
+#: friendfund/templates_free_form/mypools/stream.html:244
+#: friendfund/templates_free_form/mypools/stream.html:302
+#: friendfund/templates_free_form/mypools/stream.html:348
+#: friendfund/templates_free_form/pool/pool.html:243
+msgid "FF_POOL_PAGE_CHIPIN_embed widget"
+msgstr "Widget"
+
+#: friendfund/templates_free_form/contribution/payment_success.html:73
+#: friendfund/templates_free_form/mypools/common.html:56
+#: friendfund/templates_free_form/mypools/stream.html:127
+#: friendfund/templates_free_form/mypools/stream.html:185
+#: friendfund/templates_free_form/mypools/stream.html:242
+#: friendfund/templates_free_form/mypools/stream.html:300
+#: friendfund/templates_free_form/mypools/stream.html:346
+msgid "FF_MYPOOLS_Invite Friends"
+msgstr "Freunde einladen"
+
+#: friendfund/templates_free_form/contribution/payment_success.html:74
+msgid "FF_CONTRIB_SUCCESS_What Next?"
+msgstr ""
+
+#: friendfund/templates_free_form/contribution/payment_success.html:77
+#, python-format
+msgid ""
+"FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> "
+"and invite %(comma_seperated_name_list)s and %(one_more_name)s to chip "
+"in?"
+msgstr ""
 
 #: friendfund/templates_free_form/contribution/popups/notify_invitees.html:5
 msgid "FF_CONTRIBUTION_NOTIFYINVITEES_POPUP_heading, What is Notify Invitees?"
@@ -2696,25 +2730,6 @@ msgstr "TEILEN"
 #: friendfund/templates_free_form/mypools/stream.html:345
 msgid "FF_MYPOOLS_PROMOTE THIS POOL"
 msgstr "WERBE FÜR DIESEN  POOL"
-
-#: friendfund/templates_free_form/mypools/common.html:56
-#: friendfund/templates_free_form/mypools/stream.html:127
-#: friendfund/templates_free_form/mypools/stream.html:185
-#: friendfund/templates_free_form/mypools/stream.html:242
-#: friendfund/templates_free_form/mypools/stream.html:300
-#: friendfund/templates_free_form/mypools/stream.html:346
-msgid "FF_MYPOOLS_Invite Friends"
-msgstr "Freunde einladen"
-
-#: friendfund/templates_free_form/mypools/common.html:58
-#: friendfund/templates_free_form/mypools/stream.html:129
-#: friendfund/templates_free_form/mypools/stream.html:187
-#: friendfund/templates_free_form/mypools/stream.html:244
-#: friendfund/templates_free_form/mypools/stream.html:302
-#: friendfund/templates_free_form/mypools/stream.html:348
-#: friendfund/templates_free_form/pool/pool.html:243
-msgid "FF_POOL_PAGE_CHIPIN_embed widget"
-msgstr "Widget"
 
 #: friendfund/templates_free_form/mypools/common.html:59
 #: friendfund/templates_free_form/mypools/stream.html:130
@@ -3977,4 +3992,13 @@ msgstr[1] "noch <strong>%(secs)d</strong> Sekunden"
 #: friendfund/templates_free_form/widgets/widgets.html:62
 msgid "FF_POOL_INFO_expired"
 msgstr "abgelaufen"
+
+#~ msgid "FF_CONTRIB_SUCCESS_You've contributed %(amount)s to %(pool_title)s."
+#~ msgstr "Du hast %(amount)s in den Pool %(pool_title)s eingezahlt."
+
+#~ msgid "FF_PAYMENT_SUCCESS_The payment will show up in a few minutes."
+#~ msgstr "Deine Einzahlung wird in ein paar Minuten angezeigt."
+
+#~ msgid "FF_CONTRIB_SUCCESS_Create a Pool"
+#~ msgstr "Gründe einen Pool"
 

@@ -1,5 +1,5 @@
+dojo.provide("friendfund.CompoundFriendSelector");
 dojo.provide("friendfund.NetworkFriendSelector");
-dojo.provide("friendfund.YourselfSelector");
 dojo.provide("friendfund.EmailFriendSelector");
 
 dojo.declare("friendfund._Selector", null, {
