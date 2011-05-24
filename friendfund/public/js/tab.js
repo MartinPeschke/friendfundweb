@@ -106,35 +106,12 @@ FriendFund.Popup = {
 	id: 'FriendFund_Popup',
 	close_text:{'de':"Schliessen", 'en':"Close This", 'es':"Cerrar"},
 	css_template: "\
-	#FriendFund_Popup {\
-	  z-index:10000008;\
-	  display: block;\
-	  text-align: left;\
-	  margin: 0 auto 0 auto;\
-	  position: absolute; \
-	  padding:10px;\
-	  background:url(${protocol}${host}/static/partner/opacity.png) repeat 0 0 transparent;\
-	}#FriendFund_Popup-content{background-color:white}\
-	#FriendFund_overlay {\
-	  position: absolute;\
-	  z-index:10000007;\
-	  width: 100%;\
-	  height: ${docHeight}px;\
-	  left: 0;\
-	  top: 0;\
-	  background-color: #000;\
-	  opacity: 0.7;\
-	  filter: alpha(opacity=70);\
-	}\
-	#FriendFund_overlay p {\
-	  padding: 5px;\
-	  color: #ddd;\
-	  font: bold 14px arial, sans-serif;\
-	  margin: 0;\
-	  letter-spacing: -1px;\
-	}\
-	a#FriendFund_Popup_close {color:black;cursor:pointer;font-size:16px;font-weight:bold;line-height:15px;text-decoration:None;position:absolute;right:-10px;top:-10px;\
-	background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repeat 0 0 transparent;display:block;width:33px;height:33px;",
+#FriendFund_Popup {z-index:10000008;display: block;text-align: left;margin: 0 auto 0 auto;position: absolute;padding:10px;background:url(${protocol}${host}/static/partner/opacity.png) repeat 0 0 transparent;}\
+#FriendFund_Popup-content{background-color:white}\
+#FriendFund_overlay {position: fixed;z-index:10000007;width: 100%;height: 100%;left: 0;top: 0;background-color: #000;opacity: 0.7;filter: alpha(opacity=70);}\
+#FriendFund_overlay p {padding: 5px;color: #ddd;font: bold 14px arial, sans-serif;margin: 0;letter-spacing: -1px;}\
+a#FriendFund_Popup_close {color:black;cursor:pointer;font-size:16px;font-weight:bold;line-height:15px;text-decoration:None;position:absolute;right:-10px;top:-10px;\
+background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repeat 0 0 transparent;display:block;width:33px;height:33px;",
 	preload: function (id_or_html) {
 		if (!this.preloaded) {
 			var element = document.getElementById(id_or_html);
@@ -162,8 +139,8 @@ FriendFund.Popup = {
 		if (!document.getElementById(this.id)) {
 			var popup = document.createElement('div');
 			popup.innerHTML = '<div id="' + this.id + '" style="display:none;">\
-					<a href="#close" onclick="FriendFund.Popup.close(); return false;" id="' + this.id + '_close" title="'+this.close_text[this.options.lang]+'"><span style="display: none;">Close Popup</span></a>\
-					<div id="' + this.id + '-content"></div></div>';
+<a href="#close" onclick="FriendFund.Popup.close(); return false;" id="' + this.id + '_close" title="'+this.close_text[this.options.lang]+'"><span style="display: none;">Close Popup</span></a>\
+<div id="' + this.id + '-content"></div></div>';
 			document.body.insertBefore(popup.firstChild, document.body.firstChild);
 		}
 		return document.getElementById(this.id);
@@ -253,20 +230,19 @@ FriendFund.Popin = {
 	},
 	url: function (options) {return options.protocol+options.host+'/partner/bounce';}
 };
-
 FriendFund.Button = {
 	button_id: "friendfund_fund_button",
-	css_template: "#${button_id} {margin: 10px 0;width: auto;background:${button_background};padding: 7px 0 5px;} \
-					#${button_id} a {background:None !important;width:auto;height:auto;text-indent: 0;}\
-					#${button_id}:hover {cursor:pointer}\
-					#${button_id} *, #${button_id} *:hover {text-decoration:none !important; font-weight:normal !important}\
-					#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:center;padding:0;}\
-					#${button_id} .friendfundButton img{margin:0px auto;}\
-					#${button_id} .friendfundButton span{text-transform: none;padding:0;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
+	css_template: "#${button_id} {margin: 10px 0;width: auto;background:${button_background};padding: 7px 0 5px;}\
+#${button_id} a {background:None !important;width:auto;height:auto;text-indent: 0;}\
+#${button_id}:hover {cursor:pointer}\
+#${button_id} *, #${button_id} *:hover {text-decoration:none !important; font-weight:normal !important}\
+#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:center;padding:0;}\
+#${button_id} .friendfundButton img{margin:0px auto;}\
+#${button_id} .friendfundButton span{text-transform: none;padding:0;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
 	fixed_css_template: "#${button_id} {position:absolute;${alignment}:-150px;top:${top};width:196px;height:122px;} \
-					#${button_id}:hover {${alignment}:0px;cursor:pointer} \
-					#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
-					background:url(${protocol}${host}/static/partner/buttons/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
+#${button_id}:hover {${alignment}:0px;cursor:pointer} \
+#${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
+background:url(${protocol}${host}/static/partner/buttons/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
 	show: function (options) {
 		FriendFund.Popin.setup(options);
