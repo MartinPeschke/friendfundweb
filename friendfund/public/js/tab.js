@@ -90,10 +90,12 @@ FriendFund.Element = {
 };
 FriendFund.Page = {
 	getDimensions: function () {
-		var de = document.documentElement;
-		var width = window.innerWidth || self.innerWidth || (de && de.clientWidth) || document.body.clientWidth;
-		var height = window.innerHeight || self.innerHeight || (de && de.clientHeight) || document.body.clientHeight;
-		return {width: width,height: height};
+		var de = document.documentElement, db = document.body
+			, width = window.innerWidth || self.innerWidth || (de && de.clientWidth) || db.clientWidth
+			, height = window.innerHeight || self.innerHeight || (de && de.clientHeight) || db.clientHeight
+			, xOffset = Math.max(window.pageXOffset ? window.pageXOffset : 0, de ? de.scrollLeft : 0, db ? db.scrollLeft : 0)
+			, yOffset = Math.max(window.pageYOffset ? window.pageYOffset : 0, de ? de.scrollTop : 0, db ? db.scrollTop : 0)
+		return {width: width,height: height, xOffset:xOffset, yOffset:yOffset};
 	},
 	getDocHeight: function() {
 		var D = document, m = Math.max;
@@ -154,8 +156,8 @@ background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repea
 		var els = this.element().style;
 		els.width = 'auto';
 		els.height = 'auto';
-		els.left = ((pageDimensions.width - dialogDimensions.width) / 2) + "px";
-		var computedHeight = ((pageDimensions.height - dialogDimensions.height) / 2);
+		els.left = (pageDimensions.xOffset+(pageDimensions.width - dialogDimensions.width) / 2) + "px";
+		var computedHeight = (pageDimensions.yOffset+(pageDimensions.height - dialogDimensions.height) / 2);
 		els.top = Math.max(computedHeight, 0) + "px";
 	},
 	htmlElement: function () {

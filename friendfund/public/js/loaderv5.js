@@ -1,4 +1,36 @@
 String.prototype.strip = function(ch){var re = new RegExp("^"+ch+"+|"+ch+"+$", "g");return String(this).replace(re, '');};
+if (!FriendFund) {var FriendFund = {};}
+FriendFund.Page = {
+	getDimensions: function () {
+		var de = document.documentElement, db = document.body
+			, width = window.innerWidth || self.innerWidth || (de && de.clientWidth) || db.clientWidth
+			, height = window.innerHeight || self.innerHeight || (de && de.clientHeight) || db.clientHeight
+			, xOffset = Math.max(window.pageXOffset ? window.pageXOffset : 0, de ? de.scrollLeft : 0, db ? db.scrollLeft : 0)
+			, yOffset = Math.max(window.pageYOffset ? window.pageYOffset : 0, de ? de.scrollTop : 0, db ? db.scrollTop : 0)
+		return {width: width,height: height, xOffset:xOffset, yOffset:yOffset};
+	}
+};
+
+
+FriendFund.Element = {
+	getDimensions: function (element) {
+		var coords = dojo.coords(element);
+		return {
+			width: coords.w, height: coords.h
+		};
+	},
+	center : function (element) {
+		var dialogDimensions = FriendFund.Element.getDimensions(element);
+		var pageDimensions = FriendFund.Page.getDimensions();
+		var els = element.style;
+		els.left = (pageDimensions.xOffset+(pageDimensions.width - dialogDimensions.width) / 2) + "px";
+		var computedHeight = (pageDimensions.yOffset+(pageDimensions.height - dialogDimensions.height) / 4);
+		els.top = Math.max(computedHeight, 0) + "px";
+	}
+};
+
+
+
 FBSCOPE = {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_birthday,email,publish_stream,create_event"};
 	facebook_tried_getting_permissions = false;
 	facebook_tried_loggin_in_already = false;
@@ -13,8 +45,15 @@ FBSCOPE = {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_b
 		if(evt.keyCode === 13){dojo.hitch(this, callbackRet(this, evt));}
 		else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
 	};
-	closePopup = function(){dojo.query("#generic_popup *").orphan();dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];};
-	displayPopup = function(html){dojo.place(html, dojo.byId("generic_popup"), "only" );rigPopup("generic_popup");};
+	closePopup = function(){
+		dojo.forEach(popup_esc_handler, dojo.disconnect);popup_esc_handler=[];
+		dojo.query("#generic_popup").empty();
+	};
+	displayPopup = function(html){
+		dojo.place(html, dojo.byId("generic_popup"), "only" );
+		FriendFund.Element.center(dojo.byId('popupContentFrame'));
+		rigPopup("generic_popup");
+	};
 	rigPopup = function(id){
 		dojo.query(".panelcloser,.popupBackground", id).forEach(function(elt){popup_esc_handler.push(dojo.connect(elt, "onclick", closePopup));});
 		popup_esc_handler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closePopup)));
@@ -389,6 +428,7 @@ FBSCOPE = {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_b
 				closeLoginPopup();
 				if(result.popup !== undefined){
 					dojo.place(result.popup, dojo.byId("generic_popup"), "only" );
+					FriendFund.Element.center(dojo.byId('popupContentFrame'));
 					dojo.query(".panelcloser,.popupBackground", "generic_popup").forEach(function(elt){popupHandler.push(dojo.connect(elt, "onclick", closeLoginPopup));});
 					popupHandler.push(dojo.connect(window, "onkeyup", dojo.hitch(null, esc_handler_f, closeLoginPopup)));
 					i = dojo.query("input", "generic_popup");

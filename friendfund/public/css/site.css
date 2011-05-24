@@ -2053,7 +2053,7 @@ div.stepThree {
 }
 div.leftArrow {
 	border-top: 15px solid transparent;
-	border-left: 15px solid #ececec;
+	border-left: 15px solid #FBFAF3;
 	border-bottom: 15px solid transparent;
 	float: left;
 	margin-right: -15px;
@@ -2472,39 +2472,27 @@ div.popupBackground.light {
 div.popupBackground.dark {
 	background-color: #333;
 }
-div.outerPopupFrame {
-	z-index:1001;
-}
 div.outerPopupFrame div.whitePopupFrame {
 	background-color:white;
-	margin:150px auto;
-	width:205px;
 	z-index:1001;
 	border: 5px solid #cacaca;
 	padding: 20px;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	left: 50%;
-	margin-left: -125px;
-	position: fixed;
-	top: 0
+	position: absolute;
+	width:205px;
 }
 div.outerPopupFrame div.whitePopupFrameLarge {
 	background-color:white;
-	margin:90px auto 0 auto;
-	position:fixed;
-	width:490px;
+	position:absolute;
 	z-index:999;
 	border: 5px solid #cacaca;
 	padding: 0px 0px 0px 0px;
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	left: 50%;
-	;
-	top:0;
-	margin-left: -242px
+	width:490px;
 }
 div.outerPopupFrame div.whitePopupFrameLarge h3 {
 	font-size: 18px;
@@ -2549,12 +2537,13 @@ div.outerPopupFrame h3 {
 	padding-bottom: 15px
 }
 div.outerPopupFrame p {
-	font-size: 12px;
-	line-height: 12px;
-	padding-top: 9px;
-	color: #2C2C2C;
 	clear: both;
+	color: #999999;
+	font-size: 12px;
+	line-height: 18px;
+	padding: 5px 0 10px 0;
 }
+
 div.outerPopupFrame textarea {
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
