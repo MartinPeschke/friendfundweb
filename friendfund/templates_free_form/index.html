@@ -20,14 +20,7 @@
 		<div class="homeFrame">
 			<div class="fullLRPadding">
 				<h2><p>${_("FF_HOMEPAGE_SLOGAN_friendfund it.")}</p><span>${_("FF_HOMEPAGE_SLOGAN_Collect money by creating a pool and inviting friends to chip in.")}</span></h2>
-				<div class="getStarted clearer floatLeft">
-				<a class="nolink" href="${h.create_pool_link(request, url)}">
-					<span class="upperText">${_("Get Started")}
-						<span class="lowerText">${_("Get Started")}</span>
-						<span class="lowestText">${_("Get Started")}</span>
-					</span>
-				</a>
-				</div>
+				${widgets.bigButton(_("Get Started"), h.create_pool_link(request, url), ["clearer", "floatLeft", "homeButton"])|n}
 			</div>
 		</div>
 		<div class="clearer" style="width:100%;height:60px;">
@@ -43,17 +36,18 @@
 		</div>
 		<div class="homeDivider"></div>
 		<div class="clearer">
-			<div class="referers floatLeft"><img src="/static/imgs/TechCrunch_logo_bw.png" alt="TechCrunch"/>
-				<em>“All of sudden, so-called social commerce seems a tad more viable.”</em>
+			<div class="referers floatLeft">
+			<a href="http://eu.techcrunch.com/2011/05/03/angels-club-together-to-invest-in-friendfund/" title="TechCrunch"><img src="/static/imgs/press/TechCrunch_bw.png" alt="TechCrunch"/></a>
+				<em>“All of a sudden, so-called social commerce seems a tad more viable.”</em>
 			</div>
-			<div class="referers floatLeft"><img src="/static/imgs/gigaom_bw.png" alt="GigaOm"/>
-				<em>“Retailers are now waking up to the opportunity.”</em>
+			<div class="referers floatLeft"><a hre="http://blog.zanox.com/en/zanox/2010/12/10/interview-with-our-publisher-friendfund/" title="Zanox"><img src="/static/imgs/press/zanox_bw.png" alt="Zanox"/></a>
+				<em>“People can virtually get together, find and fund a special gift for a friend”</em>
 			</div>
-			<div class="referers floatLeft"><img src="/static/imgs/zanox-bw.png" alt="Zanox"/>
-				<em>“Conference and exhibition in San Diego next month.”</em>
+			<div class="referers floatLeft"><a href="http://gigaom.com/2011/05/17/is-group-gift-buying-poised-for-take-off/" title="GigaOm"><img src="/static/imgs/press/gigaom_bw.png" alt="GigaOm"/></a>
+				<em>“Giving businesses an easy way to enable group gifting”</em>
 			</div>
-			<div class="referers last floatLeft"><img src="/static/imgs/iw-bw.png" alt="Internet Business World"/>
-				<em>“Ich erwarte ein enormes virales Wachstum in 2011”</em>
+			<div class="referers last floatLeft"><a href="http://www.appappeal.com/app/friendfund/" title="AppAppeal"><img src="/static/imgs/press/AppAppeal_bw.png" alt="AppAppeal"/></a>
+				<em>“An engaging way to get friends involved in a fundraising project.”</em>
 			</div>
 			<div class="clear"></div>
 		</div>

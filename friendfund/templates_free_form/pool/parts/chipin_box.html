@@ -1,12 +1,15 @@
-
+<%namespace name="widgets" file="/widgets/widgets.html" />
 <%def name="render_join(pool, user, locals)">
 	<div class="boxChipIn">
+		
+		${widgets.bigButton(_("Get Started"), h.create_pool_link(request, url), ["clearer", "floatLeft"])|n}
+		
 		<a _href="${url("pool_edit", pool_url = c.pool.p_url, action="join")}" onclick="doLogin({level:3, cb:goto_url(this)})" class="btnChipIn tertiary">
 			${_(u"FF_POOL_PAGE_CHIPIN_Join")}
 		</a>
 		
 		<div class="rose">
-			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
+			<p><span class="text">${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>
 			${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
 		</div>
 	</div>
@@ -15,7 +18,7 @@
 <%def name="render_closed(pool, user, locals)">
 	<div class="boxChipIn">
 		<div class="rose">
-			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its SUCCESS!")}</span>
+			<p><span class="text">${_(u"FF_POOL_PAGE_CHIPIN_Its SUCCESS!")}</span>
 			${_(u"FF_POOL_PAGE_CHIPIN_This pool was successfully funded and is now cloed.")}<br/>
 			<a href="${url(controller="pool", pool_url=c.pool.p_url, action="complete")}">${_(u"FF_POOL_PAGE_CHIPIN_View Card")} &raquo;</a></p>
 		</div>
@@ -25,7 +28,7 @@
 <%def name="render_expired(pool, user, locals)">
 	<div class="boxChipIn">
 		<div class="rose">
-			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_THE POOL HAS EXPIRED.")}</span>
+			<p><span class="text">${_(u"FF_POOL_PAGE_CHIPIN_THE POOL HAS EXPIRED.")}</span>
 			${_(u"FF_POOL_PAGE_CHIPIN_The pool has expired without reaching its target in time.")}</p>
 		</div>
 	</div>
@@ -33,15 +36,16 @@
 
 <%def name="render_contributable(pool, user, locals)">
 	<div class="boxChipIn">
-		<a href="${url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" class="btnChipIn tertiary">${_(u"FF_POOL_PAGE_CHIPIN_Chip In")}</a>
+		${widgets.bigButton(_(u"FF_POOL_PAGE_CHIPIN_Chip In"), url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL), ["chipin"])|n}
+		
 		%if request.merchant.type_is_group_gift:
-			<span>${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
+			<span class="text">${_(u"FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>")%locals|n}</span>
 			<a href="${url("payment", pool_url=pool.p_url, protocol=app_globals.SSL_PROTOCOL, amount=pool.get_suggested_amount())}" class="suggested">
 				${_(u"FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >")} &raquo;
 			</a>
 		%endif
 		<div class="rose">
-			<p><span>${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
+			<p><span class="text">${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>${_(u"FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of %(total_amount)s has been chipped in by <strong>%(closing_date)s</strong>")%locals|n}</p>
 			<a class="popuplink" _href="${url(controller="content", action="all_or_nothing", lang=h.get_language_locale())}">${_("FF_Learn More")}</a>
 		</div>
 	</div>

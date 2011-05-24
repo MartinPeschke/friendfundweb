@@ -1,6 +1,8 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
+
 <%def name="title()">${_("FF_TITLE_Friend's pools")}</%def>
+
 <%def name="scripts()">
 	<script type="text/javascript">
 		var addthis_config = {"data_track_clickback":true};
@@ -10,7 +12,7 @@
 </%def>
 
 
-<div class="wrapSubHeader">
+<div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
 		<div class="userProfile">
 			<img src="${c.user.get_profile_pic("PROFILE_M")}" width="60px" height="60px"/>
@@ -28,6 +30,7 @@
 		</div>
 	</div>
 </div>
+<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
 <div class="content fullWidth">
 	%if len(c.my_pools.pools) == 0:
 		<div class="noContainer">
@@ -35,10 +38,10 @@
 			<a href="${h.create_pool_link(request, url)}" class="primaryButton fixedWidth">${_("FF_MYPOOLS_Create a Pool")}</a>
 		</div>
 	%else:
-####<!--<h4 style="padding-top:0px" class="subHeading"><div class="floatRight"><label>Sort by:</label><select></select></div></h4>-->
 		%for pool in c.my_pools.pools:
 			${common.render_pool_card(pool, True)|n}
 		%endfor
 		<div class="clear"></div>
 	%endif
+</div>
 </div>

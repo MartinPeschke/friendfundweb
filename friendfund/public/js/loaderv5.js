@@ -11,7 +11,6 @@ FriendFund.Page = {
 	}
 };
 
-
 FriendFund.Element = {
 	getDimensions: function (element) {
 		var coords = dojo.coords(element);
@@ -28,8 +27,6 @@ FriendFund.Element = {
 		els.top = Math.max(computedHeight, 0) + "px";
 	}
 };
-
-
 
 FBSCOPE = {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_birthday,email,publish_stream,create_event"};
 	facebook_tried_getting_permissions = false;

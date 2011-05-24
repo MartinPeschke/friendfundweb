@@ -112,59 +112,59 @@
 				<div class="subTitleUserProfile">
 					<span class="poolClose">${_(u"FF_POOL_PAGE_HEADER_Pool closes on %(closing_date)s")%locals}&nbsp; &nbsp; &middot; &nbsp; &nbsp;</span><span class="admin">${_(u"FF_POOL_PAGE_HEADER_by %(admin_name)s")%locals}</span></div>
 			</div>
-            <div class="headerDivider">
-            	<div class="colRightWhite"></div>
-                <div class="timeTracker floatLeft timeTrackerBig">
-                    
-                    <div class="timeCounter">
-                    <span class="floatRight">${c.pool.get_display_amount()}</span>
-                    <span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
-                    %if c.pool.is_closed():
-                        <span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
-                    %else:
-                        <span class="percent">${int(locals['funding_process']*100)}%</span>
-                    %endif
-                        <div class="timeCounterRight" style="width:100%">
-                        <div class="timeCounterLeft" style="width:${int(locals['funding_process']*100)}%"></div>
-                            %if locals['funding_process'] < 1:
+			<div class="headerDivider">
+				<div class="colRightWhite"></div>
+				<div class="timeTracker floatLeft timeTrackerBig">
+					
+					<div class="timeCounter">
+					<span class="floatRight">${c.pool.get_display_amount()}</span>
+					<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
+					%if c.pool.is_closed():
+						<span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
+					%else:
+						<span class="percent">${int(locals['funding_process']*100)}%</span>
+					%endif
+						<div class="timeCounterRight" style="width:100%">
+						<div class="timeCounterLeft" style="width:${int(locals['funding_process']*100)}%"></div>
+							%if locals['funding_process'] < 1:
 							<div class="progTooltip" style="position: absolute; top:-23px;left:${int(locals['funding_process']*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
 							%endif
-                        </div>
-                    </div>
-                    <div class="boxPoolDetails">
-                        <div class="contributors"><span>${widgets.renderPoolInfoContributors(locals)}</span></div>
-                        <div class="heavyMd"></div>
-                        <div class="invitees"><span>${widgets.renderPoolInfoInvitees(locals)}</span></div>
-                        <div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
-                        <div class="heavyMd"></div>
-                        <div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
-                        
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                
+						</div>
+					</div>
+					<div class="boxPoolDetails">
+						<div class="contributors"><span>${widgets.renderPoolInfoContributors(locals)}</span></div>
+						<div class="heavyMd"></div>
+						<div class="invitees"><span>${widgets.renderPoolInfoInvitees(locals)}</span></div>
+						<div class="chippedIn"><span><strong>${locals['chipped_in_amount']}</strong> ${_(u"FF_POOL_PAGE_HEADER_Chipped in")}</span></div>
+						<div class="heavyMd"></div>
+						<div class="outstanding"><span><strong>${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</strong> ${_(u"FF_POOL_PAGE_HEADER_Outstanding")}</span></div>
+						
+						<div class="clear"></div>
+					</div>
+				</div>
+				
 				<% d,hrs,m,s = c.pool.get_remaining_time_tuple() %>
-                <div class="timerCont">
-                	<div>${_("FF_POOL_PAGE_Pool closes in")}</div>
-                	<div class="timer" id="timer">
-                    	<div class="rndL timerDays">${d}</div>
-                        <div class="brdW timerHours">${hrs}</div>
-                        <div class="brdW timerMinutes">${m}</div>
-                        <div class="brdW rndR timerSeconds" style="border-right:0">${s}</div>
-                    </div>
-                    	<div class="timeSpec">${ungettext(u"FF_POOL_PAGE_day", u"FF_POOL_PAGE_days", d)}</div>
-                        <div class="timeSpec">${ungettext(u"FF_POOL_PAGE_hr", u"FF_POOL_PAGE_hrs", hrs)}</div>
-                        <div class="timeSpec">${ungettext(u"FF_POOL_PAGE_min", u"FF_POOL_PAGE_mins", m)}</div>
-                        <div class="timeSpec">${ungettext(u"FF_POOL_PAGE_sec", u"FF_POOL_PAGE_secs", s)}</div>
-                </div>
-                <div class="clear"></div>
-        	</div>
-            <div class="clear"></div>
+				<div class="timerCont">
+					<div>${_("FF_POOL_PAGE_Pool closes in")}</div>
+					<div class="timer" id="timer">
+						<div class="rndL timerDays">${d}</div>
+						<div class="brdW timerHours">${hrs}</div>
+						<div class="brdW timerMinutes">${m}</div>
+						<div class="brdW rndR timerSeconds" style="border-right:0">${s}</div>
+					</div>
+						<div class="timeSpec">${ungettext(u"FF_POOL_PAGE_day", u"FF_POOL_PAGE_days", d)}</div>
+						<div class="timeSpec">${ungettext(u"FF_POOL_PAGE_hr", u"FF_POOL_PAGE_hrs", hrs)}</div>
+						<div class="timeSpec">${ungettext(u"FF_POOL_PAGE_min", u"FF_POOL_PAGE_mins", m)}</div>
+						<div class="timeSpec">${ungettext(u"FF_POOL_PAGE_sec", u"FF_POOL_PAGE_secs", s)}</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
 		</div>
 	</div>
 </div>
 
-<div class="wrapSubContent">
+<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
 <div class="content">
 	%if c.pool.am_i_admin(c.user):
 		<div class="adminLinks">

@@ -12,7 +12,7 @@
 	dojo.query(".popuplink", "myPoolsBody").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
-<div class="wrapSubHeader">
+<div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
 		<div class="userProfile">
 			<img src="${c.user.get_profile_pic("PROFILE_M")}" width="60px" height="60px"/>
@@ -27,6 +27,7 @@
 		</div>
 	</div>
 </div>
+<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
 <div class="content fullWidth" id="myPoolsBody">
 	%if len(c.my_pools.pools) == 0:
 		<div class="noContainer">
@@ -51,4 +52,5 @@
 		%endif
 	%endif
 <div class="clear"></div>
+</div>
 </div>

@@ -8,12 +8,11 @@
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	${common.render_tabs("account")|n}
 </div>
-<div class="wrapSubContent">
+<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
 <div class="content">
 <div class="colRight"></div>
 <div class="colLeft" id="myProfile">
 	<h4>${_("FF_ACCOUNT_Edit your profile")}
-		####<span class="link floatRight">${_("FF_ACCOUNT_Edit")}</span>
 	</h4>
 	<form action="${url(controller="myprofile", action="account")}" method="POST" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="showLoadingInfo(this);onSubmitCleaner(this);">
 		<input type="hidden" name="is_default" id="is_default" value="${c.values.get("is_default")}"/>

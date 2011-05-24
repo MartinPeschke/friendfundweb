@@ -24,7 +24,7 @@ div#wrap {
 	background:none repeat scroll 0 0 #FCFCFC
 }
 div.wrapHeader {
-	border-bottom: 1px solid #c7c6c3;
+	border-bottom: 1px solid #fff;
 	background-color: #004255;
 	background: -moz-linear-gradient(100% 100% 90deg, #004255, #00617d);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#00617d), to(#004255));
@@ -50,6 +50,14 @@ div.wrapSubHeaderHome div.shadowHome {
 	width: 100%;
 	background: url(/static/imgs/trans_top.png) repeat-x 0 -585px;
 }
+.shadowEverywhereElse {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 15px;
+	width: 100%;
+	background: url(/static/imgs/trans_top.png) repeat-x 0 -600px;
+}
 div.wrapSubHeader {
 	background: url(/static/imgs/trans_top.png) repeat-x scroll 0 0 #FBFAF3;
 	border-bottom: 1px solid #d9d9d9;
@@ -66,9 +74,7 @@ div.wrapContent {
 	position:relative;
 	z-index: 1
 }
-div.wrapSubContent {
-	border-top:1px solid white;
-}
+div.wrapSubContent {position:relative;}
 div.spLay{
 	background: url(/static/imgs/sidemenu_divide.png) 720px 0 repeat-y
 }
@@ -523,53 +529,62 @@ div.subHeader h2 span {
 	background: -moz-linear-gradient(100% 100% 90deg, #fcfbf6, #f9f8f3);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f8f3), to(#fcfbf6));
 }
-.homeFrame {float:left;margin-top:60px;max-width:450px}
-.homeFrame h2 {padding: 0px !important;}
+.homeFrame {float:left;margin-top:50px;max-width:450px}
+.homeFrame h2 {padding: 0px !important;font-size:48px !important;}
+.homeFrame h2 span {color: #696969 !important;}
 .homeFrame div.shadCorner{width:450px;background: url(/static/imgs/shadow-corner.png) left top no-repeat;height: 7px;position:absolute;}
-div.getStarted {margin: 40px 0;
+
+div.getStarted.chipin{margin: 0 0 20px;}
+div.getStarted.homeButton{margin: 40px 0 0;}
+
+div.getStarted {
 	border:1px solid #8cb14e;
-	-moz-border-radius:10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+	-moz-border-radius:6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
 	background-color: #a0cd58;
 	background: -moz-linear-gradient(100% 100% 90deg, #a0cd58, #c7df82);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c7df82), to(#a0cd58));
-	-moz-box-shadow: 0px 0px 3px #aaa;
-	-webkit-box-shadow: 0px 0px 3px #aaa;
-	box-shadow: 0px 0px 3px #aaa;
+	-moz-box-shadow: 0px 0px 4px #c9c8c2;
+	-webkit-box-shadow: 0px 0px 4px #c9c8c2;
+	box-shadow: 0px 0px 4px #c9c8c2;
 }
-div.getStarted a{font-size:24px;font-weight:bold;color:#fff;padding:15px 20px;display:block;
+div.getStarted a{font-size:24px;font-weight:bold;color:#fff;padding:19px 20px;display:block;
 	background: -moz-radial-gradient(50% 50%, closest-side,rgba(217, 224, 129, 0.6), rgba(255, 255, 255, 0) 75%);
 	background: -webkit-gradient(radial, center center, 0, center center, 50, from(rgba(217, 224, 129, 0.5)), to(rgba(255,255,255,0)));
-	border-top:1px solid #fff;
-	border-left:1px solid #fff;
+	border-top:1px solid #f1f7e0;
+	border-left:1px solid #f1f7e0;
 	border-bottom:1px solid transparent;
 	border-right:1px solid transparent;
-	-moz-border-radius:10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+	-moz-border-radius:6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
 }
 div.getStarted a > span {position:relative;text-shadow: #859659 0px 1px 0px;}
 div.getStarted a span span {position:absolute;left:0px;top:0;line-height:128%;}
 div.getStarted a span span.lowerText{text-shadow: rgba(0, 0, 0, 0.2) 1px 1px 2px;}
 div.getStarted a span span.lowestText{text-shadow: rgba(0, 0, 0, 0.2) -1px -1px 2px;}
-div.getStarted a:hover{
+/*div.getStarted a:hover{
 	border-top:1px solid transparent;
 	border-left:1px solid transparent;
-	border-bottom:1px solid #fff;
-	border-right:1px solid #fff;
+	border-bottom:1px solid #f1f7e0;
+	border-right:1px solid #f1f7e0;
+}*/
+div.getStarted:hover {
+	-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
 }
-div.getStarted a:hover > span {text-shadow: #859659 0px -1px 0px;}
 .learnMoreBtnNew {
-	color: #0094cc;display:block;font-size:12px;
+	color: #0094cc;display:block;font-size:10px;
 	background-color: #d4ebef;padding: 0 10px;margin:20px 0;height: 20px;line-height: 20px;
 	text-shadow: 0px 1px 0px rgba(255, 255, 255, 1)
 }
-.homeListing * {padding:0 10px;font-size:14px;color:#adadad;text-shadow: 0px 1px 0px rgba(255, 255, 255, 1);}
-.homeListing b {color:#e74d97;}
+.homeListing div {padding:0 20px 0 0;font-size:14px;color:#adadad;text-shadow: 0px 1px 0px rgba(255, 255, 255, 1);}
+.homeListing b {padding:0 7px 0 0;color:#e74d97;}
 .learnMoreBtnNew:hover {background-color: #cde4e8;text-decoration:None}
 .homeDivider {height:0px;width:100%;border-top:#e5e5e5 solid 1px;border-bottom:#fff solid 1px;}
-.referers {width: 215px;height:120px;margin-right:22px;}
+.referers {width: 215px;height:118px;margin-right:22px;}
 .referers.last {margin-right:0px;}
 .referers img {padding:16px 0}
 .referers em {display:block;font-style:normal;font-size:12px;color:#adadad;text-shadow: 0px 1px 0px rgba(255, 255, 255, 1);}
@@ -1093,7 +1108,7 @@ div.userProfile img {
 	display:block;
 	float:left;
 	border: 5px solid white;
-	margin: 35px 20px 0 0;
+	margin: 35px 20px -4px 0;
 }
 div.subUserProfile {
 	float:left;
@@ -1219,7 +1234,7 @@ div.timer{
 	-moz-border-radius:10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	background: #f4f4f2;
+	background-color: #f9f7f0;
 }
 div.timer div{
 	 border-right: 1px solid #e2e2ec;
@@ -1227,7 +1242,7 @@ div.timer div{
 	 width: 48px;
 	 text-align: center;
 	 height: 38px;
-	 line-height: 38px
+	 line-height: 38px;color:#E74D97
 }
 div.timer div.rndL{
 	-moz-border-radius:10px;
@@ -1341,7 +1356,7 @@ div.daysLeft span {
 	padding-left: 20px
 }
 div.adminLinks {
-	padding: 10px 0 0 0;
+	padding: 15px 0 0 0;
 	color: #7f7f7f
 }
 div.greyBoxTitle {
@@ -1905,7 +1920,7 @@ div.comments input {
 	display: block;
 	margin: 15px 0 15px 0
 }
-.boxChipIn span {
+.boxChipIn span.text {
 	display: block;
 	text-transform: uppercase;
 	font-size: 11px;
@@ -1914,7 +1929,7 @@ div.comments input {
 	line-height: 24px;
 	margin: 10px 0 0 0
 }
-.boxChipIn span span {
+.boxChipIn span.text span {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 5px 0 0 0
@@ -3506,17 +3521,18 @@ div.wrapInside div.tip {
 	display: none
 }
 .tabsBig a.selected span.spoiler {
+	background-color:#F9F9F9;
+	bottom: -10px;
 	display: block;
-	position: absolute;
-	height: 8px;
-	line-height:0;
 	font-size: 0;
-	background: #F9F9F9;
+	height: 10px;
+	left: 0;
+	line-height: 0;
 	margin: 0;
 	padding: 0;
+	position: absolute;
 	width: 100%;
-	bottom:-5px;
-	left: 0px
+	z-index: 1;
 }
 .fullWidth h4 {
 	border-bottom: 1px solid #D0D0D0;

@@ -11,7 +11,7 @@
 	dojo.query(".popuplink", "activityBody").onclick(dojo.hitch(null, loadPopup));
 </%def>
 
-<div class="wrapSubHeader">
+<div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
 		<div class="userProfile">
 			<img src="${c.user.get_profile_pic("PROFILE_M")}" width="60px" height="60px"/>
@@ -26,9 +26,9 @@
 		</div>
 	</div>
 </div>
-
+<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
 <div class="content fullWidth">
-<h4 style="padding-top:0px">
+<h4 style="padding-top:15px">
 	<div class="floatRight selector">
 	%if c.include_friend:
 		<a class="bold" href="${url(controller="mypools", action="stream", all="")}">${_("FF_NEWSSTREAM_Only Mine")}</a>
@@ -374,4 +374,5 @@
 %endif
     </div>
     <div class="clear"></div>
+</div>
 </div>
