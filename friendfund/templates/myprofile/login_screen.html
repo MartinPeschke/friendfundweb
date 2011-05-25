@@ -2,14 +2,6 @@
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
 <%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}";};</%def>
 
-%if c.signup_errors:
-	<div class="overlayWrapper">
-	  <div class="overlay red">
-		${" - ".join(map(str, c.signup_errors.values()))}
-	  </div>
-	</div>
-%endif
-
 <div class="subHeader">
 	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="furl" value="${getattr(c, 'furl', '/')}"/>

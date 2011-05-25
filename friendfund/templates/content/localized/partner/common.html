@@ -7,7 +7,7 @@
 	lang = h.get_language_locale()
 %>
 
-<div class="wrapSubHeader"><div class="shadowHead"></div>
+<div class="wrapSubHeader">${self.renderMessages()}
 	<div class="subHeader">
 		<div class="userProfile">
 			<div class="subUserProfile">
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 </div>
-<div class="wrapSubContent">${self.renderMessages()}
+<div class="wrapSubContent">
 	<div class="content spLay">
 		${common.render_right_col()}
 		<div class="colLeft">
