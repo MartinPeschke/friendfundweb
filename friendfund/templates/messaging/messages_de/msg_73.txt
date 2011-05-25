@@ -1,3 +1,4 @@
+<%namespace name="common" file="common.txt"/>
 <%def name="message()">Hallo ${data['firstname_invitee_name']}, du wurdest zu unserem friendfund Pool eingeladen:  
 ${data['message']}</%def>
 
@@ -7,6 +8,8 @@ ${data['message']}</%def>
 <%def name="caption()">friendfund it!</%def>
 <%def name="description()">
 ${data['pool_description']}
+
+${common.footing_phrase_with_learn_more(data)} 
 </%def>
 
 

@@ -18,15 +18,28 @@ das Team @${data['merchant_name']} in Kooperation mit friendfund
 %endif
 </%def>
 
+
+<%def name="footing_phrase()">
+Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!   
+</%def>
+
+
 <%def name="footing(data)">
 <${data['DEFAULT_BASE_URL']}>  
 ${self.footing_phrase()}
 </%def>
 
-<%def name="footing_phrase()">
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
-</%def>
+<%def name="footing_phrase_with_learn_more()">
+${self.footing_phrase()}
 
+Was ist eigentlich friendfund? Erfahre hier was friendfund ist: <${data['learn_more_url']}>
+</%def>
+<%def name="footing_phrase_with_feedback()">
+<${data['DEFAULT_BASE_URL']}>  
+${self.footing_phrase()}
+
+Wir wollen deine Meinung hören! [Schreib uns!](${data['contact_url']})  
+</%def>
 
 <%def name="emaillogin_blurb(data)">
 Du kannst dich auf der [Pool-Seite](http://${data['merchant_domain']}/pool/${data['p_url']}) mit der Emailadresse ${data['login_email']} und diesem Passwort ${data['pwd']} einloggen.   
