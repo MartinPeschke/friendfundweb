@@ -1,18 +1,18 @@
-Hallo ${data['invitee_name']},  
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['invitee_name'])}   
 
 ${data['admin_name']} hat für ${data['pool_title']} einen Pool auf friendfund gegründet und hat dich dazu eingeladen! 
  
 ${data['pool_description']}  
 
-Der festgelegte Gesamtbetrag muss bis zum ${data['expiry_date']} erreicht werden. Zahle so viel oder so wenig ein, wie du möchtest  (der kleinste Beitrag hilft)!  
+Der festgelegte Gesamtbetrag muss bis zum ${data['expiry_date']} erreicht werden. Zahle so viel oder so wenig ein, wie du möchtest (der kleinste Beitrag hilft)!  
 
-Schaue dir den Pool hier an: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+${view_pool_link(data)}
 
 Vielen Dank     
 ${data['invitor_name']}  
 
-<${data['DEFAULT_BASE_URL']}>   
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}   
 
 
 <%def name="subject()">${data['pool_title']}: Du wurdest eingeladen!</%def>

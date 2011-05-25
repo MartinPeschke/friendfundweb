@@ -1,4 +1,5 @@
-Vielen Dank ${data['contributor_name']} für deine Teilnahme an 
+<%namespace name="common" file="common.txt"/>
+Vielen Dank, ${data['contributor_name']}, für deine Teilnahme an 
 ${data['pool_title']}!  
 
 ${data['receipt_number']}   
@@ -6,21 +7,13 @@ ${data['chip_in_date']}
 ${data['chip_in_amount']}  
 ${data['payment_method']}  
 
-Dieser Pool verfolgt das “Alles oder Nichts”-Prinzip. Wenn der 
-festgelegte Gesamtbetrag des Pools nicht bis zum 
-${data['expiry_date']} erreicht wird, bekommst du das Geld auf dein 
-Paypalkonto zurücküberwiesen.
+Dies ist ein “Alles oder Nichts” Pool. Wenn der festgelegte Gesamtbetrag nicht bis zum ${data['expiry_date']} erreicht wird, bekommst du dein Geld inklusive aller Gebühren auf dein Paypalkonto zurücküberwiesen.
+
 <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
 Alles Gute,  
-%if data['merchant_is_default']:      
-das Team @friendfund
-%else:  
-das Team @${data['merchant_name']} in Kooperation mit friendfund   
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
-%endif 
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}  
 
 <%def name="subject()">Einzahlungsbeleg: ${data['pool_title']}</%def>   

@@ -1,4 +1,5 @@
-Hallo ${data['invitee_name']},  
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['invitee_name'])}  
 
 Wir haben das perfekte ${data['occasion']}'s Geschenk für 
 ${data['recipient_name']} gefunden und einen Pool auf friendfund 
@@ -12,16 +13,10 @@ Du kannst dich auf der [Pool-Seite](http://${data['merchant_domain']}/pool/${dat
 Vielen Dank   
 ${data['invitor_name']}  
 
-%if data['merchant_is_default']:   
-<${data['DEFAULT_BASE_URL']}>  
-Collect money with friends. Create a pool. Chip in. friendfund it! 
 
-%else:  
-@${data['merchant_name']} in Kooperation mit friendfund   
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>  
-<${data['DEFAULT_BASE_URL']}>    
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
-%endif   
+${common.partner_closing(data)}   
+
+${common.footing(data)} 
 
 
 <%def name="subject()">${data['pool_title']}: Du wurdest zu einem friendfund eingeladen.</%def>  

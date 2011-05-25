@@ -1,0 +1,15 @@
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['admin_name'])}   
+
+Glückwunsch! Du hast deinen geheimen friendfund Pool erstellt : ${data['pool_title']} for ${data['pool_description']}.
+Einladungen wurden an ${common.show_names(data['invitee_list'])} verschickt.    
+
+${common.invite_blubber(data)}    
+
+
+Mit den besten Grüßen,    
+${common.partner_closing(data)}   
+
+${common.footing(data)}   
+
+<%def name="subject()">friendfund Pool erstellt!</%def>

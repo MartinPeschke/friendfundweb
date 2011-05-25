@@ -1,13 +1,13 @@
-Hallo ${data['firstname_invitee_name']},  
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['firstname_invitee_name'])}  
 
 Herzlichen Glückwunsch! Dein Pool auf friendfund für ${data['pool_title']} hat den Gesamtbetrag erreicht!  
 
 <http://${data['merchant_domain']}/pool/${data['p_url']}/complete>   
 
 Alles Gute,   
-das Team @friendfund
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}  
 
 <%def name="subject()">${data['pool_title']} friendfund erfüllt</%def>       

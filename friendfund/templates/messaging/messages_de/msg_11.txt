@@ -1,4 +1,5 @@
-Hallo ${data['invitee_name']}, 
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['invitee_name'])}  
 
 Ich habe den Pool ${data['pool_title']} auf friendfund gegründet und möchte dich hiermit einladen mitzumachen!  
 
@@ -12,8 +13,8 @@ Schaue dir den Pool hier an:
 Vielen Dank  
 ${data['admin_name']}  
 
-<${data['DEFAULT_BASE_URL']}>   
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+
+${common.footing(data)} 
 
 <%def name="subject()">${data['pool_title']}: Du wurdest zu einem friendfund eingeladen.</%def>
 

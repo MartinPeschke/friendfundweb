@@ -32,8 +32,8 @@ log.addHandler(ch)
 
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates_free_form','messaging')]
-		, module_directory=os.path.join(data_root, 'templates_free_form','messaging')
+tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates','messaging')]
+		, module_directory=os.path.join(data_root, 'templates','messaging')
 		, output_encoding='utf-8'
 		, input_encoding='utf-8'
 		)
@@ -42,7 +42,7 @@ transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file_
 _ = transl.ugettext
 
 
-log.info( os.path.join(root, 'templates_free_form','messaging') )
+log.info( os.path.join(root, 'templates','messaging') )
 def empty_sender(name = None):
 	def es(template, sndr_data, rcpt_data, template_data, config):
 		log.warning( "%s_MESSAGING_IS_OFF", name )
@@ -108,10 +108,13 @@ def setup_common_parameters(template_data, common_params, merchant_config):
 	params["today"] = datetime.today().strftime("%d.%m.%Y")
 	if "merchant_key" in template_data:
 		merchant = merchant_config.key_map[template_data["merchant_key"]]
-		params['merchant_domain'] = merchant.domain
-		params['merchant_logo_url'] = merchant.get_logo_url()
-		params['merchant_name'] = merchant.name
-		params['merchant_is_default'] = merchant.is_default
+	else:
+		merchant = merchant_config.default
+	params['merchant_domain'] = merchant.domain
+	params['merchant_logo_url'] = merchant.get_logo_url()
+	params['merchant_name'] = merchant.name
+	params['merchant_is_default'] = merchant.is_default
+
 	return params
 
 

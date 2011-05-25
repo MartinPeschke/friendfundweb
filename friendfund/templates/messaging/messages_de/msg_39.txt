@@ -1,20 +1,16 @@
-Hallo ${data['admin_name']},
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['admin_name'])}  
 
 Es sind nur noch ${data['x_hours_left']} Stunden bis dein friendfund, ${data['pool_title']}, ausläuft.
 
 Bisher haben deine Freunde und du ${data['total_funded']} von ${data['target_amount']} eingezahlt.  
 
-Es heißt "Alles oder Nichts", Zeit Erinnerungen zu verschicken!  <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+Es heißt "Alles oder Nichts", es ist an der Zeit Erinnerungen zu verschicken!  
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
 Alles Gute,  
-%if data['merchant_is_default']:      
-das Team @friendfund
-%else:  
-das Team @${data['merchant_name']} in Kooperation mit friendfund   
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
-%endif   
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}  
 
 <%def name="subject()">${data['pool_title']} läuft bald aus!</%def>   

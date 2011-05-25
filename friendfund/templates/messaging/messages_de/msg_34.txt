@@ -1,25 +1,20 @@
-Hallo ${data['firstname_invitee_name']},  
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['firstname_invitee_name'])}  
 
-${data['commenter_name']} hat folgenden ${data['pool_title']} Komentar hinzugefügt:
+${data['commenter_name']} hat folgenden "${data['pool_title']}" Komentar hinzugefügt:
 
 ${data['invitee_comment']}  
 
-Es sind noch ${data['x_days_left']} Tage übrig, um den Gesamtbetrag in von ${data['target_amount']} für  ${data['pool_description']} zu sammeln.
+Es sind noch ${data['x_days_left']} Tage übrig, um den Gesamtbetrag von ${data['target_amount']} für  ${data['pool_description']} zu sammeln.   
 
 <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
-[Wirb für diesen Pool](http://${data['merchant_domain']}/pool/${data['p_url']}) oder [lade weitere Freunde ein](http://${data['merchant_domain']}/pool/${data['p_url']}) mitzumachen.     
+${common.invite_blubber(data)}
 
 Alles Gute,  
-%if data['merchant_is_default']:      
-das Team @friendfund
-%else:  
-das Team @${data['merchant_name']} in Kooperation mit friendfund   
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
-%endif 
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}  
 
 Hier kannst du friendfund Nachrichten abbestellen: <http://${data['DEFAULT_BASE_URL']}/myprofile/notifications>    
 

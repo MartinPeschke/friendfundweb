@@ -30,9 +30,6 @@ setup(
     message_extractors={'friendfund': [
             ('**.py', 'python', None),
             ('templates/**.html', 'mako', {'input_encoding': 'utf-8'}),
-            ('partners/**.html', 'mako', {'input_encoding': 'utf-8'}),
-            ('templates_partner/**.html', 'mako', {'input_encoding': 'utf-8'}),
-            ('templates_free_form/**.html', 'mako', {'input_encoding': 'utf-8'}),
             ('public/**', 'ignore', None)]},
     zip_safe=False,
     paster_plugins=['PasteScript', 'Pylons'],

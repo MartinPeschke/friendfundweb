@@ -1,6 +1,6 @@
-﻿import os, re
+import os, re
 
-FOLDERS = [".", "../messages_de_de", "../messages_es_es"]
+FOLDERS = [".", "../messages_de", "../messages_es"]
 NAMES = re.compile("\['([^']+)'\]")
 
 
@@ -11,7 +11,7 @@ for name in os.listdir("."):
 		for folder in FOLDERS:
 			subname = os.path.join(folder, name)
 			try:
-				f = open(name, "r")
+				f = open(subname, "r")
 				content = f.read()
 				f.close()
 				results[folder] = set(re.findall(NAMES, content))

@@ -1,16 +1,15 @@
-Hallo ${data['user_name']},
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['user_name'])}  
  
-Uuups! 
 
-Du kannst ab sofort das automatisch erstellte Passwort zum einloggen benutzen.  Bitte ändere dein Passwort direkt nach dem Einloggen in Kontoeinstellungen > Passwort.  
+Du kannst dich sofort mit dem automatisch erstellten Passwort einloggen, aber bitte ändere dein Passwort gleich nach dem Einloggen unter Kontoeinstellungen > Passwort.
 
 Email: ${data['login_email']}  
 Passwort: ${data['auto_generated_password']}  
 
 Alles Gute,   
-das Team @friendfund   
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)} 
 
 <%def name="subject()">Neues Passwort erstellt</%def>

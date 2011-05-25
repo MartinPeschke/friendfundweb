@@ -1,3 +1,4 @@
+<%namespace name="common" file="common.txt"/>
 Vielen Dank ${data['contributor_name']}!  
 
 ${data['thank_you_message']}   
@@ -5,7 +6,7 @@ ${data['thank_you_picture']}
 
 ${data['recipient_name']}  
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}   
+
 
 <%def name="subject()">Vielen Dank für ${data['pool_title']}</%def>   

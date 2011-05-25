@@ -1,4 +1,5 @@
-Hallo ${data['recipient_name']},   
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['recipient_name'])}   
 
 Wir haben für ${data['event_name']} zusammengelegt, um dir ein super Geschenk zu machen.  
 
@@ -12,7 +13,9 @@ ${data['admin_name']}
 
 Du kannst ein Bild mit deinem Geschenk als Dankeschön hochladen oder eine Nachricht verfassen, um dich zu bedanken <http://${data['merchant_domain']}/pool/${data['p_url']}>.  
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+
+${common.partner_closing(data)}   
+
+${common.footing(data)}  
 
 <%def name="subject()">${data['event_name']} Geschenk von deinen Freunden</%def>  

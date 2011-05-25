@@ -1,4 +1,5 @@
-Hallo ${data['admin_name']},  
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['admin_name'])}   
 
 Herlichen Glückwunsch! Du und deine Freunde haben 
 ${data['contribution_amount']} für ${data['pool_title']} gesammelt.  
@@ -13,9 +14,8 @@ Schaue dir hier die Ecard an!
 Hmmm! Es ist Zeit wohl Zeit für einen Plan B.
 
 Alles Gute,   
-das Team von friendfund
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}  
 
 <%def name="subject()">${data['pool_title']}: friendfund ist abgelaufen</%def>   

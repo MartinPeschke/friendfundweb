@@ -1,4 +1,5 @@
-Hallo ${data['firstname_invitee_name']},  
+<%namespace name="common" file="common.txt"/>
+${common.greeting(data['firstname_invitee_name'])}  
 
 ${data['contributor_name']} hat gerade in den Pool ${data['pool_title']} eingezahlt!   
 
@@ -8,17 +9,11 @@ Es sind noch ${data['x_days_left']} Tage Zeit, um den festgelegten Gesamtbetrag 
 
 ${data['pool_description']} 
 
-Zahle etwas ein oder wirb für deinen Pool: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+${common.invite_blubber(data)}
 
 Alles Gute,  
-%if data['merchant_is_default']:      
-das Team @friendfund
-%else:  
-das Team @${data['merchant_name']} in Kooperation mit friendfund   
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
-%endif 
+${common.partner_closing(data)}   
 
-<${data['DEFAULT_BASE_URL']}>  
-Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
+${common.footing(data)}  
 
 <%def name="subject()">${data['contributor_name']} hat in ${data['pool_title']} eingezahlt</%def>     
