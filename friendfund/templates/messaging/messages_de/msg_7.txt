@@ -1,12 +1,14 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}   
 
+Ich habe einen friendfund Pool für "${data['pool_title']}" erstellt. Ich möchte dich einladen teilzunehmen und mit uns gemeinsam das Ziel zu erreichen.
+
 ${data['message']}  
 
-Du kannst dich auf der [Pool-Seite](http://${data['merchant_domain']}/pool/${data['p_url']}) einloggen mit der Emailadresse ${data['login_email']} und diesem Passwort ${data['pwd']}.   
-Bitte ändere dein Passwort direkt nach dem Einloggen in Kontoeinstellungen > Passwort.  
+${common.timeline_blurb(data)}
+${common.emaillogin_blurb(data)}
 
-Vielen Dank   
+Danke,   
 ${data['invitor_name']}  
 
 ${common.footing(data)}   

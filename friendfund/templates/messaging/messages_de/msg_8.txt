@@ -3,13 +3,12 @@ ${common.greeting(data['invitee_name'])}
 
 ${data['admin_name']} hat für ${data['pool_title']} einen Pool auf friendfund gegründet und hat dich dazu eingeladen! 
  
-${data['pool_description']}  
+${data['message']}  
 
-Der festgelegte Gesamtbetrag muss bis zum ${data['expiry_date']} erreicht werden. Zahle so viel oder so wenig ein, wie du möchtest (der kleinste Beitrag hilft)!  
+${common.timeline_blurb(data)}
+${common.view_pool_link(data)}
 
-${view_pool_link(data)}
-
-Vielen Dank     
+Danke,     
 ${data['invitor_name']}  
 
 ${common.footing(data)}   

@@ -1,11 +1,9 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}  
 
-${data['admin_name']} hat das perfekte ${data['occasion']} Geschenk 
-für ${data['recipient_name']} gefunden. Ich lade dich hiermit zum Mitmachen ein.    
+${data['admin_name']} hat das perfekte ${data['occasion']}'s Geschenk für ${data['recipient_name']} gefunden und einen friendfund Geschenkpool erstellt. Damit können wir das benötigte Geld schnell und einfach sammeln.
 
-Zahle soviel ein du möchtest (auch der kleinste Betrag hilft)! Wir 
-haben Zeit bis zum ${data['expiry_date']} den Gesamtbetrag zu sammeln!  
+${common.timeline_blurb(data)} 
 
 Schaue dir den Geschenkpool hier an: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 

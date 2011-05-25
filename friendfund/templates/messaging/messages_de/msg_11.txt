@@ -1,16 +1,15 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}  
 
-Ich habe den Pool ${data['pool_title']} auf friendfund gegründet und möchte dich hiermit einladen mitzumachen!  
+Ich habe einen friendfund Pool für "${data['pool_title']}" erstellt. Ich möchte dich einladen teilzunehmen und mit uns gemeinsam das Ziel zu erreichen.
 
 ${data['pool_description']}  
 
-Wir haben bis zum ${data['expiry_date']} Zeit, den Gesamtbetrag zu sammeln. Zahle soviel ein wie du möchtest (auch der kleinste Betrag hilft)!  
+Wir haben bis zum ${data['expiry_date']} Zeit, das Geld zu sammeln. Zahl soviel oder so wenig ein, wie du möchtest (auch die kleinste Summe hilft).
+Besuche die Poolseite hier: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
-Schaue dir den Pool hier an:  
-<http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
-Vielen Dank  
+Danke,   
 ${data['admin_name']}  
 
 

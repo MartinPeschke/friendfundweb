@@ -1,15 +1,15 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}   
 
-Ich habe das perfekte ${data['occasion']}'s Geschenk für ${data['recipient_name']} gefunden und ich lade dich zum mitmachen ein.  
+Ich habe einen friendfund Pool für "${data['pool_title']}" erstellt. Ich möchte dich einladen teilzunehmen und mit uns gemeinsam das Ziel zu erreichen.
 
-Trage dazu bei soviel du willst (auch der kleinste Betrag hilft)! 
-Wir haben bis zum ${data['expiry_date']} Zeit, den Gesamtbetrag zu sammeln!  
+${data['message']}  
 
-${view_pool_link(data)}
+${common.timeline_blurb(data)}
+${common.view_pool_link(data)}
 
 
-Vielen Dank   
+Danke,   
 ${data['admin_name']}    
 
 ${common.partner_closing(data)}   

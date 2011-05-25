@@ -5,10 +5,8 @@ Wir haben das perfekte ${data['occasion']}'s Geschenk für ${data['recipient_name
 
 ${data['message']} 
 
-Wir haben bis zum ${data['expiry_date']} Zeit, das Geld zu sammeln. Zahl soviel oder so wenig ein, wie du möchtest (auch die kleinste Summe hilft).
-
-Du kannst dich auf der [Pool-Seite](http://${data['merchant_domain']}/pool/${data['p_url']}) einloggen mit der Emailadresse ${data['login_email']} und diesem Passwort ${data['pwd']}.   
-Bitte ändere dein Passwort direkt nach dem Einloggen in Kontoeinstellungen > Passwort.   
+${common.timeline_blurb(data)}
+${common.emaillogin_blurb(data)}
 
 Besuche die Poolseite hier: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 Aber aufpassen! Es soll eine Überraschung sein, also sei vorsichtig wem du davon erzählst!  

@@ -1,12 +1,11 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['admin_name'])}  
 
-Herzlichen Glückwunsch! Die Gründung deines Pools war erfolgreich:   
-${data['pool_title']} für ${data['pool_description']}.
+Herzlichen Glückwunsch! Du hast sobene deinen friendfund Pool erfolgreich erstellt: ${data['pool_title']} für ${data['pool_description']}.
 
-Einladungen wurden geschickt an ${self.show_names(data['invitee_list'])}  
+Einladungen wurden geschickt an ${common.show_names(data['invitee_list'])}  
 
-${common.invite_blubber(data)}   
+${common.invite_and_share_blubber(data)}   
 
 
 Alles Gute,  
@@ -15,4 +14,3 @@ ${common.partner_closing(data)}
 ${common.footing(data)}  
 
 <%def name="subject()">Pool erstellt auf friendfund</%def>
-<%def name="show_names(invitees)">${", ".join(ivt["name"] for ivt in invitees)}</%def>
