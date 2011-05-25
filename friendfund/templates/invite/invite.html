@@ -2,7 +2,6 @@
 <%inherit file="sublayout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="inviter.html"/>
-<%namespace name="widgets" file="../widgets/widgets.html"/>
 
 <%def name="title()">${_("FF_TITLE_Invite to %s") % c.pool.title}</%def>
 
@@ -53,23 +52,21 @@
 
 <div class="colLeft">
 	<div class="invited" id="inviteContainer">
-	<h4><a class="link floatRight popuplink" _href="${url(controller="content", action="invite_info")}">${_("FF_INVITEPAGE_how will my friends be notified?")}</a>${_("FF_INVITEPAGE_HEADER_Invite your friends from Facebook, Twitter or Email")} 
-		
-	</h4>
-	<div class="subHeading"></div>
-	 
-	<div class="wrapTabs">
-		<div class="tabs"> 
-			<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
-			<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
-			<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
+		<h4><a class="link floatRight popuplink" _href="${url(controller="content", action="invite_info")}">${_("FF_INVITEPAGE_how will my friends be notified?")}</a>${_("FF_INVITEPAGE_HEADER_Invite your friends from Facebook, Twitter or Email")}</h4>
+		<div class="subHeading"></div>
+		 
+		<div class="wrapTabs">
+			<div class="tabs"> 
+				<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
+				<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
+				<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
+			</div>
 		</div>
-	</div>
-	  
-	<div class="subTab" id="inviter"></div>
-	
-	<h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
-	<div class="subHeading"></div>
+		  
+		<div class="subTab" id="inviter"></div>
+		
+		<h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
+		<div class="subHeading"></div>
 		<div style="border-top:none" class="borderBottom">
 			<div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 				<div class="tip">
@@ -81,9 +78,7 @@
 					%endif
 				</div>
 				<div class="first"> <span>${_("FF_INVITEPAGE_Subject")}</span> </div>
-				
-				  <input type="text" id="ref_subject" class="default" _default_text="${_("FF_INVITEPAGE_Write your subject here...")}" value="${c.values.get("subject", _("FF_INVITEPAGE_Write your subject here..."))}"/>
-				
+				<input type="text" id="ref_subject" class="default" _default_text="${_("FF_INVITEPAGE_Write your subject here...")}" value="${c.values.get("subject", _("FF_INVITEPAGE_Write your subject here..."))}"/>
 			</div>
 			<div class="padSpacer"></div>
 			<div class="wrapInside ${('message' in c.errors) and "error" or ""}">
