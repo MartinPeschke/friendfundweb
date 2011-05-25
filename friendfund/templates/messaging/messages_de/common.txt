@@ -29,12 +29,13 @@ Sammle Geld mit deinen Freunden. Gründe einen Pool. Mach mit. friendfund it!
 ${self.footing_phrase()}
 </%def>
 
-<%def name="footing_phrase_with_learn_more()">
+<%def name="footing_phrase_with_learn_more(data)">
 ${self.footing_phrase()}
 
-Was ist eigentlich friendfund? Erfahre hier was friendfund ist: <${data['learn_more_url']}>
+Was ist eigentlich friendfund? [Erfahre hier was friendfund ist!](${data['learn_more_url']})
 </%def>
-<%def name="footing_phrase_with_feedback()">
+
+<%def name="footing_phrase_with_feedback(data)">
 <${data['DEFAULT_BASE_URL']}>  
 ${self.footing_phrase()}
 
@@ -44,8 +45,8 @@ Wir wollen deine Meinung hören! [Schreib uns!](${data['contact_url']})
 <%def name="emaillogin_blurb(data)">
 Du kannst dich auf der [Pool-Seite](http://${data['merchant_domain']}/pool/${data['p_url']}) mit der Emailadresse ${data['login_email']} und diesem Passwort ${data['pwd']} einloggen.   
 Bitte ändere dein Passwort direkt nach dem Einloggen unter Kontoeinstellungen > Passwort.   
-<%/def>
+</%def>
 
 <%def name="timeline_blurb(data)">
 Wir haben bis zum ${data['expiry_date']} Zeit, das Geld zu sammeln. Zahl soviel oder so wenig ein, wie du möchtest (auch die kleinste Summe hilft).
-<%/def>
+</%def>
