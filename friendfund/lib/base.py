@@ -6,9 +6,8 @@ import logging, time, urlparse
 from collections import deque
 from pylons import request, response, session as websession, tmpl_context as c, config, app_globals, url
 from pylons.controllers.util import abort, redirect
-from pylons.controllers import WSGIController
+from pylons.controllers import WSGIController, render, render_def
 from pylons.i18n.translation import get_lang, set_lang, _
-from pylons.templating import cached_template, pylons_globals
 from webhelpers.html import literal
 
 from friendfund.model.authuser import ANONUSER
@@ -19,37 +18,6 @@ from friendfund.lib.helpers import negotiate_locale, normalize_locale
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
 
 log = logging.getLogger(__name__)
-
-def render(template_name, extra_vars=None, cache_key=None, 
-				cache_type=None, cache_expire=None):
-	def render_template():
-		globs = extra_vars or {}
-		globs.update(pylons_globals())
-		if request.merchant.type_is_group_gift and request.merchant.entry_is_landing_page:
-			template = globs['app_globals'].mako_lookup.get_template(template_name)
-		else:
-			template = globs['app_globals'].freeform_mako_lookup.get_template(template_name)
-			
-		return literal(template.render_unicode(**globs))
-	return cached_template(template_name, render_template, cache_key=cache_key,
-						   cache_type=cache_type, cache_expire=cache_expire)
-
-def render_def(template_name, def_name, cache_key=None,
-					cache_type=None, cache_expire=None, **kwargs):
-	def render_template():
-		globs = kwargs or {}
-		globs.update(pylons_globals())
-		if request.merchant.type_is_group_gift and request.merchant.entry_is_landing_page:
-			template = globs['app_globals'].mako_lookup.get_template(template_name)
-		else:
-			template = globs['app_globals'].freeform_mako_lookup.get_template(template_name)
-		template = template.get_def(def_name)
-		return literal(template.render_unicode(**globs))
-	return cached_template(template_name, render_template, cache_key=cache_key,
-						   cache_type=cache_type, cache_expire=cache_expire)
-
-
-
 
 class BaseController(WSGIController):
 	def index(self):
