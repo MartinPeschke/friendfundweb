@@ -1,35 +1,9 @@
-<%inherit file="../layout.html"/>
-<div class="wrapSubHeader">
-<div class="overlayWrapper">
-  <div class="overlay red">
-  	<p>${_("FF_CONTRIB_FAIL_Payment Failed!")}</p>
-  </div>
-</div>
-  <div class="subHeader">
-    <div class="userProfile">
-      <div class="nonPoolHeader">
-        <div class="prodImgWrap">
-          <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px"> </div>
-        </div>
-        <h2>${_("FF_CONTRIB_FAIL_Thanks for NOT Chipping In!")}</h2>
-      </div>
-      <div class="steps">
-        <div class="stepOne"><span>1.</span>${_("FF_CONTRIB_PAGE_HEADER_Chip in")}</div>
-        <div class="rightArrow"></div>
-        <div class="leftArrow"></div>
-        <div class="stepTwo"><span>2.</span>${_("FF_CONTRIB_PAGE_HEADER_Payment info")}</div>
-        <div class="rightArrow"></div>
-        <div class="leftArrow active"></div>
-        <div class="stepThree active"><span>3.</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
-</div>
+<%inherit file="sublayout.html"/>
+<%def name="title()">${_("FF_CONTRIB_FAIL_Thanks for NOT Chipping In!")}</%def>
+
 <% locals = {"pool_title":c.pool.title} %>
-<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
-<div class="content">
-  <div class="success">
+
+<div class="success">
 	<p><img src="/static/imgs/crossed.png"/>${_("FF_CONTRIB_FAIL_You've failed to contribute.")%locals|n}</p> 
 	<div style="margin-top:30px">
 		
@@ -37,7 +11,4 @@
 		<a href="${url("get_pool", pool_url=c.pool.p_url)}" class="secondary floatLeft">${_("FF_CONTRIB_SUCCESS_Back to Pool")}</a>
 		<div class="clear"</div>
 	</div>
-  </div>
-  <div class="clear"></div>
-</div>
 </div>

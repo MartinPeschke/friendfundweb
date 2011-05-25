@@ -1,6 +1,6 @@
 <%inherit file="../layout.html"/>
 
-<div class="wrapSubHeader">${self.renderMessages()|n}
+<div class="wrapSubHeader">${self.renderMessages()|n}<div class="shadowHead"></div>
 	<div class="subHeader">
 		<div class="userProfile">
 			<div class="empty">
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </div>
-<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>${self.renderMessages()}
+<div class="wrapSubContent">${self.renderMessages()}
 	<div class="content spLay">
 		${self.render_right_col()}
 		<div class="colLeft">

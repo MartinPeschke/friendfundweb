@@ -7,7 +7,7 @@ from pylons.decorators import jsonify
 
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.auth.decorators import logged_in, pool_available
-from friendfund.lib.base import BaseController, render,render_def, _, ErrorMessage
+from friendfund.lib.base import BaseController, render,render_def, _, ErrorMessage, SuccessMessage
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
@@ -43,6 +43,7 @@ class PaymentController(BaseController):
 		c.values = getattr(c, 'values', {})
 		c.errors = getattr(c, 'errors', {})
 		c.values["do_notify"] = "yes"
+		c.step = 1
 		suggested_amount = request.params.get('amount')
 		try:suggested_amount = (float(suggested_amount)/100)
 		except: pass
@@ -75,6 +76,7 @@ class PaymentController(BaseController):
 			c.errors = error.error_dict or {}
 			c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_PAGE_ERRORBAND_Please correct the Errors below")))
 			c.tos = self._add_tos()
+			c.step = 1
 			return self.render('/contribution/contrib_screen.html')
 		else:
 			contrib = Contribution(**form_result)
@@ -82,7 +84,7 @@ class PaymentController(BaseController):
 			contrib.set_amount(form_result['amount'])
 			contrib.set_total(form_result['total'])
 			contrib.paymentmethod_code = form_result.get('method')
-			
+			c.step = 2
 			try:
 				return g.payment_methods_map[contrib.paymentmethod_code].process(c, contrib, c.pool, self.render, redirect)
 			except (UnsupportedPaymentMethod, KeyError), e:
@@ -126,6 +128,7 @@ class PaymentController(BaseController):
 		if g.test:
 			c.values.update({"ccHolder":"Test User", "ccNumber":"4111111111111111", "ccCode":"737", "ccExpiresMonth":"12", "ccExpiresYear":"2012"})
 		if request.method != 'POST':
+			c.step = 2
 			return self.render('/contribution/payment_details.html')
 		else:
 			### Validating creditcard details
@@ -137,10 +140,12 @@ class PaymentController(BaseController):
 				c.values.update(error.value)
 				c.errors = error.error_dict or {}
 				c.messages.append(ErrorMessage(_("FF_CONTRIBUTION_VALIDATION_ERRORBAND_Please fill in all fields correctly!")))
+				c.step = 2
 				return self.render('/contribution/payment_details.html')
 			except AssertionError, e:
 				c.values = cc
 				c.errors = {"ccType":_("Unknown Card Type")}
+				c.step = 2
 				return self.render('/contribution/payment_details.html')
 			else:
 				ccard = CreditCard(**cc_values)
@@ -163,15 +168,12 @@ class PaymentController(BaseController):
 				c.messages.append(_(u"CONTRIBUTION_CREDITCARD_DETAILS_A serious error occured, please try again later"))
 				return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 	
-	
-	
-	
 	@logged_in(ajax=False)
 	@pool_available()
 	def success(self, pool_url):
 		ref = request.params.get('ref')
 		if not ref:
-			c.messages.append(_("CONTRIBUTION_PAGE_Unknown Payment Method"))
+			c.messages.append(ErrorMessage(_("CONTRIBUTION_PAGE_Unknown Payment Method")))
 			return redirect(url("payment", pool_url=c.pool.p_url, protocol="http"))
 		c.contrib = g.dbm.get(GetDetailsFromContributionRefProc, contribution_ref = ref)
 		c.values = {"amount": h.format_currency(c.contrib.get_amount(), c.pool.currency)
@@ -180,6 +182,8 @@ class PaymentController(BaseController):
 					, "message":c.contrib.message
 					}
 		c.show_delay = False
+		c.step = 3
+		c.messages.append(SuccessMessage(_("FF_CONTRIB_SUCCESS_Payment Successful!")))
 		return self.render('/contribution/payment_success.html')
 	
 	@logged_in(ajax=False)
@@ -196,6 +200,8 @@ class PaymentController(BaseController):
 					, "message":c.contrib.message
 					}
 		c.show_delay = False
+		c.step = 3
+		c.messages.append(ErrorMessage(_("FF_CONTRIB_FAIL_Payment Failed!")))
 		return self.render('/contribution/payment_fail.html')
 	
 	@logged_in(ajax=False)
@@ -226,8 +232,10 @@ class PaymentController(BaseController):
 						, "is_secret":c.contrib.is_secret
 						, "message":c.contrib.message
 						}
+		c.step = 3
 		if request.params.get('authResult') == 'AUTHORISED':
+			c.messages.append(SuccessMessage(_("FF_CONTRIB_SUCCESS_Payment Successful!")))
 			return self.render('/contribution/payment_success.html')
 		else:
+			c.messages.append(ErrorMessage(_("FF_CONTRIB_FAIL_Payment Failed!")))
 			return self.render('/contribution/payment_fail.html')
-		return self.render('/contribution/payment_details.html')

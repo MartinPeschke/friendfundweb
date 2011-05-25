@@ -1,5 +1,5 @@
 <%! from operator import add %>
-<%inherit file="../layout.html"/>
+<%inherit file="sublayout.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="inviter.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
@@ -31,38 +31,11 @@
 	dojo.connect(dojo.byId("invite_submitter"), "onclick", dojo.hitch(null, page.prepareSubmit, page, ${c.pool.am_i_admin(c.user) and 9 or 6}));
 </%def>
 
-<div class="wrapSubHeader">${self.renderMessages()|n}
-  <div class="subHeader">
-    <div class="userProfile">
-	%if c.workflow in ["2", "3"]:
-		<div class="nonPoolHeader">
-			<div class="prodImgWrap">
-			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
-			</div>
-			<h2>${_("FF_INVITEPAGE_HEADER_Invite friends to chip in")}</h2>
-		</div>
-		%if c.workflow=="2":
-			${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), _("FF_POOLDETAILS_HEADER_Done!"), 2)|n}
-		%endif
-	%else:
-		<div class="nonPoolHeader">
-			<div class="prodImgWrap">
-			  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px" width="60px;"> </div>
-			</div>
-			<h2>${_("FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In")}</h2>
-		</div>
-		${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_What are you collecting money for?"), _("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), 3)|n}
-	%endif
-      <div class="clear"></div>
-    </div>
-  </div>
-</div>
-<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
-<div class="content" id="inviteMessage">
-  <div class="colRight moreMarginTop">
-  	<span class="floatRight link" id="removeall">${_("FF_INVITEPAGE_Remove All")}</span>
-    <h3>${_("FF_INVITEPAGE_HEADER_Invited Friends")} (<span id="invitedCounter">${reduce(add, map(len, c.invitees.values()) or [0])}</span>)</h3>
-		<form action="${url(controller='invite', pool_url=c.pool.p_url, action='friends')}" method="POST" id="invitees">
+
+<div class="colRight moreMarginTop">
+	<span class="floatRight link" id="removeall">${_("FF_INVITEPAGE_Remove All")}</span>
+	<h3>${_("FF_INVITEPAGE_HEADER_Invited Friends")} (<span id="invitedCounter">${reduce(add, map(len, c.invitees.values()) or [0])}</span>)</h3>
+	<form action="${url(controller='invite', pool_url=c.pool.p_url, action='friends')}" method="POST" id="invitees">
 		<div class="listSelectedFriends" id="invitedContainer" >
 			<p class="inviterTwo ${bool(c.invitees) and "hidden" or ""}">${_("FF_INVITER_EMAIL_Invite your friends from<br /> the left panel")|n}</p>
 			<ul id="network_invitees" class="invited_list">
@@ -74,29 +47,30 @@
 		<input type="hidden" _source="ref_subject" class="addRefContent" name="subject" value="${c.values.get("subject")}"/>
 		<input type="hidden" _source="ref_message" class="addRefContent" name="message" value="${c.values.get("message")}"/>
 		<input type="hidden" name="v" value="${c.workflow}"/>
-		</form>
-  </div>
-	<div class="colLeft">
-		<div class="invited" id="inviteContainer">
-		
-		<h4><a class="link floatRight popuplink" _href="${url(controller="content", action="invite_info")}">${_("FF_INVITEPAGE_how will my friends be notified?")}</a>${_("FF_INVITEPAGE_HEADER_Invite your friends from Facebook, Twitter or Email")} 
-			
-		</h4>
-		<div class="subHeading"></div>
-		 
-		<div class="wrapTabs">
-			<div class="tabs"> 
-                <span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
-				<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
-				<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
-			</div>
-		</div>
-		  
-		<div class="subTab" id="inviter"></div>
+	</form>
+</div>
 
-		<h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
-		<div class="subHeading"></div>
-			<div style="border-top:none" class="borderBottom">
+
+<div class="colLeft">
+	<div class="invited" id="inviteContainer">
+	<h4><a class="link floatRight popuplink" _href="${url(controller="content", action="invite_info")}">${_("FF_INVITEPAGE_how will my friends be notified?")}</a>${_("FF_INVITEPAGE_HEADER_Invite your friends from Facebook, Twitter or Email")} 
+		
+	</h4>
+	<div class="subHeading"></div>
+	 
+	<div class="wrapTabs">
+		<div class="tabs"> 
+			<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
+			<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
+			<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
+		</div>
+	</div>
+	  
+	<div class="subTab" id="inviter"></div>
+	
+	<h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
+	<div class="subHeading"></div>
+		<div style="border-top:none" class="borderBottom">
 			<div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 				<div class="tip">
 					<div class="arrow"></div>
@@ -133,27 +107,21 @@
 					invitemethod = "stream_publish"
 			%>
 			<p class="info"><a class="message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="${invitemethod}">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
-		  </div>
-			<div class="inviteBottom">
-			   <div class="spacerPadLeft floatLeft">
-					<p>${_("FF_INVITEPAGE_If you are inviting friends manually, here's a link to your pool:")}</p>
-					<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onclick="this.select();"/>
-				</div>
-				
-				<div class="btnContainer">
-				%if len(c.pool.invitees) or c.workflow=="3":
-					<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Invite Friends")}" class="primaryButton" />
-				%else:
-					<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Create Pool")}"  class="primaryButton" />
-				%endif
-				</div>
+		</div>
+		<div class="inviteBottom">
+		   <div class="spacerPadLeft floatLeft">
+				<p>${_("FF_INVITEPAGE_If you are inviting friends manually, here's a link to your pool:")}</p>
+				<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onclick="this.select();"/>
 			</div>
-		</form>
-      	</div>
-      <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-  </div>
+			
+			<div class="btnContainer">
+			%if len(c.pool.invitees) or c.workflow=="3":
+				<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Invite Friends")}" class="primaryButton" />
+			%else:
+				<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Create Pool")}"  class="primaryButton" />
+			%endif
+			</div>
+		</div>
+	</div>
   <div class="clear"></div>
-</div>
 </div>

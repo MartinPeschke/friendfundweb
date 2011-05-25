@@ -1,3 +1,6 @@
+
+
+
 String.prototype.strip = function(ch){var re = new RegExp("^"+ch+"+|"+ch+"+$", "g");return String(this).replace(re, '');};
 if (!FriendFund) {var FriendFund = {};}
 FriendFund.Page = {
@@ -23,7 +26,7 @@ FriendFund.Element = {
 		var pageDimensions = FriendFund.Page.getDimensions();
 		var els = element.style;
 		els.left = (pageDimensions.xOffset+(pageDimensions.width - dialogDimensions.width) / 2) + "px";
-		var computedHeight = (pageDimensions.yOffset+(pageDimensions.height - dialogDimensions.height) / 4);
+		var computedHeight = (pageDimensions.yOffset+75);
 		els.top = Math.max(computedHeight, 0) + "px";
 	}
 };

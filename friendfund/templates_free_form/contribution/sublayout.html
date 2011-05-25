@@ -1,3 +1,32 @@
+<%inherit file="../layout.html"/>
+
+<div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}<div class="shadowHead"></div>
+  <div class="subHeader">
+    <div class="userProfile">
+      <div class="nonPoolHeader">
+        <h2>${self.title()}</h2>
+      </div>
+      <div class="steps">
+        <div class="stepOne ${c.step == 1 and 'active' or ''}"><span>1.</span>${_("FF_CONTRIB_PAGE_HEADER_Chip in")}</div>
+        <div class="rightArrow ${c.step == 1 and 'active' or ''}"></div>
+        <div class="leftArrow ${c.step == 2 and 'active' or ''}"></div>
+        <div class="stepTwo ${c.step == 2 and 'active' or ''}"><span>2.</span>${_("FF_CONTRIB_PAGE_HEADER_Payment info")}</div>
+        <div class="rightArrow ${c.step == 2 and 'active' or ''}"></div>
+        <div class="leftArrow ${c.step == 3 and 'active' or ''}"></div>
+        <div class="stepThree ${c.step == 3 and 'active' or ''}"><span>3.</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
+      </div>
+      <div class="clear"></div>	
+    </div>
+  </div>
+</div>
+
+<div class="wrapSubContent">
+<div class="content">
+	${next.body()}
+<div class="clear"></div>
+</div>
+</div>
+
 <%def name="renderRightCol(pool)">
 	<div class="colRight">
 		<%

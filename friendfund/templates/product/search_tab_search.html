@@ -1,5 +1,0 @@
-<%namespace name="common" file="common.html"/>
-%if hasattr(c, "searchresult"):
-	<h4 class="inside">${_("PRODUCT_BROWSER_SEARCH_TITLE_Search Results for \"%s\"") % c.searchterm}</h4>
-	${common.display_product_browser(c.searchresult)|n}
-%endif

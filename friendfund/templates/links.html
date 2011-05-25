@@ -1,6 +1,0 @@
-<%def name="css(file, media='', path = '/static/legacy/css/', ext = None)"><link rel="stylesheet" type="text/css" href="${path|h}${file|h}?${ext or app_globals.revision_identifier()}" media="${media}"/></%def>
-
-<%def name="js_bak(file, path = '/static/legacy/js/')"></%def>
-<%def name="js(file, path = '/static/legacy/js/', ext=None)">
-	<script type="text/javascript" src="${path|h}${file|h}?${ext or app_globals.revision_identifier()}"></script>
-</%def>

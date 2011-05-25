@@ -1,8 +1,9 @@
-<%inherit file="../layout.html"/>
+<%inherit file="sublayout.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
-<%namespace name="common" file="common.html"/>
 
 <%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
+<%def name="title()">${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</%def>
+
 <%def name="render_page_state()">
 	window.pageState.getFBPerms = true;
 	submitForm = function(form){ return doLogin({level:form["payment.do_notify"]?form["payment.do_notify"].checked?6:3:3, cb:function(){
@@ -10,9 +11,8 @@
 		document.contributionForm.onsubmit = function(){return true};
 		document.contributionForm.submit();return true;}});
 		};
-var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+	var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 </%def>
-
 <%def name="onloadscripts()">
 	parseDefaultsInputs("contributionForm");
 	parseSelectables("contributionForm");
@@ -22,32 +22,9 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 
 
 <% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
-<div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
 
-  <div class="subHeader">
-    <div class="userProfile">
-        <div class="nonPoolHeader">
-        <h2>${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</h2>
-      </div>
-      <div class="steps">
-        <div class="stepOne active"><span>1.</span>${_("FF_CONTRIB_PAGE_HEADER_Chip in")}</div>
-        <div class="rightArrow active"></div>
-        <div class="leftArrow"></div>
-        <div class="stepTwo "><span>2.</span>${_("FF_CONTRIB_PAGE_HEADER_Payment info")}</div>
-        <div class="rightArrow "></div>
-        <div class="leftArrow "></div>
-        <div class="stepThree"><span>3.</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
-</div>
-
-<div class="wrapSubContent"><div class="shadowEverywhereElse"></div>
-<div class="content">
-	${common.renderRightCol(c.pool)}
-	
-	<div class="colLeft">
+${self.renderRightCol(c.pool)}
+<div class="colLeft">
 	<form action="${url(controller="payment", action="details", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="contributionForm" name="contributionForm" method="POST">
 		<h4>${_(u"FF_CONTRIB_PAGE_How much do you want to contribute?")}</h4>
 		<div class="subHeading"></div>
@@ -65,22 +42,22 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 		<div class="contentDetails">
 			${_(u"FF_CONTRIB_PAGE_You will only be charged if this Pool reaches its funding goal by %(expiry_date)s.") % locals}
 		</div>
-	<h4>${_("FF_CONTRIB_PAGE_Payment Method")}</h4>
-	<div class="subHeading" style="margin-bottom:10px"></div>
-	
-	<div style="position:relative" class="lessPad">
-	 
-		<div class="first"> <span>&nbsp</span> </div>
-		<div class="imgSpacer">
-			%for i, pm in enumerate(c.payment_methods):
-			  <input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
-					name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
-				<label for="payment_method_${pm.code}" class="fourteen">
-					<img src="/static/imgs/${pm.code}_color.png" width="38" height="24px"/>
-				 </label> 
-			%endfor
-	</div>
- </div>      
+		
+		<h4>${_("FF_CONTRIB_PAGE_Payment Method")}</h4>
+		<div class="subHeading" style="margin-bottom:10px"></div>
+		<div style="position:relative" class="lessPad">
+			<div class="first"> <span>&nbsp</span> </div>
+			<div class="imgSpacer">
+				%for i, pm in enumerate(c.payment_methods):
+				  <input type="radio" class="paymentselector radio" value="${pm.code}" _fee_absolute="${pm.fee_absolute}" _fee_relative="${pm.fee_relative}" 
+						name="payment.method" id="payment_method_${pm.code}" ${widgets.input_checked("method", pm.code, i==0)|n} /> 
+					<label for="payment_method_${pm.code}" class="fourteen">
+						<img src="/static/imgs/${pm.code}_color.png" width="38" height="24px"/>
+					 </label> 
+				%endfor
+			</div>
+		</div>      
+		
 		<h4>${_("FF_CONTRIB_PAGE_Privacy Settings")}</h4>
 		<div class="subHeading" style="margin-bottom:10px"></div>
 		<div class="borderBottom noBorder lessPad">
@@ -89,7 +66,6 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 				<input type="radio" id="isSecretFalse" name="payment.is_secret" value="no" ${widgets.input_checked("is_secret", "no", default=True)|n} class="radio"><label  for="isSecretFalse">
 				${_("FF_CONTRIB_PAGE_I'm happy to show how much I've chipped in")}</label>
 			</div>
-			
 		</div>
 
 		<div class="borderBottom noBorder lessPad">
@@ -118,49 +94,42 @@ var textCounter = function(field, countfield, maxlimit) {if(field.value.length >
 			<p class="info" style="width:470px">${_("FF_CONTRIB_PAGE_This message will appear on (%(admin_name)s's) e-card if the Pool is successfully funded.")%locals}</p>
 		</div>
 
-	<div class="clear"></div>
+		<div class="clear"></div>
 
-
-	<div class="recMoney">
-		<h4>${_("STATIC_TITLE_Terms of Service")}</h4>
-		<div class="subHeading" style="margin-bottom:15px" ></div>
-		<div class="borderBottom  noBorder lessPad ${('agreedToS' in c.errors) and "error" or ""}">
-			%if ('agreedToS' in c.errors):
-				<div class="tip">
-					<div class="arrow"></div>
-					<span>${c.errors['agreedToS']}</span> 
+		<div class="recMoney">
+			<h4>${_("STATIC_TITLE_Terms of Service")}</h4>
+			<div class="subHeading" style="margin-bottom:15px" ></div>
+			<div class="borderBottom  noBorder lessPad ${('agreedToS' in c.errors) and "error" or ""}">
+				%if ('agreedToS' in c.errors):
+					<div class="tip">
+						<div class="arrow"></div>
+						<span>${c.errors['agreedToS']}</span> 
+					</div>
+				%endif
+				<div class="disclaimer">
+					${c.tos|n}
+				</div>
+			</div>
+			<div class="greyInsideFullWidth" style="margin-top:10px" >
+				<div class="first"> <span>&nbsp</span> </div>
+				<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox"/>
+				<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" target="_blank" href="${url(controller="content", action="tos", protocol="http", lang = h.get_language_locale())}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
+			</div>
+			%if c.user.networks.get("twitter") or c.user.networks.get("facebook"):
+				<div class="colRightWhite" style="margin-left:160px; border-color:#eeedec"></div>
+				<div class="colRightWhite" style="margin-left:160px"></div>
+				<div class="greyInsideFullWidth">
+					<div class="first"> <span>&nbsp</span> </div>
+					<input type="checkbox" id="chipin_do_notify" name="payment.do_notify" value="yes" ${widgets.input_checked("do_notify", "yes")|n} class="chkbox"/>
+						<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Post contribution notice to my wall ortwitter stream.")}</label> <a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}">${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
 				</div>
 			%endif
-			<div class="disclaimer">
-				${c.tos|n}
-			</div>
 		</div>
-		<div class="greyInsideFullWidth" style="margin-top:10px" >
-			<div class="first"> <span>&nbsp</span> </div>
-			<input type="checkbox" id="chipin_agreedToS" name="payment.agreedToS" value="yes" ${widgets.input_checked("agreedToS", True)|n} class="chkbox"/>
-			<label for="chipin_agreedToS">${_("FF_CONTRIB_PAGE_I accept the")}</label> <a tabIndex="5000" target="_blank" href="${url(controller="content", action="tos", protocol="http", lang = h.get_language_locale())}">${_("FF_CONTRIB_PAGE_Terms of service")}</a>
-		</div>
-		%if c.user.networks.get("twitter") or c.user.networks.get("facebook"):
-			<div class="colRightWhite" style="margin-left:160px; border-color:#eeedec"></div>
-			<div class="colRightWhite" style="margin-left:160px"></div>
-			<div class="greyInsideFullWidth">
-				<div class="first"> <span>&nbsp</span> </div>
-				<input type="checkbox" id="chipin_do_notify" name="payment.do_notify" value="yes" ${widgets.input_checked("do_notify", "yes")|n} class="chkbox"/>
-					<label for="chipin_do_notify">${_("FF_CONTRIB_PAGE_Post contribution notice to my wall ortwitter stream.")}</label> <a tabIndex="5000" class="popuplink" _href="${url(controller="payment", pool_url=c.pool.p_url, action="notify_invitees")}">${_("FF_CONTRIB_PAGE_NOTIFY_what is this?")}</a>
-			</div>
-		%endif
-	</div>
 		<div class="floatRight">
 			<div class="spacerButtons">
 				<input id="submitter" class="forward" type="button" onclick="submitForm(document.contributionForm)" value="${_("FF_CONTRIB_PAGE_BUTTON_Chip In")}" />
 			</div>
 		</div>
-      
-	<div class="clear"></div>
-	</div>
 	</form>
-	  <div class="clear"></div>
-  </div>
-
-</div>
+<div class="clear"></div>
 </div>
