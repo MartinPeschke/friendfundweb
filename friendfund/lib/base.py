@@ -6,9 +6,10 @@ import logging, time, urlparse
 from collections import deque
 from pylons import request, response, session as websession, tmpl_context as c, config, app_globals, url
 from pylons.controllers.util import abort, redirect
-from pylons.controllers import WSGIController, render, render_def
+from pylons.controllers import WSGIController
 from pylons.i18n.translation import get_lang, set_lang, _
 from webhelpers.html import literal
+from pylons.templating import render_mako as render, render_mako_def as render_def
 
 from friendfund.model.authuser import ANONUSER
 from friendfund.model.db_access import SProcException
