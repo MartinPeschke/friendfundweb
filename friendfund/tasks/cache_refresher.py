@@ -14,6 +14,9 @@ log.addHandler(ch)
 
 CONNECTION_NAME = 'pool'
 FEATURED_POOLS_CACHEKEY = "FF_FEATURED_POOLS_weafhwvgfhfr"
+MERCHANTS_POOLS_CACHEKEY = "FF_MERCHANTS_weafhwvgfhfr"
+HOMEPAGE_STATS_CACHEKEY = "FF_HOMEPAGE_STATS_weafhwvgfhfr"
+
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
@@ -41,7 +44,8 @@ def main(argv=None):
 		for p in merchant_config.featured_pools:
 			 featured_pools.append(dbm.get(FeaturedPool, p_url = p.p_url))
 		with cm.reserve() as mc:
-			mc.set(FEATURED_POOLS_CACHEKEY, featured_pools, 864000)
+			mc.set_multi({FEATURED_POOLS_CACHEKEY: featured_pools, MERCHANTS_POOLS_CACHEKEY:merchant_config.merchants, HOMEPAGE_STATS_CACHEKEY:merchant_config.stats}, 864000)
+			
 		log.info("CACHE_UPDATED (<%s>)", ">, <".join(map(lambda x: x.p_url, featured_pools)))
 		if len(featured_pools)<4:
 			log.error("INSUFFICIENT FEATURED POOLS FOR HOMEPAGE")

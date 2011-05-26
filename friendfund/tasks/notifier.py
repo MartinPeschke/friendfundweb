@@ -107,9 +107,9 @@ def setup_common_parameters(template_data, common_params, merchant_config):
 	params.update(common_params)
 	params["today"] = datetime.today().strftime("%d.%m.%Y")
 	if "merchant_key" in template_data:
-		merchant = merchant_config.key_map[template_data["merchant_key"]]
+		merchant = merchant_config.merchants.key_map[template_data["merchant_key"]]
 	else:
-		merchant = merchant_config.default
+		merchant = merchant_config.merchants.default
 	params['merchant_domain'] = merchant.domain
 	params['merchant_logo_url'] = merchant.get_logo_url()
 	params['merchant_name'] = merchant.name
@@ -169,10 +169,7 @@ def poll_message_queue(config, debug, merchant_config, jobpool, available_langs,
 			else:
 				messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
 		save_results(jobpool, messaging_results)
-	
-	
-	
-	
+
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv

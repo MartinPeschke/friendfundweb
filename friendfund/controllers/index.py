@@ -2,7 +2,7 @@ from __future__ import with_statement
 import logging, formencode, uuid, md5, os
 from cgi import FieldStorage
 
-from pylons import request, response, session as websession, tmpl_context as c, config, app_globals as g, url
+from pylons import request, response, session as websession, tmpl_context as c, config, app_globals, url
 from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 
@@ -17,7 +17,7 @@ from friendfund.model.common import SProcWarningMessage
 from friendfund.model.authuser import User, SetUserEmailProc, ANONUSER
 from friendfund.model.product import Product
 from friendfund.model.sitemap import SiteMap
-from friendfund.tasks.cache_refresher import FEATURED_POOLS_CACHEKEY
+from friendfund.tasks.cache_refresher import FEATURED_POOLS_CACHEKEY, HOMEPAGE_STATS_CACHEKEY
 
 log = logging.getLogger(__name__)
 ulpath = config['pylons.paths']['uploads']
@@ -27,13 +27,13 @@ class IndexController(BaseController):
 	ra_page_size = 5
 	
 	def _get_featured_pools(self):
-		with g.cache_pool.reserve() as mc:
+		with app_globals.cache_pool.reserve() as mc:
 			featured_pools = mc.get(FEATURED_POOLS_CACHEKEY)
 		if featured_pools is None:
 			log.warning("NO_FEATURED_POOLS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
 			featured_pools = []
-			for p in g.merchants.featured_pools:
-				 featured_pools.append(g.dbm.get(FeaturedPool, p_url = p.p_url))
+			for p in app_globals.featured_pools:
+				 featured_pools.append(app_globals.dbm.get(FeaturedPool, p_url = p.p_url))
 		return featured_pools
 	
 	def index(self):
@@ -42,10 +42,16 @@ class IndexController(BaseController):
 		if 'pool' in websession:
 			c.pool = websession['pool']
 		c.get_featured_pools = self._get_featured_pools
+		
+		with app_globals.cache_pool.reserve() as mc:
+			c.homepage_stats = mc.get(HOMEPAGE_STATS_CACHEKEY)
+		if not c.homepage_stats:
+			log.error("NO_HOMEPAGE_STATS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
+			c.homepage_stats = app_globals.homepage_stats
 		return self.render('/index.html')
 	
 	def sitemap(self):
-		c.pool_urls = g.dbm.get(SiteMap).entries
+		c.pool_urls = app_globals.dbm.get(SiteMap).entries
 		return render('/sitemap.xml')
 	
 	def close(self):
@@ -75,7 +81,7 @@ class IndexController(BaseController):
 			return self.render('/myprofile/login_screen.html')
 		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
 		try:
-			c.user = g.user_service.signup_email_user(signup)
+			c.user = app_globals.user_service.signup_email_user(signup)
 			return redirect(url('home'))
 		except formencode.validators.Invalid, error:
 			c.signup_values = error.value

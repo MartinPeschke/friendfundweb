@@ -30,8 +30,8 @@
 			<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
 			</div>
 			<div class="floatRight homeListing" style="padding:20px 10px 0 0">
-				<div class="floatLeft"><b>253</b>Pools</div>
-				<div class="floatLeft"><b>1,206</b>Contributors</div>
+				<div class="floatLeft">${_("FF_HOMEPAGE_<b>%s</b>Pools")%c.homepage_stats.funded_pools|n}</div>
+				<div class="floatLeft">${_("FF_HOMEPAGE_<b>%s</b>Contributions")%c.homepage_stats.contributions|n}</div>
 			</div>
 		</div>
 		<div class="homeDivider"></div>
@@ -80,7 +80,7 @@ ${self.renderMessages()}
 
 
 
-<%def name="renderScroller()" cached="False" cache_key="renderScroller_templ" cache_timeout="86400" cache_type="memory">
+<%def name="renderScroller()" cached="True" cache_key="renderScroller_templ" cache_timeout="86400" cache_type="memory">
 	
 <%
 	list = [#("/static/imgs/integrations/amazon_trans.png", "http://amazon.friendfund.com"),
@@ -113,7 +113,6 @@ ${self.renderMessages()}
 	%for i, pool in enumerate(get_featured_pools()):
 		<% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
 	<div class="homeboxWrap ${i==3 and 'omega' or ''}">
-   
 		<div class="homebox">
 			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
 			<h5 style="min-height:36px;"><a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a></h5>
@@ -138,8 +137,6 @@ ${self.renderMessages()}
 				<div class="clear"></div>
 			</div>
 		</div>
-    
 	</div>
-	
 	%endfor
 </%def>

@@ -138,6 +138,20 @@ class FeaturedPoolURL(DBMappedObject):
 	_cachable = False
 	_no_params = True
 	_keys = [GenericAttrib(unicode,'p_url','p_url')]
+	
+	
+class MerchantHolder(object):
+	def __init__(self, key_map, domain_map, default, default_domain):
+		self.key_map = key_map
+		self.domain_map = domain_map
+		self.default = default
+		self.default_domain = default_domain
+
+class HomePageStats(DBMappedObject):
+	"""<STATS funded_pools="156" contributions="336"/>"""
+	_cachable = False
+	_no_params = True
+	_keys = [GenericAttrib(int,'funded_pools','funded_pools'), GenericAttrib(int,'contributions','contributions')]
 
 class GetMerchantConfigProc(DBMappedObject):
 	"""app.[get_merchant]"""
@@ -150,15 +164,17 @@ class GetMerchantConfigProc(DBMappedObject):
 			DBMapper(PaymentMethod,'payment_methods','PAYMENT_METHOD', is_list = True),
 			DBMapper(MerchantLink,'key_map','MERCHANT', is_dict = True, dict_key = lambda x:x.key),
 			DBMapper(FeaturedPoolURL,'featured_pools','FEATURED_POOL', is_list = True),
+			DBMapper(HomePageStats,'stats','STATS')
 		]
 	
 	def fromDB(self, xml):
-		setattr(self, 'domain_map', dict([(m.domain.lower(), m) for m in self.key_map.itervalues()]))
+		domain_map = dict([(m.domain.lower(), m) for m in self.key_map.itervalues()])
 		try:
-			setattr(self, 'default', filter(lambda m: m.is_default, self.key_map.itervalues())[0])
-			setattr(self, 'default_domain', filter(lambda m: m.is_default, self.key_map.itervalues())[0].domain)
+			default = filter(lambda m: m.is_default, self.key_map.itervalues())[0]
+			default_domain = default.domain
 		except IndexError, e:
 			raise Exception("GetMerchantLinksProc:No Default Merchant set, %s" % e)
+		setattr(self, "merchants", MerchantHolder(self.key_map, domain_map, default, default_domain))
 
 class TopSellersRegion(DBMappedObject):
 	_cachable = False

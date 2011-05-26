@@ -25,10 +25,15 @@ SVNREVISION = "SPRINT_2.2.2_rc2"
 REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 
+
+
 class Globals(object):
 	"""Globals acts as a container for objects available throughout the
 	life of the application
 	"""
+	def set_merchant_config(self, merchants):
+		self.merchants = merchants
+		self.default_host = merchants.default_domain
 	
 	def __init__(self, config):
 		"""One instance of Globals is created during application
@@ -87,9 +92,11 @@ class Globals(object):
 		self.country_choices = self._db_globals.setdefault('country_choices', self.dbm.get(GetCountryRegionProc))
 		top_sellers = self.dbm.get(GetTopSellersProc)
 		
-		self.merchants = self.dbm.get(GetMerchantConfigProc)
-		self.default_host = self.merchants.default_domain
-		log.info("STARTING UP WITH following subdomains: %s", list(self.merchants.domain_map.iterkeys()))
+		merchant_config = self.dbm.get(GetMerchantConfigProc)
+		self.set_merchant_config(merchant_config.merchants)
+		self.featured_pools = merchant_config.featured_pools   #setting up a fallback if memcached doesnt hold proper pools
+		self.homepage_stats = merchant_config.stats
+		log.info("STARTING UP WITH following subdomains: %s", list(merchant_config.merchants.domain_map.iterkeys()))
 		
 		##################################### SERVICES SETUP #####################################
 		
@@ -102,7 +109,7 @@ class Globals(object):
 				,hosted_skincode = app_conf['adyen.skincode']
 				,merchantaccount = app_conf['adyen.merchantAccount']
 				,hosted_sign_secret = app_conf['adyen.hosted_secret'])
-		self.payment_methods = [pfactory.get(pm) for pm in self.merchants.payment_methods]
+		self.payment_methods = [pfactory.get(pm) for pm in merchant_config.payment_methods]
 		self.payment_methods_map = dict((pm.code, pm) for pm in self.payment_methods)
 		log.info("PaymentMethods set up: %s", self.payment_methods)
 		
