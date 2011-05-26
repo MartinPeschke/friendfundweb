@@ -127,7 +127,7 @@
 						<div class="timeCounterRight" style="width:100%">
 						<div class="timeCounterLeft" style="width:${int(locals['funding_process']*100)}%"></div>
 							%if locals['funding_process'] < 1:
-							<div class="progTooltip" style="position: absolute; top:-23px;left:${int(locals['funding_process']*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
+							<div class="progTooltip" style="position: absolute; top:-30px;left:${int(locals['funding_process']*100)}%;">${locals['chipped_in_amount']}<div class="arrTool"></div></div>
 							%endif
 						</div>
 					</div>
@@ -240,15 +240,16 @@
 		%endif
 	
 		<div class="plus generalBoxRight">
-			<a class="popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+			<a class="popuplink learnMoreBtnNew floatLeft" style="margin-right:10px" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
-				<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+				<a class="learnMoreBtnNew floatLeft" href="${url('invite_index', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_Invite more friends")}</a>      
 				
 			%endif
+			<div class="clear"></div>
 		</div>
 		<div class="colRightWhite"></div>
 		<div class="generalBoxRight">
-			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the pool")}</h2>
+			<h2>${_(u"FF_POOL_PAGE_CHIPIN_SHARE THE POOL")}</h2>
 			<div class="iconContainer">
 				<div class="addthis_toolbox addthis_default_style">
 					<a class="addthis_button_facebook"></a>
@@ -257,16 +258,23 @@
 					<a class="addthis_button_linkedin"></a>
 					<a class="addthis_button_stumbleupon"></a>
 					<a class="addthis_button_tumblr"></a>
-					<a class="addthis_button_expanded"></a>
+					<a class="addthis_button_expanded" style="margin-right:0"></a>
 				</div>
-			<div class="clear"></div>
+				<input type="text" value="${url.current(protocol="http")}" onclick="this.select()"/>
+			
 			</div>
+			<div class="clear"></div>
 		</div>
 		<div class="colRightWhite"></div>
-		<div class="generalBoxRight ">
-			<h2>${_(u"FF_POOL_PAGE_CHIPIN_Share the link")}</h2>
-			<input type="text" value="${url.current(protocol="http")}" onclick="this.select()"/>
-		</div><div class="colRightWhite"></div>
+		<div class="generalBoxRight noBorder">
+			<h2>Accepted payment methods</h2>
+			
+			<img style="margin-top: 10px;" src="/static/imgs/paypal.png">
+			<img style="margin-top: 10px; margin-left:15px" src="/static/imgs/visa.png">
+			<img style="margin-top: 10px; margin-left:15px" src="/static/imgs/mastercard.png">
+			<img style="margin-top: 10px; margin-left:15px" src="/static/imgs/amex.png">
+			
+		</div>		
 		%if c.pool.can_i_leave(c.user):
 		<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="leave_popup")}" class="popuplink removeMe">${_(u"FF_POOL_PAGE_Remove me from this Pool")}</a>
 		%endif
@@ -337,7 +345,7 @@
 						<img src="${c.user.get_profile_pic("PROFILE_S")}" />
 					</div>
 					<div class="txtComments">
-						<div class="txtArea selected"><textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" _default_text="${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}" class="default">${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}</textarea>
+						<div class="txtArea "><textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" _default_text="${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}" class="default">${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}</textarea>
 						</div>
 					</div>
 					<div class="clear"></div>

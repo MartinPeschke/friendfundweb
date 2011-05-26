@@ -44,7 +44,7 @@ div.wrapSubHeaderHome {
 }
 div.shadowHead {
 	position: absolute;
-	left: 0;z-index:1;
+	left: 0;z-index:0;
 	bottom: 0;
 	height: 15px;
 	width: 100%;
@@ -69,7 +69,7 @@ div.subHeader {
 	position: relative;
 }
 div.wrapContent {
-	background: #f9f9f9;
+	background: #fcfcfc;
 	padding: 0 0 250px 0;
 	position:relative;
 	z-index: 1
@@ -210,7 +210,7 @@ div.selected p.info {
 	line-height: 0;
 	font-size: 0;
 	padding: 0;
-	min-height: 1px;
+	min-height: 0px;
 	background: none;
 }
 
@@ -583,7 +583,7 @@ div.getStarted:hover {
 .homeListing b {padding:0 7px 0 0;color:#e74d97;}
 .learnMoreBtnNew:hover {background-color: #cde4e8;text-decoration:None}
 .homeDivider {height:0px;width:100%;border-top:#e5e5e5 solid 1px;border-bottom:#fff solid 1px;}
-.referers {width: 215px;height:118px;margin-right:22px;}
+.referers {width: 208px;height:118px;margin-right:22px; padding: 0 4px}
 .referers.last {margin-right:0px;}
 .referers img {padding:16px 0}
 .referers em {display:block;font-style:normal;font-size:12px;color:#adadad;text-shadow: 0px 1px 0px rgba(255, 255, 255, 1);}
@@ -1197,7 +1197,7 @@ div.timeTracker span.percent {
 }
 div.headerDivider{
 	float:left;
-	border-top: 1px solid #c1c1c1;
+	border-top: 1px solid #e5e5e5;
 	margin-top: 20px;
 	padding-bottom: 5px;
 	width: 930px
@@ -1205,7 +1205,7 @@ div.headerDivider{
 div.timeTrackerBig {
 	width: 684px;
 	position: relative;
-	margin-top: 25px;
+	margin-top: 30px;
 	clear: both
 }
 div.timeTracker span {
@@ -1372,7 +1372,7 @@ div.greyBoxTitle h3 {
 	color:#2c2c2c;
 	font-size: 14px;
 	line-height: 50px;
-	padding: 0 0 0 30px;
+	padding: 0 0 0 15px;
 	text-shadow: 0px 1px 0px white
 }
 span.btnShow {
@@ -1908,7 +1908,7 @@ div.comments input {
 	margin-right: 10px
 }
 .boxChipIn {
-	background:#e7e7de;
+	background:#f5f5f3;
 	padding: 20px;
 	text-align: center
 }
@@ -1920,13 +1920,12 @@ div.comments input {
 	margin: 15px 0 15px 0
 }
 .boxChipIn span.text {
-	display: block;
 	text-transform: uppercase;
 	font-size: 11px;
-	color: #696969;
-	text-align: center;
+	text-align: left;
+	display: block;
 	line-height: 24px;
-	margin: 10px 0 0 0
+	margin:0
 }
 .boxChipIn span.text span {
 	font-size: 24px;
@@ -1938,7 +1937,7 @@ div.rose {
 	color: black;
 	width: 180px;
 	margin:0 0 0 -25px;
-	padding: 6px 20px 10px 20px;
+	padding: 10px 20px 10px 20px;
 	-moz-box-shadow: 0 2px 2px #999;
 	-webkit-box-shadow: 0px 2px 2px #999; /*Safari 3.0+, Chrome */
 	box-shadow: 0px 2px 2px #999; /* Opera 10.5, IE 9.0 */
@@ -1946,7 +1945,8 @@ div.rose {
 }
 div.rose p {
 	text-align: left;
-	color: #2C2C2C
+	color: #2C2C2C;
+	text-shadow: 0px 1px 0px white
 }
 div.rose p span {
 	text-transform: uppercase;
@@ -1958,7 +1958,7 @@ div.rose p span {
 	color:#333;
 }
 div.generalBoxRight {
-	padding:11px 0 20px 0;
+	padding:6px 0 15px 0;
 	border-bottom:1px solid #EBEBEB
 }
 a.removeMe{
@@ -1980,31 +1980,27 @@ div.generalBoxRight input {
 	padding: 0 5px
 }
 div.colRight h2 {
-	font-size: 11px;
-	font-weight: bold;
-	color: #2C2C2C;
-	line-height: 11px;
+	font-size: 10px;
+	font-weight: normal;
+	color: #696969;
+	line-height: 10px;
 	margin: 9px 0 0 0;
-	text-transform: uppercase
+	text-shadow: 0px 1px 0px white
 }
 div.plus a {
-	display: block;
-	background: url(/static/imgs/plus-grey.png) 0 0 no-repeat;
-	color: #0094CC;
-	font-size: 11px;
-	padding: 0 0 0 20px;
-	line-height: 14px;
-	font-weight: bold;
-	text-transform: uppercase;
 	margin: 9px 0 0 0;
-	cursor:pointer
+	
+}
+div.iconContainer{
+	width: 100%;
+	float: left
 }
 div.iconContainer a {
 	display:block;
 	float: left;
 	width: 16px;
 	height: 16px;
-	margin:12px 14px 0 0;
+	margin:12px 16px 0 0;
 	padding: 0 !important
 }
 /*---COL RIGHT POOL PAGE-----*/
@@ -2807,7 +2803,7 @@ div.security a.learn {
 	box-shadow: 0px 2px 2px #888; /* Opera 10.5, IE 9.0 */
 }
 .green {
-	background-color:#A3F46C !important;
+	background-color:#b5f689 !important;
 }
 .colLeft p.editableAmount {
 	line-height:48px;
@@ -3488,7 +3484,7 @@ div.wrapInside div.tip {
 	padding-top: 30px
 }
 .tabsBig a {
-	background-color: #DDDDDD;
+	background: #DDDDDD url("/static/imgs/trans_top.png") repeat-x  0 -572px ;	
 	cursor: pointer;
 	display: block;
 	float: left;
@@ -3511,7 +3507,7 @@ div.wrapInside div.tip {
 }
 .tabsBig a.selected {
 	color:#333;
-	background: #f9f9f9;
+	background: #fcfcfc;
 	border: 1px solid #D3D3D3;
 	border-bottom: none;
 	margin-top: 0;z-index:2;
@@ -3520,7 +3516,7 @@ div.wrapInside div.tip {
 	display: none
 }
 .tabsBig a.selected span.spoiler {
-	background-color:#F9F9F9;
+	background-color:#fcfcfc;
 	bottom: -10px;
 	display: block;
 	font-size: 0;
@@ -4821,7 +4817,7 @@ div.outerPopupFrame p.big {
 }
 .progTooltip {
 	background: #FAF79B;
-	padding:2px 5px;
+	padding:6px 10px;
 	font-weight: bold;
 	position: relative;
 	margin-left: -10px
