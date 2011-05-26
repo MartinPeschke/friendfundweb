@@ -28,6 +28,14 @@
 </div>
 </%def>
 
+<%def name="protectedBigButton(text, href, classes = [], level = 3)">
+<div class="getStarted ${" ".join(classes)}">
+	<a class="nolink" _href="${href}" onclick="doLogin({level:${level}, cb:goto_url(this)})">
+		<span class="upperText">${text}<span class="lowerText">${text}</span><span class="lowestText">${text}</span></span>
+	</a>
+</div>
+</%def>
+
 
 
 

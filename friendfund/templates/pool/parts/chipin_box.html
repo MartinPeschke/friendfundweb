@@ -2,10 +2,7 @@
 <%def name="render_join(pool, user, locals)">
 	<div class="boxChipIn">
 		
-		
-		<a _href="${url("pool_edit", pool_url = c.pool.p_url, action="join")}" onclick="doLogin({level:3, cb:goto_url(this)})" class="btnChipIn tertiary">
-			${_(u"FF_POOL_PAGE_CHIPIN_Join")}
-		</a>
+		${widgets.protectedBigButton(_(u"FF_POOL_PAGE_CHIPIN_Join"), url("pool_edit", pool_url = c.pool.p_url, action="join"), ["chipin"])|n}
 		
 		<div class="rose">
 			<p><span class="text">${_(u"FF_POOL_PAGE_CHIPIN_Its all or nothing!")}</span>

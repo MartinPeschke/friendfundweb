@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-05-26 12:57+0200\n"
+"PO-Revision-Date: 2011-05-26 14:28+0200\n"
 "Last-Translator: Julia <julia.gomez.gonzalez@gmail.com>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -1153,7 +1153,7 @@ msgstr "Pie de imprenta"
 #: friendfund/templates/content/localized/learnmore_de.html:3
 #: friendfund/templates/content/localized/learnmore_es.html:3
 #: friendfund/templates/contribution/sublayout.html:64
-#: friendfund/templates/pool/parts/chipin_box.html:48
+#: friendfund/templates/pool/parts/chipin_box.html:45
 msgid "FF_Learn More"
 msgstr "Saber más"
 
@@ -2015,7 +2015,7 @@ msgid "FF_MYPOOLS_SHARE TOOLS"
 msgstr "COMPARTIR HERRAMIENTAS"
 
 #: friendfund/templates/mypools/common.html:72
-#: friendfund/templates/pool/parts/chipin_box.html:7
+#: friendfund/templates/pool/parts/chipin_box.html:5
 msgid "FF_POOL_PAGE_CHIPIN_Join"
 msgstr "Unirse al bote"
 
@@ -3050,12 +3050,18 @@ msgid "FF_POOL_PAGE_ADMIN_invite more friends"
 msgstr "Invitar a más amigos"
 
 #: friendfund/templates/pool/pool.html:245
-msgid "FF_POOL_PAGE_CHIPIN_Invite more friends"
+msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
 msgstr ""
 
 #: friendfund/templates/pool/pool.html:252
-msgid "FF_POOL_PAGE_CHIPIN_SHARE THE POOL"
+msgid "FF_POOL_PAGE_CHIPIN_Share the pool"
 msgstr ""
+
+#: friendfund/templates/pool/pool.html:270
+#, fuzzy
+#| msgid "unsupported payment method"
+msgid "FF_POOL_PAGE_Accepted payment methods"
+msgstr "No aceptamos ese método de pago"
 
 #: friendfund/templates/pool/pool.html:279
 msgid "FF_POOL_PAGE_Remove me from this Pool"
@@ -3145,13 +3151,13 @@ msgstr "CONTRIBUYENTES"
 msgid "FF_POOLECARD_All_Contributors"
 msgstr "Todos los contribuidores "
 
-#: friendfund/templates/pool/parts/chipin_box.html:11
-#: friendfund/templates/pool/parts/chipin_box.html:47
+#: friendfund/templates/pool/parts/chipin_box.html:8
+#: friendfund/templates/pool/parts/chipin_box.html:44
 msgid "FF_POOL_PAGE_CHIPIN_Its all or nothing!"
 msgstr "Es todo o nada"
 
-#: friendfund/templates/pool/parts/chipin_box.html:12
-#: friendfund/templates/pool/parts/chipin_box.html:47
+#: friendfund/templates/pool/parts/chipin_box.html:9
+#: friendfund/templates/pool/parts/chipin_box.html:44
 #, python-format
 msgid ""
 "FF_POOL_PAGE_CHIPIN_This pool will only be founded if a minimum of "
@@ -3160,38 +3166,38 @@ msgstr ""
 "Sólo se te cargará si el total del %(total_amount)s es alcanzado antes "
 "del día <strong>%(closing_date)s</strong>"
 
-#: friendfund/templates/pool/parts/chipin_box.html:20
+#: friendfund/templates/pool/parts/chipin_box.html:17
 msgid "FF_POOL_PAGE_CHIPIN_Its SUCCESS!"
 msgstr "EXITO!"
 
-#: friendfund/templates/pool/parts/chipin_box.html:21
+#: friendfund/templates/pool/parts/chipin_box.html:18
 msgid "FF_POOL_PAGE_CHIPIN_This pool was successfully funded and is now cloed."
 msgstr "Este bote se consiguió con éxito y ahora está cerrado"
 
-#: friendfund/templates/pool/parts/chipin_box.html:22
+#: friendfund/templates/pool/parts/chipin_box.html:19
 msgid "FF_POOL_PAGE_CHIPIN_View Card"
 msgstr "Ver tarjeta electrónica"
 
-#: friendfund/templates/pool/parts/chipin_box.html:30
+#: friendfund/templates/pool/parts/chipin_box.html:27
 msgid "FF_POOL_PAGE_CHIPIN_THE POOL HAS EXPIRED."
 msgstr "EL BOTE HA CADUCADO"
 
-#: friendfund/templates/pool/parts/chipin_box.html:31
+#: friendfund/templates/pool/parts/chipin_box.html:28
 msgid ""
 "FF_POOL_PAGE_CHIPIN_The pool has expired without reaching its target in "
 "time."
 msgstr "Este bote ha caducado sin alcanzar el total a tiempo."
 
-#: friendfund/templates/pool/parts/chipin_box.html:38
+#: friendfund/templates/pool/parts/chipin_box.html:35
 msgid "FF_POOL_PAGE_CHIPIN_Chip In"
 msgstr "Contribuir"
 
-#: friendfund/templates/pool/parts/chipin_box.html:41
+#: friendfund/templates/pool/parts/chipin_box.html:38
 #, python-format
 msgid "FF_POOL_PAGE_CHIPIN_Suggested amount <span>%(suggested_amount)s</span>"
 msgstr "Sugiere una cantidad <span>%(suggested_amount)s</span>"
 
-#: friendfund/templates/pool/parts/chipin_box.html:43
+#: friendfund/templates/pool/parts/chipin_box.html:40
 msgid "FF_POOL_PAGE_CHIPIN_Chip in Suggested Amount >"
 msgstr "Contribuir la cantidad sugerida"
 
@@ -3281,53 +3287,50 @@ msgstr "Escribe una descripción corta"
 msgid "FF_HOMEPAGE_PRODUCT_Choose a thumbnail (%(counter)s of %(total)s)"
 msgstr "Eligir un Thumbnail (%(counter)s de %(total)s)"
 
-#: friendfund/templates/widgets/widgets.html:36
+#: friendfund/templates/widgets/widgets.html:44
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor"
 msgid_plural "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributors"
 msgstr[0] "<strong>%(number_contributors)d</strong> participante"
 msgstr[1] "<strong>%(number_contributors)d</strong> participantes"
 
-#: friendfund/templates/widgets/widgets.html:40
+#: friendfund/templates/widgets/widgets.html:48
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(number_invitees)d</strong> invitee"
 msgid_plural "FF_POOL_INFO_<strong>%(number_invitees)d</strong> invitees"
 msgstr[0] "<strong>%(number_invitees)d</strong> invitado"
 msgstr[1] "<strong>%(number_invitees)d</strong> invitados"
 
-#: friendfund/templates/widgets/widgets.html:44
-#: friendfund/templates/widgets/widgets.html:56
+#: friendfund/templates/widgets/widgets.html:52
+#: friendfund/templates/widgets/widgets.html:64
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(days_left)d</strong> day left"
 msgid_plural "FF_POOL_INFO_<strong>%(days_left)d</strong> days left"
 msgstr[0] "<strong>%(days_left)d</strong> dia restantes"
 msgstr[1] "<strong>%(days_left)d</strong> dias restantes"
 
-#: friendfund/templates/widgets/widgets.html:60
+#: friendfund/templates/widgets/widgets.html:68
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(hours)d</strong> hour left"
 msgid_plural "FF_POOL_INFO_<strong>%(hours)d</strong> hours left"
 msgstr[0] "queda <strong>%(hours)d</strong> hora"
 msgstr[1] "quedan <strong>%(hours)d</strong> horas"
 
-#: friendfund/templates/widgets/widgets.html:64
+#: friendfund/templates/widgets/widgets.html:72
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(mins)d</strong> minute left"
 msgid_plural "FF_POOL_INFO_<strong>%(mins)d</strong> minutes left"
 msgstr[0] "queda <strong>%(mins)d</strong> minuto"
 msgstr[1] "quedan <strong>%(mins)d</strong> minutos"
 
-#: friendfund/templates/widgets/widgets.html:68
+#: friendfund/templates/widgets/widgets.html:76
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(secs)d</strong> second left"
 msgid_plural "FF_POOL_INFO_<strong>%(secs)d</strong> seconds left"
 msgstr[0] "queda <strong>%(secs)d</strong> segundo"
 msgstr[1] "quedan <strong>%(secs)d</strong> segundos"
 
-#: friendfund/templates/widgets/widgets.html:72
+#: friendfund/templates/widgets/widgets.html:80
 msgid "FF_POOL_INFO_expired"
 msgstr "Caducado"
-
-#~ msgid "FF_HOMEPAGE_<b>%s</b>Contributors"
-#~ msgstr ""
 
