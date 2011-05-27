@@ -225,7 +225,7 @@ class PoolStub(DBMappedObject):
 	_get_proc   = _set_proc   = None
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url']
-	_cacheable = False = ['p_url']
+	_cacheable = False
 	_keys = [ GenericAttrib(str,		'p_url', 			'p_url'						,required = True)
 			, GenericAttrib(int,		'p_id',				'p_id'						,required = True)
 			]
@@ -478,7 +478,7 @@ class SimpleUserNetwork(DBMappedObject):
 
 class GetPoolInviteesProc(DBMappedObject):
 	"""	exec [app].[get_pool_invite] '<POOL p_url = "P3iF.WWW-SPIEGEL-DE"/>'"""
-	_cacheable = False
+	_expiretime = 5
 	_get_proc = _set_proc   = 'app.get_pool_invite'
 	_get_root = _set_root = 'POOL'
 	_unique_keys = ['p_url', 'network']

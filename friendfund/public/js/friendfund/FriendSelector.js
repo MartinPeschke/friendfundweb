@@ -130,6 +130,16 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	is_loading : false,
 	_backup_node : null,
 	_to_append_nodes : [],
+	filterBacklog : [],
+	render: function (template, params) {
+		return template.replace(/\${([^{}]*)}/g, function (a, b) {
+			var r = params[b];
+			return typeof r === 'string' || typeof r === 'number' ? r : a;
+		})
+	},
+	
+	
+	
 	constructor : function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
@@ -140,6 +150,8 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		/* since selector is outside of refnode, and does not get rerendered, this can get out of sync */
 		_t._is_selected_decider = ".methodselector.ajaxlink.selected[_type="+_t.network+"]";
 		_t.search_index = {};
+		_t.friend_buffer = [];
+		_t.current_displayed = 0;
 		_t.last_filter = "";
 	},is_selected : function(_t){
 		return dojo.query(_t._is_selected_decider, _t.container).length > 0;
@@ -163,15 +175,56 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 		else {dojo.query("#networkinviter_"+_t.network).orphan();}
 		dojo.forEach(_t._listener_locals, dojo.disconnect);
 		_t._listener_locals = [];
-	},onLoad : function(_t, data){
+	}, 
+	addToSearchIndex: function(ud){
+		var s, entry, i, j, k, tmp, keys = {};
+		s = ud.name.split(' ').concat([ud.name]);
+		for(i=0;i<s.length;i++){entry=s[i];for(j=0;j<=entry.length;j++){k=entry.substr(0,j).toLowerCase();keys[k]=true}}
+		for(k in keys){
+			tmp = this.search_index[k]||[];
+			if(tmp.push){tmp.push(ud);this.search_index[k] = tmp;}
+		}
+	},
+	onLoad : function(_t, data){
 		_t.is_loading = false;
 		dojo.place(data.html, _t.rootNode, "only");
 		if(data.success){
 			_t.friendlist = dojo.byId("friend_list_"+_t.network);
+			friendlist_box = dojo.position(_t.friendlist);
+			friendlist_box = friendlist_box.h*2 + friendlist_box.y;
+			
+			_t.current_displayed = 1;
+			_t.friend_buffer.push(data.friends);
+			_t.friends_template = data.template
+			var friendlist = [], friends = data.friends, id, ud;
+			for(id in friends){
+				ud = friends[id];
+				friendlist.push(_t.render(_t.friends_template, ud));
+				_t.addToSearchIndex(ud)
+			}
+			dojo.place(friendlist.join(""), _t.friendlist, "only");
+			
+			
 			_t.filterNode = dojo.byId("filter_"+_t.network);
 			dojo.connect(_t.rootNode, "onclick", dojo.hitch(null, _t.select, _t));
 			dojo.connect(_t.filterNode, "onkeyup", dojo.hitch(null, _t.filter, _t, _t.friendlist));
-			
+			var scroller = dojo.connect(_t.friendlist, "onscroll", function(evt){
+				friendlist_loader = dojo.byId("loading_placeholder_"+_t.network);
+				if(!friendlist_loader){dojo.disconnect(scroller);return}
+				var pos = dojo.position(friendlist_loader);
+				if(pos.y < friendlist_box){
+					if(_t.friend_buffer.length>_t.current_displayed){
+						var friendlist = [], friends = _t.friend_buffer[_t.current_displayed];
+						for(var id in friends){friendlist.push(_t.render(_t.friends_template, friends[id]));}
+						dojo.place(friendlist.join(""), friendlist_loader, "before");
+						_t.current_displayed++;
+					} else {
+						dojo.query(friendlist_loader).orphan();
+						dojo.disconnect(scroller);
+					}
+				}
+			});
+
 			var addall = dojo.byId("inviteall_"+_t.network);
 			if(addall){dojo.connect(addall, "onclick", dojo.hitch(null, _t.addall, _t));}
 			
@@ -187,8 +240,8 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			}
 			
 			if(!data.is_complete){
-				var pv = dojo.query(".invitee_row[_network="+_t.network+"]", _t.invited_node).attr("_network_id");
-				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset,pv:pv}, dojo.hitch(null, _t.addLoad, _t));
+				dojo.place("<li id=\"loading_placeholder_"+_t.network+"\">Loading...</li>", _t.friendlist, "last");
+				xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t));
 			}
 		} else {
 			dojo.query("a.facebookBtn", _t.rootNode).forEach(function(elem){
@@ -202,12 +255,20 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 			 _t.rootNode = null;
 		}
 	},addLoad : function(_t, data){
-		if(data.html!=""){dojo.place(data.html, _t.friendlist, "last");}
-		if(!data.is_complete){
-			var pv = dojo.query(".invitee_row[_network="+_t.network+"]", _t.invited_node).attr("_network_id");
-			xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset,pv:pv}, dojo.hitch(null, _t.addLoad, _t));
+		if(!!data.friends){
+			var friends = data.friends, id;
+			_t.friend_buffer.push(friends);
+			for(id in friends){_t.addToSearchIndex(friends[id])}
 		}
-		if(!dojo.hasClass(_t.filterNode, 'default')){_t.filter(_t, _t.friendlist, null);}
+		if(!data.is_complete){
+			xhrPost(_t.base_url+'/ext_' + _t.network, {offset:data.offset}, dojo.hitch(null, _t.addLoad, _t));
+		}
+		
+		if(!dojo.hasClass(_t.filterNode, 'default')){
+			_t.filterBacklog.push(_t.filterNode.value.toLowerCase());
+			_t.doFilter(_t);
+		}
+		
 	},
 	/* ================= BEGIN selectors ========================= */
 	/* ================= SELECT inherited ======================== */
@@ -266,19 +327,31 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 	},filter : function(_t, refnode, evt){
 		if(evt.keyCode==27){_t.filterNode.value="";}else if(evt.keyCode<45&&evt.keyCode!=8){return;}
 		var st = _t.filterNode.value.toLowerCase();
-		var selector = ".invitee_row";
-		if(_t.mutuals === true){selector = ".invitee_row.mutual";}
-		dojo.query(selector, refnode).forEach(_t.filterElem(st));
-	},filterElem : function(filter){return function(elem){
-		var tokens = elem.title.split(" ").concat([elem.title])
-		if(dojo.some(tokens, function(token){return token.substring(0, filter.length).toLowerCase() == filter;})){
-			dojo.addClass(elem, "selectable");
-			dojo.removeClass(elem, "nonselectable");
-		} else {
-			dojo.removeClass(elem, "selectable");
-			dojo.addClass(elem, "nonselectable");
+		_t.filterBacklog.push(st);
+		if(!st){
+			_t.doFilter(_t);
+		}else{
+			window.setTimeout(dojo.hitch(_t, _t.doFilter, _t), 500);
 		}
-	}}
+	},doFilter : function(_t){
+		if(_t.filterBacklog.length){
+			var friendlist = [], st = _t.filterBacklog.pop();
+			_t.filterBacklog = [];
+			delete dojo.empty(_t.friendlist);
+			if(st){
+				var friends = _t.search_index[st]||[];
+				for(var i=0;i<friends.length;i++){friendlist.push(_t.render(_t.friends_template, friends[i]));}
+				if(friendlist.length){dojo.place(friendlist.join(""), _t.friendlist, "only");}
+			} else {
+				var friends = _t.friend_buffer[0];
+				for(id in friends){friendlist.push(_t.render(_t.friends_template, friends[id]));}
+				if(friendlist.length){dojo.place(friendlist.join(""), _t.friendlist, "only");}
+				if(_t.friend_buffer.length>1){
+					dojo.place("<li id=\"loading_placeholder_"+_t.network+"\">Loading...</li>", _t.friendlist, "last");
+				}
+			}
+		}
+	}
 });
 
 

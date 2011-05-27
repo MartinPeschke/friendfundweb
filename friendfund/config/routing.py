@@ -58,9 +58,7 @@ def make_map(config):
 	map.connect('/myfriends/{method}', controller='myfriends', action='method', requirements={'method':CONNECT_METHODS})
 	map.connect('/myfriends/ext_{method}', controller='myfriends', action='get_extension', requirements={'method':CONNECT_METHODS})
 	map.connect('getfriends', '/myfriends/get/{pmethod}', controller='myfriends', action='get', requirements={'method':CONNECT_METHODS})
-	map.connect('/receiver/{method}', controller='receiver', action='method', requirements={'method':CONNECT_METHODS})
-	map.connect('/receiver/ext_{method}', controller='receiver', action='get_extension', requirements={'method':CONNECT_METHODS})
-
+	
 	map.connect('/myprofile/{action}/{token}', controller="myprofile")
 	map.connect('/user/{action}/{token}', controller="myprofile")
 	map.connect('/{controller}/{pool_url}/{action}', controller='pool', requirements={'pool_url': purlpattern})

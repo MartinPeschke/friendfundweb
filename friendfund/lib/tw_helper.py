@@ -1,12 +1,15 @@
 from __future__ import with_statement
-import re, time, urllib2, simplejson, time
-
+import re, time, urllib2, simplejson, time, logging
+from itertools import imap
+from operator import itemgetter
 from collections import deque
 from ordereddict import OrderedDict
-from friendfund.lib import oauth
+from friendfund.lib import oauth, helpers as h
 from celery.execute import send_task
 
 from pylons import request
+
+log = logging.getLogger(__name__)
 
 request_token_url = 'https://api.twitter.com/oauth/request_token'
 access_token_url = 'https://api.twitter.com/oauth/access_token'
@@ -61,37 +64,48 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 
 
 
-
-def get_friend_list(url, method, access_token, access_token_secret, consumer):
-	next_cursor_str = -1
-	while next_cursor_str != '0':
-		data = []
-		json_data = fetch_url("%s?cursor=%s" % (url, next_cursor_str), "GET", access_token, access_token_secret, consumer)
-		friend_data = simplejson.loads(json_data)
-		data.extend(friend_data['users'])
-		next_cursor_str = friend_data['next_cursor_str']
-		yield 	[
-					(str(elem['id']), 
-						{'name':elem.get('name', None),
-						 'network_id':str(elem['id']),
-						 'screen_name':elem.get('screen_name', ''), 
-						 'large_profile_picture_url':get_profile_picture_url(elem['profile_image_url']),
-						 'profile_picture_url':elem['profile_image_url'],
-						 'notification_method':method,
-						 'network':'twitter'}
-					)
-					for elem in data if 'screen_name' in elem
-				], next_cursor_str == '0'
+def get_friend_list(method, access_token, access_token_secret, consumer, slice_size = 100):
+	def package(elem):
+		return (str(elem['id']),   							### ID keyed Map
+							{
+								'name':elem.get('name', None)				### basic display properties
+								,'network_id':str(elem['id'])
+								,'screen_name':elem.get('screen_name', '')
+								,'profile_picture_url':elem['profile_image_url']
+								,'minimal_repr': h.encode_minimal_repr(	### Pool User Attributes, unusable for display
+									{
+										'name':elem.get('name', None)
+										,'network':'twitter'
+										,'network_id':str(elem['id'])
+										,'screen_name':elem.get('screen_name', '')
+										,'profile_picture_url':get_profile_picture_url(elem['profile_image_url'])
+										,'notification_method':method
+									}
+								)
+							}
+				)
 	
-def get_friends(logger, access_token, access_token_secret, consumer):
-	logger.info('CACHE MISS for followers')
-	data_dict = {}
-	for data_set, is_final in get_friend_list("https://api.twitter.com/1/statuses/friends.json", "TWEET", access_token, access_token_secret, consumer):
-		yield data_set, is_final
-	for data_set, is_final in get_friend_list("https://api.twitter.com/1/statuses/followers.json", "TWEET", access_token, access_token_secret, consumer):
-		yield data_set, is_final
-
-
+	urls = ["https://api.twitter.com/1/statuses/followers.json", "https://api.twitter.com/1/statuses/friends.json"]
+	next_cursor_str = -1
+	output_buffer = []
+	prevLoaded = set()
+	
+	for url in urls:
+		while next_cursor_str != '0':
+			json_data = fetch_url("%s?cursor=%s" % (url, next_cursor_str), "GET", access_token, access_token_secret, consumer)
+			friend_data = simplejson.loads(json_data)
+			data, next_cursor_str = friend_data['users'], friend_data['next_cursor_str']
+			
+			output_buffer.extend([package(entry) for entry in data if entry['id'] not in prevLoaded])
+			prevLoaded = prevLoaded.union(imap(itemgetter('id'), data))
+			if len(output_buffer)>=slice_size:
+				result = output_buffer[:slice_size]
+				output_buffer = output_buffer[slice_size:]
+				yield result, next_cursor_str == '0' and len(output_buffer) == 0
+		next_cursor_str = -1
+	if len(output_buffer):
+		yield output_buffer, True
+	
 def get_friends_async(logger, 
 			cache_pool, 
 			access_token, 
@@ -101,26 +115,27 @@ def get_friends_async(logger,
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	proto_key = '<%s>%s' % ('friends_twitter', str(access_token))
 	with cache_pool.reserve() as mc:
+		logger.info('CACHE MISS for followers')
 		enum = 0
 		is_final = False
+		datasets_iter = get_friend_list("TWEET", access_token, access_token_secret, consumer)
 		try:
-			datasets_iter = get_friends(logger, access_token, access_token_secret, consumer)
-			try:
-				while not is_final:
-					mc.set('%s<%s>'%(proto_key, enum), INPROCESS_TOKEN, 30)
-					dataset, is_final = datasets_iter.next()
-					obj = { 'payload':dataset, 'is_final' : is_final }
-					mc.set('%s<%s>'%(proto_key, enum), obj, expiretime)
-					enum += 1 
-					logger.info('TWMEMCACHED: just set key: %s', '%s, %s: %s<%s>' % (is_final, enum, proto_key, enum))
-					if is_final: break
-			except StopIteration:
-				pass
+			while not is_final:
+				mc.set('%s<%s>'%(proto_key, enum), INPROCESS_TOKEN, 30)
+				dataset, is_final = datasets_iter.next()
+				obj = { 'payload':dataset, 'is_final' : is_final }
+				mc.set('%s<%s>'%(proto_key, enum), obj, expiretime)
+				logger.info('TWMEMCACHED: just set key: %s', '%s, %s: %s<%s>' % (is_final, enum, proto_key, enum))
+				enum += 1
+		except StopIteration:
+			log.error("ITERATION_TOO_FAR")
+			keys = ['<%s>'%i for i in range(0, enum+1)]
+			mc.delete_multi(keys, key_prefix=proto_key)
+			raise
 		except:
-			if enum:
-				keys = ['<%s>'%i for i in range(0, enum)]
-				mc.delete_multi(keys, key_prefix=proto_key)
-				raise
+			keys = ['<%s>'%i for i in range(0, enum+1)]
+			mc.delete_multi(keys, key_prefix=proto_key)
+			raise
 
 def get_friends_from_cache(
 			logger, 
@@ -133,37 +148,26 @@ def get_friends_from_cache(
 	sleeper = 0
 	offset = offset or 0
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
-	proto_key = '<%s>%s' % ('friends_twitter', str(access_token))
-	keys = ['<%s>' %i for i in range(offset, offset + 1)]
+	proto_key = '<friends_twitter>%s'%str(access_token)
+	key = '%s<%s>' % (proto_key, offset)
 	with cache_pool.reserve() as mc:
-		values = mc.get_multi(keys, key_prefix=proto_key)
-		first_val = values.get(keys[0])
-		if offset>0 and first_val is None:
-			logger.error('GET_FRIENDS_FROM_CACHE, tried getting followups, None Found', proto_key)
-			return None, None, None
-		else:
-			if first_val is None:
-				mc.set('%s%s'%(proto_key, keys[0]), INPROCESS_TOKEN, 30)
-				first_val = INPROCESS_TOKEN
-				send_task('friendfund.tasks.twitter.get_friends_async', args = [access_token, access_token_secret])
-			
-			while first_val == INPROCESS_TOKEN and sleeper < timeout:
-				time.sleep(0.2)
-				values = mc.get_multi(keys, key_prefix=proto_key)
-				first_val = values.get(keys[0])
-				sleeper += 0.2
-			if first_val == INPROCESS_TOKEN or first_val is None: 
-				logger.error('GET_FRIENDS_FROM_CACHE, TIMEOUT for %s with INPROCESS_TOKEN', proto_key)
-				return None, None, None
+		value = mc.get(key)
+		if value is None:
+			if offset>0:
+				logger.error('GET_FRIENDS_FROM_CACHE, tried getting followups, None Found: %s', key)
+			mc.set(key, INPROCESS_TOKEN, 30)
+			send_task('friendfund.tasks.twitter.get_friends_async', args = [access_token, access_token_secret])
+			#get_friends_async(log, cache_pool, access_token, access_token_secret, config)
 		
-		result = OrderedDict()
-		for i, key in enumerate(keys):
-			val = values.get(key)
-			if val == INPROCESS_TOKEN or val is None:
-				return result, False, offset+i
-			elif val['is_final']:
-				result.update(val['payload'])
-				return result, True, offset+i+1
-			else:
-				result.update(val['payload'])
-		return result, False, offset+i+1
+		while value in (None,INPROCESS_TOKEN) and sleeper < timeout:
+			time.sleep(0.2)
+			value = mc.get(key)
+			sleeper += 0.2
+		
+		if isinstance(value, dict) and 'payload' in value and "is_final" in value: 
+			return OrderedDict(value['payload']), value['is_final'], offset+1
+		else:
+			keys = ['<%s>'%i for i in range(0, 30)]
+			mc.delete_multi(keys, key_prefix=proto_key)
+			logger.error('GET_FRIENDS_FROM_CACHE, TIMEOUT for %s with INPROCESS_TOKEN', key)
+			return None, None, None

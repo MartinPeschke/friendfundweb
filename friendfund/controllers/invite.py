@@ -22,6 +22,7 @@ strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 from celery.task.sets import TaskSet
 log = logging.getLogger(__name__)
 
+
 class InviteController(BaseController):
 	@pool_available(contributable_only = True)
 	def display(self, pool_url, level = CLEARANCES["INVITE"]):
@@ -67,6 +68,10 @@ class InviteController(BaseController):
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
 			else:
 				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset])
+				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, "html":render("/invite/inviter.html"),
+						'friends':c.friends, 
+						"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="%s_${network_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, c.method, _("FF_INVITER_BUTTON_Invite"))
+					}}
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
@@ -76,15 +81,13 @@ class InviteController(BaseController):
 	
 	@jsonify
 	def get_extension(self, pool_url, method):
-		if method in ['twitter']:
+		if method in ['twitter', 'facebook']:
 			c.method = str(method)
-			pv =  request.params.getall('pv')
 			already_invited = app_globals.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
-			already_invited = already_invited.union(pv)
 			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
-			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'friends':c.friends}}
 		return {'success':False}
 	
 	def _return_to_input(self, invitees):

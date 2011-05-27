@@ -4,6 +4,7 @@ from StringIO import StringIO
 from hashlib import sha256
 from datetime import datetime, timedelta
 from ordereddict import OrderedDict
+from operator import itemgetter
 from friendfund.lib import helpers as h
 
 log = logging.getLogger(__name__)
@@ -149,19 +150,17 @@ def get_mutual_friends(logger, target_id, access_token):
 		return data
 
 
-def translate_friend_entry(u_id, friend_data):
-	result = {
-			'name':friend_data['name'], 
-			'network_id':u_id,
-			'locale':friend_data.get('locale', "").lower(),
-			'large_profile_picture_url':get_large_pic_url(friend_data['id']),
-			'profile_picture_url':get_pic_url(friend_data['id']),
-			'notification_method':'CREATE_EVENT',
-			'network':'facebook',
-			'email':friend_data.get('email')
+def package(elem):
+	repr = {### Pool User Attributes, unusable for display
+				'notification_method':'CREATE_EVENT'
+				,'network':'facebook'
+				,'network_id':elem["id"]
+				,'email':elem.get('email')
+				,'profile_picture_url':get_large_pic_url(elem['id'])
+				,'locale':elem.get('locale', "").lower()
 		}
 	
-	dob = friend_data.get('birthday')
+	dob = elem.get('birthday')
 	if dob:
 		try:
 			dob = datetime.strptime(dob, "%m/%d/%Y")
@@ -174,32 +173,39 @@ def translate_friend_entry(u_id, friend_data):
 		if dob:
 			year = datetime.today().year
 			doy = dob-datetime(dob.year,1,1)
-			result['dob'] = datetime(year, 1,1) + doy
-			result['dob_difference'] = (result['dob'] - datetime.today()).days
-			if result['dob_difference'] < 2:
-				result['dob'] = datetime(year + 1, 1,1) + doy
-				result['dob_difference'] = (result['dob'] - datetime.today()).days
-	return (u_id, result)
+			repr['dob'] = datetime(year, 1,1) + doy
+			repr['dob_difference'] = (repr['dob'] - datetime.today()).days
+			if repr['dob_difference'] < 2:
+				repr['dob'] = datetime(year + 1, 1,1) + doy
+				repr['dob_difference'] = (repr['dob'] - datetime.today()).days
+	return (elem['id'], {
+				'name':elem['name']
+				,'network_id':elem["id"]
+				,'profile_picture_url':get_pic_url(elem['id'])
+				,'minimal_repr': h.encode_minimal_repr(repr)
+			})
+			
 
 
-def get_friends(logger, id, access_token):
-	query = FRIENDS_QUERY %\
-			(id, access_token)
+def set_friend_to_cache(mc, proto_key, logger, id, access_token, expiretime, slice_size = 100):
+	query = FRIENDS_QUERY % (id, access_token)
 	try:
 		data = simplejson.loads(urllib2.urlopen(query).read())['data']
 	except urllib2.HTTPError, e:
 		logger.error("Error opening URL %s (%s):" % (query, e.fp.read()))
 		ud = {}
 	else:
-		user_data = [
-					translate_friend_entry(str(elem['id']), elem)
-					for elem in data if 'name' in elem
-				]
-		ud = OrderedDict()
-		for k,user in sorted(user_data, key=lambda x: x[1].get("dob_difference", 999)):
-			ud[k] = user
-	logger.info('CACHE MISS %s, %s', query, len(ud))
-	return ud
+		user_data = [ package(elem) for elem in sorted(data, key=itemgetter("name")) if 'name' in elem ]
+		logger.info('CACHE MISS %s, %s', query, len(user_data))
+		total = len(user_data)
+		pagenumber = total/slice_size + bool(total%slice_size)
+		pages = [("<%s>" % (i), 
+						{
+							"payload":user_data[i*slice_size:(i+1)*slice_size]
+							,"is_final": i+1 == pagenumber
+						}) for i in range(0, pagenumber)]
+		mc.set_multi(dict(pages), time = expiretime,  key_prefix = proto_key)
+		return pages
 
 def get_friends_from_cache(
 				logger, 
@@ -207,27 +213,56 @@ def get_friends_from_cache(
 				id, 
 				access_token, 
 				expiretime=4200,
-				friend_id = None
+				friend_id = None,
+				offset = None, 
+				timeout = 30
 			):
-	key = '<%s>%s' % ('friends_facebook', str(id))
+	sleeper = 0
+	offset = offset or 0
+	
+	proto_key = '<friends_facebook>%s' % str(id)
+	key = '%s<%s>' % (proto_key, offset)
 	with cache_pool.reserve() as mc:
-		obj = mc.get(key)
-		if obj is None:
+		if friend_id is None:
+			value = mc.get(key)
+		else:
+			mutual_key = '%s//MUTUALWITH<%s>' % (proto_key, friend_id)
+			values = mc.get_multi([key, mutual_key])
+			value = values.get(key)
+			mutual_with = values.get(mutual_key)
+			
+		if value is None:
+			if offset>0:
+				logger.error('FACEBOOK, GET_FRIENDS_FROM_CACHE, tried getting followups, None Found: %s', key)
 			mc.set(key, INPROCESS_TOKEN, 30)
-			try:
-				obj = get_friends(logger, id, access_token)
-				mc.set(key, obj, expiretime)
-			except:
-				mc.delete(key)
-				raise
-		elif obj == INPROCESS_TOKEN:
-			while obj == INPROCESS_TOKEN:
+			values = set_friend_to_cache(mc, proto_key, logger, id, access_token, expiretime)
+			if not len(values):
+				logger.error('FACEBOOK, NOFRIENDSFOUND, FOR REALZ, TIMEOUT for %s with INPROCESS_TOKEN', key)
+				return None, None, None
+			value = values[0][1]
+		while value in (None,INPROCESS_TOKEN) and sleeper < timeout:
+			time.sleep(0.2)
+			value = mc.get(key)
+			sleeper += 0.2
+		
+		if not (isinstance(value, dict) and 'payload' in value and "is_final" in value): 
+			logger.error('FACEBOOK, WAITEDLONGANDSTILLNOTHINGFOUND, TIMEOUT for %s, without necessary values, %s', key, value)
+			return None, None, None
+		
+		payload = OrderedDict(value['payload'])
+		
+		if friend_id is not None:
+			if mutual_with is None:
+				mc.set(mutual_key, INPROCESS_TOKEN, 30)
+				mutual_friends = get_mutual_friends(logger, friend_id, access_token)
+				mc.set(mutual_key, mutual_friends, time=expiretime)
+			while mutual_with in (None,INPROCESS_TOKEN) and sleeper < timeout:  ##not resetting sleep, dont wanna wait double time
 				time.sleep(0.2)
-				obj = mc.get(key)
-	if obj is not None and friend_id is not None:
-		mutual_friends = get_mutual_friends(logger, friend_id, access_token)
-		for id in mutual_friends:
-			if str(id) in obj:
-				obj[str(id)]['mutual_with'] = str(friend_id)
-	logger.info('Retrieved %s FBFriends' % len(obj))
-	return obj
+				mutual_with = mc.get(key)
+				sleeper += 0.2
+			
+			for id in mutual_with:
+				if str(id) in payload:
+					payload[str(id)]['mutual_with'] = str(friend_id)
+	logger.info('FACEBOOK, Retrieved %s FBFriends' % len(payload))
+	return payload, value['is_final'], offset+1

@@ -6,14 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
 </%def>
 <%def name="scripts()">
+	<script src="/static/js/build/dojo/dojo/editor.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
-		dojo.require("dojo.parser");
-		dojo.require("dijit.Editor");
-		dojo.require("dijit._editor.plugins.FontChoice"); // 'fontName','fontSize','formatBlock'
-		dojo.require("dijit._editor.plugins.TextColor");
-		dojo.require("dijit._editor.plugins.LinkDialog");
-		dojo.require("dijit._editor.plugins.ViewSource");
 	</script>
 </%def>
 

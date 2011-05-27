@@ -44,8 +44,11 @@ class MyfriendsController(BaseController):
 					friendlist = []
 				friendlist.extend([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
 				c.friends = OrderedDict(friendlist)
-				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render_def('/invite/inviter.html', "networkinviter",\
-						network_name=c.method, friends = c.friends,  mutuals=c.mutuals, all=c.all, var_show_name = False).strip()}}
+				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset
+						,'html':render_def('/invite/inviter.html', "networkinviter",network_name=c.method, mutuals=c.mutuals, all=c.all, var_show_name = False).strip()
+						,'friends':c.friends
+						,"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="%s_${network_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, c.method, _("FF_INVITER_BUTTON_Invite"))
+						}}
 		else:
 			c.friends = {}
 			c.email_errors = {}
@@ -55,13 +58,13 @@ class MyfriendsController(BaseController):
 	
 	@jsonify
 	def get_extension(self, method):
-		if method in ['twitter']:
+		if method in ['twitter', 'facebook']:
 			c.method = str(method)
 			pv =  request.params.getall('pv')
 			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
 			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
-			return {'data':{'is_complete':is_complete, 'offset':offset, 'html':render('/invite/networkfriends.html').strip()}}
+			return {'data':{'is_complete':is_complete, 'offset':offset, 'friends':c.friends}}
 		return {'success':False}
 	
 	

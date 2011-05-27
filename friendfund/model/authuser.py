@@ -200,8 +200,6 @@ class User(ProtoUser):
 		if not self.is_logged_in_with(network) or self.get_clearance() < level:
 			raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 		elif network == 'facebook':
-			is_complete = True
-			offset = 0
 			try:
 				fb_data = fb_helper.get_user_from_cookie(
 							request.cookies, 
@@ -213,12 +211,13 @@ class User(ProtoUser):
 			else:
 				self.networks['facebook'].access_token = fb_data['access_token']
 				self.networks['facebook'].access_token_secret = fb_data['session_key']
-				friends = fb_helper.get_friends_from_cache(
+				friends, is_complete, offset  = fb_helper.get_friends_from_cache(
 								log, 
 								app_globals.cache_pool, 
 								self.networks['facebook'].network_id, 
 								self.networks['facebook'].access_token, 
-								friend_id=friend_id
+								friend_id=friend_id,
+								offset = offset
 							)
 		elif network == 'twitter':
 			friends, is_complete, offset = tw_helper.get_friends_from_cache(

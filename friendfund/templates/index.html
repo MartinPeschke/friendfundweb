@@ -3,9 +3,6 @@
 <%namespace name="widgets" file="widgets/widgets.html" />
 <%namespace name="links" file="/widgets/links.html"/>
 <%def name="onloadscripts()">
-	parseDefaultsInputs("poolProductFinder");
-	parseSelectables("poolProductFinder", "showToolTipHook", "showToolTip");
-	connectURLParser("submissionform", "home_title", true);
 	sliderF("merchantslider", 4);
 </%def>
 <%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}";};</%def>
