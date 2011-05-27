@@ -4,17 +4,14 @@ from StringIO import StringIO
 from hashlib import sha256
 from datetime import datetime, timedelta
 from ordereddict import OrderedDict
-from operator import itemgetter
 from friendfund.lib import helpers as h
+from celery.execute import send_task
 
 log = logging.getLogger(__name__)
 
 picture_url_matcher = re.compile("https://graph.facebook.com/([0-9]+)/picture(\?type=large)?")
 INPROCESS_TOKEN = 1
-FRIENDS_QUERY = '?'.join([
-			'https://graph.facebook.com/%s/friends',
-			'fields=id,name,birthday,gender,email,locale&access_token=%s'
-		])
+
 MUTUAL_FRIENDS_QUERY = '?'.join([
 			'https://api.facebook.com/method/friends.getMutualFriends',
 			'target_uid=%s&format=json&access_token=%s'
@@ -150,63 +147,6 @@ def get_mutual_friends(logger, target_id, access_token):
 		return data
 
 
-def package(elem):
-	repr = {### Pool User Attributes, unusable for display
-				'notification_method':'CREATE_EVENT'
-				,'network':'facebook'
-				,'network_id':elem["id"]
-				,'email':elem.get('email')
-				,'profile_picture_url':get_large_pic_url(elem['id'])
-				,'locale':elem.get('locale', "").lower()
-		}
-	
-	dob = elem.get('birthday')
-	if dob:
-		try:
-			dob = datetime.strptime(dob, "%m/%d/%Y")
-		except ValueError, e:
-			try:
-				dob = datetime.strptime(dob, "%m/%d")
-			except ValueError, e:
-				log.error( 'Facebook User Birthday: %s, %s', e , dob)
-				dob = None
-		if dob:
-			year = datetime.today().year
-			doy = dob-datetime(dob.year,1,1)
-			repr['dob'] = datetime(year, 1,1) + doy
-			repr['dob_difference'] = (repr['dob'] - datetime.today()).days
-			if repr['dob_difference'] < 2:
-				repr['dob'] = datetime(year + 1, 1,1) + doy
-				repr['dob_difference'] = (repr['dob'] - datetime.today()).days
-	return (elem['id'], {
-				'name':elem['name']
-				,'network_id':elem["id"]
-				,'profile_picture_url':get_pic_url(elem['id'])
-				,'minimal_repr': h.encode_minimal_repr(repr)
-			})
-			
-
-
-def set_friend_to_cache(mc, proto_key, logger, id, access_token, expiretime, slice_size = 100):
-	query = FRIENDS_QUERY % (id, access_token)
-	try:
-		data = simplejson.loads(urllib2.urlopen(query).read())['data']
-	except urllib2.HTTPError, e:
-		logger.error("Error opening URL %s (%s):" % (query, e.fp.read()))
-		ud = {}
-	else:
-		user_data = [ package(elem) for elem in sorted(data, key=itemgetter("name")) if 'name' in elem ]
-		logger.info('CACHE MISS %s, %s', query, len(user_data))
-		total = len(user_data)
-		pagenumber = total/slice_size + bool(total%slice_size)
-		pages = [("<%s>" % (i), 
-						{
-							"payload":user_data[i*slice_size:(i+1)*slice_size]
-							,"is_final": i+1 == pagenumber
-						}) for i in range(0, pagenumber)]
-		mc.set_multi(dict(pages), time = expiretime,  key_prefix = proto_key)
-		return pages
-
 def get_friends_from_cache(
 				logger, 
 				cache_pool, 
@@ -235,11 +175,8 @@ def get_friends_from_cache(
 			if offset>0:
 				logger.error('FACEBOOK, GET_FRIENDS_FROM_CACHE, tried getting followups, None Found: %s', key)
 			mc.set(key, INPROCESS_TOKEN, 30)
-			values = set_friend_to_cache(mc, proto_key, logger, id, access_token, expiretime)
-			if not len(values):
-				logger.error('FACEBOOK, NOFRIENDSFOUND, FOR REALZ, TIMEOUT for %s with INPROCESS_TOKEN', key)
-				return None, None, None
-			value = values[0][1]
+			send_task('friendfund.tasks.fb.set_friends_async', args = [proto_key, id, access_token])
+		
 		while value in (None,INPROCESS_TOKEN) and sleeper < timeout:
 			time.sleep(0.2)
 			value = mc.get(key)
