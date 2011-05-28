@@ -72,23 +72,18 @@
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
 <%def name="onloadscripts()">
-	onLoadPagelets("commentSection");
-	parseDefaultsInputs("commentSection");
-	dojo.query(".popuplink", "chipinBox").onclick(dojo.hitch(null, loadPopup));
+	ff.w.onLoadPagelets("commentSection");
+	ff.w.parseDefaultsInputs("commentSection");
+	ff.w.connectPopupLinks("chipinBox");
 	%if c.pool.am_i_admin(c.user):
-		dojo.query(".popuplink", "adminBox").onclick(dojo.hitch(null, loadPopup));
+		ff.w.connectPopupLinks("adminBox");
 		dojo.query(".btnShowAdminPanel", "adminBox").onclick(function(evt){dojo.query(".hideable", "adminBox").toggleClass("hidden");});
 	%endif
 	connectpool("btnViewAll");
 	%if getattr(c, "popup", None):
-		rigPopup("generic_popup");
+		ff.Popup().display(dojo.byId("popupContentHolder").value);
 	%endif
-	showTime("timer", 1);
-</%def>
-<%def name="renderBlockingPopup()">
-%if getattr(c, "popup", None):
-	${c.popup|n}
-%endif
+	ff.w.showTime("timer", 1);
 </%def>
 <% 
 	locals = {"closing_date":h.format_date(c.pool.expiry_date, format="full"),
@@ -362,3 +357,4 @@
 
 </div>
 </div>
+<textarea id="popupContentHolder" style="display:none">${getattr(c, "popup", "")}</textarea>

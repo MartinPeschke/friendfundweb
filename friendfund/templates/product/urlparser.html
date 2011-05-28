@@ -9,7 +9,7 @@
 		%endif
 		<input type="hidden" value="${values.get('product_picture')}" id="URLPproductPicture" name="product_picture" _set_default="${set_default_picture and "1" or ""}"/>
 		%if getattr(c, 'upload', True):
-			<a class="imgEdit" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpicture')}', {})">${_(u"FF_LINK_Edit Image")}</a>
+			<a class="imgEdit" onclick="ff.io.xhrPost('${url(controller='product', action='ulpicture')}', {})">${_(u"FF_LINK_Edit Image")}</a>
 		%endif
 	</div>
 	<a class="address" href="${values['url']}" target="_blank">${values['display_url']}</a>
@@ -18,7 +18,7 @@
 		<div class="title simpleeditable active">
 			${values['display_name']}
 			<span style="margin:0 0 0 5px" class="link ">${_("FF_Edit")}</span>
-			<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit">
+			<input type="hidden" _type="INPUT" value="${values['name']}" _length="40" name="product_name" class="ptitleSimpleEdit" id="product_name_edit"/>
 		</div>
 	%else:
 		<div class="title simpleeditable">

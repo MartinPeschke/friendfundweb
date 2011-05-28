@@ -7,16 +7,16 @@
 <%def name="render_page_state()">
 	window.pageState.getFBPerms = true;
 	submitForm = function(form){ return doLogin({level:form["payment.do_notify"]?form["payment.do_notify"].checked?6:3:3, cb:function(){
-		onSubmitCleaner(document.contributionForm);
+		ff.t.onSubmitCleaner(document.contributionForm);
 		document.contributionForm.onsubmit = function(){return true};
 		document.contributionForm.submit();return true;}});
 		};
 	var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 </%def>
 <%def name="onloadscripts()">
-	parseDefaultsInputs("contributionForm");
-	parseSelectables("contributionForm");
-	dojo.query(".popuplink", "contributionForm").onclick(dojo.hitch(null, loadPopup));
+	ff.w.parseDefaultsInputs("contributionForm");
+	ff.w.parseSelectables("contributionForm");
+	ff.w.connectPopupLinks("contributionForm");
 </%def>
 
 

@@ -69,7 +69,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		if(!complete||_t.submitting){
 			return false;
 		} else {
-			onSubmitCleaner(_t.target_form);
+			ff.t.onSubmitCleaner(_t.target_form);
 			_t.submitting = true;
 			return doLogin({level:level, cb:dojo.hitch(_t, _t._submit, url), failcb:function(){_t.submitting = false}});
 		};
@@ -101,7 +101,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	},
 	check_occasion_name : function(clean_only){
 		var oname = dojo.byId("occasion_name");
-		var parental = findParent(oname, "generalBoxIframe");
+		var parental = ff.t.findParent(oname, "generalBoxIframe");
 		if(!oname.value){
 			dojo.query(".errorMsgIframe", parental).removeClass("hidden");
 			dojo.query("#yourOccasionSelector,#occasionSelectorContainer").addClass("error");

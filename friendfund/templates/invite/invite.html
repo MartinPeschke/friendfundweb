@@ -15,7 +15,7 @@
 </%def>
 	
 <%def name="onloadscripts()">
-	parseDefaultsInputs("inviteMessage");
+	ff.w.parseDefaultsInputs("inviteMessage");
 	page = new friendfund.InvitePage({
 			container : "inviteContainer",
 			invited_node :"invitedContainer",
@@ -25,8 +25,8 @@
 			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}",
 			target_form : "invitees"
 		});
-	parseSelectables("invitees", "wrapInside");
-	dojo.query(".popuplink", "inviteMessage").onclick(dojo.hitch(null, loadPopup));
+	ff.w.parseSelectables("invitees", "wrapInside");
+	ff.w.connectPopupLinks("inviteMessage");
 	page.selector.draw("${c.method}");
 	dojo.connect(dojo.byId("invite_submitter"), "onclick", dojo.hitch(null, page.prepareSubmit, page, ${c.pool.am_i_admin(c.user) and 9 or 6}));
 </%def>

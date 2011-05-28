@@ -7,8 +7,8 @@
 
 
 <%def name="onloadscripts()">
-	parseDefaultsInputs("creditcardForm");
-	parseSelectables("creditcardForm");
+	ff.w.parseDefaultsInputs("creditcardForm");
+	ff.w.parseSelectables("creditcardForm");
 	dojo.query("#creditcardForm").onsubmit(
 		function(evt){
 			evt.target.onsubmit = function(){return false};
@@ -20,7 +20,7 @@
 			});
 		
 		});
-	dojo.query(".popuplink", "creditcardForm").onclick(dojo.hitch(null, loadPopup));
+	ff.w.connectPopupLinks("creditcardForm");
 </%def>
 
 

@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
 <%def name="onloadscripts()">
-	dojo.query(".popuplink", "myPoolsBody").onclick(dojo.hitch(null, loadPopup));
+	ff.w.connectPopupLinks("myPoolsBody");
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}

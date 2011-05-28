@@ -26,11 +26,11 @@ dojo.declare("friendfund.InvitePage", null, {
 			dojo.query("input.addRefContent", _t.target_form).forEach(function(elem){elem.value = dojo.byId(dojo.attr(elem, "_source")).value;});
 			params = dojo.formToObject(_t.target_form);
 			params.method = dojo.attr(evt.target, "_method");
-			xhrPost(dojo.attr(evt.target, "_href"), params);
+			ff.io.xhrPost(dojo.attr(evt.target, "_href"), params);
 		}
 	}, 
 	prepareSubmit : function(_t, level, evt){
-		onSubmitCleaner(_t.target_form); 
+		ff.t.onSubmitCleaner(_t.target_form); 
 		if(_t.submitting){return false;}
 		_t.submitting = true;
 		return doLogin({level:level, cb:dojo.hitch(null, _t._submit, _t), failcb:function(){_t.submitting = false}});

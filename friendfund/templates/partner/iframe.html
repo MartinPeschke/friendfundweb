@@ -28,12 +28,12 @@
 			});
 	dojo.connect(dojo.byId("createSubmitter"), "onclick", dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 3));
 	
-	fbLogout = function(){
+	window.__auth__.logout = function(){
 	FB.getLoginStatus(function(response){
 		if(response.session){
-			FB.logout(function(response){xhrPost("/logout?furl=/");window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);});
+			FB.logout(function(response){ff.io.xhrPost("/logout?furl=/");window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);});
 		} else {
-			xhrPost("/logout?furl=/");
+			ff.io.xhrPost("/logout?furl=/");
 			window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);
 		}
 	});

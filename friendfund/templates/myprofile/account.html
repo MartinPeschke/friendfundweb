@@ -14,7 +14,7 @@
 <div class="colLeft" id="myProfile">
 	<h4>${_("FF_ACCOUNT_Edit your profile")}
 	</h4>
-	<form action="${url(controller="myprofile", action="account")}" method="POST" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="showLoadingInfo(this);onSubmitCleaner(this);">
+	<form action="${url(controller="myprofile", action="account")}" method="POST" id="accountForm" name="accountForm" enctype="multipart/form-data" onsubmit="ff.t.showLoadingInfo(this);ff.t.onSubmitCleaner(this);">
 		<input type="hidden" name="is_default" id="is_default" value="${c.values.get("is_default")}"/>
 		<div class="subHeading"></div>	
 		<div class="borderBottom showToolTipHook ${'name' in c.errors and 'error' or ''}">

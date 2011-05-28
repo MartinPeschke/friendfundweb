@@ -1,9 +1,8 @@
 <%def name="iFrame()"><iframe src="${url(controller="pool", pool_url = c.pool.p_url, action="widget", host=request.merchant.domain)}" height="300px;" width="205px" frameBorder="0"></iframe></%def>
 
-
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrame fixed" id="popupContentFrame">
+	<div class="whitePopupFrame fixed popupContentWindow">
 	<span class="panelcloser panelclosing_x">x</span>
 		<div>
 			<h3>${_("FF_WIDGET_POPUP_Embed a widget in your site")}</h3>

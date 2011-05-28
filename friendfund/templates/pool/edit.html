@@ -2,7 +2,7 @@
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="parser" file="../product/urlparser.html"/>
-<%def name="scripts_styles()">
+<%def name="styles()">
 	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
 </%def>
 <%def name="scripts()">
@@ -15,14 +15,12 @@
 
 
 <%def name="onloadscripts()">
-	parseDefaultsInputs("poolDetails");
-	parseSelectables("poolDetails");
-	parseSimpleEditables("poolDetails");
+	ff.w.parseDefaultsInputs("poolDetails");
+	ff.w.parseSelectables("poolDetails");
+	ff.w.parseSimpleEditables("poolDetails");
 	dojo.parser.parse("poolDetails");
 	%if c.parser_values:
-		connectURLP("homeurlexpander");
-	%else:
-		connectURLParser("homeurlexpander", "tracking_link_edit", false, {upload:'1'});
+		ff.parser.connectURLP("homeurlexpander");
 	%endif
 
 </%def>
@@ -118,7 +116,7 @@
 						%endif
 						</div>
 						<div class="title">
-							<a class="link" onclick="dojo.require('dojo.io.iframe');xhrPost('${url(controller='product', action='ulpoolpicture', pool_url = c.pool.p_url)}', {})" style=" width:100%;line-height: 30px; float:left; display:block; clear:both">${_(u"FF_POOL_EDIT_Upload a picture")}</a>
+							<a class="link" onclick="ff.io.xhrPost('${url(controller='product', action='ulpoolpicture', pool_url = c.pool.p_url)}', {})" style=" width:100%;line-height: 30px; float:left; display:block; clear:both">${_(u"FF_POOL_EDIT_Upload a picture")}</a>
 						</div>
 					</div>
 				</div>

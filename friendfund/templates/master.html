@@ -1,6 +1,6 @@
 <%namespace name="links" file="/widgets/links.html"/>
 <%namespace name="tracking" file="/widgets/tracking.html"/>
-<%namespace name="styles" file="/widgets/merchant_css_styles.css"/>
+<%namespace name="merchantstyles" file="/widgets/merchant_css_styles.css"/>
 ${self.render_html()}
 
 <%def name="render_html()">
@@ -22,33 +22,44 @@ ${self.render_html()}
 <%def name="render_head()">
 		<title>friendfund.com ${self.title()}</title>
 		<script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
-		${links.css('site.css')}${links.js('loaderv5.js')}
+		${links.css('site.css')}
 		<!--[if IE]>${links.css('allie.css')}<![endif]-->
 		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
-		${styles.merchantStyles(request.merchant)|n}
+		${merchantstyles.merchantStyles(request.merchant)|n}
 		${self.meta_tags()}
-		${self.scripts_styles()}
+		${self.styles()}
 </%def>
+
 
 <%def name="render_foot_scripts(lang)">
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
-	<script type="text/javascript">djConfig={baseUrl: "/static/js/build/dojo/dojo/",dojoBlankHtmlUrl : "/static/blank.html",locale : '${lang}'};</script>
+	<script type="text/javascript">djConfig={baseUrl: "/static/js/build/dojo/dojo/", modulePaths: {'ff': '/static/js/ff'}, dojoBlankHtmlUrl : "/static/blank.html",locale : '${lang}'};</script>
+	
+	
 	#####<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" type="text/javascript"></script>
 	<script src="/static/js/build/dojo/dojo/dojo.js" type="text/javascript"></script>
+	${links.js('ff/t.js')}
+	${links.js('ff/io.js')}
+	${links.js('ff/w.js')}
+	${links.js('ff/auth.js')}
+	${links.js('ff/parser.js')}
+	${links.js('ff/Popup.js')}
+	
+	
 	<div id="generic_popup">${self.renderBlockingPopup()}</div>
 	<div id="fb-root"></div>
 	<script type="text/javascript">
 		<% 
 			fb = str("facebook" in c.user.permissions or c.user.is_anon).lower()
 			anon = str(c.user.is_anon).lower()
-			%>
-		window.pageState = {respectFB:${fb},getFBPerms:false,isA:${anon}};
+		%>
+		window.pageState = {respectFB:${fb},getFBPerms:false};
 		${self.render_page_state()|n}
 	</script>
 	${self.scripts()}
 	<script type="text/javascript">
 		dojo.addOnLoad( function() {
-			fbInit("${app_globals.FbApiKey}");
+			window.__auth__ = ff.auth({fbappId:"${app_globals.FbApiKey}",fbRootNode:"fb-root"});
 			${self.onloadscripts()}
 		});
 	</script>
@@ -62,6 +73,6 @@ ${self.render_html()}
 <%def name="meta_tags()"><meta content="friendfund.com - Collect money with friends!" name="generator"/>
 <meta content="social commerce, e-commerce, group gifts, group gifting, social community, gifts, gemeinsam schenken" name="keywords"/>
 <meta content="Collect money with friends. Create a Pool. Chip in. friendfund it!" name="description"/></%def>
-<%def name="scripts_styles()"></%def>
+<%def name="styles()"></%def>
 <%def name="scripts()"></%def>
 <%def name="onloadscripts()"></%def>

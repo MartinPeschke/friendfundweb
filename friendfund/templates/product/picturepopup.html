@@ -1,6 +1,6 @@
 <div class="popupBackground dark"></div>
 <div class="outerPopupFrame">
-	<div class="whitePopupFrameLarge" id="popupContentFrame">
+	<div class="whitePopupFrameLarge popupContentWindow">
 	<span class="panelcloser panelclosing_x">x</span>
 		<div>
 			<h3 class="borderSmall">${_("FF_UPLOADPICTUREPOPUP_Change the Picture")}</h3>
@@ -16,7 +16,7 @@
 			</div>
 			<p>${_("FF_UPLOADPICTUREPOPUP_JPEG, PNG or GIF. MAX FILE SIZE: 5 MB")}</p>
 			<div style=" clear:both; padding-bottom:20px">
-			<a class="primarySmall floatLeft"  onclick="ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>${_("FF_UPLOADPICTUREPOPUP_Save")}</span></a>
+			<a class="primarySmall floatLeft"  onclick="ff.io.ioIframeGetJson('${url(controller="product", action="picturepopup", pool_url = c.pool.p_url)}', 'picture_popup_form')"><span>${_("FF_UPLOADPICTUREPOPUP_Save")}</span></a>
 			<div class="clear"></div>
 			</div>
 			</form>
