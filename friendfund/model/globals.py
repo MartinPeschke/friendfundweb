@@ -151,7 +151,7 @@ class HomePageStats(DBMappedObject):
 	"""<STATS funded_pools="156" contributions="336"/>"""
 	_cachable = False
 	_no_params = True
-	_keys = [GenericAttrib(int,'funded_pools','funded_pools'), GenericAttrib(int,'contributions','contributions')]
+	_keys = [GenericAttrib(int,'funded_pools','funded_pools'), GenericAttrib(int,'contributions','contributions'), GenericAttrib(int,'happy_faces','happy_faces')]
 
 class GetMerchantConfigProc(DBMappedObject):
 	"""app.[get_merchant]"""
