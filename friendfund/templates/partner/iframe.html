@@ -2,9 +2,7 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="../invite/inviter.html"/>
-<%def name="render_page_state()">
-	window.pageState.getFBPerms = true;
-</%def>
+<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
 <%def name="scripts()">
 	####${links.js('build/dojo/dojo/friendfund.js')}
 	${links.js('friendfund/FriendSelector.js')}
@@ -20,10 +18,10 @@
 <%def name="onloadscripts()">
 	ffp_panel = new friendfund.PartnerPanel({
 					container : "receiverSelectorContainer"
+					,auth_provider : window.__auth__
 					,target_form : "button_panel_Form"
 					,method : "${c.method}"
 					,invited_node:"selectedReceiver"
-					,mutuals:false
 					,base_url:"/myfriends"
 			});
 	dojo.connect(dojo.byId("createSubmitter"), "onclick", dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 3));

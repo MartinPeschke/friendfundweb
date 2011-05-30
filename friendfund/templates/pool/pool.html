@@ -41,7 +41,7 @@
 			var params = {};
 			if(!_node.value||dojo.hasClass(node, "default")){return;}
 			params[_node.name] = _node.value;
-			xhrPost(dojo.attr(_node, "_href"), params, onLoaded);
+			ff.io.xhrPost(dojo.attr(_node, "_href"), params, onLoaded);
 			return false;
 		};
 		showInvitees = function(){
@@ -59,7 +59,7 @@
 			if(cn){
 				var d = dojo.connect(cn, "onclick", function(evt){
 					dojo.disconnect(d);
-					xhrPost(dojo.attr(evt.target, "_href"), {page:dojo.attr(cn, "_page")}, function(data){
+					ff.io.xhrPost(dojo.attr(evt.target, "_href"), {page:dojo.attr(cn, "_page")}, function(data){
 						dojo.query(evt.target).orphan();
 						dojo.place(data.html, "inviteeList", "last");
 						connectpool(rootbutton);

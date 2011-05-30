@@ -40,26 +40,26 @@ dojo.declare("friendfund.PartnerPanel", null, {
 	load_receiver : function(){
 		var _t = this;
 		_t.selector = new friendfund.CompoundFriendSelector({
-								container : _t.container,
-								ref_node: "inviter",
-								invited_node_suffix : "_invitees",
-								inviter_node : "friend_list",
-								base_url : _t.base_url ,
-								mutuals : _t.mutuals,
-								global_invited_node : _t.invited_node,
-								avail_selectors : {'facebook':true, 'twitter':true, 'email':true},
-								onSelect : function(ctx, elem, evt){
+								auth_provider : _t.auth_provider
+								,container : _t.container
+								,ref_node: "inviter"
+								,invited_node_suffix : "_invitees"
+								,inviter_node : "friend_list"
+								,base_url : _t.base_url
+								,mutuals : false
+								,global_invited_node : _t.invited_node
+								,avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
+								,onSelect : function(ctx, elem, evt){
 									_t.selector.removeAll(_t.selector);
 									ctx.inviteAppendNode(ctx, elem);
 									dojo.addClass(_t.invited_node, "filled");
 									_t.check_receiver();
 									return true;
-								},
-								unSelect : function(ctx, target){
+								}
+								,unSelect : function(ctx, target){
 									dojo.query('#'+target.id, ctx.invited_node).orphan().forEach(dojo.hitch(null, ctx.uninviteAppendNode, ctx));
 									dojo.removeClass(_t.invited_node, "filled");
 								}
-								
 							});
 		_t.selector.draw(_t.method);
 	},
@@ -71,7 +71,7 @@ dojo.declare("friendfund.PartnerPanel", null, {
 		} else {
 			ff.t.onSubmitCleaner(_t.target_form);
 			_t.submitting = true;
-			return doLogin({level:level, cb:dojo.hitch(_t, _t._submit, url), failcb:function(){_t.submitting = false}});
+			return _t.auth_provider.checkLogin({level:level, success:dojo.hitch(_t, "_submit", url), fail:function(){_t.submitting = false}});
 		};
  	},_submit:function(url){
 		var _t = this;

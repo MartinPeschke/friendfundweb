@@ -49,10 +49,12 @@ dojo.declare("ff.auth", null, {
 		ff.w.popupFromLink(url);
 	}
 	,logout : function(logoutFB){
-		FB.getLoginStatus(function(response){
-			if(response.session){FB.logout(function(){window.location.href = "/logout?furl=/";})}
-			else{window.location.href = "/logout?furl=/";}
-		});
+		if(this.isLoggedIn()){
+			FB.getLoginStatus(function(response){
+				if(response.session){FB.logout(function(){window.location.href = "/logout?furl=/";})}
+				else{window.location.href = "/logout?furl=/";}
+			});
+		}
 	}
 	
 	,fbInit : function(app_id, fbRootNode) {
@@ -75,7 +77,7 @@ dojo.declare("ff.auth", null, {
 			if(_t.fbId&&sess.uid!=_t.fbId){
 				if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
 			}else{
-				this.forceRefreshPerms(dojo.hitch(this, "fbHandleLogin", _t._FBSCOPE[""+_t._workflow.level||3], response));
+				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", _t._FBSCOPE[""+(_t._workflow.level||3)], response));
 			}
 		} else {
 			if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
@@ -83,7 +85,9 @@ dojo.declare("ff.auth", null, {
 	}
 	,forceRefreshPerms : function(cb){
 		var _t = this;
-		FB.api("/me/permissions", function(perms){_t._fbperms = perms.data[0];cb&&cb(_t._fbperms)});
+		FB.api("/me/permissions", function(perms){
+			_t._fbperms = perms.data[0];cb&&cb(_t._fbperms)
+		});
 	}
 	,forceFBLogin : function(required_scope){
 		var _t = this;

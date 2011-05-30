@@ -34,8 +34,9 @@ dojo.declare("friendfund.InvitePage", null, {
 		ff.t.onSubmitCleaner(_t.target_form); 
 		if(_t.submitting){return false;}
 		_t.submitting = true;
-		return _t.auth_provider.checkLogin({level:level, success:dojo.hitch(null, _t._submit, _t), fail:function(){_t.submitting = false}});
- 	},_submit:function(_t){
+		return _t.auth_provider.checkLogin({level:level, success:dojo.hitch(_t, "_submit"), fail:function(){_t.submitting = false}});
+ 	},_submit:function(){
+		var _t = this;
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 		_t._widget_locals = [];
 		_t.receiver_selectors = {};
