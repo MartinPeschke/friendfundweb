@@ -41,9 +41,9 @@ ${self.render_html()}
 	${links.js('ff/t.js')}
 	${links.js('ff/io.js')}
 	${links.js('ff/w.js')}
+	${links.js('ff/Popup.js')}
 	${links.js('ff/auth.js')}
 	${links.js('ff/parser.js')}
-	${links.js('ff/Popup.js')}
 	
 	
 	<div id="generic_popup">${self.renderBlockingPopup()}</div>
@@ -59,7 +59,12 @@ ${self.render_html()}
 	${self.scripts()}
 	<script type="text/javascript">
 		dojo.addOnLoad( function() {
-			window.__auth__ = ff.auth({fbappId:"${app_globals.FbApiKey}",fbRootNode:"fb-root"});
+			window.__auth__ = new ff.auth({fbappId:"${app_globals.FbApiKey}"
+											,fbRootNode:"fb-root"
+											,requireFBPerms:false
+											,"fbId":${c.user.get_perm_network_id("facebook") or "null"}
+											,loginurl:"${url(controller="myprofile", action="login")}"});
+			${self.authperms()}
 			${self.onloadscripts()}
 		});
 	</script>
@@ -75,4 +80,5 @@ ${self.render_html()}
 <meta content="Collect money with friends. Create a Pool. Chip in. friendfund it!" name="description"/></%def>
 <%def name="styles()"></%def>
 <%def name="scripts()"></%def>
+<%def name="authperms()"></%def>
 <%def name="onloadscripts()"></%def>

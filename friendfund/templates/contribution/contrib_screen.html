@@ -4,13 +4,15 @@
 <%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
 <%def name="title()">${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</%def>
 
+<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
 <%def name="render_page_state()">
-	window.pageState.getFBPerms = true;
-	submitForm = function(form){ return doLogin({level:form["payment.do_notify"]?form["payment.do_notify"].checked?6:3:3, cb:function(){
-		ff.t.onSubmitCleaner(document.contributionForm);
-		document.contributionForm.onsubmit = function(){return true};
-		document.contributionForm.submit();return true;}});
-		};
+	submitForm = function(form){ 
+		return window.__auth__.checkLogin({level:form["payment.do_notify"]?form["payment.do_notify"].checked?6:3:3, success:function(){
+			ff.t.onSubmitCleaner(document.contributionForm);
+			document.contributionForm.onsubmit = function(){return true};
+			document.contributionForm.submit();return true;
+		}});
+	};
 	var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 </%def>
 <%def name="onloadscripts()">

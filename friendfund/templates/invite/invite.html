@@ -10,24 +10,22 @@
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/InvitePage.js')}
 </%def>
-<%def name="render_page_state()">
-	window.pageState.getFBPerms = true;
-</%def>
+<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
 	
 <%def name="onloadscripts()">
 	ff.w.parseDefaultsInputs("inviteMessage");
 	page = new friendfund.InvitePage({
-			container : "inviteContainer",
-			invited_node :"invitedContainer",
-			method : "${c.method}",
-			fb_api_key : "",
-			mutuals : ${request.merchant.type_is_group_gift and "true" or "false"},
-			base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}",
-			target_form : "invitees"
+			container : "inviteContainer"
+			,auth_provider : window.__auth__
+			,invited_node :"invitedContainer"
+			,method : "${c.method}"
+			,mutuals : ${request.merchant.type_is_group_gift and "true" or "false"}
+			,base_url : "${url('invite_index', controller='invite', pool_url=c.pool.p_url)}"
+			,target_form : "invitees"
 		});
+	page.selector.draw("${c.method}");
 	ff.w.parseSelectables("invitees", "wrapInside");
 	ff.w.connectPopupLinks("inviteMessage");
-	page.selector.draw("${c.method}");
 	dojo.connect(dojo.byId("invite_submitter"), "onclick", dojo.hitch(null, page.prepareSubmit, page, ${c.pool.am_i_admin(c.user) and 9 or 6}));
 </%def>
 

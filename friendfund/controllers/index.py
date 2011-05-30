@@ -58,6 +58,17 @@ class IndexController(BaseController):
 		c.reload = False
 		return render('/closepopup.html')
 	
+	@jsonify
+	def jsonlo(self):
+		c.user = ANONUSER
+		c.settings = {}
+		c.messages = []
+		if 'invitees' in websession:
+			del websession['invitees']
+		if 'pool' in websession:
+			del websession['pool']
+		return {"success":True}
+	
 	def logout(self):
 		if not request.referer or request.referer == c.furl:
 			c.furl = "/"

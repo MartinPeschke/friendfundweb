@@ -154,7 +154,7 @@ class User(ProtoUser):
 	def get_clearance(self):
 		if self.is_anon:
 			return CLEARANCES['ANON']
-		if "facebook" in self.permissions:
+		if "facebook" in self.permissions and self.get_perm_network_id("facebook"):
 			perm = self.permissions['facebook']
 			if perm.stream_publish and perm.create_event:
 				return CLEARANCES['FULL']
@@ -183,6 +183,11 @@ class User(ProtoUser):
 		if perms.network_id is not None and perms.network_id != network_id:
 			log.error("FOUND_MISTAKEN_NETWORK_ID:expected (%s) found (%s)", perms.network_id, network_id)
 		return perms
+	def get_perm_network_id(self, network):
+		network = network.lower()
+		perms = self.permissions.setdefault(network, NetworkUserPermissions(network=network))
+		return perms.network_id
+	
 	def has_perm(self, network, perm):
 		network = network.lower()
 		return getattr(self.permissions.get(network.lower(), None), perm, False)

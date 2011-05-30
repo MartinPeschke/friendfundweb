@@ -15,15 +15,12 @@
 	</script>
 </%def>
 
-<%def name="render_page_state()">window.pageState.getFBPerms = true;
+<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
+<%def name="render_page_state()">
 	sbmt = function(){
 		ff.t.onSubmitCleaner(document.submissionform);
-		####document.submissionform.description.value = dijit.byId("descriptionEditor").get('value');
 		document.submissionform.submit();
 		return true;
-	};
-	smssn = function(form){
-		return ff.auth.doLogin({level:9, cb:sbmt});
 	};
 </%def>
 <%def name="onloadscripts()">
@@ -63,7 +60,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return smssn(this)">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return window.__auth__.checkLogin({level:9,success:sbmt});">
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>

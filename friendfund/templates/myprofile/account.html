@@ -3,8 +3,6 @@
 <%namespace name="forms" file="/widgets/forms.html"/>
 
 <%def name="title()">${_("FF_TITLE_Account Settings")}</%def>
-<%def name="render_page_state()">window.pageState.rld = function(login){window.location.reload();};</%def>
-
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	${common.render_tabs("account")|n}
 </div>
@@ -85,7 +83,7 @@
 				</div>
 			%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Twitter")}</span>
-				<a onclick="doLogin({isTW:true,cb:reload})" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}" style="margin-top:20px">
+				<a onclick="window.__auth__.doTWLogin({success:ff.t.reload})" class="twitterBtn floatLeft" title="${_("FF_LOGIN_Log in with Twitter")}" style="margin-top:20px">
 					<span>${_("FF_LOGIN_Twitter_Log_In")}</span>
 				</a>
 			%endif
@@ -101,7 +99,7 @@
 				</div>
 		%else:
 				<span class="small">${_("FF_ACCOUNT_You're not connected with Facebook")}</span>
-				<a onclick="doLogin({isFB:true,cb:reload})" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
+				<a onclick="window.__auth__.doFBLogin({success:ff.t.reload})" class="facebookBtn floatLeft" title="${_("FF_LOGIN_Log in with Facebook")}" style="margin-top:20px">
 					<span>${_("FF_LOGIN_Facebook_Log_In")}</span>
 				</a>
 		%endif

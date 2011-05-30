@@ -27,9 +27,11 @@ class FbController(BaseController):
 		#Save and Persist, render profile
 		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		scope = request.params.get("scope")
+		print request.params
 		if not scope:
 			raise Exception("FB_LOGIN_SCOPE_NOT_FOUND:%s", request.params)
 		perms = c.user.get_perm_network(network='facebook', network_id=user_data['network_id'])
+		print perms, scope
 		if perms.add_perms_from_scope(scope, user_data['email']):
 			try:
 				app_globals.dbm.set(perms)

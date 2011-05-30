@@ -8,10 +8,11 @@ dojo.declare("ff.auth", null, {
 	,_FBSCOPE : {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_birthday,email,publish_stream,create_event"}
 	,_facebook_login_in_process : false
 	,_twitter_login_in_process : false
-	,_fbperms : {}
+	,_fbperms : {"email":1}
 	,_loginPanelContainer : "accountcontainer"
 	,_loginPanelForm : "loginPanelContent"
-	,_workflow : {success : null, fail : null}
+	,_workflow : {success : null, fail : null, fwd: function(){window.location.url = '/mypools/stream'}}
+	,isLoggedIn : function(){return !dojo.byId("loginlink");}
 	,constructor: function(args){
 		dojo.mixin(this, args);
 		this.connectLoginPanel();
@@ -47,116 +48,171 @@ dojo.declare("ff.auth", null, {
 		dojo.publish("/ff/login/panel/close");
 		ff.w.popupFromLink(url);
 	}
-	,logout : function(logoutFB){window.location.href = "/logout?furl=/";}
+	,logout : function(logoutFB){
+		FB.getLoginStatus(function(response){
+			if(response.session){FB.logout(function(){window.location.href = "/logout?furl=/";})}
+			else{window.location.href = "/logout?furl=/";}
+		});
+	}
+	
 	,fbInit : function(app_id, fbRootNode) {
 		var _t = this;
 		window.fbAsyncInit = function() {
-			var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
+			var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";document.domain ="friendfund.de";
 			FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
-			if(_t.respectFB){
-				FB.Event.subscribe('auth.sessionChange', function(response){
-						if(response.status == 'connected'){_t.fbHandleLogin(_t._FBSCOPE['3'], false, response);}else {_t.logout(true);}
+			FB.Event.subscribe("auth.sessionChange", 
+				function(response){
+					if(response.status==="connected"){
+						var sess = response.session;
+						if(_t.fbId&&sess.uid!=_t.fbId){
+							if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
+						}else{
+							this.forceRefreshPerms(dojo.hitch(this, "fbHandleLogin", _t._FBSCOPE[""+_t._workflow.level||3], response));
+						}
+					} else {
+						if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
+					}
+				
 				});
-				if(_t.getFBPerms){
-					FB.getLoginStatus(function(response){
-						if(response.status==="connected"){FB.api("/me/permissions", function(perms){_t._fbperms = perms.data[0];});}
-					});
-				}
-			}
+			if(_t.requireFBPerms){_t.getFBPerms();}
 		};
 		var e = document.createElement('script');
 		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
 		e.async = true;
 		document.getElementById(fbRootNode).appendChild(e);
 	}
+	,forceRefreshPerms : function(cb){
+		var _t = this;
+		FB.api("/me/permissions", function(perms){_t._fbperms = perms.data[0];cb&&cb(_t._fbperms)});
+	}
+	,getFBPerms : function(cb, notloggedin){
+		var _t = this;
+		if(!_t._fbperms){
+			session = FB.getSession();
+			if(session&&session.uid){
+				_t.forceRefreshPerms(cb);
+			}else{
+				notloggedin&&notloggedin();
+			}
+		}else{cb&&cb(_t._fbperms);}
+	}
+	,getMissingFBPerms : function(/*comma seperated*/ required_scope, /* map */perms){
+		var mp = required_scope.split(","),missing_perms = [], perms=perms||{};
+		for(var i=0;i<mp.length;i++){
+			if(!perms[mp[i]]){
+				missing_perms.push(mp[i]);
+			}
+		}
+		return missing_perms;
+	}
+	,checkFBIsInOrder : function(required_scope){
+		var response = {};
+		var sess = FB.getSession();
+		if(this.fbId && sess){
+			response.scope = ff.t.getKeys(this._fbperms).join(",");
+			var mp = this.getMissingFBPerms(required_scope, this._fbperms);
+			if(mp.length){
+				FB.login(function(){console.log(arguments)}, {perms:required_scope});
+				return false;
+			} else {
+				return true;
+			}
+		} else return true;
+	}
+	,checkLogin : function(args){
+		var _t = this;
+		this._workflow.level=args.level||3;
+		var url = args.url||this.loginurl, required_scope = _t._FBSCOPE[""+_t._workflow.level];
+		if(args.success||args.fail){this._workflow.success = args.success; this._workflow.fail = args.fail;}
+		if(this.isLoggedIn()){
+			if(args.ignoreFB||this.checkFBIsInOrder(required_scope)){
+				this._workflow.success();
+			}
+		} else {
+			ff.io.xhrPost(url, {level:this._workflow.level}, dojo.hitch(this, "logincb"));
+		}
+		return false;
+	}
+	,fbHandleLogin : function(required_scope, response){
+		var _t = this, scope, i, missing_perms, a, response = {};
+		var mp = _t.getMissingFBPerms(required_scope, _t._fbperms);
+		if(mp.length){
+			response.scope = ff.t.getKeys(_t._fbperms).join(",");
+			response.missing_scope = mp.join(",");
+			ff.io.xhrPost('/fb/failed_login', response);
+		} else {
+			FB.api('/me', function(response) {
+				response.scope = ff.t.getKeys(_t._fbperms).join(",");
+				ff.io.xhrPost('/fb/login', response, dojo.hitch(_t, "logincb"));
+			});
+		}
+	}
 	
-	,twInit : function(cb) {
+	,doFBLogin : function(args){
+		var _t = this;
+		_t._workflow.level=args.level||3;
+		if(_t._facebook_login_in_process === false){
+			_t._facebook_login_in_process = true;
+			setTimeout(function(){_t._facebook_login_in_process=false;},_t.timeoutValue);
+			
+			var required_scope = _t._FBSCOPE[""+_t._workflow.level];
+			if(args.success||args.fail){_t._workflow.success = args.success; _t._workflow.fail = args.fail;}
+			
+			_t.getFBPerms(
+				/*if loggedin*/function(perms){
+					var mp = _t.getMissingFBPerms(required_scope, perms);
+					if(mp.length){
+						FB.login(function(){console.log(arguments)}, {perms:required_scope});
+					} else {
+						FB.api('/me', function(response) {
+							response.scope = ff.t.getKeys(perms).join(",");
+							ff.io.xhrPost('/fb/login', response, dojo.hitch(_t, "logincb"));
+						});
+					}
+				},
+				/*else*/function(){
+					FB.login(function(){console.log(arguments)}, {perms:required_scope});
+				}
+			);
+		}
+	}
+	
+	,doTWLogin : function(args) {
+		this._workflow.level=args.level||3;
+		
+		if(args.success||args.fail){this._workflow.success = args.success; this._workflow.fail = args.fail;}
+		
 		var _t = this;
 		if(_t._twitter_login_in_process === false){
 			_t._twitter_login_in_process = true;
 			setTimeout(function(){_t._twitter_login_in_process=false;},_t.timeoutValue);
 			var host = window.location.protocol + '//' + window.location.host;
-			_t._twitterAction_ = cb;
+			_t._twitterAction_ = _t._workflow.success ;
 			window.open(host+"/twitter/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=yes,scrollbars=yes');
 		}
 	}
-
-	,fbHandleLogin : function(required_scope, response){
-		var _t = this
-			,scope, perms, i, missing_perms, a;
-		if(response && response.session && response.status==="connected"){
-			console.log(perms);
-
-			missing_perms = required_scope.replace(new RegExp(scope, "g"), "").strip(",").replace(/,,+/g, ',');
-			if(missing_perms){
-				response.scope = scope;
-				response.missing_scope = missing_perms;
-				ff.io.xhrPost('/fb/failed_login', response);
-				return false;
-			}
-			
-			perms = scope.split('|');
-			for(i=0;i<perms.length;i++){
-				if(perms[i]){
-					_t._fbperms[perms[i]] = 1;
-				}
-			}
-			
-			FB.api('/me', function(response) {
-				response.scope = scope;
-				response.fbsession = dojo.toJson(session);
-				ff.io.xhrPost('/fb/login', response);
-			});
-			return true;
-		} else return false;
-	}
-
-	,fbLogin : function(scope){
-		var _t = this;
-		if(typeof(scope)!="string"){scope=_t._FBSCOPE[""+scope];}
-		if(_t._facebook_login_in_process === false){
-			
-			_t._facebook_login_in_process = true;
-			setTimeout(function(){_t._facebook_login_in_process=false;},_t.timeoutValue);
-			
-			FB.login(dojo.hitch(_t, "fbHandleLogin", scope), {perms:scope});
-		};
-	}
-	
 	,emailLogin : function(evt){
 		ff.io.xhrFormPost(evt.target.action, evt.target, dojo.hitch(this, "logincb"));
 		return false;
 	}
 	
 	,logincb : function(login_result){
-		var _t = this, login_popup
+		var _t = this, i
+			,login_popup
+			,required_scope=_t._FBSCOPE[""+_t._workflow.level]
 			,popupHandler=[]
 			,loginFormArbiter = function(){
-				xhrFormPost(this.action, this, logincb);
+				ff.io.xhrFormPost(this.action, this, dojo.hitch(_t,"logincb"));
 				return false;
 			}, loginLinkArbiter = function(evt){
 				var href = dojo.attr(evt.target, "_href");
-				xhrPost(href, {}, logincb);
+				ff.io.xhrPost(href, {}, dojo.hitch(_t, "logincb"));
 				return false;
-			}, closeLoginPopup = function(){
-				dojo.forEach(popupHandler, dojo.disconnect);popupHandler=[];
-				dojo.query("#generic_popup").empty();
-			}, i;
-		
-		if(login_result.popup !== undefined){
-			dojo.publish("/ff/popup/all/destroy");
-			login_popup = new ff.Popup();
-			login_popup.afterDisplay = function(popupNode){
-				var __t = this;
-				dojo.query("form.loginAction", popupNode).forEach(function(form){form.onsubmit = loginFormArbiter;});
-				dojo.query("a.loginAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", loginLinkArbiter));});
-				dojo.query("a.loginFBAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "fbLogin", required_scope, true)));});
-				dojo.query("a.loginTWAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "twInit")));});
 			};
-			login_popup.afterClose = function(popupNode){
-				_t._workflow = {};
-			};
-			login_popup.display(login_result.popup);
+		login_popup = _t._workflow._login_popup;
+		if(login_popup){
+			delete login_popup.afterClose;
+			login_popup.destroy();
 		}
 		if(login_result.panel!==undefined&&dojo.byId(_t._loginPanelContainer)){
 			dojo.place(login_result.panel, _t._loginPanelContainer, "only");
@@ -166,54 +222,25 @@ dojo.declare("ff.auth", null, {
 			i = dojo.query("input", _t._loginPanelForm);
 			if(i.length>0){i[0].focus();}
 		}
-		else if(login_result.success === true&&_t._workflow.success!=null){_t._workflow.success(login_result);}
-		else if(login_result.success === false&&_t._workflow.fail!=null){_t._workflow.fail(login_result);}
-		else if(login_result.has_activity === true&&_t._workflow.fwd){_t._workflow.fwd(login_result);}
-		else if(login_result.reload === true){window.location.reload(true);}
-		
-
-		// }
-		// else if(login_result.require_facebook_perms!==undefined){fbLogin(login_result.require_facebook_perms, false, logincb);}
-	}
-
-	,doLogin : function(args){
-		var _t = this,
-			cb = args.cb, 
-			failcb = args.failcb, 
-			level = args.level||3, 
-			url = args.url||"/myprofile/login", 
-			link = args.link, 
-			form = args.form, 
-			popupHandler,
-			required_scope=_FBSCOPE[""+level];
-		if(args.isFB){
-			fbLogin(required_scope, false, logincb);
-		} else if(args.isTW){
-			twInit(logincb);
-		} else {
-			if(form){
-				xhrFormPost(form.action, form, logincb);
-			} else if(link){
-				ff.io.xhrPost(dojo.attr(link, "_href"), {}, logincb);
-			} else {
-				FB.getLoginStatus(function(response){
-					if(!args.ignoreFB&&_t.respectFB&&response.status==='connected'){
-						var perms = _t._fbperms||{},i,
-							missing_perms=[], req_perms = required_scope.split(',');
-						for(i=0;i<req_perms.length;i++){
-							if(!perms[req_perms[i]]){missing_perms.push(req_perms[i]);}
-						}
-						if(missing_perms.length>0||_t.isA){
-							fbLogin(required_scope, false, logincb);
-						} else {
-							if(cb){cb();}
-						}
-					} else {
-						ff.io.xhrPost(url, {level:level}, logincb);
-					}
-				});
-			}
+		if(login_result.popup !== undefined){
+			login_popup = new ff.Popup();
+			login_popup.afterDisplay = function(popupNode){
+				var __t = this;
+				dojo.query("form.loginAction", popupNode).forEach(function(form){form.onsubmit = loginFormArbiter;});
+				dojo.query("a.loginAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", loginLinkArbiter));});
+				dojo.query("a.loginFBAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doFBLogin", required_scope)));});
+				dojo.query("a.loginTWAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doTWLogin")));});
+			};
+			login_popup.afterClose = function(popupNode){
+				_t._workflow.fail&&_t._workflow.fail();
+				_t._workflow = {};
+			};
+			login_popup.display(login_result.popup);
+			_t._workflow._login_popup = login_popup;
 		}
-		return false;
+		else if(login_result.success === true&&_t._workflow.success!=null){_t._workflow.success(login_result);_t._workflow = {};}
+		else if(login_result.success === false&&_t._workflow.fail!=null){_t._workflow.fail(login_result);_t._workflow = {};}
+		else if(login_result.has_activity === true&&_t._workflow.fwd){_t._workflow.fwd(login_result);_t._workflow = {};}
+		else if(login_result.success === true){window.location.reload(true);}
 	}
 });

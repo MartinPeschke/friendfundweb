@@ -9,14 +9,15 @@ dojo.declare("friendfund.InvitePage", null, {
 		var _t = this;
 		dojo.mixin(_t, args);
 		_t.selector = new friendfund.CompoundFriendSelector({
-								container : _t.container,
-								ref_node: "inviter",
-								invited_node_suffix : "_invitees",
-								inviter_node : "friend_list",
-								base_url : _t.base_url ,
-								mutuals : _t.mutuals,
-								global_invited_node : _t.invited_node,
-								avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
+								auth_provider : _t.auth_provider
+								,container : _t.container
+								,ref_node: "inviter"
+								,invited_node_suffix : "_invitees"
+								,inviter_node : "friend_list"
+								,base_url : _t.base_url
+								,mutuals : _t.mutuals
+								,global_invited_node : _t.invited_node
+								,avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
 							});
 		_t._widget_locals.push(_t.selector);
 		dojo.connect(document, "onclick", dojo.hitch(null, _t.loadPreviewPopup, _t, _t.method));
@@ -33,7 +34,7 @@ dojo.declare("friendfund.InvitePage", null, {
 		ff.t.onSubmitCleaner(_t.target_form); 
 		if(_t.submitting){return false;}
 		_t.submitting = true;
-		return doLogin({level:level, cb:dojo.hitch(null, _t._submit, _t), failcb:function(){_t.submitting = false}});
+		return _t.auth_provider.checkLogin({level:level, success:dojo.hitch(null, _t._submit, _t), fail:function(){_t.submitting = false}});
  	},_submit:function(_t){
 		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
 		_t._widget_locals = [];

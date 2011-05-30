@@ -35,7 +35,6 @@ class PoolController(BaseController):
 	
 	@pool_available()
 	def index(self, pool_url = None):
-		c.popup = render("/content/popups/require_shipping_address.html")
 		if c.pool.is_closed_or_funded() and not "view" in request.params:
 			return redirect(url('pool_action', pool_url=pool_url, action='complete'))
 		elif c.pool.is_closed_or_funded():

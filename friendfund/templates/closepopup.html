@@ -2,20 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <script type="text/javascript">
+	if(opener){
 	%if getattr(c, "message", None):
 		opener.displayMessage("${c.message}");
-		if(opener.pageState.__twitterAction__){delete opener.pageState.__twitterAction__;}
+		if(opener.__auth__._twitterAction_){delete opener.__auth__._twitterAction_;}
 	%else:
 		%if getattr(c, "has_activity", False):
-			if(opener.pageState.fwd){
-				opener.pageState.fwd();
+			if(opener.__auth__.fwd){
+				opener.__auth__._workflow.fwd();
 			} else {
-				opener.doLogin({level:9,ignoreFB:true, cb:opener.pageState.__twitterAction__});
+				opener.__auth__.checkLogin({level:9,ignoreFB:true, success:opener.__auth__._twitterAction_});
 			}
 		%else:
-			opener.doLogin({level:9,ignoreFB:true, cb:opener.pageState.__twitterAction__});
+			opener.__auth__.checkLogin({level:9,ignoreFB:true, success:opener.__auth__._twitterAction_});
 		%endif
 	%endif
+	}
 	window.close(); 
 </script>
 </head>

@@ -24,11 +24,11 @@
 		</form>
 		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
 		<div class="inputline">
-			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="doLogin({isFB:true})">
+			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="window.__auth__.doFBLogin({})">
 				<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 			</a>
 		</div><div class="inputline">
-		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="doLogin({isTW:true})">
+		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="window.__auth__.doTWLogin({})">
 			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 		</a>
 		</div>

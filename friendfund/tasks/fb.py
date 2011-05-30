@@ -97,8 +97,10 @@ def get_friend_list(method, logger, id, access_token, slice_size = 100):
 					,'network':'facebook'
 					,'network_id':elem["id"]
 					,'email':elem.get('email')
-					,'profile_picture_url':fb_helper.get_large_pic_url(elem['id'])
+					,'profile_picture_url':fb_helper.get_pic_url(elem['id'])
+					,'large_profile_picture_url':fb_helper.get_large_pic_url(elem['id'])
 					,'locale':elem.get('locale', "").lower()
+					,'name':elem['name']
 			}
 		
 		dob = elem.get('birthday')

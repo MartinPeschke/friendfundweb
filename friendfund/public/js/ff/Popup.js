@@ -5,7 +5,7 @@ dojo.require("ff.io");
 
 dojo.mixin(ff.w, {
 	connectPopupLinks : function(rootnode){
-		dojo.query(".popuplink", rootnode).onclick(function(evt){new ff.Popup().openFromURL(evt)});
+		dojo.query(".popuplink", rootnode).onclick(function(evt){new ff.Popup().openFromEvent(evt)});
 	}
 	,displayPopup : function(popup_html){
 		new ff.Popup().display(popup_html);
@@ -24,6 +24,7 @@ dojo.declare("ff.Popup", null, {
 	,constructor: function(args){
 		dojo.mixin(this, args);
 		this._popup_anchor = dojo.byId(this._popup_anchor);
+		dojo.publish("/ff/popup/all/destroy");
 		this._subscriptions.push( dojo.subscribe("/ff/popup/all/destroy", dojo.hitch(this,"destroy")) );
 		return this;
 	}
@@ -31,9 +32,9 @@ dojo.declare("ff.Popup", null, {
 		ff.io.xhrPost(url, params || {}, dojo.hitch(this, "display"));
 	}
 	,openFromNode : function(node, params){
-		this.popupFromLink(dojo.attr(element, "_href"), params);
+		this.openFromURL(dojo.attr(node, "_href"), params);
 	}
-	,openFromEvent : function(node, params){
+	,openFromEvent : function(evt, params){
 		this.openFromNode(evt.target, params);
 	}
 	,destroy : function(){

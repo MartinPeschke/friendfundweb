@@ -42,5 +42,16 @@ dojo.mixin(ff,{t:{
 	,showLoadingInfo : function(rootnode){
 		dojo.query(".loading_animation", rootnode).removeClass("hidden");
 		dojo.query("input[type=submit]", rootnode).forEach(function(elem){elem.disabled = "disabled";});
+	},
+	accessability : function(callbackRet, callbackEsc, evt){
+		if(evt.keyCode === 13){dojo.hitch(this, callbackRet(this, evt));}
+		else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
+	},
+	getKeys : function(map){
+		var result = [];
+		for(var key in map){
+			if(map.hasOwnProperty(key))result.push(key);
+		}
+		return result;
 	}
 }});
