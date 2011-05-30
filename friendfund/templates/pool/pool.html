@@ -235,9 +235,9 @@
 		%endif
 	
 		<div class="plus generalBoxRight">
-			<a class="popuplink learnMoreBtnNew floatLeft" style="margin-right:10px" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
+			<a class="popuplink miniBlueBtn floatLeft" style="margin-right:10px" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a>
 			%if c.pool.am_i_member(c.user) and c.pool.is_contributable():
-				<a class="learnMoreBtnNew floatLeft" href="${url('invite_index', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
+				<a class="miniBlueBtn floatLeft" href="${url('invite_index', pool_url=c.pool.p_url, v=3)}"> ${_(u"FF_POOL_PAGE_CHIPIN_invite more friends")}</a>      
 				
 			%endif
 			<div class="clear"></div>
