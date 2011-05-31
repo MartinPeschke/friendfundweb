@@ -86,7 +86,6 @@ class TwitterController(BaseController):
 		success, c.message = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		c.refresh_login = True
 		c.has_activity = c.user.has_activity
-		print render('/closepopup.html')
 		return render('/closepopup.html')
 	
 	@logged_in()

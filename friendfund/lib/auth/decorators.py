@@ -14,7 +14,6 @@ def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = N
 	def validate(func, self, *args, **kwargs):
 		pylons = get_pylons(args)
 		c = pylons.tmpl_context
-		print "====", c.user.get_clearance(), level
 		if c.user.is_anon or c.user.get_clearance()<level:
 			if ajax:
 				return {'redirect':redirect_to}
