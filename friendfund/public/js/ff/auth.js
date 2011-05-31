@@ -6,6 +6,7 @@ String.prototype.strip = function(ch){var re = new RegExp("^"+ch+"+|"+ch+"+$", "
 dojo.declare("ff.auth", null, {
 	timeoutValue:500
 	,_FBSCOPE : {  '3':"email",'6':"email,publish_stream",'9':"email,publish_stream,create_event"}
+	,_get_scope:function(args){return this._FBSCOPE[""+(args.level||3)];}
 	,_facebook_login_in_process : false
 	,_twitter_login_in_process : false
 	,_fbperms : null
@@ -88,7 +89,7 @@ dojo.declare("ff.auth", null, {
 			if(_t.fbId&&sess.uid!=_t.fbId){
 				if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
 			}else{
-				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", _t._FBSCOPE[""+(_t._workflow.level||3)], response));
+				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", _t._get_scope(_t._workflow), response));
 			}
 		} else {
 			if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
@@ -145,7 +146,7 @@ dojo.declare("ff.auth", null, {
 	,checkLogin : function(args){
 		var _t = this;
 		this._workflow.level=args.level||3;
-		var url = args.url||this.loginurl, required_scope = _t._FBSCOPE[""+_t._workflow.level];
+		var url = args.url||this.loginurl, required_scope = _t._get_scope(_t._workflow);
 		if(args.success||args.fail){this._workflow.success = args.success; this._workflow.fail = args.fail;}
 		if(this.isLoggedIn()){
 			if(args.ignoreFB||this.checkFBIsInOrder(required_scope)){
@@ -173,12 +174,12 @@ dojo.declare("ff.auth", null, {
 	
 	,doFBLogin : function(args){
 		var _t = this;
-		_t._workflow.level=args.level||3;
+		dojo.mixin(_t._workflow, args);
 		if(_t._facebook_login_in_process === false){
 			_t._facebook_login_in_process = true;
 			setTimeout(function(){_t._facebook_login_in_process=false;},_t.timeoutValue);
 			
-			var required_scope = _t._FBSCOPE[""+_t._workflow.level];
+			var required_scope = _t._get_scope(_t._workflow);
 			if(args.success||args.fail){_t._workflow.success = args.success; _t._workflow.fail = args.fail;}
 			
 			_t.getFBPerms(
@@ -222,7 +223,7 @@ dojo.declare("ff.auth", null, {
 	,logincb : function(login_result){
 		var _t = this, i
 			,login_popup
-			,required_scope=_t._FBSCOPE[""+_t._workflow.level]
+			,required_scope=_t._get_scope(_t._workflow)
 			,popupHandler=[]
 			,loginFormArbiter = function(){
 				ff.io.xhrFormPost(this.action, this, dojo.hitch(_t,"logincb"));

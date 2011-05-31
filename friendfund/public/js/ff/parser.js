@@ -44,7 +44,7 @@ dojo.mixin(ff, {parser: {
 		} else {
 			imgs=dojo.query(".imgCntSld img.allowed", this.__rootnode__);
 			if(imgs.length<=1){
-				dojo.query(".imgCntSld img.forbidden", this.__rootnode__).forEach(dojo.hitch(this, "judger", 25, 20, preselected));
+				dojo.query(".imgCntSld img.forbidden", this.__rootnode__).forEach(dojo.hitch(this, "judger", 40, 30, preselected));
 			}
 		}
 	}
@@ -72,7 +72,7 @@ dojo.mixin(ff, {parser: {
 	}
 	,pic_judger : function(imgContainer, imgs, preselected, evt){
 		if(dojo.byId("pictureCounter")){
-			this.judger(100, 75, preselected, evt.target);
+			this.judger(190, 150, preselected, evt.target);
 			this.createAppendPicture(imgContainer, imgs, preselected);
 		}
 	}

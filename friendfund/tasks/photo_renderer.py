@@ -80,22 +80,27 @@ def crop_resize_original(sizes, fit_full_image = False, gravity = "Center"):
 		resize_parameter = '%sx%s^'
 	procs = deque()
 	for fname_src, fname_dest, target_w, target_h in sizes:
-		crop_command = []
-		crop_command.extend([os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
-							'-resize',resize_parameter % (target_w, target_h),\
-							'-gravity', gravity, '-filter','Lanczos',\
-							'-background', 'white', '-extent', '%sx%s' % (target_w, target_h), \
-							str(fname_dest)])
+		if target_w and target_h:
+			crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
+								'-resize',resize_parameter % (target_w, target_h),\
+								'-gravity', gravity, '-filter','Lanczos',\
+								'-background', 'white', '-extent', '%sx%s' % (target_w, target_h), \
+								str(fname_dest)]
+		else:
+			crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src), str(fname_dest)]
 		procs.append(subprocess.Popen(crop_command, shell = False, stdout = None, stderr = subprocess.STDOUT))
 	for p in procs:
 		p.wait()
 	return 1
 
 def save_render(fname_src, fname_dest, target_w=190, target_h=150, gravity = "Center"):
-	crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
-					'-resize', '%sx%s' % (target_w, target_h),\
-					'-gravity', gravity, '-filter','Lanczos', \
-					'-extent', '%sx%s' % (target_w, target_h),str(fname_dest)]
+	if target_w and target_h:
+		crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src),\
+						'-resize', '%sx%s' % (target_w, target_h),\
+						'-gravity', gravity, '-filter','Lanczos', \
+						'-extent', '%sx%s' % (target_w, target_h),str(fname_dest)]
+	else:
+		crop_command = [os.path.join(IMAGEMAGICKROOT, 'convert'), str(fname_src), str(fname_dest)]
 	retcode = subprocess.call(crop_command)
 	if not os.path.exists(fname_dest) or retcode!= 0:
 		raise UnsupportedFileFormat("IMAGEMAGICK: Could not convert!")

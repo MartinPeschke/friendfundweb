@@ -24,6 +24,8 @@ PRODUCT_PIC_FORMATS = {'RA' : (161,120)
 					,  'MYPOOLS': (153,114)
 					,  'FF_POOLS': (190,150)
 					,  'FF_POOL_PIC_S':(60,50)
+					,  'FF_POOL_PIC_S':(60,50)
+					,  'ORIGINAL' : (None,None)
 					}
 
 POOL_PIC_FORMATS = {
