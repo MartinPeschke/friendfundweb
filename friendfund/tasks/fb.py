@@ -63,7 +63,7 @@ def remote_persist_user(user_data):
 				user_data['network_id'], 
 				user_data['profile_picture_url'])])
 	
-	friends = fb_helper.get_friends_from_cache(log,  ####TODO: FUCKED
+	friends, is_complete, offset = fb_helper.get_friends_from_cache(log,  ####TODO: FUCKED
 				get_cm(CONNECTION_NAME), 
 				user_data['network_id'], 
 				user_data['access_token']

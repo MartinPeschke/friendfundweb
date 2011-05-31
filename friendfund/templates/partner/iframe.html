@@ -4,11 +4,7 @@
 <%namespace name="inviter" file="../invite/inviter.html"/>
 <%def name="authperms()">{requireFBPerms : true, fwd:false}</%def>
 <%def name="scripts()">
-	####${links.js('build/dojo/dojo/friendfund.js')}
-	${links.js('friendfund/EmailFriendSelector.js')}
-	${links.js('friendfund/NetworkFriendSelector.js')}
-	${links.js('friendfund/FriendSelector.js')}
-	${links.js('friendfund/PartnerPanel.js')}
+	${links.js('build/dojo/dojo/friendfund.js')}
 	<script type="text/javascript">
 	dojo.query(".helpPopupToggler", "helpPopupContainer").onclick(
 		function(evt){

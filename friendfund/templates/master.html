@@ -35,13 +35,6 @@ ${self.render_html()}
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
 	<script type="text/javascript">djConfig={baseUrl: "/static/js/build/dojo/dojo/", modulePaths: {'ff': '/static/js/ff'}, dojoBlankHtmlUrl : "/static/blank.html",locale : '${lang}'};</script>
 	<script src="/static/js/build/dojo.js" type="text/javascript"></script>
-	${links.js('ff/t.js')}
-	${links.js('ff/io.js')}
-	${links.js('ff/w.js')}
-	${links.js('ff/Popup.js')}
-	${links.js('ff/auth.js')}
-	${links.js('ff/parser.js')}
-	
 	
 	<div id="generic_popup">${self.renderBlockingPopup()}</div>
 	<div id="fb-root"></div>
@@ -52,7 +45,7 @@ ${self.render_html()}
 			window.__auth__ = new ff.auth({fbappId:"${app_globals.FbApiKey}"
 											,fbRootNode:"fb-root"
 											,requireFBPerms:false
-											,"fbId":${c.user.get_perm_network_id("facebook") or "null"}
+											,fbId:${c.user.get_perm_network_id("facebook") or "null"}
 											,loginurl:"${url(controller="myprofile", action="login")}"}, ${self.authperms()});
 			
 			${self.onloadscripts()}

@@ -14,7 +14,7 @@ dojo.declare("ff.auth", null, {
 	,_loginPanelForm : "loginPanelContent"
 	,_workflow : {success : null, fail : null}
 	,_fwd : function(){window.location.href = '/mypools/stream'}
-	,fwd : true
+	,fwd : false
 	,_rld : ff.t.reload
 	,rld : false
 	,isLoggedIn : function(){return !dojo.byId("loginlink");}
