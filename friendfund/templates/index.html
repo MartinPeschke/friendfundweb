@@ -54,7 +54,7 @@
 </div>
 <div class="wrapSubContent">
 ${self.renderMessages()}
-<div class="content">
+<div class="content" style="padding-bottom:90px">
 	<div class="featuredPoolsBox">
 		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
 		${self.render_featured_pools(c.get_featured_pools, h.get_language_locale())|n}
@@ -72,7 +72,10 @@ ${self.renderMessages()}
 		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
+	<p class="fromTw floatLeft">FROM TWITTER</p> <img class="fromTw  floatLeft" width="25px" height="25px" src="http://devstatic01.friendfund.net/s/user/8c/00/8c004e53261405b228a1f0f00c642c90_PROFILE_S.jpg">
+	<p class="fromTw  floatLeft"><a href="#">@CoCotr</a> The #futureofmoney Daily is out!</p>
 </div>
+
 </div>
 
 
@@ -137,4 +140,5 @@ ${self.renderMessages()}
 		</div>
 	</div>
 	%endfor
+
 </%def>
