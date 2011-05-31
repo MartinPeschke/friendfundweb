@@ -1,7 +1,7 @@
 <%inherit file="../layout.html"/>
 
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
-<%def name="authperms()">{fwd : true}</%def>
+<%def name="authperms()">{fwd : true, _workflow : {success : function(){window.location.href = "${getattr(c, 'furl', '/')}";}}}</%def>
 
 <div class="subHeader">
 	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
@@ -12,11 +12,11 @@
 			<h4>${_("FF_LOGIN_Sign in with Facebook or Twitter")}</h4>
 			<div class="subHeading lastOne"></div>
 			<div class="loginSocialWrap">
-				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" _href="${getattr(c, 'furl', '/')}" onclick="doLogin({isFB:true,cb:goto_url(this)})">
+				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" _href="${getattr(c, 'furl', '/')}" onclick="window.__auth__.doFBLogin({success:ff.t.goto_url(this)})">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
 
-				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" _href="${getattr(c, 'furl', '/')}" onclick="doLogin({isTW:true,cb:goto_url(this)})">
+				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" _href="${getattr(c, 'furl', '/')}" onclick="window.__auth__.doTWLogin({success:ff.t.goto_url(this)})">
 					<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 				</a>
 				

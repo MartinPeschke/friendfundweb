@@ -2,7 +2,7 @@
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 
 <%def name="title()">${_("FF_CONTRIB_PAGE_HEADER_Chip In for %s")%c.pool.title|n}</%def>
-<%def name="authperms()">{getFBPerms : true}</%def>
+<%def name="authperms()">{requireFBPerms : true, fwd : false}</%def>
 
 <%def name="scripts()">
 	<script type="text/javascript">

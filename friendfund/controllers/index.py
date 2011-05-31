@@ -82,7 +82,7 @@ class IndexController(BaseController):
 		return redirect(c.furl)
 	
 	def signup(self):
-		if not request.referer or request.referer == c.furl:
+		if not c.furl or request.referer == c.furl:
 			c.furl = "/"
 		c.signup_values = {}
 		c.signup_errors = {}

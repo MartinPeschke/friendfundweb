@@ -2,22 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <script type="text/javascript">
-	if(opener){
-	%if getattr(c, "message", None):
-		opener.displayMessage("${c.message}");
-		if(opener.__auth__._twitterAction_){delete opener.__auth__._twitterAction_;}
-	%else:
-		%if getattr(c, "has_activity", False):
-			if(opener.__auth__.fwd){
-				opener.__auth__._workflow.fwd();
-			} else {
-				opener.__auth__.checkLogin({level:9,ignoreFB:true, success:opener.__auth__._twitterAction_});
-			}
+	setTimeout(function(){window.location.href="/"},1000);
+	if(opener['__auth__']){
+		%if getattr(c, "message", None):
+			opener.displayMessage("${c.message}");
+			if(opener.__auth__._twitterAction_){delete opener.__auth__._twitterAction_;}
 		%else:
-			opener.__auth__.checkLogin({level:9,ignoreFB:true, success:opener.__auth__._twitterAction_});
+			%if getattr(c, "has_activity", False):
+				if(opener._fwd){
+					opener.__auth__._fwd();
+				} else {
+					opener.__auth__.checkLogin({level:9,ignoreFB:true, success:opener.__auth__._twitterAction_});
+				}
+			%else:
+				opener.__auth__.checkLogin({level:9,ignoreFB:true, success:opener.__auth__._twitterAction_});
+			%endif
 		%endif
-	%endif
-	}
+	} else {}
 	window.close(); 
 </script>
 </head>

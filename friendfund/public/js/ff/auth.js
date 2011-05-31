@@ -13,7 +13,7 @@ dojo.declare("ff.auth", null, {
 	,_loginPanelForm : "loginPanelContent"
 	,_workflow : {success : null, fail : null}
 	,_fwd : function(){window.location.href = '/mypools/stream'}
-	,fwd : false
+	,fwd : true
 	,_rld : ff.t.reload
 	,rld : false
 	,isLoggedIn : function(){return !dojo.byId("loginlink");}
@@ -252,8 +252,8 @@ dojo.declare("ff.auth", null, {
 				var __t = this;
 				dojo.query("form.loginAction", popupNode).forEach(function(form){form.onsubmit = loginFormArbiter;});
 				dojo.query("a.loginAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", loginLinkArbiter));});
-				dojo.query("a.loginFBAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doFBLogin", required_scope)));});
-				dojo.query("a.loginTWAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doTWLogin")));});
+				dojo.query("a.loginFBAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doFBLogin", _t._workflow)));});
+				dojo.query("a.loginTWAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doTWLogin", _t._workflow)));});
 			};
 			login_popup.afterClose = function(popupNode){
 				_t._workflow.fail&&_t._workflow.fail();

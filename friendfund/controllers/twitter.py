@@ -24,11 +24,11 @@ class TwitterController(BaseController):
 				<img style="margin:0px" src="/static/imgs/error_page_twitter.png"/></body></html>""" % _("Twitter may be over capacity.<br/>Please try again later.")
 	
 	def login(self):
-		furl = request.params.get('furl')
+		furl = request.params.get('furl', '/')
 		# Step 1. Get a request token from Twitter.
 		try:
 			content = tw_helper.fetch_url(tw_helper.request_token_url,"POST", None, None, consumer, 
-					params = {'oauth_callback':'%s/twitter/authorize' % (request.qualified_host)})
+					params = {'oauth_callback':'%s/twitter/authorize?furl=%s' % (request.qualified_host,furl)})
 		except (urllib2.HTTPError, urllib2.URLError), e:
 			log.error("COULDNOT GET TOKEN FROM %s, %s", tw_helper.request_token_url, e)
 			return self.ERROR
@@ -47,6 +47,8 @@ class TwitterController(BaseController):
 		return redirect(url)
 	
 	def authorize(self):
+		c.furl = request.params.get('furl', '/')
+		print c.furl
 		oauth_token = websession.get('request_token', {}).get('oauth_token', None)
 		oauth_token_secret = websession.get('request_token', {}).get('oauth_token_secret', None)
 		oauth_verifier = request.params.get('oauth_verifier', None)

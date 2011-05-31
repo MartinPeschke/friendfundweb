@@ -20,7 +20,7 @@
 	</script>
 </%def>
 
-<%def name="authperms()">{requireFBPerms:true}</%def>
+<%def name="authperms()">{requireFBPerms:true, fwd:false}</%def>
 <%def name="onloadscripts()">
 	ff.w.parseDefaultsInputs("poolDetails");
 	ff.w.parseSelectables("poolDetails");
