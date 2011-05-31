@@ -10,7 +10,7 @@
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/InvitePage.js')}
 </%def>
-<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
+<%def name="authperms()">{requireFBPerms : true}</%def>
 	
 <%def name="onloadscripts()">
 	ff.w.parseDefaultsInputs("inviteMessage");

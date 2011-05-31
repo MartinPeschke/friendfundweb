@@ -12,17 +12,15 @@
 			if(parent){dojo.query(".hideable.hidden", parent).forEach(function(elem){dojo.removeClass(elem, "hidden");});}
 		};
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+		sbmt = function(){
+			ff.t.onSubmitCleaner(document.submissionform);
+			document.submissionform.submit();
+			return true;
+		};
 	</script>
 </%def>
 
-<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
-<%def name="render_page_state()">
-	sbmt = function(){
-		ff.t.onSubmitCleaner(document.submissionform);
-		document.submissionform.submit();
-		return true;
-	};
-</%def>
+<%def name="authperms()">{requireFBPerms:true}</%def>
 <%def name="onloadscripts()">
 	ff.w.parseDefaultsInputs("poolDetails");
 	ff.w.parseSelectables("poolDetails");

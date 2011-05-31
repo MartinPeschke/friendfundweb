@@ -1,6 +1,7 @@
 <%inherit file="../layout.html"/>
+
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
-<%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}";};</%def>
+<%def name="authperms()">{fwd : true}</%def>
 
 <div class="subHeader">
 	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">

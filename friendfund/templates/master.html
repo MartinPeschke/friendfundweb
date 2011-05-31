@@ -45,14 +45,6 @@ ${self.render_html()}
 	
 	<div id="generic_popup">${self.renderBlockingPopup()}</div>
 	<div id="fb-root"></div>
-	<script type="text/javascript">
-		<% 
-			fb = str("facebook" in c.user.permissions or c.user.is_anon).lower()
-			anon = str(c.user.is_anon).lower()
-		%>
-		window.pageState = {respectFB:${fb},getFBPerms:false};
-		${self.render_page_state()|n}
-	</script>
 	${self.scripts()}
 	<script type="text/javascript">
 		dojo.addOnLoad( function() {
@@ -60,15 +52,14 @@ ${self.render_html()}
 											,fbRootNode:"fb-root"
 											,requireFBPerms:false
 											,"fbId":${c.user.get_perm_network_id("facebook") or "null"}
-											,loginurl:"${url(controller="myprofile", action="login")}"});
-			${self.authperms()}
+											,loginurl:"${url(controller="myprofile", action="login")}"}, ${self.authperms()});
+			
 			${self.onloadscripts()}
 		});
 	</script>
 	${tracking.renderAll(app_globals.debug)|n}
 </%def>
 
-<%def name="render_page_state()"></%def>
 <%def name="renderBlockingPopup()"></%def>
 <%def name="title()"></%def>
 <%def name="bodyclass()">base</%def>
@@ -77,5 +68,5 @@ ${self.render_html()}
 <meta content="Collect money with friends. Create a Pool. Chip in. friendfund it!" name="description"/></%def>
 <%def name="styles()"></%def>
 <%def name="scripts()"></%def>
-<%def name="authperms()"></%def>
+<%def name="authperms()">null</%def>
 <%def name="onloadscripts()"></%def>

@@ -2,9 +2,9 @@
 <%namespace name="testimonials" file="widgets/testimonials.html" />
 <%namespace name="widgets" file="widgets/widgets.html" />
 <%namespace name="links" file="/widgets/links.html"/>
-<%def name="onloadscripts()">ff.w.sliderF("merchantslider", 4);</%def>
-<%def name="render_page_state()">window.pageState.fwd = function(login){window.location.href="${url(controller="mypools", action="stream")}";};</%def>
 
+<%def name="onloadscripts()">ff.w.sliderF("merchantslider", 4);</%def>
+<%def name="authperms()">{fwd : true}</%def>
 
 <div class="wrapSubHeaderHome">
 	<div class="subHeader">

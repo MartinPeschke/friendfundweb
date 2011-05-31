@@ -5,22 +5,29 @@ String.prototype.strip = function(ch){var re = new RegExp("^"+ch+"+|"+ch+"+$", "
 
 dojo.declare("ff.auth", null, {
 	timeoutValue:500
-	,_FBSCOPE : {  '3':"email",'6':"email,publish_stream",'9':"user_birthday,friends_birthday,email,publish_stream,create_event"}
+	,_FBSCOPE : {  '3':"email",'6':"email,publish_stream",'9':"email,publish_stream,create_event"}
 	,_facebook_login_in_process : false
 	,_twitter_login_in_process : false
 	,_fbperms : null
 	,_loginPanelContainer : "accountcontainer"
 	,_loginPanelForm : "loginPanelContent"
-	,_workflow : {success : null, fail : null, fwd: function(){window.location.url = '/mypools/stream'}}
+	,_workflow : {success : null, fail : null}
+	,_fwd : function(){window.location.href = '/mypools/stream'}
+	,fwd : false
+	,_rld : ff.t.reload
+	,rld : false
 	,isLoggedIn : function(){return !dojo.byId("loginlink");}
-	,constructor: function(args){
+	,constructor: function(args, optionals){
 		dojo.mixin(this, args);
+		if(optionals&&typeof(optionals)==="object"){dojo.mixin(this, optionals);}
 		this.connectLoginPanel();
 		this.fbInit(args.fbappId, args.fbRootNode);
 	}
 	,connectLoginPanel : function(){
 		var _t = this
-			,evts = [], subscriptions = []
+			,evts = []
+			,subscriptions = []
+			,global_panel = []
 			,closeLoginPanel = function(){
 				dojo.forEach(evts, dojo.disconnect);evts=[];
 				dojo.forEach(subscriptions, dojo.unsubscribe);subscriptions=[];
@@ -39,10 +46,14 @@ dojo.declare("ff.auth", null, {
 					
 					var i = dojo.query("input", _t._loginPanelForm);i[0].focus();
 				} else if(evt.target.id == 'loginlink'){closeLoginPanel();}
+			}, reconnect = function(){
+				dojo.forEach(global_panel, dojo.disconnect);global_panel=[];
+				dojo.query(".loginToggleLink", _t._loginPanelContainer).forEach(function(elem){global_panel.push( dojo.connect(elem, "onclick", openLoginPanel));})
+				dojo.query(".logoutLink", _t._loginPanelContainer).forEach(function(elem){global_panel.push( dojo.connect(elem, "onclick", _t, "logout", true));})
+				dojo.query("form", _t._loginPanelContainer).forEach(function(form){form.onsubmit = dojo.hitch(_t, "emailLogin");});
+				dojo.subscribe("/ff/login/panel/reconnect", reconnect);
 			};
-		dojo.query(".loginToggleLink", this._loginPanelContainer).onclick(openLoginPanel);
-		dojo.query(".logoutLink", this._loginPanelContainer).onclick(_t, "logout", true);
-		dojo.query("form", _t._loginPanelContainer).forEach(function(form){form.onsubmit = dojo.hitch(_t, "emailLogin");});
+		reconnect();
 	}
 	,forgotPassword : function(url){
 		dojo.publish("/ff/login/panel/close");
@@ -228,6 +239,7 @@ dojo.declare("ff.auth", null, {
 		}
 		if(login_result.panel!==undefined&&dojo.byId(_t._loginPanelContainer)){
 			dojo.place(login_result.panel, _t._loginPanelContainer, "only");
+			dojo.publish("/ff/login/panel/reconnect");
 		}else if(login_result.form&&dojo.byId(_t._loginPanelForm)){
 			dojo.place(login_result.form, dojo.byId(_t._loginPanelForm), "only");
 			dojo.query("form", _t._loginPanelContainer).forEach(function(form){form.onsubmit = dojo.hitch(_t, "emailLogin");});
@@ -252,7 +264,7 @@ dojo.declare("ff.auth", null, {
 		}
 		else if(login_result.success === true&&_t._workflow.success!=null){_t._workflow.success(login_result);_t._workflow = {};}
 		else if(login_result.success === false&&_t._workflow.fail!=null){_t._workflow.fail(login_result);_t._workflow = {};}
-		else if(login_result.has_activity === true&&_t._workflow.fwd){_t._workflow.fwd(login_result);_t._workflow = {};}
-		else if(login_result.success === true){window.location.reload(true);}
+		else if(login_result.has_activity === true&&_t.fwd===true){_t._fwd(login_result);_t._workflow = {};}
+		else if(login_result.success === true&&_t.rld===true){_t._rld(login_result);_t._workflow = {};}
 	}
 });

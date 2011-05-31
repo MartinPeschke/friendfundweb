@@ -2,7 +2,7 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="../invite/inviter.html"/>
-<%def name="authperms()">window.__auth__.requireFBPerms = true;</%def>
+<%def name="authperms()">{getFBPerms : true}</%def>
 <%def name="scripts()">
 	####${links.js('build/dojo/dojo/friendfund.js')}
 	${links.js('friendfund/FriendSelector.js')}

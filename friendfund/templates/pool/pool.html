@@ -4,10 +4,7 @@
 <%namespace name="widgets" file="/widgets/widgets.html"/>
 
 <%def name="title()">${c.pool.title}</%def>
-<%def name="render_page_state()">
-	window.pageState.rld = function(login){window.location.reload();};
-	window.pageState.getFBPerms = true;
-</%def>
+<%def name="authperms()">{rld : true, getFBPerms : true}</%def>
 
 <%def name="meta_tags()">
 	<link rel="image_src" href="${c.pool.get_pool_picture_tiles("MYPOOLS")}" />

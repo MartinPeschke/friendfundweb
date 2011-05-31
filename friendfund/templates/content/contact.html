@@ -2,7 +2,9 @@
 
 <%def name="title()">${_("FF_Contact")}</%def>
 <%def name="heading()">${_("FF_Contact")}</%def>
-
+<%def name="onloadscripts()">
+	ff.w.parseDefaultsInputs("contactForm");
+</%def>
 <%def name="render_content()">
 		<h4>${_("FF_CONTACT_Send Us a Message")}</h4>
 		<div class="subHeading"></div>

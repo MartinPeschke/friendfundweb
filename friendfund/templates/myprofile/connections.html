@@ -1,10 +1,13 @@
 <%inherit file="../layout.html"/>
 <%namespace name="common" file="common.html"/>
 <%namespace name="forms" file="/widgets/forms.html"/>
+
 <%def name="title()">${_("FF_TITLE_Connections")}</%def>
-<div class="wrapSubHeader">${self.renderMessages()|n}
-	${common.render_tabs("connections")|n}
-</div>
+<%def name="authperms()">{rld : true}</%def>
+
+
+<div class="wrapSubHeader">${self.renderMessages()|n}${common.render_tabs("connections")|n}</div>
+
 <div class="wrapSubContent">
 	<div class="content">
 		<div class="colRight"></div>

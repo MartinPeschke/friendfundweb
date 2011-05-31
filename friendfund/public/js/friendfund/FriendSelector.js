@@ -204,8 +204,9 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.NetworkFriendPanel, 
 				friendlist.push(_t.render(_t.friends_template, ud));
 				_t.addToSearchIndex(ud)
 			}
-			dojo.place(friendlist.join(""), _t.friendlist, "only");
-			
+			if(friendlist.length){
+				dojo.place(friendlist.join(""), _t.friendlist, "only");
+			}
 			
 			_t.filterNode = dojo.byId("filter_"+_t.network);
 			dojo.connect(_t.rootNode, "onclick", dojo.hitch(null, _t.select, _t));
