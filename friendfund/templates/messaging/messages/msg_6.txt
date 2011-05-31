@@ -1,19 +1,14 @@
 Hi ${data['admin_name']},
 
-Congratulations you have successfully set up a pool: ${data['pool_title']} for ${data['pool_description']}.  
-Unfortunately no invitations have been sent out!   
+Nice work on setting up your friendfund Pool ${data['pool_title']} for ${data['pool_description']}.   
+We just wanted to let you know that some of your invitees have not stopped by yet.  Sometimes messages get lost, or maybe ${data['invitee_no_login']} just need a little extra encouragement.  
 
-[Promote your pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite friends](http://${data['merchant_domain']}/pool/${data['p_url']}) to help reach your target of ${data['target_amount']} by ${data['expiry_date']}.  
+[Promote your pool] (http://${data['merchant_domain']}/pool/${data['p_url']}> or [invite friends] (http://${data['merchant_domain']}/pool/${data['p_url']}) to help reach your target of ${data['target_amount']} by ${data['expiry_date']}.    
 
-All the best  
-%if data['merchant_is_default']:      
-the team @friendfund
-%else:  
-the team @${data['merchant_name']} in partnership with friendfund   
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
-%endif     
+All the best   
+the team @friendfund  
 
-<${data['DEFAULT_BASE_URL']}> 
-Collect money with friends. Create a pool. Chip in. friendfund it!  
+<${data['DEFAULT_BASE_URL']}>   
+The simple and fun way to collect money with your friends.  Create a pool and chip in!  
 
-<%def name="subject()">friendfund pool confirmation: time to invite some friends!</%def>
+<%def name="subject()">Time to remind your friends to stop by!</%def>

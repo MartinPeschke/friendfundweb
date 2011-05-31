@@ -4,14 +4,14 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 
 %if c.method == 'facebook':
-	${networkinviter("facebook", c.mutuals, c.all)}
+	${self.networkinviter("facebook", c.mutuals, c.all)}
 %elif c.method == 'twitter':
-	${networkinviter("twitter", False, c.all)}
+	${self.networkinviter("twitter", False, c.all)}
 %elif c.method == 'email':
 	${mailinviter(getattr(c, "submit_name", None))}
 %endif
 
-<%def name="networkinviter(network_name, mutuals, all, var_show_name = True)">
+<%def name="networkinviter(network_name, mutuals, all)">
 	<div class="arrowSubTab"></div>
 	<div class="boxSearchFriend" id="inviteheader">
 		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default floatLeft" />

@@ -1,15 +1,20 @@
 Hola ${data['invitee_name']},  
-Enhorabuena, tu bote de friendfund para el ${data['event_name']} de ${data['recipeint_name']} ha alcanzado su objetivo!  
-<http://${data['merchant_domain']}/pool/${data['ecard_url']}>  
 
-Un saludo
+Enhorabuena! Tu bote de friendfund para el ${data['event_name']} de ${data['recipient_name']} ha alcanzando el objetivo!  
+
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Un saludo 
 %if data['merchant_is_default']:      
-el equipo @friendfund  
-%else:   
-el equipo @${data['merchant_name']} asociado con friendfund    
+el equipo @friendfund
+%else:  
+el equipo @${data['merchant_name']} asociado con friendfund   
 <img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
 %endif     
 
-<${data['DEFAULT_BASE_URL']}>   
-Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it!  
-<%def name="subject()"> el bote de friendfund para el ${data['event_name']} de ${data['recipeint_name']} ha alcanzado su objetivo! </%def>
+<${data['DEFAULT_BASE_URL']}> 
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+
+Nos encanta el feedback.  [Cuentanos tu experiencia.](http://${data['contact_url']})   
+
+<%def name="subject()"> El bote de friendfund para el ${data['event_name']} de ${data['recipient_name']} ha alcanzando el objetivo! </%def>     

@@ -1,0 +1,20 @@
+Hola ${data['admin_name']},  
+
+Enhorabuena! Tu bote de friendfund para el ${data['event_name']} de ${data['recipient_name']} ha alcanzando el objetivo!   
+
+Hemos preparado una tarjeta electrónica con un cupón de ${data['merchant_name']} para enviar a ${data['recipient_name']}.   
+
+<${data['product_url']}>  
+<http://${data['merchant_domain']}/pool/${data['p_url']}>  
+${data['coupon']}  
+
+
+Un saludo 
+el equipo @friendfund  
+
+<${data['DEFAULT_BASE_URL']}>  
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+
+Nos encanta el feedback.  [Cuentanos tu experiencia.](http://${data['contact_url']}) 
+
+<%def name="subject()"> El bote de friendfund para el ${data['event_name']} de ${data['recipient_name']} ha alcanzando el objetivo! </%def>      

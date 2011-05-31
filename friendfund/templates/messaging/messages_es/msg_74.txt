@@ -3,7 +3,7 @@ Hola ${data['admin_name']},
 Enhorabuena! Has configurado un bote de friendfund con éxito: ${data['pool_title']} para ${data['pool_description']}.
 Invitaciones han sido enviado a ${self.show_names(data['invitee_list'])} para que contribuyan.  
 
-[Anunciar tu bote](http://${data['merchant_domain']}/pool/${data['p_url']}) o [invitar a más amigos](http://${data['merchant_domain']}/pool/${data['p_url']}) para alcanzar el total de ${data['target_amount']} antes de ${data['expiry_date']}.  
+[Anunciar tu bote](http://${data['merchant_domain']}/pool/${data['p_url']}) o [invitar a más amigos](http://${data['merchant_domain']}/pool/${data['p_url']}) para alcanzar el total de ${data['target_amount']} antes de ${data['expiry_date']}.
 
 Un Saludo  
 %if data['merchant_is_default']:      
@@ -14,7 +14,7 @@ el equipo @${data['merchant_name']} asociado con friendfund
 %endif     
 
 <${data['DEFAULT_BASE_URL']}> 
-Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it! 
 
 <%def name="subject()">Confirmación de un bote de friendfund</%def>
 <%def name="show_names(invitees)">${", ".join(ivt["name"] for ivt in invitees)}</%def>

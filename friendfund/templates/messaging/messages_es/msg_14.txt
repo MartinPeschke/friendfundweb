@@ -1,19 +1,27 @@
 Hola ${data['invitee_name']},  
-${data['admin_name']} he encontrado el regalo perfecto ${data['event_name']} para ${data['recipient_name']} y me gustaría invitarte al bote de regalo para que me ayudes a comprarlo.    
-Contribuye con la cantidad que tu elijas (incluso con la cantidad más pequeña nos puedes ayudar)! Tenemos hasta el día ${data['expiry_date']} para conseguirlo!  
-Visita el bote de regalo aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
-Gracias  
-Vamos a hacer que el ${data['event_name']} de ${data['recipient_name']} sea especial!  
+
+${data['admin_name']} ha encontrado el regalo perfecto de ${data['occasion']} para ${data['recipient_name']} y me gustaría invitarte al bote de friendfund que vamos a usar para comprarlo.
+
+${data['message']}   
+
+Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo!  Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)!
+Visita el bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Gracias   
+Vamos hacer que el ${data['occasion']} de ${data['recipient_name']} sea muy especial!  
 ${data['invitor_name']}  
 
 %if data['merchant_is_default']:   
 <${data['DEFAULT_BASE_URL']}>  
-Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it! 
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
 
 %else:  
 ${data['merchant_name']} asociado con friendfund     
 <img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
 <${data['DEFAULT_BASE_URL']}>  
-Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it!  
-%endif
-<%def name="subject()">${data['pool_title']}: Te han invitado a unirte a un bote de friendfund!</%def>
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it! 
+%endif   
+
+¿Que es friendfund? Aprende más aquí: http://${data['learn_more_url']}     
+
+<%def name="subject()">${data['pool_title']}: Te han invitado a un bote de friendfund!</%def>

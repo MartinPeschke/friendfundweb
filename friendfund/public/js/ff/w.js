@@ -127,7 +127,7 @@ dojo.mixin(ff, {w: {
 			};
 		dojo.query('.pagelet', root_node).forEach(function(elem){loadElement(dojo.attr(elem, 'pagelet_href'), elem, {}, null, 'Get');});
 	}
-	,sliderF:function(root, noElems){
+	,sliderF:function(root, noElems, autostart){
 		var rootNode = dojo.byId(root), slider = dojo.query("ul.slider", rootNode)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10),
 			position=0, child, transitioning = false, hover=false,
 			countElems = dojo.query("ul.slider li", rootNode).length,
@@ -159,7 +159,7 @@ dojo.mixin(ff, {w: {
 		dojo.query(".controllerRight", rootNode).onclick(slide(-1, true));
 		dojo.connect(rootNode, "onmouseover", setHoverOn);
 		dojo.connect(rootNode, "onmouseout", setHoverOff);
-		window.setInterval(slide(-1, false), 3500);
+		if(autostart===true){window.setInterval(slide(-1, false), 3500);}
 	},
 	showTime : function(root, unit){
 		var delay = unit*1000,

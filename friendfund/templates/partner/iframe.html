@@ -5,6 +5,8 @@
 <%def name="authperms()">{requireFBPerms : true, fwd:false}</%def>
 <%def name="scripts()">
 	####${links.js('build/dojo/dojo/friendfund.js')}
+	${links.js('friendfund/EmailFriendSelector.js')}
+	${links.js('friendfund/NetworkFriendSelector.js')}
 	${links.js('friendfund/FriendSelector.js')}
 	${links.js('friendfund/PartnerPanel.js')}
 	<script type="text/javascript">

@@ -72,11 +72,12 @@ dojo.declare("ff.auth", null, {
 	,fbInit : function(app_id, fbRootNode) {
 		var _t = this;
 		window.fbAsyncInit = function() {
-			var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";document.domain ="friendfund.de";
+			var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
 			FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
 			FB.Event.subscribe("auth.sessionChange", dojo.hitch(_t, "handleSessionChange"));
 			if(_t.requireFBPerms){_t.getFBPerms();}
-		};
+		}
+		
 		var e = document.createElement('script');
 		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
 		e.async = true;

@@ -29,7 +29,8 @@ def get_friend_list(method, access_token, access_token_secret, consumer, slice_s
 										,'network':'twitter'
 										,'network_id':str(elem['id'])
 										,'screen_name':elem.get('screen_name', '')
-										,'profile_picture_url':tw_helper.get_profile_picture_url(elem['profile_image_url'])
+										,'large_profile_picture_url':tw_helper.get_profile_picture_url(elem['profile_image_url'])
+										,'profile_picture_url':elem['profile_image_url']
 										,'notification_method':method
 									}
 								)

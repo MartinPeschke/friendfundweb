@@ -39,15 +39,16 @@ class MyfriendsController(BaseController):
 				if c.method == c.user.network:
 					usermap = c.user.to_map()
 					usermap['profile_picture_url'] = c.user.get_profile_pic("PROFILE_M")
-					friendlist = [(c.user.network_id, usermap)]
+					usermap['minimal_repr'] = h.encode_minimal_repr(usermap)
+					friendlist = [usermap]
 				else:
 					friendlist = []
-				friendlist.extend([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
-				c.friends = OrderedDict(friendlist)
+				friendlist.extend([friends[id] for id in sorted(friends, key=lambda x: friends[x]['name'])])
+				c.friends = friendlist
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset
-						,'html':render_def('/invite/inviter.html', "networkinviter",network_name=c.method, mutuals=c.mutuals, all=c.all, var_show_name = False).strip()
+						,'html':render_def('/invite/inviter.html', "networkinviter",network_name=c.method, mutuals=c.mutuals, all=c.all).strip()
 						,'friends':c.friends
-						,"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="%s_${network_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, c.method, _("FF_INVITER_BUTTON_Invite"))
+						,"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="${dom_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p>${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, _("FF_INVITER_BUTTON_Invite"))
 						}}
 		else:
 			c.friends = {}
@@ -63,7 +64,7 @@ class MyfriendsController(BaseController):
 			pv =  request.params.getall('pv')
 			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
-			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name'])])
+			c.friends = [friends[id] for id in sorted(friends, key=lambda x: friends[x]['name'])]
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'friends':c.friends}}
 		return {'success':False}
 	

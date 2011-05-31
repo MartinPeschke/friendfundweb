@@ -187,7 +187,6 @@ def get_friends_from_cache(
 			return None, None, None
 		
 		payload = OrderedDict(value['payload'])
-		
 		if friend_id is not None:
 			if mutual_with is None:
 				mc.set(mutual_key, INPROCESS_TOKEN, 30)

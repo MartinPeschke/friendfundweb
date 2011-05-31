@@ -1,16 +1,11 @@
 Hola ${data['admin_name']},
-Enhorabuena, has creado un bote con éxito: ${data['pool_title']} para ${data['pool_description']}.  
-Desafortunadamente, no has mandado ninguna invitación!   
-[Promocionar tu bote](http://${data['merchant_domain']}/pool/${data['p_url']}> o [invitar amigos](http://${data['merchant_domain']}/pool/${data['p_url']}) para ayudar alcanzar el objetivo de ${data['target_amount']} antes del dia ${data['expiry_date']}.  
 
-Un saludo  
-%if data['merchant_is_default']:      
-el equipo @friendfund  
-%else:  
-el equipo @${data['merchant_name']} asociado con friendfund     
-<img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
-%endif     
+has configuardo tu bote de friendfund: ${data['pool_title']} para ${data['pool_description']}.  Tenemos que avisarte que algunos los invitados no han visitado la p�gina del bote.  De vez en cuando se pierden los mensajes, o a lo mejor ${data['invitee_no_login']} solo necisitan un recordatorio.
 
-<${data['DEFAULT_BASE_URL']}>  
-Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it!  
-<%def name="subject()"> Confirmación de bote de friendfund: es la hora de invitar a mas amigos!</%def>
+[Promocionar tu bote] (http://${data['merchant_domain']}/pool/${data['p_url']}> o [invitar Amigos] (http://${data['merchant_domain']}/pool/${data['p_url']}) para alcanzar el objetivo de ${data['target_amount']} antes de ${data['expiry_date']}.  
+
+Un Saludo, el equipo @friendfund
+
+<${data['DEFAULT_BASE_URL']}>   Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!   
+
+<%def name="subject()">Manda recordatorios a tus amigos!</%def>

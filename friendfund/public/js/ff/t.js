@@ -54,4 +54,27 @@ dojo.mixin(ff,{t:{
 		}
 		return result;
 	}
+	,render: function (template, params) {
+		return template.replace(/\${([^{}]*)}/g, function (a, b) {
+			var r = params[b];
+			return typeof r === 'string' || typeof r === 'number' ? r : a;
+		})
+	},
+	debounce : function (func, threshold, execAsap) {
+		var timeout;
+		return function debounced () {
+			var obj = this, args = arguments;
+			function delayed () {
+				if (!execAsap)
+					func.apply(obj, args);
+				timeout = null; 
+			};
+	 
+			if (timeout)
+				clearTimeout(timeout);
+			else if (execAsap)
+				func.apply(obj, args);
+			timeout = setTimeout(delayed, threshold || 100); 
+		};
+	}
 }});

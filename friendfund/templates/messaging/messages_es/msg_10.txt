@@ -1,12 +1,18 @@
 <%def name="name()">${data['pool_title']}</%def>
+
 <%def name="description()">${data['pool_description']}
-Visita la pagina del bote que aparece mÃ¡s abajo y contribuye!  
-http://${data['merchant_domain']}/pool/${data['p_url']}   
-Recauda dinero con amigos. Crea un bote. Contribuiye. friendfund it!
+${data['message']}   
+
+Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo. Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)!
+Visitar la pagina del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+
+¿Que es friendfund? Aprende más aquí: http://${data['learn_more_url']}   
 </%def>
+
+
 <%def name="picture()">${data['pool_image']}</%def>
 <%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
-<%def name="privacy_type()">OPEN</%def>
-<%def name="start_time()">${data['today']}</%def>
-<%def name="end_time()">${data['expiry_date']}</%def>
+
 <%def name="location()">${data['DEFAULT_BASE_URL']}</%def>

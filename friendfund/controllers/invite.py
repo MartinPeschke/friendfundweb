@@ -47,9 +47,7 @@ class InviteController(BaseController):
 		c.mutuals = request.merchant.type_is_group_gift
 		c.all = True
 		if method in ['facebook', 'twitter']:
-			pv =  request.params.getall('pv')
 			already_invited = app_globals.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method)
-			already_invited.idset = already_invited.idset.union(pv)
 			
 			try:
 				receiver_id = already_invited.receiver.network_id
@@ -67,10 +65,10 @@ class InviteController(BaseController):
 				else: 
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
 			else:
-				c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset])
+				c.friends = [friends[id] for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset]
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, "html":render("/invite/inviter.html"),
 						'friends':c.friends, 
-						"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="%s_${network_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, c.method, _("FF_INVITER_BUTTON_Invite"))
+						"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="${dom_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, _("FF_INVITER_BUTTON_Invite"))
 					}}
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
@@ -83,10 +81,12 @@ class InviteController(BaseController):
 	def get_extension(self, pool_url, method):
 		if method in ['twitter', 'facebook']:
 			c.method = str(method)
+			
 			already_invited = app_globals.dbm.get(GetPoolInviteesProc, p_url = pool_url, network=c.method).idset
+			
 			offset = int(request.params['offset'])
 			friends, is_complete, offset = c.user.get_friends(c.method, offset = offset)
-			c.friends = OrderedDict([(id, friends[id]) for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited])
+			c.friends = [friends[id] for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited]
 			return {'data':{'is_complete':is_complete, 'offset':offset, 'friends':c.friends}}
 		return {'success':False}
 	

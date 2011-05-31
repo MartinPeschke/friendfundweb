@@ -1,8 +1,15 @@
 Hola ${data['firstname_invitee_name']},  
-Enhorabuena, tu bote de friendfund para ${data['pool_title']} ha llegado al total!  
+
+Enhorabuena! Tu bote de friendfund ${data['pool_title']} ha alcanzando el objetivo!  
+
 <http://${data['merchant_domain']}/pool/${data['p_url']}/complete>   
-Con nuestros mejores deseos  
+
+Un Saludo 
 el equipo @friendfund  
+
 <${data['DEFAULT_BASE_URL']}>   
-Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!  
-<%def name="subject()">${data['pool_title']} Bote de friendfund ha llegado al total! </%def>
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+
+Nos encanta el feedback.  [Cuentanos tu experiencia.](http://${data['contact_url']})   
+
+<%def name="subject()">${data['pool_title']} bote de friendfund ha alcanzado el objetivo! </%def>       

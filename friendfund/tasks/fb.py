@@ -84,11 +84,6 @@ def get_email_from_permissions(fb_data):
 	return user_data['email']
 
 
-	
-	
-	
-	
-	
 
 def get_friend_list(method, logger, id, access_token, slice_size = 100):
 	def package(elem):

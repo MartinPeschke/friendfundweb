@@ -49,15 +49,15 @@ dojo.declare("friendfund.PartnerPanel", null, {
 								,mutuals : false
 								,global_invited_node : _t.invited_node
 								,avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
-								,onSelect : function(ctx, elem, evt){
-									_t.selector.removeAll(_t.selector);
-									ctx.inviteAppendNode(ctx, elem);
+								,onSelect : function(elem, evt){
+									_t.selector.removeAll();
+									this.inviteAppendNode(elem);
 									dojo.addClass(_t.invited_node, "filled");
 									_t.check_receiver();
 									return true;
 								}
-								,unSelect : function(ctx, target){
-									dojo.query('#'+target.id, ctx.invited_node).orphan().forEach(dojo.hitch(null, ctx.uninviteAppendNode, ctx));
+								,unSelect : function(target){
+									dojo.query('#'+target.id, this.invited_node).orphan().forEach(dojo.hitch(this, "uninviteAppendNode"));
 									dojo.removeClass(_t.invited_node, "filled");
 								}
 							});

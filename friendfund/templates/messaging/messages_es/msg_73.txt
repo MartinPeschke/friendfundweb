@@ -1,4 +1,4 @@
-<%def name="message()">Hola ${data['firstname_invitee_name']}, has sido invitado a nuestro bote de friendfund para:  
+<%def name="message()">Hola ${data['firstname_invitee_name']}, te han invitado a un bote de friendfund para:  
 ${data['message']}</%def>
 
 
@@ -6,7 +6,8 @@ ${data['message']}</%def>
 <%def name="name()">${data['subject']}</%def>
 <%def name="caption()">friendfund it!</%def>
 <%def name="description()">
-${data['pool_description']}
+${data['pool_description']}  
+¿Que es friendfund? Aprende más aquí: http://${data['learn_more_url']} 
 </%def>
 
 

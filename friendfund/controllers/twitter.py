@@ -48,7 +48,6 @@ class TwitterController(BaseController):
 	
 	def authorize(self):
 		c.furl = request.params.get('furl', '/')
-		print c.furl
 		oauth_token = websession.get('request_token', {}).get('oauth_token', None)
 		oauth_token_secret = websession.get('request_token', {}).get('oauth_token_secret', None)
 		oauth_verifier = request.params.get('oauth_verifier', None)
@@ -87,6 +86,7 @@ class TwitterController(BaseController):
 		success, c.message = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		c.refresh_login = True
 		c.has_activity = c.user.has_activity
+		print render('/closepopup.html')
 		return render('/closepopup.html')
 	
 	@logged_in()
