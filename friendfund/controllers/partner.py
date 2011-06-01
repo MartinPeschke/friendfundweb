@@ -27,7 +27,9 @@ class PartnerController(BaseController):
 		c.is_default = False
 		c.product_list = g.product_service.get_products_from_open_graph(params, query)
 		if not len(c.product_list):
-			return self.render('/partner/howto.html')
+			query=request.merchant.default_product_url
+			c.product_list = g.product_service.get_products_from_url(query)
+			c.is_default = True
 		
 		c.product = c.product_list[0]
 		c.method = c.user.get_current_network() or 'facebook'
