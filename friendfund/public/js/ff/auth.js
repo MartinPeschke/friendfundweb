@@ -5,7 +5,7 @@ String.prototype.strip = function(ch){var re = new RegExp("^"+ch+"+|"+ch+"+$", "
 
 dojo.declare("ff.auth", null, {
 	timeoutValue:500
-	,_FBSCOPE : {  '3':"email",'6':"email,publish_stream",'9':"email,publish_stream,create_event"}
+	,_FBSCOPE : {  '3':"email",'6':"email,publish_stream",'9':"email,publish_stream,create_event,user_birthday,friends_birthday"}
 	,_get_scope:function(args){return this._FBSCOPE[""+(args.level||3)];}
 	,_facebook_login_in_process : false
 	,_twitter_login_in_process : false
