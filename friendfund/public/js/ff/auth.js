@@ -277,5 +277,6 @@ dojo.declare("ff.auth", null, {
 		else if(login_result.success === false&&_t._workflow.fail!=null){_t._workflow.fail(login_result);_t._workflow = {};}
 		else if(login_result.has_activity === true&&_t.fwd===true){_t._fwd(login_result);_t._workflow = {};}
 		else if(login_result.success === true&&_t.rld===true){_t._rld(login_result);_t._workflow = {};}
+		else if(login_result.reload === true){window.location.href = window.location.href;_t._workflow = {};}
 	}
 });

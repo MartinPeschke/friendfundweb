@@ -102,5 +102,5 @@ class IndexController(BaseController):
 			c.signup_values = signup
 			c.signup_errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
 			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
-							% {'link_open':'<a href="/myprofile/password">', 'link_close':'</a>'})
+							% {'link_open':"<a onclick=\"window.__auth__.forgotPassword('%s')\">" %url(controller='myprofile', action='rppopup'), 'link_close':'</a>'})
 			return self.render('/myprofile/login_screen.html')

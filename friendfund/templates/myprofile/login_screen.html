@@ -1,7 +1,7 @@
 <%inherit file="../layout.html"/>
 
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
-<%def name="authperms()">{fwd : true, _workflow : {success : function(){window.location.href = "${getattr(c, 'furl', '/')}";}}}</%def>
+<%def name="authperms()">{rld : true, _workflow : {success : function(){window.location.href = "${getattr(c, 'furl', '/')}";}}}</%def>
 
 <div class="wrapSubContent">${self.renderMessages()|n}
 <div class="content">
