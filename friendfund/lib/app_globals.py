@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 _ = lambda x:x
 
 pyodbc.pooling = False
-SVNREVISION = "SPRINT_2.2.2_rc2"
+SVNREVISION = "SPRINT_2.3.1"
 REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 
