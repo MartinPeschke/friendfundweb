@@ -38,8 +38,8 @@ dojo.mixin(ff, {parser: {
 		if(imgsrc!==undefined){
 			img = dojo.create("IMG", {"class":'hiddenSpec forbidden'});
 			imgContainer.appendChild(img);
-			img.onload = dojo.hitch(this, "pic_judger", imgContainer, imgs, preselected);
-			img.onerror = dojo.hitch(this, "createAppendPicture", imgContainer, imgs, preselected);
+			dojo.connect(img, "onload", dojo.hitch(this, "pic_judger", imgContainer, imgs, preselected));
+			dojo.connect(img, "onerror", dojo.hitch(this, "createAppendPicture", imgContainer, imgs, preselected));
 			img.src = imgsrc;
 		} else {
 			imgs=dojo.query(".imgCntSld img.allowed", this.__rootnode__);
