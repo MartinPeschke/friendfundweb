@@ -2,7 +2,7 @@ dojo.provide("ff.w");
 dojo.require("dojo.fx.easing");
 
 dojo.mixin(ff, {w: {
-	displayMessage : alert
+	displayMessage : function(message){return alert(message)}
 	,parseSelectables : function(rootnode, parentClass, selectedName){
 		var _t = this;
 		parentClass = parentClass||"borderBottom";

@@ -2,7 +2,7 @@
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="inviter" file="../invite/inviter.html"/>
-<%def name="authperms()">{requireFBPerms : true, fwd:false}</%def>
+<%def name="authperms()">{requireFBPerms : true, fwd:false, hasLoginPanel:false}</%def>
 <%def name="scripts()">
 	${links.js('/build/friendfund.js')}
 	<script type="text/javascript">
@@ -12,6 +12,8 @@
 		}
 	);
 	</script>
+	${links.js('friendfund/FriendSelector.js')}
+	${links.js('friendfund/NetworkFriendSelector.js')}
 </%def>
 <%def name="onloadscripts()">
 	ffp_panel = new friendfund.PartnerPanel({
@@ -24,15 +26,20 @@
 			});
 	dojo.connect(dojo.byId("createSubmitter"), "onclick", dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 3));
 	
-	window.__auth__.logout = function(){
-	FB.getLoginStatus(function(response){
-		if(response.session){
-			FB.logout(function(response){ff.io.xhrPost("/logout?furl=/");window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);});
+	window.__auth__.handleSessionChange = function(response){
+		var _t = this;
+		if(response.status==="connected"){
+			var sess = response.session;
+			if(_t.fbId&&sess.uid!=_t.fbId){
+				ff.io.xhrPost("/logout?furl=/");
+				document.getElementById("resubmit").submit();
+			}else{
+				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", _t._get_scope(_t._workflow), response));
+			}
 		} else {
 			ff.io.xhrPost("/logout?furl=/");
-			window.parent.FriendFund.Popin.show(window.parent.friendfundOptions);
+			document.getElementById("resubmit").submit();
 		}
-	});
 	};
 </%def>
 
@@ -232,4 +239,13 @@
 		</div>
 	</div>
 </div>
-<%def name="user_voice()"></%def>
+%if c.user.is_anon:
+<div id="loginlink"></div>
+%endif
+<form action="${url(controller="partner", action="bounce")}" method="POST" id="resubmit">
+%for k in c.backup_values:
+	%for v in c.backup_values.getall(k):
+		<input type="hidden" name="${k}" value="${v}"/>
+	%endfor
+%endfor	
+</form>

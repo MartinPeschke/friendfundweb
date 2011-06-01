@@ -4,16 +4,18 @@ We have found the perfect ${data['occasion']} gift for ${data['recipient_name']}
 
 ${data['message']}   
 
-We have until the ${data['expiry_date']} to make this happen!  Chip in as little or a much as you like (even the smallest contribution helps)!  
-You can log in to the [pool page](http://${data['merchant_domain']}/pool/${data['p_url']}) with ${data['login_email']} and this password ${data['pwd']}.  (Please change your password to something that you will remember in Settings > Password.)    
+We have until the ${data['expiry_date']} to make this happen!  Chip in as little or a much as you like (even the smallest contribution helps)!    
+
+You can log in to the [pool page](http://${data['merchant_domain']}/pool/${data['p_url']}) with ${data['login_email']} and this password ${data['pwd']}.  
+(Please change your password to something that you will remember in Settings > Password.)    
 
 Thank you  
 Let’s make ${data['recipient_name']}’s ${data['occasion']} special!   
 ${data['invitor_name']}  
 
 %if data['merchant_is_default']:   
-<${data['DEFAULT_BASE_URL']}>  
-Collect money with friends. Create a pool. Chip in. friendfund it! 
+<${data['DEFAULT_BASE_URL']}>   
+Collect money with friends. Create a pool. Chip in. friendfund it!   
 
 
 %else:  
@@ -23,6 +25,6 @@ ${data['merchant_name']} in partnership with friendfund
 Collect money with friends. Create a pool. Chip in. friendfund it!   
 %endif   
 
-What is friendfund anayway? Learn more here: ${data['learn_more_url']}   
+What is friendfund anyway? Learn more here: ${data['learn_more_url']}   
 
 <%def name="subject()">${data['pool_title']}: You have been invited to join a friendfund pool!</%def>  

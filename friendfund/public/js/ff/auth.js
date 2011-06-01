@@ -18,11 +18,12 @@ dojo.declare("ff.auth", null, {
 	,fwd : false
 	,_rld : ff.t.reload
 	,rld : false
+	,hasLoginPanel : true
 	,isLoggedIn : function(){return !dojo.byId("loginlink");}
 	,constructor: function(args, optionals){
 		dojo.mixin(this, args);
 		if(optionals&&typeof(optionals)==="object"){dojo.mixin(this, optionals);}
-		this.connectLoginPanel();
+		if(this.hasLoginPanel){this.connectLoginPanel();}
 		this.fbInit(args.fbappId, args.fbRootNode);
 	}
 	
@@ -56,10 +57,8 @@ dojo.declare("ff.auth", null, {
 				} else if(evt.target.id == 'loginlink'){closeLoginPanel();}
 			}, reconnect = function(){
 				dojo.forEach(global_panel, dojo.disconnect);global_panel=[];
-				
 				dojo.query(".loginToggleLink", _t._loginPanelContainer).forEach(function(elem){global_panel.push( dojo.connect(elem, "onclick", openLoginPanel));})
 				dojo.query(".logoutLink", _t._loginPanelContainer).forEach(function(elem){global_panel.push( dojo.connect(elem, "onclick", _t, "logout", true));})
-				
 				dojo.subscribe("/ff/login/panel/reconnect", reconnect);
 			};
 		reconnect();
@@ -172,6 +171,7 @@ dojo.declare("ff.auth", null, {
 		} else {
 			FB.api('/me', function(response) {
 				response.scope = ff.t.getKeys(_t._fbperms).join(",");
+				response.fbsession = dojo.toJson(FB.getSession());
 				ff.io.xhrPost('/fb/login', response, dojo.hitch(_t, "logincb"));
 			});
 		}
@@ -195,6 +195,7 @@ dojo.declare("ff.auth", null, {
 					} else {
 						FB.api('/me', function(response) {
 							response.scope = ff.t.getKeys(perms).join(",");
+							response.fbsession = dojo.toJson(FB.getSession());
 							ff.io.xhrPost('/fb/login', response, dojo.hitch(_t, "logincb"));
 						});
 					}
@@ -253,7 +254,7 @@ dojo.declare("ff.auth", null, {
 			dojo.publish("/ff/login/panel/reconnect");
 		}else if(login_result.form&&dojo.byId(_t._loginPanelForm)){
 			dojo.place(login_result.form, dojo.byId(_t._loginPanelForm), "only");
-			_t.loginPanelFormConnect();
+			if(this.hasLoginPanel){_t.loginPanelFormConnect();}
 			i = dojo.query("input", _t._loginPanelForm);
 			if(i.length>0){i[0].focus();}
 		}

@@ -3,9 +3,9 @@ dojo.require('dojo.io.iframe');
 dojo.mixin(ff, {io:{
 	xhrHandler : function(callback){
 		return function(data,xhrobj,evt) {
+			if (data.message !== undefined){ff.w.displayMessage(data.message);}
 			if (data.login !== undefined&&callback){callback(data.login);}
 			if (data.popup !== undefined){ff.w.displayPopup(data.popup);}
-			if (data.message !== undefined){ff.w.displayMessage(data.message);}
 			if (callback && data.html !== undefined){callback(data.html);}
 			if (callback && data.data !== undefined){callback(data.data);}
 			if (data.redirect !== undefined){window.location.href = data.redirect;}

@@ -2,13 +2,13 @@ Hi ${data['firstname_invitee_name']},
 
 ${data['commenter_name']} has left a comment for ${data['pool_title']}!   
 
-${data['invitee_comment']}  
+${data['invitee_comment']}   
 
-There are still ${data['x_days_left']} days left to help out ${data['pool_description']} reach it’s target of ${data['target_amount']}.    
+There are still ${data['x_days_left']} days left to help out ${data['pool_description']} reach it’s target of ${data['target_amount']}.     
 
 <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
-[Promote this pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite some more friends](http://${data['merchant_domain']}/pool/${data['p_url']}) to join in .   
+[Promote this pool](http://${data['merchant_domain']}/pool/${data['p_url']}) or [invite some more friends](http://${data['merchant_domain']}/pool/${data['p_url']}) to join in.   
 
 All the best  
 %if data['merchant_is_default']:      
@@ -21,5 +21,5 @@ the team @${data['merchant_name']} in partnership with friendfund
 <${data['DEFAULT_BASE_URL']}> 
 Collect money with friends. Create a pool. Chip in. friendfund it!  
 
-Don’t want to know? You can [unsubscribe](http://${data['DEFAULT_BASE_URL']}/myprofile/notifications) from messages.  
+Don’t want to know? You can [unsubscribe](http://${data['DEFAULT_BASE_URL']}/myprofile/notifications) from messages.   
 <%def name="subject()">${data['commenter_name']} has left a comment for ${data['pool_title']}</%def>   

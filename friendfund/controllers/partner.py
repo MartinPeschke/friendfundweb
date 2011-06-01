@@ -15,6 +15,8 @@ log = logging.getLogger(__name__)
 
 class PartnerController(BaseController):
 	def bounce(self):
+		c.backup_values = request.params
+		print request.params
 		query=request.params.get("referer")
 		key=request.params.get("key")
 		host=request.params.get("host")
