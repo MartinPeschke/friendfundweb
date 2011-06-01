@@ -119,7 +119,7 @@ def get_friend_list(method, logger, id, access_token, slice_size = 100):
 		return (elem['id'], {
 					'name':elem['name']
 					,'network_id':elem["id"]
-					,'dob':repr['dob']
+					,'dob':repr.get('dob')
 					,'profile_picture_url':fb_helper.get_pic_url(elem['id'])
 					,'minimal_repr': h.encode_minimal_repr(repr)
 				})
