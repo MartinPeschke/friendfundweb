@@ -238,11 +238,11 @@ FriendFund.Button = {
 #${button_id} a {background:None !important;width:auto;height:auto;text-indent: 0;}\
 #${button_id}:hover {cursor:pointer}\
 #${button_id} *, #${button_id} *:hover {text-decoration:none !important; font-weight:normal !important}\
-#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:center;padding:0;}\
+#${button_id} .friendfundButton{pointer:cursor;display:block;text-align:${alignment};padding:0;}\
 #${button_id} .friendfundButton img{margin:0px auto;}\
 #${button_id} .friendfundButton span{text-transform: none;padding:0;font-size:10px;margin:0px auto;color:#a6a6a6;text-shadow: 0px 1px 0px white;display:block}",
-	fixed_css_template: "#${button_id} {position:absolute;${alignment}:-150px;top:${top};width:196px;height:122px;} \
-#${button_id}:hover {${alignment}:0px;cursor:pointer} \
+	fixed_css_template: "#${button_id} {position:absolute;left:-150px;top:${top};width:196px;height:122px;} \
+#${button_id}:hover {left:0px;cursor:pointer} \
 #${button_id} .friendfundButton{pointer:cursor;color:white;width:196px;height:172px;\
 background:url(${protocol}${host}/static/partner/buttons/friendfund_it_button_complete.png) no-repeat 0 0 transparent;display:block}",
 	
@@ -279,7 +279,7 @@ background:url(${protocol}${host}/static/partner/buttons/friendfund_it_button_co
 	 }
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
-	defaultOptions = {alignment:"left", lang:"en"
+	defaultOptions = {alignment:"center", lang:"en"
 					, button_text:{es:"Comparte los gastos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}
 					, button_background:"#f4f4f4", button_size:"large", button_color:"blue",with_strap_line:true};
 	for(var option in defaultOptions){friendfundOptions[option] = (friendfundOptions[option]===undefined)?defaultOptions[option]:friendfundOptions[option];}
