@@ -3,7 +3,8 @@
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
 <%def name="authperms()">{fwd : true, _workflow : {success : function(){window.location.href = "${getattr(c, 'furl', '/')}";}}}</%def>
 
-<div class="subHeader">
+<div class="wrapSubContent">${self.renderMessages()|n}
+<div class="content">
 	<form id="signup_form" action="${url('index', action='signup')}" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="furl" value="${getattr(c, 'furl', '/')}"/>
 	<div class="colLeftLogin floatLeft">
@@ -29,6 +30,9 @@
 						<span>${_("FF_LOGIN_Your Name")}</span>
 					</div>
 					<input name="signup.name" value="${c.signup_values.get("name")}" type="text" class=""/>
+					%if "name" in c.signup_errors:
+						<span class="error floatLeft" style="margin-left: 160px;">${c.signup_errors['name']}</span>
+					%endif
 				</div>
 			</div>
             <div class="colRightWhite"></div>
@@ -38,6 +42,9 @@
 						<span>${_("FF_LOGIN_Email Address")}</span>
 					</div>
 					<input  name="signup.email" value="${c.signup_values.get("email")}" type="text" class=""/>
+					%if "email" in c.signup_errors:
+						<span class="error floatLeft" style="margin-left: 160px;">${c.signup_errors['email']}</span>
+					%endif
 				</div>
 			</div>
             <div class="colRightWhite"></div>
@@ -47,9 +54,13 @@
 						<span>${_("FF_LOGIN_Password")}</span>
 					</div>
 					<input name="signup.pwd"  value="${c.signup_values.get("pwd")}" type="password" class=""/>
-					
+					%if "pwd" in c.signup_errors:
+						<span class="error floatLeft" style="margin-left: 160px;">${c.signup_errors['pwd']}</span>
+					%endif
 				</div>
-				<p class="twonine">${_("FF_LOGIN_Min 6 characters. Letters and numbers only please.")}</p>
+				%if "email" not in c.signup_errors:
+					<p class="twonine">${_("FF_LOGIN_Min 6 characters. Letters and numbers only please.")}</p>
+				%endif
 			</div>
 			 <div class="colRightWhite"></div>
 			<p class="twonine">
@@ -68,5 +79,7 @@
 	</div>
 	<div class="clear"></div>
 </div>
+</div>
+
 
 
