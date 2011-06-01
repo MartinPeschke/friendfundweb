@@ -127,7 +127,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.DataProvider, {
 		} else {
 			if (!this.is_selected() || this._is_loading !== true){
 				this._is_loading = true;
-				dojo.query("#networkinviter_"+this.network).orphan();
+				{var l=dojo.query("#networkinviter_"+this.network); if(l.length){l.orphan();}}
 				this.rootNode = dojo.create("DIV", {"id":("networkinviter_"+this.network)});
 				dojo.byId(this.ref_node).appendChild(this.rootNode);
 				dojo.place(this._loader, this.rootNode, "only");
@@ -137,7 +137,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.DataProvider, {
 	}
 	,undraw : function(){
 		if(this.rootNode){dojo.addClass(this.rootNode, "hidden");}
-		else {delete dojo.query("#networkinviter_"+this.network).orphan();}
+		else {var l=dojo.query("#networkinviter_"+this.network); if(l.length){l.orphan();}}
 		dojo.forEach(this._listener_locals, dojo.disconnect);
 		this._listener_locals = [];
 	}

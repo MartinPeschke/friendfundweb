@@ -84,7 +84,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		this._widget_locals = [];
 	},switchMethod : function(evt){
 		var _t = this;
-		if(dojo.hasClass(_t, "selected")){return;}
+		if(dojo.hasClass(evt.target, "selected")){return;}
 		dojo.query(".ajaxlink.selected", _t.container).forEach(function(elem){
 			dojo.removeClass(elem, "selected");
 			var selector = _t.selectors[dojo.attr(elem, "_type")];
