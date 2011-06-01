@@ -1,115 +1,94 @@
+<%! import random %>
 <%def name="render(lang)">
-%if lang in ["de"]:
-	<div class="boxGrayWrap box2">
-		<div class="boxGray">
-			<div class="grafx">&#8220;</div>
-			<div class="contTestimonials">
-			<p>"War echt die Überraschung für Alex und alle haben mitgemacht! Es war das Größte!"</p>
-			<div style="margin-top:20px">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/people/julia.jpg">
-				</div>
-				<span class="name bold">Julia</span>
-				<span class="desc">Organisierte Ferrarifahren für ihren Alex. </span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="boxGrayWrap box3">
-		<div class="boxGray">
-			<div class="grafx">“</div>
-			<div class="contTestimonials">
-			<p>"Neue Tischtennisplatten für den Jugendclub hätten wir uns anders nicht leisten können!"</p>
-			<div style="margin-top: 20px;">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/people/peter.jpg">
-				</div>
-				<span class="name bold">Peter</span>
-				<span class="desc">Sozialarbeiter</span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-%elif lang in ["es"]:
-	<div class="boxGrayWrap box2">
-		<div class="boxGray">
-			<div class="grafx">&#8220;</div>
-			<div class="contTestimonials">
-			<p>"Increíble! Nunca podríamos haber hecho esto sin friendfund, gracias"</p>
-			<div style="margin-top:20px">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/people/amanda.jpg">
-				</div>
-				<span class="name bold">Patricia</span>
-				<span class="desc">Organizó clases de piloto para su amigo Julian.</span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="boxGrayWrap box3">
-		<div class="boxGray">
-			<div class="grafx">“</div>
-			<div class="contTestimonials">
-			<p>"Su pagina web nos ha permitido recoger el dinero para redecorar nuestro centro social, gran trabajo!"</p>
-			<div style="margin-top: 20px;">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/people/Greg.jpg">
-				</div>
-				<span class="name bold">Juan Jose</span>
-				<span class="desc">Trabajador Social</span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-%else:
-	<div class="boxGrayWrap box2">
-		<div class="boxGray">
-			<div class="grafx">&#8220;</div>
-			<div class="contTestimonials">
-			<p>"Absolutely brilliant, we would never have been able to do this without friendfund, thanks!"</p>
-			<div style="margin-top:20px">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/people/amanda.jpg">
-				</div>
-				<span class="name bold">Amanda</span>
-				<span class="desc">Organised flying lessons for her friend Megan. </span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="boxGrayWrap box3">
-		<div class="boxGray">
-			<div class="grafx">“</div>
-			<div class="contTestimonials">
-			<p>"Your site made it possible for us to collect the money to redecorate our community hall, great job!"</p>
-			<div style="margin-top: 20px;">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="/static/imgs/people/Greg.jpg">
-				</div>
-				<span class="name bold">Greg</span>
-				<span class="desc">Scout Dad</span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-%endif
+<% 
+testimonials = {
+	'de': [("Tim",
+				u"Vorstand, Brighton City Table Tennis Club", 
+				u"“Mit unserem friendfund haben wir das Geld zusammenbekommen, um aufstrebende aber sozial benachteiligte Tischtennisspieler nächstes Jahr nach London schicken und den Besten beim Spielen zusehen zu können!”", 
+				u"http://static02.friendfund.net/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
+				"P3pD.Whiff-Whaff-for-the-Riff-Rff"),
+		("Martina",
+				u"Brooklyn Pirat (NY)", 
+				u"“Es war wirklich inspierend für alle Projektmitglieder, die Unterstützung unserer erweiterten Community zu sehen.”",
+				u"http://static01.friendfund.net/s/user/69/61/6961f96de15e298fa37a2f7e7620d441_PROFILE_M.jpg", 
+				"P3pB.It-s-time-for-bushwick-s-favourite-boat-to-get-seaworthy"),
+		("Tom",
+				u"Music Photographer", 
+				u"“Es hat mich echt beeindruckt, wie großzügig meine Freunde waren.”",
+				u"http://static01.friendfund.net/s/user/f7/c9/f7c9545322059212da859ffc5ef36d4d_PROFILE_M.jpg", 
+				"P3ro.To-shoot-the-best-music-video-I-ve-shot-so-far-")]
+	,
+	'en':[("Tim",
+				u"President, Brighton City Table Tennis Club.", 
+				u"“With our friendfund we were able to raise enough funds to take some under privileged young budding Table Tennis stars to London next year to see the best in the world and learn mad skills!”", 
+				u"http://static02.friendfund.net/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
+				"P3pD.Whiff-Whaff-for-the-Riff-Rff"),
+		("Martina",
+				u"Brooklyn Pirate", 
+				u"“It really inspired all the people working on this project to see the support of our extended community.”",
+				u"http://static01.friendfund.net/s/user/69/61/6961f96de15e298fa37a2f7e7620d441_PROFILE_M.jpg", 
+				"P3pB.It-s-time-for-bushwick-s-favourite-boat-to-get-seaworthy"),
+		("Tom",
+				u"Music Photographer", 
+				u"“I was really touched by how generous my friends were.”",
+				u"http://static01.friendfund.net/s/user/f7/c9/f7c9545322059212da859ffc5ef36d4d_PROFILE_M.jpg", 
+				"P3ro.To-shoot-the-best-music-video-I-ve-shot-so-far-")]
+	,
+	'es':[(u"Tim",
+				u"presidente, Club de tenis de mesa, Ciudad de Brighton", 
+				u"“Con nuestro friendfund hemos sido capaces de obtener fondos suficientes para llevar algunos jóvenes menos favorecidas estrellas de tenis de mesa a Londres el próximo año para ver los mejores del mundo y aprender nuevas habilidades!”", 
+				u"http://static02.friendfund.net/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
+				"P3pD.Whiff-Whaff-for-the-Riff-Rff"),
+		(u"Martina",
+				u"Pirata de Brooklyn", 
+				u"“Realmente ha inspirado todas las personas que trabajan en este proyecto para ver el apoyo de nuestra gran comunidad.”",
+				u"http://static01.friendfund.net/s/user/69/61/6961f96de15e298fa37a2f7e7620d441_PROFILE_M.jpg", 
+				"P3pB.It-s-time-for-bushwick-s-favourite-boat-to-get-seaworthy"),
+		(u"Tom", 
+				u"Fotógrafo",
+				u"“Me impresionó mucho la generosidad de mis amigos.”",
+				u"http://static01.friendfund.net/s/user/f7/c9/f7c9545322059212da859ffc5ef36d4d_PROFILE_M.jpg", 
+				"P3ro.To-shoot-the-best-music-video-I-ve-shot-so-far-")]
+	}
+	
+selection = random.sample(testimonials.get(lang, "en"), 2)
+%>
 
+	<div class="boxGrayWrap box2">
+		<div class="boxGray">
+			<div class="grafx">&#8220;</div>
+			<div class="contTestimonials">
+			<p>${selection[0][2]|n}</p>
+			<div class="testimonContributorAvt">
+				<div class="avt">
+					<div class="arrowAvatar"></div>
+					<img src="${selection[0][3]|n}"/>
+				</div>
+				<span class="name bold">${selection[0][0]|n}</span>
+				<span class="desc">${selection[0][1]|n}</span>
+				<div class="clear"></div>
+			</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="boxGrayWrap box3">
+		<div class="boxGray">
+			<div class="grafx">“</div>
+			<div class="contTestimonials">
+			<p>${selection[1][2]|n}</p>
+			<div class="testimonContributorAvt">
+				<div class="avt">
+					<div class="arrowAvatar"></div>
+					<img src="${selection[1][3]|n}"/>
+				</div>
+				<span class="name bold">${selection[1][0]|n}</span>
+				<span class="desc">${selection[1][1]|n}</span>
+				<div class="clear"></div>
+			</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
 </%def>
