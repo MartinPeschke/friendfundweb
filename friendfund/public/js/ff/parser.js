@@ -72,7 +72,7 @@ dojo.mixin(ff, {parser: {
 	}
 	,pic_judger : function(imgContainer, imgs, preselected, evt){
 		if(dojo.byId("pictureCounter")){
-			this.judger(190, 150, preselected, evt.target);
+			this.judger(177, 140, preselected, evt.target);
 			this.createAppendPicture(imgContainer, imgs, preselected);
 		}
 	}
