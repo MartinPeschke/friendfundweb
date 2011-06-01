@@ -97,11 +97,8 @@ class ContentController(BaseController):
 	def imprint(self, lang = None):
 		return self._localized_content("imprint", lang)
 	@provide_lang()
-	def tips(self, lang = None):
-		return self._localized_content("pool_tips", lang)
-	@provide_lang()
 	def learn_more(self, lang = None):
-		return self._localized_content("learnmore", lang)
+		return self._localized_content("pool_tips", lang)
 	@provide_lang()
 	def tos(self, lang = None):
 		return self._localized_content("tos", lang)
