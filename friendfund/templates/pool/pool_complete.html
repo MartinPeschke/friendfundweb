@@ -11,15 +11,12 @@
 </%def>
 
 <%def name="onloadscripts()">
-	parseEditables("thankYouMessage");
+	ff.w.parseEditables("thankYouMessage");
 	%if getattr(c, "popup", None):
-		rigPopup("generic_popup");
+		ff.Popup().display(dojo.byId("popupContentHolder").value);
 	%endif
 </%def>
 <%def name="renderBlockingPopup()">
-%if getattr(c, "popup", None):
-	${c.popup|n}
-%endif
 </%def>
 <div class="wrapSubHeader">${self.renderMessages(relative=True)|n}
 	<% 
@@ -148,3 +145,4 @@
 </div>
 </div>
 
+<textarea id="popupContentHolder" style="display:none">${getattr(c, "popup", "")}</textarea>
