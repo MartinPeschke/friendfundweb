@@ -4,9 +4,9 @@ from ordereddict import OrderedDict
 
 from pylons import request, response, tmpl_context as c, url, app_globals, cache, session as websession
 from pylons.controllers.util import abort, redirect
-from pylons.decorators import jsonify, PylonsFormEncodeState
+from pylons.decorators import PylonsFormEncodeState
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only, pool_available
+from friendfund.lib.auth.decorators import logged_in, post_only, pool_available, jsonify
 from friendfund.lib.base import BaseController, render, render_def, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage

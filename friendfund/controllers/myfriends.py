@@ -4,11 +4,10 @@ from formencode.variabledecode import variable_decode
 from ordereddict import OrderedDict
 
 from pylons import request, response, session as websession, tmpl_context as c, url, config, app_globals, cache
-from pylons.decorators import jsonify
 from pylons.controllers.util import abort, redirect
 
 from friendfund.lib import fb_helper, tw_helper, helpers as h
-from friendfund.lib.auth.decorators import post_only, logged_in
+from friendfund.lib.auth.decorators import post_only, logged_in, jsonify
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.model.authuser import UserNotLoggedInWithMethod

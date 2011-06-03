@@ -1,5 +1,6 @@
 from __future__ import with_statement
-import urlparse
+import logging, urlparse, simplejson
+import warnings
 from decorator import decorator
 from pylons import url
 from pylons.i18n import ugettext as _, set_lang
@@ -9,6 +10,31 @@ from friendfund.lib import helpers as h
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
 from friendfund.model.db_access import SProcException
 from friendfund.model.pool import Pool
+
+log = logging.getLogger(__name__)
+
+
+@decorator
+def jsonify(func, *args, **kwargs):
+	"""Action decorator that formats output for JSON
+
+	Given a function that will return content, this decorator will turn
+	the result into JSON, with a content-type of 'application/json' and
+	output it.
+
+	"""
+	pylons = get_pylons(args)
+	pylons.response.headers['Content-Type'] = 'application/json'
+	data = func(*args, **kwargs)
+	if isinstance(data, (list, tuple)):
+		msg = "JSON responses with Array envelopes are susceptible to " \
+			  "cross-site data leak attacks, see " \
+			  "http://pylonshq.com/warnings/JSONArray"
+		warnings.warn(msg, Warning, 2)
+		log.warning(msg)
+	log.debug("Returning JSON wrapped action output")
+	return simplejson.dumps(data, cls=h.DateAwareJSONEncoder)
+
 
 def logged_in(ajax = False, redirect_to = url('index', action='login'), furl = None, level = 3): 
 	def validate(func, self, *args, **kwargs):
@@ -104,3 +130,4 @@ def post_only(ajax = False):
 		else:
 			return func(self, *args, **kwargs)
 	return decorator(validate)
+	
