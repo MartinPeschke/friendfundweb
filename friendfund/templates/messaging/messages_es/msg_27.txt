@@ -1,9 +1,9 @@
 Gracias ${data['contributor_name']} por tu contribución de ${data['chip_in_amount']} para ${data['pool_title']}!  
  
-Esta bote es "todo o nada", lo que significa que no se te cobrará por tu contribución hasta que el objetivo del bote haya sido alcanzado.
+Esta bote es "todo o nada", lo que significa que no se te cobrará por tu contribución hasta que el objetivo del bote haya sido alcanzado.   
 <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
-Un saludo  
+Un Saludo  
 %if data['merchant_is_default']:      
 el equipo @friendfund  
 %else:  
@@ -11,6 +11,7 @@ el equipo @${data['merchant_name']} asociado con friendfund
 <img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>    
 %endif     
 
-<${data['DEFAULT_BASE_URL']}>  
-Recaudar dinero con amigos. Crea un bote. Contribuye. friendfund it!  
-<%def name="subject()">Gracias por tu contribuciñon para: ${data['pool_title']}</%def>
+<${data['DEFAULT_BASE_URL']}>    
+Recauda dinero con amigos. Crea un bote. Contribuiye. friendfund it!  
+
+<%def name="subject()">Gracias por tu contribución para: ${data['pool_title']}</%def>

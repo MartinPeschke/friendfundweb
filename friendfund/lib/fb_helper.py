@@ -181,7 +181,6 @@ def get_friends_from_cache(
 			time.sleep(0.2)
 			value = mc.get(key)
 			sleeper += 0.2
-		
 		if not (isinstance(value, dict) and 'payload' in value and "is_final" in value): 
 			logger.error('FACEBOOK, WAITEDLONGANDSTILLNOTHINGFOUND, TIMEOUT for %s, without necessary values, %s', key, value)
 			return None, None, None
@@ -190,13 +189,12 @@ def get_friends_from_cache(
 		if friend_id is not None:
 			if mutual_with is None:
 				mc.set(mutual_key, INPROCESS_TOKEN, 30)
-				mutual_friends = get_mutual_friends(logger, friend_id, access_token)
-				mc.set(mutual_key, mutual_friends, time=expiretime)
+				mutual_with = get_mutual_friends(logger, friend_id, access_token)
+				mc.set(mutual_key, mutual_with, time=expiretime)
 			while mutual_with in (None,INPROCESS_TOKEN) and sleeper < timeout:  ##not resetting sleep, dont wanna wait double time
 				time.sleep(0.2)
 				mutual_with = mc.get(key)
 				sleeper += 0.2
-			
 			for id in mutual_with:
 				if str(id) in payload:
 					payload[str(id)]['mutual_with'] = str(friend_id)
