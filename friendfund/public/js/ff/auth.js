@@ -25,6 +25,7 @@ dojo.declare("ff.auth", null, {
 		if(optionals&&typeof(optionals)==="object"){dojo.mixin(this, optionals);}
 		if(this.hasLoginPanel){this.connectLoginPanel();}
 		this.fbInit(args.fbappId, args.fbRootNode);
+		this._fb_login_in_progress = false;
 	}
 	
 	,loginPanelFormConnect : function(){
@@ -93,7 +94,9 @@ dojo.declare("ff.auth", null, {
 			if(_t.fbId&&sess.uid!=_t.fbId){
 				if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
 			}else{
+			if(!_t._fb_login_in_progress){
 				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", _t._get_scope(_t._workflow), response));
+			} else { _t._fb_login_in_progress = false; }
 			}
 		} else {
 			if(_t.isLoggedIn()){window.location.href = "/logout?furl=/";}
@@ -107,10 +110,11 @@ dojo.declare("ff.auth", null, {
 	}
 	,forceFBLogin : function(required_scope){
 		var _t = this;
-		FB.Event.unsubscribe("auth.sessionChange", _t.handleSessionChange);
+		_t._fb_login_in_progress = true;
 		FB.login(function(response){
-			_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", required_scope, response));
-			FB.Event.subscribe("auth.sessionChange", _t.handleSessionChange);
+			if(response.status=="connected"){
+				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", required_scope, response));
+			}
 		}, {perms:required_scope});
 	}
 	,getFBPerms : function(cb, notloggedin){
@@ -133,13 +137,11 @@ dojo.declare("ff.auth", null, {
 		}
 		return missing_perms;
 	}
-	,checkFBIsInOrder : function(required_scope){
-		var response = {};
-		var sess = FB.getSession();
+	,checkFBIsInOrder : function(required_scope, level){
+		var response = {}, _t = this, sess = FB.getSession();
 		if(this.fbId && sess){
-			response.scope = ff.t.getKeys(this._fbperms).join(",");
 			var mp = this.getMissingFBPerms(required_scope, this._fbperms);
-			if(mp.length){
+			if(mp.length&&level>3){
 				this.forceFBLogin(required_scope);
 				return false;
 			} else {
@@ -153,8 +155,8 @@ dojo.declare("ff.auth", null, {
 		var url = args.url||this.loginurl, required_scope = _t._get_scope(_t._workflow);
 		if(args.success||args.fail){this._workflow.success = args.success; this._workflow.fail = args.fail;}
 		if(this.isLoggedIn()){
-			if(args.ignoreFB||this.checkFBIsInOrder(required_scope)){
-				this._workflow.success();
+			if(args.ignoreFB||_t.checkFBIsInOrder(required_scope, _t._workflow.level)){
+				_t._workflow.success();
 			}
 		} else {
 			ff.io.xhrPost(url, {level:this._workflow.level}, dojo.hitch(this, "logincb"));

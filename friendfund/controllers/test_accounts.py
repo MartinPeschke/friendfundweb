@@ -42,10 +42,10 @@ class TestAccountsController(BaseController):
 		pprint.pprint(userlist)
 		html = []
 		for user in userlist:
-			html.append("<tr><td>%s</td><td><a href=\"%s\">login</a></td><td>%s</td></tr>" % (user['id'], user['login_url'], user.get('access_token')))
+			html.append("<tr><td>%s</td><td><a href=\"%s\">login</a></td><td>%s</td></tr>" % (user['id'], user.get('login_url'), user.get('access_token')))
 		return wrap_response("<table>%s</table>" % "".join(html))
 	
 	def create(self):
 		app_id, token = self._get_access_token()
 		response = make_query("https://graph.facebook.com/%s/accounts/test-users?installed=false&permissions=email&method=post&access_token=%s"%(app_id, token))
-		return redirect(controller = "test_accounts", action="list")
+		return redirect(url(controller = "test_accounts", action="list"))

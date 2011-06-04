@@ -5,7 +5,7 @@ Date: ${data['chip_in_date']}
 Amount: ${data['chip_in_amount']}  
 Payment Method: ${data['payment_method']}  
 
-This pool is “All or Nothing” which means that if the pool target is not met by ${data['expiry_date']} you will be fully refunded to your PayPal account.  
+This Pool is “All or Nothing” which means that if the pool target is not met by ${data['expiry_date']} you will be fully refunded to your PayPal account.  
 
 <http://${data['merchant_domain']}/pool/${data['p_url']}>  
 
@@ -18,6 +18,6 @@ the team @${data['merchant_name']} in partnership with friendfund
 %endif     
 
 <${data['DEFAULT_BASE_URL']}> 
-Collect money with friends. Create a pool. Chip in. friendfund it!  
+Collect money with friends. Create a Pool. Chip in. friendfund it!  
 
 <%def name="subject()">Contribution receipt: ${data['pool_title']}</%def>   

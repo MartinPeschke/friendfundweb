@@ -1,0 +1,36 @@
+Hello ${data['merchant_name']}
+
+Invoice reference: ${data['p_url']}  
+Product name: ${data['product_name']}  
+Product id: ${data['product_id']}  
+Product url: ${data['product_url']}
+
+
+Admin name: ${data['admin_name']}  
+Admin email: ${data['admin_email']}
+
+Recipient name: ${data['recipient_name']}  
+Recipient email: ${data['recipient_email']} #####might be empty
+
+Shipping Line 1: ${data['shipping_line_1']}
+Shipping Line 2: ${data['shipping_line_2']}
+Shipping Line 3: ${data['shipping_line_3']}
+Shipping Line ZIP: ${data['shipping_zip']}  
+Shipping City: ${data['shipping_city']}
+Shipping State: ${data['shipping_state']}
+Shipping Country: ${data['shipping_country']}
+				  
+Product price:    ${data['product_price']}  
+Product shipping: ${data['product_shipping']}  
+Total:            ${data['product_total']}  
+
+
+
+Ecard Greetings:
+
+%for name, greeting in data['ecard_greetings']:
+	${name}: ${greeting}
+%endfor
+
+
+<%def name="subject()">Your order for ${data['product_name']} has now been sent </%def>

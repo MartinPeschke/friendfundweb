@@ -185,12 +185,12 @@ class User(ProtoUser):
 		return perms
 	def get_perm_network_id(self, network):
 		network = network.lower()
-		perms = self.permissions.setdefault(network, NetworkUserPermissions(network=network))
-		return perms.network_id
+		perms_id = getattr(self.permissions.get(network), "network_id", None)
+		return perms_id
 	
 	def has_perm(self, network, perm):
 		network = network.lower()
-		return getattr(self.permissions.get(network.lower(), None), perm, False)
+		return getattr(self.permissions.get(network), perm, False)
 	def set_perm(self, network, perm, val):
 		network = network.lower()
 		perm_obj = self.permissions.setdefault(network, NetworkUserPermissions(network=network))
