@@ -26,20 +26,9 @@
 			});
 	dojo.connect(dojo.byId("createSubmitter"), "onclick", dojo.hitch(ffp_panel, ffp_panel.submit, "${url(controller="partner", action="validate")}", 3));
 	
-	window.__auth__.handleSessionChange = function(response){
-		var _t = this;
-		if(response.status==="connected"){
-			var sess = response.session;
-			if(_t.fbId&&sess.uid!=_t.fbId){
-				ff.io.xhrPost("/logout?furl=/");
-				document.getElementById("resubmit").submit();
-			}else{
-				_t.forceRefreshPerms(dojo.hitch(_t, "fbHandleLogin", _t._get_scope(_t._workflow), response));
-			}
-		} else {
-			ff.io.xhrPost("/logout?furl=/");
-			document.getElementById("resubmit").submit();
-		}
+	window.__auth__._simpleLogout = function(response){
+		ff.io.xhrPost("/logout?furl=/");
+		document.getElementById("resubmit").submit();
 	};
 </%def>
 
@@ -57,12 +46,12 @@
 		<div class="colLeftIframe" id="helpPopupContainer">
 			<img class="floatLeft merchantLogo" style="margin:7px 0 0 50px" width="90px" height="45px" src="${request.merchant.get_logo_url("med")}"/>
 			<h3>${_("FF_IFRAME_Organise a Group Gift!")}</h3>
-			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1000;"></div>
+			<div class="popupBackground dark helpPopupToggler helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			<div class="learnMoreBtn">
 				<span class="helpPopupToggler">${_("FF_IFRAME_BUTTON_Help")}</span>
 				<div class="arrowPop helpPopupHook ${not c.user.is_anon and "hidden" or ""}"></div>
 			</div>
-			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}" style="z-index:1001;">
+			<div class="helpPopup helpPopupHook ${not c.user.is_anon and "hidden" or ""}">
 					<a class="helpPopupToggler floatRight close"> ${_("FF_close")} <span>X</span></a>
 					<h4>${_("FF_IFRAME_Quick Guide to Creating a Pool")}</h4>
 					<div class="subHeading"></div>

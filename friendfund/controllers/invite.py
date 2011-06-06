@@ -100,7 +100,7 @@ class InviteController(BaseController):
 			c.invitees[netw] = invs
 		return self._display_invites(c.invitees)
 	
-	@logged_in(ajax=False, level = CLEARANCES["INVITE"])
+	@logged_in(ajax=False)
 	@pool_available(contributable_only = True)
 	def friends(self, pool_url):
 		invitees = request.params.getall('invitees')

@@ -42,15 +42,29 @@ dojo.mixin(ff,{t:{
 	,showLoadingInfo : function(rootnode){
 		dojo.query(".loading_animation", rootnode).removeClass("hidden");
 		dojo.query("input[type=submit]", rootnode).forEach(function(elem){elem.disabled = "disabled";});
-	},
-	accessability : function(callbackRet, callbackEsc, evt){
+	}
+	,accessability : function(callbackRet, callbackEsc, evt){
 		if(evt.keyCode === 13){dojo.hitch(this, callbackRet(this, evt));}
 		else if(evt.keyCode === 27){dojo.hitch(this, callbackEsc(this, evt));}
-	},
-	getKeys : function(map){
+	}
+	,getKeys : function(map){
 		var result = [];
 		for(var key in map){
 			if(map.hasOwnProperty(key))result.push(key);
+		}
+		return result;
+	}
+	,getValues : function(map){
+		var result = [];
+		for(var key in map){
+			if(map.hasOwnProperty(key))result.push(map[key]);
+		}
+		return result;
+	}
+	,toMap : function(list){
+		var result = {}, i, len;
+		for(i=0,len=list.length; i<len;i++){
+			result[list[i]] = 1;
 		}
 		return result;
 	}
@@ -59,8 +73,8 @@ dojo.mixin(ff,{t:{
 			var r = params[b];
 			return typeof r === 'string' || typeof r === 'number' ? r : a;
 		})
-	},
-	debounce : function (func, threshold, execAsap) {
+	}
+	,debounce : function (func, threshold, execAsap) {
 		var timeout;
 		return function debounced () {
 			var obj = this, args = arguments;
