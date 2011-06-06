@@ -1,4 +1,4 @@
-import urllib2, os, sys, pyodbc, ConfigParser, simplejson, pprint
+import urllib, urllib2, os, sys, pyodbc, ConfigParser, simplejson, pprint
 
 def get_config(configname):
 	_config = ConfigParser.ConfigParser({'here':__file__})
@@ -9,35 +9,40 @@ def get_config(configname):
 
 
 def get_access_token(app_conf):
-	appid = app_conf['fbappid']
+	app_id = app_conf['fbappid']
 	appsecret = app_conf['fbapisecret']
-	query = "https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&grant_type=client_credentials" % (appid, appsecret)
+	print app_id, appsecret
+	query = "https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&grant_type=client_credentials" % (app_id, appsecret)
 	a = urllib2.urlopen(query)
 	token = a.read().split('=')[1]
-	return token, app_id
+	return app_id, token
+def make_query(query):
+	try:
+		print query
+		result = simplejson.load(urllib2.urlopen(query))
+		pprint.pprint(result)
+		return result
+	except urllib2.HTTPError, e:
+		print e.fp.read()
 
-
-def main(token, app_id, command, args):
+def main(app_id, token, command, args):
 	if command == 'create_user':
-		query = "https://graph.facebook.com/%s/accounts/test-users?installed=false&permissions=&method=post&access_token=%s"%(token, app_id)
-		print query
-		a = urllib2.urlopen(query)
-		response = simplejson.load(a)
-		pprint.pprint( response )
-	elif command == 'get_users':
-		"https://graph.facebook.com/%s/accounts/test-users?access_token=%s"%(token, app_id)
-		print query
-		a = urllib2.urlopen(query)
-		response = simplejson.load(a)
-		pprint.pprint( response )
+		response = make_query("https://graph.facebook.com/%s/accounts/test-users?installed=false&permissions=email&method=post&access_token=%s"%(app_id, token))
+	elif command == 'list_users':
+		response = make_query("https://graph.facebook.com/%s/accounts/test-users?access_token=%s"%(app_id, token))
 	elif command == "make_friend":
-		query = "https://graph.facebook.com/%s/friends/%s?method=post" % (args[0], args[1])
-		print query
-		pprint.pprint( urllib2.urlopen(query).read() )
-		query = "https://graph.facebook.com/%s/friends/%s?method=post" % (args[0], args[1])
-		print query
-		pprint.pprint( urllib2.urlopen(query).read() )
-
+		users = make_query("https://graph.facebook.com/%s/accounts/test-users?access_token=%s"%(app_id, token))['data']
+		token1, token2 = None, None
+		for i, user in enumerate(users):
+			if user['id']==args[0]:
+				token1 = user['access_token']
+			if user['id']==args[1]:
+				token2 = user['access_token']
+			if token1 and token2: break
+		make_query("https://graph.facebook.com/%s/friends/%s?access_token=%s&method=post" % (args[0], args[1], token1))
+		make_query("https://graph.facebook.com/%s/friends/%s?access_token=%s&method=post" % (args[1], args[0], token2))
+	else:
+		print "unknown command"
 
 if __name__ == "__main__":
 	argv = sys.argv
@@ -45,5 +50,5 @@ if __name__ == "__main__":
 	environment = argv[1]
 	command = argv[2]
 	args = argv[3:]
-	token, app_id = get_access_token(get_config(environment))
-	sys.exit(main(token, app_id, command, args))
+	app_id, token = get_access_token(get_config(environment))
+	sys.exit(main(app_id, token, command, args))
