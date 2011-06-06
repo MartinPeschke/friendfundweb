@@ -89,7 +89,7 @@ def date(key, data_map, locale):
 def translate(key, data_map, locale):
 	return {key: _(data_map[key])}
 
-TRANSLATIONS = {"expiry_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname, "occasion":translate, "event_name":translate}
+TRANSLATIONS = {"expiry_date": date, "chip_in_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname, "occasion":translate, "event_name":translate}
 
 def localize(data_map, locale):
 	result = {}
