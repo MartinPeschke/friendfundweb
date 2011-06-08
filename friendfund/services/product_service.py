@@ -177,7 +177,7 @@ class ProductService(object):
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False, False),
 					"og:image":(["picture"], lambda x:x, False, True),
 					"og:currency":(["currency"], lambda x:x, False, True)}
-		fallBacks = {"og:name":"og:title", "description":"og:description", "og:tracking_link":"og:url"}
+		fallBacks = {"og:name":"og:title", "description":"og:description"}
 		product_map = {}
 		for k in params:
 			key_parts = k.rsplit("-", 1)
@@ -211,8 +211,7 @@ class ProductService(object):
 						if override or getattr(product, attr, None) is None:
 							setattr(product, attr, transf(p_map.get(ogkey)))
 			if product and product.name:   # catching title/name schisma
-				if not product.tracking_link:
-					product.tracking_link = referer
+				product.referer_link = referer
 				product_list.append(product)
 		return product_list
 	

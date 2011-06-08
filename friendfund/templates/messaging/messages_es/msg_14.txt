@@ -1,7 +1,5 @@
 Hola ${data['invitee_name']},  
 
-${data['admin_name']} ha encontrado el regalo perfecto de ${data['occasion']} para ${data['recipient_name']} y me gustaría invitarte al bote de friendfund que vamos a usar para comprarlo.
-
 ${data['message']}   
 
 Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo!  Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)!
@@ -24,4 +22,4 @@ Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
 
 ¿Que es friendfund? Aprende más aquí: http://${data['learn_more_url']}     
 
-<%def name="subject()">${data['pool_title']}: Te han invitado a un bote de friendfund!</%def>
+<%def name="subject()">${data['subject']}</%def>

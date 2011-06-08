@@ -16,6 +16,7 @@ class Product(DBMappedObject):
 				,GenericAttrib(unicode ,'ean'          , 'ean'              )
 				,GenericAttrib(unicode ,'picture'      , 'picture'          )
 				,GenericAttrib(unicode ,'tracking_link', 'tracking_link'    )
+				,GenericAttrib(unicode ,'referer_link' , 'referer_link'     )
 				,GenericAttrib(unicode ,'guid'         , 'guid'             , persistable=False)
 				]
 	def get_product_pic(self, type="POOL"):
@@ -45,6 +46,7 @@ class DisplayProduct(Product):
 				,GenericAttrib(unicode ,'ean'          , 'ean'              , persistable=False)
 				,GenericAttrib(unicode ,'picture'      , 'picture'          , persistable=False)
 				,GenericAttrib(unicode ,'tracking_link', 'tracking_link'    , persistable=False)
+				,GenericAttrib(unicode ,'referer_link' , 'referer_link'     , persistable=False)
 			]
 	
 	def get_price_float(self, include_shipping = True):

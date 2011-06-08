@@ -168,12 +168,22 @@ background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repea
 FriendFund.onClose = function () {};
 
 FriendFund.Popup.Overlay = {
-	show: function () {this.get_element().style.display = 'Block';},
-	hide: function () {this.get_element().style.display = 'None';},
-	olay_id: 'FriendFund_overlay',
-	get_element: function () {
+	show: function () {
+		this.get_element().style.display = 'Block';
+		this._keyUpSuper = document.onkeydown;
+		document.onkeydown = function(evt){
+			var evt = evt||window.event;if(evt.keyCode===27){FriendFund.Popup.close()}
+		};
+	}
+	,hide: function () {
+		this.get_element().style.display = 'None';
+		document.onkeydown = this._keyUpSuper;
+		this._keyUpSuper&&delete this._keyUpSuper;
+	}
+	,olay_id: 'FriendFund_overlay'
+	,get_element: function () {
 		if(!document.getElementById(this.olay_id)){olay = document.createElement('div');
-			olay.innerHTML = '<div id="' + this.olay_id + '" class="FriendFund_popup_elem" onclick="FriendFund.Popup.close(); return false;" style="display:none;"></div>';
+			olay.innerHTML = '<div id="' + this.olay_id + '" class="FriendFund_popup_elem" return false;" style="display:none;"></div>';
 			document.body.insertBefore(olay.firstChild, document.body.firstChild);
 		}
 		return document.getElementById(this.olay_id);

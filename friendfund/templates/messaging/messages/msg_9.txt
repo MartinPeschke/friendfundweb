@@ -1,11 +1,8 @@
 Hi ${data['invitee_name']},  
 
-I have found the perfect ${data['occasion']} gift for ${data['recipient_name']} and would like to invite you to the friendfund gift Pool that will help purchase it.  
-
 ${data['message']} 
 
-Chip in as little or a much as you like (even the smallest contribution helps)! We have until the ${data['expiry_date']} to make this happen!  
-
+We have until ${data['expiry_date']} to meet the target. Chip in as little or a much as you like (even the smallest contribution helps)!    
 Visit the gift Pool here: <http://${data['merchant_domain']}/pool/${data['p_url']}>
 
 Thank you   
@@ -25,4 +22,4 @@ Collect money with friends. Create a pool. Chip in. friendfund it!
 
 What is friendfund anyway? Learn more here: ${data['learn_more_url']}  
 
-<%def name="subject()">${data['pool_title']}: You have been invited to join a friendfund pool!</%def>
+<%def name="subject()"> ${data['subject']} </%def>

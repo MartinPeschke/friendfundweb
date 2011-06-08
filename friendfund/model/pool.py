@@ -423,6 +423,7 @@ class Pool(DBMappedObject):
 				,ean = dproduct.ean
 				,picture = dproduct.picture
 				,tracking_link = dproduct.tracking_link
+				,referer_link = dproduct.referer_link
 				,merchant_ref = dproduct.merchant_ref
 				,guid = dproduct.guid
 			)

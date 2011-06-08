@@ -1,8 +1,6 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}  
 
-Wir haben das perfekte ${data['occasion']}'s Geschenk für ${data['recipient_name']} gefunden und einen Pool auf friendfund gegründet. Damit können wir das benötigte Geld schnell und einfach sammeln.
-
 ${data['message']}   
 
 ${common.timeline_blurb(data)}
@@ -18,4 +16,4 @@ ${common.partner_closing(data)}
 ${common.footing_phrase_with_learn_more(data)} 
 
 
-<%def name="subject()">${data['pool_title']}: Du wurdest zu einem friendfund eingeladen.</%def>  
+<%def name="subject()">${data['subject']}</%def>  

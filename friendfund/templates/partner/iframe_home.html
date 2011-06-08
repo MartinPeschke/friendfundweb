@@ -49,7 +49,11 @@ slides = [
 		<div class="iFrameHomeBox">
 			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="138px" height="109px" />
 			<span class="rose"><p>${widgets.renderPoolInfoContributors(locals)|n}</p></span>
-			<a target="_blank" href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a>
+			%if pool.product and pool.product.tracking_link:
+				<a class="pLink" target="_blank" href="${pool.product.tracking_link}">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</a>
+			%else:
+				<span class="pLink">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</span>
+			%endif
 			<div class="shadBigLeftCorner"></div>
 			<div class="shadBigRightCorner"></div>
 		</div>
