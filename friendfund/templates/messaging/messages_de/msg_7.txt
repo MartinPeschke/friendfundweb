@@ -3,7 +3,7 @@ ${common.greeting(data['invitee_name'])}
 
 Ich habe einen friendfund Pool für "${data['pool_title']}" erstellt. Ich möchte dich einladen teilzunehmen und mit uns gemeinsam das Ziel zu erreichen.
 
-${data['message']}  
+${data['message'] or u"default message"}  
 
 ${common.timeline_blurb(data)}
 ${common.emaillogin_blurb(data)}
@@ -13,4 +13,4 @@ ${data['invitor_name']}
 
 ${common.footing_phrase_with_learn_more(data)}   
 
-<%def name="subject()">${data['subject']}</%def>
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>

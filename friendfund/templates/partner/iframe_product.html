@@ -1,0 +1,89 @@
+<%inherit file="../master.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html" />
+<%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="common" file="common.html"/>
+
+<%def name="authperms()">{fwd:false, hasLoginPanel:false, simpleLogout : function(response){ff.io.xhrPost("/logout?furl=/");document.getElementById("resubmit").submit();}}</%def>
+<%def name="styles()">${links.css('iframe.css')}</%def>
+
+
+<%def name="onloadscripts()">
+	ff.w.anythingSlider("slider1");
+	swapProduct = function(evt){
+		var selected_product = evt.target.options[evt.target.selectedIndex];
+		dojo.query(".selectedProduct", "wrapIframeProductArea").removeClass("selectedProduct").addClass("hidden");
+		dojo.query("#product_"+dojo.attr(selected_product, "_guid")).addClass("selectedProduct").removeClass("hidden");
+	};
+	dojo.connect(dojo.byId("productSelector"), "onchange", swapProduct);
+</%def>
+
+<div class="contentIframe">
+	<div class="wrapHeaderIframe">
+		<h2>${_("FF_IFRAME_Organise a Group Gift!")}</h2>
+	</div>
+	
+	<div class="wrapContentIframe">
+		<div class="wrapIframeProductArea" id="wrapIframeProductArea">
+			%for p in c.product_list:
+				<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
+					<div class="prod">
+						<div><img class="prodPicture" src="${p.get_picture("FF_POOLS")}"/></div>
+					</div>
+					<div class="productDetails">
+						<div class="price">${p.get_iframe_display_price()}</div>
+						%if p.tracking_link:
+							<div class="clear"></div>
+							<a class="link" target="_blank" href="${p.tracking_link}">${p.get_iframe_display_label(words = 10)|n}</a>
+						%endif
+					</div>
+				</div>
+			%endfor
+			%if len(c.product_list)>1:
+				<select id="productSelector" class="productSelector" name="productMap">
+					%for p in c.product_list:
+					<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
+						${p.get_iframe_display_label(words = 10)}
+					</option>
+					%endfor
+				</select>
+			%else:
+				<div class="productSelector">${p.get_iframe_display_label(words = 10)}</div>
+				<input type="hidden" name="productMap" value="${c.product.to_minimal_repr()}"/>
+			%endif
+		</div>
+		<div class="clear"></div>
+		
+		<h3 class="subheading">${_("FF_IFRAME_What is Friendfund!")}</h3>
+		<div class="sliderContainer" id="slider1" style="clear:both;float:left;margin-bottom:30px;">
+			${common.renderSlider()|n}
+		</div>
+	</div>
+	<div class="wrapFooterIframe">
+		<span class="floatLeft" style="margin: 0 30px">${_("FF_IFRAME_As seen in")}
+			<img src="/static/imgs/press/techcrunch_sml.png" />
+			<img src="/static/imgs/press/gigaom_sml.png" />
+		</span>
+		<span class="floatLeft">${_("FF_IFRAME_You are safe with us")}</span>
+		<img class="floatLeft" style="margin-left:10px" src="/static/imgs/Verisign_bw.png" /></span>
+		<a href="http://${app_globals.default_host}" target="_blank"><span class="floatRight" style="margin: 0 30px 0 0">
+		&nbsp;<img src="/static/imgs/powered_by_button_bw.png"/>
+		</span></a>
+	</div>
+	<div class="clear"></div>
+</div>
+%if c.user.is_anon:
+<div id="loginlink"></div>
+%endif
+
+
+
+
+<form action="${url(controller="partner", action="bounce")}" method="POST" id="resubmit">
+%for k in c.backup_values:
+	%for v in c.backup_values.getall(k):
+		<input type="hidden" name="${k}" value="${v}"/>
+	%endfor
+%endfor	
+</form>
+</form>

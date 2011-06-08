@@ -1,6 +1,7 @@
 <%inherit file="../master.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html" />
 <%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="common" file="common.html"/>
 <%def name="authperms()">{fwd:false, hasLoginPanel:false, simpleLogout : function(response){ff.io.xhrPost("/logout?furl=/");document.getElementById("resubmit").submit();}}</%def>
 <%def name="styles()">${links.css('iframe.css')}</%def>
 
@@ -8,39 +9,14 @@
 <%def name="onloadscripts()">
 	ff.w.anythingSlider("slider1");
 </%def>
-
-<%
-slides = [
-	 ('Hello World', 'Merchant_Homepage_Popup_slide_1_noguides.png')
-	,('Hello World', 'Merchant_Homepage_Popup_slide_2_noguides.png')
-	,('Hello World', 'Merchant_Homepage_Popup_slide_3_large_photos_UPDATED.png')
-	,('Hello World', 'Merchant_Homepage_Popup_slide_4_noguides.png')
-	,('Hello World', 'Merchant_Homepage_Popup_slide_5_noguides.png')
-	]
-%> 
-
 <div class="contentIframe">
-	<div class="wrapHeaderIframe">
+	<div>
 		<h2>${_("FF_IFRAME_Organise a Group Gift!")}</h2>
 	</div>
 	
 	<div class="wrapContentIframe">
 	<div class="sliderContainer" id="slider1">
-		<div class="sliderContainerWindow">
-		<div class="contentSlider" style="width:${len(slides)*660}px">
-			%for caption,slide in slides:
-				<div class="sliderPane"><img src="/static/partner/slides/${slide}"/></div>
-			%endfor
-		</div>
-		</div>
-		<ul class="controllerNumbered floatRight">
-			%for i,(caption,slide) in enumerate(slides):
-				<li class="floatLeft sliderControl${i==0 and " selected" or ""}" _pane="${i}">${i+1}</li>
-			%endfor
-		</ul>
-		<div class="controllerRight"></div>
-		<div class="controllerLeft hidden"></div>
-		<div class="shadBigCorner"></div>
+		${common.renderSlider()|n}
 	</div>
 	<h3 class="subheading">${_("FF_IFRAME_Stuff others have friendfunded!")}</h3>
 	<div class="iFrameHomeBoxes">

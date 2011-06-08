@@ -1,6 +1,6 @@
 Hola ${data['invitee_name']},  
 
-${data['message']}   
+${data['message'] or u"default message"}
 
 Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo!  Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)!
 Puedes entrar en la [página del bote](http://${data['merchant_domain']}/pool/${data['p_url']}) con ${data['login_email']} y la contraseña ${data['pwd']}.  (No te olvides de cambiar tu contraseña a algo que puedas recordar en Configuración> contraseña.)    
@@ -11,16 +11,16 @@ ${data['invitor_name']}
 
 %if data['merchant_is_default']:   
 <${data['DEFAULT_BASE_URL']}>  
-Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!  
 
 
 %else:  
 ${data['merchant_name']} asociado con friendfund     
 <img src="${data['merchant_logo_url']}" alt="${data['merchant_name']}"/>   
 <${data['DEFAULT_BASE_URL']}>  
-Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!  
 %endif   
 
-¿Que es friendfund? Aprende más aquí: http://${data['learn_more_url']}     
+¿Que es friendfund? Aprende más aquí:${data['learn_more_url']}     
 
-<%def name="subject()">${data['subject']}</%def>
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>

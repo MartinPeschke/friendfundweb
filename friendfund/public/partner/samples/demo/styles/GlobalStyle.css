@@ -1,0 +1,495 @@
+/*
+	Copyright (c) 2006-2007, ePages GmbH
+	All Rights Reserved.
+
+	GlobalStyle.css $Revision: 1.11.2.1 $
+
+*/
+
+/*	gloabal style definitions (SF/BO) */
+
+.SetHasLayout {
+	#zoom: 1;	/* force layout dimensions (width, height) in IE */
+}
+
+/* -- CSS Attributes As Class -- */
+
+.AlignLeft {
+	text-align:left !important;
+}
+
+.AlignRight {
+	text-align:right !important;
+}
+
+.AlignCenter  {
+	text-align:center !important;
+}
+
+.AlignTop  {
+	vertical-align:top !important;
+}
+
+.AlignMiddle  {
+	vertical-align:middle !important;
+}
+
+.AlignBottom  {
+	vertical-align:bottom !important;
+}
+
+.NoMargin {
+	margin: 0 !important;
+}
+
+.NoPadding {
+	padding: 0 !important;
+}
+
+.NoBorder {
+	border: 0 !important;
+}
+
+.Opacity10, .Opacity20, .Opacity30, .Opacity40, .Opacity50, .Opacity60, .Opacity70, .Opacity80, .Opacity90 {
+	#zoom:1;
+}
+
+.Opacity10 {
+	filter: alpha(opacity=10);
+	opacity: 0.1;
+}
+.Opacity20 {
+	filter: alpha(opacity=20);
+	opacity: 0.2;
+}
+.Opacity30 {
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+.Opacity40 {
+	filter: alpha(opacity=40);
+	opacity: 0.4;
+}
+.Opacity50 {
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+.Opacity60 {
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+}
+.Opacity70 {
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+.Opacity80 {
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+.Opacity90 {
+	filter: alpha(opacity=90);
+	opacity: 0.9;
+}
+
+.BlurText {
+	position:relative;
+	text-shadow:0 900px 5px #555;
+	top:-900px;
+	#top:0;
+	filter:progid:DXImageTransform.Microsoft.blur(pixelradius=3);
+	zoom:1;
+}
+
+.HiddenOverflow {
+	overflow:hidden;
+	position:relative;
+}
+
+[unselectable] {
+	-moz-user-select:none;
+	-webkit-user-select:ignore;
+	user-seleft:none;
+}
+
+/* - paddings - */
+/* - '--> small - */
+.LeftPaddingSmall, .SmallLeftPadding, .LeftSmallPadding {
+	padding-left: 6px !important;
+}
+
+.RightPaddingSmall, .SmallRightPadding, .RightSmallPadding {
+	padding-right: 6px !important;
+}
+
+.BottomPaddingSmall, .SmallBottomPadding, .BottomSmallPadding {
+	padding-bottom: 6px !important;
+}
+
+.TopPaddingSmall, .SmallTopPadding, .TopSmallPadding {
+	padding-top: 6px !important;
+}
+
+/* - '--> wide - */
+.LeftPaddingWide, .WideLeftPadding, .LeftWidePadding {
+	padding-left: 18px !important;
+}
+
+.RightPaddingWide, .WideRightPadding, .RightWidePadding {
+	padding-right: 18px !important;
+}
+
+.BottomPaddingWide, .WideBottomPadding, .BottomWidePadding {
+	padding-bottom: 18px !important;
+}
+
+.TopPaddingWide, .WideTopPadding, .TopWidePadding {
+	padding-top: 18px !important;
+}
+
+/* - margins - */
+
+/* - '--> small - */
+.LeftSmallMargin, .MarginLeftSmall, .SmallLeftMargin {
+	margin-left: 4px !important;
+}
+
+.RightSmallMargin, .MarginRightSmall, .SmallRightMargin {
+	margin-right: 4px !important;
+}
+
+.TopSmallMargin, .MarginTopSmall, .SmallTopMargin {
+	 margin-top: 4px !important;
+}
+
+.BottomSmallMargin, .MarginBottomSmall, .SmallBottomMargin {
+	margin-bottom: 4px !important;
+}
+
+/* - '--> tiny - */
+
+.LeftTinyMargin, .MarginLeftTiny, .TinyLeftMargin {
+	margin-left: 2px !important;
+}
+
+.RightTinyMargin, .MarginRightTiny, .TinyRightMargin {
+	margin-right: 2px !important;
+}
+
+.TopTinyMargin, .MarginTinySmall, .SmallTinyMargin {
+	 margin-top: 2px !important;
+}
+
+.BottomTinyMargin, .MarginBottomTiny, .TinyBottomMargin {
+	margin-bottom: 2px !important;
+}
+
+/* - float / clear - */
+
+.FloatLeft {
+	float: left;
+}
+
+.FloatRight {
+	float: right;
+}
+
+.FloatNone {
+	float: none !important;
+}
+
+.ClearBoth {
+	clear: both;
+}
+
+.ClearRight {
+	clear: right;
+}
+
+.ClearLeft {
+	clear: left;
+}
+
+.NoWrap {
+	white-space: nowrap !important;
+}
+
+.Pre {
+	white-space: pre !important;
+}
+
+.NormalWhiteSpace {
+	white-space:normal !important;
+}
+
+/* - display - */
+
+.DisplayInlineBlock {
+	display: -moz-inline-box;
+	display: inline-block;
+}
+
+.HideElement, .HideNode {
+	display: none !important;
+	height: 0;
+}
+
+.ContactFormSenderName,
+html body .HideElementSoft {
+	position:absolute;
+	top:-9999px;
+	left:-9999px;
+}
+
+html body .ShowElementSoft {
+	position:static;
+	top:auto;
+	left:auto;
+}
+
+.ShowNode {
+	display: auto !important;
+}
+
+.ShowElement, .DisplayBlock {
+	display: block !important;
+}
+.ShowInlineElement {
+	display: inline !important;
+}
+
+/* - width / height - */
+
+.AutoWidth {
+	width: auto !important;
+}
+
+.MinimizeHeight {
+	font-size:0 !important;
+	line-height: 0 !important;
+	height:1px !important;
+	padding:0 !important;
+	margin:0 !important;
+}
+
+.FixedTableLayout {
+	table-layout:fixed;
+}
+
+.Bold {
+	font-weight:bold /*!important*/;
+}
+
+.Italic {
+	font-style:italic;
+}
+
+.Underline {
+	text-decoration: underline;
+}
+
+.NormalFontWeight {
+	font-weight:normal !important;
+}
+
+.WithBorder {
+	border: 1px solid #BFC2C3;
+}
+
+.HideRadioBoxes {
+	visibility: hidden;
+	overflow: hidden;
+	height: 0px;
+}
+
+.ExtractFromDom, .Extract, .PositionAbsolute, .AbsolutePosition {
+	position:absolute;
+}
+
+.epItemContent {
+	display:block;
+}
+
+/* - Table - */
+
+table.NoBorderSpace {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+html body table.ResetPaddings td {
+	padding: 0px;
+}
+
+/* -- Width -------------------------------------- */
+
+.ExtraSlimColumn {
+	width: 5%;
+}
+
+.SlimColumn {
+	width: 10%;
+}
+
+.MediumSlimColumn, .PercentWidth15{
+ width: 15%;
+}
+
+.MediumColumn {
+	width: 30%;
+}
+
+.FullWidth {
+	width: 100%;
+}
+
+.HalfWidth {
+	width: 50%;
+}
+
+.OneThird {
+	width: 33%;
+}
+
+.TwoThirds, .BroadColumn {
+	width: 66%;
+}
+
+.OneQuarter{
+	width: 25%;
+}
+.PercentWidth85{
+	width: 85%;
+}
+
+.PercentWidth60{
+	width: 60%;
+}
+
+.PercentWidth40{
+	width: 40%;
+}
+
+.PercentWidth30{
+	width: 30%;
+}
+
+/* - '--> max-width - */
+
+html body .MaxWidth100 {
+	max-width: 100px;
+}
+
+html body .MaxWidth150 {
+	max-width: 150px;
+}
+
+html body .MaxWidth200 {
+	max-width: 200px;
+}
+
+html body .MaxWidth250 {
+	max-width: 250px;
+}
+
+html body .MaxWidth300 {
+	max-width: 300px;
+}
+
+html body .MaxWidth350 {
+	max-width: 350px;
+}
+
+/* - '--> max-height - */
+
+.Maxheight50, .MaxHeight50 {
+	max-height: 50px;
+}
+
+/* -- Input Sizes -- */
+
+/* -- '--> Flexible Formelement Sizes -- */
+input.FullSize,
+textarea.FullSize {
+	width: 100%;
+}
+
+textarea.FullSize {
+	height: 6em;  /* ~5 rows */
+	overflow:auto;
+	margin:0;
+	padding:0;
+}
+
+input.HalfSize,
+textarea.HalfSize {
+	width: 50%;
+}
+
+textarea.HalfSize {
+	overflow:auto;
+	margin:0;
+	padding:0;
+}
+
+/* SuspendUserInteraction */
+
+body.SuspendUserInteraction {
+	cursor:progress !important;
+}
+
+body.SuspendUserInteraction * {
+	cursor:progress !important;
+}
+
+body.SuspendUserInteraction .SuspendUserInteractionAnimation {
+	position:absolute;
+	z-index:9999;
+	background-color:#eee;
+	opacity:0.75;
+	filter:alpha(opacity=75);
+	cursor:wait !important;
+}
+
+body.SuspendUserInteraction .SuspendUserInteractionAnimation.SuspendUserInteractionHidden {
+	opacity:0.00001;
+	filter:alpha(opacity=0);
+	background:white;
+}
+
+html body .LoaderAni i {
+	position:absolute;
+	z-index:1;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	cursor:wait !important;
+	background:magenta;
+	opacity:0.00001;
+	filter:alpha(opacity=0);
+}
+
+/* hide firebug body */
+
+body ~ body {
+	visibility:hidden;
+	#visibility:visible;
+}
+
+body ~ body > * {
+	visibility:visible;
+}
+
+/* - cursor - */
+.CursorPointer {
+	cursor: pointer;
+}
+
+/* - = Text = - */
+.TextWeak {
+	color: #999;
+}
+
+.TextStrong {
+	font-weight: strong;
+}

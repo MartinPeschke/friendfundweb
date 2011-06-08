@@ -1,0 +1,7273 @@
+/*  ------------------------------------------------------------------------------------------------
+		Copyright (c) 2006-2008, ePages GmbH
+		All Rights Reserved.
+		SF-Style.StyleSheet.css, $Revision: 1.514.2.19.2.9 $ (ePages 6)
+
+		------------------------------------------------------------------------------------------------ */
+
+@import "GlobalStyle.css";
+
+
+
+body {
+	height: 100%;
+	width: 100%;
+	display:inline-block;
+	position:relative;
+	bottom:0;
+}
+
+body,
+a img,
+form {
+  margin:0;
+  padding:0;
+  border:0;
+  line-height: 140%;
+}
+
+img {
+  vertical-align: middle;
+}
+
+html, body {
+	
+		background:  #FFFFFF;
+	
+}
+
+
+body.HideVisualAid,
+body.ShowVisualAid {
+
+	min-width: 910px;
+
+}
+
+
+p, table, tr, td, th, span, ul, li, samp, input, select, option, textarea, samp {
+	line-height: 140%;
+	resize:none;
+}
+
+fieldset {
+	border:0;
+	cursor:default;
+}
+
+font span{
+	font-size: 100%;
+}
+
+.MoneyGap,
+html body .GeneralLayout strong, html body .GeneralLayout strong *, html body .GeneralLayout b, html body .GeneralLayout b * {
+	font-weight:bold;
+}
+
+html body .GeneralLayout em, html body .GeneralLayout em *, html body .GeneralLayout i, html body .GeneralLayout i *  {
+	font-style:italic;
+}
+
+font {
+	line-height: 130%;   /*used only in the RTE (MS IE)*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Arial, Verdana, Helvetica;
+	line-height: 120%;
+	margin: 0px;
+	color: #000000;
+}
+
+p {
+	margin: 0 0 6px 0;
+}
+
+a, a:active, a:focus {
+	outline:none;
+	cursor:pointer;
+}
+
+a.Action, .Link.Action {
+	padding: 0 0 0 12px;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat top left;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+}
+
+a.Delete{
+	padding: 0 0 0 15px;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_remove.png") no-repeat 0 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_remove.png');
+}
+
+a.Edit{
+	padding: 0 0 0 12px;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_continue.png") no-repeat 0 3px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_continue.png');
+}
+
+a.ContextBoxHead,
+a.ContextBoxHead ins /* selector deprecated */ {
+	display:block;
+	text-decoration:none !important;
+	cursor:pointer !important;
+}
+
+.ContextBoxHead span {
+	display:block;
+	text-decoration:none !important;
+}
+
+a.ContextBoxHead span {
+	cursor:pointer !important;
+}
+
+a.ExtenderClosed {
+	padding: 0 0 0 18px;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_extender_closed.png") no-repeat top left;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_extender_closed.png');
+}
+
+a.ExtenderOpened {
+	padding: 0 0 0 18px;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_extender_opened.png") no-repeat top left;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_extender_opened.png');
+}
+
+input {
+	line-height: 120%;
+	vertical-align: middle;
+	padding:0;
+}
+
+textarea {
+	line-height: 130%;
+	color: #000000;
+}
+
+samp {
+	font-size:9px;
+}
+
+ins {
+	display:inline-block;
+	vertical-align:middle;
+	position:relative;
+}
+
+ins img {
+	vertical-align:middle;
+	margin-bottom:4px;
+}
+
+input, button, textarea, select {
+	line-height:120%;
+	font-family: Arial, Verdana, Helvetica;
+	font-weight:;
+	font-style:;
+	font-size:11px;
+	color:black;
+}
+
+table, tr, td, fieldset {
+	border:0;
+	border-spacing:0;
+	border-collapse:collapse;
+	color:inherit;
+	white-space: normal;
+}
+
+table.TinyMCETable tr,
+table.TinyMCETable thead,
+table.TinyMCETable tfoot,
+table.TinyMCETable td,
+table.TinyMCETable tbody {
+	border-style:solid !important;
+	border-color:inherit !important;
+	border-width:inherit !important;
+}
+
+table.TinyMCETable td {
+	#border-width:expression(this.parentNode.parentNode.currentStyle.borderWidth) !important;
+}
+
+button, input[type="submit"], input[type="button"] {
+	#overflow:visible;
+}
+
+td:hover {
+	#min-width:0;
+}
+
+.TooltipShadow {
+	display:none !important;
+}
+
+
+
+.SmallText {
+	font-size: 10px;
+}
+
+.TextCenter, .CenterText {
+	text-align:center !important;
+}
+
+.SelectedItem {
+	font-weight:bold !important;
+}
+
+.LineThrough {
+	text-decoration: line-through;
+}
+
+
+
+.LeftPadding, .PaddingLeft {
+	padding-left: 12px !important;
+}
+
+.RightPadding, .PaddingRight {
+	padding-right: 12px !important;
+}
+
+.TopPadding, .PaddingTop {
+	 padding-top: 12px !important;
+}
+
+.BottomPadding, .PaddingBottom {
+	padding-bottom: 12px !important;
+}
+
+.LeftMargin, .MarginLeft {
+	margin-left: 12px !important;
+}
+
+.RightMargin, .MarginRight {
+	margin-right: 12px !important;
+}
+
+.TopMargin, .MarginTop {
+	 margin-top: 12px !important;
+}
+
+.BottomMargin, .MarginBottom {
+	margin-bottom: 12px !important;
+}
+
+.NoMarginTop, .MarginTopNo, .TopNoMargin {
+	margin-top: 0 !important;
+}
+
+
+
+.HalfSize {
+	width: 50%;
+}
+
+.QuarterSize{
+	width: 25%;
+}
+
+.FifthSize{
+	width: 20%;
+}
+
+.FullSize {
+	width: 100% !important;
+}
+
+.MinimizeHeight {
+	font-size:0 !important;
+	line-height: 0 !important;
+	height:0 !important;
+	padding:0 !important;
+	margin:0 !important;
+}
+
+
+
+.AlphaImage {
+	filter:alpha(opacity=0);
+}
+
+.LinkImage {
+	cursor:pointer;
+}
+
+.HideElement, .HideNode {
+	display: none !important;
+	height: 0;
+}
+
+.ShowElement {
+	display: block !important;
+}
+
+.ShowInlineElement {
+	display: inline !important;
+}
+
+.ShowNode {
+	display: auto !important;
+}
+
+.DisplayTable{
+	display: table !important;
+}
+
+.DisplayRow{
+	display: table-row !important;
+}
+
+
+.Icon {
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+}
+
+.IconMedium {
+	width: 24px;
+	height: 24px;
+	vertical-align: middle;
+}
+
+.InlineTable, .InlineTable td {
+	border:0;
+	padding:0;
+	margin:0;
+}
+
+.InputLabelling {
+	overflow:hidden;
+}
+
+
+.OnlyInPrintViewVisible {
+	display:none;
+}
+
+.PrintNow img {
+	vertical-align: middle;
+	margin-right: 8px;
+}
+.PrintNow a {
+	color: #000;
+}
+
+
+
+
+.LinkBasket {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png) no-repeat !important;
+	font-weight: bold;
+	vertical-align:middle;
+	_zoom:1;
+	_background:none;
+}
+
+input.LinkBasket {
+	cursor: pointer;
+	border: 0;
+	padding-left: 20px !important;
+	_padding-left:21px !important;
+	color: #005F95;
+	font-size: 11px;
+	line-height: 120%;
+	min-height:16px;
+	_height:16px;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png") no-repeat!important; 
+	_overflow: visible;
+	_background:none;
+}
+
+input.ButtonBasket {
+	width: 26px;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 14px;
+	text-align: left;
+	color: #005F95;
+	font-size: 11px;
+	line-height: 120%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_s_basket.png") no-repeat 0px 0px!important; 
+	_background:none;
+}
+
+input.ButtonBasket:hover {
+	background-position: 0px -20px;
+}
+
+input.ButtonBasket:active {
+	background-position: 0px -40px;
+}
+
+.ContentArea a:hover.LinkBasket,
+.ContentArea a.LinkBasket {
+	font-weight: bold;
+}
+
+.LinkBasketNormal {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png) no-repeat !important;
+	margin-bottom: 6px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png');
+}
+
+
+
+.ContentArea a.LinkPrintView {
+	padding: 1px 20px 3px 0px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_printer.png) no-repeat top right !important;
+	line-height:200% !important;
+	_line-height:normal !important;
+	_zoom:1;
+	_background:none;
+	_padding-right: 0px;
+}
+
+.ContentArea a.LinkDownload {
+	padding: 1px 20px 3px 0px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_download.png) no-repeat top right !important;
+	line-height:200% !important;
+	_line-height:normal !important;
+	_zoom:1;
+	_background:none;
+	_padding-right: 0px;
+}
+
+.ContentArea a.LinkProductRecommendation {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productrecommendation.png) no-repeat !important;
+	line-height:200% !important;
+	_line-height:normal !important;
+	_zoom:1;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.ContentArea a.LinkProductInquiry {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productinquiry.png) no-repeat !important;
+	line-height:200% !important;
+	_line-height:normal !important;
+	_zoom:1;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.ContentArea a.LinkProductComparison {
+	padding: 1px 0 0 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcomparison.png) no-repeat !important;
+	_zoom:1;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.ContentArea input.LinkCompareProduct,
+.ContentArea a.LinkCompareProduct {
+	padding: 1px 20px 0 20px !important;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_compareproduct.png) no-repeat !important;
+	_zoom:1;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.ContentArea a.LinkAddShoppingList, .ContentArea input.LinkAddShoppingList {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_shoppinglist.png) no-repeat !important;
+	line-height:200% !important;
+	_line-height:normal !important;
+	_zoom:1;
+	_background:none;
+	_padding-left: 0px;
+}
+
+html body .ContentArea input.LinkAddShoppingList {
+	line-height:140% !important;
+	padding-left:20px;
+	_padding-left: 0px;
+}
+
+.LinkHotIcon,
+a.LinkSpecialPrices {
+	display:inline-block;
+	margin: 5px 0;
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_specialprices.png) no-repeat !important;
+	_zoom:1;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.LinkHotIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_hot.png) no-repeat !important;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.SpanHotIcon {
+	line-height:normal !important;
+	display: -moz-inline-box;
+	display: inline-block;
+	font-weight: bold !important;
+	margin-bottom: 0px;
+	margin-top: 6px;
+}
+
+
+
+.ContentArea a.LinkAppointment {
+	margin-bottom: 6px;
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_appointment.png) no-repeat !important;
+	line-height:200% !important;
+	_line-height:normal !important;
+	_zoom:1;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_appointment.png');
+}
+
+
+
+
+html body .ContentArea .ContentAreaWrapper .ProductDetails.ImageLeft .LinkIcon,
+html body .ContentArea .ContentAreaWrapper .ProductDetails.ImageBroad .LinkIcon {
+	padding-left: 0;
+	padding-right: 20px;
+	_padding-right: 0px;
+	background-position: top right !important;
+}
+
+html body .ContentArea .ContentAreaWrapper .ImageRight a.LinkPrintView {
+	padding-left: 20px;
+	_padding-left: 0px;
+	padding-right: 0px;
+	background-position: top left !important;
+}
+
+
+
+.HelpIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/BO/icons/ico_s_bubblehelp.png) !important;
+	cursor:help !important;
+}
+
+.BasketIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png) !important;
+}
+
+.TrashIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_remove_item.png) !important;
+}
+
+.SearchIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_search.png) !important;
+}
+
+.ContactIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_contact.png) !important;
+}
+
+.VariationsIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_variations.png) !important;
+}
+
+.WarningIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_warning.png) !important;
+}
+
+.FirstPageIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_paging_first.png) !important;
+}
+
+.BackPageIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_paging_backward.png) !important;
+}
+
+.NextPageIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_paging_forward.png) !important;
+}
+
+.LastPageIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_paging_last.png) !important;
+}
+
+.HomeIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_home.png) !important;
+}
+
+.OrderViewedIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_orderstatus_viewed.png) !important;
+}
+
+.ChangeOrderIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_changeorder_unselected.png) !important;
+}
+
+.ChangeOrderDownIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_changeorder_down.png) !important;
+}
+
+.ChangeOrderUpIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_changeorder_up.png) !important;
+}
+
+.PrinterIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_printer.png) !important;
+}
+
+.CheckoutIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_checkout.png) !important;
+}
+
+.BasketFullIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basketfull.png) !important;
+}
+
+.BasketButtonIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_s_basket.png) !important;
+}
+
+.ProductOnStockIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_product_onstock.png) !important;
+}
+
+.ProductWarnStockIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_product_warnstock.png) !important;
+}
+
+.ProductOutStockIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_product_outofstock.png) !important;
+}
+
+.ProductRatingEditIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating_edit.png) !important;
+}
+
+.ProductRatingEnabledIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating.png) !important;
+}
+
+.ProductRatingDisabledIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating_disabled.png) !important;
+}
+
+.SubscribedIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_subscribed.png) !important;
+}
+
+.NotSubscribedIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_notsubscribed.png) !important;
+}
+
+.ShoppingListIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_shoppinglist.png) !important;
+}
+
+.SpecialPricesIcon {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_specialprices.png) !important;
+}
+
+.ContinueIconTiny {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_continue.png) !important;
+}
+
+.BasketIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_basket.png) !important;
+}
+
+.RefreshIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_refresh.png) !important;
+}
+
+.CancelIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_cancel.png) !important;
+}
+
+.SaveIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_save.png) !important;
+}
+
+.DeleteIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_remove.png) !important;
+}
+
+.AddToListIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_listadd.png) !important;
+}
+
+.NewIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_new.png) !important;
+}
+
+.AssignIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_assign.png) !important;
+}
+
+.ProductRatingEnabledIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_productcompare_rating.png) !important;
+}
+
+.ProductRatingDisabledIconSmall {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_xs_productcompare_rating_disabled.png) !important;
+}
+
+.PrinterIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_printer.png) !important;
+}
+
+.PersonalDataIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_personaldata.png) !important;
+}
+
+.AccountAddressIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_accountaddress.png) !important;
+}
+
+.AccountPasswordIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_accountpasswd.png) !important;
+}
+
+.LogoutIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_logout.png) !important;
+}
+
+.OrderTrackingIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_ordertracking.png) !important;
+}
+
+.DownloadIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_download.png) !important;
+}
+
+.AppointmentIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_appointments.png) !important;
+}
+
+.NewsletterIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_newsletter.png) !important;
+}
+
+.ShoppingListIconMedium {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_shoppinglists.png) !important;
+}
+
+.PaymentIconLarge {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_payment.png) !important;
+}
+
+.AddressIconLarge {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_address.png) !important;
+}
+
+.BasketIconLarge {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_basket.png) !important;
+}
+
+.ConfirmOrderIconLarge {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_confirmorder.png) !important;
+}
+
+.HirePurchaseIconLarge {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_hirepurchase.png) !important;
+}
+
+.FaxIconLarge {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_fax.png) !important;
+}
+
+.ShippingOptionsIconVast {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_l_shippingoptions.png) !important;
+}
+
+.Icon, .CustomButton * .Icon {
+	position:relative;
+	#position:static;
+	display:-moz-inline-box;
+	display:inline-block;
+	#margin-left:2px !important;
+	#margin-right:2px !important;
+	height:16px;
+	width:16px;
+	font-size:0 !important;
+	line-height:0 !important;
+	border:none;
+	background-color:transparent !important;
+	background-repeat:no-repeat !important;
+	#background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/plain.gif) !important;
+	vertical-align:middle !important;
+	overflow:visible;
+}
+
+.SmallIcon {
+	height:10px;
+	width:10px;
+}
+
+.CustomButton * .Icon {
+	margin-right:3px !important;
+}
+
+.ContinueIconTiny {
+	height:8px !important;
+	width:8px !important;
+}
+
+.BasketIconSmall,
+.RefreshIconSmall,
+.CancelIconSmall,
+.SaveIconSmall,
+.DeleteIconSmall,
+.AddToListIconSmall,
+.NewIconSmall,
+.AssignIconSmall,
+.ProductStarEnabledIconSmall,
+.ProductStarDisabledIconSmall {
+	height:10px !important;
+	width:10px !important;
+}
+
+.PrinterIconMedium,
+.PersonalDataIconMedium,
+.AccountAddressIconMedium,
+.AccountPasswordIconMedium,
+.LogoutIconMedium,
+.OrderTrackingIconMedium,
+.DownloadIconMedium,
+.AppointmentIconMedium,
+.NewsletterIconMedium,
+.ShoppingListIconMedium {
+	height:24px !important;
+	width:24px !important;
+}
+
+.PaymentIconLarge,
+.AddressIconLarge,
+.BasketIconLarge,
+.ConfirmOrderIconLarge,
+.HirePurchaseIconLarge,
+.FaxIconLarge {
+	height:32px !important;
+	width:32px !important;
+}
+
+.ShippingOptionsIconVast {
+	height:32px !important;
+	width:32px !important;
+}
+
+
+
+tr.SeparateRow td {
+	border-top: 1px solid #cacaca;
+}
+
+tr.SeparateRow th {
+	border-top: 1px solid #e6e6e6;
+}
+
+html .ContentArea table.Basket tr td.SeparateColumn,
+td.SeparateColumn {
+	border-right: 1px solid #cacaca;
+}
+
+html .ContentArea table.Basket tr th.SeparateColumn,
+th.SeparateColumn {
+	border-right: 1px solid #e6e6e6;
+}
+
+table.Basket tr.AlternateRow td,
+table.ContentTable tr.Alternate td,
+.AlternateRow td,
+.AlternateRow,
+div.AlternateRow,
+.Alternate td,
+.Alternate div,
+.Alternate {
+	background-color: transparent !important;
+	background-color:#eee;
+}
+
+td.InputLabelling{
+	width: 120px !important;
+}
+
+td.InputField {
+	padding: 2px 6px 2px 6px;
+}
+
+
+
+
+.TaxRate,
+.Percentage,
+.Quantity,
+.Money {
+	white-space: nowrap;
+	text-align:right !important;
+}
+
+td.Total {
+	white-space: nowrap;
+	text-align:right !important;
+	font-weight:bold;
+}
+
+tr.Total td {
+	font-weight:bold;
+}
+
+.GrandTotal {
+	white-space: nowrap;
+	font-weight:bold;
+}
+
+.NavBarBottom .CoinLabel,
+.Footer .CoinLabel,
+.Header .CoinLabel,
+.NavBarTop .CoinLabel {
+	top: 6px;
+	#top: 7px;
+	#left: 1px;
+}
+
+.NavBarRight .CoinLabel,
+.NavBarLeft .CoinLabel {
+	top: 5px;
+	#top:7px;
+}
+
+
+
+input.Text {
+	width: 106px;
+	line-height: 120%;
+}
+
+input.Money {
+	width: 106px;
+	text-align: left !important;
+}
+
+input.MediumText {
+	width: 170px;
+	line-height: 120%;
+}
+
+
+select.Text {
+	width: 110px;
+	line-height: 120%;
+}
+
+textarea.LongText,
+input.LongText {
+	width: 201px;
+	line-height: 120%;
+}
+
+select.LongText {
+	width: 205px;
+	line-height: 120%;
+}
+
+textarea.VeryLongText,
+input.VeryLongText {
+	width: 300px;
+	line-height: 120%;
+}
+
+textarea.ExtremeLongText,
+input.ExtremeLongText {
+	width: 350px;
+	line-height: 120%;
+}
+
+input.Price {
+	width: 67px;
+	line-height: 120%;
+	font-weight: normal;
+	text-align: left;
+}
+
+input.Name {
+	width: 67px;
+	line-height: 120%;
+}
+
+input.City {
+	width: 160px;
+	line-height: 120%;
+}
+
+input.ZipCode {
+	width: 51px;
+	line-height: 120%;
+}
+
+input.Login {
+	width:113px;
+	line-height: 120%;
+}
+
+input.Search {
+	width:100px;
+	line-height: 120%;
+}
+
+button.Search {
+	margin-bottom: 3px;
+	vertical-align: middle;
+}
+
+button.Search ins {
+	margin-right:2px;
+}
+
+input.SearchIcon {
+	cursor:pointer;
+}
+
+
+
+html .DialogError .InputLabelling div,
+html .DialogError .InputField div,
+.ContentArea tr.DialogError td,
+.DialogError,
+.DialogError .InputLabelling ,
+.DialogError label {
+	color: #E61818;
+	font-weight: bold;
+}
+
+html input.DialogError,
+html select.DialogError,
+html textarea.DialogError,
+.DialogError input,
+.DialogError select,
+.DialogError textarea {
+	border: 2px solid #E61818;
+	background: #ffdddd;
+	font-weight: normal;
+}
+
+html select.DialogError, .DialogError select {
+	filter:progid:DXImageTransform.Microsoft.Glow(Color=red,Strength=3);
+	zoom:1;
+}
+
+option.DialogError,
+.DialogError option{
+	background: #ffdddd;
+}
+
+
+
+.ErrorMessage {
+	 min-height: 24px;
+	 _height: 24px;
+	 overflow: visible;
+
+	 padding: 0 0 0 32px;
+	 background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_warning.png") no-repeat !important;
+	 font-size: 11px;
+	 color: #000000;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_warning.png', sizingMethod='crop');
+}
+
+.ErrorMessage h3,
+.ErrorMessage p {
+	 font-size: 11px;
+	 color: #000000;
+}
+
+
+
+
+.DialogMessage h3,
+.DialogMessage p,
+.DialogMessage {
+	color: #000000;
+	font-size: 11px;
+}
+
+.DialogMessage a {
+	color: #000000 !important;
+}
+
+.DialogMessage,
+.ErrorMessage {
+	_float:left;
+	padding:3px;
+	margin-bottom: 2px;
+}
+
+.ErrorMessage p,
+.DialogMessage p {
+	margin: 0;
+	padding:0;
+}
+
+
+
+html body .MessageError,
+html body .MessageWarning,
+html body .MessageWarningSmall,
+html body .MessagePositiveResult,
+html body .MessageInfo,
+html body .MessageConfirmAction {
+	min-height: 30px;
+	padding-left: 32px !important;
+	background-color: #FFF8DD;
+	background-repeat: no-repeat;
+	background-position: 3px 3px;
+	border: 1px solid #E9B600;
+	color: #000;
+}
+
+html body .MessageError h3,
+html body .MessageWarning h3,
+html body .MessageWarningSmall h3,
+html body .MessagePositiveResult h3,
+html body .MessageInfo h3,
+html body .MessageConfirmAction h3,
+html body .MessageError p,
+html body .MessageWarning p,
+html body .MessageWarningSmall p,
+html body .MessagePositiveResult p,
+html body .MessageInfo p,
+html body .MessageConfirmAction p {
+	color: #000;
+}
+
+html body .MessageError {
+	background-color: #FFDDDD;
+	border-color: #E61818;
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_error.png) !important;
+	_background-image:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_error.png', sizingMethod='crop');
+}
+
+.MessageWarning {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_warning.png) !important;
+	_background-image:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_warning.png', sizingMethod='crop');
+}
+
+.MessagePositiveResult {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_test_ok.png) !important;
+	_background-image:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_test_ok.png', sizingMethod='crop');
+}
+
+html body .MessageInfo {
+	background-color: #F0F7FF;
+	border-color: #4989b9;
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_info.png) !important;
+	_background-image:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_info.png', sizingMethod='crop');
+}
+
+.MessageConfirmAction {
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_confirmaction.png) !important;
+	_background-image:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_confirmaction.png', sizingMethod='crop');
+}
+
+html body div.MessageWarningSmall {
+	padding-left: 22px !important;
+	min-height: 16px;
+	background-image: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_warning.png) !important;
+	_background-image:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_warning.png', sizingMethod='crop');
+}
+
+html body div.NoSymbol {
+	padding-left: 3px !important;
+	background-image:none !important;
+	_filter:none;
+}
+
+
+
+.GeneralLayout {
+	width: 910px;
+	
+	max-width:1380px;
+	height: 100%;
+	
+	margin: 0px auto 0 auto;
+	
+}
+
+table.Middle {
+	
+	max-width: 910px;
+	
+}
+
+
+
+div.PropertyContainer table.CellLimiter {
+	width:100%;
+	#float:left;
+	border:0;
+	border-collapse:collapse;
+	background:none;
+	padding:0;
+	margin:0;
+	table-layout:fixed; /* causes display problems in IE (table cell width) */
+	#table-layout: auto !important;
+}
+
+div.PropertyContainer table.CellLimiter td.CellLimiterCell {
+	padding:0;
+	margin:0;
+}
+
+table tr td.ResetCell {
+	width:auto !important;
+	padding:0 !important;
+	border:0 !important;
+}
+
+.ResetBox {
+	border:0 !important;
+	padding:0 !important;
+	margin:0 !important;
+}
+
+.DummyContent {
+	visibility:hidden;
+	margin-right:-5px;
+}
+
+
+
+
+.Header {
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	height: auto;
+	/*
+	overflow: hidden;
+	*/
+	border:0;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreES2/Shops/eb2349/Styles/2011-06-08_0020_-_0020_Online_0020_desde_0020_8_0020_juny_0020_-_0020_sense_0020_zopim/../../MediaGallery/Styles/estret/banner_earth_8.jpg?CachePrevention=1307526568") no-repeat top left transparent;
+	
+	padding: 0;
+}
+
+.Header .PropertyContainer {
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 15px;
+
+	height: 105px;
+	border: 0;
+	text-align: left;
+	color: #012F68;
+	font-size: 12px;
+	overflow: hidden;
+	
+}
+
+
+
+
+.NavBarTop {
+  position:relative;
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	height: auto;
+	padding: 0;
+	white-space: nowrap;
+	text-align: right;
+	vertical-align: top;
+	overflow: hidden;
+	font-size:1px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_floatin.gif") no-repeat right top  #e6e6e6;
+	
+}
+
+.NavBarTop .PropertyContainer {
+	height: 20px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	margin:0;
+	overflow: hidden;
+	text-align: center;
+	color: #666666;
+	font-size:1px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top.gif") no-repeat left top;
+	
+}
+
+
+.Middle {                                                             /* general layout table */
+	
+	max-width: 910px;
+	
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	border-spacing:0;
+	overflow:hidden;
+}
+
+.InnerArea {
+	padding:0;
+	margin: 0;
+	border: 0;
+	clear: both;
+	vertical-align: top;
+	height: 100%;
+}
+
+.InnerTop {
+	width:100%;
+	padding:0;
+}
+
+.InnerBottom {
+	width:100%;
+}
+
+table.HorizontalDisplay{
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-width: 0;
+}
+
+
+
+.NavBarLeft {
+	border: 0;
+	margin:0;
+	padding:0;
+	width: 200px;
+	vertical-align: top;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_left.gif") no-repeat left top transparent;
+	
+    clear:both;
+}
+
+.NavBarLeft .PropertyContainer {
+	
+	width: 161px;
+	
+
+	padding-top: 9px;
+	padding-right: 19px;
+	padding-bottom: 0px;
+	padding-left: 20px;
+
+	text-align: left;
+	color: #000000;
+	font-size: 10px;
+	#float:left;
+}
+
+.NavBarLeft .SizeContainer {
+	width: 100%;
+	float:left;
+	overflow:hidden;
+}
+
+
+.ContentArea {
+	width:100%;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	margin: 0;
+	border: 0;
+	clear: both;
+	vertical-align: top;
+	width:9999px;
+  background: transparent;
+}
+.ContentArea table {
+	border-style: solid;
+	border:0;
+}
+
+td.ContentArea {
+	width: 9999px;
+	#width:99999999px !important;
+	#max-width:none !important;
+}
+.ContentAreaInner, .ContentAreaWrapper {
+	clear:both;
+	float:left;
+	width:100%;
+	min-width:100%;
+	max-width:100%;
+	overflow:hidden;
+}
+.ContentAreaWrapper {
+	position:relative;
+	overflow:auto;
+	overflow-y:hidden;
+	width:1px;
+	#width:100%;
+}
+
+@media print {
+	html .ContentAreaInner, html .ContentAreaWrapper {
+		overflow:visible !important;
+		float:none !important;
+		height:auto !important;
+	}
+}
+
+.MandatoryStar {
+	position:absolute;
+	width:0;
+	height:0;
+	font-family:"Lucida Grande",Tahoma,Arial,sans-serif !important;
+	#margin-top:-2px;
+	margin-left:3px;
+	text-align:right;
+}
+
+.Layout1 .ContentArea {
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_content.gif")  no-repeat left top transparent;
+	
+}
+
+	 
+	
+	
+	
+	
+	
+.Layout1 td.ContentArea,
+.Layout3 td.ContentCell {
+	width: 710px;
+	max-width: 710px;
+}
+	
+
+
+
+
+
+.NavBarBottom {
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+  position:relative;
+	height: auto;
+	padding: 0;
+	white-space: nowrap;
+	text-align: right;
+	vertical-align: top;
+	overflow: hidden;
+	font-size:1px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_floatin.gif") no-repeat right top transparent;
+	
+}
+
+.NavBarBottom .PropertyContainer {
+	height: 27px;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	margin:0;
+	text-align: center;
+	color: #000000;
+	font-size:1px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom.gif") no-repeat left top;
+	
+}
+
+
+
+.Footer {
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	height: auto;
+	padding: 0;
+	white-space: nowrap;
+	text-align: right;
+	vertical-align: top;
+	overflow: hidden;
+	font-size:1px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_floatin.gif") no-repeat right top transparent;
+	
+}
+
+.Footer .PropertyContainer {
+	height: 115px;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+
+	margin:0;
+	text-align: center;
+	color: #000000;
+	font-size:1px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer.gif") no-repeat left top;
+	
+}
+
+
+
+
+
+img.BubbleHelp {
+padding: 0 0 3px 0;
+vertical-align: middle;
+}
+
+
+
+.Button {
+	padding: 0 6px 0 6px;
+	margin: 0;
+}
+
+.ContentArea input.Button {
+	margin: -2px 0 0 0;
+}
+
+button.Button {
+	line-height: 19px;
+	vertical-align: middle;
+	padding: 0 6px 0 6px;
+	margin: 0;
+	float: left;
+}
+
+.RestrictedWidth{  /* button minimizer */
+	_width: 5%;
+	overflow: visible;
+}
+
+button.Button img {
+	padding: 0 0 2px 0;
+	margin: 0;
+	vertical-align: middle;
+}
+
+button.Button ins {
+	margin-right:2px;
+}
+
+button.Refresh {
+	float: right;
+}
+/* - '--> Conis - */
+.Coins a,
+.Coins a:hover {
+	position: relative;
+	color: #6E5C2F;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+
+html .ContextBoxBody p {
+	padding: 0px;
+}
+
+
+
+
+
+
+.Header table.SizeContainer{
+	
+	margin: 0 auto 0 0;
+	
+	border-collapse: collapse;
+	border-width: 0;
+}
+
+.Header table.SizeContainer tr td{
+	white-space: nowrap;
+	vertical-align: top;
+	overflow: hidden;
+	padding: 0;
+}
+
+.Header {
+	color: #012F68;
+}
+
+.Header div,
+.Header span,
+.Header table,
+.Header td,
+.Header p,
+.Header ul li,
+.Header ol li,
+.Header blockquote,
+.Header input {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 140%;
+}
+
+.Header input {
+	line-height: normal !important;
+	color: #000000;
+}
+
+.Header .ContextBoxHead span,
+.Header h1,
+.Header h2,
+.Header h3,
+.Header h4,
+.Header h5,
+.Header h6 {
+	margin:0;
+	font-family: ;
+	font-size: 18px;
+	color: #999999;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.Header p,
+.Header td {
+	margin:0;
+	padding: 0 4px 0 4px;
+}
+
+html body .Header em, html body .Header em a, html body .Header em span {
+	font-style: normal;
+}
+
+.Header .NavigationElement {
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 10px;
+	margin: 0;
+	font-size: 12px;
+	line-height: 27px;
+	
+}
+
+.Header .Active {
+	display:block;
+	width: auto;
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 8px;
+	margin: 0;
+	float: left;
+	font-size: 12px;
+	line-height: 27px;
+	
+		
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_header_button_active.gif") no-repeat left top;
+		
+	
+}
+
+.Header p.BasketLink,
+.Header .NavigationElement a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 0 ;
+	vertical-align: middle;
+	
+		background: transparent;
+	
+}
+
+.Header .Active a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 2px;
+	vertical-align: middle;
+	color: #CCCCCC;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_header_button_floatin_active.gif") no-repeat right top;
+	
+}
+
+.Header .ShopNameSlogan {
+	padding: 0 4px 0 4px;
+}
+
+.Header .NavigationText {
+	float: left;
+	font-size: 12px;
+	color: #012F68;
+	padding: 0;
+	margin: 0;
+	display: block;
+	vertical-align: middle;
+	white-space:normal;
+}
+
+.Header .BasketLink {
+	white-space:nowrap;
+}
+
+.Header a {
+	font-size: 12px;
+	color: #999999;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.Header .ActiveNode,
+.Header a:hover {
+	color: #CCCCCC;
+	text-decoration: underline;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: underline;
+}
+
+
+
+.Header .Coins {
+	float: left;
+	display: inline;
+	text-align:center;
+	margin: 0 4px 0 4px;
+	padding:0;
+	height: 24px;
+}
+
+.Header .Coins a,
+.Header .Coins a:hover {
+	margin: 0 2px 0 2px;
+ }
+
+.Header .CoinLabel {
+		position: absolute;
+		left:0;
+		margin-top:0;
+		font-size: 9px;
+		width: 24px;
+		color: #6E5C2F;
+ }
+
+.Header .ContextBox {
+	clear: both !important;
+	width: 170px;
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+.Header .ContextBoxHead {
+	padding: 0 0 0 10px;
+	margin: 0;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_header_boxhead.gif") no-repeat left top transparent;
+	
+}
+
+.Header .ContextBox .ContextBoxHead span,
+.Header .ContextBox .ContextBoxHead h1 /* selector deprecated */{
+	height: 20px;
+	overflow:hidden;
+	margin: 0;
+	padding: 3px 0 1px 0;
+	text-align: left;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_header_boxhead_floatin.gif") no-repeat right top ;
+	
+}
+
+.Header .ContextBoxBody {
+	clear: both;
+	padding: 2px 4px 2px 10px;
+	border: 0;
+	margin-bottom: 1px;
+
+	text-align: left;
+
+	
+}
+
+.Header .ContextBox {
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_header_boxbody_floatin.gif") no-repeat right bottom;
+	
+}
+
+.Header .ContextBox .BoxContainer {
+	
+		position: relative;                   /* IE BackgroundImage fix */
+		padding: 0 0 1px 0;                   /* IE BackgroundImage fix */
+		margin: 0px;
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_header_boxbody.gif") no-repeat left bottom ;
+	
+}
+
+
+
+.Header div.Entry {
+	min-height: 24px;
+	_height:24px;
+}
+
+.Header .LoginBox input.Action {
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 14px;
+	text-align: left;
+	color: #999999;
+	font-size: 12px;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+}
+
+
+
+
+
+
+.NavBarTop table.SizeContainer{
+	
+	margin: 0 auto 0 auto;
+	
+	border-collapse: collapse;
+	border-width: 0;
+}
+
+.NavBarTop table.SizeContainer tr td{
+	white-space: nowrap;
+	vertical-align: top;
+	overflow: hidden;
+	padding: 0;
+}
+
+.NavBarTop {
+	color: #666666;
+}
+
+.NavBarTop div,
+.NavBarTop span,
+.NavBarTop table,
+.NavBarTop td,
+.NavBarTop p,
+.NavBarTop ul li,
+.NavBarTop ol li,
+.NavBarTop blockquote,
+.NavBarTop input {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 11px;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 140%;
+}
+
+.NavBarTop input {
+	line-height: normal !important;
+	color: #000000;
+}
+
+.NavBarTop .ContextBoxHead span,
+.NavBarTop h1,
+.NavBarTop h2,
+.NavBarTop h3,
+.NavBarTop h4,
+.NavBarTop h5,
+.NavBarTop h6 {
+	margin:0;
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 11px;
+	color: #666666;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.NavBarTop p,
+.NavBarTop td {
+	margin:0;
+	padding: 0 4px 0 4px;
+}
+
+html body .NavBarTop em, html body .NavBarTop em a, html body .NavBarTop em span {
+	font-style: normal;
+}
+
+.NavBarTop .NavigationElement {
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 10px;
+	margin: 0;
+	font-size: 11px;
+	line-height: 27px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_button.gif") no-repeat left top;
+	
+}
+
+.NavBarTop .Active {
+	display:block;
+	width: auto;
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 8px;
+	margin: 0;
+	font-size: 11px;
+	line-height: 27px;
+	
+		
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_button_active.gif") no-repeat left top;
+		
+	
+}
+
+.NavBarTop p.BasketLink,
+.NavBarTop .NavigationElement a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 0 ;
+	vertical-align: middle;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_button_floatin.gif") no-repeat right top;
+	
+}
+
+.NavBarTop .Active a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 2px;
+	vertical-align: middle;
+	color: #005F95;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_button_floatin_active.gif") no-repeat right top;
+	
+}
+
+.NavBarTop .ShopNameSlogan {
+	margin: 6px 0 0 0;
+	padding: 0 4px 0 4px;
+}
+
+.NavBarTop .ShopNameHead {
+	float:left;
+}
+
+.NavBarTop .ShopNameHead h1 {
+	font-weight: normal !important;
+	line-height: 140% !important;
+	margin: 0 4px 0 0;
+ }
+
+.NavBarTop .ShopSlogan {
+	float:left;
+	font-size: 11px;
+	color: #666666;
+	line-height: 140% !important;
+}
+
+.NavBarTop .NavigationText {
+	float: left;
+	font-size: 11px;
+	color: #666666;
+	padding: 0;
+	margin: 6px 0 0 0;
+	display: block;
+	vertical-align: middle;
+	white-space:normal;
+}
+
+.NavBarTop a {
+	font-size: 13px;
+	color: #005f95;
+	font-weight: bold;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.NavBarTop .ActiveNode,
+.NavBarTop a:hover {
+	color: #005F95;
+	font-weight: bold;
+	font-style: normal;
+	text-decoration: underline;
+}
+
+
+.NavBarTop a:hover .Text {
+	text-decoration: underline;
+}
+
+.NavBarTop .LocaleFlags {
+	display: block;
+	float:left;
+	margin: 0 4px 0 4px;
+}
+
+.NavBarTop .NavelementIcon i,
+.NavBarTop .LocaleFlags img{
+	margin: 5px 2px 0 2px !important;
+}
+
+.NavBarTop .CreditCards {
+	display: block;
+	float:left;
+	margin: 0 4px 0 4px;
+}
+
+.NavBarTop .CreditCards img{
+	margin: 0 2px 0 2px !important;
+}
+
+.NavBarTop .Coins {
+	float: left;
+	display: inline;
+	text-align:center;
+	margin: 0 4px 0 4px;
+	padding:0;
+	height: 24px;
+}
+
+.NavBarTop .Coins a,
+.NavBarTop .Coins a:hover {
+	margin: 0 2px 0 2px;
+ }
+
+.NavBarTop .CoinLabel {
+		position: absolute;
+		left:0;
+		margin-top:0;
+		font-size: 9px;
+		width: 24px;
+		color: #6E5C2F;
+ }
+
+.NavBarTop .ContextBox {
+	clear: both !important;
+	width: 170px;
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+.NavBarTop .ContextBoxHead {
+	padding: 0 0 0 10px;
+	margin: 0;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_boxhead.gif") no-repeat left top transparent;
+	
+}
+
+.NavBarTop .ContextBox .ContextBoxHead span,
+.NavBarTop .ContextBox .ContextBoxHead h1 /* selector deprecated */ {
+	height: 20px;
+	overflow:hidden;
+	margin: 0;
+	padding: 3px 0 1px 0;
+	text-align: left;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_boxhead_floatin.gif") no-repeat right top ;
+	
+}
+
+.NavBarTop .ContextBoxBody {
+	clear: both;
+	padding: 2px 4px 2px 10px;
+	border: 0;
+	margin-bottom: 1px;
+
+	text-align: left;
+
+	
+}
+
+.NavBarTop .ContextBox {
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_boxbody_floatin.gif") no-repeat right bottom;
+	
+}
+
+.NavBarTop .ContextBox .BoxContainer {
+	
+		position: relative;                   /* IE BackgroundImage fix */
+		padding: 0 0 1px 0;                   /* IE BackgroundImage fix */
+		margin: 0px;
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_top_boxbody.gif") no-repeat left bottom ;
+	
+}
+
+
+
+.NavBarTop div.Entry {
+	min-height: 24px;
+	_height:24px;
+}
+
+.NavBarTop .LoginBox input.Action {
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 14px;
+	text-align: left;
+	color: #005f95;
+	font-size: 13px;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+}
+
+
+
+
+
+.NavBarLeft {
+	color: #000000;
+}
+
+.NavBarLeft,
+.NavBarLeft div,
+.NavBarLeft span,
+.NavBarLeft table,
+.NavBarLeft td,
+.NavBarLeft p,
+.NavBarLeft ul li,
+.NavBarLeft ol li,
+.NavBarLeft blockquote,
+.NavBarLeft input  {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 140%;
+}
+
+.NavBarLeft input {
+	line-height: normal !important;
+}
+
+.NavBarLeft .ContextBoxHead span,
+.NavBarLeft h1,
+.NavBarLeft h2,
+.NavBarLeft h3,
+.NavBarLeft h4,
+.NavBarLeft h5,
+.NavBarLeft h6 {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 12px;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.NavBarLeft p,
+.NavBarLeft td {
+	padding: 0 4px 0 4px;
+}
+
+.NavBarLeft a {
+	font-size: 11px;
+	color: #005F95;
+	font-weight: bold;
+	font-style: normal;
+	text-decoration: none;
+}
+
+html body .NavBarLeft em, html body .NavBarLeft em a, html body .NavBarLeft em span {
+	font-style: normal;
+}
+
+.NavBarLeft .ActiveNode,
+.NavBarLeft a:hover {
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+	text-decoration: underline;
+}
+
+.NavBarLeft em a {
+	display:inline-block;
+	padding-right:20px;
+}
+
+
+.NavBarLeft a:hover .Text {
+	text-decoration: underline;
+}
+
+.NavBarLeft .ShopNameSlogan,
+.NavBarLeft .ContextBox {
+	clear: both !important;
+	width: 100%;
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+.NavBarLeft .ShopNameSlogan,
+.NavBarLeft .ContextBox {
+	
+		background: ;
+	
+}
+
+.NavBarLeft .ShopNameSlogan .BoxContainer,
+.NavBarLeft .ContextBox .BoxContainer {
+	
+}
+
+.NavBarLeft .ShopNameHead,
+.NavBarLeft .ContextBoxHead {
+	padding: 0 0 0 10px;
+	margin: 0;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_left_boxhead.gif") no-repeat left top transparent;
+	
+}
+
+.NavBarLeft .ContextBox .ContextBoxHead span,
+.NavBarLeft .ShopNameSlogan h1,
+.NavBarLeft .ContextBox .ContextBoxHead h1 /* selector deprecated */ {
+	height: 20px;
+	overflow: hidden;
+	margin: 0 ;
+	padding: 3px 0 1px 0;
+	text-align: left;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_left_boxhead_floatin.gif") no-repeat right top ;
+	
+}
+
+.NavBarLeft .ShopSlogan,
+.NavBarLeft .NavigationElement,
+.NavBarLeft .ContextBoxBody {
+	clear: both;
+	padding: 2px 4px 2px 10px;
+	border: 0;
+	margin-bottom: 1px;
+	text-align: left;
+	
+}
+
+.NavBarLeft .NavigationText {
+	clear: both;
+	font-size: 10px;
+	color: #000000;
+	padding: 0;
+	margin: 10px 0 0 0;
+	display: block;
+}
+
+.NavBarLeft .ShopLogo {
+	margin: 10px 0 0 0;
+}
+
+.NavBarLeft a.ContextBoxHead:hover span,
+.NavBarLeft a.ContextBoxHead:hover h1 /* selector deprecated */ {
+	text-decoration: underline !important;
+}
+
+
+
+.NavBarLeft div.Entry {
+	min-height: 24px;
+	_height:24px;
+}
+
+.NavBarLeft .LoginBox input.Action,
+.NavBarLeft .ContextBox input.Action {
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 1px 0 0 10px;
+	text-align: left;
+	color: #005F95;
+	font-size: 11px;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+	width: 141px;
+}
+
+.NavBarLeft .LocaleFlags {
+	display:block;
+	text-align: center;
+	margin: 10px 0 0 0;
+}
+
+.NavBarLeft .LocaleFlags img{
+	margin: 0 4px 0 0 !important;
+}
+
+.NavBarLeft .CreditCards {
+	display:block;
+	text-align: center;
+	margin: 10px 0 0 0;
+}
+
+.NavBarLeft .CreditCards img{
+	margin: 0 4px 0 0 !important;
+}
+
+.NavBarLeft .LocaleBoxLink img{
+	margin: 0 8px 0 0 !important;
+	vertical-align:middle;
+}
+
+
+	.NavBarLeft .Coins {
+	text-align:center;
+	margin: 10px 0 0 0;
+	}
+
+
+	.NavBarLeft .CoinLabel {
+		position: absolute;
+		left:0;
+		margin-top:0;
+		font-size: 9px;
+		width: 24px;
+		color: #6E5C2F;
+	}
+
+html .NavBarLeft .NavBarElement0 {
+	margin-top: 0px;
+}
+
+
+
+
+
+
+
+
+.NavBarBottom table.SizeContainer{
+	
+	margin: 0 auto 0 auto;
+	
+	border-collapse: collapse;
+	border-width: 0;
+}
+
+.NavBarBottom table.SizeContainer tr td{
+	white-space: nowrap;
+	vertical-align: top;
+	overflow: hidden;
+	padding: 0;
+}
+
+.NavBarBottom {
+	color: #000000;
+}
+
+.NavBarBottom div,
+.NavBarBottom span,
+.NavBarBottom table,
+.NavBarBottom td,
+.NavBarBottom p,
+.NavBarBottom ul li,
+.NavBarBottom ol li,
+.NavBarBottom blockquote,
+.NavBarBottom input {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 140%;
+}
+
+.NavBarBottom input {
+	line-height: normal !important;
+	color: #000000;
+}
+
+.NavBarBottom .ContextBoxHead span,
+.NavBarBottom h1,
+.NavBarBottom h2,
+.NavBarBottom h3,
+.NavBarBottom h4,
+.NavBarBottom h5,
+.NavBarBottom h6 {
+	margin:0;
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 10px;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.NavBarBottom p,
+.NavBarBottom td {
+	margin:0;
+	padding: 0 4px 0 4px;
+}
+
+html body .NavBarBottom em, html body .NavBarBottom em a, html body .NavBarBottom em span {
+	font-style: normal;
+}
+
+.NavBarBottom .NavigationElement {
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 10px;
+	margin: 0;
+	font-size: 10px;
+	line-height: 27px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_button.gif") no-repeat left top;
+	
+}
+
+.NavBarBottom .Active {
+	display:block;
+	width: auto;
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 8px;
+	margin: 0;
+	float: left;
+	font-size: 10px;
+	line-height: 27px;
+	
+		
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_button_active.gif") no-repeat left top;
+		
+	
+}
+
+.NavBarBottom p.BasketLink,
+.NavBarBottom .NavigationElement a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 0 ;
+	vertical-align: middle;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_button_floatin.gif") no-repeat right top;
+	
+}
+
+.NavBarBottom .Active a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 2px;
+	vertical-align: middle;
+	color: #666666;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_button_floatin_active.gif") no-repeat right top;
+	
+}
+
+.NavBarBottom .LocaleFlags {
+	display: block;
+	float:left;
+	margin: 0 4px 0 4px;
+}
+
+.NavBarBottom .NavelementIcon i,
+.NavBarBottom .LocaleFlags img{
+	margin: 5px 2px 0 2px !important;
+}
+
+.NavBarBottom .CreditCards {
+	display: block;
+	float:left;
+	margin: 0 4px 0 4px;
+}
+
+.NavBarBottom .CreditCards img{
+	margin: 5px 2px 0 2px !important;
+}
+
+.NavBarBottom .ShopNameSlogan {
+	margin: 6px 0 0 0;
+	padding: 0 4px 0 4px;
+}
+
+.NavBarBottom .ShopNameHead {
+	float:left;
+}
+
+.NavBarBottom .ShopNameHead h1 {
+	font-weight: normal !important;
+	line-height: 140% !important;
+	margin: 0 4px 0 0;
+ }
+
+.NavBarBottom .ShopSlogan {
+	float:left;
+	font-size: 10px;
+	color: #000000;
+	line-height: 140% !important;
+}
+
+.NavBarBottom .NavigationText {
+	float: left;
+	font-size: 10px;
+	color: #000000;
+	padding: 0 5px 0 0;
+	margin: 6px 0 0 0;
+	display: block;
+	vertical-align: middle;
+	white-space:normal;
+}
+
+.NavBarBottom a {
+	font-size: 10px;
+	color: #000000;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.NavBarBottom .ActiveNode,
+.NavBarBottom a:hover {
+	color: #666666;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: underline;
+}
+
+
+.NavBarBottom a:hover .Text {
+	text-decoration: underline;
+}
+
+
+.NavBarBottom .Coins {
+	float: left;
+	display: inline;
+	text-align:center;
+	margin: 0 4px 0 4px;
+	padding:0;
+	height: 24px;
+}
+
+.NavBarBottom .Coins a,
+.NavBarBottom .Coins a:hover {
+	margin: 0 2px 0 2px;
+ }
+
+.NavBarBottom .CoinLabel {
+		position: absolute;
+		left:0;
+		margin-top:0;
+		font-size: 9px;
+		width: 24px;
+		color: #6E5C2F;
+ }
+
+
+
+.NavBarBottom .ContextBox {
+	clear: both !important;
+	width: 170px;
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+.NavBarBottom .ContextBoxHead {
+	padding: 0 0 0 10px;
+	margin: 0;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_boxhead.gif") no-repeat left top transparent;
+	
+}
+
+.NavBarBottom .ContextBox .ContextBoxHead span,
+.NavBarBottom .ContextBox .ContextBoxHead h1 /* selector deprecated */{
+	height: 20px;
+	overflow:hidden;
+	margin: 0;
+	padding: 3px 0 1px 0;
+	text-align: left;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_boxhead_floatin.gif") no-repeat right top ;
+	
+}
+
+.NavBarBottom .ContextBoxBody {
+	clear: both;
+	padding: 2px 4px 2px 10px;
+	border: 0;
+	margin-bottom: 1px;
+
+	text-align: left;
+
+	
+}
+
+.NavBarBottom .ContextBox {
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_boxbody_floatin.gif") no-repeat right bottom;
+	
+}
+
+.NavBarBottom .ContextBox .BoxContainer {
+	
+		position: relative;                   /* IE BackgroundImage fix */
+		padding: 0 0 1px 0;                   /* IE BackgroundImage fix */
+		margin: 0px;
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_bottom_boxbody.gif") no-repeat left bottom ;
+	
+}
+
+
+
+.NavBarBottom div.Entry {
+	min-height: 24px;
+	_height:24px;
+}
+
+.NavBarBottom .LoginBox input.Action {
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 14px;
+	text-align: left;
+	color: #000000;
+	font-size: 10px;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+}
+
+
+
+
+
+
+.Footer table.SizeContainer{
+	
+	margin: 0 auto 0 auto;
+	
+	border-collapse: collapse;
+	border-width: 0;
+}
+
+.Footer table.SizeContainer tr td{
+	white-space: nowrap;
+	vertical-align: top;
+	overflow: hidden;
+	padding: 0;
+}
+
+.Footer {
+	color: #000000;
+}
+
+.Footer div,
+.Footer span,
+.Footer table,
+.Footer td,
+.Footer p,
+.Footer ul li,
+.Footer ol li,
+.Footer blockquote,
+.Footer input {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 140%;
+}
+
+.Footer input {
+	line-height: normal !important;
+	color: #000000;
+}
+
+.Footer .ContextBoxHead span,
+.Footer h1,
+.Footer h2,
+.Footer h3,
+.Footer h4,
+.Footer h5,
+.Footer h6 {
+	margin:0;
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 10px;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.Footer p,
+.Footer td {
+	margin:0;
+	padding: 0 4px 0 4px;
+}
+
+html body .Footer em, html body .Footer em a, html body .Footer em span {
+	font-style: normal;
+}
+
+.Footer .NavigationElement {
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 10px;
+	margin: 0;
+	font-size: 10px;
+	line-height: 27px;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_button.gif") no-repeat left top;
+	
+}
+
+.Footer .Active {
+	display:block;
+	width: auto;
+	_width: 10px;
+	height: 27px;
+	padding: 0 0 0 8px;
+	margin: 0;
+	float: left;
+	font-size: 10px;
+	line-height: 27px;
+	
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_button_active.gif") no-repeat left top;
+		
+	
+}
+
+.Footer p.BasketLink,
+.Footer .NavigationElement a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 0 ;
+	vertical-align: middle;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_button_floatin.gif") no-repeat right top;
+	
+}
+
+.Footer .Active a {
+	display: block;
+	_width: 10px;
+	height: 27px;
+	line-height: 27px;
+	padding: 0 10px 0 2px;
+	vertical-align: middle;
+	color: #666666;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_button_floatin_active.gif") no-repeat right top;
+	
+}
+
+.Footer .ShopNameSlogan {
+	margin: 6px 0 0 0;
+	padding: 0 4px 0 4px;
+}
+
+.Footer .ShopNameHead {
+	float:left;
+}
+
+.Footer.ShopNameHead h1 {
+	font-weight: normal !important;
+	line-height: 140% !important;
+	margin: 0 4px 0 0;
+ }
+
+.Footer .ShopSlogan {
+	float:left;
+	font-size: 10px;
+	color: #000000;
+	line-height: 140% !important;
+}
+
+.Footer .NavigationText {
+	float: left;
+	font-size: 10px;
+	color: #000000;
+	padding: 0;
+	margin: 6px 0 0 0;
+	display: block;
+	vertical-align: middle;
+	white-space:normal;
+}
+
+.Footer a {
+	font-size: 10px;
+	color: #000000;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.Footer .ActiveNode,
+.Footer a:hover {
+	color: #666666;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: underline;
+}
+
+
+.Footer a:hover .Text {
+	text-decoration: underline;
+}
+
+
+.Footer .LocaleFlags {
+	float:left;
+	margin: 0 4px 0 4px;
+}
+
+.Footer .LocaleFlags img{
+	margin: 5px 2px 0 2px !important;
+}
+
+.Footer .CreditCards {
+	float:left;
+	margin: 0 4px 0 4px;
+}
+
+.Footer .CreditCards img{
+	margin: 5px 2px 0 2px !important;
+}
+
+.Footer .Coins {
+	float: left;
+	display: inline;
+	text-align:center;
+	margin: 0 4px 0 4px;
+	padding:0;
+	height: 24px;
+}
+
+.Footer .Coins a,
+.Footer .Coins a:hover {
+	margin: 0 2px 0 2px;
+ }
+
+.Footer .CoinLabel {
+		position: absolute;
+		left:0;
+		margin-top:0;
+		font-size: 9px;
+		width: 24px;
+		color: #6E5C2F;
+ }
+
+
+.Footer .ContextBox {
+	clear: both !important;
+	width: 170px;
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+.Footer .ContextBoxHead {
+	padding: 0 0 0 10px;
+	margin: 0;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_boxhead.gif") no-repeat left top transparent;
+	
+}
+
+.Footer .ContextBox .ContextBoxHead span,
+.Footer .ContextBox .ContextBoxHead h1 /* selector deprecated */ {
+	height: 20px;
+	overflow:hidden;
+	margin: 0;
+	padding: 3px 0 1px 0;
+	text-align: left;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_boxhead_floatin.gif") no-repeat right top ;
+	
+}
+
+.Footer .ContextBoxBody {
+	clear: both;
+	padding: 2px 4px 2px 10px;
+	border: 0;
+	margin-bottom: 1px;
+
+	text-align: left;
+
+	background: transparent;
+}
+
+.Footer .ContextBox {
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_boxbody_floatin.gif") no-repeat right bottom;
+	
+}
+
+.Footer .ContextBox .BoxContainer {
+	
+		position: relative;                   /* IE BackgroundImage fix */
+		padding: 0 0 1px 0;                   /* IE BackgroundImage fix */
+		margin: 0px;
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_footer_boxbody.gif") no-repeat left bottom ;
+	
+}
+
+
+
+.Footer div.Entry {
+	min-height: 24px;
+	_height:24px;
+}
+
+.Footer .LoginBox input.Action {
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 14px;
+	text-align: left;
+	color: #000000;
+	font-size: 10px;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+}
+
+
+
+
+.TrustedShopLogo {
+	margin: 10px 0 0 0;
+}
+
+.ContextBoxHead span,
+.ContextBoxHead ins /* selector deprecated */ {
+	vertical-align: top;
+}
+
+
+.LoginBox .Entry {
+	margin-bottom: 3px;
+}
+
+
+.SearchElement {
+	width: 100%;
+	margin-top: 4px;
+}
+
+.HorizontalNavBar .SearchElement form {
+	margin: 0 8px;
+}
+
+.SearchElementLayout {
+	width: 100%;
+}
+
+.SearchElementLayoutIconCell {
+	width: 20px;
+}
+
+.HorizontalNavBar .SearchElementLayout {
+	width: 150px;
+}
+
+
+
+.CategoriesTreeBox ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	list-style-position:outside;
+	width: 100%;
+	overflow: hidden;
+}
+
+.CategoriesTreeBox li  {
+	_height:0;
+}
+
+.CategoriesTreeBox ul ul li {
+	margin: 0px;
+	padding: 2px 0 2px 14px !important;
+	display: block;
+}
+
+.CategoriesTreeBox ul ul li em {
+	display: inline-block;
+	width: 100%;
+	vertical-align: top;
+	margin-right: -20px;
+}
+  /* Hotfix (only for) 6.11.1 */
+  .CategoriesTreeBox ul li em a,
+  .CategoriesTreeBox em a {
+    display:inline;
+  }
+
+.CategoriesTreeBox img.NoSubCategories{
+	background: url('/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_tree_empty.png') 0px 3px no-repeat !important;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_tree_empty.png', sizingMethod="crop");
+	_position:relative;
+	_top:4px;
+}
+
+.CategoriesTreeBox img.HasSubCategories{
+	background: url('/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_tree_plus.png') 0px 3px no-repeat !important;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_tree_plus.png', sizingMethod="crop");
+	_position:relative;
+	_top:4px;
+}
+
+.CategoriesTreeBox img.HasSubCategoriesMinus {
+	background: url('/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_tree_minus.png') 0px 3px no-repeat !important;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_tree_minus.png', sizingMethod="crop");
+	_position:relative;
+	_top:4px;
+}
+
+.CategoriesTreeBox li.HasSubCategories ul {
+	display: none;
+}
+
+.CategoriesTreeBox img {
+	vertical-align: middle;
+}
+
+.CategoriesTreeBox img.TreeNode {
+	width: 14px;
+	height: 16px;
+}
+
+
+
+.CategoryListWithImage {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+.CategoryListWithImage td {
+	vertical-align: top;
+}
+
+.Header .ImageArea,
+.NavBarTop .ImageArea,
+.NavBarLeft .ImageArea,
+.NavBarBottom .ImageArea,
+.Footer .ImageArea   {
+	width: 50px;
+	padding-top: 3px;
+}
+
+
+
+.FoldingCategoryList .SubCategory {
+	background: url('/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_subcategory.png') 0px 3px no-repeat !important;
+	padding-left: 16px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_subcategory.png');
+}
+
+
+.NavelementIcon img{
+	margin: 5px 2px 0 2px !important;
+}
+
+
+
+.ContentArea,
+.ContentArea div,
+.ContentArea table,
+.ContentArea td,
+.ExtractedContentAreaElement {
+	font-family: Arial, Verdana, Helvetica;
+	font-weight:;
+	font-style:;
+	font-size: 11px;
+	color: #000000;
+  line-height:140%;
+}
+
+.ContentArea h1 {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 18px;
+	color: #005F95;
+	font-weight: bold;
+	font-style:;
+}
+
+.ContentArea h2{
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 13px;
+	color: #012F68;
+	font-weight: bold;
+	font-style:;
+}
+
+.ContentArea h3 {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 12px;
+	color: #666666;
+	font-weight: bold;
+	font-style:;
+	line-height: normal !important;
+	margin:0;
+	padding:0;
+}
+
+.ContentArea h4,
+.ContentArea h5,
+.ContentArea h6 {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 12px;
+	color: #666666;
+}
+
+.ContentArea a,
+.ContentArea .Link,
+.ExtractedContentAreaElement a,
+.ExtractedContentAreaElement .Link {
+	font-size: 11px;
+	color: #005F95;
+	text-decoration: none;
+	line-height: normal !important;
+	font-style: normal;
+	font-weight: normal;
+	cursor:pointer;
+}
+
+.ContentArea input.Link,.ContentArea button.Link {
+	border:0;
+	padding:0;
+	overflow:visible;
+	background:none;
+}
+
+.ContentArea a:hover,
+.ContentArea .Link:hover,
+.ExtractedContentAreaElement a:hover,
+.ExtractedContentAreaElement .Link {
+	color: #000000;
+	text-decoration: underline;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.ContentArea h1 a,
+.ContentArea h1 a:hover{
+	font-weight: bold;
+}
+
+.ContentArea h2 a,
+.ContentArea h2 a:hover{
+	font-weight: bold;
+}
+
+.ContentArea h3 a,
+.ContentArea h3 a:hover {
+	font-weight: bold;
+}
+
+.ContentArea .BreadcrumbLastItem {
+	font-size: 12px;
+	color: #666666;
+	font-weight:  bold;
+}
+
+.ContentArea .BreadcrumbItem:hover,
+.ContentArea .BreadcrumbItem {
+	font-size: 12px;
+	color: #005F95;
+	font-weight:  bold;
+	padding: 0 12px 0 0;
+	margin: 0 3px 0 0;
+	background:url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_breadcrumb_arrow.png") no-repeat right bottom !important;
+}
+
+
+
+.ContentArea .ContextBoxHead,
+.TableHead {
+	clear: both;
+	width: auto;
+	margin: 10px 0 0 0;
+	padding: 0;
+	line-height: 20px;
+	/* overflow: hidden; */
+	
+	/* height: 20px; */
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_boxhead.gif") no-repeat left top  !important;
+	
+}
+
+.ContentArea .ContextBoxHead h1,
+.TableHead div {
+	line-height: 20px;
+	padding: 0;
+	margin: 0 0 0 15px;
+	/* overflow: hidden; */
+	
+	/* height: 20px; */
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_boxhead_floatin.gif") no-repeat right top ;
+	
+	font-weight: bold;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+.ContentArea .ContextBoxBody,
+.Dialog {
+	position: relative;
+	height: auto;
+	overflow: visible;
+	margin: 0 0 10px 0 !important;
+	padding: 3px 6px 6px 6px;
+	background: #e6e6e6 !important;
+	border-top: 0px;
+	border-left: 1px solid #cacaca;
+	border-right: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+}
+
+.DialogSnippet {
+	padding: 3px 6px 6px 6px;
+	background: #e6e6e6 !important;
+	border-top: 0px;
+	border-left: 1px solid #cacaca;
+	border-right: 1px solid #cacaca;
+	border-bottom: 0px;
+}
+
+.ContentArea .ContextBoxBody {
+	margin: 0px !important;
+}
+
+.ContentArea table.Dialog {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	padding: 0;
+	margin: 0;
+	border-top: 0px;
+	border-left: 1px solid #cacaca;
+	border-right: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+	background: #e6e6e6 !important;
+}
+
+.Dialog div.LeftHalf,
+.Dialog td.LeftHalf {
+	min-width: 49%;
+	margin:0 !important;
+	padding:0 !important;
+	border:0 !important;
+	float: left;
+	background: #e6e6e6 !important;
+}
+
+.Dialog div.RightHalf,
+.Dialog td.RightHalf {
+	min-width: 49%;
+	margin:0 !important;
+	padding:0 !important;
+	border:0 !important;
+	float: left;
+	background: #e6e6e6 !important;
+}
+
+.Dialog div.InputBlock,
+.Dialog tr.InputBlock {
+	clear: both;
+	background: #e6e6e6 !important;
+  display:block;
+}
+
+.Dialog div.InputBlockSpacer {
+	height:20px;
+	clear:both;
+}
+
+.Dialog div.TextBlock{
+	clear: both;
+	padding: 2px 6px 2px 6px;
+	background: #e6e6e6 !important;
+}
+
+.Dialog div.InputLabelling,
+.Dialog td.InputLabelling {
+	padding: 2px 6px 2px 6px;
+	width: 100px;
+	vertical-align: top;
+	background: #e6e6e6 !important;
+}
+
+.Dialog div.InputLabelling {
+	float: left;
+}
+
+.Dialog div.InputField,
+.Dialog td.InputField {
+	padding: 2px 6px 2px 6px;
+	vertical-align: top;
+	float: left;
+	background: #e6e6e6 !important;
+}
+
+.Dialog td.InputLabelling {
+	padding: 2px 6px 2px 14px;
+}
+
+.Dialog div.IllustratedLink {
+	margin: 16px 0 16px 0;
+	height:24px;
+}
+
+.Dialog div.IllustratedLink a i {
+	float:left;
+	#float:none;
+	margin-top:-5px;
+	margin-right:3px;
+	#margin:0;
+}
+
+.Dialog .PaddingContainer {
+	padding: 0 10px;
+}
+
+.DialogButtonbar {
+	clear: both;
+}
+
+.Mandatory{
+	padding: 6px;
+	border: 1px solid #cacaca;
+}
+
+html body table.SearchMaskSmall {
+	margin-top:1px !important;
+	border: 1px solid #cacaca !important;
+}
+
+
+
+table.InnerListTable {
+	width: 100%;
+	line-height: 145% !important;
+	padding: 0;
+	margin: 0;
+	border-collapse: collapse;
+}
+
+table.InnerListTable td {
+	height: auto !important;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	line-height: 145% !important;
+	vertical-align: top;
+}
+
+td.InputLabellingSlim {
+	width: 100px;
+}
+
+.Dialog div.InputLabellingWide, .Dialog td.InputLabellingWide {
+	float:left;
+	padding:2px 6px;
+	vertical-align:top;
+	width:150px;
+}
+
+
+
+.AddressDialog {
+	position: relative;
+	margin: 0 0 10px 0 !important;
+	padding: 3px 12px 6px 12px;
+	background: #e6e6e6 !important;
+	border-top: 0px;
+	border-left: 1px solid #cacaca;
+	border-right: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+}
+
+.AddressDialog .InputBlock {
+	display:inline-block;
+}
+
+.Dialog div.SizeContainer,
+.AddressDialog div.SizeContainer {
+	position:relative;
+	width:100%;
+	background: transparent !important;
+  *overflow:hidden;
+}
+
+.BasketAddressSelect .Address,
+.BasketAddressForm .Address,
+.EditAddress .Address {
+	min-height: 70px;
+	_height: 70px;
+	overflow: visible;
+	width: 100%;
+	white-space: nowrap;
+	background: #e6e6e6 !important;
+}
+
+.Addresses .Address {
+	min-height: 70px;
+	_height: 70px;
+	overflow: visible;
+	width: 60%;
+	border: 0;
+	padding:0;
+	margin: 0;
+	white-space: nowrap;
+	background: #e6e6e6 !important;
+}
+
+.CustomerOrder .Address,
+.Offer .Address {
+	width: 50%;
+	float: left;
+	border: 0;
+	padding:0;
+	margin: 0;
+}
+
+.Address ul{
+	border: 0;
+	padding:0;
+	margin: 0;
+}
+
+.Address ul li {
+	list-style-type: none;
+	padding: 0;
+	margin:0;
+}
+
+.AddressOptions {
+	position: absolute;
+	top: 3px;
+	left: 60%;
+	width: 40%;
+	margin: 0;
+	padding:0;
+	border: 0;
+	background: #e6e6e6 !important;
+}
+
+.AddressFields {        /* for Address Input Fields which are side by side (like a table) */
+	clear: both;
+	min-height: 35px;   /* Mozilla Patch to define the height of an floated element */
+	background: #e6e6e6 !important;
+}
+
+.AddressColumnLeft {
+	float: left;
+	margin: 0;
+	padding:0;
+	background: #e6e6e6 !important;
+}
+.AddressColumnLeft input {
+	margin: 0 4px 0 0;
+}
+
+.AddressColumnRight{
+	float: left;
+	margin: 0;
+	padding:0;
+	background: #e6e6e6 !important;
+}
+
+.AddressColumnRight input.Text {
+	width: 105px;
+}
+
+.AddressDialog td.InputLabelling,
+.AddressDialog div.InputLabelling {
+	width: 120px !important;
+}
+
+.AddressDialog input.Text,
+.AddressDialog select.Text{
+	width: 201px !important;
+}
+
+.AddressDialog select.Text option {
+	width: auto;
+}
+
+
+
+
+
+.BoxSmallPadding,
+.Box {
+	margin: 0 0 10px 0 !important;
+	padding: 3px 6px 6px 6px;
+	background: #e6e6e6 !important;
+	border: 1px solid #cacaca;
+  overflow:hidden;
+}
+
+.BoxSmallPadding.Alternate,
+.Box.Alternate {
+	background: transparent !important;
+}
+
+.BoxShippingOption {
+	margin:0;
+	padding:0;
+	background: #e6e6e6 !important;
+	border: 1px solid #cacaca;
+}
+
+.BoxShippingOption *:hover {
+	#background-color:#e6e6e6 !important;
+}
+
+.ShippingOptionContainer {
+	width:100%;
+	height:100%;
+	padding:10px 0 20px 0;
+}
+
+
+.HotDeal {
+	padding: 0px;
+	margin: 6px 2px 0 0;
+	float:left;
+	width: 162px;
+	height: 220px;
+	line-height:100%;
+	overflow: hidden;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_hotdealboxhead.gif") no-repeat left top !important;
+	
+}
+
+.HotDealTop {
+	height: 164px;
+	margin: 0 6px;
+}
+
+.HotDealTopFloatin {
+	margin: 0;
+	padding: 10px 0 4px;
+	#padding:0;
+}
+
+.HotDeal .ImageArea {
+	width: 152px;
+	height: 152px;
+	text-align: center;
+	padding:0;
+	margin-bottom:0;
+	#margin: 10px 6px 4px 0px !important;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+.HotDealFoot {
+	margin: 0 !important;
+	padding: 0 0 0 4px;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_hotdealboxfoot.gif") no-repeat left bottom !important;
+	
+	height: 56px;
+}
+
+.HotDealFootFloatin {
+	margin: 0 !important;
+	padding: 4px 4px 8px 4px;
+	width: 150px;
+	height: 44px;
+	overflow: hidden;
+}
+
+.HotDealFoot .InfoArea {
+	width: 138px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: left;
+}
+
+.HotDealFootFloatin .InfoArea{
+	background: transparent;
+}
+
+.ProductHotDealImage {
+	margin-left: -2px;
+}
+
+.SlimHotDealFoot a.Price,
+.HotDealFoot a.Price {
+	margin: 2px 2px 2px 2px;
+	white-space: nowrap;
+	font-size: 15px;
+	color: #FF3300;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.SlimHotDealFoot a.Price {
+  padding-top:4px;
+  display:inline-block;
+}
+
+.SlimHotDealFoot a.Price:hover,
+.HotDeal a.Price:hover {
+	color: #FF3300;
+	font-weight: bold;
+}
+
+.HotDealsEnd {
+	clear: both;
+}
+
+
+.SlimHotDeal{
+	float: left;
+	height: 190px;
+	overflow: hidden;
+	width: 112px;
+	_width: 112px;
+	margin: 2px 2px 0 0;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_hotdealboxslim.gif") no-repeat left top !important;
+	
+}
+
+.SlimHotDealTop {
+	padding: 6px;
+}
+
+.SlimHotDealFoot{
+	height: 64px;
+	overflow: hidden;
+	padding: 6px;
+	width: 100px;
+
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_hotdealboxslimfoot.gif") no-repeat left bottom !important;
+
+}
+
+
+.SlimHotDealFootFloatin {
+	margin: 0 !important;
+	padding: 4px 4px 6px;
+	overflow: hidden;
+  line-height:1.7em;
+}
+
+.SlimHotDealFoot .InfoArea {
+	width: 138px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: left;
+  margin-bottom:-4px;
+}
+
+.SlimHotDeal .ImageArea {
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	padding:0px;
+	margin: 0px !important;
+	overflow: hidden;
+}
+
+.SlimHotDealFootFloatin span {
+  font-size:70%;
+}
+
+
+.ProductsRight,
+.ProductsLeft {
+	vertical-align: top;
+}
+
+.PagesRight {
+	vertical-align: top;
+	padding-left: 6px;
+}
+
+.PagesLeft {
+	vertical-align: top;
+	padding-right: 6px;
+}
+
+.ProductsRight .ProductList,
+.ProductsLeft .ProductList {
+	width: 250px;
+}
+
+.ProductsRight .ListMaxWidth,
+.ProductsLeft .ListMaxWidth {
+	display: block;
+	width: 250px;
+	height: 1px;
+	line-height: 1px
+}
+
+.ProductsRight .HotDealList,
+.ProductsLeft .HotDealList {
+	width: 164px;
+}
+
+.ProductsRight .SlimHotDealList,
+.ProductsLeft .SlimHotDealList {
+	width: 120px;
+}
+
+.ProductsRight div.Separator,
+.ProductsLeft div.Separator {
+	display: none;
+}
+
+
+
+.ProductListImageBox,
+.CrossellingCount,
+.BundledProductsTable{
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	margin: 5px 0 0 0;
+}
+
+.ProductListImageBox {
+	margin-top: 1px;
+}
+
+.ProductListImageBox tr td,
+.CrossellingCount tr td,
+.BundledProductsTable tr td {
+	padding: 5px;
+	padding-top: 10px;
+	text-align: center;
+	vertical-align: top;
+	background:  #e6e6e6 ;
+	border: 1px solid  #FFFFFF ;
+	width: 33%;
+}
+
+.ProductListImageBox tr td {
+	text-align: left !important;
+}
+
+.ProductListImageBox tr td img,
+.CrossellingCount tr td img,
+.BundledProductsTable tr td img {
+	margin: auto;
+}
+
+.CrossellingCount .CrossellingInfoArea,
+.BundledProductsTable BundledProductsInfoArea {
+	background:  #e6e6e6 ;
+	text-align: left;
+	padding: 4px 0 4px 0;
+}
+
+.CrossellingCount .Price,
+.CrossellingCount .FloatRight,
+.BundledProductsTable .Price,
+.BundledProductsTable .FloatRight{
+	background:  #e6e6e6 ;
+
+}
+
+.CrossellingCount .Price,
+.BundledProductsTable .Price {
+	font-size: 11px;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.ProductListImageBox div.ImageArea,
+div.CrossellingImageArea,
+div.BundledProductsImageArea {
+	white-space: nowrap;
+	padding: 0;
+}
+
+.ProductListImageBox div.ImageArea {
+	text-align: center;
+}
+
+.ProductListImageBox div.InfoArea {
+	position:relative;
+	height: 100%;
+	_height: auto;
+	padding-bottom:20px;
+	overflow: hidden;
+}
+
+
+
+.Pager {
+	margin: 0;
+	padding: 4px 0 4px 0;
+	_width:100%;
+	vertical-align:middle;
+	background: transparent !important;
+	position: relative;
+}
+
+.PagerSizeContainer {
+	text-align:center;
+	background:transparent;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  line-height:2.5;
+  *clear:both;
+  *padding-bottom:5px;
+  font-family:Arial, Tahoma, MS Trebuchet, sans-serif;
+}
+
+.PagerSizeContainer li {
+  display:inline;
+  border:1px solid #aaa;
+  background:#e2e2e2 url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/GUI/ep/img/sf_uiInput_button.png") repeat-x 50%;
+  height:15px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+  *margin:0 1px;
+  text-align:center;
+  cursor:pointer;
+  
+  
+}
+
+.PagerSizeContainer .Current,
+.PagerSizeContainer li:hover {
+  background-color:#cfcfcf;
+  border-color:#666;
+  
+    
+}
+
+.Pager .PagerInfo,
+.Pager .PagerInfoLeft {
+	background: transparent !important;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+  float:right;
+}
+
+.Pager .PagerInfoLeft {
+  float:left;
+}
+
+.InnerFoot .Pager .PagerInfoLeft,
+.InnerHead .Pager .PagerInfoLeft {
+	margin: 0 0 0 -24px;
+}
+
+.PagerSizeContainer a,
+.PagerSizeContainer a:hover {
+  color:#000;
+  
+  text-decoration:none;
+  padding:4px;
+}
+
+.PagerSizeContainer .Disabled,
+.PagerSizeContainer .Disabled:hover  {
+  background-color:#eaeaea;
+  border-color:#ccc;
+  color:#555;
+  cursor:default;
+}
+
+.PagerSizeContainer .Disabled span {
+  opacity:.7;
+}
+
+.PagerSizeContainer .Current {
+  width:6px;
+  padding:1px 4px;
+    
+}
+
+.PagerInfoLeft, .PagerInfo,
+.PagerSizeContainer .Current {
+  font-weight:bold;
+}
+
+.PagerInfoLeft {
+  float:left;
+}
+
+.PagerInfo {
+  float:right;
+}
+
+.PagerSizeContainer span {
+  margin-bottom:-4px;
+  *height:15px;
+}
+
+
+
+.ContentArea .Separator{
+	display: block;
+	clear: both;
+	width: auto;
+	height: 6px;
+	margin: 5px 0 5px 0;
+	padding: 0px;
+	font-size: 0px;
+	line-height: 0px;
+	background-position: middle;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/img_content_separatorline.gif");
+	
+}
+
+.MozSpacer{
+	display: block;
+	clear: both;
+	width: auto;
+	min-height: 5px;
+}
+
+
+
+.Links {
+	text-align: right;
+}
+
+.Links.AlignLeft {
+	float:left;
+}
+
+/* workaround IE's float box-sizing error */
+
+.Links.AlignLeft .FloatRight {
+	#float:left !important;
+}
+
+.Links.AlignLeft div.FloatRight.TopSmallMargin .LinkBasket {
+	#position:absolute;
+	#left:60px !important;
+}
+
+
+.RSSFeed {
+	width:100%;
+}
+
+
+
+
+
+
+.BasketDetails {
+	border:0;
+	border-spacing:0;
+	border-collapse:collapse;
+	vertical-align:top;
+	width:100%;
+}
+
+.BasketDetails td {
+	vertical-align:top;
+}
+
+
+ul.OrderProcess {
+	list-style-type:  none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+ul.OrderProcess li {
+	
+	font-size: 11px;
+	line-height: 113%;
+	float:left;
+	width: 100px;
+	height: 95px;
+	margin: 0;
+	padding: 5px 0px 0px 0px;
+	border: 0;
+	text-align: center;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_orderprocess_item.gif") no-repeat left top;
+	
+}
+
+body[lang=ca] ul.OrderProcess li span.ExplainItem,
+body[lang=it] ul.OrderProcess li span.ExplainItem,
+body[lang=ru] ul.OrderProcess li span.ExplainItem {
+	font-size: 10px !important;
+	padding: 1px;
+}
+
+ul.OrderProcess li * {
+	font-size: 11px !important;
+	font-family: Arial,Verdana,Helvetica, sans-serif !important;
+}
+
+ul.OrderProcess li .ItemImage {
+	width: 32px;
+	height: 32px;
+	margin: 0 auto 0 auto;
+}
+
+ul.OrderProcess li.ActiveItem {
+	color: #000000;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_orderprocess_activeitem.gif") no-repeat left top;
+	
+ }
+
+ul.OrderProcess li a.ItemLink,
+ul.OrderProcess li a.ItemLink:hover {
+	font-weight: bold;
+	line-height: 113%;
+}
+
+ul.OrderProcess li .ItemLabel {
+	font-weight: bold;
+	line-height: 113%;
+	font-size: 11px !important;
+}
+
+ul.OrderProcess li span.ExplainItem {
+	line-height: 113%;
+	font-size: 11px !important;
+	padding:4px;
+}
+
+  html body .ActiveItem a:active,
+  html body .PassedItem a:active,
+  html body .ActiveItem a:hover,
+  html body .PassedItem a:hover,
+  html body .ActiveItem a,
+  html body .PassedItem a {
+    display:block;
+    height:100px;
+    width:100px;
+    text-decoration: none;
+  }
+
+  .ActiveItem a:hover .ItemLabel,
+  .PassedItem a:hover .ItemLabel{
+    text-decoration: underline;
+  }
+
+  html body span.ExplainItem {
+    color: #000000;
+  }
+.PayPalXOr {
+	float:left;
+	margin-top:6px;
+}
+
+
+
+.OrderProcessNavigation {
+	min-height: 20px;
+}
+
+button.DoOrder, .CustomButton.DoOrder {
+	float: right;
+	font-weight:bold !important;
+}
+
+
+
+table.MiniBasket {
+	width: 100%;
+	border-spacing: 1px;
+	border-collapse: collapse;
+	border: 0;
+	border-top: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+	padding: 0;
+	margin: 0;
+	background: #e6e6e6;
+	text-align: left;
+}
+
+table.Basket {
+	width: 100%;
+	border-spacing: 1px;
+	border-collapse: collapse;
+	border-right: 1px solid #cacaca;
+	border-left: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+	padding: 0;
+	margin: 0;
+	background: #e6e6e6;
+  border-width:1px!important; 
+}
+
+table.Basket th {
+	border-bottom: 1px solid #cacaca;
+	padding: 2px 4px 2px 4px;
+	background: #cacaca;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+table.Basket td,
+table.MiniBasket td {
+	vertical-align: top;
+	padding: 1px 4px 2px 4px;
+	background: #e6e6e6;
+	color: #000000;
+}
+
+table.Basket p {
+	background: transparent;
+}
+
+table.Basket a, table.MiniBasket a, .CheckoutButtonsDiv a {
+	color:#005F95;
+}
+
+table.Basket a:hover, table.MiniBasket a:hover, .CheckoutButtonsDiv a:hover {
+	color: #000000;
+}
+
+.NavBarRight table.Basket a, .NavBarRight table.MiniBasket a, .NavBarRight .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.NavBarRight table.Basket a:hover, .NavBarRight table.MiniBasket a:hover, .NavBarRight .CheckoutButtonsDiv a:hover {
+	color: #000000;
+}
+
+.NavBarLeft table.Basket a, .NavBarLeft table.MiniBasket a, .NavBarLeft .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.NavBarLeft table.Basket a:hover, .NavBarLeft table.MiniBasket a:hover, .NavBarLeft .CheckoutButtonsDiv a:hover {
+	color: #000000;
+}
+
+.Header table.Basket a, .Header table.MiniBasket a, .Header .CheckoutButtonsDiv a {
+	color:#999999 ;
+}
+
+.Header table.Basket a:hover, .Header table.MiniBasket a:hover, .Header .CheckoutButtonsDiv a:hover {
+	color: #CCCCCC;
+}
+
+.Footer table.Basket a, .Footer table.MiniBasket a, .Footer .CheckoutButtonsDiv a {
+	color:#000000 ;
+}
+
+.Footer table.Basket a:hover, .Footer table.MiniBasket a:hover, .Footer .CheckoutButtonsDiv a:hover {
+	color: #666666;
+}
+
+.NavBarBottom table.Basket a, .NavBarBottom table.MiniBasket a, .NavBarBottom .CheckoutButtonsDiv a {
+	color:#000000 ;
+}
+
+.NavBarBottom table.Basket a:hover, .NavBarBottom table.MiniBasket a:hover, .NavBarBottom .CheckoutButtonsDiv a:hover {
+	color: #666666;
+}
+
+.NavBarTop table.Basket a, .NavBarTop table.MiniBasket a, .NavBarTop .CheckoutButtonsDiv a {
+	color:#005f95 ;
+}
+
+.NavBarTop table.Basket a:hover, .NavBarTop table.MiniBasket a:hover, .NavBarTop .CheckoutButtonsDiv a:hover {
+	color: #005F95;
+}
+
+.NavBarLeft table.Basket a, .NavBarLeft table.MiniBasket a, .NavBarLeft .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.NavBarLeft table.Basket a:hover, .NavBarLeft table.MiniBasket a:hover, .NavBarLeft .CheckoutButtonsDiv a:hover {
+	color: #000000;
+}
+
+.Header table.Basket a, .Header table.MiniBasket a, .Header .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.Header table.Basket a:hover, .Header table.MiniBasket a:hover, .Header .CheckoutButtonsDiv a:hover {
+	color: #CCCCCC;
+}
+
+.Footer table.Basket a, .Footer table.MiniBasket a, .Footer .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.Footer table.Basket a:hover, .Footer table.MiniBasket a:hover, .Footer .CheckoutButtonsDiv a:hover {
+	color: #666666;
+}
+
+.NavBarBottom table.Basket a, .NavBarBottom table.MiniBasket a, .NavBarBottom .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.NavBarBottom table.Basket a:hover, .NavBarBottom table.MiniBasket a:hover, .NavBarBottom .CheckoutButtonsDiv a:hover {
+	color: #666666;
+}
+
+.NavBarTop table.Basket a, .NavBarTop table.MiniBasket a, .NavBarTop .CheckoutButtonsDiv a {
+	color:#005F95 ;
+}
+
+.NavBarTop table.Basket a:hover, .NavBarTop table.MiniBasket a:hover, .NavBarTop .CheckoutButtonsDiv a:hover {
+	color: #005F95;
+}
+
+.CheckoutButtonsDiv {
+	border: 1px solid #cacaca;
+	background: transparent;
+	padding: 2px 2px 0px 6px;
+	margin: 2px 0px 4px -6px;
+}
+
+
+
+div.BasketComment {
+	padding: 6px 5px 5px 0;
+	background: transparent;
+}
+
+textarea.BasketComment {
+	padding:0;
+	margin:0;
+	width: 100%;
+	#width:230px;
+	height: 100%;
+	height:31px;
+}
+
+.PreLineBasketComment {
+	background: #e6e6e6;
+	border: 1px solid #cacaca;
+	padding: 4px;
+}
+
+
+.BasketInfo {
+	font-weight: bold;
+	border: 1px solid #000000;
+	background: #FFFFE1;
+	padding: 6px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+
+
+
+.GoogleCheckoutButton {
+	margin-top: -2px;
+}
+
+.MiniGoogleCheckoutLinkContainer {
+	margin: 0 0 0 -6px;
+}
+
+.MiniGoogleCheckoutImage {
+	margin: 0 0 0 -6px;
+	display: none;
+}
+
+.PayPalXCheckOut {
+	margin-top: -2px;
+}
+
+.PayPalXCheckOut span {
+	font-weight: bold !important;
+}
+
+.PayPalExpressButton {
+	margin-top: 5px;
+}
+
+.MiniPayPalExpressButton {
+	margin-left: -7px;
+}
+
+.PayPalExpressContainer {
+	margin: 0 0 0 -6px;
+}
+
+.MiniPayPalExpressImage {
+	display: none;
+	margin: 0 0 0 -6px;
+}
+
+.eKomiRatingContainer, .eKomiRatingContainer:hover {
+	display:block;
+	position:relative;
+	cursor:pointer;
+	text-decoration:none !important;
+}
+.eKomiRatingMessage {
+	position:absolute;
+	overflow:hidden;
+}
+.eKomiRatingMessage span {
+	font-family:Verdana !important;
+	font-size:10px;
+	line-height:1.4em;
+	color:#000 !important;
+
+	padding:0;
+	width:100%;
+	height:100%;
+	display:block;
+	background:#fff;
+	margin:0 0 6px;
+}
+
+
+
+
+
+
+
+.CategoryBaseTable {
+	width: 100%;
+	border-collapse:collapse;
+  overflow:hidden;
+}
+
+.CategoryBaseTable .TextComplete {
+	padding: 0px 0px 5px 0px;
+}
+
+.CategoryBaseTable .TextRight,
+.CategoryBaseTable .TextLeft,
+.CategoryBaseTable .ImgLeft,
+.CategoryBaseTable .ImgRight {
+  vertical-align: top;
+  display:inline;
+  float:left;
+  clear:none;
+  width:49%;
+  overflow:hidden;
+  zoom:1;
+}
+
+.CategoryBaseTable .TextLeft {
+	padding: 0px 5px 5px 0px;
+}
+
+.CategoryBaseTable .TextRight {
+	padding: 0px 0px 5px 5px;
+}
+
+.CategoryBaseTable .ImgComplete {
+	padding: 0px 0px 5px 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.CategoryBaseTable .ImgLeft {
+	padding: 0px 5px 5px 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.CategoryBaseTable .ImgRight {
+	padding: 0px 0px 5px 5px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+
+
+div.CategoryImage {
+	float: left;
+	vertical-align: top;
+	padding: 6px 6px 6px 0;
+}
+
+.CategoryText {
+	vertical-align: top;
+	padding: 4px;
+}
+
+
+
+.ListItemCategoryTable{
+	width: 100%;
+	border-spacing: 1px;
+	border-collapse: separate;
+}
+
+.ListItemCategoryTable tr td{
+	background: #e6e6e6;
+}
+
+.ListItemCategory {
+	min-height: 50px;
+	_height: 50px;
+	margin: 6px 0 0 0;
+	padding: 6px;
+	background: #e6e6e6;
+}
+
+.Half{
+	float: left;
+	margin: 3px;
+	width: 47%;
+}
+
+.ListItemCategory .InfoArea,
+.ListItemCategory .InfoArea h3,
+.ListItemCategory .InfoArea p,
+.ListItemCategory .Links,
+.ListItemCategory .Links h3   {
+	background: transparent !important;
+}
+
+.ListItemCategory .ImageArea {
+	float: left;
+	min-width: 50px;
+	min-height: 50px;
+	_width: 50px;
+	_height: 50px;
+	text-align: center;
+	margin: 0 6px 0 0;
+	padding: 0;
+}
+
+.ListItemCategory .ImageArea img {
+	margin-bottom: 0;
+}
+
+.ListItemCategory .Links {
+	text-align: right;
+	white-space:nowrap;
+}
+
+.CategoryList .CategoryText {
+	padding: 0 4px 0 4px;
+	margin:0;
+}
+
+.CategoryList div.CategoryImage {
+	padding: 0 6px 0 0;
+	margin:0;
+}
+
+.CategoryList .SearchString {
+	width: 200px;
+	line-height: 130% !important;
+	height: 16px;
+}
+
+
+
+.ListItemFreeContent,
+.ListItemImprint,
+.ListItemTermsAndConditions,
+.ListItemLink,
+.ListItemArticle {
+	margin: 6px 0 0 0;
+	padding: 6px;
+	clear: both;
+}
+
+.ListItemFreeContent h3,
+.ListItemImprint h3,
+.ListItemTermsAndConditions h3,
+.ListItemCategory h3,
+.ListItemCategory p,
+.ListItemArticle h3,
+.ListItemArticle p {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+div.ProductListHead {
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_listhead.gif") no-repeat left bottom ;
+	
+}
+
+div.ProductListHead div.InnerHead {
+  margin-left:24px;
+	padding: 0 6px 0 6px;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_listhead_floatin.gif") no-repeat right bottom ;
+	
+}
+
+div.ProductListFoot {
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_listfoot.gif") no-repeat left top ;
+	
+}
+
+div.ProductListFoot div.InnerFoot  {
+	margin-left:24px;
+	padding: 0 6px 0 6px;
+	
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_listfoot_floatin.gif") no-repeat right top ;
+	
+}
+
+div.ProductListHead div.InnerHead .InfoLeft,
+div.ProductListFoot div.InnerFoot .InfoLeft {
+	position: relative;
+	margin: 4px 0 0 0;
+	left: -24px;
+	background: transparent !important;
+}
+
+div.ProductListHead a,
+div.ProductListHead a:active,
+div.ProductListHead a:visited,
+div.ProductListHead a:hover,
+div.ProductListFoot a,
+div.ProductListFoot a:active,
+div.ProductListFoot a:visited,
+div.ProductListFoot a:hover {
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+div.ProductListFoot .RealLink {
+	color: #005F95 !important;
+}
+
+div.ProductListFoot .RealLink:hover {
+	color: #000000 !important;
+}
+
+
+
+.OrderSelector {
+	margin: 4px 0 0 0;
+	font-weight: bold;
+}
+
+.OrderSelector a,
+.OrderSelector a:hover{
+	color: #000000;
+}
+
+.OrderSelector .OrderByName{
+	color: #000000;
+}
+
+.OrderSelector img {
+	margin: 0 0 0 6px;
+	vertical-align: middle;
+}
+
+.OrderByName {
+	position: relative;
+	left: 88px;
+	top: 4px;
+}
+
+.OrderByListPrice {
+	position: absolute;
+	right: 6px;
+}
+
+.ListItemProductContainer {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	margin-top: 1px;
+	background: #e6e6e6;
+}
+
+.ListItemProduct {
+	height: auto;
+	_height: 100px;
+	clear: both;
+}
+
+.AlternateRow .ListItemProduct {
+	background: transparent;
+}
+
+.ListItemProduct .ImageArea {
+	_width: 100px;
+	_height: 100px;
+	min-width:100px;
+	min-height: 100px;
+	vertical-align:top;
+	text-align: center;
+	padding-bottom:6px;
+	padding-right:6px;
+	background: #e6e6e6 !important;
+}
+
+.AlternateRow .ListItemProduct .ImageArea{
+	background: transparent !important;
+}
+
+.ListItemProduct .InfoArea {
+	padding: 6px;
+	padding-bottom:0;
+	background-color: #e6e6e6;
+}
+
+.AlternateRow .ListItemProduct .InfoArea{
+	background-color: transparent;
+}
+
+.ListItemProduct .InfoArea .FloatMinimizer {
+	width:18em;
+	position:relative;
+}
+
+.ListItemProduct .ListItemProductInfoContainer {
+	#display:inline-block;
+	overflow:hidden;
+}
+
+.ListItemProduct .PriceArea {
+	float: right;
+}
+
+.AlternateRow .ListItemProduct .PriceArea{
+	background: transparent !important;
+}
+
+.InfoArea .Price {
+	text-align: right;
+	font-weight: bold;
+	white-space: nowrap;
+	background: transparent !important;
+	font-size: 11px;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.ListItemProduct .DailyPrice,
+.ListItemProduct .ReferencePrice {
+	text-align: right;
+	font-weight: normal;
+	white-space: nowrap;
+	background: transparent !important;
+}
+
+.ListItemProduct .Description {
+	background: transparent !important;
+}
+
+.ListItemProduct .Links {
+	text-align: right;
+	white-space:nowrap;
+	background: transparent !important;
+}
+
+.ListItemProduct h3 {
+	background: transparent !important;
+}
+
+.ListItemProduct h3.Headline {
+	width:auto;
+}
+
+.ListItemProduct h3.Headline a{
+	_line-height: 140% !important;
+}
+
+.ProductListImageBox .NewProduct,
+.ListItemProduct .NewProduct {
+	font-size: 11px;
+	position: static;
+	float:left;
+	min-width: 28px;
+	width: auto;
+	_width: 28px !important;
+	min-height: 28px;
+	height: auto;
+	_height: 28px !important;
+	vertical-align:middle;
+	line-height:26px !important;
+	margin: 0 4px 0 0;
+	color: #FF3300;
+	font-weight:bold;
+	text-align: center;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_newproduct.png") center top no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_newproduct.png');
+}
+
+.ListItemProduct li,
+.ListItemProduct ol,
+.ListItemProduct ul,
+.ListItemProduct div,
+.ListItemProduct p {
+	background: transparent !important;
+}
+
+.StockLevel {
+	vertical-align:middle;
+}
+
+.PagedProduct {
+	position: relative;
+}
+
+.ListItemProductTopFloatArea {
+	display:table;
+}
+
+.ListItemProductTopFloatArea h3.Headline {
+	display:table-cell;
+	width:100%;
+	#width:auto;
+	#float:left;
+	vertical-align:top;
+}
+
+
+.ArticleImage {
+	display: inline;
+	float: left;
+	padding: 6px 12px 6px 0;
+}
+
+div.ArticleImage img {
+	margin: 0 12px 0 0;
+}
+
+.ArticleAttachment {
+	clear: both;
+	text-align: right;
+	overflow:hidden;
+}
+
+
+
+.TableLayoutRow {
+	display: table-row;
+	width: 100%;
+	
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
+.ImageAreaPropertyContainer a {
+	position:relative;
+	z-index:1;
+}
+
+
+div.ImageLeft .ImageContainer{
+	display:table-cell;
+	vertical-align: top;
+}
+
+.ImageLeft .ImageArea {
+	_float: left;
+	width: 200px;
+	min-width: 200px;
+	min-height: 200px;
+	text-align: center;
+	background: #cacaca;
+	padding: 3px 2px 3px 2px;
+	margin: 0 12px 0 0;
+	overflow: visible;
+}
+
+.ImageLeft .InfoArea {
+	width: 100% !important;
+}
+
+.ImageBroad div.ImageArea {
+	width: 100%;
+	margin: 0;
+	padding: 3px 0 3px 0;
+	_padding: 2px 0 3px 0;
+	background: #cacaca;
+	overflow: visible;
+	vertical-align:top;
+}
+
+.ImageBroad div.ImageArea div.ImageAreaPropertyContainer {
+	vertical-align:top;
+	text-align: center;
+	margin: 0 2px 0 2px;
+}
+
+.ImageBroad div.ImageArea div.ImageAreaPropertyContainer div {
+	width: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+.ImageBroad div.ImageArea #PreviewArea {
+	width: 100%;
+	text-align:left;
+}
+
+
+.ImageRight .ImageContainer{
+	float: right;
+	vertical-align: top;
+	width: 212px;
+}
+
+.ImageRight .ImageArea {
+	_width: 200px;
+	min-width: 200px;
+	min-height: 200px;
+	text-align: center;
+	background: #cacaca;
+	padding: 3px 2px 3px 2px;
+	margin: 0 0 0 8px;
+	overflow: visible;
+}
+
+
+
+.ProductDetails, .ProductDetails td {
+	border:0;
+	border-spacing:0;
+	border-collapse:collapse;
+	vertical-align:top;
+}
+.ProductDetails {
+	width:100%;
+}
+
+.ProductDetails .ImageArea .Action,
+.ProductDetails .ImageArea a.Action:visited,
+.ProductDetails .ImageArea a.Action:active,
+.ProductDetails .ImageArea a.Action:hover {
+	color: #666666;
+}
+
+.ProductDetails .Price {
+	font-size: 11px;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+  clear:both;
+}
+
+.Price {
+	text-align: right;
+	font-weight: bold;
+}
+
+.HotPrice {
+	color: #FF3300 !important;
+}
+
+.ReferencePrice {
+	text-align: right;
+	font-weight: normal;
+	white-space: nowrap;
+}
+
+.ProductDetails .DailyPrice {
+	text-align: right;
+	font-weight: normal;
+	white-space: nowrap;
+}
+
+html .ContentArea td .AdditionalInfo,
+.AdditionalInfo,
+.ProductNo {
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	font-size: smaller;
+	clear: left;
+}
+
+
+
+
+
+table.SelectVariation,
+table.ContentTable,
+table.SpecialPricesTable,
+table.VariationsTable {
+	width: 100%;
+	margin: 6px 0 0 0;
+	border-spacing: 1px;
+	border-collapse: collapse;
+	border: 1px solid #cacaca;
+	display:table;
+}
+  table.SelectVariation {
+    border-spacing:0;
+    border-collapse:separate;
+  }
+
+table.SelectVariation tbody,
+table.ContentTable tbody,
+table.SpecialPricesTable tbody,
+table.VariationsTable tbody {
+	width:100%;
+}
+
+table.ContentTable tr th,
+table.SpecialPricesTable tr th,
+table.VariationsTable tr th {
+	padding: 2px 4px 2px 4px;
+	background: #cacaca;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+	text-align: left;
+	font-weight: bold;
+}
+
+table.SelectVariation tr th,
+table.SelectVariation tr td,
+table.ContentTable tr td,
+table.SpecialPricesTable tr td,
+table.VariationsTable tr td {
+	border: 1px solid #cacaca;
+	border-right:0;
+	border-bottom:0;
+	background: #e6e6e6;
+	padding: 1px 3px;
+}
+
+html[class*="WebKit"] table.SelectVariation tr th,
+html[class*="WebKit"] table.SelectVariation tr td,
+html[class*="WebKit"] table.ContentTable tr td,
+html[class*="WebKit"] table.SpecialPricesTable tr td,
+html[class*="WebKit"] table.VariationsTable tr td {
+	border-right: 1px solid #cacaca;
+	border-left:0;
+}
+
+
+
+table.VariationsTable td div.Wrapper {
+	padding: 2px 4px 2px 4px;
+}
+
+table.VariationsTable td.SelectedItem {
+	background:transparent;
+}
+
+table.VariationsTable tr th h3,
+table.VariationsTable tr th div {
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.ImageBroad table.SelectVariation th {
+	font-weight: normal;
+}
+
+.ImageBroad table.SelectVariation {
+	width: 300px;
+	margin-left:auto;
+}
+
+.VariationsTable input.Action{
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 14px;
+	text-align: left;
+	color: #005F95;
+	font-size: 11px;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_actionlink.png');
+}
+
+.ProductDetails .NewProduct {
+	font-size: 11px;
+	position: static;
+	float:left;
+	min-width: 28px;
+	width: auto;
+	_width: 28px !important;
+	min-height: 28px;
+	height: auto;
+	_height: 28px !important;
+	padding: 5px 0 0 0;
+	margin: 0 4px 0 0;
+	color: #FF3300;
+	font-weight:bold;
+	text-align: center;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_newproduct.png") center top no-repeat;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_newproduct.png');
+}
+
+div.ComparisonTableContainer {
+	overflow:hidden;
+	overflow-x:auto;
+	width:100%;
+	position:relative;
+}
+
+table.ComparisonTable {
+	width: 100%;
+	text-align: center;
+	border-collapse:collapse;
+	margin-top:1px;
+	margin-bottom:-1px;
+	display:block;
+}
+
+table.ComparisonTable tbody {
+	display:table;
+	width:100%;
+	height:100%;
+}
+
+table.ComparisonTable tr td {
+	width:200px;
+}
+
+table.ComparisonTable tr td,
+table.ComparisonTable tr th {
+	background: #e6e6e6;
+	padding: 2px 4px;
+}
+
+.ComparisonTable .NewProduct{
+	font-size: 11px;
+	position: absolute;
+	left:10px;
+	top:-5px;
+	float:left;
+	min-width: 28px;
+	width: auto;
+	_width: 28px !important;
+	min-height: 28px;
+	height: auto;
+	_height: 28px !important;
+	padding: 5px 0 0 0;
+	margin: 0 4px 0 0;
+	color: #FF3300;
+	font-weight:bold;
+	text-align: center;
+	background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_newproduct.png") center top no-repeat;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/img_newproduct.png');
+}
+
+
+
+
+
+table.OrderStatus,
+table.UserAttributes {
+	width: 100%;
+	margin: 6px 0 0 0;
+	border-spacing: 1px;
+	border-collapse: collapse;
+}
+
+table.OrderStatus {
+	width: 50%;
+}
+
+table.OrderStatus  tr td ,
+table.UserAttributes tr td {
+	text-align: left;
+}
+
+table.OrderStatus  tr td ,
+table.UserAttributes tr td {
+	border: 1px solid #cacaca;
+	padding: 2px 4px 2px 4px;
+	background: transparent;
+	vertical-align: top;
+}
+
+td.AttributeLabel {
+	width: 30%;
+}
+
+td.AttributeLabel.VerticalAlignMiddle{
+	vertical-align: middle !important;
+}
+
+
+
+table.Imprint {
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 0;
+	margin: 0;
+	clear: both;
+}
+
+table.Imprint td{
+	padding: 2px 6px 2px 0;
+	vertical-align: top;
+}
+
+table.Imprint td.Label{
+	font-weight: bold;
+}
+
+
+
+.ShopClosed {
+	width: 350px;
+	margin: 100px auto 0 auto;
+	padding: 10px;
+	background: #e0e0e0;
+	color: #000000;
+	font-size: 12px;
+	line-height: 140%;
+	font-family: Arial, Verdana, Helvetica;
+}
+
+.ShopClosed h1, h2, h3, h4 ,h5, h6 {
+	font-size: 14px;
+	margin:0;
+	padding: 0;
+	color: #000000;
+}
+
+
+
+
+table.OrderList,
+table.ShoppingList,
+table.CustomerList {
+	width: 100%;
+	border-spacing: 1px;
+	border-collapse: collapse;
+	border-right: 1px solid #cacaca;
+	border-left: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+	padding: 0;
+	margin: 0;
+	background: #e6e6e6;
+}
+
+table.OrderList th,
+table.ShoppingList th,
+table.CustomerList th {
+	border-bottom: 1px solid #e6e6e6;
+	padding: 2px 4px 2px 4px;
+	background: #cacaca;
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+table.OrderList td,
+table.ShoppingList td,
+table.CustomerList td {
+	vertical-align: top;
+	padding: 1px 4px 2px 4px;
+	background: #e6e6e6;
+}
+
+table.OrderList p,
+table.ShoppingList p,
+table.CustomerList p {
+	background: transparent;
+}
+
+.ShoppingList select {
+	width: 100%;
+}
+
+table.ShoppingList th {
+	color: #000000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.SLToBasket {
+	width: auto;
+	cursor: pointer;
+	border: 0px;
+	padding: 0 0 0 20px !important;
+	text-align: left;
+	color: #005F95;
+	font-size: 11px;
+	text-decoration: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 140%;
+	background: transparent url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png") no-repeat 0px 2px;
+	_display:inline-block;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_basket.png');
+}
+
+
+
+
+
+
+
+.ShippingOptionCount{
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	margin-top: 5px;
+}
+
+.ShippingOptionCount tr td{
+	padding: 5px;
+	padding-top: 10px;
+	text-align: center;
+	vertical-align: top;
+	background: #e6e6e6;
+	border-right: 5px solid transparent;
+	width: 33%;
+}
+
+.ShippingOption .ImageArea{
+	height: 105px;
+	vertical-align: middle;
+	text-align: center;
+	padding-top: 5px;
+	margin: 0 0 5px 0;
+}
+
+.ShippingOptionCount tr td img{
+	margin: auto;
+}
+
+.ShippingOptionCount .InfoArea {
+	text-align: left;
+	padding: 4px 0 4px 0;
+	background: #e6e6e6;
+}
+
+.ShippingOptionsPriceArea{
+	float: right;
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.NoShippingOption{
+	padding: 5px;
+	}
+
+div.ShippingComment {
+	padding: 6px 5px 0 0;
+	background: transparent;
+}
+
+textarea.ShippingComment {
+	padding:0;
+	margin:0;
+	width: 397px;
+}
+
+
+
+
+input.CouponCode {
+	width: 210px;
+	line-height: 120%;
+}
+
+.CheckoutButtons .IEButtonFix {
+padding: 0px;
+}
+
+
+
+.TestShopAlert{
+	text-align:center;
+	vertical-align:bottom;
+	position:absolute;
+	z-index:99;
+	font-weight:bold;
+	color: #f00;
+	padding: 5px;
+	background: transparent;
+	opacity:0.6;
+	filter:alpha(opacity=60);
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 13px;
+	color:red;
+}
+
+.TopLeft {
+	left: 10px;
+	top: 10px;
+}
+
+.TopRight {
+	right: 10px;
+	top: 10px;
+}
+
+.BottomLeft {
+	left: 10px;
+	bottom: 10px;
+}
+
+.BottomRight {
+	right: 10px;
+	bottom: 10px;
+}
+
+
+
+
+
+.CustomButton,
+.CustomButton * {
+	display:block;
+	display:inline-block;
+	border:0;
+	padding:0;
+	margin:0;
+	padding-left:10px !important;
+	padding-right:10px !important;
+	overflow:visible;
+	text-decoration:none !important;
+	font-family:Arial, Verdana, Helvetica;
+	font-weight:;
+	font-style:;
+	font-size:11px;
+	color: #000;
+	height:22px;
+	line-height:22px !important;
+	_line-height:23px;
+	_height:23px;
+	_top:-1px;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_float.png) right no-repeat;
+	position:relative;
+	#position:static;
+	_position:relative;
+	margin-right:-10px !important;
+	cursor:pointer;
+	vertical-align:top;
+	white-space:nowrap;
+	outline:none;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.CustomButton,
+.CustomButton.Disabled {
+	display:-moz-stack;
+	#display:inline;
+	position:static;
+	padding:0 !important;
+	margin-right:10px !important;
+	vertical-align:baseline;
+	#vertical-align:middle;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content.png', sizingMethod='crop');
+}
+
+.CustomButton.Disabled,
+.CustomButton.Disabled * {
+	cursor:default;
+	color: #888;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_float_disabled.png) right no-repeat;
+}
+
+.CustomButton.Disabled {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_disabled.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_disabled.png', sizingMethod='crop');
+}
+
+.CustomButton:hover {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_hover.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_hover.png', sizingMethod='crop');
+}
+
+.CustomButton:active {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_active.png) no-repeat;
+}
+
+.CustomButton.Disabled:hover {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_disabled.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_disabled.png', sizingMethod='crop');
+}
+
+.CustomButton.Disabled:active {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_content_disabled.png) no-repeat;
+}
+
+.CustomButton:hover * {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_float_hover.png) right no-repeat;
+}
+
+.CustomButton:active * {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_float_active.png) right no-repeat;
+}
+
+.CustomButton.Disabled:hover * {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_float_disabled.png) right no-repeat;
+}
+
+.CustomButton.Disabled:active * {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_l_custombuttonlink_float_disabled.png) right no-repeat;
+}
+
+.CustomButton.Disabled * *,
+.CustomButton.Disabled:hover * *,
+.CustomButton.Disabled:active * * {
+	background:none;
+}
+
+.CustomButton * * {
+	display:inline;
+	padding:0 !important;
+	border:0 !important;
+	margin:0 !important;
+	vertical-align:middle !important;
+	height:auto;
+	_position:static;
+}
+
+.CustomButton * *,
+.CustomButton:hover * *,
+.CustomButton:active * * {
+	background:none;
+}
+
+.CustomButton * i.Icon {
+	top:-1px;
+	#top:0;
+}
+
+.CustomButton * i.Icon[class*="Small"] {
+	top:-2px;
+	#top:0;
+}
+
+.CustomButton input {
+	color: #000;
+}
+
+
+.CustomButton.AddToBasketButton {
+	margin-left: 4px;
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket.png);
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket.png', sizingMethod='crop');
+	height:27px;
+	line-height:27px !important;
+	_line-height:28px;
+	_height:28px;
+	vertical-align:middle;
+	display: -moz-inline-box;
+	padding-left:30px !important;
+}
+
+.CustomButton.AddToBasketButton * {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket_float.png);
+	_background-position: top right;
+	height:27px;
+	line-height:27px !important;
+	_line-height:28px;
+	_height:28px;
+	vertical-align:middle;
+	font-weight: bold;
+	
+}
+
+x:default, .CustomButton.AddToBasketButton {	
+	padding-bottom: 3px;
+}
+
+
+.CustomButton.AddToBasketButton:hover {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket_hover.png);
+}
+
+.CustomButton.AddToBasketButton:hover * {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket_float_hover.png);
+}
+
+.CustomButton.AddToBasketButton:active {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket_active.png);
+}
+
+.CustomButton.AddToBasketButton:active * {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/button_basket_float_active.png);
+}
+
+.AddToBasketForm {
+	white-space: normal\9; ;
+}
+
+.AddToBasketForm {
+	white-space: normal\9; ;
+}
+
+
+
+
+.SiteMapContainer {
+	margin:auto;
+	width:90%;
+}
+.SiteMapBackground {
+	background:transparent;
+	width:100%;
+	margin-top:1px;
+}
+.SiteMapLeft {
+	width:49%;
+}
+.SiteMapLeftInner {
+	padding:10px;
+}
+.SiteMapRight {
+	width:50%;
+}
+.SiteMapRightInner {
+	padding-right:5px;
+	padding-bottom:5px;
+}
+.SiteMapRightContent {
+	background:#e6e6e6;
+	padding:5px;
+}
+.SiteMapLink {
+	display:block;
+	padding-top:5px;
+	margin-left:-5px;
+}
+
+
+
+
+
+.ProductRatingSwitchContainer, .ProductRatingSwitchContainer * {
+	display:block;
+	float:left;
+	position:relative;
+	cursor:pointer;
+	overflow:visible;
+	line-height:16px;
+	height:16px;
+	top:0;
+	left:0;
+	text-decoration:none !important;
+}
+
+.ProductRatingSwitchContainer {
+	float:none;
+	cursor:default;
+}
+
+.ProductRatingSwitch {
+	position:absolute;
+	width:80px;
+	font-size:0;
+	line-height:0;
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+
+.ProductRatingSwitch#Rating_1_Container {z-index:5;width:16px;}
+.ProductRatingSwitch#Rating_2_Container {z-index:4;width:32px;}
+.ProductRatingSwitch#Rating_3_Container {z-index:3;width:48px;}
+.ProductRatingSwitch#Rating_4_Container {z-index:2;width:64px;}
+.ProductRatingSwitch#Rating_5_Container {z-index:1;}
+
+span.ProductRatingSwitch, .ProductRatingSwitch:hover, .ProductRatingSwitch.Active {
+	visibility:visible;
+	opacity:1;
+	filter:none;
+}
+
+.ProductRatingSwitch:hover .ProductRatingStarText {
+	top:-16px;
+	padding-right:50px;
+	background: #e6e6e6 !important;
+}
+
+.ProductRatingSwitch input {
+	position:absolute;
+	z-index:1;
+	margin:0;
+	padding:0;
+	#width:100%;
+	#left:0 !important;
+	background:magenta;
+	opacity:0.00001;
+	filter:alpha(opacity=0);
+}
+
+.ProductRatingSwitch#Rating_2_Container input {left:16px;}
+.ProductRatingSwitch#Rating_3_Container input {left:32px;}
+.ProductRatingSwitch#Rating_4_Container input {left:48px;}
+.ProductRatingSwitch#Rating_5_Container input {left:64px;}
+
+.ProductRatingSwitch .ProductRatingStarText, .ProductRatingSwitch:hover .ProductRatingStarText:hover {
+	top:-9999px;
+	left:84px;
+	padding-left:1px;
+	font-size:11px;
+	white-space:nowrap;
+}
+
+.RatingStarImage {
+	width:16px;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating.png);
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating.png');
+}
+
+.RatingStarImage.Grey {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating_disabled.png);
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating_disabled.png');
+}
+
+.ProductRatingDefaultText {
+	margin-left:85px;
+	_margin-left:44px;
+	margin-top:1px;
+}
+
+.ProductRatingComment {
+	padding-left:118px;
+	#width:100%;
+	overflow:visible;
+}
+
+.WriteProductRating {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating_edit.png) no-repeat !important;
+	_display:inline-block;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.LinkProductRating  {
+	padding: 1px 0 3px 20px;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_productcompare_rating.png) no-repeat !important;
+	_display:inline-block;
+	_background:none;
+	_padding-left: 0px;
+}
+
+.ProductRatingIEMarginBugFix {
+	height:6px !important;
+	font-size:6px !important;
+	line-height:6px !important;
+}
+#mainCommentImgNew {
+	float:right;
+	border:1px solid #fff;
+	font-size:1px !important;
+	position:relative;
+	width:99px;
+	height:12px;
+	background:#fff url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_productrating_comment_short.png);
+}
+#fairCommentImgNew {
+	font-size:1px !important;
+	position:absolute;
+	height:12px;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_productrating_comment_medium.png);
+}
+#perfectCommentImgNew {
+	font-size:1px !important;
+	position:absolute;
+	height:12px;
+	background:#0f0;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_productrating_comment_long.png);
+}
+
+.ProductRatingLink ins img {
+	margin-top:-4px !important;
+}
+
+#NewRatingTable .SizeContainer {
+	min-width:481px;
+	_width:481px;
+}
+
+
+
+
+.BusinessHoursContainer, .BusinessHoursContainer td {
+	border:0;
+	border-collapse:collapse;
+	padding:0;
+}
+.BusinessHoursRow {
+	height:26px;
+	#height:21px;
+}
+
+.BusinessHoursSpacer {
+	width:200px;
+	height:0;
+	line-height:0 !important;
+	font-size:0;
+}
+
+.BusinessHoursLabel {
+	width:5%;
+	text-align:center;
+}
+.BusinessHours {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/BO/icons/content_img_statusbar.png) left top no-repeat;
+	padding-left:10px;
+}
+.BusinessHoursFloatin {
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/BO/icons/content_img_statusbar_floatin.png) right top no-repeat;
+	padding-top:2px;
+	width:100%;
+}
+.BusinessHoursStatusClosed {
+	position:relative;
+	margin-left:-6px;
+	margin-right:4px;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/BO/icons/content_img_percentage_middle.png) left top repeat-x;
+	#width:100%;
+}
+.BusinessHoursStatusOpened, .BusinessHoursStatusOpenedOverlay, .BusinessHoursStatusOpenedOverlayBg {
+	display:block;
+	position:absolute;
+	top:0;
+	height:10px;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/BO/icons/content_img_percentage_normal.png) left top repeat-x;
+}
+
+.BusinessHoursStatusOpenedOverlay {
+	z-index:2;
+	text-decoration:none !important;
+	background:none;
+}
+
+.BusinessHoursStatusOpenedOverlayBg {
+	width:100%;
+	font-size:0;
+	line-height:0 !important;
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/BO/icons/content_img_percentage_deactivated.png) left top repeat-x;
+	filter:alpha(opacity=80);
+	opacity:0.8;
+}
+
+.BusinessHoursStatusOpenedOverlay .BusinessHoursStatusOpenedOverlayText {
+	position:absolute;
+	width:100%;
+	background:#000000;
+	top:10px;
+	color:#000;
+	min-width:7em;
+}
+
+.BusinessHoursStatusOpenedOverlayText {
+	min-width:100px;
+}
+
+.BusinessHoursStatusOpenedOverlaySpacer {
+	position:absolute;
+	height:10px;
+	top:-1px;
+	left:48%;
+	width:10px;
+}
+
+.BusinessHoursGrid {
+	position:absolute;
+	z-index:1;
+	width:100%;
+	height:10px;
+	top:0px;
+	#margin-left:-5px;
+	background:#005F95;
+}
+
+.BusinessHoursGrid b {
+	position:absolute;
+	display:block;
+	width:4.17%;
+	font-size:10px !important;
+	line-height:10px !important;
+	height:10px;
+	text-align:center;
+	color:black !important;
+	text-decoration:none !important;
+	border-right:1px dotted #fff;
+	margin-left:-1px;
+}
+
+.BusinessHoursGrid .Cell2 {
+	left:4.17%;
+}
+.BusinessHoursGrid .Cell3 {
+	left:8.34%;
+}
+.BusinessHoursGrid .Cell4 {
+	left:12.51%;
+}
+.BusinessHoursGrid .Cell5 {
+	left:16.68%;
+}
+.BusinessHoursGrid .Cell6 {
+	left:20.85%;
+}
+.BusinessHoursGrid .Cell7 {
+	left:25.02%;
+}
+.BusinessHoursGrid .Cell8 {
+	left:29.19%;
+}
+.BusinessHoursGrid .Cell9 {
+	left:33.36%;
+}
+.BusinessHoursGrid .Cell10 {
+	left:37.53%;
+}
+.BusinessHoursGrid .Cell11 {
+	left:41.7%;
+}
+.BusinessHoursGrid .Cell12 {
+	left:45.87%;
+}
+.BusinessHoursGrid .Cell13 {
+	left:50.02%;
+}
+.BusinessHoursGrid .Cell14 {
+	left:54.21%;
+}
+.BusinessHoursGrid .Cell15 {
+	left:58.38%;
+}
+.BusinessHoursGrid .Cell16 {
+	left:62.55%;
+}
+.BusinessHoursGrid .Cell17 {
+	left:66.72%;
+}
+.BusinessHoursGrid .Cell18 {
+	left:70.89%;
+}
+.BusinessHoursGrid .Cell19 {
+	left:75.06%;
+}
+.BusinessHoursGrid .Cell20 {
+	left:79.23%;
+}
+.BusinessHoursGrid .Cell21 {
+	left:83.4%;
+}
+.BusinessHoursGrid .Cell22 {
+	left:87.57%;
+}
+.BusinessHoursGrid .Cell23 {
+	left:91.74%;
+}
+
+.BusinessHoursGrid b.BusinessHoursLastGridCell {
+	right:0;
+	border:0;
+	margin:0;
+}
+
+.BusineHoursTable {
+	width: 300px;
+	margin:auto;
+}
+
+.AppointmentAddressDialog td {
+	width:100px;
+	padding:2px 6px;
+	vertical-align:top;
+}
+
+.AppointmentAddressDialog input.Text {
+	width:201px;
+}
+
+
+
+html[class*=Gecko] .ContentArea table.UserAttributes {
+	border-left: 1px solid #cacaca;
+	border-bottom: 1px solid #cacaca;
+}
+
+html[class*=Gecko] .ContentArea table.ProductListImageBox,
+html[class*=Gecko] .ContentArea table.CrossellingCount,
+html[class*=Gecko] .ContentArea table.BundledProductsTable {
+	border-left: 1px solid  #FFFFFF ;
+	border-bottom: 1px solid  #FFFFFF ;
+}
+
+html[class*=Gecko] .ContentArea table.VariationsTable,
+html[class*=Gecko] .ContentArea table.ProductListImageBox,
+html[class*=Gecko] .ContentArea table.CrossellingCount,
+html[class*=Gecko] .ContentArea table.BundledProductsTable,
+html[class*=Gecko] .ContentArea table.Basket,
+html[class*=Gecko] .ContentArea table.OrderList,
+html[class*=Gecko] .ContentArea table.ShoppingList,
+html[class*=Gecko] .ContentArea table.CustomerList,
+html[class*=Gecko] .ContentArea table.Dialog,
+html[class*=Gecko] .ContentArea table.UserAttributes,
+html[class*=Gecko] .ContentArea table.OrderStatus {          /* fx border layout fix */
+	border-top-width: 0px;
+	border-collapse: separate;
+	border-spacing:0;
+}
+
+html[class*=Gecko] .ContentArea table.VariationsTable tr td,
+html[class*=Gecko] .ContentArea table.ProductListImageBox tr td,
+html[class*=Gecko] .ContentArea table.CrossellingCount tr td,
+html[class*=Gecko] .ContentArea table.BundledProductsTable tr td,
+html[class*=Gecko] .ContentArea table.Basket tr td,
+html[class*=Gecko] .ContentArea table.OrderList tr td,
+html[class*=Gecko] .ContentArea table.ShoppingList tr td,
+html[class*=Gecko] .ContentArea table.CustomerList tr td,
+html[class*=Gecko] .ContentArea table.Dialog td,
+html[class*=Gecko] .ContentArea table.UserAttributes tr td,
+html[class*=Gecko] .ContentArea table.OrderStatus tr td {    /* fx border layout fix */
+	border-left-width: 0px;
+	border-bottom-width: 0px;
+}
+
+html[class*=Gecko] .ContentArea table.VariationsTable tr td,
+html[class*=Gecko] .ContentArea table.VariationsTable tr .SeparateColumn:last-child
+html[class*=Gecko] .ContentArea table.Basket tr td,
+html[class*=Gecko] .ContentArea table.Basket tr .SeparateColumn:last-child
+html[class*=Gecko] .ContentArea table.OrderList tr td,
+html[class*=Gecko] .ContentArea table.OrderList tr .SeparateColumn:last-child
+html[class*=Gecko] .ContentArea table.ShoppingList tr td,
+html[class*=Gecko] .ContentArea table.ShoppingList tr .SeparateColumn:last-child
+html[class*=Gecko] .ContentArea table.CustomerList  tr td,
+html[class*=Gecko] .ContentArea table.CustomerList tr .SeparateColumn:last-child{
+	border-right-width: 0px;
+}
+
+
+
+
+
+.ForumContainer {
+	margin:auto;
+	width:98.5%;
+	padding-left:3px;
+	padding-right:3px;
+	overflow:hidden;
+}
+.ForumDescription {
+	margin-top:1px;
+	padding:5px;
+	border:1px solid transparent;
+	background:#e6e6e6;
+}
+.ForumOverviewTitleContainer {
+	white-space: nowrap;
+}
+.ForumOverviewTitleContainer, .ForumOverviewContainer {
+	display:block;
+	float:left;
+	width:103%;
+	margin-top:1px;
+}
+.ForumOverview {
+	display:block;
+	height:auto;
+	vertical-align:middle;
+}
+.ForumOverview .ForumOverviewHeadline {
+	display:table-cell;
+	display:inline-block;
+	max-width:75%;
+}
+
+.ForumOverview .ForumOverviewHeadline * {
+	text-align:left !important;
+}
+
+.ForumOverviewContainer {
+	text-decoration:none !important;
+	cursor:pointer;
+	outline:none;
+}
+.ForumOverviewContentBox, .ForumOverviewHeadBox {
+	display:block;
+	float:left;
+	height:50px;
+	background:#e6e6e6;
+	overflow:hidden;
+}
+
+.ForumOverviewContainer:hover {
+	_display:inline-block;
+}
+.ForumOverviewContainer:hover .ForumOverviewContentBox {
+	background:transparent !important;
+}
+.ForumOverviewContentEmpty {
+	width:100%;
+	margin-top:1px;
+	text-align:center;
+	vertical-align:middle;
+	line-height:50px;
+}
+.ForumOverviewContainer:hover .ForumOverviewFirstBox {
+	
+	background:transparent !important;
+}
+.ForumOverviewHeadBox {
+	height:auto;
+}
+.ForumOverviewFirstBox {
+	width:55%;
+}
+.ForumOverviewSecondBox {
+	width:14%;
+	text-align:center;
+}
+.ForumOverviewThirdBox {
+	width:14%;
+	text-align:center;
+}
+.ForumOverviewThirdBoxContent {
+	line-height:50px !important;
+}
+.ForumOverviewFourthBox {
+	width:14%;
+	text-align:center;
+}
+.ForumOverviewContent, .ForumOverviewHead {
+	display:block;
+	height:48px;
+	padding-right:4px;
+	padding-left:4px;
+	border:1px solid transparent;
+	overflow:hidden;
+	line-height:24px;
+}
+.ForumOverviewDescription {
+	color:#000000;
+}
+x:-moz-any-link, x:only-child, .ForumOverviewDescription {
+	display:block;
+	margin-top:-1.4em;
+}
+x:-moz-any-link, x:default, .ForumOverviewDescription {
+	display:inline-block;
+	margin-top:0;
+}
+.ForumOverviewHead {
+	height:auto;
+	text-align:center;
+	font-weight:bold;
+}
+
+.ForumOverviewHeadBox,
+.ForumOverviewHead {
+	background: transparent;
+	border: 0px;
+}
+
+.ForumOverviewIcon {
+	display:block;
+	float:left;
+	width:50px;
+	height:50px;
+	margin-right:5px;
+	border-right:1px solid transparent;
+}
+.ForumOverviewIconIns {
+	position:relative;
+	left:7px;
+	top:8px;
+}
+
+.ForumOverviewTreeRowEncircleContainer {
+	position:relative;
+	float:left;
+	width:100%;
+	overflow:hidden;
+	display:block;
+}
+.ForumOverviewTreeRowContainer {
+	display:block;
+	clear:both;
+	padding-top:4px;
+	margin-bottom:4px;
+	background:transparent;
+	border-bottom:1px solid transparent;
+	border-left:1px solid transparent;
+	border-right:1px solid transparent;
+}
+html body span.ForumOverviewTreeRowEncircleContainer .Alternate {
+	background:#e6e6e6 !important;
+}
+html body span.ForumOverviewTreeRowEncircleContainer .Alternate .ForumOverviewTreeRowEntry {
+	background:transparent !important;
+}
+.ForumOverviewTreeRow {
+	display:block;
+	height:22px;
+	text-decoration:none !important;
+	outline:none !important;
+}
+.ForumOverviewTreeRowEntry {
+	display:block;
+	margin-left:4px;
+	background:#e6e6e6;
+	border:1px solid transparent;
+	border-right:none;
+	height:16px;
+	white-space:nowrap;
+	padding-left:5px;
+	overflow:hidden;
+}
+.ForumTreeRowMessage {
+	position:absolute;
+	line-height:15px;
+	#line-height:14px;
+	padding-left:2px;
+}
+.ForumOverviewTreeRow:hover {
+	background:transparent;
+	zoom:1;
+}
+html body span.ForumOverviewTreeRowEncircleContainer .ForumOverviewTreeRow:hover .ForumOverviewTreeRowEntry {
+	background:transparent !important;
+	border-left:4px solid #000000;
+	text-decoration:none !important;
+}
+
+.Width100 {
+	width: 100%;
+	overflow:hidden;
+}
+
+
+.ForumPostForm {
+	width:90%;
+	margin:auto;
+}
+.ForumPostCenter {
+	margin-top:1px;
+	padding:5px;
+	background:transparent !important;
+	border:1px solid #cacaca;
+	cursor:default;
+}
+.ForumPostInputContainer {
+	padding-left:14px;
+}
+.ForumPostSubjectInput {
+	width:100%;
+	_width:500px;
+	margin:5px;
+	margin-left:-10px;
+}
+.ForumPostMessageContainer {
+	padding-left:17px;
+}
+.ForumPostMessageText {
+	width:100%;
+	_width:500px;
+	height:180px;
+	margin:5px;
+	margin-left:-12px;
+	overflow-y:scroll;
+}
+.ForumPostButtonContainer {
+	float:right;
+}
+
+.ForumTitleLine {
+	line-height:22px;
+	vertical-align:middle;
+}
+.ForumBottomLine {
+	overflow:hidden;
+}
+.ForumPlainItemTreeLine {
+	background:transparent;
+	padding:1px;
+	border-right:1px solid transparent;
+	padding-right:0;
+	width:3px;
+	height:101%;
+	position:absolute;
+	top:-2px;
+}
+.ForumPlainItemTreeLineNone {
+	background:transparent !important;
+}
+/* - '--> Elements - */
+.ForumPostLegend {
+	color: #000000;
+}
+
+
+
+.SpamLinkArea {
+	text-align: center;
+}
+.SpamLink {
+  font-weight:bold!important;
+}
+
+.ForumPlainItemContainer {
+	position:relative;
+	margin-top:1px;
+}
+.ForumPlainItem {
+	position:relative;
+	border:1px solid #cacaca;
+	background:#e6e6e6;
+}
+
+.ForumPlainItem:hover .ForumPlainItemAnswerLink {
+	opacity:1;
+	filter:none;
+	display:block;
+}
+
+.ForumPlainItemPoster {
+	position:relative;
+	width:150px;
+	height:120px;
+	padding:5px;
+}
+.ForumPlainItemPosterContainer {
+	width:150px;
+	height:120px;
+}
+.ForumPlainItemMessageContainer {
+	margin-top:-130px;
+	padding-left:160px;
+	background:#e6e6e6;
+}
+.ForumPlainItemPosterContainerInner {
+	text-align:center;
+	border-top:1px solid transparent;
+	border-bottom:1px solid transparent;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin:5px;
+  line-height:1;
+}
+.ForumPlainItemPosterContainerInnerPic {
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.ForumPlainItemPosterContainerInnerMisc {
+	text-align:center;
+}
+.ForumPlainItemMessage {
+	border-left:1px solid transparent;
+	padding:5px;
+	min-height:120px;
+	_height:120px;
+	background:#e6e6e6;
+	padding-bottom:25px;
+  word-wrap:break-word;
+}
+
+.ForumPlainItemMessage.ResetForReply {
+	min-height:0;
+	_height:0;
+	padding-bottom:3px;
+}
+.ForumPlainItemAnswerLink {
+	position:absolute;
+	bottom:4px;
+	right:10px;
+	opacity:0.65;
+	filter:alpha(opacity=65);
+	_filter:none;
+}
+
+.ForumBlogHead {
+	width:100%;
+}
+
+
+
+.ForumTreeItemContainer {
+	width:auto;
+}
+
+.ForumTreeItemContainer .SpamLink {
+	z-index:1;
+}
+
+.ForumTreeItemContainer .ForumPlainItemPoster {
+	height:2em;
+	width:100%;
+	padding:0;
+	border-bottom:1px solid transparent;
+	overflow:hidden;
+	background:transparent !important;
+}
+
+.ForumTreeItemContainer .ForumPlainItemPoster .ForumPlainItemPosterContainer {
+	height:2em;
+	width:100%;
+	clear:both;
+}
+
+.ForumTreeItemContainer .ForumPlainItemPoster .ForumPlainItemPosterContainer .ForumPlainItemPosterContainerInner,
+.ForumTreeItemContainer .ForumPlainItemPoster .ForumPlainItemPosterContainer .ForumPlainItemPosterContainerInnerMisc {
+	border:0;
+	padding:0;
+	margin:0;
+	float:left;
+	height:2em;
+	line-height:2em;
+}
+
+.ForumTreeItemContainer .ForumPlainItemPoster .ForumPlainItemPosterContainer .ForumPlainItemPosterContainerInnerPic {
+	display:none;
+}
+
+.ForumTreeItemContainer .ForumPlainItemPoster .ForumPlainItemPosterContainer .ForumPlainItemPosterContainerInnerMisc {
+	margin-top:-2em;
+}
+
+.ForumTreeItemContainer .ForumPlainItemPoster .ForumPlainItemPosterContainer  .ForumPlainItemPosterContainerInner {
+	margin-right:0.3em;
+	margin-left:0.3em;
+}
+
+.ForumTreeItemContainer .ForumPlainItemMessageContainer {
+	margin:0;
+	padding:0;
+}
+
+.ForumTreeItemContainer .ForumPlainItemMessage {
+	border:0;
+	min-height:0;
+	_height:auto;
+}
+
+
+/* - Blog - */
+html .BlogListItem h1 a:hover,
+html .BlogListItem h1 a:active,
+html .BlogListItem h1 a:visited,
+html .BlogListItem h1 a {
+	color: #005F95;
+	font-size: 18px;
+	font-family: inherit;
+	font-weight: inherit;
+}
+
+.BlogListItem .PublishInfo {
+	opacity:0.6;
+	filter:alpha(opacity=60);
+}
+
+.BlogListItem .Message {
+	margin: 8px 0 12px 0;
+}
+
+h2.BlogComments {
+	margin: 32px 0 20px 0;
+}
+
+.BlogComment {
+	margin-bottom: 20px;
+}
+
+.MessageBlock {
+	overflow:hidden;
+	width:100%;
+	height:11.2em;
+	margin-bottom:6px;
+}
+
+
+
+
+
+.ImageGalleryList {
+	clear:both;
+	width:100%;
+}
+.ImageGalleryListHead {
+	display:block;
+	padding:5px;
+	margin-bottom:2px;
+}
+.ImageGalleryListItemContainer {
+	float:left;
+	text-align:left;
+	margin:1px;
+	border:1px solid #444;
+}
+.ImageGalleryListItem {
+	display:block;
+	float:left;
+	border:2px solid #fff;
+	padding:5px;
+	cursor:hand;
+}
+.ImageGalleryListItem:hover {
+	border:2px solid #222;
+	padding:5px;
+	text-decoration:none !important;
+}
+.ImageGalleryListItemHover {
+	visibility:hidden;
+	display:block;
+	position:relative;
+	width:100%;
+	height:100%;
+	margin:-5px;
+	border:5px solid #fff;
+	filter:alpha(opacity=50);
+	opacity:0.5;
+}
+.ImageGalleryListItem:hover .ImageGalleryListItemHover{
+	visibility:visible;
+}
+.ImageGalleryListItemMedium {
+	visibility:hidden;
+	display:block;
+	position:absolute;
+	padding:4px;
+	z-index:999;
+	background:transparent;
+}
+.ImageGalleryListItem:hover .ImageGalleryListItemMedium{
+	visibility:visible;
+}
+.ImageGalleryListItemMediumOpacity {
+	display:block;
+	position:absolute;
+	left:-5%;
+	top:-5%;
+	width:112%;
+	height:112%;
+	background:#fff;
+	filter:alpha(opacity=90);
+	opacity:0.9;
+}
+.ImageGalleryListItemMediumBorder {
+	display:block;
+	position:absolute;
+	left:-5%;
+	top:-5%;
+	margin-left:-1px;
+	margin-top:-1px;
+	width:112%;
+	height:112%;
+	border:1px solid #000;
+}
+.ImageGalleryListItemMediumImage {
+	display:block;
+	position:absolute;
+	left:-5%;
+	top:-5%;
+	width:112%;
+	height:112%;
+}
+.ImageSlide {
+	position: relative;
+	margin: auto;
+	width: 100%;
+	overflow: scroll;
+	overflow-y: hidden;
+}
+.ImageSlide div {
+	position: absolute;
+	left: 0;
+}
+.ImageSlide nobr {
+	display:block;
+}
+
+/* Image Search */
+
+.ImageSearchImage {
+	display:block;
+	position:relative;
+	cursor:default;
+}
+html body .ImageSearchImage .ZoomIcon {
+	display:block;
+	background:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_search.png) !important;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_s_search.png');
+	cursor:pointer !important;
+	position:relative;
+	z-index:2;
+	#position:static;
+}
+.ImageSearchImage ins, .ImageSearchImage .BigImage {
+	display:none;
+}
+.ImageSearchImage ins *, html body .Alternate ins * {
+	background:none !important;
+}
+.ImageSearchImage:hover {
+	background:transparent;
+	cursor:default;
+}
+.ImageSearchImage:hover ins {
+	display:block;
+	position:absolute;
+	right:0;
+	bottom:0;
+}
+.ImageSearchImage:hover .ZoomIcon:hover .BigImage {
+	display:block;
+	position:absolute;
+	padding-left:100%;
+	cursor:default;
+	z-index:-1;
+	#z-index:0;
+}
+.Invert:hover .ZoomIcon:hover .BigImage {
+	bottom:0;
+}
+
+.ImageSearchImage:hover img {
+	opacity:0.5;
+	filter:alpha(opacity=50);
+}
+
+.ImageSearchImage:hover .BigImage img {
+	opacity:1;
+	filter:none;
+}
+
+.ImageSearchList {
+	margin-top:-24px;
+	position:relative;
+}
+
+.ImageSearchList thead td {
+	padding-bottom:5px;
+}
+
+
+twittertweetthis_button {
+	padding:0;
+	margin:0;
+	border:none;
+	overflow:visible;
+	background:transparent;
+	outline:none;
+}
+.twittertweetthis_offscreen {
+	position:absolute;
+	left:-999em;
+}
+.twittertweetthis_t-count {
+	visibility:hidden;
+}
+.twittertweetthis_show-count .twittertweetthis_t-count {
+	visibility:visible;
+}
+.twittertweetthis_tb-container {
+	display:block;
+}
+.twittertweetthis_tb {
+	display:block;
+	height:20px;
+}
+.twittertweetthis_tb, .twittertweetthis_t-count, .twittertweetthis_t-count button {
+	background:transparent url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/SocialWeb/tweet.png) no-repeat;
+}
+.twittertweetthis_es .twittertweetthis_tb, .twittertweetthis_es .twittertweetthis_t-count, .twittertweetthis_es .twittertweetthis_t-count button {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/SocialWeb/tweet_es.png);
+}
+.twittertweetthis_fr .twittertweetthis_tb, .twittertweetthis_fr .twittertweetthis_t-count, .twittertweetthis_fr .twittertweetthis_t-count button {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/SocialWeb/tweet_fr.png);
+}
+.twittertweetthis_de .twittertweetthis_tb, .twittertweetthis_de .twittertweetthis_t-count, .twittertweetthis_de .twittertweetthis_t-count button {
+	background-image:url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/SocialWeb/tweet_de.png);
+}
+.twittertweetthis_tb button {
+	position:absolute;
+	left:-999em;
+}
+.twittertweetthis_tb:hover, .twittertweetthis_tb-focus {
+	background-position:0 -21px;
+}
+.twittertweetthis_tb:active {
+	background-position:0 -42px;
+}
+.twittertweetthis_ncount .twittertweetthis_t-count {
+	display:none;
+}
+.twittertweetthis_vcount .twittertweetthis_t-count, .twittertweetthis_hcount .twittertweetthis_t-count {
+	display:block;
+}
+.twittertweetthis_hcount .twittertweetthis_tb {
+	float:left;
+	width:55px;
+}
+.twittertweetthis_hcount-es .twittertweetthis_tb {
+	width:64px;
+}
+.twittertweetthis_hcount-fr .twittertweetthis_tb {
+	width:65px;
+}
+.twittertweetthis_hcount-de .twittertweetthis_tb {
+	width:67px;
+}
+.twittertweetthis_hcount .twittertweetthis_t-count {
+	background-position:0 -145px;
+	float:left;
+	height:20px;
+	padding:0 0 0 8px;
+	margin:0 0 0 3px;
+	_position:relative;
+}
+.twittertweetthis_hcount .twittertweetthis_t-count button {
+	background-position:right -145px;
+	height:20px;
+	min-width:26px;
+	_width:26px;
+	padding:0 4px 0 0;
+	margin:0 -1px 0 0;
+	_position:relative;
+	display:block;
+	font:bold 12px Arial,Helvetica,sans-serif;
+	color:#2A7090;
+}
+.twittertweetthis_hcount .twittertweetthis_t-count.enabled:hover, .twittertweetthis_hcount .twittertweetthis_t-count-focus.enabled {
+	background-position:0 -166px;
+}
+.twittertweetthis_hcount .twittertweetthis_t-count.enabled:hover button, .twittertweetthis_hcount .twittertweetthis_t-count-focus.enabled button {
+	color:#30566D;
+	text-shadow:0 1px 0 #fff;
+	background-position:right -166px;
+}
+.twittertweetthis_vcount .twittertweetthis_tb-container {
+	position:relative;
+	height:50px;
+	width:55px;
+}
+.twittertweetthis_vcount-es .twittertweetthis_tb-container {
+	width:64px;
+}
+.twittertweetthis_vcount-fr .twittertweetthis_tb-container {
+	width:65px;
+}
+.twittertweetthis_vcount-de .twittertweetthis_tb-container {
+	width:67px;
+}
+.twittertweetthis_vcount .twittertweetthis_tb {
+	position:absolute;
+	width:100%;
+	margin-top:42px;
+}
+.twittertweetthis_vcount .twittertweetthis_t-count {
+	position:absolute;
+	width:100%;
+	background-position:0 -63px;
+	text-align:center;
+	height:40px;
+}
+.twittertweetthis_vcount .twittertweetthis_t-count button {
+	background-image:none;
+	font:bold 16px Arial,Helvetica,sans-serif;
+	color:#2A7090;
+	height:34px;
+}
+.twittertweetthis_vcount .twittertweetthis_t-count.enabled:hover, .twittertweetthis_vcount .twittertweetthis_t-count-focus.enabled {
+	background-position:0 -104px;
+}
+.twittertweetthis_vcount .twittertweetthis_t-count.enabled:hover button, .twittertweetthis_vcount .twittertweetthis_t-count-focus.enabled button {
+	color:#30566D;
+	text-shadow: 0 1px 0 #fff;
+}
+
+
+
+
+.NumberSpinner .NumberSpinnerUpArrow,
+.NumberSpinner .NumberSpinnerDownArrow {
+	background-image: url('/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/bgr_numberspinner.png') !important;
+	_background-image: url('/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/bgr_numberspinner.gif') !important;
+}
+
+
+
+.dijitPopup {
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 11px;
+	color: #000;
+}
+
+
+
+html .Message.Size80 .MessageDetails,
+html .Message .Headline {
+	font-family: Arial,Verdana,Helvetica, sans-serif;
+	font-size: 12px;
+	line-height:140%;
+	color: #3d3d3e;
+}
+
+html .Message .Headline {
+	color: #006cff;
+}
+
+html .Message.Large .Headline,
+html .Message.Size80 .Headline {
+	font-size: 18px;
+	font-weight:normal;
+}
+
+
+
+.GadgetBoerse td {
+	padding: 0px;
+}
+
+.GadgetBoerse td br {
+	display: none;
+}
+
+
+
+/* - '--> Message - */
+
+html .MessageMediumBasketDiscount,
+.Message.Medium.BasketDiscount {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_specialprices.png) 8px 8px no-repeat !important;
+	_zoom:1;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_specialprices.png');
+	_padding-top: 0px;
+	_margin-top: 8px;
+}
+
+html .FreeShipping {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_freeshipping.png) 8px 8px no-repeat !important;
+	_zoom:1;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_m_freeshipping.png');
+}
+
+.Message.Size80.BasketDiscount {
+	background: url(http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_80_specialprices.png) no-repeat !important;
+	_zoom:1;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000)
+			progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/WebRoot/StoreTypes/6.11.1/StoreES/SF/Icon/SimpleSymbols/ico_80_specialprices.png');
+}
+
+
+
+
+/* - '--> SocialWebButtons - */
+.SocialWeb {
+	margin:0 10px 10px 0;
+}
+.SocialWeb a {
+	display:inline-block;
+	margin:0 2px;
+}
+.SocialBookmarks {
+  clear:both;
+}
+
+
+
+.DownloadPreview  h2 {
+  *float:left;
+  *padding-top:10px;
+}
+.DownloadPreview  {
+  list-style-type:none;
+  list-style-position:inside;
+  padding:10px 0 0;
+  *display:inline;
+}
+.DownloadPreview li {
+  padding:0 0 6px 0;
+}
+.DownloadPreview li:nth-child(even) {
+  background: #e6e6e6;
+}
+.DownloadPreview li a {
+  border:0!important;
+  text-decoration:none!important;
+  display:block;
+  *clear:both;
+}
+.DownloadPreview span {
+  background: #f0f0f0 url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/GUI/ep/img/base_sprite_s.png") no-repeat -15px 1px;
+  border:1px solid #aaa;
+  height:16px;
+  width:16px;
+  display:inline-block;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+  margin:0 6px -6px 0;
+  padding:1px;
+}
+.DownloadPreview a:hover span {
+  border-color:#666;
+  background-color:#ddd;
+}
+.ProductDetails.ImageRight .DownloadPreview {
+  margin-right:210px;
+}
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Div .Header, .Div .Footer, .Div .NavBarTop, .Div .NavBarBottom,
+.Div .ContentAreaInner,
+.Div .NavBarLeft .PropertyContainer,
+.Div .NavBarRight .PropertyContainer {
+  position:relative; 
+}
+
+
+
+#NavBarLeftFix, .Div .NavBarLeft:before {
+  content:"";
+	width: 200px;
+  position:absolute;
+  top:0;
+  height:20000px;
+  left:0;
+  display:block;
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_left.gif") no-repeat left top transparent;
+	  
+}
+
+
+
+
+#ContentAreaFix, .Div .ContentArea:before {
+	position:absolute;
+  top:0;
+  height:20000px;
+  left: 200px ;
+  right: 0 ;
+  width:auto;
+  display:block;
+  content:"";
+	
+		background: url("http://www.aladinia.com/WebRoot/StoreTypes/6.11.1/StoreES/SF/ImageSet/LightBusiness/bgr_content.gif")  no-repeat left top transparent;
+	
+}
+.Div .Middle {
+	
+	max-width: 910px;
+	
+	zoom:1;
+  position:relative;
+}
+
+.Div .Middle:after {
+	content:".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}
+
+.Div .Middle {
+  display:inline-block;
+ }
+ 
+/* Hide from IE Mac \*/
+.Div .Middle {
+  display:block;
+ }
+/* End hide from IE Mac */	
+
+.Div .NavBarLeft { 
+  clear:none;
+  float:left;
+}
+.Div .NavBarRight{ 
+  clear:none;
+  float:right;
+}
+.Div .ContentArea {
+  margin-left: 200px ;
+  margin-right: 0 ;
+  clear:none;
+  width:auto;
+}
+.Div .ContentArea { 
+  *float:left;
+  *margin-left:0;
+  *margin-right:0;
+  *overflow:hidden;
+}
+.Div .Middle,
+.Div .ContentArea {
+  zoom:1;
+}
+.Div .ContentAreaInner,
+.Div .ContentAreaWrapper {
+  clear:none;
+  float:none;
+  width:auto;
+}
+ 
+
+
+
+
+
+.Div .Header .SizeContainer,
+.Div .NavBarTop .SizeContainer,
+.Div .NavBarBottom .SizeContainer,
+.Div .Footer .SizeContainer {
+  font-size:0; /* word-spacing is rendered on floated elements within this box - read http://bit.ly/9OAn for details */
+}
+
+.Div .Header .SizeContainer {
+	
+	float:left;
+	
+}
+
+.Div .NavBarTop .SizeContainer {
+	
+	text-align:center;
+	position:relative;
+	
+}
+
+.Div .Footer .SizeContainer {
+	
+	text-align:center;
+	position:relative;
+	
+}
+
+.Div .Header .ShopLogo,
+.Div .Header .ShopNameSlogan {
+  display:inline-block;
+  *display:inline;
+  vertical-align:top;
+}
+
+
+
+.Div .Header .NavigationText,
+.Div .Header .SearchElement,
+.Div .Header .ContextBox,
+.Div .Header .Creditcards,
+.Div .Footer .NavigationText,
+.Div .Footer .SearchElement,
+.Div .Footer .ContextBox,
+.Div .Footer .Creditcards,
+.Div .NavBarTop .NavigationText,
+.Div .NavBarTop .SearchElement,
+.Div .NavBarTop .ContextBox,
+.Div .NavBarTop .Creditcards,
+.Div .NavBarBottom .NavigationText,
+.Div .NavBarBottom .SearchElement,
+.Div .NavBarBottom .ContextBox,
+.Div .NavBarBottom .Creditcards,
+.Div .HorizontalNavBar .LocaleFlags,
+.Div .NavBarTop .SizeContainer ul,
+.Div .NavBarBottom .SizeContainer ul,
+.Div .Header .SizeContainer .NavigationElement,
+.Div .Footer .SizeContainer .NavigationElement,
+.Div .NavBarTop .SizeContainer .NavigationElement,
+.Div .NavBarBottom .SizeContainer .NavigationElement {
+  display: inline-block;
+  *display:inline;
+  zoom:1;
+  float:none;
+  width:auto;
+}
+
+.Div .Header .SizeContainer  .Active,
+.Div .Footer .SizeContainer  .Active,
+.Div .NavBarTop .SizeContainer  .Active,
+.Div .NavBarBottom .SizeContainer  .Active {
+  float:none;
+}
+
+.Div ul.VerticalDisplay,
+.Div .Header .SizeContainer ul,
+.Div .Footer .SizeContainer ul,
+.Div .NavBarTop .SizeContainer ul,
+.Div .NavBarBottom .SizeContainer ul {
+  padding:0;
+  margin:0;
+}
+
+span.IEFix { /* \Cartridges\DE_EPAGES\Catalog\Templates\SF\SF-Category.Content-ProductsSingleColumn.html ++ */
+  height:24px;
+  display:block;
+}
+
+
+.Div .Footer .PropertyContainer,
+.Div .Header .PropertyContainer,
+.Div .NavBarTop .PropertyContainer {
+  *width:100%;
+  *padding-left:0;
+  *padding-right:0;
+}
+
+.Div .Footer .PropertyContainer .SizeContainer,
+.Div .Header .PropertyContainer .SizeContainer,
+.Div .NavBarTop .PropertyContainer .SizeContainer {
+  *padding-right: 0px;
+  *padding-left: 10px;
+}
+
+.Div .Header .PropertyContainer .SizeContainer {
+  *padding-right: 0px;
+  *padding-left: 15px;
+}
+
+.Div .Footer .PropertyContainer .SizeContainer {
+  *padding-right: 10px;
+  *padding-left: 10px;
+}
+
+.Div .NavBarTop *,
+.Div .NavBarBottom *,
+.Div .Footer *,
+.Div .Header * {
+  *zoom:1;
+  *position:relative;
+  vertical-align:top;
+}
+
+/* new Form Element Styles */
+.webkit .ep-uiInput-wrap select.LongText {width:182px;}
+.webkit hr.ClearLeft {float:left; clear:both;}
+
+.ep-uiInput-wrap button[type=submit] {
+  font-weight:bold!important;
+}
+.AddToBasketButton .ep-uiInput-button {
+  font-size:11px;
+  font-weight:bold;
+}
+.ContentArea a.ep-uiSpinner-stepUp,
+.ContentArea a.ep-uiSpinner-stepDown {
+  font-family:Tahoma !important;
+  font-weight:bold;
+  font-size:11px;
+  line-height:11px!important;
+  color:#666;
+}
+.ContentArea a.ep-uiSpinner-stepDown {
+  line-height:9px!important;
+}
+.ContentArea a.ep-uiSpinner-stepUp:hover,
+.ContentArea a.ep-uiSpinner-stepDown:hover {
+  text-decoration:none;
+  color:#000;
+}
+#SubscribeNewsletterBoxForm0 .ep-uiInput-wrap + .ep-uiInput-wrap {
+  margin-left:0;
+}
+
+
+
+/* IE7 fixes */
+.SearchMask .ep-uiInput-button,
+.SearchForm .ep-uiInput-button {
+  *width:28px;
+}
+.SearchMask .ep-uiInput-button,
+.SearchForm .ep-uiInput-button,
+.AddToBasketButton .ep-uiInput-button {
+  *padding-left:0;
+  *padding-right:0;
+}
+.SearchMask .ep-uiInput-wrap + .ep-uiInput-wrap,
+.SearchForm  .ep-uiInput-wrap + .ep-uiInput-wrap,
+.SearchMask .ep-uiInput-button,
+.SearchForm .ep-uiInput-button {
+  border:0;
+  background:transparent;
+  margin-left:0;
+}
+.ForumPostInputContainer .ep-uiInput-wrap,
+.ForumPostMessageContainer .ep-uiInput-wrap {
+  width:100%;
+  *width:95%;
+}

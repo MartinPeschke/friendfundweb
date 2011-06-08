@@ -1,9 +1,7 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}   
-
-${data['admin_name']} hat für ${data['pool_title']} einen Pool auf friendfund gegründet und hat dich dazu eingeladen! 
  
-${data['message']}  
+${data['message'] or u"default message"}  
 
 ${common.timeline_blurb(data)}
 ${common.view_pool_link(data)}
@@ -14,4 +12,4 @@ ${data['invitor_name']}
 ${common.footing(data)}   
 
 
-<%def name="subject()">${data['pool_title']}: Du wurdest eingeladen!</%def>
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>

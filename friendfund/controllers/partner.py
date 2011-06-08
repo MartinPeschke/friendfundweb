@@ -38,7 +38,7 @@ class PartnerController(BaseController):
 		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
 		c.errors = {}
-		return self.render('/partner/iframe.html')
+		return self.render('/partner/iframe_product.html')
 	
 	@logged_in(ajax=False)
 	@post_only(ajax=False)

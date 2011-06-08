@@ -1,0 +1,26 @@
+<%def name="renderSlider()">
+<%
+slides = [
+	 ('Hello World', 'Merchant_Homepage_Popup_slide_1_noguides.png')
+	,('Hello World', 'Merchant_Homepage_Popup_slide_2_noguides.png')
+	,('Hello World', 'Merchant_Homepage_Popup_slide_3_large_photos_UPDATED.png')
+	,('Hello World', 'Merchant_Homepage_Popup_slide_4_noguides.png')
+	,('Hello World', 'Merchant_Homepage_Popup_slide_5_noguides.png')
+	]
+%>
+	<div class="sliderContainerWindow">
+		<div class="contentSlider" style="width:${len(slides)*660}px">
+			%for caption,slide in slides:
+				<div class="sliderPane"><img src="/static/partner/slides/${slide}"/></div>
+			%endfor
+		</div>
+	</div>
+	<ul class="controllerNumbered floatRight">
+		%for i,(caption,slide) in enumerate(slides):
+			<li class="floatLeft sliderControl${i==0 and " selected" or ""}" _pane="${i}">${i+1}</li>
+		%endfor
+	</ul>
+	<div class="controllerRight"></div>
+	<div class="controllerLeft hidden"></div>
+	<div class="shadBigCorner"></div>
+</%def>

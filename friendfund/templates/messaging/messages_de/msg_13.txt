@@ -1,7 +1,7 @@
 <%namespace name="common" file="common.txt"/>
 ${common.greeting(data['invitee_name'])}  
 
-${data['message']}   
+${data['message'] or u"default message"}
 
 ${common.timeline_blurb(data)}
 ${common.emaillogin_blurb(data)}
@@ -16,4 +16,4 @@ ${common.partner_closing(data)}
 ${common.footing_phrase_with_learn_more(data)} 
 
 
-<%def name="subject()">${data['subject']}</%def>  
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>  
