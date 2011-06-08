@@ -108,9 +108,9 @@ FriendFund.Popup = {
 	id: 'FriendFund_Popup',
 	close_text:{'de':"Schliessen", 'en':"Close This", 'es':"Cerrar"},
 	css_template: "\
-#FriendFund_Popup {z-index:10000008;display: block;text-align: left;margin: 0 auto 0 auto;position: absolute;padding:10px;background:url(${protocol}${host}/static/partner/opacity.png) repeat 0 0 transparent;}\
+#FriendFund_Popup {z-index:10000008;display: block;text-align: left;margin: 0 auto 0 auto;position:absolute;padding:10px;background-color:#000;}\
 #FriendFund_Popup-content{background-color:white}\
-#FriendFund_overlay {position: fixed;z-index:10000007;width: 100%;height: 100%;left: 0;top: 0;background-color: #000;opacity: 0.7;filter: alpha(opacity=70);}\
+#FriendFund_overlay {position: fixed;z-index:10000007;width: 100%;height: 100%;left: 0;top: 0;background-color: #000;opacity: 0.6;filter: alpha(opacity=60);}\
 #FriendFund_overlay p {padding: 5px;color: #ddd;font: bold 14px arial, sans-serif;margin: 0;letter-spacing: -1px;}\
 a#FriendFund_Popup_close {color:black;cursor:pointer;font-size:16px;font-weight:bold;line-height:15px;text-decoration:None;position:absolute;right:-10px;top:-10px;\
 background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repeat 0 0 transparent;display:block;width:33px;height:33px;",
@@ -181,7 +181,7 @@ FriendFund.Popup.Overlay = {
 };
 
 FriendFund.Popin = {
-	context : {width:'930px',height:'580px'},
+	context : {width:'720px',height:'530px'},
 	content_template: '<iframe id="friendfund_dialog_iframe" name="friendfund_dialog_iframe" src="" frameborder="0" scrolling="no" allowtransparency="true" width="${width}" height="${height}" style="height: ${height}; width: ${width};"></iframe>',
 	setup: function (options) {
 		this.setupOptions(options);

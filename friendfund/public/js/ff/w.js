@@ -160,8 +160,46 @@ dojo.mixin(ff, {w: {
 		dojo.connect(rootNode, "onmouseover", setHoverOn);
 		dojo.connect(rootNode, "onmouseout", setHoverOff);
 		if(autostart===true){window.setInterval(slide(-1, false), 3500);}
-	},
-	showTime : function(root, unit){
+	}
+	,anythingSlider : function(root){
+		var rootNode = dojo.byId(root)
+			, slider = dojo.query(".contentSlider", rootNode)[0]
+			, left_controller = dojo.query(".controllerLeft", rootNode)[0]
+			, right_controller = dojo.query(".controllerRight", rootNode)[0]
+			, panes = dojo.query(".contentSlider > .sliderPane", rootNode)
+			, no_elems = panes.length
+			, position = 0
+			, transitioning = false
+			, width = dojo.coords(panes[0]).w
+			slide = function(step){ return function(evt){
+				var reset = function(){
+					transitioning=false;
+					dojo.query(".sliderControl.selected", rootNode).removeClass("selected");
+					dojo.addClass(dojo.query(".sliderControl",rootNode)[position], "selected");
+					if(position===0){dojo.addClass(left_controller, "hidden");}
+					else if(dojo.hasClass(left_controller,"hidden")){dojo.removeClass(left_controller, "hidden");}
+					if(position===no_elems-1){dojo.addClass(right_controller, "hidden");}
+					else if(dojo.hasClass(right_controller,"hidden")){dojo.removeClass(right_controller, "hidden");}
+				};
+				if(!transitioning){
+					transitioning = true;
+					if(position===0&&step<0){/*skip*/
+					} else if (position===no_elems-1&&step>0){/*skip*/
+					} else {
+						dojo.animateProperty({node:slider,duration:300,easing:dojo.fx.easing.sineInOut, properties: {left:  { start: (-width*(position)), end:(-width*(position+step)), units:"px" }}, onEnd:reset}).play();
+						position = position + step;
+					}
+				}
+			};
+		};
+		dojo.query(left_controller).onclick(slide(-1));
+		dojo.query(right_controller).onclick(slide(1));
+		dojo.query(".sliderControl", rootNode).onclick(function(evt){
+			var pane = parseInt(dojo.attr(evt.target, "_pane"),10);
+			slide(pane-position)(evt);
+		});
+	}
+	,showTime : function(root, unit){
 		var delay = unit*1000,
 		d=dojo.query(".timerDays", root)[0], days=parseInt(d.innerHTML, 10),
 		h=dojo.query(".timerHours", root)[0], hrs=parseInt(h.innerHTML, 10),

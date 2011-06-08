@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-06-01 19:13+0200\n"
+"POT-Creation-Date: 2011-06-08 16:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgid ""
 " password or %(link_open)srequest a password change!%(link_close)s"
 msgstr ""
 
-#: friendfund/controllers/invite.py:71 friendfund/controllers/myfriends.py:51
+#: friendfund/controllers/invite.py:71 friendfund/controllers/myfriends.py:50
 #: friendfund/templates/invite/inviter.html:48
 msgid "FF_INVITER_BUTTON_Invite"
 msgstr ""
@@ -71,19 +71,19 @@ msgstr ""
 msgid "FF_POOL_PAGE_Welcome to your new Pool!"
 msgstr ""
 
-#: friendfund/controllers/invite.py:187 friendfund/controllers/myfriends.py:111
+#: friendfund/controllers/invite.py:187 friendfund/controllers/myfriends.py:110
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr ""
 
-#: friendfund/controllers/myfriends.py:35
+#: friendfund/controllers/myfriends.py:34
 msgid "FF_Choose your recipient from Facebook"
 msgstr ""
 
-#: friendfund/controllers/myfriends.py:37
+#: friendfund/controllers/myfriends.py:36
 msgid "FF_Choose your recipient from Twitter"
 msgstr ""
 
-#: friendfund/controllers/myfriends.py:57 friendfund/controllers/myfriends.py:94
+#: friendfund/controllers/myfriends.py:56 friendfund/controllers/myfriends.py:93
 msgid "FF_IFRAME_INVITE_EMAIL_BUTTON"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Invalid payment data found, possibly some hiccup?"
 msgstr ""
 
-#: friendfund/controllers/pool.py:21 friendfund/lib/auth/decorators.py:45
+#: friendfund/controllers/pool.py:21 friendfund/lib/auth/decorators.py:71
 msgid "POOL_Your not authorized for this operation."
 msgstr ""
 
@@ -277,15 +277,15 @@ msgstr ""
 msgid "Twitter may be over capacity.<br/>Please try again later."
 msgstr ""
 
-#: friendfund/lib/auth/decorators.py:39
+#: friendfund/lib/auth/decorators.py:65
 msgid "FF_SORRY_PAGE_NOT_FOUND_404_STYLE"
 msgstr ""
 
-#: friendfund/lib/auth/decorators.py:48
+#: friendfund/lib/auth/decorators.py:74
 msgid "FF_POOL_ERROR_Sorry, this pool is no longer active"
 msgstr ""
 
-#: friendfund/lib/auth/decorators.py:100 friendfund/lib/auth/decorators.py:102
+#: friendfund/lib/auth/decorators.py:126 friendfund/lib/auth/decorators.py:128
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr ""
 
@@ -2422,119 +2422,129 @@ msgid ""
 "shipped directly to your chosen destination."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:54
+#: friendfund/templates/partner/iframe.html:41
 msgid ""
 "FF_IFRAME_To friendfund a specific product, visit any of the product pages on"
 " this site."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:59
+#: friendfund/templates/partner/iframe.html:46
+#: friendfund/templates/partner/iframe_home.html:24
 msgid "FF_IFRAME_Organise a Group Gift!"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:62
+#: friendfund/templates/partner/iframe.html:49
 msgid "FF_IFRAME_BUTTON_Help"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:66
+#: friendfund/templates/partner/iframe.html:53
 msgid "FF_close"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:67
+#: friendfund/templates/partner/iframe.html:54
 msgid "FF_IFRAME_Quick Guide to Creating a Pool"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:69
+#: friendfund/templates/partner/iframe.html:56
 msgid ""
 "FF_IFRAME_Create a Group Gift Pool and give something extra special without "
 "breaking the bank."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:80
+#: friendfund/templates/partner/iframe.html:67
 msgid "FF_IFRAME_Find a gift and click the friendfund it! button "
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:81
+#: friendfund/templates/partner/iframe.html:68
 msgid "FF_IFRAME_Find the perfect gift from our huge selection. ?"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:92
+#: friendfund/templates/partner/iframe.html:79
 msgid "FF_IFRAME_Choose your recipient, occasion and contribution deadline"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:93
+#: friendfund/templates/partner/iframe.html:80
 msgid ""
 "FF_IFRAME_Select your friend and special occasion. Make sure to leave aside "
 "plenty of time when selecting a deadline."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:103
+#: friendfund/templates/partner/iframe.html:90
 msgid "FF_IFRAME_Share the costs with  friends!"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:104
+#: friendfund/templates/partner/iframe.html:91
 msgid "FF_IFRAME_Invite your friends to chip in as much or as little as they want!"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:109
+#: friendfund/templates/partner/iframe.html:96
 msgid "FF_IFRAME_HELPPOPUP_Get started"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:124
+#: friendfund/templates/partner/iframe.html:111
 msgid "FF_IFRAME_Your gift:"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:135
+#: friendfund/templates/partner/iframe.html:122
 msgid "FF_IFRAME_Edit"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:148
+#: friendfund/templates/partner/iframe.html:135
 msgid "FF_IFRAME_Recipient"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:159
+#: friendfund/templates/partner/iframe.html:146
 msgid "FF_IFRAME_Please choose your recipient from the left panel."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:164
+#: friendfund/templates/partner/iframe.html:151
 msgid "FF_IFRAME_Occasion:"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:165
+#: friendfund/templates/partner/iframe.html:152
 msgid "FF_IFRAME_Please choose an occasion from the left panel."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:170
+#: friendfund/templates/partner/iframe.html:157
 msgid "FF_IFRAME_Contribution Deadline:"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:172
+#: friendfund/templates/partner/iframe.html:159
 msgid "FF_IFRAME_Invite Friends"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:179
+#: friendfund/templates/partner/iframe.html:166
 msgid "FF_IFRAME_Choose Your recipient"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:194
+#: friendfund/templates/partner/iframe.html:181
 msgid "FF_IFRAME_Choose an occasion:"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:200
+#: friendfund/templates/partner/iframe.html:187
 msgid "FF_IFRAME_Just because..."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:209
+#: friendfund/templates/partner/iframe.html:196
 msgid "FF_IFRAME_... or enter your own occasion"
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:214
+#: friendfund/templates/partner/iframe.html:201
 #: friendfund/templates/pool/create.html:104
 msgid "FF_POOLDETAILS_You have <strong>10 days</strong> to reach the target."
 msgstr ""
 
-#: friendfund/templates/partner/iframe.html:226
+#: friendfund/templates/partner/iframe.html:213
+#: friendfund/templates/partner/iframe_home.html:64
 msgid "FF_IFRAME_You are safe with us"
+msgstr ""
+
+#: friendfund/templates/partner/iframe_home.html:45
+msgid "FF_IFRAME_Stuff others have friendfunded!"
+msgstr ""
+
+#: friendfund/templates/partner/iframe_home.html:60
+msgid "FF_IFRAME_As seen in"
 msgstr ""
 
 #: friendfund/templates/pool/address.html:4

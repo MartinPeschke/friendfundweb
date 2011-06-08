@@ -4,6 +4,7 @@ from ordereddict import OrderedDict
 
 from pylons import request, response, tmpl_context as c, url, app_globals as g, session as websession
 from pylons.controllers.util import abort, redirect
+from friendfund.controllers.index import IndexController
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only
 from friendfund.lib.base import BaseController, render, _, render_def
@@ -29,33 +30,13 @@ class PartnerController(BaseController):
 		c.is_default = False
 		c.product_list = g.product_service.get_products_from_open_graph(params, query)
 		if not len(c.product_list):
-			query=request.merchant.default_product_url
-			c.product_list = g.product_service.get_products_from_url(query)
-			c.is_default = True
+			index = IndexController()
+			c.suggested_pools = index._get_featured_pools()
+			return self.render('/partner/iframe_home.html')
 		
 		c.product = c.product_list[0]
 		c.method = c.user.get_current_network() or 'facebook'
 		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
-		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
-		c.errors = {}
-		return self.render('/partner/iframe.html')
-	
-	def simplebounce(self):
-		query=request.params.get("referer")
-		params = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
-		if params.get("meta",{}).get("og:type") != 'product':
-			query=request.merchant.default_product_url
-			c.product_list = g.product_service.get_products_from_url(query)
-			c.is_default = True
-		else:
-			c.is_default = False
-			c.product_list = g.product_service.get_products_from_open_graph(params.get("meta", {}), query)
-		
-		c.product = c.product_list[0]
-		
-		c.method = c.user.get_current_network() or 'facebook'
-		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
-		
 		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
 		c.errors = {}
 		return self.render('/partner/iframe.html')
