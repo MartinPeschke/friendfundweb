@@ -129,12 +129,10 @@ def generate_random_password():
 	pw = str().join(myrg(random).sample(alphabet,length))
 	return pw
 
-CHARSET = ('bdfghklmnprstvwz', 'aeiou') # consonants, vowels
-def generate_mnemonic_password(letters=8, digits=4, uppercase=False):
+CHARSET = ('bdfghklmnprstvwzBDFGHKLMNPRSTVWZ', 'aeiouAEIOU') # consonants, vowels
+def generate_mnemonic_password(letters=8, digits=4):
 	"""Generate a random mnemonic password."""
 	chars = ''.join([random.choice(CHARSET[i % 2]) for i in range(letters)])
-	if uppercase:
-		chars = chars.upper()
 	chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
 	return chars
 

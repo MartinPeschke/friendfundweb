@@ -24,6 +24,7 @@
 	</div>
 	
 	<div class="wrapContentIframe">
+		<form name="poolCreateForm" method="POST" id="button_panel_Form" action="${url(controller="partner", action="prepare")}">
 		<div class="wrapIframeProductArea" id="wrapIframeProductArea">
 			%for p in c.product_list:
 				<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
@@ -34,7 +35,7 @@
 						<div class="price">${p.get_iframe_display_price()}</div>
 						%if p.tracking_link:
 							<div class="clear"></div>
-							<a class="link" target="_blank" href="${p.tracking_link}">${p.get_iframe_display_label(words = 10)|n}</a>
+							<a class="link" target="_blank" href="${p.tracking_link}">${p.get_iframe_display_label(words = 8)|n}</a>
 						%endif
 					</div>
 				</div>
@@ -43,17 +44,18 @@
 				<select id="productSelector" class="productSelector" name="productMap">
 					%for p in c.product_list:
 					<option ${forms.expression_quote(c.product.guid == p.guid, "selected")|n} value="${p.to_minimal_repr()}" _guid="${p.guid}">
-						${p.get_iframe_display_label(words = 10)}
+						${p.get_iframe_display_label(words = 8)}
 					</option>
 					%endfor
 				</select>
 			%else:
-				<div class="productSelector">${p.get_iframe_display_label(words = 10)}</div>
+				<div class="productSelector">${p.get_iframe_display_label(words = 8)}</div>
 				<input type="hidden" name="productMap" value="${c.product.to_minimal_repr()}"/>
 			%endif
 		</div>
+		${widgets.freeButton(_("Get Started"),["floatLeft", "smaller"], onclick="document.forms.poolCreateForm.submit();")|n}
 		<div class="clear"></div>
-		
+		</form>
 		<h3 class="subheading">${_("FF_IFRAME_What is Friendfund!")}</h3>
 		<div class="sliderContainer" id="slider1" style="clear:both;float:left;margin-bottom:30px;">
 			${common.renderSlider()|n}

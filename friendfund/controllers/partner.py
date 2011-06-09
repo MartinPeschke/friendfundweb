@@ -6,7 +6,7 @@ from pylons import request, response, tmpl_context as c, url, app_globals as g, 
 from pylons.controllers.util import abort, redirect
 from friendfund.controllers.index import IndexController
 from friendfund.lib import helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only
+from friendfund.lib.auth.decorators import logged_in, post_only, workflow_available
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.forms.pool import PoolCreateForm
@@ -60,3 +60,15 @@ class PartnerController(BaseController):
 			c.errors = error.error_dict or {}
 			c.values = error.value
 			return self.render('/partner/iframe.html')
+	
+	@workflow_available()
+	def prepare(self):
+		product = request.params.get("productMap")
+		c._workflow['product'] = DisplayProduct.from_minimal_repr(product)
+		c.furl = url(controller="partner", action="get_started", ck = c._workflow._key)
+		return render("/widgets/bust_iframe.html")
+	
+	@workflow_available(presence_required = True)
+	def get_started(self):
+		c.product = c._workflow['product']
+		return self.render('/partner/create.html')

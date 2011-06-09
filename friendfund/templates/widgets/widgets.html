@@ -28,6 +28,14 @@
 </div>
 </%def>
 
+<%def name="freeButton(text, classes = [], **kwargs)">
+<div class="getStarted ${" ".join(classes)}">
+	<a class="nolink" ${" ".join(['%s="%s"' % (k,v) for k,v in kwargs.iteritems()])|n}>
+		<span class="upperText">${text}<span class="lowerText">${text}</span><span class="lowestText">${text}</span></span>
+	</a>
+</div>
+</%def>
+
 <%def name="protectedBigButton(text, href, classes = [], level = 3)">
 <div class="getStarted ${" ".join(classes)}">
 	<a class="nolink" _href="${href}" onclick="window.__auth__.checkLogin({level:${level}, success:ff.t.goto_url(this)})">
