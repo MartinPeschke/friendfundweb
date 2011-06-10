@@ -84,21 +84,26 @@ div.waTabs span.selected {
     color: #2C2C2C !important;
 	position:relative
 }
-div.waTabs span .hider{background-color: white;display: none;left: -1px;line-height: 30px;position: absolute;top: 5px;width: 1px;}
-div.waTabs span.selected .hider{display:block;}
 
 .wrapTypeAheadTabs  .first {margin-top: 15px;}
 .wrapTypeAheadTabs .subTypeAheadTab{background-color: white;border-right: 1px solid #F3F3F3;float: left;width: 507px !important;padding: 0 !important;height: 140px;}
 .receiverFilter.selected {width:169px;margin-left:5px;}
 .typeAheadSelector{width: 278px;float:left;position:relative;height:140px;}
 .typeAheadSelector img.smallProfPic{height: 30px;position: relative;float:left;width: 30px;margin-top: 15px;border: 1px solid #D1D1D1;}
+.typeAheadSelector .close{cursor: pointer;position: absolute;right: 0;text-transform: lowercase;top: 15px;}
+.typeAheadSelector .close:hover{background-color:#d1d1d1}
 
 
 .receiverTypeAhead{border: 1px solid #B9B9B9;font-size: 12px;line-height: 30px;width: 278px !important;margin: 5px 10px}
 .receiverTypeAhead > div {float:None !important}
 
 .wrapTypeAheadTabs .twitterBtn, .wrapTypeAheadTabs .facebookBtn {margin: 55px auto}
+.wrapTypeAheadTabs .txtMail{margin: 15px 0 0;width:50%;}
+.wrapTypeAheadTabs .btnContainer{padding-top:5px;}
+
 .receiverFilter {width:206px;margin-top: 15px;}
 
 .receiverList{border: 1px solid #D1D1D1;max-height: 204px;padding: 0 5px;position: absolute;top: 45px;width: 206px;z-index: 1;}
 .receiverList ul li.invitee_row {width:100%;}
+.receiverList ul li.invitee_row .spacer {padding: 3px;border:1px solid transparent;float: None !important;position: relative;}
+.receiverList ul li.invitee_row:hover .spacer, .inviterList ul li.invitee_row:hover{border:1px solid #d6d6d6;background-color:#f4f4f4;cursor:pointer}

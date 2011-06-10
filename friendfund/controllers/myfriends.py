@@ -53,8 +53,7 @@ class MyfriendsController(BaseController):
 			c.friends = {}
 			c.email_errors = {}
 			c.email_values = {}
-			c.submit_name = _("FF_IFRAME_INVITE_EMAIL_BUTTON")
-		return {'html':render('/receiver/inviter.html').strip()}
+		return {'html':render_def('/receiver/inviter.html', 'mailinviter', submit_name = _("GG_INVITER_EMAIL_Select")).strip()}
 	
 	@jsonify
 	def get_extension(self, method):
@@ -83,23 +82,15 @@ class MyfriendsController(BaseController):
 			except formencode.validators.Invalid, error:
 				c.email_errors = error.error_dict or {}
 				c.email_values = error.value
-				return {"data":{'success':False, 'html':render_def('/receiver/inviter.html', 'mailinviter').strip()}}
+				return {"data":{'success':False, 'html':render_def('/receiver/inviter.html', 'mailinviter', submit_name = _("GG_INVITER_EMAIL_Select")).strip()}}
 			else:
 				c.method = 'email'
 				invitee['success'] = True
 				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics_service.get_default_user_picture("PROFILE_S"))
-				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics_service.get_default_user_picture("POOL"))
-				invitee['html'] = render_def('/receiver/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable', var_show_name = False).strip()
-				invitee['input_html'] = render_def('/receiver/inviter.html', 'mailinviter', submit_name=_("FF_IFRAME_INVITE_EMAIL_BUTTON")).strip()
+				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url') or app_globals.statics_service.get_default_user_picture("POOL")
+				invitee['user_data'] = h.encode_minimal_repr(invitee)
+				invitee['html'] = render_def('/receiver/inviter.html', 'render_email_friend', user_data = invitee).strip()
 				return {'clearmessage':True, 'data':invitee}
-		elif network == 'yourself' and not c.user.is_anon:
-			data = invitee
-			data['success'] = True
-			data['network'] = c.user.get_current_network()
-			data['network_id'] = (data['network'] == 'email' and c.user.default_email or c.user.network_id)
-			data['name'] = c.user.name
-			data['large_profile_picture_url'] = data['profile_picture_url'] = c.user.get_profile_pic('POOL')
-			return {'clearmessage':True,'data':data}
 		elif(c.user.is_anon):
 			return {'data':
 					{'success':False, 

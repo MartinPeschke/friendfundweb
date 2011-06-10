@@ -8,11 +8,11 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 	_widget_locals : []
 	,_listener_locals : []
 	,selectors : {}
-	,display_unfiltered:true
 	,constructor: function(args){
 		var _t = this;
 		dojo.mixin(_t, args);
 		this.networkSelector = this.networkSelector||friendfund.NetworkFriendSelector;
+		this.emailSelector = this.emailSelector||friendfund.EmailFriendSelector;
 		if(args.avail_selectors.facebook === true){
 			_t.selectors.facebook = new this.networkSelector(
 						{	container : _t.container
@@ -36,7 +36,7 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 						});
 		}
 		if(args.avail_selectors.email === true){
-			_t.selectors.email = new friendfund.EmailFriendSelector(
+			_t.selectors.email = new this.emailSelector(
 						{	ref_node: _t.ref_node
 							,auth_provider : _t.auth_provider
 							,invited_node : "network"+_t.invited_node_suffix

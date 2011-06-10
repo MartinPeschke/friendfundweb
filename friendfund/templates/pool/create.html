@@ -14,6 +14,7 @@
 		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
 		sbmt = function(){
 			ff.t.onSubmitCleaner(document.submissionform);
+			dojo.byId("descriptionEditor").value = dijit.byId("descriptionEditor").getValue();
 			document.submissionform.submit();
 			return true;
 		};
@@ -63,7 +64,7 @@
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
 			<div class="subHeadingSpecial"></div>
-			<div class=" borderBottom ${h.contains_one(["currency", "amount"], c.errors) and "error" or ""}">
+			<div class=" borderBottom fullFloat ${h.contains_one(["currency", "amount"], c.errors) and "error" or ""}">
 				%if h.contains_one(["currency", "amount"], c.errors):
 					<div class="tip">
 						<div class="arrow"></div>
@@ -151,10 +152,9 @@
 				<div class="first">
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
-				<div class="containerTxtArea">
-					<textarea name="description" _default_text="${_("FF_POOLDETAILS_Write your description here...")}" class="default">${c.values['description'] or _("FF_POOLDETAILS_Write your description here...")}</textarea>
-					#####<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
-					#####plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
+				<div class="containerTxtArea floatLeft">
+					<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
+					plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
 				</div>
                 </div>
 			</div>

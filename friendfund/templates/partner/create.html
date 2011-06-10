@@ -33,6 +33,11 @@
 					,base_url:"/myfriends"
 			});
 	dojo.parser.parse("poolDetails");
+	sbmt = function(){window.__auth__.checkLogin({level:9,success:function(){
+		dojo.byId("descriptionEditor").value = dijit.byId("descriptionEditor").getValue();
+		document.submissionform.submit();
+		return true;
+	}});};
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
@@ -66,7 +71,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url(controller="partner", action="validate")}" onsubmit="return window.__auth__.checkLogin({level:9,success:sbmt});">
+		<form method="POST" id="submissionform" name="submissionform" action="${url(controller="partner", action="validate")}">
 			<input type="hidden" value="" id="selectedReceiver" name="receiver"/>
 			<input type="hidden" name="productMap" value="${c.product.to_minimal_repr()}"/>
 			<input type="hidden" name="occasion_key" id="occasion_key" value="${c.values.get("occasion_key","EVENT_OTHER")}" readonly="readonly" />
@@ -86,9 +91,9 @@
 					<div id="receiverSelectorContainer" class="wrapTypeAheadTabs floatLeft">
 						<div class="subTypeAheadTab greyInsideFullWidth whiteInsideFullWidth" id="inviter"></div>
 						<div class="waTabs"> 
-							<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook"><div class="hider">&nbsp;</div>Facebook</span> 
-							<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter"><div class="hider">&nbsp;</div>Twitter</span> 
-							<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email"><div class="hider">&nbsp;</div>Email</span> 
+							<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
+							<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter">Twitter</span> 
+							<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email">Email</span> 
 						</div>
 					</div>
 				</div>
@@ -159,7 +164,6 @@
 						<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 					</div>
 					<div class="containerTxtArea floatLeft claro">
-						###<textarea name="description" _default_text="${_("FF_POOLDETAILS_Write your description here...")}" class="default">${c.values['description'] or _("FF_POOLDETAILS_Write your description here...")}</textarea>
 						<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
 						plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
 					</div>
@@ -176,7 +180,7 @@
 				
 				<div class="borderBottom noBorder">
 					<div class="first"><span>&nbsp;</span></div>
-					${widgets.freeButton(_("GG_POOLDETAILS_Create Pool"),["floatLeft", "smaller"], onclick="document.forms.submissionform.submit();")|n}
+					${widgets.freeButton(_("GG_POOLDETAILS_Create Pool"),["floatLeft", "smaller"], onclick="sbmt();")|n}
 				</div>
 			</div>
 		</form>

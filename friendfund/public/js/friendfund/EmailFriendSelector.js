@@ -1,4 +1,5 @@
 dojo.provide("friendfund.EmailFriendSelector");
+dojo.provide("friendfund.EmailInPlaceSelector");
 dojo.require("ff.t");
 dojo.require("ff.io");
 
@@ -33,13 +34,13 @@ dojo.declare("friendfund.YourselfSelector", friendfund._Selector, {
 
 
 dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
-	_listener_locals : [],
-	rootNode : null,
-	constructor: function(args){
+	_listener_locals : []
+	,rootNode : null
+	,constructor: function(args){
 		dojo.mixin(this, args);
 		this.ref_node = dojo.isString(this.ref_node) && dojo.byId(this.ref_node) || this.ref_node;
-	},
-	draw : function(){
+	}
+	,draw : function(){
 		if(this.rootNode){
 			dojo.removeClass(this.rootNode, "hidden");
 			dojo.query("input[type=text]", this.rootNode)[0].focus();
@@ -49,31 +50,31 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 			dojo.place(this._loader, this.rootNode, "only");
 			ff.io.xhrPost(this.base_url+'/' + this.network, {}, dojo.hitch(this, "onLoad"));
 		}
-	},
-	onLoad : function(html){
+	}
+	,onLoad : function(html){
 		dojo.place(html, this.rootNode, "only");
 		this._listener_locals.push(dojo.connect(this.ref_node, "onclick", this, "selectClick"));
 		this._listener_locals.push(dojo.connect(this.ref_node, "onkeydown", dojo.hitch(this, ff.t.accessability, dojo.hitch(this, "select"), function(){})));
 		ff.w.parseDefaultsInputs(this.rootNode);
 		dojo.query("input[type=text]",this.rootNode)[0].focus();
-	},
-	undraw : function(){
+	}
+	,undraw : function(){
 		dojo.addClass(this.rootNode, "hidden");
-	},
-	destroy : function(){
+	}
+	,destroy : function(){
 		dojo.forEach(this._listener_locals, dojo.disconnect);
 		this._listener_locals = [];
-	},
-	selectClick : function(evt){
+	}
+	,selectClick : function(evt){
 		if(evt.target.id==="emailsubmitter"){this.select(evt);}
-	},
-	select : function(evt){
+	}
+	,select : function(evt){
 		var tab = dojo.byId("email_email");
 		if(tab && tab.value.length > 0){
 			ff.io.xhrFormPost(this.base_url+"/validate", "emailinviter", dojo.hitch(this, "_onSelect"));
 		}
-	},
-	_onSelect : function(data){
+	}
+	,_onSelect : function(data){
 		if(data.success===true){
 			this.onSelect(data.html, null);
 			dojo.place(data.input_html, this.rootNode, "only");
@@ -83,22 +84,60 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		var input = dojo.query("input[type=text]", this.rootNode)[0];
 		ff.w.parseDefaultsInputs(this.rootNode);
 		if(input){input.focus();}
-	},
-	inviteAppendNode : function(elem){
+	}
+	,onSelect : function(elem, evt){
+		this.inviteAppendNode(elem);
+		var el = dojo.byId("invitedCounter");
+		el.innerHTML = parseInt(el.innerHTML,10)+1;
+	}
+	,unSelect : function(target){
+		dojo.query(target).orphan();
+		elem = dojo.byId("invitedCounter");
+		elem.innerHTML = parseInt(elem.innerHTML,10)-1;
+	}
+	,inviteAppendNode : function(elem){
 		dojo.place(elem, this.invited_node, "last");
 		dojo.query("input[type=text]", "emailinviter").attr("value", "");
 		dojo.query("#email_inviter_error", "emailinviter").orphan();
-	},
-	onSelect : function(elem, evt){
+	}
+	,onSelect : function(elem, evt){
 		dojo.query("p.inviterTwo", this.global_invited_node).addClass("hidden");
 		this.inviteAppendNode(elem);
 		var el = dojo.byId("invitedCounter");
 		el.innerHTML = parseInt(el.innerHTML,10)+1;
-
-	},
-	unSelect : function(target){
+	}
+	,unSelect : function(target){
 		dojo.query(target).orphan();
 		elem = dojo.byId("invitedCounter");
 		elem.innerHTML = parseInt(elem.innerHTML,10)-1;
+	}
+});
+
+dojo.declare("friendfund.EmailInPlaceSelector", friendfund.EmailFriendSelector, {
+	selectedValueNode : "selectedReceiver"
+	,constructor: function(args){
+		dojo.mixin(this, args);
+		this.selectedValueNode = dojo.byId(this.selectedValueNode);
+		this.ref_node = dojo.isString(this.ref_node) && dojo.byId(this.ref_node) || this.ref_node;
+	}
+	,_onSelect : function(data){
+		var _t = this;
+		if(data.success===true){
+			this.onSelect(data.html, null);
+			_t.selectedValueNode.value = data.user_data;
+			dojo.place(data.html, this.rootNode, "only");
+			dojo.query(".close", this.rootNode).onclick(dojo.hitch(this, "unSelect"));
+		} else {
+			dojo.place(data.html, this.rootNode, "only");
+		}
+		ff.w.parseDefaultsInputs(this.rootNode);
+	}
+	,onSelect : function(elem, evt){
+	}
+	,unSelect : function(target){
+		_t.selectedValueNode.value = "";
+		dojo.empty(_t.ref_node);
+		delete _t.rootNode;
+		_t.draw()
 	}
 });

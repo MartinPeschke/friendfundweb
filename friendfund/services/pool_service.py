@@ -95,14 +95,11 @@ class PoolService(object):
 		pool_schema = PoolPartnerIFrameForm().to_python(pool_map, state = tmpl_context)
 		pool = Pool(settlementOption = request.merchant.settlement_options[0].name)
 		receiver = pool_schema.pop("receiver")
-		receiver.is_receiver = True
-		pool.participants.append(receiver)
 		
-		pool = Pool(settlementOption = request.merchant.settlement_options[0].name)
 		pool.set_product(product)
 		locals = {"product_name":pool.get_product_display_label(words = 20, include_price = False), "recipient_name":receiver.name, "event_name":pool_schema['occasion_name']}
-		pool.title = _("FF_GG_POOL_TITLE_I have found the perfect %(event_name)s gift for %(recipient_name)s") % locals
-		pool.description = _("FF_GG_POOL_TITLE_%(product_name)s")%locals
+		pool.title = pool_schema.get("title") or _("FF_GG_POOL_TITLE_I have found the perfect %(event_name)s gift for %(recipient_name)s") % locals
+		pool.description = pool_schema.get("description") or _("FF_GG_POOL_TITLE_%(product_name)s")%locals
 		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=(datetime.now() + timedelta(10)), name = pool_schema['occasion_name'])
 		
 		receiver.is_receiver = True

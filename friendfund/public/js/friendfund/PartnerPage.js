@@ -38,6 +38,7 @@ dojo.declare("friendfund.PartnerPage", null, {
 								,base_url : this.base_url
 								,avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
 								,networkSelector : friendfund.FriendTypeAhead
+								,emailSelector : friendfund.EmailInPlaceSelector
 							});
 		this.selector.draw(this.method);
 	}

@@ -22,40 +22,37 @@
 		if submit_name is None:
 			submit_name = _("FF_INVITER_EMAIL_Add to Invitees")
 	%>
-	<form action="" method="POST" id="emailinviter">
-	<div class="arrowSubTab"></div>
-	<div class="firstSpacer floatLeft ${"name" in c.email_errors and "error" or ""}"><label for="email_networkname" class="fixedWidth">${_("FF_INVITER_EMAIL_Friend's Name")}</label>
-		<input value="${c.email_values.get("name") or _("FF_INVITER_EMAIL_Friend's Name")}" _default_text="${_("FF_INVITER_EMAIL_Friend's Name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
-		%if "name" in c.email_errors:
-			<p>${c.email_errors['name']}</p>
-		%endif
-	</div>
-	<div class="secondSpacer floatLeft ${"network_id" in c.email_errors and "error" or ""}"><label for="email_email" class="fixedWidth">${_("FF_INVITER_EMAIL_Email")}</label>
-		<input _default_text="${_("FF_INVITER_EMAIL_Email")}" value="${c.email_values.get("network_id") or _("FF_INVITER_EMAIL_Email")}" id="email_email" name="invitee.network_id" type="text" class="txtMail default" />
-		%if "network_id" in c.email_errors:
-			<p class="floatLeft">${c.email_errors['network_id']}</p>
-		%endif
-	</div>
-	<div class="btnContainer">
-		<input type="button" id="emailsubmitter" value="${submit_name}" class="primaryButton" />
-	</div>
-	<input type="hidden" name="invitee.network" value="email"/>
-	<input type="hidden" name="invitee.notification_method" value="email"/>
+	<form method="POST" id="emailinviter">
+		<span class="${"name" in c.email_errors and "error" or ""}">
+			<div class="first ${"name" in c.email_errors and "error" or ""}">
+				<span><label for="email_networkname">${_("FF_INVITER_EMAIL_Friend's Name")}</label></span>
+			</div>
+			<input value="${c.email_values.get("name") or _("FF_INVITER_EMAIL_Friend's Name")}" _default_text="${_("FF_INVITER_EMAIL_Friend's Name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
+		</span>
+		<div class="clear"></div>
+		<span class="${"network_id" in c.email_errors and "error" or ""}">
+			<div class="first">
+				<span><label for="email_email">${_("FF_INVITER_EMAIL_Email")}</label></span>
+			</div>
+			<input _default_text="${_("FF_INVITER_EMAIL_Email")}" value="${c.email_values.get("network_id") or _("FF_INVITER_EMAIL_Email")}" id="email_email" name="invitee.network_id" type="text" class="txtMail default" />
+		</span>
+		<div class="btnContainer">
+			<input type="button" id="emailsubmitter" value="${submit_name}" class="primaryButton" />
+		</div>
+		<input type="hidden" name="invitee.network" value="email"/>
+		<input type="hidden" name="invitee.notification_method" value="email"/>
 	 </form>
 </%def>
 
 
-<%def name="render_email_friends(friends, active = True, class_='selectable', var_show_name = True)">
-%for i,(id, user_data) in enumerate(friends.items()):
-	<li title="${user_data["name"]}" class="invitee_row selectable" id="email_${ md5.new(id).hexdigest() }" _network="email" pos="i">
-		<div class="avt">
-			<span class="displayable close" href="#">X</span>
-			<img src="${user_data["large_profile_picture_url"]}">
-		</div>
-		%if not var_show_name:
-			<p>${user_data["name"]}</p>
-		%endif
-		<input type="hidden" name="invitees" value="${h.encode_minimal_repr(user_data)}"/>
-	</li>
-	%endfor
+<%def name="render_email_friend(user_data)">
+	<div class="first">
+		<span>${_("GG_RECEIVER_Recipients Name")}</span>
+	</div>
+	<div class="typeAheadSelector">
+		<img src="${user_data["large_profile_picture_url"]}" class="smallProfPic">
+		<input type="text" autocomplete="off" value="${user_data["name"]}" class="receiverFilter default floatLeft selected" />
+		<span class="close" href="#">X</span>
+	</div>
+</div>
 </%def>

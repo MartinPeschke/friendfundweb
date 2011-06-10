@@ -151,6 +151,7 @@ span.white {
 .floatRight {
 	float:right !important;
 }
+.fullFloat div  {float: left;}
 .floatLeft {
 	float:left !important;
 }
@@ -2090,6 +2091,7 @@ div.borderBottom > div {
 	float: left;
 	font-size: 14px;
 }
+
 div.greyInside {
 	background-color: #efefef;
 	padding: 7px;
@@ -2821,7 +2823,7 @@ div.error span, div.error div, div.error p, div.error label, span.error, h4.erro
 div.error div#termsofservice p, div.error div#termsofservice p span {
 	color: #2C2C2C !important;
 }
-div.error input, div.error .containerTxtArea, div.error select {
+.error input, .error .containerTxtArea, .error select {
 	border-color:#D80A66 !important
 }
 div.error div.tip {
@@ -2930,7 +2932,7 @@ div.inviteBottom {
 .friendsList{background:white;float: left;width: 100%;position: relative;overflow: auto;}
 
 .inviterList {height:247px;}
-.inviterList ul li.invitee_row {width:148px;}
+.inviterList ul li.invitee_row {width:148px;margin: 0 5px 0 0;padding: 5px;}
 
 .friendsList ul{
 	display: block;
@@ -2938,12 +2940,16 @@ div.inviteBottom {
 	width: 100%;
 	position: relative
 }
-.friendsList ul li.invitee_row .spacer{padding: 3px;border:1px solid transparent;float: None !important}
-.friendsList ul li.invitee_row:hover .spacer{border:1px solid #d6d6d6;background-color:#f4f4f4;cursor:pointer}
-.friendsList ul li.invitee_row {
+
+.inviterList ul li.invitee_row {
 	float:left;
-	position:relative
+	position:relative;
+	border:1px solid transparent;
 }
+.inviterList ul li.invitee_row:hover {
+	border:1px solid #d6d6d6;background-color:#f4f4f4;cursor:pointer
+}
+
 .friendsList ul li.invitee_row .avt {
 	margin:0 10px 0 0
 }
