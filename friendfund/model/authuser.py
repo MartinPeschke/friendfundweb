@@ -234,7 +234,7 @@ class User(ProtoUser):
 								self.networks['twitter'].network_id, 
 								self.networks['twitter'].screen_name,
 								config,
-								offset = offset,
+								offset = offset
 							)
 			if friends is None:
 				raise Exception('NoFriendsFoundSomeErrorOccured')
