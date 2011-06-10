@@ -1,8 +1,6 @@
 Hi ${data['invitee_name']},  
 
-We have found the perfect ${data['occasion']} gift for ${data['recipient_name']} and have created a secret friendfund gift Pool that will help purchase it.    
-
-${data['message']} 
+${data['message'] or u"default message"}  
 
 We have until the ${data['expiry_date']} to make this happen!  Chip in as little or a much as you like (even the smallest contribution helps)!  
 You can log in to the [pool page](http://${data['merchant_domain']}/pool/${data['p_url']}) with ${data['login_email']} and this password ${data['pwd']}.  (Please change your password to something that you will remember in Settings > Password.)  
@@ -25,4 +23,4 @@ Collect money with friends. Create a pool. Chip in. friendfund it!
 
 What is friendfund anyway? Learn more here: ${data['learn_more_url']}   
 
-<%def name="subject()">${data['pool_title']}: You have been invited to join a friendfund pool!</%def>  
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>  

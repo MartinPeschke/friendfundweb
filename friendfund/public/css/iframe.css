@@ -29,7 +29,8 @@
 }
 .contentIframe .iFrameHomeBoxes {float: left;margin: 0 0 30px 30px;}
 .contentIframe .iFrameHomeBox {float:left;position:relative;border:1px solid #e5e5e5;width:148px;margin-right:20px;}
-.contentIframe .iFrameHomeBox span.rose{float:left;position:absolute;left:0px;top:15px;display:block;padding:0 10px;font-size:11px;}
+.rosePlacement {position:relative}
+.rosePlacement span.rose{float:left;position:absolute;left:0px;top:15px;display:block;padding:0 10px;font-size:11px;}
 .contentIframe .iFrameHomeBox img{border-bottom:1px solid #e5e5e5;padding:5px;}
 .contentIframe .iFrameHomeBox .pLink{display: block;font-size: 10px;line-height: 30px;margin: 0 10px;overflow: hidden;white-space: nowrap;width: 128px;}
 
@@ -55,3 +56,49 @@
 .wrapIframeProductArea .selectedProduct .productDetails {float:left;margin: 28px 0 0 30px;width: 420px;}
 
 .wrapIframeProductArea .productSelector {position:absolute;top:0px;left:269px;font-size:14px;font-weight:bold;padding: 2px 0;color:#333;max-width: 420px;white-space:nowrap;overflow:hidden}
+
+
+
+.productBox {margin: 30px 0 0;border-bottom: 1px solid #fff;}
+.productBoxInner {background-color: #F9FAF5;border: 1px solid #E5E5E5;padding: 5px 3px;width: 220px;}
+.productBox img {margin:0 !important;border:0px solid transparent !important;height:58px !important; max-width:60px;}
+.productBox.rosePlacement span.rose {font-size: 9px;left: 0;padding: 0 5px;position: absolute;top: 5px;}
+.productBox p.title{padding: 0 5px;overflow: hidden;}
+.productBox p.title span{display:block;max-height: 35px;}
+
+.wrapTypeAheadTabs {width: 98.5%;float:right;background-color:white;border:1px solid #f3f3f3;}
+.wrapTypeAheadTabs .waTabs{float:right;padding:10px 0;background-color: #f3f3f3;}
+div.waTabs span {
+    color: #999999;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: left;
+    width: 140px;
+	padding-left:30px;
+}
+div.waTabs span.selected {
+    background: url("../imgs/recipient_selector_frame.png") no-repeat scroll 100% 0 transparent;
+    color: #2C2C2C !important;
+	position:relative
+}
+div.waTabs span .hider{background-color: white;display: none;left: -4px;line-height: 30px;position: absolute;top: 5px;width: 3px;}
+div.waTabs span.selected .hider{display:block;}
+
+.wrapTypeAheadTabs  .first {margin-top: 15px;}
+.wrapTypeAheadTabs .subTypeAheadTab{background-color: white;border-right: 1px solid #F3F3F3;float: left;width: 507px;}
+.receiverFilter.selected {width:169px;margin-left:5px;}
+.typeAheadSelector{width: 278px;float:left;position:relative;height:140px;}
+.typeAheadSelector img.smallProfPic{height: 30px;position: relative;float:left;width: 30px;margin-top: 15px;border: 1px solid #D1D1D1;}
+
+
+.receiverTypeAhead{border: 1px solid #B9B9B9;font-size: 12px;line-height: 30px;width: 278px !important;margin: 5px 10px}
+.receiverTypeAhead > div {float:None !important}
+
+.wrapTypeAheadTabs .twitterBtn, .wrapTypeAheadTabs .facebookBtn {margin: 32px auto}
+.receiverFilter {width:206px;margin-top: 15px;}
+
+.receiverList{border: 1px solid #D1D1D1;max-height: 204px;padding: 0 5px;position: absolute;top: 45px;width: 206px;z-index: 1;}
+.receiverList ul li.invitee_row {width:100%;}

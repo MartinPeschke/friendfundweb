@@ -71,4 +71,13 @@ class PartnerController(BaseController):
 	@workflow_available(presence_required = True)
 	def get_started(self):
 		c.product = c._workflow['product']
+		c.method = c.user.get_current_network() or 'facebook'
+		
+		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.values = {"occasion_name":c.olist[0].get_display_name()
+					, "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")
+					, "title":c.product.get_iframe_display_label(words = 8)
+					, "description":c.product.description
+					}
+		c.errors = {}
 		return self.render('/partner/create.html')

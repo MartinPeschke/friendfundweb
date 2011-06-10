@@ -1,0 +1,180 @@
+<%inherit file="../layout.html"/>
+<%namespace name="links" file="../widgets/links.html"/>
+<%namespace name="widgets" file="../widgets/widgets.html"/>
+<%namespace name="forms" file="../widgets/forms.html"/>
+<%namespace name="parser" file="../product/urlparser.html"/>
+<%def name="styles()">
+	${links.css('iframe.css')}
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
+</%def>
+<%def name="scripts()">
+	${links.js('/build/friendfund.js')}
+	${links.js('/build/editor.js')}
+	${links.js('/friendfund/EmailFriendSelector.js')}
+	${links.js('/friendfund/FriendSelector.js')}
+	${links.js('/friendfund/NetworkFriendSelector.js')}
+	${links.js('/friendfund/PartnerPage.js')}
+	
+	<script type="text/javascript"> 
+		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+	</script>
+</%def>
+
+<%def name="authperms()">{requireFBPerms:true, fwd:false}</%def>
+<%def name="onloadscripts()">
+	ff.w.parseDefaultsInputs("poolDetails");
+	ff.w.parseSimpleEditables("poolDetails");
+	ffp_panel = new friendfund.PartnerPage({
+					container : "receiverSelectorContainer"
+					,auth_provider : window.__auth__
+					,target_form : "button_panel_Form"
+					,method : "${c.method}"
+					,invited_node:"selectedReceiver"
+					,base_url:"/myfriends"
+			});
+	dojo.parser.parse("poolDetails");
+</%def>
+
+<div class="wrapSubHeader">${self.renderMessages()|n}
+	<div class="subHeader">
+		<div class="userProfile">
+			<div class="productBox rosePlacement floatRight">
+				<div class="productBoxInner">
+					<img src="${c.product.get_product_pic("FF_POOLS")}">
+					<span class="rose"><p>${_("Your Gift")|n}</p></span>
+					<p class="title">
+						%if c.product and c.product.tracking_link:
+							<a class="pLink" target="_blank" href="${c.product.tracking_link}">${c.product.get_iframe_display_label(words = 5) or "&nbsp;"|n}</a>
+						%else:
+							<span class="pLink">${c.product.get_iframe_display_label(words = 5) or "&nbsp;"|n}</span>
+						%endif
+						<span class="price">${c.product.get_iframe_display_price()}</span>
+					</p>
+					<div class="clear"></div>
+				</div>
+			</div>
+
+			<div class="nonPoolHeader" style="width: 700px;">
+				<h2>${_("GG_POOLDETAILS_HEADER_Create a Group Gift Pool")}</h2>
+			</div>
+			${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Done!"), 2)|n}
+		<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div class="wrapSubContent">
+<div class="content">
+  <div class="colRight"></div>
+	<div class="colLeft">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return window.__auth__.checkLogin({level:9,success:sbmt});">
+			<div class="poolDets" id="poolDetails">
+				<h4>${_("GG_POOLDETAILS_HEADER_Choose Your Gift Recipient")}</h4>
+				<div class="subHeadingSpecial"></div>
+				
+				<div class="borderBottom">
+				<div class="tip">
+					<div class="arrow"></div>
+					<span>${_("FF_POOLDETAILS_DESCRIPTION_Tip goes here")}</span>
+				</div>
+				<div id="receiverSelectorContainer" class="wrapTypeAheadTabs floatLeft">
+					<div class="subTypeAheadTab greyInsideFullWidth whiteInsideFullWidth" id="inviter"></div>
+					<div class="waTabs"> 
+						<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook"><div class="hider">&nbsp;</div>Facebook</span> 
+						<span class="methodselector ajaxlink ${c.method == 'twitter' and 'selected' or ''}" _type="twitter"><div class="hider">&nbsp;</div>Twitter</span> 
+						<span class="methodselector ajaxlink ${c.method == 'email' and 'selected' or ''}" _type="email"><div class="hider">&nbsp;</div>Email</span> 
+					</div>
+				</div>
+				</div>
+				
+				<div class="borderBottom">
+					<div style="width:100%">
+						<div class="first">
+							<span>${_("Special Occasion")}</span>
+						</div>
+						<select id="occasionSelector" class="floatLeft" style="width: 290px;" _name_target="occasion_name" _key_target="occasion_key">
+							%for occ in c.olist:
+								<option custom="${int(occ.custom or 0)}" key="${occ.key}" displayname="${occ.get_display_name()}"
+										${forms.expression_quote(c.values.get("occasion_key")== occ.key, "selected")|n}>
+									%if occ.custom:
+										${_("FF_IFRAME_Just because...")}
+									%else:
+										${occ.get_display_name()}
+									%endif
+								</option>
+							%endfor
+						</select>
+					</div>
+					<div style="width:100%;margin-top:25px;">
+						<div class="first">
+							<span>${_("...or enter your own")}</span>
+						</div>
+						<input type="text" id="occasionTyper" _target="occasion_name" custom="1" key="EVENT_OTHER" class="floatLeft" style="width: 278px;"/>
+					</div>
+				</div>
+				
+				<h4>${_("GG_POOLDETAILS_Edit Pool Details")}</h4>
+				<div class="subHeadingSpecial"></div>
+				
+				<div class="borderBottom ${('title' in c.errors) and "error" or ""}">
+					<div class="tip">
+						<div class="arrow"></div>
+						%if 'title' in c.errors:
+							<span>${c.errors['title']}</span>
+						%endif
+					</div>
+				
+					<div class="greyInsideFullWidth">
+					<div class="first">
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
+					</div>
+					
+						%if not c.values['title']:
+							<input type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title'] or _("FF_POOLDETAILS_Write your title here...")}" />
+						%else:
+							<div class="simpleeditable active mainValue">${h.word_truncate_by_letters(c.values['title'], 60)}
+								<input _type="INPUT" type="hidden" class="default" value="${c.values['title']}" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" _length="60"  name="title" id="titleInput" />
+								<span  class="link editSmall">${_("FF_Edit")}</span>
+							</div>
+						%endif
+					
+					</div>
+				</div>
+				<div class="borderBottom ${('description' in c.errors) and "error" or ""} noBorder">
+					<div class="tip">
+						<div class="arrow"></div>
+						%if 'description' in c.errors:
+							<span>${c.errors['description']}</span>
+						%endif
+					</div>
+
+					<div class="greyInsideFullWidth">
+					<div class="first">
+						<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
+					</div>
+					<div class="containerTxtArea floatLeft claro">
+						###<textarea name="description" _default_text="${_("FF_POOLDETAILS_Write your description here...")}" class="default">${c.values['description'] or _("FF_POOLDETAILS_Write your description here...")}</textarea>
+						<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
+						plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
+					</div>
+					</div>
+				</div>
+				
+				<div class="borderBottom noBorder">
+					<div class="first"><span>&nbsp;</span></div>
+					<div class="showLight">
+						<div class="light"></div>
+						<p>${_("You can always edit your Pool ttitle and description later.")}</p>
+					</div>
+				</div>
+				
+				<div class="borderBottom noBorder">
+					<div class="first"><span>&nbsp;</span></div>
+					${widgets.freeButton(_("Create Pool"),["floatLeft", "smaller"], onclick="document.forms.submissionform.submit();")|n}
+				</div>
+			</div>
+		</form>
+	</div>
+<div class="clear"></div>
+</div>
+</div>
+

@@ -1,8 +1,6 @@
 Hi ${data['invitee_name']}, 
 
-I have created a secret friendfund pool for ${data['pool_title']} and would like to invite you to contribute too!  
-
-${data['message']}    
+${data['message'] or u"default message"}  
 
 We have until the ${data['expiry_date']} to make this happen!  Chip in as little or a much as you like (even the smallest contribution helps)!  
 
@@ -19,4 +17,4 @@ Collect money with friends. Create a pool. Chip in. friendfund it!
 
 What is friendfund anyway? Learn more here: ${data['learn_more_url']}   
 
-<%def name="subject()">${data['subject']}</%def>
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>

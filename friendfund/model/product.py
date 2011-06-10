@@ -75,7 +75,7 @@ class DisplayProduct(Product):
 			price_display = self.display_price
 		return price_display
 
-	def get_iframe_display_label(self, words = 5, seperator = ' '):
+	def get_iframe_display_label(self, words = 5):
 		return h.word_truncate_plain(self.name, words)
 	
 	display_label = property(get_display_label)

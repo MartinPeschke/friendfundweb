@@ -119,6 +119,7 @@ div.firstFourCol {
 	clear: both;
 	line-height: 0;
 	height: 0;
+	float:None !important;
 	font-size: 0
 }
 ul{
@@ -1125,12 +1126,14 @@ div.boxPoolDetails span{
 div.enbi{
 	border: 1px solid #f0a6c9;
 	background: #fcedf3;
+	
+}
+div.showLight {
 	height: 30px;
 	line-height: 30px;
 	padding:0 10px;
 	margin: 20px 10px 10px 40px;
 	position: relative
-	
 }
 div.enbi div.arrow{
 	background: url(/static/imgs/pink-arrow.png) 0 0 no-repeat;
@@ -1140,7 +1143,7 @@ div.enbi div.arrow{
 	left: -6px;
 	top:10px;
 }
-div.enbi div.light{
+div.showLight div.light{
  background: url(/static/imgs/lightbulb_icon_sml.png) 0 0 no-repeat;
  position: absolute;
  left: -35px;
@@ -2064,12 +2067,12 @@ div.steps div span {
 	line-height: 20px;
 }
 div.borderBottom {
-	float: left;
 	border-bottom: 1px solid #E2E0DE;
 	min-width: 690px;
 	padding: 15px 0;
 	position: relative;
 	margin-right:10px;
+	float: left;
 	border-top: 1px solid white
 }
 div.selected {
@@ -2083,7 +2086,7 @@ div.selected div.greyInsideFullWidth, div.error div.greyInsideFullWidth {
 	background-color: #efefef;
 	width: 690px
 }
-div.borderBottom div {
+div.borderBottom > div {
 	float: left;
 	font-size: 14px;
 }
@@ -2099,8 +2102,9 @@ div.borderBottom input {
 	padding: 0 5px;
 	display: block;
 	float: left;
-	width: 74%
+	width: 74%;
 }
+
 div.borderBottom input.ptitleSimpleEdit {
 	border: 1px solid #999;
 	height:18px;
@@ -2137,10 +2141,9 @@ div.limit p, div.enbi p{
 }
 div.borderBottom select {
 	border: 1px solid #d1d1d1;
-	height:28px;
-	line-height:28px;
+	/*height:28px;line-height:28px;*/
+	padding: 6px 5px;
 	width:76%;
-	;
 	font-size:13px;
 }
 div.borderBottom span.editable select {
@@ -2155,6 +2158,7 @@ div.greyInsideFullWidth {
 	float: left;
 	clear: both
 }
+
 div.greyInsideFullWidth label, div.greyInsideFullWidth .chkbox {
 	line-height: 30px
 }
@@ -2923,54 +2927,30 @@ div.inviteBottom {
 	padding: 10px 0 0 0;
 	margin-right:10px
 }
-div.friendsList {
-	height:247px;
-	overflow:hidden;
-	background:white;
-	float: left;
-	width: 100%;
-	position: relative
-}
-div.friendsList ul {
+.friendsList{background:white;float: left;width: 100%;position: relative;overflow: auto;}
+
+.inviterList {height:247px;}
+.inviterList ul li.invitee_row {width:148px;}
+
+.friendsList ul{
 	display: block;
 	float: left;
 	width: 100%;
-	overflow: auto;
-	height: 247px;
 	position: relative
 }
-div.friendsList ul li {
-	width:148px;
+.friendsList ul li.invitee_row .spacer{padding: 3px;border:1px solid transparent;float: None !important}
+.friendsList ul li.invitee_row:hover .spacer{border:1px solid #d6d6d6;background-color:#f4f4f4;cursor:pointer}
+.friendsList ul li.invitee_row {
 	float:left;
-	border:1px solid white;
-	background:white;
-	padding:5px;
-	margin: 0px 5px 0px 0px;
 	position:relative
 }
-div.friendsList ul li p {
-	padding: 0;
-	font-size: 11px;
-	height: 55px;
-	overflow: hidden;
-	line-height: 14px
-}
-ul.facebook, ul.twitter {
-	float:left;
-	padding:8px 0 8px 10px
-}
-div.friendsList ul li .avt {
+.friendsList ul li.invitee_row .avt {
 	margin:0 10px 0 0
 }
-div.friendsList ul li:hover {
-	border:1px solid #d6d6d6;
-	background-color:#f4f4f4;
-	cursor:pointer
-}
-div.friendsList ul li:hover span {
+.friendsList ul li.invitee_row:hover span {
 	display:block
 }
-div.friendsList ul li span {
+.friendsList ul li.invitee_row span {
 	font-size:10px;
 	color:#666;
 	display:none;
@@ -2978,17 +2958,16 @@ div.friendsList ul li span {
 	left:75px;
 	bottom:3px
 }
-div.friendsList ul li p, {
- padding:0;
- height: 50px;
- line-height: 14px;
- overflow: hidden;
- font-size: 11px
+.receiverList ul li.invitee_row span {bottom:10px}
+.friendsList ul li.invitee_row p {
+	padding:0;
+	height: 50px;
+	line-height: 14px;
+	overflow: hidden;
+	font-size: 11px
 }
-.boxSearchFriend {
-	height:50px;
-	border-bottom: 1px solid #C9C9C9;
-}
+.friendsList ul .displayable {display:None !important}
+.boxSearchFriend {height:50px;border-bottom: 1px solid #C9C9C9;}
 .spacerBorder {
 	border-top: 1px solid #E4E4E4 !important;
 	border-bottom: 1px solid white;
@@ -3018,10 +2997,6 @@ div.friendsList ul li p, {
 .mutualToggleContainer input{
 	margin-top: 5px;
 	float: left
-}
-.inviteAll {
-	display:block;
-	margin:15px 10px 0 0
 }
 .listSelectedFriends {
 	border: 1px solid #C9C9C9;
@@ -3064,9 +3039,7 @@ div.friendsList ul li p, {
 	cursor: pointer;
 	z-index: 11
 }
-.friendsList .displayable {
-	display:None !important
-}
+
 .listSelectedFriends .hideable {
 	display:None !important
 }

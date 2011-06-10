@@ -1,6 +1,6 @@
 <%def name="message()">Hi ${data['firstname_invitee_name']},
-${data['message'] or u"default message"}</%def>
 
+${data['message'] or u"default message"}</%def>
 
 <%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
 <%def name="name()">${data['subject'] or u"default subject"}</%def>

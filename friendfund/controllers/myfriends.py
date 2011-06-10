@@ -31,9 +31,9 @@ class MyfriendsController(BaseController):
 				friends, is_complete, offset = c.user.get_friends(c.method)
 			except UserNotLoggedInWithMethod, e:
 				if c.method == 'facebook':
-					return {'data':{'is_complete': True, 'success':False, 'html':render_def('/invite/fb_login.html', 'renderLogin', label=_("FF_Choose your recipient from Facebook")).strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render_def('/receiver/fb_login.html', 'renderLogin', label=_("FF_Choose your recipient from Facebook")).strip()}}
 				else: 
-					return {'data':{'is_complete': True, 'success':False, 'html':render_def('/invite/tw_login.html', 'renderLogin', label=_("FF_Choose your recipient from Twitter")).strip()}}
+					return {'data':{'is_complete': True, 'success':False, 'html':render_def('/receiver/tw_login.html', 'renderLogin', label=_("FF_Choose your recipient from Twitter")).strip()}}
 			else:
 				if c.method == c.user.network:
 					usermap = c.user.to_map()
@@ -45,16 +45,16 @@ class MyfriendsController(BaseController):
 				friendlist.extend([friends[id] for id in sorted(friends, key=lambda x: friends[x]['name'])])
 				c.friends = friendlist
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset
-						,'html':render_def('/invite/inviter.html', "networkinviter",network_name=c.method, mutuals=c.mutuals, all=c.all).strip()
+						,'html':render_def('/receiver/inviter.html', "networkinviter",network_name=c.method).strip()
 						,'friends':c.friends
-						,"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="${dom_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p>${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, _("FF_INVITER_BUTTON_Invite"))
+						,"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="${dom_id}"><div class="spacer"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p>${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/><div class="clear"></div></div></li>""" % (c.method, _("GG_RECEIVER_Select"))
 						}}
 		else:
 			c.friends = {}
 			c.email_errors = {}
 			c.email_values = {}
 			c.submit_name = _("FF_IFRAME_INVITE_EMAIL_BUTTON")
-		return {'html':render('/invite/inviter.html').strip()}
+		return {'html':render('/receiver/inviter.html').strip()}
 	
 	@jsonify
 	def get_extension(self, method):
@@ -83,14 +83,14 @@ class MyfriendsController(BaseController):
 			except formencode.validators.Invalid, error:
 				c.email_errors = error.error_dict or {}
 				c.email_values = error.value
-				return {"data":{'success':False, 'html':render_def('/invite/inviter.html', 'mailinviter').strip()}}
+				return {"data":{'success':False, 'html':render_def('/receiver/inviter.html', 'mailinviter').strip()}}
 			else:
 				c.method = 'email'
 				invitee['success'] = True
 				invitee['profile_picture_url'] = invitee.get('profile_picture_url', app_globals.statics_service.get_default_user_picture("PROFILE_S"))
 				invitee['large_profile_picture_url'] = invitee.get('large_profile_picture_url',app_globals.statics_service.get_default_user_picture("POOL"))
-				invitee['html'] = render_def('/invite/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable', var_show_name = False).strip()
-				invitee['input_html'] = render_def('/invite/inviter.html', 'mailinviter', submit_name=_("FF_IFRAME_INVITE_EMAIL_BUTTON")).strip()
+				invitee['html'] = render_def('/receiver/inviter.html', 'render_email_friends', friends = {invitee['network_id']:invitee}, active = True, class_='selectable', var_show_name = False).strip()
+				invitee['input_html'] = render_def('/receiver/inviter.html', 'mailinviter', submit_name=_("FF_IFRAME_INVITE_EMAIL_BUTTON")).strip()
 				return {'clearmessage':True, 'data':invitee}
 		elif network == 'yourself' and not c.user.is_anon:
 			data = invitee

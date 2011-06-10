@@ -3,7 +3,7 @@ ${common.greeting(data['invitee_name'])}
 
 Wir haben das perfekte ${data['occasion']}'s Geschenk für ${data['recipient_name']} gefunden. Ich möchte dich einladen, an einem geheimen friendfund Geschenkpool teilzunehmen und mit uns gemeinsam das Geschenk zu erstehen.
 
-${data['message']} 
+${data['message'] or u"default message"} 
 
 ${common.timeline_blurb(data)}
 ${common.emaillogin_blurb(data)}
@@ -19,4 +19,4 @@ ${common.partner_closing(data)}
 
 ${common.footing_phrase_with_learn_more(data)}
 
-<%def name="subject()">${data['pool_title']}: You have been invited to join a friendfund pool!</%def>  
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>  

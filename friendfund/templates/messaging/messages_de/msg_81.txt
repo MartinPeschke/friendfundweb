@@ -3,7 +3,7 @@ ${common.greeting(data['invitee_name'])}
 
 Ich habe einen geheimen friendfund Pool für "${data['pool_title']}" erstellt und möchte dich einladen mitzumachen! 
 
-${data['message']}  
+${data['message'] or u"default message"} 
 
 Wir haben bis zum ${data['expiry_date']} Zeit, das Geld zu sammeln. Zahl soviel oder so wenig ein, wie du möchtest (auch die kleinste Summe hilft).
 Besuche die Poolseite hier: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
@@ -15,4 +15,4 @@ ${data['admin_name']}
 
 ${common.footing_phrase_with_learn_more(data)}   
 
-<%def name="subject()">${data['pool_title']}: Du wurdest zu einem friendfund Pool eingeladen!</%def>
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>

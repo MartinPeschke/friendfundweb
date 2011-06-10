@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-06-08 16:34+0200\n"
+"PO-Revision-Date: 2011-06-09 14:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -190,7 +190,7 @@ msgstr "Pago no realizado!"
 msgid "Invalid payment data found, possibly some hiccup?"
 msgstr "Los datos del pago son inválidos, puede que haya un error."
 
-#: friendfund/controllers/pool.py:21 friendfund/lib/auth/decorators.py:71
+#: friendfund/controllers/pool.py:21 friendfund/lib/auth/decorators.py:83
 msgid "POOL_Your not authorized for this operation."
 msgstr "No estás autorizado para realizar esta acción."
 
@@ -311,15 +311,15 @@ msgstr ""
 "Twitter puede tener un exceso de capacidad.<br/>Por favor, inténtalo de "
 "nuevo más tarde."
 
-#: friendfund/lib/auth/decorators.py:65
+#: friendfund/lib/auth/decorators.py:77
 msgid "FF_SORRY_PAGE_NOT_FOUND_404_STYLE"
 msgstr "lo siento, no podemos encontrar el bote"
 
-#: friendfund/lib/auth/decorators.py:74
+#: friendfund/lib/auth/decorators.py:86
 msgid "FF_POOL_ERROR_Sorry, this pool is no longer active"
 msgstr "Lo siento, este bote ya no esta activo"
 
-#: friendfund/lib/auth/decorators.py:126 friendfund/lib/auth/decorators.py:128
+#: friendfund/lib/auth/decorators.py:163 friendfund/lib/auth/decorators.py:165
 msgid "METHOD_NOT_AUTHORIZED_MESSAGE"
 msgstr "MENSAJE_NO_AUTORIZADO"
 
@@ -420,7 +420,7 @@ msgstr "%s has contribuido %s."
 msgid "FF_POOLPAGE_INVITEE_LABEL_%s - Chipped in"
 msgstr "%s ha contribuido."
 
-#: friendfund/model/product.py:71
+#: friendfund/model/product.py:73
 #, python-format
 msgid "FF_IFRAME_PRICE_(%(price)s + %(shipping)spp) %(total)s"
 msgstr "(%(price)s + %(shipping)s g.e.) %(total)s"
@@ -795,6 +795,7 @@ msgid ""
 msgstr "Crea un bote. Contribuye. friendfund it!"
 
 #: friendfund/templates/index.html:17
+#: friendfund/templates/partner/iframe_product.html:56
 msgid "Get Started"
 msgstr "Comenzar"
 
@@ -2483,6 +2484,22 @@ msgstr "Regístrate con Twitter"
 msgid "FF_LOGIN_Login in Here"
 msgstr "Entrar Aquí"
 
+#: friendfund/templates/partner/create.html:21
+msgid "GG_POOLDETAILS_HEADER_Create a Group Gift Pool"
+msgstr ""
+
+#: friendfund/templates/partner/create.html:23
+msgid "GG_POOLDETAILS_HEADER_Find a Gift"
+msgstr ""
+
+#: friendfund/templates/partner/create.html:23
+msgid "GG_POOLDETAILS_HEADER_Choose your Recipient"
+msgstr ""
+
+#: friendfund/templates/partner/create.html:23
+msgid "GG_POOLDETAILS_HEADER_Done!"
+msgstr ""
+
 #: friendfund/templates/partner/howto.html:10
 msgid "FF_IFRAME_HOWTO_What is friendfund?"
 msgstr "¿Que es friendfund?"
@@ -2568,7 +2585,8 @@ msgid ""
 msgstr "Si quieres algo especifico, visita cualquier producto en esta pagina web."
 
 #: friendfund/templates/partner/iframe.html:46
-#: friendfund/templates/partner/iframe_home.html:24
+#: friendfund/templates/partner/iframe_home.html:14
+#: friendfund/templates/partner/iframe_product.html:23
 msgid "FF_IFRAME_Organise a Group Gift!"
 msgstr "Organizar un regalo en grupo"
 
@@ -2680,16 +2698,22 @@ msgid "FF_POOLDETAILS_You have <strong>10 days</strong> to reach the target."
 msgstr "Tienes <strong>10 días</strong> para alcanzar el total."
 
 #: friendfund/templates/partner/iframe.html:213
-#: friendfund/templates/partner/iframe_home.html:64
+#: friendfund/templates/partner/iframe_home.html:44
+#: friendfund/templates/partner/iframe_product.html:69
 msgid "FF_IFRAME_You are safe with us"
 msgstr "Estas seguro con nosotros"
 
-#: friendfund/templates/partner/iframe_home.html:45
+#: friendfund/templates/partner/iframe_home.html:21
 msgid "FF_IFRAME_Stuff others have friendfunded!"
 msgstr ""
 
-#: friendfund/templates/partner/iframe_home.html:60
+#: friendfund/templates/partner/iframe_home.html:40
+#: friendfund/templates/partner/iframe_product.html:65
 msgid "FF_IFRAME_As seen in"
+msgstr ""
+
+#: friendfund/templates/partner/iframe_product.html:59
+msgid "FF_IFRAME_What is Friendfund!"
 msgstr ""
 
 #: friendfund/templates/pool/address.html:4
@@ -3255,50 +3279,50 @@ msgstr "Escribe una descripción corta"
 msgid "FF_HOMEPAGE_PRODUCT_Choose a thumbnail (%(counter)s of %(total)s)"
 msgstr "Eligir un Thumbnail (%(counter)s de %(total)s)"
 
-#: friendfund/templates/widgets/widgets.html:44
+#: friendfund/templates/widgets/widgets.html:52
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor"
 msgid_plural "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributors"
 msgstr[0] "<strong>%(number_contributors)d</strong> participante"
 msgstr[1] "<strong>%(number_contributors)d</strong> participantes"
 
-#: friendfund/templates/widgets/widgets.html:48
+#: friendfund/templates/widgets/widgets.html:56
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(number_invitees)d</strong> invitee"
 msgid_plural "FF_POOL_INFO_<strong>%(number_invitees)d</strong> invitees"
 msgstr[0] "<strong>%(number_invitees)d</strong> invitado"
 msgstr[1] "<strong>%(number_invitees)d</strong> invitados"
 
-#: friendfund/templates/widgets/widgets.html:52
-#: friendfund/templates/widgets/widgets.html:64
+#: friendfund/templates/widgets/widgets.html:60
+#: friendfund/templates/widgets/widgets.html:72
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(days_left)d</strong> day left"
 msgid_plural "FF_POOL_INFO_<strong>%(days_left)d</strong> days left"
 msgstr[0] "<strong>%(days_left)d</strong> dia restantes"
 msgstr[1] "<strong>%(days_left)d</strong> dias restantes"
 
-#: friendfund/templates/widgets/widgets.html:68
+#: friendfund/templates/widgets/widgets.html:76
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(hours)d</strong> hour left"
 msgid_plural "FF_POOL_INFO_<strong>%(hours)d</strong> hours left"
 msgstr[0] "queda <strong>%(hours)d</strong> hora"
 msgstr[1] "quedan <strong>%(hours)d</strong> horas"
 
-#: friendfund/templates/widgets/widgets.html:72
+#: friendfund/templates/widgets/widgets.html:80
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(mins)d</strong> minute left"
 msgid_plural "FF_POOL_INFO_<strong>%(mins)d</strong> minutes left"
 msgstr[0] "queda <strong>%(mins)d</strong> minuto"
 msgstr[1] "quedan <strong>%(mins)d</strong> minutos"
 
-#: friendfund/templates/widgets/widgets.html:76
+#: friendfund/templates/widgets/widgets.html:84
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(secs)d</strong> second left"
 msgid_plural "FF_POOL_INFO_<strong>%(secs)d</strong> seconds left"
 msgstr[0] "queda <strong>%(secs)d</strong> segundo"
 msgstr[1] "quedan <strong>%(secs)d</strong> segundos"
 
-#: friendfund/templates/widgets/widgets.html:80
+#: friendfund/templates/widgets/widgets.html:88
 msgid "FF_POOL_INFO_expired"
 msgstr "Caducado"
 

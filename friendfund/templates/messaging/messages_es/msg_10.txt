@@ -1,6 +1,6 @@
 <%def name="name()">${data['pool_title']}</%def>
 
-<%def name="description()">${data['message'] or u"default message"}
+<%def name="description()">${data['pool_description']}   
 
 Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo. Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)!
 Visitar la pagina del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>  

@@ -1,8 +1,6 @@
 Hola ${data['invitee_name']},   
-
-${data['admin_name']} ha creado un bote secreto de freindfund: ${data['pool_title']} y me gustaría invitarte a contribuir también!  
  
-${data['message']}   
+${data['message'] or u"default message"} 
 
 Contribuye con la cantidad que tu elijas (la cantitad más pequeña tambien ayuda)! Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo!
 Visitar la página del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}> 
@@ -16,5 +14,5 @@ Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
 
 ¿Que es friendfund? Aprende más aquí: ${data['learn_more_url']}   
 
-<%def name="subject()">${data['pool_title']}: Te han invitado a un bote de friendfund!</%def> 
+<%def name="subject()">${data['subject'] or u"default subject"}</%def> 
  

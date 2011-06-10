@@ -1,8 +1,6 @@
 Hola ${data['invitee_name']},  
 
-He encontrado el regalo perfecto de ${data['occasion']} para ${data['recipient_name']} y me gustaría invitarte al bote secreto de friendfund que vamos a usar para comprarlo.
-
-${data['message']} 
+${data['message'] or u"default message"}   
 
 Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)! Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo!
 Visitar la pagina del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}> 
@@ -25,4 +23,4 @@ Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
 
 ¿Que es friendfund? Aprende más aquí: ${data['learn_more_url']}   
 
-<%def name="subject()">${data['pool_title']}: Te han invitado a un bote de friendfund!</%def>
+<%def name="subject()">${data['subject'] or u"default subject"}</%def>

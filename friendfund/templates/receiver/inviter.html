@@ -3,54 +3,19 @@
 %>
 <%namespace name="forms" file="../widgets/forms.html"/>
 
-%if c.method == 'facebook':
-	${self.networkinviter("facebook", c.mutuals, c.all)}
-%elif c.method == 'twitter':
-	${self.networkinviter("twitter", False, c.all)}
-%elif c.method == 'email':
-	${mailinviter(getattr(c, "submit_name", None))}
-%endif
 
-<%def name="networkinviter(network_name, mutuals, all)">
-	<div class="arrowSubTab"></div>
-	<div class="boxSearchFriend" id="inviteheader">
-		<input type="text" id="filter_${network_name}"  value="${_("FF_INVITER_Search Friends")}" _default_text="${_("FF_INVITER_Search Friends")}" class="searchFriends default floatLeft" />
-		%if mutuals:
-			<span class="mutualToggleContainer"><label for="toggle_mutuals_${network_name}">${_("FF_INVITER_CHECKBOX_Mutual Friends")}</label><input id="toggle_mutuals_${network_name}" ${forms.expression_quote(mutuals, "checked")|n} type="checkbox"/></span>
-		%endif
+<%def name="networkinviter(network_name)">
+	<div class="first">
+		<span>${_("Recipients Name")}</span>
 	</div>
-	<div class="friendsList inviterList">
+	<div class="typeAheadSelector">
+	<input type="text" id="filter_${network_name}" autocomplete="off" value="${_("GG_RECEIVER_Type name")}" _default_text="${_("GG_RECEIVER_Type name")}" class="receiverFilter default floatLeft" />
+	<div class="friendsList receiverList hidden">
 	  <ul id="friend_list_${network_name}">
 	  </ul>
 	</div>
+	</div>
 </%def>
-
-<%def name="render_network_friends(friends, active = True, mutuals = False, var_show_name = True)">
-%for i,(id, user_data) in enumerate(friends.iteritems()):
-	<%
-		if "mutual_with" in user_data:
-			mutual_class = "mutual"
-		elif mutuals:
-			mutual_class = "nonmutual hidden"
-		else:
-			mutual_class = "nonmutual"
-	%>
-		<li title="${user_data["name"]}" class="invitee_row ${active and 'selectable' or 'selected'} ${mutual_class}" _network="${user_data['network']}" id="${user_data['network']}_${id}" pos="${i}">
-			<div class="avt">
-				<span class="displayable close" href="#">X</span>
-				%if i<20:
-					<img src="${user_data["profile_picture_url"]}">
-				%else:
-					<img _src="${user_data["profile_picture_url"]}">
-				%endif
-			</div>
-			<p class="${var_show_name and "hideable" or ""}">${user_data["name"]}</p>
-			<span class="hideable">${_("FF_INVITER_BUTTON_Invite")} &raquo;</span>
-			<input type="hidden" name="invitees" value="${h.encode_minimal_repr(user_data)}"/>
-		</li>
-%endfor
-</%def>
-
 
 <%def name="mailinviter(submit_name = None)">
 	<% 
