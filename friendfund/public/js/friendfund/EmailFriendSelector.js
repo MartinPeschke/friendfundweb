@@ -109,6 +109,6 @@ dojo.declare("friendfund.EmailInPlaceSelector", friendfund.EmailFriendSelector, 
 		this.selectedValueNode.value = "";
 		dojo.query(this.rootNode).orphan();
 		this.destroy();
-		this.draw()
+		this.draw();
 	}
 });

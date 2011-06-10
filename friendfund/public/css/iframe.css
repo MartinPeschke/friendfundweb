@@ -4,29 +4,25 @@
 
 .sliderContainer {width:660px;position:relative;margin: 0 30px;}
 .sliderContainerWindow {width:660px;overflow:hidden;position: relative;height:210px;}
-.sliderContainer .controllerLeft{height:30px; width:40px;background-color:blue;position:absolute;top:90px;left:-5px}
-.sliderContainer .controllerRight{height:30px; width:40px;background-color:blue;position:absolute;top:90px;right:-5px}
 
-.contentSlider{height:210px;position:relative;position:absolute;left:0px;top:0px;}
-.sliderPane {height:208px;width:658px;border:1px solid black;background:lightblue;float:left}
+.sliderContainer .sliderController{height:30px; width:40px;position:absolute;top:90px;background-image:url("../partner/slides/arrows.png");}
+.sliderContainer .controllerLeft{left:-5px;background-position:0 0;}
+.sliderContainer .controllerRight{right:-5px;background-position:0 -30px;}
+
+.contentSlider{height:210px;position:absolute;left:0px;top:0px;}
+.sliderPane {height:210px;width:660px;position:relative;background:url("../partner/slides/background.png");float:left}
+.sliderPane .slideText{position:absolute;top:40px;left:60px;width:165px;text-shadow: 0px -1px 1px black;color:white}
+.sliderPane .firstSlide{color:black;text-shadow: 0px -1px 1px white;}
+.sliderPane .slideTitle{display: block;font-size: 14px;font-weight: bold;padding-bottom: 15px;}
+.sliderPane .slideCaption{}
 .controllerNumbered {position:absolute;top:10px;right:4px}
-.controllerNumbered .sliderControl{margin: 0 5px;padding: 0 5px;font-weight:bold;font-size:14px;cursor:pointer;
-	background:white;
-	-moz-border-radius:15px;
-	-webkit-border-radius: 15px;
-	border-radius: 15px;
-	border-top: 1px solid black;
-	border-right: 1px solid white;
-	border-bottom: 1px solid white;
-	border-left: 1px solid black;
+.controllerNumbered .sliderNumberControl{
+	width:20px;height:20px;font-weight:bold;font-size:14px;cursor:pointer;line-height: 20px;text-align: center;margin-right: 10px;
+	background-image:url("../partner/slides/slider_numbers.png");
+	background-position:-21px 0;
 }
-.controllerNumbered .sliderControl.selected{color:white;cursor:normal;
-	background:black;
-	border-top: 1px solid white;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	border-left: 1px solid white;
-}
+.controllerNumbered .sliderNumberControl.selected{color:white;cursor:default;background-position:0 0;}
+
 .contentIframe .iFrameHomeBoxes {float: left;margin: 0 0 30px 30px;}
 .contentIframe .iFrameHomeBox {float:left;position:relative;border:1px solid #e5e5e5;width:148px;margin-right:20px;}
 .rosePlacement {position:relative}
