@@ -250,12 +250,14 @@ dojo.declare("friendfund.FriendTypeAhead", friendfund.DataProvider, {
 	,current_filter : ""
 	,_has_results : false
 	,display_unfiltered : false
+	,selectedValueNode : "selectedReceiver"
 	,constructor : function(args){
 		dojo.mixin(this, args);
 		/* since selector is outside of refnode, and does not get rerendered, this can get out of sync */
 		this._is_selected_decider = ".methodselector.ajaxlink.selected[_type="+this.network+"]";
 		this.lazyReRender = ff.t.debounce(dojo.hitch(this, "reRender"), 100, false);
 		this.mutuals = false;
+		this.selectedValueNode = dojo.byId(this.selectedValueNode);
 	}
 	,is_selected : function(){
 		return dojo.query(this._is_selected_decider, this.container).length > 0;
@@ -348,6 +350,7 @@ dojo.declare("friendfund.FriendTypeAhead", friendfund.DataProvider, {
 				_t.current_filter = _t.filterNode.value.toLowerCase();
 				dojo.addClass(_t.filterNode, "selected");
 				_t.reRender();
+				_t.selectedValueNode.value = dojo.query("input", elem).attr("value").join("");
 			});
 		});
 	}

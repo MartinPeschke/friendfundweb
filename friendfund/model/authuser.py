@@ -104,9 +104,10 @@ class NetworkUserPermissions(DBMappedObject):
 		
 		
 class SocialNetworkInformation(object):
-	def __init__(self, network, network_id, access_token, access_token_secret):
+	def __init__(self, network, network_id, access_token, access_token_secret, screen_name = None):
 		self.network = network
 		self.network_id = network_id
+		self.screen_name = screen_name
 		self.access_token = access_token
 		self.access_token_secret = access_token_secret
 
@@ -230,8 +231,10 @@ class User(ProtoUser):
 								app_globals.cache_pool, 
 								self.networks['twitter'].access_token, 
 								self.networks['twitter'].access_token_secret, 
+								self.networks['twitter'].network_id, 
+								self.networks['twitter'].screen_name,
 								config,
-								offset = offset
+								offset = offset,
 							)
 			if friends is None:
 				raise Exception('NoFriendsFoundSomeErrorOccured')

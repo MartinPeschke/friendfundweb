@@ -15,7 +15,7 @@ log = setup_logger(loglevel=0)
 
 CONNECTION_NAME = 'async'
 
-def get_friend_list(method, access_token, access_token_secret, consumer, slice_size = 100):
+def get_friend_list(method, access_token, access_token_secret, consumer, user_id, screen_name, slice_size = 100):
 	def package(elem):
 		return (str(elem['id']),   							### ID keyed Map
 							{
@@ -44,7 +44,7 @@ def get_friend_list(method, access_token, access_token_secret, consumer, slice_s
 	
 	for url in urls:
 		while next_cursor_str != '0':
-			json_data = tw_helper.fetch_url("%s?cursor=%s" % (url, next_cursor_str), "GET", access_token, access_token_secret, consumer)
+			json_data = tw_helper.fetch_url("%s?cursor=%s&user_id=%s&screen_name=%s" % (url, next_cursor_str, user_id, screen_name), "GET", access_token, access_token_secret, consumer)
 			friend_data = simplejson.loads(json_data)
 			data, next_cursor_str = friend_data['users'], friend_data['next_cursor_str']
 			
@@ -59,10 +59,10 @@ def get_friend_list(method, access_token, access_token_secret, consumer, slice_s
 		yield output_buffer, True
 	
 @task
-def set_friends_async(proto_key, access_token, access_token_secret):
+def set_friends_async(proto_key, access_token, access_token_secret, user_id, screen_name):
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	cache_pool = get_cm(CONNECTION_NAME)
-	dataprovider = get_friend_list("TWEET", access_token, access_token_secret, consumer)
+	dataprovider = get_friend_list("TWEET", access_token, access_token_secret, consumer, user_id, screen_name)
 	set_pages_to_cache(log, cache_pool, proto_key, dataprovider)
 	
 	
@@ -77,7 +77,8 @@ def remote_persist_user(user_data):
 	remote_profile_picture_render.delay([(user_data['network'], user_data['network_id'], user_data['profile_picture_url'])])
 	consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
 	cache_pool = get_cm(CONNECTION_NAME)
-	dataprovider = get_friend_list("TWEET", access_token, access_token_secret, consumer)
+	dataprovider = get_friend_list("TWEET", user_data['access_token'], user_data['access_token_secret'], consumer, user_data['network_id'], user_data['screen_name'])
+	proto_key = '<friends_twitter>%s'%user_data['access_token']
 	set_pages_to_cache(log, cache_pool, proto_key, dataprovider)
 	return 'ack'
 	

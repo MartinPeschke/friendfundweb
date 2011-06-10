@@ -1,25 +1,45 @@
 dojo.provide("friendfund.PartnerPage");
 
 dojo.declare("friendfund.PartnerPage", null, {
+	connect : function(){
+		dojo.connect(dojo.byId("occasionSelector"), "onchange", this, "swapOccasionName");
+		dojo.connect(dojo.byId("occasionTyper"), "onkeyup", this, "changeOccasionName");
+	},
+	changeOccasionName : function(evt){
+		if(evt.target.value){
+			dojo.byId(dojo.attr(evt.target, "_target")).value = evt.target.value;
+		} else {
+			var fake_evt = {target:dojo.byId("occasionSelector")};
+			this.swapOccasionName(fake_evt);
+		}
+		this.check_occasion_name();
+	},
+	swapOccasionName : function(evt){
+		var selected_occasion = evt.target.options[evt.target.selectedIndex];
+		dojo.byId(dojo.attr(evt.target, "_name_target")).value = selected_occasion.value;
+		dojo.byId(dojo.attr(evt.target, "_key_target")).value = dojo.attr(selected_occasion, "key");
+		this.check_occasion_name();
+	},
+
 	constructor: function(args){
-		var _t = this;
-		dojo.mixin(_t, args);
-		_t.triedSubmitting = false;
-		_t.target_form = dojo.isString(_t.target_form) && dojo.byId(_t.target_form) || _t.target_form;
-		_t.load_receiver();
+		dojo.mixin(this, args);
+		this.triedSubmitting = false;
+		this.target_form = dojo.isString(this.target_form) && dojo.byId(this.target_form) || this.target_form;
+		this.load_receiver();
+		this.connect();
+		dojo.byId("selectedReceiver").value = "";
 	}
 	,load_receiver : function(){
-		var _t = this;
-		_t.selector = new friendfund.CompoundFriendSelector({
-								auth_provider : _t.auth_provider
-								,container : _t.container
+		this.selector = new friendfund.CompoundFriendSelector({
+								auth_provider : this.auth_provider
+								,container : this.container
 								,ref_node: "inviter"
 								,inviter_node : "friend_list"
-								,base_url : _t.base_url
+								,base_url : this.base_url
 								,avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
 								,networkSelector : friendfund.FriendTypeAhead
 							});
-		_t.selector.draw(_t.method);
+		this.selector.draw(this.method);
 	}
 	,submit : function(url, level, evt){
 		var _t = this;

@@ -46,20 +46,14 @@ class PartnerController(BaseController):
 		c.method = c.user.get_current_network() or 'facebook'
 		product = request.params.get("productMap")
 		c.product = DisplayProduct.from_minimal_repr(product)
-		c.product_list = [c.product]
-		receiver = request.params.get("invitees")
-		c.receiver_data = h.decode_minimal_repr(receiver)
-		receiver = PoolUser.from_map(c.receiver_data)
-		
 		try:
-			c.pool = g.pool_service.create_group_gift_from_iframe(c.product, receiver)
-			c.furl = url("invite_index", pool_url = c.pool.p_url)
-			return render("/widgets/bust_iframe.html")
+			c.pool = g.pool_service.create_group_gift_from_iframe(c.product)
+			return redirect(url("invite_index", pool_url = c.pool.p_url))
 		except formencode.validators.Invalid, error:
 			c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 			c.errors = error.error_dict or {}
 			c.values = error.value
-			return self.render('/partner/iframe.html')
+			return self.render('/partner/create.html')
 	
 	@workflow_available()
 	def prepare(self):

@@ -50,11 +50,10 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
 			data = request.get_nonoauth_parameter_text()
 			header = request.to_header()
 			req = urllib2.Request(request.normalized_url, data, header)
-			url_data = opener.open(req).read()
 		else:
 			header = request.to_header()
 			req = urllib2.Request(request.to_url(), headers = header)
-			url_data = opener.open(req).read()
+		url_data = opener.open(req).read()
 		opener.close()
 		return url_data
 
@@ -63,7 +62,7 @@ def get_friends_from_cache(
 			logger, 
 			cache_pool, 
 			access_token, 
-			access_token_secret, 
+			access_token_secret, user_id, screen_name,
 			config,
 			offset = None, 
 			timeout = 30):
@@ -77,8 +76,7 @@ def get_friends_from_cache(
 			if offset>0:
 				logger.error('GET_FRIENDS_FROM_CACHE, tried getting followups, None Found: %s', key)
 			mc.set(key, INPROCESS_TOKEN, 30)
-			send_task('friendfund.tasks.twitter.set_friends_async', args = [proto_key, access_token, access_token_secret])
-			#get_friends_async(log, cache_pool, access_token, access_token_secret, config)
+			send_task('friendfund.tasks.twitter.set_friends_async', args = [proto_key, access_token, access_token_secret, user_id, screen_name])
 		
 		while value in (None,INPROCESS_TOKEN) and sleeper < timeout:
 			time.sleep(0.2)

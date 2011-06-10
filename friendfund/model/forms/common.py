@@ -3,8 +3,9 @@ from datetime import datetime
 import dns.resolver, socket, re
 from pylons import app_globals as g
 from friendfund.model.mapper import DBMappedObject
+from friendfund.model.pool import PoolUser, InsufficientParamsException
 from friendfund.lib.payment.adyen import PaymentMethod
-from friendfund.lib.tools import sanitize_html
+from friendfund.lib.tools import sanitize_html, decode_minimal_repr
 from pylons import session as websession
 
 from babel.numbers import parse_decimal, NumberFormatError, format_currency, format_decimal
@@ -24,6 +25,15 @@ class TOSValidator(formencode.validators.StringBoolean):
 		value = strbool.to_python(value)
 		if not value:
 			raise formencode.Invalid(self.message("need_to_agree", state), value, state)
+		return value
+
+class ReceiverValidator(formencode.FancyValidator):
+	messages = {"missing_receiver_data": _('FF_PARTNERIFRAME_ERROR_TITLE_Please select a recipient!')}
+	def _to_python(self, value, state):
+		try:
+			value = PoolUser.from_map(decode_minimal_repr(value))
+		except (AttributeError, TypeError, InsufficientParamsException), e:
+			raise formencode.Invalid(self.message("missing_receiver_data", state), value, state)
 		return value
 
 

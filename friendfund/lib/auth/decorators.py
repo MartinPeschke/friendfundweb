@@ -108,7 +108,7 @@ def workflow_available(presence_required = False, expiretime = 92000):
 			c._workflow._dirty = False
 			result = func(self, *args, **kwargs)
 			if c._workflow._dirty:
-				cache.set(key, c._workflow, expiretime=expiretime)
+				cache.set(key, c._workflow, time=expiretime)
 				del c._workflow
 		return result
 	return decorator(validate)
@@ -163,7 +163,7 @@ def post_only(ajax = False):
 				return {"message":_("METHOD_NOT_AUTHORIZED_MESSAGE")}
 			else:
 				pylons.tmpl_context.messages.append(_("METHOD_NOT_AUTHORIZED_MESSAGE"))
-				return redirect(pylons.request.referer)
+				return redirect(pylons.request.referer or url("home"))
 		else:
 			return func(self, *args, **kwargs)
 	return decorator(validate)

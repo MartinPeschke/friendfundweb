@@ -1,5 +1,5 @@
 import formencode
-from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, SettlementValidator, DecimalStringValidator, SanitizedHTMLString
+from friendfund.model.forms.common import DecimalValidator, CurrencyValidator, SettlementValidator, DecimalStringValidator, SanitizedHTMLString, ReceiverValidator
 
 _ = lambda x:x
 
@@ -12,6 +12,7 @@ class PoolPartnerIFrameForm(formencode.Schema):
 	allow_extra_fields = True
 	occasion_name = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event name!')})
 	occasion_key = formencode.validators.String(not_empty=True, max=140, messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please enter some event key!')})
+	receiver = ReceiverValidator(not_empty=True,messages={'empty': _('FF_PARTNERIFRAME_ERROR_TITLE_Please select a recipient!')})
 	
 class PoolCreateForm(formencode.Schema):
 	allow_extra_fields = True

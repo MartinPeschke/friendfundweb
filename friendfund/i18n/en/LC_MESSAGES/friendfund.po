@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-06-09 14:24+0100\n"
+"PO-Revision-Date: 2011-06-10 13:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -43,7 +43,6 @@ msgid "USER_SIGNUP_If this is you, please try logging in with your email address
 msgstr "This email  is owned by another user. Please try logging in with your email address and password or %(link_open)srequest a password change%(link_close)s!"
 
 #: friendfund/controllers/invite.py:71
-#: friendfund/controllers/myfriends.py:50
 #: friendfund/templates/invite/inviter.html:48
 msgid "FF_INVITER_BUTTON_Invite"
 msgstr "Invite"
@@ -81,6 +80,10 @@ msgstr "Choose your recipient from Facebook"
 #: friendfund/controllers/myfriends.py:36
 msgid "FF_Choose your recipient from Twitter"
 msgstr "Choose your recipient from Twitter"
+
+#: friendfund/controllers/myfriends.py:50
+msgid "GG_RECEIVER_Select"
+msgstr "Select"
 
 #: friendfund/controllers/myfriends.py:56
 #: friendfund/controllers/myfriends.py:93
@@ -720,7 +723,7 @@ msgstr "I have found the perfect %(event_name)s gift for %(recipient_name)s"
 msgid "FF_GG_POOL_TITLE_%(product_name)s"
 msgstr "%(product_name)s"
 
-#: friendfund/services/pool_service.py:120
+#: friendfund/services/pool_service.py:121
 #, python-format
 msgid "INVITE_PAGE_DEFAULT_MSG_%(admin_name)s has created a Friend Fund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
 msgstr "%(admin_name)s has created a friendfund for %(receiver_name)s's %(occasion_name)s. Come and chip in!"
@@ -1547,6 +1550,8 @@ msgstr "Invite your Facebook friends"
 
 #: friendfund/templates/invite/fb_login.html:6
 #: friendfund/templates/invite/fb_login.html:7
+#: friendfund/templates/receiver/fb_login.html:4
+#: friendfund/templates/receiver/fb_login.html:5
 msgid "FF_Log in with Facebook"
 msgstr "Log in with Facebook"
 
@@ -1628,16 +1633,21 @@ msgid "FF_INVITER_CHECKBOX_Mutual Friends"
 msgstr "Mutual Friends"
 
 #: friendfund/templates/invite/inviter.html:58
+#: friendfund/templates/receiver/inviter.html:23
 msgid "FF_INVITER_EMAIL_Add to Invitees"
 msgstr "Add to Invitees"
 
 #: friendfund/templates/invite/inviter.html:62
 #: friendfund/templates/invite/inviter.html:63
+#: friendfund/templates/receiver/inviter.html:27
+#: friendfund/templates/receiver/inviter.html:28
 msgid "FF_INVITER_EMAIL_Friend's Name"
 msgstr "Friend's Name"
 
 #: friendfund/templates/invite/inviter.html:68
 #: friendfund/templates/invite/inviter.html:69
+#: friendfund/templates/receiver/inviter.html:33
+#: friendfund/templates/receiver/inviter.html:34
 msgid "FF_INVITER_EMAIL_Email"
 msgstr "Email"
 
@@ -1679,6 +1689,8 @@ msgstr "Invite your Twitter friends."
 
 #: friendfund/templates/invite/tw_login.html:6
 #: friendfund/templates/invite/tw_login.html:7
+#: friendfund/templates/receiver/tw_login.html:4
+#: friendfund/templates/receiver/tw_login.html:5
 msgid "FF_Log in with Twitter"
 msgstr "Log in with Twitter"
 
@@ -2306,21 +2318,89 @@ msgstr "Sign up with Twitter"
 msgid "FF_LOGIN_Login in Here"
 msgstr "Log in Here"
 
-#: friendfund/templates/partner/create.html:21
+#: friendfund/templates/partner/create.html:44
+msgid "GG_POOLDETAILS_Your Gift"
+msgstr "Your Gift"
+
+#: friendfund/templates/partner/create.html:58
 msgid "GG_POOLDETAILS_HEADER_Create a Group Gift Pool"
 msgstr "Create a Group Gift Pool"
 
-#: friendfund/templates/partner/create.html:23
+#: friendfund/templates/partner/create.html:60
 msgid "GG_POOLDETAILS_HEADER_Find a Gift"
 msgstr "Find a Gift"
 
-#: friendfund/templates/partner/create.html:23
+#: friendfund/templates/partner/create.html:60
 msgid "GG_POOLDETAILS_HEADER_Choose your Recipient"
 msgstr "Choose your Recipient"
 
-#: friendfund/templates/partner/create.html:23
+#: friendfund/templates/partner/create.html:60
 msgid "GG_POOLDETAILS_HEADER_Done!"
 msgstr "Done!"
+
+#: friendfund/templates/partner/create.html:75
+msgid "GG_POOLDETAILS_HEADER_Choose Your Gift Recipient"
+msgstr "Choose Your Gift Recipient"
+
+#: friendfund/templates/partner/create.html:81
+#: friendfund/templates/pool/create.html:146
+msgid "FF_POOLDETAILS_DESCRIPTION_Tip goes here"
+msgstr "Tell us a bit about why you're collecting."
+
+#: friendfund/templates/partner/create.html:96
+msgid "GG_POOLDETAILS_Special Occasion"
+msgstr "Special Occasion"
+
+#: friendfund/templates/partner/create.html:103
+#: friendfund/templates/partner/iframe.html:187
+msgid "FF_IFRAME_Just because..."
+msgstr "Just because..."
+
+#: friendfund/templates/partner/create.html:113
+msgid "GG_POOLDETAILS_...or enter your own"
+msgstr "...or enter your own"
+
+#: friendfund/templates/partner/create.html:119
+msgid "GG_POOLDETAILS_Edit Pool Details"
+msgstr "Edit Pool Details"
+
+#: friendfund/templates/partner/create.html:132
+#: friendfund/templates/pool/create.html:124
+#: friendfund/templates/pool/edit.html:58
+msgid "FF_POOLDETAILS_LABEL_Pool Title"
+msgstr "Pool Title"
+
+#: friendfund/templates/partner/create.html:136
+#: friendfund/templates/partner/create.html:139
+#: friendfund/templates/pool/create.html:128
+#: friendfund/templates/pool/create.html:131
+#: friendfund/templates/pool/edit.html:60
+msgid "FF_POOLDETAILS_Write your title here..."
+msgstr "Write your title here..."
+
+#: friendfund/templates/partner/create.html:140
+#: friendfund/templates/pool/create.html:99
+#: friendfund/templates/pool/create.html:132
+#: friendfund/templates/pool/pool_complete.html:96
+#: friendfund/templates/product/urlparser.html:20
+#: friendfund/templates/product/urlparser.html:32
+#: friendfund/templates/widgets/thankyoumessage_editor.html:4
+msgid "FF_Edit"
+msgstr "Edit"
+
+#: friendfund/templates/partner/create.html:156
+#: friendfund/templates/pool/create.html:152
+#: friendfund/templates/pool/edit.html:80
+msgid "FF_POOLDETAILS_LABEL_Pool Description"
+msgstr "Pool Description"
+
+#: friendfund/templates/partner/create.html:170
+msgid "GG_POOLDETAILS_You can always edit your Pool ttitle and description later."
+msgstr "You can always edit your Pool ttitle and description later."
+
+#: friendfund/templates/partner/create.html:176
+msgid "GG_POOLDETAILS_Create Pool"
+msgstr "Create Pool"
 
 #: friendfund/templates/partner/howto.html:10
 msgid "FF_IFRAME_HOWTO_What is friendfund?"
@@ -2468,10 +2548,6 @@ msgstr "Choose your recipient"
 msgid "FF_IFRAME_Choose an occasion:"
 msgstr "Choose an occasion:"
 
-#: friendfund/templates/partner/iframe.html:187
-msgid "FF_IFRAME_Just because..."
-msgstr "Just because..."
-
 #: friendfund/templates/partner/iframe.html:196
 msgid "FF_IFRAME_... or enter your own occasion"
 msgstr "... or enter your own occasion"
@@ -2583,108 +2659,79 @@ msgstr "We Need"
 msgid "FF_POOLDETAILS_Edit Currency"
 msgstr "Edit Currency"
 
-#: friendfund/templates/pool/create.html:99
-#: friendfund/templates/pool/create.html:133
-#: friendfund/templates/pool/pool_complete.html:96
-#: friendfund/templates/product/urlparser.html:20
-#: friendfund/templates/product/urlparser.html:32
-#: friendfund/templates/widgets/thankyoumessage_editor.html:4
-msgid "FF_Edit"
-msgstr "Edit"
-
-#: friendfund/templates/pool/create.html:119
+#: friendfund/templates/pool/create.html:118
 msgid "FF_POOLDETAILS_TITLE_Tip goes here"
 msgstr "What's the money for?"
 
-#: friendfund/templates/pool/create.html:125
-#: friendfund/templates/pool/edit.html:58
-msgid "FF_POOLDETAILS_LABEL_Pool Title"
-msgstr "Pool Title"
-
-#: friendfund/templates/pool/create.html:129
-#: friendfund/templates/pool/create.html:132
-#: friendfund/templates/pool/edit.html:60
-msgid "FF_POOLDETAILS_Write your title here..."
-msgstr "Write your title here..."
-
-#: friendfund/templates/pool/create.html:147
-msgid "FF_POOLDETAILS_DESCRIPTION_Tip goes here"
-msgstr "Tell us a bit about why you're collecting."
-
-#: friendfund/templates/pool/create.html:153
-#: friendfund/templates/pool/edit.html:80
-msgid "FF_POOLDETAILS_LABEL_Pool Description"
-msgstr "Pool Description"
-
-#: friendfund/templates/pool/create.html:156
+#: friendfund/templates/pool/create.html:155
 msgid "FF_POOLDETAILS_Write your description here..."
 msgstr "Write your description here..."
 
-#: friendfund/templates/pool/create.html:165
-#: friendfund/templates/pool/create.html:174
+#: friendfund/templates/pool/create.html:164
+#: friendfund/templates/pool/create.html:173
 #: friendfund/templates/pool/edit.html:92
 #: friendfund/templates/pool/edit.html:101
 msgid "FF_POOLDETAILS_LABEL_Pool Image"
 msgstr "Pool Image"
 
-#: friendfund/templates/pool/create.html:179
+#: friendfund/templates/pool/create.html:178
 #: friendfund/templates/pool/edit.html:106
 msgid "FF_POOLDETAILS_URLParser Tooltip goes here"
 msgstr "Paste a link."
 
-#: friendfund/templates/pool/create.html:190
+#: friendfund/templates/pool/create.html:189
 msgid "FF_POOLDETAILS_use URL:"
 msgstr "Paste a URL "
 
+#: friendfund/templates/pool/create.html:190
 #: friendfund/templates/pool/create.html:191
-#: friendfund/templates/pool/create.html:192
 msgid "FF_POOLDETAILS_Examples:www.cnn.com"
 msgstr "Examples: www.cnn.com"
 
-#: friendfund/templates/pool/create.html:193
+#: friendfund/templates/pool/create.html:192
 msgid "FF_LINK_or Upload a picture"
 msgstr "Or choose a file from your computer..."
 
-#: friendfund/templates/pool/create.html:201
+#: friendfund/templates/pool/create.html:200
 msgid "FF_POOLDETAILS_Receiving Your Money"
 msgstr "Receiving Your Money"
 
-#: friendfund/templates/pool/create.html:205
+#: friendfund/templates/pool/create.html:204
 msgid "FF_POOLDETAILS_How do you want to receive your money once the Pool is funded?"
 msgstr "How do you want to receive the money?"
 
-#: friendfund/templates/pool/create.html:206
+#: friendfund/templates/pool/create.html:205
 msgid "FF_POOLDETAILS_You will only be paid if your Pool is successfully funded. This information will not be shared with anyone else."
 msgstr "This information won’t be shared with anyone."
 
-#: friendfund/templates/pool/create.html:217
+#: friendfund/templates/pool/create.html:216
 #, python-format
 msgid "FF_POOLDETAILS_(costs you %(fees)s%%)"
 msgstr "costs %(fees)s%%"
 
-#: friendfund/templates/pool/create.html:219
+#: friendfund/templates/pool/create.html:218
 msgid "FF_POOLDETAILS_(FREE)"
 msgstr "FREE"
 
-#: friendfund/templates/pool/create.html:226
+#: friendfund/templates/pool/create.html:225
 #, python-format
 msgid "FF_POOLDETAILS_If choosing this option, you will be charged a %(fees)s%% fee. Do you want to add this to your Pool Funding Total?"
 msgstr "If you choose this option, you will be charged a %(fees)s%% fee. Do you want to add this to your Pool target?"
 
-#: friendfund/templates/pool/create.html:231
+#: friendfund/templates/pool/create.html:230
 #, python-format
 msgid "FF_POOLDETAILS_Yes, please add the %(fees)s%% to my Funding Total"
 msgstr "Yes, please add the %(fees)s%%."
 
-#: friendfund/templates/pool/create.html:233
+#: friendfund/templates/pool/create.html:232
 msgid "FF_POOLDETAILS_Whats this? (additional fees)"
 msgstr "Whats this?"
 
-#: friendfund/templates/pool/create.html:258
+#: friendfund/templates/pool/create.html:257
 msgid "FF_POOLDETAILS_You can edit everything, except the target, later."
 msgstr "You can edit everything, except the target, later."
 
-#: friendfund/templates/pool/create.html:262
+#: friendfund/templates/pool/create.html:261
 msgid "FF_POOLDETAILS_Invite Friends"
 msgstr "Invite Friends"
 
@@ -3033,6 +3080,14 @@ msgstr "Please write a short description"
 msgid "FF_HOMEPAGE_PRODUCT_Choose a thumbnail (%(counter)s of %(total)s)"
 msgstr "Choose a thumbnail (%(counter)s of %(total)s)"
 
+#: friendfund/templates/receiver/inviter.html:9
+msgid "GG_RECEIVER_Recipients Name"
+msgstr "Recipients Name"
+
+#: friendfund/templates/receiver/inviter.html:12
+msgid "GG_RECEIVER_Type name"
+msgstr "Type name"
+
 #: friendfund/templates/widgets/widgets.html:52
 #, python-format
 msgid "FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor"
@@ -3080,3 +3135,5 @@ msgstr[1] "<strong>%(secs)d</strong> seconds left"
 msgid "FF_POOL_INFO_expired"
 msgstr "expired"
 
+#~ msgid "Recipients Name"
+#~ msgstr ""

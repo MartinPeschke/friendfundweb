@@ -64,7 +64,8 @@ class UserService(object):
 		user.set_network(user_data['network'], 
 							network_id = user_data['network_id'],
 							access_token = user_data['access_token'],
-							access_token_secret = user_data['access_token_secret']
+							access_token_secret = user_data['access_token_secret'],
+							screen_name = user_data.get('screen_name')
 						)
 		tmpl_context.user = user
 		return (True, None)
