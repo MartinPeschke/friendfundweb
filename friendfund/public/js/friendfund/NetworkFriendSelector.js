@@ -75,7 +75,7 @@ dojo.declare("friendfund.DataProvider", friendfund.NetworkFriendPanel, {
 		}
 		len = eligibles.length>size?size:eligibles.length;
 		for(i=0;i<len;i++){result.push(render(template, eligibles[i]));}
-		if(show_more){result.push( "<li id=\"loading_placeholder_"+this.network+"\" class=\"floatLeft\">&nbsp;</li>" )}
+		if(show_more){result.push( "<li id=\"loading_placeholder_"+this.network+"\" class=\"clear\">&nbsp;</li>" )}
 		return result;
 	}
 	,getFirstPage:function(){
@@ -168,7 +168,7 @@ dojo.declare("friendfund.NetworkFriendSelector", friendfund.DataProvider, {
 			
 			_t.friendlist = dojo.byId("friend_list_"+_t.network);
 			_t.friendlist_box = dojo.position(_t.friendlist.parentNode);
-			_t.friendlist_box = _t.friendlist_box.h + _t.friendlist_box.y;
+			_t.friendlist_box = _t.friendlist_box.h*2 + _t.friendlist_box.y;
 			var toggler = dojo.byId("toggle_mutuals_"+_t.network);
 			if(toggler){
 				dojo.connect(toggler, "onclick", _t, "toggle_mutuals");
@@ -321,26 +321,30 @@ dojo.declare("friendfund.FriendTypeAhead", friendfund.DataProvider, {
 	}
 	/* ================= BEGIN selectors ========================= */
 	/* ================= SELECT inherited ======================== */
-	,onResultsFound : function(){this._has_results = true;this.showSelector();}
-	,onNoResultsFound : function(){this._has_results = false;this.hideSelector();}
+	,onResultsFound : function(){
+		this._has_results = true;
+		this.showSelector();
+	}
+	,onNoResultsFound : function(){
+		this._has_results = false;
+		this.hideSelector();
+	}
 	,onSelect : function(elem, evt){
 		this.inviteAppendNode(elem);
 	}
 	,inviteAppendNode : function(elem){
 		var _t = this;
-		dojo.query(elem).forEach(function(elem){
-			var pn = ff.t.findParent(_t.friendlist, "typeAheadSelector");
-			dojo.query("img.smallProfPic", pn).orphan();
-			dojo.query("img", elem).forEach(function(n){
-				var newn = dojo.create("IMG", {src:n.src, className:"smallProfPic"});
-				dojo.place(newn, pn, "first");
-				_t.filterNode.value = dojo.query("p", elem).attr("innerHTML").join("");
-				_t.current_filter = _t.filterNode.value.toLowerCase();
-				dojo.addClass(_t.filterNode, "selected");
-				_t.reRender();
-				_t.selectedValueNode.value = dojo.query("input", elem).attr("value").join("");
-			});
+		var pn = ff.t.findParent(_t.friendlist, "typeAheadSelector");
+		dojo.query("img.smallProfPic", pn).orphan();
+		dojo.query("img", elem).forEach(function(n){
+			var newn = dojo.create("IMG", {src:n.src, className:"smallProfPic"});
+			dojo.place(newn, pn, "first");
 		});
+		_t.filterNode.value = dojo.query("p", elem).attr("innerHTML").join("");
+		_t.current_filter = _t.filterNode.value.toLowerCase();
+		dojo.addClass(_t.filterNode, "selected");
+		_t.reRender();
+		_t.selectedValueNode.value = dojo.query("input", elem).attr("value").join("");
 	}
 	,uninviteAppendNode : function(elem){}
 	,unSelect : function(target){}

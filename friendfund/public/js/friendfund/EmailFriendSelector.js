@@ -14,25 +14,6 @@ dojo.declare("friendfund._Selector", null, {
 });
 
 
-dojo.declare("friendfund.YourselfSelector", friendfund._Selector, {
-	constructor: function(args){
-		dojo.mixin(this, args);
-		this.ref_node = dojo.isString(this.ref_node) && dojo.byId(this.ref_node) || this.ref_node;
-	},draw : function(){
-		ff.io.xhrPost(this.base_url+"/validate", {"invitee.network":"yourself"}, dojo.hitch(this, "_onSelect"));
-	},_onSelect : function(data){
-		if(data.success===true){
-			this.onSelect(data, data.html, null);
-		} else {
-			dojo.place(data.html, this.ref_node, "only");
-		}
-	},
-	onSelect : function(params, elem, evt){},
-	undraw :function(){},
-	destroy:function(){}
-});
-
-
 dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	_listener_locals : []
 	,rootNode : null
@@ -62,6 +43,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		dojo.addClass(this.rootNode, "hidden");
 	}
 	,destroy : function(){
+		this.rootNode = null;
 		dojo.forEach(this._listener_locals, dojo.disconnect);
 		this._listener_locals = [];
 	}
@@ -100,17 +82,6 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		dojo.query("input[type=text]", "emailinviter").attr("value", "");
 		dojo.query("#email_inviter_error", "emailinviter").orphan();
 	}
-	,onSelect : function(elem, evt){
-		dojo.query("p.inviterTwo", this.global_invited_node).addClass("hidden");
-		this.inviteAppendNode(elem);
-		var el = dojo.byId("invitedCounter");
-		el.innerHTML = parseInt(el.innerHTML,10)+1;
-	}
-	,unSelect : function(target){
-		dojo.query(target).orphan();
-		elem = dojo.byId("invitedCounter");
-		elem.innerHTML = parseInt(elem.innerHTML,10)-1;
-	}
 });
 
 dojo.declare("friendfund.EmailInPlaceSelector", friendfund.EmailFriendSelector, {
@@ -129,15 +100,15 @@ dojo.declare("friendfund.EmailInPlaceSelector", friendfund.EmailFriendSelector, 
 			dojo.query(".close", this.rootNode).onclick(dojo.hitch(this, "unSelect"));
 		} else {
 			dojo.place(data.html, this.rootNode, "only");
+			ff.w.parseDefaultsInputs(this.rootNode);
 		}
-		ff.w.parseDefaultsInputs(this.rootNode);
 	}
 	,onSelect : function(elem, evt){
 	}
 	,unSelect : function(target){
-		_t.selectedValueNode.value = "";
-		dojo.empty(_t.ref_node);
-		delete _t.rootNode;
-		_t.draw()
+		this.selectedValueNode.value = "";
+		dojo.query(this.rootNode).orphan();
+		this.destroy();
+		this.draw()
 	}
 });
