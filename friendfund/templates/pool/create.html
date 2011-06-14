@@ -2,7 +2,11 @@
 <%namespace name="links" file="../widgets/links.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="parser" file="../product/urlparser.html"/>
+<%def name="styles()">
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
+</%def>
 <%def name="scripts()">
+	${links.js('/build/editor.js')}
 	<script type="text/javascript"> 
 		toggleSettlement = function(option){
 			var parent = ff.t.findParent(option, "hiderParent");
@@ -35,6 +39,7 @@
 	#### check settlementOptions
 	dojo.forEach(document.submissionform.settlementOption, function(elem){if(elem.checked){toggleSettlement(elem);}});
 	ff.w.connectPopupLinks("submissionform");
+	dojo.parser.parse("poolDetails");
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
@@ -152,7 +157,7 @@
 				<div class="first">
 					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
 				</div>
-				<div class="containerTxtArea floatLeft">
+				<div class="containerTxtArea floatLeft claro">
 					<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
 					plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
 				</div>

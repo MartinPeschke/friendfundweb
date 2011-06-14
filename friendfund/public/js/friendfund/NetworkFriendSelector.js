@@ -342,7 +342,7 @@ dojo.declare("friendfund.FriendTypeAhead", friendfund.DataProvider, {
 		});
 		_t.filterNode.value = dojo.query("p", elem).attr("innerHTML").join("");
 		_t.current_filter = _t.filterNode.value.toLowerCase();
-		dojo.addClass(_t.filterNode, "selected");
+		dojo.query(_t.filterNode).removeClass("default").addClass("selected");
 		_t.reRender();
 		_t.selectedValueNode.value = dojo.query("input", elem).attr("value").join("");
 	}

@@ -106,10 +106,12 @@ def workflow_available(presence_required = False, expiretime = 92000):
 				raise Exception("WorkFlowExpiredOrNotPresent! (%s) (%s)", pylons.request.url, pylons.request.referer)
 			c._workflow = wf or WorkFlow(cache_proto_key)
 			c._workflow._dirty = False
-			result = func(self, *args, **kwargs)
-			if c._workflow._dirty:
-				cache.set(key, c._workflow, time=expiretime)
-				del c._workflow
+			try:
+				result = func(self, *args, **kwargs)
+			finally:
+				if c._workflow._dirty:
+					cache.set(key, c._workflow, time=expiretime)
+					del c._workflow
 		return result
 	return decorator(validate)
 

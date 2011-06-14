@@ -52,13 +52,3 @@
 <div id="loginlink"></div>
 %endif
 
-
-
-
-<form action="${url(controller="partner", action="bounce")}" method="POST" id="resubmit">
-%for k in c.backup_values:
-	%for v in c.backup_values.getall(k):
-		<input type="hidden" name="${k}" value="${v}"/>
-	%endfor
-%endfor	
-</form>

@@ -240,7 +240,7 @@ FriendFund.Popin = {
 			FriendFund.Logger.warning(e);
 		}
 	},
-	url: function (options) {return options.protocol+options.host+'/partner/bounce';}
+	url: function (options) {return options.protocol+options.host+'/partner/preset';}
 };
 FriendFund.Button = {
 	button_id: "friendfund_fund_button",

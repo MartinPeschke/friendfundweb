@@ -40,6 +40,37 @@ class PartnerController(BaseController):
 		c.errors = {}
 		return self.render('/partner/iframe_product.html')
 	
+	@workflow_available()
+	def preset(self):
+		c._workflow['query']=request.params.get("referer")
+		c._workflow['key']=request.params.get("key")
+		c._workflow['host']=request.params.get("host")
+		c._workflow['real_host']=request.params.get("real_host")
+		total_param_set = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
+		params = total_param_set.get("ff", {}).get("names", {})
+		params.update(total_param_set.get("ff", {}).get("props", {}))
+		c._workflow['product_list'] = g.product_service.get_products_from_open_graph(params, c._workflow['query'])
+		return redirect(url(controller="partner", action="set", ck = c._workflow._key))
+		
+	@workflow_available(presence_required = True)
+	def set(self):
+		c.product_list = c._workflow['product_list']
+		if not len(c.product_list):
+			index = IndexController()
+			c.suggested_pools = index._get_featured_pools()
+			return self.render('/partner/iframe_home.html')
+		
+		c.product = c.product_list[0]
+		c.method = c.user.get_current_network() or 'facebook'
+		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
+		c.errors = {}
+		return self.render('/partner/iframe_product.html')
+	
+	
+	
+	
+	
 	@logged_in(ajax=False)
 	@post_only(ajax=False)
 	def validate(self):

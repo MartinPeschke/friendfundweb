@@ -1912,9 +1912,9 @@ div.comments input {
 }
 .rose {
 	background-color: #ffd2e8;color: black;text-align: left;
-	-moz-box-shadow: 0 2px 2px #B3B3B3;
-	-webkit-box-shadow: 0px 2px 2px #B3B3B3; /*Safari 3.0+, Chrome */
-	box-shadow: 0px 2px 2px #B3B3B3; /* Opera 10.5, IE 9.0 */
+	-moz-box-shadow: 0 1px 0 #B3B3B3;
+	-webkit-box-shadow: 0px 1px 0 #B3B3B3; /*Safari 3.0+, Chrome */
+	box-shadow: 0px 1px 0 #B3B3B3; /* Opera 10.5, IE 9.0 */
 }
 div.rose {
 	width: 180px;
@@ -2130,7 +2130,7 @@ div.limit{
 	position: relative
 }
 div.shadCorn{
-	background: url(/static/imgs/shadow-corner.png) right top no-repeat;
+	background: url(/static/imgs/shadow-corner.png) -292px top no-repeat;
 	height: 7px;
 	width: 157px;
 	position: absolute;
@@ -2381,17 +2381,15 @@ div.tip div.arrow {
 	margin: 42px 20px 0 0;
 }
 .prodImgSubWrap {
+	background-color: white;
 	border: 4px solid white;
 	float: left;
-	width: 60px;
 	height: 50px;
-	overflow: hidden
-}
-div.subHeader .prodImgSubWrap img {
-	border: none;
+	overflow: hidden;
+	text-align: center;
 	width: 60px;
-	margin: 0
 }
+div.subHeader .prodImgSubWrap img {border: none;float: None;display: inline;margin: 0}
 div.tabs span {
 	background-color: #ddd;
 	border-color: #c9c9c9;
