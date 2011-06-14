@@ -82,12 +82,14 @@ class DisplayProduct(Product):
 
 	def get_iframe_display_label(self, words = 5):
 		return h.word_truncate_plain(self.name, words)
-	
 	display_label = property(get_display_label)
-	def get_product_pic(self, type="POOL"):
-		return self.picture
-	get_picture = get_product_pic
-
+	
+	
+	def get_product_pic(self, *args, **kwargs):
+		raise Exception("Not Implemented")
+	def get_display_product_picture_url(self, staticsservice, type="POOL"):
+		return staticsservice.get_product_picture(self.picture, type)
+		
 class ProductSearch(DBMappedObject):
 	def __init__(self, page_no, pages, page_size, items, products):
 		self.page_no = page_no

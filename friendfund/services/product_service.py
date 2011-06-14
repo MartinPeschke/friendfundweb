@@ -5,7 +5,7 @@ from ordereddict import OrderedDict
 from lxml import etree
 from datetime import datetime
 
-from pylons import tmpl_context, session as websession
+from pylons import tmpl_context, session as websession, app_globals
 from pylons.controllers.util import abort
 from friendfund.lib import helpers as h, url_parser
 from friendfund.model.mapper import DBMapper
@@ -43,6 +43,7 @@ class ProductService(object):
 				top_sellers.map[k] = v + v[:self.SCROLLER_PAGE_SIZE-len(v)%self.SCROLLER_PAGE_SIZE]
 		
 		self.top_sellers = {}
+		self.statics_service = statics_service
 		self.amazon_region_map = {}
 		self.amazon_domain_map = {}
 		self.default_region = country_choices.fallback
@@ -212,6 +213,7 @@ class ProductService(object):
 							setattr(product, attr, transf(p_map.get(ogkey)))
 			if product and product.name:   # catching title/name schisma
 				product.referer_link = referer
+				product._statics = self.statics_service
 				product_list.append(product)
 		return product_list
 	

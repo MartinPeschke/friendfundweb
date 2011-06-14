@@ -25,7 +25,7 @@ dojo.declare("ff._auth", null, {
 		var _t = this;
 		window.fbAsyncInit = function() {
 			var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
-			FB.init({appId:app_id, status:true, cookie:true, xfbml:false, channelUrl:channelUrl});
+			FB.init({appId:app_id, status:true, cookie:true, xfbml:true, channelUrl:channelUrl});
 			FB.Event.subscribe("auth.sessionChange", dojo.hitch(_t, "_onSessionChange"));
 			if(_t.requireFBPerms){_t._getLoginStatus();}
 		}

@@ -29,7 +29,7 @@
 			%for p in c.product_list:
 				<div id="product_${p.guid}" class="${p.guid != c.product.guid and "hidden" or "selectedProduct"}">
 					<div class="prod">
-						<div><img class="prodPicture" src="${p.get_picture("FF_POOLS")}"/></div>
+						<div><img class="prodPicture" src="${p.get_display_product_picture_url(app_globals.statics_service, "FF_POOLS")}"/></div>
 						<span class="shadTinyBottom"></span>
 					</div>
 					<div class="productDetails">

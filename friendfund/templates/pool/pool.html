@@ -109,13 +109,13 @@
 				<div class="timeTracker floatLeft timeTrackerBig">
 					
 					<div class="timeCounter">
-					<span class="floatRight">${c.pool.get_display_amount()}</span>
-					<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
-					%if c.pool.is_closed():
-						<span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
-					%else:
-						<span class="percent">${int(locals['funding_process']*100)}%</span>
-					%endif
+						<span class="floatRight">${c.pool.get_display_amount()}</span>
+						<span class="floatLeft">${h.format_currency(0, c.pool.currency)|n}</span>
+						%if c.pool.is_closed():
+							<span class="percent">${_("FF_NEWSSTREAM_SUCCESSFUL!")}</span>
+						%else:
+							<span class="percent">${int(locals['funding_process']*100)}%</span>
+						%endif
 						<div class="timeCounterRight" style="width:100%">
 						<div class="timeCounterLeft" style="width:${int(locals['funding_process']*100)}%"></div>
 							%if locals['funding_process'] < 1:
@@ -189,7 +189,15 @@
 			<div class="hided hideable ${not first_visit and "hidden" or ""}" >
 				<div class="brd"></div>
 				<div class="floatLeft share">
-					<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
+					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
+					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
+					<div style="margin:10px 0;"><fb:send href="example.com" font=""></fb:send>&nbsp;&nbsp;${_(u"FF_POOL_PAGE_ADMIN_(SEND)_a personal Facebook message.")}</div>
+					
+					<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
+				</div>
+				
+				<div class="floatLeft promote">
+				<h4>${_(u"FF_POOL_PAGE_ADMIN_Share on Social Networks")}</h4>
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Share your Pool with friends")}</p>
 					<div class="addthis_toolbox addthis_default_style">
 					  <a class="addthis_button_facebook"></a>
@@ -202,16 +210,11 @@
 					</div>
 					<input type="text" value="${url.current(protocol="http")}" onclick="this.select()" />
 				</div>
-				<div class="floatLeft promote">
+				
+				<div class="floatLeft invite">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Promote on your website")}</h4>
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your Pool.")}</p>
 					<a class="learnMoreBtn floatLeft popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_ADMIN_embed widget")}</a>
-				</div>
-				
-				<div class="floatLeft invite">
-					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
-					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
-					<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
 				</div>
 				<div class="colRightWhite"></div>
 				<div class="clear"></div>

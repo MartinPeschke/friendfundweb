@@ -352,8 +352,7 @@ class Pool(DBMappedObject):
 		return False
 	def am_i_possibly_contributor(self, user):
 		return user.u_id in self.partial_contributor_map
-	def can_i_view(self, user):
-		return self.am_i_member(user) or not self.is_secret
+
 	def can_i_leave(self, user):
 		return self.am_i_member(user) and not user.u_id in [self.admin.u_id, self.receiver.u_id] and not self.am_i_possibly_contributor(user)
 	
@@ -427,6 +426,7 @@ class Pool(DBMappedObject):
 		else:
 			dproduct = DisplayProduct(**self.product.to_map())
 			dproduct.price = self.amount - dproduct.shipping_cost
+			dproduct.currency = self.currency
 			dproduct.currency = self.currency
 			return dproduct
 	

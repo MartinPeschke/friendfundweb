@@ -35,7 +35,9 @@ slides = [
 <%def name="renderProductBox(product)">
 	<div class="productBox rosePlacement floatRight">
 		<div class="productBoxInner">
-			<img src="${product.get_product_pic("FF_POOLS")}">
+			<div class="prodBoxImgWrap">
+				<div class="prodBoxImgSubWrap"> <img src="${product.get_display_product_picture_url(app_globals.statics_service, "FF_POOLS")}" height="50px"> </div>
+			</div>
 			<span class="rose"><p>${_("GG_POOLDETAILS_The Gift")|n}</p></span>
 			<p class="title">
 				%if product and product.tracking_link:

@@ -38,7 +38,9 @@
 		dojo.byId("descriptionEditor").value = dijit.byId("descriptionEditor").getValue();
 		document.submissionform.submit();
 		return true;
-	}});};
+	}});
+	return false;
+	};
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
@@ -48,7 +50,7 @@
 			<div class="nonPoolHeader" style="width: 700px;">
 				<h2>${_("GG_POOLDETAILS_HEADER_Create a Group Gift Pool")}</h2>
 			</div>
-			${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Invite friends to chip in!"), 2)|n}
+			${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Invite Your Friends"), 2)|n}
 		<div class="clear"></div>
 		</div>
 	</div>
@@ -160,13 +162,13 @@
 					<div class="first"><span>&nbsp;</span></div>
 					<div class="showLight">
 						<div class="light"></div>
-						<p>${_("GG_POOLDETAILS_You can always edit your Pool ttitle and description later.")}</p>
+						<p>${_("GG_POOLDETAILS_You can always edit your Pool title and description later.")}</p>
 					</div>
 				</div>
 				
 				<div class="borderBottom noBorder">
 					<div class="first"><span>&nbsp;</span></div>
-					${widgets.freeButton(_("GG_POOLDETAILS_Create Pool"),["floatLeft", "smaller"], onclick="sbmt();")|n}
+					<input type="button" onclick="sbmt()" value="${_("GG_POOLDETAILS_Create Pool")}" class="primaryButton" />
 				</div>
 			</div>
 		</form>
