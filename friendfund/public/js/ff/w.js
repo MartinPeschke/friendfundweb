@@ -174,6 +174,7 @@ dojo.mixin(ff, {w: {
 			slide = function(step){ return function(evt){
 				var reset = function(){
 					transitioning=false;
+				}, sC = function(){
 					dojo.query(".sliderNumberControl.selected", rootNode).removeClass("selected");
 					dojo.addClass(dojo.query(".sliderNumberControl",rootNode)[position], "selected");
 					if(position===0){dojo.addClass(left_controller, "hidden");}
@@ -186,8 +187,8 @@ dojo.mixin(ff, {w: {
 					if(position===0&&step<0){/*skip*/
 					} else if (position===no_elems-1&&step>0){/*skip*/
 					} else {
-						dojo.animateProperty({node:slider,duration:300,easing:dojo.fx.easing.sineInOut, properties: {left:  { start: (-width*(position)), end:(-width*(position+step)), units:"px" }}, onEnd:reset}).play();
 						position = position + step;
+						dojo.animateProperty({node:slider,duration:300,easing:dojo.fx.easing.sineInOut, properties: {left:  { start: (-width*(position-step)), end:(-width*(position)), units:"px" }}, onBegin:sC, onEnd:reset}).play();
 					}
 				}
 			};

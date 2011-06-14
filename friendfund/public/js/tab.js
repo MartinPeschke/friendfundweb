@@ -112,8 +112,8 @@ FriendFund.Popup = {
 #FriendFund_Popup-content{background-color:white}\
 #FriendFund_overlay {position: fixed;z-index:10000007;width: 100%;height: 100%;left: 0;top: 0;background-color: #000;opacity: 0.6;filter: alpha(opacity=60);}\
 #FriendFund_overlay p {padding: 5px;color: #ddd;font: bold 14px arial, sans-serif;margin: 0;letter-spacing: -1px;}\
-a#FriendFund_Popup_close {color:black;cursor:pointer;font-size:16px;font-weight:bold;line-height:15px;text-decoration:None;position:absolute;right:-10px;top:-10px;\
-background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repeat 0 0 transparent;display:block;width:33px;height:33px;",
+a#FriendFund_Popup_close {color:black;cursor:pointer;font-size:16px;font-weight:bold;line-height:15px;text-decoration:None;position:absolute;right:3px;top:3px;\
+background:url(${protocol}${host}/static/partner/close_popup_cross.png) no-repeat 0 0 transparent;display:block;width:20px;height:20px;",
 	preload: function (id_or_html) {
 		if (!this.preloaded) {
 			var element = document.getElementById(id_or_html);

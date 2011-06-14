@@ -4,6 +4,7 @@
 <%namespace name="common" file="common.html"/>
 <%def name="authperms()">{fwd:false, hasLoginPanel:false, simpleLogout : function(response){ff.io.xhrPost("/logout?furl=/");document.getElementById("resubmit").submit();}}</%def>
 <%def name="styles()">${links.css('iframe.css')}</%def>
+<%def name="scripts()">${links.js('ff/w.js')}</%def>
 
 
 <%def name="onloadscripts()">
@@ -22,7 +23,7 @@
 	<div class="iFrameHomeBoxes">
 	%for pool in c.suggested_pools:
 		<% locals = {"number_contributors":pool.get_number_of_contributors()} %>
-		<div class="iFrameHomeBox ">
+		<div class="iFrameHomeBox rosePlacement">
 			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="138px" height="109px" />
 			<span class="rose"><p>${widgets.renderPoolInfoContributors(locals)|n}</p></span>
 			%if pool.product and pool.product.tracking_link:
@@ -30,8 +31,7 @@
 			%else:
 				<span class="pLink">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</span>
 			%endif
-			<div class="shadBigLeftCorner"></div>
-			<div class="shadBigRightCorner"></div>
+			<div class="shadTinyBottom"></div>
 		</div>
 	%endfor
 	</div>
@@ -39,7 +39,6 @@
 	<div class="wrapFooterIframe">
 		<span class="floatLeft" style="margin: 0 30px">${_("FF_IFRAME_As seen in")}
 			<img src="/static/imgs/press/techcrunch_sml.png" />
-			<img src="/static/imgs/press/gigaom_sml.png" />
 		</span>
 		<span class="floatLeft">${_("FF_IFRAME_You are safe with us")}</span>
 		<img class="floatLeft" style="margin-left:10px" src="/static/imgs/Verisign_bw.png" /></span>
