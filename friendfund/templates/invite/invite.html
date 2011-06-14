@@ -29,6 +29,12 @@
 	ff.w.parseSelectables("invitees", "wrapInside");
 	ff.w.connectPopupLinks("inviteMessage");
 	dojo.connect(dojo.byId("invite_submitter"), "onclick", dojo.hitch(null, page.prepareSubmit, page, ${c.pool.am_i_admin(c.user) and 9 or 6}));
+	
+	toggleSecrecy = function(option){
+		var parent = ff.t.findParent(option, "hiderParent");
+		dojo.query(".hideable", parent).toggleClass("hidden");
+	};
+	
 </%def>
 
 
@@ -46,9 +52,12 @@
 		</div>
 		<input type="hidden" _source="ref_subject" class="addRefContent" name="subject" value="${c.values.get("subject")}"/>
 		<input type="hidden" _source="ref_message" class="addRefContent" name="message" value="${c.values.get("message")}"/>
+		<input type="hidden" _source="checkbox_is_secret" class="addRefCheckbox" name="is_secret" value="${c.values.get("is_secret")}"/>
 		<input type="hidden" name="v" value="${c.workflow}"/>
 	</form>
 </div>
+
+<% locals = {"recipient_name": c.pool.receiver.name} %>
 
 
 <div class="colLeft">
@@ -68,7 +77,7 @@
 		
 		<h4>${_("FF_INVITEPAGE_Add a Personal Message to your Invitees <span>(optional)</span>")|n}</h4>
 		<div class="subHeading"></div>
-		<div style="border-top:none" class="borderBottom">
+		<div class="borderBottom noBorder">
 			<div class="wrapInside ${('subject' in c.errors) and "error" or ""}">
 				<div class="tip">
 					<div class="arrow"></div>
@@ -104,12 +113,21 @@
 			%>
 			<p class="info"><a class="message_preview" _href="${url(controller="invite", pool_url = c.pool.p_url, action="preview")}" _method="${invitemethod}">${_("FF_INVITEPAGE_How will my message be displayed?")}</a></p>
 		</div>
-		<div class="inviteBottom">
-		   <div class="spacerPadLeft floatLeft">
-				<p>${_("FF_INVITEPAGE_If you are inviting friends manually, here's a link to your pool:")}</p>
-				<input type="text" class="copy" value="${url("get_pool", pool_url = c.pool.p_url, protocol="http")}" onclick="this.select();"/>
+		<h4>${_("FF_INVITEPAGE_Privacy Settings</span>")|n}</h4>
+		<div class="subHeading"></div>
+		<div class="padLeft hiderParent" id="secrecyContainer">
+			<input type="checkbox" name="is_secret" value="1" id="checkbox_is_secret" style="margin-right:4px;" onclick="toggleSecrecy(this)" />
+			<label style="color:#adadad" for="checkbox_is_secret">${_("FF_INVITEPAGE_Keep this pool a secret from %(recipient_name)s")%locals|n}</label>
+			<div class="verticalTip hideable hidden">
+				<div class="arrow"></div>
+				<span>
+					${_("FF_INVITEPAGE_We won't post anything to Facebook or Twitter Instead you should send your friends direct messages with the <span class=\"SendButtonIcon\"></span> button on your pool page!")|n}
+					
+				</span>
 			</div>
-			
+		</div>
+		
+		<div class="inviteBottom">
 			<div class="btnContainer">
 			%if len(c.pool.invitees) or c.workflow=="3":
 				<input type="button" id="invite_submitter" value="${_("FF_INVITEPAGE_BUTTON_Invite Friends")}" class="primaryButton" />

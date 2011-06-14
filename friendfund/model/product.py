@@ -31,7 +31,12 @@ class Product(DBMappedObject):
 		return self.picture and self.picture!= statics.DEFAULT_PRODUCT_PICTURE_TOKEN
 	def toJsonMap(self):
 		return simplejson.dumps(self.get_map())
-	
+	def get_shipping_display(self):
+		if(self.shipping_cost):
+			locals = {"price":h.format_int_amount(self.price), "shipping":h.format_int_amount(self.shipping_cost)}
+			return _("FF_IFRAME_PRICE_(%(price)s + %(shipping)spp)") % locals
+		else:
+			return ""
 
 class DisplayProduct(Product):
 	_get_root = _set_root = None

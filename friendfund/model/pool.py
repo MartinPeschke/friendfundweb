@@ -416,21 +416,20 @@ class Pool(DBMappedObject):
 	def set_product(self, dproduct):
 		if not isinstance(dproduct, DisplayProduct):
 			raise TypeError("Product not of correct type: DisplayProduct, found: %s" % type(dproduct))
-		self.product = Product(
-				shipping_cost = dproduct.shipping_cost
-				,name = dproduct.name
-				,description = dproduct.description
-				,ean = dproduct.ean
-				,picture = dproduct.picture
-				,tracking_link = dproduct.tracking_link
-				,referer_link = dproduct.referer_link
-				,merchant_ref = dproduct.merchant_ref
-				,guid = dproduct.guid
-			)
+		self.product = Product(**dproduct.to_map())
 		self.amount = dproduct.get_total_price_units()
 		self.currency = dproduct.currency
 		self.title = self.description = self.get_product_display_label(words = 8, include_price = False)
-
+	
+	def get_product(self):
+		if not self.product:
+			raise AttributeError("NoProductPresent")
+		else:
+			dproduct = DisplayProduct(**self.product.to_map())
+			dproduct.price = self.amount - dproduct.shipping_cost
+			dproduct.currency = self.currency
+			return dproduct
+	
 class AddInviteesProc(DBMappedObject):
 	_set_proc = "app.add_pool_invitees"
 	_set_root = "POOL_INVITEES"

@@ -3,6 +3,7 @@
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="forms" file="../widgets/forms.html"/>
 <%namespace name="parser" file="../product/urlparser.html"/>
+<%namespace name="common" file="common.html"/>
 <%def name="styles()">
 	${links.css('iframe.css')}
 	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
@@ -43,26 +44,11 @@
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
 		<div class="userProfile">
-			<div class="productBox rosePlacement floatRight">
-				<div class="productBoxInner">
-					<img src="${c.product.get_product_pic("FF_POOLS")}">
-					<span class="rose"><p>${_("GG_POOLDETAILS_Your Gift")|n}</p></span>
-					<p class="title">
-						%if c.product and c.product.tracking_link:
-							<a class="pLink" target="_blank" href="${c.product.tracking_link}">${c.product.get_iframe_display_label(words = 5) or "&nbsp;"|n}</a>
-						%else:
-							<span class="pLink">${c.product.get_iframe_display_label(words = 5) or "&nbsp;"|n}</span>
-						%endif
-						<span class="price">${c.product.get_iframe_display_price()}</span>
-					</p>
-					<div class="clear"></div>
-				</div>
-			</div>
-
+			${common.renderProductBox(c.product)}
 			<div class="nonPoolHeader" style="width: 700px;">
 				<h2>${_("GG_POOLDETAILS_HEADER_Create a Group Gift Pool")}</h2>
 			</div>
-			${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Done!"), 2)|n}
+			${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Invite friends to chip in!"), 2)|n}
 		<div class="clear"></div>
 		</div>
 	</div>

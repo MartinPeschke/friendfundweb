@@ -33,10 +33,10 @@
 						<span class="shadTinyBottom"></span>
 					</div>
 					<div class="productDetails">
-						<div class="price">${p.get_iframe_display_price()}</div>
+						<div class="price">${p.get_display_price()}</div>
+						<div class="shipping">${p.get_shipping_display()}</div>
 						%if p.tracking_link:
-							<div class="clear"></div>
-							<a class="link" target="_blank" href="${p.tracking_link}">${p.get_iframe_display_label(words = 8)|n}</a>
+							<a class="link" target="_blank" href="${p.tracking_link}">${_("FF_IFRAME_View Product")}</a>
 						%endif
 					</div>
 				</div>

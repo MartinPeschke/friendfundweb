@@ -1,4 +1,5 @@
 <%inherit file="../layout.html"/>
+<%namespace name="partner" file="../partner/common.html"/>
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <div class="wrapSubHeader">${self.renderMessages()|n}
   <div class="subHeader">
@@ -14,13 +15,25 @@
 				${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), _("FF_POOLDETAILS_HEADER_Done!"), 2)|n}
 			%endif
 		%else:
-			<div class="nonPoolHeader">
-				<div class="prodImgWrap">
-				  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px"> </div>
+			%if request.merchant.type_is_group_gift:
+			
+				${partner.renderProductBox(c.pool.get_product())}
+				<div class="nonPoolHeader" style="width:700px">
+					<h2>${_("FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In")}</h2>
 				</div>
-				<h2>${_("FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In")}</h2>
-			</div>
-			${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_What are you collecting money for?"), _("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), 3)|n}
+				${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Invite Your Friends"), 3)|n}
+
+			%else:
+			
+				<div class="nonPoolHeader">
+					<div class="prodImgWrap">
+					  <div class="prodImgSubWrap"> <img src="${c.pool.get_product_display_picture("FF_POOL_PIC_S")}" height="50px"> </div>
+					</div>
+					<h2>${_("FF_INVITEPAGE_HEADER_Step 3. Invite Your Friends To Chip In")}</h2>
+				</div>
+				${widgets.renderSteps(_("FF_POOLDETAILS_HEADER_What are you collecting money for?"), _("FF_POOLDETAILS_HEADER_Pool Details"), _("FF_POOLDETAILS_HEADER_Invite friends to chip in"), 3)|n}
+
+			%endif
 		%endif
 		<div class="clear"></div>
 	</div>

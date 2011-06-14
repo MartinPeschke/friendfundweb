@@ -40,6 +40,14 @@ dojo.declare("friendfund.InvitePage", null, {
 		_t._widget_locals = [];
 		_t.receiver_selectors = {};
 		dojo.query("input.addRefContent", _t.target_form).forEach(function(elem){elem.value = dojo.byId(dojo.attr(elem, "_source")).value;});
+		dojo.query("input.addRefCheckbox", _t.target_form).forEach(function(elem){
+			var source = dojo.byId(dojo.attr(elem, "_source"));
+			if(source.checked){
+				elem.value = source.value;
+			} else {
+				dojo.query(elem).orphan();
+			}
+		});
 		dojo.byId(_t.target_form).submit();
 	}
 });

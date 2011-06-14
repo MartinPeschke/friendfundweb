@@ -30,3 +30,22 @@ slides = [
 	<div class="sliderController controllerLeft hidden"></div>
 	<div class="shadBigCorner"></div>
 </%def>
+
+
+<%def name="renderProductBox(product)">
+	<div class="productBox rosePlacement floatRight">
+		<div class="productBoxInner">
+			<img src="${product.get_product_pic("FF_POOLS")}">
+			<span class="rose"><p>${_("GG_POOLDETAILS_The Gift")|n}</p></span>
+			<p class="title">
+				%if product and product.tracking_link:
+					<a class="pLink" target="_blank" href="${product.tracking_link}">${product.get_iframe_display_label(words = 5) or "&nbsp;"|n}</a>
+				%else:
+					<span class="pLink">${product.get_iframe_display_label(words = 5) or "&nbsp;"|n}</span>
+				%endif
+				<span class="price">${product.get_display_price()}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+</%def>
