@@ -186,13 +186,12 @@
 					<h3>${_(u"FF_POOL_PAGE_ADMIN_Promote your pool")}</h3>
 				%endif
 			</div>
-			<div class="hided hideable ${not first_visit and "hidden" or ""}" >
+			<div class="adminCollapsible hideable ${not first_visit and "hidden" or ""}" >
 				<div class="brd"></div>
 				<div class="floatLeft share">
 					<h4>${_(u"FF_POOL_PAGE_ADMIN_Invite more friends to chip in")}</h4>
 					<p>${_(u"FF_POOL_PAGE_ADMIN_Have you forgotten to invite anyone?")}</p>
-					<div style="margin:10px 0;"><fb:send href="example.com" font=""></fb:send>&nbsp;&nbsp;${_(u"FF_POOL_PAGE_ADMIN_(SEND)_a personal Facebook message.")}</div>
-					
+					<div style="margin:10px 0;"><fb:send href="${url.current(protocol="http")}" font=""></fb:send>&nbsp;&nbsp;${_(u"FF_POOL_PAGE_ADMIN_(SEND)_a personal Facebook message.")}</div>
 					<a href="${url('invite_index', pool_url=c.pool.p_url, v=3)}" class="learnMoreBtn floatLeft">${_(u"FF_POOL_PAGE_ADMIN_invite more friends")}</a>
 				</div>
 				
