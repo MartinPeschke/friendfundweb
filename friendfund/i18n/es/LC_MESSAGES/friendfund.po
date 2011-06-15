@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2011-06-15 09:54+0200\n"
+"PO-Revision-Date: 2011-06-15 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -47,24 +47,24 @@ msgstr ""
 "¡Si eres tú, por favor intenta acceder con tu dirección de email y "
 "contraseña o %(link_open)ssolicita un cambio de contraseña!%(link_close)s"
 
-#: friendfund/controllers/invite.py:71
+#: friendfund/controllers/invite.py:74
 #: friendfund/templates/invite/inviter.html:48
 msgid "FF_INVITER_BUTTON_Invite"
 msgstr "Invitar"
 
-#: friendfund/controllers/invite.py:95
+#: friendfund/controllers/invite.py:98
 msgid "FF_INVITE_PAGE_ERRORBAND_Please fill in below values correctly."
 msgstr "Por favor, rellena los campos necesarios más abajo"
 
-#: friendfund/controllers/invite.py:114
+#: friendfund/controllers/invite.py:117
 msgid "Please input an Invite Message"
 msgstr "introducir un mensaje de invitación "
 
-#: friendfund/controllers/invite.py:116
+#: friendfund/controllers/invite.py:119
 msgid "Please input an Invite Subject"
 msgstr "introducir "
 
-#: friendfund/controllers/invite.py:141
+#: friendfund/controllers/invite.py:144
 #, python-format
 msgid ""
 "FF_POOL_PAGE_Welcome to your new Pool! Don't forget to <a href=\"%s\">add"
@@ -73,11 +73,11 @@ msgstr ""
 "Bienvenido a tu nuevo bote! No olvides <a href=\"%s\">añadir la dirección"
 " de envío</a>"
 
-#: friendfund/controllers/invite.py:143
+#: friendfund/controllers/invite.py:146
 msgid "FF_POOL_PAGE_Welcome to your new Pool!"
 msgstr "Bienvenido a tu nuevo bote!"
 
-#: friendfund/controllers/invite.py:187 friendfund/controllers/myfriends.py:101
+#: friendfund/controllers/invite.py:226 friendfund/controllers/myfriends.py:101
 msgid "RECEIVER_ADD_Unknown Network or Method"
 msgstr "Acción o Red desconocida"
 
@@ -854,7 +854,7 @@ msgstr ""
 msgid "FF_HOMEPAGE_What our users are saying"
 msgstr "Que dicen nuestros usuarios"
 
-#: friendfund/templates/index.html:123
+#: friendfund/templates/index.html:124
 #, python-format
 msgid "FF_HOMEPAGE_BOXES_created by %(admin_name)s"
 msgstr "Creado por %(admin_name)s"
@@ -1282,7 +1282,7 @@ msgstr ""
 #: friendfund/templates/contribution/popups/notify_invitees.html:8
 #: friendfund/templates/contribution/popups/settlement_fees.html:8
 #: friendfund/templates/contribution/popups/transaction_fees.html:25
-#: friendfund/templates/invite/preview/preview_email.html:25
+#: friendfund/templates/invite/preview/preview_email.html:22
 #: friendfund/templates/pool/parts/leave_not_popup.html:10
 msgid "FF_Close"
 msgstr "Cerrar"
@@ -1554,7 +1554,7 @@ msgstr "Ayuda a correr la voz, compartiendo este bote con tus amigos:"
 #: friendfund/templates/mypools/stream.html:244
 #: friendfund/templates/mypools/stream.html:302
 #: friendfund/templates/mypools/stream.html:348
-#: friendfund/templates/pool/pool.html:238
+#: friendfund/templates/pool/pool.html:237
 msgid "FF_POOL_PAGE_CHIPIN_embed widget"
 msgstr "Integrar widget"
 
@@ -1884,31 +1884,23 @@ msgstr "Entra con Twitter"
 msgid "FF_INVITE_PREVIEW_Preview your Invitations"
 msgstr "Vista previa de las invitaciones"
 
-#: friendfund/templates/invite/preview/preview_email.html:6
+#: friendfund/templates/invite/preview/preview_email.html:7
 msgid ""
 "FF_INVITE_PREVIEW_Friends will be emailed an invitation with a link to "
 "your Pool."
 msgstr "Tus amigos recibirán una invitación con un enlace a tu bote"
 
-#: friendfund/templates/invite/preview/preview_email.html:11
+#: friendfund/templates/invite/preview/preview_email.html:12
 msgid "FF_INVITE_PREVIEW_EMAIL_To:"
 msgstr "A:"
 
-#: friendfund/templates/invite/preview/preview_email.html:12
+#: friendfund/templates/invite/preview/preview_email.html:13
 msgid "FF_INVITE_PREVIEW_EMAIL_Subject:"
 msgstr "Subjeto:"
 
-#: friendfund/templates/invite/preview/preview_email.html:13
+#: friendfund/templates/invite/preview/preview_email.html:14
 msgid "FF_INVITE_PREVIEW_EMAIL_Date:"
 msgstr "Fecha:"
-
-#: friendfund/templates/invite/preview/preview_email.html:17
-msgid "FF_INVITE_PREVIEW_EMAIL_Hi Joe,"
-msgstr "Hola Joe,"
-
-#: friendfund/templates/invite/preview/preview_email.html:20
-msgid "FF_INVITE_PREVIEW_EMAIL_Thank you"
-msgstr "Gracias"
 
 #: friendfund/templates/invite/preview/preview_facebook.html:4
 msgid ""
@@ -1953,10 +1945,6 @@ msgid ""
 msgstr ""
 "Tus amigos de Facebook serán notificados a través de un mensaje en el "
 "muro de Facebook."
-
-#: friendfund/templates/invite/preview/preview_facebook_streampublish.html:11
-msgid "Hi John, you have been invited to our friendfund pool for:"
-msgstr "Hola John, has sido invitado a nuestro bote de friendfund para:  "
 
 #: friendfund/templates/invite/preview/preview_twitter.html:3
 msgid "FF_INVITE_PREVIEW_Twitter friends will receive a Twitter @message"
@@ -3131,23 +3119,23 @@ msgstr "¿Has olvidado invitar a alguien?"
 msgid "FF_POOL_PAGE_ADMIN_(SEND)_a personal Facebook message."
 msgstr ""
 
-#: friendfund/templates/pool/pool.html:196
+#: friendfund/templates/pool/pool.html:195
 msgid "FF_POOL_PAGE_ADMIN_invite more friends"
 msgstr "Invitar a más amigos"
 
-#: friendfund/templates/pool/pool.html:200
+#: friendfund/templates/pool/pool.html:199
 msgid "FF_POOL_PAGE_ADMIN_Share on Social Networks"
 msgstr "Compartir en redes sociales"
 
-#: friendfund/templates/pool/pool.html:201
+#: friendfund/templates/pool/pool.html:200
 msgid "FF_POOL_PAGE_ADMIN_Share your Pool with friends"
 msgstr "Compartir este bote con tus amigos"
 
-#: friendfund/templates/pool/pool.html:215
+#: friendfund/templates/pool/pool.html:214
 msgid "FF_POOL_PAGE_ADMIN_Promote on your website"
 msgstr "Promocionar en tu página web"
 
-#: friendfund/templates/pool/pool.html:216
+#: friendfund/templates/pool/pool.html:215
 msgid ""
 "FF_POOL_PAGE_ADMIN_Embed a widget on your site so visitors can find your "
 "Pool."
@@ -3155,69 +3143,69 @@ msgstr ""
 "Integrar un widget en tu página para que los visitantes encuentren tu "
 "bote."
 
-#: friendfund/templates/pool/pool.html:217
+#: friendfund/templates/pool/pool.html:216
 msgid "FF_POOL_PAGE_ADMIN_embed widget"
 msgstr "Integrar widget"
 
-#: friendfund/templates/pool/pool.html:240
+#: friendfund/templates/pool/pool.html:239
 msgid "FF_POOL_PAGE_CHIPIN_invite more friends"
 msgstr "invitar mas amigos"
 
-#: friendfund/templates/pool/pool.html:247
+#: friendfund/templates/pool/pool.html:246
 msgid "FF_POOL_PAGE_CHIPIN_Share the pool"
 msgstr "Compartir este bote"
 
-#: friendfund/templates/pool/pool.html:265
+#: friendfund/templates/pool/pool.html:264
 msgid "FF_POOL_PAGE_Accepted payment methods"
 msgstr "Aceptamos estos métodos de pago"
 
-#: friendfund/templates/pool/pool.html:274
+#: friendfund/templates/pool/pool.html:273
 msgid "FF_POOL_PAGE_Remove me from this Pool"
 msgstr "Sacame de este bote"
 
-#: friendfund/templates/pool/pool.html:281
+#: friendfund/templates/pool/pool.html:280
 #, python-format
 msgid "FF_POOL_PAGE_BODY_%(number_invitees)s Invitees"
 msgstr "%(number_invitees)s Invitados"
 
-#: friendfund/templates/pool/pool.html:283
+#: friendfund/templates/pool/pool.html:282
 msgid "FF_POOL_PAGE_BODY_Who's invited"
 msgstr "Invitados"
 
-#: friendfund/templates/pool/pool.html:286
+#: friendfund/templates/pool/pool.html:285
 #: friendfund/templates/pool/parts/invitees.html:7
 msgid "FF_POOL_PAGE_BODY_View More"
 msgstr "Ver todo"
 
-#: friendfund/templates/pool/pool.html:287
+#: friendfund/templates/pool/pool.html:286
 msgid "FF_POOL_PAGE_BODY_Show All"
 msgstr "Mostrar todos"
 
-#: friendfund/templates/pool/pool.html:288
+#: friendfund/templates/pool/pool.html:287
 msgid "FF_POOL_PAGE_BODY_Hide All"
 msgstr "Ocultar todos"
 
-#: friendfund/templates/pool/pool.html:302
+#: friendfund/templates/pool/pool.html:301
 msgid "FF_POOL_PAGE_BODY_About"
 msgstr "Acerca de"
 
-#: friendfund/templates/pool/pool.html:314
+#: friendfund/templates/pool/pool.html:313
 msgid "FF_POOL_PAGE_RECIPIENT"
 msgstr "RECEPTOR"
 
-#: friendfund/templates/pool/pool.html:316
+#: friendfund/templates/pool/pool.html:315
 msgid "FF_POOL_PAGE_MERCHANT"
 msgstr "VENDEDOR"
 
-#: friendfund/templates/pool/pool.html:331
+#: friendfund/templates/pool/pool.html:330
 msgid "FF_POOL_PAGE_BODY_Comments"
 msgstr "Comentarios"
 
-#: friendfund/templates/pool/pool.html:343
+#: friendfund/templates/pool/pool.html:342
 msgid "FF_POOL_PAGE_BODY_Add your comment here..."
 msgstr "Añade tu comentario aquí..."
 
-#: friendfund/templates/pool/pool.html:349
+#: friendfund/templates/pool/pool.html:348
 msgid "FF_POOL_PAGE_BODY_Post Comment"
 msgstr "Publicar comentario"
 
@@ -3450,4 +3438,13 @@ msgstr[1] "quedan <strong>%(secs)d</strong> segundos"
 #: friendfund/templates/widgets/widgets.html:88
 msgid "FF_POOL_INFO_expired"
 msgstr "Caducado"
+
+#~ msgid "FF_INVITE_PREVIEW_EMAIL_Hi Joe,"
+#~ msgstr "Hola Joe,"
+
+#~ msgid "FF_INVITE_PREVIEW_EMAIL_Thank you"
+#~ msgstr "Gracias"
+
+#~ msgid "Hi John, you have been invited to our friendfund pool for:"
+#~ msgstr "Hola John, has sido invitado a nuestro bote de friendfund para:  "
 
