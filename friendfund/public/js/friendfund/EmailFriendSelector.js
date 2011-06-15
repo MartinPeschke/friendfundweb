@@ -71,11 +71,16 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 		this.inviteAppendNode(elem);
 		var el = dojo.byId("invitedCounter");
 		el.innerHTML = parseInt(el.innerHTML,10)+1;
+		dojo.query("p.inviterTwo", this.global_invited_node).addClass("hidden");
 	}
 	,unSelect : function(target){
 		dojo.query(target).orphan();
-		elem = dojo.byId("invitedCounter");
-		elem.innerHTML = parseInt(elem.innerHTML,10)-1;
+		var ctr = dojo.byId("invitedCounter");
+		var newctr = parseInt(ctr.innerHTML,10)-1;
+		ctr.innerHTML = newctr;
+		if(newctr === 0){
+			dojo.query("p.inviterTwo", this.global_invited_node).removeClass("hidden");
+		}
 	}
 	,inviteAppendNode : function(elem){
 		dojo.place(elem, this.invited_node, "last");

@@ -4,7 +4,6 @@
 <%namespace name="common" file="common.html"/>
 <%def name="authperms()">{fwd:false, hasLoginPanel:false, simpleLogout : function(response){ff.io.xhrPost("/logout?furl=/");document.getElementById("resubmit").submit();}}</%def>
 <%def name="styles()">${links.css('iframe.css')}</%def>
-<%def name="scripts()">${links.js('ff/w.js')}</%def>
 
 
 <%def name="onloadscripts()">

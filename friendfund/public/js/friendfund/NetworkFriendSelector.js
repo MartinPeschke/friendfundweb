@@ -340,11 +340,13 @@ dojo.declare("friendfund.FriendTypeAhead", friendfund.DataProvider, {
 			var newn = dojo.create("IMG", {src:n.src, className:"smallProfPic"});
 			dojo.place(newn, pn, "first");
 		});
+		var values = dojo.query("input", elem);
+		if(values.length){_t.selectedValueNode.value = values[0].value;}
 		_t.filterNode.value = dojo.query("p", elem).attr("innerHTML").join("");
 		_t.current_filter = _t.filterNode.value.toLowerCase();
 		dojo.query(_t.filterNode).removeClass("default").addClass("selected");
 		_t.reRender();
-		_t.selectedValueNode.value = dojo.query("input", elem).attr("value").join("");
+		_t.onNoResultsFound();
 	}
 	,uninviteAppendNode : function(elem){}
 	,unSelect : function(target){}

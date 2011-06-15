@@ -91,6 +91,7 @@ class PoolService(object):
 	def create_group_gift_from_iframe(self, product):
 		tmpl_context._ = friendfund_formencode_gettext
 		tmpl_context.request = request
+		print request.params
 		pool_map = formencode.variabledecode.variable_decode(request.params)
 		pool_schema = PoolPartnerIFrameForm().to_python(pool_map, state = tmpl_context)
 		pool = Pool(settlementOption = request.merchant.settlement_options[0].name)
