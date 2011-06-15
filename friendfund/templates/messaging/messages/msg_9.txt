@@ -1,6 +1,6 @@
 Hi ${data['invitee_name']},  
 
-${data['message'] or u"default message"} 
+${data['message'] or data['pool_description']}   
 
 We have until ${data['expiry_date']} to meet the target. Chip in as little or a much as you like (even the smallest contribution helps)!    
 Visit the gift Pool here: <http://${data['merchant_domain']}/pool/${data['p_url']}>
@@ -22,4 +22,4 @@ Collect money with friends. Create a pool. Chip in. friendfund it!
 
 What is friendfund anyway? Learn more here: ${data['learn_more_url']}  
 
-<%def name="subject()"> ${data['subject'] or u"default subject"} </%def>
+<%def name="subject()">${data['subject'] or data['pool_title']}</%def> 

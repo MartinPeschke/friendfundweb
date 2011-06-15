@@ -8,14 +8,14 @@
 	</div>
 	<div class="floatLeft colRightSt">
 		<p class="linkFb bold">${c.user.name}</p>
-		<p class="noPad">${_("Hi John, you have been invited to our friendfund pool for:")} ${c.message}</p>
+		<p class="noPad">${c.message}</p>
 	
 	<div class="floatLeft" style="margin-top:5px">
-		<div class="floatLeft"><img style="max-width:70px;max-height:70px;" src="${c.pool.get_product_display_picture("FF_POOLS")}"></div>
+		<div class="floatLeft"><img style="max-width:70px;max-height:70px;" src="${c.picture}"></div>
 		<div class="floatLeft colRightStInfo">
-			<p class="linkFb bold" style="padding-bottom:0">${c.subject}</p>
+			<p class="linkFb bold" style="padding-bottom:0">${c.name}</p>
 			<p style="font-size:11px;margin-top:-3px;">Friendfund it!</p>
-			<p>${c.message}</p>
+			<p>${c.description|n}</p>
 		</div>
 		<div class="clear"></div>
 		<div style="margin-top:10px; ">

@@ -1,6 +1,8 @@
-<%def name="name()">${data['pool_title']}</%def>
+<%def name="name()">${data['subject'] or data['pool_title']}</%def>
 
-<%def name="description()">${data['pool_description']}   
+<%def name="description()">
+${data['message'] or data['pool_description']}  
+  
 
 We have until ${data['expiry_date']} to meet the target. Chip in as little or a much as you like (even the smallest contribution helps)!  
 

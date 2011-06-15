@@ -1,4 +1,4 @@
-import logging, urllib, urllib2, simplejson, formencode, datetime, types
+import logging, urllib, urllib2, simplejson, formencode, datetime, types, markdown, os
 from collections import deque
 from ordereddict import OrderedDict
 
@@ -16,6 +16,9 @@ from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInv
 from friendfund.services import static_service as statics
 from friendfund.tasks import fb as fbservice, twitter as twservice
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
+from friendfund.tasks.notifiers.common import get_template
+
+
 
 from formencode.variabledecode import variable_decode
 strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
@@ -149,18 +152,54 @@ class InviteController(BaseController):
 	@pool_available(contributable_only = True)
 	def preview(self, pool_url):
 		c.method = request.params.get("method") or "facebook"
-		c.subject = request.params.get("subject")
-		c.message = request.params.get("message")
+		template_data = {}
+		template_data['invitee_name'] = 'Joe'
+		template_data['firstname_invitee_name'] = 'Joe'
+		template_data['subject'] = request.params.get("subject")
+		template_data['message'] = request.params.get("message")
+		template_data['pool_description'] = c.pool.description
+		template_data['expiry_date'] =  h.fdate(c.pool.expiry_date, format="long", locale=h.get_language_locale())
+		template_data['p_url'] = c.pool.p_url
+		template_data['admin_name'] = c.user.name
+		template_data['DEFAULT_BASE_URL'] = app_globals.BASE_DOMAIN
+		template_data['learn_more_url'] = url(protocol="http", controller="content",action="contact")
+		template_data['merchant_domain'] = request.merchant.domain
+		template_data['merchant_is_default'] = request.merchant.is_default
+		template_data['merchant_name'] = request.merchant.name
+		template_data['merchant_logo_url'] = request.merchant.get_logo_url()
+
 		if c.method=="email":
+			template_data['recipient_name'] = c.pool.receiver.name
+			template_data['occasion'] = c.pool.occasion.get_display_name()
+			
+			if request.merchant.type_is_group_gift:
+				template = get_template(h.get_language_locale(), 9, log)
+			else:
+				template = get_template(h.get_language_locale(), 11, log)
+			c.subject = template.get_def("subject").render_unicode(h = h, data = template_data)
+			c.text = markdown.markdown(template.render_unicode(h = h, data = template_data))
 			return  {"popup":self.render("/invite/preview/preview_email.html").strip()}
+			
 		elif c.method=="twitter":
 			return  {"popup":self.render("/invite/preview/preview_twitter.html").strip()}
 		elif c.method=="stream_publish":
+			template = get_template(h.get_language_locale(), 73, log)
+			
+			c.message = template.get_def("message").render_unicode(h = h, data = template_data)
+			c.link = template.get_def("link").render_unicode(h = h, data = template_data)
+			c.name = template.get_def("name").render_unicode(h = h, data = template_data)
+			c.caption = template.get_def("caption").render_unicode(h = h, data = template_data)
+			c.description = template.get_def("description").render_unicode(h = h, data = template_data)
+			c.picture = c.pool.get_product_display_picture("FF_POOLS")
+			c.action_name = template.get_def("action_name").render_unicode(h = h, data = template_data)
+		
 			return  {"popup":self.render("/invite/preview/preview_facebook_streampublish.html").strip()}
 		else:
+			template = get_template(h.get_language_locale(), 10, log)
+			c.name = template.get_def("name").render_unicode(h = h, data = template_data)
+			c.description = markdown.markdown(template.get_def("description").render_unicode(h = h, data = template_data))
 			return  {"popup":self.render("/invite/preview/preview_facebook.html").strip()}
 	
-
 	@jsonify
 	@post_only(ajax=True)
 	def validate(self):

@@ -1,6 +1,6 @@
 Hola ${data['invitee_name']},  
 
-${data['message'] or u"default message"}  
+${data['message'] or data['pool_description']}   
 
 Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)! Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo!
 Visita la página del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
@@ -22,4 +22,4 @@ Recaudar dinero con amigos. Crear un bote. Contribuir. friendfund it!
 
 ¿Que es friendfund? Aprende más aquí: ${data['learn_more_url']}   
 
-<%def name="subject()">${data['subject'] or u"default subject"}</%def>
+<%def name="subject()">${data['subject'] or data['pool_title']}</%def>

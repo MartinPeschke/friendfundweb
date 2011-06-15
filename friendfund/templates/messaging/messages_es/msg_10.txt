@@ -1,11 +1,12 @@
-<%def name="name()">${data['pool_title']}</%def>
+<%def name="name()">${data['subject'] or data['pool_title']}</%def>
 
-<%def name="description()">${data['pool_description']}   
+<%def name="description()">
+${data['message'] or data['pool_description']}  
 
 Tenemos hasta ${data['expiry_date']} para alcanzar el objetivo. Contribuye con la cantidad que tu elijas (la cantitad más pequeña también ayuda)!
-Visitar la pagina del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>  
+Visitar la pagina del bote aquí: <http://${data['merchant_domain']}/pool/${data['p_url']}>   
 
-Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!
+Recauda dinero con amigos. Crea un bote. Contribuye. friendfund it!   
 
 ¿Que es friendfund? Aprende más aquí: ${data['learn_more_url']}   
 </%def>

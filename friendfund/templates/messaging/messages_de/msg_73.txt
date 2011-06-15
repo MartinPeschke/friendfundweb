@@ -1,9 +1,9 @@
 <%namespace name="common" file="common.txt"/>
-<%def name="message()">Hallo ${data['firstname_invitee_name']}, ${data['message'] or u"default message"}</%def>
+<%def name="message()">Hallo ${data['firstname_invitee_name']}, ${data['message'] or u"Ich möchte Sie zu meinem friendfund einladen:"}</%def>
 
 
 <%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
-<%def name="name()">${data['subject'] or u"default subject"}</%def>
+<%def name="name()">${data['subject'] or data['pool_title']}</%def>
 <%def name="caption()">friendfund it!</%def>
 <%def name="description()">
 ${data['pool_description']}

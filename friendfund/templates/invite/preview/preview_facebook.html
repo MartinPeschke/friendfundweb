@@ -5,7 +5,7 @@
 <div class="fbPreview">
 	<img src="/static/imgs/fbHeader.jpg" style="float:left; " />
 	  <div class="colRightFb">
-		<div class="profileHeaderMain"><h1><span class="profileName fsxl fwb">${c.subject}</span></h1>
+		<div class="profileHeaderMain"><h1><span class="profileName fsxl fwb">${c.name}</span></h1>
 		<div class="fsm fwn fcg">
 			<span class="fsl"><span class="linkFb">${c.user.name}</span> ${_("FF_INVITE_PREVIEW_FACEBOOK_invited you")}</span> &middot; 
 			<span class="fsl"><span class="linkFb">${_("FF_INVITE_PREVIEW_FACEBOOK_Share")}</span></span> &middot; 
@@ -23,7 +23,7 @@
 		  </tr>
 		  <tr>
 			<td class="label">${_("FF_INVITE_PREVIEW_FACEBOOK_More info")}</td>
-			<td class="data">${c.message}
+			<td class="data">${c.description|n}
 			</td>
 		  </tr>
 		</table>

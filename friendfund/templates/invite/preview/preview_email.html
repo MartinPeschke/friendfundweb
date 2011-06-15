@@ -2,6 +2,7 @@
 	import markdown 
 %>
 <%inherit file="preview.html"/>
+<%def name="popupclass()">Big</%def>
 <div class="popupPadder">
 <p style="padding:0">${_("FF_INVITE_PREVIEW_Friends will be emailed an invitation with a link to your Pool.")} </p>
 <div class="emailPreview">
@@ -14,11 +15,7 @@
 		</div>
 	</div>
 		<div class="emailBody">
-			<p>${_("FF_INVITE_PREVIEW_EMAIL_Hi Joe,")}
-			${markdown.markdown(c.message)|n}</p>
-			<p>Visit the gift pool at : <a href="#">${url("get_pool", pool_url = c.pool.p_url, protocol="http")}</a></p>
-			<p>${_("FF_INVITE_PREVIEW_EMAIL_Thank you")}</p>
-			<p class="bold">${c.user.name}</p>
+			${c.text|n}
 		</div>
 		
 	</div>

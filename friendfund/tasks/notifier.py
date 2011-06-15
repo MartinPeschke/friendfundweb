@@ -2,11 +2,10 @@
 FriendFund Notification Service, the only commandline argument should be the paster config file.
 i.e. invoke as: python friendfund/tasks/notifier.py -f development.ini
 """
-import logging, time, sys, getopt, os, mako, gettext
+import logging, time, sys, getopt, os, gettext
 from lxml import etree
 from itertools import imap
 from xml.sax.saxutils import quoteattr
-from mako.lookup import TemplateLookup
 from datetime import datetime, date
 from decimal import Decimal
 from babel.numbers import format_currency as fc, format_decimal as fdec, get_currency_symbol, get_decimal_symbol, get_group_symbol, parse_number as pn
@@ -18,7 +17,7 @@ from friendfund.model.db_access import execute_query
 from friendfund.model.globals import GetMerchantConfigProc
 from friendfund.tasks import get_db_pool, get_config, Usage, data_root, STATICS_SERVICE
 from friendfund.tasks.notifiers import email, facebook, twitter
-from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException
+from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException, get_template
 
 
 log = logging.getLogger(__name__)
@@ -29,14 +28,6 @@ formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
-
-
-root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-tmpl_lookup = TemplateLookup(directories=[os.path.join(root, 'templates','messaging')]
-		, module_directory=os.path.join(data_root, 'templates','messaging')
-		, output_encoding='utf-8'
-		, input_encoding='utf-8'
-		)
 
 transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de', 'es'])
 _ = transl.ugettext
@@ -142,17 +133,10 @@ def poll_message_queue(config, debug, merchant_config, jobpool, available_langs,
 			locale = h.negotiate_locale([meta_data.get('locale', "en_GB")], available_langs)
 			try:
 				file_no = meta_data['file_no']
+				
 				template_data = localize(template_data, locale)
 				log.info ( 'TEMPLATE(file_no:%s), %s', file_no, template_data )
-				try:
-					template = tmpl_lookup.get_template('/messages_%s/msg_%s.txt' % (locale, file_no))
-				except mako.exceptions.TopLevelLookupException, e:
-					log.warning( "WARNING Template not Found for (%s)" , ('/messages_%s/msg_%s.txt' % (locale, file_no)) )
-					try:
-						template = tmpl_lookup.get_template('/messages/msg_%s.txt' % (file_no))
-					except mako.exceptions.TopLevelLookupException, e:
-						log.error( "ERROR Template not Found for (%s) or (%s)" , (('/messages_%s/msg_%s.txt' % (locale, file_no)), ('/messages/msg_%s.txt' % file_no)) )
-						raise MissingTemplateException(e)
+				template = get_template(locale, file_no, log)
 				
 				notification_method = meta_data.get('notification_method').lower()
 				sender = messengers.get(notification_method, error_sender(notification_method))

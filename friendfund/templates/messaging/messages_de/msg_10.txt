@@ -1,8 +1,8 @@
 <%namespace name="common" file="common.txt"/>
-<%def name="name()">${data['subject'] or u"default subject"}</%def>
+<%def name="name()">${data['subject'] or u"${data['pool_title']}"}</%def>
 
-<%def name= 
-${data['message'] or u"default message"}  
+<%def name="description()">
+${data['message'] or u"${data['pool_description']}"}  
 
 Wir haben bis zum ${data['expiry_date']} Zeit, das Geld zu sammeln. Zahl soviel oder so wenig ein, wie du möchtest (auch die kleinste Summe hilft).
 Besuche die Poolseite hier: <http://${data['merchant_domain']}/pool/${data['p_url']}>   
