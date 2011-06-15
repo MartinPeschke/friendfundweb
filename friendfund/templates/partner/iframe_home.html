@@ -24,7 +24,7 @@
 		<% locals = {"number_contributors":pool.get_number_of_contributors()} %>
 		<div class="iFrameHomeBox rosePlacement">
 			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="138px" height="109px" />
-			<span class="rose"><p>${widgets.renderPoolInfoContributors(locals)|n}</p></span>
+			<span class="rose"><p>${widgets.renderPoolInfoContributorsWithFallback(locals, _("GG_Recommended Product"))|n}</p></span>
 			%if pool.product and pool.product.tracking_link:
 				<a class="pLink" target="_blank" href="${pool.product.tracking_link}">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</a>
 			%else:

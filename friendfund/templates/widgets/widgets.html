@@ -52,6 +52,19 @@
 		contributors_text = ungettext(u"FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor",
 							u"FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributors", locals['number_contributors']) 
 	%>${contributors_text % locals|n}</%def>
+
+<%def name="renderPoolInfoContributorsWithFallback(locals,fallBackText)">
+<% 
+		contributors_text = ungettext(u"FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributor",
+							u"FF_POOL_INFO_<strong>%(number_contributors)d</strong> contributors", locals['number_contributors']) 
+%>
+	%if not locals['number_contributors']:
+		${fallBackText}
+	%else:
+		${contributors_text % locals|n}
+	%endif
+</%def>
+
 <%def name="renderPoolInfoInvitees(locals)"><%
 	invitees_text =  ungettext(u"FF_POOL_INFO_<strong>%(number_invitees)d</strong> invitee",
 							u"FF_POOL_INFO_<strong>%(number_invitees)d</strong> invitees", locals['number_invitees'])
