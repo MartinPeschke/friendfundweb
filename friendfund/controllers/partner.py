@@ -1,16 +1,16 @@
+from __future__ import with_statement
 import logging, formencode, datetime, uuid, socket, urllib2, urlparse
 from BeautifulSoup import BeautifulSoup
 from ordereddict import OrderedDict
 
 from pylons import request, response, tmpl_context as c, url, app_globals, session as websession
 from pylons.controllers.util import abort, redirect
-from friendfund.controllers.index import IndexController
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, workflow_available
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.forms.pool import PoolCreateForm
-from friendfund.model.pool import OccasionSearch, PoolUser
+from friendfund.model.pool import OccasionSearch, PoolUser, FeaturedPool
 from friendfund.model.product import DisplayProduct
 from friendfund.tasks.cache_refresher import get_mfp_key
 log = logging.getLogger(__name__)
@@ -42,7 +42,6 @@ class PartnerController(BaseController):
 		c.is_default = False
 		c.product_list = app_globals.product_service.get_products_from_open_graph(params, query)
 		if not len(c.product_list):
-			index = IndexController()
 			c.get_featured_pools = self._get_featured_pools
 			return self.render('/partner/iframe_home.html')
 		
@@ -69,8 +68,7 @@ class PartnerController(BaseController):
 	def set(self):
 		c.product_list = c._workflow['product_list']
 		if not len(c.product_list):
-			index = IndexController()
-			c.suggested_pools = index._get_featured_pools()
+			c.get_featured_pools = self._get_featured_pools
 			return self.render('/partner/iframe_home.html')
 		
 		c.product = c.product_list[0]
