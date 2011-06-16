@@ -2,7 +2,7 @@ import logging, formencode, datetime, uuid, socket, urllib2, urlparse
 from BeautifulSoup import BeautifulSoup
 from ordereddict import OrderedDict
 
-from pylons import request, response, tmpl_context as c, url, app_globals as g, session as websession
+from pylons import request, response, tmpl_context as c, url, app_globals, session as websession
 from pylons.controllers.util import abort, redirect
 from friendfund.controllers.index import IndexController
 from friendfund.lib import helpers as h
@@ -12,9 +12,22 @@ from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.model.forms.pool import PoolCreateForm
 from friendfund.model.pool import OccasionSearch, PoolUser
 from friendfund.model.product import DisplayProduct
+from friendfund.tasks.cache_refresher import get_mfp_key
 log = logging.getLogger(__name__)
 
 class PartnerController(BaseController):
+	def _get_featured_pools(self, merchant):
+		with app_globals.cache_pool.reserve() as mc:
+			featured_pools = mc.get(get_mfp_key(merchant.key))
+		if featured_pools is None:
+			log.warning("NO_MERCHANT_FEATURED_POOLS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
+			featured_pools = []
+			for p in merchant.featured_pools:
+				 featured_pools.append(app_globals.dbm.get(FeaturedPool, p_url = p.p_url))
+		return featured_pools
+
+
+
 	def bounce(self):
 		c.backup_values = request.params
 		query=request.params.get("referer")
@@ -27,15 +40,15 @@ class PartnerController(BaseController):
 		params.update(total_param_set.get("ff", {}).get("props", {}))
 		
 		c.is_default = False
-		c.product_list = g.product_service.get_products_from_open_graph(params, query)
+		c.product_list = app_globals.product_service.get_products_from_open_graph(params, query)
 		if not len(c.product_list):
 			index = IndexController()
-			c.suggested_pools = index._get_featured_pools()
+			c.get_featured_pools = self._get_featured_pools
 			return self.render('/partner/iframe_home.html')
 		
 		c.product = c.product_list[0]
 		c.method = c.user.get_current_network() or 'facebook'
-		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.olist = app_globals.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
 		c.errors = {}
 		return self.render('/partner/iframe_product.html')
@@ -49,7 +62,7 @@ class PartnerController(BaseController):
 		total_param_set = formencode.variabledecode.variable_decode(request.params, dict_char='.', list_char='?')
 		params = total_param_set.get("ff", {}).get("names", {})
 		params.update(total_param_set.get("ff", {}).get("props", {}))
-		c._workflow['product_list'] = g.product_service.get_products_from_open_graph(params, c._workflow['query'])
+		c._workflow['product_list'] = app_globals.product_service.get_products_from_open_graph(params, c._workflow['query'])
 		return redirect(url(controller="partner", action="set", ck = c._workflow._key))
 		
 	@workflow_available(presence_required = True)
@@ -62,7 +75,7 @@ class PartnerController(BaseController):
 		
 		c.product = c.product_list[0]
 		c.method = c.user.get_current_network() or 'facebook'
-		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.olist = app_globals.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		c.values = {"occasion_name":c.olist[0].get_display_name(), "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")}
 		c.errors = {}
 		return self.render('/partner/iframe_product.html')
@@ -78,10 +91,10 @@ class PartnerController(BaseController):
 		product = request.params.get("productMap")
 		c.product = DisplayProduct.from_minimal_repr(product)
 		try:
-			c.pool = g.pool_service.create_group_gift_from_iframe(c.product)
+			c.pool = app_globals.pool_service.create_group_gift_from_iframe(c.product)
 			return redirect(url("invite_index", pool_url = c.pool.p_url))
 		except formencode.validators.Invalid, error:
-			c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+			c.olist = app_globals.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 			c.errors = error.error_dict or {}
 			c.values = error.value
 			return self.render('/partner/create.html')
@@ -98,7 +111,7 @@ class PartnerController(BaseController):
 		c.product = c._workflow['product']
 		c.method = c.user.get_current_network() or 'facebook'
 		
-		c.olist = g.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
+		c.olist = app_globals.dbm.get(OccasionSearch, date = h.format_date_internal(datetime.date.today()), country = websession['region']).occasions
 		c.values = {"occasion_name":c.olist[0].get_display_name()
 					, "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")
 					, "title":c.product.get_iframe_display_label(words = 8)

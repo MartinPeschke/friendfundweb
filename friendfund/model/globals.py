@@ -100,7 +100,10 @@ class MerchantStyle(DBMappedObject):
 	_unique_keys = ['property', 'value']
 	_keys = [GenericAttrib(unicode,'property','property')
 			, GenericAttrib(unicode,'value','value')]
-	
+class FeaturedPoolURL(DBMappedObject):
+	_cachable = False
+	_no_params = True
+	_keys = [GenericAttrib(unicode,'p_url','p_url')]
 class MerchantLink(DBMappedObject):
 	_get_root = _set_root = 'MERCHANT'
 	_cachable = False
@@ -118,6 +121,7 @@ class MerchantLink(DBMappedObject):
 				,DBMapper(MerchantSettlement,'settlement_options','SETTLEMENT', is_list = True)
 				,DBMapper(MerchantCountry,'shippping_countries','SHIPPING_COUNTRY', is_list = True)
 				,DBMapper(MerchantStyle,'_styles','CSS_STYLE', is_list = True)
+				,DBMapper(FeaturedPoolURL,'featured_pools','MERCHANT_FEATURED_POOL', is_list = True)
 			]
 	def get_logo_url(self, type = "lrg", secured = False):
 		return self._statics.get_merchant_picture(self.logo_url, type, secured)
@@ -131,13 +135,7 @@ class MerchantLink(DBMappedObject):
 		if self.require_address and len(self.shippping_countries)==0:
 			raise Exception("GET_CONFIG (%s): MERCHANT.require_address==True and NO_SHIPPING_COUNTRY provided" % self.domain)
 		setattr(self, "styles", dict([(x.property, x.value) for x in self._styles]))
-		
-		
-		
-class FeaturedPoolURL(DBMappedObject):
-	_cachable = False
-	_no_params = True
-	_keys = [GenericAttrib(unicode,'p_url','p_url')]
+	
 	
 	
 class MerchantHolder(object):

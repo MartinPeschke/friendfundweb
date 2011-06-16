@@ -21,19 +21,7 @@
 	</div>
 	<h3 class="subheading">${_("FF_IFRAME_Stuff others have friendfunded!")}</h3>
 	<div class="iFrameHomeBoxes">
-	%for pool in c.suggested_pools:
-		<% locals = {"number_contributors":pool.get_number_of_contributors()} %>
-		<div class="iFrameHomeBox rosePlacement">
-			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="138px" height="109px" />
-			<span class="rose"><p>${widgets.renderPoolInfoContributorsWithFallback(locals, _("GG_Recommended Product"))|n}</p></span>
-			%if pool.product and pool.product.tracking_link:
-				<a class="pLink" target="_blank" href="${pool.product.tracking_link}">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</a>
-			%else:
-				<span class="pLink">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</span>
-			%endif
-			<div class="shadTinyBottom"></div>
-		</div>
-	%endfor
+		${self.render_featured_pools(request.merchant, c.get_featured_pools, h.get_language_locale())|n}
 	</div>
 	</div>
 	<div class="wrapFooterIframe">
@@ -52,3 +40,20 @@
 <div id="loginlink"></div>
 %endif
 
+
+
+<%def name="render_featured_pools(merchant, get_featured_pools, lang)" cached="True" cache_key="render_merchant_featured_pools_${merchant.key}_${lang}" cache_timeout="60" cache_type="memory">
+	%for i, pool in enumerate(get_featured_pools(merchant)):
+		<% locals = {"number_contributors":pool.get_number_of_contributors()} %>
+		<div class="iFrameHomeBox rosePlacement">
+			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="138px" height="109px" />
+			<span class="rose"><p>${widgets.renderPoolInfoContributorsWithFallback(locals, _("GG_Recommended Product"))|n}</p></span>
+			%if pool.product and pool.product.tracking_link:
+				<a class="pLink" target="_blank" href="${pool.product.tracking_link}">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</a>
+			%else:
+				<span class="pLink">${pool.get_product_display_label(words = 5, include_price = False) or "&nbsp;"|n}</span>
+			%endif
+			<div class="shadTinyBottom"></div>
+		</div>
+	%endfor
+</%def>
