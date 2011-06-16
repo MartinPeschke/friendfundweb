@@ -17,7 +17,7 @@ from friendfund.model.db_access import execute_query
 from friendfund.model.globals import GetMerchantConfigProc
 from friendfund.tasks import get_db_pool, get_config, Usage, data_root, STATICS_SERVICE
 from friendfund.tasks.notifiers import email, facebook, twitter
-from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException, get_template
+from friendfund.tasks.notifiers.common import InvalidAccessTokenException, MissingTemplateException, get_template, root
 
 
 log = logging.getLogger(__name__)
