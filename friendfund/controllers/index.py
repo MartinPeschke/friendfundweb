@@ -30,7 +30,7 @@ class IndexController(BaseController):
 		with app_globals.cache_pool.reserve() as mc:
 			featured_pools = mc.get(FEATURED_POOLS_CACHEKEY)
 		if featured_pools is None:
-			log.warning("NO_FEATURED_POOLS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
+			if not app_globals.test: log.warning("NO_FEATURED_POOLS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
 			featured_pools = []
 			for p in app_globals.featured_pools:
 				 featured_pools.append(app_globals.dbm.get(FeaturedPool, p_url = p.p_url))
@@ -46,7 +46,7 @@ class IndexController(BaseController):
 		with app_globals.cache_pool.reserve() as mc:
 			c.homepage_stats = mc.get(HOMEPAGE_STATS_CACHEKEY)
 		if not c.homepage_stats:
-			log.error("NO_HOMEPAGE_STATS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
+			if not app_globals.test: loglog.error("NO_HOMEPAGE_STATS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
 			c.homepage_stats = app_globals.homepage_stats
 		return self.render('/index.html')
 	
