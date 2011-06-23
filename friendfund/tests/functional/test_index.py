@@ -27,4 +27,4 @@ class TestIndexController(TestController):
     def test_index_default_lang_INVALID(self):
         self._test_locales(['ghsrefgsehgkljsehgkljsehgjklghjklshgsehgklg'], 'en')
     def test_index_default_lang_MISSING(self):
-        self._test_locales([''], 'enis')
+        self._test_locales([''], 'en')
