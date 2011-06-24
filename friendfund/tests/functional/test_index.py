@@ -1,4 +1,5 @@
 import logging
+from StringIO import StringIO
 from lxml import etree
 from friendfund.tests import *
 log = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ class TestIndexController(TestController):
             response = self.app.get(url(controller='index', action='index'), headers=headers)
             lang = response.session['lang']
             assert lang == expected
-            log.info("TESTED %s => %s (expected: %s)", l, lang, expected)
+            #log.info("TESTED %s => %s (expected: %s)", l, lang, expected)
     def test_index_default_lang_DE(self):
         self._test_locales(['de-CH', 'de-DE', 'de_ch', 'de_AT', 'de-at', 'de'], 'de')
     def test_index_default_lang_ES(self):
@@ -33,5 +34,5 @@ class TestIndexController(TestController):
     def test_sitemap(self):
         headers = self._get_default_params()
         response = self.app.get(url(controller='index', action='sitemap'), headers=headers)
-        resp_tree = etree.fromstring(unicode(response))
-        assert len(resp_tree.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")) > 10
+        resp_tree = etree.parse(StringIO(response.body))
+        assert len(resp_tree.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")) > 24
