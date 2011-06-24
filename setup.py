@@ -5,9 +5,10 @@ except ImportError:
     use_setuptools()
     from setuptools import setup, find_packages
 
+
 setup(
     name='friendfund',
-    version='0.1',
+    version='2.3.1_rc2',
     description='',
     author='',
     author_email='',
@@ -41,6 +42,3 @@ setup(
     main = pylons.util:PylonsInstaller
     """,
 )
-
-
-
