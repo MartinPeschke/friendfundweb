@@ -1,4 +1,4 @@
-import logging
+import logging, BeautifulSoup, uuid, urllib
 from StringIO import StringIO
 from lxml import etree
 from friendfund.tests import *
@@ -36,3 +36,46 @@ class TestIndexController(TestController):
         response = self.app.get(url(controller='index', action='sitemap'), headers=headers)
         resp_tree = etree.parse(StringIO(response.body))
         assert len(resp_tree.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")) > 24
+    
+    def test_signup_get_page(self):
+        headers = self._get_default_params()
+        params = {}
+        response = self.app.get(url(controller='index', action='signup'), params = params, headers=headers)
+        assert response.status_int == 200
+        b = BeautifulSoup.BeautifulSoup(response.body)
+        assert b.find("a", attrs = {"class":"facebookBtn"}) is not None
+        assert b.find("a", attrs = {"class":"twitterBtn"}) is not None
+    
+    def test_signup_post_correct_data(self):
+        USERNAME = "NOSETEST"
+        headers = self._get_default_params()
+        params = {"signup.email":"test_%s@friendfund.com" % str(uuid.uuid4()), "signup.name":USERNAME, "signup.pwd":"friendfund"}
+        response = self.app.post(url(controller='index', action='signup'), params = params, headers=headers)
+        assert response.status_int == 302
+        assert response.tmpl_context.user.is_anon == False
+        assert response.tmpl_context.user.name == USERNAME
+        response = self.app.get(response.headers.get('Location'), headers=headers)
+        assert response.status_int == 200
+        assert response.tmpl_context.user.is_anon == False
+        assert response.tmpl_context.user.name == USERNAME
+        
+        
+    def test_signup_post_corrupt_data(self):
+        USERNAME = "NOSETEST"
+        headers = self._get_default_params()
+        params = {}
+        response = self.app.post(url(controller='index', action='signup'), params = params, headers=headers)
+        assert response.status_int == 200
+        assert "name" in response.tmpl_context.signup_errors
+        assert "email" in response.tmpl_context.signup_errors
+        assert "pwd" in response.tmpl_context.signup_errors
+    
+    def test_signup_post_double_signup(self):
+        USERNAME = "NOSETEST"
+        headers = self._get_default_params()
+        params = {"signup.email":"test_%s@friendfund.com" % str(uuid.uuid4()), "signup.name":USERNAME, "signup.pwd":"friendfund"}
+        response = self.app.post(url(controller='index', action='signup'), params = params, headers=headers)
+        self.app.reset()
+        response = self.app.post(url(controller='index', action='signup'), params = params, headers=headers)
+        assert response.status_int == 200
+        assert "email" in response.tmpl_context.signup_errors
