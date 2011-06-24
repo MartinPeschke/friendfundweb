@@ -1,4 +1,5 @@
-import logging, lxml
+import logging
+from lxml import etree
 from friendfund.tests import *
 log = logging.getLogger(__name__)
 
@@ -28,3 +29,9 @@ class TestIndexController(TestController):
         self._test_locales(['ghsrefgsehgkljsehgkljsehgjklghjklshgsehgklg'], 'en')
     def test_index_default_lang_MISSING(self):
         self._test_locales([''], 'en')
+    
+    def test_sitemap(self):
+        headers = self._get_default_params()
+        response = self.app.get(url(controller='index', action='sitemap'), headers=headers)
+        resp_tree = etree.fromstring(response)
+        assert len(resp_tree.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")) > 10
