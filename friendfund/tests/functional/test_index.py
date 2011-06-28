@@ -29,7 +29,7 @@ class TestIndexController(TestController):
     def test_index_default_lang_INVALID(self):
         self._test_locales(['ghsrefgsehgkljsehgkljsehgjklghjklshgsehgklg'], 'en')
     def test_index_default_lang_MISSING(self):
-        self._test_locales([''], 'en')
+        self._test_locales([''], 'de')
     
     def test_sitemap(self):
         headers = self._get_default_params()
