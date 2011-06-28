@@ -1,5 +1,5 @@
 """Pylons middleware initialization"""
-from friendfund.lib.beaker_thread.middleware import SessionMiddleware
+from beaker.middleware import SessionMiddleware
 from paste.cascade import Cascade
 from paste.registry import RegistryManager
 from paste.urlparser import StaticURLParser
