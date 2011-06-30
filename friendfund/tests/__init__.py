@@ -14,8 +14,9 @@ from paste.script.appinstall import SetupCommand
 from pylons import url
 from routes.util import URLGenerator
 from webtest import TestApp
-import pylons.test
-import urlparse
+import pylons.test, uuid, logging, urlparse
+
+log = logging.getLogger(__name__)
 
 __all__ = ['environ', 'url', 'TestController']
 
@@ -50,4 +51,24 @@ class TestController(TestCase):
     def _get_default_params(self):
         headers = self.STANDARD_HEADERS.copy()
         headers['Host'] = self._get_default_host()
-        return headers        
+        return headers
+    def _create_email_user(self):
+        USERNAME = "NOSETEST"
+        headers = self._get_default_params()
+        params = {"signup.email":"test_%s@friendfund.com" % str(uuid.uuid4()), "signup.name":USERNAME, "signup.pwd":"friendfund"}
+        response = self.app.post(url(controller='index', action='signup'), params = params, headers=headers)
+        return response.tmpl_context.user
+    def _create_ff_pool(self):
+        headers = self._get_default_params()
+        params = {"PAYPAL_TRANSFER.email":""
+                    ,"amount":"243"
+                    ,"currency":"EUR"
+                    ,"description":"424tfrw3ffg"
+                    ,"product_picture":""
+                    ,"settlementOption":"AMAZON_CERTIFICATES"
+                    ,"title":"qw4etr243r23t"
+                    ,"v":"2"}
+        response = self.app.post(url(controller="pool", action="create"), headers = headers, params = params)
+        log.info( response )
+        log.info( response.tmpl_context.pool )
+        return response.tmpl_context.pool

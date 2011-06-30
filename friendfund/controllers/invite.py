@@ -153,8 +153,8 @@ class InviteController(BaseController):
 	def preview(self, pool_url):
 		c.method = request.params.get("method") or "facebook"
 		template_data = {}
-		template_data['invitee_name'] = 'Joe'
-		template_data['firstname_invitee_name'] = 'Joe'
+		template_data['invitee_name'] = ''
+		template_data['firstname_invitee_name'] = ''
 		template_data['subject'] = request.params.get("subject")
 		template_data['message'] = request.params.get("message")
 		template_data['pool_description'] = c.pool.description
