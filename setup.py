@@ -21,7 +21,8 @@ setup(
         "FormEncode>=1.2.2",
         "pyodbc>=2.1.8",
         "DBUtils>=1.0",
-        "Babel==0.9.5"
+        "Babel==0.9.5",
+        "BeautifulSoup>=3.2.0"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),

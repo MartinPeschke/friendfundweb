@@ -1,10 +1,14 @@
-import ordereddict, types, collections
+import types, collections
 from xml.sax.saxutils import quoteattr, escape
 from datetime import datetime, date
 from friendfund.lib import tools as t
 import logging
-
 log = logging.getLogger(__name__)
+
+try:
+    from ordereddict import OrderedDict # python < 2.7
+except ImportError:
+    from collections import OrderedDict
 
 #############################################################################################
 ##################### Database Types and Objects ############################################
