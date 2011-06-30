@@ -1,4 +1,4 @@
-import types, collections
+import types, collections, ordereddict
 from xml.sax.saxutils import quoteattr, escape
 from datetime import datetime, date
 from friendfund.lib import tools as t
