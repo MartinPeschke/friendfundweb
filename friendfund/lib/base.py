@@ -77,7 +77,6 @@ class BaseController(WSGIController):
 	
 	def __after__(self, action, environ):
 		"""When everything is said and done, Save Session State"""
-		response.headers["P3P"] = "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'"
 		websession['user'] = c.user
 		websession['messages'] = c.messages
 		websession.save()
