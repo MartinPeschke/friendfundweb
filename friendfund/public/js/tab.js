@@ -259,42 +259,48 @@ background:url(${protocol}${host}/static/partner/buttons/friendfund_it_button_co
 	show: function (options) {
 		FriendFund.Popin.setup(options);
 		this.button_id = options.button_id || this.button_id;
-		
-		var button = document.createElement('A');
-		button.id = "friendfund_button";
-		button.className="friendfundButton";
+        if(options.render){
+            var button = document.createElement('A');
+            button.id = "friendfund_button";
+            button.className="friendfundButton";
+            if(!document.getElementById(this.button_id)){
+                var bc = document.createElement('div');
+                bc.id=this.button_id;
+                document.body.insertBefore(bc, document.body.firstChild);
+                var pageDimensions = FriendFund.Page.getDimensions();
+                var computedTop = ((pageDimensions.height - 143) / 2);
+                options.css_template = FriendFund.Util.render(this.fixed_css_template, {top:Math.max(computedTop, 55) + "px"});
+                button.innerHTML = "&nbsp;";
+            }else{
+                options.css_template = this.css_template;
+                var img = document.createElement("IMG");
+                img.src=FriendFund.Util.render("${protocol}${host}/static/partner/buttons/friendfund_it_button_${button_size}_${button_color}.png", options);
+                button.appendChild(img);
+                if(options.with_strap_line){
+                    var buttonSubscript = document.createElement("SPAN");
+                    buttonSubscript.innerHTML = options.button_text[options.lang];
+                    button.appendChild(buttonSubscript);
+                };
+            }
+            FriendFund.Util.includeCss(FriendFund.Util.render(options.css_template || this.css_template, options));
+            document.getElementById(this.button_id).appendChild(button);
+        } else {
+            var button = document.getElementById(this.button_id);
+        }
+        FriendFund.Util.includeCss(FriendFund.Util.render(FriendFund.Popup.css_template, options));
 		button.onclick=function(){FriendFund.Popin.show(options); return false;};
-		if(!document.getElementById(this.button_id)){
-			var bc = document.createElement('div');bc.id=this.button_id;
-			document.body.insertBefore(bc, document.body.firstChild);
-			var pageDimensions = FriendFund.Page.getDimensions();
-			var computedTop = ((pageDimensions.height - 143) / 2);
-			options.css_template = FriendFund.Util.render(this.fixed_css_template, {top:Math.max(computedTop, 55) + "px"});
-			button.innerHTML = "&nbsp;";
-		}else{
-			options.css_template = this.css_template;
-			var img = document.createElement("IMG");
-			img.src=FriendFund.Util.render("${protocol}${host}/static/partner/buttons/friendfund_it_button_${button_size}_${button_color}.png", options);
-			button.appendChild(img);
-			if(options.with_strap_line){
-				var buttonSubscript = document.createElement("SPAN");
-				buttonSubscript.innerHTML = options.button_text[options.lang];
-				button.appendChild(buttonSubscript);
-			};
-		}
 		options.docHeight = FriendFund.Page.getDocHeight();
-		document.getElementById(this.button_id).appendChild(button);
-		FriendFund.Util.includeCss(FriendFund.Util.render(options.css_template || this.css_template, options));
-		FriendFund.Util.includeCss(FriendFund.Util.render(FriendFund.Popup.css_template, options));
 	 }
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
-	defaultOptions = {alignment:"center", lang:"en"
+	defaultOptions = {alignment:"center", lang:"en", render:true
 					, button_text:{es:"Comparte los gastos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}
 					, button_background:"#f4f4f4", button_size:"large", button_color:"blue",with_strap_line:true};
 	for(var option in defaultOptions){friendfundOptions[option] = (friendfundOptions[option]===undefined)?defaultOptions[option]:friendfundOptions[option];}
 	FriendFund.Button.show(friendfundOptions);
 }
+
+
 
 
 
