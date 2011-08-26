@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 _ = lambda x:x
 
 pyodbc.pooling = False
-SVNREVISION="FF_2.3.1_rc2"
+SVNREVISION="FF_2.3.1_rc3_small_popup"
 REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 

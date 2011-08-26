@@ -210,6 +210,7 @@ FriendFund.Popin = {
 	},
 	show: function (options) {
 		this.setupOptions(options);
+        if(options.with_slideshow){this.context.height= '530px';}else{this.context.height= '260px';}
 		FriendFund.Popup.show(FriendFund.Util.render(this.content_template, this.context), options);
 		try {
 			var iForm = document.getElementById("friendfund_dialog_iform");
@@ -293,7 +294,7 @@ background:url(${protocol}${host}/static/partner/buttons/friendfund_it_button_co
 	 }
 }
 if (typeof(friendfundOptions) !== 'undefined' && friendfundOptions.showButton == true) {
-	defaultOptions = {alignment:"center", lang:"en", render:true
+	defaultOptions = {alignment:"center", lang:"en", render:true, with_slideshow:true
 					, button_text:{es:"Comparte los gastos con amigos!", en:"Share the costs with friends!", de:"Teile die Kosten mit Freunden!"}
 					, button_background:"#f4f4f4", button_size:"large", button_color:"blue",with_strap_line:true};
 	for(var option in defaultOptions){friendfundOptions[option] = (friendfundOptions[option]===undefined)?defaultOptions[option]:friendfundOptions[option];}
