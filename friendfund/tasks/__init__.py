@@ -2,7 +2,7 @@ import pyodbc, os, ConfigParser, celery, pylibmc
 
 from DBUtils.PooledDB import PooledDB
 from celeryconfig import CELERY_ADDITIONAL_CONFIG
-from celery.log import setup_logger
+
 from mako.lookup import TemplateLookup
 
 from friendfund.model import common
@@ -11,6 +11,7 @@ from friendfund.services import static_service as statics
 IMAGEMAGICKROOT ='/usr/local/bin'
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_root = os.path.join(os.getcwd(), 'data')
+from celery.log import setup_logger
 log = setup_logger(loglevel=0)
 
 class Usage(Exception):
