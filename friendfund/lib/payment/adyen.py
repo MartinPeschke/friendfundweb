@@ -1,6 +1,6 @@
 import logging, urllib, urllib2, formencode, base64, hmac, hashlib, uuid, socket
 from datetime import datetime, timedelta
-
+from babel import negotiate_locale
 from pylons import session as websession, url, app_globals, request
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.i18n import FriendFundFormEncodeState
@@ -202,10 +202,11 @@ class RedirectPayment(PaymentMethod):
 			log.error(e)
 			raise DBErrorDuringSetup(e)
 		
+
 		redirect_params = {
 				"paymentAmount":'%s'%contribution.total,
 				"currencyCode":contribution.currency,
-				"shopperLocale":websession['lang'],
+				"shopperLocale":negotiate_locale([websession['lang']], ['en_GB', 'en_US', 'de_DE', 'es_ES']),
 				"merchantReference" : contrib_model.ref,
 				"merchantReturnData" : request.merchant.domain,
 				"resURL":"%s"%(url("payment_current", pool_url = ''.join(pool.p_url.rpartition(".")[:2]), protocol="http"))
