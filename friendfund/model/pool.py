@@ -379,11 +379,16 @@ class Pool(DBMappedObject):
 					self.receiver = pu
 			if pu.is_contributor() == True:
 				self.partial_contributor_map.add(pu.u_id)
-
 		if not self.admin:
 			raise NoPoolAdminException('Pool has no Admin: %s' % self)
 		if not self.receiver:
 			raise NoPoolReceiverException('Pool has no Receiver: %s' % self)
+		
+		if self.participant_map:
+			self.participant_map = self.participant_map.difference([self.receiver.u_id]).union([self.admin.u_id])
+		if self.receiver.u_id != self.admin.u_id:
+			self.participants = filter(lambda x: x.u_id!=self.receiver.u_id, self.participants)
+		
 	def is_closed(self):
 		return self.status in ["CLOSED", "COMPLETE"]
 	def is_closed_or_funded(self):

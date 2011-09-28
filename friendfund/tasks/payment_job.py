@@ -21,12 +21,14 @@
 	</CONTRIBUTION> 
 """
 import logging, time, sys, getopt, os, ZSI
+import traceback
 from lxml import etree
 from xml.sax.saxutils import quoteattr
 from friendfund.model.mapper import DBMapper
 from friendfund.model.db_access import execute_query
 from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
+from paste.exceptions import formatter, collector, reporter
 
 import logging, logging.config
 logging.config.fileConfig("notifier_logging.conf")
@@ -34,6 +36,24 @@ log = logging.getLogger(__name__)
 
 CONNECTION_NAME = 'job'
 set_CONNECTION_NAME = 'pool'
+
+def send_report(exc_data, config, level):
+	from turbomail import Message
+	from turbomail.control import interface
+	from paste.deploy.converters import asbool
+	_config = {"mail.on":True
+				,"mail.transport":"smtp"
+				,"mail.smtp.server":config.get('smtp_server')
+				,"mail.smtp.username":config.get('smtp_username')
+				,"mail.smtp.password":config.get('smtp_password')
+				,"mail.smtp.tls":config.get('smtp_use_tls')
+			}
+	interface.start(_config)
+	msg = Message(config.get('error_email_from'), [config.get('email_to')], "%s:PAYMENT QUEUE:%s" % (config.get('error_subject_prefix'), level))
+	msg.plain = """%s <br/> %s""" % (formatter.format_text(exc_data), __name__)
+	msg.html = """%s <br/> %s""" % (formatter.format_html(exc_data), __name__)
+	msg.send()
+	interface.stop(force=True)
 
 
 def execute_cancel_or_refund(dbset, gateway, contrib):
@@ -122,35 +142,42 @@ def main(argv=None):
 					merchantAccount = config['adyen.merchantaccount'])
 	
 	log.info( 'DEBUG: %s for %s (%s)', debug, CONNECTION_NAME, gateway)
-	while 1:
-		contributions, cur = execute_query(dbpool, log, "exec job.get_payment_queue;")
-		contrib_set = [c for c in contributions.findall('CONTRIBUTION') if c.get("contribution_ref") and c.get("queue_ref")]
-		if contrib_set:
-			log.info( 'RECEIVED %s, %s', len(contrib_set), 'Contributions' )
-			for contrib in contrib_set:
-				try:
-					if contrib.find("REFUND") is not None:
-						execute_cancel_or_refund(dbset, gateway, contrib)
-					elif contrib.find("CAPTURE") is not None:
-						execute_capture(dbset, gateway, contrib)
-					elif contrib.find("RECURRING") is not None:
-						execute_recurring(dbset, gateway, contrib)
-				except Exception, e:
-					if (isinstance(e, ZSI.FaultException)):
-						log.error("ADYEN_SOAP_ERROR: %s" % e)
-					else: log.error(e)
-					xml = execute_query(dbpool, log, 'job.set_payment_queue ?;', 
-								'<CONTRIBUTION queue_ref=%s contribution_ref=%s status="0"/>'\
-									%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
-								)
-					####raise
-				else:
-					xml = execute_query(dbpool, log, 'job.set_payment_queue ?;', 
-								'<CONTRIBUTION queue_ref=%s contribution_ref=%s status="1"/>'\
-									%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
-								)
-		else:
-			time.sleep(120)
-
+	try:
+		while 1:
+			contributions, cur = execute_query(dbpool, log, "exec job.get_payment_queue;")
+			contrib_set = [c for c in contributions.findall('CONTRIBUTION') if c.get("contribution_ref") and c.get("queue_ref")]
+			if contrib_set:
+				log.info( 'RECEIVED %s, %s', len(contrib_set), 'Contributions' )
+				for contrib in contrib_set:
+					try:
+						if contrib.find("REFUND") is not None:
+							execute_cancel_or_refund(dbset, gateway, contrib)
+						elif contrib.find("CAPTURE") is not None:
+							execute_capture(dbset, gateway, contrib)
+						elif contrib.find("RECURRING") is not None:
+							execute_recurring(dbset, gateway, contrib)
+					except Exception, e:
+						exc_data = collector.collect_exception(*sys.exc_info())
+						rep_err = send_report(exc_data, config, 'ERROR')
+						
+						if (isinstance(e, ZSI.FaultException)):
+							log.error("ADYEN_SOAP_ERROR: %s" % e)
+						else: log.error(e)
+						xml = execute_query(dbpool, log, 'job.set_payment_queue ?;', 
+									'<CONTRIBUTION queue_ref=%s contribution_ref=%s status="0"/>'\
+										%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
+									)
+						####raise
+					else:
+						xml = execute_query(dbpool, log, 'job.set_payment_queue ?;', 
+									'<CONTRIBUTION queue_ref=%s contribution_ref=%s status="1"/>'\
+										%(quoteattr(contrib.get("queue_ref")), quoteattr(contrib.get("contribution_ref")))
+									)
+			else:
+				time.sleep(120)
+	except:
+		exc_data = collector.collect_exception(*sys.exc_info())
+		rep_err = send_report(exc_data, config, 'SHUTTING DOWN')
+		raise
 if __name__ == "__main__":
     sys.exit(main())

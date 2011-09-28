@@ -268,7 +268,7 @@
 			<img style="margin-top: 10px; margin-left:15px" src="/static/imgs/mastercard.png">
 			<img style="margin-top: 10px; margin-left:15px" src="/static/imgs/amex.png">
 			
-		</div>		
+		</div>
 		%if c.pool.can_i_leave(c.user):
 		<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="leave_popup")}" class="popuplink removeMe">${_(u"FF_POOL_PAGE_Remove me from this Pool")}</a>
 		%endif
