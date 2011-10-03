@@ -12,6 +12,8 @@ class UserNotLoggedInWithMethod(Exception):
 	pass
 class GetFriendsNotSupported(Exception):
 	pass
+class NoFriendsFoundSomeErrorOccured(Exception):
+	pass
 
 CLEARANCES = {"ANON":0, "BASE" : 1, "CONTRIBUTE":3, "INVITE":6, "FULL":9}
 
@@ -236,13 +238,15 @@ class User(ProtoUser):
 								config,
 								offset = offset
 							)
-			if friends is None:
-				raise Exception('NoFriendsFoundSomeErrorOccured')
 		else:
 			raise GetFriendsNotSupported(
 					"Get Friends Method not supported for %s" % network
 				)
-		return friends, is_complete, offset
+		if not friends:
+			return [], True, 0
+		else:
+			return friends, is_complete, offset
+			
 	
 	def set_profile_picture_url(self, value):
 		if not self.profile_picture_url:

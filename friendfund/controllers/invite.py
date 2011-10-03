@@ -10,7 +10,7 @@ from friendfund.lib.auth.decorators import logged_in, post_only, pool_available,
 from friendfund.lib.base import BaseController, render, render_def, _
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import Message, ErrorMessage, SuccessMessage
-from friendfund.model.authuser import CLEARANCES, UserNotLoggedInWithMethod
+from friendfund.model.authuser import CLEARANCES, UserNotLoggedInWithMethod, NoFriendsFoundSomeErrorOccured
 from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
 from friendfund.services import static_service as statics
@@ -67,13 +67,19 @@ class InviteController(BaseController):
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/fb_login.html').strip()}}
 				else: 
 					return {'data':{'is_complete': True, 'success':False, 'html':render('/invite/tw_login.html').strip()}}
+			except NoFriendsFoundSomeErrorOccured, e:
+				log.error("NoFriendsFoundSomeErrorOccured:%s", e)
+				c.friends = []
+				return {'data':{'is_complete':True, 'success':True, 'offset':0, "html":render("/invite/inviter.html"),
+						'friends':c.friends, 
+						"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="${dom_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, _("FF_INVITER_BUTTON_Invite"))
+					}}
 			else:
 				c.friends = [friends[id] for id in sorted(friends, key=lambda x: friends[x]['name']) if id not in already_invited.idset]
 				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, "html":render("/invite/inviter.html"),
 						'friends':c.friends, 
 						"template":"""<li title="${name}" class="invitee_row selectable" _network="%s" id="${dom_id}"><div class="avt"><span class="displayable close" href="#">X</span><img src="${profile_picture_url}"></div><p class="hideable">${name}</p><span class="hideable">%s &raquo;</span><input type="hidden" name="invitees" value="${minimal_repr}"/></li>""" % (c.method, _("FF_INVITER_BUTTON_Invite"))
 					}}
-				return {'data':{'is_complete':is_complete, 'success':True, 'offset':offset, 'html':render('/invite/inviter.html').strip()}}
 		else:
 			c.friends = {}
 			c.email_errors = {}

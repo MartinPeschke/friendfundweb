@@ -1,7 +1,10 @@
 from __future__ import with_statement
-
 from friendfund.model.mapper import DBMapper
 from friendfund.model.db_access import execute_query, SProcException, SProcWarningMessage
+
+import pylibmc
+import logging
+log = logging.getLogger(__name__)
 
 class DBManager(object):
 	_expiretime = 1
@@ -34,7 +37,11 @@ class DBManager(object):
 				obj = mc.get(key)
 				if obj is None:
 					obj = self._fetch_from_db(cls, **kwargs)
-					mc.set(key, obj, cls._expiretime or self._expiretime)
+					try:
+						mc.set(key, obj, cls._expiretime or self._expiretime)
+					except pylibmc.Error, e:
+						log.error("MEMCACHED ERROR:%s for key:%s", e, key)
+						mc.delete(key)
 		else:
 			obj = self._fetch_from_db(cls, **kwargs)
 		return obj
@@ -59,8 +66,12 @@ class DBManager(object):
 				key = '_'.join(map(unicode, [getattr(obj, k) for k in obj._unique_keys]))
 				key = '<%s>%s' % (obj.__class__.__name__.lower(), key)
 				key = key.encode("latin-1", "xmlcharrefreplace")
-				mc.set(key, obj, obj._expiretime or self._expiretime)
-	
+				try:
+					mc.set(key, obj, obj._expiretime or self._expiretime)
+				except pylibmc.Error, e:
+					log.error("MEMCACHED ERROR:%s for key:%s", e, key)
+					mc.delete(key)
+					
 	def expire(self, obj):
 		with self.cache_pool.reserve() as mc:
 			key = '_'.join(map(unicode, [getattr(obj, k) for k in obj._unique_keys]))
