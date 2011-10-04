@@ -14,7 +14,8 @@ dojo.mixin(ff, {io:{
 		};
 	}
 	,xhrErrorHandler : function(data,xhrobj,evt){
-		if (window.console) {console.log(data);console.log(xhrobj);	console.log(evt);}
+		if (window.console) {console.log(data);console.log(xhrobj);console.log(evt);}
+		else return;
 	}
 	,xhrFormPost : function(url, form, callback) {
 		dojo.xhrPost({
