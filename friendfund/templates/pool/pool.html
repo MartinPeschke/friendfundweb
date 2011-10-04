@@ -27,8 +27,9 @@
 <%def name="scripts()">
 	<script type="text/javascript">
 		var addthis_config = {"data_track_clickback":true};
-		submit_fundchat = function(node){
+		submit_fundchat = function(button, node){
 			var onLoaded = function(data){
+				dojo.removeClass(button, "disabled");
 				dojo.query("div.placeholder", dojo.byId("fundchat")).orphan();
 				dojo.place(data.html, dojo.byId("fundchat"), "last");
 				dojo.byId("addcommenttext").value=dojo.attr("addcommenttext", "_default_text");
@@ -36,7 +37,8 @@
 			};
 			var _node = dojo.byId(node);
 			var params = {};
-			if(!_node.value||dojo.hasClass(node, "default")){return;}
+			if(!_node.value||dojo.hasClass(node, "default")||dojo.hasClass(button, "disabled")){return;}
+			dojo.addClass(button, "disabled");
 			params[_node.name] = _node.value;
 			ff.io.xhrPost(dojo.attr(_node, "_href"), params, onLoaded);
 			return false;
@@ -339,13 +341,13 @@
 						<img src="${c.user.get_profile_pic("PROFILE_S")}" />
 					</div>
 					<div class="txtComments">
-						<div class="txtArea "><textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" _default_text="${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}" class="default">${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}</textarea>
+						<div class="txtArea"><textarea id="addcommenttext" _href="${url(controller='pool', pool_url=c.pool.p_url, action='chat')}" name="comment" _default_text="${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}" class="default">${_(u"FF_POOL_PAGE_BODY_Add your comment here...")}</textarea>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</li>
 			</ul>
-			<input type="button" onclick="submit_fundchat('addcommenttext')" value="${_(u"FF_POOL_PAGE_BODY_Post Comment")}" class="primaryButton" />
+			<input type="button" onclick="submit_fundchat(this, 'addcommenttext')" value="${_(u"FF_POOL_PAGE_BODY_Post Comment")}" class="primaryButton" />
 			%endif
 		</div>
 	
