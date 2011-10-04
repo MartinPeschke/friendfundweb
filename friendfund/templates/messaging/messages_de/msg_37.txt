@@ -1,0 +1,23 @@
+<%namespace name="common" file="common.txt"/>
+<%def name="name()">${data['subject'] or u"${data['pool_title']}"}</%def>
+
+<%def name="description()">
+${data['message'] or u"${data['pool_description']}"}  
+
+Wir haben bis zum ${data['expiry_date']} Zeit, das Geld zu sammeln. Zahl soviel oder so wenig ein, wie du möchtest (auch die kleinste Summe hilft).
+Besuche die Poolseite hier: <http://${data['merchant_domain']}/pool/${data['p_url']}>   
+
+${common.footing_phrase_with_learn_more(data)}
+</%def>
+
+
+<%def name="picture()">${data['pool_image']}</%def>
+<%def name="link()">http://${data['merchant_domain']}/pool/${data['p_url']}</%def>
+
+
+
+<%def name="privacy_type()">EVERYONE</%def>
+<%def name="start_time()">${data['today']}</%def>
+<%def name="end_time()">${data['expiry_date']}</%def>
+<%def name="location()">${data['DEFAULT_BASE_URL']}</%def>
+
