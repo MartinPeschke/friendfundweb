@@ -16,6 +16,8 @@ from friendfund.tasks.cache_refresher import get_mfp_key
 log = logging.getLogger(__name__)
 
 class PartnerController(BaseController):
+	def _get_run_time(self):
+		return app_globals.pool_service.pool_run_time
 	def _get_featured_pools(self, merchant):
 		with app_globals.cache_pool.reserve() as mc:
 			featured_pools = mc.get(get_mfp_key(merchant.key))
@@ -39,6 +41,7 @@ class PartnerController(BaseController):
 		params = total_param_set.get("ff", {}).get("names", {})
 		params.update(total_param_set.get("ff", {}).get("props", {}))
 		
+		c.pool_run_time = self._get_run_time()
 		c.is_default = False
 		c.product_list = app_globals.product_service.get_products_from_open_graph(params, query)
 		if not len(c.product_list):
@@ -67,6 +70,7 @@ class PartnerController(BaseController):
 	@workflow_available(presence_required = True)
 	def set(self):
 		c.product_list = c._workflow['product_list']
+		c.pool_run_time = self._get_run_time()
 		if not len(c.product_list):
 			c.get_featured_pools = self._get_featured_pools
 			return self.render('/partner/iframe_home.html')
