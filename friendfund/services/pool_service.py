@@ -23,6 +23,7 @@ class PoolService(object):
 	"""
 		This is shared between all threads, do not stick state in here!
 	"""
+	pool_run_time = 30
 	def __init__(self, config, dbm, static_service):
 		self.dbm = dbm
 		self.static_service = static_service
@@ -72,7 +73,7 @@ class PoolService(object):
 			pool.includes_fee = 'charge_through' in so_values
 		
 		pool.set_amount_float(amount)
-		pool.occasion = Occasion(key="EVENT_OTHER", date = (datetime.now() + timedelta(10)))
+		pool.occasion = Occasion(key="EVENT_OTHER", date = (datetime.now() + timedelta(self.pool_run_time)))
 		
 		if h.contains_one_ne(pool_schema, ["tracking_link", "product_picture"]):
 			pool.product = Product(name = pool_schema.get("product_name"), 
@@ -101,7 +102,7 @@ class PoolService(object):
 		locals = {"product_name":pool.get_product_display_label(words = 20, include_price = False), "recipient_name":receiver.name, "event_name":pool_schema['occasion_name']}
 		pool.title = pool_schema.get("title") or _("FF_GG_POOL_TITLE_I have found the perfect %(event_name)s gift for %(recipient_name)s") % locals
 		pool.description = pool_schema.get("description") or _("FF_GG_POOL_TITLE_%(product_name)s")%locals
-		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=(datetime.now() + timedelta(10)), name = pool_schema['occasion_name'])
+		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=(datetime.now() + timedelta(self.pool_run_time)), name = pool_schema['occasion_name'])
 		
 		receiver.is_receiver = True
 		pool.participants.append(receiver)

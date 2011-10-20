@@ -32,7 +32,8 @@ log = logging.getLogger(__name__)
 
 class PoolController(BaseController):
 	chat_page_size = 10
-	
+	def _get_run_time(self):
+		return g.pool_service.pool_run_time
 	@pool_available()
 	def index(self, pool_url = None):
 		if c.pool.is_closed_or_funded() and not "view" in request.params:
@@ -127,6 +128,7 @@ class PoolController(BaseController):
 		
 		if c.errors:
 			c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
+		c.pool_run_time = self._get_run_time()
 		return self.render('/pool/create.html')
 	
 	@logged_in()
@@ -165,6 +167,7 @@ class PoolController(BaseController):
 				except:
 					pass
 				c.messages.append(ErrorMessage(_("FF_POOL_DETAILS_PAGE_ERRORBAND_Please correct the Errors below")))
+				c.pool_run_time = self._get_run_time()
 				return self.render('/pool/create.html')
 		
 		if not c.pool:
