@@ -178,7 +178,7 @@ class ProductService(object):
 					"og:shipping_handling":(["shipping_cost"], lambda x:int(x), False, False),
 					"og:image":(["picture"], lambda x:x, False, True),
 					"og:currency":(["currency"], lambda x:x, False, True)}
-		fallBacks = {"og:name":"og:title", "description":"og:description"}
+		fallBacks = {"og:name":"og:title", "description":"og:description", "og:article_id":"og:product_id"}
 		product_map = {}
 		for k in params:
 			key_parts = k.rsplit("-", 1)
