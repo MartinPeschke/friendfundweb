@@ -9,6 +9,7 @@ from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, workflow_available
 from friendfund.lib.base import BaseController, render, _, render_def
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.pool import PoolCreateForm
 from friendfund.model.pool import OccasionSearch, PoolUser, FeaturedPool
 from friendfund.model.product import DisplayProduct
@@ -110,6 +111,35 @@ class PartnerController(BaseController):
 	
 	@workflow_available(presence_required = True)
 	def get_started(self):
+		c.furl = url(controller="partner", action="details", ck = c._workflow._key)
+		if not c.user.is_anon:
+			return redirect(c.furl)
+		c.product = c._workflow['product']
+		c.method = c.user.get_current_network() or 'facebook'
+		c.signup_values = {}
+		c.signup_errors = {}
+		if request.method != 'POST':
+			return self.render('/partner/signup.html')
+		signup = formencode.variabledecode.variable_decode(request.params).get('signup', None)
+		try:
+			c.user = app_globals.user_service.signup_email_user(signup)
+			return redirect(c.furl)
+		except formencode.validators.Invalid, error:
+			c.signup_values = error.value
+			c.signup_errors = error.error_dict or {}
+			return self.render('/partner/signup.html')
+		except SProcWarningMessage, e:
+			c.signup_values = signup
+			c.signup_errors = {'email':_("USER_SIGNUP_EMAIL_ALREADY_EXISTS")}
+			c.messages.append(_(u"USER_SIGNUP_If this is you, please try logging in with your email address and password or %(link_open)srequest a password change!%(link_close)s") \
+							% {'link_open':"<a onclick=\"window.__auth__.forgotPassword('%s')\">" %url(controller='myprofile', action='rppopup'), 'link_close':'</a>'})
+			return self.render('/partner/signup.html')
+		
+	@workflow_available(presence_required = True)
+	def details(self):
+		if c.user.is_anon:
+			return redirect(url(controller="partner", action="get_started", ck = c._workflow._key))
+
 		c.product = c._workflow['product']
 		c.method = c.user.get_current_network() or 'facebook'
 		

@@ -1,7 +1,10 @@
 ${self.renderLogin()}
 
 <%def name="renderLogin()">
+	<div class="login-prompt">
+	<span class="title">${_("FF_Log in with Facebook to select your receiver:")}</span>
 	<a title="${_("FF_Log in with Facebook")}" class="facebookBtn" _level="${c.clearance_level}">
-		<span>${_("FF_Log in with Facebook")}</span>
+		<span>${_("FF_Facebook Button")}</span>
 	</a>
+	</div>
 </%def>
