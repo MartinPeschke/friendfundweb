@@ -13947,6 +13947,11 @@ dojo.mixin(ff,{t:{
 		els.top = Math.max(computedHeight, 0) + "px";
 	}
 	,goto_url : function(link){return function(){window.location.href=dojo.attr(link, "_href");};}
+	,goto_url_or_reload : function(link){return function(){
+		var url = dojo.attr(link, "_href");
+		if(url)window.location.href=url;
+		else window.location.reload(true);
+	}}
 	,reload : function(link){window.location.reload(true);}
 	,findParent : function(rootnode, className){
 		if(dojo.hasClass(rootnode, className)){return rootnode;}
@@ -14578,8 +14583,12 @@ dojo.declare("ff._auth", null, {
 				var __t = this;
 				dojo.query("form.loginAction", popupNode).forEach(function(form){form.onsubmit = loginFormArbiter;});
 				dojo.query("a.loginAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", loginLinkArbiter));});
-				dojo.query("a.loginFBAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doFBLogin", _t._workflow)));});
-				dojo.query("a.loginTWAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doTWLogin", _t._workflow)));});
+				if(dojo.byId("ToC-agreeal-popup")){
+					_t.connectToCToggle("ToC-agreeal-popup", "ToC-checkbox-popup");
+				} else {
+					dojo.query("a.loginFBAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doFBLogin", _t._workflow)));});
+					dojo.query("a.loginTWAction", popupNode).forEach(function(form){__t._handler.push(dojo.connect(form, "onclick", dojo.hitch(_t, "doTWLogin", _t._workflow)));});
+				}
 			};
 			login_popup.afterClose = function(popupNode){
 				_t._workflow.fail&&_t._workflow.fail();
@@ -14632,6 +14641,10 @@ dojo.declare("ff.auth", [ff._auth], {
 		dojo.publish("/ff/login/panel/close");
 		ff.io.xhrPost(url, {}, dojo.hitch(this, "_logincb"));
 	}
+	,signupPopup : function(url,level){
+		dojo.publish("/ff/login/panel/close");
+		ff.io.xhrPost(url, {level:level}, dojo.hitch(this, "_logincb"));
+	}
 	,logout : function(logoutFB){
 		if(this.isLoggedIn()){
 			FB.getLoginStatus(function(response){
@@ -14680,8 +14693,43 @@ dojo.declare("ff.auth", [ff._auth], {
 			setTimeout(function(){_t._twitter_login_in_process=false;},_t.timeoutValue);
 			var host = window.location.protocol + '//' + window.location.host;
 			_t._twitterAction_ = _t._workflow.success;
-			window.open(host+"/twitter/login", '_blank', 'left=100,top=100,height=400,width=850,location=no,resizable=yes,scrollbars=yes');
+			window.open(host+"/twitter/login", '_blank', 'left=100,top=100,height=480,width=850,location=no,resizable=yes,scrollbars=yes');
 		}
+	}
+	
+	,connectToCToggle : function(parentid, checkboxid){
+		var showError = function(){dojo.query(".error",parentid).removeClass("hidden");},
+				hideError = function(){dojo.query(".error",parentid).addClass("hidden");},
+				handlers = [];
+		dojo.query("input",parentid).connect("change", function(e){
+			if(e.target.checked)
+				hideError();
+		});
+		dojo.query(".facebookBtn", parentid).forEach(function(elem){
+				handlers.push(
+					dojo.connect(elem, "click", function(e){
+						if(!dojo.byId(checkboxid).checked)
+							showError();
+						else {
+							hideError();
+							return window.__auth__.doFBLogin({success:ff.t.goto_url_or_reload(this)});
+						}
+				})
+			);
+		});
+		dojo.query(".twitterBtn", parentid).forEach(function(elem){
+			handlers.push(
+				dojo.connect(elem, "click", function(e){
+					if(!dojo.byId(checkboxid).checked)
+						showError();
+					else {
+						hideError();
+						dojo.forEach(handlers, dojo.disconnect);
+						return window.__auth__.doTWLogin({success:ff.t.goto_url_or_reload(this)});
+					}
+				})
+			);
+		});
 	}
 });
 

@@ -18,6 +18,11 @@ dojo.mixin(ff,{t:{
 		els.top = Math.max(computedHeight, 0) + "px";
 	}
 	,goto_url : function(link){return function(){window.location.href=dojo.attr(link, "_href");};}
+	,goto_url_or_reload : function(link){return function(){
+		var url = dojo.attr(link, "_href");
+		if(url)window.location.href=url;
+		else window.location.reload(true);
+	}}
 	,reload : function(link){window.location.reload(true);}
 	,findParent : function(rootnode, className){
 		if(dojo.hasClass(rootnode, className)){return rootnode;}

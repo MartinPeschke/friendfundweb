@@ -2,3 +2,14 @@
 <%def name="js(file, path = '/static/js/', ext=None)"><script type="text/javascript" src="${path|h}${file|h}?${ext or app_globals.revision_identifier()}"></script></%def>
 
 <%def name="ajax_loading_src()">/static/imgs/ajax-loader.gif</%def>
+
+
+<%def name="testing_js()">
+	${self.js("build/dojo.js")}
+	${self.js("ff/t.js")}
+	${self.js("ff/io.js")}
+	${self.js("ff/w.js")}
+	${self.js("ff/parser.js")}
+	${self.js("ff/Popup.js")}
+	${self.js("ff/auth.js")}
+</%def>

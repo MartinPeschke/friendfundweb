@@ -32,7 +32,15 @@
 			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 		</a>
 		</div>
-		<p>${_("FF_LOGIN_Dont have an account yet?")} <a class="lostpass" href="/signup?furl=/">${_("FF_LOGIN_Sign up here")}</a></p>
+		<p>${_("FF_LOGIN_Dont have an account yet?")} 
+			%if request.merchant.is_default:
+				<a class="lostpass" href="/signup?furl=/">${_("FF_LOGIN_Sign up here")}</a>
+			%else:
+				<a class="lostpass" onclick="window.__auth__.signupPopup('${url(controller="myprofile", action="signuppopup")}', 3)">${_("FF_LOGIN_Sign up here")}</a>
+			%endif
+		</p>
+
+		
 </%def>
 
 <div class="loginArea ${c.user.is_anon and "anonymous" or "authenticated"}" id="accountContainerContent">
@@ -40,7 +48,12 @@
 		<div class="btn loginToggleLink" id="loginlink">${_("FF_LOGIN_Login")}
 			<div class="newFormControls loginPanel ${not getattr(c, "expanded", False) and "hidden" or ""}" id="loginPanelContent">${renderPanel()|n}</div>
 		</div>
-		<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
+		
+		%if request.merchant.is_default:
+			<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
+		%else:
+			<a class="btn" onclick="window.__auth__.signupPopup('${url(controller="myprofile", action="signuppopup")}', 3)">${_("FF_LOGIN_Sign Up")}</a>
+		%endif
 	%else:
 		<img src="${c.user.get_profile_pic(secured = request.is_secured)}" ${c.user.get_failover(secured = request.is_secured)|n} width="25px" height="25px" />
 		<div class="showHide">

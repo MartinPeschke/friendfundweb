@@ -5,6 +5,7 @@
 <%namespace name="parser" file="../product/urlparser.html"/>
 <%namespace name="common" file="common.html"/>
 
+<%def name="styles()">${links.css('iframe.css')}</%def>
 <%def name="authperms()">{rld : true, _workflow : {success : function(){window.location.href = "${c.furl}";}}}</%def>
 <%def name="onloadscripts()">
 	sbmt = function(){
@@ -13,41 +14,16 @@
 			,success:function(){window.location.href = "${c.furl}";}});
 		return false;
 	};
-	
-	(function(){
-		var showError = function(){dojo.query(".error","ToC-agreeal").removeClass("hidden");},
-				hideError = function(){dojo.query(".error","ToC-agreeal").addClass("hidden");};
-		dojo.query("input","ToC-agreeal").connect("change", function(e){
-			if(e.target.checked)
-				hideError();
-		});
-		dojo.connect(dojo.byId("fbSignupButton"), "click", function(e){
-			if(!dojo.byId("ToC-checkbox").checked)
-				showError();
-			else {
-				hideError();
-				return window.__auth__.doFBLogin({success:ff.t.goto_url(this)});
-			}
-		});
-		dojo.connect(dojo.byId("twSignupButton"), "click", function(e){
-			if(!dojo.byId("ToC-checkbox").checked)
-				showError();
-			else {
-				hideError();
-				return window.__auth__.doTWLogin({success:ff.t.goto_url(this)});
-			}
-		});
-	})();
+	window.__auth__.connectToCToggle("ToC-agreeal", "ToC-checkbox" );
 </%def>
 
 <div class="wrapSubHeader">${self.renderMessages()|n}
 	<div class="subHeader">
-		<div class="userProfile">
+		<div class="userProfile empty">
 			${common.renderProductBox(c.product)}
 			<div class="nonPoolHeader" style="width: 700px;">
 				<h2>${_("GG_POOLDETAILS_HEADER_Create a Group Gift Pool")}</h2>
 			</div>
-			${widgets.renderSteps(_("GG_POOLDETAILS_HEADER_Find a Gift"), _("GG_POOLDETAILS_HEADER_Choose your Recipient"), _("GG_POOLDETAILS_HEADER_Invite Your Friends"), 1)|n}
 		<div class="clear"></div>
 		</div>
 	</div>
@@ -58,10 +34,10 @@
 	<input type="hidden" name="furl" value="${c.furl}"/>
 	<div class="colLeftLogin colPartnerSignup floatLeft">
 		<div class="loginPanelBig">
-			<h3>${_("FF_LOGIN_You're just seconds away from your new account!")}</h3>
+			<h3>${_("PARTNER_LOGIN_You're just seconds away from your new account!")}</h3>
 			<h4>${_("FF_LOGIN_Sign in with Facebook or Twitter")}</h4>
 			<div class="subHeading lastOne"></div>
-			<div class="loginSocialWrap">
+			<div class="loginSocialWrap" id="ToC-agreeal">
 				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" id="fbSignupButton" _href="${getattr(c, 'furl', '/')}">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
@@ -69,9 +45,9 @@
 				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" id="twSignupButton" _href="${getattr(c, 'furl', '/')}">
 					<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 				</a>
-				<div id="ToC-agreeal">
-				<input type="checkbox" id="ToC-checkbox" value="true"/><label for="ToC-checkbox">${_("PARTNER_LOGINBUTTON_Agree with our terms and conditions.")}</label>
-				<span class="error hidden">${_("PARTNER_LOGINBUTTON_You really need to agree first!")}</span>
+				<div class="ToC-agreeal">
+				<input type="checkbox" id="ToC-checkbox" value="true"/><label for="ToC-checkbox">${_("PARTNER_LOGINBUTTON_Agree with our <a href=\"%s\">Terms and Conditions</a>.")%url(controller="content", lang=session["lang"], action="tos")|n}</label>
+				<span class="error hidden">${_("PARTNER_LOGINBUTTON_You need to agree with our Terms and Conditions to sign up!")}</span>
 				</div>
 			</div>
 			<h4>${_("FF_LOGIN_Sign up with a password instead")}</h4>

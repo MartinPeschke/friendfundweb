@@ -2,6 +2,10 @@
 
 <%def name="title()">${_("FF_TITLE_Sign Up")}</%def>
 <%def name="authperms()">{rld : true, _workflow : {success : function(){window.location.href = "${getattr(c, 'furl', '/')}";}}}</%def>
+<%def name="onloadscripts()">
+	window.__auth__.connectToCToggle("ToC-agreeal", "ToC-checkbox" );
+</%def>
+
 
 <div class="wrapSubContent">${self.renderMessages()|n}
 <div class="content">
@@ -12,14 +16,18 @@
 			<h3>${_("FF_LOGIN_You're just seconds away from your new account!")}</h3>
 			<h4>${_("FF_LOGIN_Sign in with Facebook or Twitter")}</h4>
 			<div class="subHeading lastOne"></div>
-			<div class="loginSocialWrap">
-				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" _href="${getattr(c, 'furl', '/')}" onclick="window.__auth__.doFBLogin({success:ff.t.goto_url(this)})">
+			<div class="loginSocialWrap" id="ToC-agreeal">
+				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" _href="${getattr(c, 'furl', '/')}">
 					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
 				</a>
 
-				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" _href="${getattr(c, 'furl', '/')}" onclick="window.__auth__.doTWLogin({success:ff.t.goto_url(this)})">
+				<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" _href="${getattr(c, 'furl', '/')}">
 					<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 				</a>
+				<div class="ToC-agreeal">
+					<input type="checkbox" id="ToC-checkbox" value="true"/><label for="ToC-checkbox">${_("PARTNER_LOGINBUTTON_Agree with our <a href=\"%s\">Terms and Conditions</a>.")%url(controller="content", lang=session["lang"], action="tos")|n}</label>
+					<span class="error hidden">${_("PARTNER_LOGINBUTTON_You need to agree with our Terms and Conditions to sign up!")}</span>
+				</div>
 				
 			</div>
 			<h4>${_("FF_LOGIN_Sign up with a password instead")}</h4>

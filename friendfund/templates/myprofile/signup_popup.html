@@ -4,7 +4,7 @@
 	<span class="panelcloser panelclosing_x">x</span>
 		<div>
 			<h3 class="borderSmall">${_("FF_LOGINPOPUP_Sign up to invite your friends.")}</h3>
-			<div class="loginSocialWrap">
+			<div class="loginSocialWrap" id="ToC-agreeal-popup">
 				<a class="loginFBAction facebookBtn" title="${_("FF_SIGNUPPOPUP_Sign up with Facebook")}">
 					<span>${_("FF_SIGNUPPOPUP_Sign up with Facebook")}</span>
 				</a>
@@ -12,6 +12,10 @@
 				<a class="loginTWAction twitterBtn" title="${_("FF_SIGNUPPOPUP_Sign up with Twitter")}">
 					<span>${_("FF_SIGNUPPOPUP_Sign up with Twitter")}</span>
 				</a>
+				<div class="ToC-agreeal">
+				<input type="checkbox" id="ToC-checkbox-popup" value="true"/><label for="ToC-checkbox-popup">${_("PARTNER_LOGINBUTTON_Agree with our <a href=\"%s\">Terms and Conditions</a>.")%url(controller="content", lang=session["lang"], action="tos")|n}</label>
+				<span class="error hidden">${_("PARTNER_LOGINBUTTON_You need to agree with our Terms and Conditions to sign up!")}</span>
+				</div>
 				<div class="clear"></div>
 			</div>
             <div class="popupPadder">
@@ -41,6 +45,10 @@
 					%endif
 					<p class="info">${_("FF_LOGIN_Min 6 characters. Letters and numbers only please.")}</p>
 					
+			 <div class="colRightWhite"></div>
+				<p class="twonine">
+					${(_("FF_LOGIN_By clicking \"Sign Up\", you confirm that you accept the <a target=\"_blank\" href=\"%s\">FF_LOGIN_Terms and Conditions.</a>")%url(controller="content", lang=session["lang"], action="tos"))|n}
+				</p>
 				</div>
 				<div class="clear"></div>
 			</div>
