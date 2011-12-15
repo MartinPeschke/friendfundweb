@@ -54,7 +54,6 @@ class FbController(BaseController):
 		c.user.set_network('facebook',
 			network_id = user_data.get('id'),
 			access_token = user_data['access_token'],
-			access_token_secret = user_data.get('secret')
 		)
 		return {"login":{"success":False}}
 	

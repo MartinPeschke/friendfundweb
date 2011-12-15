@@ -96,4 +96,21 @@ dojo.mixin(ff,{t:{
 			timeout = setTimeout(delayed, threshold || 100); 
 		};
 	}
+	,deferreds: function (doneFunc, context) {
+		var deferreds = [], _t = this;
+		this.doneFunc = doneFunc;
+		this.add = function (f) {
+			deferreds.push(f);
+			_t.run(arguments);
+		};
+		this.run = function () {
+			if (_t.doneFunc.apply(context)) {
+				var i = 0; len = deferreds.length;
+				for (; i < len; i++) {
+					var f = deferreds.pop();
+					f.apply(_t, arguments);
+				}
+			}
+		};
+	}
 }});

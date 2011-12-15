@@ -42,7 +42,7 @@ ${self.render_html()}
 	${self.scripts()}
 	<script type="text/javascript">
 		dojo.addOnLoad( function() {
-			window.__auth__ = new ff.auth({fbappId:"${app_globals.FbApiKey}"
+			window.__auth__ = new ff.auth({fbappId:"${app_globals.FbAppID}"
 											,fbRootNode:"fb-root"
 											,requireFBPerms:false
 											,fbId:${c.user.get_perm_network_id("facebook") or "null"}

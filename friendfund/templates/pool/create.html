@@ -64,7 +64,7 @@
 <div class="content">
   <div class="colRight"></div>
 	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}" onsubmit="return window.__auth__.checkLogin({level:9,success:sbmt});">
+		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_create")}">
 		<input type="hidden" name="v" value="${c.workflow}"/>
 		<div class="poolDets" id="poolDetails">
 			<h4>${_("FF_POOLDETAILS_HEADER_Pool Details")}</h4>
@@ -263,7 +263,7 @@
 			<div class="shadCorn"></div>
 		</div>
 			<div class="spacerButtons floatRight">
-				<input id="submitter" class="floatRight forward" type="submit" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
+				<input id="submitter" class="floatRight forward" type="button" onclick="window.__auth__.checkLogin({level:9,success:sbmt})" value="${_("FF_POOLDETAILS_Invite Friends")}" /> 
 			</div>
 		
 		</form>

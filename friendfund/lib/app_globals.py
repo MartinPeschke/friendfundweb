@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 _ = lambda x:x
 
 pyodbc.pooling = False
-SVNREVISION="FF_2.3.1_rc5_Partner proper Signup Popups"
+SVNREVISION="FF_2.3.1_rc6_trial fixing of facebook login"
 REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 

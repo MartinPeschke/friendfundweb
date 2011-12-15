@@ -106,7 +106,7 @@ class NetworkUserPermissions(DBMappedObject):
 		
 		
 class SocialNetworkInformation(object):
-	def __init__(self, network, network_id, access_token, access_token_secret, screen_name = None):
+	def __init__(self, network, network_id, access_token, access_token_secret = None, screen_name = None):
 		self.network = network
 		self.network_id = network_id
 		self.screen_name = screen_name
@@ -217,8 +217,7 @@ class User(ProtoUser):
 			except (fb_helper.FBNoCookiesFoundException, fb_helper.FBNotLoggedInException), e:
 				raise UserNotLoggedInWithMethod("User is not signed into %s" % network)
 			else:
-				self.networks['facebook'].access_token = fb_data['access_token']
-				self.networks['facebook'].access_token_secret = fb_data['session_key']
+				self.networks['facebook'].access_token = fb_data.get('access_token') or self.networks['facebook'].access_token
 				friends, is_complete, offset  = fb_helper.get_friends_from_cache(
 								log, 
 								app_globals.cache_pool, 

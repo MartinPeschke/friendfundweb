@@ -1,7 +1,5 @@
 from __future__ import with_statement
 import cgi, hashlib, time, urllib2, re, simplejson, time, logging, hmac, urllib, base64, os
-from StringIO import StringIO
-from hashlib import sha256
 from datetime import datetime, timedelta
 from ordereddict import OrderedDict
 from friendfund.lib import helpers as h
@@ -27,6 +25,12 @@ class FBIncorrectlySignedRequest(Exception):
 class FBLoggedInWithIncorrectUser(Exception):
 	pass
 
+def base64_url_decode(inp):
+		padding_factor = (4 - len(inp) % 4) % 4
+		inp += "="*padding_factor 
+		return base64.b64decode(unicode(inp).translate(dict(zip(map(ord, u'-_'), u'+/'))))
+
+	
 def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 	"""Parses the cookie set by the official Facebook JavaScript SDK.
 	cookies should be a dictionary-like object mapping cookie names to
@@ -39,22 +43,23 @@ def get_user_from_cookie(cookies, app_id, app_secret, user = None):
 	http://github.com/facebook/connect-js/. Read more about Facebook
 	authentication at http://developers.facebook.com/docs/authentication/.
 	"""
-	cookie = cookies.get("fbs_" + app_id, "")
+	cookie = cookies.get("fbsr_" + app_id, "")
 	if not cookie: raise FBNoCookiesFoundException("No Facebook Cookies Found")
-	args = dict((str(k), v[-1]) for k, v in cgi.parse_qs(cookie.strip('"')).items())
-	payload = "".join("%s=%s"%(k, args[k]) for k in sorted(args.keys())
-					  if k != "sig")
-	sig = hashlib.md5(payload + app_secret).hexdigest()
-	expires = int(args["expires"])
-	if sig == args.get("sig") and (expires == 0 or time.time() < expires):
-		args['id'] = args.get("uid", args.get("id"))
+	raw_sig, raw_payload = cookie.split(".")
+	sig, payload = map(base64_url_decode, [raw_sig, raw_payload])
+	args = simplejson.loads(payload)
+	if(args['algorithm'] != 'HMAC-SHA256'): raise FBNoCookiesFoundException("Bad Facebook Cookie Signature %s" % payload)
+	caluclated_sig = hmac.new(str(app_secret), msg=raw_payload, digestmod=hashlib.sha256).digest()
+	
+	if caluclated_sig == sig:
+		args['id'] = args["user_id"]
 		if user is not None and not user.is_anon:
 			nets = getattr(user, 'networks', {})
 			if nets.get('facebook') and getattr(nets.get('facebook'), "network_id", None) != str(args['id']):
 				raise FBLoggedInWithIncorrectUser("No Facebook Cookies Found")
 		return args
 	else:
-		raise FBNotLoggedInException("No Facebook Cookies Found")
+		raise FBNotLoggedInException("FACEBOOK Cookie Signatures did not match")
 
 def get_user_from_request(request, app_id, app_secret, user = None, set_cookie = False, response = None):
 	try:
@@ -65,7 +70,7 @@ def get_user_from_request(request, app_id, app_secret, user = None, set_cookie =
 	args = dict((str(k),v) for k,v in args.items())
 	payload = "".join("%s=%s"%(k, args[k]) for k in sorted(args.keys())
 					  if k not in ["sig"])
-	sig = hashlib.md5(payload + app_secret).hexdigest()
+	sig = hashlib.md5(payload + str(app_secret)).hexdigest()
 	expires = int(args["expires"])
 	if sig == args.get("sig") and (expires == 0 or time.time() < expires):
 		if user is not None and not user.is_anon:
@@ -87,7 +92,7 @@ def get_user_from_signed_request(params, app_secret):
 	data = simplejson.loads(base64.urlsafe_b64decode(str(payload)+'=='))
 	if (data.get('algorithm','').upper() != 'HMAC-SHA256'):
 		raise FBIncorrectlySignedRequest("Unkown Hashing Algo from Facebook %s" % payload)
-	hashed = hmac.new(app_secret, digestmod=sha256)
+	hashed = hmac.new(str(app_secret), digestmod=sha256)
 	hashed.update(payload)
 	if not base64.urlsafe_b64encode(hashed.digest())[:-1] == sig:
 		raise FBIncorrectlySignedRequest("Unkown Hashing Algo from Facebook %s" % payload)
@@ -105,7 +110,6 @@ def extract_user_data(request, app_globals, tmpl_context, response):
 	user_data['network'] = 'facebook'
 	user_data['network_id'] = user_data.pop('id')
 	user_data['profile_picture_url'] = get_large_pic_url(user_data['network_id'])
-	user_data['access_token_secret'] = user_data.pop('secret')
 	return user_data
 
 		
