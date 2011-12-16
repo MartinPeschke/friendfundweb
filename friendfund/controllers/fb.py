@@ -27,14 +27,13 @@ class FbController(BaseController):
 		#Save and Persist, render profile
 		success, msg = app_globals.user_service.login_or_consolidate(user_data, remote_persist_user)
 		scope = request.params.get("scope")
-		if not scope:
-			raise Exception("FB_LOGIN_SCOPE_NOT_FOUND:%s", request.params)
-		perms = c.user.get_perm_network(network='facebook', network_id=user_data['network_id'])
-		if perms.add_perms_from_scope(scope, user_data['email']):
-			try:
-				app_globals.dbm.set(perms)
-			except (db_access.SProcWarningMessage,db_access.SProcException), e:
-				pass
+		if scope:
+			perms = c.user.get_perm_network(network='facebook', network_id=user_data['network_id'])
+			if perms.add_perms_from_scope(scope, user_data['email']):
+				try:
+					app_globals.dbm.set(perms)
+				except (db_access.SProcWarningMessage,db_access.SProcException), e:
+					pass
 		if success:
 			return {"login":{"success": True, "has_activity":c.user.has_activity,'panel':render('/myprofile/login_panel.html').strip()}}
 		else:
