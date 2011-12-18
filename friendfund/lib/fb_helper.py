@@ -92,7 +92,7 @@ def get_user_from_signed_request(params, app_secret):
 	data = simplejson.loads(base64.urlsafe_b64decode(str(payload)+'=='))
 	if (data.get('algorithm','').upper() != 'HMAC-SHA256'):
 		raise FBIncorrectlySignedRequest("Unkown Hashing Algo from Facebook %s" % payload)
-	hashed = hmac.new(str(app_secret), digestmod=sha256)
+	hashed = hmac.new(str(app_secret), digestmod=hashlib.sha256)
 	hashed.update(payload)
 	if not base64.urlsafe_b64encode(hashed.digest())[:-1] == sig:
 		raise FBIncorrectlySignedRequest("Unkown Hashing Algo from Facebook %s" % payload)
