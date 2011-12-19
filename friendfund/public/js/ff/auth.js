@@ -28,7 +28,6 @@ dojo.declare("ff._auth", null, {
 		window.fbAsyncInit = function() {
 			var channelUrl = document.location.protocol + '//' + document.location.host+"/channel.htm";
 			FB.init({appId:app_id, logging:true, status:true, cookie:true, xfbml:true, authResponse:true, channelUrl:channelUrl});
-			FB.Event.subscribe("auth.authResponseChange", dojo.hitch(_t, "_onSessionChange"));
 			_t.fbDoneLoading = true;
 			_t.runFBDeferred();
 			if(FB.getAuthResponse()){_t.runLoginDeferred();}
