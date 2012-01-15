@@ -69,6 +69,18 @@ class PoolEditController(BaseController):
 	@jsonify
 	@logged_in(ajax=False)
 	@pool_available(contributable_only = True)
+	def cancelpayment_popup(self, pool_url):
+		if c.pool.am_i_possibly_contributor(c.user):
+			return {"popup":render("/pool/parts/cancelpayment_popup.html").strip()}
+		return {"success":False}
+	@logged_in(ajax=False)
+	@pool_available(contributable_only = True)
+	def cancelpayment(self, pool_url):
+		return redirect(url("get_pool", pool_url=pool_url))
+		
+	@jsonify
+	@logged_in(ajax=False)
+	@pool_available(contributable_only = True)
 	def leave_popup(self, pool_url):
 		if c.pool.can_i_leave(c.user):
 			lp = app_globals.dbm.call(CanLeavePoolProc(p_url=pool_url, u_id = c.user.u_id), CanLeavePoolProc)

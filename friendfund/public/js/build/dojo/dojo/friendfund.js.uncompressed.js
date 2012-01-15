@@ -61,6 +61,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	,select : function(evt){
 		var tab = dojo.byId("email_email");
 		if(tab && tab.value.length > 0){
+			ff.t.onSubmitCleaner(this.rootNode);
 			ff.io.xhrFormPost(this.base_url+"/validate", "emailinviter", dojo.hitch(this, "_onSelect"));
 		}
 	}
@@ -573,16 +574,21 @@ dojo.declare("friendfund.CompoundFriendSelector", null, {
 		this._listener_locals = [];
 		dojo.forEach(this._widget_locals, function(item){item.destroy();});
 		this._widget_locals = [];
-	},switchMethod : function(evt){
-		var _t = this;
-		if(dojo.hasClass(evt.target, "selected")){return;}
+	}
+	,switchMethod : function(evt){
+		var _t = this
+			, target = evt.target
+			, method = dojo.attr(target, "_type")
+			, selector = _t.selectors[method]
+			, method_persistor = dojo.byId("networkinvitermethod");
+		if(dojo.hasClass(target, "selected")){return;}
 		dojo.query(".ajaxlink.selected", _t.container).forEach(function(elem){
 			dojo.removeClass(elem, "selected");
 			var selector = _t.selectors[dojo.attr(elem, "_type")];
 			if(selector){selector.undraw();}
 		});
-		dojo.addClass(evt.target, "selected");
-		var selector = _t.selectors[dojo.attr(evt.target, "_type")];
+		dojo.addClass(target, "selected");
+		if(method_persistor)method_persistor.value = method;
 		if(selector){selector.draw();}
 	},
 	draw : function(selector){

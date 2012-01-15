@@ -90,9 +90,9 @@ class PartnerController(BaseController):
 	@logged_in(ajax=False)
 	@post_only(ajax=False)
 	def validate(self):
-		c.method = c.user.get_current_network() or 'facebook'
 		product = request.params.get("productMap")
 		c.product = DisplayProduct.from_minimal_repr(product)
+		c.method = request.params.get("method") or c.user.get_current_network() or 'facebook'
 		try:
 			c.pool = app_globals.pool_service.create_group_gift_from_iframe(c.product)
 			return redirect(url("invite_index", pool_url = c.pool.p_url))
@@ -148,6 +148,7 @@ class PartnerController(BaseController):
 					, "date":h.format_date(datetime.datetime.now()+datetime.timedelta(10), format="long")
 					, "title":c.product.get_iframe_display_label(words = 8)
 					, "description":c.product.description
+					, "occasion_run_time" : "30"
 					}
 		c.errors = {}
 		return self.render('/partner/create.html')

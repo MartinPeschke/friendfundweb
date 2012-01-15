@@ -92,7 +92,6 @@ class PoolService(object):
 	def create_group_gift_from_iframe(self, product):
 		tmpl_context._ = friendfund_formencode_gettext
 		tmpl_context.request = request
-		print request.params
 		pool_map = formencode.variabledecode.variable_decode(request.params)
 		pool_schema = PoolPartnerIFrameForm().to_python(pool_map, state = tmpl_context)
 		pool = Pool(settlementOption = request.merchant.settlement_options[0].name)
@@ -102,7 +101,7 @@ class PoolService(object):
 		locals = {"product_name":pool.get_product_display_label(words = 20, include_price = False), "recipient_name":receiver.name, "event_name":pool_schema['occasion_name']}
 		pool.title = pool_schema.get("title") or _("FF_GG_POOL_TITLE_I have found the perfect %(event_name)s gift for %(recipient_name)s") % locals
 		pool.description = pool_schema.get("description") or _("FF_GG_POOL_TITLE_%(product_name)s")%locals
-		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=(datetime.now() + timedelta(self.pool_run_time)), name = pool_schema['occasion_name'])
+		pool.occasion = Occasion(key=pool_schema['occasion_key'], date=(datetime.now() + timedelta(int(pool_schema['occasion_run_time']))), name = pool_schema['occasion_name'])
 		
 		receiver.is_receiver = True
 		pool.participants.append(receiver)
@@ -110,7 +109,6 @@ class PoolService(object):
 		return self._post_process(pool)
 	
 	def create_group_gift(self):
-		print request.params
 		pool = websession.get('pool')
 		if pool is None:
 			raise MissingPoolException()

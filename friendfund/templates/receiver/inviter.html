@@ -25,7 +25,7 @@
 	<form method="POST" id="emailinviter">
 		<span class="${"name" in c.email_errors and "error" or ""}">
 			<div class="first ${"name" in c.email_errors and "error" or ""}">
-				<span><label for="email_networkname">${_("GG_RECEIVER_Recipients Name")}</label></span>
+				<span><label for="email_networkname">${_("GG_RECEIVER_Recipients Name")} (*)</label></span>
 			</div>
 			<input value="${c.email_values.get("name") or _("FF_INVITER_EMAIL_Friend's Name")}" _default_text="${_("FF_INVITER_EMAIL_Friend's Name")}" id="email_networkname" name="invitee.name" type="text" class="txtMail default" />
 		</span>
@@ -38,6 +38,7 @@
 		</span>
 		<div class="btnContainer">
 			<input type="button" id="emailsubmitter" value="${submit_name}" class="primaryButton" />
+			<span class="floatRight" style="font-size:0.8em;padding:1em 7.5em 1em 1em;color:#aaa">${_("FF_INVITER_EMAIL_(*) required field")}</span>
 		</div>
 		<input type="hidden" name="invitee.network" value="email"/>
 		<input type="hidden" name="invitee.notification_method" value="email"/>

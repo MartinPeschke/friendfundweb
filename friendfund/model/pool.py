@@ -147,6 +147,7 @@ class PoolUser(DBMappedObject):
 	_set_root = _get_root = 'POOLUSER'
 	_unique_keys = ['network', 'name', 'network_id']
 	_required_attribs = ['network', 'name', 'network_id']
+	_email_required_attribs = ['network', 'name', 'email']
 	_keys = [ GenericAttrib(int,		'u_id'                       , 'u_id'               , persistable = False)
 			, GenericAttrib(unicode, 	'name'                       , 'name'               )
 			, GenericAttrib(unicode, 	'message'                    , 'message'            )
@@ -200,12 +201,13 @@ class PoolUser(DBMappedObject):
 	
 	@classmethod
 	def from_map(cls, params):
-		if not tools.dict_contains(params, cls._required_attribs):
+		if params['network'] == 'email':
+				params['email'] = params.pop('network_id') or "NO_EMAIL_INPUT"
+				if not tools.dict_contains(params, cls._email_required_attribs):
+					raise InsufficientParamsException("Missing one of %s" % cls._email_required_attribs)
+		elif not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
-		else:
-			if params['network'] == 'email':
-				params['email'] = params.pop('network_id')
-			return cls(**dict((str(k),v) for k,v in params.iteritems()))
+		return cls(**dict((str(k),v) for k,v in params.iteritems()))
 
 class PoolInvitee(PoolUser):
 	_keys = PoolUser._keys + [GenericAttrib(str,'notification_method', 'notification_method')]

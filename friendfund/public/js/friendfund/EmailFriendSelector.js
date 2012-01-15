@@ -53,6 +53,7 @@ dojo.declare("friendfund.EmailFriendSelector", friendfund._Selector, {
 	,select : function(evt){
 		var tab = dojo.byId("email_email");
 		if(tab && tab.value.length > 0){
+			ff.t.onSubmitCleaner(this.rootNode);
 			ff.io.xhrFormPost(this.base_url+"/validate", "emailinviter", dojo.hitch(this, "_onSelect"));
 		}
 	}

@@ -35,7 +35,7 @@ ${self.render_html()}
 	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
 	<script type="text/javascript">djConfig={baseUrl: "/static/js/build/dojo/dojo/", dojoBlankHtmlUrl : "/static/blank.html",locale : '${lang}'};</script>
 	${links.js('build/dojo.js')}
-	####${links.testing_js()}
+	###${links.testing_js()}
 	<div id="generic_popup">${self.renderBlockingPopup()}</div>
 	<div id="fb-root"></div>
 	<div id="fbdata-root"></div>

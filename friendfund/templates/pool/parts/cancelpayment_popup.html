@@ -1,0 +1,17 @@
+<div class="popupBackground dark"></div>
+<div class="outerPopupFrame">
+	<div class="whitePopupFrameLarge fixed popupContentWindow">
+	<span class="panelcloser panelclosing_x">x</span>
+		<div>
+			<h3 class="borderSmall">${_("FF_CANCELPAYMENT_POPUP_We're sorry to see you go")}</h3>
+			<div class="popupPadder">
+			<p>${_("FF_CANCELPAYMENT_POPUP_Are you sure you want to cancel all your payments to this Pool?")}</p>
+			<div style="margin-top: 30px; margin-bottom:20px">
+				<a style="margin-right: 20px;" class="primaryButton floatLeft" href="${url("pool_edit", pool_url = c.pool.p_url, action="cancelpayment")}">${_("FF_BUTTON_Cancel all payments now")}</a>
+				<a class="secondary floatLeft panelcloser">${_("FF_BUTTON_Cancel")}</a>
+				<div class="clear"></div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

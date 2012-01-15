@@ -77,6 +77,7 @@
 					</div>
 
 					<div id="receiverSelectorContainer" class="wrapTypeAheadTabs floatLeft">
+						<input type="hidden" name="method" value="${c.method}" id="networkinvitermethod"/>
 						<div class="subTypeAheadTab greyInsideFullWidth whiteInsideFullWidth" id="inviter"></div>
 						<div class="waTabs"> 
 							<span class="methodselector ajaxlink ${c.method == 'facebook' and 'selected' or ''}" _type="facebook">Facebook</span> 
@@ -110,6 +111,18 @@
 						</div>
 						<input type="text" id="occasionTyper" _target="occasion_name" custom="1" key="EVENT_OTHER" class="floatLeft" style="width: 278px;"/>
 					</div>
+					
+					<div style="width:100%;margin-top:25px;">
+						<div class="first">
+							<span>${_("GG_POOLDETAILS_Pool ends in")}</span>
+						</div>
+						<select id="runTimeSelector" class="floatLeft" style="width: 290px;" name="occasion_run_time">
+							%for i in [5,10,15,20,30]:
+								<option value="${i}" ${forms.expression_quote(c.values.get("occasion_run_time")== str(i), "selected")|n} >${_("FF_GG_RUN_TIME %s days") % i}</option>
+							%endfor
+						</select>
+					</div>
+					
 				</div>
 				
 				<h4>${_("GG_POOLDETAILS_Edit Pool Details")}</h4>
