@@ -272,7 +272,7 @@
 			
 		</div>
 		
-		%if c.pool.am_i_possibly_contributor(c.user):
+		%if c.pool.can_cancel_payment(c.user):
 			<a _href="${url('pool_edit', pool_url=c.pool.p_url, action="cancelpayment_popup")}" class="popuplink removeMe">${_(u"FF_POOL_PAGE_Cancel my payments")}</a>
 		%endif
 		%if c.pool.can_i_leave(c.user):

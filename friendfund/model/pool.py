@@ -1,4 +1,4 @@
-import simplejson, logging, itertools, formencode, md5, random, operator
+import simplejson, logging, itertools, formencode, md5, random, operator, uuid
 from BeautifulSoup import BeautifulSoup
 
 from datetime import datetime, timedelta, date
@@ -147,7 +147,7 @@ class PoolUser(DBMappedObject):
 	_set_root = _get_root = 'POOLUSER'
 	_unique_keys = ['network', 'name', 'network_id']
 	_required_attribs = ['network', 'name', 'network_id']
-	_email_required_attribs = ['network', 'name', 'email']
+	_email_required_attribs = ['network', 'name']
 	_keys = [ GenericAttrib(int,		'u_id'                       , 'u_id'               , persistable = False)
 			, GenericAttrib(unicode, 	'name'                       , 'name'               )
 			, GenericAttrib(unicode, 	'message'                    , 'message'            )
@@ -202,9 +202,11 @@ class PoolUser(DBMappedObject):
 	@classmethod
 	def from_map(cls, params):
 		if params['network'] == 'email':
-				params['email'] = params.pop('network_id') or "NO_EMAIL_INPUT"
+				params['email'] = params.pop('network_id')
 				if not tools.dict_contains(params, cls._email_required_attribs):
 					raise InsufficientParamsException("Missing one of %s" % cls._email_required_attribs)
+				else: 
+					params['email'] = params['email'] or "%s_NO_INPUT@friendfund.com" % uuid.uuid4()
 		elif not tools.dict_contains(params, cls._required_attribs):
 			raise InsufficientParamsException("Missing one of %s" % cls._required_attribs)
 		return cls(**dict((str(k),v) for k,v in params.iteritems()))
@@ -357,6 +359,9 @@ class Pool(DBMappedObject):
 
 	def can_i_leave(self, user):
 		return self.am_i_member(user) and not user.u_id in [self.admin.u_id, self.receiver.u_id] and not self.am_i_possibly_contributor(user)
+		
+	def can_cancel_payment(self, user):
+		return self.am_i_possibly_contributor(user) and self.is_contributable()
 	
 	def get_random_n_invitees(self, n):
 		try:
@@ -509,7 +514,7 @@ class JoinPoolProc(DBMappedObject):
 	_get_root = _set_root = 'POOL_INVITEES'
 	_unique_keys = ['p_url', 'u_id']
 	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
-class CanLeavePoolProc(DBMappedObject):
+class IsContributorProc(DBMappedObject):
 	"""	
 		'EXEC app.get_is_contributor '<POOL p_url = "P3zu.2314" u_id = "142294"/>'
 		<RESULT status="0" proc_name="get_is_contributor"><USER is_contributor="0" /></RESULT>
@@ -528,7 +533,15 @@ class LeavePoolProc(DBMappedObject):
 	_unique_keys = ['p_url', 'u_id']
 	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
 
+class CancelPaymentProc(DBMappedObject):
+	"""	[app].[cancel_contribution] '<POOL p_url="P3H4." u_id ="142400" />'"""
+	_cacheable = False
+	_get_proc = _set_proc   = 'app.cancel_contribution'
+	_get_root = _set_root = 'POOL'
+	_unique_keys = ['p_url', 'u_id']
+	_keys = [ GenericAttrib(str,'p_url','p_url'), GenericAttrib(int,'u_id','u_id')]
 	
+
 	
 	
 	
@@ -561,6 +574,8 @@ class GetECardContributorsProc(DBMappedObject):
 	_keys = [ GenericAttrib(str,'p_url','p_url')
 			, DBMapper(ECardContributors, 'contributors', "POOLUSER", is_list = True)
 			]
+			
+			
 			
 			
 			

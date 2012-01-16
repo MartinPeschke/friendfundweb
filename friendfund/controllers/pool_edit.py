@@ -13,7 +13,7 @@ from friendfund.lib.i18n import FriendFundFormEncodeState, friendfund_formencode
 from friendfund.model import db_access
 from friendfund.model.forms.common import to_displaymap, DecimalValidator
 from friendfund.model.forms.pool import PoolHomePageForm, PoolAddressForm, PoolEditPageForm
-from friendfund.model.pool import Pool, PoolThankYouMessage, UpdatePoolProc, CanLeavePoolProc, LeavePoolProc
+from friendfund.model.pool import Pool, PoolThankYouMessage, UpdatePoolProc, IsContributorProc, LeavePoolProc, CancelPaymentProc
 from friendfund.model.product import Product
 from friendfund.model.poolsettings import PoolAddress
 from friendfund.services.pool_service import MissingPoolException, MissingProductException, MissingOccasionException, MissingReceiverException
@@ -70,12 +70,21 @@ class PoolEditController(BaseController):
 	@logged_in(ajax=False)
 	@pool_available(contributable_only = True)
 	def cancelpayment_popup(self, pool_url):
-		if c.pool.am_i_possibly_contributor(c.user):
-			return {"popup":render("/pool/parts/cancelpayment_popup.html").strip()}
-		return {"success":False}
+		if c.pool.can_cancel_payment(c.user):
+			lp = app_globals.dbm.call(IsContributorProc(p_url=pool_url, u_id = c.user.u_id), IsContributorProc)
+			if lp.is_contributor:
+				return {"popup":render("/pool/parts/cancelpayment_popup.html").strip()}
+		return {"popup":render("/pool/parts/cancelpayment_not_popup.html").strip()}
+		
 	@logged_in(ajax=False)
 	@pool_available(contributable_only = True)
 	def cancelpayment(self, pool_url):
+		try:
+			lp = app_globals.dbm.call(CancelPaymentProc(p_url=pool_url, u_id = c.user.u_id), CancelPaymentProc)
+			app_globals.dbm.expire(Pool(p_url = c.pool.p_url))
+			c.messages.append(SuccessMessage(_("FF_POOL_PAGE_You cancelled your contribution to this Pool!")))
+		except db_access.SProcWarningMessage, e:
+			c.messages.append(ErrorMessage(_("FF_POOL_PAGE_You cannot cancel your contribution to this Pool!")))
 		return redirect(url("get_pool", pool_url=pool_url))
 		
 	@jsonify
@@ -83,7 +92,7 @@ class PoolEditController(BaseController):
 	@pool_available(contributable_only = True)
 	def leave_popup(self, pool_url):
 		if c.pool.can_i_leave(c.user):
-			lp = app_globals.dbm.call(CanLeavePoolProc(p_url=pool_url, u_id = c.user.u_id), CanLeavePoolProc)
+			lp = app_globals.dbm.call(IsContributorProc(p_url=pool_url, u_id = c.user.u_id), IsContributorProc)
 			if not lp.is_contributor:
 				return {"popup":render("/pool/parts/leave_popup.html").strip()}
 		return {"popup":render("/pool/parts/leave_not_popup.html").strip()}

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2012-01-15 20:59+0100\n"
+"PO-Revision-Date: 2012-01-16 13:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -103,7 +103,7 @@ msgstr "Los cambios han sido guardados."
 #: friendfund/controllers/myprofile.py:54
 #: friendfund/controllers/myprofile.py:105
 #: friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/pool_edit.py:134
+#: friendfund/controllers/pool_edit.py:143
 msgid "FF_ADDRESS_Please correct the Errors below"
 msgstr "Corregir los erores abajo"
 
@@ -250,16 +250,24 @@ msgstr "No has escogido a ningún amigo. Por favor, inténtalo de nuevo."
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr "Te has unido al bote!"
 
-#: friendfund/controllers/pool_edit.py:98
+#: friendfund/controllers/pool_edit.py:85
+msgid "FF_POOL_PAGE_You cancelled your contribution to this Pool!"
+msgstr "Ha cancelado su contribución a este grupo!"
+
+#: friendfund/controllers/pool_edit.py:87
+msgid "FF_POOL_PAGE_You cannot cancel your contribution to this Pool!"
+msgstr "Usted no puede cancelar su contribución a este grupo!"
+
+#: friendfund/controllers/pool_edit.py:107
 msgid "FF_POOL_PAGE_You have left the Pool!"
 msgstr "Has dejado el bote!"
 
-#: friendfund/controllers/pool_edit.py:100
-#: friendfund/controllers/pool_edit.py:102
+#: friendfund/controllers/pool_edit.py:109
+#: friendfund/controllers/pool_edit.py:111
 msgid "FF_POOL_PAGE_You cannot leave the Pool!"
 msgstr "No puedes dejar el bote!"
 
-#: friendfund/controllers/pool_edit.py:130
+#: friendfund/controllers/pool_edit.py:139
 msgid "FF_ADDRESS_Changes saved!"
 msgstr "Tus cambios han sido guardados"
 
@@ -1226,6 +1234,7 @@ msgstr "Si quieres que el bote llegue a su total, corre la voz y consigue ayuda 
 #: friendfund/templates/contribution/popups/settlement_fees.html:8
 #: friendfund/templates/contribution/popups/transaction_fees.html:25
 #: friendfund/templates/invite/preview/preview_email.html:22
+#: friendfund/templates/pool/parts/cancelpayment_not_popup.html:10
 #: friendfund/templates/pool/parts/leave_not_popup.html:10
 msgid "FF_Close"
 msgstr "Cerrar"
@@ -2928,8 +2937,15 @@ msgstr "CONTRIBUYENTES"
 msgid "FF_POOLECARD_All_Contributors"
 msgstr "Todos los contribuidores "
 
+#: friendfund/templates/pool/parts/cancelpayment_not_popup.html:6
+msgid "FF_CANCELPAYMENT_POPUP_Sorry, you have no contribution"
+msgstr "Lo sentimos, usted no tiene ninguna contribución"
+
+#: friendfund/templates/pool/parts/cancelpayment_not_popup.html:8
+msgid "FF_CANCELPAYMENT_POPUP_You have no contribution in this pool. You cannot cancel any contribution."
+msgstr "Usted no tiene ninguna contribución en este grupo. No se puede cancelar cualquier contribución."
+
 #: friendfund/templates/pool/parts/cancelpayment_popup.html:6
-#| msgid "FF_LEAVE_POPUP_We're sorry to see you go"
 msgid "FF_CANCELPAYMENT_POPUP_We're sorry to see you go"
 msgstr "Lo sentimos que te vayas"
 
@@ -2942,9 +2958,8 @@ msgid "FF_BUTTON_Cancel all payments now"
 msgstr "Cancelar todos los pagos ahora"
 
 #: friendfund/templates/pool/parts/cancelpayment_popup.html:11
-#: friendfund/templates/pool/parts/leave_popup.html:11
-msgid "FF_BUTTON_Cancel"
-msgstr "Cancelar"
+msgid "FF_BUTTON_No thanks"
+msgstr "No, gracias"
 
 #: friendfund/templates/pool/parts/chipin_box.html:8
 #: friendfund/templates/pool/parts/chipin_box.html:44
@@ -3013,6 +3028,10 @@ msgstr "¿Estás seguro que quieres darte de baja de esta bote?"
 #: friendfund/templates/pool/parts/leave_popup.html:10
 msgid "FF_BUTTON_Leave Pool"
 msgstr "Salir del bote"
+
+#: friendfund/templates/pool/parts/leave_popup.html:11
+msgid "FF_BUTTON_Cancel"
+msgstr "Cancelar"
 
 #: friendfund/templates/pool/parts/widget.html:8
 msgid "FF_WIDGET_POPUP_Embed a widget in your site"

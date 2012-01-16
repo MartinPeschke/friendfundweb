@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: friendfund 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2010-09-24 14:52+0200\n"
-"PO-Revision-Date: 2012-01-15 20:57+0100\n"
+"PO-Revision-Date: 2012-01-16 13:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -103,7 +103,7 @@ msgstr "Die Änderung wurde gespeichert."
 #: friendfund/controllers/myprofile.py:54
 #: friendfund/controllers/myprofile.py:105
 #: friendfund/controllers/myprofile.py:111
-#: friendfund/controllers/pool_edit.py:134
+#: friendfund/controllers/pool_edit.py:143
 msgid "FF_ADDRESS_Please correct the Errors below"
 msgstr "Berichtige bitte die Fehler unten!"
 
@@ -250,16 +250,24 @@ msgstr "Der Empfänger wurde nicht erkannt, was kann ich tun?"
 msgid "FF_POOL_PAGE_You Joined the Pool!"
 msgstr "Du nimmst jetzt an diesem Pool teil!"
 
-#: friendfund/controllers/pool_edit.py:98
+#: friendfund/controllers/pool_edit.py:85
+msgid "FF_POOL_PAGE_You cancelled your contribution to this Pool!"
+msgstr "Du hast Deine Einzahlung zu diesem Pool storniert!"
+
+#: friendfund/controllers/pool_edit.py:87
+msgid "FF_POOL_PAGE_You cannot cancel your contribution to this Pool!"
+msgstr "Du kannst keine Einzahlung stornieren!"
+
+#: friendfund/controllers/pool_edit.py:107
 msgid "FF_POOL_PAGE_You have left the Pool!"
 msgstr "Du hast den Pool verlassen!"
 
-#: friendfund/controllers/pool_edit.py:100
-#: friendfund/controllers/pool_edit.py:102
+#: friendfund/controllers/pool_edit.py:109
+#: friendfund/controllers/pool_edit.py:111
 msgid "FF_POOL_PAGE_You cannot leave the Pool!"
 msgstr "Du kannst den Pool nicht verlassen!"
 
-#: friendfund/controllers/pool_edit.py:130
+#: friendfund/controllers/pool_edit.py:139
 msgid "FF_ADDRESS_Changes saved!"
 msgstr "Änderungen gespeichert!"
 
@@ -1226,6 +1234,7 @@ msgstr "Um den Pool zum Erfolg zu verhelfen solltest du das Wort verbreiten, den
 #: friendfund/templates/contribution/popups/settlement_fees.html:8
 #: friendfund/templates/contribution/popups/transaction_fees.html:25
 #: friendfund/templates/invite/preview/preview_email.html:22
+#: friendfund/templates/pool/parts/cancelpayment_not_popup.html:10
 #: friendfund/templates/pool/parts/leave_not_popup.html:10
 msgid "FF_Close"
 msgstr "Schließen"
@@ -2838,7 +2847,7 @@ msgstr "Unterstützte Zahlarten"
 
 #: friendfund/templates/pool/pool.html:276
 msgid "FF_POOL_PAGE_Cancel my payments"
-msgstr "Zahlungen zurückziehen"
+msgstr "Einzahlung stornieren"
 
 #: friendfund/templates/pool/pool.html:279
 msgid "FF_POOL_PAGE_Remove me from this Pool"
@@ -2928,23 +2937,29 @@ msgstr "Einzahler"
 msgid "FF_POOLECARD_All_Contributors"
 msgstr "Alle Einzahler"
 
+#: friendfund/templates/pool/parts/cancelpayment_not_popup.html:6
+msgid "FF_CANCELPAYMENT_POPUP_Sorry, you have no contribution"
+msgstr "Du hast keine Einzahlung"
+
+#: friendfund/templates/pool/parts/cancelpayment_not_popup.html:8
+msgid "FF_CANCELPAYMENT_POPUP_You have no contribution in this pool. You cannot cancel any contribution."
+msgstr "Du hast keine Einzahlung in diesem Pool. Du kannst also keine Einzahlung stornieren."
+
 #: friendfund/templates/pool/parts/cancelpayment_popup.html:6
-#| msgid "FF_LEAVE_POPUP_We're sorry to see you go"
 msgid "FF_CANCELPAYMENT_POPUP_We're sorry to see you go"
-msgstr "Schade das du gehst!"
+msgstr "Bist Du Dir sicher?"
 
 #: friendfund/templates/pool/parts/cancelpayment_popup.html:8
 msgid "FF_CANCELPAYMENT_POPUP_Are you sure you want to cancel all your payments to this Pool?"
-msgstr "Bist Du Dir sicher, dass Du alle Deine Zahlungen aus diesem Pool zurückziehen möchtest?"
+msgstr "Bist Du Dir sicher, dass Du Deine Einzahlung in diesen Pool stornieren möchtest?"
 
 #: friendfund/templates/pool/parts/cancelpayment_popup.html:10
 msgid "FF_BUTTON_Cancel all payments now"
-msgstr "Alle Zahlungen zurückziehen"
+msgstr "Einzahlung stornieren"
 
 #: friendfund/templates/pool/parts/cancelpayment_popup.html:11
-#: friendfund/templates/pool/parts/leave_popup.html:11
-msgid "FF_BUTTON_Cancel"
-msgstr "Abbrechen"
+msgid "FF_BUTTON_No thanks"
+msgstr "Nein Danke"
 
 #: friendfund/templates/pool/parts/chipin_box.html:8
 #: friendfund/templates/pool/parts/chipin_box.html:44
@@ -3013,6 +3028,10 @@ msgstr "Bist du sicher, das du den Pool verlassen möchtest?"
 #: friendfund/templates/pool/parts/leave_popup.html:10
 msgid "FF_BUTTON_Leave Pool"
 msgstr "Verlassen"
+
+#: friendfund/templates/pool/parts/leave_popup.html:11
+msgid "FF_BUTTON_Cancel"
+msgstr "Abbrechen"
 
 #: friendfund/templates/pool/parts/widget.html:8
 msgid "FF_WIDGET_POPUP_Embed a widget in your site"
