@@ -14436,7 +14436,9 @@ dojo.declare("ff._auth", null, {
 			FB.init({appId:app_id, logging:true, status:true, cookie:true, xfbml:true, authResponse:true, channelUrl:channelUrl});
 			_t.fbDoneLoading = true;
 			_t.runFBDeferred();
-			if(FB.getAuthResponse()){_t.runLoginDeferred();}
+			FB.Event.subscribe('auth.authResponseChange', function (response) {
+        if (response.authResponse) {_t.runLoginDeferred();}
+			});
 		};
 		
 		this.addFBDeferred = loadDefs.add;
@@ -14678,7 +14680,7 @@ dojo.declare("ff.auth", [ff._auth], {
 			if(args.success||args.fail){_t._workflow.success = args.success; _t._workflow.fail = args.fail;}
 			
 			var aR = FB.getAuthResponse();
-			if(aR){
+			if(aR && aR !== true){
 				FB.api('/me', function(response) {
 					FB.api('/me/permissions', function(perms) {
 						response.scope = ff.t.getKeys(perms.data[0]).join(",");

@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 _ = lambda x:x
 
 pyodbc.pooling = False
-SVNREVISION="FF_2.3.1_rc8_more_burda_changes_recipient/cancelpayment/select runtime"
+SVNREVISION="FF_2.3.1_rc9_fixing more facebook new user logins"
 REVISION_ENDING = md5.md5(SVNREVISION).hexdigest()
 
 
