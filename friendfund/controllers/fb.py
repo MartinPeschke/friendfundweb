@@ -16,6 +16,8 @@ log = logging.getLogger(__name__)
 class FbController(BaseController):
 	@jsonify
 	def login(self):
+		if "error" in request.params:
+			return {'login':{'success': False}}
 		try:
 			user_data = fb_helper.extract_user_data(request, app_globals, c, response)
 		except (fb_helper.FBNoCookiesFoundException, fb_helper.FBNotLoggedInException), e: 

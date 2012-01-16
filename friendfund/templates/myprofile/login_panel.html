@@ -23,15 +23,25 @@
 			<input type="submit" class="primarySmall floatLeft" style="width:auto;margin-top:7px" value="${_("FF_LOGINBUTTON_Log In")}"/>
 		</form>
 		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
-		<div class="inputline">
-			<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn" onclick="window.__auth__.doFBLogin({})">
-				<span>${_("FF_LOGIN_Log in with Facebook")}</span>
+		
+		
+		<div id="homepanel-connect-toggle">
+			<div class="inputline">
+				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn">
+					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
+				</a>
+			</div><div class="inputline">
+			<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn">
+				<span>${_("FF_LOGIN_Log in with Twitter")}</span>
 			</a>
-		</div><div class="inputline">
-		<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn" onclick="window.__auth__.doTWLogin({})">
-			<span>${_("FF_LOGIN_Log in with Twitter")}</span>
-		</a>
+			</div>
+			<div class="ToC-agreeal">
+				<input type="checkbox" id="ToC-checkbox-loginarea" value="true"/><label for="ToC-checkbox-loginarea">${_("PARTNER_LOGINBUTTON_Agree with our <a href=\"%s\">Terms and Conditions</a>.")%url(controller="content", lang=session["lang"], action="tos")|n}</label>
+				<span class="error hidden">${_("PARTNER_LOGINBUTTON_You need to agree with our Terms and Conditions to sign up!")}</span>
+			</div>
 		</div>
+		
+		
 		<p>${_("FF_LOGIN_Dont have an account yet?")} 
 			%if request.merchant.is_default:
 				<a class="lostpass" href="/signup?furl=/">${_("FF_LOGIN_Sign up here")}</a>

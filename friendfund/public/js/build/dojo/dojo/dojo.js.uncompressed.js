@@ -14437,7 +14437,7 @@ dojo.declare("ff._auth", null, {
 			_t.fbDoneLoading = true;
 			_t.runFBDeferred();
 			FB.Event.subscribe('auth.authResponseChange', function (response) {
-        if (response.authResponse) {_t.runLoginDeferred();}
+        if (response.authResponse && response.authResponse !== true) {_t.runLoginDeferred();}
 			});
 		};
 		
@@ -14523,7 +14523,7 @@ dojo.declare("ff._auth", null, {
 		var _t = this;
 		_t._fb_login_in_progress = true;
 		FB.login(function(response){
-			if(response.authResponse){
+			if(response.authResponse && response.authResponse !== true){
 				_t._guardedFBScope(dojo.hitch(_t, "_fbHandleLogin", required_scope));
 			}
 		}, {scope:required_scope});
@@ -14552,19 +14552,24 @@ dojo.declare("ff._auth", null, {
 		} else { _t._logincb({success:true}); }
 	}
 	,_fbHandleLogin : function(required_scope){
-		var _t = this, mp = _t._getMissingFBPerms(required_scope), response = {};
+		var _t = this, mp = _t._getMissingFBPerms(required_scope), response = {}
+			, sendToServer = function(response){
+				if(!response.email){
+					setTimeout(dojo.hitch(_t, function(){FB.api('/me', sendToServer)}), 300);
+					return;
+				}
+				response.scope = ff.t.getKeys(_t._fbperms).join(",");
+				response.access_token = FB.getAuthResponse().accessToken;
+				ff.io.xhrPost('/fb/login', response, dojo.hitch(_t, "_logincb"));
+			}
+		
 		if(mp.length){
 			response.scope = ff.t.getKeys(_t._fbperms).join(",");
 			response.missing_scope = mp.join(",");
 			response.access_token = FB.getAuthResponse().accessToken;
 			ff.io.xhrPost('/fb/failed_login', response, dojo.hitch(_t, "_logincb"));
 		} else {
-			FB.api('/me', function(response) {
-				response.scope = ff.t.getKeys(_t._fbperms).join(",");
-				response.access_token = FB.getAuthResponse().accessToken;
-				ff.io.xhrPost('/fb/login', response, dojo.hitch(_t, "_logincb"));
-			});
-			
+			FB.api('/me', sendToServer);
 		}
 	}
 	,_logincb : function(login_result){
