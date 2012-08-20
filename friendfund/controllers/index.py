@@ -46,7 +46,7 @@ class IndexController(BaseController):
 		with app_globals.cache_pool.reserve() as mc:
 			c.homepage_stats = mc.get(HOMEPAGE_STATS_CACHEKEY)
 		if not c.homepage_stats:
-			if not app_globals.test: loglog.error("NO_HOMEPAGE_STATS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
+			if not app_globals.test: log.error("NO_HOMEPAGE_STATS_FOUND_IN_CACHE_REVERTING_TO_LOCAL_GET")
 			c.homepage_stats = app_globals.homepage_stats
 		return self.render('/index.html')
 	
