@@ -3,7 +3,10 @@
 <%namespace name="widgets" file="widgets/widgets.html" />
 <%namespace name="links" file="/widgets/links.html"/>
 
-<%def name="onloadscripts()">ff.w.sliderF("merchantslider", 4);</%def>
+<%def name="onloadscripts()">
+  ff.w.sliderF("merchantslider", 4, 900);
+  ff.w.sliderF("poolslider", 4, 500);
+</%def>
 
 <div class="wrapSubHeaderHome">
 	<div class="subHeader">
@@ -60,8 +63,9 @@ ${self.renderMessages()}
 <div class="content">
 	<div class="featuredPoolsBox">
 		<h4>${_("FF_HOMEPAGE_BOXES_Featured Pools")}</h4>
-		${self.render_featured_pools(c.get_featured_pools, h.get_language_locale())|n}
-		<div class="clear"></div>
+    
+    ${self.render_featured_pools(c.get_featured_pools, h.get_language_locale())|n}
+        
 	</div>
 	<div class="colRightWhite"></div>
 	<div class="whatElse">
@@ -103,7 +107,7 @@ ${self.renderMessages()}
 		<span class="controller controllerRight"> &laquo; </span>
 		<span class="controller controllerLeft"> &raquo; </span>
 		<div class="slider">
-		<ul class="slider" id="sliderCnt" style="width:${len(list)*219}px" _elem_width="219">
+		<ul class="slider merchant" id="sliderCnt" style="width:${len(list)*219}px" _elem_width="219">
 			%for img, href in list:
 				<li><a target="_blank" href="${href}"><img src="${img}" /></a></li>
 			%endfor
@@ -116,34 +120,53 @@ ${self.renderMessages()}
 
 
 <%def name="render_featured_pools(get_featured_pools, lang)" cached="True" cache_key="render_featured_pools_${lang}" cache_timeout="60" cache_type="memory">
-	%for i, pool in enumerate(get_featured_pools()):
-		<% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
-	<div class="homeboxWrap ${i==3 and 'omega' or ''}">
-		<div class="homebox">
-			<img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
-			<h5 style="min-height:36px;"><a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a></h5>
-			<span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
-			<div class="timeCounter">
-				<span>${int(pool.funding_progress()*100)}%</span>
-				<div class="timeCounterRight" >
-					<div class="timeCounterLeft" style="width:${int(pool.funding_progress()*100)}%"> </div>
-				</div>
-				<div class="clear"></div>
-			</div>
-			
-			<div class="boxContributors">
-				<span class="upper">${widgets.renderPoolInfoContributors(locals)|n}</span>
-				<span class="middot">&middot;</span>
-				<span class="upper">${widgets.renderPoolInfoDaysLeft(locals)|n}</span>
-			</div>
-			<div class="fbHolder">
-				%for pu in pool.get_random_n_invitees(5):
-					<img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
-				%endfor
-				<div class="clear"></div>
-			</div>
-		</div>
-	</div>
-	%endfor
+
+  <% pools = get_featured_pools() %>
+
+  
+  <div class="boxGrayWrap poolbox" id="poolslider">
+    <div class="boxGray">
+      <span class="controller controllerRight"> &laquo; </span>
+      <span class="controller controllerLeft"> &raquo; </span>
+      <div class="slider">
+        <ul class="slider"  style="width:${len(pools)*238}px" _elem_width="238">
+
+          %for i, pool in enumerate(pools):
+            <% locals = {"number_contributors":pool.get_number_of_contributors(), "days_left":pool.get_remaining_days(), "admin_name":pool.admin.name} %>
+          <li class="homeboxWrap">
+            <div class="homebox">
+              <img src="${pool.get_product_display_picture("FF_POOLS")}" width="190px" height="150px" />
+              <h5><a href="${url("get_pool", pool_url = pool.p_url)}">${pool.title}</a></h5>
+              <span class="homebox">${_("FF_HOMEPAGE_BOXES_created by %(admin_name)s")%locals}</span>
+              <div class="timeCounter">
+                <span>${int(pool.funding_progress()*100)}%</span>
+                <div class="timeCounterRight" >
+                  <div class="timeCounterLeft" style="width:${int(pool.funding_progress()*100)}%"> </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              
+              <div class="boxContributors">
+                <span class="upper">${widgets.renderPoolInfoContributors(locals)|n}</span>
+                <span class="middot">&middot;</span>
+                <span class="upper">${widgets.renderPoolInfoDaysLeft(locals)|n}</span>
+              </div>
+              <div class="fbHolder">
+                %for pu in pool.get_random_n_invitees(5):
+                  <img src="${pu.get_profile_pic("PROFILE_S")}" alt="${pu.name}" height="30px" width="30px"/>
+                %endfor
+                <div class="clear"></div>
+              </div>
+            </div>
+          </li>
+          %endfor
+
+        
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
 
 </%def>

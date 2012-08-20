@@ -1,1 +1,8 @@
-({"buttonOk":"OK","buttonCancel":"Zrušiť","buttonSave":"Uložiť","itemClose":"Zatvoriť"})
+
+({
+	buttonOk: "OK",
+	buttonCancel: "Zrušiť",
+	buttonSave: "Uložiť",
+	itemClose: "Zatvoriť"
+})
+

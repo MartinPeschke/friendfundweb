@@ -1,8 +1,68 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+if(!dojo._hasResource["friendfund.InvitePage"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["friendfund.InvitePage"] = true;
+dojo.provide("friendfund.InvitePage");
+
+dojo.declare("friendfund.InvitePage", null, {
+	selector : null,
+	_listener_locals : [],
+	_widget_locals: [],
+	submitting : false,
+	constructor: function(args){
+		var _t = this;
+		dojo.mixin(_t, args);
+		_t.selector = new friendfund.CompoundFriendSelector({
+								auth_provider : _t.auth_provider
+								,container : _t.container
+								,ref_node: "inviter"
+								,invited_node_suffix : "_invitees"
+								,inviter_node : "friend_list"
+								,base_url : _t.base_url
+								,global_invited_node : _t.invited_node
+								,avail_selectors : {'facebook':true, 'twitter':true, 'email':true}
+							});
+		_t._widget_locals.push(_t.selector);
+		dojo.connect(document, "onclick", dojo.hitch(null, _t.loadPreviewPopup, _t, _t.method));
+	},
+	loadPreviewPopup : function(_t, method, evt){
+		if(dojo.hasClass(evt.target, "message_preview")){
+			dojo.query("input.addRefContent", _t.target_form).forEach(function(elem){elem.value = dojo.byId(dojo.attr(elem, "_source")).value;});
+			params = dojo.formToObject(_t.target_form);
+			params.method = dojo.attr(evt.target, "_method");
+			ff.io.xhrPost(dojo.attr(evt.target, "_href"), params);
+		}
+	}, 
+	prepareSubmit : function(_t, level, evt){
+		ff.t.onSubmitCleaner(_t.target_form); 
+		if(_t.submitting){return false;}
+		_t.submitting = true;
+		return _t.auth_provider.checkLogin({level:level, success:dojo.hitch(_t, "_submit"), fail:function(){_t.submitting = false}});
+ 	},_submit:function(){
+		var _t = this;
+		dojo.forEach(_t._widget_locals, function(item){item.destroy(item);});
+		_t._widget_locals = [];
+		_t.receiver_selectors = {};
+		dojo.query("input.addRefContent", _t.target_form).forEach(function(elem){elem.value = dojo.byId(dojo.attr(elem, "_source")).value;});
+		dojo.query("input.addRefCheckbox", _t.target_form).forEach(function(elem){
+			var source = dojo.byId(dojo.attr(elem, "_source"));
+			if(source.checked){
+				elem.value = source.value;
+			} else {
+				dojo.query(elem).orphan();
+			}
+		});
+		dojo.byId(_t.target_form).submit();
+	}
+});
 
 
-if(!dojo._hasResource["friendfund.InvitePage"]){dojo._hasResource["friendfund.InvitePage"]=true;dojo.provide("friendfund.InvitePage");dojo.declare("friendfund.InvitePage",null,{selector:null,_listener_locals:[],_widget_locals:[],submitting:false,constructor:function(_1){var _2=this;dojo.mixin(_2,_1);_2.selector=new friendfund.CompoundFriendSelector({auth_provider:_2.auth_provider,container:_2.container,ref_node:"inviter",invited_node_suffix:"_invitees",inviter_node:"friend_list",base_url:_2.base_url,global_invited_node:_2.invited_node,avail_selectors:{"facebook":true,"twitter":true,"email":true}});_2._widget_locals.push(_2.selector);dojo.connect(document,"onclick",dojo.hitch(null,_2.loadPreviewPopup,_2,_2.method));},loadPreviewPopup:function(_3,_4,_5){if(dojo.hasClass(_5.target,"message_preview")){dojo.query("input.addRefContent",_3.target_form).forEach(function(_6){_6.value=dojo.byId(dojo.attr(_6,"_source")).value;});params=dojo.formToObject(_3.target_form);params.method=dojo.attr(_5.target,"_method");ff.io.xhrPost(dojo.attr(_5.target,"_href"),params);}},prepareSubmit:function(_7,_8,_9){ff.t.onSubmitCleaner(_7.target_form);if(_7.submitting){return false;}_7.submitting=true;return _7.auth_provider.checkLogin({level:_8,success:dojo.hitch(_7,"_submit"),fail:function(){_7.submitting=false;}});},_submit:function(){var _a=this;dojo.forEach(_a._widget_locals,function(_b){_b.destroy(_b);});_a._widget_locals=[];_a.receiver_selectors={};dojo.query("input.addRefContent",_a.target_form).forEach(function(_c){_c.value=dojo.byId(dojo.attr(_c,"_source")).value;});dojo.query("input.addRefCheckbox",_a.target_form).forEach(function(_d){var _e=dojo.byId(dojo.attr(_d,"_source"));if(_e.checked){_d.value=_e.value;}else{dojo.query(_d).orphan();}});dojo.byId(_a.target_form).submit();}});}
+
+
+
+
+
+
+
+
+
+
+}

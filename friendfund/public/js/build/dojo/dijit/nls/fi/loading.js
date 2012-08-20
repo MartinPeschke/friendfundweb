@@ -1,1 +1,5 @@
-({"loadingState":"Lataus on meneillään...","errorState":"On ilmennyt virhe."})
+
+({
+	loadingState: "Lataus on meneillään...",
+	errorState: "On ilmennyt virhe."
+})

@@ -1,5 +1,12 @@
 set -x
-export BASE_PATH=$HOME/ff_dev/friendfund
+
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+
+export BASE_PATH=$DIR/..
 export BUILD_PATH=$BASE_PATH/resources/dojo-release-1.6.1-src/util/buildscripts
 export BUILD_TARGETDIR=$BASE_PATH/public/js/build
 echo 'Using build path $BUILD_PATH'

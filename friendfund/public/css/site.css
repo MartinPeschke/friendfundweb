@@ -755,6 +755,8 @@ div.homebox h5 {
 	font-size: 13px;
 	display: block;
 	margin: 9px auto 0 auto;
+  height:54px;
+  overflow:hidden;
 }
 div.homebox span {
 	color: #b3b3b3;
@@ -772,6 +774,17 @@ div.homebox span a {
 	font-size: 10px;
 	color: #b3b3b3;
 }
+/* home page pool slider */
+.poolbox .boxGray{
+	padding: 0;
+	height: 344px;
+  position:relative;
+}
+.poolbox .boxGray .controllerLeft { left:-37px}
+.poolbox .boxGray .controllerRight { right:-37px}
+.poolbox .boxGray div.slider {margin:0;	width: 100%;}
+.poolbox .boxGray li.homeboxWrap  {width:auto;margin-right: 25px;margin-left: 3px;}
+
 /*progress bar*/
 div.timeCounter {
 	padding: 0 0 0 0;
@@ -841,9 +854,7 @@ div.boxContributors span {
 	font-size:10px;
 	line-height: 10px
 }
-div.boxContributors span.upper {
-	text-transform: uppercase;
-}
+div.boxContributors span.upper {text-transform: uppercase;display:inline;}
 div.fbHolder {
 	padding: 9px 0 9px 13px;
 	margin: 0 -9px 0 -9px;
@@ -882,7 +893,7 @@ span.controllerLeft{
 }
 
 div.slider, ul.slider{
-	height: 86px;
+	height: 100%;
 	width: 853px;
 	overflow: hidden;
 	position: absolute;
@@ -894,11 +905,11 @@ div.slider{
 }
 ul.slider li{
 	width: 196px;
-	height: 86px;
+	height: 100%;
 	float: left;
 	margin-right: 23px
 }
-ul.slider li a{
+ul.slider.merchant li a{
 	background: #f9f9f9;
 	border:1px solid white;
 	display: block;
@@ -1001,6 +1012,7 @@ div.whatElse .boxGray {
 	height: 36px;
 	text-indent: -9999px
 }
+
 div.box1 .boxGray{
 	padding: 5px 0;
 	height: 86px
@@ -3854,9 +3866,7 @@ div.timeCounterSmall span {
 	padding: 5px 0;
 	position: relative
 }
-.middot {
-	padding: 5px 10px
-}
+.middot {padding: 5px 10px;}
 .contribSmall {
 	background: url(/static/imgs/contributor.png) 0 0 no-repeat;
 	padding-left: 25px
@@ -4252,10 +4262,7 @@ input.invisible {
 	width:1px;
 	position:absolute;
 }
-div.boxContributors span.middot {
-	font-weight: bold;
-	font-size: 13px;
-}
+div.boxContributors span.middot {font-weight: bold;font-size: 13px;display:inline;}
 div.outerPopupFrame .link {
 	font-size: 12px !important
 }

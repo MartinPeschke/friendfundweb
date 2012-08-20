@@ -1,1 +1,6 @@
-({"loadingState":"Zavádzanie...","errorState":"Nastala chyba"})
+
+({
+	loadingState: "Zavádzanie...",
+	errorState: "Nastala chyba"
+})
+

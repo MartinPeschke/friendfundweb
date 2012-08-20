@@ -1,1 +1,5 @@
-({"loadingState":"ロード中...","errorState":"エラーが発生しました。"})
+
+({
+	loadingState: "ロード中...",
+	errorState: "エラーが発生しました。"
+})

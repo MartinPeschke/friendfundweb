@@ -34,7 +34,7 @@ class IndexController(BaseController):
 			featured_pools = []
 			for p in app_globals.featured_pools:
 				 featured_pools.append(app_globals.dbm.get(FeaturedPool, p_url = p.p_url))
-		return featured_pools
+		return featured_pools*2
 	
 	def index(self):
 		if request.merchant.home_page:

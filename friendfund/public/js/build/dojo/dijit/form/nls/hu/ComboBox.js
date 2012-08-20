@@ -1,1 +1,5 @@
-({"previousMessage":"Előző menüpontok","nextMessage":"További menüpontok"})
+
+({
+		previousMessage: "Előző menüpontok",
+		nextMessage: "További menüpontok"
+})

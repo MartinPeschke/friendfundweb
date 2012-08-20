@@ -1,1 +1,5 @@
-({"loadingState":"Betöltés...","errorState":"Sajnálom, hiba történt"})
+
+({
+	loadingState: "Betöltés...",
+	errorState: "Sajnálom, hiba történt"
+})

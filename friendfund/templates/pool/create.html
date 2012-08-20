@@ -234,7 +234,7 @@
 											${widgets.expression_quote(c.values.get(so.name, dict()).get("charge_through"), "checked")|n}/>
 									<label for="${so.name}_charge_through" class="bold">${_("FF_POOLDETAILS_Yes, please add the %(fees)s%% to my Funding Total")%_locals}</label>
 								</div>
-								<span class="note">Note: Paypal may also charge you a receiving fee.</span> <a _href="${url(controller="payment", action="settlement_fees", so=so.name)}" class="popuplink">${_("FF_POOLDETAILS_Whats this? (additional fees)")}</a>
+								<span class="note">${_("Note: Paypal may also charge you a receiving fee.")}</span> <a _href="${url(controller="payment", action="settlement_fees", so=so.name)}" class="popuplink">${_("FF_POOLDETAILS_Whats this? (additional fees)")}</a>
 							</div>
 						%endif
 						%if so.required_fields:

@@ -14177,7 +14177,7 @@ dojo.mixin(ff, {w: {
 			};
 		dojo.query('.pagelet', root_node).forEach(function(elem){loadElement(dojo.attr(elem, 'pagelet_href'), elem, {}, null, 'Get');});
 	}
-	,sliderF:function(root, noElems, autostart){
+	,sliderF:function(root, noElems, duration, autostart){
 		var rootNode = dojo.byId(root), slider = dojo.query("ul.slider", rootNode)[0], leftAmount = parseInt(dojo.attr(slider, "_elem_width"), 10),
 			position=0, child, transitioning = false, hover=false,
 			countElems = dojo.query("ul.slider li", rootNode).length,
@@ -14192,15 +14192,15 @@ dojo.mixin(ff, {w: {
 						child = slider.removeChild(child[child.length-1]);
 						dojo.style(slider, "marginLeft", (leftAmount*(position-step))+"px");
 						slider.insertBefore(child, slider.firstChild);
-						dojo.animateProperty({node:slider,duration: 900,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
+						dojo.animateProperty({node:slider,duration: duration,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
 					} else if (position===noElems-countElems&&step<0){
 						child = slider.removeChild(slider.getElementsByTagName("li")[0]);
 						dojo.style(slider, "marginLeft", (leftAmount*(position-step))+"px");
 						slider.appendChild(child);
-						dojo.animateProperty({node:slider,duration: 900,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
+						dojo.animateProperty({node:slider,duration: duration,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
 					} else {
 						
-						dojo.animateProperty({node:slider,duration: 900,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position)), end:(leftAmount*(position+step)), units:"px" }}, onEnd:reset}).play();
+						dojo.animateProperty({node:slider,duration: duration,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position)), end:(leftAmount*(position+step)), units:"px" }}, onEnd:reset}).play();
 						position = position + step;
 					}
 				}
@@ -14221,7 +14221,7 @@ dojo.mixin(ff, {w: {
 			, position = 0
 			, transitioning = false
 			, width = dojo.coords(panes[0]).w
-			slide = function(step){ return function(evt){
+			, slide = function(step){ return function(evt){
 				var reset = function(){
 					transitioning=false;
 				}, sC = function(){

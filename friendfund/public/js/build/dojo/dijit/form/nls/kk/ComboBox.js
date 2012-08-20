@@ -1,1 +1,5 @@
-({"previousMessage":"Алдыңғы нұсқалар","nextMessage":"Басқа нұсқалар"})
+
+({
+		previousMessage: "Алдыңғы нұсқалар",
+		nextMessage: "Басқа нұсқалар"
+})
