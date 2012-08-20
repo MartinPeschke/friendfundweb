@@ -149,7 +149,6 @@ dojo.mixin(ff, {w: {
 						slider.appendChild(child);
 						dojo.animateProperty({node:slider,duration: duration,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position-step)), end:(leftAmount*(position)), units:"px" }}, onEnd:reset}).play();
 					} else {
-						
 						dojo.animateProperty({node:slider,duration: duration,easing:dojo.fx.easing.sineInOut, properties: {marginLeft:  { start: (leftAmount*(position)), end:(leftAmount*(position+step)), units:"px" }}, onEnd:reset}).play();
 						position = position + step;
 					}
