@@ -20,7 +20,7 @@ class PoolCreateForm(formencode.Schema):
 	amount = DecimalValidator(not_empty=True, min=1, max=9999999, messages={'empty': _('FF_POOLETAILS_ERROR_AMOUNT_Please enter some amount value!')})
 	currency = CurrencyValidator(not_empty=True)
 	title = formencode.validators.String(not_empty=True, max=100, messages={'empty': _('FF_POOLETAILS_ERROR_TITLE_Please enter some title text!')})
-	description = SanitizedHTMLString(not_empty=True, max=4096, messages={'empty': _('FF_POOLETAILS_ERROR_DESCR_Please enter some descriptive text!')})
+	description = SanitizedHTMLString(not_empty=True, messages={'empty': _('FF_POOLETAILS_ERROR_DESCR_Please enter some descriptive text!')})
 	tracking_link = formencode.validators.String(if_missing=None, max=1024, if_empty=None)
 	product_picture = formencode.validators.String(if_missing=None, max=1024)
 	product_name = formencode.validators.String(if_missing=None, max=1024)
