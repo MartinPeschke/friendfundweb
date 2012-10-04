@@ -13,11 +13,19 @@
 	<h4>Pool Gründen</h4>
 	<div class="subHeading"></div>
 		<ul class="faqQuestions">
-			<li><div class="heavyMd"></div><a href="#faq03">Was bedeutet “Alles oder Nichts”?</a></li>
+			<li><div class="heavyMd"></div><a href="#faq21">Wie starte ich einen Pool?</a></li>
+			<li><div class="heavyMd"></div><a href="#faq03">Was ist “Alles oder Nichts”?</a></li>
+      <li><div class="heavyMd"></div><a href="#faq22">Wieso muss es “Alles oder Nichts” sein?</a></li>
 			<li><div class="heavyMd"></div><a href="#faq04">Wieso ist die Laufzeit auf ${app_globals.pool_service.pool_run_time} Tage begrenzt?</a></li>
 			<li><div class="heavyMd"></div><a href="#faq05">Was passiert, wenn nicht genug Geld gesammelt wurde, bevor der Pool ausläuft?</a></li>
-			<li><div class="heavyMd"></div><a href="#faq06">Kann ich mich auch selbst beschenken?</a></li>
 		</ul>
+	<h4>Auszahlung</h4>
+	<div class="subHeading"></div>
+		<ul class="faqQuestions">
+			<li><div class="heavyMd"></div><a href="#faq20">Wie komme ich an das Geld in meinem Pool?</a></li>
+			<li><div class="heavyMd"></div><a href="#faq23">Wie erhalte ich meinen Gutschein?</a></li>
+      <li><div class="heavyMd"></div><a href="#faq06">Kann ich mich auch selbst beschenken?</a></li>
+    </ul>
 	<h4>Freunde Einladen</h4>
 	<div class="subHeading"></div>
 		<ul class="faqQuestions">
@@ -28,14 +36,8 @@
 	<div class="subHeading"></div>
 		<ul class="faqQuestions">
 			<li><div class="heavyMd"></div><a href="#faq09">Kann ich mit einer anderen Währung einzahlen?</a></li>
-			<li><div class="heavyMd"></div><a href="#faq10">Ist es möglich eine Rückerstattung zu erhalten oder das Geschenk umzutauschen?</a></li>
 			<li><div class="heavyMd"></div><a href="#faq11">Was für Kosten fallen an?</a></li>
 		</ul>
-	<h4>Auszahlung</h4>
-	<div class="subHeading"></div>
-		<ul class="faqQuestions">
-			<li><div class="heavyMd"></div><a href="#faq20">Wie und wann wird mein Pool ausgezahlt?</a></li>
-    </ul>
 	<h4>Mein Konto</h4>
 	<div class="subHeading"></div>
 		<ul class="faqQuestions">
@@ -56,28 +58,50 @@
 	<div class="faq">
 		<h4>Grundlagen</h4>
 				<div class="subHeading"></div>
-					<h5><a name="faq01">What is friendfund?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>friendfund ist eine flexible Social-Commerce Plattform, die praktisch für alle Gelegenheiten genutzt werden kann, in denen mit der Gruppe Geld aufgebracht werden soll.</p>
+					<h5><a name="faq01">Was ist friendfund?</a><a href="#" class="linkTop">Top</a></h5>
+					<p>friendfund ist eine flexible crowdfunding Plattform, die es Freunden erlaubt, ganz einfach Geld für ein gemeinsames Ziel zu sammeln. 
+             friendfund kann benutzt werden, um sich die Kosten für Geburtstags- oder Jahrestagsgeschenke, Überraschungsparties oder sonst irgendetwas zu teilen, eben alles wofür ihr ein wenig Hilfe von euren Freunden braucht.</p>
 					<h5><a name="faq02">Warum habe ich eine friendfund Pool Einladung erhalten?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>Einer deiner Freunde hat einen Pool gegründet und dich dazu eingeladen. Wenn du bei friendfund eingeloggt bist, gehe in den Bereich "POOLS". Unter "Meine Pools" siehst du den Pool.</p>
+					<p>Einer deiner Freunde hat einen Pool gegründet und dich dazu eingeladen. Wenn du bei friendfund eingeloggt bist, gehe in den Bereich "POOLS". Unter <a href="${url(controller="mypools", action="index")}">"Meine Pools"</a> siehst du den Pool.</p>
 		
 		<h4>Pool Gründen</h4>
 		<div class="subHeading"></div>
+          <h5><a name="faq21">Wie gründe ich einen Pool?</a><a href="#" class="linkTop">Top</a></h5>
+          <p>Klicke auf den grünen "${_("Get Started")}" Button auf der <a href="/">Startseite</a>. Gib dann die notwendigen Informationen ein und teile deinen Pool mit deinen Freunden.</p>
+
 					<h5><a name="faq03">Was bedeutet “Alles oder Nichts”?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>Ein Pool ist erfolgreich, wenn er innerhalb von ${app_globals.pool_service.pool_run_time} Tagen sein festgelegtes Ziel erreicht, also genug Geld einsammelt. Alles oder Nichts, wie der Name schon sagt, bedeutet das entweder alles Geld ausgezahlt wird, oder eben gar nichts. Warum ist das so? Mit einem Wort: Transparenz! Wenn du den Pool erstellst, teilst du deinen Freunden und Familie mit, wieviel du wofür brauchst. Kein Teilnehmer braucht zu fürchten das er der Einzige ist, der zahlt. Wenn nicht ausreichend Leute mitmachen, zahlt niemand. Jeder muss also seinen Beitrag leisten. Auch durch Einladen weiterer Freunde kann geholfen werden.</p>
+					<p>Ein Pool ist erfolgreich, wenn er innerhalb von ${app_globals.pool_service.pool_run_time} Tagen sein festgelegtes Ziel erreicht, also genug Geld einsammelt. 
+          Alles oder Nichts bedeutet das entweder alles Geld ausgezahlt wird, oder eben gar nichts. 
+          Sollte das Ziel nicht erreicht werden, erhalten alle Paypal Einzahler ihr Geld zurück und Kreditkarten werden erst gar nicht belastet.
+          </p>
+
+					<h5><a name="faq22">Wieso muss es “Alles oder Nichts” sein?</a><a href="#" class="linkTop">Top</a></h5>
+					<p>Mit einem Wort: Transparenz! Wenn du den Pool erstellst, teilst du deinen Freunden und Familie mit, wieviel du wofür brauchst. Kein Mitmacher braucht zu fürchten das er der Einzige ist, der zahlt. Wenn nicht ausreichend Leute mitmachen, zahlt niemand. Jeder muss also seinen Beitrag leisten. Auch durch Einladen weiterer Freunde kann geholfen werden.</p>
+
 					<h5><a name="faq04">Wieso ist die Laufzeit auf ${app_globals.pool_service.pool_run_time} Tage begrenzt?</a><a href="#" class="linkTop">Top</a></h5>
 					<p>Das Ganze kurz und einfach zu halten ist das Ziel! Das heißt auch das du schneller Resultate siehst. Und ein wenig Zeitdruck hat noch niemandem geschadet!</p>
-					<h5><a name="faq05">Was passiert, wenn nicht genug Geld gesammelt wurde, bevor der Pool ausläuft?</a><a href="#" class="linkTop">Top</a></h5>
+					
+          <h5><a name="faq05">Was passiert, wenn nicht genug Geld gesammelt wurde, bevor der Pool ausläuft?</a><a href="#" class="linkTop">Top</a></h5>
 					<p>In dem Fall werden keine Zahlungen an den Admin ausgeschüttet. Kreditkartenzahlungen werden erst gar nicht eingezogen, alle PayPal Zahlungen werden vollständig zurückerstattet. Aber friendfund bietet zahlreiche Hilfsmittel und Erinnerungen um die notwendige Unterstützung zusammenzutrommeln. Also kann jeder Pool nur ein Erfolg werden!</p>
+
+	<h4>Auszahlung</h4>
+		<div class="subHeading"></div>
+					<h5><a name="faq20">Wie komme ich an das Geld in meinem Pool?</a><a href="#" class="linkTop">Top</a></h5>
+          <p>Bevor du das Geld aus dem Pool ausgezahltbekommst, muss unser <a href="mailto:support@friendfund.com">Kundendienst Team</a> die Transaktionen prüfen, um sicherzustellen das keine betrügerischen Einzahlungen vorgenommen wurden.
+          Danach senden wir das Geld auch schon raus. Wenn alles glatt geht, dauert das ca. 24 bis 48 Stunden.</p>
+					<h5><a name="faq23">Wie erhalte ich meinen Gutschein?</a><a href="#" class="linkTop">Top</a></h5>
+          <p>Nachdem unser <a href="mailto:support@friendfund.com">Kundendienst Team</a> das keine Betrugsversuche vorliegen, senden wir dir den Amazongutschein an deine Emailadresse. Das dauert zwischen 24-48 Stunden.</p>
 					<h5><a name="faq06">Kann ich mich auch selbst beschenken?</a><a href="#" class="linkTop">Top</a></h5>
 					<p>Aber klar! Wähle dazu einfach dich in einem unserer Partnershops als Empfänger aus und los geht's!</p>
 
+          
 		<h4>Freunde Einladen</h4>
 		<div class="subHeading"></div>
 					<h5><a name="faq07">Wieso erhalte ich Nachrichten von friendfund Pools?</a><a href="#" class="linkTop">Top</a></h5>	
-					<p>friendfund ist der soziale und unterhaltsame Weg in der Gruppe Geld zu sammeln! Poolmitteilungen halten Jeden auf dem Stand der Dinge und motivieren mitzumachen und das Ziel zu erreichen! Falls du aber doch keine Nachrichten von friendfund erhalten möchtest, kannst du in deinen Kontoeinstellungen unter "Benachrichtigungen" die einzelnen Mitteilungen abbestellen.</p>
+					<p>friendfund ist der soziale und unterhaltsame Weg in der Gruppe Geld zu sammeln! Poolmitteilungen halten Jeden auf dem Stand der Dinge und motivieren mitzumachen und das Ziel zu erreichen! Falls du aber doch keine Nachrichten von friendfund erhalten möchtest, kannst du in deinen Kontoeinstellungen unter <a href="${url(controller="myprofile", action="notifications")}">"Benachrichtigungen"</a> die einzelnen Mitteilungen abbestellen.</p>
 					<h5><a name="faq08">Ich möchte, daß meine Freunde sich von sich aus beteiligen, anstelle sie automatisch einladen zu lassen</a><a href="#" class="linkTop">Top</a></h5>	
-					<p>Kein Problem, du musst sie nicht automatisch einladen lassen, du kannst die Poolseite auch mit den bereitgestellten Werkzeugen (Facebook Like, Tweet, Widgets) teilen. Sie können direkt über den Knopf "Mitmachen" beteiligen und einzahlen. Nichts ist einfacher!</p>
+					<p>Kein Problem, du musst sie nicht automatisch einladen lassen. 
+          Du kannst die Poolseite auch mit den bereitgestellten Werkzeugen (Facebook Like, Tweet, Widgets) teilen. Sie können selbst dem Pool beitreten einzahlen.</p>
 
 	<h4>Einzahlen</h4>
 		<div class="subHeading"></div>
@@ -89,29 +113,24 @@
 					<pAls Teilnehmer zahlst du gar keine Gebühren, es entstehen keine also Kosten für dich.<br/><br/>Wenn du einen Pool selbst gründest, hast du die Wahl das Geld als Gutschein für einen Händler oder über PayPal ausgezahlt zu bekommen.<br/><br/>
 					•	Händlergutscheine erhältst du in voller Höhe ohne irgendeinen Abzug oder Kosten.<br/>
 					•	Für PayPal Gutschriften müssen wir eine Gebühr von 8% des Poolgesamtbetrags erheben, um die Transaktionskosten aller Einzahler zu decken. PayPal kann zusätzlich auch eine Empfangsgebühr erheben. Die Empfangsgebühr ist aber nach Empfangsland und -währung unterschiedlich und kann über die Zeit variieren. Details hierzu fragst du am besten direkt bei PayPal an.</p>
-	<h4>Auszahlung</h4>
-		<div class="subHeading"></div>
-					<h5><a name="faq20">Wie und wann wird mein Pool ausgezahlt?</a><a href="#" class="linkTop">Top</a></h5>
-          <p>Bei Erstellung Deines Pools hast Du festgelegt, wie Du Deine Auszahlung erhalten möchtest. Bei erfolgreichem Poolende und nachdem von allen Teilnehmern das Geld erfolgreich eingezogen wurde, erhälst Du die Erfolgsmeldung per Email. Dann dauert es nochmal 24-48 Stunden, um etwaigen Betrugsfällen vorzubeugen, und Du erhälst deine Auszahlung direkt als Email von Amazon oder als Geldsendung in Paypal.</p>
-          <p>Und schon kann Dein Projekt losgehen!</p>
-          
+
 		<h4>Mein Konto</h4>
 		<div class="subHeading"></div>
 					<h5><a name="faq12">Wie kann ich mein Passwort ändern?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>Wenn du eingeloggt bist, klicke deinen Namen oben rechts auf der Seite an. Unter "Kontoeinstellungen" findest du das Menü "Passwort ändern".</p>
+					<p>Wenn du eingeloggt bist, klicke deinen Namen oben rechts auf der Seite an. Unter "Kontoeinstellungen" findest du das Menü <a href="${url(controller="myprofile", action="password")}">"Passwort ändern"</a>.</p>
 					<h5><a name="faq13">Warum habe ich mehrere Konten auf der Profilseite?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>Friendfund erlaubt es dir deine Freundeslisten von unterschiedlichen sozialen Netzwerken zu kombinieren. Unter "Kontoeinstellungen" kannst du festlegen, wie du bei friendfund identifiziert werden möchtest.</p>
+					<p>Friendfund erlaubt es dir deine Freundeslisten von unterschiedlichen sozialen Netzwerken zu kombinieren. Unter <a href="${url(controller="myprofile", action="account")}">"Kontoeinstellungen"</a> kannst du festlegen, wie du bei friendfund identifiziert werden möchtest.</p>
 					<h5><a name="faq14">Wenn ich mich via Facebook oder Twitter verbinde, wird die Meldung: "das Konto ist bereits vergeben" angezeigt. Wieso?</a><a href="#" class="linkTop">Top</a></h5>
 					<p>Das passiert, wenn das Netzwerkkonto, mit dem du dich anzumelden versuchst, bereits von einem anderen Nutzer verwendet wird. Am einfachsten loggst du dich aus Friendfund aus, und loggst dich dann direkt mit dem entsprechenden Netzwerk und -konto wieder ein.</p>
 					<h5><a name="faq15">Wie sehen eure Datenschutzbestimmungen aus?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>Alle Informationen zum Datenschutz findest du unter dem Menüpunkt "Impressum".</p>
+					<p>Alle Informationen zum Datenschutz findest du unter dem Menüpunkt <a href="${url(controller="content", action="privacy")}">"${_("FF_STATIC_MENU_Privacy")}"</a>.</p>
 	
 		<h4>Allgemeines</h4>
 		<div class="subHeading"></div>		
 					<h5><a name="faq16">Wie kann ich einen Pool löschen?</a><a href="#" class="linkTop">Top</a></h5>
 					<p>Sende uns einfach eine E-Mail an <a href="mailto:support@friendfund.com">support@friendfund.com</a>. Falls in deinem Pool schon Geld vorhanden ist, werden wir uns um die Rückzahlungen kümmern.</p>
 					<h5><a name="faq17">Wie kann mein Pool auf der Startseite angezeigt werden?</a><a href="#" class="linkTop">Top</a></h5>
-					<p>Der Gründer eines Pools kann eine E-Mail an unsere Communitymanagerin mit der Pool URL schicken, direkt an: <a href="mailto:alice@friendfund.com">alice@friendfund.com</a>. Und teile uns mit, was dein Pool auszeichnet!</p>
+					<p>Der Gründer eines Pools kann eine E-Mail an unsere Communitymanagerin mit der Pool URL schicken, direkt an: <a href="mailto:support@friendfund.com">support@friendfund.com</a>. Und teile uns mit, was dein Pool auszeichnet!</p>
 					<h5><a name="faq18">Ich habe Anregungen für friendfund. An wen kann ich mich wenden?</a><a href="#" class="linkTop">Top</a></h5>
 					<p>Hinterlass uns bitte eine Nachricht auf unserem <a href="http://friendfund.uservoice.com/forums/81919-general">Feedback Forum</a>. Wir freuen uns schon auf deine Ideen!</p>
 					<h5><a name="faq19">Ich habe alles gelesen aber immer noch Fragen. Was nun?</a><a href="#" class="linkTop">Top</a></h5>
