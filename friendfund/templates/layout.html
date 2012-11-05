@@ -22,64 +22,57 @@
 
 <%lang = h.get_language_locale()%>
 <div class="wrapFooter">
-		<div class="subFooterTop">
-			<div class="footer">
-            	<div class="firstFourCol">
-                    <div class="footerCol1">
-                        <span class="fontWeightBold">${_("FF_STATIC_MENU_About")}</span>
-						<a href="${url("short_content", action="learn_more", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_How Does It Work")}</a>
-                        <a href="${url("short_content", action="aboutus", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_About Friendfund")}</a>
-                        <a target="_blank" href="http://blog.friendfund.com">${_("FF_STATIC_MENU_Our blog")}</a>
-                        <a href="${url("short_content", action="jobs", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Jobs")}</a>
-                        <a href="${url("short_content", action="faq", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Frequently Asked Questions")}</a>
-                    </div>
-                    <div class="footerCol2">
-                        <span class="fontWeightBold">${_("FF_STATIC_MENU_Contact")}</span>
-                        <a href="${url("short_content", action="contact", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Contact Friendfund")}</a>
-                        <a href="${url("short_content", action="what_you_get", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Become a partner")}</a>
-                    </div>
-                    <div class="footerCol3">
-                        <span class="fontWeightBold">${_("FF_STATIC_MENU_Legal")}</span>
-                        <a href="${url("short_content", action="imprint", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Imprint")}</a>
-                        <a href="${url("short_content", action="tos", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Terms of Service")}</a>
-                        <a href="${url("short_content", action="privacy", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Privacy")}</a>
-                    </div>
-                    <div class="footerCol4">
-                        <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
-                        <a target="_blank" href="http://www.facebook.com/friendfund" class="linkFb"> ${_("FF_FOOTER_Like us on Facebook")}</a>
-                        <a target="_blank" href="http://twitter.com/#!/friendfund" class="linkTw">${_("FF_FOOTER_Follow us on Twitter")}</a>
-                        <a target="_blank" href="http://blog.friendfund.com/?feed=rss2" class="linkRss">${_("FF_FOOTER_Subscribe to our blog")}</a>
-                    </div>
-                    <div class="clear"></div>
-				</div>
-                <div class="footerCol5">
-					<div>
-						${self.languageSelector(lang)|n}
-						%if not request.is_secured:
-							<span class="middot floatLeft">&middot;</span>
-							<div class="like floatLeft" style="margin: 3px 0 0 0">
-							<span>Share Friendfund</span>
-							<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.friendfund.com" data-count="horizontal">Tweet</a>
-							<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-							<iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
-								
-							</div>
-						%endif
-						<span class="floatLeft" style="margin-top:-13px"><a target="_blank" href="http://www.instantssl.com">
-							<img src="/static/imgs/veri-sign_trans.png"/></a></span>
-						%if request.merchant.is_default:
-							<span class="floatRight" style="margin-top:3px">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
-						%else:
-							<a class="floatRight" style="margin-top:0px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
-						%endif
-						<div class="clear"></div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-
+  <div class="subFooterTop">
+    <div class="footer">
+      <div class="footerCol">
+        <span class="fontWeightBold first">${_("FF_STATIC_MENU_About")}</span>
+        <a href="${url("short_content", action="learn_more", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_How Does It Work")}</a>
+        <a href="${url("short_content", action="aboutus", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_About Friendfund")}</a>
+        <a target="_blank" href="http://blog.friendfund.com">${_("FF_STATIC_MENU_Our blog")}</a>
+        <a href="${url("short_content", action="jobs", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Jobs")}</a>
+        <a href="${url("short_content", action="faq", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Frequently Asked Questions")}</a>
+        <span class="fontWeightBold">${_("FF_STATIC_MENU_Contact")}</span>
+        <a href="${url("short_content", action="contact", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Contact Friendfund")}</a>
+        <a href="${url("short_content", action="what_you_get", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Become a partner")}</a>
+        <span class="fontWeightBold">${_("FF_STATIC_MENU_Legal")}</span>
+        <a href="${url("short_content", action="imprint", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Imprint")}</a>
+        <a href="${url("short_content", action="tos", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Terms of Service")}</a>
+        <a href="${url("short_content", action="privacy", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Privacy")}</a>
+        <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
+        <a target="_blank" href="http://www.facebook.com/friendfund" class="linkFb"> ${_("FF_FOOTER_Like us on Facebook")}</a>
+        <a target="_blank" href="http://twitter.com/#!/friendfund" class="linkTw">${_("FF_FOOTER_Follow us on Twitter")}</a>
+        <a target="_blank" href="http://blog.friendfund.com/?feed=rss2" class="linkRss">${_("FF_FOOTER_Subscribe to our blog")}</a>
+      </div>
+      <div class="footerCol">
+        <a class="twitter-timeline" href="https://twitter.com/friendfund" data-widget-id="265431790485897216">Tweets by @friendfund</a>
+      </div>
+      <div class="footerCol last">
+        <div class="fb-like-box" data-href="https://www.facebook.com/friendfund" data-width="290" data-border-color="#ffffff" data-height="450" data-show-faces="true" data-stream="true" data-header="false"></div>
+      </div>
+      <div class="footerCol5">
+        ${self.languageSelector(lang)|n}
+        %if not request.is_secured:
+          <span class="middot floatLeft">&middot;</span>
+          <div class="like floatLeft" style="margin: 3px 0 0 0">
+          <span>Share Friendfund</span>
+          <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.friendfund.com" data-count="horizontal">Tweet</a>
+          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+          <iframe src="https://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+            
+          </div>
+        %endif
+        <span class="floatLeft" style="margin-top:-18px"><a target="_blank" href="http://www.instantssl.com">
+          <img src="/static/imgs/veri-sign_trans.png?20121105"/></a></span>
+        %if request.merchant.is_default:
+          <span class="floatRight" style="margin-top:3px">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
+        %else:
+          <a class="floatRight" style="margin-top:0px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
+        %endif
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <%def name="renderMessages(pool_url = None, relative = False)">
@@ -127,7 +120,6 @@
 				</div>
 			</div>
 			<span>${Locale.parse(lang).languages.get(lang)}</span>
-			
 		</div>
 	</div>
 </div>

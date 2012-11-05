@@ -48,53 +48,44 @@
 	</div>
 </div>
 <div class="wrapFooter">
-		<div class="subFooterTop">
-			<div class="footer">
-            	<div class="firstFourCol">
-                    <div class="footerCol1">
-                        <span class="fontWeightBold">About</span>
-                        <a href="/content/aboutus">About friendfund</a>
-                        <a href="http://blog.friendfund.com">Blog</a>
-                        <a href="/content/jobs">Jobs</a>
-                        <a href="/content/faq">FAQ</a>
-                    </div>
-                    <div class="footerCol2">
-                        <span class="fontWeightBold">Contact</span>
-                        <a href="/content/contact">Contact friendfund</a>
-                        <a href="/content/become_partner">Become a Partner</a>
-                    </div>
-                    <div class="footerCol3">
-                        <span class="fontWeightBold">Legal</span>
-                        <a href="/content/tos">Terms of Service</a>
-                        <a href="/content/privacy">Privacy</a>
-                    </div>
-                    <div class="footerCol4">
-                        <span class="fontWeightBold">Connect</span>
-                        <a href="http://www.facebook.com/friendfund"><img src="/static/imgs/fb-icon.png" align="left" /> &nbsp;&nbsp;Join us on Facebook</a>
-                        <a href="http://twitter.com/#!/friendfund"><img src="/static/imgs/twitter-icon.png" align="left" /> &nbsp;&nbsp;Follow us on Twitter</a>
-                        <a href="http://blog.friendfund.com"><img src="/static/imgs/twitter-icon.png" align="left"  /> &nbsp;&nbsp;Subscribe to our Blog</a>
-                    </div>
-                    <div class="clear"></div>
-				</div>
-                <div class="footerCol5">
-					<div style="">
-						<span class="middot floatLeft">&middot;</span>
-						<div class="like floatLeft" style="margin: 3px 0 0 0">
-							<iframe src="http://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
+  <div class="subFooterTop">
+    <div class="footer">
+      <div class="footerCol">
+        <span class="fontWeightBold">${_("FF_STATIC_MENU_About")}</span>
+        <a href="${url("short_content", action="learn_more", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_How Does It Work")}</a>
+        <a href="${url("short_content", action="aboutus", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_About Friendfund")}</a>
+        <a target="_blank" href="http://blog.friendfund.com">${_("FF_STATIC_MENU_Our blog")}</a>
+        <a href="${url("short_content", action="jobs", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Jobs")}</a>
+        <a href="${url("short_content", action="faq", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Frequently Asked Questions")}</a>
+        <span class="fontWeightBold">${_("FF_STATIC_MENU_Contact")}</span>
+        <a href="${url("short_content", action="contact", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Contact Friendfund")}</a>
+        <a href="${url("short_content", action="what_you_get", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_FOOTER_Become a partner")}</a>
+        <span class="fontWeightBold">${_("FF_STATIC_MENU_Legal")}</span>
+        <a href="${url("short_content", action="imprint", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Imprint")}</a>
+        <a href="${url("short_content", action="tos", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Terms of Service")}</a>
+        <a href="${url("short_content", action="privacy", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Privacy")}</a>
+        <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
+        <a target="_blank" href="http://www.facebook.com/friendfund" class="linkFb"> ${_("FF_FOOTER_Like us on Facebook")}</a>
+        <a target="_blank" href="http://twitter.com/#!/friendfund" class="linkTw">${_("FF_FOOTER_Follow us on Twitter")}</a>
+        <a target="_blank" href="http://blog.friendfund.com/?feed=rss2" class="linkRss">${_("FF_FOOTER_Subscribe to our blog")}</a>
+      </div>
+      <div class="footerCol5">
+        <span class="middot floatLeft">&middot;</span>
+        <div class="like floatLeft" style="margin: 3px 0 0 0">
+          <iframe src="http://www.facebook.com/plugins/like.php?href=www.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
 
-						</div>
-						<span class="middot floatLeft">&middot;</span>
-						<div class="floatLeft" style="margin:3px 0 0 0">
-							<span>You're safe with us</span>
-						</div>
-						<span class="floatRight"  style="margin:3px 0 0 0">2011 friendfund GmbH. All Rights Reserved.</span>
-						<div class="clear"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="subFooterBottom"></div>
-	</div>
+        </div>
+        <span class="middot floatLeft">&middot;</span>
+        <div class="floatLeft" style="margin:3px 0 0 0">
+          <span>You're safe with us</span>
+        </div>
+        <span class="floatRight"  style="margin:3px 0 0 0">2011 friendfund GmbH. All Rights Reserved.</span>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <div class="subFooterBottom"></div>
+</div>
 </body>
 </html>
 
