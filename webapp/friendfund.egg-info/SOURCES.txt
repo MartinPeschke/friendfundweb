@@ -53,25 +53,6 @@ friendfund/lib/urlnormalize.py
 friendfund/lib/yaff.py
 friendfund/lib/auth/__init__.py
 friendfund/lib/auth/decorators.py
-friendfund/lib/beaker_thread/__init__.py
-friendfund/lib/beaker_thread/cache.py
-friendfund/lib/beaker_thread/container.py
-friendfund/lib/beaker_thread/converters.py
-friendfund/lib/beaker_thread/exceptions.py
-friendfund/lib/beaker_thread/middleware.py
-friendfund/lib/beaker_thread/session.py
-friendfund/lib/beaker_thread/synchronization.py
-friendfund/lib/beaker_thread/util.py
-friendfund/lib/beaker_thread/crypto/__init__.py
-friendfund/lib/beaker_thread/crypto/jcecrypto.py
-friendfund/lib/beaker_thread/crypto/pbkdf2.py
-friendfund/lib/beaker_thread/crypto/pycrypto.py
-friendfund/lib/beaker_thread/crypto/util.py
-friendfund/lib/beaker_thread/ext/__init__.py
-friendfund/lib/beaker_thread/ext/database.py
-friendfund/lib/beaker_thread/ext/google.py
-friendfund/lib/beaker_thread/ext/memcached.py
-friendfund/lib/beaker_thread/ext/sqla.py
 friendfund/lib/notifications/__init__.py
 friendfund/lib/notifications/messages.py
 friendfund/lib/payment/__init__.py
@@ -135,6 +116,7 @@ friendfund/public/imgs/Widgets_Logo.png
 friendfund/public/imgs/Zanox_sml.png
 friendfund/public/imgs/ajax-loader.gif
 friendfund/public/imgs/alice.jpg
+friendfund/public/imgs/amadeo.png
 friendfund/public/imgs/amazon_1.png
 friendfund/public/imgs/amex.png
 friendfund/public/imgs/amex_color.png
@@ -164,6 +146,7 @@ friendfund/public/imgs/chemistry.png
 friendfund/public/imgs/chipped.png
 friendfund/public/imgs/cloud.png
 friendfund/public/imgs/comment.png
+friendfund/public/imgs/comodo_secure-113x59.gif
 friendfund/public/imgs/contributor.png
 friendfund/public/imgs/contributors-ico.png
 friendfund/public/imgs/creategroup.png
@@ -282,6 +265,7 @@ friendfund/public/imgs/iframe-partner/friends_icon.png
 friendfund/public/imgs/iframe-partner/gift_icon.png
 friendfund/public/imgs/iframe-partner/recipient_icon.png
 friendfund/public/imgs/integrations/GAD_trans.png
+friendfund/public/imgs/integrations/ONE4ALL.png
 friendfund/public/imgs/integrations/amazon_trans.png
 friendfund/public/imgs/integrations/caseable_trans.png
 friendfund/public/imgs/integrations/donanda_trans.png
@@ -300,6 +284,7 @@ friendfund/public/imgs/press/appappeal.png
 friendfund/public/imgs/press/background.jpg
 friendfund/public/imgs/press/background_outer.jpg
 friendfund/public/imgs/press/background_outer.png
+friendfund/public/imgs/press/bbc.png
 friendfund/public/imgs/press/gigaom.png
 friendfund/public/imgs/press/gigaom_bw.png
 friendfund/public/imgs/press/gigaom_sml.png
@@ -1613,6 +1598,9 @@ friendfund/public/partner/buttons/friendfund_it_button_small_blue.png
 friendfund/public/partner/buttons/friendfund_it_button_small_green.png
 friendfund/public/partner/buttons/friendfund_it_button_xsmall_blue.png
 friendfund/public/partner/buttons/friendfund_it_button_xsmall_green.png
+friendfund/public/partner/logos/52WEINEDE_lrg.png
+friendfund/public/partner/logos/52WEINEDE_med.png
+friendfund/public/partner/logos/52WEINEDE_sml.png
 friendfund/public/partner/logos/ACTIVITY_GIFTS_lrg.png
 friendfund/public/partner/logos/ACTIVITY_GIFTS_med.png
 friendfund/public/partner/logos/ACTIVITY_GIFTS_sml.png
@@ -1625,6 +1613,9 @@ friendfund/public/partner/logos/ALL_GIFTS_IE_sml.png
 friendfund/public/partner/logos/AMAZON_lrg.png
 friendfund/public/partner/logos/AMAZON_med.png
 friendfund/public/partner/logos/AMAZON_sml.png
+friendfund/public/partner/logos/BURDATEST_lrg.png
+friendfund/public/partner/logos/BURDATEST_med.png
+friendfund/public/partner/logos/BURDATEST_sml.png
 friendfund/public/partner/logos/BUY_A_GIFT_lrg.png
 friendfund/public/partner/logos/BUY_A_GIFT_med.png
 friendfund/public/partner/logos/BUY_A_GIFT_sml.png
@@ -1653,6 +1644,12 @@ friendfund/public/partner/logos/LA_VIDA_ES_BELLA_sml.png
 friendfund/public/partner/logos/MEVENTI_lrg.png
 friendfund/public/partner/logos/MEVENTI_med.png
 friendfund/public/partner/logos/MEVENTI_sml.png
+friendfund/public/partner/logos/MYDAYS_lrg.png
+friendfund/public/partner/logos/MYDAYS_med.png
+friendfund/public/partner/logos/MYDAYS_sml.png
+friendfund/public/partner/logos/ONE4ALLUK_lrg.png
+friendfund/public/partner/logos/ONE4ALLUK_med.png
+friendfund/public/partner/logos/ONE4ALLUK_sml.png
 friendfund/public/partner/logos/ONE4ALL_lrg.png
 friendfund/public/partner/logos/ONE4ALL_med.png
 friendfund/public/partner/logos/ONE4ALL_sml.png
@@ -1668,6 +1665,7 @@ friendfund/public/partner/logos/SHOPPERELLA_sml.png
 friendfund/public/partner/logos/YO_QUIERO_UNO_DE_ESOS_lrg.png
 friendfund/public/partner/logos/YO_QUIERO_UNO_DE_ESOS_med.png
 friendfund/public/partner/logos/YO_QUIERO_UNO_DE_ESOS_sml.png
+friendfund/public/partner/samples/burda_test.html
 friendfund/public/partner/samples/buyagift_product.html
 friendfund/public/partner/samples/caseable_home.html
 friendfund/public/partner/samples/caseable_product1.html
@@ -1686,8 +1684,10 @@ friendfund/public/partner/samples/LIVE_SAMPLES/lavidaesbella_home.html
 friendfund/public/partner/samples/LIVE_SAMPLES/lavidaesbella_product1.html
 friendfund/public/partner/samples/LIVE_SAMPLES/lavidaesbella_product2.html
 friendfund/public/partner/samples/LIVE_SAMPLES/yoquierounodeesos.html
+friendfund/public/partner/samples/demo/52weine.html
 friendfund/public/partner/samples/demo/aladinia.html
 friendfund/public/partner/samples/demo/allgifts.ie.product.html
+friendfund/public/partner/samples/demo/burda_test.html
 friendfund/public/partner/samples/demo/iwantoneofthose_home.html
 friendfund/public/partner/samples/demo/iwantoneofthose_product.html
 friendfund/public/partner/samples/demo/jollydays_product.html
@@ -1695,6 +1695,7 @@ friendfund/public/partner/samples/demo/lavidaesbella_home.html
 friendfund/public/partner/samples/demo/lavidaesbella_product1.html
 friendfund/public/partner/samples/demo/lavidaesbella_product2.html
 friendfund/public/partner/samples/demo/meventi.html
+friendfund/public/partner/samples/demo/mydays.html
 friendfund/public/partner/samples/demo/one4all_home.html
 friendfund/public/partner/samples/demo/perfectgift.html
 friendfund/public/partner/samples/demo/red5.html
@@ -1839,6 +1840,8 @@ friendfund/templates/messaging/messages/msg_31.txt
 friendfund/templates/messaging/messages/msg_33.txt
 friendfund/templates/messaging/messages/msg_34.txt
 friendfund/templates/messaging/messages/msg_35.txt
+friendfund/templates/messaging/messages/msg_37.txt
+friendfund/templates/messaging/messages/msg_38.txt
 friendfund/templates/messaging/messages/msg_39.txt
 friendfund/templates/messaging/messages/msg_40.txt
 friendfund/templates/messaging/messages/msg_5.txt
@@ -1891,6 +1894,7 @@ friendfund/templates/messaging/messages_de/msg_31.txt
 friendfund/templates/messaging/messages_de/msg_33.txt
 friendfund/templates/messaging/messages_de/msg_34.txt
 friendfund/templates/messaging/messages_de/msg_35.txt
+friendfund/templates/messaging/messages_de/msg_37.txt
 friendfund/templates/messaging/messages_de/msg_39.txt
 friendfund/templates/messaging/messages_de/msg_5.txt
 friendfund/templates/messaging/messages_de/msg_50.txt
@@ -1936,6 +1940,7 @@ friendfund/templates/messaging/messages_es/msg_28.txt
 friendfund/templates/messaging/messages_es/msg_30.txt
 friendfund/templates/messaging/messages_es/msg_31.txt
 friendfund/templates/messaging/messages_es/msg_34.txt
+friendfund/templates/messaging/messages_es/msg_37.txt
 friendfund/templates/messaging/messages_es/msg_39.txt
 friendfund/templates/messaging/messages_es/msg_40.txt
 friendfund/templates/messaging/messages_es/msg_5.txt
@@ -1983,12 +1988,15 @@ friendfund/templates/partner/common.html
 friendfund/templates/partner/create.html
 friendfund/templates/partner/iframe_home.html
 friendfund/templates/partner/iframe_product.html
+friendfund/templates/partner/signup.html
 friendfund/templates/pool/address.html
 friendfund/templates/pool/chat.html
 friendfund/templates/pool/create.html
 friendfund/templates/pool/edit.html
 friendfund/templates/pool/pool.html
 friendfund/templates/pool/pool_complete.html
+friendfund/templates/pool/parts/cancelpayment_not_popup.html
+friendfund/templates/pool/parts/cancelpayment_popup.html
 friendfund/templates/pool/parts/chipin_box.html
 friendfund/templates/pool/parts/invitees.html
 friendfund/templates/pool/parts/leave_not_popup.html
@@ -2014,3 +2022,4 @@ friendfund/tests/__init__.py
 friendfund/tests/test_models.py
 friendfund/tests/functional/__init__.py
 friendfund/tests/functional/test_index.py
+friendfund/tests/functional/test_invite.py
