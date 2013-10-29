@@ -15,14 +15,17 @@ setup(
     url='',
     install_requires=[
         "Pylons>=0.9.7",
+        "pastedeploy", 
+        "pastescript", 
         "PIL>=1.1.7",
         "multiprocessing>=2.6.2.1",
         "pylibmc>=1.1.1",
         "FormEncode>=1.2.2",
         "pyodbc>=2.1.8",
         "DBUtils>=1.0",
-        "Babel==0.9.5",
-        "BeautifulSoup>=3.2.0"
+        "Babel",
+        "BeautifulSoup>=3.2.0",
+        "celery"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),
