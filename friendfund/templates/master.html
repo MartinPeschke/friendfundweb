@@ -55,7 +55,7 @@ ${self.render_html()}
 
         ${self.onloadscripts()}
 
-        window.__auth__.addLoginDeferred(function(){_hnc('event', 'LOGIN')});
+        window.__auth__.addLoginDeferred(function(){_hnc("fb", FB.getAccessToken(), FB.getUserID());});
     });
   </script>
   ${tracking.renderAll(app_globals.debug)|n}
