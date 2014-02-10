@@ -40,7 +40,6 @@ dojo.declare("ff._auth", null, {
 		this.addLoginDeferred = loginDefs.add;
 		this.runLoginDeferred = loginDefs.run;
 		if(this.requireFBPerms){this.addLoginDeferred(dojo.hitch(this, "_guardedFBScope"));}
-		
 		var js, id = 'facebook-jssdk'; if (document.getElementById(id)) {return;}
 		js = document.createElement('script'); js.id = id; js.async = true;
 		js.src = "//connect.facebook.net/en_US/all.js";

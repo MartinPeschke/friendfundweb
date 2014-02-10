@@ -1,69 +1,73 @@
 <%inherit file="sublayout.html"/>
 <%def name="title()">${_("FF_CONTRIB_SUCCESS_Thanks for Chipping In!")}</%def>
 <%def name="scripts()">
-	<script type="text/javascript">
-		var addthis_config = {"data_track_clickback":true};
-		var addthis_share = { templates: {twitter: '${_("FF_CONTRIB_SUCCESS_I have chipped in! @friendfund")} {{url}}'}};
-	</script>
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_clickback":true};
+    var addthis_share = { templates: {twitter: '${_("FF_CONTRIB_SUCCESS_I have chipped in! @friendfund")} {{url}}'}};
+  </script>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=friendfund"></script>
 </%def>
 <%def name="onloadscripts()">
-	ff.w.connectPopupLinks("successPageBody");
+  ff.w.connectPopupLinks("successPageBody");
+</%def>
+<%def name="tracking_finals(debug)">
+  _hnc('event', 'CONTRIBUTION');
 </%def>
 
 
-<% 
-	comma_seperated_name_list, one_more_name = c.contrib.get_suggested_names(", ")
-	locals = {"amount":c.values["amount"], "pool_title":c.pool.title, "admin_name":c.pool.admin.name, "p_url":url("get_pool", pool_url = c.pool.p_url, protocol="http"),
-		"one_more_name":one_more_name,"comma_seperated_name_list":comma_seperated_name_list, "create_link":'href="%s"'%h.create_pool_link(request, url),
-		"number_suggestions" : c.contrib.number_suggestions()} 
+
+<%
+    comma_seperated_name_list, one_more_name = c.contrib.get_suggested_names(", ")
+    locals = {"amount":c.values["amount"], "pool_title":c.pool.title, "admin_name":c.pool.admin.name, "p_url":url("get_pool", pool_url = c.pool.p_url, protocol="http"),
+                                          "one_more_name":one_more_name,"comma_seperated_name_list":comma_seperated_name_list, "create_link":'href="%s"'%h.create_pool_link(request, url),
+                                          "number_suggestions" : c.contrib.number_suggestions()}
 %>
 <div class="colRight"></div>
 <div class="colLeft">
-	<div class="successBox" id="successPageBody">
-		<div class="greyInside" style="padding:10px; margin:20px 0 0 0">
-			<div class="boxWhat floatLeft">
-			<div class="prod"> <img width="60px" height="50px" src="${c.pool.get_product_display_picture("FF_POOLS")}"> </div>
-			<p style="overflow: hidden;" class="title">
-				<a href="${locals['p_url']}">${c.pool.title}</a>
-				<span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>
-			</p>
-			<div class="clear"></div>
-		</div>
-			<h4>${_("FF_CONTRIB_SUCCESS_You've contributed %(amount)s")%locals|n}</h4>
-			<p class="suc">${_("FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive shortly.")}</p>
-			<div class="clear"></div>
-		</div>
-		<div class="colRightWhite"></div>
-		<p class="suc2">${_("FF_CONTRIB_SUCCESS_Help spread the word by sharing this Pool with your friends:")%locals|n}</p>
-		<div class="addthis_toolbox addthis_default_style">
-					  <a class="addthis_button_facebook" addthis:url="${locals['p_url']}"></a>
-					  <a class="addthis_button_twitter" addthis:url="${locals['p_url']}"></a>
-					  <a class="addthis_button_email" addthis:url="${locals['p_url']}"></a>
-					  <a class="addthis_button_linkedin" addthis:url="${locals['p_url']}"></a>
-					  <a class="addthis_button_stumbleupon" addthis:url="${locals['p_url']}"></a>
-					  <a class="addthis_button_tumblr" addthis:url="${locals['p_url']}"></a>
-					  <a class="addthis_button_expanded" addthis:url="${locals['p_url']}"></a>
-		</div>
-		<input type="text" onclick="this.select()" value="${locals['p_url']}">
-		&nbsp; &nbsp;&nbsp;<span>|</span> &nbsp;&nbsp;
-		<a class="link popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a> &nbsp;&nbsp;
-		<span>|</span> &nbsp;&nbsp;
-		<a href="${url("invite_index", pool_url=c.pool.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a> &nbsp;&nbsp;
-		
-		<h4>${_("FF_CONTRIB_SUCCESS_What Next?")}</h4>
-		<div class="subHeading"></div> 
-		<div style="padding-bottom:20px">
-		%if not locals['number_suggestions']:
-			<p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite some friends to chip in?")%locals|n}</p>
-		%elif locals['number_suggestions'] == 1:
-			<p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(one_more_name)s to chip in?")%locals|n}</p>
-		%else:
-			<p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(comma_seperated_name_list)s and %(one_more_name)s to chip in?")%locals|n}</p>
-		%endif
-		</div>
-		<a ${locals['create_link']|n} class="primaryButton floatLeft">${_("FF_MENU_Create a pool")}</a>
-		<a href="${locals['p_url']}" style="margin:7px 0 0 15px; display:block; float:left">${_("FF_MESSAGE_LINK_Back to Pool")}</a>
-	</div>
-	<div class="clear"></div>
+  <div class="successBox" id="successPageBody">
+    <div class="greyInside" style="padding:10px; margin:20px 0 0 0">
+      <div class="boxWhat floatLeft">
+        <div class="prod"> <img width="60px" height="50px" src="${c.pool.get_product_display_picture("FF_POOLS")}"> </div>
+        <p style="overflow: hidden;" class="title">
+          <a href="${locals['p_url']}">${c.pool.title}</a>
+          <span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>
+        </p>
+        <div class="clear"></div>
+      </div>
+      <h4>${_("FF_CONTRIB_SUCCESS_You've contributed %(amount)s")%locals|n}</h4>
+      <p class="suc">${_("FF_PAYMENT_SUCCESS_We sent you a payment receipt, you should receive shortly.")}</p>
+      <div class="clear"></div>
+    </div>
+    <div class="colRightWhite"></div>
+    <p class="suc2">${_("FF_CONTRIB_SUCCESS_Help spread the word by sharing this Pool with your friends:")%locals|n}</p>
+    <div class="addthis_toolbox addthis_default_style">
+      <a class="addthis_button_facebook" addthis:url="${locals['p_url']}"></a>
+      <a class="addthis_button_twitter" addthis:url="${locals['p_url']}"></a>
+      <a class="addthis_button_email" addthis:url="${locals['p_url']}"></a>
+      <a class="addthis_button_linkedin" addthis:url="${locals['p_url']}"></a>
+      <a class="addthis_button_stumbleupon" addthis:url="${locals['p_url']}"></a>
+      <a class="addthis_button_tumblr" addthis:url="${locals['p_url']}"></a>
+      <a class="addthis_button_expanded" addthis:url="${locals['p_url']}"></a>
+    </div>
+    <input type="text" onclick="this.select()" value="${locals['p_url']}">
+    &nbsp; &nbsp;&nbsp;<span>|</span> &nbsp;&nbsp;
+    <a class="link popuplink" _href="${url("pool_action", action="get_widget", pool_url=c.pool.p_url)}"> ${_(u"FF_POOL_PAGE_CHIPIN_embed widget")}</a> &nbsp;&nbsp;
+    <span>|</span> &nbsp;&nbsp;
+    <a href="${url("invite_index", pool_url=c.pool.p_url, v=3)}" class="link">${_("FF_MYPOOLS_Invite Friends")}</a> &nbsp;&nbsp;
+
+    <h4>${_("FF_CONTRIB_SUCCESS_What Next?")}</h4>
+    <div class="subHeading"></div>
+    <div style="padding-bottom:20px">
+        %if not locals['number_suggestions']:
+          <p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite some friends to chip in?")%locals|n}</p>
+        %elif locals['number_suggestions'] == 1:
+          <p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(one_more_name)s to chip in?")%locals|n}</p>
+        %else:
+          <p class="suc2">${_("FF_CONTRIB_SUCCESS_Why not <a %(create_link)s>create your own Pool</a> and invite %(comma_seperated_name_list)s and %(one_more_name)s to chip in?")%locals|n}</p>
+        %endif
+    </div>
+    <a ${locals['create_link']|n} class="primaryButton floatLeft">${_("FF_MENU_Create a pool")}</a>
+    <a href="${locals['p_url']}" style="margin:7px 0 0 15px; display:block; float:left">${_("FF_MESSAGE_LINK_Back to Pool")}</a>
+  </div>
+  <div class="clear"></div>
 </div>
