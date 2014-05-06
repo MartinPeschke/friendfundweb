@@ -4,59 +4,62 @@
 ${self.render_html()}
 
 <%def name="render_html()">
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<% lang = h.get_language_locale() %>
-	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="${lang}" lang="${lang}">
-	<head>
-		<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-		${next.render_head()}
-	</head>
-	<body class="${self.bodyclass()}">
-		${next.body()}
-		${next.render_foot_scripts(lang)}
-	</body>
-	</html>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <% lang = h.get_language_locale() %>
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="${lang}" lang="${lang}">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+      ${next.render_head()}
+  </head>
+  <body class="${self.bodyclass()}">
+      ${next.body()}
+      ${next.render_foot_scripts(lang)}
+  </body>
+  </html>
 </%def>
 
 <%def name="render_head()">
-		<title>friendfund.com ${self.title()}</title>
-		<script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
-		${links.css('site.css')}
-		<!--[if IE]>${links.css('allie.css')}<![endif]-->
-		<!--[if IE 7]>${links.css('ie.css')}<![endif]-->
-		${merchantstyles.merchantStyles(request.merchant)|n}
-		${self.meta_tags()}
-		${self.styles()}
+  <title>friendfund.com ${self.title()}</title>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
+  ${links.css('site.css')}
+  <!--[if IE]>${links.css('allie.css')}<![endif]-->
+  <!--[if IE 7]>${links.css('ie.css')}<![endif]-->
+  ${merchantstyles.merchantStyles(request.merchant)|n}
+  ${self.meta_tags()}
+  ${self.styles()}
 </%def>
 
 
 <%def name="render_foot_scripts(lang)">
-	<input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
-	<script type="text/javascript">djConfig={baseUrl: "/static/js/build/dojo/dojo/", dojoBlankHtmlUrl : "/static/blank.html",locale : '${lang}'};</script>
-	${links.js('build/dojo.js')}
-	${links.testing_js()}
-	<div id="generic_popup">${self.renderBlockingPopup()}</div>
-	<div id="fb-root"></div>
-	<div id="fbdata-root"></div>
-	${self.scripts()}
-	<script type="text/javascript">
-		dojo.addOnLoad( function() {
-			window.__auth__ = new ff.auth({fbappId:"${app_globals.FbAppID}"
-											,fbRootNode:"fb-root"
-											,requireFBPerms:false
-											,fbId:${c.user.get_perm_network_id("facebook") or "null"}
-											,loginurl:"${url(controller="myprofile", action="login")}"}, ${self.authperms()});
-			%if c.user.is_anon:
-				if(dojo.byId("homepanel-connect-toggle")){
-					window.__auth__.connectToCToggle("homepanel-connect-toggle", "ToC-checkbox-loginarea" );
-				}
-			%endif
-			
-			${self.onloadscripts()}
-		});
-	</script>
-	${tracking.renderAll(app_globals.debug)|n}
+  <input type="hidden" id="furl" value="${getattr(c, 'furl', '')}"/>
+  <script type="text/javascript">djConfig={baseUrl: "/static/js/build/dojo/dojo/", dojoBlankHtmlUrl : "/static/blank.html",locale : '${lang}'};</script>
+  ${links.js('build/dojo.js')}
+  ${links.testing_js()}
+  <div id="generic_popup">${self.renderBlockingPopup()}</div>
+  <div id="fb-root"></div>
+  <div id="fbdata-root"></div>
+  ${self.scripts()}
+  <script type="text/javascript">
+    dojo.addOnLoad( function() {
+      window.__auth__ = new ff.auth({fbappId:"${app_globals.FbAppID}"
+        ,fbRootNode:"fb-root"
+        ,requireFBPerms:false
+        ,fbId:${c.user.get_perm_network_id("facebook") or "null"}
+        ,loginurl:"${url(controller="myprofile", action="login")}"}, ${self.authperms()});
+        %if c.user.is_anon:
+          if(dojo.byId("homepanel-connect-toggle")){
+            window.__auth__.connectToCToggle("homepanel-connect-toggle", "ToC-checkbox-loginarea" );
+          }
+        %endif
+
+        ${self.onloadscripts()}
+
+        window.__auth__.addLoginDeferred(function(){_hnc("fb", FB.getAccessToken(), FB.getUserID());});
+    });
+  </script>
+  ${tracking.renderAll(app_globals.debug)|n}
+  ${self.tracking_finals(app_globals.debug)|n}
 </%def>
 
 <%def name="renderBlockingPopup()"></%def>
@@ -69,3 +72,4 @@ ${self.render_html()}
 <%def name="scripts()"></%def>
 <%def name="authperms()">null</%def>
 <%def name="onloadscripts()"></%def>
+<%def name="tracking_finals(debug)"></%def>
