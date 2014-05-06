@@ -1,10 +1,4 @@
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from ez_setup import use_setuptools
-    use_setuptools()
-    from setuptools import setup, find_packages
-
+from setuptools import setup, find_packages
 
 setup(
     name='friendfund',
@@ -14,12 +8,10 @@ setup(
     author_email='',
     url='',
     install_requires=[
-        "Pylons>=0.9.7",
+        "Pylons==1.0.1",
         "pastedeploy", 
         "pastescript", 
         "PIL>=1.1.7",
-        "multiprocessing>=2.6.2.1",
-        "pylibmc>=1.1.1",
         "FormEncode>=1.2.2",
         "pyodbc>=2.1.8",
         "DBUtils>=1.0",
@@ -28,7 +20,7 @@ setup(
         "celery"
     ],
     setup_requires=["PasteScript>=1.6.3"],
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages(),
     include_package_data=True,
     test_suite='nose.collector',
     package_data={'friendfund': ['i18n/*/LC_MESSAGES/*.mo']},
