@@ -47,6 +47,7 @@ VERSIONS = {
     , "MEMCACHED":"1.4.15"
     , "REDIS":"2.6.17"
     , "NODE":"0.10.26"
+    , "FREETDS": "0.91.102"
 }
 
 NEWRELIC_LICENSEKEY='0b05ef93874b87d2b6fb3878e68299db385c15c5'
@@ -63,6 +64,7 @@ def update_sys():
     sudo("apt-get install -y {}".format(" ".join(SYSTEM_PACKAGES)))
     sudo("mkdir -p /server/{www,src}")
 
+
 def add_python():
     with cd("/server/src"):
         sudo("wget http://www.python.org/ftp/python/{0}/Python-{0}.tgz".format(VERSIONS['PYTHON']))
@@ -73,6 +75,7 @@ def add_python():
         sudo("python ez_setup.py")
         sudo("easy_install virtualenv Cython ctypes")
 
+
 def add_rabbit_mq():
     files.append('/etc/apt/sources.list', 'deb http://www.rabbitmq.com/debian/ testing main', use_sudo=True)
     run('wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc')
@@ -80,10 +83,20 @@ def add_rabbit_mq():
     sudo('apt-get update')
 
 
+def add_freetds():
+    with cd('/server/src/'):
+        name = "freetds-%s" % VERSIONS['FREETDS']
+        sudo('wget ftp://ftp.freetds.org/pub/freetds/stable/%s.tar.gz' % name)
+        sudo('tar xfv %s.tar.gz' % name)
+        with cd(name):
+            sudo('./configure && make && make install')
+
+
 @task
 def provision():
     update_sys()
     add_python()
     add_rabbit_mq()
+    add_freetds()
     sudo('apt-get install -y {}'.format(' '.join(EXTRA_PACKAGES)))
 

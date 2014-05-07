@@ -17,6 +17,8 @@ setup(
         "DBUtils>=1.0",
         "httplib2",
         "Babel",
+        "dnspython",
+        "ZSI",
         "markupsafe",
         "BeautifulSoup>=3.2.0",
         "lxml",
