@@ -8,12 +8,12 @@ setup(
     author_email='',
     url='',
     install_requires=[
+        "pyodbc>=2.1.8",
         "Pylons==1.0.1",
         "pastedeploy", 
         "pastescript", 
         "PIL>=1.1.7",
         "FormEncode>=1.2.2",
-        "pyodbc>=2.1.8",
         "DBUtils>=1.0",
         "Babel",
         "BeautifulSoup>=3.2.0",

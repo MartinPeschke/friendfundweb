@@ -27,7 +27,7 @@ ENVIRONMENT_LIST = [
                 project_name='friendfund',
                 base_name='ff_web',
                 process_groups=['ff_web_p1'],
-                config_path='dev_vagrant'),
+                config_path='dev'),
     Environment('live',
                 repo="git@github.com:MartinPeschke/friendfundweb.git",
                 branch='master',
@@ -64,7 +64,7 @@ def add_supervisor_conf(env):
         'deploy_path': environment.deploy_path,
         'log_path': environment.log_path,
         'python_path': environment.supervisor_python_path,
-        'config_file': '%s/code/config.ini' % environment.deploy_path
+        'config_file': environment.config_file_path
     }, use_jinja=True, use_sudo=True)
     sudo("supervisorctl reload")
 
@@ -116,11 +116,11 @@ def switch(env, version):
     code_path = environment.get_code_path(version)
 
     with cd(code_path):
-        run("%s/env/bin/pip install -U -r requires_install.txt" % environment.deploy_path)
-        run("%s/env/bin/python setup.py develop"% environment.deploy_path)
+        run("%s/env/bin/pip install -r requires_install.txt" % environment.deploy_path)
+        run("%s/env/bin/python setup.py develop" % environment.deploy_path)
 
     with cd(environment.deploy_path):
-        run("cp %s code/%s" % (environment.get_config_file("config_web.ini"), environment.supervisor_conf_name))
+        run("cp %s code/%s" % (environment.get_config_file("config_web.ini"), environment.config_file_path))
 
         with cd("code"):
             run("rm current;ln -s {} current".format(version))

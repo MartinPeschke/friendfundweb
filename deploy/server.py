@@ -31,6 +31,12 @@ SYSTEM_PACKAGES = ["sudo"
                   , "libevent-dev"
                   , "git", "curl"]
 
+EXTRA_PACKAGES = ['supervisor',
+                  'memcached',
+                  'libmemcached-dev',
+                  'unixodbc',
+                  'unixodbc-dev']
+
 VERSIONS = {
     "PYTHON":"2.7.6"
     , "NGINX":"1.5.12"
@@ -64,5 +70,5 @@ def add_python():
 def provision():
     update_sys()
     add_python()
-    sudo('apt-get install -y memcached supervisor')
+    sudo('apt-get install -y {}'.format(EXTRA_PACKAGES))
 
