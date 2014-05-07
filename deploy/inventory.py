@@ -38,6 +38,10 @@ class Environment(object):
         return '%s/configs/%s/%s' % (self.repo_path, self.config_path, name)
 
     @property
+    def supervisor_conf_name(self):
+        return '%s_%s_%s.conf' % (self.project_name, self.base_name, self.env_name)
+
+    @property
     def config_file_path(self):
         return '%s/code/config.ini' % self.deploy_path
 

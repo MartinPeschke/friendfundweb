@@ -1,7 +1,8 @@
-from fabric.context_managers import lcd, cd
+from fabric.context_managers import cd
 from fabric.decorators import task
-from fabric.operations import local, sudo
-from fabric.state import env
+from fabric.operations import sudo, run
+from fabric.contrib import files
+from inventory import vagrant
 
 __author__ = 'Martin'
 
@@ -21,6 +22,7 @@ SYSTEM_PACKAGES = ["sudo"
                   , "apache2-utils"
                   , "lib32bz2-dev"
                   , "curl"
+                  , "vim"
                   , "libreadline6"
                   , "libreadline6-dev"
                   , "libmhash2"
@@ -35,7 +37,8 @@ EXTRA_PACKAGES = ['supervisor',
                   'memcached',
                   'libmemcached-dev',
                   'unixodbc',
-                  'unixodbc-dev']
+                  'unixodbc-dev',
+                  'rabbitmq-server']
 
 VERSIONS = {
     "PYTHON":"2.7.6"
@@ -49,6 +52,9 @@ NEWRELIC_LICENSEKEY='0b05ef93874b87d2b6fb3878e68299db385c15c5'
 KEYS = [
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCtJYB+2da2RK60ZBqagi5/x9hRD2uxGt5Td1FbsPioFF2+8Nmb5pL0byutXvF03bIbxWFnb0F4mY0kO5zJYOqvZoIsrmBmWMSQNH9CzXbPxjgQCXKukPjl7Xsb8S7hmIZ6I7PH0XSQl67i9eTOzOJGx9BI2P2nhXli9g+WT75x6P3dL86oyf9+MHMZl4z89RDJvebj8s+19xrCmmAEiR6gdpjW4xPCx8z/CDA9PbvMs5deOUTV5pKmBkNfJahzjkY9eJD4FDfE6r+9H5gr2+0I3mnmPYg+mJJf9bfylQo/Z1nccCKqp1aPjT7P+urIBaSMdlwtD9nUa4uzwnBBdswkVER3Y3U4Zv1RvbU59qH32xwt0CuMLA/GSqY7eWZ19RnRYk9CP0Ukx2LGahOVeUiIRizhzaIjhSNw2Kp1qTASwpoREl8VDPmXTTePkAUNJ/Jxn3218qcMrRjHY5tFgfy9Sj8WdqJoVm29x9aZCB0487oOS2zLEgWjPkQ9e4TacfkVYqzqYIHTQ0LVkeFarOHKLAUBRid6aVs+Earf78ipJIg7H+0w1xEv7+Z3Y5x5oaRfg9Z6s6kccJ2U+Ne9OuHs77fa0tI4gV626Q4KQgpDpMOgN1picEOwxVLeJGW4Kaa07UAEdwSsxAK/m1LqSXc2I/oOp/oA3O1lttv/EIYS9Q== www-data@hnchudson"
 ]
+
+# required for execution
+__IMPORT_KEEP__ = lambda x: vagrant
 
 
 def update_sys():
@@ -66,9 +72,17 @@ def add_python():
         sudo("python ez_setup.py")
         sudo("easy_install virtualenv Cython ctypes")
 
+def add_rabbit_mq():
+    files.append('/etc/apt/sources.list', 'deb http://www.rabbitmq.com/debian/ testing main', use_sudo=True)
+    run('wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc')
+    sudo('sudo apt-key add rabbitmq-signing-key-public.asc')
+    sudo('apt-get update')
+
+
 @task
 def provision():
     update_sys()
     add_python()
-    sudo('apt-get install -y {}'.format(EXTRA_PACKAGES))
+    add_rabbit_mq()
+    sudo('apt-get install -y {}'.format(' '.join(EXTRA_PACKAGES)))
 
