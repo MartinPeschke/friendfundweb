@@ -34,6 +34,7 @@ SYSTEM_PACKAGES = ["sudo"
                   , "git", "curl"]
 
 EXTRA_PACKAGES = ['supervisor',
+                  'imagemagick',
                   'memcached',
                   'libmemcached-dev',
                   'unixodbc',

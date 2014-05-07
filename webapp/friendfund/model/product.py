@@ -30,8 +30,8 @@ class Product(DBMappedObject):
         return h.word_truncate_plain(self.name.title(), 2)
 
     def get_display_description(self):
-
         return h.word_truncate_by_letters(self.description, 180)
+
     def has_picture(self):
         return self.picture and self.picture!= statics.DEFAULT_PRODUCT_PICTURE_TOKEN
 
@@ -39,7 +39,7 @@ class Product(DBMappedObject):
         return simplejson.dumps(self.get_map())
 
     def get_shipping_display(self):
-        if(self.shipping_cost):
+        if self.shipping_cost:
             locals = {"price":h.format_int_amount(self.price), "shipping":h.format_int_amount(self.shipping_cost)}
             return _("FF_IFRAME_PRICE_(%(price)s + %(shipping)spp)") % locals
         else:
@@ -85,7 +85,7 @@ class DisplayProduct(Product):
         return '%s%s%s' % (h.word_truncate_plain(self.name, words), seperator, self.display_price)
 
     def get_iframe_display_price(self):
-        if(self.shipping_cost):
+        if self.shipping_cost:
             locals = {"price":h.format_int_amount(self.price), "shipping":h.format_int_amount(self.shipping_cost), "total":self.display_price}
             price_display = _("FF_IFRAME_PRICE_(%(price)s + %(shipping)spp) %(total)s") % locals
         else:
@@ -109,9 +109,10 @@ class ProductSearch(DBMappedObject):
         self.page_size = page_size
         self.items = items
         self.products = products
+
     def page_field(self):
         def lower(x):
             return x>2 and x-2 or 1
         def upper(x):
-            return x+2<self.pages and x+2 or self.pages
+            return x+2 < self.pages and x+2 or self.pages
         return sorted(list(set([1] + range(lower(self.page_no), upper(self.page_no + 1)) + [self.pages] )))

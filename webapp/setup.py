@@ -15,8 +15,11 @@ setup(
         "PIL>=1.1.7",
         "FormEncode>=1.2.2",
         "DBUtils>=1.0",
+        "httplib2",
         "Babel",
+        "markupsafe",
         "BeautifulSoup>=3.2.0",
+        "lxml",
         "celery"
     ],
     setup_requires=["PasteScript>=1.6.3"],
