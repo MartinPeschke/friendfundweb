@@ -1,18 +1,23 @@
-import logging, formencode, uuid
+import logging
 from copy import copy
-from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g
-from pylons.controllers.util import abort, redirect
-from pylons.decorators import jsonify
 
+import formencode
+from friendfund.lib.notifications.messages import ErrorMessage, SuccessMessage
+from pylons import request, session as websession, tmpl_context as c, url, app_globals as g
+from pylons.controllers.util import redirect
+from pylons.decorators import jsonify
+from pylons.templating import render_mako_def as render_def, render_mako as render
+from pylons.i18n import ugettext as _
 
 from friendfund.lib import helpers as h, synclock
 from friendfund.lib.auth.decorators import logged_in, pool_available
-from friendfund.lib.base import BaseController, render,render_def, _, ErrorMessage, SuccessMessage
+from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
-from friendfund.lib.payment.adyen import UnsupportedOperation, UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
+from friendfund.lib.payment.adyen import UnsupportedPaymentMethod, DBErrorDuringSetup, DBErrorAfterPayment
 from friendfund.model.contribution import Contribution, GetDetailsFromContributionRefProc, CreditCard
 from friendfund.model.forms.contribution import PaymentConfForm
 from friendfund.model.forms.creditcard import CreditCardForm
+
 
 paymentlog = logging.getLogger('payment.controller')
 log = logging.getLogger(__name__)
@@ -102,7 +107,7 @@ class PaymentController(BaseController):
     def creditcard(self, pool_url):
         if c.user.is_anon or not c.pool.am_i_member(c.user):
             return redirect(url('get_pool', pool_url=pool_url))
-        ### Establishing correctnes of Flow and getting colateral Info
+        ### Establishing correctness of Flow and getting collateral Info
         c.token = request.params.get('token')
         if not c.token:
             log.error("PAYMENT_FORM_WITHOUT_TOKEN")

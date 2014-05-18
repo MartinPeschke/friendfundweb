@@ -2,95 +2,95 @@
 
 
 <%def name="renderPanel()"><% errors = getattr(c, "login_errors", dict()) %>
-		<form id="login_panel_form" method="POST" action="${url(controller="myprofile", action="loginpanel")}" class="inputFields">
-			<div class="${"email" in errors and ' error' or ''}">
-				<label for="login_email">${_("FF_LOGIN_Email Address")}</label>
-				<input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
-				%if "email" in errors:
-					<span class="error">${getattr(c, "login_errors", dict()).get("email")}</span>
-				%endif
-			</div>
-			<div class="${"email" in errors and ' error' or ''}" style="margin-top:5px" >
-				<label for="login_pwd">${_("FF_LOGIN_Password")}</label>
-				<input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
-				%if "pwd" in getattr(c, "login_errors", dict()):
-					<span class="error">${getattr(c, "login_errors", dict()).get("pwd")}</span>
-				%endif
-				<div style="margin-top:5px">
-					<a onclick="window.__auth__.forgotPassword('${url(controller='myprofile', action='rppopup')}')" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a>
-				</div>
-			</div>
-			<input type="submit" class="primarySmall floatLeft" style="width:auto;margin-top:7px" value="${_("FF_LOGINBUTTON_Log In")}"/>
-		</form>
-		<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
-		
-		
-		<div id="homepanel-connect-toggle">
-			<div class="inputline">
-				<a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn">
-					<span>${_("FF_LOGIN_Log in with Facebook")}</span>
-				</a>
-			</div><div class="inputline">
-			<a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn">
-				<span>${_("FF_LOGIN_Log in with Twitter")}</span>
-			</a>
-			</div>
-			<div class="ToC-agreeal">
-				<input type="checkbox" id="ToC-checkbox-loginarea" value="true"/><label for="ToC-checkbox-loginarea">${_("PARTNER_LOGINBUTTON_Agree with our <a href=\"%s\">Terms and Conditions</a>.")%url(controller="content", lang=session["lang"], action="tos")|n}</label>
-				<span class="error hidden">${_("PARTNER_LOGINBUTTON_You need to agree with our Terms and Conditions to sign up!")}</span>
-			</div>
-		</div>
-		
-		
-		<p>${_("FF_LOGIN_Dont have an account yet?")} 
-			%if request.merchant.is_default:
-				<a class="lostpass" href="/signup?furl=/">${_("FF_LOGIN_Sign up here")}</a>
-			%else:
-				<a class="lostpass" onclick="window.__auth__.signupPopup('${url(controller="myprofile", action="signuppopup")}', 3)">${_("FF_LOGIN_Sign up here")}</a>
-			%endif
-		</p>
+<form id="login_panel_form" method="POST" action="${url(controller="myprofile", action="loginpanel")}" class="inputFields">
+  <div class="${"email" in errors and ' error' or ''}">
+    <label for="login_email">${_("FF_LOGIN_Email Address")}</label>
+    <input type="text" value="${getattr(c, "login_values", dict()).get("email")}" name="login.email" id="login_email"/>
+      %if "email" in errors:
+        <span class="error">${getattr(c, "login_errors", dict()).get("email")}</span>
+      %endif
+  </div>
+  <div class="${"email" in errors and ' error' or ''}" style="margin-top:5px" >
+    <label for="login_pwd">${_("FF_LOGIN_Password")}</label>
+    <input type="password" value="${getattr(c, "login_values", dict()).get("pwd")}" name="login.pwd" id="login_pwd"/>
+      %if "pwd" in getattr(c, "login_errors", dict()):
+        <span class="error">${getattr(c, "login_errors", dict()).get("pwd")}</span>
+      %endif
+    <div style="margin-top:5px">
+      <a onclick="window.__auth__.forgotPassword('${url(controller='myprofile', action='rppopup')}')" class="lostpass">${_("FF_LOGIN_Forgot Password?")}</a>
+    </div>
+  </div>
+  <input type="submit" class="primarySmall floatLeft" style="width:auto;margin-top:7px" value="${_("FF_LOGINBUTTON_Log In")}"/>
+</form>
+<h3>${_("FF_LOGIN_Login with facebook or twitter")}</h3>
 
-		
+
+<div id="homepanel-connect-toggle">
+  <div class="inputline">
+    <a title="${_("FF_LOGIN_Log in with Facebook")}" class="facebookBtn">
+      <span>${_("FF_LOGIN_Log in with Facebook")}</span>
+    </a>
+  </div><div class="inputline">
+  <a title="${_("FF_LOGIN_Log in with Twitter")}" class="twitterBtn">
+    <span>${_("FF_LOGIN_Log in with Twitter")}</span>
+  </a>
+</div>
+  <div class="ToC-agreeal">
+    <input type="checkbox" id="ToC-checkbox-loginarea" value="true"/><label for="ToC-checkbox-loginarea">${_("PARTNER_LOGINBUTTON_Agree with our <a href=\"%s\">Terms and Conditions</a>.")%url(controller="content", lang=session["lang"], action="tos")|n}</label>
+    <span class="error hidden">${_("PARTNER_LOGINBUTTON_You need to agree with our Terms and Conditions to sign up!")}</span>
+  </div>
+</div>
+
+
+<p>${_("FF_LOGIN_Dont have an account yet?")}
+    %if request.merchant.is_default:
+      <a class="lostpass" href="/signup?furl=/">${_("FF_LOGIN_Sign up here")}</a>
+    %else:
+      <a class="lostpass" onclick="window.__auth__.signupPopup('${url(controller="myprofile", action="signuppopup")}', 3)">${_("FF_LOGIN_Sign up here")}</a>
+    %endif
+</p>
+
+
 </%def>
 
 <div class="loginArea ${c.user.is_anon and "anonymous" or "authenticated"}" id="accountContainerContent">
-	%if c.user.is_anon:
-		<div class="btn loginToggleLink" id="loginlink">${_("FF_LOGIN_Login")}
-			<div class="newFormControls loginPanel ${not getattr(c, "expanded", False) and "hidden" or ""}" id="loginPanelContent">${renderPanel()|n}</div>
-		</div>
-		
-		%if request.merchant.is_default:
-			<a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
-		%else:
-			<a class="btn" onclick="window.__auth__.signupPopup('${url(controller="myprofile", action="signuppopup")}', 3)">${_("FF_LOGIN_Sign Up")}</a>
-		%endif
-	%else:
-		<img src="${c.user.get_profile_pic(secured = request.is_secured)}" ${c.user.get_failover(secured = request.is_secured)|n} width="25px" height="25px" />
-		<div class="showHide">
-			<span>${c.user.name or c.user.default_email}</span>
-			<div class="widthGiver">
-				<div>
-					<a href="${url(controller="myprofile", action="account", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
-					<a href="${url(controller="mypools", action="stream", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Profile")}</a>
-					<a href="#" class="logoutLink">${_("FF_LOGINDROPDOWN_Logout")}</a>
-				</div>
-			</div>
-		</div>
-	%endif
+    %if c.user.is_anon:
+      <div class="btn loginToggleLink" id="loginlink">${_("FF_LOGIN_Login")}
+        <div class="newFormControls loginPanel ${not getattr(c, "expanded", False) and "hidden" or ""}" id="loginPanelContent">${renderPanel()|n}</div>
+      </div>
+
+    %if request.merchant.is_default:
+      <a href="/signup?furl=/" class="btn">${_("FF_LOGIN_Sign Up")}</a>
+    %else:
+      <a class="btn" onclick="window.__auth__.signupPopup('${url(controller="myprofile", action="signuppopup")}', 3)">${_("FF_LOGIN_Sign Up")}</a>
+    %endif
+    %else:
+      <img src="${c.user.get_profile_pic(secured = request.is_secured)}" ${c.user.get_failover(secured = request.is_secured)|n} width="25px" height="25px" />
+      <div class="showHide">
+        <span>${c.user.name or c.user.default_email}</span>
+        <div class="widthGiver">
+          <div>
+            <a href="${url(controller="myprofile", action="account", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Account Settings")}</a>
+            <a href="${url(controller="mypools", action="stream", host=app_globals.default_host, protocol="http")}">${_("FF_LOGINDROPDOWN_Profile")}</a>
+            <a href="#" class="logoutLink">${_("FF_LOGINDROPDOWN_Logout")}</a>
+          </div>
+        </div>
+      </div>
+    %endif
 </div>
 
 
 %if request.merchant.is_default:
 <ul>
-	<% route = request.environ["wsgiorg.routing_args"][1] %>
-	<li><a href="${url('home', protocol="http")}" ${forms.expression_quote(route["controller"] == "index", "class", "navselected")} >${_("FF_MENU_Home")}</a></li>
-	<li><a href="${url("short_content", lang=session["lang"], action="learn_more", host=app_globals.default_host, protocol="http")}"
-		${forms.expression_quote(route["controller"] == "content", "class", "navselected")}>${_("FF_MENU_Learn")}</a></li>
-	<li><a href="${h.create_pool_link(request, url)}" 
-		${forms.expression_quote(route["controller"] == "pool" and route["action"] in ["details","create"], "class", "navselected")}>${_("FF_MENU_Create a pool")}</a></li>
-	%if not c.user.is_anon:
-		<li><a href="${url(controller="mypools", action="stream", protocol="http")}" 
-			${forms.expression_quote(route["controller"] in ["myprofile", "mypools"], "class", "navselected")}>${_("FF_MENU_My_Pools")}</a></li>
-	%endif
+    <% route = request.environ["wsgiorg.routing_args"][1] %>
+<li><a href="${url('home', protocol="http")}" ${forms.expression_quote(route["controller"] == "index", "class", "navselected")} >${_("FF_MENU_Home")}</a></li>
+<li><a href="${url("short_content", lang=session["lang"], action="learn_more", host=app_globals.default_host, protocol="http")}"
+    ${forms.expression_quote(route["controller"] == "content", "class", "navselected")}>${_("FF_MENU_Learn")}</a></li>
+<li><a href="${h.create_pool_link(request, url)}"
+    ${forms.expression_quote(route["controller"] == "pool" and route["action"] in ["details","create"], "class", "navselected")}>${_("FF_MENU_Create a pool")}</a></li>
+    %if not c.user.is_anon:
+      <li><a href="${url(controller="mypools", action="stream", protocol="http")}"
+          ${forms.expression_quote(route["controller"] in ["myprofile", "mypools"], "class", "navselected")}>${_("FF_MENU_My_Pools")}</a></li>
+    %endif
 </ul>
 %endif

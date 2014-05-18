@@ -1,8 +1,8 @@
 import md5, uuid, os
+from friendfund.lib.notifications.messages import ErrorMessage
 
 from pylons import tmpl_context, session as websession
 from pylons.i18n import _
-from friendfund.lib.base import SuccessMessage, ErrorMessage
 from friendfund.lib.helpers import FriendFundFormEncodeState
 from friendfund.model.authuser import User, OtherUserData, TwitterUserHasEmailProc, CreateEmailUserProc, WebLoginUserByEmail, DisconnectAccountProc
 from friendfund.model.myprofile import GetMyProfileProc
@@ -102,8 +102,8 @@ class UserService(object):
     def save_email_user_picture(self, user_data, picture):
         user_data['profile_picture_url'] = statics.new_tokenized_name()
         tmpname, ext = os.path.splitext(picture.filename)
-        tmpname = os.path.join(self.ulpath \
-                               , '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
+        tmpname = os.path.join(self.ulpath,
+                               '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
         outf = open(tmpname, 'wb')
         outf.write(picture.file.read())
         outf.close()

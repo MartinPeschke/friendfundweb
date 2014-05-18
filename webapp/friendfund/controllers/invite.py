@@ -9,7 +9,10 @@ from formencode.variabledecode import variable_decode
 import markdown
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, pool_available, jsonify
-from friendfund.lib.base import BaseController, render, render_def, _
+from friendfund.lib.base import BaseController
+from pylons.templating import render_mako as render, render_mako_def as render_def
+from pylons.i18n import ugettext as _
+
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import ErrorMessage, SuccessMessage
 from friendfund.model.authuser import CLEARANCES, UserNotLoggedInWithMethod, NoFriendsFoundSomeErrorOccured

@@ -5,14 +5,17 @@ import datetime
 import formencode
 from pylons import request, tmpl_context as c, url, app_globals, session as websession
 from pylons.controllers.util import redirect
+from pylons.i18n import ugettext as _
+from pylons.templating import render_mako as render
 
 from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, post_only, workflow_available
-from friendfund.lib.base import BaseController, render, _
+from friendfund.lib.base import BaseController
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.pool import OccasionSearch, FeaturedPool
 from friendfund.model.product import DisplayProduct
 from friendfund.tasks.cache_refresher import get_mfp_key
+
 log = logging.getLogger(__name__)
 
 class PartnerController(BaseController):

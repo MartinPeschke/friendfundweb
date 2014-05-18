@@ -22,7 +22,9 @@ setup(
         "markupsafe",
         "BeautifulSoup>=3.2.0",
         "lxml",
-        "celery"
+        "celery",
+        "markdown",
+        "poster"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(),

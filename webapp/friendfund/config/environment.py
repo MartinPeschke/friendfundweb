@@ -13,6 +13,10 @@ from friendfund.config.routing import make_map
 log = logging.getLogger(__name__)
 
 
+def DontShowNone(s):
+    if s == 'None': return ''
+    else: return s
+
 def load_environment(global_conf, app_conf):
     """
     Configure the Pylons environment via the ``pylons.config`` object
@@ -43,8 +47,10 @@ def load_environment(global_conf, app_conf):
         filesystem_checks=config['debug'],
         error_handler=handle_mako_error,
         module_directory=os.path.join(app_conf['cache_dir'], 'templates'),
-        input_encoding='utf-8', default_filters=['escape'],
-        imports=['from markupsafe import escape','from xml.sax.saxutils import quoteattr'])
+        input_encoding='utf-8', default_filters=['escape', "DontShowNone"],
+        imports=['from markupsafe import escape',
+                 'from xml.sax.saxutils import quoteattr',
+                 'from friendfund.config.environment import DontShowNone'])
 
     # CONFIGURATION OPTIONS HERE (note: all config options will override
     # any Pylons config options)
