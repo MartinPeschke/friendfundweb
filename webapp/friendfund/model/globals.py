@@ -91,21 +91,28 @@ class MerchantSettlement(DBMappedObject):
         if self.name=="PAYPAL_TRANSFER":
             self.required_fields.append(FormField("email", "email"))
 
+
 class MerchantCountry(DBMappedObject):
     _get_root = _set_root = 'SHIPPING_COUNTRY'
     _cachable = False
     _unique_keys = ['iso2']
     _keys = [GenericAttrib(unicode,'iso2','country')]
+
+
 class MerchantStyle(DBMappedObject):
     _get_root = _set_root = 'CSS_STYLE'
     _cachable = False
     _unique_keys = ['property', 'value']
     _keys = [GenericAttrib(unicode,'property','property')
         , GenericAttrib(unicode,'value','value')]
+
+
 class FeaturedPoolURL(DBMappedObject):
     _cachable = False
     _no_params = True
     _keys = [GenericAttrib(unicode,'p_url','p_url')]
+
+
 class MerchantLink(DBMappedObject):
     _get_root = _set_root = 'MERCHANT'
     _cachable = False
@@ -125,6 +132,7 @@ class MerchantLink(DBMappedObject):
         ,DBMapper(MerchantStyle,'_styles','CSS_STYLE', is_list = True)
         ,DBMapper(FeaturedPoolURL,'featured_pools','MERCHANT_FEATURED_POOL', is_list = True)
     ]
+
     def get_logo_url(self, type = "lrg", secured = False):
         return self._statics.get_merchant_picture(self.logo_url, type, secured)
 
@@ -139,7 +147,6 @@ class MerchantLink(DBMappedObject):
         setattr(self, "styles", dict([(x.property, x.value) for x in self._styles]))
 
 
-
 class MerchantHolder(object):
     def __init__(self, key_map, domain_map, default, default_domain):
         self.key_map = key_map
@@ -147,11 +154,13 @@ class MerchantHolder(object):
         self.default = default
         self.default_domain = default_domain
 
+
 class HomePageStats(DBMappedObject):
     """<STATS funded_pools="156" contributions="336"/>"""
     _cachable = False
     _no_params = True
     _keys = [GenericAttrib(int,'funded_pools','funded_pools'), GenericAttrib(int,'contributions','contributions'), GenericAttrib(int,'happy_faces','happy_faces')]
+
 
 class GetMerchantConfigProc(DBMappedObject):
     """app.[get_merchant]"""
@@ -176,11 +185,13 @@ class GetMerchantConfigProc(DBMappedObject):
             raise Exception("GetMerchantLinksProc:No Default Merchant set, %s" % e)
         setattr(self, "merchants", MerchantHolder(self.key_map, domain_map, default, default_domain))
 
+
 class TopSellersRegion(DBMappedObject):
     _cachable = False
     _set_root = _get_root = None
     _unique_keys = ['name']
     _keys = [GenericAttrib(unicode,'name','name'),DBMapper(DisplayProduct,'list','PRODUCT', is_list = True)]
+
 
 class GetTopSellersProc(DBMappedObject):
     _cachable = False
@@ -193,8 +204,6 @@ class GetTopSellersProc(DBMappedObject):
         setattr(self, 'map', {})
         for region in self.list:
             self.map[region.name.lower()] = region.list
-
-
 
 
 class CreateMerchantProc(DBMappedObject):

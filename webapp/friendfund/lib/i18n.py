@@ -10,6 +10,7 @@ from pylons import session as websession, app_globals
 from pylons.i18n import LanguageError
 from pylons.i18n.translation import get_lang
 
+
 def _get_formencode_translator(lang, **kwargs):
     """Utility method to get a valid translator object from a language
     name"""
@@ -21,9 +22,12 @@ def _get_formencode_translator(lang, **kwargs):
     translator.add_fallback(translation("FormEncode", localedir, languages=lang,fallback=True, **kwargs))
     return translator
 
+
 def friendfund_formencode_gettext(value):
     trans = _get_formencode_translator(getattr(pylons.translator, 'pylons_lang', None))
     return trans.ugettext(value)
+
+
 class FriendFundFormEncodeState(object):
     """A ``state`` for FormEncode validate API that includes smart
     ``_`` hook.

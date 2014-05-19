@@ -20,7 +20,6 @@ class PaymentFactory(object):
         self.merchantaccount    = merchantaccount
         self.hosted_sign_secret = hosted_sign_secret
 
-
     def get(self, pm):
         if pm.name == "paypal":
             return RedirectPayment('icon-%s.png' % pm.name, pm.name, ['EUR','GBP','USD'], pm.absolute_fee, pm.relative_fee

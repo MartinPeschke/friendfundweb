@@ -30,6 +30,7 @@ LOCALIZATIONS = {"mastercard":_("FF_mastercard"), "amex":_("FF_amex"),"visa":_("
 
 from pylons.i18n import _
 
+
 class PaymentGateway(object):
     def __init__(self, gtw_location, gtw_username, gtw_password, gtw_account):
         self.gateway = AdyenPaymentGateway(gtw_location, gtw_username, gtw_password, gtw_account)
@@ -86,6 +87,7 @@ class PaymentMethod(object):
         return (amount*(1 + self._fee_relative) + self._fee_absolute)
     def get_display_name(self):
         return _(LOCALIZATIONS[self.code])
+
 
 class CreditCardPayment(PaymentMethod):
     has_result_delay = False
