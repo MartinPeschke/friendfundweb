@@ -1,4 +1,5 @@
 from fabric.context_managers import cd
+from fabric.contrib.files import append
 from fabric.decorators import task
 from fabric.operations import sudo, run
 from fabric.contrib import files
@@ -62,18 +63,17 @@ __IMPORT_KEEP__ = lambda x: vagrant
 def update_sys():
     sudo("apt-get update")
     sudo("apt-get install -y {}".format(" ".join(SYSTEM_PACKAGES)))
-    sudo("mkdir -p /server/{www,src}")
 
 
 def add_python():
-    with cd("/server/src"):
+    with cd("/tmp"):
         sudo("wget http://www.python.org/ftp/python/{0}/Python-{0}.tgz".format(VERSIONS['PYTHON']))
         sudo("tar xfv Python-{}.tgz".format(VERSIONS['PYTHON']))
-    with cd("/server/src/Python-{}".format(VERSIONS['PYTHON'])):
-        sudo("./configure && make && make install")
-        sudo("wget http://peak.telecommunity.com/dist/ez_setup.py")
-        sudo("python ez_setup.py")
-        sudo("easy_install virtualenv Cython ctypes")
+        with cd("Python-{}".format(VERSIONS['PYTHON'])):
+            sudo("./configure && make && make install")
+            sudo("wget http://peak.telecommunity.com/dist/ez_setup.py")
+            sudo("python ez_setup.py")
+            sudo("easy_install virtualenv Cython ctypes")
 
 
 def add_rabbit_mq():
@@ -81,22 +81,31 @@ def add_rabbit_mq():
     run('wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc')
     sudo('sudo apt-key add rabbitmq-signing-key-public.asc')
     sudo('apt-get update')
-
+    sudo('apt-get install -y rabbitmq-server')
+    sudo('rabbitmqctl add_user rabbitmquser rabbitmqpassword')
+    sudo('rabbitmqctl add_vhost rabbitmqvhost')
+    sudo('rabbitmqctl set_permissions -p rabbitmqvhost rabbitmquser ".*" ".*" ".*"')
 
 def add_freetds():
-    with cd('/server/src/'):
+    with cd('/tmp'):
         name = "freetds-%s" % VERSIONS['FREETDS']
         sudo('wget ftp://ftp.freetds.org/pub/freetds/stable/%s.tar.gz' % name)
         sudo('tar xfv %s.tar.gz' % name)
         with cd(name):
             sudo('./configure && make && make install')
+    append([
+        '[FreeTDS]',
+        'Description             = FreeTDS v0.83 with TDS v8.0',
+        'Driver          = /usr/local/lib/libtdsodbc.so',
+        'Setup           = /usr/lib/odbc/libtdsS.so',
+        'Threading=1'], '/etc/odbcinst.ini')
 
 
 @task
 def provision():
     update_sys()
     add_python()
-    add_rabbit_mq()
+    #add_rabbit_mq()
     add_freetds()
     sudo('apt-get install -y {}'.format(' '.join(EXTRA_PACKAGES)))
 

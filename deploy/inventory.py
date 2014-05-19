@@ -59,13 +59,17 @@ class Environment(object):
 
 
 @task
-def vagrant():
+def vagrant(path='.'):
     # change from the default user to 'vagrant'
     env.user = 'vagrant'
     # connect to the port-forwarded ssh
-    env.hosts = ['127.0.0.1:2222']
-
     # use vagrant ssh key
-    with lcd('../vagrant/'):
-        result = local('vagrant ssh-config | grep IdentityFile', capture=True)
-    env.key_filename = result.split()[1]
+    with lcd(path):
+        port = local('vagrant ssh-config | grep Port', capture=True).split()[1]
+        env.hosts = ['127.0.0.1:%s' % port]
+        keyfile = local('vagrant ssh-config | grep IdentityFile', capture=True)
+        env.key_filename = keyfile.split()[1]
+        global DEFAULT_USER
+        global DEFAULT_USER_GROUP
+        DEFAULT_USER ='vagrant'
+        DEFAULT_USER_GROUP ='vagrant'
