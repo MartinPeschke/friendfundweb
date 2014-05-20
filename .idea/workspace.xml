@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c75a9ee7-0a8b-45d8-b5e1-7c8e6c8749ef" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configs/live_azure/config.ini" afterPath="$PROJECT_DIR$/configs/live_azure/config.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deploy/fabfile.py" afterPath="$PROJECT_DIR$/deploy/fabfile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deploy/inventory.py" afterPath="$PROJECT_DIR$/deploy/inventory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/friendfund/tasks/payment_job.py" afterPath="$PROJECT_DIR$/webapp/friendfund/tasks/payment_job.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deploy/templates/supervisor_web.cfg" afterPath="$PROJECT_DIR$/deploy/templates/supervisor_web.cfg" />
     </list>
     <ignored path="friendfund.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,20 +28,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="celeryconfig.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configs/live_azure/celeryconfig.py">
+      <file leaf-file-name="payment_job.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/friendfund/tasks/payment_job.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="50" selection-start="847" selection-end="847" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="572">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.ini" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configs/live_azure/config.ini">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="197" column="18" selection-start="5112" selection-end="5112" vertical-scroll-proportion="0.0" vertical-offset="835" max-vertical-offset="2639">
-              <folding />
+            <state line="187" column="20" selection-start="8455" selection-end="8455" vertical-scroll-proportion="0.0" vertical-offset="705" max-vertical-offset="2509">
+              <folding>
+                <element signature="e#932#943#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,7 +42,7 @@
       <file leaf-file-name="fabfile.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deploy/fabfile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="48" selection-start="2281" selection-end="2281" vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="2002">
+            <state line="50" column="0" selection-start="1460" selection-end="1460" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2002">
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -54,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inventory.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/deploy/inventory.py">
+      <file leaf-file-name="config.ini" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/configs/live_azure/config.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="48" selection-start="1611" selection-end="1611" vertical-scroll-proportion="0.30986696" vertical-offset="0" max-vertical-offset="1804">
+            <state line="163" column="32" selection-start="4459" selection-end="4469" vertical-scroll-proportion="0.7035348" vertical-offset="885" max-vertical-offset="2639">
               <folding />
             </state>
           </provider>
@@ -81,7 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/webapp/friendfund/tasks/celery/__init__.py" />
         <option value="$PROJECT_DIR$/webapp/friendfund/tasks/__init__.py" />
         <option value="$PROJECT_DIR$/webapp/friendfund/tasks/celery/ecard_renderer.py" />
         <option value="$PROJECT_DIR$/webapp/friendfund/tasks/celery/fb.py" />
@@ -126,12 +121,13 @@
         <option value="$PROJECT_DIR$/webapp/friendfund/templates/widgets/tracking.html" />
         <option value="$PROJECT_DIR$/deploy/server.py" />
         <option value="$PROJECT_DIR$/configs/live_azure/paster.ini" />
-        <option value="$PROJECT_DIR$/deploy/fabfile.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/deploy/templates/supervisor_web.cfg" />
         <option value="$PROJECT_DIR$/configs/live_azure/celeryconfig.py" />
-        <option value="$PROJECT_DIR$/configs/live_azure/config.ini" />
         <option value="$PROJECT_DIR$/deploy/inventory.py" />
+        <option value="$PROJECT_DIR$/deploy/templates/supervisor_web.cfg" />
+        <option value="$PROJECT_DIR$/webapp/friendfund/tasks/payment_job.py" />
+        <option value="$PROJECT_DIR$/deploy/fabfile.py" />
+        <option value="$PROJECT_DIR$/configs/live_azure/config.ini" />
       </list>
     </option>
   </component>
@@ -223,7 +219,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
+              <option name="myItemId" value="deploy" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -238,6 +234,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="deploy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -522,15 +522,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="56" column="58" selection-start="2564" selection-end="2564" vertical-scroll-proportion="0.40647683" vertical-offset="0" max-vertical-offset="1791">
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/friendfund/tasks/payment_job.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="42" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.5260532" vertical-offset="0" max-vertical-offset="2314">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -665,7 +658,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="67" selection-end="67" vertical-scroll-proportion="0.06242497" vertical-offset="0" max-vertical-offset="833">
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -673,13 +666,6 @@
     <entry file="file://$PROJECT_DIR$/configs/dev/tools/render_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="74" selection-start="140" selection-end="140" vertical-scroll-proportion="0.015606242" vertical-offset="0" max-vertical-offset="833">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/friendfund/tasks/cache_refresher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="37" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.24501109" vertical-offset="0" max-vertical-offset="1804">
           <folding />
         </state>
       </provider>
@@ -718,7 +704,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="0" selection-start="597" selection-end="597" vertical-scroll-proportion="0.31212485" vertical-offset="0" max-vertical-offset="1781">
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -734,7 +720,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="72" column="19" selection-start="2703" selection-end="2703" vertical-scroll-proportion="0.5462185" vertical-offset="481" max-vertical-offset="1950">
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -780,7 +766,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="280" column="50" selection-start="11286" selection-end="11286" vertical-scroll-proportion="0.56302524" vertical-offset="3171" max-vertical-offset="4004">
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -845,7 +831,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="23" selection-start="377" selection-end="377" vertical-scroll-proportion="0.10088692" vertical-offset="0" max-vertical-offset="1804">
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -859,37 +845,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deploy/templates/supervisor_web.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="44" selection-start="2382" selection-end="2382" vertical-scroll-proportion="0.58370286" vertical-offset="0" max-vertical-offset="1804">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configs/live_azure/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="197" column="18" selection-start="5112" selection-end="5112" vertical-scroll-proportion="0.0" vertical-offset="835" max-vertical-offset="2639">
+        <state line="31" column="44" selection-start="873" selection-end="873" vertical-scroll-proportion="0.22339246" vertical-offset="0" max-vertical-offset="1804">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/configs/live_azure/celeryconfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="50" selection-start="847" selection-end="847" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="572">
+        <state line="25" column="50" selection-start="847" selection-end="847" vertical-scroll-proportion="0.18015522" vertical-offset="0" max-vertical-offset="1804">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deploy/inventory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="1150" selection-end="1150" vertical-scroll-proportion="0.21618626" vertical-offset="0" max-vertical-offset="1804">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/friendfund/tasks/cache_refresher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="1149" selection-end="1213" vertical-scroll-proportion="0.23780487" vertical-offset="0" max-vertical-offset="1804">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/friendfund/tasks/payment_job.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="20" selection-start="8455" selection-end="8455" vertical-scroll-proportion="0.0" vertical-offset="705" max-vertical-offset="2509">
+          <folding>
+            <element signature="e#932#943#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/deploy/fabfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="48" selection-start="2281" selection-end="2281" vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="2002">
+        <state line="50" column="0" selection-start="1460" selection-end="1460" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2002">
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deploy/inventory.py">
+    <entry file="file://$PROJECT_DIR$/configs/live_azure/config.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="48" selection-start="1611" selection-end="1611" vertical-scroll-proportion="0.30986696" vertical-offset="0" max-vertical-offset="1804">
+        <state line="163" column="32" selection-start="4459" selection-end="4469" vertical-scroll-proportion="0.7035348" vertical-offset="885" max-vertical-offset="2639">
           <folding />
         </state>
       </provider>

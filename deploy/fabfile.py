@@ -70,7 +70,7 @@ def add_supervisor_conf(env):
             'deploy_path': environment.deploy_path,
             'log_path': environment.log_path,
             'python_path': environment.supervisor_python_path,
-            'config_file': environment.get_dest_config
+            'config_file': environment.get_dest_config("config.ini", 'current')
         }, use_jinja=True, backup=False)
         run("env/bin/supervisord -c supervisor.cfg")
         run("env/bin/supervisorctl -c supervisor.cfg start all")
@@ -130,9 +130,9 @@ def switch(env, version):
 
     with cd(environment.deploy_path):
         run("cp %s %s" % (environment.get_src_config("config.ini"),
-                          environment.get_dest_config("config.ini")))
+                          environment.get_dest_config("config.ini", version)))
         run("cp %s %s" % (environment.get_src_config("celeryconfig.py"),
-                          environment.get_dest_config("celeryconfig.py")))
+                          environment.get_dest_config("celeryconfig.py", version)))
 
         with cd("code"):
             run("rm current;ln -s {} current".format(version))

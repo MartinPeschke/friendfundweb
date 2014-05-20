@@ -24,8 +24,7 @@ import time
 import sys
 import getopt
 from xml.sax.saxutils import quoteattr
-import logging
-import logging.config
+from logging.config import fileConfig
 
 import ZSI
 from paste.exceptions import formatter, collector
@@ -35,7 +34,6 @@ from friendfund.model.db_access import execute_query
 from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
 
-log = logging.getLogger(__name__)
 
 CONNECTION_NAME = 'job'
 set_CONNECTION_NAME = 'pool'
@@ -134,6 +132,10 @@ def main(argv=None):
         return 2
 
     configname = opts['-f']
+
+    fileConfig(configname)
+    log = logging.getLogger(__name__)
+
     config = get_config(configname)
     dbpool = get_db_pool(config, CONNECTION_NAME)
     dbset = get_db_pool(config, set_CONNECTION_NAME)

@@ -36,8 +36,8 @@ class Environment(object):
 
     def get_src_config(self, name):
         return '%s/configs/%s/%s' % (self.repo_path, self.config_path, name)
-    def get_dest_config(self, file_name):
-        return '%s/code/current/%s' % (self.deploy_path, file_name)
+    def get_dest_config(self, file_name, version):
+        return '%s%s' % (self.get_code_path(version), file_name)
 
     @property
     def supervisor_conf_name(self):
@@ -46,7 +46,7 @@ class Environment(object):
 
     @property
     def supervisor_python_path(self):
-        return '%s/code/current' % self.env_path
+        return '%s/code/current' % self.deploy_path
 
     @property
     def repo_path(self):
