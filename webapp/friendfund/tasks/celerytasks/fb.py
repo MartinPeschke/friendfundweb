@@ -69,6 +69,8 @@ def remote_persist_user(user_data):
                                                                     user_data['network_id'],
                                                                     user_data['access_token']
     )
+    if not friends:
+        return 'ack'
 
     user_list = (UserBirthday(**data) for uid,data in friends.iteritems())
     users = UserBirthdayList(users = user_list, u_id = user_data['u_id'])

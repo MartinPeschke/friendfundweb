@@ -160,16 +160,8 @@ def get_mutual_friends(logger, target_id, access_token):
         return data
 
 
-def get_friends_from_cache(
-        logger,
-        cache_pool,
-        id,
-        access_token,
-        expiretime=4200,
-        friend_id = None,
-        offset = None,
-        timeout = 30
-):
+def get_friends_from_cache(logger, cache_pool, id, access_token, expiretime=4200, friend_id = None, offset = None,
+                           timeout = 30):
     sleeper = 0
     offset = offset or 0
 

@@ -10,7 +10,7 @@ import re
 import time
 from collections import deque
 
-import Image
+from PIL import Image
 
 from friendfund.model import db_access
 from friendfund.model.async.profile_picture_render import AddRenderedProfilePictureProc

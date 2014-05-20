@@ -12,7 +12,7 @@ setup(
         "Pylons==1.0.1",
         "pastedeploy", 
         "pastescript", 
-        "PIL>=1.1.7",
+        "pillow",
         "FormEncode>=1.2.2",
         "DBUtils>=1.0",
         "httplib2",
