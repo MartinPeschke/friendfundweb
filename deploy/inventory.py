@@ -34,16 +34,16 @@ class Environment(object):
     def get_short_version(self, version):
         return md5.new(version).hexdigest()
 
-    def get_config_file(self, name):
+    def get_src_config(self, name):
         return '%s/configs/%s/%s' % (self.repo_path, self.config_path, name)
+
+    def get_dest_config(self, file_name):
+        return '%s/code/%s' % (self.deploy_path, file_name)
 
     @property
     def supervisor_conf_name(self):
         return '%s_%s_%s.conf' % (self.project_name, self.base_name, self.env_name)
 
-    @property
-    def config_file_path(self):
-        return '%s/code/config.ini' % self.deploy_path
 
     @property
     def supervisor_python_path(self):

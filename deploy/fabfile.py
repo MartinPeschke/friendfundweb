@@ -1,14 +1,15 @@
 from datetime import datetime
 
-from fabric.decorators import task
+from fabric.decorators import task, roles
 
 from fabric.api import run, cd
 from fabric.contrib import files
 from fabric.operations import sudo
+from fabric.state import env
 
 from inventory import vagrant, Environment, Style, SubSite
 
-
+env.roledefs['ffserver'] = ['www-data@friendfund.cloudapp.net']
 
 ############## CONFIG #########################
 
@@ -34,7 +35,8 @@ ENVIRONMENT_LIST = [
                 project_name='friendfund',
                 base_name='ff_web',
                 process_groups=['ff_web_p1','ff_web_p2'],
-                config_path='live_azure')
+                config_path='live_azure',
+                num_procs=1)
 ]
 
 ENVIRONMENT_LOOKUP = {e.env_name:e for e in ENVIRONMENT_LIST}
@@ -52,24 +54,30 @@ root = '/server/www/{}/'.format(PROJECTNAME)
 
 
 @task
+@roles('ffserver')
 def add_supervisor_conf(env):
     environment = ENVIRONMENT_LOOKUP[env]
-    spv_name = "/etc/supervisor/conf.d/%s" % environment.supervisor_conf_name
-    if files.exists(spv_name):
-        sudo("rm %s" % spv_name)
-    files.upload_template("supervisor_web.cfg", spv_name, {
-        'process_groups': environment.process_groups,
-        'num_procs': environment.num_procs,
-        'project_part': environment.project_name,
-        'deploy_path': environment.deploy_path,
-        'log_path': environment.log_path,
-        'python_path': environment.supervisor_python_path,
-        'config_file': environment.config_file_path
-    }, use_jinja=True, use_sudo=True)
-    sudo("supervisorctl reload")
+    with cd(environment.deploy_path):
+        if files.exists('run/supervisord.pid'):
+            run("env/bin/supervisorctl -c supervisor.cfg stop all")
+            run("env/bin/supervisorctl -c supervisor.cfg shutdown")
+        else:
+            run("env/bin/easy_install supervisor")
+        files.upload_template("templates/supervisor_web.cfg", 'supervisor.cfg', {
+            'process_groups': environment.process_groups,
+            'num_procs': environment.num_procs,
+            'project_part': environment.project_name,
+            'deploy_path': environment.deploy_path,
+            'log_path': environment.log_path,
+            'python_path': environment.supervisor_python_path,
+            'config_file': environment.get_dest_config
+        }, use_jinja=True, backup=False)
+        run("env/bin/supervisord -c supervisor.cfg")
+        run("env/bin/supervisorctl -c supervisor.cfg start all")
 
 
 @task
+@roles('ffserver')
 def create_env(env):
     files.append(" ~/.ssh/config", ['Host github.com', '\tStrictHostKeyChecking no'])
     environment = ENVIRONMENT_LOOKUP[env]
@@ -111,6 +119,7 @@ def build_statics(env, version):
     code_path = environment.get_code_path(version)
     return
 
+
 def switch(env, version):
     environment = ENVIRONMENT_LOOKUP[env]
     code_path = environment.get_code_path(version)
@@ -120,7 +129,10 @@ def switch(env, version):
         run("%s/env/bin/python setup.py develop" % environment.deploy_path)
 
     with cd(environment.deploy_path):
-        run("cp %s %s" % (environment.get_config_file("config_web.ini"), environment.config_file_path))
+        run("cp %s %s" % (environment.get_src_config("config.ini"),
+                          environment.get_dest_config("config.ini")))
+        run("cp %s %s" % (environment.get_src_config("celeryconfig.py"),
+                          environment.get_dest_config("celeryconfig.py")))
 
         with cd("code"):
             run("rm current;ln -s {} current".format(version))
@@ -128,6 +140,7 @@ def switch(env, version):
 
 
 @task
+@roles('ffserver')
 def deploy(env):
     VERSION_TOKEN = datetime.now().strftime("%Y%m%d-%H%M%S-%f")[:-3]
     update(env)

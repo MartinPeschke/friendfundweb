@@ -123,7 +123,9 @@ def add_geoip_lib():
         sudo('wget https://github.com/maxmind/geoip-api-c/releases/download/v1.6.0/GeoIP-%s.tar.gz' % VERSIONS['GEOIP'])
         sudo('tar xfv GeoIP-%s.tar.gz' % VERSIONS['GEOIP'])
         with cd('GeoIP-%s' % VERSIONS['GEOIP']):
-            sudo('./configure && make && make install')
+            sudo('./configure')
+            sudo('make')
+            sudo('make install')
 
 def add_geoip_db():
     with cd('/server/nginx/etc'):
