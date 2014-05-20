@@ -39,8 +39,7 @@ EXTRA_PACKAGES = ['supervisor',
                   'memcached',
                   'libmemcached-dev',
                   'unixodbc',
-                  'unixodbc-dev',
-                  'rabbitmq-server']
+                  'unixodbc-dev']
 
 VERSIONS = {
     "PYTHON":"2.7.6"
@@ -93,7 +92,9 @@ def add_freetds():
         sudo('wget ftp://ftp.freetds.org/pub/freetds/stable/%s.tar.gz' % name)
         sudo('tar xfv %s.tar.gz' % name)
         with cd(name):
-            sudo('./configure && make && make install')
+            sudo('./configure')
+            sudo('make')
+            sudo('make install')
     upload_template('./templates/odbcinst.ini', '/etc/odbcinst.ini', backup=False, use_sudo=True)
 
 
@@ -113,12 +114,12 @@ def set_nginx_conf():
 
 @task
 def add_ff_conf():
-    files.upload_template("templates/website.conf", "/server/nginx/etc/sites.enabled/ff_dev.conf", VERSIONS, use_sudo=True)
+    files.upload_template("templates/website.conf", "/server/nginx/etc/sites.enabled/ff_dev.conf", VERSIONS, use_sudo=True, backup=False)
     sudo("/etc/init.d/nginx reload")
 
 
 def add_geoip_lib():
-    with cd('tmp'):
+    with cd('/tmp'):
         sudo('wget https://github.com/maxmind/geoip-api-c/releases/download/v1.6.0/GeoIP-%s.tar.gz' % VERSIONS['GEOIP'])
         sudo('tar xfv GeoIP-%s.tar.gz' % VERSIONS['GEOIP'])
         with cd('GeoIP-%s' % VERSIONS['GEOIP']):
@@ -162,5 +163,6 @@ def provision():
     add_python()
     add_rabbit_mq()
     add_freetds()
+    add_nginx()
     sudo('apt-get install -y {}'.format(' '.join(EXTRA_PACKAGES)))
 

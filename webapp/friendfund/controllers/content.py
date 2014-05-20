@@ -1,4 +1,4 @@
-43import logging
+import logging
 
 import formencode
 from pylons import request, tmpl_context as c, url, app_globals as g

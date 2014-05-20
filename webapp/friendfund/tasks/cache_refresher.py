@@ -1,5 +1,6 @@
 from __future__ import with_statement
 import logging
+from logging.config import fileConfig
 import time
 import sys
 import getopt
@@ -8,14 +9,6 @@ from friendfund.model.globals import GetMerchantConfigProc
 from friendfund.model.pool import FeaturedPool
 from friendfund.tasks import get_dbm, get_cm, get_config, Usage
 
-
-log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.INFO)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-ch.setFormatter(formatter)
-log.addHandler(ch)
 
 CONNECTION_NAME = 'pool'
 FEATURED_POOLS_CACHEKEY = "FF_FEATURED_POOLS_weafhwvgfhfr"
@@ -46,6 +39,10 @@ def main(argv=None):
         return 2
 
     configname = opts['-f']
+
+    fileConfig(configname)
+    log = logging.getLogger(__name__)
+
     config = get_config(configname)
     dbm = get_dbm(CONNECTION_NAME)
     cm = get_cm(CONNECTION_NAME)

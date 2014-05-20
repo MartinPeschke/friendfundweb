@@ -8,7 +8,7 @@ from friendfund.model.authuser import User, OtherUserData, TwitterUserHasEmailPr
 from friendfund.model.myprofile import GetMyProfileProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import SignupForm, LoginForm
-from friendfund.tasks.photo_renderer import remote_save_image
+from friendfund.tasks.celerytasks.photo_renderer import remote_save_image
 from friendfund.services import static_service as statics
 
 class UserService(object):

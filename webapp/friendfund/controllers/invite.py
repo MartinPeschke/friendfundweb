@@ -18,7 +18,7 @@ from friendfund.model.authuser import CLEARANCES, UserNotLoggedInWithMethod, NoF
 from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
 from friendfund.services import static_service as statics
-from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
+from friendfund.tasks.celerytasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
 from friendfund.tasks.notifiers.common import get_template
 
 

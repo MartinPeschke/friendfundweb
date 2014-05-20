@@ -13,7 +13,7 @@ from friendfund.lib.auth.decorators import logged_in, pool_available
 from friendfund.lib.base import BaseController
 from friendfund.model.pool import Pool, UpdatePoolProc, OccasionSearch
 from friendfund.model.product import Product
-from friendfund.tasks.photo_renderer import UnsupportedFileFormat
+from friendfund.tasks.celerytasks.photo_renderer import UnsupportedFileFormat
 from friendfund.services.product_service import QueryMalformedException
 from friendfund.lib.routes_middleware import abort
 

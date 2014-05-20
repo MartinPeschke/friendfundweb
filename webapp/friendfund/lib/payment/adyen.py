@@ -15,7 +15,7 @@ from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contrib
 from friendfund.model.contribution import DBContribution
 from friendfund.model.db_access import SProcException
 from friendfund.model.pool import Pool
-from friendfund.tasks.photo_renderer import remote_pool_picture_render
+from friendfund.tasks.celerytasks.photo_renderer import remote_pool_picture_render
 
 
 log = logging.getLogger(__name__)

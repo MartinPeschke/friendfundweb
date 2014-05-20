@@ -188,7 +188,7 @@ def get_friends_from_cache(
             if offset>0:
                 logger.error('FACEBOOK, GET_FRIENDS_FROM_CACHE, tried getting followups, None Found: %s', key)
             mc.set(key, INPROCESS_TOKEN, 30)
-            send_task('friendfund.tasks.fb.set_friends_async', args = [proto_key, id, access_token])
+            send_task('friendfund.tasks.celerytasks.fb.set_friends_async', args = [proto_key, id, access_token])
 
         while value in (None,INPROCESS_TOKEN) and sleeper < timeout:
             time.sleep(0.2)

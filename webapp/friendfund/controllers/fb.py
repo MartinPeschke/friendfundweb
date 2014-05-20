@@ -11,7 +11,7 @@ from friendfund.lib import fb_helper
 from friendfund.model import db_access
 from friendfund.model.authuser import NetworkUserPermissions
 from friendfund.lib.routes_middleware import redirect
-from friendfund.tasks.fb import remote_persist_user
+from friendfund.tasks.celerytasks.fb import remote_persist_user
 
 log = logging.getLogger(__name__)
 

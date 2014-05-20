@@ -1,19 +1,19 @@
 from __future__ import with_statement
+import logging
 from operator import itemgetter
 from itertools import imap
 
 import simplejson
-from celery.decorators import task
-from celery.log import setup_logger
 
 from friendfund.model.async.user_data import UserData
 from friendfund.lib import oauth, tw_helper, helpers as h
 from friendfund.lib.cache_helper import set_pages_to_cache
 from friendfund.model import common
 from friendfund.tasks import get_dbm, get_cm, config
-from friendfund.tasks.photo_renderer import remote_profile_picture_render
+from friendfund.tasks.celerytasks import app
+from friendfund.tasks.celerytasks.photo_renderer import remote_profile_picture_render
 
-log = setup_logger(loglevel=0)
+log = logging.getLogger()
 
 CONNECTION_NAME = 'async'
 
@@ -60,7 +60,7 @@ def get_friend_list(method, access_token, access_token_secret, consumer, user_id
     if len(output_buffer):
         yield output_buffer, True
 
-@task
+@app.task
 def set_friends_async(proto_key, access_token, access_token_secret, user_id, screen_name):
     consumer = oauth.Consumer(config['twitterapikey'], config['twitterapisecret'])
     cache_pool = get_cm(CONNECTION_NAME)
@@ -68,7 +68,7 @@ def set_friends_async(proto_key, access_token, access_token_secret, user_id, scr
     set_pages_to_cache(log, cache_pool, proto_key, dataprovider)
 
 
-@task
+@app.task
 def remote_persist_user(user_data):
     user = UserData(**user_data)
     try:
@@ -83,4 +83,3 @@ def remote_persist_user(user_data):
     proto_key = '<friends_twitter>%s'%user_data['access_token']
     set_pages_to_cache(log, cache_pool, proto_key, dataprovider)
     return 'ack'
-	

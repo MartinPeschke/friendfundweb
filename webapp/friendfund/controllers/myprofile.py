@@ -20,7 +20,7 @@ from friendfund.model.authuser import CLEARANCES, DBRequestPWProc, SetUserLocale
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, MyProfileForm, NotificationsForm
 from friendfund.model.myprofile import GetMyProfileProc, OptOutNotificationsProc, OptOutTemplateType, GetMyPictureProc, ResetPasswordProc
-from friendfund.tasks.twitter import remote_persist_user as tw_remote_persist_user
+from friendfund.tasks.celerytasks.twitter import remote_persist_user as tw_remote_persist_user
 from friendfund.services import static_service as statics
 
 

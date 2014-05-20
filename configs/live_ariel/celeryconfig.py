@@ -4,11 +4,7 @@ BROKER_USER = "rmquser_live"
 BROKER_PASSWORD = "rmqpw_liveHGasegoiAuhqfReo96r"
 BROKER_VHOST = "rmqvhost_live"
 CELERY_RESULT_BACKEND = "amqp"
-CELERY_IMPORTS = ("friendfund.tasks.fb", 
-					"friendfund.tasks.twitter",
-					"friendfund.tasks.photo_renderer",
-					"friendfund.tasks.ecard_renderer")
- 
+
 CELERYD_SOFT_TASK_TIME_LIMIT=480
 CELERYD_TASK_TIME_LIMIT=490
 
@@ -38,4 +34,3 @@ CELERY_ADDITIONAL_CONFIG="/opt/www/ff_live/ariel_101_paste.ini"
 CELERYD_CONCURRENCY = 8
 
 CELERYD_LOG_FILE = "logs/celeryd_live.log"
-CELERYD_LOG_LEVEL = "INFO"

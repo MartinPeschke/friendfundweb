@@ -1,3 +1,4 @@
+import logging
 import os
 import ConfigParser
 
@@ -12,8 +13,8 @@ from friendfund.services import static_service as statics
 IMAGEMAGICKROOT ='/usr/bin'
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_root = os.path.join(os.getcwd(), 'statics')
-from celery.log import setup_logger
-log = setup_logger(loglevel=0)
+
+log = logging.getLogger()
 
 class Usage(Exception):
     def __init__(self, msg):

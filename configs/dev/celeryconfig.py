@@ -4,10 +4,6 @@ BROKER_USER = "rabbitmquser"
 BROKER_PASSWORD = "rabbitmqpassword"
 BROKER_VHOST = "rabbitmqvhost"
 CELERY_RESULT_BACKEND = "amqp"
-CELERY_IMPORTS = ("friendfund.tasks.fb",
-                  "friendfund.tasks.twitter",
-                  "friendfund.tasks.photo_renderer",
-                  "friendfund.tasks.ecard_renderer")
 
 CELERYD_SOFT_TASK_TIME_LIMIT=480
 CELERYD_TASK_TIME_LIMIT=490
@@ -36,4 +32,3 @@ CELERY_ADDITIONAL_CONFIG="development.ini"
 # number of CPUs on your machine. If not set, the number of CPUs/cores
 # available will be used.
 CELERYD_CONCURRENCY = 4
-CELERYD_LOG_LEVEL = "DEBUG"

@@ -12,7 +12,7 @@ from friendfund.lib.base import BaseController
 from friendfund.lib import tw_helper
 from friendfund.lib.auth.decorators import logged_in
 from friendfund.lib.routes_middleware import redirect
-from friendfund.tasks.twitter import remote_persist_user
+from friendfund.tasks.celerytasks.twitter import remote_persist_user
 
 
 log = logging.getLogger(__name__)

@@ -4,11 +4,7 @@ BROKER_USER = "fftestenvuser"
 BROKER_PASSWORD = "fftestenvpassword74218649"
 BROKER_VHOST = "fftestenv"
 CELERY_RESULT_BACKEND = "amqp"
-CELERY_IMPORTS = ("friendfund.tasks.fb", 
-					"friendfund.tasks.twitter",
-					"friendfund.tasks.photo_renderer",
-					"friendfund.tasks.ecard_renderer")
- 
+
 CELERYD_SOFT_TASK_TIME_LIMIT=480
 CELERYD_TASK_TIME_LIMIT=490
 
@@ -39,4 +35,3 @@ CELERY_DEFAULT_ROUTING_KEY = "fftest"
 CELERYD_CONCURRENCY = 4
 
 CELERYD_LOG_FILE = "logs/celeryd_test.log"
-CELERYD_LOG_LEVEL = "DEBUG"

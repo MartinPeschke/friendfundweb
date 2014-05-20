@@ -1,3 +1,4 @@
+import logging
 import os
 import urllib2
 import StringIO
@@ -10,7 +11,6 @@ import time
 from collections import deque
 
 import Image
-from celery.decorators import task
 
 from friendfund.model import db_access
 from friendfund.model.async.profile_picture_render import AddRenderedProfilePictureProc
@@ -24,16 +24,13 @@ from friendfund.tasks import get_dbm \
     , upload_tmp \
     , IMAGEMAGICKROOT \
     , STATICS_SERVICE
+from friendfund.tasks.celerytasks import app
 
 
 CONNECTION_NAME = 'async'
-from celery.log import setup_logger
-log = setup_logger(loglevel=0)
 
 
-
-
-
+log = logging.getLogger()
 
 class UnexpectedFileNameFormat(Exception):
     pass
@@ -116,7 +113,7 @@ def save_render(fname_src, fname_dest, target_w=190, target_h=150, gravity = "Ce
     return fname_dest
 
 
-@task
+@app.task
 def remote_save_product_image(newfname, tmpfname):
     render_product_pictures(newfname, tmpfname)
     return 'ack'
@@ -154,7 +151,7 @@ def save_product_image(newfname, tmpfname, type):
         os.unlink(tmpfname)
 
 
-@task
+@app.task
 def remote_save_image(email, tmpfname, newfname):
     dbm = get_dbm(CONNECTION_NAME)
     newurl = newfname  # '/23/a1/23a1a-wefkj-hqwfok-jqwfr'
@@ -177,7 +174,7 @@ def remote_save_image(email, tmpfname, newfname):
     finally:
         os.unlink(tmpfname)
 
-@task
+@app.task
 def remote_product_picture_render(pool_url, picture_url):
     newfname = statics.tokenize_url("%s-%s" % (pool_url, picture_url))
     newurl = newfname  # '23/a1/23a1a-wefkj-hqwfok-jqwfr'
@@ -204,7 +201,7 @@ def remote_product_picture_render(pool_url, picture_url):
     return newurl
 
 
-@task
+@app.task
 def remote_profile_picture_render(userlist):
     start = time.time()
     dltime = 0
@@ -255,7 +252,8 @@ def remote_profile_picture_render(userlist):
                     os.unlink(tmpfname)
     return 'ack[ttl:%.4fs, dl:%.4fs, rdr: %.4fs]' % (time.time() - start, dltime, rendertime)
 
-@task
+
+@app.task
 def remote_pool_picture_render(pool_url):
     dbm = get_dbm(CONNECTION_NAME)
     newfname = statics.tokenize_url(pool_url)

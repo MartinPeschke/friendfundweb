@@ -22,7 +22,7 @@
 # # Extra arguments to celeryd
 # CELERYD_OPTS="--time-limit 300"
 #
-# # Name of the celery config module.#
+# # Name of the celerytasks config module.#
 # CELERY_CONFIG_MODULE="celeryconfig"
 #
 # EXAMPLE DJANGO CONFIGURATION
@@ -72,7 +72,7 @@
 # Required-Stop: $network $local_fs $remote_fs
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: celery task worker daemon
+# Short-Description: celerytasks task worker daemon
 ### END INIT INFO
 
 set -e
@@ -85,7 +85,7 @@ CELERYD_CHDIR="/opt/www/demo"
 CELERYD_USER="www-data"
 CELERYD_GROUP="www-data"
 
-# /etc/init.d/ssh: start and stop the celery task worker daemon.
+# /etc/init.d/ssh: start and stop the celerytasks task worker daemon.
 
 if test -f /etc/default/celeryd; then
     . /etc/default/celeryd

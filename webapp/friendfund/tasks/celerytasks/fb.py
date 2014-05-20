@@ -1,3 +1,4 @@
+import logging
 import urllib
 import urllib2
 import os
@@ -5,7 +6,6 @@ from operator import itemgetter
 from datetime import datetime
 
 import simplejson
-from celery.decorators import task
 from poster.streaminghttp import register_openers
 from poster.encode import multipart_encode
 from celery.log import setup_logger
@@ -15,9 +15,10 @@ from friendfund.lib.cache_helper import set_pages_to_cache
 from friendfund.model import db_access
 from friendfund.model.async.user_data import UserData, UserBirthday, UserBirthdayList
 from friendfund.tasks import get_dbm, get_cm
-from friendfund.tasks.photo_renderer import remote_profile_picture_render
+from friendfund.tasks.celerytasks import app
+from friendfund.tasks.celerytasks.photo_renderer import remote_profile_picture_render
 
-log = setup_logger(loglevel=0)
+log = logging.getLogger()
 
 CONNECTION_NAME = 'async'
 
@@ -27,7 +28,7 @@ FRIENDS_QUERY = '?'.join([
 ])
 
 
-@task
+@app.task
 def upload_picture_to_event(event_id, access_token, picture_url, trial_count = 0):
     if trial_count>2:
         log.error("TOO_MANY_ERRORS_FOR_EVENTS_MODIFY: gave up after %s", trial_count)
@@ -50,9 +51,7 @@ def upload_picture_to_event(event_id, access_token, picture_url, trial_count = 0
         if fname: os.unlink(fname)
 
 
-
-
-@task
+@app.task
 def remote_persist_user(user_data):
     dbm = get_dbm(CONNECTION_NAME)
     user = UserData(**user_data)
@@ -135,7 +134,7 @@ def get_friend_list(method, logger, id, access_token, slice_size = 100):
         yield user_data[i*slice_size:(i+1)*slice_size], i+1 == pagenumber
 
 
-@task
+@app.task
 def set_friends_async(proto_key, id, access_token):
     cache_pool = get_cm(CONNECTION_NAME)
     dataprovider = get_friend_list('CREATE_EVENT', log, id, access_token)
