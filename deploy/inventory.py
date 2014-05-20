@@ -46,7 +46,7 @@ class Environment(object):
 
     @property
     def supervisor_python_path(self):
-        return '%s/code/current/%s' % (self.env_path, self.project_name)
+        return '%s/code/current' % self.env_path
 
     @property
     def repo_path(self):
