@@ -24,7 +24,8 @@ setup(
         "lxml",
         "celery",
         "markdown",
-        "poster"
+        "poster",
+        "turbomail"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(),
