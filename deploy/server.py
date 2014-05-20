@@ -1,7 +1,7 @@
 from fabric.context_managers import cd
-from fabric.contrib.files import append
+from fabric.contrib.files import append, upload_template
 from fabric.decorators import task
-from fabric.operations import sudo, run
+from fabric.operations import sudo, run, put
 from fabric.contrib import files
 from inventory import vagrant
 
@@ -49,6 +49,7 @@ VERSIONS = {
     , "REDIS":"2.6.17"
     , "NODE":"0.10.26"
     , "FREETDS": "0.91.102"
+    , "GEOIP": "1.6.0"
 }
 
 NEWRELIC_LICENSEKEY='0b05ef93874b87d2b6fb3878e68299db385c15c5'
@@ -93,19 +94,73 @@ def add_freetds():
         sudo('tar xfv %s.tar.gz' % name)
         with cd(name):
             sudo('./configure && make && make install')
-    append([
-        '[FreeTDS]',
-        'Description             = FreeTDS v0.83 with TDS v8.0',
-        'Driver          = /usr/local/lib/libtdsodbc.so',
-        'Setup           = /usr/lib/odbc/libtdsS.so',
-        'Threading=1'], '/etc/odbcinst.ini')
+    upload_template('./templates/odbcinst.ini', '/etc/odbcinst.ini', backup=False, use_sudo=True)
+
+
+def set_nginx_startup():
+    files.upload_template("templates/nginx.initd", "/etc/init.d/nginx",
+                          {'NGINX_VERSION': VERSIONS['NGINX']}, use_sudo=True)
+    sudo("chmod +x /etc/init.d/nginx")
+    sudo("update-rc.d nginx defaults")
+
+
+def set_nginx_conf():
+    sudo("mkdir -p /server/nginx/etc/{sites.enabled,sites.disabled}")
+    files.upload_template("templates/nginx.conf", "/server/nginx/etc/nginx.conf",
+                          VERSIONS, use_sudo=True)
+    sudo("/etc/init.d/nginx reload")
+
+
+@task
+def add_ff_conf():
+    files.upload_template("templates/website.conf", "/server/nginx/etc/sites.enabled/ff_dev.conf", VERSIONS, use_sudo=True)
+    sudo("/etc/init.d/nginx reload")
+
+
+def add_geoip_lib():
+    with cd('tmp'):
+        sudo('wget https://github.com/maxmind/geoip-api-c/releases/download/v1.6.0/GeoIP-%s.tar.gz' % VERSIONS['GEOIP'])
+        sudo('tar xfv GeoIP-%s.tar.gz' % VERSIONS['GEOIP'])
+        with cd('GeoIP-%s' % VERSIONS['GEOIP']):
+            sudo('./configure && make && make install')
+
+def add_geoip_db():
+    with cd('/server/nginx/etc'):
+        sudo('wget -N http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz')
+        sudo('gunzip GeoIP.dat.gz')
+
+
+@task
+def add_nginx():
+    add_geoip_lib()
+    with cd("/tmp"):
+        sudo("wget http://nginx.org/download/nginx-{}.tar.gz".format(VERSIONS['NGINX']))
+        sudo("tar xfv nginx-{}.tar.gz".format(VERSIONS['NGINX']))
+        with cd("nginx-{}".format(VERSIONS['NGINX'])):
+            sudo("./configure "
+                 "--group=www-data "
+                 "--user=www-data "
+                 "--with-http_ssl_module "
+                 "--prefix=/server/nginx/{} "
+                 "--conf-path=/server/nginx/etc/nginx.conf "
+                 "--error-log-path=/server/nginx/logs/error.log "
+                 "--pid-path=/server/nginx/run/nginx.pid "
+                 "--lock-path=/server/nginx/run/nginx.lock "
+                 "--with-http_geoip_module "
+                 "--with-http_gzip_static_module && "
+                 "make && "
+                 "make install".format(VERSIONS['NGINX']))
+    set_nginx_startup()
+    set_nginx_conf()
+    add_geoip_db()
+    add_ff_conf()
 
 
 @task
 def provision():
     update_sys()
     add_python()
-    #add_rabbit_mq()
+    add_rabbit_mq()
     add_freetds()
     sudo('apt-get install -y {}'.format(' '.join(EXTRA_PACKAGES)))
 
