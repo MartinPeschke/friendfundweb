@@ -4,7 +4,7 @@ import pprint
 
 import simplejson
 from pylons import url, app_globals, config
-from pylons.controllers.util import abort, redirect
+from friendfund.lib.routes_middleware import abort, redirect
 
 from friendfund.lib.base import BaseController
 

@@ -5,7 +5,6 @@ from operator import attrgetter
 
 import formencode
 from pylons import request, session as websession, tmpl_context as c, url, app_globals as g
-from pylons.controllers.util import redirect
 from pylons.decorators import jsonify
 from pylons.templating import render_mako_def as render_def, render_mako as render
 
@@ -14,6 +13,7 @@ from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, pool_available
 from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib.routes_middleware import redirect
 from friendfund.model.forms.common import DecimalValidator
 from friendfund.model.forms.pool import PoolHomePageForm
 from friendfund.model.pool import PoolChat, PoolComment, GetMoreInviteesProc, GetECardContributorsProc

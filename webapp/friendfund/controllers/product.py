@@ -5,7 +5,6 @@ import datetime
 import simplejson
 from pylons import request, response, session as websession, tmpl_context as c, app_globals
 from pylons.decorators import jsonify
-from pylons.controllers.util import abort
 from pylons.templating import render_mako_def as render_def, render_mako as render
 from pylons.i18n import ugettext as _
 
@@ -16,6 +15,7 @@ from friendfund.model.pool import Pool, UpdatePoolProc, OccasionSearch
 from friendfund.model.product import Product
 from friendfund.tasks.photo_renderer import UnsupportedFileFormat
 from friendfund.services.product_service import QueryMalformedException
+from friendfund.lib.routes_middleware import abort
 
 log = logging.getLogger(__name__)
 

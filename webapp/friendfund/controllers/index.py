@@ -3,12 +3,12 @@ import logging
 
 import formencode
 from pylons import request, session as websession, tmpl_context as c, config, app_globals, url
-from pylons.controllers.util import redirect
 from pylons.i18n import ugettext as _
 from pylons.templating import render_mako as render
 from pylons.decorators import jsonify
 
 from friendfund.lib.base import BaseController
+from friendfund.lib.routes_middleware import redirect
 from friendfund.model.pool import FeaturedPool
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.authuser import ANONUSER

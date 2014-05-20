@@ -6,7 +6,6 @@ from babel import Locale
 from friendfund.controllers.pool import NOT_AUTHORIZED_MESSAGE
 from friendfund.lib.notifications.messages import ErrorMessage, SuccessMessage
 from pylons import request, tmpl_context as c, url, app_globals
-from pylons.controllers.util import redirect
 from pylons.decorators import jsonify
 from pylons.i18n import ugettext as _
 from pylons.templating import render_mako as render
@@ -15,6 +14,7 @@ from friendfund.lib import helpers as h
 from friendfund.lib.auth.decorators import logged_in, pool_available
 from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import friendfund_formencode_gettext
+from friendfund.lib.routes_middleware import redirect
 from friendfund.model import db_access
 from friendfund.model.forms.pool import PoolAddressForm, PoolEditPageForm
 from friendfund.model.pool import Pool, PoolThankYouMessage, UpdatePoolProc, IsContributorProc, LeavePoolProc, CancelPaymentProc

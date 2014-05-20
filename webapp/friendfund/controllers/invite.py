@@ -3,24 +3,24 @@ from collections import deque
 
 import formencode
 from pylons import request, tmpl_context as c, url, app_globals
-from pylons.controllers.util import redirect
 from formencode.variabledecode import variable_decode
-
 import markdown
-from friendfund.lib import helpers as h
-from friendfund.lib.auth.decorators import logged_in, post_only, pool_available, jsonify
-from friendfund.lib.base import BaseController
 from pylons.templating import render_mako as render, render_mako_def as render_def
 from pylons.i18n import ugettext as _
 
+from friendfund.lib import helpers as h
+from friendfund.lib.auth.decorators import logged_in, post_only, pool_available, jsonify
+from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib.notifications.messages import ErrorMessage, SuccessMessage
+from friendfund.lib.routes_middleware import redirect
 from friendfund.model.authuser import CLEARANCES, UserNotLoggedInWithMethod, NoFriendsFoundSomeErrorOccured
 from friendfund.model.forms.pool import PoolEmailInviteeForm
 from friendfund.model.pool import Pool, PoolInvitee, AddInviteesProc, GetPoolInviteesProc
 from friendfund.services import static_service as statics
 from friendfund.tasks.photo_renderer import remote_profile_picture_render, remote_pool_picture_render
 from friendfund.tasks.notifiers.common import get_template
+
 
 strbool = formencode.validators.StringBoolean(if_missing=False, if_empty=False)
 from celery.task.sets import TaskSet

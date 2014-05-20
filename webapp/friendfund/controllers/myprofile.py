@@ -6,7 +6,6 @@ import formencode
 import simplejson
 from pylons.i18n import ugettext as _
 from pylons import request, response, session as websession, tmpl_context as c, url, app_globals as g, config
-from pylons.controllers.util import abort, redirect
 from pylons.decorators import jsonify
 from pylons.i18n.translation import set_lang
 from pylons.templating import render_mako_def as render_def, render_mako as render
@@ -16,6 +15,7 @@ from friendfund.lib.auth.decorators import logged_in, default_domain_only
 from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
 from friendfund.lib import helpers as h
+from friendfund.lib.routes_middleware import redirect, abort
 from friendfund.model.authuser import CLEARANCES, DBRequestPWProc, SetUserLocaleProc
 from friendfund.model.common import SProcWarningMessage
 from friendfund.model.forms.user import EmailRequestForm, PasswordResetForm, MyProfileForm, NotificationsForm

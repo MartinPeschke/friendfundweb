@@ -7,7 +7,6 @@ import urlparse
 from collections import deque
 
 from pylons import request, session as websession, tmpl_context as c, app_globals, url
-from pylons.controllers.util import abort, redirect
 from pylons.controllers import WSGIController
 from pylons.i18n.translation import set_lang
 from pylons.templating import render_mako as render
@@ -15,6 +14,7 @@ from pylons.templating import render_mako as render
 from friendfund.model.authuser import ANONUSER
 from friendfund.lib.helpers import negotiate_locale
 from friendfund.lib.notifications.messages import Message, ErrorMessage
+from friendfund.lib.routes_middleware import abort, redirect
 
 
 log = logging.getLogger(__name__)

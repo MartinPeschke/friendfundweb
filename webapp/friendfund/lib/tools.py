@@ -7,146 +7,146 @@ import simplejson, logging
 log = logging.getLogger(__name__)
 
 class AutoVivification(dict):
-	"""Implementation of perl's autovivification feature."""
-	def __getitem__(self, item):
-		try:
-			return dict.__getitem__(self, item)
-		except KeyError:
-			value = self[item] = type(self)()
-			return value
+    """Implementation of perl's autovivification feature."""
+    def __getitem__(self, item):
+        try:
+            return dict.__getitem__(self, item)
+        except KeyError:
+            value = self[item] = type(self)()
+            return value
 
 def dict_contains(d, keys):
-	if not d or not keys:
-		return False
-	return len(keys) == len(filter(lambda x: bool(x), [d.get(k, None) for k in keys]))
+    if not d or not keys:
+        return False
+    return len(keys) == len(filter(lambda x: bool(x), [d.get(k, None) for k in keys]))
 
 def atoi(num):
-	try:
-		return int(num)
-	except:
-		return None
-	
+    try:
+        return int(num)
+    except:
+        return None
+
 @decorator
 def iframe_jsonify(func, *args, **kwargs):
-	"""Action decorator that formats output for JSON for iFrame transport
-	"""
-	data = func(*args, **kwargs)
-	return '<html><body><textarea>%s</textarea></body></html>' % simplejson.dumps(data)
+    """Action decorator that formats output for JSON for iFrame transport
+    """
+    data = func(*args, **kwargs)
+    return '<html><body><textarea>%s</textarea></body></html>' % simplejson.dumps(data)
 
 def remove_chars(refstr, chars):
-	return ''.join([ c for c in refstr if c not in chars])
-	
-	
+    return ''.join([ c for c in refstr if c not in chars])
+
+
 def zigzag(map, pred, mod):
-	t1,t2 = itertools.tee(map.iteritems())
-	even = itertools.imap(mod, itertools.ifilter(pred, t1))
-	odd = itertools.ifilterfalse(pred, t2)
-	return even,odd
+    t1,t2 = itertools.tee(map.iteritems())
+    even = itertools.imap(mod, itertools.ifilter(pred, t1))
+    odd = itertools.ifilterfalse(pred, t2)
+    return even,odd
 def split_list(list, pred):
-	t1,t2 = itertools.tee(list)
-	return itertools.ifilter(pred, t1), itertools.ifilterfalse(pred, t2)
-	
+    t1,t2 = itertools.tee(list)
+    return itertools.ifilter(pred, t1), itertools.ifilterfalse(pred, t2)
+
 
 class DateAwareJSONEncoder(simplejson.JSONEncoder):
-	"""
-	JSONEncoder subclass that knows how to encode date/time and decimal types.
-	"""
-	DATE_FORMAT = "%Y-%m-%d"
-	TIME_FORMAT = "%H:%M:%S"
-	def default(self, o):
-		if isinstance(o, datetime.datetime):
-			return o.strftime("%s %s" % (self.DATE_FORMAT, self.TIME_FORMAT))
-		elif isinstance(o, datetime.date):
-			return o.strftime(self.DATE_FORMAT)
-		elif isinstance(o, datetime.time):
-			return o.strftime(self.TIME_FORMAT)
-		elif isinstance(o, decimal.Decimal):
-			return str(o)
-		else:
-			return super(DateAwareJSONEncoder, self).default(o)
-	
+    """
+    JSONEncoder subclass that knows how to encode date/time and decimal types.
+    """
+    DATE_FORMAT = "%Y-%m-%d"
+    TIME_FORMAT = "%H:%M:%S"
+    def default(self, o):
+        if isinstance(o, datetime.datetime):
+            return o.strftime("%s %s" % (self.DATE_FORMAT, self.TIME_FORMAT))
+        elif isinstance(o, datetime.date):
+            return o.strftime(self.DATE_FORMAT)
+        elif isinstance(o, datetime.time):
+            return o.strftime(self.TIME_FORMAT)
+        elif isinstance(o, decimal.Decimal):
+            return str(o)
+        else:
+            return super(DateAwareJSONEncoder, self).default(o)
+
 def encode_minimal_repr(map):
-	return base64.urlsafe_b64encode(zlib.compress(simplejson.dumps(map, cls=DateAwareJSONEncoder)))
+    return base64.urlsafe_b64encode(zlib.compress(simplejson.dumps(map, cls=DateAwareJSONEncoder)))
 def decode_minimal_repr(value):
-	if not value: return None
-	return simplejson.loads(zlib.decompress(base64.urlsafe_b64decode(str(value))))
-	
-	
+    if not value: return None
+    return simplejson.loads(zlib.decompress(base64.urlsafe_b64decode(str(value))))
+
+
 def contains_one(arr, map):
-	for k in arr:
-		if k in map:
-			return True
-	return False
+    for k in arr:
+        if k in map:
+            return True
+    return False
 def contains_one_ne(map, arr):
-	for k in arr:
-		if map.get(k):
-			return True
-	return False
+    for k in arr:
+        if map.get(k):
+            return True
+    return False
 def contains_all_ne(map, arr):
-	for k in arr:
-		if not map.get(k):
-			return False
-	return True
+    for k in arr:
+        if not map.get(k):
+            return False
+    return True
 def has_ne_prop(c, key):
-	return bool(hasattr(c, key) and getattr(c, key))
-	
+    return bool(hasattr(c, key) and getattr(c, key))
+
 
 ################## For Product Search Templates #################
 def attrib_keys(keys, updates = {}):
-	if updates:
-		okeys = keys.copy()
-		okeys.update(updates)
-	else:
-		okeys = keys
-	return '_search_keys="%s" %s' % (
-				','.join('_%s'%k for k in okeys.keys() if okeys[k] is not None),
-				' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k] is not None)
-			)
+    if updates:
+        okeys = keys.copy()
+        okeys.update(updates)
+    else:
+        okeys = keys
+    return '_search_keys="%s" %s' % (
+    ','.join('_%s'%k for k in okeys.keys() if okeys[k] is not None),
+    ' '.join(('_%s=%s' % (k,quoteattr(unicode(okeys[k])))) for k in okeys if okeys[k] is not None)
+    )
 
 def word_truncate_plain(s, length):
-	s = s and s.split() or ['']
-	out = ' '.join((len(s) <= length) and s or s[:length])
-	return out
+    s = s and s.split() or ['']
+    out = ' '.join((len(s) <= length) and s or s[:length])
+    return out
 
 def word_truncate(s, length):
-	s = s and s.split() or ['']
-	out = ' '.join(((len(s) <= length) and s or (s[:length] + [' ... '])))
-	return out
+    s = s and s.split() or ['']
+    out = ' '.join(((len(s) <= length) and s or (s[:length] + [' ... '])))
+    return out
 
 
 def word_truncate_by_letters(s, length):
-	if not s: return ''
-	if s and len(s) > length:
-		s = s[:length].rsplit(None,1)[0] + '...'
-	return s
+    if not s: return ''
+    if s and len(s) > length:
+        s = s[:length].rsplit(None,1)[0] + '...'
+    return s
 
 
 def generate_random_password():
-	import random, string
-	myrg = random.SystemRandom
-	length = 10
-	alphabet = string.letters + string.digits
-	pw = str().join(myrg(random).sample(alphabet,length))
-	return pw
+    import random, string
+    myrg = random.SystemRandom
+    length = 10
+    alphabet = string.letters + string.digits
+    pw = str().join(myrg(random).sample(alphabet,length))
+    return pw
 
 CHARSET = ('bdfghklmnprstvwzBDFGHKLMNPRSTVWZ', 'aeiouAEIOU') # consonants, vowels
 def generate_mnemonic_password(letters=8, digits=4):
-	"""Generate a random mnemonic password."""
-	chars = ''.join([random.choice(CHARSET[i % 2]) for i in range(letters)])
-	chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
-	return chars
+    """Generate a random mnemonic password."""
+    chars = ''.join([random.choice(CHARSET[i % 2]) for i in range(letters)])
+    chars += ''.join([str(random.randrange(0, 9)) for i in range(digits)])
+    return chars
 
 def sanitize_html(html, valid_tags = ['a','strong', 'em', 'p', 'ul', 'ol', 'li', 'br', 'b', 'i', 'u', 's', 'strike', 'font', 'pre', 'blockquote', 'div', 'span']
-	, strip_tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-	, valid_attrs = ['size', 'color', 'face', 'title', 'align', 'style']):
-	soup = BeautifulSoup(html)
-	for tag in soup.findAll(True):
-		if tag.name.lower() not in valid_tags:
-			tag.extract()
-		elif tag.name.lower() != "a":
-			tag.attrs = [attr for attr in tag.attrs if attr[0].lower() in valid_attrs]
-		else:
-			attrs = dict(tag.attrs)
-			tag.attrs = [('href', attrs.get('href')), ('target', '_blank')]
-	val = soup.renderContents()
-	return val.decode("utf-8")
+                  , strip_tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+                  , valid_attrs = ['size', 'color', 'face', 'title', 'align', 'style']):
+    soup = BeautifulSoup(html)
+    for tag in soup.findAll(True):
+        if tag.name.lower() not in valid_tags:
+            tag.extract()
+        elif tag.name.lower() != "a":
+            tag.attrs = [attr for attr in tag.attrs if attr[0].lower() in valid_attrs]
+        else:
+            attrs = dict(tag.attrs)
+            tag.attrs = [('href', attrs.get('href')), ('target', '_blank')]
+    val = soup.renderContents()
+    return val.decode("utf-8")

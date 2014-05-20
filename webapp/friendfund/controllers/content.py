@@ -1,8 +1,7 @@
-import logging
+43import logging
 
 import formencode
 from pylons import request, tmpl_context as c, url, app_globals as g
-from pylons.controllers.util import redirect
 from pylons.decorators import jsonify
 from pylons.i18n import ugettext as _
 from pylons.templating import render_mako as render
@@ -11,6 +10,7 @@ from friendfund.lib.notifications.messages import SuccessMessage
 from friendfund.lib.auth.decorators import default_domain_only, provide_lang
 from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib.routes_middleware import redirect
 from friendfund.model.forms.contact import ContactForm, PartnerForm
 from friendfund.tasks.notifiers.email import send_email
 

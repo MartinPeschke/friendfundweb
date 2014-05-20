@@ -2,7 +2,6 @@ import logging
 
 import formencode
 from pylons import request, tmpl_context as c, url, app_globals as g, session as websession
-from pylons.controllers.util import redirect
 from pylons.templating import render_mako as render
 from pylons.i18n import ugettext as _
 from friendfund.model.common import SProcWarningMessage
@@ -11,6 +10,7 @@ from friendfund.model.forms.user import LoginForm
 from friendfund.lib.auth.decorators import is_ssp_admin
 from friendfund.lib.base import BaseController
 from friendfund.lib.i18n import FriendFundFormEncodeState
+from friendfund.lib.routes_middleware import redirect
 
 log = logging.getLogger(__name__)
 

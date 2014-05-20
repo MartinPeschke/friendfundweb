@@ -4,7 +4,6 @@ import urllib2
 
 import simplejson
 from pylons import request, session as websession, tmpl_context as c, url, app_globals
-from pylons.controllers.util import redirect
 from pylons.templating import render_mako as render
 from pylons.i18n import ugettext as _
 
@@ -12,6 +11,7 @@ from friendfund.lib import oauth
 from friendfund.lib.base import BaseController
 from friendfund.lib import tw_helper
 from friendfund.lib.auth.decorators import logged_in
+from friendfund.lib.routes_middleware import redirect
 from friendfund.tasks.twitter import remote_persist_user
 
 

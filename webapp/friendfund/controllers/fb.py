@@ -1,8 +1,6 @@
 import logging
 
 from pylons import request, response, tmpl_context as c, app_globals, url
-from pylons.controllers.util import redirect
-
 from pylons.templating import render_mako as render
 from pylons.i18n import ugettext as _
 from pylons.decorators import jsonify
@@ -12,6 +10,7 @@ from friendfund.lib.base import BaseController
 from friendfund.lib import fb_helper
 from friendfund.model import db_access
 from friendfund.model.authuser import NetworkUserPermissions
+from friendfund.lib.routes_middleware import redirect
 from friendfund.tasks.fb import remote_persist_user
 
 log = logging.getLogger(__name__)

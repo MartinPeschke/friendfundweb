@@ -6,9 +6,8 @@ import socket
 
 from BeautifulSoup import BeautifulSoup
 from pylons import tmpl_context, session as websession
-from pylons.controllers.util import abort
-
 from friendfund.lib import helpers as h, url_parser
+from friendfund.lib.routes_middleware import abort
 from friendfund.model.product import DisplayProduct, Product
 
 
