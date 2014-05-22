@@ -23,6 +23,7 @@
 import time
 import sys
 import getopt
+import logging
 from xml.sax.saxutils import quoteattr
 from logging.config import fileConfig
 
