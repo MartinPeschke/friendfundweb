@@ -137,6 +137,7 @@ def switch(env, version):
         with cd("code"):
             run("rm current;ln -s {} current".format(version))
 
+        run("env/bin/supervisorctl -c supervisor.cfg start all")
 
 
 @task
