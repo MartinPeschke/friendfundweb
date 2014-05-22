@@ -35,6 +35,7 @@ from friendfund.model.db_access import execute_query
 from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
 
+log = logging.getLogger(__name__)
 
 CONNECTION_NAME = 'job'
 set_CONNECTION_NAME = 'pool'
@@ -135,6 +136,7 @@ def main(argv=None):
     configname = opts['-f']
 
     fileConfig(configname)
+    global log
     log = logging.getLogger(__name__)
 
     config = get_config(configname)
