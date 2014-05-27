@@ -86,8 +86,8 @@ def get_dbm(connection_name):
     return _dbmanagers[connection_name]
 
 upload_tmp = os.path.join(data_root, 'tmp')
-upload_uimg_folder = os.path.join(data_root, 's', 'user')
-upload_pimg_folder = os.path.join(data_root, 's', 'pool')
-upload_prodimg_folder = os.path.join(data_root, 's', 'product')
+upload_uimg_folder = os.path.join(data_root, 'user')
+upload_pimg_folder = os.path.join(data_root, 'pool')
+upload_prodimg_folder = os.path.join(data_root, 'product')
 if not os.path.exists(upload_tmp):
     os.makedirs(upload_tmp)

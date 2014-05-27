@@ -8,6 +8,7 @@ from pylons.error import handle_mako_error
 import friendfund.lib.app_globals as app_globals
 import friendfund.lib.helpers
 from friendfund.config.routing import make_map
+from friendfund.tasks import data_root
 
 
 log = logging.getLogger(__name__)
@@ -29,7 +30,7 @@ def load_environment(global_conf, app_conf):
                  controllers=os.path.join(root, 'controllers'),
                  static_files=os.path.join(root, 'public'),
                  templates=[os.path.join(root, 'templates')],
-                 uploads=os.path.join(app_conf['cache_dir'], 'uploads'))
+                 uploads=data_root)
     # Initialize config with the basic options
     config.init_app(global_conf, app_conf, package='friendfund', paths=paths)
 

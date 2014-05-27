@@ -90,7 +90,6 @@ class PoolService(object):
         else:
             pool.product = Product(picture = statics.DEFAULT_PRODUCT_PICTURE_TOKEN)
 
-
         receiver = PoolInvitee.fromUser(tmpl_context.user)
         receiver.is_receiver = True
         pool.participants.append(receiver)
@@ -131,8 +130,6 @@ class PoolService(object):
         remote_profile_picture_render.delay([(pu.network, pu.network_id, pu.large_profile_picture_url or pu.profile_picture_url) for pu in pool.participants])
         pool.settlementOption = request.merchant.settlement_options[0].name
         return self._post_process(pool)
-
-
 
     def invite_myself(self, pool_url, user):
         self.dbm.get(JoinPoolProc, u_id = user.u_id, p_url = pool_url)

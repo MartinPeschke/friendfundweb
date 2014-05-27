@@ -30,9 +30,12 @@ class Globals(object):
     """Globals acts as a container for objects available throughout the
     life of the application
     """
-    def set_merchant_config(self, merchants):
+    def set_merchant_config(self, merchants, override_default_domain):
         self.merchants = merchants
         self.default_host = merchants.default_domain
+        if override_default_domain:
+            merchants.domain_map[override_default_domain] = merchants.domain_map[merchants.default_domain]
+            self.default_host = override_default_domain
 
     def __init__(self, config):
         """One instance of Globals is created during application
@@ -63,7 +66,6 @@ class Globals(object):
         else:
             self.revision_identifier = lambda: REVISION_ENDING
 
-
         self.BASE_DOMAIN = app_conf['BASE_DOMAIN']
         # self.STATIC_HOST = app_conf['STATIC_HOST']
         self.BASE_DOMAIN_LOOKUP = '.%s'%app_conf['BASE_DOMAIN']
@@ -72,16 +74,20 @@ class Globals(object):
         self.SALES_EMAIL = app_conf['sales_email']
 
         self.UPLOAD_FOLDER = app_conf['cache_dir']
-        dbpool = PooledDB(pyodbc,mincached=4,maxcached=10,failures = (pyodbc.OperationalError, pyodbc.InternalError, pyodbc.Error), autocommit=True
-                          ,driver=app_conf['pool.connectstring.driver']
-                          ,server=app_conf['pool.connectstring.server']
-                          ,instance=app_conf['pool.connectstring.instance']
-                          ,database=app_conf['pool.connectstring.database']
-                          ,port=app_conf['pool.connectstring.port']
-                          ,tds_version=app_conf['pool.connectstring.tds_version']
-                          ,uid=app_conf['pool.connectstring.uid']
-                          ,pwd=app_conf['pool.connectstring.pwd']
-                          ,client_charset=app_conf['pool.connectstring.client_charset'])
+        dbpool = PooledDB(pyodbc,mincached=4,maxcached=10,failures = (pyodbc.OperationalError,
+                                                                      pyodbc.InternalError,
+                                                                      pyodbc.Error),
+                          autocommit=True,
+                          driver=app_conf['pool.connectstring.driver'],
+                          server=app_conf['pool.connectstring.server'],
+                          instance=app_conf['pool.connectstring.instance'],
+                          database=app_conf['pool.connectstring.database'],
+                          port=app_conf['pool.connectstring.port'],
+                          tds_version=app_conf['pool.connectstring.tds_version'],
+                          uid=app_conf['pool.connectstring.uid'],
+                          pwd=app_conf['pool.connectstring.pwd'],
+                          client_charset=app_conf['pool.connectstring.client_charset'])
+
         self.statics_service = StaticService(app_conf['static.servers'],app_conf['static.ssl.servers'])
         self.dbm = common.DBManager(dbpool, self.cache_pool, logging.getLogger('DBM'), self.statics_service)
 
@@ -92,7 +98,7 @@ class Globals(object):
         top_sellers = self.dbm.get(GetTopSellersProc)
 
         merchant_config = self.dbm.get(GetMerchantConfigProc)
-        self.set_merchant_config(merchant_config.merchants)
+        self.set_merchant_config(merchant_config.merchants, config.get('debug_default_domain'))
         self.featured_pools = merchant_config.featured_pools   #setting up a fallback if memcached doesnt hold proper pools
         self.homepage_stats = merchant_config.stats
         log.info("STARTING UP WITH following subdomains: %s", list(merchant_config.merchants.domain_map.iterkeys()))
