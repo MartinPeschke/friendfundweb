@@ -39,7 +39,7 @@ def get_friend_list(method, access_token, access_token_secret, consumer, user_id
                 }
         )
 
-    urls = ["https://api.twitter.com/1/statuses/followers.json", "https://api.twitter.com/1/statuses/friends.json"]
+    urls = ["https://api.twitter.com/1.1/followers/list.json", "https://api.twitter.com/1.1/friends/list.json"]
     next_cursor_str = -1
     output_buffer = []
     prevLoaded = set()

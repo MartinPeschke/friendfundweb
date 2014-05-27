@@ -34,11 +34,9 @@ def get_profile_picture_url(url):
 
 
 def fetch_url(url,http_method, token, token_secret, consumer, params = None):
-    oauth_base_params = {
-    'oauth_version': "1.0"
-    ,'oauth_nonce': oauth.generate_nonce()
-    ,'oauth_timestamp': oauth.generate_timestamp()
-    }
+    oauth_base_params = {'oauth_version': "1.0",
+                         'oauth_nonce': oauth.generate_nonce(),
+                         'oauth_timestamp': oauth.generate_timestamp()}
     if token is not None:
         token = oauth.Token(token, token_secret)
     if params:
@@ -56,7 +54,11 @@ def fetch_url(url,http_method, token, token_secret, consumer, params = None):
     else:
         header = request.to_header()
         req = urllib2.Request(request.to_url(), headers = header)
-    url_data = opener.open(req).read()
+    try:
+        url_data = opener.open(req).read()
+    except urllib2.HTTPError, e:
+        log.error('%s raised %s', e.url, e)
+        raise e
     opener.close()
     return url_data
 

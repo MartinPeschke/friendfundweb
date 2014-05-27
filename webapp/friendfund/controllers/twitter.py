@@ -1,6 +1,6 @@
 import logging
-import cgi
 import urllib2
+from urlparse import parse_qsl
 
 import simplejson
 from pylons import request, session as websession, tmpl_context as c, url, app_globals
@@ -38,7 +38,7 @@ class TwitterController(BaseController):
             return self.ERROR
         else:
             log.info("RECEIVED_TWITTER_INFO %s", content)
-        websession['request_token'] = dict(cgi.parse_qsl(content))
+        websession['request_token'] = dict(parse_qsl(content))
 
         # Step 3. Redirect the user to the authentication URL.
         oauth_token = websession.get('request_token', {}).get('oauth_token', None)
@@ -66,18 +66,18 @@ class TwitterController(BaseController):
         except (urllib2.HTTPError, urllib2.URLError), e:
             log.error("COULDNOT GET TOKEN FROM %s, %s", tw_helper.access_token_url, e)
             return render('/closepopup.html')
-        token_data = dict(cgi.parse_qsl(content))
+        token_data = dict(parse_qsl(content))
         # Step 3. User Details
         try:
             user_data = simplejson.loads(
-                tw_helper.fetch_url("https://api.twitter.com/1/" + "users/show" + "/%s.json" % token_data['user_id'],
+                tw_helper.fetch_url("https://api.twitter.com/1.1/" + "users/show" + "/%s.json" % token_data['user_id'],
                                     "GET",
                                     token_data['oauth_token'],
                                     token_data['oauth_token_secret'],
                                     consumer
                 ))
         except (urllib2.HTTPError, urllib2.URLError), e:
-            log.error(e)
+            log.error('%s return %s', e.url, e)
             return self.ERROR
         user_data['network'] = 'twitter'
         user_data['network_id'] = user_data.pop('id')
