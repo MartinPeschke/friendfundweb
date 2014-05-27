@@ -141,8 +141,7 @@ class PoolService(object):
     def save_pool_picture(self, picture):
         picture_url = statics.new_tokenized_name()
         tmpname, ext = os.path.splitext(picture.filename)
-        tmpname = os.path.join(self.ulpath \
-                               , '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
+        tmpname = os.path.join(self.ulpath, '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
         outf = open(tmpname, 'wb')
         outf.write(picture.file.read())
         outf.close()
@@ -152,11 +151,9 @@ class PoolService(object):
     def save_pool_picture_sync(self, picture, type):
         picture_url = statics.new_tokenized_name()
         tmpname, ext = os.path.splitext(picture.filename)
-        tmpname = os.path.join(self.ulpath \
-                               , '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
+        tmpname = os.path.join(self.ulpath, '%s%s' % (md5.new(str(uuid.uuid4())).hexdigest(), ext))
         outf = open(tmpname, 'wb')
         outf.write(picture.file.read())
         outf.close()
         newurl = save_product_image(picture_url, tmpname, type)
         return newurl
-		

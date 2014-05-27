@@ -12,7 +12,7 @@ from friendfund.services import static_service as statics
 
 IMAGEMAGICKROOT ='/usr/bin'
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-data_root = os.path.join(os.getcwd(), 'statics')
+data_root = os.path.join(os.getcwd(), 'static_render')
 
 log = logging.getLogger()
 
