@@ -20,7 +20,7 @@ SINGLE_ENTRY_MESSAGE = (150,150)
 
 CONNECTION_NAME = 'async'
 
-STATIC_SERVICE = statics.StaticService(config['static.servers'],config['static.sslservers'])
+STATIC_SERVICE = statics.StaticService(config['static.servers'],config['static.ssl.servers'])
 
 """
 	echo "123xyzHere I use caption to wordwrap and then some with this text for oodles.\nTwo separate lines. and more text and more text. and more text and more text. and more text and more text. and more text and more text. and more text and more text. and more text and more text. and more text and more text" |\

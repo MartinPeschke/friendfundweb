@@ -60,6 +60,7 @@ class BaseController(WSGIController):
             request.merchant = app_globals.merchants.domain_map[host]
             request.qualified_host = '%s://%s'%(protocol, host)
             request.is_secured = protocol == 'https'
+            log.info('%s, %s, %s', '-'*80, protocol , protocol == 'https')
         if not websession.get('region'):
             region = request.headers.get("X-COUNTRY", app_globals.country_choices.fallback.code).lower()
             region = app_globals.country_choices.map.get(region, app_globals.country_choices.fallback).code

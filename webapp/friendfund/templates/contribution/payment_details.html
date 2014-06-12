@@ -2,113 +2,110 @@
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="links" file="../widgets/links.html"/>
 
-<%def name="title()">${_("FF_TITLE_Chipin to %s") % c.pool.title}</%def>
 <%def name="title()">${_("FF_CONTRIB_DETAILS_HEADER_Last Step: Your Payment Details")}</%def>
 
 <%def name="onloadscripts()">
-	ff.w.parseDefaultsInputs("creditcardForm");
-	ff.w.parseSelectables("creditcardForm");
-	dojo.query("#creditcardForm").onsubmit(
-		function(evt){
-			evt.target.onsubmit = function(){return false};
-			dojo.query("input[type=submit]", evt.target).forEach(function(elem){
-				elem.type = "button";
-				var parent = elem.parentNode;
-				dojo.addClass(elem, "transp");
-				parent.appendChild(dojo.create("IMG", {src:"${links.ajax_loading_src()}"}));
-			});
-		
-		});
-	ff.w.connectPopupLinks("creditcardForm");
+  ff.w.parseDefaultsInputs("creditcardForm");
+  ff.w.parseSelectables("creditcardForm");
+  dojo.query("#creditcardForm").onsubmit(
+  function(evt){
+  evt.target.onsubmit = function(){return false};
+  dojo.query("input[type=submit]", evt.target).forEach(function(elem){
+  elem.type = "button";
+  var parent = elem.parentNode;
+  dojo.addClass(elem, "transp");
+  parent.appendChild(dojo.create("IMG", {src:"${links.ajax_loading_src()}"}));
+  });
+
+  });
+  ff.w.connectPopupLinks("creditcardForm");
 </%def>
-
-
 
 <% locals = {"expiry_date":h.format_date(c.pool.expiry_date, format="full"),"admin_name":c.pool.admin.name} %>
 
 ${self.renderRightCol(c.pool)}
 <div class="colLeft">
-	<form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
-		<input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
-		<input type="hidden" name="token" value="${c.token}"/>
-		<div class="poolDets">
-			<h4>${_("FF_CONTRIB_DETAILS_Confirm Your Contribution")}</h4>
-			<div class="subHeadingSpecial"></div>
-			<div class="borderBottom noBorder special">
-				<div class="first" style="margin-top:20px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
-				<div class="greyInside " style="width: 510px; height: 48px; padding: 10px;">
-				<span class="value">${h.display_currency(c.pool.currency)}</span> 
-					<p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
-				<span class="darkGrey floatRight" style="margin-top:16px">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
-				
-			</div>
-			</div>
-		</div>
-		<div class="contentDetails">${_(u"FF_CONTRIB_PAGE_You will only be charged if this Pool reaches its funding goal by %(expiry_date)s.") % locals}</div>
-		<div class="clear"></div>
-		
-		<h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
-		<div class="subHeadingSpecial"></div>
-		<div class="borderBottom ">
-			<div class="first">${_("FF_CONTRIB_DETAILS_Card type")}</div><img src="/static/imgs/${c.payment_method.code}_color.png" style="margin-top:3px">
-		</div>
-		<div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
-			<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>${_("FF_CONTRIB_DETAILS_Cardholder's Name")}</span>
-				</div>
-				<input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
-				%if "ccHolder" in c.errors:
-					<p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors.get("ccHolder")}</p>
-				%endif
-			</div>
-			<p class="info unNt">${_("FF_CREDITCARD_Your full name as it appears on the card")}</p>
-		</div>
-		<div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
-			<div class="greyInsideFullWidth">
-				<div  class="first">
-					<span>${_("FF_CONTRIB_DETAILS_Card Number")}</span>
-				</div>
-				<input class="shrt" type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
-			</div>
-		</div>
-		<div class="borderBottom ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
-			<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>${_("FF_CONTRIB_DETAILS_Expiry Date")}</span>
-				</div>
-				<select name="creditcard.ccExpiresMonth" class="smallForm">
-				%for key,val in c.payment_method.cc_validity_months:
-					<option ${widgets.input_selected("ccExpiresMonth", key)} value="${key}">${val}</option>
-				%endfor
-				</select>
-				<select name="creditcard.ccExpiresYear" class="smallForm">
-				%for key,val in c.payment_method.cc_validity_years:
-					<option ${widgets.input_selected("ccExpiresYear", key)} value="${key}">${val}</option>
-				%endfor
-				</select>
-			</div>
-		</div>
-		<div class="borderBottom  ${('ccCode' in c.errors) and "error" or ""}" style="border-bottom:none">
-			<div class="greyInsideFullWidth">
-				<div  class="first">
-					<span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
-				</div>
-				<input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" style="width:40px !important" />
-					<a class="smallForm popuplink" _href="${url(controller="content", action="what_is_cvc")}">${_("FF_CONTRIB_DETAILS_what's this?")} »</a>
-			</div>
-		</div>
-		<div class="floatLeft">
-			<div  class="first">
-				&nbsp;
-			</div>
-			<div class=" floatLeft">
-			<p class="twonine">
-				${_('FF_CONTRIB_DETAILS_Your chip in confirmation will be emailed to you. See our <a target="_blank" href="%s">Privacy Policy</a> for more about how we use emails.')%url(controller="content", action="privacy", lang=h.get_language_locale(), protocol="http")|n}
-			</p>
-			<input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatLeft"/>
-			</div>
-		</div>
-	</form>
+  <form action="${url(controller="payment", action="creditcard", pool_url=c.pool.p_url, protocol=app_globals.SSL_PROTOCOL)}" id="creditcardForm" method="POST">
+    <input type="hidden" name="creditcard.ccType" value="${c.payment_method.code}"/>
+    <input type="hidden" name="token" value="${c.token}"/>
+    <div class="poolDets">
+      <h4>${_("FF_CONTRIB_DETAILS_Confirm Your Contribution")}</h4>
+      <div class="subHeadingSpecial"></div>
+      <div class="borderBottom noBorder special">
+        <div class="first" style="margin-top:20px">${_("FF_CONTRIB_DETAILS_Your contribution")}</div>
+        <div class="greyInside " style="width: 510px; height: 48px; padding: 10px;">
+          <span class="value">${h.display_currency(c.pool.currency)}</span>
+          <p class="editableAmount bold">${h.format_number(c.values.get("amount"))}</p>
+          <span class="darkGrey floatRight" style="margin-top:16px">${_("FF_CONTRIB_PAGE_MAX. CONTRIBUTION: ")}<span class="bold"> ${h.format_currency(c.pool.get_amount_left(), c.pool.currency)}</span></span>
+
+        </div>
+      </div>
+    </div>
+    <div class="contentDetails">${_(u"FF_CONTRIB_PAGE_You will only be charged if this Pool reaches its funding goal by %(expiry_date)s.") % locals}</div>
+    <div class="clear"></div>
+
+    <h4>${_("FF_CONTRIB_DETAILS_Pay by CreditCard")}</h4>
+    <div class="subHeadingSpecial"></div>
+    <div class="borderBottom ">
+      <div class="first">${_("FF_CONTRIB_DETAILS_Card type")}</div><img src="/static/imgs/${c.payment_method.code}_color.png" style="margin-top:3px">
+    </div>
+    <div class="borderBottom  ${('ccHolder' in c.errors) and "error" or ""}">
+      <div class="greyInsideFullWidth">
+        <div class="first">
+          <span>${_("FF_CONTRIB_DETAILS_Cardholder's Name")}</span>
+        </div>
+        <input class="shrt" type="text" name="creditcard.ccHolder" value="${c.values.get("ccHolder")}"/>
+          %if "ccHolder" in c.errors:
+            <p class="errorMsg" style="margin-top:7px; width:210px; font-size:11px">${c.errors.get("ccHolder")}</p>
+          %endif
+      </div>
+      <p class="info unNt">${_("FF_CREDITCARD_Your full name as it appears on the card")}</p>
+    </div>
+    <div class="borderBottom  ${('ccNumber' in c.errors) and "error" or ""}">
+      <div class="greyInsideFullWidth">
+        <div  class="first">
+          <span>${_("FF_CONTRIB_DETAILS_Card Number")}</span>
+        </div>
+        <input class="shrt" type="text"  name="creditcard.ccNumber" value="${c.values.get("ccNumber")}"/>
+      </div>
+    </div>
+    <div class="borderBottom ${h.contains_one(["ccExpiresMonth", "ccExpiresYear"], c.errors) and "error" or ""}">
+      <div class="greyInsideFullWidth">
+        <div class="first">
+          <span>${_("FF_CONTRIB_DETAILS_Expiry Date")}</span>
+        </div>
+        <select name="creditcard.ccExpiresMonth" class="smallForm">
+            %for key,val in c.payment_method.cc_validity_months:
+              <option ${widgets.input_selected("ccExpiresMonth", key)} value="${key}">${val}</option>
+            %endfor
+        </select>
+        <select name="creditcard.ccExpiresYear" class="smallForm">
+            %for key,val in c.payment_method.cc_validity_years:
+              <option ${widgets.input_selected("ccExpiresYear", key)} value="${key}">${val}</option>
+            %endfor
+        </select>
+      </div>
+    </div>
+    <div class="borderBottom  ${('ccCode' in c.errors) and "error" or ""}" style="border-bottom:none">
+      <div class="greyInsideFullWidth">
+        <div  class="first">
+          <span>${_("FF_CONTRIB_DETAILS_Card Validation Code")}</span>
+        </div>
+        <input type="text" name="creditcard.ccCode" value="${c.values.get("ccCode")}" class="smallForm" style="width:40px !important" />
+        <a class="smallForm popuplink" _href="${url(controller="content", action="what_is_cvc")}">${_("FF_CONTRIB_DETAILS_what's this?")} »</a>
+      </div>
+    </div>
+    <div class="floatLeft">
+      <div  class="first">
+        &nbsp;
+      </div>
+      <div class=" floatLeft">
+        <p class="twonine">
+            ${_('FF_CONTRIB_DETAILS_Your chip in confirmation will be emailed to you. See our <a target="_blank" href="%s">Privacy Policy</a> for more about how we use emails.')%url(controller="content", action="privacy", lang=h.get_language_locale(), protocol="http")|n}
+        </p>
+        <input type="submit" value="${_("FF_CONTRIB_DETAILS_Submit")}" class="primaryButton floatLeft"/>
+      </div>
+    </div>
+  </form>
 </div>
 

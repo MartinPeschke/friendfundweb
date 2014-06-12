@@ -16,53 +16,53 @@
         <div class="leftArrow ${c.step == 3 and 'active' or ''}"></div>
         <div class="stepThree ${c.step == 3 and 'active' or ''}"><span>3.</span>${_("FF_CONTRIB_PAGE_HEADER_Done!")}</div>
       </div>
-      <div class="clear"></div>	
+      <div class="clear"></div>
     </div>
   </div>
 </div>
 
 <div class="wrapSubContent">
-<div class="content">
-	${next.body()}
-<div class="clear"></div>
-</div>
+  <div class="content">
+      ${next.body()}
+    <div class="clear"></div>
+  </div>
 </div>
 
 <%def name="renderRightCol(pool)">
-	<div class="colRight">
-		<%
-			locals = {"admin_name":pool.admin.name}
-		%>
-		<div class="boxWhat">
-			<div class="prod"> <img width="60px" height="50px" src="${pool.get_product_display_picture("FF_POOLS", secured = True)}"> </div>
-			<p class="title" style="overflow: hidden;">
-				<a href="${url("get_pool", pool_url = pool.p_url, protocol="http")}">${pool.title}</a>
-				<span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>
-			</p>
-			<div class="clear"></div>
-		</div>
-		
-		<div class="security">
-			<div class="headSec">
-				<h4>${_(u"FF_CONTRIB_BOX_CHIP IN WITH CONFIDENCE")}</h4>
-			</div>
-			<div class="lock">
-				<p>${_(u"FF_CONTRIB_BOX_Chipping in is safe and secure. Guaranteed!")}</p>
-			</div>
-			<p>${_(u"FF_CONTRIB_BOX_You’ll pay nothing if unauthorized charges are made to your Credit Card as a result of chipping in on friendfund.")}</p>
-			<h4>${_(u"FF_CONTRIB_BOX_YOU ARE SAFE WITH US")}</h4>
-			<div id="verisign_contrib">
-					<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-					<tr>
-					<td width="135" align="center" valign="top">
-          <a href="http://www.instantssl.com">
-            <img src="/static/imgs/comodo_secure-113x59.gif" alt="Instant SSL Certificate Secure Site" width="113" height="59" style="border: 0px;padding-top: 6px;"><br> <span style="font-weight:bold; font-size:7pt;line-height: 1em;">Instant SSL Certificate Secured</span> </a>
-					</td>
-					</tr>
-					</table>
-			</div>
-			<p>${_(u"FF_CONTRIB_BOX_All information is encrypted and transmitted without risk using a Secure Sockets Layer (SSL) protocol.")}</p>
-<a target="_blank" href="${url(controller="content", action="confidence", lang=h.get_language_locale(), protocol="http")}" class="learn">${_("FF_Learn More")} &raquo;</a>
-		</div>
-	</div>
+  <div class="colRight">
+      <%
+          locals = {"admin_name":pool.admin.name}
+      %>
+    <div class="boxWhat">
+      <div class="prod"> <img width="60px" height="50px" src="${pool.get_product_display_picture("FF_POOLS", secured = True)}"> </div>
+      <p class="title" style="overflow: hidden;">
+        <a href="${url("get_pool", pool_url = pool.p_url, protocol="http")}">${pool.title}</a>
+        <span class="creator">${_("FF_CONTRIBUTION_by %(admin_name)s") % locals}</span>
+      </p>
+      <div class="clear"></div>
+    </div>
+
+    <div class="security">
+      <div class="headSec">
+        <h4>${_(u"FF_CONTRIB_BOX_CHIP IN WITH CONFIDENCE")}</h4>
+      </div>
+      <div class="lock">
+        <p>${_(u"FF_CONTRIB_BOX_Chipping in is safe and secure. Guaranteed!")}</p>
+      </div>
+      <p>${_(u"FF_CONTRIB_BOX_You’ll pay nothing if unauthorized charges are made to your Credit Card as a result of chipping in on friendfund.")}</p>
+      <h4>${_(u"FF_CONTRIB_BOX_YOU ARE SAFE WITH US")}</h4>
+      <div id="verisign_contrib">
+        <table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+          <tr>
+            <td width="135" align="center" valign="top">
+              <a href="http://www.instantssl.com">
+                <img src="/static/imgs/comodo_secure-113x59.gif" alt="Instant SSL Certificate Secure Site" width="113" height="59" style="border: 0px;padding-top: 6px;"><br> <span style="font-weight:bold; font-size:7pt;line-height: 1em;">Instant SSL Certificate Secured</span> </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p>${_(u"FF_CONTRIB_BOX_All information is encrypted and transmitted without risk using a Secure Sockets Layer (SSL) protocol.")}</p>
+      <a target="_blank" href="${url(controller="content", action="confidence", lang=h.get_language_locale(), protocol="http")}" class="learn">${_("FF_Learn More")} &raquo;</a>
+    </div>
+  </div>
 </%def>

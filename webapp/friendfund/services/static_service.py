@@ -2,6 +2,9 @@ import os
 import md5
 import uuid
 
+import logging
+
+log = logging.getLogger(__name__)
 
 class IncorrectPictureTypeException(Exception):
     pass
@@ -39,6 +42,9 @@ class StaticService(object):
 
         self.allowed_product_types = PRODUCT_PIC_FORMATS.copy()
         self.allowed_product_types.update({"TMP":(1,1)})
+
+        log.info('STATICS STARTED: %s' % self)
+
     def __repr__(self):
         return "<%s:%s/%s>" % (self.__class__.__name__, self.sites, self.secure_sites)
 
