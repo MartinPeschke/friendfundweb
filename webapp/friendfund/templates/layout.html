@@ -1,23 +1,23 @@
 <%inherit file="master.html"/>
-<%! 
-	from babel import Locale
+<%!
+    from babel import Locale
 %>
 
 <div id="wrap">
-	<div class="wrapHeader">
-		<div class="header">
-			<h1>
-				<a href="${url('home', protocol="http")}"><img src="${request.merchant.get_logo_url("lrg", secured=request.is_secured)}" alt="${request.merchant.name} friendfund" /></a>
-			</h1>
-			<div id="accountcontainer">
-				<%include file="/myprofile/login_panel.html"/>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<div class="wrapContent">
-		${next.body()}
-	</div>
+  <div class="wrapHeader">
+    <div class="header">
+      <h1>
+        <a href="${url('home', protocol="http")}"><img src="${request.merchant.get_logo_url("lrg", secured=request.is_secured)}" alt="${request.merchant.name} friendfund" /></a>
+      </h1>
+      <div id="accountcontainer">
+              <%include file="/myprofile/login_panel.html"/>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="wrapContent">
+      ${next.body()}
+  </div>
 </div>
 
 <%lang = h.get_language_locale()%>
@@ -28,7 +28,6 @@
         <span class="fontWeightBold first">${_("FF_STATIC_MENU_About")}</span>
         <a href="${url("short_content", action="learn_more", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_How Does It Work")}</a>
         <a href="${url("short_content", action="aboutus", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_About Friendfund")}</a>
-        <a target="_blank" href="http://blog.friendfund.com">${_("FF_STATIC_MENU_Our blog")}</a>
         <a href="${url("short_content", action="jobs", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Jobs")}</a>
         <a href="${url("short_content", action="faq", lang=lang, host=app_globals.default_host, protocol="http")}">${_("FF_STATIC_MENU_Frequently Asked Questions")}</a>
         <span class="fontWeightBold">${_("FF_STATIC_MENU_Contact")}</span>
@@ -41,7 +40,6 @@
         <span class="fontWeightBold">${_("FF_FOOTER_Connect")}</span>
         <a target="_blank" href="http://www.facebook.com/friendfund" class="linkFb"> ${_("FF_FOOTER_Like us on Facebook")}</a>
         <a target="_blank" href="http://twitter.com/#!/friendfund" class="linkTw">${_("FF_FOOTER_Follow us on Twitter")}</a>
-        <a target="_blank" href="http://blog.friendfund.com/?feed=rss2" class="linkRss">${_("FF_FOOTER_Subscribe to our blog")}</a>
       </div>
       <div class="footerCol">
         <a class="twitter-timeline" href="https://twitter.com/friendfund" data-widget-id="265431790485897216">Tweets by @friendfund</a>
@@ -50,23 +48,23 @@
         <div class="fb-like-box" data-href="https://www.facebook.com/friendfund" data-width="290" data-border-color="#ffffff" data-height="450" data-show-faces="true" data-stream="true" data-header="false"></div>
       </div>
       <div class="footerCol5">
-        ${self.languageSelector(lang)|n}
-        %if not request.is_secured:
-          <span class="middot floatLeft">&middot;</span>
-          <div class="like floatLeft" style="margin: 3px 0 0 0">
-          <span>Share Friendfund</span>
-          <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.friendfund.com" data-count="horizontal">Tweet</a>
-          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-          <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
-          </div>
-        %endif
+          ${self.languageSelector(lang)|n}
+          %if not request.is_secured:
+            <span class="middot floatLeft">&middot;</span>
+            <div class="like floatLeft" style="margin: 3px 0 0 0">
+              <span>Share Friendfund</span>
+              <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.friendfund.com" data-count="horizontal">Tweet</a>
+              <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+              <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffriendfund&amp;layout=button_count&amp;show_faces=false&amp;width=200&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+            </div>
+          %endif
         <span class="floatLeft" style="margin-top:-18px"><a target="_blank" href="http://www.instantssl.com">
           <img src="/static/imgs/veri-sign_trans.png?20121105"/></a></span>
-        %if request.merchant.is_default:
-          <span class="floatRight" style="margin-top:3px">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
-        %else:
-          <a class="floatRight" style="margin-top:0px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
-        %endif
+          %if request.merchant.is_default:
+            <span class="floatRight" style="margin-top:3px">${_("FF_FOOTER_2010 friendfund All Rights Reserved")}</span>
+          %else:
+            <a class="floatRight" style="margin-top:0px" href="${url("home", host=app_globals.default_host)}"><img src="/static/imgs/powered_by_button.png"/></a>
+          %endif
         <div class="clear"></div>
       </div>
     </div>
@@ -75,52 +73,52 @@
 
 
 <%def name="renderMessages(pool_url = None, relative = False)">
-	<% 
-		msgs = getattr(c, "_msgs", [])
-		_has_errors = getattr(c, "_has_errors", False)
-	%>
-	<div id="messaging_container" class="overlayWrapper" ${(relative and msgs and 'style="position:relative"' or '')|n}>
-		<div class="overlay ${_has_errors and "red" or "green"} ${len(msgs)==0 and 'hidden' or ''}" ${relative and 'style="height:auto"' or ""|n}>
-			%for m in msgs:
-				<p>${m.msg|n}</p>
-			%endfor
-		</div>
-		%if pool_url:
-			<div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url, protocol="http")}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>
-		%endif
-	</div>
-	<div class="shadowHead"></div>
+    <%
+        msgs = getattr(c, "_msgs", [])
+        _has_errors = getattr(c, "_has_errors", False)
+    %>
+    <div id="messaging_container" class="overlayWrapper" ${(relative and msgs and 'style="position:relative"' or '')|n}>
+      <div class="overlay ${_has_errors and "red" or "green"} ${len(msgs)==0 and 'hidden' or ''}" ${relative and 'style="height:auto"' or ""|n}>
+          %for m in msgs:
+            <p>${m.msg|n}</p>
+          %endfor
+      </div>
+        %if pool_url:
+          <div class="generalWrapper"><a href="${url("get_pool", pool_url = pool_url, protocol="http")}" class="floatRight">&laquo; ${_("FF_MESSAGE_LINK_Back to Pool")}</a><div class="clear"></div></div>
+        %endif
+    </div>
+    <div class="shadowHead"></div>
 </%def>
 
 <%def name="render_verisign(id)" cached="True" cache_key="language_selector_${lang}" cache_timeout="86400" cache_type="memory">
-	<div id="${id}">
-		<table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
-		<tr><td width="135" align="center" valign="top">
-			<script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br/>
-			<a href="http://www.verisign.com/ssl-certificate/" target="_blank"
-			style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
-		</td></tr>
-		</table>
-	</div>
+  <div id="${id}">
+    <table width="135" border="0" cellpadding="2" cellspacing="0" title="Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.">
+      <tr><td width="135" align="center" valign="top">
+        <script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=friendfund.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en"></script><br/>
+        <a href="http://www.verisign.com/ssl-certificate/" target="_blank"
+           style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">ABOUT SSL CERTIFICATES</a>
+      </td></tr>
+    </table>
+  </div>
 </%def>
 
 <%def name="languageSelector(lang)" cached="True" cache_key="language_selector_${lang}" cache_timeout="86400" cache_type="memory">
-<div class="language">
-	<span class="floatLeft" style="margin:3px 0 0 0">${_("FF_FOOTER_Language:")} </span>
-	<div class="languageSelection">
-		<div class="showHide">
-			<div class="widthGiver">
-				<div>
-					%for locale_code in app_globals.LANGUAGES:
-						%if locale_code != lang:
-							<a href="${url(controller='myprofile', action='set_lang')}?lang=${locale_code}">${Locale.parse(locale_code).languages.get(locale_code)}</a>
-						%endif
-					%endfor
-				</div>
-			</div>
-			<span>${Locale.parse(lang).languages.get(lang)}</span>
-		</div>
-	</div>
-</div>
+  <div class="language">
+    <span class="floatLeft" style="margin:3px 0 0 0">${_("FF_FOOTER_Language:")} </span>
+    <div class="languageSelection">
+      <div class="showHide">
+        <div class="widthGiver">
+          <div>
+              %for locale_code in app_globals.LANGUAGES:
+                  %if locale_code != lang:
+                    <a href="${url(controller='myprofile', action='set_lang')}?lang=${locale_code}">${Locale.parse(locale_code).languages.get(locale_code)}</a>
+                  %endif
+              %endfor
+          </div>
+        </div>
+        <span>${Locale.parse(lang).languages.get(lang)}</span>
+      </div>
+    </div>
+  </div>
 </%def>
 
