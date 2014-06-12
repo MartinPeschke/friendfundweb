@@ -74,10 +74,9 @@ class ContentController(BaseController):
             c.values = formencode.variabledecode.variable_decode(c.values)
             try:
                 c.data = schema.to_python(c.values, state = FriendFundFormEncodeState)
-                msg = {}
-                msg['email'] = g.SALES_EMAIL
-                msg['subject'] = "[PARTNER_REQUEST] %s" % c.data['company']
-                msg['text'] = render("/messaging/internal/partner_form.html")
+                msg = {'email': g.SALES_EMAIL,
+                       'subject': "[PARTNER_REQUEST] %s" % c.data['company'],
+                       'text': render("/messaging/internal/partner_form.html")}
                 log.info("SENT_PARTNER_REQUEST, %s", send_email(msg))
             except formencode.validators.Invalid, error:
                 c.values = error.value
@@ -85,7 +84,6 @@ class ContentController(BaseController):
                 return self.render("/content/localized/partner/set_it_up.html")
         c.messages.append(SuccessMessage(_("FF_CONTACT_EMAIL_SENT_Your message has been sent to us, thank you for your time!")))
         return redirect(url.current())
-
 
     def _localized_content(self, template, lang):
         if lang:
