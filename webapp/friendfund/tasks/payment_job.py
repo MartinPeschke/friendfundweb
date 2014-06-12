@@ -35,6 +35,9 @@ from friendfund.model.db_access import execute_query
 from friendfund.tasks import get_db_pool, get_config, Usage
 from friendfund.lib.payment.adyengateway import AdyenPaymentGateway, get_contribution_from_adyen_result
 
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s,%(msecs)03d %(levelname)-5.5s [%(name)s] [%(threadName)s] %(message)s',
+                    datefmt = '%H:%M:%S')
 log = logging.getLogger(__name__)
 
 CONNECTION_NAME = 'job'
@@ -118,6 +121,7 @@ def execute_recurring(dbset, gateway, contrib):
         notice = get_contribution_from_adyen_result(contrib.get('contribution_ref'), payment_result)
         result, cur = execute_query(dbset, log, 'exec %s ?;' % notice._set_proc, DBMapper.toDB(notice))
 
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -135,20 +139,14 @@ def main(argv=None):
 
     configname = opts['-f']
 
-    fileConfig(configname)
-    global log
-    log = logging.getLogger(__name__)
-
     config = get_config(configname)
     dbpool = get_db_pool(config, CONNECTION_NAME)
     dbset = get_db_pool(config, set_CONNECTION_NAME)
-    ROOT_URL = config['site_root_url']
     debug = config['debug'].lower() == 'true'
     gateway = AdyenPaymentGateway(url = config['adyen.location'],
                                   user = config['adyen.user'],
                                   password = config['adyen.password'],
                                   merchantAccount = config['adyen.merchantaccount'])
-
     log.info( 'DEBUG: %s for %s (%s)', debug, CONNECTION_NAME, gateway)
     try:
         while 1:
@@ -186,6 +184,9 @@ def main(argv=None):
     except:
         exc_data = collector.collect_exception(*sys.exc_info())
         rep_err = send_report(exc_data, config, 'SHUTTING DOWN')
+        print exc_data
         raise
+
+
 if __name__ == "__main__":
     sys.exit(main())
