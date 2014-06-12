@@ -64,7 +64,7 @@ _dbmanagers = {}
 _caches = {}
 config = get_config(CELERY_ADDITIONAL_CONFIG)
 
-STATICS_SERVICE = statics.StaticService(config['static.servers'],config['static.servers'])
+STATICS_SERVICE = statics.StaticService(config['static.servers'],config['static.ssl.servers'])
 
 def _create_cm(connection_name):
     cache = pylibmc.Client(config['memcached.cache.url'].split(';'), binary=True)
