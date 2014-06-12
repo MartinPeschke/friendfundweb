@@ -1,11 +1,11 @@
 <%! import random %>
 <%def name="render(lang)">
-<% 
-testimonials = {
+    <%
+        testimonials = {
 	'de': [("Tim",
 				u"Vorstand, Brighton City Table Tennis Club", 
 				u"“Mit unserem friendfund haben wir das Geld zusammenbekommen, um aufstrebende aber sozial benachteiligte Tischtennisspieler nächstes Jahr nach London schicken und den Besten beim Spielen zusehen zu können!”", 
-				u"http://static04.friendfund.net/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
+				u"http://static.friendfund.com/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
 				"P3pD.Whiff-Whaff-for-the-Riff-Rff"),
 		("Martina",
 				u"Brooklyn Pirat (NY)", 
@@ -26,7 +26,7 @@ testimonials = {
 	'en':[("Tim",
 				u"President, Brighton City Table Tennis Club.", 
 				u"“With our friendfund we were able to raise enough funds to take some under privileged young budding Table Tennis stars to London next year to see the best in the world and learn mad skills!”", 
-				u"http://static04.friendfund.net/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
+				u"http://static.friendfund.com/s/user/c6/8c/c68ce4f00a3d285a21cc6e2dc6f492de_PROFILE_S.jpg",
 				"P3pD.Whiff-Whaff-for-the-Riff-Rff"),
 		("Martina",
 				u"Brooklyn Pirate", 
@@ -36,7 +36,7 @@ testimonials = {
 		("Tom",
 				u"Music Photographer", 
 				u"“I was really touched by how generous my friends were.”",
-				u"http://static04.friendfund.net/s/user/f7/c9/f7c9545322059212da859ffc5ef36d4d_PROFILE_M.jpg", 
+				u"http://static.friendfund.com/s/user/f7/c9/f7c9545322059212da859ffc5ef36d4d_PROFILE_M.jpg",
 				"P3ro.To-shoot-the-best-music-video-I-ve-shot-so-far-"),
 		("Gijora Dammann",
 				u"co-founder at kokonsum.org", 
@@ -53,7 +53,7 @@ testimonials = {
 		(u"Martina",
 				u"Pirata de Brooklyn", 
 				u"“Realmente ha inspirado todas las personas que trabajan en este proyecto para ver el apoyo de nuestra gran comunidad.”",
-				u"http://static04.friendfund.net/s/user/69/61/6961f96de15e298fa37a2f7e7620d441_PROFILE_M.jpg", 
+				u"http://static.friendfund.com/s/user/69/61/6961f96de15e298fa37a2f7e7620d441_PROFILE_M.jpg",
 				"P3pB.It-s-time-for-bushwick-s-favourite-boat-to-get-seaworthy"),
 		(u"Tom", 
 				u"Fotógrafo",
@@ -66,45 +66,45 @@ testimonials = {
 				u"http://static03.friendfund.net/s/user/6d/a5/6da50373dafbec72955fa1e92449e79a_PROFILE_M.jpg", 
 				"P3ro.To-shoot-the-best-music-video-I-ve-shot-so-far-")]
 	}
-	
-selection = random.sample(testimonials.get(lang, "en"), 2)
-%>
 
-	<div class="boxGrayWrap box2">
-		<div class="boxGray">
-			<div class="grafx">&#8220;</div>
-			<div class="contTestimonials">
-			<p>${selection[0][2]|n}</p>
-			<div class="testimonContributorAvt">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="${selection[0][3]|n}"/>
-				</div>
-				<span class="name bold">${selection[0][0]|n}</span>
-				<span class="desc">${selection[0][1]|n}</span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-	
-	<div class="boxGrayWrap box3">
-		<div class="boxGray">
-			<div class="grafx">“</div>
-			<div class="contTestimonials">
-			<p>${selection[1][2]|n}</p>
-			<div class="testimonContributorAvt">
-				<div class="avt">
-					<div class="arrowAvatar"></div>
-					<img src="${selection[1][3]|n}"/>
-				</div>
-				<span class="name bold">${selection[1][0]|n}</span>
-				<span class="desc">${selection[1][1]|n}</span>
-				<div class="clear"></div>
-			</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
+        selection = random.sample(testimonials.get(lang, "en"), 2)
+    %>
+
+    <div class="boxGrayWrap box2">
+      <div class="boxGray">
+        <div class="grafx">&#8220;</div>
+        <div class="contTestimonials">
+          <p>${selection[0][2]|n}</p>
+          <div class="testimonContributorAvt">
+            <div class="avt">
+              <div class="arrowAvatar"></div>
+              <img src="${selection[0][3]|n}"/>
+            </div>
+            <span class="name bold">${selection[0][0]|n}</span>
+            <span class="desc">${selection[0][1]|n}</span>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="boxGrayWrap box3">
+      <div class="boxGray">
+        <div class="grafx">“</div>
+        <div class="contTestimonials">
+          <p>${selection[1][2]|n}</p>
+          <div class="testimonContributorAvt">
+            <div class="avt">
+              <div class="arrowAvatar"></div>
+              <img src="${selection[1][3]|n}"/>
+            </div>
+            <span class="name bold">${selection[1][0]|n}</span>
+            <span class="desc">${selection[1][1]|n}</span>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
 </%def>
