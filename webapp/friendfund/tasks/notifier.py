@@ -24,7 +24,9 @@ from friendfund.tasks import get_db_pool, get_config, Usage, STATICS_SERVICE
 from friendfund.tasks.notifiers import email, facebook, twitter
 from friendfund.tasks.notifiers.common import InvalidAccessTokenException, get_template, root
 
-
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s,%(msecs)03d %(levelname)-5.5s [%(name)s] [%(threadName)s] %(message)s',
+                    datefmt = '%H:%M:%S')
 log = logging.getLogger(__name__)
 
 transl = gettext.translation('friendfund', os.path.normpath(os.path.join(__file__, '..','..', 'i18n')), ['en', 'de', 'es'])
@@ -59,12 +61,18 @@ def save_results(dbpool, messaging_results):
 
 def pool_url(key, data_map, locale):
     return {key: "http://%s/pool/%s" % (data_map["merchant_domain"], data_map[key])}
+
+
 def currency(key, data_map, locale):
     val = float(data_map[key]) / 100
     fnumber = Decimal('%.2f' % val)
     return {key: fc(fnumber, data_map['currency'], locale=locale)}
+
+
 def firstname(key, data_map, locale):
     return {"firstname_%s"%key:data_map[key].split()[0], key:data_map[key]}
+
+
 def date(key, data_map, locale):
     val = data_map[key]
     try:
@@ -75,10 +83,14 @@ def date(key, data_map, locale):
         return {key: fdate(val, format="long", locale=locale), "expiry_date_object":val}
     else:
         return {key: val}
+
+
 def translate(key, data_map, locale):
     return {key: _(data_map[key])}
 
+
 TRANSLATIONS = {"expiry_date": date, "chip_in_date": date, "target_amount":currency, "chip_in_amount":currency, "total_funded":currency, "invitee_name": firstname, "occasion":translate, "event_name":translate}
+
 
 def localize(data_map, locale):
     result = {}
@@ -151,6 +163,7 @@ def poll_message_queue(config, debug, merchant_config, jobpool, available_langs,
             else:
                 messaging_results[meta_data.get('message_ref')] = {'status':'SENT', "msg_id":msg_id}
         save_results(jobpool, messaging_results)
+
 
 def main(argv=None):
     if argv is None:
