@@ -137,7 +137,8 @@ def switch(env, version):
         with cd("code"):
             run("rm current;ln -s {} current".format(version))
 
-        run("env/bin/supervisorctl -c supervisor.cfg start all")
+        for pg in environment.process_groups:
+            run("env/bin/supervisorctl -c supervisor.cfg restart %s:*" % pg)
 
 
 @task
