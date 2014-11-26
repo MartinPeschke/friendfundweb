@@ -46,7 +46,7 @@ VERSIONS = {
     , "NGINX":"1.5.12"
     , "MEMCACHED":"1.4.15"
     , "REDIS":"2.6.17"
-    , "NODE":"0.10.26"
+    , "NODE":"0.10.32"
     , "FREETDS": "0.91.102"
     , "GEOIP": "1.6.0"
 }
