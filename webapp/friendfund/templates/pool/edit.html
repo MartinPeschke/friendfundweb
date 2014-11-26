@@ -3,33 +3,33 @@
 <%namespace name="widgets" file="../widgets/widgets.html"/>
 <%namespace name="parser" file="../product/urlparser.html"/>
 <%def name="styles()">
-	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
 </%def>
 <%def name="scripts()">
-	${links.js('build/editor.js')}
-	<script type="text/javascript">
-		var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
-	</script>
+    ${links.js('build/editor.js')}
+    <script type="text/javascript">
+      var textCounter = function(field, countfield, maxlimit) {if(field.value.length > maxlimit){field.value=field.value.substring(0, maxlimit);}else{countfield.value=maxlimit-field.value.length;}};
+    </script>
 </%def>
 
 <%def name="onloadscripts()">
-	ff.w.parseDefaultsInputs("poolDetails");
-	ff.w.parseSelectables("poolDetails");
-	ff.w.parseSimpleEditables("poolDetails");
-	dojo.parser.parse("poolDetails");
-	%if c.parser_values:
-		ff.parser.connectURLP("homeurlexpander");
-	%endif
+  ff.w.parseDefaultsInputs("poolDetails");
+  ff.w.parseSelectables("poolDetails");
+  ff.w.parseSimpleEditables("poolDetails");
+  dojo.parser.parse("poolDetails");
+  %if c.parser_values:
+    ff.parser.connectURLP("homeurlexpander");
+  %endif
 
 </%def>
 
-<% 
-	locals = {"pool_title":c.pool.title}
+<%
+    locals = {"pool_title":c.pool.title}
 %>
 <div class="wrapSubHeader">${self.renderMessages(c.pool.p_url)|n}
   <div class="subHeader">
     <div class="userProfile">
-        <div class="nonPoolHeader">
+      <div class="nonPoolHeader">
         <h2>${_("FF_POOL_EDIT_Edit %(pool_title)s")%locals}</h2>
       </div>
       <div class="clear"></div>
@@ -37,98 +37,98 @@
   </div>
 </div>
 <div class="wrapSubContent">
-<div class="content">
-	<div class="colLeft">
-		<form method="POST" id="submissionform" name="submissionform" action="${url("pool_edit_index", pool_url=c.pool.p_url)}">
-		<div class="poolDets" id="poolDetails">
-			<h4>${_("FF_POOLDETAILS_HEADER_Edit your Pool below")}</h4>
-			<div class="subHeadingSpecial"></div>
+  <div class="content">
+    <div class="colLeft">
+      <form method="POST" id="submissionform" name="submissionform" action="${url("pool_edit_index", pool_url=c.pool.p_url)}">
+        <div class="poolDets" id="poolDetails">
+          <h4>${_("FF_POOLDETAILS_HEADER_Edit your Pool below")}</h4>
+          <div class="subHeadingSpecial"></div>
 
-			<div class="borderBottom ${('title' in c.errors) and "error" or ""}">
-				<div class="tip">
-					<div class="arrow"></div>
-					%if 'title' in c.errors:
-						<span>${c.errors['title']}</span>
-					%else:
-						<span>${_("FF_POOLEDIT_TITLE_Change the title of your pool here")}</span>
-					%endif
-				</div>
-				<div class="greyInsideFullWidth">
-					<div class="first">
-						<span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
-					</div>
-					<input  type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title']}"
-									onKeyDown="textCounter(this,this.form.remLen,100);" 
-									onKeyUp="textCounter(this,this.form.remLen,100);" 
-					/>
-				</div>
-				<input type="text" disabled="disabled" class="floatRight info" name="remLen" value="${100-len(c.values.get("title") or '')}"/>
-			</div>
-			
-			<div class="borderBottom ${('description' in c.errors) and "error" or ""}">
-				<div class="tip">
-					<div class="arrow"></div>
-					%if 'description' in c.errors:
-						<span>${c.errors['description']}</span>
-					%else:
-						<span>${_("FF_EDIT_DESCRIPTION_Change your pool description here and raise more awareness by gripping storytelling!")}</span>
-					%endif
-				</div>
+          <div class="borderBottom ${('title' in c.errors) and "error" or ""}">
+            <div class="tip">
+              <div class="arrow"></div>
+                %if 'title' in c.errors:
+                  <span>${c.errors['title']}</span>
+                %else:
+                  <span>${_("FF_POOLEDIT_TITLE_Change the title of your pool here")}</span>
+                %endif
+            </div>
+            <div class="greyInsideFullWidth">
+              <div class="first">
+                <span>${_("FF_POOLDETAILS_LABEL_Pool Title")}</span>
+              </div>
+              <input  type="text" name="title" _length="60" _default_text="${_("FF_POOLDETAILS_Write your title here...")}" class="default" value="${c.values['title']}"
+                      onKeyDown="textCounter(this,this.form.remLen,100);"
+                      onKeyUp="textCounter(this,this.form.remLen,100);"
+                      />
+            </div>
+            <input type="text" disabled="disabled" class="floatRight info" name="remLen" value="${100-len(c.values.get("title") or '')}"/>
+          </div>
 
-            	<div class="greyInsideFullWidth">
-				<div class="first">
-					<span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
-				</div>
-				<div class="containerTxtArea claro floatLeft">
-					<textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description" 
-					plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
-				</div>
+          <div class="borderBottom ${('description' in c.errors) and "error" or ""}">
+            <div class="tip">
+              <div class="arrow"></div>
+                %if 'description' in c.errors:
+                  <span>${c.errors['description']}</span>
+                %else:
+                  <span>${_("FF_EDIT_DESCRIPTION_Change your pool description here and raise more awareness by gripping storytelling!")}</span>
+                %endif
+            </div>
+
+            <div class="greyInsideFullWidth">
+              <div class="first">
+                <span>${_("FF_POOLDETAILS_LABEL_Pool Description")}</span>
+              </div>
+              <div class="containerTxtArea claro floatLeft">
+                <textarea dojoType="dijit.Editor" height="80" id="descriptionEditor" name="description"
+                          plugins="[ 'cut', 'copy', 'paste','|', 'bold', 'italic', 'underline', 'strikethrough','|', 'insertOrderedList', 'insertUnorderedList','indent', 'outdent','|','justifyLeft', 'justifyRight', 'justifyCenter', 'justifyFull', 'dijit._editor.plugins.EnterKeyHandling', '|','createLink','viewsource']">${c.values['description']}</textarea>
+              </div>
+            </div>
+          </div>
+
+            %if c.parser_values:
+              <div class="generalPadding">
+                <div class="first">
+                  <span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
                 </div>
-			</div>
-			
-			%if c.parser_values:
-				<div class="generalPadding">
-				<div class="first">
-						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
-					</div>
-					<div id="homeurlexpander" class="home_expander">
-						${parser.renderParser(c.parser_values, False, False)}
-					</div>
-				</div>
-			%else:
-				<div class="generalPadding borderBottom spPad noBorder expander">
-					<div class="first">
-						<span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
-					</div>
-					<div id="homeurlexpander">
-						<div class="tip" style="top:32px !important">
-							<div class="arrow"></div>
-							<span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span>
-						</div>
-						<div class="imgCntSld" id="URLPimgCntSld">
-						<input type="hidden" value="" id="URLPproductPicture" name="product_picture">
-						%if c.values.get('product_picture'):
-							<img src="${c.values.get('product_picture')}" class="allowed displayed"/>
-						%else:
-							<img src="${c.pool.get_product_display_picture("FF_POOLS")}" class="displayed"/>
-						%endif
-						</div>
-						<div class="title">
-							<a class="link" onclick="ff.io.xhrPost('${url(controller='product', action='ulpoolpicture', pool_url = c.pool.p_url)}', {})" style=" width:100%;line-height: 30px; float:left; display:block; clear:both">${_(u"FF_POOL_EDIT_Upload a picture")}</a>
-						</div>
-					</div>
-				</div>
-			%endif
-			
-			
-			<div class="spacerButtons floatLeft" style="margin-left:164px">
-				<input id="submitter" class="primaryButton floatLeft" type="submit" value="${_("FF_POOLEDIT_Update Pool")}" /> 
-				<span class="floatLeft or">${_("FF_POOLEDIT_or")}</span> 
-				<a href="${url("get_pool", pool_url = c.pool.p_url)}" class="secondary floatRight">${_("FF_POOLEDIT_Cancel")}</a>
-			</div>
-		</div>
-		</form>
-	</div>
-<div class="clear"></div>
-</div>
+                <div id="homeurlexpander" class="home_expander">
+                    ${parser.renderParser(c.parser_values, False, False)}
+                </div>
+              </div>
+            %else:
+              <div class="generalPadding borderBottom spPad noBorder expander">
+                <div class="first">
+                  <span>${_("FF_POOLDETAILS_LABEL_Pool Image")}</span>
+                </div>
+                <div id="homeurlexpander">
+                  <div class="tip" style="top:32px !important">
+                    <div class="arrow"></div>
+                    <span>${_("FF_POOLDETAILS_URLParser Tooltip goes here")}</span>
+                  </div>
+                  <div class="imgCntSld" id="URLPimgCntSld">
+                    <input type="hidden" value="" id="URLPproductPicture" name="product_picture">
+                      %if c.values.get('product_picture'):
+                        <img src="${c.values.get('product_picture')}" class="allowed displayed"/>
+                      %else:
+                        <img src="${c.pool.get_product_display_picture("FF_POOLS")}" class="displayed"/>
+                      %endif
+                  </div>
+                  <div class="title">
+                    <a class="link" onclick="ff.io.xhrPost('${url(controller='product', action='ulpoolpicture', pool_url = c.pool.p_url)}', {})" style=" width:100%;line-height: 30px; float:left; display:block; clear:both">${_(u"FF_POOL_EDIT_Upload a picture")}</a>
+                  </div>
+                </div>
+              </div>
+            %endif
+
+
+          <div class="spacerButtons floatLeft" style="margin-left:164px">
+            <input id="submitter" class="primaryButton floatLeft" type="submit" value="${_("FF_POOLEDIT_Update Pool")}" />
+            <span class="floatLeft or">${_("FF_POOLEDIT_or")}</span>
+            <a href="${url("get_pool", pool_url = c.pool.p_url)}" class="secondary floatRight">${_("FF_POOLEDIT_Cancel")}</a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="clear"></div>
+  </div>
 </div>
